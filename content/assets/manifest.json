@@ -1,0 +1,262 @@
+{
+  "manifestVersion": 5,
+  "assets": {
+    "bg.elevator.normal": {
+      "kind": "background",
+      "src": "assets/bg-elevator-normal.jpg",
+      "width": 1672,
+      "height": 941,
+      "focus": { "x": 50, "y": 45 }
+    },
+    "sprite.xu_tang.office.neutral": {
+      "kind": "sprite",
+      "src": "assets/sprite-xu-tang-v2-neutral.webp",
+      "width": 1024,
+      "height": 1536,
+      "character": "xu_tang",
+      "designVersion": 2,
+      "outfit": "office",
+      "outfitVersion": 2,
+      "hairstyle": "low_bun",
+      "hairstyleVersion": 1,
+      "expression": "neutral"
+    },
+    "sprite.xu_tang.office.playful": {
+      "kind": "sprite",
+      "src": "assets/sprite-xu-tang-v2-playful-angle.webp",
+      "width": 1024,
+      "height": 1536,
+      "character": "xu_tang",
+      "designVersion": 2,
+      "outfit": "office",
+      "outfitVersion": 2,
+      "hairstyle": "low_bun",
+      "hairstyleVersion": 1,
+      "expression": "playful"
+    },
+    "cg.ch01.hallway_meet": {
+      "kind": "cg",
+      "src": "assets/cg-ch01-v2-hallway-meet.jpg",
+      "width": 1672,
+      "height": 941,
+      "focus": { "x": 62, "y": 42 },
+      "gallery": { "title": "雨夜的初遇", "chapter": "第一章・雨夜", "order": 10 },
+      "participants": [
+        { "character": "xu_tang", "designVersion": 2, "outfit": "office", "outfitVersion": 2, "hairstyle": "low_bun", "hairstyleVersion": 1 }
+      ]
+    },
+    "cg.ch01.elevator_close": {
+      "kind": "cg",
+      "src": "assets/cg-ch01-v2-elevator-close.jpg",
+      "width": 1672,
+      "height": 941,
+      "focus": { "x": 55, "y": 42 },
+      "gallery": { "title": "停電時的距離", "chapter": "第一章・停電", "order": 20 },
+      "participants": [
+        { "character": "xu_tang", "designVersion": 2, "outfit": "office", "outfitVersion": 2, "hairstyle": "low_bun", "hairstyleVersion": 1 }
+      ]
+    },
+    "cg.ch01.elevator_blush": {
+      "kind": "cg",
+      "src": "assets/cg-ch01-v2-elevator-blush.jpg",
+      "width": 1672,
+      "height": 941,
+      "focus": { "x": 55, "y": 42 },
+      "gallery": { "title": "燈亮之後", "chapter": "第一章・靠近", "order": 30 },
+      "participants": [
+        { "character": "xu_tang", "designVersion": 2, "outfit": "office", "outfitVersion": 2, "hairstyle": "low_bun", "hairstyleVersion": 1 }
+      ]
+    },
+    "cg.ch01.phone_ending": {
+      "kind": "cg",
+      "src": "assets/cg-ch01-v2-phone-ending.jpg",
+      "width": 1672,
+      "height": 941,
+      "focus": { "x": 62, "y": 42 },
+      "gallery": { "title": "交換聯絡方式", "chapter": "第一章・隔壁", "order": 40 },
+      "participants": [
+        { "character": "xu_tang", "designVersion": 2, "outfit": "office", "outfitVersion": 2, "hairstyle": "low_bun", "hairstyleVersion": 1 }
+      ]
+    },
+    "cg.ch02.cafe_morning": {
+      "kind": "cg",
+      "src": "assets/cg-ch02-cafe-morning-v2.jpg",
+      "width": 1672,
+      "height": 941,
+      "focus": { "x": 62, "y": 44 },
+      "gallery": { "title": "星期六的兩杯咖啡", "chapter": "第二章・咖啡", "order": 50 },
+      "participants": [
+        {
+          "character": "xu_tang",
+          "designVersion": 2,
+          "outfit": "coffee_weekend",
+          "outfitVersion": 1,
+          "hairstyle": "half_up_waves",
+          "hairstyleVersion": 1,
+          "makeup": "day_fresh",
+          "makeupVersion": 1
+        }
+      ]
+    },
+    "cg.ch02.laundry_room": {
+      "kind": "cg",
+      "src": "assets/cg-ch02-laundry-room-v2.jpg",
+      "width": 1672,
+      "height": 941,
+      "focus": { "x": 58, "y": 48 },
+      "gallery": { "title": "凌晨的洗衣房", "chapter": "第二章・洗衣房", "order": 60 },
+      "participants": [
+        {
+          "character": "xu_tang",
+          "designVersion": 2,
+          "outfit": "home_laundry",
+          "outfitVersion": 1,
+          "hairstyle": "high_pony_claw",
+          "hairstyleVersion": 1,
+          "makeup": "home_bare",
+          "makeupVersion": 1
+        }
+      ]
+    },
+    "cg.ch02.rooftop_night": {
+      "kind": "cg",
+      "src": "assets/cg-ch02-rooftop-night-v2.jpg",
+      "width": 1672,
+      "height": 941,
+      "focus": { "x": 62, "y": 43 },
+      "gallery": { "title": "屋頂夜色", "chapter": "第二章・天台", "order": 70 },
+      "participants": [
+        {
+          "character": "xu_tang",
+          "designVersion": 2,
+          "outfit": "evening_rooftop",
+          "outfitVersion": 1,
+          "hairstyle": "polished_chignon",
+          "hairstyleVersion": 1,
+          "makeup": "evening_rose",
+          "makeupVersion": 1
+        }
+      ]
+    },
+    "cg.ch03.living_room_wine": {
+      "kind": "cg",
+      "src": "assets/cg-ch03-living-room-wine.jpg",
+      "width": 1672,
+      "height": 941,
+      "focus": { "x": 68, "y": 45 },
+      "gallery": { "title": "1702 的香檳", "chapter": "第三章・1702", "order": 80 },
+      "participants": [
+        {
+          "character": "xu_tang",
+          "designVersion": 2,
+          "outfit": "evening_private",
+          "outfitVersion": 1,
+          "hairstyle": "loose_waves",
+          "hairstyleVersion": 1,
+          "makeup": "evening_softened",
+          "makeupVersion": 1
+        }
+      ]
+    },
+    "cg.ch03.art_wall": {
+      "kind": "cg",
+      "src": "assets/cg-ch03-art-wall.jpg",
+      "width": 1672,
+      "height": 941,
+      "focus": { "x": 65, "y": 48 },
+      "gallery": { "title": "沒有展出的照片", "chapter": "第三章・真心", "order": 90 },
+      "participants": [
+        {
+          "character": "xu_tang",
+          "designVersion": 2,
+          "outfit": "evening_private",
+          "outfitVersion": 1,
+          "hairstyle": "loose_waves",
+          "hairstyleVersion": 1,
+          "makeup": "evening_softened",
+          "makeupVersion": 1
+        }
+      ]
+    },
+    "cg.ch03.close_conversation": {
+      "kind": "cg",
+      "src": "assets/cg-ch03-close-conversation.jpg",
+      "width": 1672,
+      "height": 941,
+      "focus": { "x": 58, "y": 45 },
+      "gallery": { "title": "把距離交給彼此", "chapter": "第三章・真心", "order": 100 },
+      "participants": [
+        {
+          "character": "xu_tang",
+          "designVersion": 2,
+          "outfit": "evening_private",
+          "outfitVersion": 1,
+          "hairstyle": "loose_waves",
+          "hairstyleVersion": 1,
+          "makeup": "evening_softened",
+          "makeupVersion": 1
+        }
+      ]
+    },
+    "cg.ch04.bedroom_challenge": {
+      "kind": "cg",
+      "src": "assets/cg-ch04-take-my-hand.jpg",
+      "width": 1672,
+      "height": 941,
+      "focus": { "x": 50, "y": 43 },
+      "gallery": { "title": "坐近一點", "chapter": "第四章・確認", "order": 105 },
+      "participants": [
+        {
+          "character": "xu_tang",
+          "designVersion": 2,
+          "outfit": "evening_private",
+          "outfitVersion": 1,
+          "hairstyle": "loose_waves",
+          "hairstyleVersion": 1,
+          "makeup": "evening_softened",
+          "makeupVersion": 1
+        }
+      ]
+    },
+    "cg.ch04.hallway_pause": {
+      "kind": "cg",
+      "src": "assets/cg-ch04-hallway-pause.jpg",
+      "width": 1672,
+      "height": 941,
+      "focus": { "x": 61, "y": 44 },
+      "gallery": { "title": "走廊的暖光", "chapter": "第四章・確認", "order": 110 },
+      "participants": [
+        {
+          "character": "xu_tang",
+          "designVersion": 2,
+          "outfit": "evening_private",
+          "outfitVersion": 1,
+          "hairstyle": "loose_waves",
+          "hairstyleVersion": 1,
+          "makeup": "evening_softened",
+          "makeupVersion": 1
+        }
+      ]
+    },
+    "cg.ch04.sunday_morning": {
+      "kind": "cg",
+      "src": "assets/cg-ch04-sunday-morning.jpg",
+      "width": 1672,
+      "height": 941,
+      "focus": { "x": 62, "y": 45 },
+      "gallery": { "title": "星期日早晨", "chapter": "第四章・清晨", "order": 120 },
+      "participants": [
+        {
+          "character": "xu_tang",
+          "designVersion": 2,
+          "outfit": "sunday_morning",
+          "outfitVersion": 1,
+          "hairstyle": "tousled_low_pony",
+          "hairstyleVersion": 1,
+          "makeup": "morning_bare",
+          "makeupVersion": 1
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,325 @@
+{
+  "recipeVersion": 5,
+  "defaults": {
+    "style": "寫實電影感、自然皮膚紋理、可信的都市生活攝影、無UI、無文字、無水印",
+    "quality": "production",
+    "identityPolicy": "角色圖片必須使用 character 設定中的 primary_identity 參考圖；其他參考只能輔助服裝或氣質。"
+  },
+  "recipes": [
+    {
+      "id": "recipe.bg.elevator.normal",
+      "outputAsset": "bg.elevator.normal",
+      "type": "background",
+      "dependencies": [],
+      "prompt": {
+        "scene": "現代高級公寓電梯內部，黑金和深灰金屬材質，暖白頂燈，門正對鏡頭",
+        "camera": "第一人稱視角，16:9，水平構圖",
+        "constraints": ["無人物", "無可辨識品牌", "無文字", "無水印"]
+      }
+    },
+    {
+      "id": "recipe.sprite.xu_tang.office.neutral",
+      "outputAsset": "sprite.xu_tang.office.neutral",
+      "type": "sprite",
+      "dependencies": [
+        { "character": "xu_tang", "designVersion": 2, "outfit": "office", "outfitVersion": 2, "hairstyle": "low_bun", "hairstyleVersion": 1 }
+      ],
+      "prompt": {
+        "framing": "全身立繪，正面自然站姿，從頭到鞋完整入鏡",
+        "expression": "neutral",
+        "background": "真正透明RGBA背景",
+        "constraints": ["完整保留髮絲和衣服邊緣透明度", "無投影底板", "無文字", "無水印"]
+      }
+    },
+    {
+      "id": "recipe.sprite.xu_tang.office.playful",
+      "outputAsset": "sprite.xu_tang.office.playful",
+      "type": "sprite",
+      "dependencies": [
+        { "character": "xu_tang", "designVersion": 2, "outfit": "office", "outfitVersion": 2, "hairstyle": "low_bun", "hairstyleVersion": 1 }
+      ],
+      "prompt": {
+        "framing": "全身立繪，身體與臉呈明顯三分之四角度，重心落在單側並回頭看向玩家，從頭到鞋完整入鏡",
+        "expression": "playful",
+        "background": "真正透明RGBA背景",
+        "constraints": ["與neutral立繪保持同一張臉和服裝", "無投影底板", "無文字", "無水印"]
+      }
+    },
+    {
+      "id": "recipe.cg.ch01.hallway_meet",
+      "outputAsset": "cg.ch01.hallway_meet",
+      "type": "cg",
+      "dependencies": [
+        { "character": "xu_tang", "designVersion": 2, "outfit": "office", "outfitVersion": 2, "hairstyle": "low_bun", "hairstyleVersion": 1 }
+      ],
+      "prompt": {
+        "scene": "雨夜的現代公寓17樓走廊，1703門牌清楚但無其他文字，地面反射暖色壁燈",
+        "action": "許棠站在相鄰房門旁，一手拿冰美式，以清冷但好奇的表情自然看向第一人稱鏡頭",
+        "camera": "第一人稱、中景、16:9，人物位於右側，左側保留走廊空間",
+        "lighting": "溫暖室內光與窗外冷色雨夜形成對比",
+        "constraints": ["單一人物", "無遊戲UI", "無對話框", "無水印"]
+      }
+    },
+    {
+      "id": "recipe.cg.ch01.elevator_close",
+      "outputAsset": "cg.ch01.elevator_close",
+      "type": "cg",
+      "dependencies": [
+        { "character": "xu_tang", "designVersion": 2, "outfit": "office", "outfitVersion": 2, "hairstyle": "low_bun", "hairstyleVersion": 1 }
+      ],
+      "prompt": {
+        "scene": "停電後的現代公寓電梯，周圍接近全黑",
+        "action": "許棠因突然黑暗輕輕抓住玩家黑色外套袖口，另一手穩穩拿著冰美式，克制地抬眼看向玩家",
+        "camera": "第一人稱近距離，玩家手機手電筒與手臂進入前景，16:9",
+        "lighting": "手機冷白光照亮臉部，背景只保留微弱暖光",
+        "constraints": ["玩家不露臉", "抓袖手勢自然", "雙手指數正確", "無UI", "無文字", "無水印"]
+      }
+    },
+    {
+      "id": "recipe.cg.ch01.elevator_blush",
+      "outputAsset": "cg.ch01.elevator_blush",
+      "type": "cg",
+      "dependencies": [
+        { "character": "xu_tang", "designVersion": 2, "outfit": "office", "outfitVersion": 2, "hairstyle": "low_bun", "hairstyleVersion": 1 }
+      ],
+      "prompt": {
+        "scene": "恢復暖白燈光的同一部公寓電梯",
+        "action": "許棠雙手捧著冰美式，臉頰與耳尖輕微泛紅並移開視線半秒，像在掩飾剛才的緊張",
+        "camera": "第一人稱近距離中景，16:9",
+        "lighting": "柔和暖色頂燈，皮膚保持自然",
+        "constraints": ["表情克制", "與上一張CG保持同一人物和電梯", "無UI", "無文字", "無水印"]
+      }
+    },
+    {
+      "id": "recipe.cg.ch01.phone_ending",
+      "outputAsset": "cg.ch01.phone_ending",
+      "type": "cg",
+      "dependencies": [
+        { "character": "xu_tang", "designVersion": 2, "outfit": "office", "outfitVersion": 2, "hairstyle": "low_bun", "hairstyleVersion": 1 }
+      ],
+      "prompt": {
+        "scene": "雨夜的17樓走廊，1702與1703相鄰",
+        "action": "許棠一手拿冰美式，另一手把螢幕空白的手機遞向第一人稱鏡頭，溫柔自然地微笑",
+        "camera": "第一人稱中近景，16:9，人物位於右側",
+        "lighting": "暖色走廊燈，背景有雨夜冷光",
+        "constraints": ["手機螢幕保持純黑無文字", "伸手姿勢與手指自然", "無UI", "無對話框", "無水印"]
+      }
+    },
+    {
+      "id": "recipe.cg.ch02.cafe_morning",
+      "outputAsset": "cg.ch02.cafe_morning",
+      "type": "cg",
+      "dependencies": [
+        {
+          "character": "xu_tang",
+          "designVersion": 2,
+          "outfit": "coffee_weekend",
+          "outfitVersion": 1,
+          "hairstyle": "half_up_waves",
+          "hairstyleVersion": 1,
+          "makeup": "day_fresh",
+          "makeupVersion": 1
+        }
+      ],
+      "prompt": {
+        "scene": "週六早晨的安靜街區咖啡店，暖木與石材表面，窗外自然晨光",
+        "action": "許棠坐在玩家對面，把第二杯咖啡推過來，對遲到兩分鐘的玩家露出克制的調侃表情",
+        "camera": "第一人稱坐姿中景，16:9，人物以三分之四側面位於右側；半束波浪長髮與日間角度明顯不同於其他場景",
+        "lighting": "柔和自然晨光，寫實皮膚、手指與衣料質感",
+        "constraints": ["身份與角色基準一致", "手勢自然", "無可讀文字", "無品牌", "無UI", "無水印"]
+      }
+    },
+    {
+      "id": "recipe.cg.ch02.laundry_room",
+      "outputAsset": "cg.ch02.laundry_room",
+      "type": "cg",
+      "dependencies": [
+        {
+          "character": "xu_tang",
+          "designVersion": 2,
+          "outfit": "home_laundry",
+          "outfitVersion": 1,
+          "hairstyle": "high_pony_claw",
+          "hairstyleVersion": 1,
+          "makeup": "home_bare",
+          "makeupVersion": 1
+        }
+      ],
+      "prompt": {
+        "scene": "深夜的現代公寓公共洗衣房，成排滾筒洗衣機，冷色頂燈與走廊暖光",
+        "action": "許棠拿起一隻從洗衣機逃出的霧藍色襪子，像展示證物般看向玩家，旁邊放著洗衣籃",
+        "camera": "第一人稱中廣角，16:9，人物偏右，以抓夾高馬尾、蹲姿與側回頭動作建立明顯動態",
+        "lighting": "可信的夜間室內光，保留近乎素顏的皮膚紋理",
+        "constraints": ["身份與角色基準一致", "手部正確", "無可讀文字", "無品牌", "無UI", "無水印"]
+      }
+    },
+    {
+      "id": "recipe.cg.ch02.rooftop_night",
+      "outputAsset": "cg.ch02.rooftop_night",
+      "type": "cg",
+      "dependencies": [
+        {
+          "character": "xu_tang",
+          "designVersion": 2,
+          "outfit": "evening_rooftop",
+          "outfitVersion": 1,
+          "hairstyle": "polished_chignon",
+          "hairstyleVersion": 1,
+          "makeup": "evening_rose",
+          "makeupVersion": 1
+        }
+      ],
+      "prompt": {
+        "scene": "無害警報解除後的公寓屋頂露台夜景，濕潤地板、欄杆燈與遠方城市散景",
+        "action": "許棠穿正式晚裝站在玩家身旁，手持細長香檳杯，露出安靜而真誠的微笑",
+        "camera": "第一人稱廣角全身構圖，16:9，從頭到接近鞋履完整呈現修長比例；人物位於右側，左側保留城市夜景與對話空間",
+        "lighting": "冷色夜景配合溫暖輪廓光，緞面與西裝材質可信",
+        "constraints": ["正式服裝只搭配高級杯裝飲品", "禁止罐裝飲料", "身份與角色基準一致", "手部正確", "無可讀文字", "無品牌", "無UI", "無水印"]
+      }
+    },
+    {
+      "id": "recipe.cg.ch03.living_room_wine",
+      "outputAsset": "cg.ch03.living_room_wine",
+      "type": "cg",
+      "dependencies": [
+        {
+          "character": "xu_tang",
+          "designVersion": 2,
+          "outfit": "evening_private",
+          "outfitVersion": 1,
+          "hairstyle": "loose_waves",
+          "hairstyleVersion": 1,
+          "makeup": "evening_softened",
+          "makeupVersion": 1
+        }
+      ],
+      "prompt": {
+        "scene": "1702室內的現代客廳與小型吧台，窗外雨夜城市燈光，桌上有兩只香檳杯",
+        "action": "許棠回到私人空間後脫下西裝外套、放下長髮，穿深海軍藍緞面中長裙站在吧台旁倒香檳",
+        "camera": "第一人稱16:9中廣角，三分之四側面，保留從頭到膝下的身形與完整室內環境",
+        "lighting": "暖色室內燈與冷色雨夜窗光交織，緞面質感自然",
+        "constraints": ["一名成年女性", "正式晚裝搭配香檳", "無罐裝飲料", "無UI", "無文字", "無水印"]
+      }
+    },
+    {
+      "id": "recipe.cg.ch03.art_wall",
+      "outputAsset": "cg.ch03.art_wall",
+      "type": "cg",
+      "dependencies": [
+        {
+          "character": "xu_tang",
+          "designVersion": 2,
+          "outfit": "evening_private",
+          "outfitVersion": 1,
+          "hairstyle": "loose_waves",
+          "hairstyleVersion": 1,
+          "makeup": "evening_softened",
+          "makeupVersion": 1
+        }
+      ],
+      "prompt": {
+        "scene": "同一間1702客廳的私人照片牆與地毯，幾張攝影作品靠牆擺放",
+        "action": "許棠坐在地毯上拿著一張未公開的照片，抬眼看向玩家，神情安靜而坦白",
+        "camera": "第一人稱16:9中廣角，略低視角與斜側構圖，避開正面證件照感",
+        "lighting": "柔暖落地燈與微弱窗光，情緒私密但克制",
+        "constraints": ["一名成年女性", "完整穿著", "姿勢自然", "無UI", "無可讀文字", "無水印"]
+      }
+    },
+    {
+      "id": "recipe.cg.ch03.close_conversation",
+      "outputAsset": "cg.ch03.close_conversation",
+      "type": "cg",
+      "dependencies": [
+        {
+          "character": "xu_tang",
+          "designVersion": 2,
+          "outfit": "evening_private",
+          "outfitVersion": 1,
+          "hairstyle": "loose_waves",
+          "hairstyleVersion": 1,
+          "makeup": "evening_softened",
+          "makeupVersion": 1
+        }
+      ],
+      "prompt": {
+        "scene": "同一間1702客廳的沙發與雨夜落地窗，茶几上有兩只香檳杯",
+        "action": "許棠坐在沙發上轉向玩家，雙手自然放鬆，以真誠而柔和的眼神交流",
+        "camera": "第一人稱16:9腰上中景，明顯三分之四角度，玩家只保留遠景虛化肩膀並維持舒適距離",
+        "lighting": "暖色室內實景光與冷色雨窗光，寫實電影感",
+        "constraints": ["一名成年女性", "完整穿著", "無肢體接觸", "無UI", "無文字", "無水印"]
+      }
+    },
+    {
+      "id": "recipe.cg.ch04.bedroom_challenge",
+      "outputAsset": "cg.ch04.bedroom_challenge",
+      "type": "cg",
+      "dependencies": [
+        {
+          "character": "xu_tang",
+          "designVersion": 2,
+          "outfit": "evening_private",
+          "outfitVersion": 1,
+          "hairstyle": "loose_waves",
+          "hairstyleVersion": 1,
+          "makeup": "evening_softened",
+          "makeupVersion": 1
+        }
+      ],
+      "prompt": {
+        "scene": "1702公寓雨夜臥室，鋪整的床、床尾軟凳、暖色床頭燈與兩只高腳杯",
+        "action": "許棠穿與前一幕一致的深海軍藍緞面細肩帶中長晚裝坐在床尾軟凳，雙手自然撐在身側，頭與上身微微前傾、下巴略微內收，以自信而帶挑戰意味的笑直視玩家",
+        "camera": "第一人稱16:9中廣角正面構圖，人物從頭到膝下完整入鏡，清楚呈現晚裝輪廓、床尾軟凳與後方床鋪",
+        "lighting": "暖色床頭燈與冷色雨窗光交織，正式、親近而克制",
+        "constraints": ["一名成年女性", "完整穿著", "無其他人物", "無肢體接觸", "無UI", "無文字", "無水印"]
+      }
+    },
+    {
+      "id": "recipe.cg.ch04.hallway_pause",
+      "outputAsset": "cg.ch04.hallway_pause",
+      "type": "cg",
+      "dependencies": [
+        {
+          "character": "xu_tang",
+          "designVersion": 2,
+          "outfit": "evening_private",
+          "outfitVersion": 1,
+          "hairstyle": "loose_waves",
+          "hairstyleVersion": 1,
+          "makeup": "evening_softened",
+          "makeupVersion": 1
+        }
+      ],
+      "prompt": {
+        "scene": "同一間1702公寓深夜室內，雨夜客廳連接暖光走廊",
+        "action": "許棠穿深海軍藍緞面中長裙，在走廊入口停下並回頭看向玩家，一手自然扶著門框",
+        "camera": "第一人稱16:9中廣角，後側三分之四角度，從頭到膝下呈現完整身形",
+        "lighting": "暖色走廊燈與冷色雨夜窗光交織，安靜而有期待感",
+        "constraints": ["一名成年女性", "完整穿著", "無其他人物", "無UI", "無文字", "無水印"]
+      }
+    },
+    {
+      "id": "recipe.cg.ch04.sunday_morning",
+      "outputAsset": "cg.ch04.sunday_morning",
+      "type": "cg",
+      "dependencies": [
+        {
+          "character": "xu_tang",
+          "designVersion": 2,
+          "outfit": "sunday_morning",
+          "outfitVersion": 1,
+          "hairstyle": "tousled_low_pony",
+          "hairstyleVersion": 1,
+          "makeup": "morning_bare",
+          "makeupVersion": 1
+        }
+      ],
+      "prompt": {
+        "scene": "同一間1702公寓的週日清晨，廚房吧台擺著兩杯咖啡與簡單早餐",
+        "action": "許棠穿完整的白襯衫、海軍藍背心與居家短褲，靠著吧台拿咖啡看向玩家，神情放鬆而親暱",
+        "camera": "第一人稱16:9中廣角，三分之四角度，從頭到大腿中段清楚呈現完整分層服裝",
+        "lighting": "柔和城市晨光，溫暖自然的週末居家氛圍",
+        "constraints": ["一名成年女性", "背心與短褲完整可見", "完整穿著", "無UI", "無文字", "無水印"]
+      }
+    }
+  ]
+}

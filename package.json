@@ -1,0 +1,10 @@
+{
+  "name": "seventeen-floor-neighbor",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "validate": "node tools/validate-content.mjs",
+    "build": "node tools/build.mjs",
+    "assets:plan": "node tools/asset-plan.mjs"
+  }
+}
