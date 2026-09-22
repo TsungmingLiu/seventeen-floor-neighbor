@@ -1,12 +1,15 @@
 {
-  "manifestVersion": 7,
+  "manifestVersion": 8,
   "assets": {
     "bg.elevator.normal": {
       "kind": "background",
       "src": "assets/bg-elevator-normal.jpg",
       "width": 1672,
       "height": 941,
-      "focus": { "x": 50, "y": 45 }
+      "focus": {
+        "x": 50,
+        "y": 45
+      }
     },
     "sprite.xu_tang.office.neutral": {
       "kind": "sprite",
@@ -34,15 +37,63 @@
       "hairstyleVersion": 1,
       "expression": "playful"
     },
+    "sprite.office_ol.office.neutral": {
+      "kind": "sprite",
+      "src": "assets/sprite-neutral.webp",
+      "width": 1024,
+      "height": 1536,
+      "character": "office_ol",
+      "designVersion": 1,
+      "outfit": "office_black_stockings",
+      "outfitVersion": 1,
+      "hairstyle": "ribbon_pony",
+      "hairstyleVersion": 1,
+      "makeup": "office_natural",
+      "makeupVersion": 1,
+      "expression": "neutral",
+      "temporary": true,
+      "sourceNote": "沿用專案既有黑絲 OL 臨時立繪；正式人設確定後整組替換。"
+    },
+    "sprite.office_ol.office.playful": {
+      "kind": "sprite",
+      "src": "assets/sprite-playful.webp",
+      "width": 1024,
+      "height": 1536,
+      "character": "office_ol",
+      "designVersion": 1,
+      "outfit": "office_black_stockings",
+      "outfitVersion": 1,
+      "hairstyle": "ribbon_pony",
+      "hairstyleVersion": 1,
+      "makeup": "office_natural",
+      "makeupVersion": 1,
+      "expression": "playful",
+      "temporary": true,
+      "sourceNote": "沿用專案既有黑絲 OL 臨時立繪；正式人設確定後整組替換。"
+    },
     "cg.ch01.hallway_meet": {
       "kind": "cg",
       "src": "assets/cg-ch01-v2-hallway-meet.jpg",
       "width": 1672,
       "height": 941,
-      "focus": { "x": 62, "y": 42 },
-      "gallery": { "title": "雨夜的初遇", "chapter": "第一章・雨夜", "order": 10 },
+      "focus": {
+        "x": 62,
+        "y": 42
+      },
+      "gallery": {
+        "title": "雨夜的初遇",
+        "chapter": "第一章・雨夜",
+        "order": 10
+      },
       "participants": [
-        { "character": "xu_tang", "designVersion": 2, "outfit": "office", "outfitVersion": 2, "hairstyle": "low_bun", "hairstyleVersion": 1 }
+        {
+          "character": "xu_tang",
+          "designVersion": 2,
+          "outfit": "office",
+          "outfitVersion": 2,
+          "hairstyle": "low_bun",
+          "hairstyleVersion": 1
+        }
       ]
     },
     "cg.ch01.elevator_close": {
@@ -50,10 +101,24 @@
       "src": "assets/cg-ch01-v2-elevator-close.jpg",
       "width": 1672,
       "height": 941,
-      "focus": { "x": 55, "y": 42 },
-      "gallery": { "title": "停電時的距離", "chapter": "第一章・停電", "order": 20 },
+      "focus": {
+        "x": 55,
+        "y": 42
+      },
+      "gallery": {
+        "title": "停電時的距離",
+        "chapter": "第一章・停電",
+        "order": 20
+      },
       "participants": [
-        { "character": "xu_tang", "designVersion": 2, "outfit": "office", "outfitVersion": 2, "hairstyle": "low_bun", "hairstyleVersion": 1 }
+        {
+          "character": "xu_tang",
+          "designVersion": 2,
+          "outfit": "office",
+          "outfitVersion": 2,
+          "hairstyle": "low_bun",
+          "hairstyleVersion": 1
+        }
       ]
     },
     "cg.ch01.elevator_blush": {
@@ -61,10 +126,24 @@
       "src": "assets/cg-ch01-v2-elevator-blush.jpg",
       "width": 1672,
       "height": 941,
-      "focus": { "x": 55, "y": 42 },
-      "gallery": { "title": "燈亮之後", "chapter": "第一章・靠近", "order": 30 },
+      "focus": {
+        "x": 55,
+        "y": 42
+      },
+      "gallery": {
+        "title": "燈亮之後",
+        "chapter": "第一章・靠近",
+        "order": 30
+      },
       "participants": [
-        { "character": "xu_tang", "designVersion": 2, "outfit": "office", "outfitVersion": 2, "hairstyle": "low_bun", "hairstyleVersion": 1 }
+        {
+          "character": "xu_tang",
+          "designVersion": 2,
+          "outfit": "office",
+          "outfitVersion": 2,
+          "hairstyle": "low_bun",
+          "hairstyleVersion": 1
+        }
       ]
     },
     "cg.ch01.phone_ending": {
@@ -72,10 +151,53 @@
       "src": "assets/cg-ch01-v2-phone-ending.jpg",
       "width": 1672,
       "height": 941,
-      "focus": { "x": 62, "y": 42 },
-      "gallery": { "title": "交換聯絡方式", "chapter": "第一章・隔壁", "order": 40 },
+      "focus": {
+        "x": 62,
+        "y": 42
+      },
+      "gallery": {
+        "title": "交換聯絡方式",
+        "chapter": "第一章・隔壁",
+        "order": 40
+      },
       "participants": [
-        { "character": "xu_tang", "designVersion": 2, "outfit": "office", "outfitVersion": 2, "hairstyle": "low_bun", "hairstyleVersion": 1 }
+        {
+          "character": "xu_tang",
+          "designVersion": 2,
+          "outfit": "office",
+          "outfitVersion": 2,
+          "hairstyle": "low_bun",
+          "hairstyleVersion": 1
+        }
+      ]
+    },
+    "cg.office_ol.hallway": {
+      "kind": "cg",
+      "src": "assets/cg-hallway-meet.jpg",
+      "width": 1672,
+      "height": 941,
+      "focus": {
+        "x": 62,
+        "y": 44
+      },
+      "gallery": {
+        "title": "電梯外的臨時偶遇",
+        "chapter": "支線・辦公族 OL（暫代）",
+        "order": 5
+      },
+      "temporary": true,
+      "sourceNote": "沿用專案既有黑絲 OL 走廊 CG；正式 CG 重製時替換此 asset ID 對應檔案。",
+      "participants": [
+        {
+          "character": "office_ol",
+          "designVersion": 1,
+          "outfit": "office_black_stockings",
+          "outfitVersion": 1,
+          "hairstyle": "ribbon_pony",
+          "hairstyleVersion": 1,
+          "makeup": "office_natural",
+          "makeupVersion": 1
+        }
       ]
     },
     "cg.ch02.cafe_morning": {
@@ -83,8 +205,15 @@
       "src": "assets/cg-ch02-cafe-morning-v2.jpg",
       "width": 1672,
       "height": 941,
-      "focus": { "x": 62, "y": 44 },
-      "gallery": { "title": "星期六的兩杯咖啡", "chapter": "第二章・咖啡", "order": 50 },
+      "focus": {
+        "x": 62,
+        "y": 44
+      },
+      "gallery": {
+        "title": "星期六的兩杯咖啡",
+        "chapter": "第二章・咖啡",
+        "order": 50
+      },
       "participants": [
         {
           "character": "xu_tang",
@@ -103,8 +232,15 @@
       "src": "assets/cg-date-bookstore.png",
       "width": 1672,
       "height": 941,
-      "focus": { "x": 66, "y": 43 },
-      "gallery": { "title": "同一本書", "chapter": "約會・書店", "order": 52 },
+      "focus": {
+        "x": 66,
+        "y": 43
+      },
+      "gallery": {
+        "title": "同一本書",
+        "chapter": "約會・書店",
+        "order": 52
+      },
       "participants": [
         {
           "character": "xu_tang",
@@ -123,8 +259,15 @@
       "src": "assets/cg-date-riverwalk.png",
       "width": 1672,
       "height": 941,
-      "focus": { "x": 67, "y": 44 },
-      "gallery": { "title": "傘下的距離", "chapter": "約會・河畔", "order": 54 },
+      "focus": {
+        "x": 67,
+        "y": 44
+      },
+      "gallery": {
+        "title": "傘下的距離",
+        "chapter": "約會・河畔",
+        "order": 54
+      },
       "participants": [
         {
           "character": "xu_tang",
@@ -143,8 +286,15 @@
       "src": "assets/cg-date-night-market.png",
       "width": 1672,
       "height": 941,
-      "focus": { "x": 40, "y": 43 },
-      "gallery": { "title": "分你一口", "chapter": "約會・夜市", "order": 56 },
+      "focus": {
+        "x": 40,
+        "y": 43
+      },
+      "gallery": {
+        "title": "分你一口",
+        "chapter": "約會・夜市",
+        "order": 56
+      },
       "participants": [
         {
           "character": "xu_tang",
@@ -163,8 +313,15 @@
       "src": "assets/cg-ch02-laundry-room-v2.jpg",
       "width": 1672,
       "height": 941,
-      "focus": { "x": 58, "y": 48 },
-      "gallery": { "title": "凌晨的洗衣房", "chapter": "第二章・洗衣房", "order": 60 },
+      "focus": {
+        "x": 58,
+        "y": 48
+      },
+      "gallery": {
+        "title": "凌晨的洗衣房",
+        "chapter": "第二章・洗衣房",
+        "order": 60
+      },
       "participants": [
         {
           "character": "xu_tang",
@@ -183,8 +340,15 @@
       "src": "assets/cg-ch02-rooftop-night-v2.jpg",
       "width": 1672,
       "height": 941,
-      "focus": { "x": 62, "y": 43 },
-      "gallery": { "title": "屋頂夜色", "chapter": "第二章・天台", "order": 70 },
+      "focus": {
+        "x": 62,
+        "y": 43
+      },
+      "gallery": {
+        "title": "屋頂夜色",
+        "chapter": "第二章・天台",
+        "order": 70
+      },
       "participants": [
         {
           "character": "xu_tang",
@@ -203,8 +367,15 @@
       "src": "assets/cg-ch03-living-room-wine.jpg",
       "width": 1672,
       "height": 941,
-      "focus": { "x": 68, "y": 45 },
-      "gallery": { "title": "1702 的香檳", "chapter": "第三章・1702", "order": 80 },
+      "focus": {
+        "x": 68,
+        "y": 45
+      },
+      "gallery": {
+        "title": "1702 的香檳",
+        "chapter": "第三章・1702",
+        "order": 80
+      },
       "participants": [
         {
           "character": "xu_tang",
@@ -223,8 +394,15 @@
       "src": "assets/cg-ch03-art-wall.jpg",
       "width": 1672,
       "height": 941,
-      "focus": { "x": 65, "y": 48 },
-      "gallery": { "title": "沒有展出的照片", "chapter": "第三章・真心", "order": 90 },
+      "focus": {
+        "x": 65,
+        "y": 48
+      },
+      "gallery": {
+        "title": "沒有展出的照片",
+        "chapter": "第三章・真心",
+        "order": 90
+      },
       "participants": [
         {
           "character": "xu_tang",
@@ -243,8 +421,15 @@
       "src": "assets/cg-ch03-close-conversation.jpg",
       "width": 1672,
       "height": 941,
-      "focus": { "x": 58, "y": 45 },
-      "gallery": { "title": "把距離交給彼此", "chapter": "第三章・真心", "order": 100 },
+      "focus": {
+        "x": 58,
+        "y": 45
+      },
+      "gallery": {
+        "title": "把距離交給彼此",
+        "chapter": "第三章・真心",
+        "order": 100
+      },
       "participants": [
         {
           "character": "xu_tang",
@@ -269,8 +454,15 @@
       "width": 1280,
       "height": 720,
       "duration": 10,
-      "focus": { "x": 50, "y": 45 },
-      "gallery": { "title": "第一次接吻", "chapter": "第四章・確認", "order": 103 },
+      "focus": {
+        "x": 50,
+        "y": 45
+      },
+      "gallery": {
+        "title": "第一次接吻",
+        "chapter": "第四章・確認",
+        "order": 103
+      },
       "participants": [
         {
           "character": "xu_tang",
@@ -289,8 +481,15 @@
       "src": "assets/cg-ch04-take-my-hand.jpg",
       "width": 1672,
       "height": 941,
-      "focus": { "x": 50, "y": 43 },
-      "gallery": { "title": "坐近一點", "chapter": "第四章・確認", "order": 105 },
+      "focus": {
+        "x": 50,
+        "y": 43
+      },
+      "gallery": {
+        "title": "坐近一點",
+        "chapter": "第四章・確認",
+        "order": 105
+      },
       "participants": [
         {
           "character": "xu_tang",
@@ -309,8 +508,15 @@
       "src": "assets/cg-ch04-hallway-pause.jpg",
       "width": 1672,
       "height": 941,
-      "focus": { "x": 61, "y": 44 },
-      "gallery": { "title": "走廊的暖光", "chapter": "第四章・確認", "order": 110 },
+      "focus": {
+        "x": 61,
+        "y": 44
+      },
+      "gallery": {
+        "title": "走廊的暖光",
+        "chapter": "第四章・確認",
+        "order": 110
+      },
       "participants": [
         {
           "character": "xu_tang",
@@ -329,8 +535,15 @@
       "src": "assets/cg-ch04-sunday-morning.jpg",
       "width": 1672,
       "height": 941,
-      "focus": { "x": 62, "y": 45 },
-      "gallery": { "title": "星期日早晨", "chapter": "第四章・清晨", "order": 120 },
+      "focus": {
+        "x": 62,
+        "y": 45
+      },
+      "gallery": {
+        "title": "星期日早晨",
+        "chapter": "第四章・清晨",
+        "order": 120
+      },
       "participants": [
         {
           "character": "xu_tang",

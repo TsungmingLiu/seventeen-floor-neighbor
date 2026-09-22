@@ -3,8 +3,10 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "test": "node --test tests/*.test.mjs",
     "validate": "node tools/validate-content.mjs",
     "build": "node tools/build.mjs",
-    "assets:plan": "node tools/asset-plan.mjs"
+    "assets:plan": "node tools/asset-plan.mjs",
+    "context": "node tools/context.mjs"
   }
 }

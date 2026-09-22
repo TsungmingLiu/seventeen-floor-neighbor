@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "defaultRoute": "xu-tang",
+  "routes": [
+    {
+      "id": "xu-tang",
+      "config": "content/routes/xu-tang/route.json"
+    }
+  ]
+}

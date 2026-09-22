@@ -4,27 +4,44 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#08090d">
-  <meta name="description" content="第一人稱互動戀愛喜劇 Demo">
-  <title>17樓的新鄰居</title>
+  <meta name="description" content="17樓多路線第一人稱互動戀愛故事">
+  <title>17樓的故事</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0b10'/%3E%3Cpath d='M32 50S12 39 12 24c0-11 14-15 20-6 6-9 20-5 20 6 0 15-20 26-20 26Z' fill='%23ff6b8b'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=64605492fc64">
 </head>
 <body>
   <main id="app">
     <section class="title-screen" id="title-screen" aria-labelledby="game-title">
       <img class="title-art" id="title-art" alt="雨夜公寓走廊裡的新鄰居許棠">
+      <div class="title-character-layer" id="title-character-layer" aria-hidden="true"></div>
       <div class="title-vignette"></div>
       <div class="title-copy">
-        <p class="eyebrow">第一人稱互動戀愛喜劇</p>
-        <h1 id="game-title"><span>17樓的</span>新鄰居</h1>
-        <p class="premise">搬家第一晚，你把行李卡進消防門，還在停電的電梯裡遇見了住隔壁的她。</p>
+        <p class="eyebrow" id="title-eyebrow">第一人稱互動戀愛故事</p>
+        <h1 id="game-title"><span id="title-prefix">17樓的</span><b id="title-main">故事</b></h1>
+        <p class="resume-label" id="resume-label"></p>
+        <p class="premise" id="title-premise"></p>
         <div class="title-actions">
-          <button class="primary-button" id="start-button" type="button" disabled>載入中…</button>
-          <button class="text-button gallery-button" id="gallery-button" type="button">回憶收藏 <span id="gallery-title-count">0 / 17</span></button>
+          <button class="primary-button" id="start-button" type="button" disabled>續玩</button>
+          <button class="text-button gallery-button" id="gallery-button" type="button">CG <span id="gallery-title-count">0 / 17</span></button>
+          <button class="text-button" id="branches-button" type="button">分支</button>
           <button class="text-button" id="title-mute" type="button" aria-pressed="false">聲音：開</button>
         </div>
       </div>
-      <p class="title-hint">你的選擇會改變她對這位新鄰居的第一印象。</p>
+      <p class="title-hint" id="title-hint"></p>
+    </section>
+
+    <section class="branches-screen is-hidden" id="branches-screen" aria-labelledby="branches-title">
+      <div class="branches-shell">
+        <header class="branches-header">
+          <div>
+            <p class="eyebrow">故事分支</p>
+            <h2 id="branches-title">分支</h2>
+            <p class="branch-summary" id="branch-summary"></p>
+          </div>
+          <button class="text-button" id="branches-back" type="button">返回標題</button>
+        </header>
+        <div class="branch-list" id="branch-list" aria-live="polite"></div>
+      </div>
     </section>
 
     <section class="gallery-screen is-hidden" id="gallery-screen" aria-labelledby="gallery-title">
@@ -56,8 +73,8 @@
           <div class="chapter-track" id="chapter-track" aria-label="故事進度"></div>
           <div class="hud-actions">
             <button class="text-button cinematic-skip is-hidden" id="cinematic-skip" type="button">跳過片段</button>
+            <button class="text-button game-home-button" id="game-home-button" type="button">回標題</button>
             <button class="icon-button" id="mute-button" type="button" aria-pressed="false" aria-label="切換聲音">♪</button>
-            <button class="icon-button" id="restart-button" type="button" aria-label="從頭開始">↻</button>
           </div>
         </header>
         <section class="dialogue-panel" id="dialogue-panel" aria-live="polite">
@@ -109,6 +126,6 @@
       </div>
     </dialog>
   </main>
-  <script type="module" src="app.js"></script>
+  <script type="module" src="app.js?v=64605492fc64"></script>
 </body>
 </html>

@@ -8,15 +8,16 @@
 
 | 項目 | 目前狀態 |
 | --- | --- |
-| 主角 | 許棠，22 歲，角色設計版本 `2` |
-| 劇情節點 | 118 |
+| 可玩故事 | 一個共用入口，許棠完整分支＋辦公族 OL 暫用短分支 |
+| 角色 | 許棠，以及待完善人設的成年辦公族 OL；林澄設定已封存 |
+| 劇情節點 | 原有許棠節點保留，新增 OL 分支；即時數量見 `npm run validate` |
 | 章節進度標籤 | 12：雨夜、初遇、停電、靠近、隔壁、咖啡、約會、天台、1702、真心、確認、清晨 |
-| 結局 | 4：`lover`、`heart`、`chaos`、`neighbor` |
-| 視覺資產 | 1 背景、2 立繪、16 CG、1 段 10 秒動態回憶 |
-| 視覺生成配方 | 20，與 20 個邏輯資產一一對應 |
+| 結局 | 許棠原四結局＋OL 暫用結局 |
+| 視覺資產 | 沿用既有 CG／背景／立繪，OL 暫借既有黑絲辦公造型；全量重製尚未開始 |
+| 視覺生成配方 | manifest 與 recipe 一對一，封存內容不進入可玩收藏 |
 | 約會池 | 3 個可複用場景，每輪隨機抽 2 個且不重複 |
 | 運行方式 | 瀏覽器原生 JavaScript，無後端、無資料庫 |
-| 玩家資料 | 回憶解鎖、結局紀錄與靜音設定存於瀏覽器 `localStorage` |
+| 玩家資料 | 節點快照、已走連線、CG、結局、靜音設定存於瀏覽器 `localStorage` |
 | 靜態輸出 | `dist/` |
 
 ## 快速開始
@@ -43,6 +44,7 @@ python3 -m http.server 8000 --directory dist
 | `npm run validate` | 驗證角色版本、資產引用、生成配方、劇情連線、CG 規則與實體圖片 |
 | `npm run build` | 驗證後，將內容 JSON 與運行程式複製到 `dist/` |
 | `npm run assets:plan -- xu_tang` | 列出許棠人設變動會影響的所有立繪／CG，並標記版本是否過期 |
+| `npm run context -- --route xu-tang --node contact` | 輸出指定節點的前後關係、素材、配方、角色與路線脈絡 |
 
 ## 架構總覽
 
@@ -53,18 +55,35 @@ python3 -m http.server 8000 --directory dist
 | 角色設定 | `content/characters/*.json` | 身分不變項、造型版本、髮型、服裝、妝容、表情與參考圖 |
 | 資產清單 | `content/assets/manifest.json` | 將穩定的邏輯素材 ID 對應到實際圖片及角色版本依賴 |
 | 生成配方 | `content/recipes/assets.json` | 記錄每張背景、立繪、CG 與動態回憶的提示詞、構圖、運鏡與角色依賴 |
-| 場景模板 | `content/scenes/*.json` | 與角色分離的場景、互動節點與隨機池，可由不同女角複用 |
-| 劇情資料 | `content/chapters/chapter-01.json` | 節點、台詞、選項、數值、分支、結局與畫面模式 |
+| 路線登錄 | `content/routes/index.json` | 宣告所有可玩路線與預設路線 |
+| 路線模組 | `content/routes/<route-id>/` | 路線介面文字、故事檔、場景檔、素材白名單與交接 context |
+| 場景模板 | `content/scenes/*.json`、各路線 `scenes.json` | 與角色分離的場景、互動節點與隨機池 |
+| 劇情資料 | 路線設定中的 `storyFiles` | 節點、台詞、選項、數值、分支、結局與畫面模式；建置時合併 |
 | 遊戲引擎 | `src/` | 通用播放、打字效果、分支、結局、立繪渲染、影片播放、回憶收藏及音效 |
 | 靜態介面 | `dist/index.html`、`dist/styles.css` | 標題、遊戲、結局、收藏與檢視器 UI |
 | 發布輸出 | `dist/` | 可直接交給靜態託管服務的完整網站 |
 | 驗證與工具 | `tools/` | 建置、內容驗證與人設影響分析 |
+
+### 路線包
+
+標題畫面只載入 `dist/content/routes/index.json` 的預設故事；角色分線由劇情中的選擇決定，網址不再切換平行路線。每個來源 route config 宣告：
+
+- 標題畫面文字、色彩與無障礙替代文字。
+- `storyFiles`：一或多個節點檔；建置時合併，節點 ID 不可重複。
+- `sceneFiles`：一或多個場景池檔；建置時合併，場景池 ID 不可重複。
+- `assetIds`：此路線可使用的素材白名單，也決定收藏頁內容。
+- `context`：新對話或局部修改前應讀取的角色弧線與連續性規則。
+
+新增角色分支時，把獨立故事檔接入預設包的 `storyFiles`，再由既有節點接出選項；不應修改 `src/` 或 `tools/`。預設故事保留 `chapter-01` 作為存檔、結局及收藏命名空間。
 
 ### 來源檔與建置產物
 
 以下檔案是內容來源，應優先修改：
 
 - `content/assets/manifest.json`
+- `content/routes/index.json`
+- `content/routes/*/route.json`
+- 各路線 `storyFiles`、`sceneFiles` 與 `context.md`
 - `content/chapters/chapter-01.json`
 - `content/characters/*.json`
 - `content/scenes/*.json`
@@ -73,22 +92,26 @@ python3 -m http.server 8000 --directory dist
 - `content/recipes/assets.json`
 - `src/app.js`
 - `src/engine.js`
+- `src/progress.js`、`src/visuals.js`、`src/branches.js`
 
-`npm run build` 會驗證內容，然後更新這五個運行檔：
+`npm run build` 會驗證全部路線，然後為每條路線建立獨立運行包：
 
 | 來源 | 輸出 |
 | --- | --- |
-| `content/assets/manifest.json` | `dist/content/assets.json` |
-| `content/chapters/chapter-01.json` | `dist/content/chapter-01.json` |
-| `content/scenes/date-pool.json` | `dist/content/date-pool.json` |
+| `content/routes/index.json` 與路線介面設定 | `dist/content/routes/index.json` |
+| 路線的 `assetIds` | `dist/content/routes/<route-id>/assets.json` |
+| 路線的 `storyFiles` | `dist/content/routes/<route-id>/chapter.json` |
+| 路線的 `sceneFiles` | `dist/content/routes/<route-id>/scenes.json` |
 | `src/app.js` | `dist/app.js` |
 | `src/engine.js` | `dist/engine.js` |
+
+所有 `src/*.js` 都會編譯至 `dist/`；建置會在模組匯入、HTML 的程式入口與樣式網址加上內容雜湊，避免部署後混用舊快取。請勿手動修改 `dist/*.js`。
 
 `dist/index.html`、`dist/styles.css` 與 `dist/assets/` 不由建置腳本生成；修改 UI 或加入圖片時需直接維護並提交。不要只改 `dist/content/*.json`，因為下一次建置會用 `content/` 覆蓋它們。
 
 ## 角色模組
 
-目前角色檔：`content/characters/xu_tang.json`。
+目前可玩角色為許棠與暫用辦公族 OL。OL 的人設及正式 CG 待後續設計；舊林澄檔案只供封存參考。
 
 ### 許棠的核心設定
 
@@ -202,7 +225,7 @@ npm run assets:plan -- xu_tang
 章節檔頂層包含：
 
 - `startNode`：起始節點。
-- `titleArt`、`endingArt`：標題及預設結局圖。
+- `titleArt`、`endingArt`：舊版相容素材及預設結局圖；主界面實際使用續玩節點的 `visual`。
 - `chapterLabels`：進度軌標籤。
 - `initialState`：數值初始狀態。
 - `endingRules`、`endings`：結局判定與結局內容。
@@ -261,7 +284,7 @@ npm run assets:plan -- xu_tang
 | `comfort` | 相處安全感 |
 | `relationship` | 是否正式確認關係；達 1 優先進入 `lover` |
 
-結局規則依陣列順序判定；目前優先順序為 `lover` → `heart` → `chaos` → `neighbor`。
+結局規則依陣列順序判定；OL 分支先判定其暫用結局，許棠內部仍依 `lover` → `heart` → `chaos` → `neighbor`。
 
 ## 回憶收藏
 
@@ -293,13 +316,13 @@ CG 或動態回憶會在故事第一次顯示時自動解鎖，資料沿用 `loc
 
 ### 修改或延伸劇情
 
-1. 編輯 `content/chapters/chapter-01.json`。
-2. 若場景應由其他角色複用，先在 `content/scenes/date-pool.json` 定義地點與共通互動節拍，再由角色路線提供台詞、服裝與CG。
-3. 每個新節點使用唯一 ID，並確保所有 `next`／`choices[].next` 可達。
-4. 選擇 `cg` 或 `composite`，不要混用。
-5. 若加入新 CG，同步完成下一節的四項資產工作。
-6. 執行 `npm run build && npm run validate`。
-7. 檢查 `content/` 與 `dist/content/` 均已更新後提交。
+1. 先執行 `npm run context -- --route <route-id> --node <node-id>`，取得局部上下文。
+2. 依 route config 的 `storyFiles` 編輯對應故事檔；較大的路線可以加入更多節點檔，不需合回單一 JSON。
+3. 若場景應由其他角色複用，在 route config 的 `sceneFiles` 加入共用場景檔，再由角色路線提供台詞、服裝與 CG。
+4. 每個新節點使用路線內唯一 ID，並確保所有 `next`／`choices[].next` 可達。
+5. 選擇 `cg` 或 `composite`，不要混用；新素材也要加入該路線的 `assetIds`。
+6. 若加入新 CG，同步完成下一節的四項資產工作。
+7. 執行 `npm run build && npm run validate`，並檢查 `dist/content/routes/<route-id>/` 已更新。
 
 ### 新增或替換 CG／立繪
 
@@ -324,7 +347,8 @@ CG 或動態回憶會在故事第一次顯示時自動解鎖，資料沿用 `loc
 1. 新建 `content/characters/<id>.json`，使用唯一 `id`。
 2. 定義 identity、invariants、hairstyles、outfits、makeups、expressions 和參考圖。
 3. 新增該角色的立繪／CG、manifest 項目及 recipes。
-4. 在劇情節點引用新邏輯 ID；引擎本身不需要為角色名稱硬編碼。
+4. 建立獨立分支故事檔及 context，接入預設故事的 `storyFiles`，並在共用節點增加選擇入口。
+5. 在 route config 的 `assetIds` 宣告此路線可用素材；引擎與建置工具不需要為新角色修改。
 
 ## 驗證器會阻止的問題
 
@@ -345,7 +369,9 @@ CG 或動態回憶會在故事第一次顯示時自動解鎖，資料沿用 `loc
 - 數字鍵 `1`–`9`：選擇對話選項。
 - 空白鍵／Enter：前進。
 - `M`：切換聲音。
-- 標題畫面的「回憶收藏」：查看進度並重溫已解鎖 CG 或動態回憶。
+- 標題畫面：續玩（沒有存檔時為開始故事）、CG、分支；不提供重複的重開按鈕。
+- 分支頁：垂直排列節點與目的節點編號；可回到已走過的節點，起點則重開本輪。收藏紀錄不會清除。
+- 遊戲中的「回標題」會保留目前節點，標題顯示相同 CG 或背景＋立繪。影片節點顯示海報，續玩後從影片起點播放。
 - 動態回憶播放時可使用右上角「跳過片段」；系統偏好低動態效果時自動退回海報圖。
 - 收藏檢視器支援左右方向鍵與 Escape。
 
@@ -381,7 +407,14 @@ git status --short
 
 > 請讀取 GitHub 倉庫 `TsungmingLiu/seventeen-floor-neighbor` 的最新 `main` 和 `README.md`。以 GitHub `main` 為交接基準，保留目前資料驅動架構。修改 `content/` 或 `src/` 後執行 `npm run build`、`npm run validate` 和 `git diff --check`，並把來源、建置產物及新增圖片／影片一起推回 GitHub。CG 與 cinematic 節點不得疊加立繪；角色或服裝修改要遵循版本依賴與 `assets:plan` 批次更新流程。
 
+針對單一節點工作時，建議把提示縮短為：
+
+> 請在最新 `main` 執行 `npm run context -- --route <route-id> --node <node-id>`，只修改該節點及必要的相鄰節點；完成後執行 build、validate 與 diff check。
+
 ## 相關文件
 
 - `README.md`：完整交接、設定、資料格式與工作流程（本文件）。
 - `ARCHITECTURE.md`：模組化架構的精簡摘要。
+- `PROJECT_STATE.md`：目前里程碑、可玩路線與下一個內容決策。
+- `REFACTOR_PLAN.md`：本次分階段重構範圍、驗收與停點。
+- `AGENTS.md`：Codex 新對話自動載入的精簡專案規則。

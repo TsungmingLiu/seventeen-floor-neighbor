@@ -1,0 +1,38 @@
+{
+  "id": "lin-cheng",
+  "label": "林澄・短篇試玩",
+  "titlePrefix": "17樓的",
+  "titleMain": "夜班聲音",
+  "eyebrow": "第二角色線・垂直切片",
+  "premise": "凌晨一點，你在電梯裡遇見剛搬進 1704 的聲音剪輯師。她問你，城市最安靜的地方在哪裡。",
+  "startLabel": "戴上耳機",
+  "hint": "一段十分鐘的短篇，用來驗證第二條角色線。",
+  "titleAlt": "雨後屋頂上拿著錄音機的林澄",
+  "endingAlt": "林澄在天亮前把另一邊耳機遞向你",
+  "accent": "#75c9bd",
+  "context": "content/routes/lin-cheng/context.md",
+  "storyFiles": ["content/routes/lin-cheng/story.json"],
+  "sceneFiles": ["content/routes/lin-cheng/scenes.json"],
+  "assetIds": [
+    "bg.elevator.normal",
+    "sprite.lin_cheng.night.neutral",
+    "cg.lin_cheng.rooftop_recording",
+    "cg.lin_cheng.shared_headphones"
+  ],
+  "story": {
+    "title": "17樓的夜班聲音",
+    "startNode": "night_intro",
+    "titleArt": "cg.lin_cheng.rooftop_recording",
+    "endingArt": "cg.lin_cheng.shared_headphones",
+    "chapterLabels": ["凌晨", "錄音", "屋頂", "天亮"],
+    "initialState": { "curiosity": 0, "trust": 0, "warmth": 0 },
+    "endingRules": [{ "ending": "same_track", "default": true }],
+    "endings": {
+      "same_track": {
+        "title": "同一段聲音",
+        "art": "cg.lin_cheng.shared_headphones",
+        "text": "耳機裡先是風，接著是遠處第一班公車的煞車聲。\n\n你以為她錄的是城市。直到音軌裡傳來自己剛才的一聲笑。\n\n林澄：這段我不剪掉。\n你：算版權費嗎？\n林澄：算。明晚同一時間，再錄一段。\n\n天色慢慢亮起。你們仍各戴著一邊耳機，像暫時共用著同一個清晨。"
+      }
+    }
+  }
+}

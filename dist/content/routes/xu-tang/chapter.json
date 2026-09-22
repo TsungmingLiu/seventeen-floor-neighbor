@@ -4,38 +4,91 @@
   "startNode": "intro1",
   "titleArt": "cg.ch01.hallway_meet",
   "endingArt": "cg.ch02.rooftop_night",
-  "chapterLabels": ["雨夜", "初遇", "停電", "靠近", "隔壁", "咖啡", "約會", "天台", "1702", "真心", "確認", "清晨"],
+  "chapterLabels": [
+    "雨夜",
+    "初遇",
+    "停電",
+    "靠近",
+    "隔壁",
+    "咖啡",
+    "約會",
+    "天台",
+    "1702",
+    "真心",
+    "確認",
+    "清晨"
+  ],
   "initialState": {
     "heart": 0,
     "trust": 0,
     "chaos": 0,
     "comfort": 0,
-    "relationship": 0
+    "relationship": 0,
+    "officeRoute": 0
   },
   "endingRules": [
     {
+      "ending": "office_teaser",
+      "conditions": [
+        {
+          "stat": "officeRoute",
+          "operator": ">=",
+          "value": 1
+        }
+      ]
+    },
+    {
       "ending": "lover",
       "conditions": [
-        { "stat": "relationship", "operator": ">=", "value": 1 }
+        {
+          "stat": "relationship",
+          "operator": ">=",
+          "value": 1
+        }
       ]
     },
     {
       "ending": "heart",
       "conditions": [
-        { "stat": "heart", "operator": ">=", "value": 13 },
-        { "stat": "trust", "operator": ">=", "value": 6 },
-        { "stat": "comfort", "operator": ">=", "value": 3 }
+        {
+          "stat": "heart",
+          "operator": ">=",
+          "value": 13
+        },
+        {
+          "stat": "trust",
+          "operator": ">=",
+          "value": 6
+        },
+        {
+          "stat": "comfort",
+          "operator": ">=",
+          "value": 3
+        }
       ]
     },
     {
       "ending": "chaos",
       "conditions": [
-        { "stat": "chaos", "operator": ">=", "value": 12 }
+        {
+          "stat": "chaos",
+          "operator": ">=",
+          "value": 12
+        }
       ]
     },
-    { "ending": "neighbor", "default": true }
+    {
+      "ending": "neighbor",
+      "default": true
+    }
   ],
   "endings": {
+    "office_teaser": {
+      "title": "17樓的臨時同事",
+      "mapLabel": "辦公族 OL 支線結局",
+      "art": "cg.office_ol.hallway",
+      "text": "她把差點被電梯門夾住的資料夾抱回懷裡，向你點頭道謝。\n\n辦公族 OL：謝謝。下次見。\n\n電梯門重新合上。你甚至還不知道她的名字，只記得那身黑色下裝和剛下班的腳步。"
+    },
     "lover": {
       "title": "1702，星期日早晨",
       "art": "cg.ch04.sunday_morning",
@@ -77,7 +130,10 @@
         "mode": "composite",
         "background": "bg.elevator.normal",
         "sprites": [
-          { "asset": "sprite.xu_tang.office.neutral", "position": "right" }
+          {
+            "asset": "sprite.xu_tang.office.neutral",
+            "position": "right"
+          }
         ]
       },
       "next": "choice1"
@@ -90,13 +146,44 @@
         "mode": "composite",
         "background": "bg.elevator.normal",
         "sprites": [
-          { "asset": "sprite.xu_tang.office.playful", "position": "right" }
+          {
+            "asset": "sprite.xu_tang.office.playful",
+            "position": "right"
+          }
         ]
       },
       "choices": [
-        { "text": "不是囤貨，是成年人的情緒穩定用品。", "next": "c1a", "effects": { "heart": 1, "chaos": 1 } },
-        { "text": "鄰居見面禮。妳喜歡豚骨還是辣味？", "next": "c1b", "effects": { "heart": 2, "chaos": 1 } },
-        { "text": "我可以解釋。", "next": "c1c", "effects": { "chaos": 1 } }
+        {
+          "text": "不是囤貨，是成年人的情緒穩定用品。",
+          "next": "c1a",
+          "effects": {
+            "heart": 1,
+            "chaos": 1
+          }
+        },
+        {
+          "text": "鄰居見面禮。妳喜歡豚骨還是辣味？",
+          "next": "c1b",
+          "effects": {
+            "heart": 2,
+            "chaos": 1
+          }
+        },
+        {
+          "text": "我可以解釋。",
+          "next": "c1c",
+          "effects": {
+            "chaos": 1
+          }
+        },
+        {
+          "text": "先替電梯外剛加完班的人按住門。",
+          "next": "office_intro",
+          "effects": {
+            "officeRoute": 1
+          },
+          "mapLabel": "辦公族 OL 支線"
+        }
       ]
     },
     "c1a": {
@@ -106,7 +193,12 @@
       "visual": {
         "mode": "composite",
         "background": "bg.elevator.normal",
-        "sprites": [{ "asset": "sprite.xu_tang.office.playful", "position": "right" }]
+        "sprites": [
+          {
+            "asset": "sprite.xu_tang.office.playful",
+            "position": "right"
+          }
+        ]
       },
       "next": "reputation"
     },
@@ -117,7 +209,12 @@
       "visual": {
         "mode": "composite",
         "background": "bg.elevator.normal",
-        "sprites": [{ "asset": "sprite.xu_tang.office.playful", "position": "right" }]
+        "sprites": [
+          {
+            "asset": "sprite.xu_tang.office.playful",
+            "position": "right"
+          }
+        ]
       },
       "next": "reputation"
     },
@@ -128,7 +225,12 @@
       "visual": {
         "mode": "composite",
         "background": "bg.elevator.normal",
-        "sprites": [{ "asset": "sprite.xu_tang.office.playful", "position": "right" }]
+        "sprites": [
+          {
+            "asset": "sprite.xu_tang.office.playful",
+            "position": "right"
+          }
+        ]
       },
       "next": "reputation"
     },
@@ -140,7 +242,12 @@
       "visual": {
         "mode": "composite",
         "background": "bg.elevator.normal",
-        "sprites": [{ "asset": "sprite.xu_tang.office.playful", "position": "right" }]
+        "sprites": [
+          {
+            "asset": "sprite.xu_tang.office.playful",
+            "position": "right"
+          }
+        ]
       },
       "next": "blackout"
     },
@@ -152,7 +259,10 @@
       "visual": {
         "mode": "cg",
         "asset": "cg.ch01.elevator_close",
-        "effects": { "dark": true, "flicker": true }
+        "effects": {
+          "dark": true,
+          "flicker": true
+        }
       },
       "next": "choice2"
     },
@@ -163,33 +273,75 @@
       "visual": {
         "mode": "cg",
         "asset": "cg.ch01.elevator_close",
-        "effects": { "dark": true }
+        "effects": {
+          "dark": true
+        }
       },
       "choices": [
-        { "text": "好。我在這裡。", "next": "c2a", "effects": { "heart": 2, "trust": 2 } },
-        { "text": "可以抓緊一點，一次只收一杯咖啡。", "next": "c2b", "effects": { "heart": 1, "chaos": 2 } },
-        { "text": "原來妳怕黑。", "next": "c2c", "effects": { "heart": -1, "trust": -1, "chaos": 1 } }
+        {
+          "text": "好。我在這裡。",
+          "next": "c2a",
+          "effects": {
+            "heart": 2,
+            "trust": 2
+          }
+        },
+        {
+          "text": "可以抓緊一點，一次只收一杯咖啡。",
+          "next": "c2b",
+          "effects": {
+            "heart": 1,
+            "chaos": 2
+          }
+        },
+        {
+          "text": "原來妳怕黑。",
+          "next": "c2c",
+          "effects": {
+            "heart": -1,
+            "trust": -1,
+            "chaos": 1
+          }
+        }
       ]
     },
     "c2a": {
       "speaker": "許棠",
       "text": "我知道。\n我只是確認一下。",
       "chapter": 2,
-      "visual": { "mode": "cg", "asset": "cg.ch01.elevator_close", "effects": { "dark": true } },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch01.elevator_close",
+        "effects": {
+          "dark": true
+        }
+      },
       "next": "close1"
     },
     "c2b": {
       "speaker": "許棠",
       "text": "你這收費標準，聽起來像臨時起意。",
       "chapter": 2,
-      "visual": { "mode": "cg", "asset": "cg.ch01.elevator_close", "effects": { "dark": true } },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch01.elevator_close",
+        "effects": {
+          "dark": true
+        }
+      },
       "next": "close1"
     },
     "c2c": {
       "speaker": "許棠",
       "text": "我不怕黑。\n我只是怕你又碰到什麼警報。",
       "chapter": 2,
-      "visual": { "mode": "cg", "asset": "cg.ch01.elevator_close", "effects": { "dark": true } },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch01.elevator_close",
+        "effects": {
+          "dark": true
+        }
+      },
       "next": "close1"
     },
     "close1": {
@@ -198,46 +350,96 @@
       "chapter": 3,
       "moment": "近得能看清她睫毛上的光。",
       "tone": "soft",
-      "visual": { "mode": "cg", "asset": "cg.ch01.elevator_close", "effects": { "push": true } },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch01.elevator_close",
+        "effects": {
+          "push": true
+        }
+      },
       "next": "close2"
     },
     "close2": {
       "speaker": "許棠",
       "text": "你可以說點什麼。\n隨便什麼都行。\n\n電梯維修、天氣，或者一個成年人為什麼需要二十四包泡麵。",
       "chapter": 3,
-      "visual": { "mode": "cg", "asset": "cg.ch01.elevator_close", "effects": { "push": true } },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch01.elevator_close",
+        "effects": {
+          "push": true
+        }
+      },
       "next": "choice3"
     },
     "choice3": {
       "speaker": "你",
       "text": "",
       "chapter": 3,
-      "visual": { "mode": "cg", "asset": "cg.ch01.elevator_close" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch01.elevator_close"
+      },
       "choices": [
-        { "text": "是消防門先對我的行李箱有意見。", "next": "c3a", "effects": { "heart": 2, "trust": 1, "chaos": 1 } },
-        { "text": "不用找話題。我還在，燈亮之前都在。", "next": "c3b", "effects": { "heart": 2, "trust": 3 }, "addFlags": ["said_here"] },
-        { "text": "妳聽過電梯停住後，多出一個人的故事嗎？", "next": "c3c", "effects": { "heart": -1, "trust": -1, "chaos": 3 } }
+        {
+          "text": "是消防門先對我的行李箱有意見。",
+          "next": "c3a",
+          "effects": {
+            "heart": 2,
+            "trust": 1,
+            "chaos": 1
+          }
+        },
+        {
+          "text": "不用找話題。我還在，燈亮之前都在。",
+          "next": "c3b",
+          "effects": {
+            "heart": 2,
+            "trust": 3
+          },
+          "addFlags": [
+            "said_here"
+          ]
+        },
+        {
+          "text": "妳聽過電梯停住後，多出一個人的故事嗎？",
+          "next": "c3c",
+          "effects": {
+            "heart": -1,
+            "trust": -1,
+            "chaos": 3
+          }
+        }
       ]
     },
     "c3a": {
       "speaker": "許棠",
       "text": "很好。看來我們整層，是被一只行李箱襲擊了。",
       "chapter": 3,
-      "visual": { "mode": "cg", "asset": "cg.ch01.elevator_close" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch01.elevator_close"
+      },
       "next": "power1"
     },
     "c3b": {
       "speaker": "許棠",
       "text": "……你這句話，比剛才那個咖啡收費正常多了。",
       "chapter": 3,
-      "visual": { "mode": "cg", "asset": "cg.ch01.elevator_close" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch01.elevator_close"
+      },
       "next": "power1"
     },
     "c3c": {
       "speaker": "許棠",
       "text": "你敢繼續講，我現在就讓電梯裡少一個人。",
       "chapter": 3,
-      "visual": { "mode": "cg", "asset": "cg.ch01.elevator_close" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch01.elevator_close"
+      },
       "next": "power1"
     },
     "power1": {
@@ -245,60 +447,111 @@
       "text": "電梯恢復供電。她立刻鬆手，整理袖口，恢復平常的表情。\n只有微紅的耳尖沒來得及配合。",
       "chapter": 3,
       "tone": "light",
-      "visual": { "mode": "cg", "asset": "cg.ch01.elevator_blush", "effects": { "push": true } },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch01.elevator_blush",
+        "effects": {
+          "push": true
+        }
+      },
       "next": "power2"
     },
     "power2": {
       "speaker": "許棠",
       "text": "正常人現在應該當作什麼都沒發生。\n\n……還有，是你的袖子材質不太配合。",
       "chapter": 3,
-      "visual": { "mode": "cg", "asset": "cg.ch01.elevator_blush" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch01.elevator_blush"
+      },
       "next": "hall1"
     },
     "hall1": {
       "speaker": "旁白",
       "text": "17 樓到了。\n你們走出電梯，最後同時停下。你站在 1703 門前，她則拿出鑰匙，打開緊鄰的 1702。",
       "chapter": 4,
-      "visual": { "mode": "cg", "asset": "cg.ch01.hallway_meet" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch01.hallway_meet"
+      },
       "next": "contact"
     },
     "contact": {
       "speaker": "許棠",
       "text": "看來你的二十四包情緒穩定用品，就住我隔壁。\n\n加一下。我把你拉進住戶群。",
       "chapter": 4,
-      "visual": { "mode": "cg", "asset": "cg.ch01.phone_ending", "effects": { "push": true } },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch01.phone_ending",
+        "effects": {
+          "push": true
+        }
+      },
       "next": "choice4"
     },
     "choice4": {
       "speaker": "你",
       "text": "",
       "chapter": 4,
-      "visual": { "mode": "cg", "asset": "cg.ch01.phone_ending" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch01.phone_ending"
+      },
       "choices": [
-        { "text": "住戶群需要妳親自驗人？", "next": "c4a", "effects": { "heart": 2, "chaos": 1 } },
-        { "text": "好。備註寫「1702 燈光救援」。", "next": "c4b", "effects": { "heart": 1, "trust": 1, "chaos": 2 } },
-        { "text": "謝謝，麻煩妳了。", "next": "c4c", "effects": { "trust": 1 } }
+        {
+          "text": "住戶群需要妳親自驗人？",
+          "next": "c4a",
+          "effects": {
+            "heart": 2,
+            "chaos": 1
+          }
+        },
+        {
+          "text": "好。備註寫「1702 燈光救援」。",
+          "next": "c4b",
+          "effects": {
+            "heart": 1,
+            "trust": 1,
+            "chaos": 2
+          }
+        },
+        {
+          "text": "謝謝，麻煩妳了。",
+          "next": "c4c",
+          "effects": {
+            "trust": 1
+          }
+        }
       ]
     },
     "c4a": {
       "speaker": "許棠",
       "text": "……你問題很多。\n掃不掃？",
       "chapter": 4,
-      "visual": { "mode": "cg", "asset": "cg.ch01.phone_ending" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch01.phone_ending"
+      },
       "next": "message"
     },
     "c4b": {
       "speaker": "許棠",
       "text": "那我備註「1703 消防演習」。",
       "chapter": 4,
-      "visual": { "mode": "cg", "asset": "cg.ch01.phone_ending" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch01.phone_ending"
+      },
       "next": "message"
     },
     "c4c": {
       "speaker": "許棠",
       "text": "嗯。\n晚安，新鄰居。",
       "chapter": 4,
-      "visual": { "mode": "cg", "asset": "cg.ch01.phone_ending" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch01.phone_ending"
+      },
       "next": "message"
     },
     "message": {
@@ -306,7 +559,10 @@
       "text": "你們各自進門。\n你剛把泡麵箱放下，手機震動。\n\n許棠：明早 7:40，樓下咖啡店。\n許棠：你欠我一包泡麵，先用咖啡抵。",
       "chapter": 4,
       "tone": "message",
-      "visual": { "mode": "cg", "asset": "cg.ch01.phone_ending" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch01.phone_ending"
+      },
       "next": "coffee_intro"
     },
     "coffee_intro": {
@@ -315,46 +571,88 @@
       "chapter": 5,
       "tone": "soft",
       "moment": "第一次在白天見到她。",
-      "visual": { "mode": "cg", "asset": "cg.ch02.cafe_morning", "effects": { "push": true } },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch02.cafe_morning",
+        "effects": {
+          "push": true
+        }
+      },
       "next": "coffee_line"
     },
     "coffee_line": {
       "speaker": "許棠",
       "text": "遲到兩分鐘。\n不過我還沒決定，要不要把這列入住觀察期的重大違規。",
       "chapter": 5,
-      "visual": { "mode": "cg", "asset": "cg.ch02.cafe_morning" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch02.cafe_morning"
+      },
       "next": "choice5"
     },
     "choice5": {
       "speaker": "你",
       "text": "",
       "chapter": 5,
-      "visual": { "mode": "cg", "asset": "cg.ch02.cafe_morning" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch02.cafe_morning"
+      },
       "choices": [
-        { "text": "但我記得妳不加糖。可以減刑嗎？", "next": "c5a", "effects": { "heart": 2, "trust": 2 } },
-        { "text": "咖啡也是成年人的情緒穩定用品。", "next": "c5b", "effects": { "heart": 1, "chaos": 1 } },
-        { "text": "第一次單獨喝咖啡，這算約會嗎？", "next": "c5c", "effects": { "heart": 2, "chaos": 2 } }
+        {
+          "text": "但我記得妳不加糖。可以減刑嗎？",
+          "next": "c5a",
+          "effects": {
+            "heart": 2,
+            "trust": 2
+          }
+        },
+        {
+          "text": "咖啡也是成年人的情緒穩定用品。",
+          "next": "c5b",
+          "effects": {
+            "heart": 1,
+            "chaos": 1
+          }
+        },
+        {
+          "text": "第一次單獨喝咖啡，這算約會嗎？",
+          "next": "c5c",
+          "effects": {
+            "heart": 2,
+            "chaos": 2
+          }
+        }
       ]
     },
     "c5a": {
       "speaker": "許棠",
       "text": "記性合格。\n準時程度，留待觀察。",
       "chapter": 5,
-      "visual": { "mode": "cg", "asset": "cg.ch02.cafe_morning" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch02.cafe_morning"
+      },
       "next": "coffee_reveal"
     },
     "c5b": {
       "speaker": "許棠",
       "text": "所以你的人生，是靠咖啡和二十四包泡麵維持結構？",
       "chapter": 5,
-      "visual": { "mode": "cg", "asset": "cg.ch02.cafe_morning" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch02.cafe_morning"
+      },
       "next": "coffee_reveal"
     },
     "c5c": {
       "speaker": "許棠",
       "text": "先把遲到的兩分鐘補完，再討論名詞定義。",
       "chapter": 5,
-      "visual": { "mode": "cg", "asset": "cg.ch02.cafe_morning" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch02.cafe_morning"
+      },
       "next": "coffee_reveal"
     },
     "coffee_reveal": {
@@ -362,7 +660,10 @@
       "text": "我每個星期六都來。以前是一個人。\n\n今天只是……鄰居義務，多帶一杯。",
       "chapter": 5,
       "moment": "她說「只是」時，視線移開了半秒。",
-      "visual": { "mode": "cg", "asset": "cg.ch02.cafe_morning" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch02.cafe_morning"
+      },
       "next": "date_pick_one"
     },
     "date_pick_one": {
@@ -384,46 +685,88 @@
       "chapter": 6,
       "tone": "soft",
       "moment": "第一次不是因為住戶義務見面。",
-      "visual": { "mode": "cg", "asset": "cg.date.bookstore", "effects": { "push": true } },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.date.bookstore",
+        "effects": {
+          "push": true
+        }
+      },
       "next": "date_bookstore_line"
     },
     "date_bookstore_line": {
       "speaker": "許棠",
       "text": "你遲到了四十七秒。\n\n她伸手抽書時，你也正好碰到同一本。\n\n許棠：不過選書方向合格，可以抵銷。",
       "chapter": 6,
-      "visual": { "mode": "cg", "asset": "cg.date.bookstore" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.date.bookstore"
+      },
       "next": "date_bookstore_choice"
     },
     "date_bookstore_choice": {
       "speaker": "你",
       "text": "",
       "chapter": 6,
-      "visual": { "mode": "cg", "asset": "cg.date.bookstore" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.date.bookstore"
+      },
       "choices": [
-        { "text": "妳記得我說過喜歡這個作者？", "next": "date_bookstore_a", "effects": { "heart": 2, "trust": 2 } },
-        { "text": "同時拿到一本書，算不算很老派的約會橋段？", "next": "date_bookstore_b", "effects": { "heart": 2, "chaos": 1 } },
-        { "text": "妳先看。下次換妳借我一本。", "next": "date_bookstore_c", "effects": { "trust": 2, "comfort": 1 } }
+        {
+          "text": "妳記得我說過喜歡這個作者？",
+          "next": "date_bookstore_a",
+          "effects": {
+            "heart": 2,
+            "trust": 2
+          }
+        },
+        {
+          "text": "同時拿到一本書，算不算很老派的約會橋段？",
+          "next": "date_bookstore_b",
+          "effects": {
+            "heart": 2,
+            "chaos": 1
+          }
+        },
+        {
+          "text": "妳先看。下次換妳借我一本。",
+          "next": "date_bookstore_c",
+          "effects": {
+            "trust": 2,
+            "comfort": 1
+          }
+        }
       ]
     },
     "date_bookstore_a": {
       "speaker": "許棠",
       "text": "只是記性好。\n\n她把書抽出來，卻沒有放進自己的籃子。\n\n許棠：你說喜歡的那一段，今晚可以講給我聽。",
       "chapter": 6,
-      "visual": { "mode": "cg", "asset": "cg.date.bookstore" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.date.bookstore"
+      },
       "next": "date_bookstore_close"
     },
     "date_bookstore_b": {
       "speaker": "許棠",
       "text": "如果下一秒還要同時鬆手，我可以配合。\n\n你沒有鬆，她也沒有。\n\n許棠：看來你的橋段準備得不完整。",
       "chapter": 6,
-      "visual": { "mode": "cg", "asset": "cg.date.bookstore" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.date.bookstore"
+      },
       "next": "date_bookstore_close"
     },
     "date_bookstore_c": {
       "speaker": "許棠",
       "text": "這麼早就在安排下次？\n\n你：怕妳看完就沒有理由找我。\n\n她低頭看了眼封面，唇角輕輕彎起。\n\n許棠：理由可以另外找。",
       "chapter": 6,
-      "visual": { "mode": "cg", "asset": "cg.date.bookstore" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.date.bookstore"
+      },
       "next": "date_bookstore_close"
     },
     "date_bookstore_close": {
@@ -431,7 +774,10 @@
       "text": "結帳後，你們在窗邊交換了各自挑的書。\n她在扉頁寫下日期，沒有寫名字。\n\n許棠：等你看完，我再告訴你為什麼選它。\n\n她已經替下一次見面留好了理由。",
       "chapter": 6,
       "moment": "她把「下次」說得很自然。",
-      "visual": { "mode": "cg", "asset": "cg.date.bookstore" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.date.bookstore"
+      },
       "next": "date_return"
     },
     "date_river_intro": {
@@ -440,46 +786,88 @@
       "chapter": 6,
       "tone": "soft",
       "moment": "她沒有說這是巧合。",
-      "visual": { "mode": "cg", "asset": "cg.date.riverwalk", "effects": { "push": true } },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.date.riverwalk",
+        "effects": {
+          "push": true
+        }
+      },
       "next": "date_river_line"
     },
     "date_river_line": {
       "speaker": "許棠",
       "text": "靠近一點。\n\n她用兩根手指勾住你的袖口，把你拉回傘下。\n\n許棠：感冒會傳染給隔壁，我只是在保護自己。",
       "chapter": 6,
-      "visual": { "mode": "cg", "asset": "cg.date.riverwalk" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.date.riverwalk"
+      },
       "next": "date_river_choice"
     },
     "date_river_choice": {
       "speaker": "你",
       "text": "",
       "chapter": 6,
-      "visual": { "mode": "cg", "asset": "cg.date.riverwalk" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.date.riverwalk"
+      },
       "choices": [
-        { "text": "那我再靠近一點，降低傳染範圍。", "next": "date_river_a", "effects": { "heart": 2, "chaos": 1 } },
-        { "text": "把傘給我。我想陪妳慢慢走。", "next": "date_river_b", "effects": { "trust": 2, "comfort": 2 } },
-        { "text": "妳可以直接牽我，不用每次都抓袖子。", "next": "date_river_c", "effects": { "heart": 3, "trust": 1 } }
+        {
+          "text": "那我再靠近一點，降低傳染範圍。",
+          "next": "date_river_a",
+          "effects": {
+            "heart": 2,
+            "chaos": 1
+          }
+        },
+        {
+          "text": "把傘給我。我想陪妳慢慢走。",
+          "next": "date_river_b",
+          "effects": {
+            "trust": 2,
+            "comfort": 2
+          }
+        },
+        {
+          "text": "妳可以直接牽我，不用每次都抓袖子。",
+          "next": "date_river_c",
+          "effects": {
+            "heart": 3,
+            "trust": 1
+          }
+        }
       ]
     },
     "date_river_a": {
       "speaker": "許棠",
       "text": "這個理論聽起來很可疑。\n\n她嘴上反駁，肩膀卻沒有移開。\n\n許棠：先走完這一段，我再決定要不要檢舉。",
       "chapter": 6,
-      "visual": { "mode": "cg", "asset": "cg.date.riverwalk" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.date.riverwalk"
+      },
       "next": "date_river_close"
     },
     "date_river_b": {
       "speaker": "許棠",
       "text": "你連目的地都不知道。\n\n你：所以才可以慢慢走。\n\n她把傘柄交給你，手卻停在你的手背上多了一秒。\n\n許棠：……有道理。",
       "chapter": 6,
-      "visual": { "mode": "cg", "asset": "cg.date.riverwalk" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.date.riverwalk"
+      },
       "next": "date_river_close"
     },
     "date_river_c": {
       "speaker": "許棠",
       "text": "你確定？\n\n她鬆開袖口。你以為自己說得太快，下一秒，她的手指已經滑進你的掌心。\n\n許棠：那就不要走丟。",
       "chapter": 6,
-      "visual": { "mode": "cg", "asset": "cg.date.riverwalk" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.date.riverwalk"
+      },
       "next": "date_river_close"
     },
     "date_river_close": {
@@ -487,7 +875,10 @@
       "text": "雨停後，你們仍共撐著那把傘。\n河面的燈一路延伸，誰也沒有提醒另一個人，現在其實已經不需要靠得這麼近。",
       "chapter": 6,
       "moment": "有些距離縮短後，就沒有必要恢復。",
-      "visual": { "mode": "cg", "asset": "cg.date.riverwalk" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.date.riverwalk"
+      },
       "next": "date_return"
     },
     "date_market_intro": {
@@ -496,46 +887,88 @@
       "chapter": 6,
       "tone": "light",
       "moment": "你第一次看見她笑得毫無防備。",
-      "visual": { "mode": "cg", "asset": "cg.date.night_market", "effects": { "push": true } },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.date.night_market",
+        "effects": {
+          "push": true
+        }
+      },
       "next": "date_market_line"
     },
     "date_market_line": {
       "speaker": "許棠",
       "text": "張嘴。\n\n她把剛買的烤串遞到你面前，眼裡還帶著沒收住的笑。\n\n許棠：快點。這一口是最好吃的部分。",
       "chapter": 6,
-      "visual": { "mode": "cg", "asset": "cg.date.night_market" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.date.night_market"
+      },
       "next": "date_market_choice"
     },
     "date_market_choice": {
       "speaker": "你",
       "text": "",
       "chapter": 6,
-      "visual": { "mode": "cg", "asset": "cg.date.night_market" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.date.night_market"
+      },
       "choices": [
-        { "text": "最好吃的一口也捨得給我？", "next": "date_market_a", "effects": { "heart": 2, "trust": 1 } },
-        { "text": "妳先咬一口，我怕這是新型住戶測試。", "next": "date_market_b", "effects": { "chaos": 2, "comfort": 1 } },
-        { "text": "成交。下一攤換我餵妳。", "next": "date_market_c", "effects": { "heart": 2, "comfort": 2 } }
+        {
+          "text": "最好吃的一口也捨得給我？",
+          "next": "date_market_a",
+          "effects": {
+            "heart": 2,
+            "trust": 1
+          }
+        },
+        {
+          "text": "妳先咬一口，我怕這是新型住戶測試。",
+          "next": "date_market_b",
+          "effects": {
+            "chaos": 2,
+            "comfort": 1
+          }
+        },
+        {
+          "text": "成交。下一攤換我餵妳。",
+          "next": "date_market_c",
+          "effects": {
+            "heart": 2,
+            "comfort": 2
+          }
+        }
       ]
     },
     "date_market_a": {
       "speaker": "許棠",
       "text": "你已經問出口了，我現在收回會很小氣。\n\n你吃掉那一口。她看著空下來的竹籤，像是才想起這個動作比預期親近。\n\n許棠：……味道還行吧？",
       "chapter": 6,
-      "visual": { "mode": "cg", "asset": "cg.date.night_market" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.date.night_market"
+      },
       "next": "date_market_close"
     },
     "date_market_b": {
       "speaker": "許棠",
       "text": "可以。測試內容是看你敢不敢吃我咬過的。\n\n她真的先嚐了一口，再把烤串遞回來。\n\n許棠：現在退出還來得及。",
       "chapter": 6,
-      "visual": { "mode": "cg", "asset": "cg.date.night_market" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.date.night_market"
+      },
       "next": "date_market_close"
     },
     "date_market_c": {
       "speaker": "許棠",
       "text": "你對自己的選攤能力很有信心。\n\n你：對妳會答應比較有信心。\n\n她挑了下眉，轉身往下一排燈光走。\n\n許棠：那就跟上。",
       "chapter": 6,
-      "visual": { "mode": "cg", "asset": "cg.date.night_market" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.date.night_market"
+      },
       "next": "date_market_close"
     },
     "date_market_close": {
@@ -543,7 +976,10 @@
       "text": "半小時最後變成兩個小時。\n回程電梯裡，她把你們在攤位前拍的照片設成聊天背景，動作很快，仍被你看見。\n\n許棠：只是這張光線比較好。",
       "chapter": 6,
       "moment": "她開始替共同回憶留位置。",
-      "visual": { "mode": "cg", "asset": "cg.date.night_market" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.date.night_market"
+      },
       "next": "date_return"
     },
     "laundry_intro": {
@@ -551,53 +987,98 @@
       "text": "週三，00:08。\n公共洗衣房只剩一台烘乾機還在轉。你蹲在地上研究說明圖，身後傳來一聲很輕的笑。",
       "chapter": 6,
       "tone": "light",
-      "visual": { "mode": "cg", "asset": "cg.ch02.laundry_room", "effects": { "push": true } },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch02.laundry_room",
+        "effects": {
+          "push": true
+        }
+      },
       "next": "laundry_line"
     },
     "laundry_line": {
       "speaker": "許棠",
       "text": "我在洗衣機裡找到這個。\n請問 1703，這也是情緒穩定用品？",
       "chapter": 6,
-      "visual": { "mode": "cg", "asset": "cg.ch02.laundry_room" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch02.laundry_room"
+      },
       "next": "choice6"
     },
     "choice6": {
       "speaker": "你",
       "text": "",
       "chapter": 6,
-      "visual": { "mode": "cg", "asset": "cg.ch02.laundry_room" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch02.laundry_room"
+      },
       "choices": [
-        { "text": "洗衣標籤比消防警報難懂。", "next": "c6a", "effects": { "heart": 1, "chaos": 2 } },
-        { "text": "謝謝。作為回報，我幫妳把這籃折完。", "next": "c6b", "effects": { "heart": 1, "trust": 2 } },
-        { "text": "妳其實可以直接敲門，不用拿襪子當理由。", "next": "c6c", "effects": { "heart": 2, "trust": 1 } }
+        {
+          "text": "洗衣標籤比消防警報難懂。",
+          "next": "c6a",
+          "effects": {
+            "heart": 1,
+            "chaos": 2
+          }
+        },
+        {
+          "text": "謝謝。作為回報，我幫妳把這籃折完。",
+          "next": "c6b",
+          "effects": {
+            "heart": 1,
+            "trust": 2
+          }
+        },
+        {
+          "text": "妳其實可以直接敲門，不用拿襪子當理由。",
+          "next": "c6c",
+          "effects": {
+            "heart": 2,
+            "trust": 1
+          }
+        }
       ]
     },
     "c6a": {
       "speaker": "許棠",
       "text": "至少洗衣機不會因為行李箱響三分鐘。\n理論上。",
       "chapter": 6,
-      "visual": { "mode": "cg", "asset": "cg.ch02.laundry_room" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch02.laundry_room"
+      },
       "next": "laundry_close"
     },
     "c6b": {
       "speaker": "許棠",
       "text": "先從毛巾開始。\n襯衫我還不敢交給事故製造者。",
       "chapter": 6,
-      "visual": { "mode": "cg", "asset": "cg.ch02.laundry_room" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch02.laundry_room"
+      },
       "next": "laundry_close"
     },
     "c6c": {
       "speaker": "許棠",
       "text": "你想多了。\n\n……不過襪子還你之後，理由確實用完了。",
       "chapter": 6,
-      "visual": { "mode": "cg", "asset": "cg.ch02.laundry_room" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch02.laundry_room"
+      },
       "next": "laundry_close"
     },
     "laundry_close": {
       "speaker": "旁白",
       "text": "烘乾機停下時，已經過了凌晨一點。\n你們把最後一條毛巾折好，各自抱著洗衣籃回到相鄰的兩扇門前。",
       "chapter": 6,
-      "visual": { "mode": "cg", "asset": "cg.ch02.laundry_room" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch02.laundry_room"
+      },
       "next": "date_pick_two"
     },
     "rooftop_intro": {
@@ -606,25 +1087,58 @@
       "chapter": 7,
       "tone": "soft",
       "moment": "搬來的第三個星期。",
-      "visual": { "mode": "cg", "asset": "cg.ch02.rooftop_night", "effects": { "push": true } },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch02.rooftop_night",
+        "effects": {
+          "push": true
+        }
+      },
       "next": "rooftop_line"
     },
     "rooftop_line": {
       "speaker": "許棠",
       "text": "搬來三週，遇到兩次警報、一次停電，還約了我不只兩次。\n\n你對 17 樓的適應速度很有個人風格。",
       "chapter": 7,
-      "visual": { "mode": "cg", "asset": "cg.ch02.rooftop_night" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch02.rooftop_night"
+      },
       "next": "choice7"
     },
     "choice7": {
       "speaker": "你",
       "text": "",
       "chapter": 7,
-      "visual": { "mode": "cg", "asset": "cg.ch02.rooftop_night" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch02.rooftop_night"
+      },
       "choices": [
-        { "text": "我希望下次見妳，不需要任何事故。", "next": "c7a", "effects": { "heart": 3, "trust": 2 } },
-        { "text": "其實我只是越來越喜歡住在妳隔壁。", "next": "c7b", "effects": { "heart": 2, "trust": 3 } },
-        { "text": "下次警報算我的，我負責帶咖啡。", "next": "c7c", "effects": { "heart": 1, "chaos": 3 } }
+        {
+          "text": "我希望下次見妳，不需要任何事故。",
+          "next": "c7a",
+          "effects": {
+            "heart": 3,
+            "trust": 2
+          }
+        },
+        {
+          "text": "其實我只是越來越喜歡住在妳隔壁。",
+          "next": "c7b",
+          "effects": {
+            "heart": 2,
+            "trust": 3
+          }
+        },
+        {
+          "text": "下次警報算我的，我負責帶咖啡。",
+          "next": "c7c",
+          "effects": {
+            "heart": 1,
+            "chaos": 3
+          }
+        }
       ]
     },
     "c7a": {
@@ -632,7 +1146,13 @@
       "text": "那下次就直接敲門。\n沒有事故也可以。",
       "chapter": 7,
       "tone": "soft",
-      "visual": { "mode": "cg", "asset": "cg.ch02.rooftop_night", "effects": { "push": true } },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch02.rooftop_night",
+        "effects": {
+          "push": true
+        }
+      },
       "next": "apartment_invite"
     },
     "c7b": {
@@ -640,7 +1160,13 @@
       "text": "我住隔壁。\n你其實可以不用想這麼多理由。",
       "chapter": 7,
       "tone": "soft",
-      "visual": { "mode": "cg", "asset": "cg.ch02.rooftop_night", "effects": { "push": true } },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch02.rooftop_night",
+        "effects": {
+          "push": true
+        }
+      },
       "next": "apartment_invite"
     },
     "c7c": {
@@ -648,7 +1174,13 @@
       "text": "先戒掉警報，再談續杯。\n\n不過咖啡可以保留。",
       "chapter": 7,
       "tone": "light",
-      "visual": { "mode": "cg", "asset": "cg.ch02.rooftop_night", "effects": { "push": true } },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch02.rooftop_night",
+        "effects": {
+          "push": true
+        }
+      },
       "next": "apartment_invite"
     },
     "apartment_invite": {
@@ -656,7 +1188,10 @@
       "text": "我家還有一瓶剛開的酒。\n\n她晃了晃手裡的香檳杯，語氣仍然平靜。\n\n許棠：警報把晚餐打斷了。你要不要進來，幫我把它喝完？",
       "chapter": 8,
       "tone": "soft",
-      "visual": { "mode": "cg", "asset": "cg.ch02.rooftop_night" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch02.rooftop_night"
+      },
       "next": "living_intro"
     },
     "living_intro": {
@@ -665,25 +1200,59 @@
       "chapter": 8,
       "tone": "soft",
       "moment": "第一次走進她的私人空間。",
-      "visual": { "mode": "cg", "asset": "cg.ch03.living_room_wine", "effects": { "push": true } },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch03.living_room_wine",
+        "effects": {
+          "push": true
+        }
+      },
       "next": "living_line"
     },
     "living_line": {
       "speaker": "許棠",
       "text": "先說好，這不是住戶義務。\n\n她倚著吧台看你，指尖輕輕扶著杯腳。\n\n許棠：只是今晚……我不太想一個人把它喝完。",
       "chapter": 8,
-      "visual": { "mode": "cg", "asset": "cg.ch03.living_room_wine" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch03.living_room_wine"
+      },
       "next": "choice8"
     },
     "choice8": {
       "speaker": "你",
       "text": "",
       "chapter": 8,
-      "visual": { "mode": "cg", "asset": "cg.ch03.living_room_wine" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch03.living_room_wine"
+      },
       "choices": [
-        { "text": "我以為妳不會邀請事故製造者進門。", "next": "c8a", "effects": { "heart": 1, "chaos": 1, "comfort": 1 } },
-        { "text": "妳今天很好看。我剛才一直忍著沒說。", "next": "c8b", "effects": { "heart": 3, "comfort": 1 } },
-        { "text": "如果妳只是想找人陪，我可以安靜一點。", "next": "c8c", "effects": { "trust": 2, "comfort": 2 } }
+        {
+          "text": "我以為妳不會邀請事故製造者進門。",
+          "next": "c8a",
+          "effects": {
+            "heart": 1,
+            "chaos": 1,
+            "comfort": 1
+          }
+        },
+        {
+          "text": "妳今天很好看。我剛才一直忍著沒說。",
+          "next": "c8b",
+          "effects": {
+            "heart": 3,
+            "comfort": 1
+          }
+        },
+        {
+          "text": "如果妳只是想找人陪，我可以安靜一點。",
+          "next": "c8c",
+          "effects": {
+            "trust": 2,
+            "comfort": 2
+          }
+        }
       ]
     },
     "c8a": {
@@ -691,7 +1260,10 @@
       "text": "所以我把危險物品都收起來了。\n\n她看了你一眼，又補了一句。\n\n許棠：除了酒。",
       "chapter": 8,
       "tone": "light",
-      "visual": { "mode": "cg", "asset": "cg.ch03.living_room_wine" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch03.living_room_wine"
+      },
       "next": "art_reveal"
     },
     "c8b": {
@@ -699,7 +1271,10 @@
       "text": "你在屋頂忍得很好。\n\n她低頭抿了一口酒，晚了半拍才重新看你。\n\n許棠：現在可以不用忍。",
       "chapter": 8,
       "tone": "soft",
-      "visual": { "mode": "cg", "asset": "cg.ch03.living_room_wine" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch03.living_room_wine"
+      },
       "next": "art_reveal"
     },
     "c8c": {
@@ -707,7 +1282,10 @@
       "text": "嗯。\n\n她沒有立刻找話題，只把音樂調低，坐到你斜對面的地毯上。\n那段安靜第一次不需要任何人化解。",
       "chapter": 8,
       "tone": "soft",
-      "visual": { "mode": "cg", "asset": "cg.ch03.living_room_wine" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch03.living_room_wine"
+      },
       "next": "art_reveal"
     },
     "art_reveal": {
@@ -716,25 +1294,59 @@
       "chapter": 9,
       "tone": "soft",
       "moment": "她第一次讓你看見沒有展出的作品。",
-      "visual": { "mode": "cg", "asset": "cg.ch03.art_wall", "effects": { "push": true } },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch03.art_wall",
+        "effects": {
+          "push": true
+        }
+      },
       "next": "art_line"
     },
     "art_line": {
       "speaker": "許棠",
       "text": "大家都說它很完整。\n可我每次看，都覺得那個人其實是在等誰。\n\n她抬眼看你。\n\n許棠：可能因為拍照的人也是。",
       "chapter": 9,
-      "visual": { "mode": "cg", "asset": "cg.ch03.art_wall" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch03.art_wall"
+      },
       "next": "choice9"
     },
     "choice9": {
       "speaker": "你",
       "text": "",
       "chapter": 9,
-      "visual": { "mode": "cg", "asset": "cg.ch03.art_wall" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch03.art_wall"
+      },
       "choices": [
-        { "text": "妳不想解釋也沒關係。我陪妳看。", "next": "c9a", "effects": { "trust": 2, "comfort": 3 } },
-        { "text": "我想知道，妳為什麼沒有把它送出去。", "next": "c9b", "effects": { "heart": 1, "trust": 1, "comfort": 1 } },
-        { "text": "那間畫廊沒看到，是他們的損失。", "next": "c9c", "effects": { "heart": 2, "chaos": 1 } }
+        {
+          "text": "妳不想解釋也沒關係。我陪妳看。",
+          "next": "c9a",
+          "effects": {
+            "trust": 2,
+            "comfort": 3
+          }
+        },
+        {
+          "text": "我想知道，妳為什麼沒有把它送出去。",
+          "next": "c9b",
+          "effects": {
+            "heart": 1,
+            "trust": 1,
+            "comfort": 1
+          }
+        },
+        {
+          "text": "那間畫廊沒看到，是他們的損失。",
+          "next": "c9c",
+          "effects": {
+            "heart": 2,
+            "chaos": 1
+          }
+        }
       ]
     },
     "c9a": {
@@ -742,7 +1354,10 @@
       "text": "她看了你很久，然後把照片放到你們中間。\n\n許棠：你安靜下來的時候，意外地很可靠。",
       "chapter": 9,
       "tone": "soft",
-      "visual": { "mode": "cg", "asset": "cg.ch03.art_wall" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch03.art_wall"
+      },
       "next": "intimacy_gate"
     },
     "c9b": {
@@ -750,7 +1365,10 @@
       "text": "因為我不想再假裝它只是一張構圖漂亮的照片。\n\n她把杯子放下，聲音很輕。\n\n許棠：這個答案，只告訴你。",
       "chapter": 9,
       "tone": "soft",
-      "visual": { "mode": "cg", "asset": "cg.ch03.art_wall" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch03.art_wall"
+      },
       "next": "intimacy_gate"
     },
     "c9c": {
@@ -758,7 +1376,10 @@
       "text": "很會哄人。\n\n你：只哄住隔壁的。\n\n她忍著笑，卻沒有反駁。",
       "chapter": 9,
       "tone": "light",
-      "visual": { "mode": "cg", "asset": "cg.ch03.art_wall" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch03.art_wall"
+      },
       "next": "intimacy_gate"
     },
     "intimacy_gate": {
@@ -766,9 +1387,21 @@
       "cases": [
         {
           "conditions": [
-            { "stat": "comfort", "operator": ">=", "value": 4 },
-            { "stat": "trust", "operator": ">=", "value": 5 },
-            { "stat": "heart", "operator": ">=", "value": 10 }
+            {
+              "stat": "comfort",
+              "operator": ">=",
+              "value": 4
+            },
+            {
+              "stat": "trust",
+              "operator": ">=",
+              "value": 5
+            },
+            {
+              "stat": "heart",
+              "operator": ">=",
+              "value": 10
+            }
           ],
           "next": "close_conversation"
         }
@@ -781,25 +1414,61 @@
       "chapter": 9,
       "tone": "soft",
       "moment": "她把距離交給你們共同決定。",
-      "visual": { "mode": "cg", "asset": "cg.ch03.close_conversation", "effects": { "push": true } },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch03.close_conversation",
+        "effects": {
+          "push": true
+        }
+      },
       "next": "close_line"
     },
     "close_line": {
       "speaker": "許棠",
       "text": "你搬來才七天。\n\n你：後悔邀我進來？\n\n她看著你，輕輕搖頭。\n\n許棠：只是覺得……七天有點太快。可你坐在這裡，又剛剛好。",
       "chapter": 9,
-      "visual": { "mode": "cg", "asset": "cg.ch03.close_conversation" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch03.close_conversation"
+      },
       "next": "choice10"
     },
     "choice10": {
       "speaker": "你",
       "text": "",
       "chapter": 9,
-      "visual": { "mode": "cg", "asset": "cg.ch03.close_conversation" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch03.close_conversation"
+      },
       "choices": [
-        { "text": "問她：我可以再坐近一點嗎？", "next": "c10a", "effects": { "heart": 2, "trust": 2, "comfort": 2 } },
-        { "text": "不催她，把最後的距離留給她決定。", "next": "c10b", "effects": { "heart": 2, "trust": 2, "comfort": 2 } },
-        { "text": "提醒她：酒快醒完了。", "next": "c10c", "effects": { "heart": 1, "chaos": 2, "comfort": 1 } }
+        {
+          "text": "問她：我可以再坐近一點嗎？",
+          "next": "c10a",
+          "effects": {
+            "heart": 2,
+            "trust": 2,
+            "comfort": 2
+          }
+        },
+        {
+          "text": "不催她，把最後的距離留給她決定。",
+          "next": "c10b",
+          "effects": {
+            "heart": 2,
+            "trust": 2,
+            "comfort": 2
+          }
+        },
+        {
+          "text": "提醒她：酒快醒完了。",
+          "next": "c10c",
+          "effects": {
+            "heart": 1,
+            "chaos": 2,
+            "comfort": 1
+          }
+        }
       ]
     },
     "c10a": {
@@ -807,7 +1476,10 @@
       "text": "她沒有立刻回答，只把放在你們中間的抱枕拿開。\n\n許棠：你今天很會問對問題。\n\n窗外的雨聲忽然變得很遠。",
       "chapter": 9,
       "tone": "soft",
-      "visual": { "mode": "cg", "asset": "cg.ch03.close_conversation" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch03.close_conversation"
+      },
       "next": "relationship_pause"
     },
     "c10b": {
@@ -815,7 +1487,10 @@
       "text": "你沒有動。\n她看懂了，先把手放到你身旁的沙發上，指尖與你的手只差一點。\n\n許棠：這次換我。\n\n她主動靠近了半步。這次沒有停電，也沒有警報。",
       "chapter": 9,
       "tone": "soft",
-      "visual": { "mode": "cg", "asset": "cg.ch03.close_conversation" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch03.close_conversation"
+      },
       "next": "relationship_pause"
     },
     "c10c": {
@@ -823,7 +1498,10 @@
       "text": "這種時候，你只想到酒？\n\n你：我怕浪費妳的高級飲料。\n\n她笑出聲，身體卻沒有退回原來的位置。",
       "chapter": 9,
       "tone": "light",
-      "visual": { "mode": "cg", "asset": "cg.ch03.close_conversation" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch03.close_conversation"
+      },
       "next": "relationship_pause"
     },
     "relationship_pause": {
@@ -831,25 +1509,58 @@
       "text": "笑聲停下後，她仍坐得很近。窗上的雨痕把城市燈光拉得很長。\n\n她沒有躲開，只把酒杯推得更遠了一點。",
       "chapter": 10,
       "tone": "soft",
-      "visual": { "mode": "cg", "asset": "cg.ch03.close_conversation" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch03.close_conversation"
+      },
       "next": "relationship_line"
     },
     "relationship_line": {
       "speaker": "許棠",
       "text": "我不想明天醒來，再把今晚解釋成酒、警報，或者住戶義務。\n\n她直直看著你。\n\n許棠：你呢？你希望我們是什麼？",
       "chapter": 10,
-      "visual": { "mode": "cg", "asset": "cg.ch03.close_conversation" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch03.close_conversation"
+      },
       "next": "choice11"
     },
     "choice11": {
       "speaker": "你",
       "text": "",
       "chapter": 10,
-      "visual": { "mode": "cg", "asset": "cg.ch03.close_conversation" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch03.close_conversation"
+      },
       "choices": [
-        { "text": "我想和妳正式約會。不是以鄰居身分。", "next": "c11a", "effects": { "heart": 3, "trust": 2, "relationship": 1 } },
-        { "text": "如果我現在吻妳，明早還算第一次約會嗎？", "next": "c11b", "effects": { "heart": 2, "chaos": 2, "relationship": 1 } },
-        { "text": "先問她：妳希望我留下來嗎？", "next": "c11c", "effects": { "trust": 3, "comfort": 2, "relationship": 1 } }
+        {
+          "text": "我想和妳正式約會。不是以鄰居身分。",
+          "next": "c11a",
+          "effects": {
+            "heart": 3,
+            "trust": 2,
+            "relationship": 1
+          }
+        },
+        {
+          "text": "如果我現在吻妳，明早還算第一次約會嗎？",
+          "next": "c11b",
+          "effects": {
+            "heart": 2,
+            "chaos": 2,
+            "relationship": 1
+          }
+        },
+        {
+          "text": "先問她：妳希望我留下來嗎？",
+          "next": "c11c",
+          "effects": {
+            "trust": 3,
+            "comfort": 2,
+            "relationship": 1
+          }
+        }
       ]
     },
     "c11a": {
@@ -857,7 +1568,10 @@
       "text": "好。\n\n她回答得太快，自己先怔了一下，隨後又把視線放回你臉上。\n\n許棠：正式約會。也正式承認，我不是因為住得近才一直找你。",
       "chapter": 10,
       "tone": "soft",
-      "visual": { "mode": "cg", "asset": "cg.ch03.close_conversation" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch03.close_conversation"
+      },
       "next": "first_kiss"
     },
     "c11b": {
@@ -865,7 +1579,10 @@
       "text": "你連確認關係都要先算行程？\n\n你：所以是可以？\n\n她抬手輕輕抓住你的衣領，眼神沒有移開。\n\n許棠：明早再回答你第二個問題。",
       "chapter": 10,
       "tone": "light",
-      "visual": { "mode": "cg", "asset": "cg.ch03.close_conversation" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch03.close_conversation"
+      },
       "next": "first_kiss"
     },
     "c11c": {
@@ -873,7 +1590,10 @@
       "text": "想。\n\n她這次沒有加上「只是」或「順便」。\n\n許棠：而且我希望你不是因為我開口，才說想留下。",
       "chapter": 10,
       "tone": "soft",
-      "visual": { "mode": "cg", "asset": "cg.ch03.close_conversation" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch03.close_conversation"
+      },
       "next": "first_kiss"
     },
     "first_kiss": {
@@ -882,18 +1602,47 @@
       "chapter": 10,
       "tone": "soft",
       "moment": "關係已確認。",
-      "visual": { "mode": "cinematic", "asset": "cinematic.ch04.first_kiss" },
+      "visual": {
+        "mode": "cinematic",
+        "asset": "cinematic.ch04.first_kiss"
+      },
       "next": "choice12"
     },
     "choice12": {
       "speaker": "你",
       "text": "",
       "chapter": 10,
-      "visual": { "mode": "cg", "asset": "cg.ch03.close_conversation" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch03.close_conversation"
+      },
       "choices": [
-        { "text": "手停在她腰側，低聲問：可以繼續嗎？", "next": "c12a", "effects": { "heart": 2, "trust": 2, "comfort": 2 } },
-        { "text": "不急著追上去，把下一步留給她。", "next": "c12b", "effects": { "trust": 3, "comfort": 2 } },
-        { "text": "在她耳邊問：女朋友也會收咖啡費嗎？", "next": "c12c", "effects": { "heart": 2, "chaos": 2, "comfort": 1 } }
+        {
+          "text": "手停在她腰側，低聲問：可以繼續嗎？",
+          "next": "c12a",
+          "effects": {
+            "heart": 2,
+            "trust": 2,
+            "comfort": 2
+          }
+        },
+        {
+          "text": "不急著追上去，把下一步留給她。",
+          "next": "c12b",
+          "effects": {
+            "trust": 3,
+            "comfort": 2
+          }
+        },
+        {
+          "text": "在她耳邊問：女朋友也會收咖啡費嗎？",
+          "next": "c12c",
+          "effects": {
+            "heart": 2,
+            "chaos": 2,
+            "comfort": 1
+          }
+        }
       ]
     },
     "c12a": {
@@ -901,7 +1650,10 @@
       "text": "她的呼吸停了半拍，手指卻從你的衣領移到肩後。\n\n許棠：可以。\n\n她把答案說得很清楚，然後主動縮短剩下的距離。",
       "chapter": 10,
       "tone": "soft",
-      "visual": { "mode": "cg", "asset": "cg.ch03.close_conversation" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch03.close_conversation"
+      },
       "next": "hallway_pause"
     },
     "c12b": {
@@ -909,7 +1661,10 @@
       "text": "你沒有追。她退開一點，看了你兩秒，像在確認你真的會等。\n\n下一刻，她重新靠近，這次主動吻得更久。\n\n許棠：這樣算我回答了？",
       "chapter": 10,
       "tone": "soft",
-      "visual": { "mode": "cg", "asset": "cg.ch03.close_conversation" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch03.close_conversation"
+      },
       "next": "hallway_pause"
     },
     "c12c": {
@@ -917,7 +1672,10 @@
       "text": "她靠在你肩前笑了一聲，聲音比平常低。\n\n許棠：看表現。\n\n你：剛才的表現？\n\n她抬眼看你，沒有回答，只又吻了你一次。",
       "chapter": 10,
       "tone": "light",
-      "visual": { "mode": "cg", "asset": "cg.ch03.close_conversation" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch03.close_conversation"
+      },
       "next": "hallway_pause"
     },
     "hallway_pause": {
@@ -925,7 +1683,13 @@
       "text": "她起身時，緞面裙擺從膝側滑回原位。走到室內走廊入口，她才停下，回頭看你。\n\n沒有玩笑，也沒有催促。她只是把選擇留在那道暖光裡。",
       "chapter": 10,
       "tone": "soft",
-      "visual": { "mode": "cg", "asset": "cg.ch04.hallway_pause", "effects": { "push": true } },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch04.hallway_pause",
+        "effects": {
+          "push": true
+        }
+      },
       "next": "bedroom_pause"
     },
     "bedroom_pause": {
@@ -934,25 +1698,58 @@
       "chapter": 10,
       "tone": "soft",
       "moment": "她不再把靠近說成偶然。",
-      "visual": { "mode": "cg", "asset": "cg.ch04.bedroom_challenge", "effects": { "push": true } },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch04.bedroom_challenge",
+        "effects": {
+          "push": true
+        }
+      },
       "next": "hallway_line"
     },
     "hallway_line": {
       "speaker": "許棠",
       "text": "你現在還可以回 1703。\n明早我仍然會約你喝咖啡，也不會假裝今晚沒發生。\n\n她的眼神沒有移開。\n\n許棠：但如果留下，我希望你是真的想留下。",
       "chapter": 10,
-      "visual": { "mode": "cg", "asset": "cg.ch04.bedroom_challenge" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch04.bedroom_challenge"
+      },
       "next": "choice13"
     },
     "choice13": {
       "speaker": "你",
       "text": "",
       "chapter": 10,
-      "visual": { "mode": "cg", "asset": "cg.ch04.bedroom_challenge" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch04.bedroom_challenge"
+      },
       "choices": [
-        { "text": "走到她面前：我想留下。但我要妳也一樣想。", "next": "c13a", "effects": { "trust": 2, "comfort": 2 } },
-        { "text": "走到她面前，再問一次：可以嗎？", "next": "c13b", "effects": { "heart": 2, "trust": 2 } },
-        { "text": "先問：女朋友的第一條規定是什麼？", "next": "c13c", "effects": { "heart": 1, "chaos": 2 } }
+        {
+          "text": "走到她面前：我想留下。但我要妳也一樣想。",
+          "next": "c13a",
+          "effects": {
+            "trust": 2,
+            "comfort": 2
+          }
+        },
+        {
+          "text": "走到她面前，再問一次：可以嗎？",
+          "next": "c13b",
+          "effects": {
+            "heart": 2,
+            "trust": 2
+          }
+        },
+        {
+          "text": "先問：女朋友的第一條規定是什麼？",
+          "next": "c13c",
+          "effects": {
+            "heart": 1,
+            "chaos": 2
+          }
+        }
       ]
     },
     "c13a": {
@@ -960,7 +1757,10 @@
       "text": "我一樣想。\n\n她牽住你的手，這次沒有只抓袖口。\n\n許棠：答案夠清楚了嗎？",
       "chapter": 10,
       "tone": "soft",
-      "visual": { "mode": "cg", "asset": "cg.ch04.bedroom_challenge" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch04.bedroom_challenge"
+      },
       "next": "night_fade"
     },
     "c13b": {
@@ -968,7 +1768,10 @@
       "text": "她沒有用言語回答。\n她握住你的手，把你帶過那道門，然後才在你面前輕輕點頭。\n\n許棠：可以。",
       "chapter": 10,
       "tone": "soft",
-      "visual": { "mode": "cg", "asset": "cg.ch04.bedroom_challenge" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch04.bedroom_challenge"
+      },
       "next": "night_fade"
     },
     "c13c": {
@@ -976,7 +1779,10 @@
       "text": "不准再拿事故當見面理由。\n\n你：第二條？\n\n她微微偏頭，唇角的笑更明顯了一點。\n\n許棠：坐近一點再告訴你。",
       "chapter": 10,
       "tone": "light",
-      "visual": { "mode": "cg", "asset": "cg.ch04.bedroom_challenge" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch04.bedroom_challenge"
+      },
       "next": "night_fade"
     },
     "night_fade": {
@@ -984,7 +1790,10 @@
       "text": "她把燈調暗。房門在雨聲裡輕輕合上。\n\n那一晚，你們不只一次停下來確認，也不只一次重新靠近。她清冷的聲音離得很近，偶爾叫你的名字，偶爾又被你的回答逗得笑出聲。\n\n後來，誰都沒有再提鄰居義務。",
       "chapter": 10,
       "tone": "soft",
-      "visual": { "mode": "cg", "asset": "cg.ch04.bedroom_challenge" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch04.bedroom_challenge"
+      },
       "next": "morning_after"
     },
     "morning_after": {
@@ -993,7 +1802,13 @@
       "chapter": 11,
       "tone": "soft",
       "moment": "第一次在 1702 醒來。",
-      "visual": { "mode": "cg", "asset": "cg.ch04.sunday_morning", "effects": { "push": true } },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch04.sunday_morning",
+        "effects": {
+          "push": true
+        }
+      },
       "next": "morning_line"
     },
     "morning_line": {
@@ -1001,18 +1816,44 @@
       "text": "早。\n\n她把你的咖啡推過來，視線在你臉上停了幾秒。\n\n許棠：入住觀察期第八天。昨晚表現……可以續住。",
       "chapter": 11,
       "tone": "light",
-      "visual": { "mode": "cg", "asset": "cg.ch04.sunday_morning" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch04.sunday_morning"
+      },
       "next": "choice14"
     },
     "choice14": {
       "speaker": "你",
       "text": "",
       "chapter": 11,
-      "visual": { "mode": "cg", "asset": "cg.ch04.sunday_morning" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch04.sunday_morning"
+      },
       "choices": [
-        { "text": "所以，我現在是妳男朋友？", "next": "c14a", "effects": { "heart": 2, "trust": 1 } },
-        { "text": "女朋友，早安。", "next": "c14b", "effects": { "heart": 3 } },
-        { "text": "那我需要回 1703 拿泡麵當早餐嗎？", "next": "c14c", "effects": { "heart": 1, "chaos": 2 } }
+        {
+          "text": "所以，我現在是妳男朋友？",
+          "next": "c14a",
+          "effects": {
+            "heart": 2,
+            "trust": 1
+          }
+        },
+        {
+          "text": "女朋友，早安。",
+          "next": "c14b",
+          "effects": {
+            "heart": 3
+          }
+        },
+        {
+          "text": "那我需要回 1703 拿泡麵當早餐嗎？",
+          "next": "c14c",
+          "effects": {
+            "heart": 1,
+            "chaos": 2
+          }
+        }
       ]
     },
     "c14a": {
@@ -1020,7 +1861,10 @@
       "text": "是。\n\n她端起自己的咖啡，耳尖又有一點紅。\n\n許棠：但你還是住隔壁。暫時。",
       "chapter": 11,
       "tone": "soft",
-      "visual": { "mode": "cg", "asset": "cg.ch04.sunday_morning" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch04.sunday_morning"
+      },
       "next": "route"
     },
     "c14b": {
@@ -1028,7 +1872,10 @@
       "text": "……早安。\n\n她本來想維持平靜，最後還是笑了。\n\n許棠：男朋友，咖啡冷了自己負責。",
       "chapter": 11,
       "tone": "soft",
-      "visual": { "mode": "cg", "asset": "cg.ch04.sunday_morning" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch04.sunday_morning"
+      },
       "next": "route"
     },
     "c14c": {
@@ -1036,7 +1883,10 @@
       "text": "她把剛烤好的可頌往你面前一推。\n\n許棠：敢在我家第一頓早餐吃泡麵，我就重新評估這段關係。\n\n語氣很冷，笑意完全不是。",
       "chapter": 11,
       "tone": "light",
-      "visual": { "mode": "cg", "asset": "cg.ch04.sunday_morning" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch04.sunday_morning"
+      },
       "next": "route"
     },
     "soft_goodnight": {
@@ -1044,9 +1894,100 @@
       "text": "今晚先到這裡。\n\n她把那張照片交給你，送你到門邊。\n\n許棠：明早 7:40。不要遲到。\n\n門關上前，她又補了一句。\n\n許棠：照片下次還我。親自。",
       "chapter": 9,
       "tone": "soft",
-      "visual": { "mode": "cg", "asset": "cg.ch03.art_wall" },
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.ch03.art_wall"
+      },
       "next": "route"
     },
-    "route": { "type": "route" }
+    "route": {
+      "type": "route"
+    },
+    "office_intro": {
+      "speaker": "旁白",
+      "text": "電梯門快要合上時，一位抱著資料夾、剛加完班的辦公族女性快步趕來。你伸手替她按住開門鍵，她踩著高跟鞋進了電梯。",
+      "chapter": 1,
+      "moment": "一段尚未命名的偶遇。",
+      "mapLabel": "遇見辦公族 OL",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.elevator.normal",
+        "sprites": [
+          {
+            "asset": "sprite.office_ol.office.neutral",
+            "position": "right"
+          }
+        ]
+      },
+      "next": "office_line"
+    },
+    "office_line": {
+      "speaker": "辦公族 OL",
+      "text": "謝謝，差一點就要再等一部電梯了。",
+      "chapter": 1,
+      "mapLabel": "短暫道謝",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.elevator.normal",
+        "sprites": [
+          {
+            "asset": "sprite.office_ol.office.playful",
+            "position": "right"
+          }
+        ]
+      },
+      "next": "office_choice"
+    },
+    "office_choice": {
+      "speaker": "你",
+      "text": "她低頭確認資料夾，電梯裡只剩下短短幾秒的安靜。",
+      "chapter": 1,
+      "mapLabel": "電梯裡的幾秒",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.elevator.normal",
+        "sprites": [
+          {
+            "asset": "sprite.office_ol.office.playful",
+            "position": "right"
+          }
+        ]
+      },
+      "choices": [
+        {
+          "text": "不用客氣，夜裡大家都在趕回家。",
+          "next": "office_close",
+          "effects": {
+            "officeRoute": 1,
+            "comfort": 1
+          },
+          "mapLabel": "禮貌回應"
+        },
+        {
+          "text": "下次記得先按住門，這棟樓的電梯很有自己的想法。",
+          "next": "office_close",
+          "effects": {
+            "officeRoute": 1,
+            "chaos": 1
+          },
+          "mapLabel": "開個玩笑"
+        }
+      ]
+    },
+    "office_close": {
+      "speaker": "辦公族 OL",
+      "text": "她抬頭笑了一下，對你點點頭。\n\n辦公族 OL：那就下次見。",
+      "chapter": 1,
+      "mapLabel": "走廊道別",
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.office_ol.hallway"
+      },
+      "next": "office_route"
+    },
+    "office_route": {
+      "type": "route",
+      "mapLabel": "辦公族 OL 支線結束"
+    }
   }
 }

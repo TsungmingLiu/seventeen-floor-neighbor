@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "defaultRoute": "xu-tang",
+  "routes": [
+    {
+      "id": "xu-tang",
+      "label": "許棠・完整路線",
+      "titlePrefix": "17樓的",
+      "titleMain": "新鄰居",
+      "eyebrow": "第一人稱互動戀愛喜劇",
+      "premise": "搬家第一晚，你把行李卡進消防門，還在停電的電梯裡遇見了住隔壁的她。",
+      "startLabel": "按門鈴",
+      "hint": "你的選擇會改變她對這位新鄰居的第一印象。",
+      "titleAlt": "雨夜公寓走廊裡的新鄰居許棠",
+      "endingAlt": "許棠路線結局畫面",
+      "accent": "#ff7898"
+    }
+  ]
+}

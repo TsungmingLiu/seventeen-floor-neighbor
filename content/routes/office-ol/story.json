@@ -1,0 +1,56 @@
+{
+  "nodes": {
+    "office_intro": {
+      "speaker": "旁白",
+      "text": "電梯門快要合上時，一位抱著資料夾、剛加完班的辦公族女性快步趕來。你伸手替她按住開門鍵，她踩著高跟鞋進了電梯。",
+      "chapter": 1,
+      "moment": "一段尚未命名的偶遇。",
+      "mapLabel": "遇見辦公族 OL",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.elevator.normal",
+        "sprites": [{ "asset": "sprite.office_ol.office.neutral", "position": "right" }]
+      },
+      "next": "office_line"
+    },
+    "office_line": {
+      "speaker": "辦公族 OL",
+      "text": "謝謝，差一點就要再等一部電梯了。",
+      "chapter": 1,
+      "mapLabel": "短暫道謝",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.elevator.normal",
+        "sprites": [{ "asset": "sprite.office_ol.office.playful", "position": "right" }]
+      },
+      "next": "office_choice"
+    },
+    "office_choice": {
+      "speaker": "你",
+      "text": "她低頭確認資料夾，電梯裡只剩下短短幾秒的安靜。",
+      "chapter": 1,
+      "mapLabel": "電梯裡的幾秒",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.elevator.normal",
+        "sprites": [{ "asset": "sprite.office_ol.office.playful", "position": "right" }]
+      },
+      "choices": [
+        { "text": "不用客氣，夜裡大家都在趕回家。", "next": "office_close", "effects": { "officeRoute": 1, "comfort": 1 }, "mapLabel": "禮貌回應" },
+        { "text": "下次記得先按住門，這棟樓的電梯很有自己的想法。", "next": "office_close", "effects": { "officeRoute": 1, "chaos": 1 }, "mapLabel": "開個玩笑" }
+      ]
+    },
+    "office_close": {
+      "speaker": "辦公族 OL",
+      "text": "她抬頭笑了一下，對你點點頭。\n\n辦公族 OL：那就下次見。",
+      "chapter": 1,
+      "mapLabel": "走廊道別",
+      "visual": { "mode": "cg", "asset": "cg.office_ol.hallway" },
+      "next": "office_route"
+    },
+    "office_route": {
+      "type": "route",
+      "mapLabel": "辦公族 OL 支線結束"
+    }
+  }
+}

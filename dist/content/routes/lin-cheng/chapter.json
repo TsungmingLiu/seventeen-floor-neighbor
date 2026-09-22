@@ -1,0 +1,319 @@
+{
+  "title": "17樓的夜班聲音",
+  "startNode": "night_intro",
+  "titleArt": "cg.lin_cheng.rooftop_recording",
+  "endingArt": "cg.lin_cheng.shared_headphones",
+  "chapterLabels": [
+    "凌晨",
+    "錄音",
+    "屋頂",
+    "天亮"
+  ],
+  "initialState": {
+    "curiosity": 0,
+    "trust": 0,
+    "warmth": 0
+  },
+  "endingRules": [
+    {
+      "ending": "same_track",
+      "default": true
+    }
+  ],
+  "endings": {
+    "same_track": {
+      "title": "同一段聲音",
+      "art": "cg.lin_cheng.shared_headphones",
+      "text": "耳機裡先是風，接著是遠處第一班公車的煞車聲。\n\n你以為她錄的是城市。直到音軌裡傳來自己剛才的一聲笑。\n\n林澄：這段我不剪掉。\n你：算版權費嗎？\n林澄：算。明晚同一時間，再錄一段。\n\n天色慢慢亮起。你們仍各戴著一邊耳機，像暫時共用著同一個清晨。"
+    }
+  },
+  "id": "lin-cheng",
+  "nodes": {
+    "night_intro": {
+      "speaker": "旁白",
+      "text": "凌晨 1:17。\n你下樓拿外送，電梯門打開時，裡面站著一個戴著耳機的女人。她腳邊只有一只紙箱，箱子上放著一台銀色錄音機。",
+      "chapter": 0,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.elevator.normal",
+        "sprites": []
+      },
+      "next": "elevator_meet"
+    },
+    "elevator_meet": {
+      "speaker": "林澄",
+      "text": "十七樓？\n正好。可以幫我聽一件事嗎？",
+      "chapter": 0,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.elevator.normal",
+        "sprites": [
+          {
+            "asset": "sprite.lin_cheng.night.neutral",
+            "position": "right"
+          }
+        ]
+      },
+      "next": "first_choice"
+    },
+    "first_choice": {
+      "speaker": "你",
+      "text": "",
+      "chapter": 0,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.elevator.normal",
+        "sprites": [
+          {
+            "asset": "sprite.lin_cheng.night.neutral",
+            "position": "right"
+          }
+        ]
+      },
+      "choices": [
+        {
+          "text": "如果不是電梯的異音，我可以。",
+          "next": "first_dry",
+          "effects": {
+            "warmth": 1,
+            "trust": 1
+          }
+        },
+        {
+          "text": "妳通常都這樣找剛認識的人試聽？",
+          "next": "first_curious",
+          "effects": {
+            "curiosity": 2
+          }
+        },
+        {
+          "text": "先說要去哪裡。",
+          "next": "first_careful",
+          "effects": {
+            "trust": 2
+          }
+        }
+      ]
+    },
+    "first_dry": {
+      "speaker": "林澄",
+      "text": "不是。電梯的低頻很乾淨。\n比你想像中健康。",
+      "chapter": 0,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.elevator.normal",
+        "sprites": [
+          {
+            "asset": "sprite.lin_cheng.night.neutral",
+            "position": "right"
+          }
+        ]
+      },
+      "next": "name_exchange"
+    },
+    "first_curious": {
+      "speaker": "林澄",
+      "text": "只找看起來會說實話的人。\n目前樣本數是一。",
+      "chapter": 0,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.elevator.normal",
+        "sprites": [
+          {
+            "asset": "sprite.lin_cheng.night.neutral",
+            "position": "right"
+          }
+        ]
+      },
+      "next": "name_exchange"
+    },
+    "first_careful": {
+      "speaker": "林澄",
+      "text": "屋頂。門不會鎖，監視器也照得到。\n你可以只聽三十秒。",
+      "chapter": 0,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.elevator.normal",
+        "sprites": [
+          {
+            "asset": "sprite.lin_cheng.night.neutral",
+            "position": "right"
+          }
+        ]
+      },
+      "next": "name_exchange"
+    },
+    "name_exchange": {
+      "speaker": "林澄",
+      "text": "林澄，1704。做聲音剪輯。\n我想錄到這棟樓凌晨一點以後真正安靜的樣子。",
+      "chapter": 1,
+      "moment": "1704 的新住戶。",
+      "tone": "soft",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.elevator.normal",
+        "sprites": [
+          {
+            "asset": "sprite.lin_cheng.night.neutral",
+            "position": "right"
+          }
+        ]
+      },
+      "next": "rooftop_arrival"
+    },
+    "rooftop_arrival": {
+      "speaker": "旁白",
+      "text": "雨剛停。屋頂的水窪收著城市的燈。\n她戴上一邊耳機，把錄音機朝向遠處。",
+      "chapter": 2,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.lin_cheng.rooftop_recording"
+      },
+      "next": "rooftop_line"
+    },
+    "rooftop_line": {
+      "speaker": "林澄",
+      "text": "閉上眼。\n告訴我，你聽到最遠的聲音是什麼。",
+      "chapter": 2,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.lin_cheng.rooftop_recording",
+        "effects": {
+          "push": true
+        }
+      },
+      "next": "sound_choice"
+    },
+    "sound_choice": {
+      "speaker": "你",
+      "text": "",
+      "chapter": 2,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.lin_cheng.rooftop_recording"
+      },
+      "choices": [
+        {
+          "text": "高架橋上，輪胎經過積水。",
+          "next": "sound_distance",
+          "effects": {
+            "curiosity": 2,
+            "trust": 1
+          }
+        },
+        {
+          "text": "妳的外套袖口擦過錄音機。",
+          "next": "sound_close",
+          "effects": {
+            "warmth": 2,
+            "curiosity": 1
+          }
+        },
+        {
+          "text": "什麼都沒有。這樣不是很好嗎？",
+          "next": "sound_silence",
+          "effects": {
+            "trust": 1
+          }
+        }
+      ]
+    },
+    "sound_distance": {
+      "speaker": "林澄",
+      "text": "兩個街區外。\n你比我預期的聽得更仔細。",
+      "chapter": 2,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.lin_cheng.rooftop_recording"
+      },
+      "next": "playback"
+    },
+    "sound_close": {
+      "speaker": "林澄",
+      "text": "那不是最遠的。\n不過……是我剛才漏掉的。",
+      "chapter": 2,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.lin_cheng.rooftop_recording"
+      },
+      "next": "playback"
+    },
+    "sound_silence": {
+      "speaker": "林澄",
+      "text": "真正的安靜不是沒有聲音。\n是沒有任何聲音逼你回答。",
+      "chapter": 2,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.lin_cheng.rooftop_recording"
+      },
+      "next": "playback"
+    },
+    "playback": {
+      "speaker": "旁白",
+      "text": "她按下停止，把耳機線拉長。\n其中一邊仍戴在她耳上，另一邊停在你面前。",
+      "chapter": 3,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.lin_cheng.shared_headphones"
+      },
+      "next": "sound_branch"
+    },
+    "sound_branch": {
+      "type": "branch",
+      "cases": [
+        {
+          "conditions": [
+            {
+              "stat": "warmth",
+              "operator": ">=",
+              "value": 2
+            }
+          ],
+          "next": "warm_response"
+        }
+      ],
+      "default": "quiet_response"
+    },
+    "warm_response": {
+      "speaker": "林澄",
+      "text": "你剛才說得對。\n衣袖那一下，留著比城市好聽。",
+      "chapter": 3,
+      "tone": "soft",
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.lin_cheng.shared_headphones",
+        "effects": {
+          "push": true
+        }
+      },
+      "next": "dawn_line"
+    },
+    "quiet_response": {
+      "speaker": "林澄",
+      "text": "不用找答案。\n聽完這三十秒就好。",
+      "chapter": 3,
+      "tone": "soft",
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.lin_cheng.shared_headphones",
+        "effects": {
+          "push": true
+        }
+      },
+      "next": "dawn_line"
+    },
+    "dawn_line": {
+      "speaker": "旁白",
+      "text": "遠處傳來第一班公車。她沒有收回耳機。\n城市開始醒來，而你們把同一段安靜又聽了一遍。",
+      "chapter": 3,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.lin_cheng.shared_headphones"
+      },
+      "next": "finish"
+    },
+    "finish": {
+      "type": "route"
+    }
+  }
+}

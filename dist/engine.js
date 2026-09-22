@@ -1,3 +1,7 @@
+import { ProgressStore } from './progress.js?v=64605492fc64';
+import { paintPreview, paintSprites, resolveVisual, setImage } from './visuals.js?v=64605492fc64';
+import { renderBranches } from './branches.js?v=64605492fc64';
+
 export class GameEngine {
   constructor({ chapter, assetManifest, sceneLibrary }) {
     this.chapter = chapter;
@@ -11,6 +15,8 @@ export class GameEngine {
     this.audioContext = null;
     this.currentSpriteSignature = '';
     this.returnNodes = [];
+    this.progress = new ProgressStore(chapter);
+    this.previousNode = null;
     this.cgStorageKey = `${chapter.id}:cgUnlocks`;
     this.galleryEntries = Object.entries(this.assets)
       .filter(([, asset]) => ['cg', 'cinematic'].includes(asset.kind) && asset.gallery)
@@ -41,6 +47,13 @@ export class GameEngine {
       track: $('#chapter-track'),
       moment: $('#moment-card'),
       titleArt: $('#title-art'),
+      titleCharacters: $('#title-character-layer'),
+      resumeLabel: $('#resume-label'),
+      branches: $('#branches-screen'),
+      branchesButton: $('#branches-button'),
+      branchesBack: $('#branches-back'),
+      branchList: $('#branch-list'),
+      branchSummary: $('#branch-summary'),
       endingArt: $('#ending-art'),
       endingTitle: $('#ending-title'),
       endingText: $('#ending-text'),
@@ -80,24 +93,26 @@ export class GameEngine {
   }
 
   mount() {
-    const titleArt = this.asset(this.chapter.titleArt, 'cg');
     const endingArt = this.asset(this.chapter.endingArt, 'cg');
-    this.els.titleArt.src = titleArt.src;
-    this.els.endingArt.src = endingArt.src;
+    setImage(this.els.endingArt, endingArt.src, endingArt.focus);
     this.migrateCGUnlocks();
-    this.unlockCG(this.chapter.titleArt);
+    this.updateGalleryProgress();
     this.els.startButton.disabled = false;
-    this.els.startButton.textContent = '按門鈴';
+    this.refreshTitle();
     this.bindEvents();
     this.updateMute();
-    this.preloadAssets();
   }
 
   bindEvents() {
-    this.els.startButton.addEventListener('click', () => this.startGame());
-    document.querySelector('#replay-button').addEventListener('click', () => this.startGame());
+    this.els.startButton.addEventListener('click', () => this.resumeGame());
+    document.querySelector('#replay-button').addEventListener('click', () => this.openBranches());
     document.querySelector('#home-button').addEventListener('click', () => this.showOnly(this.els.title));
-    document.querySelector('#restart-button').addEventListener('click', () => this.startGame());
+    document.querySelector('#game-home-button').addEventListener('click', () => this.showOnly(this.els.title));
+    this.els.branchesButton.addEventListener('click', () => this.openBranches());
+    this.els.branchesBack.addEventListener('click', () => {
+      this.showOnly(this.els.title);
+      this.els.branchesButton.focus({ preventScroll: true });
+    });
     this.els.galleryButton.addEventListener('click', () => this.openGallery());
     this.els.galleryBack.addEventListener('click', () => this.closeGallery());
     this.els.viewerClose.addEventListener('click', () => this.closeViewer());
@@ -148,9 +163,14 @@ export class GameEngine {
   }
 
   showOnly(screen) {
-    [this.els.title, this.els.game, this.els.ending, this.els.gallery]
+    if (screen !== this.els.game) {
+      this.typingToken += 1;
+      this.isTyping = false;
+      this.stopCinematic();
+    }
+    [this.els.title, this.els.game, this.els.ending, this.els.gallery, this.els.branches]
       .forEach((element) => element.classList.toggle('is-hidden', element !== screen));
-    if (screen === this.els.title) this.updateGalleryProgress();
+    if (screen === this.els.title) { this.updateGalleryProgress(); this.refreshTitle(); }
   }
 
   updateMute() {
@@ -174,7 +194,7 @@ export class GameEngine {
 
   migrateCGUnlocks() {
     if (localStorage.getItem(this.cgStorageKey) !== null) return;
-    const unlocked = new Set([this.chapter.titleArt]);
+    const unlocked = new Set();
     const completed = localStorage.getItem(`${this.chapter.id}:completed`) === '1';
     const endings = this.storedSet(`${this.chapter.id}:endings`);
     if (completed) {
@@ -241,7 +261,7 @@ export class GameEngine {
       art.className = 'cg-card-art';
       if (isUnlocked) {
         const image = document.createElement('img');
-        image.src = entry.kind === 'cinematic' ? entry.poster : entry.src;
+        setImage(image, entry.kind === 'cinematic' ? entry.poster : entry.src, entry.focus);
         image.alt = '';
         image.loading = 'lazy';
         const focus = entry.focus || { x: 50, y: 50 };
@@ -320,7 +340,7 @@ export class GameEngine {
     } else {
       this.els.viewerVideo.classList.add('is-hidden');
       this.els.viewerImage.classList.remove('is-hidden');
-      this.els.viewerImage.src = entry.src;
+      setImage(this.els.viewerImage, entry.src, entry.focus);
       this.els.viewerImage.alt = entry.gallery.title;
     }
     this.els.viewerTitle.textContent = entry.gallery.title;
@@ -438,7 +458,7 @@ export class GameEngine {
   setScene(asset, visual) {
     if (this.els.scene.dataset.assetId !== visual.assetId) {
       this.els.scene.classList.remove('is-loaded');
-      this.els.scene.src = asset.src;
+      setImage(this.els.scene, asset.src, visual.focus || asset.focus);
       this.els.scene.dataset.assetId = visual.assetId;
       this.els.scene.onload = () => this.els.scene.classList.add('is-loaded');
       if (this.els.scene.complete) this.els.scene.classList.add('is-loaded');
@@ -452,32 +472,23 @@ export class GameEngine {
     const signature = JSON.stringify(sprites);
     if (signature === this.currentSpriteSignature) return;
     this.currentSpriteSignature = signature;
-    this.els.characterLayer.replaceChildren();
-    sprites.forEach((spriteSpec) => {
-      const asset = this.asset(spriteSpec.asset, 'sprite');
-      const image = document.createElement('img');
-      image.className = `character-image position-${spriteSpec.position || 'right'}`;
-      image.src = asset.src;
-      image.alt = '';
-      image.dataset.assetId = spriteSpec.asset;
-      this.els.characterLayer.append(image);
-      requestAnimationFrame(() => image.classList.add('is-visible'));
-    });
+    paintSprites(this.els.characterLayer, sprites, this.assets);
   }
 
   renderVisual(visual) {
     if (!visual) return;
+    const resolved = resolveVisual(visual, this.assets);
     const effects = visual.effects || {};
     if (visual.mode === 'cg') {
       this.stopCinematic();
       const asset = this.asset(visual.asset, 'cg');
       this.unlockCG(visual.asset);
-      this.setScene(asset, { ...visual, assetId: visual.asset });
+      this.setScene({ ...asset, src: resolved.src, focus: resolved.focus }, { ...visual, assetId: resolved.id });
       this.renderSprites([]);
     } else if (visual.mode === 'composite') {
       this.stopCinematic();
       const background = this.asset(visual.background, 'background');
-      this.setScene(background, { ...visual, assetId: visual.background });
+      this.setScene({ ...background, src: resolved.src, focus: resolved.focus }, { ...visual, assetId: resolved.id });
       this.renderSprites(visual.sprites || []);
     } else if (visual.mode === 'cinematic') {
       const asset = this.asset(visual.asset, 'cinematic');
@@ -575,6 +586,8 @@ export class GameEngine {
   render() {
     const node = this.chapter.nodes[this.nodeId];
     if (!node) throw new Error(`Unknown story node: ${this.nodeId}`);
+    this.progress.connect(this.previousNode, this.nodeId);
+    this.previousNode = this.nodeId;
     if (node.type === 'random') {
       const pool = this.scenePools[node.pool];
       if (!pool?.entries?.length) throw new Error(`Unknown or empty random pool: ${node.pool}`);
@@ -604,9 +617,11 @@ export class GameEngine {
       return;
     }
     if (node.type === 'route') {
+      this.progress.capture(this.nodeId, this.state, this.returnNodes);
       this.finish();
       return;
     }
+    this.progress.capture(this.nodeId, this.state, this.returnNodes);
     this.els.choices.classList.add('is-hidden');
     this.els.choices.replaceChildren();
     this.els.speaker.textContent = node.speaker || '旁白';
@@ -657,13 +672,13 @@ export class GameEngine {
     const endingArt = this.asset(ending.art || this.chapter.endingArt, 'cg');
     this.unlockCG(ending.art || this.chapter.endingArt);
     const storageKey = `${this.chapter.id}:endings`;
-    const unlocked = new Set(JSON.parse(localStorage.getItem(storageKey) || '[]'));
+    const unlocked = this.storedSet(storageKey);
     unlocked.add(key);
     localStorage.setItem(storageKey, JSON.stringify([...unlocked]));
     localStorage.setItem(`${this.chapter.id}:completed`, '1');
     this.els.endingTitle.textContent = ending.title;
     this.els.endingText.textContent = ending.text;
-    this.els.endingArt.src = endingArt.src;
+    setImage(this.els.endingArt, endingArt.src, endingArt.focus);
     const focus = endingArt.focus || { x: 55, y: 42 };
     this.els.endingArt.style.objectPosition = `${focus.x}% ${focus.y}%`;
     this.els.endingCount.textContent = `已解鎖 ${unlocked.size} / ${Object.keys(this.chapter.endings).length} 個結局`;
@@ -676,7 +691,51 @@ export class GameEngine {
     this.state = this.createInitialState();
     this.returnNodes = [];
     this.nodeId = this.chapter.startNode;
+    this.previousNode = null;
     this.showOnly(this.els.game);
     this.render();
+  }
+
+  resumeGame(snapshot = this.progress.data.current) {
+    const restored = this.progress.restore(snapshot);
+    if (!restored) return this.startGame();
+    this.stopCinematic();
+    Object.assign(this, restored);
+    this.previousNode = null;
+    this.showOnly(this.els.game);
+    this.render();
+  }
+
+  refreshTitle() {
+    const snapshot = this.progress.data.current;
+    const node = this.chapter.nodes[snapshot?.nodeId || this.chapter.startNode];
+    let visual = node?.visual;
+    let label = node.mapLabel || node.moment || this.chapter.chapterLabels[node.chapter || 0] || '故事節點';
+    if (node?.type === 'route' && snapshot) {
+      const savedState = this.state;
+      this.state = this.progress.restore(snapshot).state;
+      const ending = this.chapter.endings[this.resolveEnding()];
+      this.state = savedState;
+      visual = { mode: 'cg', asset: ending.art || this.chapter.endingArt };
+      label = ending.title;
+    }
+    paintPreview(this.els.titleArt, this.els.titleCharacters, visual, this.assets);
+    this.els.titleArt.alt = '續玩後的故事畫面';
+    this.els.startButton.textContent = snapshot ? '續玩' : '開始故事';
+    this.els.resumeLabel.textContent = snapshot
+      ? `上次停在：${label}${this.progress.persisted === false ? '（儲存空間無法寫入）' : ''}`
+      : '從搬進17樓的那一天開始';
+  }
+
+  openBranches() {
+    renderBranches({ chapter: this.chapter, pools: this.scenePools, assets: this.assets,
+      progress: this.progress, unlocked: this.unlockedCGs(), container: this.els.branchList,
+      summary: this.els.branchSummary, onResume: id => {
+        if (id === this.chapter.startNode) this.startGame();
+        else this.resumeGame(this.progress.data.checkpoints[id]);
+      } });
+    this.showOnly(this.els.branches);
+    this.els.branchesBack.focus({ preventScroll: true });
+    this.els.branchList.querySelector('.is-current')?.scrollIntoView({ block: 'center' });
   }
 }
