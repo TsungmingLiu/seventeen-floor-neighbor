@@ -23,7 +23,7 @@
 
 ## 動態回憶
 
-`cinematic` 資產在 manifest 中保存 `poster`、`sources.webm`、`sources.mp4`、`duration` 與收藏資料；可重建關鍵幀放在 `content/cinematics/`。引擎播放時暫時隱藏對話框，提供跳過按鈕，結束後顯示本節文字；收藏檢視器可再次播放。首段 `cinematic.ch04.first_kiss` 以三個鏡頭合成 10 秒片段，採遠景剪影避免長鏡頭的人臉漂移。
+`cinematic` 資產在 manifest 中保存 `cinematicVersion`、`poster`、`sources.webm`、`sources.mp4`、`duration` 與收藏資料；可重建關鍵幀放在 `content/cinematics/`。引擎播放時暫時隱藏對話框，提供跳過按鈕，結束後顯示本節文字；收藏檢視器可再次播放。首段 `cinematic.ch04.first_kiss` 使用四張身份鎖定的第一視角近距離關鍵幀，依序呈現對視、撩髮、閉眼與微嘟嘴靠近；先以動作補償插值至 48fps，再重定時為 24fps／10 秒，以兼顧動作連續與臉部一致性。
 
 ## 約會場景池
 

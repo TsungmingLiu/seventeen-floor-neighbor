@@ -1,5 +1,5 @@
 {
-  "manifestVersion": 6,
+  "manifestVersion": 7,
   "assets": {
     "bg.elevator.normal": {
       "kind": "background",
@@ -260,6 +260,7 @@
     },
     "cinematic.ch04.first_kiss": {
       "kind": "cinematic",
+      "cinematicVersion": 2,
       "poster": "assets/mv-first-kiss-poster.jpg",
       "sources": {
         "webm": "assets/mv-first-kiss.webm",

@@ -267,6 +267,8 @@ npm run assets:plan -- xu_tang
 
 CG 或動態回憶會在故事第一次顯示時自動解鎖，資料沿用 `localStorage` 的 `${chapter.id}:cgUnlocks`，以相容舊存檔。收藏頁支援圖片前後瀏覽及影片重播；`migrateCGUnlocks()` 會補上相容的解鎖紀錄。
 
+`cinematic.ch04.first_kiss` v2 採第一視角近距離構圖，由四張身份鎖定關鍵幀組成：對視並抬手撩髮、髮絲撥到耳後、閉眼微抿嘴唇、向鏡頭靠近。重建素材位於 `content/cinematics/first-kiss-v2/`，成品同時輸出 MP4、WebM 與收藏海報。
+
 | 順序 | 邏輯 ID | 收藏標題 |
 | ---: | --- | --- |
 | 10 | `cg.ch01.hallway_meet` | 雨夜的初遇 |
