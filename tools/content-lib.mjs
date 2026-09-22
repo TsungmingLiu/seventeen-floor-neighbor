@@ -70,16 +70,29 @@ export async function validateContent(content) {
 
   const galleryOrders = new Set();
   for (const [id, asset] of Object.entries(assets)) {
-    try {
-      await access(path.join(projectRoot, 'dist', asset.src));
-    } catch {
-      fail(`asset ${id}: missing dist/${asset.src}`);
+    const files = asset.kind === 'cinematic'
+      ? [asset.poster, ...Object.values(asset.sources || {})]
+      : [asset.src];
+    for (const file of files) {
+      if (!file) {
+        fail(`asset ${id}: missing required file declaration`);
+        continue;
+      }
+      try {
+        await access(path.join(projectRoot, 'dist', file));
+      } catch {
+        fail(`asset ${id}: missing dist/${file}`);
+      }
     }
     if (asset.kind === 'sprite') validateDependency(asset, `asset ${id}`);
     (asset.participants || []).forEach((participant) => validateDependency(participant, `asset ${id}`));
-    if (asset.kind === 'cg') {
+    if (asset.kind === 'cinematic') {
+      if (!asset.sources?.mp4 || !asset.sources?.webm) fail(`asset ${id}: cinematic requires MP4 and WebM sources`);
+      if (!Number.isFinite(asset.duration) || asset.duration <= 0) fail(`asset ${id}: cinematic requires positive duration`);
+    }
+    if (['cg', 'cinematic'].includes(asset.kind)) {
       if (!asset.gallery?.title || !asset.gallery?.chapter || !Number.isFinite(asset.gallery?.order)) {
-        fail(`asset ${id}: CG requires gallery title, chapter, and numeric order`);
+        fail(`asset ${id}: gallery asset requires title, chapter, and numeric order`);
       } else if (galleryOrders.has(asset.gallery.order)) {
         fail(`asset ${id}: duplicate gallery order ${asset.gallery.order}`);
       } else {
@@ -153,6 +166,9 @@ export async function validateContent(content) {
       requireAsset(visual.background, 'background', `node ${id}`);
       (visual.sprites || []).forEach((sprite) => requireAsset(sprite.asset, 'sprite', `node ${id}`));
       if ('asset' in visual) fail(`node ${id}: composite cannot include CG asset field`);
+    } else if (visual.mode === 'cinematic') {
+      requireAsset(visual.asset, 'cinematic', `node ${id}`);
+      if ('background' in visual || 'sprites' in visual) fail(`node ${id}: cinematic cannot include composite fields`);
     } else {
       fail(`node ${id}: unsupported visual mode ${visual.mode}`);
     }

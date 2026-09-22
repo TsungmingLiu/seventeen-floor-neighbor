@@ -6,10 +6,10 @@
 | --- | --- | --- |
 | 角色設定 | `content/characters/` | 身分特徵、造型版本、服裝、妝容與表情 |
 | 素材清單 | `content/assets/manifest.json` | 邏輯素材 ID 對應實際圖檔與角色版本 |
-| 生成配方 | `content/recipes/assets.json` | 每張立繪、背景與 CG 的提示詞及依賴 |
+| 生成配方 | `content/recipes/assets.json` | 每張立繪、背景、CG 與動態回憶的提示詞及依賴 |
 | 場景模板 | `content/scenes/` | 可由不同角色複用的地點、互動節拍與隨機場景池 |
 | 劇情資料 | `content/chapters/` | 節點、台詞、選項、數值與畫面模式 |
-| 遊戲引擎 | `src/` | 通用播放、分支、結局與畫面渲染 |
+| 遊戲引擎 | `src/` | 通用播放、分支、結局、圖片與影片渲染 |
 
 ## 畫面規則
 
@@ -17,8 +17,13 @@
 
 - `composite`：一張背景，可加零至多張透明立繪。
 - `cg`：只顯示一張完整 CG，引擎會自動清空所有立繪。
+- `cinematic`：播放 MP4／WebM 動態回憶，使用海報圖作載入與低動態回退，並自動清空立繪。
 
-建置驗證會拒絕同時宣告 CG 與立繪的節點，避免兩者再次重疊。
+建置驗證會拒絕 CG／cinematic 與立繪同時出現，避免完整畫面再次重疊。
+
+## 動態回憶
+
+`cinematic` 資產在 manifest 中保存 `poster`、`sources.webm`、`sources.mp4`、`duration` 與收藏資料；可重建關鍵幀放在 `content/cinematics/`。引擎播放時暫時隱藏對話框，提供跳過按鈕，結束後顯示本節文字；收藏檢視器可再次播放。首段 `cinematic.ch04.first_kiss` 以三個鏡頭合成 10 秒片段，採遠景剪影避免長鏡頭的人臉漂移。
 
 ## 約會場景池
 

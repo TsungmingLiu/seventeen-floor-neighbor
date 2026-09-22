@@ -13,10 +13,12 @@ export class GameEngine {
     this.returnNodes = [];
     this.cgStorageKey = `${chapter.id}:cgUnlocks`;
     this.galleryEntries = Object.entries(this.assets)
-      .filter(([, asset]) => asset.kind === 'cg' && asset.gallery)
+      .filter(([, asset]) => ['cg', 'cinematic'].includes(asset.kind) && asset.gallery)
       .map(([id, asset]) => ({ id, ...asset }))
       .sort((a, b) => a.gallery.order - b.gallery.order);
     this.viewerIndex = -1;
+    this.isCinematic = false;
+    this.pendingMoment = '';
     this.els = this.collectElements();
   }
 
@@ -29,6 +31,7 @@ export class GameEngine {
       gallery: $('#gallery-screen'),
       stage: $('#stage'),
       scene: $('#scene-image'),
+      sceneVideo: $('#scene-video'),
       characterLayer: $('#character-layer'),
       dialoguePanel: $('#dialogue-panel'),
       speaker: $('#speaker'),
@@ -45,6 +48,7 @@ export class GameEngine {
       startButton: $('#start-button'),
       titleMute: $('#title-mute'),
       muteButton: $('#mute-button'),
+      cinematicSkip: $('#cinematic-skip'),
       galleryButton: $('#gallery-button'),
       galleryTitleCount: $('#gallery-title-count'),
       galleryProgress: $('#gallery-progress'),
@@ -52,6 +56,7 @@ export class GameEngine {
       galleryBack: $('#gallery-back'),
       viewer: $('#cg-viewer'),
       viewerImage: $('#cg-viewer-image'),
+      viewerVideo: $('#cg-viewer-video'),
       viewerTitle: $('#cg-viewer-title'),
       viewerChapter: $('#cg-viewer-chapter'),
       viewerPosition: $('#cg-viewer-position'),
@@ -96,12 +101,14 @@ export class GameEngine {
     this.els.galleryButton.addEventListener('click', () => this.openGallery());
     this.els.galleryBack.addEventListener('click', () => this.closeGallery());
     this.els.viewerClose.addEventListener('click', () => this.closeViewer());
+    this.els.cinematicSkip.addEventListener('click', () => this.finishCinematic(true));
     this.els.viewerPrev.addEventListener('click', () => this.moveViewer(-1));
     this.els.viewerNext.addEventListener('click', () => this.moveViewer(1));
     this.els.viewer.addEventListener('click', (event) => {
       if (event.target === this.els.viewer) this.closeViewer();
     });
     this.els.viewer.addEventListener('close', () => {
+      this.els.viewerVideo.pause();
       this.viewerIndex = -1;
     });
     document.querySelector('#advance-zone').addEventListener('click', () => this.advance());
@@ -152,6 +159,8 @@ export class GameEngine {
     this.els.muteButton.textContent = this.muted ? '×' : '♪';
     this.els.muteButton.setAttribute('aria-pressed', String(this.muted));
     localStorage.setItem('neighborMuted', this.muted ? '1' : '0');
+    this.els.sceneVideo.muted = this.muted;
+    this.els.viewerVideo.muted = this.muted;
   }
 
   storedSet(key) {
@@ -232,7 +241,7 @@ export class GameEngine {
       art.className = 'cg-card-art';
       if (isUnlocked) {
         const image = document.createElement('img');
-        image.src = entry.src;
+        image.src = entry.kind === 'cinematic' ? entry.poster : entry.src;
         image.alt = '';
         image.loading = 'lazy';
         const focus = entry.focus || { x: 50, y: 50 };
@@ -248,7 +257,9 @@ export class GameEngine {
 
       const number = document.createElement('span');
       number.className = 'cg-card-number';
-      number.textContent = `CG ${String(index + 1).padStart(2, '0')}`;
+      number.textContent = entry.kind === 'cinematic'
+        ? '動態回憶'
+        : `CG ${String(index + 1).padStart(2, '0')}`;
       const meta = document.createElement('span');
       meta.className = 'cg-card-meta';
       const chapter = document.createElement('span');
@@ -280,6 +291,7 @@ export class GameEngine {
   }
 
   closeViewer() {
+    this.els.viewerVideo.pause();
     if (this.els.viewer.open) this.els.viewer.close();
     this.viewerIndex = -1;
   }
@@ -296,8 +308,21 @@ export class GameEngine {
     const entries = this.unlockedGalleryEntries();
     const entry = entries[this.viewerIndex];
     if (!entry) return;
-    this.els.viewerImage.src = entry.src;
-    this.els.viewerImage.alt = entry.gallery.title;
+    this.els.viewerVideo.pause();
+    if (entry.kind === 'cinematic') {
+      this.els.viewerImage.classList.add('is-hidden');
+      this.els.viewerVideo.classList.remove('is-hidden');
+      this.els.viewerVideo.poster = entry.poster;
+      this.els.viewerVideo.setAttribute('aria-label', entry.gallery.title);
+      this.setVideoSources(this.els.viewerVideo, entry.sources);
+      this.els.viewerVideo.muted = this.muted;
+      this.els.viewerVideo.play().catch(() => {});
+    } else {
+      this.els.viewerVideo.classList.add('is-hidden');
+      this.els.viewerImage.classList.remove('is-hidden');
+      this.els.viewerImage.src = entry.src;
+      this.els.viewerImage.alt = entry.gallery.title;
+    }
     this.els.viewerTitle.textContent = entry.gallery.title;
     this.els.viewerChapter.textContent = entry.gallery.chapter;
     this.els.viewerPosition.textContent = `${this.viewerIndex + 1} / ${entries.length}`;
@@ -332,10 +357,82 @@ export class GameEngine {
   }
 
   preloadAssets() {
-    Object.values(this.assets).forEach(({ src }) => {
+    Object.values(this.assets).forEach((asset) => {
+      const src = asset.kind === 'cinematic' ? asset.poster : asset.src;
+      if (!src) return;
       const image = new Image();
       image.src = src;
     });
+  }
+
+  setVideoSources(video, sources = {}) {
+    const signature = JSON.stringify(sources);
+    if (video.dataset.sources === signature) return;
+    video.replaceChildren();
+    Object.entries(sources).forEach(([type, src]) => {
+      const source = document.createElement('source');
+      source.src = src;
+      source.type = `video/${type}`;
+      video.append(source);
+    });
+    video.dataset.sources = signature;
+    video.load();
+  }
+
+  startCinematic(asset, visual) {
+    const pendingMoment = this.pendingMoment;
+    this.stopCinematic();
+    this.pendingMoment = pendingMoment;
+    this.setScene(
+      { src: asset.poster, focus: asset.focus },
+      { ...visual, assetId: `${visual.asset}:poster` }
+    );
+    this.renderSprites([]);
+    this.setVideoSources(this.els.sceneVideo, asset.sources);
+    this.els.sceneVideo.poster = asset.poster;
+    const focus = visual.focus || asset.focus || { x: 50, y: 45 };
+    this.els.sceneVideo.style.setProperty('--focus-x', `${focus.x}%`);
+    this.els.sceneVideo.style.setProperty('--focus-y', `${focus.y}%`);
+    this.els.sceneVideo.muted = this.muted;
+    this.els.sceneVideo.currentTime = 0;
+    this.els.sceneVideo.classList.add('is-active');
+    this.els.stage.classList.add('is-cinematic-playing');
+    this.els.cinematicSkip.classList.remove('is-hidden');
+    this.isCinematic = true;
+    this.els.sceneVideo.onended = () => this.finishCinematic(false);
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      this.els.sceneVideo.classList.remove('is-active');
+      this.finishCinematic(false);
+      return;
+    }
+    this.els.sceneVideo.play().catch(() => this.finishCinematic(false));
+  }
+
+  finishCinematic(skipped = false) {
+    if (!this.isCinematic) return;
+    this.isCinematic = false;
+    this.els.sceneVideo.onended = null;
+    if (skipped) {
+      this.els.sceneVideo.pause();
+      this.els.sceneVideo.classList.remove('is-active');
+    }
+    this.els.stage.classList.remove('is-cinematic-playing');
+    this.els.cinematicSkip.classList.add('is-hidden');
+    if (this.pendingMoment) {
+      this.renderMoment(this.pendingMoment);
+      this.pendingMoment = '';
+    }
+  }
+
+  stopCinematic() {
+    this.isCinematic = false;
+    this.pendingMoment = '';
+    this.els.sceneVideo.onended = null;
+    this.els.sceneVideo.pause();
+    this.els.sceneVideo.classList.remove('is-active');
+    this.els.stage.classList.remove('is-cinematic-playing');
+    this.els.cinematicSkip.classList.add('is-hidden');
   }
 
   setScene(asset, visual) {
@@ -372,14 +469,20 @@ export class GameEngine {
     if (!visual) return;
     const effects = visual.effects || {};
     if (visual.mode === 'cg') {
+      this.stopCinematic();
       const asset = this.asset(visual.asset, 'cg');
       this.unlockCG(visual.asset);
       this.setScene(asset, { ...visual, assetId: visual.asset });
       this.renderSprites([]);
     } else if (visual.mode === 'composite') {
+      this.stopCinematic();
       const background = this.asset(visual.background, 'background');
       this.setScene(background, { ...visual, assetId: visual.background });
       this.renderSprites(visual.sprites || []);
+    } else if (visual.mode === 'cinematic') {
+      const asset = this.asset(visual.asset, 'cinematic');
+      this.unlockCG(visual.asset);
+      this.startCinematic(asset, visual);
     } else {
       throw new Error(`Unsupported visual mode: ${visual.mode}`);
     }
@@ -508,16 +611,18 @@ export class GameEngine {
     this.els.choices.replaceChildren();
     this.els.speaker.textContent = node.speaker || '旁白';
     this.els.hint.textContent = '…';
+    const isCinematicNode = node.visual?.mode === 'cinematic';
+    if (isCinematicNode) this.pendingMoment = node.moment || '';
     this.renderVisual(node.visual);
     this.updateTrack(node.chapter || 0);
-    this.renderMoment(node.moment);
+    if (!isCinematicNode) this.renderMoment(node.moment);
     if (node.tone) this.tone(node.tone);
     this.typeText(node.text);
   }
 
   advance() {
     const node = this.chapter.nodes[this.nodeId];
-    if (!node || node.choices) return;
+    if (!node || node.choices || this.isCinematic) return;
     if (this.revealText()) return;
     if (node.next) {
       this.tone('tap');
@@ -567,6 +672,7 @@ export class GameEngine {
   }
 
   startGame() {
+    this.stopCinematic();
     this.state = this.createInitialState();
     this.returnNodes = [];
     this.nodeId = this.chapter.startNode;

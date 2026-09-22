@@ -20,7 +20,7 @@
         <p class="premise">搬家第一晚，你把行李卡進消防門，還在停電的電梯裡遇見了住隔壁的她。</p>
         <div class="title-actions">
           <button class="primary-button" id="start-button" type="button" disabled>載入中…</button>
-          <button class="text-button gallery-button" id="gallery-button" type="button">CG 收藏 <span id="gallery-title-count">0 / 16</span></button>
+          <button class="text-button gallery-button" id="gallery-button" type="button">回憶收藏 <span id="gallery-title-count">0 / 17</span></button>
           <button class="text-button" id="title-mute" type="button" aria-pressed="false">聲音：開</button>
         </div>
       </div>
@@ -32,8 +32,8 @@
         <header class="gallery-header">
           <div>
             <p class="eyebrow">回憶收藏</p>
-            <h2 id="gallery-title">CG 收藏</h2>
-            <p class="gallery-progress" id="gallery-progress">已解鎖 0 / 16</p>
+            <h2 id="gallery-title">回憶收藏</h2>
+            <p class="gallery-progress" id="gallery-progress">已解鎖 0 / 17</p>
           </div>
           <button class="text-button" id="gallery-back" type="button">返回標題</button>
         </header>
@@ -45,6 +45,7 @@
       <div class="stage" id="stage">
         <div class="visual-layer" aria-hidden="true">
           <img class="scene-image" id="scene-image" alt="">
+          <video class="scene-video" id="scene-video" playsinline preload="metadata"></video>
           <div class="character-layer" id="character-layer"></div>
           <div class="fallback-scene"></div>
           <div class="cinematic-bars"></div>
@@ -54,6 +55,7 @@
         <header class="game-hud" id="game-hud">
           <div class="chapter-track" id="chapter-track" aria-label="故事進度"></div>
           <div class="hud-actions">
+            <button class="text-button cinematic-skip is-hidden" id="cinematic-skip" type="button">跳過片段</button>
             <button class="icon-button" id="mute-button" type="button" aria-pressed="false" aria-label="切換聲音">♪</button>
             <button class="icon-button" id="restart-button" type="button" aria-label="從頭開始">↻</button>
           </div>
@@ -97,6 +99,7 @@
         </header>
         <div class="cg-viewer-canvas">
           <img id="cg-viewer-image" alt="">
+          <video class="is-hidden" id="cg-viewer-video" controls playsinline preload="metadata"></video>
         </div>
         <footer class="cg-viewer-controls">
           <button class="text-button" id="cg-viewer-prev" type="button">上一張</button>

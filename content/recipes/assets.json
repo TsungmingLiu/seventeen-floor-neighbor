@@ -336,6 +336,34 @@
       }
     },
     {
+      "id": "recipe.cinematic.ch04.first_kiss",
+      "outputAsset": "cinematic.ch04.first_kiss",
+      "type": "cinematic",
+      "dependencies": [
+        {
+          "character": "xu_tang",
+          "designVersion": 2,
+          "outfit": "evening_private",
+          "outfitVersion": 1,
+          "hairstyle": "loose_waves",
+          "hairstyleVersion": 1,
+          "makeup": "evening_softened",
+          "makeupVersion": 1
+        }
+      ],
+      "prompt": {
+        "scene": "1702客廳雨夜落地窗，暖色室內燈、冷色城市窗光、沙發與桌上兩只香檳杯保持前幕連續",
+        "keyframes": [
+          "許棠在沙發上收著下巴望向玩家，確認彼此的意思",
+          "兩名成年戀人站在落地窗前，以遠景剪影呈現短暫而溫柔的初吻",
+          "吻後額頭輕靠，仍維持完整穿著與克制的親密感"
+        ],
+        "motionPlan": "0至3.4秒緩慢推近許棠；2.7秒淡黑轉到雨窗剪影；3.4至7.3秒慢推初吻；6.6秒溶解至額頭相靠；最後0.5秒淡出",
+        "audio": "低音量雨聲環境底噪，隨影片淡入淡出",
+        "constraints": ["兩名成年角色", "PG級浪漫", "無裸露", "無UI", "無文字", "無水印", "1280x720", "10秒"]
+      }
+    },
+    {
       "id": "recipe.cg.ch04.bedroom_challenge",
       "outputAsset": "cg.ch04.bedroom_challenge",
       "type": "cg",

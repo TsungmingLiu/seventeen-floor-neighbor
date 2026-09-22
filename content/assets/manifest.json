@@ -1,5 +1,5 @@
 {
-  "manifestVersion": 5,
+  "manifestVersion": 6,
   "assets": {
     "bg.elevator.normal": {
       "kind": "background",
@@ -245,6 +245,31 @@
       "height": 941,
       "focus": { "x": 58, "y": 45 },
       "gallery": { "title": "把距離交給彼此", "chapter": "第三章・真心", "order": 100 },
+      "participants": [
+        {
+          "character": "xu_tang",
+          "designVersion": 2,
+          "outfit": "evening_private",
+          "outfitVersion": 1,
+          "hairstyle": "loose_waves",
+          "hairstyleVersion": 1,
+          "makeup": "evening_softened",
+          "makeupVersion": 1
+        }
+      ]
+    },
+    "cinematic.ch04.first_kiss": {
+      "kind": "cinematic",
+      "poster": "assets/mv-first-kiss-poster.jpg",
+      "sources": {
+        "webm": "assets/mv-first-kiss.webm",
+        "mp4": "assets/mv-first-kiss.mp4"
+      },
+      "width": 1280,
+      "height": 720,
+      "duration": 10,
+      "focus": { "x": 50, "y": 45 },
+      "gallery": { "title": "第一次接吻", "chapter": "第四章・確認", "order": 103 },
       "participants": [
         {
           "character": "xu_tang",

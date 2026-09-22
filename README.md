@@ -1,6 +1,6 @@
 # 《17 樓的新鄰居》
 
-一款純前端、可靜態部署的都市戀愛視覺小說。玩家搬進 1703 的第一晚，因為一連串小事故認識住在 1702 的許棠；故事透過對話選項累積關係數值，進入不同結局。遊戲包含模組化角色設定、CG／立繪資產、可重生的圖像配方、分支劇情、結局判定與 CG 收藏功能。
+一款純前端、可靜態部署的都市戀愛視覺小說。玩家搬進 1703 的第一晚，因為一連串小事故認識住在 1702 的許棠；故事透過對話選項累積關係數值，進入不同結局。遊戲包含模組化角色設定、CG／立繪／動態回憶資產、可重生的生成配方、分支劇情、結局判定與回憶收藏功能。
 
 > **新對話／新協作者的第一條規則：** GitHub `main` 是專案備份與交接的基準。修改前先讀本 README、拉取最新 `main`，修改後執行 `npm run build` 與 `npm run validate`，並將來源資料、建置產物及新增圖片一起提交。
 
@@ -12,11 +12,11 @@
 | 劇情節點 | 118 |
 | 章節進度標籤 | 12：雨夜、初遇、停電、靠近、隔壁、咖啡、約會、天台、1702、真心、確認、清晨 |
 | 結局 | 4：`lover`、`heart`、`chaos`、`neighbor` |
-| 圖像資產 | 1 背景、2 立繪、16 CG |
-| 圖像生成配方 | 19，與 19 個邏輯資產一一對應 |
+| 視覺資產 | 1 背景、2 立繪、16 CG、1 段 10 秒動態回憶 |
+| 視覺生成配方 | 20，與 20 個邏輯資產一一對應 |
 | 約會池 | 3 個可複用場景，每輪隨機抽 2 個且不重複 |
 | 運行方式 | 瀏覽器原生 JavaScript，無後端、無資料庫 |
-| 玩家資料 | CG 解鎖、結局紀錄與靜音設定存於瀏覽器 `localStorage` |
+| 玩家資料 | 回憶解鎖、結局紀錄與靜音設定存於瀏覽器 `localStorage` |
 | 靜態輸出 | `dist/` |
 
 ## 快速開始
@@ -52,10 +52,10 @@ python3 -m http.server 8000 --directory dist
 | --- | --- | --- |
 | 角色設定 | `content/characters/*.json` | 身分不變項、造型版本、髮型、服裝、妝容、表情與參考圖 |
 | 資產清單 | `content/assets/manifest.json` | 將穩定的邏輯素材 ID 對應到實際圖片及角色版本依賴 |
-| 生成配方 | `content/recipes/assets.json` | 記錄每張背景、立繪、CG 的提示詞、構圖與角色依賴，供批次重生 |
+| 生成配方 | `content/recipes/assets.json` | 記錄每張背景、立繪、CG 與動態回憶的提示詞、構圖、運鏡與角色依賴 |
 | 場景模板 | `content/scenes/*.json` | 與角色分離的場景、互動節點與隨機池，可由不同女角複用 |
 | 劇情資料 | `content/chapters/chapter-01.json` | 節點、台詞、選項、數值、分支、結局與畫面模式 |
-| 遊戲引擎 | `src/` | 通用播放、打字效果、分支、結局、立繪渲染、CG 收藏及音效 |
+| 遊戲引擎 | `src/` | 通用播放、打字效果、分支、結局、立繪渲染、影片播放、回憶收藏及音效 |
 | 靜態介面 | `dist/index.html`、`dist/styles.css` | 標題、遊戲、結局、收藏與檢視器 UI |
 | 發布輸出 | `dist/` | 可直接交給靜態託管服務的完整網站 |
 | 驗證與工具 | `tools/` | 建置、內容驗證與人設影響分析 |
@@ -69,6 +69,7 @@ python3 -m http.server 8000 --directory dist
 - `content/characters/*.json`
 - `content/scenes/*.json`
 - `content/references/*.png`
+- `content/cinematics/`（動態回憶的可重建關鍵幀）
 - `content/recipes/assets.json`
 - `src/app.js`
 - `src/engine.js`
@@ -153,17 +154,19 @@ python3 -m http.server 8000 --directory dist
 
 - `composite`：一張背景，可加零至多張透明立繪。
 - `cg`：一張完整 CG；引擎會自動清空立繪層。
+- `cinematic`：播放一段 MP4／WebM 動態回憶；播放時隱藏對話框，結束後才恢復文字與選項。
 
-CG 節點不可同時宣告 `background` 或 `sprites`；`composite` 節點不可宣告 `asset`。這條規則避免「背景有 CG、前景又疊立繪」的舊問題，驗證器會直接拒絕違規內容。
+CG 與 cinematic 節點不可同時宣告 `background` 或 `sprites`；`composite` 節點不可宣告 `asset`。這條規則避免完整畫面又疊立繪的舊問題，驗證器會直接拒絕違規內容。
 
 ### Manifest 欄位
 
-- `kind`：`background`、`sprite` 或 `cg`。
+- `kind`：`background`、`sprite`、`cg` 或 `cinematic`。
 - `src`：相對於 `dist/` 的圖片路徑。
+- `poster`、`sources`、`duration`：cinematic 的封面、WebM／MP4 來源與秒數。
 - `width`、`height`：實際像素尺寸。
 - `focus`：圖片在響應式裁切時的焦點百分比。
 - `participants`：CG 中角色的人設、服裝、髮型、妝容及版本依賴。
-- `gallery`：CG 收藏的標題、章節和唯一排序值。
+- `gallery`：回憶收藏的標題、章節和唯一排序值。
 
 每個 manifest 資產都必須存在於 `dist/`，且在 `content/recipes/assets.json` 中恰好有一份生成配方。
 
@@ -177,6 +180,7 @@ CG 節點不可同時宣告 `background` 或 `sprites`；`composite` 節點不�
 - `dependencies`：角色設計、服裝、髮型和妝容版本。
 - `prompt`：場景、動作、鏡頭、光線與限制。
 - `prompt.headPose`：每張CG必填，明確指定頭部俯仰、左右轉向、視線落點與頸部姿態。
+- cinematic 配方使用 `prompt.keyframes`、`motionPlan` 與 `audio` 保存關鍵幀、剪輯和聲音設計。
 
 角色資產必須宣告依賴；只有純背景可以沒有角色依賴。改人設後，可先執行：
 
@@ -184,7 +188,7 @@ CG 節點不可同時宣告 `background` 或 `sprites`；`composite` 節點不�
 npm run assets:plan -- xu_tang
 ```
 
-輸出會列出所有受影響的立繪與 CG。重新生成後，必須同步更新實體圖片、manifest 和 recipe 中的版本依賴。
+輸出會列出所有受影響的立繪、CG 與動態回憶。重新生成後，必須同步更新實體圖片／影片、manifest 和 recipe 中的版本依賴。
 
 ### 身份一致性流程
 
@@ -259,9 +263,9 @@ npm run assets:plan -- xu_tang
 
 結局規則依陣列順序判定；目前優先順序為 `lover` → `heart` → `chaos` → `neighbor`。
 
-## CG 收藏
+## 回憶收藏
 
-CG 會在故事第一次顯示時自動解鎖，資料存於 `localStorage` 的 `${chapter.id}:cgUnlocks`。收藏頁只展示已解鎖圖片，支援前後瀏覽；舊存檔會透過 `migrateCGUnlocks()` 補上相容的解鎖紀錄。
+CG 或動態回憶會在故事第一次顯示時自動解鎖，資料沿用 `localStorage` 的 `${chapter.id}:cgUnlocks`，以相容舊存檔。收藏頁支援圖片前後瀏覽及影片重播；`migrateCGUnlocks()` 會補上相容的解鎖紀錄。
 
 | 順序 | 邏輯 ID | 收藏標題 |
 | ---: | --- | --- |
@@ -278,6 +282,7 @@ CG 會在故事第一次顯示時自動解鎖，資料存於 `localStorage` 的 
 | 80 | `cg.ch03.living_room_wine` | 1702 的香檳 |
 | 90 | `cg.ch03.art_wall` | 沒有展出的照片 |
 | 100 | `cg.ch03.close_conversation` | 把距離交給彼此 |
+| 103 | `cinematic.ch04.first_kiss` | 第一次接吻（10 秒動態回憶） |
 | 105 | `cg.ch04.bedroom_challenge` | 坐近一點 |
 | 110 | `cg.ch04.hallway_pause` | 走廊的暖光 |
 | 120 | `cg.ch04.sunday_morning` | 星期日早晨 |
@@ -338,7 +343,8 @@ CG 會在故事第一次顯示時自動解鎖，資料存於 `localStorage` 的 
 - 數字鍵 `1`–`9`：選擇對話選項。
 - 空白鍵／Enter：前進。
 - `M`：切換聲音。
-- 標題畫面的「CG 收藏」：查看進度並重溫已解鎖 CG。
+- 標題畫面的「回憶收藏」：查看進度並重溫已解鎖 CG 或動態回憶。
+- 動態回憶播放時可使用右上角「跳過片段」；系統偏好低動態效果時自動退回海報圖。
 - 收藏檢視器支援左右方向鍵與 Escape。
 
 ## 發布與備份
@@ -364,14 +370,14 @@ git status --short
 - `content/` 中的來源變更。
 - `src/` 中的引擎變更。
 - 對應的 `dist/content/` 或 `dist/*.js` 建置產物。
-- 新增或替換的 `dist/assets/` 圖片。
+- 新增或替換的 `dist/assets/` 圖片與影片。
 - 若架構、資料格式、角色版本、資產數量或工作流程改變，更新本 README。
 
 ## 新對話接手提示
 
 可將以下內容直接貼給新的 Codex／ChatGPT Work 對話：
 
-> 請讀取 GitHub 倉庫 `TsungmingLiu/seventeen-floor-neighbor` 的最新 `main` 和 `README.md`。以 GitHub `main` 為交接基準，保留目前資料驅動架構。修改 `content/` 或 `src/` 後執行 `npm run build`、`npm run validate` 和 `git diff --check`，並把來源、建置產物及新增圖片一起推回 GitHub。CG 節點不得疊加立繪；角色或服裝修改要遵循版本依賴與 `assets:plan` 批次更新流程。
+> 請讀取 GitHub 倉庫 `TsungmingLiu/seventeen-floor-neighbor` 的最新 `main` 和 `README.md`。以 GitHub `main` 為交接基準，保留目前資料驅動架構。修改 `content/` 或 `src/` 後執行 `npm run build`、`npm run validate` 和 `git diff --check`，並把來源、建置產物及新增圖片／影片一起推回 GitHub。CG 與 cinematic 節點不得疊加立繪；角色或服裝修改要遵循版本依賴與 `assets:plan` 批次更新流程。
 
 ## 相關文件
 
