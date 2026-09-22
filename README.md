@@ -9,11 +9,12 @@
 | 項目 | 目前狀態 |
 | --- | --- |
 | 主角 | 許棠，22 歲，角色設計版本 `2` |
-| 劇情節點 | 94 |
-| 章節進度標籤 | 12：雨夜、初遇、停電、靠近、隔壁、咖啡、洗衣房、天台、1702、真心、確認、清晨 |
+| 劇情節點 | 118 |
+| 章節進度標籤 | 12：雨夜、初遇、停電、靠近、隔壁、咖啡、約會、天台、1702、真心、確認、清晨 |
 | 結局 | 4：`lover`、`heart`、`chaos`、`neighbor` |
-| 圖像資產 | 1 背景、2 立繪、13 CG |
-| 圖像生成配方 | 16，與 16 個邏輯資產一一對應 |
+| 圖像資產 | 1 背景、2 立繪、16 CG |
+| 圖像生成配方 | 19，與 19 個邏輯資產一一對應 |
+| 約會池 | 3 個可複用場景，每輪隨機抽 2 個且不重複 |
 | 運行方式 | 瀏覽器原生 JavaScript，無後端、無資料庫 |
 | 玩家資料 | CG 解鎖、結局紀錄與靜音設定存於瀏覽器 `localStorage` |
 | 靜態輸出 | `dist/` |
@@ -52,6 +53,7 @@ python3 -m http.server 8000 --directory dist
 | 角色設定 | `content/characters/*.json` | 身分不變項、造型版本、髮型、服裝、妝容、表情與參考圖 |
 | 資產清單 | `content/assets/manifest.json` | 將穩定的邏輯素材 ID 對應到實際圖片及角色版本依賴 |
 | 生成配方 | `content/recipes/assets.json` | 記錄每張背景、立繪、CG 的提示詞、構圖與角色依賴，供批次重生 |
+| 場景模板 | `content/scenes/*.json` | 與角色分離的場景、互動節點與隨機池，可由不同女角複用 |
 | 劇情資料 | `content/chapters/chapter-01.json` | 節點、台詞、選項、數值、分支、結局與畫面模式 |
 | 遊戲引擎 | `src/` | 通用播放、打字效果、分支、結局、立繪渲染、CG 收藏及音效 |
 | 靜態介面 | `dist/index.html`、`dist/styles.css` | 標題、遊戲、結局、收藏與檢視器 UI |
@@ -65,16 +67,19 @@ python3 -m http.server 8000 --directory dist
 - `content/assets/manifest.json`
 - `content/chapters/chapter-01.json`
 - `content/characters/*.json`
+- `content/scenes/*.json`
+- `content/references/*.png`
 - `content/recipes/assets.json`
 - `src/app.js`
 - `src/engine.js`
 
-`npm run build` 會驗證內容，然後更新這四個運行檔：
+`npm run build` 會驗證內容，然後更新這五個運行檔：
 
 | 來源 | 輸出 |
 | --- | --- |
 | `content/assets/manifest.json` | `dist/content/assets.json` |
 | `content/chapters/chapter-01.json` | `dist/content/chapter-01.json` |
+| `content/scenes/date-pool.json` | `dist/content/date-pool.json` |
 | `src/app.js` | `dist/app.js` |
 | `src/engine.js` | `dist/engine.js` |
 
@@ -93,6 +98,8 @@ python3 -m http.server 8000 --directory dist
 - 修長清瘦但比例自然，不幼態化、不動漫化、不過度磨皮，也不誇張強調身材。
 - 性格清冷、安靜而鬆弛；擅長替別人化解尷尬，但通常會順手補一刀。關心別人時習慣說成「順便」或「住戶義務」。
 - 主要身份參考圖記錄在角色 JSON 的 `references`，Library ID 為 `libfile_c00164e0e34c8191b2ad04a9b51941fd`，檔名 `IMG_9458.jpeg`。
+- 四角度臉部錨點存於 `content/references/xu-tang-identity-v2.png`。所有新CG必須同時引用原始人設圖與此錨點；錨點只鎖定臉，不能覆蓋服裝、髮型與場景設定。
+- 禁止把上一張CG當成下一張CG的唯一身份來源，以免多代生成造成五官逐步漂移。
 
 ### 髮型模組
 
@@ -104,6 +111,9 @@ python3 -m http.server 8000 --directory dist
 | `polished_chignon` | 畫廊／正式晚間，俐落低髮髻 |
 | `loose_waves` | 私人晚間場景，完全放下的長波浪 |
 | `tousled_low_pony` | 星期日清晨，鬆散低馬尾 |
+| `loose_side_braid` | 書店約會，鬆散低側辮 |
+| `wind_low_pony` | 雨後河畔，帶風感的低馬尾 |
+| `ribbon_high_pony` | 夜市約會，黑色緞帶高馬尾 |
 
 ### 服裝模組
 
@@ -115,6 +125,9 @@ python3 -m http.server 8000 --directory dist
 | `evening_rooftop` v1 | 深海軍藍緞面中長裙，黑色剪裁西裝外套披肩穿；搭配正式飲品 |
 | `evening_private` v1 | 同一件深海軍藍細肩帶／方領緞面中長晚裝，室內脫下外套；前後 CG 必須保持一致 |
 | `sunday_morning` v1 | 白色亞麻襯衫、深海軍藍圓領背心與居家短褲 |
+| `bookstore_soft` v1 | 霧藍細針織上衣、象牙白高腰闊腿長褲 |
+| `rain_walk` v1 | 石灰色及膝風衣、海軍藍針織中長裙與短靴 |
+| `night_market` v1 | 靛藍短版牛仔外套、奶油白上衣與炭灰闊腿褲 |
 
 妝容與表情也使用獨立模組。任何模組變更都應提高該模組的 `version`；臉、身形或整體人設變更則提高角色 `designVersion`。
 
@@ -163,6 +176,7 @@ CG 節點不可同時宣告 `background` 或 `sprites`；`composite` 節點不�
 - `type`：需與 manifest 的 `kind` 相同。
 - `dependencies`：角色設計、服裝、髮型和妝容版本。
 - `prompt`：場景、動作、鏡頭、光線與限制。
+- `prompt.headPose`：每張CG必填，明確指定頭部俯仰、左右轉向、視線落點與頸部姿態。
 
 角色資產必須宣告依賴；只有純背景可以沒有角色依賴。改人設後，可先執行：
 
@@ -171,6 +185,13 @@ npm run assets:plan -- xu_tang
 ```
 
 輸出會列出所有受影響的立繪與 CG。重新生成後，必須同步更新實體圖片、manifest 和 recipe 中的版本依賴。
+
+### 身份一致性流程
+
+1. 原始人設圖是最高優先級身份來源，四角度錨點補足正面、左右三分之四與側面資訊。
+2. 先生成場景、服裝、姿勢與光線，再做一次只修臉部身份的校正；不要在同一步同時重設所有元素。
+3. 身份校正時，場景CG只負責構圖與服裝，錨點只負責臉型、眼距、鼻尖、唇形、下巴和頭骨比例。
+4. 每批CG以接觸表並排檢查；明顯漂移或反覆使用同一仰頭角度的圖片不得進入遊戲。
 
 ## 劇情資料模型
 
@@ -221,6 +242,8 @@ npm run assets:plan -- xu_tang
 ### 分支與結束
 
 - `type: "branch"`：依 `conditions` 檢查狀態，否則走 `default`。
+- `type: "random"`：從 `content/scenes/` 指定的場景池抽一個未使用項目，並把 `after` 壓入返回堆疊。
+- `type: "return"`：場景結束後回到最近一次 `random.after`；同一輪抽取會優先避開已見場景。
 - `type: "route"`：結束本輪並依 `endingRules` 選擇結局。
 - 支援比較運算：`>=`、`>`、`<=`、`<`、`==`。
 
@@ -247,6 +270,9 @@ CG 會在故事第一次顯示時自動解鎖，資料存於 `localStorage` 的 
 | 30 | `cg.ch01.elevator_blush` | 燈亮之後 |
 | 40 | `cg.ch01.phone_ending` | 交換聯絡方式 |
 | 50 | `cg.ch02.cafe_morning` | 星期六的兩杯咖啡 |
+| 52 | `cg.date.bookstore` | 同一本書 |
+| 54 | `cg.date.riverwalk` | 傘下的距離 |
+| 56 | `cg.date.night_market` | 分你一口 |
 | 60 | `cg.ch02.laundry_room` | 凌晨的洗衣房 |
 | 70 | `cg.ch02.rooftop_night` | 屋頂夜色 |
 | 80 | `cg.ch03.living_room_wine` | 1702 的香檳 |
@@ -261,11 +287,12 @@ CG 會在故事第一次顯示時自動解鎖，資料存於 `localStorage` 的 
 ### 修改或延伸劇情
 
 1. 編輯 `content/chapters/chapter-01.json`。
-2. 每個新節點使用唯一 ID，並確保所有 `next`／`choices[].next` 可達。
-3. 選擇 `cg` 或 `composite`，不要混用。
-4. 若加入新 CG，同步完成下一節的四項資產工作。
-5. 執行 `npm run build && npm run validate`。
-6. 檢查 `content/` 與 `dist/content/` 均已更新後提交。
+2. 若場景應由其他角色複用，先在 `content/scenes/date-pool.json` 定義地點與共通互動節拍，再由角色路線提供台詞、服裝與CG。
+3. 每個新節點使用唯一 ID，並確保所有 `next`／`choices[].next` 可達。
+4. 選擇 `cg` 或 `composite`，不要混用。
+5. 若加入新 CG，同步完成下一節的四項資產工作。
+6. 執行 `npm run build && npm run validate`。
+7. 檢查 `content/` 與 `dist/content/` 均已更新後提交。
 
 ### 新增或替換 CG／立繪
 
@@ -297,6 +324,8 @@ CG 會在故事第一次顯示時自動解鎖，資料存於 `localStorage` 的 
 - 缺失實體圖片或未知資產 ID。
 - manifest 資產沒有 recipe，或多份 recipe 輸出同一資產。
 - 角色、服裝、髮型、妝容不存在或版本不一致。
+- CG 配方缺少明確的 `headPose`。
+- 隨機場景池、入口節點、返回節點或 `unlockFlag` 不存在。
 - CG 缺少收藏標題、章節、排序，或排序重複。
 - `cg`／`composite` 欄位混用。
 - `next`、選項、分支或結局引用不存在的節點／結局。
@@ -348,4 +377,3 @@ git status --short
 
 - `README.md`：完整交接、設定、資料格式與工作流程（本文件）。
 - `ARCHITECTURE.md`：模組化架構的精簡摘要。
-

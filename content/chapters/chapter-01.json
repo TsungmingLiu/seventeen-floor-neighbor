@@ -4,7 +4,7 @@
   "startNode": "intro1",
   "titleArt": "cg.ch01.hallway_meet",
   "endingArt": "cg.ch02.rooftop_night",
-  "chapterLabels": ["雨夜", "初遇", "停電", "靠近", "隔壁", "咖啡", "洗衣房", "天台", "1702", "真心", "確認", "清晨"],
+  "chapterLabels": ["雨夜", "初遇", "停電", "靠近", "隔壁", "咖啡", "約會", "天台", "1702", "真心", "確認", "清晨"],
   "initialState": {
     "heart": 0,
     "trust": 0,
@@ -363,7 +363,188 @@
       "chapter": 5,
       "moment": "她說「只是」時，視線移開了半秒。",
       "visual": { "mode": "cg", "asset": "cg.ch02.cafe_morning" },
-      "next": "laundry_intro"
+      "next": "date_pick_one"
+    },
+    "date_pick_one": {
+      "type": "random",
+      "pool": "midgame_dates",
+      "after": "laundry_intro"
+    },
+    "date_pick_two": {
+      "type": "random",
+      "pool": "midgame_dates",
+      "after": "rooftop_intro"
+    },
+    "date_return": {
+      "type": "return"
+    },
+    "date_bookstore_intro": {
+      "speaker": "旁白",
+      "text": "又一個晴朗的週日下午。\n許棠傳來一間書店的定位，只附了一句：『幫我挑一本不會讓人後悔的。』\n\n你到時，她已在最裡面的書架前停了很久。",
+      "chapter": 6,
+      "tone": "soft",
+      "moment": "第一次不是因為住戶義務見面。",
+      "visual": { "mode": "cg", "asset": "cg.date.bookstore", "effects": { "push": true } },
+      "next": "date_bookstore_line"
+    },
+    "date_bookstore_line": {
+      "speaker": "許棠",
+      "text": "你遲到了四十七秒。\n\n她伸手抽書時，你也正好碰到同一本。\n\n許棠：不過選書方向合格，可以抵銷。",
+      "chapter": 6,
+      "visual": { "mode": "cg", "asset": "cg.date.bookstore" },
+      "next": "date_bookstore_choice"
+    },
+    "date_bookstore_choice": {
+      "speaker": "你",
+      "text": "",
+      "chapter": 6,
+      "visual": { "mode": "cg", "asset": "cg.date.bookstore" },
+      "choices": [
+        { "text": "妳記得我說過喜歡這個作者？", "next": "date_bookstore_a", "effects": { "heart": 2, "trust": 2 } },
+        { "text": "同時拿到一本書，算不算很老派的約會橋段？", "next": "date_bookstore_b", "effects": { "heart": 2, "chaos": 1 } },
+        { "text": "妳先看。下次換妳借我一本。", "next": "date_bookstore_c", "effects": { "trust": 2, "comfort": 1 } }
+      ]
+    },
+    "date_bookstore_a": {
+      "speaker": "許棠",
+      "text": "只是記性好。\n\n她把書抽出來，卻沒有放進自己的籃子。\n\n許棠：你說喜歡的那一段，今晚可以講給我聽。",
+      "chapter": 6,
+      "visual": { "mode": "cg", "asset": "cg.date.bookstore" },
+      "next": "date_bookstore_close"
+    },
+    "date_bookstore_b": {
+      "speaker": "許棠",
+      "text": "如果下一秒還要同時鬆手，我可以配合。\n\n你沒有鬆，她也沒有。\n\n許棠：看來你的橋段準備得不完整。",
+      "chapter": 6,
+      "visual": { "mode": "cg", "asset": "cg.date.bookstore" },
+      "next": "date_bookstore_close"
+    },
+    "date_bookstore_c": {
+      "speaker": "許棠",
+      "text": "這麼早就在安排下次？\n\n你：怕妳看完就沒有理由找我。\n\n她低頭看了眼封面，唇角輕輕彎起。\n\n許棠：理由可以另外找。",
+      "chapter": 6,
+      "visual": { "mode": "cg", "asset": "cg.date.bookstore" },
+      "next": "date_bookstore_close"
+    },
+    "date_bookstore_close": {
+      "speaker": "旁白",
+      "text": "結帳後，你們在窗邊交換了各自挑的書。\n她在扉頁寫下日期，沒有寫名字。\n\n許棠：等你看完，我再告訴你為什麼選它。\n\n她已經替下一次見面留好了理由。",
+      "chapter": 6,
+      "moment": "她把「下次」說得很自然。",
+      "visual": { "mode": "cg", "asset": "cg.date.bookstore" },
+      "next": "date_return"
+    },
+    "date_river_intro": {
+      "speaker": "旁白",
+      "text": "某個下班後的傍晚，雨在你走出地鐵站時剛好變大。\n許棠站在河畔入口，只帶了一把傘。\n\n她往旁邊讓了半步，傘下的位置剛好夠兩個人。",
+      "chapter": 6,
+      "tone": "soft",
+      "moment": "她沒有說這是巧合。",
+      "visual": { "mode": "cg", "asset": "cg.date.riverwalk", "effects": { "push": true } },
+      "next": "date_river_line"
+    },
+    "date_river_line": {
+      "speaker": "許棠",
+      "text": "靠近一點。\n\n她用兩根手指勾住你的袖口，把你拉回傘下。\n\n許棠：感冒會傳染給隔壁，我只是在保護自己。",
+      "chapter": 6,
+      "visual": { "mode": "cg", "asset": "cg.date.riverwalk" },
+      "next": "date_river_choice"
+    },
+    "date_river_choice": {
+      "speaker": "你",
+      "text": "",
+      "chapter": 6,
+      "visual": { "mode": "cg", "asset": "cg.date.riverwalk" },
+      "choices": [
+        { "text": "那我再靠近一點，降低傳染範圍。", "next": "date_river_a", "effects": { "heart": 2, "chaos": 1 } },
+        { "text": "把傘給我。我想陪妳慢慢走。", "next": "date_river_b", "effects": { "trust": 2, "comfort": 2 } },
+        { "text": "妳可以直接牽我，不用每次都抓袖子。", "next": "date_river_c", "effects": { "heart": 3, "trust": 1 } }
+      ]
+    },
+    "date_river_a": {
+      "speaker": "許棠",
+      "text": "這個理論聽起來很可疑。\n\n她嘴上反駁，肩膀卻沒有移開。\n\n許棠：先走完這一段，我再決定要不要檢舉。",
+      "chapter": 6,
+      "visual": { "mode": "cg", "asset": "cg.date.riverwalk" },
+      "next": "date_river_close"
+    },
+    "date_river_b": {
+      "speaker": "許棠",
+      "text": "你連目的地都不知道。\n\n你：所以才可以慢慢走。\n\n她把傘柄交給你，手卻停在你的手背上多了一秒。\n\n許棠：……有道理。",
+      "chapter": 6,
+      "visual": { "mode": "cg", "asset": "cg.date.riverwalk" },
+      "next": "date_river_close"
+    },
+    "date_river_c": {
+      "speaker": "許棠",
+      "text": "你確定？\n\n她鬆開袖口。你以為自己說得太快，下一秒，她的手指已經滑進你的掌心。\n\n許棠：那就不要走丟。",
+      "chapter": 6,
+      "visual": { "mode": "cg", "asset": "cg.date.riverwalk" },
+      "next": "date_river_close"
+    },
+    "date_river_close": {
+      "speaker": "旁白",
+      "text": "雨停後，你們仍共撐著那把傘。\n河面的燈一路延伸，誰也沒有提醒另一個人，現在其實已經不需要靠得這麼近。",
+      "chapter": 6,
+      "moment": "有些距離縮短後，就沒有必要恢復。",
+      "visual": { "mode": "cg", "asset": "cg.date.riverwalk" },
+      "next": "date_return"
+    },
+    "date_market_intro": {
+      "speaker": "旁白",
+      "text": "週末，20:14。\n許棠說只陪你逛半小時，卻在第四個攤位前停下來。\n\n暖色燈光下，她紮著高馬尾，和平常判若兩人。",
+      "chapter": 6,
+      "tone": "light",
+      "moment": "你第一次看見她笑得毫無防備。",
+      "visual": { "mode": "cg", "asset": "cg.date.night_market", "effects": { "push": true } },
+      "next": "date_market_line"
+    },
+    "date_market_line": {
+      "speaker": "許棠",
+      "text": "張嘴。\n\n她把剛買的烤串遞到你面前，眼裡還帶著沒收住的笑。\n\n許棠：快點。這一口是最好吃的部分。",
+      "chapter": 6,
+      "visual": { "mode": "cg", "asset": "cg.date.night_market" },
+      "next": "date_market_choice"
+    },
+    "date_market_choice": {
+      "speaker": "你",
+      "text": "",
+      "chapter": 6,
+      "visual": { "mode": "cg", "asset": "cg.date.night_market" },
+      "choices": [
+        { "text": "最好吃的一口也捨得給我？", "next": "date_market_a", "effects": { "heart": 2, "trust": 1 } },
+        { "text": "妳先咬一口，我怕這是新型住戶測試。", "next": "date_market_b", "effects": { "chaos": 2, "comfort": 1 } },
+        { "text": "成交。下一攤換我餵妳。", "next": "date_market_c", "effects": { "heart": 2, "comfort": 2 } }
+      ]
+    },
+    "date_market_a": {
+      "speaker": "許棠",
+      "text": "你已經問出口了，我現在收回會很小氣。\n\n你吃掉那一口。她看著空下來的竹籤，像是才想起這個動作比預期親近。\n\n許棠：……味道還行吧？",
+      "chapter": 6,
+      "visual": { "mode": "cg", "asset": "cg.date.night_market" },
+      "next": "date_market_close"
+    },
+    "date_market_b": {
+      "speaker": "許棠",
+      "text": "可以。測試內容是看你敢不敢吃我咬過的。\n\n她真的先嚐了一口，再把烤串遞回來。\n\n許棠：現在退出還來得及。",
+      "chapter": 6,
+      "visual": { "mode": "cg", "asset": "cg.date.night_market" },
+      "next": "date_market_close"
+    },
+    "date_market_c": {
+      "speaker": "許棠",
+      "text": "你對自己的選攤能力很有信心。\n\n你：對妳會答應比較有信心。\n\n她挑了下眉，轉身往下一排燈光走。\n\n許棠：那就跟上。",
+      "chapter": 6,
+      "visual": { "mode": "cg", "asset": "cg.date.night_market" },
+      "next": "date_market_close"
+    },
+    "date_market_close": {
+      "speaker": "旁白",
+      "text": "半小時最後變成兩個小時。\n回程電梯裡，她把你們在攤位前拍的照片設成聊天背景，動作很快，仍被你看見。\n\n許棠：只是這張光線比較好。",
+      "chapter": 6,
+      "moment": "她開始替共同回憶留位置。",
+      "visual": { "mode": "cg", "asset": "cg.date.night_market" },
+      "next": "date_return"
     },
     "laundry_intro": {
       "speaker": "旁白",
@@ -417,20 +598,20 @@
       "text": "烘乾機停下時，已經過了凌晨一點。\n你們把最後一條毛巾折好，各自抱著洗衣籃回到相鄰的兩扇門前。",
       "chapter": 6,
       "visual": { "mode": "cg", "asset": "cg.ch02.laundry_room" },
-      "next": "rooftop_intro"
+      "next": "date_pick_two"
     },
     "rooftop_intro": {
       "speaker": "旁白",
       "text": "週五，21:16。\n大樓警報再次響起。這次與你無關——只是感應器故障。\n住戶陸續下樓後，剛從畫廊回來的許棠仍站在屋頂。",
       "chapter": 7,
       "tone": "soft",
-      "moment": "搬來的第七天。",
+      "moment": "搬來的第三個星期。",
       "visual": { "mode": "cg", "asset": "cg.ch02.rooftop_night", "effects": { "push": true } },
       "next": "rooftop_line"
     },
     "rooftop_line": {
       "speaker": "許棠",
-      "text": "搬來一週，遇到兩次警報、一次停電，還學會了用洗衣機。\n\n你對 17 樓的適應速度很有個人風格。",
+      "text": "搬來三週，遇到兩次警報、一次停電，還約了我不只兩次。\n\n你對 17 樓的適應速度很有個人風格。",
       "chapter": 7,
       "visual": { "mode": "cg", "asset": "cg.ch02.rooftop_night" },
       "next": "choice7"

@@ -17,6 +17,7 @@ export async function loadContent() {
   return {
     manifest: await readJson('content/assets/manifest.json'),
     chapter: await readJson('content/chapters/chapter-01.json'),
+    sceneLibrary: await readJson('content/scenes/date-pool.json'),
     recipes: await readJson('content/recipes/assets.json'),
     characters: Object.fromEntries(characterList.map((character) => [character.id, character]))
   };
@@ -24,9 +25,10 @@ export async function loadContent() {
 
 export async function validateContent(content) {
   const errors = [];
-  const { manifest, chapter, recipes, characters } = content;
+  const { manifest, chapter, sceneLibrary, recipes, characters } = content;
   const assets = manifest.assets || {};
   const nodes = chapter.nodes || {};
+  const scenePools = sceneLibrary.pools || {};
   const fail = (message) => errors.push(message);
   const requireAsset = (id, kind, where) => {
     const asset = assets[id];
@@ -95,6 +97,9 @@ export async function validateContent(content) {
     if (asset?.kind !== 'background' && !(recipe.dependencies || []).length) {
       fail(`recipe ${recipe.id}: character asset requires dependencies`);
     }
+    if (recipe.type === 'cg' && !recipe.prompt?.headPose) {
+      fail(`recipe ${recipe.id}: CG prompt requires an explicit headPose`);
+    }
   }
   for (const id of Object.keys(assets)) {
     if (!recipeOutputs.has(id)) fail(`asset ${id}: no generation recipe`);
@@ -122,7 +127,20 @@ export async function validateContent(content) {
       }
       continue;
     }
-    if (node.type === 'route') continue;
+    if (node.type === 'random') {
+      const pool = scenePools[node.pool];
+      if (!pool) {
+        fail(`node ${id}: unknown random pool ${node.pool}`);
+      } else {
+        for (const entry of pool.entries || []) {
+          if (!nodes[entry.entryNode]) fail(`pool ${node.pool}: unknown entry node ${entry.entryNode}`);
+          if (!entry.unlockFlag) fail(`pool ${node.pool}: entry ${entry.id} requires unlockFlag`);
+        }
+      }
+      if (!nodes[node.after]) fail(`node ${id}: unknown random return target ${node.after}`);
+      continue;
+    }
+    if (node.type === 'return' || node.type === 'route') continue;
     const visual = node.visual;
     if (!visual) {
       fail(`node ${id}: missing visual`);
@@ -151,7 +169,9 @@ export async function validateContent(content) {
       node.next,
       ...(node.choices || []).map((choice) => choice.next),
       node.default,
-      ...(node.cases || []).map((branch) => branch.next)
+      ...(node.cases || []).map((branch) => branch.next),
+      node.after,
+      ...((node.type === 'random' ? scenePools[node.pool]?.entries : []) || []).map((entry) => entry.entryNode)
     );
   }
   for (const id of Object.keys(nodes)) if (!reachable.has(id)) fail(`node ${id}: unreachable`);

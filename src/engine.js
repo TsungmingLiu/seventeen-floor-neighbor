@@ -1,7 +1,8 @@
 export class GameEngine {
-  constructor({ chapter, assetManifest }) {
+  constructor({ chapter, assetManifest, sceneLibrary }) {
     this.chapter = chapter;
     this.assets = assetManifest.assets;
+    this.scenePools = sceneLibrary.pools || {};
     this.nodeId = chapter.startNode;
     this.state = this.createInitialState();
     this.isTyping = false;
@@ -9,6 +10,7 @@ export class GameEngine {
     this.muted = localStorage.getItem('neighborMuted') === '1';
     this.audioContext = null;
     this.currentSpriteSignature = '';
+    this.returnNodes = [];
     this.cgStorageKey = `${chapter.id}:cgUnlocks`;
     this.galleryEntries = Object.entries(this.assets)
       .filter(([, asset]) => asset.kind === 'cg' && asset.gallery)
@@ -470,6 +472,24 @@ export class GameEngine {
   render() {
     const node = this.chapter.nodes[this.nodeId];
     if (!node) throw new Error(`Unknown story node: ${this.nodeId}`);
+    if (node.type === 'random') {
+      const pool = this.scenePools[node.pool];
+      if (!pool?.entries?.length) throw new Error(`Unknown or empty random pool: ${node.pool}`);
+      const unseen = pool.entries.filter((entry) => !this.state.flags.has(entry.unlockFlag));
+      const candidates = unseen.length ? unseen : pool.entries;
+      const selected = candidates[Math.floor(Math.random() * candidates.length)];
+      this.state.flags.add(selected.unlockFlag);
+      this.returnNodes.push(node.after);
+      this.nodeId = selected.entryNode;
+      this.render();
+      return;
+    }
+    if (node.type === 'return') {
+      this.nodeId = this.returnNodes.pop();
+      if (!this.nodeId) throw new Error('Return node has no pending destination');
+      this.render();
+      return;
+    }
     if (node.type === 'branch') {
       const branchId = this.nodeId;
       const branch = (node.cases || []).find((candidate) =>
@@ -548,6 +568,7 @@ export class GameEngine {
 
   startGame() {
     this.state = this.createInitialState();
+    this.returnNodes = [];
     this.nodeId = this.chapter.startNode;
     this.showOnly(this.els.game);
     this.render();

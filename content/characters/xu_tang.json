@@ -18,6 +18,11 @@
       "不直接承認擔心別人"
     ]
   },
+  "cinematography": {
+    "headPosePolicy": "同一批CG不得反覆使用仰頭直視鏡頭；頭部俯仰、左右轉向、視線落點與頸部姿態必須按場景動作分別指定。",
+    "preferredVariation": ["低頭看物件", "下巴水平的側面", "收下巴回望", "視線離開玩家", "以眼神上看但頭部不後仰"],
+    "avoid": ["連續CG使用相同三分之四仰頭角度", "為了顯臉而拉長頸部", "所有場景都直視鏡頭"]
+  },
   "invariants": [
     "保持同一橢圓臉型和五官比例",
     "保持偏狹長杏眼、深棕瞳孔與自然淡妝",
@@ -31,6 +36,12 @@
       "role": "primary_identity",
       "libraryFileId": "libfile_c00164e0e34c8191b2ad04a9b51941fd",
       "name": "IMG_9458.jpeg"
+    },
+    {
+      "role": "canonical_identity_sheet",
+      "path": "content/references/xu-tang-identity-v2.png",
+      "name": "許棠 v2 四角度臉部錨點",
+      "usage": "所有新立繪與CG必須和 primary_identity 一起引用；此圖只決定五官與頭骨比例，不決定服裝、場景或表情。"
     }
   ],
   "hairstyles": {
@@ -57,6 +68,18 @@
     "tousled_low_pony": {
       "version": 1,
       "description": "以鬆散低馬尾收起長髮，髮尾與臉側碎髮保留自然凌亂感，適合週末清晨居家造型。"
+    },
+    "loose_side_braid": {
+      "version": 1,
+      "description": "鬆散低側辮落在一側肩前，編髮保留自然蓬鬆感與不對稱臉側碎髮，適合安靜的日間約會。"
+    },
+    "wind_low_pony": {
+      "version": 1,
+      "description": "低位馬尾隨步伐與風自然擺動，額前及臉側髮絲略帶雨後濕氣，適合戶外散步。"
+    },
+    "ribbon_high_pony": {
+      "version": 1,
+      "description": "以小型黑色緞帶束起高馬尾，髮尾蓬鬆有動感，保留自然碎髮，適合活潑的週末夜間場景。"
     }
   },
   "outfits": {
@@ -114,6 +137,33 @@
         "深海軍藍背心與居家短褲必須完整可見，形成清楚的層次",
         "整體是完整舒適的成年居家服裝，不使用內衣式剪裁"
       ]
+    },
+    "bookstore_soft": {
+      "version": 1,
+      "description": "霧藍色合身細針織長袖上衣，搭配象牙白高腰闊腿長褲、窄版灰褐色皮帶與簡潔低跟鞋。",
+      "invariants": [
+        "上衣保持霧藍色、細針織材質與端莊船領",
+        "長褲保持象牙白、高腰與柔軟垂墜輪廓",
+        "整體適合安靜書店約會，清爽且不過分正式"
+      ]
+    },
+    "rain_walk": {
+      "version": 1,
+      "description": "石灰色及膝綁帶風衣敞開，內搭低飽和海軍藍針織中長裙與深色短靴。",
+      "invariants": [
+        "風衣保持石灰色、及膝長度與清楚腰帶結構",
+        "內搭保持海軍藍針織中長裙與端莊剪裁",
+        "服裝適合雨後戶外步行，不搭配高級酒類"
+      ]
+    },
+    "night_market": {
+      "version": 1,
+      "description": "靛藍短版牛仔外套敞開，內搭奶油白羅紋圓領上衣，下穿炭灰色高腰闊腿長褲與白色低筒休閒鞋。",
+      "invariants": [
+        "牛仔外套保持靛藍色、短版且敞開穿著",
+        "內搭保持奶油白羅紋圓領與完整覆蓋",
+        "整體是適合夜市步行與街頭小吃的輕鬆週末造型"
+      ]
     }
   },
   "makeups": {
@@ -136,6 +186,14 @@
     "morning_bare": {
       "version": 1,
       "description": "清晨近乎素顏，只保留保濕光澤、自然眉型與透明護唇膏，呈現放鬆的真實皮膚紋理。"
+    },
+    "rain_fresh": {
+      "version": 1,
+      "description": "雨後自然妝，薄透底妝、柔和莓果唇與極淡腮紅，保留皮膚與眼下真實紋理。"
+    },
+    "weekend_lively": {
+      "version": 1,
+      "description": "週末活力妝，柔和珊瑚腮紅、自然睫毛與低飽和玫瑰唇，適合暖色夜市場景。"
     }
   },
   "expressions": {

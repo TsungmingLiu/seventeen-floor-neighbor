@@ -1,0 +1,39 @@
+{
+  "sceneLibraryVersion": 1,
+  "pools": {
+    "midgame_dates": {
+      "title": "曖昧期約會",
+      "drawsPerRun": 2,
+      "withoutReplacement": true,
+      "entries": [
+        {
+          "id": "bookstore_reach",
+          "entryNode": "date_bookstore_intro",
+          "unlockFlag": "date.bookstore.seen",
+          "setting": "獨立書店",
+          "time": "週日下午",
+          "reusableBeats": ["同時伸手拿書", "從選書方式了解彼此", "留下下次交換閱讀的理由"],
+          "presentation": { "drink": "none", "formality": "smart-casual" }
+        },
+        {
+          "id": "riverwalk_umbrella",
+          "entryNode": "date_river_intro",
+          "unlockFlag": "date.riverwalk.seen",
+          "setting": "雨後河畔",
+          "time": "平日傍晚",
+          "reusableBeats": ["共撐一把傘", "談及獨處與陪伴", "第一次自然牽手"],
+          "presentation": { "drink": "none", "formality": "weather-casual" }
+        },
+        {
+          "id": "night_market_share",
+          "entryNode": "date_market_intro",
+          "unlockFlag": "date.market.seen",
+          "setting": "週末夜市",
+          "time": "星期六晚上",
+          "reusableBeats": ["交換挑選小吃", "看見角色少見的開懷反應", "建立共同回憶"],
+          "presentation": { "drink": "casual-only", "formality": "casual" }
+        }
+      ]
+    }
+  }
+}

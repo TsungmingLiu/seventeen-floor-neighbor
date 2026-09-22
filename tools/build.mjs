@@ -8,6 +8,7 @@ await mkdir(path.join(projectRoot, 'dist/content'), { recursive: true });
 const copies = [
   ['content/assets/manifest.json', 'dist/content/assets.json'],
   ['content/chapters/chapter-01.json', 'dist/content/chapter-01.json'],
+  ['content/scenes/date-pool.json', 'dist/content/date-pool.json'],
   ['src/app.js', 'dist/app.js'],
   ['src/engine.js', 'dist/engine.js']
 ];

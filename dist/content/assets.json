@@ -98,6 +98,66 @@
         }
       ]
     },
+    "cg.date.bookstore": {
+      "kind": "cg",
+      "src": "assets/cg-date-bookstore.png",
+      "width": 1672,
+      "height": 941,
+      "focus": { "x": 66, "y": 43 },
+      "gallery": { "title": "同一本書", "chapter": "約會・書店", "order": 52 },
+      "participants": [
+        {
+          "character": "xu_tang",
+          "designVersion": 2,
+          "outfit": "bookstore_soft",
+          "outfitVersion": 1,
+          "hairstyle": "loose_side_braid",
+          "hairstyleVersion": 1,
+          "makeup": "day_fresh",
+          "makeupVersion": 1
+        }
+      ]
+    },
+    "cg.date.riverwalk": {
+      "kind": "cg",
+      "src": "assets/cg-date-riverwalk.png",
+      "width": 1672,
+      "height": 941,
+      "focus": { "x": 67, "y": 44 },
+      "gallery": { "title": "傘下的距離", "chapter": "約會・河畔", "order": 54 },
+      "participants": [
+        {
+          "character": "xu_tang",
+          "designVersion": 2,
+          "outfit": "rain_walk",
+          "outfitVersion": 1,
+          "hairstyle": "wind_low_pony",
+          "hairstyleVersion": 1,
+          "makeup": "rain_fresh",
+          "makeupVersion": 1
+        }
+      ]
+    },
+    "cg.date.night_market": {
+      "kind": "cg",
+      "src": "assets/cg-date-night-market.png",
+      "width": 1672,
+      "height": 941,
+      "focus": { "x": 40, "y": 43 },
+      "gallery": { "title": "分你一口", "chapter": "約會・夜市", "order": 56 },
+      "participants": [
+        {
+          "character": "xu_tang",
+          "designVersion": 2,
+          "outfit": "night_market",
+          "outfitVersion": 1,
+          "hairstyle": "ribbon_high_pony",
+          "hairstyleVersion": 1,
+          "makeup": "weekend_lively",
+          "makeupVersion": 1
+        }
+      ]
+    },
     "cg.ch02.laundry_room": {
       "kind": "cg",
       "src": "assets/cg-ch02-laundry-room-v2.jpg",
