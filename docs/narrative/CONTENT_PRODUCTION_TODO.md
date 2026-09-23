@@ -14,6 +14,8 @@
 > - `docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md`
 > - `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md`
 > - `docs/art/PROTOTYPE_ART_REQUIREMENTS.md`
+> - `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md`
+> - `docs/art/VERTICAL_SLICE_CG_GENERATION_PROMPTS.md`（CG production）
 > - `docs/proposals/urban-dating-sim-setting-proposal.md`
 > - `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md`（只有涉及 Memories / replay / frontier 時）
 >
@@ -308,9 +310,9 @@ SH-01   17樓第一次同框
 ## A0 — Identity preflight
 
 - [x] 許棠 canonical metadata = 27 歲 / 約 170 cm
-- [ ] 許棠 approved identity sheet 最終確認仍適用
-- [ ] 江雨澄 canonical identity pack 最終確認
-- [ ] 兩位角色 production reference filenames / Drive IDs 整理
+- [x] 許棠 approved 6-sheet canonical identity pack 最終確認
+- [x] 江雨澄 approved 6-sheet canonical identity pack 最終確認（23 歲 / 約 160 cm）
+- [x] 兩位角色 production reference filenames / Drive IDs 已整理至 `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md`
 
 ## A1 — Opening reusable backgrounds
 
@@ -1105,7 +1107,7 @@ JYC:
 1. 每個 set 定義 outfit、hair、makeup、props、full/3/4 framing、透明背景需求。
 2. 每個 set 列出 Opening Vertical Slice 真正需要的 expressions，不要一口氣生成20個幾乎相同表情。
 3. 對每個 expression 定義 head pose / gaze / emotional tell，避免所有圖都是同一三分之四抬頭角度。
-4. 許棠固定為27歲/170cm成熟都市女性；江雨澄23歲成年研究生，不幼態化。
+4. 許棠固定為27歲/170cm成熟都市女性；江雨澄23歲/160cm、纖細小骨架、腿相對偏長的成年研究生，不幼態化。
 5. 所有生成必須引用 primary identity + canonical identity sheet，禁止只以上一張 sprite 作唯一 identity source。
 6. 建立/更新 canonical asset recipes，包括 prompt、negative constraints、safe-zone、source path、runtime ID。
 7. 根據 scene reuse 次數排序 generation queue。
@@ -1121,7 +1123,7 @@ JYC:
 ~~~text
 請為 `TsungmingLiu/seventeen-floor-neighbor` Opening Vertical Slice 準備 A3 Special CG Production Queue。
 
-先讀所有最新 vertical-slice scene files，尤其每幕的 CG timing，再讀 PROTOTYPE_ART_REQUIREMENTS、角色 identity metadata、9:16 composition contract。
+先讀所有最新 vertical-slice scene files，尤其每幕的 CG timing，再讀 `PROTOTYPE_ART_REQUIREMENTS.md`、`CHARACTER_REFERENCE_PACK_SPEC.md`、`VERTICAL_SLICE_CG_GENERATION_PROMPTS.md` 與 9:16 composition contract。
 
 範圍：
 P0：
