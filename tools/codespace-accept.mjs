@@ -325,7 +325,7 @@ echo "HEAD=$(git rev-parse HEAD)"
 node --version
 ffmpeg -version | head -1
 ffprobe -version | head -1
-command -v sshd
+test -x /usr/sbin/sshd
 rm -rf generated/runtime-assets generated/source-cache dist
 npm run assets:check
 npm run assets:build
