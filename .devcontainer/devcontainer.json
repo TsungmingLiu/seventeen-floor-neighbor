@@ -12,6 +12,6 @@
       "onAutoForward": "notify"
     }
   },
-  "postCreateCommand": "node --version && ffmpeg -version | head -1 && ffprobe -version | head -1",
+  "postCreateCommand": "node --version && ffmpeg -version | head -1 && ffprobe -version | head -1 && command -v sshd",
   "remoteUser": "node"
 }

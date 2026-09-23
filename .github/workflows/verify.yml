@@ -26,6 +26,8 @@ jobs:
         run: npm run build
       - name: Preview server smoke
         run: npm run preview:smoke -- --skip-build
+      - name: Codespace acceptance command dry-run
+        run: npm run codespace:accept -- --dry-run
       - name: Validate
         run: npm run validate
       - name: Tests

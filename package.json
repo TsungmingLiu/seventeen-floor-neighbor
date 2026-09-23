@@ -12,6 +12,8 @@
     "dev": "node tools/preview-server.mjs --dev --port 4173",
     "preview": "node tools/preview-server.mjs --preview --port 4173",
     "preview:smoke": "node tools/preview-server.mjs --smoke --port 4173",
+    "codespace:accept": "node tools/codespace-accept.mjs",
+    "codespace:review": "node tools/codespace-accept.mjs --public-review",
     "assets:check": "node tools/check-assets.mjs",
     "assets:build": "node tools/build-assets.mjs",
     "assets:plan": "node tools/asset-plan.mjs",
