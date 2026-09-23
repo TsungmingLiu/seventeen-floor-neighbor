@@ -4,20 +4,23 @@ This repository is the code/content source of truth for the game. Do not rely on
 
 ## Read order before editing
 
-1. Read `ARCHITECTURE.zh-TW.md` — canonical target architecture and workflow.
-2. Read `ARCHITECTURE.md` only as the English mirror; if the two conflict, the Traditional Chinese file wins.
-3. Read `IMPLEMENTATION.md` — current prototype implementation details.
-4. Read `PROJECT_STATE.md` — current milestone and pending decisions.
-5. For player UI, Memories, CG Gallery, replay, or save/frontier work, read `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md`.
-6. For node-specific work, run `npm run context -- --route <route-id> --node <node-id>` and read the route's `context.md`.
+1. Read `PROJECT_STATE.md` — current milestone and superseding decisions.
+2. Read `TODO.md` — current execution board and exact next step.
+3. Read `ARCHITECTURE.zh-TW.md` — canonical target architecture. Until W3 documentation sync is complete, its older Local/Hybrid workflow sections are superseded by the Codespaces-only decision recorded in `PROJECT_STATE.md` and `TODO.md`.
+4. Read `ARCHITECTURE.md` only as the English mirror; if the architecture mirrors conflict, the Traditional Chinese file wins.
+5. Read `IMPLEMENTATION.md` — current prototype implementation details.
+6. For player UI, Memories, CG Gallery, replay, or save/frontier work, read `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md`.
+7. For node-specific work, run `npm run context -- --route <route-id> --node <node-id>` and read the route's `context.md`.
 
 The repository may temporarily differ from the target architecture. Preserve the runnable prototype and migrate incrementally; do not invent a parallel architecture.
 
-## Current prototype caveat
+## Current migration caveat
 
-The current repository still has legacy behavior that the canonical architecture explicitly plans to migrate, including source/runtime assets under `dist/assets/` and build validation tied to current generated files. Treat these as current implementation constraints, not long-term architectural rules.
+W1/W2 are complete: `dist/` is disposable generated output, `dist/assets/` is no longer the source of truth, and the build can resolve Git-backed legacy sources plus Google Drive runtime objects.
 
-Do not move or delete binary assets merely to make the repository resemble the target architecture. First implement the asset pipeline/checkpoint migration defined in the canonical architecture.
+W3 has not been implemented yet. The canonical development decision is now Codespaces-only: do not add new Local-vs-Remote workflow branches, and do not require the user's Mac for build or preview acceptance.
+
+Do not move or delete binary assets merely to make the repository resemble a future target. Preserve existing Git-backed legacy sources until their canonical replacements are safely recorded.
 
 ## Story and asset invariants
 
