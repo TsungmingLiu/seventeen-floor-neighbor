@@ -2,7 +2,7 @@
 
 > 狀態：**Canonical prototype narrative plan / pre-script**
 >
-> 版本：0.4
+> 版本：0.5
 >
 > 更新：2026-09-23
 >
@@ -17,6 +17,14 @@
 > 本文件的目的，是讓後續 writer 可以逐 scene 打磨台詞，讓 implementation session 可以把 scene 拆成 stable story nodes，而不必重新推導劇情意圖。
 
 ---
+
+## Canonical prototype cast facts
+
+- 男主：31 歲。
+- 許棠：**27 歲 / 約 170 cm**，自由接案視覺設計師，17 樓隔壁。
+- 江雨澄：23 歲 / 約 158 cm，研究生＋兼職插畫師。
+
+角色年齡與身高若和舊 runtime fixture / 舊 asset recipe 衝突，以本節、setting proposal 與 Character Bible 最新版本為準。
 
 # 1. Narrative pillars
 
@@ -1182,13 +1190,18 @@ Possible:
 
 ### XT-G — Good：隔壁
 
+**這不是故事終點，而是 relationship resolution。**
+
 **First kiss**
 17 樓，安靜、互相確認、沒有煙火。構圖呼應 COM-00：同一條走廊，opening 的距離消失。
 
-**Epilogue**
-幾天後早晨，她敲男主門，帶兩杯咖啡。兩人仍各自工作、各自住，不以「生活完全合併」當幸福象徵。
+**Unlock**
+- `ending.xu.good`
+- `afterstory.xu.unlocked=true`
+- 解鎖 XT-AF-01 → XT-AF-03。
+- 若 build profile = `full`，XT-AF-01 / 02 可包含 mature-only 延伸；`sfw` build 必須有完整、不突兀的替代流程。
 
-**Art**：CG-XT-11 First Kiss + CG-XT-12 Morning Epilogue。
+**Art**：CG-XT-11 First Kiss；後日談 CG 見 After Story。
 
 ---
 
@@ -1203,6 +1216,8 @@ Possible:
 
 最後仍會很自然地敲門問要不要喝咖啡。
 
+**Unlock**：`XT-FC` Friend Coda。
+
 **Art**：17F / cafe；可用專屬 P1 CG。
 
 ---
@@ -1215,6 +1230,8 @@ Possible:
 
 最後意象：
 > 再也不敲對方的門。
+
+**Unlock**：`XT-DC` Distance Coda。
 
 **Art**：BG-APT-17F-NIGHT；不必 CG。
 
@@ -1255,17 +1272,20 @@ Good path 必須讓男主清楚表示自己想要的是 offline + online 都存�
 
 ### JYC-G — Good：沒有第二個帳號
 
+**這不是故事終點，而是 relationship resolution。**
+
 她不公開真名、不刪匿名帳號、不突然變社牛。
 
 改變是：
 > 在男主面前不必維護兩個人格版本。
 
-**Epilogue**
-她傳一張準備公開的新作品：「我要放上去了，你先看。」
+**Unlock**
+- `ending.jyc.good`
+- `afterstory.jyc.unlocked=true`
+- 解鎖 JYC-AF-01 → JYC-AF-03。
+- `full` profile 可在已明確建立關係、雙方成年且互相同意的前提下加入 mature-only intimacy extension；`sfw` 保留完整 romance / fade-to-black / morning-after continuity。
 
-不是求 approval，而是把他放進創作生活。
-
-**Art**：CG-JYC-09 + CG-JYC-10。
+**Art**：CG-JYC-09 First Kiss；後日談 CG 見 After Story。
 
 ---
 
@@ -1279,6 +1299,8 @@ Friend ending 的核心可包含她的 readiness：
 最後仍會傳新作品：
 > 「先給你看。」
 
+**Unlock**：`JYC-FC` Friend Coda。
+
 **Art**：UI + optional quiet CG。
 
 ---
@@ -1288,6 +1310,8 @@ Friend ending 的核心可包含她的 readiness：
 訊息逐漸變慢；匿名帳號某天換 handle。
 
 男主偶爾看到熟悉畫風，但再也不能確定是不是她。
+
+**Unlock**：`JYC-DC` Distance Coda。
 
 **Art**：UI-centric；不需人物 CG。
 
@@ -1307,11 +1331,220 @@ Friend ending 的核心可包含她的 readiness：
 
 之後 17 樓仍會遇到許棠；網路上也仍可能看到雨澄的公開作品，但兩段私人連結都關閉。
 
+**Unlock**：`BOTH-DC` 雙 Distance Coda。
+
 **Art**：17F empty / phone UI；不需要特殊 CG。
 
 ---
 
-# 6. Memory Event guidance
+# 6. Post-ending Relationship Reward / Coda
+
+## 6.1 Product principle
+
+**Ending 是 relationship state resolution，不是玩家內容獎勵的終點。**
+
+Prototype 的 post-ending 設計分三層：
+
+1. **Good**：解鎖 3 個 After Story episodes，讓玩家真正看到「交往以後」；包含更高密度的親密、日常與 fan-service。
+2. **Friend**：解鎖 1 個 coda，證明友情不是失敗版 Good。
+3. **Distance / BOTH-D**：解鎖 1 個短 coda，提供時間推進與 closure，而不是突然黑屏 END。
+
+After Story 應進入 W4 Memories / CG Gallery，成為通關後繼續收集與 replay 的內容。
+
+## 6.2 Mature / NSFW content policy for this project
+
+所有 romance participants 都是明確成年人。
+
+若未來使用 `full` build profile加入成人向內容：
+
+- 只在 **Good Ending 後、relationship 已明確成立** 的 After Story 中出現；
+- 必須是雙方清醒、自願、可隨時停止的親密關係；
+- 不使用酒醉、脅迫、權力交換或「不確定是否同意」作刺激點；
+- 主線 relationship quality 不應要求玩家觀看 mature content 才能理解；
+- `sfw` build 以吻、擁抱、留宿、fade-to-black、次日清晨／aftercare continuity 取代；
+- `full` build 可插入更成人向的 extended intimacy nodes / CG slot，但需由 compiler 在 `sfw` 真正 prune，而不是 runtime 隱藏；
+- 本 general narrative spec 先定義情緒、consent、進出狀態與 CG slot；具體成人描寫若製作，另在 profile-gated mature content source 中 author，不把露骨內容散落在共通 script。
+
+這讓公開／朋友測試版與完整版可以共享同一 relationship arc。
+
+---
+
+## 6.3 Xu Good After Story
+
+### XT-AF-01 — 今晚不用回隔壁
+
+**時間**：Good Ending 後約 1–2 週。  
+**地點**：許棠家／男主家，晚間。  
+**Purpose**：把 First Kiss 的「承諾」轉成真正的 couple intimacy；fan-service reward，但仍呼應 autonomy / consent。
+
+**Set-up**
+兩人本來只是一起吃飯、工作或看電影。時間晚了。過去他們住隔壁，所以「要不要回自己家」一直是很容易逃走的 option。
+
+**Beats**
+1. 一個非常普通的晚上。
+2. 兩人已經會自然靠近、碰肩、拿對方東西。
+3. 到該散場的時間，其中一人半玩笑地指出：其實只隔一道牆。
+4. 許棠第一次不是因 deadline / 方便，而是明確因為「想你留下」表達需求。
+5. 男主不能把她的邀請當成理所當然；要有簡短 mutual check-in。
+6. 親密升級：更長的吻、擁抱、停頓、笑場。
+7. `sfw`：在雙方意圖清楚後 fade-to-black，直接銜接 XT-AF-02。
+8. `full`：可插入 mature-only intimacy extension，再銜接同一 morning-after state。
+
+**State**
+- `xt_first_stayover=true`
+- `relationship.xu.physicalIntimacy += 1`
+- 無 ending risk；這是 reward episode，不再考玩家「正確答案」。
+
+**Art**
+- 晚間居家 couple CG。
+- `full` profile 可有獨立 mature-only CG slot。
+- 重點是 reciprocity、眼神與距離，不把角色變成單純 pin-up。
+
+---
+
+### XT-AF-02 — 星期日早晨
+
+**Purpose**：Good Ending 後最直接的 domestic fan-service。
+
+**Beats**
+1. 清晨自然光。
+2. 許棠不是精心打扮狀態：散髮／鬆亂低馬尾、近素顏。
+3. 可以穿自己的寬鬆居家服，或合理地借男主較大的襯衫／T-shirt 搭完整短褲；不要只剩「性感服裝展示」。
+4. 她第一次完全不把玩家當客人：自己去找咖啡、吐槽他的冰箱／咖啡豆、搶浴室順序等。
+5. 可有擁抱、從背後靠一下、短吻等輕 fan-service。
+6. 兩人仍各自有今天要做的事；關係沒有把生活吞掉。
+
+**State**
+- `xt_morning_routine_seen=true`
+
+**Art**
+- Morning reward CG，應是 Gallery 高價值收藏。
+- 可有一張較曖昧的床邊／沙發晨光構圖，但不要求露骨。
+
+---
+
+### XT-AF-03 — 一個月後：留位置
+
+**Purpose**：真正的後日談，回答「兩個很獨立的人交往後怎麼活」。
+
+**Beats**
+- 兩家仍然分開。
+- 男主家開始固定有她愛喝的東西／充電線。
+- 她家也自然出現他的杯子／常用物件。
+- 不用交鑰匙、搬家作為幸福 shortcut。
+- 她有工作，他也有 incident；這次兩人會直接說今天需要陪伴、安靜或各忙各的。
+- 最後用非常日常的下一個邀約收尾。
+
+**Art**：一張真正「已經在交往」的生活 CG，而不是再一次 confession pose。
+
+---
+
+## 6.4 Jiang Good After Story
+
+### JYC-AF-01 — 最後一班車之後
+
+**時間**：Good Ending 後約 1–2 週。  
+**地點**：男主家，夜間 gaming / movie。  
+**Purpose**：把她的 online/offline integration 推到身體距離與留宿選擇。
+
+**Set-up**
+兩人玩到很晚。不能用「不小心錯過末班車所以被迫留下」作唯一理由；她可以先看到時間，停一下後主動決定不急著走。
+
+**Beats**
+1. 已經是戀人，所以 gaming 時距離比 JYC-06 自然很多。
+2. 她仍會因 physical escalation 緊張，但不是不願意。
+3. 她可能用玩笑／吐槽掩飾：「你現在是不是突然很安靜。」
+4. 雙方用很簡單的語句確認彼此想法，不變成 consent lecture。
+5. 更長的吻、靠在一起、第一次留宿。
+6. `sfw`：fade-to-black / 關燈 / next morning。
+7. `full`：可插入 mature-only extension；仍必須保持她有主動性，而不是被成熟男主帶著走。
+
+**State**
+- `jyc_first_stayover=true`
+- `relationship.jyc.physicalIntimacy += 1`
+
+**Art**
+- 夜間 gaming → couple closeness reward CG。
+- mature-only slot 另行 profile gate。
+
+---
+
+### JYC-AF-02 — 不用切換帳號
+
+**Purpose**：fan-service + character payoff。
+
+**Beats**
+1. 次日早晨／週末白天。
+2. 她頭髮亂、穿借來的寬鬆 hoodie / T-shirt + 完整居家短褲或自己的衣物。
+3. 她在現實裡開始出現和 Discord 同樣的嘴賤／meme energy。
+4. 她可以搶 controller、偷看男主螢幕、躺在沙發另一端傳 meme 給「明明就在旁邊」的男主。
+5. 這是最直接的「online/offline 不再切換人格」reward。
+
+**Art**：高價值 cozy/fan-service CG；應與早期 JYC-06 Gaming Night 作 before/after 對照。
+
+---
+
+### JYC-AF-03 — 公開前先給你看
+
+**Purpose**：真正的關係後日談。
+
+**Beats**
+- 她完成新作品。
+- 不再把男主當秘密保管箱，而是自然分享。
+- 她仍用筆名、仍有 privacy。
+- 她準備公開前讓男主先看，只因想和戀人分享，不是求批准。
+- 男主也在旁做自己的工作。
+- 結尾可以是她在線上傳了一個 meme 給坐在旁邊的男主，兩人一起笑。
+
+**Art**：CG-JYC-AF-03 / 可和原 CG-JYC-10 概念整合，避免重複。
+
+---
+
+## 6.5 Friend codas
+
+### XT-FC — 樓下，還是隔壁
+
+數週後。兩人仍會敲門、一起喝咖啡、互相吐槽工作。
+
+不刻意製造「其實下一秒就能變 Good」來否定 Friend ending；可以保留一點未來開放性，但此刻兩人都對這個關係位置感到自在。
+
+**Reward**：warm friendship CG optional。
+
+### JYC-FC — 先給你看：幾週後
+
+她邀男主去 creator event，這次用「朋友」身份很自然。她把新作品先傳給他，但沒有 romantic obligation。
+
+**Reward**：quiet creator/cafe CG optional。
+
+---
+
+## 6.6 Distance codas
+
+### XT-DC — 又一次電梯
+
+一兩個月後。同一部電梯再短暫停頓一下。
+
+兩人都笑了一下，因為記得第一次。
+
+電梯恢復，17 樓到了，各自回家。
+
+**Purpose**：讓 Distance 是完整 closure，不是 punishment screen。
+
+### JYC-DC — 新 handle
+
+幾週／幾個月後，男主在網路上看到一張很熟悉的畫。
+
+帳號已換名字，他不確定是不是她，也不再去確認。
+
+### BOTH-DC — 春天的17樓
+
+雙 Distance 後時間跳轉。男主的生活重新非常有秩序；手機安靜，走廊也安靜。
+
+這不是「報應」，而是把他的核心 flaw 完成成一個可理解的失去：他曾經把不做選擇當成最安全的選擇。
+
+---
+
+# 7. Memory Event guidance
 
 W4 玩家看到的是 Memory Event，不是上述所有 authoring gates。
 
@@ -1323,7 +1556,10 @@ W4 玩家看到的是 Memory Event，不是上述所有 authoring gates。
 - COMMIT 顯示為自然事件標題，例如「同一個星期六」；
 - HONEST-X/J、BOTH-H/L 多數不必各自成卡，可由結果 scene 表示；
 - 修羅場未解鎖前不得提前顯示名稱或數量；
-- endings 各自獨立 unlock。
+- relationship resolution endings 各自獨立 unlock；
+- Good After Story 建議成為該 heroine 的獨立 post-ending Memory Section；
+- Friend / Distance coda 各自一張後續 Memory；
+- mature-only Memory / CG 在 `sfw` build 必須 compile-time 移除，不能留下可推測數量的 locked placeholder。
 
 Progress rank 使用 phase band，而不是 raw node count。兩女主同階段事件可以共享 rank band。
 
@@ -1338,8 +1574,9 @@ Progress rank 使用 phase band，而不是 raw node count。兩女主同階段�
 3. SH-01 / SH-02：確認交織感自然。
 4. XT-09 → XT-12、JYC-09 → JYC-12：打磨 conflict / repair，優先去除 therapy-speak。
 5. COMMIT / overlap / shura：先做 decision logic，再寫台詞。
-6. XT/JYC late lock + endings。
-7. 最後回頭補 reactive variants、re-approach、knowledge subtext。
+6. XT/JYC late lock + relationship resolution endings。
+7. Good After Story / Friend / Distance codas。
+8. 最後回頭補 reactive variants、re-approach、knowledge subtext。
 
 ---
 
