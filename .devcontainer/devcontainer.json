@@ -1,0 +1,17 @@
+{
+  "name": "17F Neighbor",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "forwardPorts": [
+    4173
+  ],
+  "portsAttributes": {
+    "4173": {
+      "label": "Game Preview",
+      "onAutoForward": "notify"
+    }
+  },
+  "postCreateCommand": "node --version && ffmpeg -version | head -1 && ffprobe -version | head -1",
+  "remoteUser": "node"
+}

@@ -2,10 +2,16 @@
   "name": "seventeen-floor-neighbor",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=22 <23"
+  },
   "scripts": {
     "test": "node --test tests/*.test.mjs",
     "validate": "node tools/validate-content.mjs",
     "build": "node tools/build.mjs",
+    "dev": "node tools/preview-server.mjs --dev --port 4173",
+    "preview": "node tools/preview-server.mjs --preview --port 4173",
+    "preview:smoke": "node tools/preview-server.mjs --smoke --port 4173",
     "assets:check": "node tools/check-assets.mjs",
     "assets:build": "node tools/build-assets.mjs",
     "assets:plan": "node tools/asset-plan.mjs",
