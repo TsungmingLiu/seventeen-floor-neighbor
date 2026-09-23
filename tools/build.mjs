@@ -1,9 +1,11 @@
-import { cp, copyFile, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
+import { cp, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { loadAndValidate, projectRoot } from './content-lib.mjs';
+import { buildAssets } from './build-assets.mjs';
 
 const content = await loadAndValidate();
+await buildAssets();
 const distRoot = path.join(projectRoot, 'dist');
 const publicRoot = path.join(projectRoot, 'public');
 const generatedRoot = path.join(projectRoot, 'generated');
@@ -16,12 +18,7 @@ await Promise.all([
   mkdir(path.join(generatedRoot, 'source-cache'), { recursive: true })
 ]);
 
-for (const [runtimePath, sourcePath] of Object.entries(content.assetSources.files || {})) {
-  const source = path.join(projectRoot, sourcePath);
-  const destination = path.join(distRoot, runtimePath);
-  await mkdir(path.dirname(destination), { recursive: true });
-  await copyFile(source, destination);
-}
+await cp(path.join(generatedRoot, 'runtime-assets'), distRoot, { recursive: true });
 
 const routesRoot = path.join(distRoot, 'content/routes');
 await mkdir(routesRoot, { recursive: true });

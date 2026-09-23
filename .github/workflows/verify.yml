@@ -12,6 +12,16 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Install media validation tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+          ffmpeg -version | head -1
+          ffprobe -version | head -1
+      - name: Asset check
+        run: npm run assets:check
+      - name: Asset build
+        run: npm run assets:build
       - name: Build
         run: npm run build
       - name: Validate

@@ -9,3 +9,6 @@ generated/source-cache/
 
 # OS/editor noise
 .DS_Store
+
+# Generated media validation report
+generated/asset-report.json
