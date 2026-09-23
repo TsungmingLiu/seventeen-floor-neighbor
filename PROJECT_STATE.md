@@ -70,10 +70,16 @@ This is a target specification, not a claim about the current runtime. Preserve 
 ## Start a new conversation
 
 1. Read this file, `TODO.md`, `AGENTS.md`, and `ARCHITECTURE.zh-TW.md`.
-2. For a node: run `npm run context -- --route xu-tang --node <node-id>`.
-3. For OL continuity also read `content/routes/office-ol/context.md`.
-4. Change the source file named by the packet, keeping node and asset IDs stable.
-5. Build, validate, test runtime changes, and check the diff. Keep source and generated output together.
+2. For prototype narrative / scene / branching work, also read:
+   - `docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md`
+   - `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md`
+   - `docs/art/PROTOTYPE_ART_REQUIREMENTS.md`
+   - `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md` when Memory/replay/frontier/UI is involved.
+3. Treat the existing 123-node playable story as a migration/engine fixture, not the canonical production narrative.
+4. For an existing runtime node: run `npm run context -- --route xu-tang --node <node-id>`.
+5. For OL continuity also read `content/routes/office-ol/context.md`.
+6. Change the source file named by the packet, keeping stable IDs stable once they enter implementation/save contracts.
+7. Build, validate, test runtime changes, and check the diff. Keep source and generated output together.
 
 ## Verification
 
