@@ -6,6 +6,30 @@ Updated: 2026-09-23
 
 W3 — Codespaces Development & Preview. Core preview/devcontainer tooling is implemented, and AI-operated ephemeral Codespace lifecycle tooling is now implemented. Remaining gates are: run `codespace:accept` once under a real authenticated Codespaces-capable `gh` operator, then run `codespace:review` + AI cloud-browser UI/localStorage smoke. Human no longer needs to create/rebuild Codespaces; W4 waits for these W3 gates.
 
+
+## Canonical narrative plan
+
+2026-09-23 已確認雙女主 prototype 採 **Braided Narrative v0.4**，取代「早期 route lock 後兩條完全分離」的舊劇情方向。
+
+Canonical planning docs：
+
+- `docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md` — 完整 55 個 authoring-level scene/gate/ending 規格、每幕目的、choice/state、conflict/repair/endings。
+- `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md` — route graph、attention windows、re-approach、crossover、knowledge flags、honest overlap / deception / commitment gate 與 implementation guardrails。
+- `docs/art/PROTOTYPE_ART_REQUIREMENTS.md` — scene backgrounds、Xu/JYC sprite sets、30+ CG slots、逐 node asset mapping 與 production priority。
+
+核心 narrative decisions：
+
+- 前中期不使用單一 `route_primary` 關閉另一位女主；
+- 玩家可以在未 exclusivity 前自然同時約會兩人；
+- `recentFocus`、heroine-specific relationship state 與 knowledge flags 製造低成本交織感；
+- late commitment 才真正鎖線；
+- honest overlap 與 deliberate deception 必須分開；
+- 修羅場 tone 是安靜、成人、以誠實與責任為核心，不做兩女爭男喜劇；
+- 舊 123-node playable story 仍只視為 engine / W3/W4 migration fixture，不代表新 production story ordering。
+
+後續 narrative work 應先讀上述三份文件，再讀 setting proposal；後續 art generation 以 art requirements + canonical Character Bible/identity references 為準。
+
+
 ## Approved W4 UX target (not implemented yet)
 
 The next player-facing UX direction is now documented in `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md`.
