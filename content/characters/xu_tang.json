@@ -20,8 +20,18 @@
   },
   "cinematography": {
     "headPosePolicy": "同一批CG不得反覆使用仰頭直視鏡頭；頭部俯仰、左右轉向、視線落點與頸部姿態必須按場景動作分別指定。",
-    "preferredVariation": ["低頭看物件", "下巴水平的側面", "收下巴回望", "視線離開玩家", "以眼神上看但頭部不後仰"],
-    "avoid": ["連續CG使用相同三分之四仰頭角度", "為了顯臉而拉長頸部", "所有場景都直視鏡頭"]
+    "preferredVariation": [
+      "低頭看物件",
+      "下巴水平的側面",
+      "收下巴回望",
+      "視線離開玩家",
+      "以眼神上看但頭部不後仰"
+    ],
+    "avoid": [
+      "連續CG使用相同三分之四仰頭角度",
+      "為了顯臉而拉長頸部",
+      "所有場景都直視鏡頭"
+    ]
   },
   "invariants": [
     "保持同一橢圓臉型和五官比例",
@@ -39,9 +49,10 @@
     },
     {
       "role": "canonical_identity_sheet",
-      "path": "content/references/xu-tang-identity-v2.png",
       "name": "許棠 v2 四角度臉部錨點",
-      "usage": "所有新立繪與CG必須和 primary_identity 一起引用；此圖只決定五官與頭骨比例，不決定服裝、場景或表情。"
+      "usage": "所有新立繪與CG必須和 primary_identity 一起引用；此圖只決定五官與頭骨比例，不決定服裝、場景或表情。",
+      "sourceId": "source.xu_tang.identity_v2",
+      "provider": "google-drive-private"
     }
   ],
   "hairstyles": {

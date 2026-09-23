@@ -15,7 +15,12 @@
       "prompt": {
         "scene": "現代高級公寓電梯內部，黑金和深灰金屬材質，暖白頂燈，門正對鏡頭",
         "camera": "第一人稱視角，16:9，水平構圖",
-        "constraints": ["無人物", "無可辨識品牌", "無文字", "無水印"]
+        "constraints": [
+          "無人物",
+          "無可辨識品牌",
+          "無文字",
+          "無水印"
+        ]
       }
     },
     {
@@ -23,13 +28,25 @@
       "outputAsset": "sprite.xu_tang.office.neutral",
       "type": "sprite",
       "dependencies": [
-        { "character": "xu_tang", "designVersion": 2, "outfit": "office", "outfitVersion": 2, "hairstyle": "low_bun", "hairstyleVersion": 1 }
+        {
+          "character": "xu_tang",
+          "designVersion": 2,
+          "outfit": "office",
+          "outfitVersion": 2,
+          "hairstyle": "low_bun",
+          "hairstyleVersion": 1
+        }
       ],
       "prompt": {
         "framing": "全身立繪，正面自然站姿，從頭到鞋完整入鏡",
         "expression": "neutral",
         "background": "真正透明RGBA背景",
-        "constraints": ["完整保留髮絲和衣服邊緣透明度", "無投影底板", "無文字", "無水印"]
+        "constraints": [
+          "完整保留髮絲和衣服邊緣透明度",
+          "無投影底板",
+          "無文字",
+          "無水印"
+        ]
       }
     },
     {
@@ -37,13 +54,25 @@
       "outputAsset": "sprite.xu_tang.office.playful",
       "type": "sprite",
       "dependencies": [
-        { "character": "xu_tang", "designVersion": 2, "outfit": "office", "outfitVersion": 2, "hairstyle": "low_bun", "hairstyleVersion": 1 }
+        {
+          "character": "xu_tang",
+          "designVersion": 2,
+          "outfit": "office",
+          "outfitVersion": 2,
+          "hairstyle": "low_bun",
+          "hairstyleVersion": 1
+        }
       ],
       "prompt": {
         "framing": "全身立繪，身體與臉呈明顯三分之四角度，重心落在單側並回頭看向玩家，從頭到鞋完整入鏡",
         "expression": "playful",
         "background": "真正透明RGBA背景",
-        "constraints": ["與neutral立繪保持同一張臉和服裝", "無投影底板", "無文字", "無水印"]
+        "constraints": [
+          "與neutral立繪保持同一張臉和服裝",
+          "無投影底板",
+          "無文字",
+          "無水印"
+        ]
       }
     },
     {
@@ -51,7 +80,14 @@
       "outputAsset": "cg.ch01.hallway_meet",
       "type": "cg",
       "dependencies": [
-        { "character": "xu_tang", "designVersion": 2, "outfit": "office", "outfitVersion": 2, "hairstyle": "low_bun", "hairstyleVersion": 1 }
+        {
+          "character": "xu_tang",
+          "designVersion": 2,
+          "outfit": "office",
+          "outfitVersion": 2,
+          "hairstyle": "low_bun",
+          "hairstyleVersion": 1
+        }
       ],
       "prompt": {
         "scene": "雨夜的現代公寓17樓走廊，1703門牌清楚但無其他文字，地面反射暖色壁燈",
@@ -59,7 +95,12 @@
         "camera": "第一人稱、中景、16:9，人物位於右側，左側保留走廊空間",
         "headPose": "下巴保持水平，頭部略向門側轉動，視線先看玩家的行李再平移到玩家，不仰頭",
         "lighting": "溫暖室內光與窗外冷色雨夜形成對比",
-        "constraints": ["單一人物", "無遊戲UI", "無對話框", "無水印"]
+        "constraints": [
+          "單一人物",
+          "無遊戲UI",
+          "無對話框",
+          "無水印"
+        ]
       }
     },
     {
@@ -67,7 +108,14 @@
       "outputAsset": "cg.ch01.elevator_close",
       "type": "cg",
       "dependencies": [
-        { "character": "xu_tang", "designVersion": 2, "outfit": "office", "outfitVersion": 2, "hairstyle": "low_bun", "hairstyleVersion": 1 }
+        {
+          "character": "xu_tang",
+          "designVersion": 2,
+          "outfit": "office",
+          "outfitVersion": 2,
+          "hairstyle": "low_bun",
+          "hairstyleVersion": 1
+        }
       ],
       "prompt": {
         "scene": "停電後的現代公寓電梯，周圍接近全黑",
@@ -75,7 +123,14 @@
         "camera": "第一人稱近距離，玩家手機手電筒與手臂進入前景，16:9",
         "headPose": "下巴微收、頭部略低，只以眼神向上確認玩家位置；頸部不後仰",
         "lighting": "手機冷白光照亮臉部，背景只保留微弱暖光",
-        "constraints": ["玩家不露臉", "抓袖手勢自然", "雙手指數正確", "無UI", "無文字", "無水印"]
+        "constraints": [
+          "玩家不露臉",
+          "抓袖手勢自然",
+          "雙手指數正確",
+          "無UI",
+          "無文字",
+          "無水印"
+        ]
       }
     },
     {
@@ -83,7 +138,14 @@
       "outputAsset": "cg.ch01.elevator_blush",
       "type": "cg",
       "dependencies": [
-        { "character": "xu_tang", "designVersion": 2, "outfit": "office", "outfitVersion": 2, "hairstyle": "low_bun", "hairstyleVersion": 1 }
+        {
+          "character": "xu_tang",
+          "designVersion": 2,
+          "outfit": "office",
+          "outfitVersion": 2,
+          "hairstyle": "low_bun",
+          "hairstyleVersion": 1
+        }
       ],
       "prompt": {
         "scene": "恢復暖白燈光的同一部公寓電梯",
@@ -91,7 +153,13 @@
         "camera": "第一人稱近距離中景，16:9",
         "headPose": "頭部向右側轉開約25度，下巴微收，視線落向電梯樓層燈而非鏡頭",
         "lighting": "柔和暖色頂燈，皮膚保持自然",
-        "constraints": ["表情克制", "與上一張CG保持同一人物和電梯", "無UI", "無文字", "無水印"]
+        "constraints": [
+          "表情克制",
+          "與上一張CG保持同一人物和電梯",
+          "無UI",
+          "無文字",
+          "無水印"
+        ]
       }
     },
     {
@@ -99,7 +167,14 @@
       "outputAsset": "cg.ch01.phone_ending",
       "type": "cg",
       "dependencies": [
-        { "character": "xu_tang", "designVersion": 2, "outfit": "office", "outfitVersion": 2, "hairstyle": "low_bun", "hairstyleVersion": 1 }
+        {
+          "character": "xu_tang",
+          "designVersion": 2,
+          "outfit": "office",
+          "outfitVersion": 2,
+          "hairstyle": "low_bun",
+          "hairstyleVersion": 1
+        }
       ],
       "prompt": {
         "scene": "雨夜的17樓走廊，1702與1703相鄰",
@@ -107,7 +182,13 @@
         "camera": "第一人稱中近景，16:9，人物位於右側",
         "headPose": "下巴水平、頭部自然前傾少許，視線沿手機方向看向玩家，不抬頭",
         "lighting": "暖色走廊燈，背景有雨夜冷光",
-        "constraints": ["手機螢幕保持純黑無文字", "伸手姿勢與手指自然", "無UI", "無對話框", "無水印"]
+        "constraints": [
+          "手機螢幕保持純黑無文字",
+          "伸手姿勢與手指自然",
+          "無UI",
+          "無對話框",
+          "無水印"
+        ]
       }
     },
     {
@@ -132,7 +213,14 @@
         "camera": "第一人稱坐姿中景，16:9，人物以三分之四側面位於右側；半束波浪長髮與日間角度明顯不同於其他場景",
         "headPose": "手托側臉但下巴略收，視線平視玩家，頭頂不可後仰",
         "lighting": "柔和自然晨光，寫實皮膚、手指與衣料質感",
-        "constraints": ["身份與角色基準一致", "手勢自然", "無可讀文字", "無品牌", "無UI", "無水印"]
+        "constraints": [
+          "身份與角色基準一致",
+          "手勢自然",
+          "無可讀文字",
+          "無品牌",
+          "無UI",
+          "無水印"
+        ]
       }
     },
     {
@@ -157,7 +245,15 @@
         "camera": "第一人稱16:9中廣角，從頭到膝下，人物位於右側並保留完整書店環境",
         "headPose": "身體靠近書架，頭部微向前且下巴下收約10度，視線斜向下落在共同伸向的書與玩家手上，不直視鏡頭",
         "lighting": "明亮柔和的午後自然光，可信的皮膚、髮絲與細針織材質",
-        "constraints": ["一名成年女性", "身份與角色基準一致", "手部正確", "無飲料", "無UI", "無文字", "無水印"]
+        "constraints": [
+          "一名成年女性",
+          "身份與角色基準一致",
+          "手部正確",
+          "無飲料",
+          "無UI",
+          "無文字",
+          "無水印"
+        ]
       }
     },
     {
@@ -182,7 +278,15 @@
         "camera": "第一人稱16:9全身行走構圖，人物位於右側，左側保留河面與城市倒影",
         "headPose": "真實側面到三分之四側面，下巴與地面平行，眼睛水平看向身旁玩家，頸部放鬆不後仰",
         "lighting": "冷色暮光配合暖色街燈反射，安靜而浪漫",
-        "constraints": ["一名成年女性", "身份與角色基準一致", "雨傘與手部正確", "無飲料", "無UI", "無文字", "無水印"]
+        "constraints": [
+          "一名成年女性",
+          "身份與角色基準一致",
+          "雨傘與手部正確",
+          "無飲料",
+          "無UI",
+          "無文字",
+          "無水印"
+        ]
       }
     },
     {
@@ -207,7 +311,16 @@
         "camera": "第一人稱16:9動態中廣角，人物從頭到小腿，斜向轉身而非正面擺拍",
         "headPose": "身體保持向前移動，回頭時下巴內收約8度，從放鬆眉眼下看向玩家；不可仰頭或弓背擺拍",
         "lighting": "暖色攤位燈與冷色城市環境光，紀實感、活潑但自然",
-        "constraints": ["一名成年女性", "身份與角色基準一致", "手部與竹籤正確", "休閒服只配街頭小吃", "無酒類", "無UI", "無文字", "無水印"]
+        "constraints": [
+          "一名成年女性",
+          "身份與角色基準一致",
+          "手部與竹籤正確",
+          "休閒服只配街頭小吃",
+          "無酒類",
+          "無UI",
+          "無文字",
+          "無水印"
+        ]
       }
     },
     {
@@ -232,7 +345,14 @@
         "camera": "第一人稱中廣角，16:9，人物偏右，以抓夾高馬尾、蹲姿與側回頭動作建立明顯動態",
         "headPose": "蹲姿中頭部向襪子低下約15度，只以眼神側看玩家，頸部不可向後折",
         "lighting": "可信的夜間室內光，保留近乎素顏的皮膚紋理",
-        "constraints": ["身份與角色基準一致", "手部正確", "無可讀文字", "無品牌", "無UI", "無水印"]
+        "constraints": [
+          "身份與角色基準一致",
+          "手部正確",
+          "無可讀文字",
+          "無品牌",
+          "無UI",
+          "無水印"
+        ]
       }
     },
     {
@@ -257,7 +377,16 @@
         "camera": "第一人稱廣角全身構圖，16:9，從頭到接近鞋履完整呈現修長比例；人物位於右側，左側保留城市夜景與對話空間",
         "headPose": "下巴水平、臉轉向城市約20度，再以側向視線看玩家；保持成熟自然，不仰頭",
         "lighting": "冷色夜景配合溫暖輪廓光，緞面與西裝材質可信",
-        "constraints": ["正式服裝只搭配高級杯裝飲品", "禁止罐裝飲料", "身份與角色基準一致", "手部正確", "無可讀文字", "無品牌", "無UI", "無水印"]
+        "constraints": [
+          "正式服裝只搭配高級杯裝飲品",
+          "禁止罐裝飲料",
+          "身份與角色基準一致",
+          "手部正確",
+          "無可讀文字",
+          "無品牌",
+          "無UI",
+          "無水印"
+        ]
       }
     },
     {
@@ -282,7 +411,14 @@
         "camera": "第一人稱16:9中廣角，三分之四側面，保留從頭到膝下的身形與完整室內環境",
         "headPose": "頭部略向酒杯方向低下，下巴微收，眼睛抬向玩家但頸部保持中立",
         "lighting": "暖色室內燈與冷色雨夜窗光交織，緞面質感自然",
-        "constraints": ["一名成年女性", "正式晚裝搭配香檳", "無罐裝飲料", "無UI", "無文字", "無水印"]
+        "constraints": [
+          "一名成年女性",
+          "正式晚裝搭配香檳",
+          "無罐裝飲料",
+          "無UI",
+          "無文字",
+          "無水印"
+        ]
       }
     },
     {
@@ -307,7 +443,14 @@
         "camera": "第一人稱16:9中廣角，略低視角與斜側構圖，避開正面證件照感",
         "headPose": "頭部仍微低朝向照片，下巴下收，只把視線抬向玩家，不抬整個頭",
         "lighting": "柔暖落地燈與微弱窗光，情緒私密但克制",
-        "constraints": ["一名成年女性", "完整穿著", "姿勢自然", "無UI", "無可讀文字", "無水印"]
+        "constraints": [
+          "一名成年女性",
+          "完整穿著",
+          "姿勢自然",
+          "無UI",
+          "無可讀文字",
+          "無水印"
+        ]
       }
     },
     {
@@ -332,7 +475,14 @@
         "camera": "第一人稱16:9腰上中景，明顯三分之四角度，玩家只保留遠景虛化肩膀並維持舒適距離",
         "headPose": "下巴微收、頭部朝玩家方向自然前傾，眼神直接但頸部不拉長",
         "lighting": "暖色室內實景光與冷色雨窗光，寫實電影感",
-        "constraints": ["一名成年女性", "完整穿著", "無肢體接觸", "無UI", "無文字", "無水印"]
+        "constraints": [
+          "一名成年女性",
+          "完整穿著",
+          "無肢體接觸",
+          "無UI",
+          "無文字",
+          "無水印"
+        ]
       }
     },
     {
@@ -361,8 +511,26 @@
         ],
         "motionPlan": "四張身份鎖定關鍵幀依序進行動態補幀：0至3秒完成撩髮，3至6秒眼簾垂下並靠近，6至9.45秒閉眼微嘟嘴貼近第一視角；先以48fps動作補償插值，再重定時為24fps、總長10秒，最後0.55秒淡出",
         "audio": "低音量雨聲環境底噪，隨影片淡入淡出",
-        "constraints": ["一名成年女性", "第一人稱伴侶僅在鏡頭外暗示", "PG級浪漫", "完整穿著", "不呈現接觸", "無裸露", "無UI", "無文字", "無水印", "1280x720", "10秒"]
-      }
+        "constraints": [
+          "一名成年女性",
+          "第一人稱伴侶僅在鏡頭外暗示",
+          "PG級浪漫",
+          "完整穿著",
+          "不呈現接觸",
+          "無裸露",
+          "無UI",
+          "無文字",
+          "無水印",
+          "1280x720",
+          "10秒"
+        ]
+      },
+      "sourceFrames": [
+        "source.xu_tang.first_kiss.keyframe_01",
+        "source.xu_tang.first_kiss.keyframe_02",
+        "source.xu_tang.first_kiss.keyframe_03",
+        "source.xu_tang.first_kiss.keyframe_04"
+      ]
     },
     {
       "id": "recipe.cg.ch04.bedroom_challenge",
@@ -386,7 +554,15 @@
         "camera": "第一人稱16:9中廣角正面構圖，人物從頭到膝下完整入鏡，清楚呈現晚裝輪廓、床尾軟凳與後方床鋪",
         "headPose": "頭部微前傾、下巴明確內收約10度，從眉眼下方直視玩家，不仰頭",
         "lighting": "暖色床頭燈與冷色雨窗光交織，正式、親近而克制",
-        "constraints": ["一名成年女性", "完整穿著", "無其他人物", "無肢體接觸", "無UI", "無文字", "無水印"]
+        "constraints": [
+          "一名成年女性",
+          "完整穿著",
+          "無其他人物",
+          "無肢體接觸",
+          "無UI",
+          "無文字",
+          "無水印"
+        ]
       }
     },
     {
@@ -411,7 +587,14 @@
         "camera": "第一人稱16:9中廣角，後側三分之四角度，從頭到膝下呈現完整身形",
         "headPose": "真正越肩回望，下巴微收、頸部沿脊柱自然旋轉，不向後仰或抬高",
         "lighting": "暖色走廊燈與冷色雨夜窗光交織，安靜而有期待感",
-        "constraints": ["一名成年女性", "完整穿著", "無其他人物", "無UI", "無文字", "無水印"]
+        "constraints": [
+          "一名成年女性",
+          "完整穿著",
+          "無其他人物",
+          "無UI",
+          "無文字",
+          "無水印"
+        ]
       }
     },
     {
@@ -436,7 +619,14 @@
         "camera": "第一人稱16:9中廣角，三分之四角度，從頭到大腿中段清楚呈現完整分層服裝",
         "headPose": "下巴水平，頭部略低朝咖啡杯，眼神越過杯緣看玩家，不後仰",
         "lighting": "柔和城市晨光，溫暖自然的週末居家氛圍",
-        "constraints": ["一名成年女性", "背心與短褲完整可見", "完整穿著", "無UI", "無文字", "無水印"]
+        "constraints": [
+          "一名成年女性",
+          "背心與短褲完整可見",
+          "完整穿著",
+          "無UI",
+          "無文字",
+          "無水印"
+        ]
       }
     },
     {
@@ -459,7 +649,10 @@
         "framing": "沿用既有專案黑絲 OL 臨時立繪；後續正式角色重製時替換",
         "expression": "neutral",
         "background": "既有專案素材，不在本階段生成",
-        "constraints": ["臨時素材只用於分支驗證", "所有畫面明確呈現為成年女性"]
+        "constraints": [
+          "臨時素材只用於分支驗證",
+          "所有畫面明確呈現為成年女性"
+        ]
       }
     },
     {
@@ -482,7 +675,10 @@
         "framing": "沿用既有專案黑絲 OL 臨時立繪；後續正式角色重製時替換",
         "expression": "playful",
         "background": "既有專案素材，不在本階段生成",
-        "constraints": ["臨時素材只用於分支驗證", "所有畫面明確呈現為成年女性"]
+        "constraints": [
+          "臨時素材只用於分支驗證",
+          "所有畫面明確呈現為成年女性"
+        ]
       }
     },
     {
@@ -507,7 +703,12 @@
         "camera": "沿用既有 16:9 走廊構圖",
         "headPose": "沿用既有素材的自然平視角度",
         "lighting": "沿用既有暖色走廊光",
-        "constraints": ["本項為既有臨時素材，不在本階段生成", "無UI", "無文字", "無水印"]
+        "constraints": [
+          "本項為既有臨時素材，不在本階段生成",
+          "無UI",
+          "無文字",
+          "無水印"
+        ]
       }
     }
   ]

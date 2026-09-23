@@ -1,0 +1,89 @@
+{
+  "sourceCatalogVersion": 1,
+  "provider": "google-drive",
+  "folderId": "1waCTQsIbfyZi0F80LlnWeerPcoNlPnw1",
+  "visibility": "restricted",
+  "note": "Private canonical masters recovered from ChatGPT Library and verified by full local decode on 2026-09-22/23. GitHub stores metadata only.",
+  "files": {
+    "source.xu_tang.date.bookstore": {
+      "fileId": "1aNhLrHoUIzJZ1aR9BeXrkKeKLsjeYkd_",
+      "name": "cg-date-bookstore.png",
+      "mimeType": "image/png",
+      "bytes": 2048531,
+      "width": 1672,
+      "height": 941,
+      "sha256": "6cb2ac03a23a0c605d997a6edef50adf5c9f8de32cd655a3a63a96d82a8f672a",
+      "verifiedDecode": true
+    },
+    "source.xu_tang.date.riverwalk": {
+      "fileId": "1YC570Awhyx6yoxIHzynwLzI4oqkr6W3S",
+      "name": "cg-date-riverwalk.png",
+      "mimeType": "image/png",
+      "bytes": 2355224,
+      "width": 1672,
+      "height": 941,
+      "sha256": "8a9f586a70696b210e1805aa9b4a07b116e6f0efbcad68e586b01273b905022a",
+      "verifiedDecode": true
+    },
+    "source.xu_tang.date.night_market": {
+      "fileId": "1SasHV1J51Cc2zbcgoeb3XO1YBlq6uLhZ",
+      "name": "cg-date-night-market.png",
+      "mimeType": "image/png",
+      "bytes": 2075970,
+      "width": 1672,
+      "height": 941,
+      "sha256": "a533e6182a1c0b7409a5aa204c48362548164bde8e252f9d1de72b445df3ee76",
+      "verifiedDecode": true
+    },
+    "source.xu_tang.identity_v2": {
+      "fileId": "13PhBIrjxhES-GMXJHj8hDEjdQJA6_qmi",
+      "name": "xu-tang-identity-v2.png",
+      "mimeType": "image/png",
+      "bytes": 2336962,
+      "width": 2048,
+      "height": 768,
+      "sha256": "d3c9927b79922ce85414b193b16e6a5635316ecf572710e07b8c2ac0b5001f19",
+      "verifiedDecode": true
+    },
+    "source.xu_tang.first_kiss.keyframe_01": {
+      "fileId": "17Zebv_FKd7A-XerSTLj6FNAfN8HMB0Kq",
+      "name": "keyframe-01-look.png",
+      "mimeType": "image/png",
+      "bytes": 2020032,
+      "width": 1672,
+      "height": 941,
+      "sha256": "367cb2e80aaa8a946194ec0597ff77ad67806cbdf35491f95ddf11aae163c1a5",
+      "verifiedDecode": true
+    },
+    "source.xu_tang.first_kiss.keyframe_02": {
+      "fileId": "1AyH4vQ2qAgyuW2gpWH9Vt-ftBMrHEITb",
+      "name": "keyframe-02-hair.png",
+      "mimeType": "image/png",
+      "bytes": 1993026,
+      "width": 1672,
+      "height": 941,
+      "sha256": "11b2dc20efa161974ec0d6c1c333f7596b2ef7e2f7009ba9cd711e2d1daa42be",
+      "verifiedDecode": true
+    },
+    "source.xu_tang.first_kiss.keyframe_03": {
+      "fileId": "1fNii8tv799rtiVeU4JfgvnQggizlDS0C",
+      "name": "keyframe-03-eyes-closed.png",
+      "mimeType": "image/png",
+      "bytes": 2010974,
+      "width": 1672,
+      "height": 941,
+      "sha256": "57808c32349a6a7842acf7ca63d2196a8c4df83f918aee8279aa5d1c76b2c7e4",
+      "verifiedDecode": true
+    },
+    "source.xu_tang.first_kiss.keyframe_04": {
+      "fileId": "1C84RKdUHGfK13zQDz-h58ZBZWiQLFfY5",
+      "name": "keyframe-04-approach.png",
+      "mimeType": "image/png",
+      "bytes": 1922739,
+      "width": 1672,
+      "height": 941,
+      "sha256": "13f3aead934cc51ac3f2da0e29d7522e3c7f234e08f036f2be42b5efa56011a4",
+      "verifiedDecode": true
+    }
+  }
+}

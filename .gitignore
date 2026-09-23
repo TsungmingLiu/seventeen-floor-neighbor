@@ -12,3 +12,6 @@ generated/source-cache/
 
 # Generated media validation report
 generated/asset-report.json
+
+# Runtime binaries are generated/fetched during build
+dist/assets/

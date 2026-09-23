@@ -1,7 +1,7 @@
 {
-  "sourceMapVersion": 1,
-  "migrationState": "w1-preserved-runtime-as-source",
-  "note": "Initial W1 preservation map. These files are byte-identical copies of the pre-migration dist/assets Git blobs. Some are runtime derivatives rather than original generation masters; later asset work may replace source paths without changing logical asset IDs.",
+  "sourceMapVersion": 2,
+  "migrationState": "w2-drive-provider",
+  "note": "Runtime assets may come from local preservation sources or public Google Drive runtime objects. Private masters are recorded separately in source-catalog.json.",
   "files": {
     "assets/bg-elevator-normal.jpg": "assets-src/backgrounds/bg-elevator-normal.jpg",
     "assets/cg-ch01-v2-elevator-blush.jpg": "assets-src/cg/cg-ch01-v2-elevator-blush.jpg",
@@ -20,9 +20,6 @@
     "assets/cg-ch04-hallway-pause.jpg": "assets-src/cg/cg-ch04-hallway-pause.jpg",
     "assets/cg-ch04-sunday-morning.jpg": "assets-src/cg/cg-ch04-sunday-morning.jpg",
     "assets/cg-ch04-take-my-hand.jpg": "assets-src/cg/cg-ch04-take-my-hand.jpg",
-    "assets/cg-date-bookstore.png": "assets-src/cg/cg-date-bookstore.png",
-    "assets/cg-date-night-market.png": "assets-src/cg/cg-date-night-market.png",
-    "assets/cg-date-riverwalk.png": "assets-src/cg/cg-date-riverwalk.png",
     "assets/cg-elevator-blush.jpg": "assets-src/cg/cg-elevator-blush.jpg",
     "assets/cg-elevator-close.jpg": "assets-src/cg/cg-elevator-close.jpg",
     "assets/cg-hallway-meet.jpg": "assets-src/cg/cg-hallway-meet.jpg",
@@ -38,6 +35,33 @@
     "assets/sprite-xu-tang-v2-neutral.webp": "assets-src/characters/sprite-xu-tang-v2-neutral.webp",
     "assets/sprite-xu-tang-v2-playful-angle.webp": "assets-src/characters/sprite-xu-tang-v2-playful-angle.webp",
     "assets/sprite-xu-tang-v2-playful.webp": "assets-src/characters/sprite-xu-tang-v2-playful.webp",
-    "assets/unavailable.svg": "assets-src/ui/unavailable.svg"
+    "assets/unavailable.svg": "assets-src/ui/unavailable.svg",
+    "assets/cg-date-bookstore.webp": {
+      "provider": "gdrive-public",
+      "fileId": "1IuuvVNQrNOlK9R3ZYr2quaNOHH5CoaTj",
+      "url": "https://drive.google.com/uc?export=download&id=1IuuvVNQrNOlK9R3ZYr2quaNOHH5CoaTj",
+      "transform": "copy",
+      "sha256": "8b5245c60079973c82e5ad9a97c830167a2a024d664042830885816666be4f2c",
+      "bytes": 143762,
+      "masterSourceId": "source.xu_tang.date.bookstore"
+    },
+    "assets/cg-date-riverwalk.webp": {
+      "provider": "gdrive-public",
+      "fileId": "1cAMdIu-AALAlJ1QW5ja8N5q62imzjunX",
+      "url": "https://drive.google.com/uc?export=download&id=1cAMdIu-AALAlJ1QW5ja8N5q62imzjunX",
+      "transform": "copy",
+      "sha256": "TBD",
+      "bytes": 229018,
+      "masterSourceId": "source.xu_tang.date.riverwalk"
+    },
+    "assets/cg-date-night-market.webp": {
+      "provider": "gdrive-public",
+      "fileId": "10LLYD2_wxAmxVgLGjk6RDOcA-Rhtz1d7",
+      "url": "https://drive.google.com/uc?export=download&id=10LLYD2_wxAmxVgLGjk6RDOcA-Rhtz1d7",
+      "transform": "copy",
+      "sha256": "TBD",
+      "bytes": 155166,
+      "masterSourceId": "source.xu_tang.date.night_market"
+    }
   }
 }

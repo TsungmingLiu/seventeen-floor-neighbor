@@ -46,11 +46,12 @@ export async function loadContent() {
   const characterList = await Promise.all(
     characterFiles.map((name) => readJson(`content/characters/${name}`))
   );
-  const [manifest, recipes, routeIndex, assetSources] = await Promise.all([
+  const [manifest, recipes, routeIndex, assetSources, sourceCatalog] = await Promise.all([
     readJson('content/assets/manifest.json'),
     readJson('content/recipes/assets.json'),
     readJson('content/routes/index.json'),
-    readJson('content/assets/source-map.json')
+    readJson('content/assets/source-map.json'),
+    readJson('content/assets/source-catalog.json')
   ]);
   const routes = await Promise.all((routeIndex.routes || []).map((entry) => loadRoute(entry, manifest)));
   return {
@@ -58,6 +59,7 @@ export async function loadContent() {
     recipes,
     routeIndex,
     assetSources,
+    sourceCatalog,
     routes,
     characters: Object.fromEntries(characterList.map((character) => [character.id, character]))
   };
@@ -208,15 +210,26 @@ export async function validateContent(content) {
     routeIds.add(route.config.id);
   }
 
-  if (assetSources?.sourceMapVersion !== 1) fail('asset source map: unsupported or missing sourceMapVersion');
+  if (![1, 2].includes(assetSources?.sourceMapVersion)) fail('asset source map: unsupported or missing sourceMapVersion');
 
-  for (const [runtimePath, sourcePath] of Object.entries(sourceFiles)) {
+  const normalizeSource = (entry) =>
+    typeof entry === 'string' ? { provider: 'local', source: entry, transform: 'copy' } : { provider: 'local', transform: 'copy', ...entry };
+
+  for (const [runtimePath, rawEntry] of Object.entries(sourceFiles)) {
+    const entry = normalizeSource(rawEntry);
     if (!runtimePath.startsWith('assets/')) fail(`asset source map: runtime path must stay under assets/: ${runtimePath}`);
-    if (!sourcePath.startsWith('assets-src/')) fail(`asset source map: source path must stay under assets-src/: ${sourcePath}`);
-    try {
-      await access(path.join(projectRoot, sourcePath));
-    } catch {
-      fail(`asset source map: missing source file ${sourcePath} for ${runtimePath}`);
+    if (entry.provider === 'local') {
+      if (!entry.source?.startsWith('assets-src/')) fail(`asset source map: local source must stay under assets-src/: ${entry.source}`);
+      try {
+        await access(path.join(projectRoot, entry.source));
+      } catch {
+        fail(`asset source map: missing local source ${entry.source} for ${runtimePath}`);
+      }
+    } else if (entry.provider === 'gdrive-public') {
+      if (!entry.fileId || !entry.url || !entry.sha256) fail(`asset source map: gdrive-public entry ${runtimePath} requires fileId, url, and sha256`);
+      if (!entry.url.startsWith('https://drive.google.com/')) fail(`asset source map: unsupported Drive URL for ${runtimePath}`);
+    } else {
+      fail(`asset source map: unsupported provider ${entry.provider} for ${runtimePath}`);
     }
   }
 
@@ -227,15 +240,20 @@ export async function validateContent(content) {
         fail(`asset ${id}: missing required file declaration`);
         continue;
       }
-      const sourcePath = sourceFiles[file];
-      if (!sourcePath) {
+      const sourceEntry = sourceFiles[file];
+      if (!sourceEntry) {
         fail(`asset ${id}: no source mapping for runtime file ${file}`);
         continue;
       }
-      try {
-        await access(path.join(projectRoot, sourcePath));
-      } catch {
-        fail(`asset ${id}: missing source ${sourcePath} for runtime file ${file}`);
+      const normalized = typeof sourceEntry === 'string'
+        ? { provider: 'local', source: sourceEntry }
+        : { provider: 'local', ...sourceEntry };
+      if (normalized.provider === 'local') {
+        try {
+          await access(path.join(projectRoot, normalized.source));
+        } catch {
+          fail(`asset ${id}: missing source ${normalized.source} for runtime file ${file}`);
+        }
       }
     }
     if (asset.kind === 'sprite') validateDependency(asset, `asset ${id}`);
