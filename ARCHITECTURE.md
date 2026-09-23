@@ -769,30 +769,23 @@ Remote operator for:
 
 Work itself is not permanent code storage.
 
-#### Private R2 Source Store
+#### Google Drive Source Vault (current)
 
-Cloud storage for selected master assets that belong to a cloud checkpoint.
+During the pre-commercial phase, Google Drive `source-private` is the canonical cloud vault for accepted master assets. It stays Restricted.
 
-Examples:
+GitHub stores metadata only: logical source ID, Drive file ID, SHA-256, dimensions, MIME type, and byte size.
 
-- character identity sheets;
-- approved CG masters;
-- keyframes;
-- source video;
-- other selected binary masters.
+#### Google Drive Runtime Store (current)
 
-This bucket is private.
+Google Drive `runtime-public` stores optimized WebP/poster/MP4 runtime objects and uses `Anyone with the link / Viewer`.
 
-#### Public R2 Runtime Store
+GitHub Actions/Codespaces can fetch these without Google credentials. Every remote runtime entry records file ID, URL, byte size, and SHA-256; build verifies and full-decodes the bytes.
 
-Production delivery storage for optimized assets:
+The Player does not need to hotlink Drive directly: build may materialize remote assets into `generated/runtime-assets/` and `dist/assets/`.
 
-- WebP;
-- poster images;
-- optimized MP4;
-- other runtime binaries.
+#### Cloudflare R2 (future pre-commercialization migration)
 
-These objects should use immutable/versioned/content-hashed paths.
+R2 is not a current-development blocker. Migrate when traffic, cache control, custom domains, automation, or commercialization justify it. Logical asset IDs and story content remain unchanged.
 
 #### ChatGPT Sites
 
@@ -837,42 +830,32 @@ Rules:
 
 ### Mode B — Cloud Checkpoint
 
-Use before:
+Before remote handoff/review/release, the current Drive-first checkpoint should:
 
-- shutting down the local machine;
-- handing work to ChatGPT Work;
-- treating the current version as a recoverable milestone;
-- remote release.
+1. validate code/content/assets;
+2. place accepted canonical masters in Google Drive `source-private`;
+3. publish required optimized runtime assets to `runtime-public`;
+4. record Drive file IDs, SHA-256, dimensions, byte sizes, and content version;
+5. push code/content/metadata to GitHub;
+6. verify from a machine with no local assets that public runtime objects can be fetched anonymously, hash-checked, full-decoded, and built.
 
-Target command:
-
-```bash
-npm run checkpoint
-```
-
-The checkpoint should:
-
-1. Validate code/content/assets.
-2. Find newly selected or changed referenced master assets.
-3. Upload them to private R2.
-4. Record hashes/object keys.
-5. Record the relevant Git commit/content version.
-6. Push code/content/metadata to GitHub.
-7. Verify that the version can be rebuilt without the local `assets-src/`.
-
-A version is **cloud-complete** only when both exist:
+Cloud-complete currently means:
 
 ```text
 GitHub commit
 +
-all referenced master assets in private R2
+required masters in Google Drive source-private
++
+required runtime assets in Google Drive runtime-public
++
+matching source-map / source-catalog hashes
 ```
 
-Only a cloud-complete version guarantees that the Mac can remain off while the project is rebuilt, previewed, or released.
+A future R2 migration preserves the same invariant and only swaps the provider.
 
 ### Mode C — Remote Working
 
-Use when the local Mac is unavailable.
+When the local Mac is unavailable:
 
 ```text
 ChatGPT Work
@@ -880,46 +863,22 @@ ChatGPT Work
 GitHub Codespace
     ↓
 GitHub code/spec
-+ private R2 checkpoint assets
++ Google Drive runtime-public
 ```
 
-Typical flow:
+Normal remote builds require no Google credential:
 
 ```bash
 git pull
-npm run assets:fetch
+npm run assets:check
+npm run assets:build
 npm run content:validate
 npm run dev
 ```
 
-Then use the Codespaces forwarded HTTPS preview.
+`assets:build` fetches public Drive runtime objects, verifies SHA-256, and produces disposable local runtime assets.
 
-After changes:
-
-```bash
-npm run content:validate
-npm run build
-git commit
-git push
-```
-
-Remote work can modify:
-
-- dialogue;
-- branches;
-- routes;
-- scene JSON;
-- UI;
-- engine code;
-- compiler;
-- validators;
-- prompts;
-- recipes;
-- metadata.
-
-If a change requires a brand-new CG/video that does not exist in private R2, AI should create a Generation Queue item and mark the asset missing.
-
-Do not fake the missing asset or mutate the architecture merely to make the build pass.
+New binary masters are accepted into `source-private`; their optimized runtime objects are then published to `runtime-public` and catalog/map metadata updated before the version is cloud-complete.
 
 ### Mode D — Sites Review
 
@@ -936,40 +895,23 @@ Sites review is not required after every small dialogue edit.
 
 ### Mode E — Cloud Release
 
-A cloud-complete version may be released without the local Mac.
-
-Release input:
+During the pre-commercial phase:
 
 ```text
 GitHub commit
-+
-private R2 checkpoint
-```
-
-Release pipeline:
-
-```text
-GitHub code/content
-+ private R2 masters
++ Google Drive source-private catalog
++ Google Drive runtime-public
         ↓
-validation
+asset hash/decode validation
         ↓
-runtime optimization
-        ↓
-content-hashed/versioned runtime objects
-        ↓
-public R2
-        ↓
-production asset manifest
+generated/runtime-assets
         ↓
 production build
         ↓
-Distribution Adapter
-        ↓
-Sites / Cloudflare Pages / another platform
+Sites / Cloudflare Pages / another Distribution Adapter
 ```
 
-If any required production master exists only on the powered-off local Mac, release must stop and request a checkpoint first.
+Canonical masters remain private. Before commercialization, migrate the provider to Cloudflare R2/CDN without changing logical asset IDs or story data.
 
 ---
 
@@ -1004,69 +946,37 @@ Treat this as a review/deployment adapter, not as canonical storage.
 
 ## 14. Asset Storage Model
 
-There are four asset layers.
+There are currently four layers.
 
 ### 14.1 Local `assets-src/`
 
-Purpose:
+Fast local staging for active iteration and not-yet-uploaded assets.
 
-- active working master staging;
-- rapid replacements;
-- candidate iteration.
+### 14.2 Google Drive `source-private`
 
-May contain assets that have not yet been checkpointed.
+Current canonical cloud master vault; keep Restricted.
 
-### 14.2 Private R2 Source Store
-
-Purpose:
-
-- recoverable cloud copy of selected master assets;
-- remote rebuild input;
-- release input.
-
-This is the canonical cloud master asset backup for cloud-complete versions.
+`content/assets/source-catalog.json` records logical source ID → Drive file ID / SHA-256 / size / dimensions.
 
 ### 14.3 `generated/` / `source-cache/`
 
-Purpose:
+Disposable temporary/cache/intermediate data.
 
-- temporary/cache/intermediate data.
+### 14.4 Google Drive `runtime-public`
 
-Always disposable.
+Current remote-build runtime store using `Anyone with the link / Viewer`.
 
-### 14.4 Public R2 Runtime Store
+`content/assets/source-map.json` maps runtime paths to local sources or `gdrive-public` file IDs/URLs/SHA-256. CI/Codespaces fetch, hash-check, and full-decode before producing generated/runtime and dist assets.
 
-Purpose:
+### 14.5 Provider Abstraction
 
-- runtime delivery.
-
-Contains optimized production objects only.
-
-### 14.5 Logical Asset IDs
-
-Story JSON must reference logical IDs:
+Story JSON references logical asset IDs, never provider URLs. A future:
 
 ```text
-cg.xu_tang.ch03.window_confession
+Google Drive → Cloudflare R2/CDN
 ```
 
-It must not directly reference provider URLs:
-
-```text
-https://assets.example.com/.../window_confession.webp
-```
-
-Resolution is:
-
-```text
-logical asset ID
-    ↓
-compiler / manifest
-    ↓
-runtime URL
-```
-
-This allows storage/CDN providers to change without changing story content.
+changes provider/manifest metadata, not story content or engine semantics.
 
 ---
 
@@ -1227,6 +1137,8 @@ Examples:
 
 ```text
 CLOUDFLARE_ACCOUNT_ID
+# Not needed during the current Drive-first phase.
+# Add only during future R2 migration:
 R2_ACCESS_KEY_ID
 R2_SECRET_ACCESS_KEY
 ```
@@ -1299,7 +1211,7 @@ Priority migration work:
 2. Establish `assets-src/ → generated/ → dist/`.
 3. Add automatic WebP/image and video optimization.
 4. Add Cloud Checkpoint.
-5. Add private-R2 fetch/cache for remote rebuilds.
+5. Add Drive runtime fetch/cache for remote rebuilds.
 6. Replace hard-coded single-chapter loading with discovery.
 7. Migrate temporary node IDs to stable semantic IDs.
 8. Add versioned save schema/migrations.
@@ -1309,8 +1221,8 @@ Priority migration work:
    - Codespaces forwarded URL;
    - Sites review.
 11. Add cloud release pipeline:
-   - private R2 masters;
-   - optimized public R2 runtime;
+   - Google Drive source-private masters;
+   - optimized Google Drive runtime-public;
    - production manifest;
    - Distribution Adapter.
 
@@ -1337,7 +1249,7 @@ Do not add these unless a validated requirement appears:
 - client-side AES DRM;
 - speculative scaling architecture.
 
-R2 itself is not a non-goal anymore because the Hybrid Cloud Checkpoint architecture uses it for source checkpoints and runtime distribution.
+Cloudflare R2 migration is currently deferred. Drive-first supports development, Sites review, and small-scale friend testing; migrate when commercialization or CDN/cache-control/custom-domain/traffic requirements justify it.
 
 ---
 
@@ -1364,7 +1276,7 @@ Newest cloud-complete version:
 ```text
 GitHub commit
 +
-private R2 checkpoint
+Google Drive source-private + runtime-public checkpoint
 ```
 
 Can be rebuilt without the local Mac.
@@ -1402,7 +1314,7 @@ Use:
 ```text
 GitHub
 +
-private R2 checkpoint
+Google Drive source-private + runtime-public checkpoint
 ```
 
 as the available reconstructible source.
@@ -1478,7 +1390,7 @@ checkpoint first
 When working remotely:
 
 ```text
-GitHub + private R2
+GitHub + Google Drive
 → Codespace
 → forwarded preview
 ```
@@ -1526,9 +1438,9 @@ Local / Codespaces / Sites Preview
         ↓
 Cloud Checkpoint
         ↓
-GitHub + Private R2
+GitHub + Google Drive
         ↓
-Public Runtime R2
+Google Drive runtime-public (→ future R2)
         ↓
 Distribution Adapter
         ↓

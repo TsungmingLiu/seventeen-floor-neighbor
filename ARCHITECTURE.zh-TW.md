@@ -773,32 +773,23 @@ ChatGPT Work 是 remote operator，用來操作：
 
 Work 本身不是永久 code storage。
 
-#### Private R2 Source Store
+#### Google Drive Source Vault（目前）
 
-保存 cloud checkpoint 中已被採用的 master assets。
+目前 pre-commercial 階段，以 Google Drive `source-private` 保存已採用的 canonical master assets（identity sheets、approved CG masters、keyframes、source video 等）。Folder 保持 Restricted。
 
-例如：
+GitHub 只保存 logical source ID、Drive file ID、SHA-256、尺寸、MIME type 與 byte size，不保存新生成的大型 master binary。
 
-- character identity sheets；
-- approved CG masters；
-- keyframes；
-- source video；
-- 其他 selected binary masters。
+#### Google Drive Runtime Store（目前）
 
-這個 bucket 是 private。
+Google Drive `runtime-public` 保存 optimized WebP / poster / MP4 runtime objects，Folder 使用 `Anyone with the link / Viewer`。
 
-#### Public R2 Runtime Store
+GitHub Actions / Codespaces 可在沒有 Google credential 的情況下抓取 runtime object。每個 remote runtime entry 必須保存 file ID、下載 URL、byte size 與 SHA-256，build 時重新驗證並 full-decode。
 
-正式 production delivery 用的 runtime storage。
+目前 Player 不必直接 hotlink Drive；build 可以先下載到 `generated/runtime-assets/` 再輸出 `dist/assets/`，避免 CORS / Drive URL 行為耦合進 Player。
 
-只保存：
+#### Cloudflare R2（未來商業化前遷移）
 
-- WebP；
-- poster；
-- optimized MP4；
-- 其他 runtime binary。
-
-正式物件應使用 immutable / versioned / content-hashed path。
+R2 不再是目前開發流程的 blocker。當流量、cache-control、自訂網域、部署自動化或商業化需求值得時，再把 storage provider 從 Drive 遷移到 R2；Story/content 的 logical asset IDs 不變。
 
 #### ChatGPT Sites
 
@@ -847,48 +838,34 @@ ChatGPT Sites review preview
 
 ### Mode B — Cloud Checkpoint
 
-以下情況應做 checkpoint：
+以下情況應做 checkpoint：準備關本地電腦、讓 ChatGPT Work 接手、建立 recoverable milestone，或準備 remote review/release。
 
-- 準備關本地電腦；
-- 準備讓 ChatGPT Work 接手；
-- 想把目前版本當作 recoverable milestone；
-- 準備 remote release。
-
-目標 command：
-
-```bash
-npm run checkpoint
-```
-
-Checkpoint 應執行：
+目前 Drive-first checkpoint 應：
 
 1. 驗證 code/content/assets。
-2. 找出新選中或已修改、且被引用的 master assets。
-3. Upload 到 private R2。
-4. 記錄 hash/object key。
-5. 記錄對應 Git commit/content version。
-6. Push code/content/metadata 到 GitHub。
-7. 驗證在沒有本地 `assets-src/` 的情況下仍可重建。
+2. 把 accepted canonical masters 放入 Google Drive `source-private`。
+3. 把需要 remote build 的 optimized runtime assets 放入 `runtime-public`。
+4. 記錄 master/runtime 的 Drive file ID、SHA-256、尺寸、byte size 與 content version。
+5. Push code/content/metadata 到 GitHub。
+6. 從無本地素材的環境驗證 public runtime 可匿名抓取、驗 hash、full-decode 並完成 build。
 
-一個版本只有同時具備：
+目前 cloud-complete 定義：
 
 ```text
 GitHub commit
 +
-all referenced master assets in private R2
+required masters in Google Drive source-private
++
+required runtime assets in Google Drive runtime-public
++
+matching source-map / source-catalog hashes
 ```
 
-才算 **cloud-complete**。
-
-只有 cloud-complete 版本才能保證：
-
-- Mac 關機後仍可 build；
-- Work + Codespace 仍可 preview；
-- release 不需要回到本地機器。
+未來遷移 R2 時保留同一語意，只替換 storage provider。
 
 ### Mode C — Remote Working
 
-使用時機：本地 Mac 不可用。
+本地 Mac 不可用時：
 
 ```text
 ChatGPT Work
@@ -896,49 +873,22 @@ ChatGPT Work
 GitHub Codespace
     ↓
 GitHub code/spec
-+ private R2 checkpoint assets
++ Google Drive runtime-public
 ```
 
-典型流程：
+正常 remote build 不需要 Google credential：
 
 ```bash
 git pull
-npm run assets:fetch
+npm run assets:check
+npm run assets:build
 npm run content:validate
 npm run dev
 ```
 
-然後使用 Codespaces forwarded HTTPS preview。
+`assets:build` 依 `content/assets/source-map.json` 抓取公開 Drive runtime object、驗 SHA-256，再產生 disposable runtime assets。
 
-修改完成後：
-
-```bash
-npm run content:validate
-npm run build
-git commit
-git push
-```
-
-Remote 可修改：
-
-- dialogue；
-- branch；
-- route；
-- scene JSON；
-- UI；
-- engine code；
-- compiler；
-- validators；
-- prompts；
-- recipes；
-- metadata。
-
-如果任務需要一張從未生成、且 private R2 裡不存在的新 CG/video：
-
-- AI 應建立 Generation Queue item；
-- 標記 missing asset；
-- 不應假造素材；
-- 不應為了讓 build 過而偷偷改 architecture。
+若修改需要新的 binary master，accepted master 先進 `source-private`，再生成／驗證 runtime asset 並發布到 `runtime-public`，更新 catalog/map 後才算 cloud-complete。
 
 ### Mode D — Sites Review
 
@@ -955,44 +905,23 @@ Remote 可修改：
 
 ### Mode E — Cloud Release
 
-Cloud-complete 版本可以在本地 Mac 關機的情況下 release。
-
-Release input：
+目前 pre-commercial release 可以在 Mac 關機時完成。
 
 ```text
 GitHub commit
-+
-private R2 checkpoint
-```
-
-Release pipeline：
-
-```text
-GitHub code/content
-+ private R2 masters
++ Google Drive source-private catalog
++ Google Drive runtime-public
         ↓
-validation
+asset hash/decode validation
         ↓
-runtime optimization
-        ↓
-content-hashed/versioned runtime objects
-        ↓
-public R2
-        ↓
-production asset manifest
+generated/runtime-assets
         ↓
 production build
         ↓
-Distribution Adapter
-        ↓
-Sites / Cloudflare Pages / another platform
+Sites / Cloudflare Pages / other Distribution Adapter
 ```
 
-如果某個 required production master 只存在已關機的本地 Mac：
-
-- release 必須停止；
-- 提示先做 checkpoint；
-- 不能假設 cloud 能取得本地檔案。
+Canonical masters 留在 `source-private`。準備商業化時再把 Drive provider 遷移到 Cloudflare R2/CDN；logical asset IDs 與 story data 不改。
 
 ---
 
@@ -1027,71 +956,37 @@ npm run dev
 
 ## 14. Asset Storage Model
 
-共有四層。
+目前有四層。
 
 ### 14.1 Local `assets-src/`
 
-用途：
+本地高速迭代與尚未上雲的 staging；不是唯一 canonical cloud copy。
 
-- active working master staging；
-- 高頻替換；
-- candidate iteration。
+### 14.2 Google Drive `source-private`
 
-可以含尚未 checkpoint 的 asset。
+目前 canonical cloud master vault，保持 Restricted。
 
-### 14.2 Private R2 Source Store
-
-用途：
-
-- selected master asset 的 recoverable cloud copy；
-- remote rebuild input；
-- release input。
-
-對 cloud-complete version 而言，它是 canonical cloud master asset backup。
+`content/assets/source-catalog.json` 記錄 logical source ID → Drive file ID / SHA-256 / byte size / dimensions。
 
 ### 14.3 `generated/` / `source-cache/`
 
-用途：
+temporary/cache/intermediate data，永遠 disposable。
 
-- temporary；
-- cache；
-- intermediate data。
+### 14.4 Google Drive `runtime-public`
 
-永遠視為 disposable。
+目前 remote-build runtime store，使用 `Anyone with the link / Viewer`。
 
-### 14.4 Public R2 Runtime Store
+`content/assets/source-map.json` 將 runtime path 對應到 local source 或 `gdrive-public` file ID / URL / SHA-256。CI/Codespace 抓取、驗 hash、full-decode 後才產生 `generated/runtime-assets/` 與 `dist/assets/`。
 
-用途：
+### 14.5 Provider Abstraction
 
-- runtime delivery。
-
-只存 optimized production objects。
-
-### 14.5 Logical Asset IDs
-
-Story JSON 必須引用 logical ID：
+Story JSON 永遠只引用 logical asset ID，不直接寫 Google Drive 或 R2 URL。
 
 ```text
-cg.xu_tang.ch03.window_confession
+Google Drive → Cloudflare R2/CDN
 ```
 
-不能直接引用 provider URL：
-
-```text
-https://assets.example.com/.../window_confession.webp
-```
-
-解析流程：
-
-```text
-logical asset ID
-    ↓
-compiler / manifest
-    ↓
-runtime URL
-```
-
-這樣未來更換 storage/CDN provider，不需要修改 story content。
+未來只需要 migration provider/manifest metadata，不修改 story content 或 engine semantics。
 
 ---
 
@@ -1250,6 +1145,8 @@ Repository 可以記錄 secret 名稱，但不能記錄 secret value。
 
 ```text
 CLOUDFLARE_ACCOUNT_ID
+# 目前 Drive-first 不需要在 repo / Codespace 保存 Google Drive private credential。
+# 未來 R2 migration 時才加入：
 R2_ACCESS_KEY_ID
 R2_SECRET_ACCESS_KEY
 ```
@@ -1322,7 +1219,7 @@ npm run release
 2. 建立 `assets-src/ → generated/ → dist/`。
 3. 加入 automatic WebP / image / video optimization。
 4. 建立 Cloud Checkpoint。
-5. 建立 private-R2 fetch/cache，讓 remote rebuild 可行。
+5. 建立 Drive runtime fetch/cache，讓 remote rebuild 可行。
 6. 把 hard-coded single-chapter loading 改成 discovery。
 7. 把 temporary node IDs 遷移到 stable semantic IDs。
 8. 建立 versioned save schema/migration。
@@ -1332,8 +1229,8 @@ npm run release
     - Codespaces forwarded URL；
     - Sites review。
 11. 建立 cloud release pipeline：
-    - private R2 masters；
-    - optimized public R2 runtime；
+    - Google Drive source-private masters；
+    - optimized Google Drive runtime-public；
     - production manifest；
     - Distribution Adapter。
 
@@ -1360,10 +1257,7 @@ npm run release
 - client-side AES DRM；
 - speculative scaling architecture。
 
-R2 已經不是 non-goal，因為 Hybrid Cloud Checkpoint 架構會使用：
-
-- Private R2 source checkpoint；
-- Public R2 runtime delivery。
+Cloudflare R2 migration 目前 deferred：Drive-first 先支援開發、Sites review 與小規模 friend test；準備商業化、需要正式 CDN / cache-control / custom domain / 更穩定流量時再遷移。
 
 ---
 
@@ -1390,7 +1284,7 @@ R2 已經不是 non-goal，因為 Hybrid Cloud Checkpoint 架構會使用：
 ```text
 GitHub commit
 +
-private R2 checkpoint
+Google Drive source-private + runtime-public checkpoint
 ```
 
 不需要本地 Mac 也能重建。
@@ -1428,7 +1322,7 @@ private R2 checkpoint
 ```text
 GitHub
 +
-private R2 checkpoint
+Google Drive source-private + runtime-public checkpoint
 ```
 
 處理一般 content 任務時，第一個真正有用的問題不應是：
@@ -1504,7 +1398,7 @@ checkpoint first
 Remote working：
 
 ```text
-GitHub + private R2
+GitHub + Google Drive
 → Codespace
 → forwarded preview
 ```
@@ -1552,9 +1446,9 @@ Local / Codespaces / Sites Preview
         ↓
 Cloud Checkpoint
         ↓
-GitHub + Private R2
+GitHub + Google Drive
         ↓
-Public Runtime R2
+Google Drive runtime-public（→ future R2）
         ↓
 Distribution Adapter
         ↓
