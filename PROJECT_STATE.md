@@ -43,8 +43,10 @@ Milestone 1: one branching story, seamless resume title, independent branch hist
 
 ## Migration status
 
-- W1 source/output boundary is implemented on the migration branch: static shell source moves to `public/`, binary preservation sources to `assets-src/`, and `dist/` becomes rebuildable.
-- W1 must pass CI verification before it is considered complete on `main`.
+- W1 source/output boundary is implemented and CI-verified: static shell source lives in `public/`, binary preservation sources in `assets-src/`, runtime mapping in `content/assets/source-map.json`, and `dist/` is clean-build reproducible.
+- CI run `35807627568` passed build, validate, tests, diff check, and generated-output reproducibility.
+- Known/suspected truncated binaries are documented in `content/assets/ASSET_INVENTORY.md`; W1 preserves current bytes but does not claim to repair them.
+- Next migration step: W2 asset decode/dimension checking and runtime asset build/optimization.
 
 ## Remaining work
 

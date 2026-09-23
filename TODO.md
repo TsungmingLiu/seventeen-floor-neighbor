@@ -100,62 +100,73 @@
 
 ---
 
-## W1 — Source Asset Boundary
+## W1 — Source Asset Boundary ✅
 
 ### 目標
 
 把現在「`dist/assets/` 同時兼 source + runtime」的 legacy 狀態拆開。
 
-### AI 要做
+### AI 已完成
 
-- [ ] 建立 `assets-src/`
-- [ ] 建立：
-  - [ ] `assets-src/characters/`
-  - [ ] `assets-src/backgrounds/`
-  - [ ] `assets-src/cg/`
-  - [ ] `assets-src/video/`
-  - [ ] `assets-src/audio/`
-- [ ] 建立：
-  - [ ] `generated/runtime-assets/`
-  - [ ] `generated/source-cache/`
-- [ ] 更新 `.gitignore`：
-  - [ ] 忽略 disposable generated/cache；
-  - [ ] 不誤忽略需要 version-control 的 metadata。
-- [ ] 盤點目前 `dist/assets/`：
-  - [ ] 哪些是 master/source；
-  - [ ] 哪些是 runtime derivative；
-  - [ ] 哪些是唯一 copy；
-  - [ ] 哪些疑似壞檔／截斷；
-  - [ ] 哪些已有可重建 recipe/reference。
-- [ ] 設計安全 migration：
-  - [ ] 先 copy；
-  - [ ] verify hash / decode；
-  - [ ] 再改 manifest/build；
-  - [ ] 最後才考慮移除 legacy copy。
-- [ ] refactor validator，使它不再把 `dist/` 當 canonical source。
-- [ ] refactor build，使 `dist/` 可完全重建。
-- [ ] 保持所有 logical asset IDs 不變。
-- [ ] 保持 story JSON 不因 physical path 改變而改 engine。
+- [x] 建立 `assets-src/`
+- [x] 建立 preservation source categories：
+  - [x] `assets-src/characters/`
+  - [x] `assets-src/backgrounds/`
+  - [x] `assets-src/cg/`
+  - [x] `assets-src/video/`
+  - [x] `assets-src/ui/`
+- [x] 建立／保留 disposable workspace：
+  - [x] `generated/runtime-assets/`
+  - [x] `generated/source-cache/`
+- [x] 新增 `.gitignore`：
+  - [x] 忽略 disposable generated/cache；
+  - [x] 忽略 local secrets；
+  - [x] 不誤忽略 version-controlled metadata。
+- [x] 盤點目前 `dist/assets/` 共 36 個 binary。
+- [x] 使用**原 Git blob SHA**把 36 個 binary byte-identical 複製至 `assets-src/`，沒有重新上傳或重編碼。
+- [x] 新增 `content/assets/source-map.json`，把 runtime path 與 source path 分離。
+- [x] 新增 `content/assets/ASSET_INVENTORY.md`，記錄 preservation 狀態與疑似截斷素材。
+- [x] 把靜態 shell source 從 `dist/` 抽離：
+  - [x] `public/index.html`
+  - [x] `public/styles.css`
+- [x] refactor validator：實體 binary validation 改看 `assets-src/` source mapping，不再要求 `dist/assets/` 是 source。
+- [x] refactor build：
+  - [x] 先完整刪除 `dist/`；
+  - [x] 從 `public/` 重建 HTML/CSS；
+  - [x] 從 `assets-src/` 重建 mapped binaries；
+  - [x] 從 `src/` 重建 JS；
+  - [x] 從 `content/` 重建 route package。
+- [x] 清除 3 個已不再由現行 route index 生成的 stale `dist/content/routes/lin-cheng/*` generated files；source archive 不刪。
+- [x] 保持所有 logical asset IDs 與 story references 不變。
+- [x] 新增最小 GitHub Actions `Verify` workflow，讓 remote branch 可以自動跑 build/validate/tests/reproducibility。
 
-### Human 要做
+### Human
 
-只有在 AI 發現以下情況時才需要介入：
-
-- [ ] 某張 master asset 只存在你的本地 Mac；
-- [ ] GitHub copy 壞掉但你本地有好檔；
-- [ ] 某個 source file 無法從 recipe/reference 重建。
+- [x] W1 不需要 Human 操作。
+- [ ] 疑似截斷素材的原圖恢復留到 W2／美術重製流程；若 GitHub source 已壞而本地有好檔，屆時需要 Human 提供本地完整檔。
 
 ### Hard gate
 
-- [ ] **在確認 source copy 安全以前，不刪除或移動任何不可再生 binary。**
+- [x] 沒有為了 migration 刪除任何唯一 binary source。
+- [x] W1 source copy 使用既有 Git blob，不經 plugin binary upload。
+- [x] 已知／疑似壞檔只被標記，不假裝已修復。
+
+### CI 驗證
+
+GitHub Actions run `35807627568`：
+
+- [x] `npm run build`
+- [x] `npm run validate`
+- [x] `npm test`
+- [x] `git diff --check`
+- [x] clean build 後 `git diff --exit-code`
 
 ### 驗收
 
-- [ ] `rm -rf dist && npm run build` 不會丟失不可再生素材。
-- [ ] `dist/` 明確變成 disposable output。
-- [ ] source/master 與 runtime derivative 的角色清楚分離。
-
----
+- [x] `rm -rf dist && npm run build` 的等價 clean-build 流程已由 CI 驗證。
+- [x] `dist/` 已成為可重建 output。
+- [x] static shell、binary preservation source、runtime output 邊界已分離。
+- [x] W1 不改 story/engine behavior。
 
 ## W2 — Asset Check + Asset Build
 
