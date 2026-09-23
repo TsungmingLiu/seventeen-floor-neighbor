@@ -8,12 +8,6 @@ on:
         required: true
         default: main
         type: string
-  push:
-    branches:
-      - main
-    paths:
-      - 'tools/codespace-accept.mjs'
-      - '.github/workflows/codespace-acceptance.yml'
 
 jobs:
   accept:
@@ -46,4 +40,4 @@ jobs:
       - name: Run AI-operated fresh Codespace acceptance
         env:
           GH_TOKEN: ${{ secrets.CODESPACES_TOKEN }}
-        run: npm run codespace:accept -- --repo "$GITHUB_REPOSITORY" --branch "${{ github.event_name == 'workflow_dispatch' && inputs.branch || github.ref_name }}"
+        run: npm run codespace:accept -- --repo "$GITHUB_REPOSITORY" --branch "${{ inputs.branch }}"

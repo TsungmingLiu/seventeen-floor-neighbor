@@ -74,7 +74,7 @@ npm run release
 - [x] Codespaces canonical devcontainer。
 - [x] Codespaces one-command preview。
 - [x] AI-operated ephemeral Codespace lifecycle tooling。
-- [ ] 在具有 Codespaces lifecycle 權限的 authenticated `gh` operator 上跑一次 end-to-end `codespace:accept`。
+- [x] 在具有 Codespaces lifecycle 權限的 authenticated `gh` operator 上跑一次 end-to-end `codespace:accept`（run `35932727909`）。
 - [ ] AI cloud-browser UI / localStorage / playable-flow acceptance。
 - [ ] W4 Player UI / Memories / CG Gallery implementation。
 - [ ] cloud-complete verification/checkpoint command。
@@ -250,7 +250,7 @@ Human 只保留真正需要主觀判斷的 UX／劇情／視覺 approval；環�
   - [x] 能從目前 source 建立可玩的 `dist/`；
   - [x] 啟動 port 4173；
   - [x] 適合高頻 edit → refresh loop。
-- [x] `npm run preview`：
+- [x] production preview contract：clean build 後以同一 preview server / port 4173 serve `dist/`（acceptance 使用 `--skip-build` 避免重複 build）。：
   - [x] 執行 clean/production-like build；
   - [x] 啟動同一 port；
   - [x] 用於 milestone acceptance/review。
@@ -280,28 +280,30 @@ Human 只保留真正需要主觀判斷的 UX／劇情／視覺 approval；環�
 - [x] devcontainer 加入 SSH server，讓外部 AI operator 可用 `gh codespace ssh`。
 - [x] CI 對 lifecycle command 執行 `--dry-run` syntax/plan check。
 - [x] 提供 optional `Codespace Acceptance` workflow_dispatch；若 repository 一次性配置 `CODESPACES_TOKEN`，GitHub Actions 可直接建立 fresh Codespace。
-- [ ] 在真實 authenticated `gh` context 執行一次 `npm run codespace:accept` end-to-end。
-- [x] 第一次 live workflow 已證明 `CODESPACES_TOKEN` 可登入 GitHub；run `35924298495` 在建立 Codespace 前被 `Codespaces metadata: read` 權限阻擋。
+- [x] 在真實 authenticated `gh` context 執行一次 `npm run codespace:accept` end-to-end；run `35932727909` 完成 create → SSH → clean verification → preview → private tunnel smoke → delete。
+- [x] fine-grained PAT 權限已實測：`Codespaces: read/write` + `Codespaces metadata: read`。
+- [x] Codespace create 已改為 REST/non-interactive machine selection，不依賴 TTY。
+- [x] first-kiss cinematic 的舊 Git binary portability 問題已由四張 canonical Drive keyframe 重建 10 秒 MP4/WebM 修復；commit `6455239542e950ea54686b434a1a6c52a76e1feb`，ffmpeg 5.1 devcontainer 與 GitHub Actions ffmpeg 6.1 均 full-decode 通過。
 
 ### 真實 acceptance 必須驗證
 
 由 script 在**全新 Codespace**完成，不得依賴舊 generated cache：
 
-- [ ] repository checkout 完整。
-- [ ] Node 22 / ffmpeg / ffprobe / sshd 可用。
-- [ ] `npm run assets:check`
-- [ ] `npm run assets:build`
-- [ ] `npm run build`
-- [ ] `npm run validate`
-- [ ] `npm test`
-- [ ] `git diff --check` / deterministic generated output。
-- [ ] `npm run preview`
-- [ ] Drive runtime assets 由 remote source 重新取得並驗 hash。
-- [ ] existing Git-backed `assets-src/` sources 正常可用。
-- [ ] 不需要 Mac 上任何檔案。
-- [ ] 不需要 Google private credential 才能 build playable runtime。
-- [ ] 4173 private tunnel 可載入 HTML/CSS/JS/route JSON，extensionless fallback 與 missing-asset 404 正常。
-- [ ] acceptance 成功後 ephemeral Codespace 被自動刪除。
+- [x] repository checkout 完整。
+- [x] Node 22 / ffmpeg / ffprobe / sshd 可用。
+- [x] `npm run assets:check`
+- [x] `npm run assets:build`
+- [x] `npm run build`
+- [x] `npm run validate`
+- [x] `npm test`
+- [x] `git diff --check` / deterministic generated output。
+- [x] `npm run preview`
+- [x] Drive runtime assets 由 remote source 重新取得並驗 hash。
+- [x] existing Git-backed `assets-src/` sources 正常可用。
+- [x] 不需要 Mac 上任何檔案。
+- [x] 不需要 Google private credential 才能 build playable runtime。
+- [x] 4173 private tunnel 可載入 HTML/CSS/JS/route JSON，extensionless fallback 與 missing-asset 404 正常。
+- [x] acceptance 成功後 ephemeral Codespace 被自動刪除。
 
 ### AI browser acceptance
 
@@ -366,12 +368,12 @@ W3 實作完成時，必須同一 milestone 更新：
 - [x] private tunnel acceptance 與 temporary-public review mode 已實作。
 - [x] minimum verification / devcontainer verification 全通過。
 - [x] canonical docs 不再把 Local Working 描述為正式流程。
-- [ ] authenticated AI operator 成功 create fresh Codespace → SSH → clean build/test → preview → delete。
-- [ ] 4173 真實 forwarded preview acceptance 通過。
+- [x] authenticated AI operator 成功 create fresh Codespace → SSH → clean build/test → preview → delete（run `35932727909`）。
+- [x] 4173 真實 private forwarded-tunnel static acceptance 通過。
 - [ ] AI cloud browser 完成 reload/localStorage 與主要 playable flows。
 - [ ] public review URL 在 review 結束後被清理。
 - [x] Human 不需參與 environment lifecycle；只保留 subjective product approval。
-- [x] implementation/docs commit 已 push，Verify + Devcontainer Actions 全綠；live Codespace acceptance 另列為剩餘 gate。
+- [x] engineering implementation 已 push；fresh Codespace acceptance run `35932727909` 全綠。最終 W3 只剩 AI browser UI/localStorage/playable-flow review gate。
 
 ---
 

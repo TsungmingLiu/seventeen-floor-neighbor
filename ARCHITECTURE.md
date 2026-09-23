@@ -1220,7 +1220,7 @@ Completed/current:
 
 1. **W1 Source Asset Boundary** — established `public/`, `assets-src/`, `generated/`, and disposable `dist/`.
 2. **W2 Asset Check + Asset Build** — full-decode validation, Drive master/runtime storage, remote hash verification.
-3. **W3 core tooling** — Node 22 + ffmpeg + SSH devcontainer, port 4173 forwarded preview, `dev/preview/preview:smoke`, and AI-operated `codespace:accept/review` lifecycle tooling. The remaining gate is one real end-to-end run under an authenticated operator plus AI cloud-browser UI/localStorage review. Human no longer owns environment lifecycle.
+3. **W3 engineering acceptance** — Node 22 + ffmpeg + SSH devcontainer, port 4173 forwarded preview, `dev/preview/preview:smoke`, and AI-operated `codespace:accept/review` lifecycle tooling are implemented. Run `35932727909` proved fresh Codespace create → SSH → clean asset/build/validate/test → preview readiness → private tunnel smoke → automatic deletion. The only remaining W3 gate is AI cloud-browser UI/localStorage/playable-flow review. Human no longer owns environment lifecycle.
 
 Next:
 

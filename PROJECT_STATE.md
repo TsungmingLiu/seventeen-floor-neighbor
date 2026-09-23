@@ -4,7 +4,7 @@ Updated: 2026-09-23
 
 ## Current milestone
 
-W3 — Codespaces Development & Preview. Core preview/devcontainer tooling is implemented, and AI-operated ephemeral Codespace lifecycle tooling is now implemented. Remaining gates are: run `codespace:accept` once under a real authenticated Codespaces-capable `gh` operator, then run `codespace:review` + AI cloud-browser UI/localStorage smoke. Human no longer needs to create/rebuild Codespaces; W4 waits for these W3 gates.
+W3 — Codespaces Development & Preview. **Fresh ephemeral Codespace engineering acceptance is now proven end-to-end.** Run `35932727909` successfully created a Codespace, waited for the devcontainer, SSHed in, rebuilt assets from clean state, passed 44/44 media checks, build/validate/9 tests, served 4173, passed private forwarded-tunnel HTTP smoke, and deleted the Codespace. The only remaining W3 gate is `codespace:review` + AI browser UI/localStorage/playable-flow acceptance. Human no longer owns environment lifecycle; W4 waits only for that browser gate.
 
 
 ## Canonical narrative plan
@@ -107,11 +107,12 @@ This is a target specification, not a claim about the current runtime. Preserve 
 - W3 core implementation is now on `main`: Node 22 + ffmpeg/ffprobe devcontainer, fixed port 4173, dependency-free preview server, `npm run dev`, `npm run preview`, and CI preview smoke.
 - GitHub Actions run `35870496211` first proved the W3 preview-server path; latest Verify run `35871522230` also passed asset check/build, build, preview smoke, validate, 9/9 tests, diff check, and generated-output reproducibility.
 - Devcontainer run `35871522272` successfully built `.devcontainer/Dockerfile` and verified Node 22, ffmpeg, and ffprobe inside the actual container image.
-- W3 is **not complete yet**, but the Human environment-lifecycle gate has been removed. `npm run codespace:accept` now creates/deletes ephemeral fresh Codespaces and performs clean engineering acceptance via SSH/private tunnel; `npm run codespace:review` prepares a temporary public review URL for AI cloud-browser testing.
-- The current chat's GitHub connector does not expose Codespace lifecycle actions, so it cannot itself perform the first live run. The next capable AI operator (for example Work with authenticated GitHub CLI/cloud computer) should execute these commands rather than asking the Human to build the environment manually.
-- Optional zero-interaction GitHub Actions path exists as `Codespace Acceptance` workflow_dispatch once the repository has a one-time `CODESPACES_TOKEN` secret with sufficient Codespaces permission.
-- First live `Codespace Acceptance` run `35924298495` authenticated successfully, then failed before creation because the fine-grained PAT lacked `Codespaces metadata: read` for the devcontainer discovery endpoint. Workflow now has an explicit permission preflight and clearer error.
-- Final W3 automation verification: Devcontainer run `35874706906` and Verify run `35874706994` both passed on the SSH/path fix; Verify includes the `codespace:accept --dry-run` plan check.
+- W3 Human environment-lifecycle gate has been removed. `npm run codespace:accept` creates/deletes ephemeral fresh Codespaces and performs clean engineering acceptance via SSH/private tunnel; `npm run codespace:review` prepares a temporary public review URL for AI cloud-browser testing.
+- Repository secret `CODESPACES_TOKEN` is configured and empirically requires `Codespaces: read/write` plus `Codespaces metadata: read`. The workflow performs a permission preflight before creating anything.
+- Codespace creation is fully non-interactive: the script queries available machine types, selects the smallest available machine, calls the Codespaces REST API, waits for `Available`, and only then SSHs in.
+- Live engineering acceptance run `35932727909` is the canonical W3 proof: 44/44 media checks, 3 Drive runtime downloads, build/validate, 9/9 tests, 4173 preview readiness, private forwarded-tunnel HTTP smoke, and successful automatic Codespace deletion.
+- During that acceptance work, the old `mv-first-kiss.mp4/webm` were proven non-portable/truncated for ffmpeg 5.1. They were rebuilt from the four canonical Drive keyframes into true 10-second H.264/AAC and VP9/Opus files; commit `6455239542e950ea54686b434a1a6c52a76e1feb` passes both ffmpeg 5.1 devcontainer and ffmpeg 6.1 Actions full-decode.
+- W3 is **not complete yet only because browser behavior remains to be exercised**: run `codespace:review`, verify title/start/continue/reload/localStorage/Xu Tang/OL/gallery/history/cinematic/ending/mobile behavior in an AI cloud browser, then delete the review Codespace.
 - The old TODO milestone name “W4 Google Drive Asset Store” is retired. Drive-first storage is W2 foundation; after W3 Human acceptance, the actual W4 is the approved Player UI / Memories / CG Gallery implementation in `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md`.
 - Canonical workflow docs are being synchronized to Codespaces-only in the same W3 milestone; Local Working is no longer a supported acceptance path.
 

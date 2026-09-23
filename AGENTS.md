@@ -18,7 +18,7 @@ The repository may temporarily differ from the target architecture. Preserve the
 
 W1/W2 are complete: `dist/` is disposable generated output, `dist/assets/` is no longer the source of truth, and the build can resolve Git-backed legacy sources plus Google Drive runtime objects.
 
-W3 core tooling is implemented: Node 22 + ffmpeg + SSH devcontainer, `npm run dev`, `npm run preview`, fixed port 4173, CI preview smoke, and AI-operated `npm run codespace:accept` / `npm run codespace:review`. W3 is not fully accepted until these lifecycle commands are run once under a real authenticated Codespaces-capable `gh` operator and an AI cloud browser verifies reload/localStorage/playable flows. Do not ask the Human to manually create/rebuild a Codespace unless authentication itself is the blocker; Human involvement should be one-time authorization or subjective product approval.
+W3 engineering acceptance is proven: run `35932727909` completed fresh Codespace create → SSH → 44/44 asset checks → build/validate/9 tests → port 4173 readiness → private forwarded-tunnel smoke → automatic delete. `npm run codespace:accept` is the canonical engineering gate. W3 is not fully complete only because `npm run codespace:review` still needs AI cloud-browser verification of reload/localStorage and playable flows. Do not ask the Human to manually create/rebuild a Codespace; Human involvement is limited to subjective product approval.
 
 Do not move or delete binary assets merely to make the repository resemble a future target. Preserve existing Git-backed legacy sources until their canonical replacements are safely recorded.
 

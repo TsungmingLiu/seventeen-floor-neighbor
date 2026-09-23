@@ -1279,7 +1279,7 @@ npm run release
 
 1. **W1 Source Asset Boundary** — `public/`、`assets-src/`、`generated/`、`dist/` 邊界建立，clean build 可重建。
 2. **W2 Asset Check + Asset Build** — full-decode validation、Drive source/runtime store、remote hash verification 已建立。
-3. **W3 core tooling** — Node 22 + ffmpeg + SSH devcontainer、4173 forwarded preview、`dev/preview/preview:smoke` 與 AI-operated `codespace:accept/review` lifecycle 已加入；剩餘 gate 是在真正 authenticated operator context 跑一次 end-to-end，再由 AI cloud browser 驗 UI/localStorage。Human 不再負責 environment lifecycle。
+3. **W3 engineering acceptance** — Node 22 + ffmpeg + SSH devcontainer、4173 forwarded preview、`dev/preview/preview:smoke` 與 AI-operated `codespace:accept/review` lifecycle 已加入；run `35932727909` 已證明 fresh Codespace create → SSH → clean asset/build/validate/test → preview readiness → private tunnel smoke → auto-delete 全流程。W3 唯一剩餘 gate 是 AI cloud browser 的 UI/localStorage/playable-flow review；Human 不負責 environment lifecycle。
 
 接下來：
 
