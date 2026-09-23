@@ -69,7 +69,8 @@ This is a target specification, not a claim about the current runtime. Preserve 
 - Storage decision: Google Drive is the current pre-commercial source/runtime store; Cloudflare R2 is deferred until commercialization needs justify it.
 - 2026-09-23 workflow decision: canonical development is now **Codespaces-only**. GitHub is code/content/history truth; Google Drive remains the asset store; Codespaces is the supported build/test/dev environment; local development is an unsupported fallback and is not an acceptance target.
 - W3 core implementation is now on `main`: Node 22 + ffmpeg/ffprobe devcontainer, fixed port 4173, dependency-free preview server, `npm run dev`, `npm run preview`, and CI preview smoke.
-- GitHub Actions run `35870496211` passed asset check/build, build, preview smoke, validate, 9/9 tests, diff check, and generated-output reproducibility.
+- GitHub Actions run `35870496211` first proved the W3 preview-server path; latest Verify run `35871522230` also passed asset check/build, build, preview smoke, validate, 9/9 tests, diff check, and generated-output reproducibility.
+- Devcontainer run `35871522272` successfully built `.devcontainer/Dockerfile` and verified Node 22, ffmpeg, and ffprobe inside the actual container image.
 - W3 is **not complete yet**: a Human still needs to create/rebuild a fresh Codespace, open the forwarded 4173 preview, verify same-origin reload/localStorage, and smoke the playable flows. This is the next immediate gate; do not begin W4 implementation before it passes.
 - The old TODO milestone name “W4 Google Drive Asset Store” is retired. Drive-first storage is W2 foundation; after W3 Human acceptance, the actual W4 is the approved Player UI / Memories / CG Gallery implementation in `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md`.
 - Canonical workflow docs are being synchronized to Codespaces-only in the same W3 milestone; Local Working is no longer a supported acceptance path.
