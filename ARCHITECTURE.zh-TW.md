@@ -209,7 +209,8 @@ Content model 至少要支援：
 - scene video；
 - BGM；
 - SFX；
-- schema/content metadata。
+- schema/content metadata；
+- Memory Section / Memory Event（玩家可理解的回憶單位，與 engine node 非一對一）。
 
 ### 4.3 Story Engine State
 
@@ -1021,6 +1022,19 @@ MVP 可使用 `localStorage`。
 
 Cloud save/account/OAuth 延後到真正有需求再做。
 
+### 15.1 Replay Cursor 與 Story Frontier
+
+當玩家可以從回憶頁重玩舊劇情後，「目前正在玩的節點」與「歷史最深主進度」必須分離。
+
+- `cursorSnapshot`：玩家此刻正在玩的 snapshot；從舊回憶 replay 時可以向前或向後移動。
+- `frontierSnapshot`：玩家歷史上最靠近結局的正式主進度；replay 舊內容不得讓它倒退。
+- Continue / title backdrop 依 `frontierSnapshot`，不是依最近一次 replay 的 cursor。
+- 玩家若從舊回憶走出真正更深的新 branch，進入比舊 frontier 更高的內容 progression rank 時，才推進 frontier。
+- progression rank 應由 player-facing Memory Event content metadata 定義，不以「最後玩過的時間」或 raw node count 判定。
+- Save schema 升級必須保留既有 CG unlock、ending unlock、checkpoint 與可合理遷移的 story progress。
+
+玩家回憶介面採 Memory Event，而不是直接展示完整 story node graph。詳細 W4 行為與資料模型見 `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md`。
+
 ---
 
 ## 16. Responsive UI
@@ -1052,6 +1066,21 @@ max-width: 100vw;
 ```
 
 不要只靠固定 `max-width`，否則在矮的 laptop viewport 可能產生過高畫面。
+
+### 16.1 Player-facing Memories
+
+玩家的回憶介面固定採單頁、縱向 timeline：
+
+- 不提供需要自由 pan/zoom 的巨大劇情 DAG。
+- 不建立 Memories Overview → Route Detail 的必要次級頁。
+- Story Node 是 runtime primitive；Memory Event 是 player-facing narrative primitive。
+- 重要 branch 可 inline 顯示；分支數量過多時壓縮成 cluster。
+- 未探索 subtree 不預先完整展開，避免劇透與橫向爆炸。
+- 單女主 Memory Event 可重用對應事件 CG 作淡化、face-focused backdrop；共通事件使用 scene/background art。
+- 卡片背景優先用 lazy-loaded `<img>` + object-position/focus metadata，而不是一次載入全部 CSS background images。
+- 手機不得產生 page-level horizontal scroll。
+
+功能級規格與驗收案例見 `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md`。
 
 ---
 
