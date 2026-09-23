@@ -6,7 +6,7 @@ This repository is the code/content source of truth for the game. Do not rely on
 
 1. Read `PROJECT_STATE.md` — current milestone and superseding decisions.
 2. Read `TODO.md` — current execution board and exact next step.
-3. Read `ARCHITECTURE.zh-TW.md` — canonical target architecture. Until W3 documentation sync is complete, its older Local/Hybrid workflow sections are superseded by the Codespaces-only decision recorded in `PROJECT_STATE.md` and `TODO.md`.
+3. Read `ARCHITECTURE.zh-TW.md` — canonical target architecture and Codespaces-only workflow.
 4. Read `ARCHITECTURE.md` only as the English mirror; if the architecture mirrors conflict, the Traditional Chinese file wins.
 5. Read `IMPLEMENTATION.md` — current prototype implementation details.
 6. For player UI, Memories, CG Gallery, replay, or save/frontier work, read `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md`.

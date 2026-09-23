@@ -4,7 +4,7 @@ Updated: 2026-09-23
 
 ## Current milestone
 
-Milestone 1: one branching story, seamless resume title, independent branch history, modular runtime and temporary office OL content. See REFACTOR_PLAN.md for the next milestones. Finish verification and push this milestone, then stop for the user's review.
+W3 — Codespaces Development & Preview. Core tooling and automated verification are implemented and pushed. The only remaining W3 gate is fresh-Codespace + forwarded-browser Human acceptance; W4 UI implementation must wait until that gate passes.
 
 ## Approved W4 UX target (not implemented yet)
 
@@ -45,7 +45,7 @@ This is a target specification, not a claim about the current runtime. Preserve 
 
 ## Start a new conversation
 
-1. Read `AGENTS.md`, this file, and `ARCHITECTURE.md`.
+1. Read this file, `TODO.md`, `AGENTS.md`, and `ARCHITECTURE.zh-TW.md`.
 2. For a node: run `npm run context -- --route xu-tang --node <node-id>`.
 3. For OL continuity also read `content/routes/office-ol/context.md`.
 4. Change the source file named by the packet, keeping node and asset IDs stable.

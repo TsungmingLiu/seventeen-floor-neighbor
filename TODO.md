@@ -6,7 +6,7 @@
 >
 > 本檔案回答一件事：**現在下一步到底做什麼，以及什麼才算完成。**
 >
-> 產品／技術設計仍參考 `ARCHITECTURE.zh-TW.md`、`IMPLEMENTATION.md`、`PROJECT_STATE.md` 與功能級 spec；但 2026-09-23 已確認的 **Codespaces-only canonical development workflow** 以本檔案與 `PROJECT_STATE.md` 的最新決策為執行準則。舊文件中仍出現的 Local/Hybrid workflow 必須在 W3 一併同步，不得再當成目前流程。
+> 產品／技術設計以 `ARCHITECTURE.zh-TW.md` 為 canonical architecture，`PROJECT_STATE.md` 記錄目前狀態，本檔案記錄精確執行順序。2026-09-23 起 canonical development workflow 已完整同步為 **Codespaces-only**。
 
 ---
 
@@ -238,11 +238,11 @@ open Codespace
 
 - [x] 新增 dependency-light 或 dependency-free static dev server。
 - [x] server bind `0.0.0.0`，讓 Codespaces forwarding 正常。
-- [ ] `npm run dev`：
+- [x] `npm run dev`：
   - [x] 能從目前 source 建立可玩的 `dist/`；
   - [x] 啟動 port 4173；
   - [x] 適合高頻 edit → refresh loop。
-- [ ] `npm run preview`：
+- [x] `npm run preview`：
   - [x] 執行 clean/production-like build；
   - [x] 啟動同一 port；
   - [x] 用於 milestone acceptance/review。
@@ -297,8 +297,8 @@ open Codespace
 
 - [ ] 同一 forwarded origin reload 後，save/CG/endings/mute 等現行 localStorage 狀態保留。
 - [ ] 新 Codespace / 新 forwarded origin 沒有舊 browser localStorage，視為預期行為，不是 restore bug。
-- [ ] W3 不新增 cloud save。
-- [ ] W3 不新增帳號/OAuth。
+- [x] W3 不新增 cloud save。
+- [x] W3 不新增帳號/OAuth。
 
 ## W3.5 Work / cloud-browser review
 
@@ -336,7 +336,7 @@ W3 實作完成時，必須同一 milestone 更新：
 - [ ] reload/localStorage 通過。
 - [ ] AI reviewer sharing path 已實測或有明確 fallback。
 - [x] minimum verification 全通過。
-- [ ] canonical docs 不再把 Local Working 描述為正式流程。
+- [x] canonical docs 不再把 Local Working 描述為正式流程。
 - [x] verified commit 已 push。
 
 ---

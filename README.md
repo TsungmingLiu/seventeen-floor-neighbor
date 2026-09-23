@@ -73,7 +73,7 @@ Desktop VS Code 也可以直接連到同一個 Codespace；這仍是同一套 cl
 | 場景模板 | `content/scenes/*.json`、各路線 `scenes.json` | 與角色分離的場景、互動節點與隨機池 |
 | 劇情資料 | 路線設定中的 `storyFiles` | 節點、台詞、選項、數值、分支、結局與畫面模式；建置時合併 |
 | 遊戲引擎 | `src/` | 通用播放、打字效果、分支、結局、立繪渲染、影片播放、回憶收藏及音效 |
-| 靜態介面 | `dist/index.html`、`dist/styles.css` | 標題、遊戲、結局、收藏與檢視器 UI |
+| 靜態介面來源 | `public/index.html`、`public/styles.css` | 標題、遊戲、結局、收藏與檢視器 UI；build 複製到 `dist/` |
 | 發布輸出 | `dist/` | 可直接交給靜態託管服務的完整網站 |
 | 驗證與工具 | `tools/` | 建置、內容驗證與人設影響分析 |
 
