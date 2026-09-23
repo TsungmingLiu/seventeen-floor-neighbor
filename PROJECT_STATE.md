@@ -32,6 +32,8 @@ Canonical planning docs：
 
 後續 narrative work 應先讀上述三份文件，再讀 setting proposal；後續 art generation 以 art requirements + canonical Character Bible/identity references 為準。
 
+Creative production 進度不要塞進 root `TODO.md`。獨立使用 `docs/narrative/CONTENT_PRODUCTION_TODO.md`；root `TODO.md` 繼續只追 W3/W4/engine/tooling。建議一個 content production batch 對應一個新 session。
+
 
 ## Approved W4 UX target (not implemented yet)
 
