@@ -766,6 +766,7 @@ tablet／手機在前景，作品縮圖抽象。她一隻手停在螢幕上，�
 
 ### CG-JYC-FC-01 — Friend Coda / First Look — P2
 
+**Scene**：JYC-FC。  
 她把新作品轉向玩家看，沒有 kiss/couple framing。若 scope 緊可用 UI 取代。
 
 ---
@@ -826,10 +827,10 @@ tablet／手機在前景，作品縮圖抽象。她一隻手停在螢幕上，�
 | JYC-13 | BG-MRT + RAIN-AWNING-NIGHT | JYC-SPR-ENDING | CG-JYC-09 setup/keyframe | |
 | JYC-14 | BG-RAIN-AWNING-NIGHT | JYC-SPR-ENDING | CG-JYC-09 P0 | first kiss |
 | XT-G | BG-APT-17F-NIGHT | XT-SPR-ENDING | CG-XT-11 P0 | relationship resolution / first kiss |
-| XT-F | cafe/17F | XT weekday | CG-XT-FC-01 P2 | optional |
+| XT-F | cafe/17F | XT weekday | none | relationship resolution; coda carries optional CG |
 | XT-D | BG-APT-17F-NIGHT | XT guarded | none | |
 | JYC-G | BG-RAIN-AWNING-NIGHT | JYC-SPR-ENDING | CG-JYC-09 P0 | relationship resolution / first kiss |
-| JYC-F | UI/cafe | JYC casual | CG-JYC-FC-01 P2 | optional |
+| JYC-F | UI/cafe | JYC casual | none | relationship resolution; coda carries optional CG |
 | JYC-D | UI | avatar only | none | |
 | BOTH-D | BG-17F empty + phone UI | none | none | empty-life motif |
 | XT-AF-01 | BG-XT-HOME-NIGHT | XT-SPR-AFTER-STORY | CG-XT-AF-01 P0 + full-only M1 | relationship reward / first stayover |
