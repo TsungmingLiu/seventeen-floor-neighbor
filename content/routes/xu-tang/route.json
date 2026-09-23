@@ -11,8 +11,13 @@
   "endingAlt": "許棠路線結局畫面",
   "accent": "#ff7898",
   "context": "content/routes/xu-tang/context.md",
-  "storyFiles": ["content/chapters/chapter-01.json", "content/routes/office-ol/story.json"],
-  "sceneFiles": ["content/scenes/date-pool.json"],
+  "storyFiles": [
+    "content/chapters/chapter-01.json",
+    "content/routes/office-ol/story.json"
+  ],
+  "sceneFiles": [
+    "content/scenes/date-pool.json"
+  ],
   "assetIds": [
     "bg.elevator.normal",
     "sprite.xu_tang.office.neutral",
@@ -44,21 +49,112 @@
     "startNode": "intro1",
     "titleArt": "cg.ch01.hallway_meet",
     "endingArt": "cg.ch02.rooftop_night",
-    "chapterLabels": ["雨夜", "初遇", "停電", "靠近", "隔壁", "咖啡", "約會", "天台", "1702", "真心", "確認", "清晨"],
-    "initialState": { "heart": 0, "trust": 0, "chaos": 0, "comfort": 0, "relationship": 0, "officeRoute": 0 },
+    "chapterLabels": [
+      "雨夜",
+      "初遇",
+      "停電",
+      "靠近",
+      "隔壁",
+      "咖啡",
+      "約會",
+      "天台",
+      "1702",
+      "真心",
+      "確認",
+      "清晨"
+    ],
+    "initialState": {
+      "heart": 0,
+      "trust": 0,
+      "chaos": 0,
+      "comfort": 0,
+      "relationship": 0,
+      "officeRoute": 0
+    },
     "endingRules": [
-      { "ending": "office_teaser", "conditions": [{ "stat": "officeRoute", "operator": ">=", "value": 1 }] },
-      { "ending": "lover", "conditions": [{ "stat": "relationship", "operator": ">=", "value": 1 }] },
-      { "ending": "heart", "conditions": [{ "stat": "heart", "operator": ">=", "value": 13 }, { "stat": "trust", "operator": ">=", "value": 6 }, { "stat": "comfort", "operator": ">=", "value": 3 }] },
-      { "ending": "chaos", "conditions": [{ "stat": "chaos", "operator": ">=", "value": 12 }] },
-      { "ending": "neighbor", "default": true }
+      {
+        "ending": "office_teaser",
+        "conditions": [
+          {
+            "stat": "officeRoute",
+            "operator": ">=",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "ending": "lover",
+        "conditions": [
+          {
+            "stat": "relationship",
+            "operator": ">=",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "ending": "heart",
+        "conditions": [
+          {
+            "stat": "heart",
+            "operator": ">=",
+            "value": 13
+          },
+          {
+            "stat": "trust",
+            "operator": ">=",
+            "value": 6
+          },
+          {
+            "stat": "comfort",
+            "operator": ">=",
+            "value": 3
+          }
+        ]
+      },
+      {
+        "ending": "chaos",
+        "conditions": [
+          {
+            "stat": "chaos",
+            "operator": ">=",
+            "value": 12
+          }
+        ]
+      },
+      {
+        "ending": "neighbor",
+        "default": true
+      }
     ],
     "endings": {
-      "office_teaser": { "title": "17樓的臨時同事", "mapLabel": "辦公族 OL 支線結局", "art": "cg.office_ol.hallway", "text": "她把差點被電梯門夾住的資料夾抱回懷裡，向你點頭道謝。\n\n辦公族 OL：謝謝。下次見。\n\n電梯門重新合上。你甚至還不知道她的名字，只記得那身黑色下裝和剛下班的腳步。" },
-      "lover": { "title": "1702，星期日早晨", "art": "cg.ch04.sunday_morning", "text": "咖啡的香氣比鬧鐘先把你叫醒。\n\n你：所以，我現在還是隔壁鄰居？\n許棠：是。\n\n她故意停了一秒，把另一杯咖啡放到你面前。\n\n許棠：也是男朋友。兩個身分暫時都保留。\n\n窗外的雨已經停了。1703 仍在隔壁，但你第一次覺得，回去並不需要那麼著急。" },
-      "heart": { "title": "不再只是鄰居", "art": "cg.ch03.close_conversation", "text": "雨聲貼著落地窗。她沒有退回沙發的另一端。\n\n許棠：明早 7:40。\n你：又是鄰居義務？\n許棠：不是。\n\n她看著你，這次沒有用玩笑替自己收尾。\n\n許棠：是我想見你。\n\n1702 的門一直沒有關上。你們中間那堵牆還在，卻已經不再用來保持距離。" },
-      "chaos": { "title": "17樓共同危險人物", "art": "cg.ch03.living_room_wine", "text": "她低頭改了你的聯絡人備註。\n\n你：不是說住滿七天就幫我改？\n許棠：改了。\n許棠：從「事故製造者」改成「1702 共同危險人物」。\n\n她把另一只香檳杯推到你面前。\n\n許棠：今晚不准碰警報器，也不准浪費這瓶酒。\n\n她說得像規定，唇角卻一直沒有壓下去。" },
-      "neighbor": { "title": "再坐一會兒", "art": "cg.ch03.art_wall", "text": "沒有告白，也沒有戲劇性的擁抱。\n\n你起身時，她把那張沒有送去畫廊的照片交給你。\n\n許棠：明早還是 7:40。\n你：鄰居義務？\n許棠：暫時算是。\n\n她替你開門，卻沒有催你離開。\n\n有些故事並不急著命名；願意把門打開，本身就是答案。" }
+      "office_teaser": {
+        "title": "17樓的臨時同事",
+        "mapLabel": "辦公族 OL 支線結局",
+        "art": "cg.office_ol.hallway",
+        "text": "她把差點被電梯門夾住的資料夾抱回懷裡，向你點頭道謝。\n\n辦公族 OL：謝謝。下次見。\n\n電梯門重新合上。你甚至還不知道她的名字，只記得那身黑色下裝和剛下班的腳步。"
+      },
+      "lover": {
+        "title": "1702，星期日早晨",
+        "art": "cg.ch04.sunday_morning",
+        "text": "咖啡的香氣比鬧鐘先把你叫醒。\n\n你：所以，我現在還是隔壁鄰居？\n許棠：是。\n\n她故意停了一秒，把另一杯咖啡放到你面前。\n\n許棠：也是男朋友。兩個身分暫時都保留。\n\n窗外的雨已經停了。1703 仍在隔壁，但你第一次覺得，回去並不需要那麼著急。"
+      },
+      "heart": {
+        "title": "不再只是鄰居",
+        "art": "cg.ch03.close_conversation",
+        "text": "雨聲貼著落地窗。她沒有退回沙發的另一端。\n\n許棠：明早 7:40。\n你：又是鄰居義務？\n許棠：不是。\n\n她看著你，這次沒有用玩笑替自己收尾。\n\n許棠：是我想見你。\n\n1702 的門一直沒有關上。你們中間那堵牆還在，卻已經不再用來保持距離。"
+      },
+      "chaos": {
+        "title": "17樓共同危險人物",
+        "art": "cg.ch03.living_room_wine",
+        "text": "她低頭改了你的聯絡人備註。\n\n你：不是說住滿七天就幫我改？\n許棠：改了。\n許棠：從「事故製造者」改成「1702 共同危險人物」。\n\n她把另一只香檳杯推到你面前。\n\n許棠：今晚不准碰警報器，也不准浪費這瓶酒。\n\n她說得像規定，唇角卻一直沒有壓下去。"
+      },
+      "neighbor": {
+        "title": "再坐一會兒",
+        "art": "cg.ch03.art_wall",
+        "text": "沒有告白，也沒有戲劇性的擁抱。\n\n你起身時，她把那張沒有送去畫廊的照片交給你。\n\n許棠：明早還是 7:40。\n你：鄰居義務？\n許棠：暫時算是。\n\n她替你開門，卻沒有催你離開。\n\n有些故事並不急著命名；願意把門打開，本身就是答案。"
+      }
     }
-  }
+  },
+  "memoryFile": "content/routes/xu-tang/memories.json"
 }

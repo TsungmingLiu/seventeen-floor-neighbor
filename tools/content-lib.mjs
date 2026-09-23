@@ -24,6 +24,9 @@ async function loadRoute(entry, manifest) {
   if (config.id !== entry.id) throw new Error(`route index ${entry.id}: config id is ${config.id}`);
   const storyParts = await Promise.all((config.storyFiles || []).map(readJson));
   const sceneParts = await Promise.all((config.sceneFiles || []).map(readJson));
+  const memoryLibrary = config.memoryFile
+    ? await readJson(config.memoryFile)
+    : { schemaVersion: 1, sections: [], events: [] };
   const nodes = mergeNamedCollections(storyParts, 'nodes', `route ${config.id}`);
   const pools = mergeNamedCollections(sceneParts, 'pools', `route ${config.id}`);
   const chapter = { ...config.story, id: config.story.id || config.id, nodes };
@@ -36,6 +39,7 @@ async function loadRoute(entry, manifest) {
     config,
     chapter,
     sceneLibrary: { pools },
+    memoryLibrary,
     assetManifest: { manifestVersion: manifest.manifestVersion, assets }
   };
 }
@@ -63,6 +67,46 @@ export async function loadContent() {
     routes,
     characters: Object.fromEntries(characterList.map((character) => [character.id, character]))
   };
+}
+
+
+function validateMemoryRoute(route, fail) {
+  const { config, chapter, memoryLibrary, assetManifest } = route;
+  const sections = memoryLibrary?.sections || [];
+  const events = memoryLibrary?.events || [];
+  const assets = assetManifest.assets || {};
+  if (memoryLibrary?.schemaVersion !== 1) fail(`route ${config.id} memories: schemaVersion must be 1`);
+
+  const sectionIds = new Set();
+  for (const section of sections) {
+    if (!section.id || sectionIds.has(section.id)) fail(`route ${config.id} memories: duplicate or missing section id ${section.id || '(missing)'}`);
+    sectionIds.add(section.id);
+    if (!Number.isFinite(section.order)) fail(`route ${config.id} memory section ${section.id}: numeric order required`);
+    if (!['common', 'heroine', 'side'].includes(section.kind)) fail(`route ${config.id} memory section ${section.id}: unsupported kind ${section.kind}`);
+  }
+
+  const eventIds = new Set();
+  let hasStart = false;
+  for (const event of events) {
+    if (!event.id || eventIds.has(event.id)) fail(`route ${config.id} memories: duplicate or missing event id ${event.id || '(missing)'}`);
+    eventIds.add(event.id);
+    if (!sectionIds.has(event.sectionId)) fail(`route ${config.id} memory ${event.id}: unknown section ${event.sectionId}`);
+    if (!Number.isFinite(event.order) || !Number.isFinite(event.progressRank)) fail(`route ${config.id} memory ${event.id}: numeric order/progressRank required`);
+    if (!chapter.nodes[event.replayNode]) fail(`route ${config.id} memory ${event.id}: unknown replayNode ${event.replayNode}`);
+    for (const nodeId of event.unlockNodes || []) {
+      if (!chapter.nodes[nodeId]) fail(`route ${config.id} memory ${event.id}: unknown unlockNode ${nodeId}`);
+    }
+    if (event.replayNode === chapter.startNode) hasStart = true;
+    if (!event.title || !event.summary) fail(`route ${config.id} memory ${event.id}: title and summary required`);
+    if (!Array.isArray(event.characterIds)) fail(`route ${config.id} memory ${event.id}: characterIds must be an array`);
+    if (!event.cover?.asset || !assets[event.cover.asset]) fail(`route ${config.id} memory ${event.id}: unknown cover asset ${event.cover?.asset}`);
+    if (!['character', 'scene'].includes(event.cover?.mode)) fail(`route ${config.id} memory ${event.id}: cover mode must be character or scene`);
+    if (event.titleBackdropAsset && !assets[event.titleBackdropAsset]) fail(`route ${config.id} memory ${event.id}: unknown titleBackdropAsset ${event.titleBackdropAsset}`);
+    for (const assetId of event.galleryAssets || []) {
+      if (!assets[assetId]?.gallery) fail(`route ${config.id} memory ${event.id}: gallery asset ${assetId} is missing or not gallery-enabled`);
+    }
+  }
+  if (!hasStart) fail(`route ${config.id} memories: one event must replay chapter startNode ${chapter.startNode}`);
 }
 
 function validateStoryRoute(route, fail) {
@@ -282,6 +326,7 @@ export async function validateContent(content) {
   for (const route of routes) {
     for (const id of route.config.assetIds || []) if (!assets[id]) fail(`route ${route.config.id}: unknown asset ${id}`);
     validateStoryRoute(route, fail);
+    validateMemoryRoute(route, fail);
   }
   return errors;
 }

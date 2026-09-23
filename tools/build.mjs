@@ -48,6 +48,7 @@ for (const route of content.routes) {
   await Promise.all([
     writeFile(path.join(output, 'chapter.json'), `${JSON.stringify(route.chapter, null, 2)}\n`),
     writeFile(path.join(output, 'scenes.json'), `${JSON.stringify(route.sceneLibrary, null, 2)}\n`),
+    writeFile(path.join(output, 'memories.json'), `${JSON.stringify(route.memoryLibrary, null, 2)}\n`),
     writeFile(path.join(output, 'assets.json'), `${JSON.stringify(route.assetManifest, null, 2)}\n`)
   ]);
 }
