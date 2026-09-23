@@ -2,7 +2,7 @@
 
 > 狀態：**Canonical prototype art plan / generation input**
 >
-> 版本：0.4
+> 版本：0.5
 >
 > 更新：2026-09-23
 >
@@ -50,14 +50,15 @@ Canonical runtime 是 9:16。
 - **禁止只拿上一張 CG 當下一張唯一 reference**；
 - 同一 heroine 不因場景換臉、換頭骨比例、換眼型。
 
-## 1.4 Xu Tang metadata warning
+## 1.4 Xu Tang canonical profile
 
-最新 proposal 的 canonical story identity：
-- 許棠 27 歲；
-- 約 165 cm；
-- 自由接案視覺設計師。
+Canonical story / Character Bible identity 已同步：
+- 許棠 **27 歲**；
+- 約 **170 cm**；
+- 自由接案視覺設計師；
+- approved face identity / identity sheet 繼續作為視覺錨點。
 
-目前舊 `content/characters/xu_tang.json` 仍保留 prototype 時期的 22 歲／170 cm metadata。**生新圖時以本企劃與 setting proposal 為準，但 approved face identity 可保留。** 後續正式 asset recipe 前需同步 Character Bible。
+年齡與身高的調整不代表換臉；後續新 sprites / CG 必須讓角色呈現成熟的 27 歲都市女性氣質。
 
 ## 1.5 Jiang Yucheng identity
 
@@ -222,9 +223,35 @@ Canonical runtime 是 9:16。
 
 ---
 
+## BG-XT-HOME-NIGHT — 許棠家夜間 couple variant — P1
+
+以 BG-XT-HOME-STUDIO 為同一空間，只改夜間 practical lighting：工作燈、桌燈、窗外城市夜色。桌面可以比 deadline scene 整齊一點，代表關係進入生活後而不是危機中。若 pipeline 支援可靠 lighting variant，可不另產一張完全不同 layout。
+
+用途：XT-AF-01。
+
+## BG-XT-HOME-MORNING — 許棠家／男主家清晨 variant — P1
+
+柔和自然晨光，生活物件、杯子、衣物與充電線等都保持克制，不做 hotel suite。可由既有 interior master 衍生。
+
+用途：XT-AF-02 / XT-AF-03。
+
+## BG-PC-HOME-NIGHT — 男主家夜間 couple variant — P1
+
+以 BG-PC-HOME-LIVING 為同一空間，screen glow + 暖色小燈。Gaming equipment 仍存在，但畫面比 JYC-06 更像已經熟悉的 shared space。
+
+用途：JYC-AF-01。
+
+## BG-PC-HOME-MORNING — 男主家週末早晨 variant — P1
+
+自然晨光、沙發／遊戲設備、兩杯飲料或早餐細節。空間要讓早期 JYC-06 與交往後 JYC-AF-02 能做 before/after 對照。
+
+用途：JYC-AF-02 / JYC-AF-03。
+
+---
+
 # 3. Xu Tang sprite sets
 
-所有 Xu sprite 須更新至 **27 歲成年女性、約165cm敘事設定**，但保留 approved identity face。
+所有 Xu sprite 須符合 **27 歲成年女性、約170cm敘事設定**，並保留 approved identity face。
 
 每組至少產出透明背景全身／3/4身 production master；若成本允許，同 outfit 共用身體、表情用 face variants。
 
@@ -343,6 +370,27 @@ Canonical runtime 是 9:16。
 - blush
 - mutual_decision
 - post_kiss_smile
+
+---
+
+## XT-SPR-AFTER-STORY — P0
+
+**用途**：XT-AF-01 / 02 / 03。  
+**方向**：交往後的居家／週末狀態，比 XT-SPR-HOME-WORK 更放鬆，不再是 deadline 服裝。
+
+**Wardrobe variants**
+- evening_cozy：柔軟長袖／針織＋完整居家短褲或長褲。
+- morning_borrowed：可合理穿男主較大的白襯衫／T-shirt，但必須搭完整居家短褲；不要變成只靠裸露的 pin-up。
+- weekend_soft：寬鬆襯衫＋舒適長褲，適合一個月後日常。
+
+**Expressions**
+- girlfriend_teasing
+- lingering_look
+- kiss_afterglow
+- sleepy
+- no_makeup_smile
+- mock_annoyed
+- quietly_content
 
 ---
 
@@ -465,6 +513,27 @@ Canonical runtime 是 9:16。
 
 ---
 
+## JYC-SPR-AFTER-STORY — P0
+
+**用途**：JYC-AF-01 / 02 / 03。  
+**方向**：交往後不再進入「客人模式」，保留年輕 creative casual。
+
+**Wardrobe variants**
+- late_gaming：寬鬆 T-shirt / hoodie + 舒適下身。
+- morning_borrowed：可穿借來的 oversized hoodie / T-shirt + 完整居家短褲。
+- creator_weekend：自己的 casual outfit + tablet / stylus。
+
+**Expressions**
+- awkward_flirty
+- trying_not_to_blush
+- sleepy
+- smug_meme_energy
+- relaxed_realself
+- post_kiss_stunned
+- happy_embarrassed
+
+---
+
 # 5. Special CG catalog
 
 CG 分級：
@@ -578,14 +647,38 @@ CG 分級：
 **Scene**：XT-14 / XT-G。  
 同 opening 走廊。構圖呼應 CG-COM-01，但紙箱消失、人物距離消失。第一人稱近景或 side cinematic；互相靠近、自然閉眼／停頓，不做 wedding-photo posture。手部若入鏡要克制：手臂／袖口／肩頸即可。
 
-### CG-XT-12 — Morning Epilogue — P1 Reward
+### CG-XT-AF-01 — 今晚不用回隔壁 — P0 Reward
 
-**Scene**：XT-G。  
-早晨 17F，許棠站在男主門外，拿兩杯咖啡，頭髮自然、穿簡單日常服。表情像已經很熟，不是新戀愛的誇張甜笑。
+**Scene**：XT-AF-01。  
+許棠家／男主家夜間。兩人已是戀人，從沙發／門口自然延續到更長的吻與擁抱；人物距離明顯比 XT-G 更放鬆。構圖重點是她也主動靠近／拉住袖口或衣領，呈現 reciprocity，不做單向被觀看的 pin-up。
 
-### CG-XT-F-01 — Friend Ending Coffee — P2
+**SFW framing**：完整衣著或自然居家服，親密但不露骨；可作 fade-to-black 前最後一張。
 
-**Scene**：XT-F。  
+### CG-XT-AF-M1 — Mature intimacy extension — FULL ONLY
+
+**Scene**：XT-AF-01 / 02 profile-gated extension。  
+此 asset slot 僅存在於 `full` profile。General art plan 只固定：
+- 成年、互相同意的 established couple；
+- identity / body consistency；
+- private interior continuity；
+- 角色有主動性與互動感；
+- 不得讓 mature CG 成為理解角色弧線的唯一資訊。
+
+具體成人向構圖在 mature-content authoring 時另行定義；`sfw` build 不保留 locked placeholder。
+
+### CG-XT-AF-02 — 星期日早晨 — P0 Reward
+
+**Scene**：XT-AF-02。  
+柔和晨光。許棠散髮／鬆亂低馬尾、近素顏，穿自己的 cozy outfit 或借來的 oversized shirt/T-shirt + 完整居家短褲。她拿咖啡、靠在門框／沙發邊，神情是已經把男主當生活一部分的自然熟悉。可有從背後短暫抱住、靠肩或晨吻的 variant。
+
+### CG-XT-AF-03 — 一個月後：留位置 — P1 Reward
+
+**Scene**：XT-AF-03。  
+兩人各自工作或準備出門，同一畫面有彼此常用物件：她的咖啡／充電線、他的杯子／外套，但沒有搬家式合併。重點是「獨立生活裡出現固定位置」。
+
+### CG-XT-FC-01 — Friend Coda Coffee — P2
+
+**Scene**：XT-FC。  
 兩人樓下 cafe，各自有工作物，聊天自在但構圖不做 couple intimacy。若 production scope 要縮可不用。
 
 ---
@@ -642,12 +735,36 @@ tablet／手機在前景，作品縮圖抽象。她一隻手停在螢幕上，�
 **Scene**：JYC-14 / JYC-G。  
 雨後騎樓／捷運出口，濕地反光、暖色便利店燈。她有點緊張但沒有後退，甚至由她先停下／靠近半步。第一人稱或 side cinematic。氛圍年輕、笨拙、城市夜晚。
 
-### CG-JYC-10 — Epilogue Parallel Life — P1 Reward
+### CG-JYC-AF-01 — 最後一班車之後 — P0 Reward
 
-**Scene**：JYC-G。  
-咖啡店或男主家，她在畫準備公開的新作品，男主在旁工作／做自己的事。和 XT parallel work 有視覺呼應，但她這邊更有 screen/tablet/young creative atmosphere。
+**Scene**：JYC-AF-01。  
+男主家夜間 gaming。遊戲已停，她和玩家距離比 JYC-06 明顯靠近；可以是她放下 controller 後仍坐在旁邊、先抓住玩家袖口／靠過去，進入更長的吻。保留一點 nervous laugh，不能讓她變成完全被成熟男主主導。
 
-### CG-JYC-F-01 — Friend Ending / First Look — P2
+**SFW framing**：居家衣著完整，親密但不露骨，作 fade-to-black 前 key art。
+
+### CG-JYC-AF-M1 — Mature intimacy extension — FULL ONLY
+
+**Scene**：JYC-AF-01 / 02 profile-gated extension。  
+僅 `full` profile。General constraints：
+- 23 歲成年女性 + 31 歲成年男主；
+- established relationship；
+- mutual consent 明確；
+- 雨澄仍有主動選擇與節奏；
+- 不把害羞誤寫成拒絕。
+
+具體成人向構圖另由 mature-content source 定義；`sfw` build 完全 prune。
+
+### CG-JYC-AF-02 — 不用切換帳號 — P0 Reward
+
+**Scene**：JYC-AF-02。  
+週末早晨。她頭髮睡亂、穿 borrowed oversized hoodie/T-shirt + 完整居家短褲，坐在沙發上搶 controller 或明明在旁邊還傳 meme 給玩家。表情是她 online persona 已自然出現在現實。Cozy fan-service，比裸露更重要的是「她毫無客人模式」。
+
+### CG-JYC-AF-03 — 公開前先給你看 — P1 Reward
+
+**Scene**：JYC-AF-03。  
+咖啡店或男主家，她在畫準備公開的新作品，男主在旁工作／做自己的事。她把 tablet 稍微轉向玩家。和 XT parallel life 有視覺呼應，但這邊保留 screen/tablet/young creative atmosphere。
+
+### CG-JYC-FC-01 — Friend Coda / First Look — P2
 
 她把新作品轉向玩家看，沒有 kiss/couple framing。若 scope 緊可用 UI 取代。
 
@@ -708,13 +825,24 @@ tablet／手機在前景，作品縮圖抽象。她一隻手停在螢幕上，�
 | XT-14 | BG-APT-17F-NIGHT | XT-SPR-ENDING | CG-XT-11 P0 | first kiss |
 | JYC-13 | BG-MRT + RAIN-AWNING-NIGHT | JYC-SPR-ENDING | CG-JYC-09 setup/keyframe | |
 | JYC-14 | BG-RAIN-AWNING-NIGHT | JYC-SPR-ENDING | CG-JYC-09 P0 | first kiss |
-| XT-G | BG-17F morning variant | XT-SPR-ENDING | CG-XT-11 + 12 P1 | |
-| XT-F | cafe/17F | XT weekday | CG-XT-F-01 P2 | optional |
+| XT-G | BG-APT-17F-NIGHT | XT-SPR-ENDING | CG-XT-11 P0 | relationship resolution / first kiss |
+| XT-F | cafe/17F | XT weekday | CG-XT-FC-01 P2 | optional |
 | XT-D | BG-APT-17F-NIGHT | XT guarded | none | |
-| JYC-G | cafe/home | JYC casual | CG-JYC-09 + 10 P1 | |
-| JYC-F | UI/cafe | JYC casual | CG-JYC-F-01 P2 | optional |
+| JYC-G | BG-RAIN-AWNING-NIGHT | JYC-SPR-ENDING | CG-JYC-09 P0 | relationship resolution / first kiss |
+| JYC-F | UI/cafe | JYC casual | CG-JYC-FC-01 P2 | optional |
 | JYC-D | UI | avatar only | none | |
 | BOTH-D | BG-17F empty + phone UI | none | none | empty-life motif |
+| XT-AF-01 | BG-XT-HOME-NIGHT | XT-SPR-AFTER-STORY | CG-XT-AF-01 P0 + full-only M1 | relationship reward / first stayover |
+| XT-AF-02 | BG-XT-HOME-MORNING | XT-SPR-AFTER-STORY | CG-XT-AF-02 P0 | domestic fan-service |
+| XT-AF-03 | BG-XT-HOME-MORNING / cafe | XT-SPR-AFTER-STORY | CG-XT-AF-03 P1 | one-month relationship coda |
+| XT-FC | cafe / 17F | XT weekday | CG-XT-FC-01 P2 | warm friendship continuation |
+| XT-DC | BG-APT-ELEVATOR + 17F | XT weekday | none | closure |
+| JYC-AF-01 | BG-PC-HOME-NIGHT | JYC-SPR-AFTER-STORY | CG-JYC-AF-01 P0 + full-only M1 | relationship reward / first stayover |
+| JYC-AF-02 | BG-PC-HOME-MORNING | JYC-SPR-AFTER-STORY | CG-JYC-AF-02 P0 | online/offline fan-service payoff |
+| JYC-AF-03 | BG-PC-HOME-MORNING / cafe | JYC-SPR-AFTER-STORY | CG-JYC-AF-03 P1 | creative relationship coda |
+| JYC-FC | cafe / creator event | JYC casual | CG-JYC-FC-01 P2 | friendship continuation |
+| JYC-DC | UI / city night | avatar only | none | closure |
+| BOTH-DC | BG-APT-17F-NIGHT + phone UI | none | none | double-distance coda |
 
 ---
 
@@ -775,13 +903,14 @@ tablet／手機在前景，作品縮圖抽象。她一隻手停在螢幕上，�
 - CG-OV-01
 - CG-SHURA-01
 
-## Batch F — Endings
+## Batch F — Relationship resolution + After Story
 
 - CG-XT-11
-- CG-XT-12
 - CG-JYC-09
-- CG-JYC-10
-- optional Friend CGs
+- CG-XT-AF-01 / 02 / 03
+- CG-JYC-AF-01 / 02 / 03
+- optional Friend Coda CGs
+- full-only mature slots最後單獨製作，不與 SFW queue 混在一起
 
 ---
 
@@ -801,6 +930,8 @@ tablet／手機在前景，作品縮圖抽象。她一隻手停在螢幕上，�
 - 不可出現真商標、真 IP、亂碼文字；
 - 9:16 裁切後 face / hands / key prop 不被 UI 擋；
 - CG 是否真的增加情緒／收藏價值，而不是只是把 sprite 合成背景。
+- full-only mature asset 必須有明確 profile tag，且不被 SFW Gallery count / placeholder 洩漏。
+- After Story fan-service 必須表現 established relationship 的互相主動，而不是只換成更裸露服裝。
 
 ---
 
