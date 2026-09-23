@@ -9,13 +9,13 @@ W3 — Codespaces Development & Preview. Core preview/devcontainer tooling is im
 
 ## Canonical narrative plan
 
-2026-09-23 已確認雙女主 prototype 採 **Braided Narrative v0.4**，取代「早期 route lock 後兩條完全分離」的舊劇情方向。
+2026-09-23 已確認雙女主 prototype 採 **Braided Narrative v0.5**，取代「早期 route lock 後兩條完全分離」的舊劇情方向。
 
 Canonical planning docs：
 
-- `docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md` — 完整 55 個 authoring-level scene/gate/ending 規格、每幕目的、choice/state、conflict/repair/endings。
+- `docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md` — 完整約 66 個 authoring-level scene/gate/ending/after-story 規格、每幕目的、choice/state、conflict/repair/endings。
 - `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md` — route graph、attention windows、re-approach、crossover、knowledge flags、honest overlap / deception / commitment gate 與 implementation guardrails。
-- `docs/art/PROTOTYPE_ART_REQUIREMENTS.md` — scene backgrounds、Xu/JYC sprite sets、30+ CG slots、逐 node asset mapping 與 production priority。
+- `docs/art/PROTOTYPE_ART_REQUIREMENTS.md` — scene backgrounds、Xu/JYC sprite sets、38+ CG / after-story slots、逐 node asset mapping 與 production priority。
 
 核心 narrative decisions：
 
@@ -26,6 +26,9 @@ Canonical planning docs：
 - honest overlap 與 deliberate deception 必須分開；
 - 修羅場 tone 是安靜、成人、以誠實與責任為核心，不做兩女爭男喜劇；
 - 舊 123-node playable story 仍只視為 engine / W3/W4 migration fixture，不代表新 production story ordering。
+- 許棠 canonical profile 已同步為 **27 歲 / 約 170 cm**；approved face identity 保留。
+- Ending 不再等同 runtime terminal：Good 解鎖 3 段 Relationship After Story；Friend / Distance 各有短 coda。
+- After Story 是玩家 reward phase，會提高親密度與 fan-service 密度；`full` profile 可加入 profile-gated mature-only extension，`sfw` 必須 compile-time prune 並維持完整自然流程。
 
 後續 narrative work 應先讀上述三份文件，再讀 setting proposal；後續 art generation 以 art requirements + canonical Character Bible/identity references 為準。
 
