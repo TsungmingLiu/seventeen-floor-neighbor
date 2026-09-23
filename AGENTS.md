@@ -8,7 +8,8 @@ This repository is the code/content source of truth for the game. Do not rely on
 2. Read `ARCHITECTURE.md` only as the English mirror; if the two conflict, the Traditional Chinese file wins.
 3. Read `IMPLEMENTATION.md` — current prototype implementation details.
 4. Read `PROJECT_STATE.md` — current milestone and pending decisions.
-5. For node-specific work, run `npm run context -- --route <route-id> --node <node-id>` and read the route's `context.md`.
+5. For player UI, Memories, CG Gallery, replay, or save/frontier work, read `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md`.
+6. For node-specific work, run `npm run context -- --route <route-id> --node <node-id>` and read the route's `context.md`.
 
 The repository may temporarily differ from the target architecture. Preserve the runnable prototype and migrate incrementally; do not invent a parallel architecture.
 
