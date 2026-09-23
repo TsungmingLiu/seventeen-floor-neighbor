@@ -6,6 +6,22 @@ Updated: 2026-09-23
 
 Milestone 1: one branching story, seamless resume title, independent branch history, modular runtime and temporary office OL content. See REFACTOR_PLAN.md for the next milestones. Finish verification and push this milestone, then stop for the user's review.
 
+## Approved W4 UX target (not implemented yet)
+
+The next player-facing UX direction is now documented in `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md`.
+
+Key approved decisions:
+
+- title becomes one large Start/Continue button plus two smaller Memories and CG buttons;
+- replaying old content happens through Memories; there is no separate New Game entry;
+- player-facing branch UI becomes one vertically scrolling Memories timeline, not a second-level route detail screen or a giant pan/zoom graph;
+- Memory Events are narrative units and are not one-to-one with engine nodes;
+- replay cursor and deepest story frontier must be separate so replay never regresses Continue;
+- single-heroine memory scenes use the event CG as a faded, face-focused backdrop; common scenes use scene/background art;
+- CG remains a simple unlocked/locked gallery with full viewer.
+
+This is a target specification, not a claim about the current runtime. Preserve current behavior until W4 is implemented and migrated with tests.
+
 ## Playable content
 
 - One registered package: `xu-tang`, retaining `chapter-01` storage keys.
