@@ -259,7 +259,7 @@ export async function validateContent(content) {
     if (asset.kind === 'sprite') validateDependency(asset, `asset ${id}`);
     (asset.participants || []).forEach((participant) => validateDependency(participant, `asset ${id}`));
     if (asset.kind === 'cinematic') {
-      if (!asset.sources?.mp4 || !asset.sources?.webm) fail(`asset ${id}: cinematic requires MP4 and WebM sources`);
+      if (!asset.sources?.mp4) fail(`asset ${id}: cinematic requires an MP4 primary source`);
       if (!Number.isFinite(asset.duration) || asset.duration <= 0) fail(`asset ${id}: cinematic requires positive duration`);
     }
   }

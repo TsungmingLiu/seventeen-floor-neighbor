@@ -38,18 +38,18 @@
 
 目前 repo **還沒有**完全符合 canonical architecture：
 
-- source binaries 仍主要存在 `dist/assets/`；
-- validator/build 仍把 `dist/` 視為 asset source 的一部分；
-- 還沒有正式 `assets-src/ → generated/ → dist/` pipeline；
+- W1 source/output boundary 已完成，`dist/assets/` 不再進 Git，build 可重建；
+- W2 strict media validation + asset build 已完成；
+- Google Drive 已建立：
+  - `source-private`：Restricted canonical masters；
+  - `runtime-public`：Anyone-with-link optimized runtime assets；
+- 三張原本截斷的 date CG 已恢復完整 master、轉成 WebP 並由 CI 匿名下載驗證；
+- 許棠 identity v2 與 first-kiss 四張 keyframe 已恢復完整 master並記錄 source catalog；
 - 還沒有：
-  - `npm run assets:check`
-  - `npm run assets:build`
   - `npm run preview`
   - `npm run checkpoint`
-  - `npm run assets:fetch`
   - `npm run release`
-- 還沒有 private R2 source checkpoint；
-- 還沒有 public R2 runtime publishing；
+- R2 migration 延後到準備商業化前；目前不是 blocker；
 - 還沒有 SFW / Full compile-time pruning；
 - 仍有大量 legacy node IDs 不是 semantic IDs；
 - runtime 目前仍是 plain JavaScript，而不是 React/TypeScript/Vite。
@@ -168,59 +168,41 @@ GitHub Actions run `35807627568`：
 - [x] static shell、binary preservation source、runtime output 邊界已分離。
 - [x] W1 不改 story/engine behavior。
 
-## W2 — Asset Check + Asset Build
+## W2 — Asset Check + Asset Build ✅
 
-### 目標
+### 已完成
 
-建立可自動驗證與生成 runtime asset 的 pipeline。
+- [x] 新增 `npm run assets:check`
+- [x] 新增 `npm run assets:build`
+- [x] 使用 ffprobe + ffmpeg full-decode，不再只檢查「檔案存在」。
+- [x] 驗證 logical asset ID、source mapping、尺寸、比例、duration/container、recipe/usage context。
+- [x] blocking error 會輸出 asset ID、recipe、usage、source、expected/observed 與 blocking 狀態。
+- [x] 證實 8 張舊 GitHub PNG 截斷：三張 date CG、許棠 identity v2、first-kiss 四張 keyframe。
+- [x] 從 ChatGPT Library 找回 8 張完整原圖。
+- [x] 完整 master 保存至 Google Drive `source-private`，保持 Restricted。
+- [x] 對 8 張 master full decode，SHA-256 / bytes / dimensions 記錄於 `content/assets/source-catalog.json`。
+- [x] 三張 date CG 轉為 WebP runtime：bookstore ~143 KB、riverwalk ~229 KB、night-market ~155 KB。
+- [x] WebP 發布至 Google Drive `runtime-public`。
+- [x] `content/assets/source-map.json` 支援 `gdrive-public` provider、file ID、URL、bytes、SHA-256。
+- [x] GitHub Actions 在無 Google credential 下成功匿名下載 Drive runtime assets。
+- [x] 下載後驗 SHA-256 + full decode。
+- [x] `assets:build` 可混合 local source 與 Drive public runtime。
+- [x] `dist/assets/` 改為 generated/ignored，不再 commit runtime binaries。
+- [x] cinematic validator：MP4/H.264 required primary；WebM legacy optional。
+- [x] CI run `35812177697`：44/44 media checks、3 Drive downloads、9/9 tests，build/validate/diff/reproducibility 全部通過。
 
-### AI 要做
+### Human
 
-- [ ] 新增 `npm run assets:check`
-- [ ] 新增 `npm run assets:build`
-- [ ] `assets:check` 驗證：
-  - [ ] logical asset ID；
-  - [ ] expected source path；
-  - [ ] file exists；
-  - [ ] file decode 完整；
-  - [ ] width；
-  - [ ] height；
-  - [ ] aspect ratio；
-  - [ ] expected format；
-  - [ ] recipe exists；
-  - [ ] version dependency；
-  - [ ] duplicate output；
-  - [ ] cinematic poster/source 完整性。
-- [ ] `assets:build`：
-  - [ ] PNG/JPEG master → WebP runtime；
-  - [ ] 保留必要 transparency；
-  - [ ] 產生 runtime filename；
-  - [ ] 優先 immutable/content-hashed naming；
-  - [ ] 產生／更新 runtime metadata。
-- [ ] Video：
-  - [ ] primary runtime target = H.264 MP4；
-  - [ ] 驗證 resolution / duration；
-  - [ ] 保留 poster；
-  - [ ] legacy WebM 可暫留相容，但不作長期強制 requirement。
-- [ ] missing/bad asset error 必須包含：
-  - [ ] asset ID；
-  - [ ] scene/recipe；
-  - [ ] expected path；
-  - [ ] expected size；
-  - [ ] expected ratio；
-  - [ ] 是否 blocking。
-
-### Human 要做
-
-- [ ] 如果某張圖需要重生，依 AI 給的 Generation Queue 重新生成／挑選。
+- [x] 將 `runtime-public` 設成 `Anyone with the link / Viewer`。
+- [x] 本次不需要從 Mac 手動補圖。
 
 ### 驗收
 
-- [ ] 所有 runtime image 可由 master 重建。
-- [ ] bad/corrupt file 能被明確抓出。
-- [ ] build error 對人可讀，不只是 stack trace。
-
----
+- [x] corrupt binary 可被真實 decode checker 抓出。
+- [x] 完整 master 有 Drive canonical copy。
+- [x] remote CI 可匿名取得 runtime assets。
+- [x] runtime image 可在不把 binary 寫進 GitHub 的情況下重建。
+- [x] build error 對人可讀。
 
 ## W3 — Unified Local / Codespaces Preview
 
@@ -263,150 +245,90 @@ Local 和 Codespace 使用同一套 preview command。
 
 ---
 
-## W4 — Cloudflare Private R2 Source Store
+## W4 — Google Drive Asset Store（Drive-first） ✅ 基礎已建立
 
-### 目標
+### 目前決策
 
-建立 Cloud Checkpoint 的 master asset cloud storage。
+商業化前先使用 Google Drive；R2 migration 延後。
 
-### Human 要做
+### 已完成
 
-- [ ] 確認／建立 Cloudflare account。
-- [ ] 建立 private R2 bucket。
-- [ ] 建議名稱：
-  - [ ] `seventeen-floor-source`
-- [ ] 建立 least-privilege R2 credential。
-- [ ] 準備 secret：
-  - [ ] `CLOUDFLARE_ACCOUNT_ID`
-  - [ ] `R2_ACCESS_KEY_ID`
-  - [ ] `R2_SECRET_ACCESS_KEY`
-- [ ] 把 secret 放到：
-  - [ ] 本地 `.env` 或 OS secret store；
-  - [ ] GitHub Codespaces Secrets。
-- [ ] **不要**把 secret value：
-  - [ ] commit 到 GitHub；
-  - [ ] 寫入 markdown；
-  - [ ] 貼進 source code。
+- [x] 建立專案 Drive folder `seventeen-floor-neighbor/`
+- [x] `source-private/`：Restricted。
+- [x] `runtime-public/`：Anyone with the link / Viewer。
+- [x] `source-catalog.json`：private master file ID / hash / dimensions。
+- [x] `source-map.json`：Drive runtime provider。
+- [x] CI 驗證 anonymous Drive download 可用。
+- [x] GitHub 不需要保存 Google Drive private credential。
 
-### AI 要做
+### 後續
 
-- [ ] 決定 object key layout。
-- [ ] 設計 checkpoint metadata schema。
-- [ ] 設計 content hash / version mapping。
-- [ ] 寫 R2 upload/download tooling。
-- [ ] 使用環境變數讀 credentials。
-- [ ] 不在 runtime browser 暴露 private credentials。
-
-### 建議 object key
-
-```text
-source/
-  <asset-id>/
-    <hash-or-version>/
-      master.png
-      source.mp4
-      ...
-```
+- [ ] 新角色的 accepted masters 逐批進 `source-private`。
+- [ ] runtime WebP/MP4 進 `runtime-public`。
+- [ ] 準備商業化前再執行 Google Drive → Cloudflare R2 migration。
 
 ### 驗收
 
-- [ ] private source object 可由 authorized tooling upload/download。
-- [ ] anonymous public access 不可直接取得 private masters。
-- [ ] credential 不存在 repo。
-
----
+- [x] private master 不公開。
+- [x] public runtime 可由 CI/Codespace 匿名下載。
+- [x] provider 可被未來 R2 替換而不改 story logical IDs。
 
 ## W5 — `npm run checkpoint`
 
 ### 目標
 
-把「目前 local working state」轉成「cloud-complete version」。
+把 accepted working state 轉成 Drive-first **cloud-complete version**。
 
 ### AI 要做
 
 - [ ] 新增 `npm run checkpoint`
-- [ ] checkpoint 前自動執行：
-  - [ ] content validation；
-  - [ ] asset check；
-  - [ ] build/test（依成本決定完整或必要 subset）。
-- [ ] 找出：
-  - [ ] referenced master assets；
-  - [ ] 自上次 checkpoint 之後 changed assets；
-  - [ ] 尚未上傳 private R2 的 assets。
-- [ ] upload accepted master assets。
-- [ ] 記錄：
-  - [ ] Git commit；
-  - [ ] content version；
-  - [ ] asset logical ID；
-  - [ ] source hash；
-  - [ ] R2 object key；
-  - [ ] size；
-  - [ ] MIME/type；
-  - [ ] checkpoint ID；
-  - [ ] created time。
-- [ ] 驗證所有 referenced master assets 都有 remote copy。
-- [ ] 產生 checkpoint metadata。
-- [ ] checkpoint metadata 要可 version-control，但不可包含 secret。
+- [ ] 跑 content / asset validation + tests。
+- [ ] 驗證 required masters 都有 `source-catalog.json` entry。
+- [ ] 驗證 required remote runtime 都有 `source-map.json` 的 file ID、URL、bytes、SHA-256。
+- [ ] 驗證 `runtime-public` 可匿名下載。
+- [ ] 記錄 Git commit / content version / checkpoint ID。
+- [ ] push code/content/metadata。
 
-### Human 要做
-
-- [ ] 在準備關 Mac、出門、交給 Work 接手之前執行 checkpoint。
-- [ ] 如果 script 發現 local-only source，確認是否上傳。
-
-### Cloud-complete 定義
-
-只有同時具備：
+### Cloud-complete
 
 ```text
 GitHub commit
 +
-所有 referenced master assets in private R2
+required masters in Drive source-private
++
+required runtime assets in Drive runtime-public
++
+matching catalog/map hashes
 ```
-
-才算 cloud-complete。
 
 ### 驗收
 
-- [ ] checkpoint 完成後 Mac 可以關機。
-- [ ] fresh environment 能知道要抓哪些 source assets。
-- [ ] checkpoint 有明確 ID，可以追溯。
+- [ ] Mac 關機後仍能 build / preview。
 
----
-
-## W6 — `npm run assets:fetch` / Remote Restore
+## W6 — Remote Restore / Drive Runtime Fetch
 
 ### 目標
 
-讓全新 Codespace 不依賴本地 Mac 就能 build / preview。
+Fresh Codespace 不依賴本地 Mac。
+
+### 已具備
+
+- [x] `npm run assets:build` 可直接從 `runtime-public` 下載 remote assets、驗 hash、產生 `generated/runtime-assets/`。
+- [x] GitHub Actions 已證明無 Google credential 可完成 Drive runtime fetch。
 
 ### AI 要做
 
-- [ ] 新增 `npm run assets:fetch`
-- [ ] 根據 checkpoint metadata：
-  - [ ] 找 source object；
-  - [ ] download；
-  - [ ] verify hash；
-  - [ ] 放到 `generated/source-cache/` 或其他 ignored cache。
-- [ ] 不 commit downloaded binaries。
-- [ ] 確保 cache 可以完全刪掉重抓。
-- [ ] fresh Codespace 測試：
+- [ ] W3 後在 fresh Codespace 驗證：
   - [ ] `git pull`
-  - [ ] `npm run assets:fetch`
+  - [ ] `npm run assets:check`
   - [ ] `npm run assets:build`
   - [ ] `npm run build`
   - [ ] `npm run dev`
-
-### Human 要做
-
-- [ ] R2 / Codespaces Secrets 設定完成後，原則上不需介入。
+- [ ] 若需要更快重複 build，再新增可選 `npm run assets:fetch` cache/prefetch；目前不是 blocker。
 
 ### 驗收
 
-- [ ] Local Mac 關機時，Codespace 可完整 rebuild。
-- [ ] Work 可打開 forwarded preview。
-- [ ] 刪除 Codespace 後，新 Codespace 仍可從 GitHub + R2 重建。
-
----
+- [ ] Mac 關機時 Codespace 仍可 rebuild + preview。
 
 ## W7 — SFW / Full Build Profiles
 
@@ -980,7 +902,7 @@ private R2 checkpoint
 | Asset ingest/build | ✓ | | |
 | Validator/compiler/tooling | ✓ | | |
 | R2 bucket/account approval | | ✓ | |
-| R2 integration code | ✓ | | |
+| Drive provider integration code | ✓ | | |
 | Secrets placement | guide | ✓ | |
 | Codespace preview setup | ✓ | login/approve if needed | |
 | Sites publish | ✓ when capability available | playtest | ✓ |
@@ -997,7 +919,7 @@ private R2 checkpoint
 - [ ] 不在確認 master/source 安全前刪除 binary。
 - [ ] 不把 `dist/` 當長期 source of truth。
 - [ ] 不把 secret commit 到 GitHub。
-- [ ] 沒有 GitHub commit + private R2 master checkpoint，不得稱為 cloud-complete。
+- [ ] 沒有 GitHub commit + Drive source-private master catalog + runtime-public hash mapping，不得稱為 cloud-complete。
 - [ ] required master 只存在關機 Mac 時，不得 remote release。
 - [ ] 不為某一個女主寫 route-specific engine hack。
 - [ ] 不因 provider URL 改變而改 story JSON。
@@ -1060,9 +982,8 @@ npm run release
 
 > 不要跳步。
 
-- [ ] **NEXT: W1 — Source Asset Boundary**
-  - [ ] 盤點 `dist/assets/`
-  - [ ] 建 `assets-src/`
-  - [ ] 建 `generated/`
-  - [ ] refactor validator/build
-  - [ ] 驗證 `dist/` 可刪除重建
+- [ ] **NEXT: W3 — Unified Local / Codespaces Preview**
+  - [ ] 新增 `npm run preview` / `npm run dev`
+  - [ ] local preview smoke test
+  - [ ] Codespace forwarded URL smoke test
+  - [ ] Work cloud browser 打開並 playtest

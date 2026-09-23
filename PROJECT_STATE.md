@@ -1,6 +1,6 @@
 # Project state
 
-Updated: 2026-09-22
+Updated: 2026-09-23
 
 ## Current milestone
 
@@ -45,8 +45,13 @@ Milestone 1: one branching story, seamless resume title, independent branch hist
 
 - W1 source/output boundary is implemented and CI-verified: static shell source lives in `public/`, binary preservation sources in `assets-src/`, runtime mapping in `content/assets/source-map.json`, and `dist/` is clean-build reproducible.
 - CI run `35807627568` passed build, validate, tests, diff check, and generated-output reproducibility.
-- Known/suspected truncated binaries are documented in `content/assets/ASSET_INVENTORY.md`; W1 preserves current bytes but does not claim to repair them.
-- Next migration step: W2 asset decode/dimension checking and runtime asset build/optimization.
+- W2 strict media validation and Drive provider are implemented and CI-verified.
+- The three date CGs, Xu Tang identity v2, and four first-kiss keyframes were proven truncated by full decode, recovered from ChatGPT Library, decoded successfully, and stored in Google Drive `source-private`.
+- The three date CG runtime images are WebP objects in `runtime-public`; CI anonymously downloads, SHA-checks, full-decodes, and rebuilds them.
+- `dist/assets/` is generated/ignored and no longer carries committed runtime binaries.
+- CI run `35812177697`: 44/44 asset checks passed, 3 Drive downloads succeeded, build/validate/reproducibility passed, and 9/9 tests passed.
+- Storage decision: Google Drive is the current pre-commercial source/runtime store; Cloudflare R2 is deferred until commercialization needs justify it.
+- Next migration step: W3 unified local/Codespaces preview.
 
 ## Remaining work
 
