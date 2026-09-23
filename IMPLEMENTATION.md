@@ -1,0 +1,69 @@
+# IMPLEMENTATION.md
+
+> Current prototype implementation notes.
+>
+> This file documents how the repository works **today**. It is not the target architecture. For architectural decisions and migration direction, follow `ARCHITECTURE.zh-TW.md` (canonical) and `ARCHITECTURE.md` (English mirror).
+
+# 模組化內容架構
+
+遊戲現在分成七層，替換角色或增加角色時不必改動引擎或建置工具。
+
+| 層 | 位置 | 職責 |
+| --- | --- | --- |
+| 角色設定 | `content/characters/` | 身分特徵、造型版本、服裝、妝容與表情 |
+| 素材清單 | `content/assets/manifest.json` | 邏輯素材 ID 對應實際圖檔與角色版本 |
+| 生成配方 | `content/recipes/assets.json` | 每張立繪、背景、CG 與動態回憶的提示詞及依賴 |
+| 路線包 | `content/routes/` | 路線登錄、介面文字、story／scene 檔案、素材白名單與局部 context |
+| 場景模板 | `content/scenes/` | 可由不同角色複用的地點、互動節拍與隨機場景池 |
+| 劇情資料 | `content/chapters/` | 節點、台詞、選項、數值與畫面模式 |
+| 遊戲引擎 | `src/` | 通用播放、分支、結局、圖片與影片渲染 |
+
+## 路線載入
+
+`content/routes/index.json` 指定唯一可玩的預設故事。每個 `route.json` 可以引用多個 `storyFiles` 與 `sceneFiles`；建置時會合併、驗證並輸出至 `dist/content/routes/<route-id>/`。角色分支是同一節點圖內的選擇；主界面及網址不再提供平行路線切換。預設包保留 `chapter-01` 的舊收藏／結局鍵。
+
+針對單一節點工作時，使用 `npm run context -- --route <route-id> --node <node-id>` 取得前後節點、引用素材、生成配方與角色設定，避免新對話重讀整條路線。
+
+## 畫面規則
+
+- `src/visuals.js` 負責邏輯素材解析、共用立繪顯示及載入失敗回退；標題與遊戲共用同一個節點畫面定義。
+- `src/progress.js` 保存節點進入時的數值、旗標、隨機場景返回堆疊與已走連線。
+- `src/branches.js` 由故事連線建立垂直分支頁，顯示已走路徑與 CG 狀態；只有已保存快照的節點及起點可以開始播放。
+- `src/engine.js` 協調播放／存檔／收藏；`src/app.js` 只負責載入。
+- 建置為 JS 模組匯入、HTML 入口和樣式加上內容雜湊，內容 JSON 重新驗證快取，避免更新後載入新介面卻沿用舊程式。HTML 本身仍應由主機設定為重新驗證快取。
+
+續玩會回到目前節點開頭，不保存打字到第幾個字或影片時間。節點快照以最後一次走到該節點的狀態為準，並非多存檔槽。CG／結局收藏跨重玩保留，當前好感與旗標隨快照恢復。舊版沒有續玩快照的玩家由起點開始，既有收藏仍保留。
+
+圖片檔名只存在 manifest。換圖保留邏輯 ID 並更新版本、配方、尺寸和焦點；程式與節點不用跟著換檔名。`dist/assets/unavailable.svg` 是介面內建的錯誤替代畫面，不是可收藏的劇情素材。回退只保障執行不中斷，不代表壞圖已修復。
+
+每個劇情節點只能使用一種模式：
+
+- `composite`：一張背景，可加零至多張透明立繪。
+- `cg`：只顯示一張完整 CG，引擎會自動清空所有立繪。
+- `cinematic`：播放 MP4／WebM 動態回憶，使用海報圖作載入與低動態回退，並自動清空立繪。
+
+建置驗證會拒絕 CG／cinematic 與立繪同時出現，避免完整畫面再次重疊。
+
+## 動態回憶
+
+`cinematic` 資產在 manifest 中保存 `cinematicVersion`、`poster`、`sources.webm`、`sources.mp4`、`duration` 與收藏資料；可重建關鍵幀放在 `content/cinematics/`。引擎播放時暫時隱藏對話框，提供跳過按鈕，結束後顯示本節文字；收藏檢視器可再次播放。首段 `cinematic.ch04.first_kiss` 使用四張身份鎖定的第一視角近距離關鍵幀，依序呈現對視、撩髮、閉眼與微嘟嘴靠近；先以動作補償插值至 48fps，再重定時為 24fps／10 秒，以兼顧動作連續與臉部一致性。
+
+## 約會場景池
+
+`content/scenes/date-pool.json` 保存與角色分離的約會模板。章節使用 `type: "random"` 抽取未出現的場景，場景末端以 `type: "return"` 回到主線；目前每輪從三個場景中抽兩個且不重複。新增角色時可複用地點與節拍，但應提供該角色自己的台詞、服裝、髮型與CG。
+
+## 角色身份與鏡頭一致性
+
+- 原始人設圖是最高優先級身份來源；`content/references/xu-tang-identity-v2.png` 是多角度臉部錨點。
+- 新圖不得只沿用上一張CG作身份參考，避免多代漂移。
+- 每個CG recipe 必須宣告 `headPose`，分別控制頭部俯仰、轉向、視線落點與頸部姿態。
+- 同批CG應輪換低頭、平視側面、收下巴回望及只用眼神上看等姿態，不可反覆仰頭直視鏡頭。
+
+## 更新角色
+
+1. 更新角色 JSON，並提高 `designVersion`；服裝或妝容改版則提高各自的 `version`。
+2. 執行素材影響清單，列出該角色涉及的全部立繪與 CG。
+3. 依生成配方批次重生列出的素材。
+4. 更新 manifest 與 recipe 的版本依賴，再執行建置。
+
+背景等不依賴角色的素材不會被重生。新增角色時，只需增加角色 JSON、其素材與生成配方，再在劇情節點引用新的邏輯素材 ID。
