@@ -26,11 +26,12 @@ Canonical planning docs：
 - honest overlap 與 deliberate deception 必須分開；
 - 修羅場 tone 是安靜、成人、以誠實與責任為核心，不做兩女爭男喜劇；
 - 舊 123-node playable story 仍只視為 engine / W3/W4 migration fixture，不代表新 production story ordering。
-- 許棠 canonical profile 已同步為 **27 歲 / 約 170 cm**；approved face identity 保留。
+- 許棠 canonical profile 已同步為 **27 歲 / 約 170 cm**；approved 6-sheet reference pack 已鎖定。
+- 江雨澄 canonical profile 已同步為 **23 歲 / 約 160 cm**，纖細小骨架、腿相對偏長；approved 6-sheet reference pack 已鎖定。
 - Ending 不再等同 runtime terminal：Good 解鎖 3 段 Relationship After Story；Friend / Distance 各有短 coda。
 - After Story 是玩家 reward phase，會提高親密度與 fan-service 密度；`full` profile 可加入 profile-gated mature-only extension，`sfw` 必須 compile-time prune 並維持完整自然流程。
 
-後續 narrative work 應先讀上述三份文件，再讀 setting proposal；後續 art generation 以 art requirements + canonical Character Bible/identity references 為準。
+後續 narrative work 應先讀上述三份文件，再讀 setting proposal；後續 art generation 以 `docs/art/PROTOTYPE_ART_REQUIREMENTS.md` + `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md` 的 canonical references 為準。Opening Vertical Slice CG 可直接使用 `docs/art/VERTICAL_SLICE_CG_GENERATION_PROMPTS.md`。
 
 Creative production 進度不要塞進 root `TODO.md`。獨立使用 `docs/narrative/CONTENT_PRODUCTION_TODO.md`；root `TODO.md` 繼續只追 W3/W4/engine/tooling。建議一個 content production batch 對應一個新 session。
 
