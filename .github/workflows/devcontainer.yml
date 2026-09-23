@@ -24,4 +24,5 @@ jobs:
             node --version | grep "^v22\."
             ffmpeg -version | head -1
             ffprobe -version | head -1
+            command -v sshd
           '

@@ -163,7 +163,7 @@ async function getFreeLocalPort() {
   });
 }
 
-async function waitForHttp(url, forwardProcess, timeoutMs = 30_000) {
+async function waitForHttp(url, forwardProcess, timeoutMs = 120_000) {
   const started = Date.now();
 
   while (Date.now() - started < timeoutMs) {

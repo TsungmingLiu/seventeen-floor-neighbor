@@ -767,6 +767,20 @@ Codespace 是 disposable environment；任何必須永久保存的 accepted mast
 
 可操作 GitHub、Codespace 與 review surface。它不是另一份 working copy，也不得假設存在 Mac-only source。
 
+W3 起，AI operator 應優先自己管理 Codespace lifecycle，而不是把 create/rebuild 交回 Human：
+
+```text
+npm run codespace:accept
+```
+
+用於完全私有、成功即刪除的工程 acceptance；需要 cloud browser 看 UI 時使用：
+
+```text
+npm run codespace:review
+```
+
+它會在工程驗證完成後暫時公開 4173 並輸出 review URL。這兩個 command 需要執行端的 `gh` 已取得 Codespaces lifecycle 權限。一次性 authentication 可以由 Human 完成，但不應成為每次開發的人工步驟。
+
 #### ChatGPT Sites / Distribution Adapter
 
 用於 stable review 或 release，不取代 Codespaces inner loop。
@@ -793,6 +807,7 @@ Repository 必須提供 `.devcontainer/`：
 
 - Node major 與 CI 對齊；
 - 安裝 ffmpeg/ffprobe；
+- 安裝 SSH server，供 `gh codespace ssh` 的 AI operator lifecycle；
 - forward 固定 preview port；
 - project-specific system dependency 不要求 Human 手動安裝。
 
@@ -818,7 +833,30 @@ GitHub
 
 未 commit 的 working tree 可以存在，但它只存在當前 Codespace；coherent change 完成後應驗證並 push。
 
-### Mode B — Verified Milestone
+### Mode B — AI-operated Ephemeral Acceptance
+
+coherent change push 後，AI operator 應能自行驗證 fresh environment：
+
+```text
+npm run codespace:accept
+→ create fresh Codespace
+→ SSH clean restore/build/test
+→ start preview
+→ private forwarded-port smoke
+→ delete on success
+```
+
+如果需要 browser UI review：
+
+```text
+npm run codespace:review
+→ same engineering acceptance
+→ temporary public 4173
+→ AI cloud browser
+→ delete after review
+```
+
+### Mode C — Verified Milestone
 
 準備 stable review/release 時，對明確 commit 執行 cloud-complete verification：
 
@@ -834,7 +872,7 @@ fresh clean build proof
 
 這不是「關 Mac 前同步」；Codespaces-only 後沒有 local-to-cloud checkpoint mode。
 
-### Mode C — Sites Review
+### Mode D — Sites Review
 
 需要穩定、可重複的人類 review URL 時：
 
@@ -845,7 +883,7 @@ verified commit
 → Human playtest
 ```
 
-### Mode D — Release
+### Mode E — Release
 
 只接受已驗證 input：
 
@@ -892,7 +930,25 @@ Forwarded URL 是 temporary review address：
 - 不當 production URL；
 - Codespace 重建／重新建立後可改變。
 
-### 13.2 Preview Smoke
+### 13.2 AI-operated Codespace Acceptance
+
+工程 acceptance：
+
+```bash
+npm run codespace:accept
+```
+
+它由已登入且有 Codespaces lifecycle 權限的 GitHub CLI operator 建立 fresh disposable Codespace，SSH 執行 clean asset/build/validate/test，再以 private port tunnel 驗證 4173；成功後刪除 Codespace。
+
+UI review：
+
+```bash
+npm run codespace:review
+```
+
+只在工程驗證完成後暫時將 4173 設 public 並輸出 URL，供 Work/cloud browser 使用。review 後刪除 Codespace。
+
+### 13.3 Preview Smoke
 
 CI 使用：
 
@@ -907,7 +963,7 @@ npm run preview:smoke -- --skip-build
 - missing asset 404；
 - video Range request/HTTP 206（存在 MP4 時）。
 
-### 13.3 ChatGPT Sites Review Preview
+### 13.4 ChatGPT Sites Review Preview
 
 Sites 是 stable milestone review surface，不是 high-frequency dev server。
 
@@ -1164,6 +1220,8 @@ npm run build
 npm run dev
 npm run preview
 npm run preview:smoke
+npm run codespace:accept
+npm run codespace:review
 npm run context -- --route <route-id> --node <node-id>
 ```
 
@@ -1190,6 +1248,12 @@ npm run context -- --route <route-id> --node <node-id>
 `preview:smoke`
 : CI static-server contract test。
 
+`codespace:accept`
+: 由 authenticated AI/`gh` operator 建立一次性 fresh Codespace，跑 clean restore/build/test + private tunnel smoke，成功後自動刪除。
+
+`codespace:review`
+: 同樣先完成工程 acceptance，再暫時公開 4173、輸出 browser review URL 並保留環境直到 review 完成。
+
 未來再加入：
 
 ```bash
@@ -1215,7 +1279,7 @@ npm run release
 
 1. **W1 Source Asset Boundary** — `public/`、`assets-src/`、`generated/`、`dist/` 邊界建立，clean build 可重建。
 2. **W2 Asset Check + Asset Build** — full-decode validation、Drive source/runtime store、remote hash verification 已建立。
-3. **W3 core tooling** — Node 22 + ffmpeg devcontainer、4173 forwarded preview、`dev/preview/preview:smoke` 已加入；fresh Codespace + Human acceptance 是最後 gate。
+3. **W3 core tooling** — Node 22 + ffmpeg + SSH devcontainer、4173 forwarded preview、`dev/preview/preview:smoke` 與 AI-operated `codespace:accept/review` lifecycle 已加入；剩餘 gate 是在真正 authenticated operator context 跑一次 end-to-end，再由 AI cloud browser 驗 UI/localStorage。Human 不再負責 environment lifecycle。
 
 接下來：
 
@@ -1300,7 +1364,9 @@ fresh Codespace clean-build proof
 7. node-specific work 先執行 `npm run context -- --route <route-id> --node <node-id>`。
 8. 判斷本次是否需要新 binary master；accepted master 必須進 canonical storage。
 9. 開發/測試使用 Codespace；不要建立 Local-vs-Remote 第二套 workflow。
-10. 保留可運作 prototype，漸進 migration。
+10. 需要 fresh-environment acceptance 時，若當前 AI environment 有 authenticated `gh`，優先直接跑 `npm run codespace:accept`；需要 browser review 則跑 `npm run codespace:review`。不要先把 create/rebuild 任務丟給 Human。
+11. 若唯一阻塞是 GitHub authentication/authorization，Human 只做一次性授權；後續 lifecycle 交回 AI。
+12. 保留可運作 prototype，漸進 migration。
 
 可重建的專案來源是：
 
@@ -1379,12 +1445,23 @@ Character Bible
 → Verified Commit
 ```
 
+fresh environment acceptance：
+
+```text
+npm run codespace:accept
+→ ephemeral Codespace
+→ private tunnel smoke
+→ auto delete
+```
+
 需要 AI/外部 reviewer 直接看 forwarded preview：
 
 ```text
-4173 private by default
-→ temporarily public only for review
-→ restore private / stop after review
+npm run codespace:review
+→ engineering acceptance first
+→ 4173 temporarily public
+→ AI browser review
+→ delete Codespace
 ```
 
 Stable build review：

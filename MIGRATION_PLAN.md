@@ -76,37 +76,29 @@ Drive-first storage is W2 infrastructure. It is **not** W4.
 - dev watch/rebuild for source/content;
 - CI preview-server smoke.
 
-### Remaining acceptance
+### AI-operated acceptance
 
-A Human must create/rebuild a **fresh Codespace** and verify:
+Human-driven fresh-Codespace setup is retired as a W3 requirement.
+
+`npm run codespace:accept` now:
 
 ```text
-npm run assets:check
-npm run assets:build
-npm run build
-npm run validate
-npm test
-npm run preview
+authenticated gh operator
+→ create ephemeral fresh Codespace
+→ SSH
+→ clean asset/build/validate/test
+→ start preview
+→ private port-forward smoke
+→ delete on success
 ```
 
-Then use the forwarded 4173 URL to smoke:
+`npm run codespace:review` runs the same engineering acceptance, then temporarily exposes 4173 and prints a URL for AI cloud-browser review. The reviewer should smoke title/start/continue, reload persistence, Xu Tang, OL branch, gallery/history, cinematic, ending/return-to-title, and narrow/mobile layout, then delete the Codespace.
 
-- title;
-- start/continue;
-- reload → continue;
-- Xu Tang route;
-- OL branch;
-- gallery;
-- current branch/history view;
-- cinematic;
-- ending/return to title;
-- narrow/mobile layout.
+A new forwarded origin does not inherit another origin's `localStorage`; same-origin reload persistence is the behavior to validate.
 
-Same-origin reload should preserve current browser `localStorage`. A newly created Codespace/forwarded origin does not inherit another origin's localStorage; that is expected.
+Optional workflow `Codespace Acceptance` can execute the fresh environment path from GitHub Actions after one-time configuration of repository secret `CODESPACES_TOKEN`. Built-in Actions `GITHUB_TOKEN` is not sufficient for Codespaces lifecycle.
 
-Forwarded ports remain private by default. Only make 4173 public temporarily when a reviewer without the owner's GitHub authentication needs direct access; restore private/stop afterward.
-
-W3 is complete only after this acceptance plus green automated verification.
+W3 is complete after one real authenticated lifecycle run plus AI browser acceptance and green automated verification. Human participation is no longer required for environment lifecycle.
 
 ## 4. W4 — Player UI / Memories / CG Gallery
 

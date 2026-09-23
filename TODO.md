@@ -30,28 +30,31 @@
 
 ## 0.2 現在 package scripts 的真實狀態
 
-目前 `package.json` 只有：
+目前已實作：
 
 ```text
 npm test
 npm run validate
 npm run build
+npm run dev
+npm run preview
+npm run preview:smoke
+npm run codespace:accept
+npm run codespace:review
 npm run assets:check
 npm run assets:build
 npm run assets:plan
 npm run context
 ```
 
-目前**沒有**：
+目前尚未實作：
 
 ```text
-npm run dev
-npm run preview
 npm run checkpoint
 npm run release
 ```
 
-不要在文件或交接中假裝這些 command 已存在。
+`codespace:accept` / `codespace:review` 需要執行端已用 GitHub CLI 完成可管理 Codespaces 的 authentication；一般 repo connector 本身不等於這個 lifecycle permission。
 
 ## 0.3 現行 playable baseline
 
@@ -68,9 +71,11 @@ npm run release
 
 ## 0.4 仍未完成
 
-- [ ] Codespaces canonical devcontainer。
-- [ ] Codespaces one-command preview。
-- [ ] fresh Codespace restore + playtest acceptance。
+- [x] Codespaces canonical devcontainer。
+- [x] Codespaces one-command preview。
+- [x] AI-operated ephemeral Codespace lifecycle tooling。
+- [ ] 在具有 Codespaces lifecycle 權限的 authenticated `gh` operator 上跑一次 end-to-end `codespace:accept`。
+- [ ] AI cloud-browser UI / localStorage / playable-flow acceptance。
 - [ ] W4 Player UI / Memories / CG Gallery implementation。
 - [ ] cloud-complete verification/checkpoint command。
 - [ ] SFW / Full compile-time pruning。
@@ -193,19 +198,22 @@ Drive-first asset storage 是 **W2 已建立的基礎能力**，不是現在的 
 
 ## W3 目標
 
-Fresh GitHub Codespace 在沒有本地 Mac repo、沒有本地 asset cache、沒有私人 Drive credential 的前提下，可以：
+W3 的 acceptance 不再依賴 Human 手動建立／重建 Codespace。Canonical 目標改成：
 
 ```text
-open Codespace
-→ build
+AI / authenticated gh operator
+→ create disposable Codespace
+→ wait for devcontainer
+→ SSH
+→ clean restore / asset fetch / build / validate / tests
 → start preview
-→ forwarded URL
-→ human playtest
-→ AI review when intentionally shared
-→ edit
-→ verify
-→ commit / push
+→ private forwarded-port smoke
+→ optional temporary public review URL
+→ AI browser review
+→ delete Codespace
 ```
+
+Human 只保留真正需要主觀判斷的 UX／劇情／視覺 approval；環境 lifecycle 與工程 acceptance 應由 AI 自動處理。
 
 ## W3.1 Devcontainer：環境必須可重現
 
@@ -258,27 +266,45 @@ open Codespace
 - [ ] cinematic 可載入。
 - [ ] console 無 blocking runtime error。
 
-## W3.3 Fresh Codespace restore
+## W3.3 AI-operated ephemeral Codespace acceptance
 
-### AI 要做
+### Lifecycle tooling
 
-用**全新 Codespace**驗證，不得依賴舊 generated cache：
+- [x] 新增 `npm run codespace:accept`。
+- [x] 新增 `npm run codespace:review`。
+- [x] 以 GitHub CLI 編排 create / list / view / SSH / ports / delete。
+- [x] 成功 acceptance 預設刪除 ephemeral Codespace。
+- [x] failure 預設保留短時間環境供除錯，並使用 20m idle / 1h retention 限制成本。
+- [x] private acceptance 使用 `gh codespace ports forward` tunnel，不需要把 4173 公開。
+- [x] review mode 才暫時把 4173 設 public，並輸出 review URL。
+- [x] devcontainer 加入 SSH server，讓外部 AI operator 可用 `gh codespace ssh`。
+- [x] CI 對 lifecycle command 執行 `--dry-run` syntax/plan check。
+- [x] 提供 optional `Codespace Acceptance` workflow_dispatch；若 repository 一次性配置 `CODESPACES_TOKEN`，GitHub Actions 可直接建立 fresh Codespace。
+- [ ] 在真實 authenticated `gh` context 執行一次 `npm run codespace:accept` end-to-end。
+
+### 真實 acceptance 必須驗證
+
+由 script 在**全新 Codespace**完成，不得依賴舊 generated cache：
 
 - [ ] repository checkout 完整。
+- [ ] Node 22 / ffmpeg / ffprobe / sshd 可用。
 - [ ] `npm run assets:check`
 - [ ] `npm run assets:build`
 - [ ] `npm run build`
 - [ ] `npm run validate`
 - [ ] `npm test`
+- [ ] `git diff --check` / deterministic generated output。
 - [ ] `npm run preview`
-- [ ] 確認 Drive runtime assets 由 remote source 重新取得並驗 hash。
-- [ ] 確認 existing Git-backed `assets-src/` sources 正常可用。
-- [ ] 確認不需要 Mac 上任何檔案。
-- [ ] 確認不需要 Google private credential 才能 build playable runtime。
+- [ ] Drive runtime assets 由 remote source 重新取得並驗 hash。
+- [ ] existing Git-backed `assets-src/` sources 正常可用。
+- [ ] 不需要 Mac 上任何檔案。
+- [ ] 不需要 Google private credential 才能 build playable runtime。
+- [ ] 4173 private tunnel 可載入 HTML/CSS/JS/route JSON，extensionless fallback 與 missing-asset 404 正常。
+- [ ] acceptance 成功後 ephemeral Codespace 被自動刪除。
 
-### Human acceptance
+### AI browser acceptance
 
-在 forwarded preview 快速走：
+`npm run codespace:review` 驗證完成後，AI operator 使用其輸出的暫時 public URL，在 cloud browser 快速走：
 
 - [ ] title。
 - [ ] start。
@@ -292,6 +318,12 @@ open Codespace
 - [ ] ending。
 - [ ] return to title。
 - [ ] narrow/mobile width smoke test。
+- [ ] review 完成後刪除 Codespace；public URL 不再存在。
+
+### Human role
+
+- [x] Human **不再需要**手動 create/rebuild Codespace 作為 W3 gate。
+- [ ] Human 只在主觀 UX、劇情節奏、視覺品質需要時做 final approval。
 
 ## W3.4 localStorage 行為
 
@@ -302,13 +334,13 @@ open Codespace
 
 ## W3.5 Work / cloud-browser review
 
-- [ ] 驗證 reviewer 無法使用 private forwarded port 時的實際行為。
-- [ ] 若需要 Work 直接打開：
-  - [ ] 暫時將 4173 設為 public；
-  - [ ] 打開 forwarded URL；
-  - [ ] 完成 smoke playtest；
-  - [ ] review 後恢復 private/停止 port。
-- [ ] 不把「永久 public dev port」當成 architecture requirement。
+- [x] Canonical Work 路徑改為執行 `npm run codespace:review`，而不是要求 Human 手動點 Codespaces UI。
+- [x] private engineering acceptance 不需要 public port。
+- [x] 只有 browser reviewer 需要直接開 URL 時，才由 script 暫時將 4173 設 public。
+- [ ] 在 Work／其他可操作已登入 `gh` 的 AI cloud computer 實際跑一次 review mode。
+- [ ] AI 打開輸出的 forwarded URL 並完成 browser smoke/playthrough。
+- [ ] review 後刪除 ephemeral Codespace。
+- [x] 不把「永久 public dev port」當成 architecture requirement。
 - [ ] 若 GitHub policy 阻止 public port，記錄限制，改用 Sites/review deployment；不要繞過 policy。
 
 ## W3.6 文件同步
@@ -328,16 +360,17 @@ W3 實作完成時，必須同一 milestone 更新：
 
 只有以下全部成立才可把 W3 標成完成：
 
-- [ ] fresh Codespace 可自給自足 build。
-- [x] `npm run dev` 存在且可用。
-- [x] `npm run preview` 存在且可用。
-- [ ] 4173 forwarded preview 可 play。
-- [ ] current runtime smoke path 通過。
-- [ ] reload/localStorage 通過。
-- [ ] AI reviewer sharing path 已實測或有明確 fallback。
-- [x] minimum verification 全通過。
+- [x] `npm run dev` / `npm run preview` 存在且可用。
+- [x] AI-operated Codespace lifecycle command 已實作。
+- [x] private tunnel acceptance 與 temporary-public review mode 已實作。
+- [x] minimum verification / devcontainer verification 全通過。
 - [x] canonical docs 不再把 Local Working 描述為正式流程。
-- [x] verified commit 已 push。
+- [ ] authenticated AI operator 成功 create fresh Codespace → SSH → clean build/test → preview → delete。
+- [ ] 4173 真實 forwarded preview acceptance 通過。
+- [ ] AI cloud browser 完成 reload/localStorage 與主要 playable flows。
+- [ ] public review URL 在 review 結束後被清理。
+- [ ] Human 不需參與 environment lifecycle；只保留 subjective product approval。
+- [ ] 最終 verified commit 已 push 且 Actions 全綠。
 
 ---
 

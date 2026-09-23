@@ -45,6 +45,26 @@ Forwarded port 預設保持 private。只有要給未共享 GitHub authenticatio
 
 Desktop VS Code 也可以直接連到同一個 Codespace；這仍是同一套 cloud working environment，不是 local clone workflow。
 
+### AI-operated fresh Codespace acceptance
+
+日常 milestone 不應要求 Human 手動 create/rebuild environment。已登入且有 Codespaces 權限的 AI/cloud operator 可以直接執行：
+
+```bash
+npm run codespace:accept
+```
+
+它會建立一次性 Codespace、透過 SSH 執行 clean asset/build/validate/test、啟動 preview、用 private port tunnel 做 HTTP smoke，成功後刪除環境。
+
+需要 Work/cloud browser 真正打開 UI 時：
+
+```bash
+npm run codespace:review
+```
+
+工程 acceptance 通過後才會暫時把 4173 設 public 並輸出 review URL。review 完成後刪除 Codespace。
+
+若要完全由 GitHub Actions 觸發，可使用 **Codespace Acceptance** workflow_dispatch；這需要一次性配置 repository secret `CODESPACES_TOKEN`。GitHub Actions 內建 `GITHUB_TOKEN` 本身沒有 Codespaces lifecycle permission。
+
 ### 常用命令
 
 | 命令 | 用途 |
@@ -52,6 +72,8 @@ Desktop VS Code 也可以直接連到同一個 Codespace；這仍是同一套 cl
 | `npm run dev` | Codespaces 日常 inner loop：build、serve 4173、監看 source/content rebuild |
 | `npm run preview` | production-like clean build + 4173 preview |
 | `npm run preview:smoke -- --skip-build` | CI/工程 smoke：HTML/CSS/JS/route/fallback/Range requests |
+| `npm run codespace:accept` | AI operator 建立 fresh ephemeral Codespace，clean build/test + private tunnel smoke，成功後刪除 |
+| `npm run codespace:review` | 同上，但工程驗證後暫時公開 4173 並輸出 AI browser review URL |
 | `npm run validate` | 驗證角色版本、資產引用、生成配方、劇情連線與 CG 規則 |
 | `npm run assets:check` | 媒體 mapping/hash/metadata/full-decode 檢查 |
 | `npm run assets:build` | 從 Git source / Drive runtime provider 產生 runtime assets |

@@ -4,7 +4,7 @@ Updated: 2026-09-23
 
 ## Current milestone
 
-W3 — Codespaces Development & Preview. Core tooling and automated verification are implemented and pushed. The only remaining W3 gate is fresh-Codespace + forwarded-browser Human acceptance; W4 UI implementation must wait until that gate passes.
+W3 — Codespaces Development & Preview. Core preview/devcontainer tooling is implemented, and AI-operated ephemeral Codespace lifecycle tooling is now implemented. Remaining gates are: run `codespace:accept` once under a real authenticated Codespaces-capable `gh` operator, then run `codespace:review` + AI cloud-browser UI/localStorage smoke. Human no longer needs to create/rebuild Codespaces; W4 waits for these W3 gates.
 
 ## Approved W4 UX target (not implemented yet)
 
@@ -71,7 +71,9 @@ This is a target specification, not a claim about the current runtime. Preserve 
 - W3 core implementation is now on `main`: Node 22 + ffmpeg/ffprobe devcontainer, fixed port 4173, dependency-free preview server, `npm run dev`, `npm run preview`, and CI preview smoke.
 - GitHub Actions run `35870496211` first proved the W3 preview-server path; latest Verify run `35871522230` also passed asset check/build, build, preview smoke, validate, 9/9 tests, diff check, and generated-output reproducibility.
 - Devcontainer run `35871522272` successfully built `.devcontainer/Dockerfile` and verified Node 22, ffmpeg, and ffprobe inside the actual container image.
-- W3 is **not complete yet**: a Human still needs to create/rebuild a fresh Codespace, open the forwarded 4173 preview, verify same-origin reload/localStorage, and smoke the playable flows. This is the next immediate gate; do not begin W4 implementation before it passes.
+- W3 is **not complete yet**, but the Human environment-lifecycle gate has been removed. `npm run codespace:accept` now creates/deletes ephemeral fresh Codespaces and performs clean engineering acceptance via SSH/private tunnel; `npm run codespace:review` prepares a temporary public review URL for AI cloud-browser testing.
+- The current chat's GitHub connector does not expose Codespace lifecycle actions, so it cannot itself perform the first live run. The next capable AI operator (for example Work with authenticated GitHub CLI/cloud computer) should execute these commands rather than asking the Human to build the environment manually.
+- Optional zero-interaction GitHub Actions path exists as `Codespace Acceptance` workflow_dispatch once the repository has a one-time `CODESPACES_TOKEN` secret with sufficient Codespaces permission.
 - The old TODO milestone name “W4 Google Drive Asset Store” is retired. Drive-first storage is W2 foundation; after W3 Human acceptance, the actual W4 is the approved Player UI / Memories / CG Gallery implementation in `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md`.
 - Canonical workflow docs are being synchronized to Codespaces-only in the same W3 milestone; Local Working is no longer a supported acceptance path.
 

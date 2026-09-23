@@ -748,6 +748,20 @@ Current remote-build runtime store: optimized objects only, accessible by URL/fi
 
 Operate GitHub, the Codespace, and review surfaces. They are not separate working copies and must not assume Mac-only sources exist.
 
+From W3 onward, an AI operator should manage Codespace lifecycle itself instead of delegating create/rebuild to the Human:
+
+```text
+npm run codespace:accept
+```
+
+for private ephemeral engineering acceptance, and:
+
+```text
+npm run codespace:review
+```
+
+when a cloud browser needs a temporary public 4173 review URL. These commands require the execution environment's `gh` authentication to have Codespaces lifecycle permissions. A Human may perform one-time authorization, but lifecycle is not a per-change Human responsibility.
+
 #### ChatGPT Sites / Distribution Adapter
 
 Stable review/release surfaces; they do not replace the Codespaces inner loop.
@@ -766,6 +780,7 @@ The repository provides `.devcontainer/` with:
 
 - Node major aligned with CI;
 - ffmpeg/ffprobe installed;
+- an SSH server for AI lifecycle operations through `gh codespace ssh`;
 - a fixed forwarded preview port;
 - no project-specific system dependency requiring manual installation.
 
@@ -789,7 +804,30 @@ GitHub
 → commit / push
 ```
 
-### Mode B — Verified Milestone
+### Mode B — AI-operated Ephemeral Acceptance
+
+After a coherent change is pushed, the AI operator should verify a fresh environment itself:
+
+```text
+npm run codespace:accept
+→ create fresh Codespace
+→ SSH clean restore/build/test
+→ start preview
+→ private forwarded-port smoke
+→ delete on success
+```
+
+For browser UI review:
+
+```text
+npm run codespace:review
+→ same engineering acceptance
+→ temporary public 4173
+→ AI cloud browser
+→ delete after review
+```
+
+### Mode C — Verified Milestone
 
 For stable review/release, verify an explicit commit as cloud-complete:
 
@@ -805,7 +843,7 @@ fresh clean-build proof
 
 This is not a “before shutting down the Mac” sync step.
 
-### Mode C — Sites Review
+### Mode D — Sites Review
 
 ```text
 verified commit
@@ -814,7 +852,7 @@ verified commit
 → Human playtest
 ```
 
-### Mode D — Release
+### Mode E — Release
 
 ```text
 verified commit
@@ -851,7 +889,25 @@ Forwarded ports stay private by default. Make a port public only temporarily whe
 
 The forwarded URL is temporary: never hardcode it or treat it as production hosting.
 
-### 13.2 Preview Smoke
+### 13.2 AI-operated Codespace Acceptance
+
+Engineering acceptance:
+
+```bash
+npm run codespace:accept
+```
+
+An authenticated GitHub CLI operator creates a fresh disposable Codespace, SSHs in for clean asset/build/validate/test, verifies 4173 through a private tunnel, and deletes the Codespace on success.
+
+UI review:
+
+```bash
+npm run codespace:review
+```
+
+Only after engineering acceptance does it temporarily expose 4173 and print a URL for Work/cloud-browser review. Delete the Codespace after review.
+
+### 13.3 Preview Smoke
 
 CI runs:
 
@@ -861,7 +917,7 @@ npm run preview:smoke -- --skip-build
 
 to verify HTML/CSS/JS/route JSON, extensionless fallback, missing-asset 404 behavior, and MP4 Range/HTTP 206 support when video exists.
 
-### 13.3 ChatGPT Sites Review Preview
+### 13.4 ChatGPT Sites Review Preview
 
 Sites is a stable milestone review surface for full/mobile playtesting against a known commit/build, not the high-frequency dev server.
 
@@ -1107,6 +1163,8 @@ npm run build
 npm run dev
 npm run preview
 npm run preview:smoke
+npm run codespace:accept
+npm run codespace:review
 npm run context -- --route <route-id> --node <node-id>
 ```
 
@@ -1130,6 +1188,12 @@ npm run context -- --route <route-id> --node <node-id>
 
 `preview:smoke`
 : CI contract test for the preview server.
+
+`codespace:accept`
+: Create a one-off fresh Codespace from an authenticated AI/`gh` operator, run clean restore/build/test plus private-tunnel smoke, and delete it on success.
+
+`codespace:review`
+: Run the same engineering acceptance, then temporarily expose 4173 and print a browser-review URL, keeping the environment until review completes.
 
 Future additions:
 
@@ -1156,7 +1220,7 @@ Completed/current:
 
 1. **W1 Source Asset Boundary** — established `public/`, `assets-src/`, `generated/`, and disposable `dist/`.
 2. **W2 Asset Check + Asset Build** — full-decode validation, Drive master/runtime storage, remote hash verification.
-3. **W3 core tooling** — Node 22 + ffmpeg devcontainer, port 4173 forwarded preview, and `dev/preview/preview:smoke`; fresh-Codespace + Human acceptance remains the final gate.
+3. **W3 core tooling** — Node 22 + ffmpeg + SSH devcontainer, port 4173 forwarded preview, `dev/preview/preview:smoke`, and AI-operated `codespace:accept/review` lifecycle tooling. The remaining gate is one real end-to-end run under an authenticated operator plus AI cloud-browser UI/localStorage review. Human no longer owns environment lifecycle.
 
 Next:
 
@@ -1233,7 +1297,9 @@ Before editing, every new ChatGPT / Claude / Gemini / Codex session must:
 7. For node-specific work, run `npm run context -- --route <route-id> --node <node-id>`.
 8. Determine whether the task needs a new binary master; accepted masters must enter canonical storage.
 9. Develop/test in Codespaces; do not invent a second Local-vs-Remote workflow.
-10. Preserve the working prototype and migrate incrementally.
+10. When fresh-environment acceptance is needed and the AI environment has authenticated `gh`, run `npm run codespace:accept`; use `npm run codespace:review` for browser review. Do not first hand create/rebuild back to the Human.
+11. If GitHub authentication/authorization is the only blocker, Human involvement is one-time authorization only; subsequent lifecycle returns to AI.
+12. Preserve the working prototype and migrate incrementally.
 
 Rebuildable project source is:
 
@@ -1304,12 +1370,23 @@ Character Bible
 → Verified Commit
 ```
 
+Fresh-environment acceptance:
+
+```text
+npm run codespace:accept
+→ ephemeral Codespace
+→ private tunnel smoke
+→ auto delete
+```
+
 Direct AI/external review of a forwarded preview:
 
 ```text
-4173 private by default
-→ temporarily public only for review
-→ restore private / stop after review
+npm run codespace:review
+→ engineering acceptance first
+→ 4173 temporarily public
+→ AI browser review
+→ delete Codespace
 ```
 
 Stable review:

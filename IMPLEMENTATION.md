@@ -119,5 +119,14 @@ The W1 binary copies are preservation copies of the old runtime blobs. W2 is res
 - `npm run preview:smoke`：HTTP contract smoke；CI 在既有 build 後以 `--skip-build` 執行。
 - GitHub Actions Verify 使用 Node 22 + ffmpeg，並加入 Preview server smoke。
 
-W3 仍需由 Human 在 **fresh Codespace** 完成 forwarded-preview/browser acceptance；connector 本身不能建立或操作 Codespace UI，因此 automated CI 通過不能取代該 gate。
+W3 現在另外提供 AI-operated lifecycle：
+
+- `tools/codespace-accept.mjs` 透過 GitHub CLI create/list/view/SSH/ports/delete 編排一次性 Codespace。
+- `npm run codespace:accept`：clean restore/build/validate/test、啟動 preview、private `gh codespace ports forward` smoke，成功自動刪除。
+- `npm run codespace:review`：先完成相同工程 acceptance，再暫時把 4173 設 public、輸出 browser review URL；review 後刪除。
+- failure 環境預設保留供 debug，但以 20m idle + 1h retention 限制成本。
+- `.github/workflows/codespace-acceptance.yml` 提供 optional workflow_dispatch；需一次性 `CODESPACES_TOKEN`。
+- `Verify` 會執行 lifecycle command `--dry-run`，避免 script syntax/plan drift。
+
+Human 不再需要手動 create/rebuild Codespace 作為 W3 gate。剩餘的是：在真正有 Codespaces lifecycle authentication 的 AI operator 環境跑一次 end-to-end，再由 AI cloud browser 驗 reload/localStorage/playable flows。
 
