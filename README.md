@@ -417,6 +417,7 @@ git status --short
 - `ARCHITECTURE.md`：模組化架構的精簡摘要。
 - `PROJECT_STATE.md`：目前里程碑、可玩路線與下一個內容決策。
 - `REFACTOR_PLAN.md`：本次分階段重構範圍、驗收與停點。
+- `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md`：已批准、尚待實作的 W4 主介面／回憶／CG Gallery／cursor-frontier 詳細規格；處理玩家 UI 或 replay/save 行為前必讀。
 - `AGENTS.md`：Codex 新對話自動載入的精簡專案規則。
 
 
