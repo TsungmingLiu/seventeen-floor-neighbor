@@ -67,7 +67,9 @@ This is a target specification, not a claim about the current runtime. Preserve 
 - `dist/assets/` is generated/ignored and no longer carries committed runtime binaries.
 - CI run `35812177697`: 44/44 asset checks passed, 3 Drive downloads succeeded, build/validate/reproducibility passed, and 9/9 tests passed.
 - Storage decision: Google Drive is the current pre-commercial source/runtime store; Cloudflare R2 is deferred until commercialization needs justify it.
-- Next migration step: W3 unified local/Codespaces preview.
+- 2026-09-23 workflow decision: canonical development is now **Codespaces-only**. GitHub is code/content/history truth; Google Drive remains the asset store; Codespaces is the supported build/test/dev environment; local development is an unsupported fallback and is not an acceptance target.
+- Next migration step: W3 Codespaces Development & Preview. This includes a reproducible Node 22 + ffmpeg devcontainer, fixed forwarded preview port, `npm run dev` / `npm run preview`, fresh-Codespace restore acceptance, and synchronization of older Local/Hybrid workflow documentation.
+- The old TODO milestone name “W4 Google Drive Asset Store” is retired. Drive-first storage is W2 foundation; the actual W4 is the approved Player UI / Memories / CG Gallery implementation in `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md`.
 
 ## Remaining work
 
