@@ -1,4 +1,5 @@
-import { copyFile, mkdir, rm } from 'node:fs/promises';
+import { copyFile, mkdir, rm, writeFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import path from 'node:path';
@@ -11,8 +12,27 @@ const generatedAssetsRoot = path.join(projectRoot, 'generated/runtime-assets');
 
 function normalizedSource(entry) {
   return typeof entry === 'string'
-    ? { source: entry, transform: 'copy' }
-    : { transform: 'copy', ...entry };
+    ? { provider: 'local', source: entry, transform: 'copy' }
+    : { provider: 'local', transform: 'copy', ...entry };
+}
+
+function sha256(buffer) {
+  return createHash('sha256').update(buffer).digest('hex');
+}
+
+async function downloadRemote(entry, destination) {
+  const response = await fetch(entry.url, { redirect: 'follow' });
+  if (!response.ok) {
+    throw new Error(`Drive runtime download failed ${response.status} ${response.statusText}: ${entry.url}`);
+  }
+  const buffer = Buffer.from(await response.arrayBuffer());
+  if (entry.bytes != null && buffer.length !== entry.bytes) {
+    throw new Error(`Drive runtime byte-size mismatch: expected ${entry.bytes}, received ${buffer.length}`);
+  }
+  if (entry.sha256 && sha256(buffer) !== entry.sha256) {
+    throw new Error(`Drive runtime SHA-256 mismatch for ${entry.fileId || entry.url}`);
+  }
+  await writeFile(destination, buffer);
 }
 
 async function convertWebp(source, destination, quality = 82) {
@@ -45,12 +65,27 @@ export async function buildAssets({ check = true } = {}) {
 
   let copied = 0;
   let converted = 0;
+  let downloaded = 0;
+
   for (const [runtimePath, rawEntry] of Object.entries(sourceMap.files || {})) {
     const entry = normalizedSource(rawEntry);
-    const source = path.join(projectRoot, entry.source);
     const destination = path.join(generatedAssetsRoot, runtimePath);
     await mkdir(path.dirname(destination), { recursive: true });
 
+    if (entry.provider === 'gdrive-public') {
+      if (entry.transform !== 'copy') {
+        throw new Error(`Remote Drive runtime source must currently use transform=copy: ${runtimePath}`);
+      }
+      await downloadRemote(entry, destination);
+      downloaded += 1;
+      continue;
+    }
+
+    if (entry.provider !== 'local') {
+      throw new Error(`Unsupported asset provider "${entry.provider}" for ${runtimePath}`);
+    }
+
+    const source = path.join(projectRoot, entry.source);
     if (entry.transform === 'copy') {
       await copyFile(source, destination);
       copied += 1;
@@ -65,7 +100,10 @@ export async function buildAssets({ check = true } = {}) {
     }
   }
 
-  console.log(`Built ${copied + converted} runtime asset file(s): ${copied} copied, ${converted} converted.`);
+  console.log(
+    `Built ${copied + converted + downloaded} runtime asset file(s): ` +
+    `${copied} local copies, ${converted} local conversions, ${downloaded} Drive downloads.`
+  );
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

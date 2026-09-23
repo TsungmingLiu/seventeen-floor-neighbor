@@ -41,7 +41,7 @@
       "fileId": "1IuuvVNQrNOlK9R3ZYr2quaNOHH5CoaTj",
       "url": "https://drive.google.com/uc?export=download&id=1IuuvVNQrNOlK9R3ZYr2quaNOHH5CoaTj",
       "transform": "copy",
-      "sha256": "8b5245c60079973c82e5ad9a97c830167a2a024d664042830885816666be4f2c",
+      "sha256": "92d854021e3b7d83081d9cf1307e2c4677101ae1b87da62bda98727f23efb779",
       "bytes": 143762,
       "masterSourceId": "source.xu_tang.date.bookstore"
     },
@@ -50,7 +50,7 @@
       "fileId": "1cAMdIu-AALAlJ1QW5ja8N5q62imzjunX",
       "url": "https://drive.google.com/uc?export=download&id=1cAMdIu-AALAlJ1QW5ja8N5q62imzjunX",
       "transform": "copy",
-      "sha256": "TBD",
+      "sha256": "4419c6d7cadfbf61a18d9876df63b8b8737ad29fef35ee5a430498e13d0fcd9a",
       "bytes": 229018,
       "masterSourceId": "source.xu_tang.date.riverwalk"
     },
@@ -59,7 +59,7 @@
       "fileId": "10LLYD2_wxAmxVgLGjk6RDOcA-Rhtz1d7",
       "url": "https://drive.google.com/uc?export=download&id=10LLYD2_wxAmxVgLGjk6RDOcA-Rhtz1d7",
       "transform": "copy",
-      "sha256": "TBD",
+      "sha256": "de67b8be103b5dfe5d4eabc987d24b0b9395b4fa146457f99a46d867df149b25",
       "bytes": 155166,
       "masterSourceId": "source.xu_tang.date.night_market"
     }
