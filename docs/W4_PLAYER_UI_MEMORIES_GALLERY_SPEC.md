@@ -738,6 +738,57 @@ CG COLLECTION                              12 / 31
 
 ---
 
+## 13.4 Ending / After Story semantics
+
+Prototype narrative v0.5 將 Good / Friend / Distance 視為 **relationship resolution / ending unlock**，不一定是 runtime terminal。
+
+### Good
+
+Good Ending 解鎖對應 heroine 的 After Story Memory Section。
+
+概念：
+
+~~~text
+Good relationship resolution
+  ↓
+ending unlock
+  ↓
+After Story 01
+  ↓
+After Story 02
+  ↓
+After Story 03
+~~~
+
+規則：
+
+- 首次抵達 Good 時立即 unlock ending / first-kiss CG；
+- 如果有尚未玩的 After Story，Continue 可以自然進入下一個 After Story frontier；
+- 玩家仍可以從 Memories 重播 Good resolution；
+- After Story 本身有獨立 Memory Events / CG unlock；
+- After Story 不應讓已確立 relationship 因普通 dialogue choice 重新掉回 Friend/Distance。
+
+### Friend / Distance
+
+Friend / Distance 各可解鎖短 coda Memory。
+
+它們提供 closure / continuation，不改變原 ending classification。
+
+### SFW / Full profile
+
+若 After Story 有 mature-only content：
+
+- `sfw` compiler 必須真正 prune mature nodes/assets；
+- SFW flow 必須從 romantic intimacy / fade-to-black 自然銜接 morning/coda；
+- SFW Gallery / Memories 不顯示 mature-only placeholder、數量或鎖格，避免洩漏；
+- `full` 可以包含額外 profile-gated Memory/CG，但仍使用相同 relationship resolution 與 after-story continuation semantics。
+
+因此 W4 的 player mental model 應是：
+
+> **Ending = 你們的關係成為什麼；After Story = 成為那樣之後，生活怎麼繼續。**
+
+---
+
 # 14. 現有程式與 W4 的對應
 
 截至本規格建立時，prototype 已有可重用能力：
