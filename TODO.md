@@ -2,958 +2,616 @@
 
 > 專案執行清單（Execution Board）
 >
-> Canonical architecture：`ARCHITECTURE.zh-TW.md`
+> Updated: 2026-09-23
 >
-> Current implementation：`IMPLEMENTATION.md`
+> 本檔案回答一件事：**現在下一步到底做什麼，以及什麼才算完成。**
 >
-> Migration strategy：`MIGRATION_PLAN.md`
->
-> 本檔案用來追蹤「下一步到底做什麼」。完成一項就更新 checkbox 與相關備註；不要只在聊天裡宣布完成。
+> 產品／技術設計仍參考 `ARCHITECTURE.zh-TW.md`、`IMPLEMENTATION.md`、`PROJECT_STATE.md` 與功能級 spec；但 2026-09-23 已確認的 **Codespaces-only canonical development workflow** 以本檔案與 `PROJECT_STATE.md` 的最新決策為執行準則。舊文件中仍出現的 Local/Hybrid workflow 必須在 W3 一併同步，不得再當成目前流程。
 
 ---
 
-# 0. 當前狀態
+# 0. 現在的專案狀態
 
-## 已完成
+## 0.1 已完成且已驗證
 
-- [x] 將新的 canonical architecture 寫入 repo。
-- [x] `ARCHITECTURE.zh-TW.md` 設為中文 canonical 主版本。
-- [x] `ARCHITECTURE.md` 保留英文 mirror。
-- [x] 舊版 implementation architecture 保存為 `IMPLEMENTATION.md`。
-- [x] `AGENTS.md` 更新為新的 AI 接手順序。
-- [x] 建立 `MIGRATION_PLAN.md`。
-- [x] 目前 playable baseline：
-  - 一個共用入口；
-  - 許棠完整主線；
-  - 辦公族 OL 暫用短分支；
-  - title start/continue；
-  - node resume；
-  - branch history；
-  - CG gallery；
-  - cinematic；
-  - context tooling；
-  - runtime/save tests。
+- [x] W1 — Source Asset Boundary。
+- [x] W2 — Strict Asset Check / Asset Build。
+- [x] `dist/` 可 clean rebuild；`dist/assets/` 是 generated output，不再是 binary source of truth。
+- [x] `assets-src/` 保留現有 Git-backed legacy/preservation sources。
+- [x] Google Drive 已建立：
+  - [x] `source-private/`：Restricted canonical masters。
+  - [x] `runtime-public/`：Anyone-with-link optimized runtime objects。
+- [x] `content/assets/source-catalog.json` 記錄已恢復 private masters 的 provenance/hash/dimensions。
+- [x] `content/assets/source-map.json` 支援 `gdrive-public` runtime provider、URL、bytes、SHA-256。
+- [x] GitHub Actions 可在沒有 Google Drive credential 的情況下匿名下載 remote runtime assets、驗 hash、full decode、build、validate、test。
+- [x] 三張 date CG 的 damaged GitHub originals 已由完整 master 恢復，runtime WebP 已放入 Drive。
+- [x] 許棠 identity v2 與 first-kiss keyframes 的完整 masters 已恢復並記錄。
+- [x] W4 Player UI / Memories / CG Gallery 的產品與資料契約已寫入 `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md`，**但尚未實作**。
 
-## 當前 hard truth
+## 0.2 現在 package scripts 的真實狀態
 
-目前 repo **還沒有**完全符合 canonical architecture：
+目前 `package.json` 只有：
 
-- W1 source/output boundary 已完成，`dist/assets/` 不再進 Git，build 可重建；
-- W2 strict media validation + asset build 已完成；
-- Google Drive 已建立：
-  - `source-private`：Restricted canonical masters；
-  - `runtime-public`：Anyone-with-link optimized runtime assets；
-- 三張原本截斷的 date CG 已恢復完整 master、轉成 WebP 並由 CI 匿名下載驗證；
-- 許棠 identity v2 與 first-kiss 四張 keyframe 已恢復完整 master並記錄 source catalog；
-- 還沒有：
-  - `npm run preview`
-  - `npm run checkpoint`
-  - `npm run release`
-- R2 migration 延後到準備商業化前；目前不是 blocker；
-- 還沒有 SFW / Full compile-time pruning；
-- 仍有大量 legacy node IDs 不是 semantic IDs；
-- runtime 目前仍是 plain JavaScript，而不是 React/TypeScript/Vite。
+```text
+npm test
+npm run validate
+npm run build
+npm run assets:check
+npm run assets:build
+npm run assets:plan
+npm run context
+```
 
-## 本週架構決策
+目前**沒有**：
 
-- [x] **本週不做 React/TypeScript/Vite migration。**
-- [x] 先把現有 runtime 做成：
-  - 可重建；
-  - 可 checkpoint；
-  - 可 remote restore；
-  - 可 remote preview；
-  - 可 release。
-- [x] 不因新增女主而重寫 engine。
-- [x] 不在確認 source copy 安全前刪除／移動 binary assets。
+```text
+npm run dev
+npm run preview
+npm run checkpoint
+npm run release
+```
 
----
+不要在文件或交接中假裝這些 command 已存在。
 
-# 1. 今天 — 文件與執行基線
+## 0.3 現行 playable baseline
 
-## 1.1 Canonical docs 入 repo
+- [x] 一個共用故事入口。
+- [x] 許棠完整主線。
+- [x] 辦公族 OL 暫用短分支。
+- [x] title start/continue。
+- [x] node resume。
+- [x] branch history。
+- [x] CG gallery。
+- [x] cinematic。
+- [x] context tooling。
+- [x] runtime/save tests。
 
-**Owner：AI**
+## 0.4 仍未完成
 
-- [x] 新增／更新 `ARCHITECTURE.zh-TW.md`
-- [x] 保留 `ARCHITECTURE.md` 英文 mirror
-- [x] 保存舊 implementation notes 至 `IMPLEMENTATION.md`
-- [x] 更新 `AGENTS.md`
-- [x] 新增 `MIGRATION_PLAN.md`
-- [x] 新增本 `TODO.md`
-
-### 驗收
-
-- [x] 新對話能清楚分辨：
-  - target architecture；
-  - current implementation；
-  - current project state；
-  - migration steps；
-  - daily execution checklist。
+- [ ] Codespaces canonical devcontainer。
+- [ ] Codespaces one-command preview。
+- [ ] fresh Codespace restore + playtest acceptance。
+- [ ] W4 Player UI / Memories / CG Gallery implementation。
+- [ ] cloud-complete verification/checkpoint command。
+- [ ] SFW / Full compile-time pruning。
+- [ ] production release command / deployment provenance。
+- [ ] 多女主 scale test。
+- [ ] 大量 legacy node IDs semantic migration。
+- [ ] React/TypeScript/Vite migration（目前 intentionally deferred）。
 
 ---
 
-# 2. 本週 — Milestone：Cloud-capable Development Pipeline
+# 1. 2026-09-23 架構決策：Codespaces-only canonical development
 
-> 目標：把 Local → Cloud Checkpoint → Remote Working → Preview → Release 真正跑通。
->
-> 本週禁止把注意力分散到 3–4 女主、全面美術重做或 renderer 重寫。
+這是目前正式工作流，不再維持 Local + Cloud 雙軌。
+
+## 1.1 Source of truth
+
+```text
+GitHub
+= code / content / metadata / history source of truth
+
+Google Drive source-private
+= accepted private master asset source of truth
+
+Google Drive runtime-public
+= optimized remote runtime object store
+
+GitHub Codespaces
+= canonical development / build / test environment
+
+Codespaces forwarded preview
+= human + AI shared review surface
+```
+
+## 1.2 Local machine 的新定位
+
+- [x] **Local development 不再是 supported/canonical workflow。**
+- [x] 不再把「Mac 能不能跑」列入任何 milestone acceptance。
+- [x] 不再要求維護 local Node / ffmpeg / repo / asset cache 與 Codespaces 的環境一致性。
+- [x] 使用者人在電腦前時，可用：
+  - browser Codespaces；或
+  - Desktop VS Code 連到同一個 Codespace。
+- [x] local clone 若存在，只是 emergency/advanced fallback；不保證、不測試、不作為 release input。
+
+## 1.3 Asset 規則
+
+- [x] 現有 `assets-src/` 中 Git-tracked legacy assets 可繼續使用；它們不是 Mac-only，因此 Codespace 可取得。
+- [ ] **新的 accepted master asset 不得只存在某台本地電腦。**
+- [ ] 新 accepted master 優先進 `source-private/`，並更新 catalog。
+- [ ] 需要 remote build 的 optimized runtime 進 `runtime-public/`，並更新 source-map/hash。
+- [ ] 若 image/video generation tool 先把檔案產在本機，該檔只算 staging；在 master 被保存到 canonical store 前，不得視為完成。
+
+## 1.4 Preview security 規則
+
+GitHub Codespaces forwarded ports 預設是 private。
+
+- [ ] Human 自己 playtest：保持 private。
+- [ ] ChatGPT Work / 其他未共享 GitHub authentication 的 reviewer 需要直接打開 preview 時：
+  - [ ] 僅在 review 期間把 preview port 暫時設為 public；
+  - [ ] 不在 preview 中放 secrets、private masters 或未打算暴露的資料；
+  - [ ] review 完成後恢復 private／停止 port。
+- [ ] 不把 forwarded URL 寫死進 source code 或 tests。
+- [ ] Codespace/port 重新建立後 URL 或 visibility 可能改變；不得把它當 permanent deployment URL。
 
 ---
+
+# 2. 已完成 migration foundation
 
 ## W1 — Source Asset Boundary ✅
 
-### 目標
+### 已完成
 
-把現在「`dist/assets/` 同時兼 source + runtime」的 legacy 狀態拆開。
+- [x] 建立 `assets-src/` 與 source categories。
+- [x] 建立 `generated/runtime-assets/`、`generated/source-cache/` disposable workspace。
+- [x] 建立 `content/assets/source-map.json`。
+- [x] 建立 asset inventory。
+- [x] static shell source 移到 `public/`。
+- [x] build 先清除再完整重建 `dist/`。
+- [x] validator 不再把 `dist/assets/` 當 source。
+- [x] 加入 GitHub Actions Verify。
+- [x] CI run `35807627568` 驗證 build / validate / tests / diff / reproducibility。
 
-### AI 已完成
+### 保留規則
 
-- [x] 建立 `assets-src/`
-- [x] 建立 preservation source categories：
-  - [x] `assets-src/characters/`
-  - [x] `assets-src/backgrounds/`
-  - [x] `assets-src/cg/`
-  - [x] `assets-src/video/`
-  - [x] `assets-src/ui/`
-- [x] 建立／保留 disposable workspace：
-  - [x] `generated/runtime-assets/`
-  - [x] `generated/source-cache/`
-- [x] 新增 `.gitignore`：
-  - [x] 忽略 disposable generated/cache；
-  - [x] 忽略 local secrets；
-  - [x] 不誤忽略 version-controlled metadata。
-- [x] 盤點目前 `dist/assets/` 共 36 個 binary。
-- [x] 使用**原 Git blob SHA**把 36 個 binary byte-identical 複製至 `assets-src/`，沒有重新上傳或重編碼。
-- [x] 新增 `content/assets/source-map.json`，把 runtime path 與 source path 分離。
-- [x] 新增 `content/assets/ASSET_INVENTORY.md`，記錄 preservation 狀態與疑似截斷素材。
-- [x] 把靜態 shell source 從 `dist/` 抽離：
-  - [x] `public/index.html`
-  - [x] `public/styles.css`
-- [x] refactor validator：實體 binary validation 改看 `assets-src/` source mapping，不再要求 `dist/assets/` 是 source。
-- [x] refactor build：
-  - [x] 先完整刪除 `dist/`；
-  - [x] 從 `public/` 重建 HTML/CSS；
-  - [x] 從 `assets-src/` 重建 mapped binaries；
-  - [x] 從 `src/` 重建 JS；
-  - [x] 從 `content/` 重建 route package。
-- [x] 清除 3 個已不再由現行 route index 生成的 stale `dist/content/routes/lin-cheng/*` generated files；source archive 不刪。
-- [x] 保持所有 logical asset IDs 與 story references 不變。
-- [x] 新增最小 GitHub Actions `Verify` workflow，讓 remote branch 可以自動跑 build/validate/tests/reproducibility。
+- [x] 不為了「看起來更乾淨」刪除唯一 binary source。
+- [x] logical asset IDs 不因 physical storage/provider 改變。
 
-### Human
-
-- [x] W1 不需要 Human 操作。
-- [ ] 疑似截斷素材的原圖恢復留到 W2／美術重製流程；若 GitHub source 已壞而本地有好檔，屆時需要 Human 提供本地完整檔。
-
-### Hard gate
-
-- [x] 沒有為了 migration 刪除任何唯一 binary source。
-- [x] W1 source copy 使用既有 Git blob，不經 plugin binary upload。
-- [x] 已知／疑似壞檔只被標記，不假裝已修復。
-
-### CI 驗證
-
-GitHub Actions run `35807627568`：
-
-- [x] `npm run build`
-- [x] `npm run validate`
-- [x] `npm test`
-- [x] `git diff --check`
-- [x] clean build 後 `git diff --exit-code`
-
-### 驗收
-
-- [x] `rm -rf dist && npm run build` 的等價 clean-build 流程已由 CI 驗證。
-- [x] `dist/` 已成為可重建 output。
-- [x] static shell、binary preservation source、runtime output 邊界已分離。
-- [x] W1 不改 story/engine behavior。
+---
 
 ## W2 — Asset Check + Asset Build ✅
 
 ### 已完成
 
-- [x] 新增 `npm run assets:check`
-- [x] 新增 `npm run assets:build`
-- [x] 使用 ffprobe + ffmpeg full-decode，不再只檢查「檔案存在」。
-- [x] 驗證 logical asset ID、source mapping、尺寸、比例、duration/container、recipe/usage context。
-- [x] blocking error 會輸出 asset ID、recipe、usage、source、expected/observed 與 blocking 狀態。
-- [x] 證實 8 張舊 GitHub PNG 截斷：三張 date CG、許棠 identity v2、first-kiss 四張 keyframe。
-- [x] 從 ChatGPT Library 找回 8 張完整原圖。
-- [x] 完整 master 保存至 Google Drive `source-private`，保持 Restricted。
-- [x] 對 8 張 master full decode，SHA-256 / bytes / dimensions 記錄於 `content/assets/source-catalog.json`。
-- [x] 三張 date CG 轉為 WebP runtime：bookstore ~143 KB、riverwalk ~229 KB、night-market ~155 KB。
-- [x] WebP 發布至 Google Drive `runtime-public`。
-- [x] `content/assets/source-map.json` 支援 `gdrive-public` provider、file ID、URL、bytes、SHA-256。
-- [x] GitHub Actions 在無 Google credential 下成功匿名下載 Drive runtime assets。
-- [x] 下載後驗 SHA-256 + full decode。
-- [x] `assets:build` 可混合 local source 與 Drive public runtime。
-- [x] `dist/assets/` 改為 generated/ignored，不再 commit runtime binaries。
-- [x] cinematic validator：MP4/H.264 required primary；WebM legacy optional。
-- [x] CI run `35812177697`：44/44 media checks、3 Drive downloads、9/9 tests，build/validate/diff/reproducibility 全部通過。
+- [x] `npm run assets:check`
+- [x] `npm run assets:build`
+- [x] ffprobe + ffmpeg full-decode validation。
+- [x] logical asset / recipe / source mapping / dimensions / media metadata validation。
+- [x] 證實並處理已知 damaged assets。
+- [x] Drive `source-private` / `runtime-public` 基礎建立。
+- [x] `gdrive-public` runtime provider。
+- [x] remote bytes / SHA-256 / decode 驗證。
+- [x] CI run `35812177697`：44/44 media checks、3 Drive downloads、9/9 tests，build/validate/reproducibility 全通過。
 
-### Human
+### 重要編號修正
 
-- [x] 將 `runtime-public` 設成 `Anyone with the link / Viewer`。
-- [x] 本次不需要從 Mac 手動補圖。
+舊 TODO 曾把「Google Drive Asset Store」稱為 W4。**這個編號已廢止。**
 
-### 驗收
+Drive-first asset storage 是 **W2 已建立的基礎能力**，不是現在的 W4。
 
-- [x] corrupt binary 可被真實 decode checker 抓出。
-- [x] 完整 master 有 Drive canonical copy。
-- [x] remote CI 可匿名取得 runtime assets。
-- [x] runtime image 可在不把 binary 寫進 GitHub 的情況下重建。
-- [x] build error 對人可讀。
+真正的 W4 是：
 
-## W3 — Unified Local / Codespaces Preview
+> **W4 — Player UI / Memories / CG Gallery**
 
-### 目標
-
-Local 和 Codespace 使用同一套 preview command。
-
-### AI 要做
-
-- [ ] 新增 `npm run preview`
-- [ ] 新增／統一 `npm run dev`
-- [ ] 選擇輕量 static/dev server，不要求先 migration React。
-- [ ] 固定／記錄 preview port。
-- [ ] 確認：
-  - [ ] local machine 可開；
-  - [ ] Codespace 可 forward；
-  - [ ] static asset path 正常；
-  - [ ] reload 不 404；
-  - [ ] localStorage 行為正常。
-- [ ] 在 README / AGENTS / TODO 記錄用法。
-
-### Human 要做
-
-- [ ] 在本地打開 preview。
-- [ ] 快速走：
-  - [ ] title；
-  - [ ] start；
-  - [ ] continue；
-  - [ ] 許棠主線；
-  - [ ] OL branch；
-  - [ ] gallery；
-  - [ ] branch view；
-  - [ ] cinematic。
-
-### 驗收
-
-- [ ] Local：一個 command 起 preview。
-- [ ] Codespace：同一個 command 產生 forwarded HTTPS URL。
-- [ ] Work 能從 cloud browser 打開 forwarded URL。
+並以 `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md` 為功能級規格。
 
 ---
 
-## W4 — Google Drive Asset Store（Drive-first） ✅ 基礎已建立
+# 3. NEXT — W3 Codespaces Development & Preview
 
-### 目前決策
+> **這是現在唯一的立即優先項。不要先做 W4 UI。**
 
-商業化前先使用 Google Drive；R2 migration 延後。
+## W3 目標
 
-### 已完成
+Fresh GitHub Codespace 在沒有本地 Mac repo、沒有本地 asset cache、沒有私人 Drive credential 的前提下，可以：
 
-- [x] 建立專案 Drive folder `seventeen-floor-neighbor/`
-- [x] `source-private/`：Restricted。
-- [x] `runtime-public/`：Anyone with the link / Viewer。
-- [x] `source-catalog.json`：private master file ID / hash / dimensions。
-- [x] `source-map.json`：Drive runtime provider。
-- [x] CI 驗證 anonymous Drive download 可用。
-- [x] GitHub 不需要保存 Google Drive private credential。
+```text
+open Codespace
+→ build
+→ start preview
+→ forwarded URL
+→ human playtest
+→ AI review when intentionally shared
+→ edit
+→ verify
+→ commit / push
+```
 
-### 後續
-
-- [ ] 新角色的 accepted masters 逐批進 `source-private`。
-- [ ] runtime WebP/MP4 進 `runtime-public`。
-- [ ] 準備商業化前再執行 Google Drive → Cloudflare R2 migration。
-
-### 驗收
-
-- [x] private master 不公開。
-- [x] public runtime 可由 CI/Codespace 匿名下載。
-- [x] provider 可被未來 R2 替換而不改 story logical IDs。
-
-## W5 — `npm run checkpoint`
-
-### 目標
-
-把 accepted working state 轉成 Drive-first **cloud-complete version**。
+## W3.1 Devcontainer：環境必須可重現
 
 ### AI 要做
 
-- [ ] 新增 `npm run checkpoint`
-- [ ] 跑 content / asset validation + tests。
-- [ ] 驗證 required masters 都有 `source-catalog.json` entry。
-- [ ] 驗證 required remote runtime 都有 `source-map.json` 的 file ID、URL、bytes、SHA-256。
-- [ ] 驗證 `runtime-public` 可匿名下載。
-- [ ] 記錄 Git commit / content version / checkpoint ID。
-- [ ] push code/content/metadata。
+- [ ] 新增 `.devcontainer/`。
+- [ ] pin Node.js major version，與 CI 對齊為 Node 22。
+- [ ] 確保 `ffmpeg` / `ffprobe` 在 Codespace 可用。
+- [ ] 不要求使用者手動安裝 project-specific system dependencies。
+- [ ] devcontainer rebuild 後：
+  - [ ] `node --version` 符合預期；
+  - [ ] `ffmpeg -version` 可執行；
+  - [ ] `ffprobe -version` 可執行。
+- [ ] 自動 forward 固定 preview port。
+- [ ] 給 preview port 清楚 label。
 
-### Cloud-complete
+### Hard rule
+
+- [ ] 不以「我的 Mac 已經裝好了」作為任何 dependency 的解法。
+
+## W3.2 Preview command
+
+### 決策
+
+- Canonical interactive command：`npm run dev`
+- Acceptance / production-like preview：`npm run preview`
+- 固定 preview port：**4173**，除非實作中發現明確 blocker；若改 port 必須同步 docs/devcontainer/tests。
+
+### AI 要做
+
+- [ ] 新增 dependency-light 或 dependency-free static dev server。
+- [ ] server bind `0.0.0.0`，讓 Codespaces forwarding 正常。
+- [ ] `npm run dev`：
+  - [ ] 能從目前 source 建立可玩的 `dist/`；
+  - [ ] 啟動 port 4173；
+  - [ ] 適合高頻 edit → refresh loop。
+- [ ] `npm run preview`：
+  - [ ] 執行 clean/production-like build；
+  - [ ] 啟動同一 port；
+  - [ ] 用於 milestone acceptance/review。
+- [ ] 不為了取得 dev server 而 migration 到 React/TypeScript/Vite。
+- [ ] 若使用第三方 server package，必須有明確收益；否則優先 Node built-ins。
+
+### Acceptance
+
+- [ ] forwarded URL 能載入 title。
+- [ ] JS/CSS/module path 正常。
+- [ ] image/video/runtime assets 正常。
+- [ ] refresh/reload 不 404。
+- [ ] cinematic 可載入。
+- [ ] console 無 blocking runtime error。
+
+## W3.3 Fresh Codespace restore
+
+### AI 要做
+
+用**全新 Codespace**驗證，不得依賴舊 generated cache：
+
+- [ ] repository checkout 完整。
+- [ ] `npm run assets:check`
+- [ ] `npm run assets:build`
+- [ ] `npm run build`
+- [ ] `npm run validate`
+- [ ] `npm test`
+- [ ] `npm run preview`
+- [ ] 確認 Drive runtime assets 由 remote source 重新取得並驗 hash。
+- [ ] 確認 existing Git-backed `assets-src/` sources 正常可用。
+- [ ] 確認不需要 Mac 上任何檔案。
+- [ ] 確認不需要 Google private credential 才能 build playable runtime。
+
+### Human acceptance
+
+在 forwarded preview 快速走：
+
+- [ ] title。
+- [ ] start。
+- [ ] continue。
+- [ ] reload → continue。
+- [ ] 許棠主線。
+- [ ] OL branch。
+- [ ] gallery。
+- [ ] branch/history view（現行版本）。
+- [ ] cinematic。
+- [ ] ending。
+- [ ] return to title。
+- [ ] narrow/mobile width smoke test。
+
+## W3.4 localStorage 行為
+
+- [ ] 同一 forwarded origin reload 後，save/CG/endings/mute 等現行 localStorage 狀態保留。
+- [ ] 新 Codespace / 新 forwarded origin 沒有舊 browser localStorage，視為預期行為，不是 restore bug。
+- [ ] W3 不新增 cloud save。
+- [ ] W3 不新增帳號/OAuth。
+
+## W3.5 Work / cloud-browser review
+
+- [ ] 驗證 reviewer 無法使用 private forwarded port 時的實際行為。
+- [ ] 若需要 Work 直接打開：
+  - [ ] 暫時將 4173 設為 public；
+  - [ ] 打開 forwarded URL；
+  - [ ] 完成 smoke playtest；
+  - [ ] review 後恢復 private/停止 port。
+- [ ] 不把「永久 public dev port」當成 architecture requirement。
+- [ ] 若 GitHub policy 阻止 public port，記錄限制，改用 Sites/review deployment；不要繞過 policy。
+
+## W3.6 文件同步
+
+W3 實作完成時，必須同一 milestone 更新：
+
+- [ ] `ARCHITECTURE.zh-TW.md`：移除/改寫 canonical Hybrid Local/Cloud workflow。
+- [ ] `ARCHITECTURE.md`：同步英文 mirror。
+- [ ] `MIGRATION_PLAN.md`：改成 Codespaces-only migration history/plan。
+- [ ] `PROJECT_STATE.md`：W3 狀態與下一 milestone。
+- [ ] `AGENTS.md`：新對話接手不得假設 local Mac。
+- [ ] `README.md`：移除 canonical localhost setup，改成 Codespaces usage。
+- [ ] `IMPLEMENTATION.md`：記錄實際 devcontainer/server/port。
+- [ ] 本 `TODO.md`：勾選完成項目。
+
+## W3 Definition of Done
+
+只有以下全部成立才可把 W3 標成完成：
+
+- [ ] fresh Codespace 可自給自足 build。
+- [ ] `npm run dev` 存在且可用。
+- [ ] `npm run preview` 存在且可用。
+- [ ] 4173 forwarded preview 可 play。
+- [ ] current runtime smoke path 通過。
+- [ ] reload/localStorage 通過。
+- [ ] AI reviewer sharing path 已實測或有明確 fallback。
+- [ ] minimum verification 全通過。
+- [ ] canonical docs 不再把 Local Working 描述為正式流程。
+- [ ] verified commit 已 push。
+
+---
+
+# 4. W4 — Player UI / Memories / CG Gallery
+
+> 狀態：**spec approved，未實作。**
+>
+> Canonical feature spec：`docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md`
+
+W4 必須在 W3 完成後開始，避免 UI refactor 與開發環境 migration 混在同一個 milestone。
+
+## W4.1 Title / navigation
+
+- [ ] title 改成：
+  - [ ] 一個大 Start/Continue；
+  - [ ] Memories；
+  - [ ] CG。
+- [ ] 移除玩家層級的 standalone Branches 入口。
+- [ ] 不新增 New Game / save-slot mental model。
+- [ ] sound/settings 移到輕量 icon/HUD。
+- [ ] title backdrop 依 frontier/memory metadata 決定。
+
+## W4.2 In-game UI
+
+- [ ] desktop dialogue panel 縮小並讓 CG 成為視覺主體。
+- [ ] speaker badge 分離。
+- [ ] choices 與 dialogue panel 分離。
+- [ ] mobile 保持清楚 touch targets 與無 horizontal scroll。
+- [ ] safe zone 不遮臉、手、關鍵互動與劇情物件。
+
+## W4.3 Memories
+
+- [ ] 一頁式 vertical Memories timeline。
+- [ ] 不做二級 Route Detail。
+- [ ] player-facing primitive = Memory Event，不等同 engine node。
+- [ ] 共通事件使用 scene/background cover。
+- [ ] 單女主事件使用事件 CG 淡化、face-focused backdrop。
+- [ ] 支援 locked / discovered / replayable state。
+- [ ] replay old memory 不得讓 deepest progress 倒退。
+
+## W4.4 Save semantics
+
+- [ ] 分離：
+  - [ ] current/replay cursor；
+  - [ ] deepest story frontier。
+- [ ] Continue 永遠依 frontier，不被 replay regression。
+- [ ] 舊 save migration 保留合理可遷移的 progress / CG / endings。
+- [ ] 新增對應 automated tests。
+
+## W4.5 CG Gallery
+
+- [ ] 保持簡單 collection wall。
+- [ ] locked/unlocked。
+- [ ] full viewer。
+- [ ] 不承擔 story graph responsibility。
+
+## W4 DoD
+
+- [ ] spec 的資料契約已落地。
+- [ ] desktop/mobile UI smoke test 通過。
+- [ ] replay/frontier tests 通過。
+- [ ] old save migration tests 通過。
+- [ ] existing story paths 無 regression。
+- [ ] docs/state/TODO 更新並 push verified commit。
+
+---
+
+# 5. W5 — Cloud-complete Verification / Checkpoint
+
+Codespaces-only 後，`checkpoint` **不再是「關 Mac 前同步」工具**。
+
+它的用途改成：
+
+> 對一個準備 review/release 的 commit，證明 GitHub + Drive 所需資料完整、可重建、可追溯。
+
+## AI 要做
+
+- [ ] 決定是否保留命令名 `npm run checkpoint`；若保留，語意固定為 cloud-complete verification。
+- [ ] 驗證：
+  - [ ] content/schema；
+  - [ ] asset full decode；
+  - [ ] tests；
+  - [ ] required private masters 有 catalog entry；
+  - [ ] required remote runtime 有 provider/file ID/URL/bytes/hash；
+  - [ ] remote runtime 可下載；
+  - [ ] clean build 可重現。
+- [ ] 產生/記錄：
+  - [ ] Git commit；
+  - [ ] content/build version；
+  - [ ] profile；
+  - [ ] verification timestamp；
+  - [ ] optional checkpoint ID。
+
+## Cloud-complete 定義
 
 ```text
 GitHub commit
 +
-required masters in Drive source-private
+all required accepted master assets safely represented in canonical storage
 +
-required runtime assets in Drive runtime-public
+all required remote runtime objects resolvable from metadata
 +
-matching catalog/map hashes
+matching hashes / validation
++
+fresh Codespace clean build succeeds
 ```
 
-### 驗收
+**不再有「Mac 關機前 checkpoint」這個概念。**
 
-- [ ] Mac 關機後仍能 build / preview。
+---
 
-## W6 — Remote Restore / Drive Runtime Fetch
+# 6. W6 — SFW / Full Build Profiles
 
-### 目標
+## AI 要做
 
-Fresh Codespace 不依賴本地 Mac。
-
-### 已具備
-
-- [x] `npm run assets:build` 可直接從 `runtime-public` 下載 remote assets、驗 hash、產生 `generated/runtime-assets/`。
-- [x] GitHub Actions 已證明無 Google credential 可完成 Drive runtime fetch。
-
-### AI 要做
-
-- [ ] W3 後在 fresh Codespace 驗證：
-  - [ ] `git pull`
-  - [ ] `npm run assets:check`
-  - [ ] `npm run assets:build`
-  - [ ] `npm run build`
-  - [ ] `npm run dev`
-- [ ] 若需要更快重複 build，再新增可選 `npm run assets:fetch` cache/prefetch；目前不是 blocker。
-
-### 驗收
-
-- [ ] Mac 關機時 Codespace 仍可 rebuild + preview。
-
-## W7 — SFW / Full Build Profiles
-
-### 目標
-
-讓 SFW build 在 compile/build 階段真正排除不該發布的 content/assets。
-
-### AI 要做
-
-- [ ] 定義 profile：
-  - [ ] `sfw`
-  - [ ] `full`
-- [ ] schema/metadata 能標記內容 profile。
-- [ ] compiler/build 根據 profile prune：
-  - [ ] story nodes；
+- [ ] 定義 `sfw` / `full`。
+- [ ] schema/metadata 可標記 profile。
+- [ ] compile/build prune：
+  - [ ] nodes；
   - [ ] dialogue；
   - [ ] CG；
   - [ ] video；
   - [ ] route references；
   - [ ] manifest entries。
-- [ ] 防止 dangling target。
-- [ ] 防止被排除 asset 仍被打包。
-- [ ] 新增 automated leakage test。
+- [ ] dangling target detection。
+- [ ] excluded asset leakage test。
+- [ ] full profile regression test。
 
-### Human 要做
+## Human
 
-- [ ] 對 AI 無法明確判斷的 scene 決定：
-  - [ ] SFW；
-  - [ ] Full；
-  - [ ] 兩者都保留但素材不同。
+- [ ] 對 ambiguous scene 決定 SFW / Full / alternate asset。
 
-### 驗收
+## DoD
 
-- [ ] SFW output 不包含 excluded text。
-- [ ] SFW output 不包含 excluded image/video binary。
-- [ ] SFW route graph 完整可玩。
-- [ ] Full build 不被 SFW pruning 破壞。
+- [ ] SFW output 不包含 excluded text/binary。
+- [ ] SFW graph 完整可玩。
+- [ ] Full build 不被 pruning 破壞。
 
 ---
 
-## W8 — ChatGPT Sites Review
+# 7. W7 — Review / Release Pipeline
 
-### 目標
+## 7.1 ChatGPT Sites review
 
-在正式 milestone 前，用 ChatGPT Sites 做 stage-level review。
-
-### AI 要做
-
-- [ ] 建立可 review 的 build。
-- [ ] Publish 到 ChatGPT Sites。
-- [ ] 記錄：
-  - [ ] Git commit；
-  - [ ] checkpoint ID；
-  - [ ] build/profile；
-  - [ ] publish time。
-- [ ] 確認 Sites build 與 local/Codespace 同版本。
-
-### Human 要做
-
-完整 playtest：
-
-- [ ] Title UI
-- [ ] Start
-- [ ] Continue
-- [ ] Reload / resume
-- [ ] Xu Tang main route
-- [ ] Office OL branch
-- [ ] Branch history
-- [ ] CG gallery
-- [ ] Cinematic
-- [ ] Ending
-- [ ] Return to title
-- [ ] iPhone portrait
-- [ ] Small-width layout
-- [ ] Long dialogue
-- [ ] Multiple choices
-- [ ] Slow media loading / fallback
-
-### Human feedback 格式不要求技術化
-
-直接說：
-
-- [ ] 「這句不像她」
-- [ ] 「這裡太慢」
-- [ ] 「這張圖不對」
-- [ ] 「這個選項沒意思」
-- [ ] 「這裡按了沒反應」
-- [ ] 「手機上被遮住」
-
-AI 負責判斷問題屬於：
-
-- [ ] Content
-- [ ] Asset
-- [ ] Compiler
-- [ ] Player
-- [ ] Preview / Deployment
-
-### 驗收
-
-- [ ] 沒有 blocking bug。
-- [ ] 沒有明顯 regression。
-- [ ] build 可追溯到 commit + checkpoint。
-
----
-
-## W9 — 本週 Migration Milestone
-
-### AI 要做
-
-- [ ] 執行：
-  - [ ] `npm run build`
-  - [ ] `npm run validate`
-  - [ ] `npm test`
-  - [ ] `git diff --check`
-- [ ] 如新增新 command，補 package scripts。
-- [ ] 更新：
-  - [ ] `PROJECT_STATE.md`
-  - [ ] `IMPLEMENTATION.md`
-  - [ ] `README.md`
-  - [ ] `TODO.md`
-- [ ] commit verified milestone。
-- [ ] push `main`。
-- [ ] 視情況新增 tag / release note。
-
-### Human 要做
-
-- [ ] Sites review 通過後明確 approve milestone。
-
-### Milestone 完成定義
-
-從這個 milestone 開始，正式使用：
-
-```text
-Local Working
-→ Cloud Checkpoint
-→ Remote Working
-→ Sites Review
-→ Cloud Release
-```
-
----
-
-# 3. 這個月 — 3–4 女主 Scale Test
-
-> 目的不是單純加內容，而是驗證架構真的能讓「新增角色 ≈ content production」，而不是每次都改 engine。
-
----
-
-## M1 — 確定女主 roster
-
-### 目標
-
-總數達到 3–4 位女主。
-
-### AI 要做
-
-- [ ] 提出／整理每位角色：
-  - [ ] character hook；
-  - [ ] 年齡／職業；
-  - [ ] personality；
-  - [ ] speech style；
-  - [ ] emotional tells；
-  - [ ] visual hook；
-  - [ ] relationship chemistry；
-  - [ ] route role；
-  - [ ] ending direction；
-  - [ ] 與現有角色差異化。
-- [ ] 檢查角色是否過度重疊。
-- [ ] 建議每位 route 的核心 fantasy / emotional payoff。
-
-### Human 要做
-
-- [ ] 決定最後保留哪 3–4 位。
-- [ ] 最終確認外型方向。
-- [ ] 最終確認 personality / chemistry。
-
-### 驗收
-
-- [ ] 每位女主有明確差異。
-- [ ] 不只是換皮。
-- [ ] 每位都有清楚 route hook。
-
----
-
-## M2 — Character Bible 標準化
-
-### AI 要做
-
-每位女主建立完整 Character Bible：
-
-- [ ] stable character ID
-- [ ] designVersion
-- [ ] face identity
-- [ ] body proportions
-- [ ] hair invariants
-- [ ] outfit modules
-- [ ] hairstyle modules
-- [ ] makeup modules
-- [ ] accessories
-- [ ] speech style
-- [ ] behavioral tells
-- [ ] emotional boundaries
-- [ ] relationship arc
-- [ ] route payoff
-- [ ] generation constraints
-- [ ] reference metadata
-
-### Human 要做
-
-- [ ] Review 每位 Character Bible。
-- [ ] 在大量生圖前 approve。
-
-### 驗收
-
-- [ ] AI 可以僅依 Character Bible 產生一致的 story + asset specs。
-
----
-
-## M3 — Identity References
-
-### AI 要做
-
-每位女主產生 Generation Spec：
-
-- [ ] identity sheet prompt
-- [ ] face close-up
-- [ ] front full body
-- [ ] side full body
-- [ ] back full body
-- [ ] 3/4 left/right
-- [ ] neutral expression
-- [ ] canonical outfit
-- [ ] canonical lighting/background
-- [ ] negative constraints
-- [ ] expected dimensions
-- [ ] expected filename/path
-
-### Human 要做
-
-- [ ] 在第三方 image generation service 生成。
-- [ ] 每位角色挑選 canonical identity reference。
-- [ ] 如需要，多次重生直到身份穩定。
-
-### AI 要做（asset ready 後）
-
-- [ ] ingest references。
-- [ ] 更新 Character Bible metadata。
-- [ ] 更新 asset recipes。
-- [ ] checkpoint accepted references。
-
-### 驗收
-
-- [ ] 每位女主都有可重用的 identity anchor。
-- [ ] 後續 CG 不需要依賴上一張 CG 當唯一 reference。
-
----
-
-## M4 — 立繪 / CG / Cinematic 全量重做
-
-### AI 要做
-
-- [ ] 盤點現有每條 route 所需：
-  - [ ] sprites
-  - [ ] backgrounds
-  - [ ] CGs
-  - [ ] cinematic keyframes
-  - [ ] posters
-- [ ] 為每個 asset 建 Asset Recipe。
-- [ ] 產生 Generation Queue。
-- [ ] 每項包含：
-  - [ ] logical asset ID
-  - [ ] reference image
-  - [ ] prompt
-  - [ ] negative
-  - [ ] camera
-  - [ ] headPose
-  - [ ] action
-  - [ ] lighting
-  - [ ] aspect ratio
-  - [ ] size
-  - [ ] safe zone
-  - [ ] focal point
-  - [ ] source path
-  - [ ] runtime format
-- [ ] replacement 優先保持 logical asset ID 不變。
-- [ ] physical filename 使用 version/hash。
-
-### Human 要做
-
-- [ ] 依 Generation Queue 生圖／生影片。
-- [ ] 挑選最終素材。
-- [ ] 保存到指定 `assets-src/` path。
-- [ ] 告訴 AI：「圖都好了。」
-
-### AI 要做（收到「圖都好了」）
-
-- [ ] `assets:check`
-- [ ] `assets:build`
-- [ ] content validate
-- [ ] story tests
-- [ ] build
-- [ ] preview
-- [ ] checkpoint accepted batch
-
-### 驗收
-
-- [ ] 身份一致。
-- [ ] 服裝/髮型版本對應正確。
-- [ ] UI safe zone 正確。
-- [ ] CG 不疊 sprite。
-- [ ] cinematic 有 poster fallback。
-
----
-
-## M5 — 對話與劇情支線
-
-### AI 要做
-
-每位女主：
-
-- [ ] 建 route/context。
-- [ ] 新 content 優先使用 semantic node IDs。
-- [ ] 加 dialogue。
-- [ ] 加 narration。
-- [ ] 加 choices。
-- [ ] 加 state changes。
-- [ ] 加 branch conditions。
-- [ ] 加 endings。
-- [ ] 加 route-specific asset whitelist。
-- [ ] 接到共用入口／共用節點。
-- [ ] 不新增 title-screen route selector，除非 architecture 另行批准。
-- [ ] 優先 content-only change。
-- [ ] 不為單一女主新增 engine hack。
-
-### Human 要做
-
-- [ ] Playtest：
-  - [ ] 說話像不像她；
-  - [ ] chemistry 是否成立；
-  - [ ] 節奏；
-  - [ ] 升溫速度；
-  - [ ] choice 有沒有意義；
-  - [ ] ending payoff；
-  - [ ] 是否想繼續玩。
-
-### 驗收
-
-- [ ] route 可完整玩完。
-- [ ] 至少一個 choice 真正改變後續內容或 state。
-- [ ] 沒有角色-specific engine code。
-
----
-
-## M6 — 3–4 女主 Scale Validation
-
-### AI 要做
-
-- [ ] 跑全 route validation。
-- [ ] 跑 asset completeness。
-- [ ] 跑 build profiles。
-- [ ] 跑 save/resume。
-- [ ] 跑 branch history。
-- [ ] 跑 gallery。
-- [ ] 測試 context command 在大內容量下是否仍好用。
-- [ ] 如果 branch graph 太長，再實作：
-  - [ ] role filter；
-  - [ ] folding；
-  - [ ] hidden locked-node compaction。
-- [ ] 量測：
-  - [ ] initial load；
-  - [ ] runtime asset size；
-  - [ ] peak video/image loading；
-  - [ ] mobile memory。
-- [ ] 只有實際造成問題才做 performance optimization。
-
-### Architecture 成功標準
-
-- [ ] 3–4 女主可共存。
-- [ ] 新角色主要改 `content/`、`assets-src/`、recipes。
-- [ ] `src/engine*` 幾乎不因角色本身而修改。
-- [ ] 新女主 workflow 可重複：
-  ```text
-  Character Bible
-  → Story / Route
-  → Generation Queue
-  → Human Asset Generation
-  → AI Integration
-  → Playtest
-  → Checkpoint
-  ```
-
----
-
-# 4. 之後 — SFW 公網朋友測試
-
-> 前提：3–4 女主 scale test 通過，Sites review 沒有 blocking issue。
-
----
-
-## P1 — SFW Release Candidate
-
-### AI 要做
-
-- [ ] 產生 `sfw` profile build。
-- [ ] 驗證 pruning：
-  - [ ] excluded dialogue 不存在；
-  - [ ] excluded node 不存在；
-  - [ ] excluded asset 不存在；
-  - [ ] graph 無 dangling target。
-- [ ] production runtime assets 上傳 public R2/CDN。
-- [ ] runtime URL 使用 version/hash。
-- [ ] production manifest 產生完成。
-- [ ] deploy static app 到 public host。
-- [ ] 做 smoke test。
-
-### Human 要做
-
-- [ ] 決定 public URL / host。
-- [ ] 決定測試朋友範圍。
-- [ ] 最終 approve 發布。
-
-### 驗收
-
-- [ ] 手機直接開 URL 可玩。
-- [ ] 無 login requirement。
-- [ ] media 正常載入。
-- [ ] reload / continue 正常。
-- [ ] SFW filtering 正確。
-
----
-
-## P2 — Friend Test Feedback
-
-### 不要先問技術細節
-
-優先收：
-
-- [ ] 前 5 分鐘想不想繼續？
-- [ ] 最喜歡哪位女主？
-- [ ] 為什麼？
-- [ ] 哪段無聊？
-- [ ] 哪段太長？
-- [ ] 哪個 choice 看不懂？
-- [ ] 哪個 choice 感覺「選了也沒差」？
-- [ ] 圖片／角色一致性有沒有跳掉？
-- [ ] 手機操作哪裡不舒服？
-- [ ] loading 有沒有明顯卡住？
-- [ ] Continue 是否可靠？
-- [ ] 玩完一條 route 後，想不想看另一位女主？
-
-### AI 要做
-
-- [ ] 整理 feedback。
-- [ ] 區分：
-  - [ ] content problem；
-  - [ ] asset problem；
-  - [ ] UX problem；
-  - [ ] technical bug；
-  - [ ] product direction。
-- [ ] 只對重複／高影響問題排 priority。
-- [ ] 不在第一輪 friend test 前做 monetization。
-- [ ] 不在第一輪 friend test 前做 advanced engine feature。
-
----
-
-# 5. 固定日常工作流
-
-## Local Working
-
-使用者在 Mac 前：
-
-```text
-Codex
-+ local Git working copy
-+ local assets-src/
-+ local preview
-```
-
-### 流程
-
-- [ ] `git pull`
-- [ ] 修改 code/content。
-- [ ] 新 asset 直接放 local `assets-src/`。
-- [ ] `npm run assets:check`
-- [ ] `npm run assets:build`
-- [ ] `npm run preview`
-- [ ] Human playtest。
-- [ ] 反覆修改。
-
----
-
-## 準備關機／遠端接手
-
-- [ ] 確認 accepted assets。
-- [ ] `npm run checkpoint`
-- [ ] 確認 cloud-complete。
-- [ ] push GitHub。
-- [ ] Mac 可關機。
-
----
-
-## Remote Working
-
-```text
-ChatGPT Work
-→ GitHub Codespace
-→ GitHub + private R2
-```
-
-### 流程
-
-- [ ] `git pull`
-- [ ] `npm run assets:fetch`
-- [ ] `npm run assets:build`
-- [ ] `npm run content:validate`
-- [ ] `npm run dev`
-- [ ] 打開 Codespaces Forwarded Preview URL。
-- [ ] AI / Human review。
-- [ ] 修改。
-- [ ] build/test。
-- [ ] commit。
-- [ ] push。
-
----
-
-## Sites Review
-
-- [ ] 選定 cloud-complete commit。
-- [ ] build review。
+- [ ] build 可 review artifact。
 - [ ] publish Sites。
-- [ ] 記錄 commit + checkpoint。
-- [ ] Human playtest。
-- [ ] 修 regression。
+- [ ] 記錄 Git commit / build profile / verification identity。
+- [ ] Human full playtest。
+- [ ] blocking regressions 修完。
+
+## 7.2 Production release
+
+- [ ] `npm run release` 或等價 deterministic release workflow。
+- [ ] 只接受 cloud-complete verified input。
+- [ ] production runtime provider / CDN decision。
+- [ ] static deployment。
+- [ ] smoke test。
+- [ ] release record。
+
+## Cloudflare R2
+
+- [x] 商業化前暫不需要。
+- [ ] 當 Drive public runtime 的 CDN/cache-control/custom-domain/traffic 限制真的成為需求時再遷移。
+- [ ] provider migration 不改 logical asset IDs / story content。
 
 ---
 
-## Release
+# 8. 之後 — 3–4 女主 Scale Test
 
-只接受：
+> 目的：證明新增角色主要是 content/asset production，而不是 engine rewrite。
+
+## M1 Roster / Character Bible
+
+- [ ] 確認總 roster。
+- [ ] 每位角色有 stable ID / designVersion / identity / speech / behavior / arc / constraints。
+- [ ] 角色差異化通過 Human review。
+
+## M2 Identity References
+
+- [ ] 每位女主有 canonical identity sheet / face / full-body / angles / neutral expression。
+- [ ] accepted masters 進 canonical asset storage。
+- [ ] Character Bible / asset metadata 更新。
+
+## M3 Asset Production
+
+- [ ] sprites / CG / backgrounds / cinematic keyframes / posters inventory。
+- [ ] Asset Recipes。
+- [ ] Generation Queue。
+- [ ] logical asset IDs 穩定。
+- [ ] accepted masters 保存。
+- [ ] runtime optimization + validation。
+
+## M4 Story Routes
+
+- [ ] route/context。
+- [ ] semantic node IDs for new content。
+- [ ] dialogue/narration/choices/state/conditions/endings。
+- [ ] route-specific asset whitelist。
+- [ ] 共用入口接線。
+- [ ] 不新增 title route selector。
+- [ ] 不新增 heroine-specific engine hack。
+
+## M5 Scale Validation
+
+- [ ] all-route validation。
+- [ ] save/resume。
+- [ ] Memories/frontier。
+- [ ] CG gallery。
+- [ ] build profiles。
+- [ ] context tooling。
+- [ ] asset completeness。
+- [ ] mobile memory/load size。
+- [ ] 只有真的遇到 scale problem 才加 folding/filter/performance optimization。
+
+### Architecture success
 
 ```text
-GitHub commit
-+
-private R2 checkpoint
+Character Bible
+→ Story / Route
+→ Generation Queue
+→ Asset Generation
+→ Canonical Asset Ingest
+→ Codespace Integration
+→ Forwarded Preview
+→ Review
+→ Verified Commit
 ```
 
-### 流程
-
-- [ ] validation
-- [ ] asset optimization
-- [ ] public R2 runtime publish
-- [ ] production manifest
-- [ ] production build
-- [ ] distribution deploy
-- [ ] smoke test
-- [ ] release record
-
 ---
 
-# 6. Owner Matrix
+# 9. 固定日常工作流（W3 完成後）
 
-| 項目 | AI | Human | Joint |
-| --- | :---: | :---: | :---: |
-| Architecture / docs | ✓ | approve | |
-| Story / route / dialogue | ✓ | feedback | ✓ |
-| Character concept | draft | final | ✓ |
-| Character Bible | ✓ | approve | ✓ |
-| Generation Queue | ✓ | | |
-| Image/video generation tool 操作 | | ✓ | |
-| Asset selection | assist | final | ✓ |
-| Asset ingest/build | ✓ | | |
-| Validator/compiler/tooling | ✓ | | |
-| R2 bucket/account approval | | ✓ | |
-| Drive provider integration code | ✓ | | |
-| Secrets placement | guide | ✓ | |
-| Codespace preview setup | ✓ | login/approve if needed | |
-| Sites publish | ✓ when capability available | playtest | ✓ |
-| Git verification/commit/push | ✓ | milestone approve | |
-| Public URL / friend audience | | ✓ | |
-| Friend feedback analysis | ✓ | collect/share | ✓ |
+## Canonical Working
 
----
+```text
+GitHub
+  ↓
+GitHub Codespace
+  ↓
+npm run dev
+  ↓
+Forwarded Preview
+  ↓
+edit / playtest
+  ↓
+verify
+  ↓
+commit / push
+```
 
-# 7. Hard Gates
+### 每次開始
 
-以下規則不可為了「先跑起來」而跳過：
+- [ ] resume/create Codespace。
+- [ ] 確認 branch / `git status`。
+- [ ] sync remote history。
+- [ ] 啟動 `npm run dev`。
 
-- [ ] 不在確認 master/source 安全前刪除 binary。
-- [ ] 不把 `dist/` 當長期 source of truth。
-- [ ] 不把 secret commit 到 GitHub。
-- [ ] 沒有 GitHub commit + Drive source-private master catalog + runtime-public hash mapping，不得稱為 cloud-complete。
-- [ ] required master 只存在關機 Mac 時，不得 remote release。
-- [ ] 不為某一個女主寫 route-specific engine hack。
-- [ ] 不因 provider URL 改變而改 story JSON。
-- [ ] 不把 physical filename 當 story identity。
-- [ ] SFW build 必須 compile-time prune，不只 UI hide。
-- [ ] Sites review 未通過前，不做 public SFW friend-test release。
-- [ ] friend test 前不優先做 monetization / backend / advanced renderer。
+### 開發中
 
----
+- [ ] 修改 code/content。
+- [ ] asset change 依 source-map/catalog 規則處理。
+- [ ] browser refresh/playtest。
+- [ ] 不在本機建立另一套 parallel working copy 當主要版本。
 
-# 8. 暫時延後
+### 需要 AI browser review
 
-只有實際需求證明必要時才做：
+- [ ] 視需要暫時公開 preview port。
+- [ ] share forwarded URL。
+- [ ] review。
+- [ ] review 後恢復 private/停止 port。
 
-- [ ] React/TypeScript/Vite migration
-- [ ] PixiJS / WebGL renderer
-- [ ] Unity / Godot
-- [ ] transparent alpha video pipeline
-- [ ] full AVIF migration
-- [ ] voice acting
-- [ ] advanced Web Audio mixer
-- [ ] OAuth
-- [ ] player cloud save
-- [ ] paid entitlement
-- [ ] general backend
-- [ ] analytics platform（除非有明確問題要回答）
-- [ ] client-side AES DRM
-- [ ] speculative scaling architecture
+### 完成一個 coherent change
 
----
-
-# 9. 每次提交前固定驗證
-
-至少：
+至少執行：
 
 ```bash
 npm run build
@@ -962,28 +620,97 @@ npm test
 git diff --check
 ```
 
-在 asset pipeline 完成後，增加：
+asset 相關 change 另外執行：
 
 ```bash
 npm run assets:check
 npm run assets:build
 ```
 
-正式 release 前增加：
+然後：
 
-```bash
-npm run checkpoint
-npm run release
-```
+- [ ] inspect diff。
+- [ ] commit。
+- [ ] push。
+- [ ] 更新相關 state/spec/TODO，不能只在 chat 說「完成」。
 
 ---
 
-# 10. 下一個立即要做的項目
+# 10. Owner Matrix
 
-> 不要跳步。
+| 項目 | AI | Human | Joint |
+| --- | :---: | :---: | :---: |
+| Architecture / docs | ✓ | approve | |
+| Devcontainer / preview tooling | ✓ | login/playtest | ✓ |
+| Story / route / dialogue | ✓ | feedback | ✓ |
+| Character concept | draft | final | ✓ |
+| Character Bible | ✓ | approve | ✓ |
+| Generation Queue | ✓ | | |
+| Image/video generation | assist/tool-dependent | final generation when external tool required | ✓ |
+| Asset selection | assist | final | ✓ |
+| Canonical asset ingest / metadata | ✓ | provide/approve master when needed | ✓ |
+| Validator/compiler/tooling | ✓ | | |
+| Google Drive folder sharing changes | guide/tool if available | approve | ✓ |
+| Codespace preview | ✓ | playtest | ✓ |
+| Temporary public-port decision | | ✓ | ✓ |
+| Sites/release review | ✓ | final playtest/approve | ✓ |
+| Git verification/commit/push | ✓ | milestone approve | |
+| Friend audience | | ✓ | |
+| Feedback analysis | ✓ | collect/share | ✓ |
 
-- [ ] **NEXT: W3 — Unified Local / Codespaces Preview**
-  - [ ] 新增 `npm run preview` / `npm run dev`
-  - [ ] local preview smoke test
-  - [ ] Codespace forwarded URL smoke test
-  - [ ] Work cloud browser 打開並 playtest
+---
+
+# 11. Hard Gates
+
+- [ ] 不刪除尚未有安全 canonical copy 的唯一 master/source。
+- [ ] 不把 `dist/` 當 source of truth。
+- [ ] 不把 secrets commit 到 Git。
+- [ ] 不讓 accepted new master 只存在某台 Mac/PC。
+- [ ] 不把 temporary Codespaces public port 當 production hosting。
+- [ ] 不把 forwarded URL hardcode 到 content/code/tests。
+- [ ] 不為單一女主寫 route-specific engine hack。
+- [ ] provider/physical filename 改變不得迫使 story logical IDs 改變。
+- [ ] SFW 必須 compile-time prune，不只 UI hide。
+- [ ] 沒有 fresh Codespace clean-build proof，不得稱 release input 為 cloud-complete。
+- [ ] Sites/review 未通過前，不做 public friend-test release。
+- [ ] friend test 前不優先做 monetization/backend/advanced renderer。
+
+---
+
+# 12. 暫時延後
+
+只有明確需求證明必要時才做：
+
+- [ ] React/TypeScript/Vite migration。
+- [ ] PixiJS / WebGL renderer。
+- [ ] Unity / Godot。
+- [ ] transparent alpha video pipeline。
+- [ ] full AVIF migration。
+- [ ] voice acting。
+- [ ] advanced Web Audio mixer。
+- [ ] OAuth。
+- [ ] player cloud save。
+- [ ] paid entitlement。
+- [ ] general backend。
+- [ ] analytics platform。
+- [ ] client-side AES DRM。
+- [ ] speculative scaling architecture。
+
+---
+
+# 13. 下一個立即要做的項目
+
+> **不要跳步。**
+
+- [ ] **NEXT: W3 — Codespaces Development & Preview**
+  - [ ] 建立 Node 22 + ffmpeg 的 devcontainer。
+  - [ ] 固定 forwarded preview port 4173。
+  - [ ] 新增 `npm run dev`。
+  - [ ] 新增 `npm run preview`。
+  - [ ] fresh Codespace clean restore/build。
+  - [ ] forwarded preview smoke test。
+  - [ ] localStorage reload test。
+  - [ ] temporary public-port / Work review path test。
+  - [ ] 同步所有 canonical workflow docs。
+  - [ ] verify、commit、push。
+- [ ] **THEN: W4 — Player UI / Memories / CG Gallery**
