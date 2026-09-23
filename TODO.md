@@ -281,6 +281,7 @@ Human 只保留真正需要主觀判斷的 UX／劇情／視覺 approval；環�
 - [x] CI 對 lifecycle command 執行 `--dry-run` syntax/plan check。
 - [x] 提供 optional `Codespace Acceptance` workflow_dispatch；若 repository 一次性配置 `CODESPACES_TOKEN`，GitHub Actions 可直接建立 fresh Codespace。
 - [ ] 在真實 authenticated `gh` context 執行一次 `npm run codespace:accept` end-to-end。
+- [x] 第一次 live workflow 已證明 `CODESPACES_TOKEN` 可登入 GitHub；run `35924298495` 在建立 Codespace 前被 `Codespaces metadata: read` 權限阻擋。
 
 ### 真實 acceptance 必須驗證
 
