@@ -94,18 +94,57 @@ async function run(command, commandArgs, { capture = false, allowFailure = false
   });
 }
 
-async function findCreatedCodespace() {
+async function selectMachine() {
   const output = await run('gh', [
-    'codespace', 'list',
-    '-R', repository,
-    '--json', 'name,displayName,createdAt,state'
+    'api',
+    `repos/${repository}/codespaces/machines?ref=${encodeURIComponent(branch)}`,
+    '-H', 'Accept: application/vnd.github+json',
+    '-H', 'X-GitHub-Api-Version: 2026-03-10'
   ], { capture: true });
 
-  const rows = JSON.parse(output || '[]')
-    .filter(item => item.displayName === displayName)
-    .sort((a, b) => String(a.createdAt).localeCompare(String(b.createdAt)));
+  const machines = JSON.parse(output || '{}').machines || [];
+  if (machines.length === 0) {
+    throw new Error(`No Codespaces machine types are available for ${repository}@${branch}`);
+  }
 
-  return rows.at(-1)?.name || null;
+  machines.sort((a, b) =>
+    Number(a.cpus ?? Number.MAX_SAFE_INTEGER) - Number(b.cpus ?? Number.MAX_SAFE_INTEGER) ||
+    Number(a.memory_in_bytes ?? Number.MAX_SAFE_INTEGER) - Number(b.memory_in_bytes ?? Number.MAX_SAFE_INTEGER) ||
+    Number(a.storage_in_bytes ?? Number.MAX_SAFE_INTEGER) - Number(b.storage_in_bytes ?? Number.MAX_SAFE_INTEGER) ||
+    String(a.name).localeCompare(String(b.name))
+  );
+
+  const selected = machines[0];
+  console.log(
+    `[codespace] selected machine ${selected.name} (${selected.display_name || `${selected.cpus} cores`})`
+  );
+  return selected.name;
+}
+
+async function createCodespace() {
+  const machine = await selectMachine();
+
+  const output = await run('gh', [
+    'api',
+    '--method', 'POST',
+    `repos/${repository}/codespaces`,
+    '-H', 'Accept: application/vnd.github+json',
+    '-H', 'X-GitHub-Api-Version: 2026-03-10',
+    '-f', `ref=${branch}`,
+    '-f', `machine=${machine}`,
+    '-f', 'devcontainer_path=.devcontainer/devcontainer.json',
+    '-F', 'idle_timeout_minutes=20',
+    '-F', 'retention_period_minutes=60',
+    '-f', `display_name=${displayName}`
+  ], { capture: true });
+
+  const created = JSON.parse(output || '{}');
+  if (!created.name) {
+    throw new Error('Codespaces create API returned no codespace name.');
+  }
+
+  console.log(`[codespace] created ${created.name} (state=${created.state || 'unknown'})`);
+  return created.name;
 }
 
 async function waitForAvailable(codespace, timeoutMs = 15 * 60_000) {
@@ -268,14 +307,21 @@ printPlan();
 if (dryRun) {
   if (!existingCodespace) {
     await run('gh', [
-      'codespace', 'create',
-      '-R', repository,
-      '-b', branch,
-      '--display-name', displayName,
-      '--idle-timeout', '20m',
-      '--retention-period', '1h',
-      '--default-permissions',
-      '--status'
+      'api',
+      `repos/${repository}/codespaces/machines?ref=${encodeURIComponent(branch)}`,
+      '-H', 'Accept: application/vnd.github+json',
+      '-H', 'X-GitHub-Api-Version: 2026-03-10'
+    ]);
+    await run('gh', [
+      'api',
+      '--method', 'POST',
+      `repos/${repository}/codespaces`,
+      '-f', `ref=${branch}`,
+      '-f', 'machine=<lowest-available-machine>',
+      '-f', 'devcontainer_path=.devcontainer/devcontainer.json',
+      '-F', 'idle_timeout_minutes=20',
+      '-F', 'retention_period_minutes=60',
+      '-f', `display_name=${displayName}`
     ]);
   }
   await run('gh', ['codespace', 'ssh', '-c', existingCodespace || '<created-codespace>', '<acceptance-command>']);
@@ -297,22 +343,8 @@ let success = false;
 
 try {
   if (!codespace) {
-    console.log('[codespace] creating ephemeral acceptance environment...');
-    await run('gh', [
-      'codespace', 'create',
-      '-R', repository,
-      '-b', branch,
-      '--display-name', displayName,
-      '--idle-timeout', '20m',
-      '--retention-period', '1h',
-      '--default-permissions',
-      '--status'
-    ]);
-
-    codespace = await findCreatedCodespace();
-    if (!codespace) {
-      throw new Error(`Could not find newly created Codespace with display name ${displayName}`);
-    }
+    console.log('[codespace] creating ephemeral acceptance environment through REST API...');
+    codespace = await createCodespace();
     createdByScript = true;
   }
 
