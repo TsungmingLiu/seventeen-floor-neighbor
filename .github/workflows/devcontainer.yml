@@ -1,0 +1,27 @@
+name: Devcontainer
+
+on:
+  push:
+    paths:
+      - '.devcontainer/**'
+      - '.github/workflows/devcontainer.yml'
+  pull_request:
+    paths:
+      - '.devcontainer/**'
+      - '.github/workflows/devcontainer.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build W3 devcontainer image
+        run: docker build -f .devcontainer/Dockerfile -t seventeen-floor-neighbor-dev .devcontainer
+      - name: Verify W3 devcontainer toolchain
+        run: |
+          docker run --rm seventeen-floor-neighbor-dev sh -lc '
+            node --version
+            node --version | grep "^v22\."
+            ffmpeg -version | head -1
+            ffprobe -version | head -1
+          '
