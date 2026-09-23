@@ -16,7 +16,7 @@
 - 將完整許棠故事依章節拆成小檔，保持節點 ID 和連線不變。
 - 資產完整性稽核：解碼尺寸、檔案雜湊、Git 追蹤／遠端檔案一致性、待修素材清單；檔案存在不等於可完整解碼。
 - Context 指令支援更聚焦的輸出與依賴影響清單，讓新對話能直接從指定節點或素材接手。
-- 分支圖針對角色增加支援折疊與篩選、避免大量未解鎖節點拉長頁面。
+- 原本「把完整分支圖做折疊／篩選」的玩家介面方向已被 W4 決策取代：player-facing UI 改為單頁縱向 Memories timeline，以 Memory Event 壓縮 engine node，分支多時使用 inline cluster；完整 graph 僅保留給 debug／validation。詳細規格見 `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md`。
 
 ## 節點三：完成重構後的美術重製
 
@@ -28,3 +28,15 @@
 ## 執行與額度
 
 主代理處理規劃、核心整合與驗收；較小模型負責界面、內容、測試等有明確邊界的子任務。發布另交低成本子代理，核對遠端後普通推送，禁止 force-push。若額度限制再次發生，保存目前狀態並安排半小時後重試；使用者確認重置時可立即重試。不自動兌換重置額度或購買額度。
+
+
+## W4 玩家介面規格
+
+已批准但尚未實作的 W4 方向，以 `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md` 為功能級詳細規格。核心包含：
+
+- 主介面一大兩小：Start/Continue、Memories、CG。
+- Save semantics 拆成 replay cursor 與 monotonic frontier。
+- Memories 只有一個縱向頁面，不建立 Route Detail 次級頁。
+- 單女主 Memory Event 使用對應 CG 的淡化 face-focus backdrop；共通事件使用 scene/background。
+- Replay 從已解鎖 Memory Event 開始，可解鎖新 branch/CG，但不能讓 Continue frontier 倒退。
+- 既有 `src/branches.js` 的 graph 能力可留給 debug／validation，不再直接等同玩家回憶頁。
