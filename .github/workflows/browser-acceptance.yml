@@ -1,0 +1,67 @@
+name: Browser Acceptance
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - 'content/**'
+      - 'assets-src/**'
+      - 'tools/build*.mjs'
+      - 'tools/preview-server.mjs'
+      - 'tests/browser-acceptance.spec.mjs'
+      - '.github/workflows/browser-acceptance.yml'
+
+jobs:
+  chromium:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install media tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+
+      - name: Build clean browser runtime
+        run: |
+          npm run assets:check
+          npm run assets:build
+          npm run build
+          npm run validate
+          npm test
+
+      - name: Install transient Playwright runtime
+        run: |
+          npm install --no-save --package-lock=false @playwright/test@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Run Chromium acceptance
+        env:
+          BASE_URL: http://127.0.0.1:4173
+        run: |
+          set -euo pipefail
+          node tools/preview-server.mjs --preview --skip-build --port 4173 > /tmp/browser-preview.log 2>&1 &
+          preview_pid=$!
+          trap 'kill "$preview_pid" 2>/dev/null || true; cat /tmp/browser-preview.log' EXIT
+
+          for attempt in $(seq 1 60); do
+            if curl -fsS http://127.0.0.1:4173/ >/dev/null; then
+              break
+            fi
+            if [ "$attempt" -eq 60 ]; then
+              echo "Preview failed to become ready" >&2
+              exit 1
+            fi
+            sleep 1
+          done
+
+          npx playwright test tests/browser-acceptance.spec.mjs --workers=1 --reporter=line
