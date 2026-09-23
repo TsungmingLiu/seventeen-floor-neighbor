@@ -369,8 +369,8 @@ W3 實作完成時，必須同一 milestone 更新：
 - [ ] 4173 真實 forwarded preview acceptance 通過。
 - [ ] AI cloud browser 完成 reload/localStorage 與主要 playable flows。
 - [ ] public review URL 在 review 結束後被清理。
-- [ ] Human 不需參與 environment lifecycle；只保留 subjective product approval。
-- [ ] 最終 verified commit 已 push 且 Actions 全綠。
+- [x] Human 不需參與 environment lifecycle；只保留 subjective product approval。
+- [x] implementation/docs commit 已 push，Verify + Devcontainer Actions 全綠；live Codespace acceptance 另列為剩餘 gate。
 
 ---
 
