@@ -215,10 +215,10 @@ open Codespace
 - [x] pin Node.js major version，與 CI 對齊為 Node 22。
 - [x] 確保 `ffmpeg` / `ffprobe` 在 Codespace 可用。
 - [x] 不要求使用者手動安裝 project-specific system dependencies。
-- [ ] devcontainer rebuild 後：
-  - [ ] `node --version` 符合預期；
-  - [ ] `ffmpeg -version` 可執行；
-  - [ ] `ffprobe -version` 可執行。
+- [x] devcontainer rebuild 後：
+  - [x] `node --version` 符合預期；
+  - [x] `ffmpeg -version` 可執行；
+  - [x] `ffprobe -version` 可執行。
 - [x] 自動 forward 固定 preview port。
 - [x] 給 preview port 清楚 label。
 
