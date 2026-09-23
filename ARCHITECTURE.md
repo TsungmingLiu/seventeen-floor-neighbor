@@ -1193,7 +1193,7 @@ npm run context -- --route <route-id> --node <node-id>
 : Create a one-off fresh Codespace from an authenticated AI/`gh` operator, run clean restore/build/test plus private-tunnel smoke, and delete it on success.
 
 `codespace:review`
-: Run the same engineering acceptance, then temporarily expose 4173 and print a browser-review URL, keeping the environment until review completes.
+: Optional subjective review surface: run the same engineering acceptance, then temporarily expose 4173 and print a browser-review URL. Deterministic browser correctness is covered by the GitHub Actions `Browser Acceptance` workflow with Playwright Chromium.
 
 Future additions:
 
@@ -1220,7 +1220,7 @@ Completed/current:
 
 1. **W1 Source Asset Boundary** — established `public/`, `assets-src/`, `generated/`, and disposable `dist/`.
 2. **W2 Asset Check + Asset Build** — full-decode validation, Drive master/runtime storage, remote hash verification.
-3. **W3 engineering acceptance** — Node 22 + ffmpeg + SSH devcontainer, port 4173 forwarded preview, `dev/preview/preview:smoke`, and AI-operated `codespace:accept/review` lifecycle tooling are implemented. Run `35932727909` proved fresh Codespace create → SSH → clean asset/build/validate/test → preview readiness → private tunnel smoke → automatic deletion. The only remaining W3 gate is AI cloud-browser UI/localStorage/playable-flow review. Human no longer owns environment lifecycle.
+3. **W3 complete** — Node 22 + ffmpeg + SSH devcontainer, port 4173 forwarded preview, `dev/preview/preview:smoke`, and AI-operated `codespace:accept/review` lifecycle tooling are complete. Run `35932727909` proved fresh Codespace create → SSH → clean asset/build/validate/test → preview readiness → private tunnel smoke → automatic deletion. Browser Acceptance run `35933586244` proved reload/localStorage, OL branch, branches/gallery, cinematic behavior, ending persistence, 320px layout, and blocking browser-error behavior in Chromium. `codespace:review` remains optional for subjective UX review, not as an engineering gate.
 
 Next:
 

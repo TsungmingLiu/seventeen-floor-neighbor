@@ -192,9 +192,9 @@ Drive-first asset storage 是 **W2 已建立的基礎能力**，不是現在的 
 
 ---
 
-# 3. NEXT — W3 Codespaces Development & Preview
+# 3. W3 Codespaces Development & Preview ✅
 
-> **這是現在唯一的立即優先項。不要先做 W4 UI。**
+> **狀態：完成。** Fresh Codespace engineering acceptance 與 deterministic Chromium browser acceptance 都已通過；W4 已解除 blocker。
 
 ## W3 目標
 
@@ -259,12 +259,14 @@ Human 只保留真正需要主觀判斷的 UX／劇情／視覺 approval；環�
 
 ### Acceptance
 
-- [ ] forwarded URL 能載入 title。
-- [ ] JS/CSS/module path 正常。
-- [ ] image/video/runtime assets 正常。
-- [ ] refresh/reload 不 404。
-- [ ] cinematic 可載入。
-- [ ] console 無 blocking runtime error。
+以下由 fresh Codespace private-tunnel smoke + Chromium browser acceptance 聯合證明：
+
+- [x] preview origin 能載入 title。
+- [x] JS/CSS/module path 正常。
+- [x] image/video/runtime assets 正常。
+- [x] refresh/reload 不 404。
+- [x] cinematic 可載入並取得約 10 秒 metadata。
+- [x] console/page 無 blocking runtime error。
 
 ## W3.3 AI-operated ephemeral Codespace acceptance
 
@@ -305,23 +307,25 @@ Human 只保留真正需要主觀判斷的 UX／劇情／視覺 approval；環�
 - [x] 4173 private tunnel 可載入 HTML/CSS/JS/route JSON，extensionless fallback 與 missing-asset 404 正常。
 - [x] acceptance 成功後 ephemeral Codespace 被自動刪除。
 
-### AI browser acceptance
+### Automated Chromium browser acceptance
 
-`npm run codespace:review` 驗證完成後，AI operator 使用其輸出的暫時 public URL，在 cloud browser 快速走：
+GitHub Actions `Browser Acceptance` 以 clean runtime + Playwright Chromium 執行 deterministic browser acceptance。Canonical proof：run `35933586244`。
 
-- [ ] title。
-- [ ] start。
-- [ ] continue。
-- [ ] reload → continue。
-- [ ] 許棠主線。
-- [ ] OL branch。
-- [ ] gallery。
-- [ ] branch/history view（現行版本）。
-- [ ] cinematic。
-- [ ] ending。
-- [ ] return to title。
-- [ ] narrow/mobile width smoke test。
-- [ ] review 完成後刪除 Codespace；public URL 不再存在。
+- [x] title / fresh start。
+- [x] continue。
+- [x] same-origin reload → continue。
+- [x] save/localStorage persistence。
+- [x] mute persistence。
+- [x] OL branch through real choice UI。
+- [x] gallery。
+- [x] branch/history view。
+- [x] cinematic 兩個 source、真實 metadata、skip、gallery playback。
+- [x] ending resolution + completion/endings persistence。
+- [x] return to title。
+- [x] 320px viewport title/game 無 horizontal overflow。
+- [x] console/page 無 blocking error。
+
+`npm run codespace:review` 仍保留作為 optional 主觀 UX/視覺 review surface；它不再是 W3 engineering gate。
 
 ### Human role
 
@@ -330,21 +334,21 @@ Human 只保留真正需要主觀判斷的 UX／劇情／視覺 approval；環�
 
 ## W3.4 localStorage 行為
 
-- [ ] 同一 forwarded origin reload 後，save/CG/endings/mute 等現行 localStorage 狀態保留。
-- [ ] 新 Codespace / 新 forwarded origin 沒有舊 browser localStorage，視為預期行為，不是 restore bug。
+- [x] 同一 browser origin reload 後，save/continue 與 mute persistence 已由 Chromium acceptance 驗證。
+- [x] ending/completion persistence 已由 Chromium acceptance 驗證。
+- [x] 新 Codespace / 新 forwarded origin 沒有舊 browser localStorage，視為預期行為，不是 restore bug。
 - [x] W3 不新增 cloud save。
 - [x] W3 不新增帳號/OAuth。
 
 ## W3.5 Work / cloud-browser review
 
-- [x] Canonical Work 路徑改為執行 `npm run codespace:review`，而不是要求 Human 手動點 Codespaces UI。
+- [x] `npm run codespace:review` 保留為 optional reviewer surface，而不是 W3 blocker。
 - [x] private engineering acceptance 不需要 public port。
-- [x] 只有 browser reviewer 需要直接開 URL 時，才由 script 暫時將 4173 設 public。
-- [ ] 在 Work／其他可操作已登入 `gh` 的 AI cloud computer 實際跑一次 review mode。
-- [ ] AI 打開輸出的 forwarded URL 並完成 browser smoke/playthrough。
-- [ ] review 後刪除 ephemeral Codespace。
+- [x] 只有主觀 reviewer 需要直接開 URL 時，才暫時將 4173 設 public。
+- [x] deterministic browser correctness 已移到 GitHub Actions Chromium acceptance，不依賴 Work UI automation。
+- [x] review 用 public URL 必須是 temporary；review 後刪除/停止 Codespace。
 - [x] 不把「永久 public dev port」當成 architecture requirement。
-- [ ] 若 GitHub policy 阻止 public port，記錄限制，改用 Sites/review deployment；不要繞過 policy。
+- [x] 若 GitHub policy 阻止 public port，使用 Browser Acceptance / Sites review；不要繞過 policy。
 
 ## W3.6 文件同步
 
@@ -361,8 +365,6 @@ W3 實作完成時，必須同一 milestone 更新：
 
 ## W3 Definition of Done
 
-只有以下全部成立才可把 W3 標成完成：
-
 - [x] `npm run dev` / `npm run preview` 存在且可用。
 - [x] AI-operated Codespace lifecycle command 已實作。
 - [x] private tunnel acceptance 與 temporary-public review mode 已實作。
@@ -370,10 +372,10 @@ W3 實作完成時，必須同一 milestone 更新：
 - [x] canonical docs 不再把 Local Working 描述為正式流程。
 - [x] authenticated AI operator 成功 create fresh Codespace → SSH → clean build/test → preview → delete（run `35932727909`）。
 - [x] 4173 真實 private forwarded-tunnel static acceptance 通過。
-- [ ] AI cloud browser 完成 reload/localStorage 與主要 playable flows。
-- [ ] public review URL 在 review 結束後被清理。
+- [x] Chromium 完成 reload/localStorage 與主要 playable flows（run `35933586244`）。
+- [x] cinematic/browser/mobile/console acceptance 通過。
 - [x] Human 不需參與 environment lifecycle；只保留 subjective product approval。
-- [x] engineering implementation 已 push；fresh Codespace acceptance run `35932727909` 全綠。最終 W3 只剩 AI browser UI/localStorage/playable-flow review gate。
+- [x] W3 verified implementation 已 push；**W3 complete**。
 
 ---
 
@@ -383,7 +385,7 @@ W3 實作完成時，必須同一 milestone 更新：
 >
 > Canonical feature spec：`docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md`
 
-W4 必須在 W3 完成後開始，避免 UI refactor 與開發環境 migration 混在同一個 milestone。
+W3 已完成；**W4 現在是 current implementation milestone**。
 
 ## W4.1 Title / navigation
 

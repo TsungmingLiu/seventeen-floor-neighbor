@@ -4,7 +4,7 @@ Updated: 2026-09-23
 
 ## Current milestone
 
-W3 — Codespaces Development & Preview. **Fresh ephemeral Codespace engineering acceptance is now proven end-to-end.** Run `35932727909` successfully created a Codespace, waited for the devcontainer, SSHed in, rebuilt assets from clean state, passed 44/44 media checks, build/validate/9 tests, served 4173, passed private forwarded-tunnel HTTP smoke, and deleted the Codespace. The only remaining W3 gate is `codespace:review` + AI browser UI/localStorage/playable-flow acceptance. Human no longer owns environment lifecycle; W4 waits only for that browser gate.
+**W4 — Player UI / Memories / CG Gallery. W3 is complete.** W3 has two independent proofs: fresh ephemeral Codespace engineering acceptance run `35932727909` completed create → devcontainer → SSH → clean 44/44 media checks → build/validate/9 tests → 4173 private-tunnel smoke → automatic delete; Chromium browser acceptance run `35933586244` passed start/continue/reload/localStorage, mute persistence, OL choice flow, branches, gallery, real cinematic loading/skip/gallery playback, ending persistence, 320px layout, and blocking console/page-error checks. `codespace:review` remains available for optional subjective UX review, not as an engineering gate.
 
 
 ## Canonical narrative plan
@@ -112,7 +112,8 @@ This is a target specification, not a claim about the current runtime. Preserve 
 - Codespace creation is fully non-interactive: the script queries available machine types, selects the smallest available machine, calls the Codespaces REST API, waits for `Available`, and only then SSHs in.
 - Live engineering acceptance run `35932727909` is the canonical W3 proof: 44/44 media checks, 3 Drive runtime downloads, build/validate, 9/9 tests, 4173 preview readiness, private forwarded-tunnel HTTP smoke, and successful automatic Codespace deletion.
 - During that acceptance work, the old `mv-first-kiss.mp4/webm` were proven non-portable/truncated for ffmpeg 5.1. They were rebuilt from the four canonical Drive keyframes into true 10-second H.264/AAC and VP9/Opus files; commit `6455239542e950ea54686b434a1a6c52a76e1feb` passes both ffmpeg 5.1 devcontainer and ffmpeg 6.1 Actions full-decode.
-- W3 is **not complete yet only because browser behavior remains to be exercised**: run `codespace:review`, verify title/start/continue/reload/localStorage/Xu Tang/OL/gallery/history/cinematic/ending/mobile behavior in an AI cloud browser, then delete the review Codespace.
+- W3 is **complete**. Chromium Browser Acceptance run `35933586244` deterministically exercised start/continue/reload/localStorage, mute persistence, OL branch choice, branches/gallery, cinematic metadata/skip/gallery playback, ending persistence, return-to-title, 320px layout, and blocking browser errors.
+- `npm run codespace:review` remains an optional temporary-public subjective review surface; it is no longer required to prove runtime correctness or close W3.
 - The old TODO milestone name “W4 Google Drive Asset Store” is retired. Drive-first storage is W2 foundation; after W3 Human acceptance, the actual W4 is the approved Player UI / Memories / CG Gallery implementation in `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md`.
 - Canonical workflow docs are being synchronized to Codespaces-only in the same W3 milestone; Local Working is no longer a supported acceptance path.
 

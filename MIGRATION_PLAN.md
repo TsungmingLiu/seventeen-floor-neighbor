@@ -100,11 +100,13 @@ Optional workflow `Codespace Acceptance` can execute the fresh environment path 
 
 Fresh engineering acceptance is now proven by run `35932727909`: ephemeral Codespace creation, clean asset/build/validate/test, preview readiness, private tunnel smoke, and automatic deletion all passed. The acceptance effort also repaired the first-kiss cinematic portability bug by rebuilding the 10-second MP4/WebM from canonical Drive keyframes (`6455239542e950ea54686b434a1a6c52a76e1feb`).
 
-W3 now has exactly one remaining gate: `codespace:review` + AI cloud-browser verification of same-origin localStorage/reload and the principal playable flows. Human participation is no longer required for environment lifecycle.
+W3 is complete. Browser Acceptance run `35933586244` uses a clean runtime plus Playwright Chromium and verifies fresh start, continue, same-origin reload/localStorage, mute persistence, the OL branch through real choice UI, branches/gallery, the 10-second cinematic and gallery playback, ending/completion persistence, return-to-title, 320px layout, and blocking console/page errors.
+
+`codespace:review` remains available only for subjective UX/visual review. It is no longer an engineering acceptance gate. Human participation is not required for environment lifecycle or deterministic browser correctness.
 
 ## 4. W4 — Player UI / Memories / CG Gallery
 
-Next product milestone after W3 acceptance.
+**Current implementation milestone.** W3 acceptance is complete.
 
 Canonical feature spec:
 

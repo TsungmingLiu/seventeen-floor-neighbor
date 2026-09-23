@@ -63,6 +63,8 @@ npm run codespace:review
 
 工程 acceptance 通過後才會暫時把 4173 設 public 並輸出 review URL。review 完成後刪除 Codespace。
 
+工程正確性不依賴人工 browser review。GitHub Actions 的 **Browser Acceptance** workflow 會以 Playwright Chromium 對 clean runtime 驗證 start/continue/reload/localStorage、OL branch、branches/gallery、cinematic、ending persistence、320px layout 與 blocking browser errors。W3 canonical browser proof 是 run `35933586244`；`codespace:review` 只保留給主觀 UX/視覺 review。
+
 若要完全由 GitHub Actions 觸發，可使用 **Codespace Acceptance** workflow_dispatch；這需要一次性配置 repository secret `CODESPACES_TOKEN`。GitHub Actions 內建 `GITHUB_TOKEN` 本身沒有 Codespaces lifecycle permission。
 
 ### 常用命令

@@ -1252,7 +1252,7 @@ npm run context -- --route <route-id> --node <node-id>
 : 由 authenticated AI/`gh` operator 建立一次性 fresh Codespace，跑 clean restore/build/test + private tunnel smoke，成功後自動刪除。
 
 `codespace:review`
-: 同樣先完成工程 acceptance，再暫時公開 4173、輸出 browser review URL 並保留環境直到 review 完成。
+: Optional subjective review surface；先完成工程 acceptance，再暫時公開 4173、輸出 browser review URL。Deterministic browser correctness 由 GitHub Actions `Browser Acceptance` / Playwright Chromium 負責。
 
 未來再加入：
 
@@ -1279,7 +1279,7 @@ npm run release
 
 1. **W1 Source Asset Boundary** — `public/`、`assets-src/`、`generated/`、`dist/` 邊界建立，clean build 可重建。
 2. **W2 Asset Check + Asset Build** — full-decode validation、Drive source/runtime store、remote hash verification 已建立。
-3. **W3 engineering acceptance** — Node 22 + ffmpeg + SSH devcontainer、4173 forwarded preview、`dev/preview/preview:smoke` 與 AI-operated `codespace:accept/review` lifecycle 已加入；run `35932727909` 已證明 fresh Codespace create → SSH → clean asset/build/validate/test → preview readiness → private tunnel smoke → auto-delete 全流程。W3 唯一剩餘 gate 是 AI cloud browser 的 UI/localStorage/playable-flow review；Human 不負責 environment lifecycle。
+3. **W3 complete** — Node 22 + ffmpeg + SSH devcontainer、4173 forwarded preview、`dev/preview/preview:smoke` 與 AI-operated `codespace:accept/review` lifecycle 已完成。Run `35932727909` 證明 fresh Codespace create → SSH → clean asset/build/validate/test → preview readiness → private tunnel smoke → auto-delete；Browser Acceptance run `35933586244` 以 Chromium 證明 reload/localStorage、OL branch、branches/gallery、cinematic、ending persistence、320px layout 與 blocking browser-error behavior。`codespace:review` 僅保留作 subjective UX review，不是 engineering gate。
 
 接下來：
 
