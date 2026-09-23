@@ -2,7 +2,7 @@
 
 > 狀態：**Canonical narrative dependency spec / implementation input**
 >
-> 版本：0.4
+> 版本：0.5
 >
 > 更新：2026-09-23
 >
@@ -16,11 +16,11 @@
 
 v0.4 目標規模：
 
-- 約 55 個 authoring-level scene/gate/ending nodes；
-- 約 37 個 Memory / Ending candidates before W4 compression；
-- scripting 完成後約 330–560 個 runtime story nodes；
-- 約 30+ 個明確特殊 CG slot；
-- 相較 v0.3 真正新增的完整獨立 scene 約 6–9 個；其餘複雜度主要由 conditional dialogue variants 提供。
+- 約 66 個 authoring-level scene/gate/ending/after-story nodes；
+- 約 48 個 Memory / Ending / Coda candidates before W4 compression；
+- scripting 完成後約 390–680 個 runtime story nodes；
+- 約 38+ 個明確特殊 CG slot（含 post-ending reward / profile-gated mature slots）；
+- braided core 相較 v0.3 真正新增的完整獨立 scene 約 6–9 個；v0.5 另加入 11 個 post-ending After Story / coda nodes。其餘複雜度主要由 conditional dialogue variants 提供。
 
 這個數量是 scope planning envelope，不是 validator 必須鎖死的 node count。
 
@@ -116,6 +116,20 @@ flowchart TD
   JYC14 --> JYCG(["JYC-G Good"])
   JYC14 --> JYCF(["JYC-F Friend"])
   JYC14 --> JYCD(["JYC-D Distance"])
+
+  XTG --> XTAF01["XT-AF-01 今晚不用回隔壁"]
+  XTAF01 --> XTAF02["XT-AF-02 星期日早晨"]
+  XTAF02 --> XTAF03["XT-AF-03 一個月後：留位置"]
+  XTF --> XTFC["XT-FC 樓下，還是隔壁"]
+  XTD --> XTDC["XT-DC 又一次電梯"]
+
+  JYCG --> JYCAF01["JYC-AF-01 最後一班車之後"]
+  JYCAF01 --> JYCAF02["JYC-AF-02 不用切換帳號"]
+  JYCAF02 --> JYCAF03["JYC-AF-03 公開前先給你看"]
+  JYCF --> JYCFC["JYC-FC 先給你看：幾週後"]
+  JYCD --> JYCDC["JYC-DC 新 handle"]
+
+  BOTHD --> BOTHDC["BOTH-DC 春天的17樓"]
 ~~~
 
 ---
@@ -383,6 +397,17 @@ jyc_suspects_romantic_overlap
 | XT-G/F/D | XT-14 | evaluation | unlock ending |
 | JYC-G/F/D | JYC-14 | evaluation | unlock ending |
 | BOTH-D | DECIDE | deception/trust | unlock ending |
+| XT-AF-01 | XT-G | build profile, intimacy tone | first stayover / afterstory progress |
+| XT-AF-02 | XT-AF-01 | sfw/full branch rejoins here | domestic fan-service memory |
+| XT-AF-03 | XT-AF-02 | none | Xu afterstory completion |
+| XT-FC | XT-F | none | friend coda |
+| XT-DC | XT-D | none | distance coda |
+| JYC-AF-01 | JYC-G | build profile, intimacy tone | first stayover / afterstory progress |
+| JYC-AF-02 | JYC-AF-01 | sfw/full branch rejoins here | online/offline domestic payoff |
+| JYC-AF-03 | JYC-AF-02 | none | JYC afterstory completion |
+| JYC-FC | JYC-F | none | friend coda |
+| JYC-DC | JYC-D | none | distance coda |
+| BOTH-DC | BOTH-D | none | double-distance coda |
 
 ---
 
@@ -516,7 +541,56 @@ SHURA 的台詞要引用玩家實際的 lie/omission，不能抽象指控。
 
 ---
 
-# 12. Ending evaluation
+# 12. Post-ending reward state
+
+Relationship resolution ending 不再等同 runtime terminal。
+
+## 12.1 Good unlocks
+
+~~~text
+ending.xu.good
+→ afterstory.xu.unlocked
+→ XT-AF-01 → XT-AF-02 → XT-AF-03
+
+ending.jyc.good
+→ afterstory.jyc.unlocked
+→ JYC-AF-01 → JYC-AF-02 → JYC-AF-03
+~~~
+
+Good After Story 是 reward phase：
+- 不再以「選錯就掉 ending」為主要遊戲壓力；
+- choice 主要改變 tone、fan-service beat、哪張 optional CG 解鎖；
+- 可以有 relationship micro-conflict，但不應把已建立關係重新變成第二套攻略考試。
+
+## 12.2 Friend / Distance codas
+
+~~~text
+XT-F → XT-FC
+XT-D → XT-DC
+JYC-F → JYC-FC
+JYC-D → JYC-DC
+BOTH-D → BOTH-DC
+~~~
+
+Coda 是 closure / continuation，不改寫原 ending classification。
+
+## 12.3 SFW / Full profile
+
+`sfw`：
+- romantic intimacy；
+- kiss / cuddle / stayover；
+- fade-to-black；
+- morning-after / aftercare continuity；
+- 不保留任何可推測「少了一張成人 CG」的 locked placeholder。
+
+`full`：
+- 可在 XT-AF-01/02、JYC-AF-01/02 中插入 mature-only runtime nodes / CG；
+- 必須以 compile-time profile pruning 移除；
+- mature nodes 不得是理解核心人物弧線的唯一來源；
+- all participants are adults and consent must be clear from scene context.
+
+---
+# 13. Ending evaluation
 
 數值只作調參。推薦 starting tuning：
 
@@ -557,7 +631,7 @@ Distance 不顯示 BAD END。
 
 ---
 
-# 13. W4 Memory mapping
+# 14. W4 Memory mapping
 
 玩家頁面不顯示所有 gate。
 
@@ -590,7 +664,7 @@ Distance 不顯示 BAD END。
 
 ---
 
-# 14. Suggested progression bands
+# 15. Suggested progression bands
 
 不是 runtime node index。
 
@@ -603,14 +677,15 @@ Distance 不顯示 BAD END。
 830–899  Repair invitations
 900–949  Commitment / overlap
 950–1049 Late lock
-1100+    Endings
+1100–1149 Relationship resolution endings
+1150–1299 After Story / Friend-Distance codas
 ~~~
 
 同 phase 的不同 heroine Memory 可以共用接近 rank。Replay frontier 比較的是 player-facing progression，不是誰的 route ID 比較大。
 
 ---
 
-# 15. Implementation guardrails
+# 16. Implementation guardrails
 
 1. 不把每種 focus order 編譯成獨立 route file。
 2. 不用單一 `route_primary` 在早期關閉另一人。
@@ -622,10 +697,12 @@ Distance 不顯示 BAD END。
 8. Shared scene 的 heroine ownership 必須由 Memory metadata 決定，不靠 speaker。
 9. 整個 graph 必須能在 content compiler 做 reachability / dangling target / impossible gate 測試。
 10. 實作時保留現有 playable prototype，逐步 migration；舊 story 可退役但不要用 one-off hardcode 把新 graph 塞進 renderer。
+11. Ending unlock 與 runtime terminal 分開；Good after-story 應可自然接續 Continue / Memories replay。
+12. `sfw/full` mature差異必須 compiler-level pruning，不用 CSS/hidden flag 假裝移除。
 
 ---
 
-# 16. Testing matrix for later implementation
+# 17. Testing matrix for later implementation
 
 至少測：
 
@@ -641,5 +718,9 @@ Distance 不顯示 BAD END。
 - SH-01 not triggered → later heroine does not mysteriously know the other is neighbor；
 - replay older Memory → knowledge/frontier semantics remain correct per W4；
 - Distance on one heroine does not automatically erase legitimate friendship state with the other unless scene causality requires it。
+- XT-G / JYC-G 解鎖後 Continue 可以進入對應 After Story，而不是永遠停在 ending card。
+- `sfw` build 從 Good → After Story → morning/coda 流程完整，且沒有 dangling mature target。
+- `full` build mature extension 能回到同一 after-story state，不改 ending classification。
+- Friend / Distance coda replay 不倒退 W4 frontier。
 
 這些案例通過後，braided route 才算 implementation-complete。
