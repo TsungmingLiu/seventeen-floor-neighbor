@@ -254,6 +254,46 @@ Canonical story / Character Bible identity 已同步：
 
 ---
 
+# 2.5 Canonical wardrobe mapping
+
+Wardrobe visual authority is the approved Drive pack in `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md`.  
+If an older prose description below differs from the approved wardrobe sheet, **the approved wardrobe sheet wins** unless a locked scene explicitly defines a variant.
+
+## Xu Tang
+
+| Sprite / use | Canonical wardrobe source |
+|---|---|
+| XT-SPR-WEEKDAY | XT Wardrobe A / Look 01 Weekday Neighbor |
+| XT-SPR-LATE-CASUAL | XT Wardrobe A / Look 02 Late-night Convenience Store |
+| XT-SPR-BOOKSTORE | XT Wardrobe A / Look 03 Bookstore / Café Date |
+| XT-SPR-NIGHT-MARKET | XT Wardrobe A / Look 04 Weekend / Night Out, or locked scene variant |
+| XT-SPR-RIVER-RAIN | XT Wardrobe B / Look 01 Riverside / Rainy Date |
+| XT-SPR-HOME-WORK | XT Wardrobe B / Look 02 Work / Deadline Home |
+| XT-SPR-CONFLICT | reuse the scene's current canonical outfit; expression changes only |
+| XT-SPR-REPAIR-DAYTRIP | XT Wardrobe B / Look 03 Repair / Ending / Serious Date |
+| XT-SPR-ENDING | XT Wardrobe B / Look 03 unless locked scene chooses a continuity variant |
+| XT-SPR-AFTER-STORY | XT Wardrobe B / Look 04 After Story / Weekend Morning |
+
+## Jiang Yucheng
+
+| Sprite / use | Canonical wardrobe source |
+|---|---|
+| JYC-SPR-CAMPUS | JYC Wardrobe A / Look 01 Campus / Graduate Student |
+| JYC-SPR-CAFE | JYC Wardrobe A / Look 02 Café / Creator |
+| JYC-SPR-ACG | JYC Wardrobe A / Look 03 ACG Outing |
+| JYC-SPR-GAMING | JYC Wardrobe A / Look 04 Gaming / Home Casual |
+| JYC-SPR-CASUAL | choose A Look 01/02 or B Look 01 based on locked scene tone |
+| JYC-SPR-ALIAS | reuse current scene outfit; identity/expression change only |
+| JYC-SPR-CREATOR | JYC Wardrobe B / Look 02 Creator Event |
+| JYC-SPR-CONFLICT | reuse current scene outfit; expression changes only |
+| JYC-SPR-CREATOR-TABLE | JYC Wardrobe B / Look 02 Creator Event / small-table variant |
+| JYC-SPR-ENDING | JYC Wardrobe B / Look 01 Cute Date or locked continuity variant |
+| JYC-SPR-AFTER-STORY | JYC Wardrobe B / Look 04 After Story / Weekend Morning |
+
+This mapping is deliberately semantic: future scene-specific variants may change coat/bag/accessory, but they must still derive from the canonical outfit family rather than invent a new unrelated character design.
+
+---
+
 # 3. Xu Tang sprite sets
 
 所有 Xu sprite 須符合 **27 歲成年女性、約170cm敘事設定**，並保留 approved identity face。
