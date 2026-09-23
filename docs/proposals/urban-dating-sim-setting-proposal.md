@@ -12,6 +12,28 @@
 
 ---
 
+
+## Prototype canonical narrative notice
+
+截至 2026-09-23，許棠／江雨澄 prototype 的 **production narrative 已由本 proposal 的早期單線 route 大綱升級為 braided-route v0.4**。
+
+本文件仍是世界觀、人物設定、主題與 future character pack 的 canonical content draft；但凡涉及以下 prototype 細節，請以新文件為準：
+
+- 完整雙女主 scene / beat / conflict / repair / ending：`docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md`
+- route DAG、scene dependencies、attention windows、overlap/deception/knowledge flags：`docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md`
+- 每個 scene 的背景、立繪、特殊 CG 與 production 描述：`docs/art/PROTOTYPE_ART_REQUIREMENTS.md`
+
+重要差異：
+
+- 不再於早期「星期六選擇」後永久 route lock；
+- 前中期允許兩位女主同時存在、重新靠近與自然 crossover；
+- 未 exclusivity 前同時約會不等同欺騙；
+- 真正 late lock 發生在 relationship/repair 已有重量之後；
+- 刻意隱瞞可進入 overlap / 安靜型修羅場；
+- 許棠、江雨澄舊 route 章節仍可作角色素材參考，但不再是 prototype scene ordering 的 authority。
+
+---
+
 ## 1. 核心定位
 
 本作從「17 樓鄰居搭訕小品」升級為 **台北都市成人戀愛模擬器**。
