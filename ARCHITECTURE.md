@@ -209,7 +209,8 @@ The content model must support at least:
 - scene video;
 - BGM;
 - SFX;
-- schema/content metadata.
+- schema/content metadata;
+- Memory Section / Memory Event (player-facing narrative units that are not one-to-one with engine nodes).
 
 ### 4.3 Story Engine State
 
@@ -1011,6 +1012,19 @@ Minimum save payload:
 
 Cloud save/account/OAuth is deferred until actual user demand exists.
 
+### 15.1 Replay Cursor and Story Frontier
+
+Once the player can replay earlier content from Memories, the currently played node and the deepest historical story progress must be separate concepts.
+
+- `cursorSnapshot`: the snapshot currently being played; replay may move it to earlier content.
+- `frontierSnapshot`: the deepest formal story progress reached so far; replaying old content must not regress it.
+- Continue and the title backdrop resolve from the frontier, not from the most recent replay cursor.
+- A replay only advances the frontier after it reaches a genuinely deeper Memory Event with a higher content-defined progression rank.
+- Progression rank belongs to player-facing Memory Event metadata; do not infer it from recency or raw node count.
+- Save migrations must preserve existing CG unlocks, ending unlocks, checkpoints, and recoverable progress.
+
+The player-facing Memories UI renders Memory Events rather than the raw engine graph. Detailed behavior and the W4 data contract are in `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md`.
+
 ---
 
 ## 16. Responsive UI
@@ -1042,6 +1056,21 @@ max-width: 100vw;
 ```
 
 Do not rely only on a fixed `max-width` because it can create excessive height on short laptop screens.
+
+### 16.1 Player-facing Memories
+
+The player Memories experience is a single vertically scrolling timeline:
+
+- do not expose a giant free-pan/free-zoom story DAG;
+- do not require a Memories Overview → Route Detail secondary navigation layer;
+- Story Nodes are runtime primitives, while Memory Events are player-facing narrative primitives;
+- small meaningful branches may render inline, while large fan-outs are compressed into clusters;
+- unexplored subtrees stay hidden to avoid spoilers and horizontal explosion;
+- single-heroine Memory Events may reuse their event CG as a faded face-focused backdrop, while common events use scene/background art;
+- prefer lazy-loaded `<img>` layers with focus metadata over eagerly loaded CSS background images;
+- mobile must not produce page-level horizontal scrolling.
+
+See `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md` for the detailed feature and acceptance specification.
 
 ---
 
