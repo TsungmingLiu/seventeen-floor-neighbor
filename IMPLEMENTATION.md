@@ -54,7 +54,7 @@
 
 ## 角色身份與鏡頭一致性
 
-- 原始人設圖是最高優先級身份來源；`content/references/xu-tang-identity-v2.png` 是多角度臉部錨點。
+- 原始人設圖是最高優先級身份來源；`source.xu_tang.identity_v2`（記錄於 `content/assets/source-catalog.json`，binary 位於 Google Drive `source-private`）是多角度臉部錨點。
 - 新圖不得只沿用上一張CG作身份參考，避免多代漂移。
 - 每個CG recipe 必須宣告 `headPose`，分別控制頭部俯仰、轉向、視線落點與頸部姿態。
 - 同批CG應輪換低頭、平視側面、收下巴回望及只用眼神上看等姿態，不可反覆仰頭直視鏡頭。
@@ -85,3 +85,15 @@ Current source boundaries after W1:
 `npm run build` removes and recreates `dist/`, copies static shell files from `public/`, copies mapped binary assets from `assets-src/`, then emits route packages and JS modules.
 
 The W1 binary copies are preservation copies of the old runtime blobs. W2 is responsible for decode/dimension checks and true runtime optimization/conversion.
+
+
+## W2 media validation and Drive asset provider
+
+- `npm run assets:check` 使用 ffprobe + full ffmpeg decode，並驗證尺寸、比例、duration/container、bytes 與 SHA-256。
+- `npm run assets:build` 支援 local source 與 `gdrive-public` runtime object。
+- Google Drive `source-private` 保存 canonical accepted masters；`content/assets/source-catalog.json` 保存 file ID、hash、尺寸等 provenance。
+- Google Drive `runtime-public` 保存 optimized WebP/MP4；CI/Codespaces 可以匿名抓取。
+- `dist/assets/` 是 ignored/generated output。
+- 三張 date CG 保持原 logical asset ID，但 physical runtime path 改為 WebP。
+- 新的大型 binary 不應透過 GitHub text/file write wrapper 寫入。
+- Cinematic MP4/H.264 是 required primary source；WebM 是 optional legacy fallback。

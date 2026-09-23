@@ -5,6 +5,17 @@
 > Canonical architecture: `ARCHITECTURE.zh-TW.md`.
 > Current implementation notes: `IMPLEMENTATION.md`.
 
+## Storage decision update — 2026-09-23
+
+本文件較早的 R2-first storage 步驟已被新的 canonical 決策取代：
+
+- current master vault：Google Drive `source-private`（Restricted）；
+- current runtime store：Google Drive `runtime-public`（Anyone with link）；
+- GitHub 保存 metadata/hash，不保存新生成的大型 binary；
+- Cloudflare R2 migration 延後到準備商業化前。
+
+若本文件與 `ARCHITECTURE.zh-TW.md` / `TODO.md` 衝突，以後兩者為準。
+
 ## Goal
 
 Move from the current runnable prototype to a workflow where:

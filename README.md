@@ -418,3 +418,21 @@ git status --short
 - `PROJECT_STATE.md`：目前里程碑、可玩路線與下一個內容決策。
 - `REFACTOR_PLAN.md`：本次分階段重構範圍、驗收與停點。
 - `AGENTS.md`：Codex 新對話自動載入的精簡專案規則。
+
+
+## Asset pipeline (W2)
+
+```bash
+npm run assets:check
+npm run assets:build
+npm run build
+```
+
+Current pre-commercial asset provider:
+
+- Google Drive `source-private`: Restricted canonical masters.
+- Google Drive `runtime-public`: anyone-with-link optimized runtime assets.
+
+`content/assets/source-catalog.json` tracks private master provenance. `content/assets/source-map.json` tracks runtime provider/file ID/hash metadata. Build verifies remote bytes and produces disposable `dist/assets/`.
+
+Cloudflare R2 migration is deferred until commercialization needs justify it.
