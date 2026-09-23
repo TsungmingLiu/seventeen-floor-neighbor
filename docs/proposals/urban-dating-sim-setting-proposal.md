@@ -17,6 +17,8 @@
 
 截至 2026-09-23，許棠／江雨澄 prototype 的 **production narrative 已由本 proposal 的早期單線 route 大綱升級為 braided-route v0.5**。
 
+角色 production visual identity 已另行 canonicalize：6-sheet reference pack 規格與許棠／江雨澄實際 Drive manifest 見 `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md`。
+
 本文件仍是世界觀、人物設定、主題與 future character pack 的 canonical content draft；但凡涉及以下 prototype 細節，請以新文件為準：
 
 - 完整雙女主 scene / beat / conflict / repair / ending：`docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md`
