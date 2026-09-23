@@ -24,10 +24,19 @@ jobs:
         run: |
           if [ -z "$GH_TOKEN" ]; then
             echo "::error::Missing repository secret CODESPACES_TOKEN."
-            echo "Create a fine-grained token scoped to this repository with Codespaces: write, then save it as Actions secret CODESPACES_TOKEN."
+            echo "Create a fine-grained token scoped to this repository with Codespaces: read/write and Codespaces metadata: read, then save it as Actions secret CODESPACES_TOKEN."
             exit 1
           fi
           gh auth status
+      - name: Verify Codespaces token permissions
+        env:
+          GH_TOKEN: ${{ secrets.CODESPACES_TOKEN }}
+        run: |
+          if ! gh api "repos/$GITHUB_REPOSITORY/codespaces/devcontainers" --silent; then
+            echo "::error::CODESPACES_TOKEN cannot read Codespaces metadata for this repository."
+            echo "Edit the fine-grained PAT and grant: Codespaces = Read and write; Codespaces metadata = Read-only."
+            exit 1
+          fi
       - name: Run AI-operated fresh Codespace acceptance
         env:
           GH_TOKEN: ${{ secrets.CODESPACES_TOKEN }}
