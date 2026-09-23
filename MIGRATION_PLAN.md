@@ -1,346 +1,188 @@
 # MIGRATION_PLAN.md
 
-> Execution plan for migrating the current prototype to the canonical Hybrid Local / Cloud workflow.
+> Updated: 2026-09-23
 >
-> Canonical architecture: `ARCHITECTURE.zh-TW.md`.
-> Current implementation notes: `IMPLEMENTATION.md`.
+> This file records the migration from the original prototype to the current **Codespaces-only** canonical workflow. For exact next actions, use `TODO.md`. For architecture, use `ARCHITECTURE.zh-TW.md`.
 
-## Storage decision update — 2026-09-23
+## 1. Canonical direction
 
-本文件較早的 R2-first storage 步驟已被新的 canonical 決策取代：
+The old Hybrid Local / Cloud model is retired.
 
-- current master vault：Google Drive `source-private`（Restricted）；
-- current runtime store：Google Drive `runtime-public`（Anyone with link）；
-- GitHub 保存 metadata/hash，不保存新生成的大型 binary；
-- Cloudflare R2 migration 延後到準備商業化前。
+```text
+GitHub
+= code/content/history
 
-若本文件與 `ARCHITECTURE.zh-TW.md` / `TODO.md` 衝突，以後兩者為準。
+Google Drive source-private
+= accepted private masters
 
-## Goal
+Google Drive runtime-public
+= optimized remote runtime objects
 
-Move from the current runnable prototype to a workflow where:
+GitHub Codespaces
+= canonical development/build/test environment
 
-- local Codex + local assets is the fast content-production loop;
-- GitHub is canonical code/content history;
-- private R2 stores cloud-checkpoint master assets;
-- GitHub Codespaces + ChatGPT Work can rebuild and preview without the local Mac;
-- ChatGPT Sites is used for stage-level review;
-- public R2 / CDN serves production runtime binaries;
-- adding new heroines/routes is primarily content production, not engine work.
+Codespaces forwarded preview
+= high-frequency human/AI review surface
 
-Do not rewrite the engine unless a validated content requirement demands it.
+Sites / Distribution Adapter
+= stable review and release
+```
 
----
+Local clones are unsupported fallbacks, not acceptance or release inputs.
 
-## Today
+## 2. Migration history
 
-### T1 — Canonical architecture in repo — DONE
+### W1 — Source Asset Boundary ✅
 
-**AI**
-- Add `ARCHITECTURE.zh-TW.md` as canonical architecture.
-- Keep `ARCHITECTURE.md` as English mirror.
-- Preserve old implementation notes in `IMPLEMENTATION.md`.
-- Update `AGENTS.md` read order.
+Completed and CI verified.
 
-**Acceptance**
-- New conversations can distinguish target architecture from current prototype.
+- source shell moved to `public/`;
+- preservation/source files separated from `dist/`;
+- `generated/` introduced as disposable workspace;
+- `dist/` became clean-build reproducible output;
+- logical asset IDs remained stable;
+- GitHub Actions Verify established.
 
-### T2 — Freeze the current milestone and inventory migration gaps
+CI reference: `35807627568`.
 
-**AI**
-- Treat current `main` as the pre-migration baseline.
-- Preserve route package, resume, branch history, context tooling and current story behavior.
-- Record the main gaps:
-  - source binaries still live under `dist/assets/`;
-  - validation still treats `dist/` as asset source;
-  - no `assets-src/` → `generated/` asset pipeline;
-  - no `assets:check`, `assets:build`, `preview`, `checkpoint`, `assets:fetch`, `release` commands;
-  - no private-R2 source checkpoint;
-  - no public-R2 runtime publishing;
-  - no SFW/Full compile-time pruning;
-  - many legacy node IDs are not semantic;
-  - current runtime is plain JavaScript, not yet React/TypeScript/Vite.
+### W2 — Asset Check + Asset Build ✅
 
-**Decision**
-- Do **not** migrate React/TypeScript/Vite this week.
-- First make the existing runtime reproducible and cloud-capable.
-- React migration is allowed later only if it materially improves maintainability or UI work.
+Completed and CI verified.
 
----
+- ffprobe/ffmpeg full-decode validation;
+- asset mapping/recipe/context checks;
+- damaged legacy media identified;
+- eight full masters recovered;
+- Google Drive `source-private` and `runtime-public` established;
+- `source-catalog.json` and `source-map.json` track canonical source/runtime metadata;
+- `gdrive-public` runtime objects download anonymously and verify byte size/SHA-256/full decode;
+- `dist/assets/` remains generated/ignored.
 
-## This Week — Milestone: Cloud-capable development pipeline
+CI reference: `35812177697`.
 
-Complete in this order.
+Drive-first storage is W2 infrastructure. It is **not** W4.
 
-### W1 — Source asset boundary
+## 3. W3 — Codespaces Development & Preview
 
-**AI**
-- Introduce `assets-src/` as the human/master asset source location.
-- Introduce `generated/runtime-assets/` and `generated/source-cache/`.
-- Refactor validators/build scripts so `dist/` is no longer the canonical source location.
-- Preserve all logical asset IDs and current story references.
-- Provide a safe migration path from current `dist/assets/` assets.
+### Implemented core
 
-**Human**
-- None unless a binary file is missing/corrupt locally.
+- Node 22 + ffmpeg/ffprobe devcontainer;
+- fixed forwarded preview port 4173;
+- dependency-free Node static server;
+- `npm run dev`;
+- `npm run preview`;
+- `npm run preview:smoke`;
+- MIME, SPA-style extensionless fallback, 404 handling, HEAD, byte Range/HTTP 206;
+- dev watch/rebuild for source/content;
+- CI preview-server smoke.
 
-**Acceptance**
-- `rm -rf dist && npm run build` is safe.
-- No irreplaceable asset exists only in `dist/`.
+### Remaining acceptance
 
-### W2 — Asset checking and runtime build
+A Human must create/rebuild a **fresh Codespace** and verify:
 
-**AI**
-- Add `npm run assets:check`.
-- Add `npm run assets:build`.
-- Validate filename, dimensions, aspect ratio and required source files.
-- Convert image masters to runtime WebP where appropriate.
-- Keep H.264 MP4 as the primary runtime video target; legacy WebM may remain temporarily for compatibility.
-- Produce readable missing-asset errors.
+```text
+npm run assets:check
+npm run assets:build
+npm run build
+npm run validate
+npm test
+npm run preview
+```
 
-**Human**
-- Review only if an asset must be regenerated.
+Then use the forwarded 4173 URL to smoke:
 
-**Acceptance**
-- Runtime assets can be regenerated from source assets.
-- Missing/bad assets fail with a useful path and asset ID.
-
-### W3 — Unified preview command
-
-**AI**
-- Add `npm run preview` / `npm run dev` using a lightweight static/dev server compatible with the existing runtime.
-- Ensure it works locally and inside Codespaces.
-- Document the expected forwarded port.
-
-**Human**
-- Open the preview and play the main flow.
-
-**Acceptance**
-- Local machine: one command starts preview.
-- Codespace: same command produces a forwarded URL.
-
-### W4 — Private R2 Cloud Checkpoint
-
-**Human**
-- Create or approve a Cloudflare R2 account/bucket if not already available.
-- Create a private source bucket.
-- Create least-privilege R2 credentials.
-- Put credentials into local environment / GitHub Codespaces Secrets; never paste them into source files.
+- title;
+- start/continue;
+- reload → continue;
+- Xu Tang route;
+- OL branch;
+- gallery;
+- current branch/history view;
+- cinematic;
+- ending/return to title;
+- narrow/mobile layout.
 
-**AI**
-- Add checkpoint metadata format.
-- Add `npm run checkpoint`.
-- Upload only referenced/accepted master assets to private R2.
-- Record hashes/object keys and Git commit/content version.
-- Verify cloud-complete invariants.
+Same-origin reload should preserve current browser `localStorage`. A newly created Codespace/forwarded origin does not inherit another origin's localStorage; that is expected.
 
-**Acceptance**
-- A checkpoint is considered valid only when:
-  - the GitHub commit exists; and
-  - every referenced master asset exists in private R2.
+Forwarded ports remain private by default. Only make 4173 public temporarily when a reviewer without the owner's GitHub authentication needs direct access; restore private/stop afterward.
 
-### W5 — Remote restore
+W3 is complete only after this acceptance plus green automated verification.
 
-**AI**
-- Add `npm run assets:fetch`.
-- Restore required checkpoint assets into `generated/source-cache/` or another ignored cache.
-- Verify a fresh Codespace can rebuild with no local Mac files.
+## 4. W4 — Player UI / Memories / CG Gallery
 
-**Human**
-- None after R2 credentials are configured.
+Next product milestone after W3 acceptance.
 
-**Acceptance**
-- Fresh Codespace:
-  `git clone/pull → assets:fetch → build → preview`.
+Canonical feature spec:
 
-### W6 — Build profiles
+`docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md`
 
-**AI**
-- Add build profile support.
-- Implement at least `sfw` and `full` compile-time filtering.
-- Ensure excluded content and assets do not ship in the SFW output.
+Key contracts:
 
-**Human**
-- Decide which content is explicitly SFW vs full when ambiguous.
+- one large Start/Continue plus Memories and CG;
+- no player-facing New Game/save-slot model;
+- one-page vertical Memories timeline;
+- Memory Event != engine node;
+- replay cursor != deepest story frontier;
+- heroine events use faded face-focused event CG backdrops;
+- common events use scene/background art;
+- CG gallery stays a collection wall.
 
-**Acceptance**
-- SFW build contains no excluded text/assets.
+Do not mix W4 implementation into W3 environment acceptance.
 
-### W7 — Sites review
+## 5. W5 — Cloud-complete Verification
 
-**AI**
-- Build the migrated version.
-- Publish a review build to ChatGPT Sites.
-- Record the Git commit/checkpoint identifier used.
+`checkpoint`, if retained as a command name, means **verification/provenance**, not “sync before turning off the Mac.”
 
-**Human**
-- Play through:
-  - title/start/continue;
-  - Xu Tang main route;
-  - OL branch;
-  - branch history;
-  - CG gallery;
-  - cinematic;
-  - mobile layout.
+Cloud-complete means:
 
-**Joint**
-- Fix blocking or obvious regression issues.
+```text
+GitHub commit
++
+all required accepted masters represented in canonical storage
++
+all required runtime objects resolvable from metadata/hashes
++
+fresh Codespace clean build succeeds
+```
 
-**Acceptance**
-- No major regression in core play loop.
-- Review build is traceable to a known commit/checkpoint.
+## 6. W6 — SFW / Full Build Profiles
 
-### W8 — Migration milestone
+Add compile-time pruning of content and binaries, dangling-target protection, and leakage tests.
 
-**AI**
-- Run:
-  - `npm run build`
-  - `npm run validate`
-  - `npm test`
-  - `git diff --check`
-- Update `PROJECT_STATE.md`.
-- Commit and push one verified migration milestone to `main`.
-- Tag/release note if useful.
+## 7. W7 — Review / Release
 
-**Human**
-- Approve milestone after Sites review.
+- stable Sites review bound to a known commit/profile;
+- deterministic release command/workflow;
+- production runtime-provider decision;
+- smoke/release record.
 
-**Acceptance**
-- From this point forward, use the canonical workflow:
-  - Local Working;
-  - Cloud Checkpoint;
-  - Remote Working;
-  - Sites Review;
-  - Cloud Release.
+Cloudflare R2 remains deferred until commercial/CDN/cache-control/custom-domain/traffic needs justify migration. Logical IDs must survive provider migration.
 
----
+## 8. Later scale test
 
-## This Month — Content scaling test
+Only after W3–W7 foundations are reliable:
 
-Goal: prove that adding heroines is mostly content production.
+```text
+Character Bible
+→ Story / Route
+→ Generation Queue
+→ Asset Generation
+→ Canonical Asset Ingest
+→ Codespace Integration
+→ Forwarded Preview
+→ Verified Commit
+```
 
-### M1 — Character roster
+Scale to 3–4 heroines and change engine architecture only when measured complexity requires it.
 
-Target total: 3–4 heroines.
+## 9. Hard gates
 
-**Human + AI**
-- Decide character concepts, visual hooks, personality contrasts and route roles.
-
-**AI**
-- Create/normalize Character Bible for each heroine.
-- Define stable character IDs and route/context structure.
-
-**Human**
-- Approve appearance/personality before large-scale generation.
-
-### M2 — Identity references
-
-**AI**
-- Produce generation specs for each heroine:
-  - identity sheet;
-  - multi-angle reference;
-  - core outfit;
-  - hair/makeup versions;
-  - invariants.
-
-**Human**
-- Generate/select final identity references in the chosen image service.
-
-**AI**
-- Register them in recipes/metadata and asset plan.
-
-### M3 — Full art refresh
-
-**AI**
-- Produce Generation Queues for sprites, major CGs and key cinematic moments.
-- Keep logical asset IDs stable where replacing existing art.
-- Use versioned physical filenames and dependency versions.
-
-**Human**
-- Generate and select images/videos.
-
-**AI**
-- Ingest, validate, optimize and preview every accepted batch.
-
-### M4 — Dialogue and route branches
-
-**AI**
-- Add each heroine's branch using existing story primitives.
-- Add dialogue, choices, state changes, endings and context files.
-- Prefer content-only changes.
-- Use semantic node IDs for new content.
-
-**Human**
-- Playtest character voice, chemistry and pacing.
-
-### M5 — Scale validation
-
-**AI**
-- Validate that adding heroine #3/#4 does not require engine changes.
-- Improve context tooling / branch filtering only if scale actually causes friction.
-- Measure initial-load/runtime asset size and optimize where necessary.
-
-**Acceptance**
-- 3–4 heroines coexist in one playable build.
-- No route-specific engine hacks.
-- New heroine workflow follows Character Bible → Generation Queue → assets → content → preview.
-
----
-
-## Public SFW Friend Test
-
-After the 3–4 heroine scale test passes:
-
-### P1 — SFW release candidate
-
-**AI**
-- Produce SFW profile build.
-- Verify content pruning.
-- Publish runtime binaries to public R2/CDN if the production pipeline is ready.
-- Deploy the static app to the selected public host.
-
-**Human**
-- Decide the public URL/audience.
-- Send to friends.
-
-### P2 — Friend-test checklist
-
-Collect feedback on:
-
-- whether the first 5 minutes are engaging;
-- character appeal and differentiation;
-- pacing;
-- confusing choices;
-- mobile usability;
-- loading performance;
-- save/resume reliability;
-- broken media;
-- whether players want to continue another route.
-
-Do not optimize monetization or advanced engine features before this feedback.
-
----
-
-## Responsibility Summary
-
-| Task | AI | Human | Joint |
-| --- | --- | --- | --- |
-| Architecture/docs | ✓ | approve | |
-| Asset/build scripts | ✓ | | |
-| Codespace-compatible preview | ✓ | | |
-| R2 bucket/account/credential approval | | ✓ | |
-| R2 integration scripts | ✓ | | |
-| Character concepts | draft | final judgment | ✓ |
-| Image/video generation in third-party tools | prompt/spec | generate/select | |
-| Story/dialogue/branch JSON | ✓ | creative feedback | ✓ |
-| Sites publish | ✓ when capability is available | playtest | ✓ |
-| Git verification/commit/push | ✓ | milestone approval | |
-| Public friend-test release | ✓ | audience/approval | ✓ |
-
-## Hard Gates
-
-1. Do not delete/move irreplaceable binaries until a verified source copy exists.
-2. Do not call a version cloud-complete without GitHub + private R2.
-3. Do not release remotely if a required master asset exists only on the local Mac.
-4. Do not add a new engine primitive merely to implement a character-specific scene.
-5. Do not publish the public SFW friend-test until the Sites review passes.
+- never delete the only safe master/source;
+- never make `dist/` source of truth;
+- never commit secrets;
+- never let a new accepted master exist only on one Mac/PC/Codespace;
+- never hardcode a Codespaces forwarded URL;
+- never treat a temporary public dev port as production hosting;
+- never call an input cloud-complete without fresh Codespace rebuild proof;
+- never add heroine-specific engine hacks when content/data can express the feature;
+- SFW must prune at build time, not merely hide UI.

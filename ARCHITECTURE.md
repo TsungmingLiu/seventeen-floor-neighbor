@@ -708,278 +708,203 @@ After acceptance:
 
 ---
 
-## 11. Hybrid Local / Cloud Development Model
 
-This section defines how development continues whether the user is at the local Mac or away from it.
+## 11. Codespaces-only Development Model
+
+The canonical development environment is **GitHub Codespaces**. The project no longer maintains equivalent Local Working and Remote Working paths.
 
 ### 11.1 System Responsibilities
 
 #### GitHub
 
-Canonical remote history for:
+Canonical history/source for code, structured content, tooling, devcontainer configuration, asset metadata, and Git history.
 
-- code;
-- content JSON;
-- Character Bible;
-- recipes;
-- prompts;
-- schemas;
-- tests;
-- tooling;
-- metadata;
-- this `ARCHITECTURE.md`.
+#### GitHub Codespaces
 
-GitHub is not the primary storage location for large CG/video binaries.
+The only supported development/build/test working environment.
 
-#### Local Git Working Copy
-
-Primary high-frequency working environment while the user is at the computer.
-
-Used with:
+A Codespace must be able to complete:
 
 ```text
-Codex
-local assets-src/
-local preview
-optional Sites review preview
+edit
+→ validate
+→ build
+→ preview
+→ test
+→ commit / push
 ```
 
-#### GitHub Codespace
+from a GitHub checkout plus remotely resolvable runtime asset metadata. A Codespace is disposable; accepted masters must never exist only on its filesystem.
 
-Remote working copy used when the local computer is unavailable.
+#### Google Drive `source-private/`
 
-A Codespace is disposable.
+Current pre-commercial canonical master vault: Restricted, with file ID/hash/dimensions/provenance recorded in the catalog.
 
-It is not the canonical code source.
+#### Google Drive `runtime-public/`
 
-Completed changes still need:
+Current remote-build runtime store: optimized objects only, accessible by URL/file ID and verified by byte size/SHA-256/full decode. It contains no secrets.
 
-```bash
-git commit
-git push
-```
+#### ChatGPT Work / other AI operators
 
-#### ChatGPT Work
+Operate GitHub, the Codespace, and review surfaces. They are not separate working copies and must not assume Mac-only sources exist.
 
-Remote operator for:
+#### ChatGPT Sites / Distribution Adapter
 
-- Codespace;
-- web interfaces;
-- previews;
-- related cloud tools.
+Stable review/release surfaces; they do not replace the Codespaces inner loop.
 
-Work itself is not permanent code storage.
+### 11.2 Role of the Local Machine
 
-#### Google Drive Source Vault (current)
+A local machine is no longer the canonical dev environment.
 
-During the pre-commercial phase, Google Drive `source-private` is the canonical cloud vault for accepted master assets. It stays Restricted.
+When at a computer, the user may use browser Codespaces or Desktop VS Code connected to the same Codespace.
 
-GitHub stores metadata only: logical source ID, Drive file ID, SHA-256, dimensions, MIME type, and byte size.
+A local clone may exist as an emergency/advanced fallback, but it is not an acceptance target, need not match the dev environment, must not contain the only accepted source, and is never release provenance.
 
-#### Google Drive Runtime Store (current)
+### 11.3 Reproducible Codespace
 
-Google Drive `runtime-public` stores optimized WebP/poster/MP4 runtime objects and uses `Anyone with the link / Viewer`.
+The repository provides `.devcontainer/` with:
 
-GitHub Actions/Codespaces can fetch these without Google credentials. Every remote runtime entry records file ID, URL, byte size, and SHA-256; build verifies and full-decodes the bytes.
+- Node major aligned with CI;
+- ffmpeg/ffprobe installed;
+- a fixed forwarded preview port;
+- no project-specific system dependency requiring manual installation.
 
-The Player does not need to hotlink Drive directly: build may materialize remote assets into `generated/runtime-assets/` and `dist/assets/`.
-
-#### Cloudflare R2 (future pre-commercialization migration)
-
-R2 is not a current-development blocker. Migrate when traffic, cache control, custom domains, automation, or commercialization justify it. Logical asset IDs and story content remain unchanged.
-
-#### ChatGPT Sites
-
-Review / presentation / deployment surface.
-
-Sites is not a source of truth.
-
-A Sites build should be traceable to:
-
-```text
-Git commit
-+ checkpoint/build identifier
-```
+W3 currently pins Node 22 and port 4173.
 
 ---
 
 ## 12. Operating Modes
 
-### Mode A — Local Working
+### Mode A — Codespace Working
 
-Use when the user is at the local computer.
-
-```text
-Codex
-+ local Git working copy
-+ local assets-src/
-+ local preview
-```
-
-Optional:
+The single canonical daily development mode:
 
 ```text
-ChatGPT Sites review preview
+GitHub
+→ Codespace
+→ npm run dev
+→ forwarded preview
+→ edit / playtest
+→ verify
+→ commit / push
 ```
 
-Rules:
+### Mode B — Verified Milestone
 
-- New images/videos can stay local while they are changing frequently.
-- Do not upload every candidate generation.
-- Local preview is the fastest iteration loop.
-- Source assets can temporarily exist only locally during active work.
-
-### Mode B — Cloud Checkpoint
-
-Before remote handoff/review/release, the current Drive-first checkpoint should:
-
-1. validate code/content/assets;
-2. place accepted canonical masters in Google Drive `source-private`;
-3. publish required optimized runtime assets to `runtime-public`;
-4. record Drive file IDs, SHA-256, dimensions, byte sizes, and content version;
-5. push code/content/metadata to GitHub;
-6. verify from a machine with no local assets that public runtime objects can be fetched anonymously, hash-checked, full-decoded, and built.
-
-Cloud-complete currently means:
+For stable review/release, verify an explicit commit as cloud-complete:
 
 ```text
 GitHub commit
 +
-required masters in Google Drive source-private
+accepted master catalog/storage
 +
-required runtime assets in Google Drive runtime-public
+runtime object metadata/hashes
 +
-matching source-map / source-catalog hashes
+fresh clean-build proof
 ```
 
-A future R2 migration preserves the same invariant and only swaps the provider.
+This is not a “before shutting down the Mac” sync step.
 
-### Mode C — Remote Working
-
-When the local Mac is unavailable:
+### Mode C — Sites Review
 
 ```text
-ChatGPT Work
-    ↓
-GitHub Codespace
-    ↓
-GitHub code/spec
-+ Google Drive runtime-public
+verified commit
+→ review build
+→ Sites
+→ Human playtest
 ```
 
-Normal remote builds require no Google credential:
-
-```bash
-git pull
-npm run assets:check
-npm run assets:build
-npm run content:validate
-npm run dev
-```
-
-`assets:build` fetches public Drive runtime objects, verifies SHA-256, and produces disposable local runtime assets.
-
-New binary masters are accepted into `source-private`; their optimized runtime objects are then published to `runtime-public` and catalog/map metadata updated before the version is cloud-complete.
-
-### Mode D — Sites Review
-
-Use after a batch of changes is reasonably stable.
-
-Purpose:
-
-- play inside ChatGPT;
-- perform a more formal review;
-- gather user feedback;
-- validate a known build.
-
-Sites review is not required after every small dialogue edit.
-
-### Mode E — Cloud Release
-
-During the pre-commercial phase:
+### Mode D — Release
 
 ```text
-GitHub commit
-+ Google Drive source-private catalog
-+ Google Drive runtime-public
-        ↓
-asset hash/decode validation
-        ↓
-generated/runtime-assets
-        ↓
-production build
-        ↓
-Sites / Cloudflare Pages / another Distribution Adapter
+verified commit
+→ production build/profile
+→ runtime distribution provider
+→ Distribution Adapter
+→ smoke test
+→ release record
 ```
-
-Canonical masters remain private. Before commercialization, migrate the provider to Cloudflare R2/CDN without changing logical asset IDs or story data.
 
 ---
 
 ## 13. Preview Model
 
-There are three different preview surfaces.
+### 13.1 Codespaces Forwarded Preview
 
-### 13.1 Local Preview
-
-Fastest inner loop while working locally.
-
-### 13.2 Codespaces Forwarded Preview
-
-Default remote-development preview.
-
-Typical flow:
+Default high-frequency development preview:
 
 ```bash
 npm run dev
 ```
 
-A forwarded HTTPS URL is then opened from ChatGPT Work / browser.
+It binds `0.0.0.0`, serves fixed port `4173`, and rebuilds after source/content changes.
 
-This is not the same thing as ChatGPT Sites Preview.
+Production-like acceptance:
+
+```bash
+npm run preview
+```
+
+This performs a clean build and serves the same `dist/` contract on port 4173 without a watch loop.
+
+Forwarded ports stay private by default. Make a port public only temporarily when a reviewer without the Codespace owner's GitHub authentication needs direct access; restore privacy/stop the service after review.
+
+The forwarded URL is temporary: never hardcode it or treat it as production hosting.
+
+### 13.2 Preview Smoke
+
+CI runs:
+
+```bash
+npm run preview:smoke -- --skip-build
+```
+
+to verify HTML/CSS/JS/route JSON, extensionless fallback, missing-asset 404 behavior, and MP4 Range/HTTP 206 support when video exists.
 
 ### 13.3 ChatGPT Sites Review Preview
 
-Used for stage-level review and validation inside ChatGPT.
+Sites is a stable milestone review surface for full/mobile playtesting against a known commit/build, not the high-frequency dev server.
 
-Treat this as a review/deployment adapter, not as canonical storage.
 ---
 
 ## 14. Asset Storage Model
 
-There are currently four layers.
+### 14.1 Git-backed `assets-src/`
 
-### 14.1 Local `assets-src/`
+Existing legacy/preservation sources and small sources appropriate for Git may remain here. Because they are Git-backed, they do not depend on one Mac.
 
-Fast local staging for active iteration and not-yet-uploaded assets.
+Do not delete a unique source merely to make storage look uniform.
 
-### 14.2 Google Drive `source-private`
+### 14.2 Google Drive `source-private/`
 
-Current canonical cloud master vault; keep Restricted.
+Default canonical vault for new accepted masters:
 
-`content/assets/source-catalog.json` records logical source ID → Drive file ID / SHA-256 / size / dimensions.
+```text
+Restricted
+canonical master
+not shipped directly to browser
+```
+
+Accepted masters must not live only on a local computer, ephemeral Codespace disk, or generation-tool staging.
 
 ### 14.3 `generated/` / `source-cache/`
 
-Disposable temporary/cache/intermediate data.
+Disposable cache/output only.
 
-### 14.4 Google Drive `runtime-public`
+### 14.4 Google Drive `runtime-public/`
 
-Current remote-build runtime store using `Anyone with the link / Viewer`.
-
-`content/assets/source-map.json` maps runtime paths to local sources or `gdrive-public` file IDs/URLs/SHA-256. CI/Codespaces fetch, hash-check, and full-decode before producing generated/runtime and dist assets.
+Optimized runtime store for remote builds. `content/assets/source-map.json` records provider/file ID/URL/bytes/SHA-256; CI/Codespace revalidates downloaded bytes/full decode before creating `generated/runtime-assets/` and `dist/assets/`.
 
 ### 14.5 Provider Abstraction
 
-Story JSON references logical asset IDs, never provider URLs. A future:
+Story/content depends only on logical asset IDs.
 
 ```text
-Google Drive → Cloudflare R2/CDN
+Git-backed source / Google Drive
+→ future R2/CDN
 ```
 
-changes provider/manifest metadata, not story content or engine semantics.
-
----
+Changing provider or physical filename must not require story JSON changes.
 
 ## 15. Save System
 
@@ -1142,18 +1067,12 @@ Every route should be checked for:
 
 ---
 
+
 ## 19. Secrets
 
 Never commit secrets.
 
-Local environment:
-
-```text
-.env
-OS secret store
-```
-
-Remote environment:
+The canonical development environment uses:
 
 ```text
 GitHub Codespaces Secrets
@@ -1162,102 +1081,92 @@ environment secrets
 
 The repository may document secret names, never secret values.
 
-Examples:
+The current Drive-first runtime build needs no private Google credential; `runtime-public` must be anonymously resolvable by CI/Codespace through recorded metadata.
+
+Future R2 migration may add:
 
 ```text
 CLOUDFLARE_ACCOUNT_ID
-# Not needed during the current Drive-first phase.
-# Add only during future R2 migration:
 R2_ACCESS_KEY_ID
 R2_SECRET_ACCESS_KEY
 ```
 
-Preview and release scripts must read credentials from the environment.
+Preview/release scripts read credentials only from environment state.
 
 ---
 
 ## 20. Target Tooling Interface
 
-The long-term command surface should converge toward:
+Currently implemented command surface:
 
 ```bash
-npm run content:validate
+npm run validate
 npm run assets:check
 npm run assets:build
-npm run preview
-npm run checkpoint
-npm run assets:fetch
 npm run build
+npm run dev
+npm run preview
+npm run preview:smoke
+npm run context -- --route <route-id> --node <node-id>
+```
+
+`validate`
+: Current structured-content/story/asset contract validation.
+
+`assets:check`
+: Validate source/runtime media, mappings, hashes/metadata, and full decode.
+
+`assets:build`
+: Build `generated/runtime-assets/` from Git-backed sources or remote runtime providers.
+
+`build`
+: Clean rebuild `dist/`.
+
+`dev`
+: Canonical Codespaces inner loop; build, serve port 4173, and rebuild on source/content changes.
+
+`preview`
+: Production-like clean build followed by static serving on port 4173.
+
+`preview:smoke`
+: CI contract test for the preview server.
+
+Future additions:
+
+```bash
+npm run checkpoint
 npm run release
 ```
 
-Semantics:
-
-`content:validate`
-: Validate structured game content and story graph.
-
-`assets:check`
-: Validate required source assets, paths, dimensions, and formats.
-
-`assets:build`
-: Produce optimized runtime assets.
-
-`preview`
-: Start the fastest preview supported in the current environment.
-
 `checkpoint`
-: Convert the current accepted working state into a cloud-complete version.
-
-`assets:fetch`
-: Restore checkpoint assets into a fresh machine/Codespace cache.
-
-`build`
-: Produce the application build.
+: W5 cloud-complete verification/provenance, not local-to-cloud synchronization.
 
 `release`
-: Accept only cloud-complete inputs and produce/deploy a production build.
+: Build/deploy production from cloud-complete verified input only.
+
+A separate `assets:fetch` command is not a W3 blocker; current `assets:build` already retrieves `gdrive-public` runtime objects.
 
 ---
 
 ## 21. Current Prototype Migration Strategy
 
-Do not rewrite the entire prototype.
+Do not rewrite the working prototype wholesale.
 
-Preserve working concepts already present:
+Completed/current:
 
-- `content/characters` Character Bible structure;
-- data-driven chapter/choice/branch model;
-- Asset Recipes;
-- logical asset IDs;
-- versioned character design dependencies;
-- asset impact planning;
-- dangling target / reachability / missing asset validation;
-- generic CG/cinematic render abstractions.
+1. **W1 Source Asset Boundary** — established `public/`, `assets-src/`, `generated/`, and disposable `dist/`.
+2. **W2 Asset Check + Asset Build** — full-decode validation, Drive master/runtime storage, remote hash verification.
+3. **W3 core tooling** — Node 22 + ffmpeg devcontainer, port 4173 forwarded preview, and `dev/preview/preview:smoke`; fresh-Codespace + Human acceptance remains the final gate.
 
-Priority migration work:
+Next:
 
-1. Stop treating `dist/` as source asset storage.
-2. Establish `assets-src/ → generated/ → dist/`.
-3. Add automatic WebP/image and video optimization.
-4. Add Cloud Checkpoint.
-5. Add Drive runtime fetch/cache for remote rebuilds.
-6. Replace hard-coded single-chapter loading with discovery.
-7. Migrate temporary node IDs to stable semantic IDs.
-8. Add versioned save schema/migrations.
-9. Add SFW/Full compile-time pruning.
-10. Add preview adapters:
-   - local;
-   - Codespaces forwarded URL;
-   - Sites review.
-11. Add cloud release pipeline:
-   - Google Drive source-private masters;
-   - optimized Google Drive runtime-public;
-   - production manifest;
-   - Distribution Adapter.
+4. **W4 Player UI / Memories / CG Gallery** from `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md`.
+5. **W5 Cloud-complete verification** for commit + canonical assets + clean-build provenance.
+6. **W6 SFW / Full profiles** with compile-time pruning/leakage tests.
+7. **W7 Review / Release pipeline** with Sites review and deterministic release.
+8. Then 3–4 heroine scale testing and only the semantic-ID/refactor work proven necessary.
 
-Do not rewrite the renderer merely to support a second character.
-
----
+React/TypeScript/Vite is not a W3 prerequisite.
 
 ## 22. MVP Non-Goals
 
@@ -1282,79 +1191,59 @@ Cloudflare R2 migration is currently deferred. Drive-first supports development,
 
 ---
 
+
 ## 23. Version Concepts
 
-Always distinguish:
+Always distinguish three states.
 
 ### Working Latest
 
-The newest local working state.
+The current Codespace working tree, which may contain uncommitted or experimental changes. It is not release provenance.
 
-May contain:
+### Verified Latest
 
-- unpushed code;
-- local-only assets;
-- experiments.
-
-Not guaranteed recoverable.
-
-### Cloud Latest
-
-Newest cloud-complete version:
+The latest cloud-complete verified commit:
 
 ```text
 GitHub commit
 +
-Google Drive source-private + runtime-public checkpoint
+required accepted masters safely represented in canonical storage
++
+required runtime objects resolvable from metadata/hashes
++
+fresh Codespace clean-build proof
 ```
-
-Can be rebuilt without the local Mac.
 
 ### Release Latest
 
-Newest officially deployed production manifest/build.
+The latest production manifest/build, traceable to an explicit Verified Latest commit/profile.
 
 ---
 
 ## 24. New Conversation / New AI Handoff Protocol
 
-Before changing the project, a new ChatGPT / Claude / Gemini / Codex session must:
+Before editing, every new ChatGPT / Claude / Gemini / Codex session must:
 
-1. Read `ARCHITECTURE.md`.
-2. Inspect the current repository instead of assuming the code already matches the target architecture.
-3. Determine the current operating mode:
-   - Local Working;
-   - Cloud Checkpoint;
-   - Remote Working;
-   - Sites Review;
-   - Release.
-4. Confirm the current Git branch and commit.
-5. Confirm the latest cloud-complete checkpoint if one exists.
-6. Determine whether required master assets exist only locally.
-7. Determine whether the requested task requires new binary assets.
-8. Choose the correct preview surface.
-9. Preserve the working prototype and migrate incrementally.
-10. Avoid inventing a parallel architecture when the repo has not yet fully reached this specification.
+1. Read `PROJECT_STATE.md`.
+2. Read `TODO.md`.
+3. Read `ARCHITECTURE.zh-TW.md`; use the English mirror when needed.
+4. Read `IMPLEMENTATION.md`.
+5. For Player UI / Memories / CG / replay/frontier work, read `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md`.
+6. Inspect current Git branch/commit/status; do not treat earlier chat as current repository state.
+7. For node-specific work, run `npm run context -- --route <route-id> --node <node-id>`.
+8. Determine whether the task needs a new binary master; accepted masters must enter canonical storage.
+9. Develop/test in Codespaces; do not invent a second Local-vs-Remote workflow.
+10. Preserve the working prototype and migrate incrementally.
 
-When the user is remote, do not assume local `assets-src/` is accessible.
-
-Use:
+Rebuildable project source is:
 
 ```text
 GitHub
 +
-Google Drive source-private + runtime-public checkpoint
+Google Drive canonical asset metadata/storage
 ```
 
-as the available reconstructible source.
-
-For a normal content task, the first useful question is not “which framework should we use?”
-
-It is:
-
-> Which character, route, scene, or pipeline capability are we changing?
-
----
+For normal content work, the first useful question is not “which framework?” but “which character, route, scene, or pipeline capability changes?”
 
 ## 25. Architecture Change Policy
 
@@ -1377,7 +1266,116 @@ Do not let implementation drift silently redefine the architecture.
 
 ---
 
+
 ## 26. Quick Decision Rules
+
+Before adding a feature, classify it:
+
+```text
+Content?
+Compiler?
+Player?
+Asset Pipeline?
+Preview?
+Distribution?
+```
+
+Daily development:
+
+```text
+GitHub
+→ Codespace
+→ npm run dev
+→ forwarded preview
+→ verify
+→ commit / push
+```
+
+New character:
+
+```text
+Character Bible
+→ Story / Route
+→ Generation Queue
+→ Asset Generation
+→ Canonical Asset Ingest
+→ Codespace Integration
+→ Playtest
+→ Verified Commit
+```
+
+Direct AI/external review of a forwarded preview:
+
+```text
+4173 private by default
+→ temporarily public only for review
+→ restore private / stop after review
+```
+
+Stable review:
+
+```text
+Verified commit
+→ Sites review preview
+```
+
+Release:
+
+```text
+cloud-complete verified inputs only
+```
+
+---
+
+## 27. Final Architecture Summary
+
+```text
+Human Creative Direction
+        +
+AI Content / Engineering
+        ↓
+Character Bible
+        ↓
+Story / Route / Scene Specs
+        ↓
+Asset Recipes + Generation Queue
+        ↓
+Asset Generation
+        ↓
+Canonical Master Storage
+        ↓
+Content + Asset Validation
+        ↓
+Content Compiler
+        ↓
+Verified Manifest
+        ↓
+Web Player
+        ↓
+GitHub Codespace
+        ↓
+Forwarded Preview
+        ↓
+Verified Git Commit + Google Drive Assets
+        ↓
+Sites Review / Distribution Adapter
+        ↓
+Production
+```
+
+The durable value is not the renderer. The reusable pipeline to optimize is:
+
+```text
+character idea
+→ structured story
+→ consistent assets
+→ validated build
+→ playable episode
+```
+
+while minimizing manual effort for each new character, route, and scene.
+
+
 
 When adding a feature, ask:
 

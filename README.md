@@ -2,7 +2,7 @@
 
 一款純前端、可靜態部署的都市戀愛視覺小說。玩家搬進 1703 的第一晚，因為一連串小事故認識住在 1702 的許棠；故事透過對話選項累積關係數值，進入不同結局。遊戲包含模組化角色設定、CG／立繪／動態回憶資產、可重生的生成配方、分支劇情、結局判定與回憶收藏功能。
 
-> **新對話／新協作者的第一條規則：** GitHub `main` 是專案備份與交接的基準。修改前先讀本 README、拉取最新 `main`，修改後執行 `npm run build` 與 `npm run validate`，並將來源資料、建置產物及新增圖片一起提交。
+> **新對話／新協作者的第一條規則：** 先讀 `PROJECT_STATE.md`、`TODO.md`、`AGENTS.md`。GitHub `main` 是 code/content/history source of truth；canonical 開發與測試環境是 GitHub Codespaces。不要依賴 earlier chat 或某台本地 Mac 的 working copy。
 
 ## 目前版本快照
 
@@ -20,31 +20,44 @@
 | 玩家資料 | 節點快照、已走連線、CG、結局、靜音設定存於瀏覽器 `localStorage` |
 | 靜態輸出 | `dist/` |
 
-## 快速開始
+## 快速開始（GitHub Codespaces）
 
-需要 Node.js；目前沒有第三方套件依賴。
+Repository 已包含 `.devcontainer/`：Node 22、ffmpeg/ffprobe 與 port 4173 forwarding 都由環境配置管理，不需要在 Mac/PC 維護另一套 project environment。
 
-```bash
-npm run validate
-npm run build
-```
-
-本機預覽可用任意靜態伺服器指向 `dist/`，例如：
+1. 在 GitHub repository 選 **Code → Codespaces → Create codespace on main**（或 resume 既有 Codespace）。
+2. Codespace 建立後執行：
 
 ```bash
-python3 -m http.server 8000 --directory dist
+npm run dev
 ```
 
-然後開啟 `http://localhost:8000`。
+3. 打開 Ports 面板中的 **Game Preview (4173)** forwarded URL。
+4. 修改 `public/`、`src/`、`content/` 或 `assets-src/` 後，dev server 會 rebuild；refresh browser 查看結果。
+5. milestone acceptance 使用：
+
+```bash
+npm run preview
+```
+
+`preview` 會先做 production-like clean build，再以同一 port 4173 serve `dist/`。
+
+Forwarded port 預設保持 private。只有要給未共享 GitHub authentication 的 reviewer 直接開啟時，才暫時設為 public；review 後恢復 private/停止 port。Forwarded URL 是 temporary address，不要 hardcode。
+
+Desktop VS Code 也可以直接連到同一個 Codespace；這仍是同一套 cloud working environment，不是 local clone workflow。
 
 ### 常用命令
 
 | 命令 | 用途 |
 | --- | --- |
-| `npm run validate` | 驗證角色版本、資產引用、生成配方、劇情連線、CG 規則與實體圖片 |
-| `npm run build` | 驗證後，將內容 JSON 與運行程式複製到 `dist/` |
-| `npm run assets:plan -- xu_tang` | 列出許棠人設變動會影響的所有立繪／CG，並標記版本是否過期 |
-| `npm run context -- --route xu-tang --node contact` | 輸出指定節點的前後關係、素材、配方、角色與路線脈絡 |
+| `npm run dev` | Codespaces 日常 inner loop：build、serve 4173、監看 source/content rebuild |
+| `npm run preview` | production-like clean build + 4173 preview |
+| `npm run preview:smoke -- --skip-build` | CI/工程 smoke：HTML/CSS/JS/route/fallback/Range requests |
+| `npm run validate` | 驗證角色版本、資產引用、生成配方、劇情連線與 CG 規則 |
+| `npm run assets:check` | 媒體 mapping/hash/metadata/full-decode 檢查 |
+| `npm run assets:build` | 從 Git source / Drive runtime provider 產生 runtime assets |
+| `npm run build` | clean rebuild `dist/` |
+| `npm run assets:plan -- xu_tang` | 列出角色設定變更影響的素材 |
+| `npm run context -- --route xu-tang --node contact` | 輸出指定節點局部脈絡 |
 
 ## 架構總覽
 
@@ -107,7 +120,7 @@ python3 -m http.server 8000 --directory dist
 
 所有 `src/*.js` 都會編譯至 `dist/`；建置會在模組匯入、HTML 的程式入口與樣式網址加上內容雜湊，避免部署後混用舊快取。請勿手動修改 `dist/*.js`。
 
-`dist/index.html`、`dist/styles.css` 與 `dist/assets/` 不由建置腳本生成；修改 UI 或加入圖片時需直接維護並提交。不要只改 `dist/content/*.json`，因為下一次建置會用 `content/` 覆蓋它們。
+`dist/` 是 disposable generated output，不應手動修改。HTML/CSS source 在 `public/`，runtime JS source 在 `src/`，structured content 在 `content/`。Runtime binary 由 `content/assets/source-map.json` 從 Git-backed source 或 Google Drive runtime provider 建立到 `generated/runtime-assets/`，再進入 `dist/assets/`。
 
 ## 角色模組
 
@@ -326,12 +339,12 @@ CG 或動態回憶會在故事第一次顯示時自動解鎖，資料沿用 `loc
 
 ### 新增或替換 CG／立繪
 
-1. 將最終圖片放進 `dist/assets/`；不要只留在暫存生成目錄。
-2. 在 manifest 建立或更新邏輯資產 ID、尺寸、焦點、收藏及角色依賴。
-3. 在 recipes 建立或更新一對一的生成配方。
-4. 在劇情中引用邏輯 ID，而非圖片檔名。
-5. CG 場景不要再疊加立繪。
-6. 執行完整建置與驗證。
+1. 候選圖可以留在生成工具／暫存位置；Human 接受後，確保 master 有 canonical copy：新的 accepted master 優先進 Google Drive `source-private/`，既有 Git-backed legacy source 可繼續保留。
+2. 產生 browser runtime WebP/MP4 時放入／發布至對應 runtime provider；需要 remote build 的 object 必須有 URL/file ID/bytes/SHA-256 metadata。
+3. 在 manifest 建立或更新邏輯資產 ID、尺寸、焦點、收藏及角色依賴。
+4. 在 recipes 建立或更新一對一的生成配方，並同步 source catalog / source map。
+5. 在劇情中引用邏輯 ID，而非圖片檔名；CG 場景不要再疊加立繪。
+6. 在 Codespace 執行 `assets:check`、`assets:build`、build/validate/tests，再用 forwarded preview playtest。
 
 ### 修改人設並批次更新圖片
 

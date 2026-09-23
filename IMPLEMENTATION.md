@@ -97,3 +97,27 @@ The W1 binary copies are preservation copies of the old runtime blobs. W2 is res
 - 三張 date CG 保持原 logical asset ID，但 physical runtime path 改為 WebP。
 - 新的大型 binary 不應透過 GitHub text/file write wrapper 寫入。
 - Cinematic MP4/H.264 是 required primary source；WebM 是 optional legacy fallback。
+
+## W3 — Codespaces Development / Preview implementation
+
+2026-09-23 起，canonical development environment 改為 GitHub Codespaces；local clone 不再是 supported acceptance target。
+
+目前實作：
+
+- `.devcontainer/Dockerfile`：基於 Node 22 devcontainer image，安裝 ffmpeg/ffprobe。
+- `.devcontainer/devcontainer.json`：自動 forward port 4173，label 為 `Game Preview`，建立後輸出 Node/ffmpeg/ffprobe 版本。
+- `tools/preview-server.mjs`：dependency-free Node HTTP server。
+  - `0.0.0.0:4173`；
+  - MIME handling；
+  - extensionless index fallback；
+  - missing asset 404；
+  - HEAD；
+  - byte Range / HTTP 206，供 MP4/WebM browser playback/seek；
+  - `Cache-Control: no-store` 方便 dev refresh。
+- `npm run dev`：先 build，serve 4173，監看 `public/`、`src/`、`content/`、`assets-src/` 並 debounce rebuild。
+- `npm run preview`：production-like clean build 後 serve 4173，不 watch。
+- `npm run preview:smoke`：HTTP contract smoke；CI 在既有 build 後以 `--skip-build` 執行。
+- GitHub Actions Verify 使用 Node 22 + ffmpeg，並加入 Preview server smoke。
+
+W3 仍需由 Human 在 **fresh Codespace** 完成 forwarded-preview/browser acceptance；connector 本身不能建立或操作 Codespace UI，因此 automated CI 通過不能取代該 gate。
+

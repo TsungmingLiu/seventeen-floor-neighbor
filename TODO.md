@@ -211,20 +211,20 @@ open Codespace
 
 ### AI 要做
 
-- [ ] 新增 `.devcontainer/`。
-- [ ] pin Node.js major version，與 CI 對齊為 Node 22。
-- [ ] 確保 `ffmpeg` / `ffprobe` 在 Codespace 可用。
-- [ ] 不要求使用者手動安裝 project-specific system dependencies。
+- [x] 新增 `.devcontainer/`。
+- [x] pin Node.js major version，與 CI 對齊為 Node 22。
+- [x] 確保 `ffmpeg` / `ffprobe` 在 Codespace 可用。
+- [x] 不要求使用者手動安裝 project-specific system dependencies。
 - [ ] devcontainer rebuild 後：
   - [ ] `node --version` 符合預期；
   - [ ] `ffmpeg -version` 可執行；
   - [ ] `ffprobe -version` 可執行。
-- [ ] 自動 forward 固定 preview port。
-- [ ] 給 preview port 清楚 label。
+- [x] 自動 forward 固定 preview port。
+- [x] 給 preview port 清楚 label。
 
 ### Hard rule
 
-- [ ] 不以「我的 Mac 已經裝好了」作為任何 dependency 的解法。
+- [x] 不以「我的 Mac 已經裝好了」作為任何 dependency 的解法。
 
 ## W3.2 Preview command
 
@@ -236,18 +236,18 @@ open Codespace
 
 ### AI 要做
 
-- [ ] 新增 dependency-light 或 dependency-free static dev server。
-- [ ] server bind `0.0.0.0`，讓 Codespaces forwarding 正常。
+- [x] 新增 dependency-light 或 dependency-free static dev server。
+- [x] server bind `0.0.0.0`，讓 Codespaces forwarding 正常。
 - [ ] `npm run dev`：
-  - [ ] 能從目前 source 建立可玩的 `dist/`；
-  - [ ] 啟動 port 4173；
-  - [ ] 適合高頻 edit → refresh loop。
+  - [x] 能從目前 source 建立可玩的 `dist/`；
+  - [x] 啟動 port 4173；
+  - [x] 適合高頻 edit → refresh loop。
 - [ ] `npm run preview`：
-  - [ ] 執行 clean/production-like build；
-  - [ ] 啟動同一 port；
-  - [ ] 用於 milestone acceptance/review。
-- [ ] 不為了取得 dev server 而 migration 到 React/TypeScript/Vite。
-- [ ] 若使用第三方 server package，必須有明確收益；否則優先 Node built-ins。
+  - [x] 執行 clean/production-like build；
+  - [x] 啟動同一 port；
+  - [x] 用於 milestone acceptance/review。
+- [x] 不為了取得 dev server 而 migration 到 React/TypeScript/Vite。
+- [x] 若使用第三方 server package，必須有明確收益；否則優先 Node built-ins。
 
 ### Acceptance
 
@@ -315,29 +315,29 @@ open Codespace
 
 W3 實作完成時，必須同一 milestone 更新：
 
-- [ ] `ARCHITECTURE.zh-TW.md`：移除/改寫 canonical Hybrid Local/Cloud workflow。
-- [ ] `ARCHITECTURE.md`：同步英文 mirror。
-- [ ] `MIGRATION_PLAN.md`：改成 Codespaces-only migration history/plan。
-- [ ] `PROJECT_STATE.md`：W3 狀態與下一 milestone。
-- [ ] `AGENTS.md`：新對話接手不得假設 local Mac。
-- [ ] `README.md`：移除 canonical localhost setup，改成 Codespaces usage。
-- [ ] `IMPLEMENTATION.md`：記錄實際 devcontainer/server/port。
-- [ ] 本 `TODO.md`：勾選完成項目。
+- [x] `ARCHITECTURE.zh-TW.md`：移除/改寫 canonical Hybrid Local/Cloud workflow。
+- [x] `ARCHITECTURE.md`：同步英文 mirror。
+- [x] `MIGRATION_PLAN.md`：改成 Codespaces-only migration history/plan。
+- [x] `PROJECT_STATE.md`：W3 狀態與下一 milestone。
+- [x] `AGENTS.md`：新對話接手不得假設 local Mac。
+- [x] `README.md`：移除 canonical localhost setup，改成 Codespaces usage。
+- [x] `IMPLEMENTATION.md`：記錄實際 devcontainer/server/port。
+- [x] 本 `TODO.md`：勾選完成項目。
 
 ## W3 Definition of Done
 
 只有以下全部成立才可把 W3 標成完成：
 
 - [ ] fresh Codespace 可自給自足 build。
-- [ ] `npm run dev` 存在且可用。
-- [ ] `npm run preview` 存在且可用。
+- [x] `npm run dev` 存在且可用。
+- [x] `npm run preview` 存在且可用。
 - [ ] 4173 forwarded preview 可 play。
 - [ ] current runtime smoke path 通過。
 - [ ] reload/localStorage 通過。
 - [ ] AI reviewer sharing path 已實測或有明確 fallback。
-- [ ] minimum verification 全通過。
+- [x] minimum verification 全通過。
 - [ ] canonical docs 不再把 Local Working 描述為正式流程。
-- [ ] verified commit 已 push。
+- [x] verified commit 已 push。
 
 ---
 
@@ -703,14 +703,14 @@ npm run assets:build
 > **不要跳步。**
 
 - [ ] **NEXT: W3 — Codespaces Development & Preview**
-  - [ ] 建立 Node 22 + ffmpeg 的 devcontainer。
-  - [ ] 固定 forwarded preview port 4173。
-  - [ ] 新增 `npm run dev`。
-  - [ ] 新增 `npm run preview`。
+  - [x] 建立 Node 22 + ffmpeg 的 devcontainer。
+  - [x] 固定 forwarded preview port 4173。
+  - [x] 新增 `npm run dev`。
+  - [x] 新增 `npm run preview`。
   - [ ] fresh Codespace clean restore/build。
   - [ ] forwarded preview smoke test。
   - [ ] localStorage reload test。
   - [ ] temporary public-port / Work review path test。
-  - [ ] 同步所有 canonical workflow docs。
-  - [ ] verify、commit、push。
+  - [x] 同步所有 canonical workflow docs。
+  - [x] verify、commit、push。
 - [ ] **THEN: W4 — Player UI / Memories / CG Gallery**

@@ -639,9 +639,9 @@ AI 同時產出 Generation Queue。
 3. 使用 AI 提供的 prompt/settings。
 4. 生成候選。
 5. 挑選最好的結果。
-6. 存到指定 `assets-src/` path。
+6. 候選素材可先留在生成工具／暫存位置；Human 接受後，將 master 保存到 canonical asset storage，並由 AI 更新 catalog/runtime mapping。
 
-在 local high-frequency iteration 階段，不需要把每一個候選 asset 都上傳 cloud。
+不需要把每一個候選 asset 都上傳 Drive；但 **accepted master 不得只存在某台本地電腦**。Git-tracked legacy source 可繼續留在 `assets-src/`，新的 accepted master 優先進 Google Drive `source-private/`.
 
 ### Step 4 — AI Integrate + Validate
 
@@ -706,290 +706,264 @@ Player
 - run smoke tests；
 - commit；
 - push；
-- 如需 remote release，確認 cloud-complete checkpoint；
+- 如需 review/release，確認 cloud-complete verification；
 - 透過 Distribution Adapter 發布。
 
 ---
 
-## 11. Hybrid Local / Cloud Development Model
 
-本節定義：不論使用者在 Mac 前還是離開電腦，專案如何銜接。
+## 11. Codespaces-only Development Model
+
+本專案的 canonical development environment 是 **GitHub Codespaces**。不再維護 Local Working 與 Remote Working 兩套等價流程。
 
 ### 11.1 各系統的唯一職責
 
 #### GitHub
 
-GitHub 是以下內容的 canonical remote history：
+GitHub 是以下內容的 canonical history/source：
 
 - code；
-- content JSON；
-- Character Bible；
-- recipes；
-- prompts；
-- schemas；
-- tests；
-- tooling；
-- metadata；
-- `ARCHITECTURE.md`；
-- `ARCHITECTURE.zh-TW.md`。
+- structured content；
+- build/validation tooling；
+- devcontainer；
+- asset metadata；
+- Git history。
 
-GitHub 不負責大量 CG/video binary 的主要儲存。
+#### GitHub Codespaces
 
-#### Local Git Working Copy
+Codespace 是唯一 supported development / build / test working environment。
 
-使用者在電腦前時的主要高頻 working environment。
-
-搭配：
+它必須能從 GitHub checkout 加上公開可解析的 runtime asset metadata 完成：
 
 ```text
-Codex
-local assets-src/
-local preview
-optional Sites review preview
+edit
+→ validate
+→ build
+→ preview
+→ test
+→ commit / push
 ```
 
-#### GitHub Codespace
+Codespace 是 disposable environment；任何必須永久保存的 accepted master 不得只存在 Codespace filesystem。
 
-使用者不在本地電腦前時的 remote working copy。
+#### Google Drive `source-private/`
 
-Codespace 是 disposable working environment。
+目前 pre-commercial canonical master vault。
 
-它不是 canonical source。
+- Restricted；
+- 保存 accepted master；
+- 用 catalog 記錄 file ID / hash / dimensions / provenance。
 
-完成的修改仍然需要：
+#### Google Drive `runtime-public/`
 
-```bash
-git commit
-git push
-```
+目前 remote-build runtime store。
 
-#### ChatGPT Work
+- Anyone with the link / Viewer；
+- 只放 optimized runtime objects；
+- build 以 URL/file ID/byte size/SHA-256 驗證後使用；
+- 不存 secrets。
 
-ChatGPT Work 是 remote operator，用來操作：
+#### ChatGPT Work / 其他 AI operator
 
-- Codespace；
-- web interfaces；
-- previews；
-- 其他 cloud tools。
+可操作 GitHub、Codespace 與 review surface。它不是另一份 working copy，也不得假設存在 Mac-only source。
 
-Work 本身不是永久 code storage。
+#### ChatGPT Sites / Distribution Adapter
 
-#### Google Drive Source Vault（目前）
+用於 stable review 或 release，不取代 Codespaces inner loop。
 
-目前 pre-commercial 階段，以 Google Drive `source-private` 保存已採用的 canonical master assets（identity sheets、approved CG masters、keyframes、source video 等）。Folder 保持 Restricted。
+### 11.2 Local machine 的定位
 
-GitHub 只保存 logical source ID、Drive file ID、SHA-256、尺寸、MIME type 與 byte size，不保存新生成的大型 master binary。
+本機不再是 canonical dev environment。
 
-#### Google Drive Runtime Store（目前）
+使用者人在電腦前可：
 
-Google Drive `runtime-public` 保存 optimized WebP / poster / MP4 runtime objects，Folder 使用 `Anyone with the link / Viewer`。
+- 用 browser 開 Codespace；或
+- 用 Desktop VS Code 連到 Codespace。
 
-GitHub Actions / Codespaces 可在沒有 Google credential 的情況下抓取 runtime object。每個 remote runtime entry 必須保存 file ID、下載 URL、byte size 與 SHA-256，build 時重新驗證並 full-decode。
+Local clone 可以作為 emergency/advanced fallback，但：
 
-目前 Player 不必直接 hotlink Drive；build 可以先下載到 `generated/runtime-assets/` 再輸出 `dist/assets/`，避免 CORS / Drive URL 行為耦合進 Player。
+- 不列入 acceptance；
+- 不要求環境一致；
+- 不得成為唯一 accepted asset/source；
+- 不得作為 release provenance。
 
-#### Cloudflare R2（未來商業化前遷移）
+### 11.3 Reproducible Codespace
 
-R2 不再是目前開發流程的 blocker。當流量、cache-control、自訂網域、部署自動化或商業化需求值得時，再把 storage provider 從 Drive 遷移到 R2；Story/content 的 logical asset IDs 不變。
+Repository 必須提供 `.devcontainer/`：
 
-#### ChatGPT Sites
+- Node major 與 CI 對齊；
+- 安裝 ffmpeg/ffprobe；
+- forward 固定 preview port；
+- project-specific system dependency 不要求 Human 手動安裝。
 
-ChatGPT Sites 是：
-
-- review surface；
-- presentation surface；
-- deployment surface。
-
-Sites 不是 source of truth。
-
-一個 Sites build 應能追溯到：
-
-```text
-Git commit
-+ checkpoint/build identifier
-```
+目前 W3 固定 Node 22 與 port 4173。
 
 ---
 
 ## 12. Operating Modes
 
-### Mode A — Local Working
+### Mode A — Codespace Working
 
-使用時機：使用者坐在本地電腦前。
-
-```text
-Codex
-+ local Git working copy
-+ local assets-src/
-+ local preview
-```
-
-可選：
+日常開發唯一 canonical mode：
 
 ```text
-ChatGPT Sites review preview
+GitHub
+→ Codespace
+→ npm run dev
+→ forwarded preview
+→ edit / playtest
+→ verify
+→ commit / push
 ```
 
-規則：
+未 commit 的 working tree 可以存在，但它只存在當前 Codespace；coherent change 完成後應驗證並 push。
 
-- 新生成圖片/影片可以先只存在 local。
-- 不要把每個候選 generation 都上傳。
-- Local preview 是最快 inner loop。
-- 活躍開發時，source asset 暫時只存在 local 是允許的。
+### Mode B — Verified Milestone
 
-### Mode B — Cloud Checkpoint
-
-以下情況應做 checkpoint：準備關本地電腦、讓 ChatGPT Work 接手、建立 recoverable milestone，或準備 remote review/release。
-
-目前 Drive-first checkpoint 應：
-
-1. 驗證 code/content/assets。
-2. 把 accepted canonical masters 放入 Google Drive `source-private`。
-3. 把需要 remote build 的 optimized runtime assets 放入 `runtime-public`。
-4. 記錄 master/runtime 的 Drive file ID、SHA-256、尺寸、byte size 與 content version。
-5. Push code/content/metadata 到 GitHub。
-6. 從無本地素材的環境驗證 public runtime 可匿名抓取、驗 hash、full-decode 並完成 build。
-
-目前 cloud-complete 定義：
+準備 stable review/release 時，對明確 commit 執行 cloud-complete verification：
 
 ```text
 GitHub commit
 +
-required masters in Google Drive source-private
+accepted master catalog/storage
 +
-required runtime assets in Google Drive runtime-public
+runtime object metadata/hashes
 +
-matching source-map / source-catalog hashes
+fresh clean build proof
 ```
 
-未來遷移 R2 時保留同一語意，只替換 storage provider。
+這不是「關 Mac 前同步」；Codespaces-only 後沒有 local-to-cloud checkpoint mode。
 
-### Mode C — Remote Working
+### Mode C — Sites Review
 
-本地 Mac 不可用時：
+需要穩定、可重複的人類 review URL 時：
 
 ```text
-ChatGPT Work
-    ↓
-GitHub Codespace
-    ↓
-GitHub code/spec
-+ Google Drive runtime-public
+verified commit
+→ review build
+→ Sites
+→ Human playtest
 ```
 
-正常 remote build 不需要 Google credential：
+### Mode D — Release
 
-```bash
-git pull
-npm run assets:check
-npm run assets:build
-npm run content:validate
-npm run dev
-```
-
-`assets:build` 依 `content/assets/source-map.json` 抓取公開 Drive runtime object、驗 SHA-256，再產生 disposable runtime assets。
-
-若修改需要新的 binary master，accepted master 先進 `source-private`，再生成／驗證 runtime asset 並發布到 `runtime-public`，更新 catalog/map 後才算 cloud-complete。
-
-### Mode D — Sites Review
-
-使用時機：一批修改已相對穩定。
-
-用途：
-
-- 在 ChatGPT 裡直接玩；
-- 做較正式的 review；
-- 收集使用者 feedback；
-- 驗證某個已知 build。
-
-不需要每改一句 dialogue 都重新部署 Sites。
-
-### Mode E — Cloud Release
-
-目前 pre-commercial release 可以在 Mac 關機時完成。
+只接受已驗證 input：
 
 ```text
-GitHub commit
-+ Google Drive source-private catalog
-+ Google Drive runtime-public
-        ↓
-asset hash/decode validation
-        ↓
-generated/runtime-assets
-        ↓
-production build
-        ↓
-Sites / Cloudflare Pages / other Distribution Adapter
+verified commit
+→ production build/profile
+→ runtime distribution provider
+→ Distribution Adapter
+→ smoke test
+→ release record
 ```
-
-Canonical masters 留在 `source-private`。準備商業化時再把 Drive provider 遷移到 Cloudflare R2/CDN；logical asset IDs 與 story data 不改。
 
 ---
 
 ## 13. Preview Model
 
-專案有三種不同 preview surface。
-### 13.1 Local Preview
+### 13.1 Codespaces Forwarded Preview
 
-使用者在本地工作時的最快 inner loop。
-
-### 13.2 Codespaces Forwarded Preview
-
-Remote development 的預設 preview。
-
-典型流程：
+日常 development 的預設 preview。
 
 ```bash
 npm run dev
 ```
 
-取得 forwarded HTTPS URL，再由 ChatGPT Work / browser 打開。
+- bind `0.0.0.0`；
+- fixed port `4173`；
+- Codespaces `forwardPorts` 自動轉發；
+- Human 在同一 forwarded origin refresh/playtest；
+- source/content 變更後 dev server rebuild，瀏覽器 refresh 看結果。
 
-這不是 ChatGPT Sites Preview。
+Production-like acceptance：
+
+```bash
+npm run preview
+```
+
+它先 clean build，再以同一 static server/port 提供 `dist/`。
+
+Forwarded port 預設保持 private。只有需要讓未共享 GitHub authentication 的 reviewer 直接打開時，才在 review 期間暫時設為 public；review 後恢復 private/停止服務。
+
+Forwarded URL 是 temporary review address：
+
+- 不 hardcode；
+- 不當 production URL；
+- Codespace 重建／重新建立後可改變。
+
+### 13.2 Preview Smoke
+
+CI 使用：
+
+```bash
+npm run preview:smoke -- --skip-build
+```
+
+驗證：
+
+- HTML/CSS/JS/route JSON；
+- extensionless fallback；
+- missing asset 404；
+- video Range request/HTTP 206（存在 MP4 時）。
 
 ### 13.3 ChatGPT Sites Review Preview
 
-用於階段性 review 與 ChatGPT 內驗收。
+Sites 是 stable milestone review surface，不是 high-frequency dev server。
 
-把 Sites 視為 review/deployment adapter，不是 canonical storage。
+用途：
+
+- 較完整 human playtest；
+- 手機 review；
+- 對照已知 Git commit/build；
+- milestone approval。
 
 ---
 
 ## 14. Asset Storage Model
 
-目前有四層。
+### 14.1 Git-backed `assets-src/`
 
-### 14.1 Local `assets-src/`
+目前保留既有 legacy/preservation source，以及適合進 Git 的小型 source。因為它們存在 Git，不依賴某台 Mac。
 
-本地高速迭代與尚未上雲的 staging；不是唯一 canonical cloud copy。
+不要為了形式統一而刪除尚未有安全 canonical replacement 的 source。
 
-### 14.2 Google Drive `source-private`
+### 14.2 Google Drive `source-private/`
 
-目前 canonical cloud master vault，保持 Restricted。
+新的 accepted master 預設 canonical vault：
 
-`content/assets/source-catalog.json` 記錄 logical source ID → Drive file ID / SHA-256 / byte size / dimensions。
+```text
+Restricted
+canonical master
+not shipped directly to browser
+```
+
+accepted master 不得只留在本地電腦、Codespace ephemeral disk 或生成工具暫存區。
 
 ### 14.3 `generated/` / `source-cache/`
 
-temporary/cache/intermediate data，永遠 disposable。
+都是 disposable cache/output。
 
-### 14.4 Google Drive `runtime-public`
+可以刪除並重建，不是 source of truth。
 
-目前 remote-build runtime store，使用 `Anyone with the link / Viewer`。
+### 14.4 Google Drive `runtime-public/`
 
-`content/assets/source-map.json` 將 runtime path 對應到 local source 或 `gdrive-public` file ID / URL / SHA-256。CI/Codespace 抓取、驗 hash、full-decode 後才產生 `generated/runtime-assets/` 與 `dist/assets/`。
+remote build 使用的 optimized runtime store。
+
+`content/assets/source-map.json` 保存 provider/file ID/URL/bytes/SHA-256。CI/Codespace 下載後重新驗 hash/full-decode，再產生 `generated/runtime-assets/` 與 `dist/assets/`。
 
 ### 14.5 Provider Abstraction
 
-Story JSON 永遠只引用 logical asset ID，不直接寫 Google Drive 或 R2 URL。
+Story/content 只依賴 logical asset IDs。
+
+Storage provider 可演進：
 
 ```text
-Google Drive → Cloudflare R2/CDN
+Git-backed source / Google Drive
+→ future R2/CDN
 ```
 
-未來只需要 migration provider/manifest metadata，不修改 story content 或 engine semantics。
-
----
+provider 或 physical filename 改變不得迫使 story JSON 改變。
 
 ## 15. Save System
 
@@ -1150,18 +1124,12 @@ Prototype 階段：
 
 ---
 
+
 ## 19. Secrets
 
 永遠不要 commit secrets。
 
-Local environment：
-
-```text
-.env
-OS secret store
-```
-
-Remote environment：
+Canonical development environment 使用：
 
 ```text
 GitHub Codespaces Secrets
@@ -1170,12 +1138,12 @@ environment secrets
 
 Repository 可以記錄 secret 名稱，但不能記錄 secret value。
 
-例如：
+目前 Drive-first runtime build 不需要 Google private credential；`runtime-public` 必須能由 CI/Codespace 依 metadata 匿名取得。
+
+未來 R2 migration 時才可能加入：
 
 ```text
 CLOUDFLARE_ACCOUNT_ID
-# 目前 Drive-first 不需要在 repo / Codespace 保存 Google Drive private credential。
-# 未來 R2 migration 時才加入：
 R2_ACCESS_KEY_ID
 R2_SECRET_ACCESS_KEY
 ```
@@ -1186,44 +1154,56 @@ Preview / release scripts 只能從 environment 讀取 credentials。
 
 ## 20. Target Tooling Interface
 
-長期 tooling command surface 應收斂到：
+目前已實作 command surface：
 
 ```bash
-npm run content:validate
+npm run validate
 npm run assets:check
 npm run assets:build
-npm run preview
-npm run checkpoint
-npm run assets:fetch
 npm run build
-npm run release
+npm run dev
+npm run preview
+npm run preview:smoke
+npm run context -- --route <route-id> --node <node-id>
 ```
 
 語意：
 
-`content:validate`
-: 驗證 structured game content 與 story graph。
+`validate`
+: 驗證 structured content、story graph、asset references 等現行契約。
 
 `assets:check`
-: 驗證 required source assets、path、尺寸與格式。
+: 驗證 required source/runtime media、mapping、hash/metadata 與 full decode。
 
 `assets:build`
-: 產生 optimized runtime assets。
-
-`preview`
-: 在當前 environment 啟動最快可用 preview。
-
-`checkpoint`
-: 把目前 accepted working state 轉成 cloud-complete version。
-
-`assets:fetch`
-: 在 fresh machine / Codespace 還原 checkpoint assets 到 cache。
+: 從 Git-backed source 或 remote runtime provider 產生 `generated/runtime-assets/`。
 
 `build`
-: 產生 application build。
+: clean rebuild `dist/`。
+
+`dev`
+: Codespaces canonical inner loop；build 後 serve 4173 並監看 source/content 變更 rebuild。
+
+`preview`
+: production-like clean build 後 serve 4173，不進 watch loop。
+
+`preview:smoke`
+: CI static-server contract test。
+
+未來再加入：
+
+```bash
+npm run checkpoint
+npm run release
+```
+
+`checkpoint`
+: W5 cloud-complete verification/provenance；不是 local-to-cloud sync。
 
 `release`
-: 只接受 cloud-complete input，產出並部署 production build。
+: 只接受 cloud-complete verified input，建立 production release。
+
+不需要獨立 `assets:fetch` 作為 W3 blocker；現行 `assets:build` 已能直接取得 `gdrive-public` runtime objects。
 
 ---
 
@@ -1231,41 +1211,21 @@ npm run release
 
 不要整個推翻 prototype。
 
-保留已經有效的概念：
+已完成：
 
-- `content/characters` Character Bible structure；
-- data-driven chapter/choice/branch model；
-- Asset Recipes；
-- logical asset IDs；
-- versioned character design dependencies；
-- asset impact planning；
-- dangling target / reachability / missing asset validation；
-- generic CG/cinematic render abstractions。
+1. **W1 Source Asset Boundary** — `public/`、`assets-src/`、`generated/`、`dist/` 邊界建立，clean build 可重建。
+2. **W2 Asset Check + Asset Build** — full-decode validation、Drive source/runtime store、remote hash verification 已建立。
+3. **W3 core tooling** — Node 22 + ffmpeg devcontainer、4173 forwarded preview、`dev/preview/preview:smoke` 已加入；fresh Codespace + Human acceptance 是最後 gate。
 
-優先 migration：
+接下來：
 
-1. 停止把 `dist/` 當 source asset storage。
-2. 建立 `assets-src/ → generated/ → dist/`。
-3. 加入 automatic WebP / image / video optimization。
-4. 建立 Cloud Checkpoint。
-5. 建立 Drive runtime fetch/cache，讓 remote rebuild 可行。
-6. 把 hard-coded single-chapter loading 改成 discovery。
-7. 把 temporary node IDs 遷移到 stable semantic IDs。
-8. 建立 versioned save schema/migration。
-9. 建立 SFW/Full compile-time pruning。
-10. 建立 preview adapters：
-    - local；
-    - Codespaces forwarded URL；
-    - Sites review。
-11. 建立 cloud release pipeline：
-    - Google Drive source-private masters；
-    - optimized Google Drive runtime-public；
-    - production manifest；
-    - Distribution Adapter。
+4. **W4 Player UI / Memories / CG Gallery** — 依 `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md` 實作。
+5. **W5 Cloud-complete verification** — 對 commit + canonical assets + clean build 產生 provenance。
+6. **W6 SFW / Full profiles** — compile-time pruning 與 leakage tests。
+7. **W7 Review / Release pipeline** — Sites review、deterministic release。
+8. 之後才做 3–4 女主 scale test 與必要的 semantic-ID/refactor work。
 
-不要因為要加第二個角色就重寫 renderer。
-
----
+React/TypeScript/Vite 不是 W3 prerequisite；只有後續真實複雜度證明需要時再 migration。
 
 ## 22. MVP Non-Goals
 
@@ -1290,37 +1250,40 @@ Cloudflare R2 migration 目前 deferred：Drive-first 先支援開發、Sites re
 
 ---
 
+
 ## 23. Version Concepts
 
 永遠區分以下三種版本。
 
 ### Working Latest
 
-最新 local working state。
+目前 Codespace working tree。
 
 可能包含：
 
-- unpushed code；
-- local-only assets；
-- experimental changes。
+- uncommitted code/content；
+- experimental changes；
+- 尚未通過完整 verification 的修改。
 
-不保證可恢復。
+它不是 release provenance。
 
-### Cloud Latest
+### Verified Latest
 
-最新 cloud-complete version：
+最新 cloud-complete verified commit：
 
 ```text
 GitHub commit
 +
-Google Drive source-private + runtime-public checkpoint
+required accepted masters safely represented in canonical storage
++
+required runtime objects resolvable from metadata/hashes
++
+fresh Codespace clean-build proof
 ```
-
-不需要本地 Mac 也能重建。
 
 ### Release Latest
 
-最新正式發布的 production manifest/build。
+最新正式發布的 production manifest/build；必須可追溯到 Verified Latest 的明確 commit/profile。
 
 ---
 
@@ -1328,30 +1291,23 @@ Google Drive source-private + runtime-public checkpoint
 
 任何新的 ChatGPT / Claude / Gemini / Codex session，在修改專案前必須：
 
-1. 讀 `ARCHITECTURE.md` 或 `ARCHITECTURE.zh-TW.md`。
-2. 檢查當前 repository，不要假設 code 已完全符合 target architecture。
-3. 判斷目前 operating mode：
-   - Local Working；
-   - Cloud Checkpoint；
-   - Remote Working；
-   - Sites Review；
-   - Release。
-4. 確認目前 Git branch 與 commit。
-5. 確認最近 cloud-complete checkpoint（如果有）。
-6. 判斷 required master assets 是否只存在 local。
-7. 判斷本次任務是否需要新的 binary asset。
-8. 選擇正確 preview surface。
-9. 保留目前可運作 prototype，漸進 migration。
-10. 不要因為 repo 尚未完全符合 spec，就另創第二套 architecture。
+1. 讀 `PROJECT_STATE.md`。
+2. 讀 `TODO.md`。
+3. 讀 `ARCHITECTURE.zh-TW.md`；需要英文時再讀 mirror。
+4. 讀 `IMPLEMENTATION.md`。
+5. 若涉及 Player UI / Memories / CG / replay/frontier，讀 `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md`。
+6. 檢查目前 Git branch/commit/status，不假設 earlier chat 是最新狀態。
+7. node-specific work 先執行 `npm run context -- --route <route-id> --node <node-id>`。
+8. 判斷本次是否需要新 binary master；accepted master 必須進 canonical storage。
+9. 開發/測試使用 Codespace；不要建立 Local-vs-Remote 第二套 workflow。
+10. 保留可運作 prototype，漸進 migration。
 
-如果使用者不在本地電腦前，不要假設可以讀取 local `assets-src/`。
-
-此時可重建的 source 是：
+可重建的專案來源是：
 
 ```text
 GitHub
 +
-Google Drive source-private + runtime-public checkpoint
+Google Drive canonical asset metadata/storage
 ```
 
 處理一般 content 任務時，第一個真正有用的問題不應是：
@@ -1361,8 +1317,6 @@ Google Drive source-private + runtime-public checkpoint
 而應該是：
 
 > 「這次要改哪個角色、route、scene，或 pipeline capability？」
-
----
 
 ## 25. Architecture Change Policy
 
@@ -1385,7 +1339,122 @@ Google Drive source-private + runtime-public checkpoint
 
 ---
 
+
 ## 26. Quick Decision Rules
+
+增加功能前先問：
+
+```text
+Is this Content?
+Is this Compiler?
+Is this Player?
+Is this Asset Pipeline?
+Is this Preview?
+Is this Distribution?
+```
+
+如果答案不清楚，先不要寫 code。
+
+日常開發：
+
+```text
+GitHub
+→ Codespace
+→ npm run dev
+→ forwarded preview
+→ verify
+→ commit / push
+```
+
+新增角色：
+
+```text
+Character Bible
+→ Story / Route
+→ Generation Queue
+→ Asset Generation
+→ Canonical Asset Ingest
+→ Codespace Integration
+→ Playtest
+→ Verified Commit
+```
+
+需要 AI/外部 reviewer 直接看 forwarded preview：
+
+```text
+4173 private by default
+→ temporarily public only for review
+→ restore private / stop after review
+```
+
+Stable build review：
+
+```text
+Verified commit
+→ Sites review preview
+```
+
+正式 release：
+
+```text
+cloud-complete verified inputs only
+```
+
+---
+
+## 27. Final Architecture Summary
+
+專案最終應收斂為：
+
+```text
+Human Creative Direction
+        +
+AI Content / Engineering
+        ↓
+Character Bible
+        ↓
+Story / Route / Scene Specs
+        ↓
+Asset Recipes + Generation Queue
+        ↓
+Asset Generation
+        ↓
+Canonical Master Storage
+        ↓
+Content + Asset Validation
+        ↓
+Content Compiler
+        ↓
+Verified Manifest
+        ↓
+Web Player
+        ↓
+GitHub Codespace
+        ↓
+Forwarded Preview
+        ↓
+Verified Git Commit + Google Drive Assets
+        ↓
+Sites Review / Distribution Adapter
+        ↓
+Production
+```
+
+專案真正長期有價值的部分不是 renderer。
+
+真正值得反覆優化的是這條可重用 pipeline：
+
+```text
+character idea
+→ structured story
+→ consistent assets
+→ validated build
+→ playable episode
+```
+
+並盡量降低每次新增角色、route、scene 時需要的人工作程成本。
+
+
 
 增加功能前先問：
 

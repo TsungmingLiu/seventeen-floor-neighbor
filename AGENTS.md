@@ -18,7 +18,7 @@ The repository may temporarily differ from the target architecture. Preserve the
 
 W1/W2 are complete: `dist/` is disposable generated output, `dist/assets/` is no longer the source of truth, and the build can resolve Git-backed legacy sources plus Google Drive runtime objects.
 
-W3 has not been implemented yet. The canonical development decision is now Codespaces-only: do not add new Local-vs-Remote workflow branches, and do not require the user's Mac for build or preview acceptance.
+W3 core tooling is implemented: the repository contains a Node 22 + ffmpeg devcontainer, `npm run dev`, `npm run preview`, fixed port 4173, and CI preview smoke. W3 is not fully accepted until a fresh Codespace and browser playtest pass. The canonical development decision is Codespaces-only: do not add Local-vs-Remote workflow branches or require the user's Mac.
 
 Do not move or delete binary assets merely to make the repository resemble a future target. Preserve existing Git-backed legacy sources until their canonical replacements are safely recorded.
 

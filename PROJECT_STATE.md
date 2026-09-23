@@ -68,8 +68,11 @@ This is a target specification, not a claim about the current runtime. Preserve 
 - CI run `35812177697`: 44/44 asset checks passed, 3 Drive downloads succeeded, build/validate/reproducibility passed, and 9/9 tests passed.
 - Storage decision: Google Drive is the current pre-commercial source/runtime store; Cloudflare R2 is deferred until commercialization needs justify it.
 - 2026-09-23 workflow decision: canonical development is now **Codespaces-only**. GitHub is code/content/history truth; Google Drive remains the asset store; Codespaces is the supported build/test/dev environment; local development is an unsupported fallback and is not an acceptance target.
-- Next migration step: W3 Codespaces Development & Preview. This includes a reproducible Node 22 + ffmpeg devcontainer, fixed forwarded preview port, `npm run dev` / `npm run preview`, fresh-Codespace restore acceptance, and synchronization of older Local/Hybrid workflow documentation.
-- The old TODO milestone name “W4 Google Drive Asset Store” is retired. Drive-first storage is W2 foundation; the actual W4 is the approved Player UI / Memories / CG Gallery implementation in `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md`.
+- W3 core implementation is now on `main`: Node 22 + ffmpeg/ffprobe devcontainer, fixed port 4173, dependency-free preview server, `npm run dev`, `npm run preview`, and CI preview smoke.
+- GitHub Actions run `35870496211` passed asset check/build, build, preview smoke, validate, 9/9 tests, diff check, and generated-output reproducibility.
+- W3 is **not complete yet**: a Human still needs to create/rebuild a fresh Codespace, open the forwarded 4173 preview, verify same-origin reload/localStorage, and smoke the playable flows. This is the next immediate gate; do not begin W4 implementation before it passes.
+- The old TODO milestone name “W4 Google Drive Asset Store” is retired. Drive-first storage is W2 foundation; after W3 Human acceptance, the actual W4 is the approved Player UI / Memories / CG Gallery implementation in `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md`.
+- Canonical workflow docs are being synchronized to Codespaces-only in the same W3 milestone; Local Working is no longer a supported acceptance path.
 
 ## Remaining work
 
