@@ -229,7 +229,7 @@
     },
     "cg.date.bookstore": {
       "kind": "cg",
-      "src": "assets/cg-date-bookstore.png",
+      "src": "assets/cg-date-bookstore.webp",
       "width": 1672,
       "height": 941,
       "focus": {
@@ -256,7 +256,7 @@
     },
     "cg.date.riverwalk": {
       "kind": "cg",
-      "src": "assets/cg-date-riverwalk.png",
+      "src": "assets/cg-date-riverwalk.webp",
       "width": 1672,
       "height": 941,
       "focus": {
@@ -283,7 +283,7 @@
     },
     "cg.date.night_market": {
       "kind": "cg",
-      "src": "assets/cg-date-night-market.png",
+      "src": "assets/cg-date-night-market.webp",
       "width": 1672,
       "height": 941,
       "focus": {
