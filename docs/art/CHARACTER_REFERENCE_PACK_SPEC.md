@@ -64,8 +64,6 @@ Canonical character facts：
 | Early/mid wardrobe | `xt-ref-05-wardrobe-a.png` | `1W4t7ICYHx3obH_S03BEyD80ykzy3M9aF` | `https://drive.google.com/file/d/1W4t7ICYHx3obH_S03BEyD80ykzy3M9aF/view` | Wardrobe A |
 | Late/after-story wardrobe | `xt-ref-06-wardrobe-b.png` | `1Ls-1LSF_9rUs7ZkQydvB2K7w9P-Aimp4` | `https://drive.google.com/file/d/1Ls-1LSF_9rUs7ZkQydvB2K7w9P-Aimp4/view` | Wardrobe B |
 
-> Note: `xt-ref-03-body.png` 的 Drive ID 必須視實際 Drive metadata 為準；若未來 manifest validator 發現 ID 無法 fetch，重新 list folder 更新這一列，不要靠猜測修 URL。
-
 ## 3.1 Xu wardrobe semantics
 
 Wardrobe A：
