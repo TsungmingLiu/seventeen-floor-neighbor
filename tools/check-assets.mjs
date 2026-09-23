@@ -68,7 +68,7 @@ function runtimeContexts(content) {
   for (const [assetId, asset] of Object.entries(content.manifest.assets || {})) {
     const declared = asset.kind === 'cinematic'
       ? [
-          { runtimePath: asset.poster, role: 'poster', expectedDuration: null },
+          { runtimePath: asset.poster, role: 'poster', expectedDuration: null, expectedWidth: asset.posterWidth ?? null, expectedHeight: asset.posterHeight ?? null },
           ...Object.entries(asset.sources || {}).map(([format, runtimePath]) => ({
             runtimePath,
             role: `cinematic:${format}`,
@@ -90,9 +90,11 @@ function runtimeContexts(content) {
         recipe: recipes.get(assetId) || null,
         usage: [...(usages.get(assetId) || [])],
         expected: {
-          width: asset.width ?? null,
-          height: asset.height ?? null,
-          ratio: ratio(asset.width, asset.height),
+          width: item.role === 'poster' ? item.expectedWidth : (asset.width ?? null),
+          height: item.role === 'poster' ? item.expectedHeight : (asset.height ?? null),
+          ratio: item.role === 'poster'
+            ? ratio(item.expectedWidth, item.expectedHeight)
+            : ratio(asset.width, asset.height),
           duration: item.expectedDuration
         },
         blocking: true
@@ -101,6 +103,27 @@ function runtimeContexts(content) {
   }
 
   return contexts;
+}
+
+function preservationContexts(content, coveredRuntimePaths) {
+  const result = [];
+  for (const [runtimePath, rawEntry] of Object.entries(content.assetSources.files || {})) {
+    if (coveredRuntimePaths.has(runtimePath)) continue;
+    const entry = normalizedSource(rawEntry);
+    result.push({
+      category: 'preservation-source',
+      logicalAssetId: `preservation:${runtimePath}`,
+      role: 'unreferenced-preservation',
+      runtimePath,
+      sourcePath: entry.source,
+      transform: entry.transform,
+      recipe: null,
+      usage: ['source-map only; not referenced by active manifest'],
+      expected: { width: null, height: null, ratio: null, duration: null },
+      blocking: false
+    });
+  }
+  return result;
 }
 
 function referenceContexts(content) {
@@ -162,11 +185,14 @@ export async function checkAssets({ print = true } = {}) {
   const tools = await requireMediaTools();
   const content = await loadContent();
   const contexts = runtimeContexts(content);
+  const coveredRuntimePaths = new Set(contexts.map((item) => item.runtimePath).filter(Boolean));
+  contexts.push(...preservationContexts(content, coveredRuntimePaths));
+  const references = referenceContexts(content);
   const covered = new Set([
     ...contexts.map((item) => item.sourcePath).filter(Boolean),
-    ...referenceContexts(content).map((item) => item.sourcePath).filter(Boolean)
+    ...references.map((item) => item.sourcePath).filter(Boolean)
   ]);
-  contexts.push(...referenceContexts(content));
+  contexts.push(...references);
   contexts.push(...await authoringTreeContexts(covered));
 
   const results = [];
@@ -218,6 +244,7 @@ export async function checkAssets({ print = true } = {}) {
   }
 
   const failures = results.filter((item) => !item.ok && item.blocking);
+  const warnings = results.filter((item) => !item.ok && !item.blocking);
   const report = {
     reportVersion: 1,
     generatedAt: new Date().toISOString(),
@@ -225,7 +252,8 @@ export async function checkAssets({ print = true } = {}) {
     summary: {
       checked: results.length,
       passed: results.length - failures.length,
-      blockingFailures: failures.length
+      blockingFailures: failures.length,
+      warnings: warnings.length
     },
     results
   };
@@ -234,7 +262,10 @@ export async function checkAssets({ print = true } = {}) {
   await writeFile(reportPath, `${JSON.stringify(report, null, 2)}\n`);
 
   if (print) {
-    console.log(`Asset media check: ${report.summary.passed}/${report.summary.checked} passed.`);
+    console.log(
+      `Asset media check: ${report.summary.passed}/${report.summary.checked} passed, ` +
+      `${report.summary.blockingFailures} blocking failure(s), ${report.summary.warnings} warning(s).`
+    );
     for (const failure of failures) {
       console.error('\n[BLOCKING ASSET ERROR]');
       console.error(`asset: ${failure.logicalAssetId}`);
@@ -259,6 +290,12 @@ export async function checkAssets({ print = true } = {}) {
       }
       for (const error of failure.errors) console.error(`error: ${error}`);
       console.error('blocking: yes');
+    }
+    for (const warning of warnings) {
+      console.warn('\n[NON-BLOCKING ASSET WARNING]');
+      console.warn(`asset: ${warning.logicalAssetId}`);
+      console.warn(`source: ${warning.sourcePath}`);
+      for (const error of warning.errors) console.warn(`warning: ${error}`);
     }
     console.log(`\nReport: ${path.relative(projectRoot, reportPath)}`);
   }
