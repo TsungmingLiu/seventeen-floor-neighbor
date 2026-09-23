@@ -366,8 +366,20 @@ npm run validate
 npm test
 git diff --check
 git diff --exit-code
-nohup npm run preview > /tmp/w3-preview.log 2>&1 </dev/null &
+nohup node tools/preview-server.mjs --preview --skip-build --port 4173 > /tmp/w3-preview.log 2>&1 </dev/null &
 echo $! > /tmp/w3-preview.pid
+for attempt in $(seq 1 60); do
+  if node -e "fetch('http://127.0.0.1:4173/').then(r => { if (!r.ok) process.exit(1); }).catch(() => process.exit(1))"; then
+    echo "Preview is listening on 127.0.0.1:4173"
+    break
+  fi
+  if [ "$attempt" -eq 60 ]; then
+    echo "Preview failed to become ready" >&2
+    tail -200 /tmp/w3-preview.log >&2 || true
+    exit 1
+  fi
+  sleep 1
+done
 `;
 
   console.log('[codespace] running clean restore/build/test inside Codespace...');
