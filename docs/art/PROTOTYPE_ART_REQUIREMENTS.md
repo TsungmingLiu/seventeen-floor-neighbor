@@ -10,7 +10,11 @@
 >
 > 對應 graph/state：`docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md`
 >
-> 本文件定義雙女主 prototype 所需的 **scene backgrounds、character sprites、special CG**，以及每個 authoring node 的 asset mapping。後續真正寫入 `content/recipes/assets.json` 時，以本文件作為 production intent，再補上精確 reference IDs、尺寸、hash、Drive metadata。
+> Character references：`docs/art/CHARACTER_REFERENCE_PACK_SPEC.md`
+>
+> Opening Vertical Slice CG prompts：`docs/art/VERTICAL_SLICE_CG_GENERATION_PROMPTS.md`
+>
+> 本文件定義雙女主 prototype 所需的 **scene backgrounds、character sprites、special CG**，以及每個 authoring node 的 asset mapping。角色 canonical Drive reference IDs/URLs 以 `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md` 為準；後續真正寫入 `content/recipes/assets.json` 時，再補 recipe 尺寸、hash 與 runtime metadata。
 >
 > 本文件不是說所有圖片都必須一次生成。優先順序以 P0/P1/P2 控制。
 
@@ -62,11 +66,12 @@ Canonical story / Character Bible identity 已同步：
 
 ## 1.5 Jiang Yucheng identity
 
-江雨澄需建立自己的 canonical identity pack，不可用許棠 reference 演變。
+江雨澄已有通過 QA 的 canonical 6-sheet identity pack，不可用許棠 reference 演變。完整 Drive manifest 見 `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md`。
 
 核心：
 - 23 歲成年東亞女性；
-- 約 158 cm；
+- 約 160 cm；
+- 纖細、輕盈、小骨架、腿相對偏長；
 - 茶褐色短髮／短波浪；
 - 小瓜子臉；
 - 安靜、慢熱、不是幼女化；
