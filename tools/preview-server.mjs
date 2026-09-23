@@ -20,7 +20,7 @@ const port = Number(argValue('--port', process.env.PORT || '4173'));
 const host = argValue('--host', process.env.HOST || '0.0.0.0');
 
 if (!Number.isInteger(port) || port < 0 || port > 65535) {
-  throw new Error(\`Invalid preview port: \${port}\`);
+  throw new Error(`Invalid preview port: ${port}`);
 }
 
 const MIME_TYPES = new Map([
@@ -168,7 +168,7 @@ async function handleRequest(req, res) {
   if (range?.invalid) {
     res.writeHead(416, {
       ...headers,
-      'Content-Range': \`bytes */\${info.size}\`
+      'Content-Range': `bytes */${info.size}`
     });
     res.end();
     return;
@@ -179,7 +179,7 @@ async function handleRequest(req, res) {
     res.writeHead(206, {
       ...headers,
       'Content-Length': length,
-      'Content-Range': \`bytes \${range.start}-\${range.end}/\${info.size}\`
+      'Content-Range': `bytes ${range.start}-${range.end}/${info.size}`
     });
     if (req.method === 'HEAD') {
       res.end();
@@ -209,7 +209,7 @@ async function runBuild() {
     child.once('error', reject);
     child.once('exit', code => {
       if (code === 0) resolve();
-      else reject(new Error(\`Build exited with code \${code}\`));
+      else reject(new Error(`Build exited with code ${code}`));
     });
   });
 }
@@ -239,7 +239,7 @@ async function findFirstFileWithExtension(root, extension) {
 }
 
 async function runSmoke(actualPort) {
-  const base = \`http://127.0.0.1:\${actualPort}\`;
+  const base = `http://127.0.0.1:${actualPort}`;
   const checks = [
     ['/', 200, 'text/html'],
     ['/styles.css', 200, 'text/css'],
@@ -250,13 +250,13 @@ async function runSmoke(actualPort) {
   ];
 
   for (const [requestPath, expectedStatus, expectedType] of checks) {
-    const response = await fetch(\`\${base}\${requestPath}\`);
+    const response = await fetch(`${base}${requestPath}`);
     if (response.status !== expectedStatus) {
-      throw new Error(\`Smoke check \${requestPath}: expected \${expectedStatus}, received \${response.status}\`);
+      throw new Error(`Smoke check ${requestPath}: expected ${expectedStatus}, received ${response.status}`);
     }
     const type = response.headers.get('content-type') || '';
     if (!type.startsWith(expectedType)) {
-      throw new Error(\`Smoke check \${requestPath}: expected content-type \${expectedType}, received \${type}\`);
+      throw new Error(`Smoke check ${requestPath}: expected content-type ${expectedType}, received ${type}`);
     }
     await response.arrayBuffer();
   }
@@ -264,7 +264,7 @@ async function runSmoke(actualPort) {
   const mp4 = await findFirstFileWithExtension(distRoot, '.mp4');
   if (mp4) {
     const relative = path.relative(distRoot, mp4).split(path.sep).map(encodeURIComponent).join('/');
-    const response = await fetch(\`\${base}/\${relative}\`, {
+    const response = await fetch(`${base}/${relative}`, {
       headers: { Range: 'bytes=0-15' }
     });
     if (response.status !== 206 || !response.headers.get('content-range')) {
@@ -329,7 +329,7 @@ const server = createServer((req, res) => {
 await listen(server);
 const address = server.address();
 const actualPort = typeof address === 'object' && address ? address.port : port;
-console.log(\`W3 \${mode} server listening on http://\${host}:\${actualPort}\`);
+console.log(`W3 ${mode} server listening on http://${host}:${actualPort}`);
 
 if (mode === 'smoke') {
   try {
