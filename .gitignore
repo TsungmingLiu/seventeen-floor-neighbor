@@ -1,0 +1,11 @@
+# Local secrets
+.env
+.env.*
+!.env.example
+
+# Disposable generated asset/cache directories
+generated/runtime-assets/
+generated/source-cache/
+
+# OS/editor noise
+.DS_Store

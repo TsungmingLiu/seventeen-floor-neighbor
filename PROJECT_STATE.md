@@ -41,6 +41,11 @@ Milestone 1: one branching story, seamless resume title, independent branch hist
 - Nine Node tests cover save isolation/corruption, branch graph and spoiler locks, choice resume, and random-scene return stacks.
 - Browser acceptance covers title/start/resume, reload persistence, identical preview/game visual sources, OL branch, branch navigation, and 320px layout; see the milestone handoff for the final result.
 
+## Migration status
+
+- W1 source/output boundary is implemented on the migration branch: static shell source moves to `public/`, binary preservation sources to `assets-src/`, and `dist/` becomes rebuildable.
+- W1 must pass CI verification before it is considered complete on `main`.
+
 ## Remaining work
 
 Milestone 2: split the large original story file, audit actual image decoding and GitHub file integrity, deepen focused context packets, and add graph folding/filtering for scale. Full CG/sprite regeneration and final OL character design are intentionally later. Do not assume earlier chat images are available: the project's synced `sources/` directory was empty during this milestone.

@@ -67,3 +67,21 @@
 4. 更新 manifest 與 recipe 的版本依賴，再執行建置。
 
 背景等不依賴角色的素材不會被重生。新增角色時，只需增加角色 JSON、其素材與生成配方，再在劇情節點引用新的邏輯素材 ID。
+
+
+## W1 source/output boundary
+
+The canonical migration now treats `dist/` as fully disposable.
+
+Current source boundaries after W1:
+
+- static shell source: `public/index.html`, `public/styles.css`;
+- binary preservation source: `assets-src/`;
+- runtime-path mapping: `content/assets/source-map.json`;
+- JS source: `src/`;
+- content source: `content/`;
+- generated/runtime output: `dist/`.
+
+`npm run build` removes and recreates `dist/`, copies static shell files from `public/`, copies mapped binary assets from `assets-src/`, then emits route packages and JS modules.
+
+The W1 binary copies are preservation copies of the old runtime blobs. W2 is responsible for decode/dimension checks and true runtime optimization/conversion.

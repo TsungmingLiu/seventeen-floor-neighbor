@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#08090d">
+  <meta name="description" content="17樓多路線第一人稱互動戀愛故事">
+  <title>17樓的故事</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0b10'/%3E%3Cpath d='M32 50S12 39 12 24c0-11 14-15 20-6 6-9 20-5 20 6 0 15-20 26-20 26Z' fill='%23ff6b8b'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css?v=64605492fc64">
+</head>
+<body>
+  <main id="app">
+    <section class="title-screen" id="title-screen" aria-labelledby="game-title">
+      <img class="title-art" id="title-art" alt="雨夜公寓走廊裡的新鄰居許棠">
+      <div class="title-character-layer" id="title-character-layer" aria-hidden="true"></div>
+      <div class="title-vignette"></div>
+      <div class="title-copy">
+        <p class="eyebrow" id="title-eyebrow">第一人稱互動戀愛故事</p>
+        <h1 id="game-title"><span id="title-prefix">17樓的</span><b id="title-main">故事</b></h1>
+        <p class="resume-label" id="resume-label"></p>
+        <p class="premise" id="title-premise"></p>
+        <div class="title-actions">
+          <button class="primary-button" id="start-button" type="button" disabled>續玩</button>
+          <button class="text-button gallery-button" id="gallery-button" type="button">CG <span id="gallery-title-count">0 / 17</span></button>
+          <button class="text-button" id="branches-button" type="button">分支</button>
+          <button class="text-button" id="title-mute" type="button" aria-pressed="false">聲音：開</button>
+        </div>
+      </div>
+      <p class="title-hint" id="title-hint"></p>
+    </section>
+
+    <section class="branches-screen is-hidden" id="branches-screen" aria-labelledby="branches-title">
+      <div class="branches-shell">
+        <header class="branches-header">
+          <div>
+            <p class="eyebrow">故事分支</p>
+            <h2 id="branches-title">分支</h2>
+            <p class="branch-summary" id="branch-summary"></p>
+          </div>
+          <button class="text-button" id="branches-back" type="button">返回標題</button>
+        </header>
+        <div class="branch-list" id="branch-list" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="gallery-screen is-hidden" id="gallery-screen" aria-labelledby="gallery-title">
+      <div class="gallery-shell">
+        <header class="gallery-header">
+          <div>
+            <p class="eyebrow">回憶收藏</p>
+            <h2 id="gallery-title">回憶收藏</h2>
+            <p class="gallery-progress" id="gallery-progress">已解鎖 0 / 17</p>
+          </div>
+          <button class="text-button" id="gallery-back" type="button">返回標題</button>
+        </header>
+        <div class="cg-grid" id="cg-grid" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="game-shell is-hidden" id="game-shell" aria-label="遊戲畫面">
+      <div class="stage" id="stage">
+        <div class="visual-layer" aria-hidden="true">
+          <img class="scene-image" id="scene-image" alt="">
+          <video class="scene-video" id="scene-video" playsinline preload="metadata"></video>
+          <div class="character-layer" id="character-layer"></div>
+          <div class="fallback-scene"></div>
+          <div class="cinematic-bars"></div>
+          <div class="scene-flash" id="scene-flash"></div>
+          <div class="scene-vignette"></div>
+        </div>
+        <header class="game-hud" id="game-hud">
+          <div class="chapter-track" id="chapter-track" aria-label="故事進度"></div>
+          <div class="hud-actions">
+            <button class="text-button cinematic-skip is-hidden" id="cinematic-skip" type="button">跳過片段</button>
+            <button class="text-button game-home-button" id="game-home-button" type="button">回標題</button>
+            <button class="icon-button" id="mute-button" type="button" aria-pressed="false" aria-label="切換聲音">♪</button>
+          </div>
+        </header>
+        <section class="dialogue-panel" id="dialogue-panel" aria-live="polite">
+          <div class="moment-card is-hidden" id="moment-card" role="status"></div>
+          <div class="speaker-row">
+            <span class="speaker" id="speaker">旁白</span>
+            <span class="advance-hint" id="advance-hint">點擊繼續</span>
+          </div>
+          <p class="dialogue-text" id="dialogue-text"></p>
+          <div class="choice-list is-hidden" id="choice-list" aria-label="選擇回應"></div>
+        </section>
+        <button class="advance-zone" id="advance-zone" type="button" aria-label="繼續劇情"></button>
+      </div>
+    </section>
+
+    <section class="ending-screen is-hidden" id="ending-screen" aria-live="polite">
+      <img class="ending-art" id="ending-art" alt="許棠站在隔壁房門前">
+      <div class="ending-vignette"></div>
+      <div class="ending-copy">
+        <p class="eyebrow">本次結局</p>
+        <h2 id="ending-title"></h2>
+        <p id="ending-text"></p>
+        <p class="ending-count" id="ending-count"></p>
+        <div class="ending-actions">
+          <button class="primary-button" id="replay-button" type="button">換個選擇</button>
+          <button class="text-button" id="home-button" type="button">回到標題</button>
+        </div>
+      </div>
+    </section>
+
+    <dialog class="cg-viewer" id="cg-viewer" aria-labelledby="cg-viewer-title">
+      <div class="cg-viewer-shell">
+        <header class="cg-viewer-header">
+          <div>
+            <p class="cg-viewer-chapter" id="cg-viewer-chapter"></p>
+            <h2 id="cg-viewer-title"></h2>
+          </div>
+          <button class="icon-button viewer-close" id="cg-viewer-close" type="button" aria-label="關閉 CG">×</button>
+        </header>
+        <div class="cg-viewer-canvas">
+          <img id="cg-viewer-image" alt="">
+          <video class="is-hidden" id="cg-viewer-video" controls playsinline preload="metadata"></video>
+        </div>
+        <footer class="cg-viewer-controls">
+          <button class="text-button" id="cg-viewer-prev" type="button">上一張</button>
+          <span id="cg-viewer-position"></span>
+          <button class="text-button" id="cg-viewer-next" type="button">下一張</button>
+        </footer>
+      </div>
+    </dialog>
+  </main>
+  <script type="module" src="app.js?v=64605492fc64"></script>
+</body>
+</html>

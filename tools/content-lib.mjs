@@ -46,16 +46,18 @@ export async function loadContent() {
   const characterList = await Promise.all(
     characterFiles.map((name) => readJson(`content/characters/${name}`))
   );
-  const [manifest, recipes, routeIndex] = await Promise.all([
+  const [manifest, recipes, routeIndex, assetSources] = await Promise.all([
     readJson('content/assets/manifest.json'),
     readJson('content/recipes/assets.json'),
-    readJson('content/routes/index.json')
+    readJson('content/routes/index.json'),
+    readJson('content/assets/source-map.json')
   ]);
   const routes = await Promise.all((routeIndex.routes || []).map((entry) => loadRoute(entry, manifest)));
   return {
     manifest,
     recipes,
     routeIndex,
+    assetSources,
     routes,
     characters: Object.fromEntries(characterList.map((character) => [character.id, character]))
   };
@@ -174,8 +176,9 @@ function validateStoryRoute(route, fail) {
 
 export async function validateContent(content) {
   const errors = [];
-  const { manifest, recipes, characters, routeIndex, routes } = content;
+  const { manifest, recipes, characters, routeIndex, routes, assetSources } = content;
   const assets = manifest.assets || {};
+  const sourceFiles = assetSources?.files || {};
   const fail = (message) => errors.push(message);
   const validateDependency = (dependency, where) => {
     const character = characters[dependency.character];
@@ -205,6 +208,18 @@ export async function validateContent(content) {
     routeIds.add(route.config.id);
   }
 
+  if (assetSources?.sourceMapVersion !== 1) fail('asset source map: unsupported or missing sourceMapVersion');
+
+  for (const [runtimePath, sourcePath] of Object.entries(sourceFiles)) {
+    if (!runtimePath.startsWith('assets/')) fail(`asset source map: runtime path must stay under assets/: ${runtimePath}`);
+    if (!sourcePath.startsWith('assets-src/')) fail(`asset source map: source path must stay under assets-src/: ${sourcePath}`);
+    try {
+      await access(path.join(projectRoot, sourcePath));
+    } catch {
+      fail(`asset source map: missing source file ${sourcePath} for ${runtimePath}`);
+    }
+  }
+
   for (const [id, asset] of Object.entries(assets)) {
     const files = asset.kind === 'cinematic' ? [asset.poster, ...Object.values(asset.sources || {})] : [asset.src];
     for (const file of files) {
@@ -212,10 +227,15 @@ export async function validateContent(content) {
         fail(`asset ${id}: missing required file declaration`);
         continue;
       }
+      const sourcePath = sourceFiles[file];
+      if (!sourcePath) {
+        fail(`asset ${id}: no source mapping for runtime file ${file}`);
+        continue;
+      }
       try {
-        await access(path.join(projectRoot, 'dist', file));
+        await access(path.join(projectRoot, sourcePath));
       } catch {
-        fail(`asset ${id}: missing dist/${file}`);
+        fail(`asset ${id}: missing source ${sourcePath} for runtime file ${file}`);
       }
     }
     if (asset.kind === 'sprite') validateDependency(asset, `asset ${id}`);
