@@ -14,7 +14,7 @@
 
 # 1. Scope envelope
 
-v0.4 目標規模：
+v0.5 目標規模：
 
 - 約 66 個 authoring-level scene/gate/ending/after-story nodes；
 - 約 48 個 Memory / Ending / Coda candidates before W4 compression；
