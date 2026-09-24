@@ -1,4 +1,4 @@
-import { memoryEventForNode } from './memories.js?v=c3f8cde6d47c';
+import { memoryEventForNode } from './memories.js?v=24e893bd60a5';
 
 // Snapshots store node-entry state: choices are applied only when the player chooses.
 export class ProgressStore {
@@ -13,6 +13,7 @@ export class ProgressStore {
     }
     this.key = `${chapter.id}:journey:v2`;
     this.legacyKey = `${chapter.id}:journey:v1`;
+    this.replaying = false;
     this.data = this.emptyData();
     this.load();
   }
@@ -67,13 +68,21 @@ export class ProgressStore {
   }
 
   deepestSnapshot(checkpoints, preferred = null) {
-    const candidates = [...Object.values(checkpoints || {})];
-    if (preferred && this.valid(preferred)) candidates.push(preferred);
+    const candidates = Object.values(checkpoints || {})
+      .map((snapshot) => ({ snapshot, preferred: false }));
+    if (preferred && this.valid(preferred)) candidates.push({ snapshot: preferred, preferred: true });
     let best = null;
-    for (const snapshot of candidates) {
+    for (const candidate of candidates) {
+      const { snapshot } = candidate;
       const event = this.eventForSnapshot(snapshot);
       if (!event) continue;
-      if (!best || event.progressRank > best.event.progressRank) best = { snapshot, event };
+      if (
+        !best
+        || event.progressRank > best.event.progressRank
+        || (event.progressRank === best.event.progressRank && candidate.preferred && !best.preferred)
+      ) {
+        best = { snapshot, event, preferred: candidate.preferred };
+      }
     }
     return best;
   }
@@ -123,14 +132,16 @@ export class ProgressStore {
     this.data.cursor = this.clone(snapshot);
     this.data.checkpoints[nodeId] = this.clone(snapshot);
     const event = memoryEventForNode(this.memories, nodeId);
+    const advancesFrontier = event && event.progressRank > this.data.frontierRank;
     if (event && (
       !this.data.frontier
-      || event.progressRank > this.data.frontierRank
-      || event.id === this.data.frontierMemoryEventId
+      || advancesFrontier
+      || (!this.replaying && event.id === this.data.frontierMemoryEventId)
     )) {
       this.data.frontier = this.clone(snapshot);
       this.data.frontierMemoryEventId = event.id;
       this.data.frontierRank = event.progressRank;
+      if (this.replaying && advancesFrontier) this.replaying = false;
     } else if (!this.data.frontier) {
       this.data.frontier = this.clone(snapshot);
     }
@@ -142,8 +153,19 @@ export class ProgressStore {
     const next = this.clone(snapshot);
     if (!next) return false;
     this.data.cursor = next;
+    this.replaying = true;
     this.flush();
     return true;
+  }
+
+  beginReplay(snapshot = null) {
+    if (snapshot && !this.setCursor(snapshot)) return false;
+    this.replaying = true;
+    return true;
+  }
+
+  endReplay() {
+    this.replaying = false;
   }
 
   connect(from, to) {

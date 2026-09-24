@@ -80,6 +80,42 @@ test('replaying older content changes cursor without regressing frontier', () =>
   assert.equal(store.data.frontierRank, 300);
 });
 
+test('replaying an earlier node in the frontier event does not rewind Continue', () => {
+  const event = memories.events.find((candidate) => candidate.id === 'mem.shallow');
+  event.unlockNodes.push('returnPoint');
+
+  try {
+    const store = new ProgressStore(chapter, memories, new MemoryStorage());
+    store.capture('shallow', state({ warmth: 1 }), []);
+    store.capture('returnPoint', state({ warmth: 4 }), []);
+    const frontier = store.data.frontier;
+
+    store.setCursor(store.data.checkpoints.shallow);
+    store.capture('shallow', state({ warmth: 1 }), []);
+
+    assert.equal(store.data.cursor.nodeId, 'shallow');
+    assert.deepEqual(store.data.frontier, frontier);
+  } finally {
+    event.unlockNodes.pop();
+  }
+});
+
+test('normal play continues updating the frontier within one Memory Event', () => {
+  const event = memories.events.find((candidate) => candidate.id === 'mem.shallow');
+  event.unlockNodes.push('returnPoint');
+
+  try {
+    const store = new ProgressStore(chapter, memories, new MemoryStorage());
+    store.capture('shallow', state({ warmth: 1 }), []);
+    store.capture('returnPoint', state({ warmth: 4 }), []);
+
+    assert.equal(store.data.frontier.nodeId, 'returnPoint');
+    assert.equal(store.data.frontierMemoryEventId, 'mem.shallow');
+  } finally {
+    event.unlockNodes.pop();
+  }
+});
+
 test('a replay that reaches a higher-ranked event advances the frontier', () => {
   const store = new ProgressStore(chapter, memories, new MemoryStorage());
   store.capture('shallow', state({ warmth: 1 }), []);
@@ -148,6 +184,30 @@ test('v1 save migration keeps current as cursor but chooses deepest checkpoint a
   assert.equal(store.data.frontierMemoryEventId, 'mem.deep');
   assert.equal(store.data.frontierRank, 300);
   assert.equal(JSON.parse(storage.getItem('progress-fixture:journey:v2')).version, 2);
+});
+
+test('v1 migration prefers current when checkpoints share the deepest Memory rank', () => {
+  const event = memories.events.find((candidate) => candidate.id === 'mem.deep');
+  event.unlockNodes.push('returnPoint');
+  const storage = new MemoryStorage({
+    'progress-fixture:journey:v1': JSON.stringify({
+      version: 1,
+      current: snap('returnPoint', 9),
+      checkpoints: {
+        deep: snap('deep', 8),
+        returnPoint: snap('returnPoint', 9)
+      },
+      edges: [['deep', 'returnPoint']]
+    })
+  });
+
+  try {
+    const store = new ProgressStore(chapter, memories, storage);
+    assert.equal(store.data.frontier.nodeId, 'returnPoint');
+    assert.equal(store.data.frontierMemoryEventId, 'mem.deep');
+  } finally {
+    event.unlockNodes.pop();
+  }
 });
 
 test('constructor discards malformed snapshots and deleted-node edges', () => {

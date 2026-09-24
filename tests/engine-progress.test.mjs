@@ -132,7 +132,7 @@ test('random entries restore at the selected scene with their return destination
     assert.ok(engine.state.flags.has('seen-entry'));
     assert.equal(randomCalls, 1);
 
-    const checkpoint = engine.progress.data.current;
+    const checkpoint = engine.progress.data.cursor;
     engine.resumeGame(checkpoint);
     assert.equal(engine.nodeId, 'entry');
     assert.deepEqual(engine.returnNodes, ['after']);

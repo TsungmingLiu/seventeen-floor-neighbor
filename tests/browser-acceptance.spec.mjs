@@ -182,6 +182,54 @@ test('replaying an old Memory changes cursor but never regresses Continue fronti
   expect(errors).toEqual([]);
 });
 
+test('replaying the current Memory Event does not rewind its deeper frontier node', async ({ page }) => {
+  const morning = snapshot('morning_after', {
+    heart: 16,
+    trust: 10,
+    comfort: 5,
+    relationship: 1
+  });
+  const answer = snapshot('c14a', {
+    heart: 16,
+    trust: 10,
+    comfort: 5,
+    relationship: 1
+  });
+  await seedStorage(page, {
+    'chapter-01:journey:v2': {
+      version: 2,
+      cursor: answer,
+      frontier: answer,
+      frontierMemoryEventId: 'mem.xu.sunday',
+      frontierRank: 800,
+      checkpoints: { morning_after: morning, c14a: answer },
+      edges: [['morning_after', 'c14a']]
+    },
+    neighborMuted: '1'
+  });
+  const errors = collectBlockingErrors(page);
+
+  await boot(page);
+  await page.locator('#memories-button').click();
+  await page.locator('[data-memory-id="mem.xu.sunday"]').click();
+  await waitForDialogueReady(page);
+  await expect(page.locator('#dialogue-text')).toContainText('星期日，09:12');
+
+  let state = await page.evaluate(() => JSON.parse(localStorage.getItem('chapter-01:journey:v2')));
+  expect(state.cursor.nodeId).toBe('morning_after');
+  expect(state.frontier.nodeId).toBe('c14a');
+
+  await page.locator('#game-home-button').click();
+  await page.locator('#start-button').click();
+  await waitForDialogueReady(page);
+  await expect(page.locator('#dialogue-text')).toContainText('但你還是住隔壁');
+
+  state = await page.evaluate(() => JSON.parse(localStorage.getItem('chapter-01:journey:v2')));
+  expect(state.cursor.nodeId).toBe('c14a');
+  expect(state.frontier.nodeId).toBe('c14a');
+  expect(errors).toEqual([]);
+});
+
 test('cinematic loads as a real 10-second video, can be skipped, and appears in gallery', async ({ page }) => {
   const cinematic = snapshot('first_kiss', {
     heart: 16,

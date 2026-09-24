@@ -706,7 +706,9 @@ export class GameEngine {
     this.tone('message');
   }
 
-  startGame() {
+  startGame({ replay = false } = {}) {
+    if (replay) this.progress.beginReplay();
+    else this.progress.endReplay();
     this.stopCinematic();
     this.state = this.createInitialState();
     this.returnNodes = [];
@@ -716,9 +718,11 @@ export class GameEngine {
     this.render();
   }
 
-  resumeGame(snapshot = this.progress.data.frontier || this.progress.data.cursor) {
+  resumeGame(snapshot = this.progress.data.frontier || this.progress.data.cursor, { replay = false } = {}) {
     const restored = this.progress.restore(snapshot);
-    if (!restored) return this.startGame();
+    if (!restored) return this.startGame({ replay });
+    if (replay) this.progress.beginReplay(snapshot);
+    else this.progress.endReplay();
     this.stopCinematic();
     Object.assign(this, restored);
     this.previousNode = null;
@@ -804,11 +808,11 @@ export class GameEngine {
 
   replayMemory(event) {
     if (event.replayNode === this.chapter.startNode) {
-      this.startGame();
+      this.startGame({ replay: true });
       return;
     }
     const candidateIds = [event.replayNode, ...(event.unlockNodes || [])];
     const snapshot = candidateIds.map((id) => this.progress.data.checkpoints[id]).find(Boolean);
-    if (snapshot) this.resumeGame(snapshot);
+    if (snapshot) this.resumeGame(snapshot, { replay: true });
   }
 }

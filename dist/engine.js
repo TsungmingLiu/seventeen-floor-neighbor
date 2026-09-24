@@ -1,6 +1,6 @@
-import { ProgressStore } from './progress.js?v=c3f8cde6d47c';
-import { paintPreview, paintSprites, resolveVisual, setImage } from './visuals.js?v=c3f8cde6d47c';
-import { memoryCoverVisual, memoryEventById, memoryStats, renderMemories } from './memories.js?v=c3f8cde6d47c';
+import { ProgressStore } from './progress.js?v=24e893bd60a5';
+import { paintPreview, paintSprites, resolveVisual, setImage } from './visuals.js?v=24e893bd60a5';
+import { memoryEventById, memoryStats, renderMemories, titleBackdropVisual } from './memories.js?v=24e893bd60a5';
 
 export class GameEngine {
   constructor({ chapter, assetManifest, sceneLibrary, memoryLibrary }) {
@@ -706,7 +706,9 @@ export class GameEngine {
     this.tone('message');
   }
 
-  startGame() {
+  startGame({ replay = false } = {}) {
+    if (replay) this.progress.beginReplay();
+    else this.progress.endReplay();
     this.stopCinematic();
     this.state = this.createInitialState();
     this.returnNodes = [];
@@ -716,9 +718,11 @@ export class GameEngine {
     this.render();
   }
 
-  resumeGame(snapshot = this.progress.data.frontier || this.progress.data.cursor) {
+  resumeGame(snapshot = this.progress.data.frontier || this.progress.data.cursor, { replay = false } = {}) {
     const restored = this.progress.restore(snapshot);
-    if (!restored) return this.startGame();
+    if (!restored) return this.startGame({ replay });
+    if (replay) this.progress.beginReplay(snapshot);
+    else this.progress.endReplay();
     this.stopCinematic();
     Object.assign(this, restored);
     this.previousNode = null;
@@ -730,17 +734,12 @@ export class GameEngine {
     const snapshot = this.progress.data.frontier;
     const node = this.chapter.nodes[snapshot?.nodeId || this.chapter.startNode];
     const frontierEvent = memoryEventById(this.memoryLibrary, this.progress.data.frontierMemoryEventId);
-    let visual = snapshot && frontierEvent ? memoryCoverVisual(frontierEvent, this.assets) : null;
+    let visual = snapshot ? titleBackdropVisual(this.memoryLibrary, this.progress, this.assets) : null;
     let label = frontierEvent?.title
       || node?.mapLabel
       || node?.moment
       || this.chapter.chapterLabels[node?.chapter || 0]
       || '故事節點';
-
-    if (frontierEvent?.titleBackdropAsset) {
-      const backdrop = { ...frontierEvent, cover: { ...(frontierEvent.cover || {}), asset: frontierEvent.titleBackdropAsset } };
-      visual = memoryCoverVisual(backdrop, this.assets) || visual;
-    }
 
     if (!snapshot) {
       visual = { mode: 'cg', asset: this.chapter.titleArt };
@@ -809,11 +808,11 @@ export class GameEngine {
 
   replayMemory(event) {
     if (event.replayNode === this.chapter.startNode) {
-      this.startGame();
+      this.startGame({ replay: true });
       return;
     }
     const candidateIds = [event.replayNode, ...(event.unlockNodes || [])];
     const snapshot = candidateIds.map((id) => this.progress.data.checkpoints[id]).find(Boolean);
-    if (snapshot) this.resumeGame(snapshot);
+    if (snapshot) this.resumeGame(snapshot, { replay: true });
   }
 }
