@@ -2,7 +2,7 @@
 
 一款 **純前端、可靜態部署的台北都市成人戀愛視覺小說**。目前 production prototype 聚焦兩位女主——許棠與江雨澄——採用 braided narrative：玩家在前中期可以自然同時認識、約會、重新靠近兩人，直到較晚的 commitment gate 才真正收束關係。
 
-> **新對話／新協作者第一條規則：** 先讀 `PROJECT_STATE.md`、`TODO.md`、`AGENTS.md`。GitHub `main` 是 code / content / metadata / history source of truth；Google Drive 保存 canonical master/runtime assets；GitHub Codespaces 是 canonical 開發、build、test、preview 環境。不要依賴 earlier chat 或某台本地電腦的 working copy。
+> **新 AI 對話／新協作者第一條規則：** 先讀 `.ai/WORKFLOW_MANIFEST.yaml`，再 follow `.ai/harnesses/bootstrap.md`。不要先把整個 repo 塞進 context，也不要沿用舊 chat 的 production prompt。GitHub `main` 是 code/content/metadata/history source of truth；Google Drive 保存 canonical master/runtime assets；GitHub Codespaces 是 canonical 開發、build、test、preview 環境。
 
 ## 專案目前在哪裡
 
@@ -13,7 +13,9 @@
 | Canonical production story | **Braided Narrative v0.5**；約 66 個 authoring-level scene / gate / ending / after-story 單元，詳見 `docs/narrative/` |
 | Prototype heroines | **許棠**：27 歲、約 170 cm、自由接案視覺設計師；**江雨澄**：23 歲、約 160 cm、研究生＋兼職插畫／ACG creator |
 | Character visual identity | 許棠、江雨澄的 **6-sheet production reference packs 均已 QA PASS**；canonical Drive manifest 見 `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md` |
-| Current creative milestone | **Opening Vertical Slice**：COM-00 → SH-01，按 Batch A–D 生產 script / state / CG；進度板在 `docs/narrative/CONTENT_PRODUCTION_TODO.md` |
+| Current creative milestone | **Opening Vertical Slice**：COM-00 → SH-01；進度板在 `docs/narrative/CONTENT_PRODUCTION_TODO.md` |
+| AI production workflow | **Harness v0.1**：Bootstrap → bounded Task Packet → specialist → structured handoff；見 `.ai/` |
+| Visual production | **CG-first / 16:9 landscape-first**；新 production 不要求 sprite；詳見 `docs/art/PRODUCTION_VISUAL_DIRECTION.md` |
 | Current playable runtime | 仍保留舊 **123-node Xu Tang + temporary office-OL branch** 作為 engine / migration / W4 regression fixture；**它不是新的 canonical production story ordering** |
 | Runtime | Browser-native JavaScript，無 backend、無 database；save/progress 使用 `localStorage` |
 | Asset storage | GitHub 保存 metadata / legacy Git-backed sources；Drive `source-private` 保存 accepted masters，`runtime-public` 保存 optimized runtime objects |
@@ -76,14 +78,17 @@ SH-01   17樓第一次同框
 | `PROJECT_STATE.md` | 現在正在做什麼、最新 milestone / migration / acceptance 狀態 |
 | `TODO.md` | 技術執行順序、milestones、hard gates，以及長期 AI Game Director / Content Factory North Star |
 | `ARCHITECTURE.zh-TW.md` | canonical runtime / content / asset / build architecture |
-| `AGENTS.md` | 新 AI session 的最低工作規則 |
+| `.ai/WORKFLOW_MANIFEST.yaml` | 新 AI session 的唯一 workflow 入口、harness registry、source lifecycle |
+| `AGENTS.md` | repo-level safety/verification guidance；AI production 仍先走 `.ai/` bootstrap |
 | `docs/narrative/CONTENT_PRODUCTION_TODO.md` | creative production batch board；只記進度，不重複 scene spec |
 | `docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md` | prototype scene/beat/character arc/pre-script authority |
 | `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md` | route DAG、relationship/knowledge/deception state contract |
-| `docs/art/PROTOTYPE_ART_REQUIREMENTS.md` | backgrounds、sprites、CG slots、scene-to-asset mapping、production priorities |
-| `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md` | 角色 6-sheet identity/body/wardrobe reference contract + Drive manifest |
-| `docs/art/VERTICAL_SLICE_CG_GENERATION_PROMPTS.md` | Opening Vertical Slice 的具體 CG generation input |
-| `docs/proposals/urban-dating-sim-setting-proposal.md` | 世界觀、產品定位、future heroine packs、較大內容方向 |
+| `docs/art/PRODUCTION_VISUAL_DIRECTION.md` | **現行** CG-first、16:9、responsive crop/focus、CG sequence/video contract |
+| `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md` | 角色 6-sheet identity/body/wardrobe reference catalog；worker 必須按角色隔離 |
+| `docs/art/PROTOTYPE_ART_REQUIREMENTS.md` | **PARTIALLY SUPERSEDED**：location/asset inventory 與 broad intent；不可再作 9:16/sprite-first authority |
+| `docs/art/VERTICAL_SLICE_CG_GENERATION_PROMPTS.md` | **PARTIALLY SUPERSEDED**：historical shot intent；不可直接跑 batch prompt |
+| `docs/proposals/urban-dating-sim-setting-proposal.md` | **SUPPORTING** world/product/future heroine context，不是 production authority |
+| `docs/DOCUMENT_STATUS.md` | human-readable document lifecycle / cleanup map |
 | `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md` | W4 UI / Memories / replay / frontier data contract |
 
 ## 快速開始：GitHub Codespaces
@@ -193,7 +198,7 @@ script + choices + state contract
         ↓
 art shot list + generation recipe
         ↓
-CG/background/sprite generation + Human selection
+CG-first shot/background generation + Human selection
         ↓
 canonical master ingest + runtime derivative
         ↓
@@ -211,7 +216,7 @@ Codespaces playable review
 - 許棠與江雨澄 production asset 必須使用各自 approved reference pack；不可從另一角色演變。
 - `ref-01-face` 是最高 identity authority；full-body / wardrobe / expression 視 shot 按需加入。
 - **禁止把上一張 CG 當下一張 CG 的唯一 identity source**，避免多代生成漂移。
-- Canonical runtime 是 mobile-first 9:16；CG/BG 要保存 focal point、safe zone、face/hand/object composition。
+- New production master 是 16:9 landscape-first；CG/BG 要保存 focal point、safe zone、crop tolerance、face/hand/object composition，runtime 以 responsive focus metadata 避免誤裁。
 - story 只引用 logical asset ID，不直接耦合 physical filename/provider。
 
 完整 contract 見 `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md` 與 `docs/art/PROTOTYPE_ART_REQUIREMENTS.md`。
