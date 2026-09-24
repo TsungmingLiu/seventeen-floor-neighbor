@@ -1,4 +1,4 @@
-import { memoryEventForNode } from './memories.js?v=239dda3d4011';
+import { memoryEventForNode } from './memories.js?v=05dbfcdbdd21';
 
 // Snapshots store node-entry state: choices are applied only when the player chooses.
 export class ProgressStore {
@@ -23,6 +23,8 @@ export class ProgressStore {
       version: 2,
       cursor: null,
       frontier: null,
+      restartActive: false,
+      runComplete: false,
       frontierMemoryEventId: null,
       frontierRank: -1,
       checkpoints: {},
@@ -93,6 +95,12 @@ export class ProgressStore {
       this.data.checkpoints = this.sanitizeCheckpoints(saved.checkpoints);
       this.data.cursor = this.clone(saved.cursor);
       this.data.frontier = this.clone(saved.frontier);
+      this.data.restartActive = saved.restartActive === true
+        && !!this.data.cursor
+        && this.chapter.nodes[this.data.cursor.nodeId]?.type !== 'route';
+      this.data.runComplete = saved.runComplete === true
+        || (!this.data.restartActive && this.chapter.nodes[this.data.cursor?.nodeId]?.type === 'route');
+      this.replaying = this.data.restartActive;
       this.data.edges = this.sanitizeEdges(saved.edges);
       const frontierEvent = this.eventForSnapshot(this.data.frontier);
       if (frontierEvent) {
@@ -113,6 +121,7 @@ export class ProgressStore {
     if (legacy?.version !== 1) return;
     this.data.checkpoints = this.sanitizeCheckpoints(legacy.checkpoints);
     this.data.cursor = this.clone(legacy.current);
+    this.data.runComplete = this.chapter.nodes[this.data.cursor?.nodeId]?.type === 'route';
     this.data.edges = this.sanitizeEdges(legacy.edges);
     const deepest = this.deepestSnapshot(this.data.checkpoints, this.data.cursor);
     if (deepest) {
@@ -141,7 +150,10 @@ export class ProgressStore {
       this.data.frontier = this.clone(snapshot);
       this.data.frontierMemoryEventId = event.id;
       this.data.frontierRank = event.progressRank;
-      if (this.replaying && advancesFrontier) this.replaying = false;
+      if (this.replaying && advancesFrontier) {
+        this.replaying = false;
+        this.data.runComplete = false;
+      }
     } else if (!this.data.frontier) {
       this.data.frontier = this.clone(snapshot);
     }
@@ -160,8 +172,24 @@ export class ProgressStore {
 
   beginReplay(snapshot = null) {
     if (snapshot && !this.setCursor(snapshot)) return false;
+    this.data.restartActive = false;
     this.replaying = true;
+    this.flush();
     return true;
+  }
+
+  beginFreshRun() {
+    this.data.restartActive = true;
+    this.data.runComplete = false;
+    this.replaying = true;
+    this.flush();
+  }
+
+  finishRun() {
+    this.data.restartActive = false;
+    this.data.runComplete = true;
+    this.replaying = false;
+    this.flush();
   }
 
   endReplay() {

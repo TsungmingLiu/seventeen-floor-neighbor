@@ -344,8 +344,8 @@ test('a completed cinematic reveals its poster instead of holding the last video
   await expect(page.locator('#dialogue-text')).toContainText('第一個吻很輕');
 });
 
-test('route checkpoint resolves an ending and persists completion', async ({ page }) => {
-  const route = snapshot('route', {
+test('finishing a route returns the title to Start and preserves a fresh run', async ({ page }) => {
+  const route = snapshot('c14a', {
     heart: 16,
     trust: 10,
     comfort: 5,
@@ -359,6 +359,8 @@ test('route checkpoint resolves an ending and persists completion', async ({ pag
 
   await boot(page);
   await page.locator('#start-button').click();
+  await waitForDialogueReady(page);
+  await page.locator('#advance-zone').click();
 
   await expect(page.locator('#ending-screen')).toBeVisible();
   await expect(page.locator('#ending-title')).toHaveText('1702，星期日早晨');

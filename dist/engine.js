@@ -1,6 +1,6 @@
-import { ProgressStore } from './progress.js?v=239dda3d4011';
-import { paintPreview, paintSprites, resolveVisual, setImage } from './visuals.js?v=239dda3d4011';
-import { memoryEventById, memoryStats, renderMemories, titleBackdropVisual } from './memories.js?v=239dda3d4011';
+import { ProgressStore } from './progress.js?v=05dbfcdbdd21';
+import { paintPreview, paintSprites, resolveVisual, setImage } from './visuals.js?v=05dbfcdbdd21';
+import { memoryEventById, memoryEventForNode, memoryStats, renderMemories, titleBackdropVisual } from './memories.js?v=05dbfcdbdd21';
 
 export class GameEngine {
   constructor({ chapter, assetManifest, sceneLibrary, memoryLibrary }) {
@@ -111,7 +111,7 @@ export class GameEngine {
   }
 
   bindEvents() {
-    this.els.startButton.addEventListener('click', () => this.resumeGame());
+    this.els.startButton.addEventListener('click', () => this.startFromTitle());
     document.querySelector('#replay-button').addEventListener('click', () => this.openMemories());
     document.querySelector('#home-button').addEventListener('click', () => this.showOnly(this.els.title));
     document.querySelector('#game-home-button').addEventListener('click', () => this.showOnly(this.els.title));
@@ -122,7 +122,7 @@ export class GameEngine {
     this.els.galleryButton.addEventListener('click', () => this.openGallery());
     this.els.galleryBack.addEventListener('click', () => this.closeGallery());
     this.els.viewerClose.addEventListener('click', () => this.closeViewer());
-    this.els.cinematicSkip.addEventListener('click', () => this.finishCinematic(true));
+    this.els.cinematicSkip.addEventListener('click', () => this.finishCinematic());
     this.els.viewerPrev.addEventListener('click', () => this.moveViewer(-1));
     this.els.viewerNext.addEventListener('click', () => this.moveViewer(1));
     let viewerTouchStart = null;
@@ -371,6 +371,7 @@ export class GameEngine {
       this.els.viewerVideo.setAttribute('aria-label', entry.gallery.title);
       this.setVideoSources(this.els.viewerVideo, entry.sources);
       this.els.viewerVideo.muted = this.muted;
+      this.els.viewerVideo.currentTime = 0;
       this.els.viewerVideo.play().catch(() => {});
     } else {
       this.els.viewerVideo.classList.add('is-hidden');
@@ -424,9 +425,9 @@ export class GameEngine {
     const signature = JSON.stringify(sources);
     if (video.dataset.sources === signature) return;
     video.replaceChildren();
-    Object.entries(sources).forEach(([type, src]) => {
+    ['mp4', 'webm'].filter(type => sources[type]).forEach((type) => {
       const source = document.createElement('source');
-      source.src = src;
+      source.src = sources[type];
       source.type = `video/${type}`;
       video.append(source);
     });
@@ -454,24 +455,22 @@ export class GameEngine {
     this.els.stage.classList.add('is-cinematic-playing');
     this.els.cinematicSkip.classList.remove('is-hidden');
     this.isCinematic = true;
-    this.els.sceneVideo.onended = () => this.finishCinematic(false);
+    this.els.sceneVideo.onended = () => this.finishCinematic();
 
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       this.els.sceneVideo.classList.remove('is-active');
-      this.finishCinematic(false);
+      this.finishCinematic();
       return;
     }
-    this.els.sceneVideo.play().catch(() => this.finishCinematic(false));
+    this.els.sceneVideo.play().catch(() => this.finishCinematic());
   }
 
-  finishCinematic(skipped = false) {
+  finishCinematic() {
     if (!this.isCinematic) return;
     this.isCinematic = false;
     this.els.sceneVideo.onended = null;
-    if (skipped) {
-      this.els.sceneVideo.pause();
-      this.els.sceneVideo.classList.remove('is-active');
-    }
+    this.els.sceneVideo.pause();
+    this.els.sceneVideo.classList.remove('is-active');
     this.els.stage.classList.remove('is-cinematic-playing');
     this.els.cinematicSkip.classList.add('is-hidden');
     if (this.pendingMoment) {
@@ -711,6 +710,7 @@ export class GameEngine {
     unlocked.add(key);
     localStorage.setItem(storageKey, JSON.stringify([...unlocked]));
     localStorage.setItem(`${this.chapter.id}:completed`, '1');
+    this.progress.finishRun();
     this.els.endingTitle.textContent = ending.title;
     this.els.endingText.textContent = ending.text;
     setImage(this.els.endingArt, endingArt.src, endingArt.focus);
@@ -721,8 +721,9 @@ export class GameEngine {
     this.tone('message');
   }
 
-  startGame({ replay = false } = {}) {
-    if (replay) this.progress.beginReplay();
+  startGame({ replay = false, freshRun = false } = {}) {
+    if (freshRun) this.progress.beginFreshRun();
+    else if (replay) this.progress.beginReplay();
     else this.progress.endReplay();
     this.stopCinematic();
     this.state = this.createInitialState();
@@ -737,7 +738,7 @@ export class GameEngine {
     const restored = this.progress.restore(snapshot);
     if (!restored) return this.startGame({ replay });
     if (replay) this.progress.beginReplay(snapshot);
-    else this.progress.endReplay();
+    else if (!this.progress.data.restartActive) this.progress.endReplay();
     this.stopCinematic();
     Object.assign(this, restored);
     this.previousNode = null;
@@ -745,12 +746,26 @@ export class GameEngine {
     this.render();
   }
 
+  startFromTitle() {
+    const { frontier, cursor, restartActive, runComplete } = this.progress.data;
+    if (runComplete && !restartActive) {
+      return this.startGame({ freshRun: true });
+    }
+    if (!frontier) return this.startGame();
+    return this.resumeGame(restartActive ? cursor : frontier);
+  }
+
   refreshTitle() {
-    const snapshot = this.progress.data.frontier;
+    const { frontier, cursor, restartActive, runComplete } = this.progress.data;
+    const finished = runComplete && !restartActive;
+    const snapshot = restartActive || (finished && this.chapter.nodes[cursor?.nodeId]?.type === 'route')
+      ? cursor : frontier;
     const node = this.chapter.nodes[snapshot?.nodeId || this.chapter.startNode];
-    const frontierEvent = memoryEventById(this.memoryLibrary, this.progress.data.frontierMemoryEventId);
-    let visual = snapshot ? titleBackdropVisual(this.memoryLibrary, this.progress, this.assets) : null;
-    let label = frontierEvent?.title
+    const activeEvent = restartActive
+      ? memoryEventForNode(this.memoryLibrary, snapshot?.nodeId)
+      : memoryEventById(this.memoryLibrary, this.progress.data.frontierMemoryEventId);
+    let visual = snapshot && !restartActive ? titleBackdropVisual(this.memoryLibrary, this.progress, this.assets) : null;
+    let label = activeEvent?.title
       || node?.mapLabel
       || node?.moment
       || this.chapter.chapterLabels[node?.chapter || 0]
@@ -773,11 +788,11 @@ export class GameEngine {
 
     paintPreview(this.els.titleArt, this.els.titleCharacters, visual || node?.visual, this.assets);
     this.els.titleArt.alt = snapshot ? '目前最深故事進度的回憶畫面' : '17樓故事開場畫面';
-    this.els.startButton.textContent = snapshot ? '繼續遊戲' : '開始遊戲';
-    const characterId = frontierEvent?.characterIds?.[0];
+    this.els.startButton.textContent = snapshot && !finished ? '繼續遊戲' : '開始遊戲';
+    const characterId = activeEvent?.characterIds?.[0];
     const characterLabel = characterId ? this.memoryLibrary.characterLabels?.[characterId] : null;
     this.els.resumeLabel.textContent = snapshot
-      ? `目前進度 · ${characterLabel ? `${characterLabel} · ` : ''}${label}${this.progress.persisted === false ? '（儲存空間無法寫入）' : ''}`
+      ? `${finished ? '已完成' : '目前進度'} · ${characterLabel ? `${characterLabel} · ` : ''}${label}${this.progress.persisted === false ? '（儲存空間無法寫入）' : ''}`
       : '故事起點 · 搬進 17 樓';
   }
 

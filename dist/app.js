@@ -1,4 +1,4 @@
-import { GameEngine } from './engine.js?v=239dda3d4011';
+import { GameEngine } from './engine.js?v=05dbfcdbdd21';
 
 async function fetchJson(path) {
   const response = await fetch(path, { cache: 'no-cache' });
