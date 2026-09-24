@@ -110,7 +110,7 @@
 
 ---
 
-# 4. Batch-generation prompt
+# 4. DEPRECATED historical batch-generation prompt — DO NOT RUN FOR NEW PRODUCTION
 
 可直接把以下整段貼到一個新 AI session：
 
