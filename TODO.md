@@ -27,6 +27,9 @@
 - [x] 三張 date CG 的 damaged GitHub originals 已由完整 master 恢復，runtime WebP 已放入 Drive。
 - [x] 許棠 identity v2 與 first-kiss keyframes 的完整 masters 已恢復並記錄。
 - [x] W4 Player UI / Memories / CG Gallery 的產品與資料契約已寫入 `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md`，**但尚未實作**。
+- [x] 雙女主 production narrative 已升級為 Braided Narrative v0.5；canonical scene/route/state/art 規格已拆入 `docs/narrative/` 與 `docs/art/`。
+- [x] 許棠／江雨澄 6-sheet production reference packs 已通過 QA，Drive canonical manifest 已記錄於 `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md`。
+- [x] Opening Vertical Slice 已定義為第一個 production-grade content sample，production board 位於 `docs/narrative/CONTENT_PRODUCTION_TODO.md`。
 
 ## 0.2 現在 package scripts 的真實狀態
 
@@ -75,7 +78,7 @@ npm run release
 - [x] Codespaces one-command preview。
 - [x] AI-operated ephemeral Codespace lifecycle tooling。
 - [x] 在具有 Codespaces lifecycle 權限的 authenticated `gh` operator 上跑一次 end-to-end `codespace:accept`（run `35932727909`）。
-- [ ] AI cloud-browser UI / localStorage / playable-flow acceptance。
+- [x] AI cloud-browser UI / localStorage / playable-flow acceptance（Browser Acceptance run `35933586244`）。
 - [ ] W4 Player UI / Memories / CG Gallery implementation。
 - [ ] cloud-complete verification/checkpoint command。
 - [ ] SFW / Full compile-time pruning。
@@ -546,6 +549,8 @@ fresh Codespace clean build succeeds
 # 8. 之後 — 3–4 女主 Scale Test
 
 > 目的：證明新增角色主要是 content/asset production，而不是 engine rewrite。
+>
+> 這一階段同時是未來 AI Content Factory 的 **manual proving ground**：先人工跑通幾次相同 production contract，再決定哪些步驟值得自動化。
 
 ## M1 Roster / Character Bible
 
@@ -603,6 +608,8 @@ Character Bible
 → Review
 → Verified Commit
 ```
+
+這條鏈本身就是未來 AI Content Factory 要自動編排的 contract；在 Scale Test 階段先以人工／半人工方式證明它穩定，**不要為了 automation 提前改寫尚未穩定的 scene/content schema**。
 
 ---
 
@@ -733,22 +740,179 @@ npm run assets:build
 - [ ] analytics platform。
 - [ ] client-side AES DRM。
 - [ ] speculative scaling architecture。
+- [ ] AI Game Director / automated Content Factory implementation（North Star 已定義；下方 prerequisites 未滿足前不開工）。
 
 ---
 
-# 13. 下一個立即要做的項目
+# 13. Long-term North Star — AI Game Director / Content Factory
 
-> **不要跳步。**
+> **狀態：目標架構，現在不實作。**
+>
+> 目的不是建立一個永遠累積 context 的「超級主對話」，而是讓 GitHub 成為長期狀態與 canonical memory；AI workers 每次只拿完成任務所需的 context capsule，完成後把成果寫回 repo。
+>
+> Human 最終只需要下高階產品／創意命令，例如：「擴寫中期約會池」、「替兩位女主各增加一段關係升溫內容」、「新增一名與現有角色差異足夠大的女主」、「補強 Act 3，讓目前內容更豐富」。
+>
+> 系統則負責把需求推導成可驗收的 production batches，產出 GitHub change + playable preview；Human 主要保留方向、視覺選擇與最終成品驗收。
 
-- [ ] **NEXT: W3 — Codespaces Development & Preview**
-  - [x] 建立 Node 22 + ffmpeg 的 devcontainer。
-  - [x] 固定 forwarded preview port 4173。
-  - [x] 新增 `npm run dev`。
-  - [x] 新增 `npm run preview`。
-  - [ ] fresh Codespace clean restore/build。
-  - [ ] forwarded preview smoke test。
-  - [ ] localStorage reload test。
-  - [ ] temporary public-port / Work review path test。
-  - [x] 同步所有 canonical workflow docs。
-  - [x] verify、commit、push。
-- [ ] **THEN: W4 — Player UI / Memories / CG Gallery**
+## 13.1 最終交付 contract
+
+```text
+Human directive
+  做某個劇情分支／擴約會池／加女角色
+        ↓
+AI Game Director
+  scope / inventory / constraints / production plan
+        ↓
+Planner
+  story expansion / scene objectives / dependencies / state contract
+        ↓
+Writers + CG production workers
+  dialogue / choices / art shot list / recipes / accepted assets
+        ↓
+Integrator
+  story JSON / route graph / memory metadata / manifest / recipes
+        ↓
+QA
+  schema / continuity / asset / graph / build / browser smoke
+        ↓
+GitHub branch / PR + Codespaces playable preview + QA summary
+        ↓
+Human acceptance
+  approve → merge / next directive
+  reject  → targeted revision batch
+```
+
+**Delivery surface 是 repo change + playable build，不是一堆需要 Human 手動搬運的 subagent 對話。**
+
+## 13.2 未來角色與現有 canonical docs 的對接
+
+| Future role | 主要 canonical input | 現有文件可直接承擔的責任 |
+| --- | --- | --- |
+| **AI Game Director** | `PROJECT_STATE.md`、root `TODO.md`、`docs/narrative/CONTENT_PRODUCTION_TODO.md`、setting proposal | 判斷目前缺口、定義 feature scope、切 production batches、追蹤完成度 |
+| **Narrative Planner** | `PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md`、`PROTOTYPE_ROUTE_GRAPH_AND_STATE.md` | scene 目的、依賴、attention window、relationship/state/knowledge contract |
+| **Scene Writer** | Planner 的局部 scene packet、角色／世界觀設定、相鄰 scene context | narration、dialogue、choices、reactive variants；不重新發明整條 route |
+| **CG Director** | `PROTOTYPE_ART_REQUIREMENTS.md`、`CHARACTER_REFERENCE_PACK_SPEC.md`、`VERTICAL_SLICE_CG_GENERATION_PROMPTS.md` | shot list、構圖、safe zone、identity/wardrobe reference stack、generation recipe |
+| **Asset Producer** | Character refs + recipe + source storage contract | 候選生成、accepted master、runtime derivative、catalog/source-map metadata |
+| **Integrator** | `ARCHITECTURE.zh-TW.md`、route/state spec、W4 memory contract | stable IDs、story JSON、route/state/memory metadata、manifest/recipe wiring |
+| **QA / Continuity** | `CONTENT_PRODUCTION_TODO.md` 的 S1–S12 DoD、validator/tests、W4 spec | 玩家視角、character continuity、graph/schema/assets/build/browser acceptance |
+
+原則：
+
+- Planner 不需要讀所有歷史 dialogue。
+- Writer 不需要讀整個 repo，只讀該 scene 的 context capsule。
+- CG worker 不需要知道 engine implementation。
+- QA 不替 Writer 改劇情方向；只回報 violation / regression / acceptance result。
+- Worker 可以一次性建立、完成、退出；**conversation history 不是 source of truth**。
+
+## 13.3 Automation prerequisites / hard gates
+
+以下條件滿足前，**不要開始寫 Content Factory orchestration**：
+
+- [ ] W4 的 memory/frontier/content data contract 已實作並在真實內容上穩定。
+- [ ] Opening Vertical Slice 至少完整跑通一次：plan → script → state contract → CG generation/selection → canonical asset ingest → story JSON integration → Codespaces playable preview → Human acceptance。
+- [ ] 至少再跑 1–2 個跨許棠／江雨澄的 manual production batches，確認接口不是只適合單一案例。
+- [ ] scene/story schema、logical asset ID、memory metadata 與 generation recipe 已不再高頻改形。
+- [ ] context packet 足以讓新 session 在不讀舊聊天的情況下安全修改局部內容。
+- [ ] validator/tests 能抓出 broken next target、unreachable scene、asset mismatch、save/frontier regression 等主要 integration failure。
+- [ ] Human 已確認哪些 gate 必須保留人工判斷（至少 creative direction、關鍵 CG selection、final playable acceptance）。
+
+## 13.4 演進順序
+
+### Phase A — 現在：Framework + first production sample
+
+- W4 Player UI / Memories / CG Gallery。
+- Opening Vertical Slice script / CG production。
+- 持續完善 canonical story/state/art/reference docs。
+- 目標：得到第一個真正 production-quality、可玩的完整樣本。
+
+### Phase B — 下一階段：Manual production loop stabilization
+
+反覆跑：
+
+```text
+選定 content scope
+→ plan
+→ script
+→ CG
+→ JSON / asset integration
+→ validate
+→ Codespaces preview
+→ Human review
+```
+
+這一階段的任務不是追求「全自動」，而是找出每一輪真正固定、可機械化的 input/output contract。
+
+### Phase C — Content Factory MVP
+
+第一版只自動化最穩定且風險最低的部分：
+
+```text
+batch descriptor
+→ context capsule
+→ Planner
+→ Writer
+→ story JSON assembler
+→ validators/tests
+→ GitHub PR
+→ playable preview
+```
+
+CG 可以先維持 Human selection gate；不要讓圖片生成阻塞文字／JSON pipeline 的建立。
+
+### Phase D — AI Game Director
+
+當 Batch-level pipeline 已穩定，再往上一層：
+
+```text
+擴寫約會池
+        ↓
+Director 讀 inventory / roadmap / constraints
+        ↓
+自動定義多個 production batches
+        ↓
+逐批執行 Content Factory
+        ↓
+整合 + QA
+        ↓
+Human 驗收最終 feature
+```
+
+最終目標是 **Human 管產品方向與品質；AI 管 decomposition、production、integration 與重複性 QA**。
+
+---
+
+# 14. 當前執行順序
+
+> **不要為了 North Star 跳過目前的 proving work。**
+
+## Technical track — NEXT
+
+- [ ] **W4 — Player UI / Memories / CG Gallery**
+  - [ ] 落地 memory-event / cursor / frontier data contract。
+  - [ ] 更新 title / in-game UI / Memories / CG Gallery。
+  - [ ] old-save migration。
+  - [ ] automated tests + browser acceptance。
+  - [ ] verified commit / docs synchronization。
+
+## Creative track — 可與 W4 平行
+
+- [ ] **Opening Vertical Slice production**
+  - [ ] 依 `docs/narrative/CONTENT_PRODUCTION_TODO.md` 推進 Batch A–D。
+  - [ ] W4/content schema 尚未穩定前，scene 正常先做到 S1–S9。
+  - [ ] 許棠／江雨澄 production CG 必須使用已批准 6-sheet canonical references。
+  - [ ] 不把舊 123-node playable fixture 當成 production narrative ordering。
+
+## First convergence milestone
+
+- [ ] 把 Opening Vertical Slice 接入 W4 runtime（S10）。
+- [ ] Codespaces playable integration / browser acceptance（S11）。
+- [ ] Human 從玩家視角驗收 pacing、角色差異、CG/UI composition，完成 final polish（S12）。
+- [ ] 將這一次完整 loop 的實際 input/output/返工原因記錄下來，作為 Content Factory interface 設計依據。
+
+## THEN
+
+- [ ] W5 — Cloud-complete Verification / Checkpoint。
+- [ ] W6 — SFW / Full Build Profiles。
+- [ ] W7 — Review / Release Pipeline。
+- [ ] 3–4 女主 Scale Test。
+- [ ] **只有在 13.3 prerequisites 成立後，才開始 Content Factory MVP。**

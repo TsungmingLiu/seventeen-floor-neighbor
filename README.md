@@ -1,476 +1,272 @@
 # 《17 樓的新鄰居》
 
-一款純前端、可靜態部署的都市戀愛視覺小說。玩家搬進 1703 的第一晚，因為一連串小事故認識住在 1702 的許棠；故事透過對話選項累積關係數值，進入不同結局。遊戲包含模組化角色設定、CG／立繪／動態回憶資產、可重生的生成配方、分支劇情、結局判定與回憶收藏功能。
+一款 **純前端、可靜態部署的台北都市成人戀愛視覺小說**。目前 production prototype 聚焦兩位女主——許棠與江雨澄——採用 braided narrative：玩家在前中期可以自然同時認識、約會、重新靠近兩人，直到較晚的 commitment gate 才真正收束關係。
 
-> **新對話／新協作者的第一條規則：** 先讀 `PROJECT_STATE.md`、`TODO.md`、`AGENTS.md`。GitHub `main` 是 code/content/history source of truth；canonical 開發與測試環境是 GitHub Codespaces。不要依賴 earlier chat 或某台本地 Mac 的 working copy。
+> **新對話／新協作者第一條規則：** 先讀 `PROJECT_STATE.md`、`TODO.md`、`AGENTS.md`。GitHub `main` 是 code / content / metadata / history source of truth；Google Drive 保存 canonical master/runtime assets；GitHub Codespaces 是 canonical 開發、build、test、preview 環境。不要依賴 earlier chat 或某台本地電腦的 working copy。
 
-## 目前版本快照
+## 專案目前在哪裡
 
 | 項目 | 目前狀態 |
 | --- | --- |
-| 可玩故事 | 一個共用入口，許棠完整分支＋辦公族 OL 暫用短分支 |
-| 角色 | 許棠，以及待完善人設的成年辦公族 OL；林澄設定已封存 |
-| 劇情節點 | 原有許棠節點保留，新增 OL 分支；即時數量見 `npm run validate` |
-| 章節進度標籤 | 12：雨夜、初遇、停電、靠近、隔壁、咖啡、約會、天台、1702、真心、確認、清晨 |
-| 結局 | 許棠原四結局＋OL 暫用結局 |
-| 視覺資產 | 沿用既有 CG／背景／立繪，OL 暫借既有黑絲辦公造型；全量重製尚未開始 |
-| 視覺生成配方 | manifest 與 recipe 一對一，封存內容不進入可玩收藏 |
-| 約會池 | 3 個可複用場景，每輪隨機抽 2 個且不重複 |
-| 運行方式 | 瀏覽器原生 JavaScript，無後端、無資料庫 |
-| 玩家資料 | 節點快照、已走連線、CG、結局、靜音設定存於瀏覽器 `localStorage` |
-| 靜態輸出 | `dist/` |
+| Engine / build foundation | **W1–W3 完成**：source/output boundary、Drive-backed asset build、strict media validation、Codespaces-only development、ephemeral Codespace acceptance、Playwright browser acceptance 已驗證 |
+| Current technical milestone | **W4 — Player UI / Memories / CG Gallery**；產品與 data contract 已批准，runtime implementation 是目前下一個工程里程碑 |
+| Canonical production story | **Braided Narrative v0.5**；約 66 個 authoring-level scene / gate / ending / after-story 單元，詳見 `docs/narrative/` |
+| Prototype heroines | **許棠**：27 歲、約 170 cm、自由接案視覺設計師；**江雨澄**：23 歲、約 160 cm、研究生＋兼職插畫／ACG creator |
+| Character visual identity | 許棠、江雨澄的 **6-sheet production reference packs 均已 QA PASS**；canonical Drive manifest 見 `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md` |
+| Current creative milestone | **Opening Vertical Slice**：COM-00 → SH-01，按 Batch A–D 生產 script / state / CG；進度板在 `docs/narrative/CONTENT_PRODUCTION_TODO.md` |
+| Current playable runtime | 仍保留舊 **123-node Xu Tang + temporary office-OL branch** 作為 engine / migration / W4 regression fixture；**它不是新的 canonical production story ordering** |
+| Runtime | Browser-native JavaScript，無 backend、無 database；save/progress 使用 `localStorage` |
+| Asset storage | GitHub 保存 metadata / legacy Git-backed sources；Drive `source-private` 保存 accepted masters，`runtime-public` 保存 optimized runtime objects |
+| Static output | `dist/`，由 build 產生；不要把 `dist/` 當 source of truth |
 
-## 快速開始（GitHub Codespaces）
+## Canonical creative direction
 
-Repository 已包含 `.devcontainer/`：Node 22、ffmpeg/ffprobe 與 port 4173 forwarding 都由環境配置管理，不需要在 Mac/PC 維護另一套 project environment。
+Prototype 的核心不是傳統「早期選一位女主後另一位消失」。玩家是在幾週的都市生活中分配 **時間、注意力與誠實程度**：
 
-1. 在 GitHub repository 選 **Code → Codespaces → Create codespace on main**（或 resume 既有 Codespace）。
-2. Codespace 建立後執行：
+- 前中期允許同時和兩位女主建立關係；
+- recent focus、knowledge flags、re-approach 與 crossover 製造低成本的 braided feel；
+- 尚未 exclusivity 前的 overlap 不自動視為欺騙；
+- deliberate deception 與 honest overlap 分開處理；
+- late commitment 才真正 route-lock；
+- Good ending 後還有 Relationship After Story，而不是 runtime 立即終止。
+
+世界觀、五位 future heroine 的較大產品設定與角色庫見 `docs/proposals/urban-dating-sim-setting-proposal.md`；許棠／江雨澄 prototype 的 production authority 則以 `docs/narrative/` 與 `docs/art/` 最新文件為準。
+
+## 現在的兩條工作線
+
+### 1. Technical track — W4
+
+W4 把目前偏 prototype/debug 的玩家介面升級成真正適合多女主 VN 的產品介面：
+
+- Title：一個大 Start/Continue + Memories + CG；
+- Game UI：縮小 dialogue chrome，讓 CG / scene 成為視覺主體；
+- Memories：一頁式 vertical timeline，玩家看到的是 Memory Event，不是 engine node graph；
+- Save semantics：分離 replay/current cursor 與 deepest story frontier，重播舊回憶不會讓 Continue 倒退；
+- CG Gallery：維持單純收藏牆，不承擔 route graph 職責。
+
+詳細規格：`docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md`。
+
+### 2. Creative track — Opening Vertical Slice
+
+第一個 production-grade 內容樣本不是一次把整個 66-scene story 寫完，而是先完成 opening vertical slice：
+
+```text
+COM-00  雨夜搬家
+COM-01X 電梯重啟
+COM-01J 地下街初遇
+COM-02X 深夜便利店
+COM-02J 咖啡店重逢
+COM-03X 包裹 / Line
+COM-03J 推薦 / Discord
+COM-03M 一週訊息 montage
+XT-04   中山書店
+JYC-05  ACG：她的主場
+JYC-06  Gaming Night
+SH-01   17樓第一次同框
+```
+
+每個 major scene 使用 `docs/narrative/CONTENT_PRODUCTION_TODO.md` 的 S1–S12 Definition of Done。W4/content schema 尚未穩定時，creative production 可以先完成 script、continuity、state contract、shot list、CG generation 與 asset QA；真正 runtime integration / playtest / final polish 在 W4 可承接後完成。
+
+## Canonical documents
+
+| 文件 | Authority |
+| --- | --- |
+| `PROJECT_STATE.md` | 現在正在做什麼、最新 milestone / migration / acceptance 狀態 |
+| `TODO.md` | 技術執行順序、milestones、hard gates，以及長期 AI Game Director / Content Factory North Star |
+| `ARCHITECTURE.zh-TW.md` | canonical runtime / content / asset / build architecture |
+| `AGENTS.md` | 新 AI session 的最低工作規則 |
+| `docs/narrative/CONTENT_PRODUCTION_TODO.md` | creative production batch board；只記進度，不重複 scene spec |
+| `docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md` | prototype scene/beat/character arc/pre-script authority |
+| `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md` | route DAG、relationship/knowledge/deception state contract |
+| `docs/art/PROTOTYPE_ART_REQUIREMENTS.md` | backgrounds、sprites、CG slots、scene-to-asset mapping、production priorities |
+| `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md` | 角色 6-sheet identity/body/wardrobe reference contract + Drive manifest |
+| `docs/art/VERTICAL_SLICE_CG_GENERATION_PROMPTS.md` | Opening Vertical Slice 的具體 CG generation input |
+| `docs/proposals/urban-dating-sim-setting-proposal.md` | 世界觀、產品定位、future heroine packs、較大內容方向 |
+| `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md` | W4 UI / Memories / replay / frontier data contract |
+
+## 快速開始：GitHub Codespaces
+
+Repository 已包含 `.devcontainer/`，canonical environment 使用 Node 22、ffmpeg/ffprobe 與 port 4173。Local clone 只視為 emergency/advanced fallback，不是 acceptance target。
+
+1. GitHub → **Code → Codespaces → Create codespace on main**（或 resume 現有 Codespace）。
+2. 執行：
 
 ```bash
 npm run dev
 ```
 
-3. 打開 Ports 面板中的 **Game Preview (4173)** forwarded URL。
-4. 修改 `public/`、`src/`、`content/` 或 `assets-src/` 後，dev server 會 rebuild；refresh browser 查看結果。
-5. milestone acceptance 使用：
+3. 打開 Ports 面板的 **Game Preview (4173)**。
+4. milestone / production-like preview 使用：
 
 ```bash
 npm run preview
 ```
 
-`preview` 會先做 production-like clean build，再以同一 port 4173 serve `dist/`。
-
-Forwarded port 預設保持 private。只有要給未共享 GitHub authentication 的 reviewer 直接開啟時，才暫時設為 public；review 後恢復 private/停止 port。Forwarded URL 是 temporary address，不要 hardcode。
-
-Desktop VS Code 也可以直接連到同一個 Codespace；這仍是同一套 cloud working environment，不是 local clone workflow。
+Forwarded port 預設保持 private；只有主觀 UI/視覺 reviewer 無法使用 GitHub authentication 時才暫時 public，review 後立即恢復 private／刪除 ephemeral Codespace。不要把 forwarded URL hardcode 到任何 source、content 或 tests。
 
 ### AI-operated fresh Codespace acceptance
 
-日常 milestone 不應要求 Human 手動 create/rebuild environment。已登入且有 Codespaces 權限的 AI/cloud operator 可以直接執行：
+工程 acceptance 不要求 Human 手動建立測試環境：
 
 ```bash
 npm run codespace:accept
 ```
 
-它會建立一次性 Codespace、透過 SSH 執行 clean asset/build/validate/test、啟動 preview、用 private port tunnel 做 HTTP smoke，成功後刪除環境。
+它會建立一次性 Codespace，透過 SSH 跑 clean asset/build/validate/test、啟動 preview、private-tunnel smoke，成功後刪除環境。
 
-需要 Work/cloud browser 真正打開 UI 時：
+需要主觀 browser review 時：
 
 ```bash
 npm run codespace:review
 ```
 
-工程 acceptance 通過後才會暫時把 4173 設 public 並輸出 review URL。review 完成後刪除 Codespace。
+W3 的 canonical engineering proof 已完成；GitHub Actions 的 Browser Acceptance 也已用 Chromium 驗證 start/continue/reload/localStorage、gallery/branch fixture、cinematic、ending persistence、mobile layout 與 blocking browser errors。
 
-工程正確性不依賴人工 browser review。GitHub Actions 的 **Browser Acceptance** workflow 會以 Playwright Chromium 對 clean runtime 驗證 start/continue/reload/localStorage、OL branch、branches/gallery、cinematic、ending persistence、320px layout 與 blocking browser errors。W3 canonical browser proof 是 run `35933586244`；`codespace:review` 只保留給主觀 UX/視覺 review。
-
-若要完全由 GitHub Actions 觸發，可使用 **Codespace Acceptance** workflow_dispatch；這需要一次性配置 repository secret `CODESPACES_TOKEN`。GitHub Actions 內建 `GITHUB_TOKEN` 本身沒有 Codespaces lifecycle permission。
-
-### 常用命令
+## 常用命令
 
 | 命令 | 用途 |
 | --- | --- |
-| `npm run dev` | Codespaces 日常 inner loop：build、serve 4173、監看 source/content rebuild |
-| `npm run preview` | production-like clean build + 4173 preview |
-| `npm run preview:smoke -- --skip-build` | CI/工程 smoke：HTML/CSS/JS/route/fallback/Range requests |
-| `npm run codespace:accept` | AI operator 建立 fresh ephemeral Codespace，clean build/test + private tunnel smoke，成功後刪除 |
-| `npm run codespace:review` | 同上，但工程驗證後暫時公開 4173 並輸出 AI browser review URL |
-| `npm run validate` | 驗證角色版本、資產引用、生成配方、劇情連線與 CG 規則 |
-| `npm run assets:check` | 媒體 mapping/hash/metadata/full-decode 檢查 |
-| `npm run assets:build` | 從 Git source / Drive runtime provider 產生 runtime assets |
+| `npm run dev` | Codespaces 日常 inner loop：build、serve 4173、watch/rebuild |
+| `npm run preview` | production-like clean build + preview |
+| `npm run preview:smoke -- --skip-build` | static/runtime HTTP smoke |
+| `npm run codespace:accept` | ephemeral fresh Codespace engineering acceptance |
+| `npm run codespace:review` | acceptance 後建立 temporary public review surface |
+| `npm run validate` | content graph / logical assets / recipes / character dependency validation |
+| `npm run assets:check` | media mapping/hash/metadata/full-decode 檢查 |
+| `npm run assets:build` | 從 Git/Drive canonical sources 建立 runtime assets |
 | `npm run build` | clean rebuild `dist/` |
-| `npm run assets:plan -- xu_tang` | 列出角色設定變更影響的素材 |
-| `npm run context -- --route xu-tang --node contact` | 輸出指定節點局部脈絡 |
+| `npm run assets:plan -- <character-id>` | 列出 character/design change 影響的 assets |
+| `npm run context -- --route <route-id> --node <node-id>` | 產生局部修改 context packet |
 
-## 架構總覽
+## 架構摘要
 
-專案採取「角色設定 → 生成配方 → 邏輯資產 → 劇情引用 → 通用引擎」的資料驅動設計。替換角色、新增服裝或加入角色時，原則上不需要改引擎。
+專案採用 data-driven content architecture：故事引用穩定 logical IDs；角色、圖片、CG、state 與 route 都透過 metadata/config 連接，避免新增內容時改寫 engine。
 
 | 層 | 位置 | 職責 |
 | --- | --- | --- |
-| 角色設定 | `content/characters/*.json` | 身分不變項、造型版本、髮型、服裝、妝容、表情與參考圖 |
-| 資產清單 | `content/assets/manifest.json` | 將穩定的邏輯素材 ID 對應到實際圖片及角色版本依賴 |
-| 生成配方 | `content/recipes/assets.json` | 記錄每張背景、立繪、CG 與動態回憶的提示詞、構圖、運鏡與角色依賴 |
-| 路線登錄 | `content/routes/index.json` | 宣告所有可玩路線與預設路線 |
-| 路線模組 | `content/routes/<route-id>/` | 路線介面文字、故事檔、場景檔、素材白名單與交接 context |
-| 場景模板 | `content/scenes/*.json`、各路線 `scenes.json` | 與角色分離的場景、互動節點與隨機池 |
-| 劇情資料 | 路線設定中的 `storyFiles` | 節點、台詞、選項、數值、分支、結局與畫面模式；建置時合併 |
-| 遊戲引擎 | `src/` | 通用播放、打字效果、分支、結局、立繪渲染、影片播放、回憶收藏及音效 |
-| 靜態介面來源 | `public/index.html`、`public/styles.css` | 標題、遊戲、結局、收藏與檢視器 UI；build 複製到 `dist/` |
-| 發布輸出 | `dist/` | 可直接交給靜態託管服務的完整網站 |
-| 驗證與工具 | `tools/` | 建置、內容驗證與人設影響分析 |
+| Product / narrative specs | `docs/` | 世界觀、scene plan、route/state、art requirement、W4 UX contract |
+| Character definitions | `content/characters/*.json` | production identity / invariants / design versions |
+| Asset manifest | `content/assets/manifest.json` | logical asset ID → runtime asset metadata |
+| Source catalog / map | `content/assets/source-catalog.json`、`source-map.json` | accepted master provenance + runtime provider/hash mapping |
+| Asset recipes | `content/recipes/assets.json` | 可重建的 prompt / dependencies / camera / generation metadata |
+| Route registry | `content/routes/index.json` | 可玩 package 登錄與 default route |
+| Route packages | `content/routes/<route-id>/` | storyFiles / sceneFiles / asset whitelist / route context |
+| Shared scenes | `content/scenes/*.json` | reusable pools / scene templates |
+| Runtime engine | `src/` | playback、branching、save/progress、visuals、gallery、memories |
+| Static UI source | `public/` | HTML/CSS shell |
+| Tooling | `tools/` | build / validation / context / asset / Codespace automation |
+| Generated output | `dist/` | disposable static site build |
 
-### 路線包
+### Source-of-truth boundary
 
-標題畫面只載入 `dist/content/routes/index.json` 的預設故事；角色分線由劇情中的選擇決定，網址不再切換平行路線。每個來源 route config 宣告：
+```text
+GitHub
+  code / structured content / metadata / history
 
-- 標題畫面文字、色彩與無障礙替代文字。
-- `storyFiles`：一或多個節點檔；建置時合併，節點 ID 不可重複。
-- `sceneFiles`：一或多個場景池檔；建置時合併，場景池 ID 不可重複。
-- `assetIds`：此路線可使用的素材白名單，也決定收藏頁內容。
-- `context`：新對話或局部修改前應讀取的角色弧線與連續性規則。
+Google Drive source-private
+  accepted private master assets
 
-新增角色分支時，把獨立故事檔接入預設包的 `storyFiles`，再由既有節點接出選項；不應修改 `src/` 或 `tools/`。預設故事保留 `chapter-01` 作為存檔、結局及收藏命名空間。
+Google Drive runtime-public
+  optimized runtime objects
 
-### 來源檔與建置產物
+GitHub Codespaces
+  canonical build / test / preview environment
 
-以下檔案是內容來源，應優先修改：
-
-- `content/assets/manifest.json`
-- `content/routes/index.json`
-- `content/routes/*/route.json`
-- 各路線 `storyFiles`、`sceneFiles` 與 `context.md`
-- `content/chapters/chapter-01.json`
-- `content/characters/*.json`
-- `content/scenes/*.json`
-- `content/references/*.png`
-- `content/cinematics/`（動態回憶的可重建關鍵幀）
-- `content/recipes/assets.json`
-- `src/app.js`
-- `src/engine.js`
-- `src/progress.js`、`src/visuals.js`、`src/branches.js`
-
-`npm run build` 會驗證全部路線，然後為每條路線建立獨立運行包：
-
-| 來源 | 輸出 |
-| --- | --- |
-| `content/routes/index.json` 與路線介面設定 | `dist/content/routes/index.json` |
-| 路線的 `assetIds` | `dist/content/routes/<route-id>/assets.json` |
-| 路線的 `storyFiles` | `dist/content/routes/<route-id>/chapter.json` |
-| 路線的 `sceneFiles` | `dist/content/routes/<route-id>/scenes.json` |
-| `src/app.js` | `dist/app.js` |
-| `src/engine.js` | `dist/engine.js` |
-
-所有 `src/*.js` 都會編譯至 `dist/`；建置會在模組匯入、HTML 的程式入口與樣式網址加上內容雜湊，避免部署後混用舊快取。請勿手動修改 `dist/*.js`。
-
-`dist/` 是 disposable generated output，不應手動修改。HTML/CSS source 在 `public/`，runtime JS source 在 `src/`，structured content 在 `content/`。Runtime binary 由 `content/assets/source-map.json` 從 Git-backed source 或 Google Drive runtime provider 建立到 `generated/runtime-assets/`，再進入 `dist/assets/`。
-
-## 角色模組
-
-目前可玩角色為許棠與暫用辦公族 OL。OL 的人設及正式 CG 待後續設計；舊林澄檔案只供封存參考。
-
-### 許棠的核心設定
-
-- 22 歲東亞女性，約 170 公分。
-- 橢圓臉、柔和下頜線、偏狹長杏眼、深棕瞳孔、纖細鼻樑、淡玫瑰色嘴唇。
-- 深棕長髮；髮量、長度及臉側自然碎髮固定，場景可切換髮型模組。
-- 小型銀色耳釘與極細銀色素圈戒指；不使用醒目項鍊。
-- 修長清瘦但比例自然，不幼態化、不動漫化、不過度磨皮，也不誇張強調身材。
-- 性格清冷、安靜而鬆弛；擅長替別人化解尷尬，但通常會順手補一刀。關心別人時習慣說成「順便」或「住戶義務」。
-- 主要身份參考圖記錄在角色 JSON 的 `references`，Library ID 為 `libfile_c00164e0e34c8191b2ad04a9b51941fd`，檔名 `IMG_9458.jpeg`。
-- 四角度臉部錨點存於 `content/references/xu-tang-identity-v2.png`。所有新CG必須同時引用原始人設圖與此錨點；錨點只鎖定臉，不能覆蓋服裝、髮型與場景設定。
-- 禁止把上一張CG當成下一張CG的唯一身份來源，以免多代生成造成五官逐步漂移。
-
-### 髮型模組
-
-| ID | 用途 |
-| --- | --- |
-| `low_bun` | 初遇／辦公造型，低位鬆散髮髻 |
-| `half_up_waves` | 週末咖啡，半束自然波浪 |
-| `high_pony_claw` | 洗衣房，抓夾偏高馬尾 |
-| `polished_chignon` | 畫廊／正式晚間，俐落低髮髻 |
-| `loose_waves` | 私人晚間場景，完全放下的長波浪 |
-| `tousled_low_pony` | 星期日清晨，鬆散低馬尾 |
-| `loose_side_braid` | 書店約會，鬆散低側辮 |
-| `wind_low_pony` | 雨後河畔，帶風感的低馬尾 |
-| `ribbon_high_pony` | 夜市約會，黑色緞帶高馬尾 |
-
-### 服裝模組
-
-| ID | 用途與重要不變項 |
-| --- | --- |
-| `office` v2 | 霧霾藍毛絨針織衫、米白修身吊帶、象牙白高腰闊腿長褲 |
-| `coffee_weekend` v1 | 象牙白垂墜襯衫、灰藍高腰中長裙、窄版灰褐皮帶 |
-| `home_laundry` v1 | 炭灰連帽外套、白色羅紋圓領背心、霧藍居家長褲 |
-| `evening_rooftop` v1 | 深海軍藍緞面中長裙，黑色剪裁西裝外套披肩穿；搭配正式飲品 |
-| `evening_private` v1 | 同一件深海軍藍細肩帶／方領緞面中長晚裝，室內脫下外套；前後 CG 必須保持一致 |
-| `sunday_morning` v1 | 白色亞麻襯衫、深海軍藍圓領背心與居家短褲 |
-| `bookstore_soft` v1 | 霧藍細針織上衣、象牙白高腰闊腿長褲 |
-| `rain_walk` v1 | 石灰色及膝風衣、海軍藍針織中長裙與短靴 |
-| `night_market` v1 | 靛藍短版牛仔外套、奶油白上衣與炭灰闊腿褲 |
-
-妝容與表情也使用獨立模組。任何模組變更都應提高該模組的 `version`；臉、身形或整體人設變更則提高角色 `designVersion`。
-
-## 邏輯資產與圖片規則
-
-劇情只引用穩定的邏輯 ID，不直接引用檔名。例如：
-
-```json
-{
-  "visual": {
-    "mode": "cg",
-    "asset": "cg.ch04.bedroom_challenge",
-    "effects": { "push": true }
-  }
-}
+dist/
+  generated deployable output, not source of truth
 ```
 
-`content/assets/manifest.json` 再把 `cg.ch04.bedroom_challenge` 對應到實際檔案 `dist/assets/cg-ch04-take-my-hand.jpg`。因此圖片可換版而不必大改劇情。
+新的 accepted master 不得只存在某台 Mac/PC；需要 remote build 的 runtime object 必須有 provider/file ID(or URL)/bytes/SHA-256 metadata。Physical storage 可以改，但 story 中的 logical asset IDs 不應跟著改。
 
-### 畫面模式是互斥的
+## 內容與美術 production contract
 
-每個一般劇情節點必須且只能採用一種模式：
+目前 manual production loop：
 
-- `composite`：一張背景，可加零至多張透明立繪。
-- `cg`：一張完整 CG；引擎會自動清空立繪層。
-- `cinematic`：播放一段 MP4／WebM 動態回憶；播放時隱藏對話框，結束後才恢復文字與選項。
-
-CG 與 cinematic 節點不可同時宣告 `background` 或 `sprites`；`composite` 節點不可宣告 `asset`。這條規則避免完整畫面又疊立繪的舊問題，驗證器會直接拒絕違規內容。
-
-### Manifest 欄位
-
-- `kind`：`background`、`sprite`、`cg` 或 `cinematic`。
-- `src`：相對於 `dist/` 的圖片路徑。
-- `poster`、`sources`、`duration`：cinematic 的封面、WebM／MP4 來源與秒數。
-- `width`、`height`：實際像素尺寸。
-- `focus`：圖片在響應式裁切時的焦點百分比。
-- `participants`：CG 中角色的人設、服裝、髮型、妝容及版本依賴。
-- `gallery`：回憶收藏的標題、章節和唯一排序值。
-
-每個 manifest 資產都必須存在於 `dist/`，且在 `content/recipes/assets.json` 中恰好有一份生成配方。
-
-## 圖像生成配方
-
-每份 recipe 包含：
-
-- `id`：配方 ID。
-- `outputAsset`：要生成的邏輯資產 ID。
-- `type`：需與 manifest 的 `kind` 相同。
-- `dependencies`：角色設計、服裝、髮型和妝容版本。
-- `prompt`：場景、動作、鏡頭、光線與限制。
-- `prompt.headPose`：每張CG必填，明確指定頭部俯仰、左右轉向、視線落點與頸部姿態。
-- cinematic 配方使用 `prompt.keyframes`、`motionPlan` 與 `audio` 保存關鍵幀、剪輯和聲音設計。
-
-角色資產必須宣告依賴；只有純背景可以沒有角色依賴。改人設後，可先執行：
-
-```bash
-npm run assets:plan -- xu_tang
+```text
+Canonical story/state specs
+        ↓
+scene / batch scope
+        ↓
+script + choices + state contract
+        ↓
+art shot list + generation recipe
+        ↓
+CG/background/sprite generation + Human selection
+        ↓
+canonical master ingest + runtime derivative
+        ↓
+story JSON / asset metadata integration
+        ↓
+build / validate / browser acceptance
+        ↓
+Codespaces playable review
 ```
 
-輸出會列出所有受影響的立繪、CG 與動態回憶。重新生成後，必須同步更新實體圖片／影片、manifest 和 recipe 中的版本依賴。
+這條 loop 是未來自動化的 interface，不代表現在就要建立 orchestration system。`TODO.md` 已記錄長期 **AI Game Director → Planner → Writer/CG → Integrator → QA → GitHub PR/Playable Preview** North Star；在第一個完整 vertical slice 與數個 manual batches 跑通前，不實作 Content Factory。
 
-### 身份一致性流程
+## Character / CG identity rules
 
-1. 原始人設圖是最高優先級身份來源，四角度錨點補足正面、左右三分之四與側面資訊。
-2. 先生成場景、服裝、姿勢與光線，再做一次只修臉部身份的校正；不要在同一步同時重設所有元素。
-3. 身份校正時，場景CG只負責構圖與服裝，錨點只負責臉型、眼距、鼻尖、唇形、下巴和頭骨比例。
-4. 每批CG以接觸表並排檢查；明顯漂移或反覆使用同一仰頭角度的圖片不得進入遊戲。
+- 許棠與江雨澄 production asset 必須使用各自 approved reference pack；不可從另一角色演變。
+- `ref-01-face` 是最高 identity authority；full-body / wardrobe / expression 視 shot 按需加入。
+- **禁止把上一張 CG 當下一張 CG 的唯一 identity source**，避免多代生成漂移。
+- Canonical runtime 是 mobile-first 9:16；CG/BG 要保存 focal point、safe zone、face/hand/object composition。
+- story 只引用 logical asset ID，不直接耦合 physical filename/provider。
 
-## 劇情資料模型
+完整 contract 見 `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md` 與 `docs/art/PROTOTYPE_ART_REQUIREMENTS.md`。
 
-章節檔頂層包含：
+## 驗證與 Definition of Done
 
-- `startNode`：起始節點。
-- `titleArt`、`endingArt`：舊版相容素材及預設結局圖；主界面實際使用續玩節點的 `visual`。
-- `chapterLabels`：進度軌標籤。
-- `initialState`：數值初始狀態。
-- `endingRules`、`endings`：結局判定與結局內容。
-- `nodes`：完整節點圖。
-
-### 一般節點
-
-```json
-{
-  "speaker": "許棠",
-  "text": "台詞",
-  "chapter": 10,
-  "tone": "soft",
-  "moment": "可選的短暫提示",
-  "visual": { "mode": "cg", "asset": "cg.ch04.bedroom_challenge" },
-  "next": "next_node"
-}
-```
-
-`tone` 會觸發對應的輕量 Web Audio 提示音；`visual.effects` 目前支援 `push`、`dark` 和 `flicker`。
-
-### 選項節點
-
-```json
-{
-  "speaker": "你",
-  "text": "",
-  "chapter": 10,
-  "visual": { "mode": "cg", "asset": "cg.ch04.bedroom_challenge" },
-  "choices": [
-    {
-      "text": "選項文字",
-      "next": "result_node",
-      "effects": { "heart": 2, "trust": 1 },
-      "addFlags": ["optional_flag"]
-    }
-  ]
-}
-```
-
-### 分支與結束
-
-- `type: "branch"`：依 `conditions` 檢查狀態，否則走 `default`。
-- `type: "random"`：從 `content/scenes/` 指定的場景池抽一個未使用項目，並把 `after` 壓入返回堆疊。
-- `type: "return"`：場景結束後回到最近一次 `random.after`；同一輪抽取會優先避開已見場景。
-- `type: "route"`：結束本輪並依 `endingRules` 選擇結局。
-- 支援比較運算：`>=`、`>`、`<=`、`<`、`==`。
-
-目前狀態值：
-
-| Stat | 意義 |
-| --- | --- |
-| `heart` | 浪漫好感 |
-| `trust` | 信任與坦率 |
-| `chaos` | 玩笑、意外與喜劇傾向 |
-| `comfort` | 相處安全感 |
-| `relationship` | 是否正式確認關係；達 1 優先進入 `lover` |
-
-結局規則依陣列順序判定；OL 分支先判定其暫用結局，許棠內部仍依 `lover` → `heart` → `chaos` → `neighbor`。
-
-## 回憶收藏
-
-CG 或動態回憶會在故事第一次顯示時自動解鎖，資料沿用 `localStorage` 的 `${chapter.id}:cgUnlocks`，以相容舊存檔。收藏頁支援圖片前後瀏覽及影片重播；`migrateCGUnlocks()` 會補上相容的解鎖紀錄。
-
-`cinematic.ch04.first_kiss` v2 採第一視角近距離構圖，由四張身份鎖定關鍵幀組成：對視並抬手撩髮、髮絲撥到耳後、閉眼微抿嘴唇、向鏡頭靠近。重建素材位於 `content/cinematics/first-kiss-v2/`，成品同時輸出 MP4、WebM 與收藏海報。
-
-| 順序 | 邏輯 ID | 收藏標題 |
-| ---: | --- | --- |
-| 10 | `cg.ch01.hallway_meet` | 雨夜的初遇 |
-| 20 | `cg.ch01.elevator_close` | 停電時的距離 |
-| 30 | `cg.ch01.elevator_blush` | 燈亮之後 |
-| 40 | `cg.ch01.phone_ending` | 交換聯絡方式 |
-| 50 | `cg.ch02.cafe_morning` | 星期六的兩杯咖啡 |
-| 52 | `cg.date.bookstore` | 同一本書 |
-| 54 | `cg.date.riverwalk` | 傘下的距離 |
-| 56 | `cg.date.night_market` | 分你一口 |
-| 60 | `cg.ch02.laundry_room` | 凌晨的洗衣房 |
-| 70 | `cg.ch02.rooftop_night` | 屋頂夜色 |
-| 80 | `cg.ch03.living_room_wine` | 1702 的香檳 |
-| 90 | `cg.ch03.art_wall` | 沒有展出的照片 |
-| 100 | `cg.ch03.close_conversation` | 把距離交給彼此 |
-| 103 | `cinematic.ch04.first_kiss` | 第一次接吻（10 秒動態回憶） |
-| 105 | `cg.ch04.bedroom_challenge` | 坐近一點 |
-| 110 | `cg.ch04.hallway_pause` | 走廊的暖光 |
-| 120 | `cg.ch04.sunday_morning` | 星期日早晨 |
-
-## 內容更新流程
-
-### 修改或延伸劇情
-
-1. 先執行 `npm run context -- --route <route-id> --node <node-id>`，取得局部上下文。
-2. 依 route config 的 `storyFiles` 編輯對應故事檔；較大的路線可以加入更多節點檔，不需合回單一 JSON。
-3. 若場景應由其他角色複用，在 route config 的 `sceneFiles` 加入共用場景檔，再由角色路線提供台詞、服裝與 CG。
-4. 每個新節點使用路線內唯一 ID，並確保所有 `next`／`choices[].next` 可達。
-5. 選擇 `cg` 或 `composite`，不要混用；新素材也要加入該路線的 `assetIds`。
-6. 若加入新 CG，同步完成下一節的四項資產工作。
-7. 執行 `npm run build && npm run validate`，並檢查 `dist/content/routes/<route-id>/` 已更新。
-
-### 新增或替換 CG／立繪
-
-1. 候選圖可以留在生成工具／暫存位置；Human 接受後，確保 master 有 canonical copy：新的 accepted master 優先進 Google Drive `source-private/`，既有 Git-backed legacy source 可繼續保留。
-2. 產生 browser runtime WebP/MP4 時放入／發布至對應 runtime provider；需要 remote build 的 object 必須有 URL/file ID/bytes/SHA-256 metadata。
-3. 在 manifest 建立或更新邏輯資產 ID、尺寸、焦點、收藏及角色依賴。
-4. 在 recipes 建立或更新一對一的生成配方，並同步 source catalog / source map。
-5. 在劇情中引用邏輯 ID，而非圖片檔名；CG 場景不要再疊加立繪。
-6. 在 Codespace 執行 `assets:check`、`assets:build`、build/validate/tests，再用 forwarded preview playtest。
-
-### 修改人設並批次更新圖片
-
-1. 修改 `content/characters/<角色>.json`。
-2. 若改臉、身形或整體識別，提高 `designVersion`；若只改服裝、妝容或髮型，提高對應模組 `version`。
-3. 執行 `npm run assets:plan -- <角色 ID>`。
-4. 依輸出與 recipe 批次重新生成受影響資產。
-5. 保持同一角色的臉、五官比例、髮量及不變項一致；允許服裝、髮型、妝容、姿勢與鏡頭按場景改變。
-6. 更新 manifest／recipe 版本後執行驗證。
-
-### 新增角色
-
-1. 新建 `content/characters/<id>.json`，使用唯一 `id`。
-2. 定義 identity、invariants、hairstyles、outfits、makeups、expressions 和參考圖。
-3. 新增該角色的立繪／CG、manifest 項目及 recipes。
-4. 建立獨立分支故事檔及 context，接入預設故事的 `storyFiles`，並在共用節點增加選擇入口。
-5. 在 route config 的 `assetIds` 宣告此路線可用素材；引擎與建置工具不需要為新角色修改。
-
-## 驗證器會阻止的問題
-
-- 缺失實體圖片或未知資產 ID。
-- manifest 資產沒有 recipe，或多份 recipe 輸出同一資產。
-- 角色、服裝、髮型、妝容不存在或版本不一致。
-- CG 配方缺少明確的 `headPose`。
-- 隨機場景池、入口節點、返回節點或 `unlockFlag` 不存在。
-- CG 缺少收藏標題、章節、排序，或排序重複。
-- `cg`／`composite` 欄位混用。
-- `next`、選項、分支或結局引用不存在的節點／結局。
-- 劇情節點從 `startNode` 無法到達。
-- 使用未知狀態值或不支援的比較運算。
-
-## 前端操作
-
-- 滑鼠點擊對話區：顯示完整文字或前進。
-- 數字鍵 `1`–`9`：選擇對話選項。
-- 空白鍵／Enter：前進。
-- `M`：切換聲音。
-- 標題畫面：續玩（沒有存檔時為開始故事）、CG、分支；不提供重複的重開按鈕。
-- 分支頁：垂直排列節點與目的節點編號；可回到已走過的節點，起點則重開本輪。收藏紀錄不會清除。
-- 遊戲中的「回標題」會保留目前節點，標題顯示相同 CG 或背景＋立繪。影片節點顯示海報，續玩後從影片起點播放。
-- 動態回憶播放時可使用右上角「跳過片段」；系統偏好低動態效果時自動退回海報圖。
-- 收藏檢視器支援左右方向鍵與 Escape。
-
-## 發布與備份
-
-- GitHub 倉庫：`TsungmingLiu/seventeen-floor-neighbor`。
-- 預設分支：`main`。
-- `dist/` 是完整靜態站點，可部署到 GitHub Pages、Cloudflare Pages 或 OpenAI Sites。
-- OpenAI Sites 設定記錄於 `.openai/hosting.json`；該檔案只存專案 ID 與靜態目錄，不應加入憑證或秘密。
-- 圖像生成來源可能存在 ChatGPT Library，但遊戲運行所需的最終圖檔必須提交到 `dist/assets/`；不要依賴對話附件或暫存路徑。
-- GitHub `main` 應同時保存可編輯來源與可立即部署的 `dist/`，以便新對話不需要重建歷史上下文。
-
-### 每次提交前檢查
+一般 coherent code/content change 至少執行：
 
 ```bash
 npm run build
 npm run validate
+npm test
 git diff --check
-git status --short
 ```
 
-確認以下內容一起提交：
-
-- `content/` 中的來源變更。
-- `src/` 中的引擎變更。
-- 對應的 `dist/content/` 或 `dist/*.js` 建置產物。
-- 新增或替換的 `dist/assets/` 圖片與影片。
-- 若架構、資料格式、角色版本、資產數量或工作流程改變，更新本 README。
-
-## 新對話接手提示
-
-可將以下內容直接貼給新的 Codex／ChatGPT Work 對話：
-
-> 請讀取 GitHub 倉庫 `TsungmingLiu/seventeen-floor-neighbor` 的最新 `main` 和 `README.md`。以 GitHub `main` 為交接基準，保留目前資料驅動架構。修改 `content/` 或 `src/` 後執行 `npm run build`、`npm run validate` 和 `git diff --check`，並把來源、建置產物及新增圖片／影片一起推回 GitHub。CG 與 cinematic 節點不得疊加立繪；角色或服裝修改要遵循版本依賴與 `assets:plan` 批次更新流程。
-
-針對單一節點工作時，建議把提示縮短為：
-
-> 請在最新 `main` 執行 `npm run context -- --route <route-id> --node <node-id>`，只修改該節點及必要的相鄰節點；完成後執行 build、validate 與 diff check。
-
-## 相關文件
-
-- `README.md`：完整交接、設定、資料格式與工作流程（本文件）。
-- `ARCHITECTURE.md`：模組化架構的精簡摘要。
-- `PROJECT_STATE.md`：目前里程碑、可玩路線與下一個內容決策。
-- `REFACTOR_PLAN.md`：本次分階段重構範圍、驗收與停點。
-- `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md`：已批准、尚待實作的 W4 主介面／回憶／CG Gallery／cursor-frontier 詳細規格；處理玩家 UI 或 replay/save 行為前必讀。
-- `AGENTS.md`：Codex 新對話自動載入的精簡專案規則。
-
-
-## Asset pipeline (W2)
+Asset change 另外執行：
 
 ```bash
 npm run assets:check
 npm run assets:build
-npm run build
 ```
 
-Current pre-commercial asset provider:
+涉及 milestone / runtime 行為時，還需要對應 Browser Acceptance / Codespace proof。涉及 creative scene 時，使用 `CONTENT_PRODUCTION_TODO.md` 的 S1–S12 gate，而不是只因 JSON 可 build 就視為完成。
 
-- Google Drive `source-private`: Restricted canonical masters.
-- Google Drive `runtime-public`: anyone-with-link optimized runtime assets.
+## Long-term direction
 
-`content/assets/source-catalog.json` tracks private master provenance. `content/assets/source-map.json` tracks runtime provider/file ID/hash metadata. Build verifies remote bytes and produces disposable `dist/assets/`.
+專案的最終 production model 是把 Human 提升到 Creative Director / Product Owner 層：Human 可以只提出「擴寫約會池」「新增女主」「補強某一 Act」這類高階需求，AI Game Director 自動讀取 repo inventory / constraints、拆成 production batches、調度一次性 Planner/Writer/CG/Integrator/QA workers，最後交付 GitHub PR + playable preview + QA summary。
 
-Cloudflare R2 migration is deferred until commercialization needs justify it.
+**目前這只是 North Star，不是當前 implementation milestone。** 先把 W4 與第一批真實 production content/CG 整合跑通，讓 manual workflow 的 input/output contract 穩定，再自動化重複部分。完整 prerequisites 與 phased roadmap 見 `TODO.md`。
+
+## 新 session 的建議讀取順序
+
+### 工程 / runtime
+
+1. `PROJECT_STATE.md`
+2. `TODO.md`
+3. `AGENTS.md`
+4. `ARCHITECTURE.zh-TW.md`
+5. 正在修改的 feature spec（W4 等）
+
+### 劇情 / production content
+
+1. `PROJECT_STATE.md`
+2. `docs/narrative/CONTENT_PRODUCTION_TODO.md`
+3. `docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md`
+4. `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md`
+5. `docs/art/PROTOTYPE_ART_REQUIREMENTS.md`
+6. `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md`
+7. 需要 CG 時再讀 `docs/art/VERTICAL_SLICE_CG_GENERATION_PROMPTS.md`
+
+不要為了「完整 context」把所有舊聊天塞進新 session；應以 repo canonical docs + task-local context packet 為準。
+
+## Repository
+
+- GitHub：`TsungmingLiu/seventeen-floor-neighbor`
+- Default branch：`main`
+- Canonical development：GitHub Codespaces
+- Pre-commercial asset store：Google Drive
+- Backend：none
+- Deployment target：static hosting（release pipeline 尚在後續 milestone）
