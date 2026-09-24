@@ -1,11 +1,21 @@
 # Project state
 
-Updated: 2026-09-23
+Updated: 2026-09-24
 
 ## Current milestone
 
 **W4 — Player UI / Memories / CG Gallery is complete on `main`.** W4 uses explicit Memory Events, journey v2 cursor/frontier saves, v1 migration, the one-page Memories timeline, a Start/Continue + Memories + CG title, a smaller dialogue/choice layout, and the simple gallery viewer. The 123-node Xu Tang/OL playable package remains an engine and migration fixture; Opening Vertical Slice production content is tracked separately. W4 Verify run `35948336731` and Chromium Browser Acceptance run `35948336719` passed. W3 fresh Codespace proof is run `35932727909`.
 
+
+## Canonical AI production workflow
+
+2026-09-24 起，新的 AI production session 以 `.ai/WORKFLOW_MANIFEST.yaml` 為唯一 workflow 入口，並由 Bootstrap Harness 選擇單一 specialist。Harness 與內容資料分離；worker 預設 fresh/stateless，只讀 Task Packet allowlist 內的 bounded context。
+
+目前 v0.1 specialist：Production Coordinator、Narrative Planner、Scene Writer、Shot Planner、CG Artist、Asset QA、Integrator。這是 manual/semiautomated proving layer，不等於已開始 automated Content Factory。
+
+新 production visual contract 已改為 **CG-first / 16:9 landscape-first / responsive full viewport**；普通動作優先用 CG Sequence，MP4/WebM 保留給特殊事件。既有 sprites 與 9:16 assets 保留作 runtime/provenance fixture，但不再是新內容的 production requirement。Canonical visual authority：`docs/art/PRODUCTION_VISUAL_DIRECTION.md`.
+
+文件 lifecycle 與舊 spec supersession map：`docs/DOCUMENT_STATUS.md`.
 
 ## Canonical narrative plan
 
@@ -15,7 +25,8 @@ Canonical planning docs：
 
 - `docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md` — 完整約 66 個 authoring-level scene/gate/ending/after-story 規格、每幕目的、choice/state、conflict/repair/endings。
 - `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md` — route graph、attention windows、re-approach、crossover、knowledge flags、honest overlap / deception / commitment gate 與 implementation guardrails。
-- `docs/art/PROTOTYPE_ART_REQUIREMENTS.md` — scene backgrounds、Xu/JYC sprite sets、38+ CG / after-story slots、逐 node asset mapping 與 production priority。
+- `docs/art/PRODUCTION_VISUAL_DIRECTION.md` — 現行 CG-first / 16:9 / responsive composition / CG sequence contract。
+- `docs/art/PROTOTYPE_ART_REQUIREMENTS.md` — 保留 location/asset inventory 與 broad intent；其中 9:16 / sprite-first 指示已被 supersede。
 
 核心 narrative decisions：
 
@@ -31,7 +42,7 @@ Canonical planning docs：
 - Ending 不再等同 runtime terminal：Good 解鎖 3 段 Relationship After Story；Friend / Distance 各有短 coda。
 - After Story 是玩家 reward phase，會提高親密度與 fan-service 密度；`full` profile 可加入 profile-gated mature-only extension，`sfw` 必須 compile-time prune 並維持完整自然流程。
 
-後續 narrative work 應先讀上述三份文件，再讀 setting proposal；後續 art generation 以 `docs/art/PROTOTYPE_ART_REQUIREMENTS.md` + `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md` 的 canonical references 為準。Opening Vertical Slice CG 可直接使用 `docs/art/VERTICAL_SLICE_CG_GENERATION_PROMPTS.md`。
+後續 AI work 不再使用固定『先讀一串文件』方式；先 Bootstrap，再依 harness 產生 bounded Task Packet。Narrative worker 只讀任務所需 canon；CG production 必須經 Shot Planner → CG Artist，且只注入該 shot 的角色／環境資料。`VERTICAL_SLICE_CG_GENERATION_PROMPTS.md` 只保留 historical shot intent，不再可直接當 batch worker prompt。
 
 Creative production 進度不要塞進 root `TODO.md`。獨立使用 `docs/narrative/CONTENT_PRODUCTION_TODO.md`；root `TODO.md` 繼續只追 W3/W4/engine/tooling。建議一個 content production batch 對應一個新 session。
 
@@ -75,17 +86,13 @@ The current runtime implements these contracts for the existing fixture. New pro
 
 ## Start a new conversation
 
-1. Read this file, `TODO.md`, `AGENTS.md`, and `ARCHITECTURE.zh-TW.md`.
-2. For prototype narrative / scene / branching work, also read:
-   - `docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md`
-   - `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md`
-   - `docs/art/PROTOTYPE_ART_REQUIREMENTS.md`
-   - `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md` when Memory/replay/frontier/UI is involved.
-3. Treat the existing 123-node playable story as a migration/engine fixture, not the canonical production narrative.
-4. For an existing runtime node: run `npm run context -- --route xu-tang --node <node-id>`.
-5. For OL continuity also read `content/routes/office-ol/context.md`.
-6. Change the source file named by the packet, keeping stable IDs stable once they enter implementation/save contracts.
-7. Build, validate, test runtime changes, and check the diff. Keep source and generated output together.
+1. Read `.ai/WORKFLOW_MANIFEST.yaml`.
+2. Follow `.ai/harnesses/bootstrap.md`.
+3. Read `PROJECT_STATE.md` for current milestone/status.
+4. Resolve one specialist harness and build a bounded Task Packet.
+5. Read only the sources allowed by that packet.
+6. Treat the existing 123-node playable story and sprite-heavy assets as migration/regression fixtures unless an engineering task explicitly targets them.
+7. For code/runtime integration, follow repository verification requirements in `AGENTS.md`.
 
 ## Verification
 
@@ -120,4 +127,4 @@ The current runtime implements these contracts for the existing fixture. New pro
 
 ## Remaining work
 
-The next creative convergence is integrating the Opening Vertical Slice with W4 runtime and Memory metadata, then a human pacing/composition review. W5 cloud-complete verification, W6 build profiles, and W7 release follow the technical roadmap. Full CG/sprite regeneration and final OL character design are later content work; the old 123-node fixture is not the production narrative.
+The next creative convergence is to pilot the new harness contract on individual Vertical Slice tasks, then integrate accepted CG-first content with W4 runtime/Memory metadata and perform human pacing/composition review. W5 cloud-complete verification, W6 build profiles, and W7 release follow the technical roadmap. Existing sprite/9:16 material remains a regression/provenance fixture; new production should not expand that pipeline.
