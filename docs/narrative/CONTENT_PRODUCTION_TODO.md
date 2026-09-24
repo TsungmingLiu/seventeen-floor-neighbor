@@ -4,7 +4,7 @@
 >
 > 版本：0.3
 >
-> 更新：2026-09-23
+> 更新：2026-09-24
 >
 > 這份文件只追蹤 **劇情／scene／對話／美術 production**。
 >
@@ -25,7 +25,7 @@
 
 - W4 runtime 已完成並在 `main` 驗證通過；本 tracker 不再把「等待 W4 完成」列為 S10 前置。Production content 仍必須先滿足各自 S4–S9 gate，才進 runtime integration。
 - Vertical Slice scene files 實際存在 5 / 12：`COM-00`、`COM-01X`、`COM-01J`、`COM-02X`、`COM-02J`，五幕均已到 S6；其餘 7 幕尚未建立。
-- Drive `runtime-public/bg` 已有 6 張 1080×1920 WebP；其中 5 個 logical backgrounds 可視為 generated + QA documented，`BG-APT-ELEVATOR` 仍缺 scene-locked `restart_dim` same-layout variant。
+- Drive `runtime-public/bg` 已有 10 張 1080×1920 WebP，覆蓋 A1 的 9 個 logical backgrounds；`BG-APT-ELEVATOR` 的 `normal` + scene-locked `restart_dim` same-layout variant 均已存在並完成 QA。2026-09-24 新增的四個 accepted masters 已存入 `source-private` root（該 folder 目前沒有 canonical backgrounds 子資料夾），完整 Drive IDs / SHA-256 / recipes 見 `docs/art/recipes/backgrounds/opening_batch_a_backgrounds.md`。
 - Drive `runtime-public/sprites` 已有 10 張透明 WebP production candidates；identity / wardrobe 視覺 QA 無 blocking drift，但四個已生成 set 的 expression coverage 與後來鎖定的 scene files 不完整對齊，因此 A2 保持未完成，需補 expression / semantic naming。
 - Opening CG 尚無新 production asset；目前可進 generation 的 locked scenes 為 `CG-COM-01`、`CG-COM-02`、`CG-COM-03`、`CG-COM-04`。其餘 CG 等對應 scene S4/S6。
 - 新 backgrounds / sprites 目前只存在 recipe + Drive runtime objects，尚未進 `content/assets` runtime mapping / source map；因此任何 scene 都還沒有達到 S10 integration-ready。
@@ -329,13 +329,15 @@ W4 runtime 現已完成；正常 production 仍先做到 **S9**。只有 scene/s
 
 - [x] BG-APT-17F-RAIN — generated / Drive runtime WebP / QA documented
 - [x] BG-APT-17F-NIGHT — generated / Drive runtime WebP / QA documented
-- [ ] BG-APT-ELEVATOR — normal master generated / QA documented；仍缺 `restart_dim` locked variant
+- [x] BG-APT-ELEVATOR — normal + locked `restart_dim` same-layout variant generated / Drive runtime WebP / QA documented
 - [x] BG-ACG-SHOP — generated / Drive runtime WebP / QA documented
 - [x] BG-CONVENIENCE-NIGHT — generated / Drive runtime WebP / QA documented
 - [x] BG-CAFE-STATION — generated / Drive runtime WebP / QA documented；physical filename 保留 `bg-cafe-station-day-v1.webp`
-- [ ] BG-BOOKSTORE — missing
-- [ ] BG-ACG-CORRIDOR — missing
-- [ ] BG-PC-HOME-LIVING — missing
+- [x] BG-BOOKSTORE — generated / Drive master + runtime WebP / QA documented
+- [x] BG-ACG-CORRIDOR — generated / Drive master + runtime WebP / QA documented；first draft rejected for live-human silhouettes, accepted retry is empty
+- [x] BG-PC-HOME-LIVING — generated / Drive master + runtime WebP / QA documented
+
+> 2026-09-24 A1 completion：9 個 logical backgrounds 均已具備 accepted runtime WebP；elevator 的兩個 required variants 已齊。此勾選只表示 reusable BG pack 完成，**不**推進任何 scene 的 S8/S9，也尚未寫入 runtime source-map/manifest。
 
 ## A2 — Opening sprite sets
 
