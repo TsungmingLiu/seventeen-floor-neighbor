@@ -1,12 +1,14 @@
 import { ProgressStore } from './progress.js';
 import { paintPreview, paintSprites, resolveVisual, setImage } from './visuals.js';
-import { renderBranches } from './branches.js';
+import { memoryCoverVisual, memoryEventById, memoryStats, renderMemories } from './memories.js';
 
 export class GameEngine {
-  constructor({ chapter, assetManifest, sceneLibrary }) {
+  constructor({ chapter, assetManifest, sceneLibrary, memoryLibrary }) {
     this.chapter = chapter;
     this.assets = assetManifest.assets;
     this.scenePools = sceneLibrary.pools || {};
+    this.memoryLibrary = memoryLibrary || { schemaVersion: 1, sections: [], events: [] };
+    this.memoryFilter = 'all';
     this.nodeId = chapter.startNode;
     this.state = this.createInitialState();
     this.isTyping = false;
@@ -15,7 +17,7 @@ export class GameEngine {
     this.audioContext = null;
     this.currentSpriteSignature = '';
     this.returnNodes = [];
-    this.progress = new ProgressStore(chapter);
+    this.progress = new ProgressStore(chapter, this.memoryLibrary);
     this.previousNode = null;
     this.cgStorageKey = `${chapter.id}:cgUnlocks`;
     this.galleryEntries = Object.entries(this.assets)
@@ -49,11 +51,15 @@ export class GameEngine {
       titleArt: $('#title-art'),
       titleCharacters: $('#title-character-layer'),
       resumeLabel: $('#resume-label'),
-      branches: $('#branches-screen'),
-      branchesButton: $('#branches-button'),
-      branchesBack: $('#branches-back'),
-      branchList: $('#branch-list'),
-      branchSummary: $('#branch-summary'),
+      memories: $('#memories-screen'),
+      memoriesButton: $('#memories-button'),
+      memoriesTitleCount: $('#memories-title-count'),
+      memoriesBack: $('#memories-back'),
+      memoriesCurrent: $('#memories-current'),
+      memoryList: $('#memory-list'),
+      memorySummary: $('#memory-summary'),
+      memoryFilters: $('#memory-filters'),
+      gameMemories: $('#game-memories-button'),
       endingArt: $('#ending-art'),
       endingTitle: $('#ending-title'),
       endingText: $('#ending-text'),
@@ -97,6 +103,7 @@ export class GameEngine {
     setImage(this.els.endingArt, endingArt.src, endingArt.focus);
     this.migrateCGUnlocks();
     this.updateGalleryProgress();
+    this.updateMemoryProgress();
     this.els.startButton.disabled = false;
     this.refreshTitle();
     this.bindEvents();
@@ -105,14 +112,13 @@ export class GameEngine {
 
   bindEvents() {
     this.els.startButton.addEventListener('click', () => this.resumeGame());
-    document.querySelector('#replay-button').addEventListener('click', () => this.openBranches());
+    document.querySelector('#replay-button').addEventListener('click', () => this.openMemories());
     document.querySelector('#home-button').addEventListener('click', () => this.showOnly(this.els.title));
     document.querySelector('#game-home-button').addEventListener('click', () => this.showOnly(this.els.title));
-    this.els.branchesButton.addEventListener('click', () => this.openBranches());
-    this.els.branchesBack.addEventListener('click', () => {
-      this.showOnly(this.els.title);
-      this.els.branchesButton.focus({ preventScroll: true });
-    });
+    this.els.memoriesButton.addEventListener('click', () => this.openMemories());
+    this.els.gameMemories.addEventListener('click', () => this.openMemories());
+    this.els.memoriesBack.addEventListener('click', () => this.closeMemories());
+    this.els.memoriesCurrent.addEventListener('click', () => this.scrollToFrontier());
     this.els.galleryButton.addEventListener('click', () => this.openGallery());
     this.els.galleryBack.addEventListener('click', () => this.closeGallery());
     this.els.viewerClose.addEventListener('click', () => this.closeViewer());
@@ -147,6 +153,10 @@ export class GameEngine {
         if (event.key === 'Escape') this.closeGallery();
         return;
       }
+      if (!this.els.memories.classList.contains('is-hidden')) {
+        if (event.key === 'Escape') this.closeMemories();
+        return;
+      }
       if (this.els.game.classList.contains('is-hidden')) return;
       if (event.key === ' ' || event.key === 'Enter') {
         event.preventDefault();
@@ -168,14 +178,19 @@ export class GameEngine {
       this.isTyping = false;
       this.stopCinematic();
     }
-    [this.els.title, this.els.game, this.els.ending, this.els.gallery, this.els.branches]
+    [this.els.title, this.els.game, this.els.ending, this.els.gallery, this.els.memories]
       .forEach((element) => element.classList.toggle('is-hidden', element !== screen));
-    if (screen === this.els.title) { this.updateGalleryProgress(); this.refreshTitle(); }
+    if (screen === this.els.title) {
+      this.updateGalleryProgress();
+      this.updateMemoryProgress();
+      this.refreshTitle();
+    }
   }
 
   updateMute() {
-    this.els.titleMute.textContent = `聲音：${this.muted ? '關' : '開'}`;
+    this.els.titleMute.textContent = this.muted ? '×' : '♪';
     this.els.titleMute.setAttribute('aria-pressed', String(this.muted));
+    this.els.titleMute.setAttribute('aria-label', this.muted ? '開啟聲音' : '關閉聲音');
     this.els.muteButton.textContent = this.muted ? '×' : '♪';
     this.els.muteButton.setAttribute('aria-pressed', String(this.muted));
     localStorage.setItem('neighborMuted', this.muted ? '1' : '0');
@@ -231,6 +246,11 @@ export class GameEngine {
     const label = `${count} / ${this.galleryEntries.length}`;
     this.els.galleryTitleCount.textContent = label;
     this.els.galleryProgress.textContent = `已解鎖 ${label}`;
+  }
+
+  updateMemoryProgress() {
+    const stats = memoryStats(this.memoryLibrary, this.progress, this.chapter.startNode);
+    this.els.memoriesTitleCount.textContent = `${stats.unlocked} / ${stats.total}`;
   }
 
   openGallery() {
@@ -696,7 +716,7 @@ export class GameEngine {
     this.render();
   }
 
-  resumeGame(snapshot = this.progress.data.current) {
+  resumeGame(snapshot = this.progress.data.frontier || this.progress.data.cursor) {
     const restored = this.progress.restore(snapshot);
     if (!restored) return this.startGame();
     this.stopCinematic();
@@ -707,35 +727,93 @@ export class GameEngine {
   }
 
   refreshTitle() {
-    const snapshot = this.progress.data.current;
+    const snapshot = this.progress.data.frontier;
     const node = this.chapter.nodes[snapshot?.nodeId || this.chapter.startNode];
-    let visual = node?.visual;
-    let label = node.mapLabel || node.moment || this.chapter.chapterLabels[node.chapter || 0] || '故事節點';
-    if (node?.type === 'route' && snapshot) {
-      const savedState = this.state;
-      this.state = this.progress.restore(snapshot).state;
-      const ending = this.chapter.endings[this.resolveEnding()];
-      this.state = savedState;
-      visual = { mode: 'cg', asset: ending.art || this.chapter.endingArt };
-      label = ending.title;
+    const frontierEvent = memoryEventById(this.memoryLibrary, this.progress.data.frontierMemoryEventId);
+    let visual = snapshot && frontierEvent ? memoryCoverVisual(frontierEvent, this.assets) : null;
+    let label = frontierEvent?.title
+      || node?.mapLabel
+      || node?.moment
+      || this.chapter.chapterLabels[node?.chapter || 0]
+      || '故事節點';
+
+    if (frontierEvent?.titleBackdropAsset) {
+      const backdrop = { ...frontierEvent, cover: { ...(frontierEvent.cover || {}), asset: frontierEvent.titleBackdropAsset } };
+      visual = memoryCoverVisual(backdrop, this.assets) || visual;
     }
-    paintPreview(this.els.titleArt, this.els.titleCharacters, visual, this.assets);
-    this.els.titleArt.alt = '續玩後的故事畫面';
-    this.els.startButton.textContent = snapshot ? '續玩' : '開始故事';
+
+    if (!snapshot) {
+      visual = { mode: 'cg', asset: this.chapter.titleArt };
+      label = '搬進 17 樓';
+    } else if (node?.type === 'route') {
+      const restored = this.progress.restore(snapshot);
+      if (restored) {
+        const savedState = this.state;
+        this.state = restored.state;
+        const ending = this.chapter.endings[this.resolveEnding()];
+        this.state = savedState;
+        visual = { mode: 'cg', asset: ending.art || this.chapter.endingArt };
+        label = ending.title;
+      }
+    }
+
+    paintPreview(this.els.titleArt, this.els.titleCharacters, visual || node?.visual, this.assets);
+    this.els.titleArt.alt = snapshot ? '目前最深故事進度的回憶畫面' : '17樓故事開場畫面';
+    this.els.startButton.textContent = snapshot ? '繼續遊戲' : '開始遊戲';
+    const characterId = frontierEvent?.characterIds?.[0];
+    const characterLabel = characterId ? this.memoryLibrary.characterLabels?.[characterId] : null;
     this.els.resumeLabel.textContent = snapshot
-      ? `上次停在：${label}${this.progress.persisted === false ? '（儲存空間無法寫入）' : ''}`
-      : '從搬進17樓的那一天開始';
+      ? `目前進度 · ${characterLabel ? `${characterLabel} · ` : ''}${label}${this.progress.persisted === false ? '（儲存空間無法寫入）' : ''}`
+      : '故事起點 · 搬進 17 樓';
   }
 
-  openBranches() {
-    renderBranches({ chapter: this.chapter, pools: this.scenePools, assets: this.assets,
-      progress: this.progress, unlocked: this.unlockedCGs(), container: this.els.branchList,
-      summary: this.els.branchSummary, onResume: id => {
-        if (id === this.chapter.startNode) this.startGame();
-        else this.resumeGame(this.progress.data.checkpoints[id]);
-      } });
-    this.showOnly(this.els.branches);
-    this.els.branchesBack.focus({ preventScroll: true });
-    this.els.branchList.querySelector('.is-current')?.scrollIntoView({ block: 'center' });
+  renderMemoryList() {
+    renderMemories({
+      library: this.memoryLibrary,
+      chapter: this.chapter,
+      assets: this.assets,
+      progress: this.progress,
+      unlockedCGs: this.unlockedCGs(),
+      container: this.els.memoryList,
+      summary: this.els.memorySummary,
+      filters: this.els.memoryFilters,
+      activeFilter: this.memoryFilter,
+      onFilter: (filter) => {
+        this.memoryFilter = filter;
+        this.renderMemoryList();
+      },
+      onReplay: (event) => this.replayMemory(event)
+    });
+    this.updateMemoryProgress();
+  }
+
+  openMemories() {
+    this.renderMemoryList();
+    this.showOnly(this.els.memories);
+    this.els.memoriesBack.focus({ preventScroll: true });
+  }
+
+  closeMemories() {
+    this.showOnly(this.els.title);
+    this.els.memoriesButton.focus({ preventScroll: true });
+  }
+
+  scrollToFrontier() {
+    const id = this.progress.data.frontierMemoryEventId;
+    if (!id) return;
+    this.els.memoryList.querySelector(`[data-memory-id="${id}"]`)?.scrollIntoView({
+      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+      block: 'center'
+    });
+  }
+
+  replayMemory(event) {
+    if (event.replayNode === this.chapter.startNode) {
+      this.startGame();
+      return;
+    }
+    const candidateIds = [event.replayNode, ...(event.unlockNodes || [])];
+    const snapshot = candidateIds.map((id) => this.progress.data.checkpoints[id]).find(Boolean);
+    if (snapshot) this.resumeGame(snapshot);
   }
 }

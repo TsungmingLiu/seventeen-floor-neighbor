@@ -20,7 +20,7 @@ function snapshot(nodeId, stats = {}, flags = [], returnNodes = []) {
   };
 }
 
-function journey(current, checkpoints = {}, edges = []) {
+function legacyJourney(current, checkpoints = {}, edges = []) {
   return {
     version: 1,
     current,
@@ -50,18 +50,19 @@ async function boot(page) {
   await page.goto('/');
   await expect(page.locator('#title-screen')).toBeVisible();
   await expect(page.locator('#start-button')).toBeEnabled();
-  await expect(page.locator('#start-button')).toHaveText(/開始故事|續玩/);
+  await expect(page.locator('#start-button')).toHaveText(/開始遊戲|繼續遊戲/);
 }
 
 async function waitForDialogueReady(page) {
   await expect(page.locator('#advance-hint')).toHaveText(/點擊繼續|選擇回應/, { timeout: 5000 });
 }
 
-test('fresh start persists, reloads, and exposes branches/gallery without blocking errors', async ({ page }) => {
+test('fresh start persists, reloads, and exposes Memories/CG without blocking errors', async ({ page }) => {
   const errors = collectBlockingErrors(page);
   await boot(page);
 
-  await expect(page.locator('#start-button')).toHaveText('開始故事');
+  await expect(page.locator('#start-button')).toHaveText('開始遊戲');
+  await expect(page.locator('#branches-button')).toHaveCount(0);
   await page.locator('#start-button').click();
   await expect(page.locator('#game-shell')).toBeVisible();
   await waitForDialogueReady(page);
@@ -71,33 +72,32 @@ test('fresh start persists, reloads, and exposes branches/gallery without blocki
   await waitForDialogueReady(page);
   await expect(page.locator('#dialogue-text')).toContainText('一隻手從門縫外伸進來');
 
-  const nodeAfterAdvance = await page.evaluate(() =>
-    JSON.parse(localStorage.getItem('chapter-01:journey:v1')).current.nodeId
-  );
-  expect(nodeAfterAdvance).toBe('intro2');
+  const journey = await page.evaluate(() => JSON.parse(localStorage.getItem('chapter-01:journey:v2')));
+  expect(journey.cursor.nodeId).toBe('intro2');
+  expect(journey.frontierMemoryEventId).toBe('mem.story.start');
 
   await page.locator('#game-home-button').click();
   await expect(page.locator('#title-screen')).toBeVisible();
-  await expect(page.locator('#start-button')).toHaveText('續玩');
+  await expect(page.locator('#start-button')).toHaveText('繼續遊戲');
 
   await page.locator('#title-mute').click();
   await expect(page.locator('#title-mute')).toHaveAttribute('aria-pressed', 'true');
 
   await page.reload();
-  await expect(page.locator('#start-button')).toBeEnabled();
-  await expect(page.locator('#start-button')).toHaveText('續玩');
+  await expect(page.locator('#start-button')).toHaveText('繼續遊戲');
   await expect(page.locator('#title-mute')).toHaveAttribute('aria-pressed', 'true');
 
   await page.locator('#start-button').click();
   await waitForDialogueReady(page);
-  await expect(page.locator('#dialogue-text')).toContainText('一隻手從門縫外伸進來');
+  await expect(page.locator('#dialogue-text')).toContainText('週五');
 
   await page.locator('#game-home-button').click();
-  await page.locator('#branches-button').click();
-  await expect(page.locator('#branches-screen')).toBeVisible();
-  expect(await page.locator('#branch-list button').count()).toBeGreaterThan(0);
+  await page.locator('#memories-button').click();
+  await expect(page.locator('#memories-screen')).toBeVisible();
+  await expect(page.locator('[data-memory-id="mem.story.start"]')).toBeEnabled();
+  expect(await page.locator('.memory-card').count()).toBeGreaterThan(0);
 
-  await page.locator('#branches-back').click();
+  await page.locator('#memories-back').click();
   await page.locator('#gallery-button').click();
   await expect(page.locator('#gallery-screen')).toBeVisible();
   expect(await page.locator('#cg-grid button').count()).toBeGreaterThanOrEqual(17);
@@ -105,10 +105,10 @@ test('fresh start persists, reloads, and exposes branches/gallery without blocki
   expect(errors).toEqual([]);
 });
 
-test('office branch choice resumes through the real choice UI', async ({ page }) => {
+test('legacy v1 save migrates and office branch choice resumes through the real choice UI', async ({ page }) => {
   const choice = snapshot('choice1');
   await seedStorage(page, {
-    'chapter-01:journey:v1': journey(choice),
+    'chapter-01:journey:v1': legacyJourney(choice),
     neighborMuted: '1'
   });
   const errors = collectBlockingErrors(page);
@@ -123,9 +123,47 @@ test('office branch choice resumes through the real choice UI', async ({ page })
   await expect(page.locator('#dialogue-text')).toContainText(/資料夾|加完班|電梯/);
 
   const current = await page.evaluate(() =>
-    JSON.parse(localStorage.getItem('chapter-01:journey:v1')).current.nodeId
+    JSON.parse(localStorage.getItem('chapter-01:journey:v2')).cursor.nodeId
   );
   expect(current).toBe('office_intro');
+  expect(errors).toEqual([]);
+});
+
+test('replaying an old Memory changes cursor but never regresses Continue frontier', async ({ page }) => {
+  const intro = snapshot('intro1');
+  const morning = snapshot('morning_after', {
+    heart: 16,
+    trust: 10,
+    comfort: 5,
+    relationship: 1
+  });
+  await seedStorage(page, {
+    'chapter-01:journey:v1': legacyJourney(morning, { intro1: intro }),
+    neighborMuted: '1'
+  });
+  const errors = collectBlockingErrors(page);
+
+  await boot(page);
+  await expect(page.locator('#start-button')).toHaveText('繼續遊戲');
+  await page.locator('#memories-button').click();
+  await expect(page.locator('[data-memory-id="mem.xu.sunday"]')).toHaveClass(/is-frontier/);
+  await page.locator('[data-memory-id="mem.story.start"]').click();
+
+  await waitForDialogueReady(page);
+  let state = await page.evaluate(() => JSON.parse(localStorage.getItem('chapter-01:journey:v2')));
+  expect(state.cursor.nodeId).toBe('intro1');
+  expect(state.frontier.nodeId).toBe('morning_after');
+  expect(state.frontierMemoryEventId).toBe('mem.xu.sunday');
+
+  await page.locator('#game-home-button').click();
+  await expect(page.locator('#start-button')).toHaveText('繼續遊戲');
+  await page.locator('#start-button').click();
+  await waitForDialogueReady(page);
+  await expect(page.locator('#dialogue-text')).toContainText('第一次在 1702 醒來');
+
+  state = await page.evaluate(() => JSON.parse(localStorage.getItem('chapter-01:journey:v2')));
+  expect(state.cursor.nodeId).toBe('morning_after');
+  expect(state.frontier.nodeId).toBe('morning_after');
   expect(errors).toEqual([]);
 });
 
@@ -137,7 +175,7 @@ test('cinematic loads as a real 10-second video, can be skipped, and appears in 
     relationship: 1
   });
   await seedStorage(page, {
-    'chapter-01:journey:v1': journey(cinematic),
+    'chapter-01:journey:v1': legacyJourney(cinematic),
     neighborMuted: '1'
   });
   const errors = collectBlockingErrors(page);
@@ -156,7 +194,6 @@ test('cinematic loads as a real 10-second video, can be skipped, and appears in 
   const metadata = await page.locator('#scene-video').evaluate(video => ({
     readyState: video.readyState,
     duration: video.duration,
-    currentSrc: video.currentSrc,
     sources: [...video.querySelectorAll('source')].map(source => source.src)
   }));
   expect(metadata.readyState).toBeGreaterThanOrEqual(1);
@@ -190,7 +227,7 @@ test('route checkpoint resolves an ending and persists completion', async ({ pag
     relationship: 1
   });
   await seedStorage(page, {
-    'chapter-01:journey:v1': journey(route),
+    'chapter-01:journey:v1': legacyJourney(route),
     neighborMuted: '1'
   });
   const errors = collectBlockingErrors(page);
@@ -209,19 +246,20 @@ test('route checkpoint resolves an ending and persists completion', async ({ pag
   expect(errors).toEqual([]);
 });
 
-test('320px viewport has no horizontal overflow on title and game screens', async ({ page }) => {
+test('320px viewport has no horizontal overflow on title, Memories, and game screens', async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 800 });
   const errors = collectBlockingErrors(page);
   await boot(page);
 
-  const titleOverflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
-  expect(titleOverflow).toBeLessThanOrEqual(0);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth)).toBeLessThanOrEqual(0);
+  await page.locator('#memories-button').click();
+  await expect(page.locator('#memories-screen')).toBeVisible();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth)).toBeLessThanOrEqual(0);
 
+  await page.locator('#memories-back').click();
   await page.locator('#start-button').click();
   await expect(page.locator('#game-shell')).toBeVisible();
   await waitForDialogueReady(page);
-
-  const gameOverflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
-  expect(gameOverflow).toBeLessThanOrEqual(0);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth)).toBeLessThanOrEqual(0);
   expect(errors).toEqual([]);
 });
