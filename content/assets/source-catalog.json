@@ -3,7 +3,7 @@
   "provider": "google-drive",
   "folderId": "1waCTQsIbfyZi0F80LlnWeerPcoNlPnw1",
   "visibility": "restricted",
-  "note": "Private canonical masters recovered from ChatGPT Library and verified by full local decode on 2026-09-22/23. GitHub stores metadata only.",
+  "note": "Private canonical masters. Existing authorities preserved; Opening Chapter 1 demo masters were ingested from Human attachments and verified by local decode on 2026-09-24. GitHub stores metadata only.",
   "files": {
     "source.xu_tang.date.bookstore": {
       "fileId": "1aNhLrHoUIzJZ1aR9BeXrkKeKLsjeYkd_",
@@ -84,6 +84,183 @@
       "height": 941,
       "sha256": "13f3aead934cc51ac3f2da0e29d7522e3c7f234e08f036f2be42b5efa56011a4",
       "verifiedDecode": true
+    },
+    "source.opening.ch1.bg.apt_17f_rain": {
+      "fileId": "1vdXT7-IySy1sWnIu82FQ7nL-HJvSn3JP",
+      "name": "bg-apt-17f-rain-16x9-v1.jpg",
+      "mimeType": "image/jpeg",
+      "bytes": 360497,
+      "width": 1536,
+      "height": 864,
+      "sha256": "34782d241269690df55a96a666cb46ee57675176ed8e4e3a42f533af9aea2b64",
+      "verifiedDecode": true,
+      "canonicalAssetId": "BG-APT-17F-RAIN-16X9",
+      "logicalAssetId": "bg.opening.ch1.apt_17f_rain",
+      "observedFilename": "BG-APT-17F-RAIN-16X9.jpg",
+      "provenance": "human-generated original attachment; preserved byte-for-byte as master",
+      "knownIssues": []
+    },
+    "source.opening.ch1.cg.com00_s02_door_assist": {
+      "fileId": "1ECB7UETCKPgNnh_BgWGjIo4HgIahRuvk",
+      "name": "cg-com00-s02-door-assist-v1.jpg",
+      "mimeType": "image/jpeg",
+      "bytes": 360287,
+      "width": 1536,
+      "height": 864,
+      "sha256": "834c97169005e54234fe0c1dcc1772303c6fefece0fdef66c0aca1a0d1d67980",
+      "verifiedDecode": true,
+      "canonicalAssetId": "COM00-S02-DOOR-ASSIST",
+      "logicalAssetId": "cg.opening.com00.s02_door_assist",
+      "observedFilename": "COM00-S02-DOOR-ASSIST.jpg",
+      "provenance": "human-generated original attachment; preserved byte-for-byte as master",
+      "knownIssues": []
+    },
+    "source.opening.ch1.cg.com00_s04_base_neutral": {
+      "fileId": "1nTgRcyKwiG6kR3gG3Kjx0bEcH-GVMWCg",
+      "name": "cg-com00-s04-base-neutral-v1.png",
+      "mimeType": "image/png",
+      "bytes": 2858006,
+      "width": 1672,
+      "height": 941,
+      "sha256": "e629b321ed20a071b6d4532bb4a5ff48649265f5d74a0e692064b3466960efbf",
+      "verifiedDecode": true,
+      "canonicalAssetId": "COM00-S04-BASE-NEUTRAL",
+      "logicalAssetId": "cg.opening.com00.s04_base_neutral",
+      "observedFilename": "COM00-S04-BASE-NEUTRAL.png",
+      "provenance": "human-generated original attachment; preserved byte-for-byte as master",
+      "knownIssues": []
+    },
+    "source.opening.ch1.cg.com00_s04_r01_polite_smile": {
+      "fileId": "1RtqQjUh1Hc7uM2nB618kmhNTVzEy0cOs",
+      "name": "cg-com00-s04-r01-polite-smile-v1.png",
+      "mimeType": "image/png",
+      "bytes": 2825904,
+      "width": 1536,
+      "height": 1024,
+      "sha256": "4b3b4d2013c5fba422aa03d6ee865009f33e380ec0b0c028fdb351267ab3124f",
+      "verifiedDecode": true,
+      "canonicalAssetId": "COM00-S04-R01-POLITE-SMILE",
+      "logicalAssetId": "cg.opening.com00.s04_r01_polite_smile",
+      "observedFilename": "COM00-S04-R01-POLITE-SMILE.png",
+      "provenance": "human-generated original attachment; preserved byte-for-byte as master",
+      "knownIssues": []
+    },
+    "source.opening.ch1.bg.apt_elevator": {
+      "fileId": "1zY1-7RBt9zhBoBwE5gi2_t4WRIPzOhQf",
+      "name": "bg-apt-elevator-16x9-v1.jpg",
+      "mimeType": "image/jpeg",
+      "bytes": 324668,
+      "width": 1536,
+      "height": 864,
+      "sha256": "33650c177cec8c6069dfd43fe705c2a47760d5265a31695e173ad009a8f9df7b",
+      "verifiedDecode": true,
+      "canonicalAssetId": "BG-APT-ELEVATOR-16X9",
+      "logicalAssetId": "bg.opening.ch1.apt_elevator",
+      "observedFilename": "BG-APT-ELEVATOR-16X9.jpg",
+      "provenance": "human-generated original attachment; preserved byte-for-byte as master",
+      "knownIssues": []
+    },
+    "source.opening.ch1.cg.com01x_base_normal": {
+      "fileId": "1RmoqmI_RFIPy7GqglrU_-AGj76jP7CR3",
+      "name": "cg-com01x-base-normal-v1.jpg",
+      "mimeType": "image/jpeg",
+      "bytes": 338011,
+      "width": 1536,
+      "height": 864,
+      "sha256": "0d8e8a659c0c21dd0a9812e8d51f081681bbcc6dee3fdb4fd849be182f3df2d1",
+      "verifiedDecode": true,
+      "canonicalAssetId": "COM01X-BASE-NORMAL",
+      "logicalAssetId": "cg.opening.com01x.base_normal",
+      "observedFilename": "COM01X-BASE-NORMAL.jpg",
+      "provenance": "human-generated original attachment; preserved byte-for-byte as master",
+      "knownIssues": []
+    },
+    "source.opening.ch1.cg.com01x_r01_restart": {
+      "fileId": "1vKmuw80y8pcgt1ZGbXlWa4aJ6KRkk10-",
+      "name": "cg-com01x-r01-restart-v1.jpg",
+      "mimeType": "image/jpeg",
+      "bytes": 238562,
+      "width": 1536,
+      "height": 864,
+      "sha256": "1acaf327607b86975a12ade2317505c893d539fcfcc5403615ea38a1f7b1cc97",
+      "verifiedDecode": true,
+      "canonicalAssetId": "COM01X-R01-RESTART",
+      "logicalAssetId": "cg.opening.com01x.r01_restart",
+      "observedFilename": "COM01X-R01-RESTART.jpg",
+      "provenance": "human-generated original attachment; preserved byte-for-byte as master",
+      "knownIssues": []
+    },
+    "source.opening.ch1.cg.com01x_r02_dry_smile": {
+      "fileId": "1cT-L31mLrPJF8EEto43Oh4gbrkYRRhs_",
+      "name": "cg-com01x-r02-dry-smile-v1.jpg",
+      "mimeType": "image/jpeg",
+      "bytes": 317033,
+      "width": 1536,
+      "height": 864,
+      "sha256": "16ef8040ee7571fe384a5bd8c4fd75449fa3cad0576de2dd9be6251bef29d81e",
+      "verifiedDecode": true,
+      "canonicalAssetId": "COM01X-R02-DRY-SMILE",
+      "logicalAssetId": "cg.opening.com01x.r02_dry_smile",
+      "observedFilename": "COM01X-R02-DRY-SMILE.jpg",
+      "provenance": "human-generated original attachment; preserved byte-for-byte as master",
+      "knownIssues": []
+    },
+    "source.opening.ch1.bg.acg_shop": {
+      "fileId": "1CTzPKCefu4NEHTDqabdRO0XVaxqVogdM",
+      "name": "bg-acg-shop-16x9-v1.jpg",
+      "mimeType": "image/jpeg",
+      "bytes": 532680,
+      "width": 1536,
+      "height": 864,
+      "sha256": "8398bb98f075696630a105a13c578805f5eecdce569cf7da4291200dca9c00be",
+      "verifiedDecode": true,
+      "canonicalAssetId": "BG-ACG-SHOP-16X9",
+      "logicalAssetId": "bg.opening.ch1.acg_shop",
+      "observedFilename": "BG-ACG-SHOP-16X9.jpg",
+      "provenance": "human-generated original attachment; preserved byte-for-byte as master",
+      "knownIssues": []
+    },
+    "source.opening.ch1.cg.com01j_base_guarded": {
+      "fileId": "1hE4FAJZ-QBN_RdMF_XJwgf05O6Bxix2b",
+      "name": "cg-com01j-base-guarded-v1.jpg",
+      "mimeType": "image/jpeg",
+      "bytes": 482636,
+      "width": 1536,
+      "height": 864,
+      "sha256": "0664c540e2cb6d2fefe5ff4f1169cb73664b265ef449b15c2f1915379033dfc2",
+      "verifiedDecode": true,
+      "canonicalAssetId": "COM01J-BASE-GUARDED",
+      "logicalAssetId": "cg.opening.com01j.base_guarded",
+      "observedFilename": "COM01J-BASE-GUARDED.jpg",
+      "provenance": "human-generated original attachment; preserved byte-for-byte as master",
+      "knownIssues": [
+        "demo-approved provisional wardrobe drift"
+      ]
+    },
+    "source.opening.ch1.cg.com01j_r01_interested": {
+      "fileId": "16m7giiSdWIlJgtVQLauiBFJt73gOIFwo",
+      "name": "cg-com01j-r01-interested-v1.jpg",
+      "mimeType": "image/jpeg",
+      "bytes": 572348,
+      "width": 1536,
+      "height": 1024,
+      "sha256": "704eee1ecbe5fc25229c6e9e28a440ec4193d16054ca360ea6c20d9e18c06783",
+      "verifiedDecode": true,
+      "canonicalAssetId": "COM01J-R01-INTERESTED",
+      "logicalAssetId": "cg.opening.com01j.r01_interested",
+      "observedFilename": "COM01J-R01-INTERESTED.jpg",
+      "provenance": "human-generated original attachment; preserved byte-for-byte as master",
+      "knownIssues": [
+        "demo-approved provisional wardrobe drift"
+      ]
+    }
+  },
+  "stagingFolders": {
+    "openingCh1DemoV01": {
+      "folderId": "1l717fFWJAmuCM84AZIgrWn_bfoXb0lJm",
+      "parentFolderId": "1waCTQsIbfyZi0F80LlnWeerPcoNlPnw1",
+      "visibility": "restricted",
+      "purpose": "Opening Chapter 1 demo canonical human-generated masters"
     }
   }
 }

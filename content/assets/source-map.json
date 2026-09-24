@@ -62,6 +62,105 @@
       "sha256": "de67b8be103b5dfe5d4eabc987d24b0b9395b4fa146457f99a46d867df149b25",
       "bytes": 155166,
       "masterSourceId": "source.xu_tang.date.night_market"
+    },
+    "assets/opening-ch1-demo/bg-apt-17f-rain-16x9-v1.webp": {
+      "provider": "gdrive-public",
+      "fileId": "1XYtSjsITajiefIqY2cgvpvQv-rut89Sr",
+      "url": "https://drive.google.com/uc?export=download&id=1XYtSjsITajiefIqY2cgvpvQv-rut89Sr",
+      "transform": "copy",
+      "sha256": "386c9003df0a6658a343907b646e912aa1e6a68254a01c2dfb89bdc838b33077",
+      "bytes": 125184,
+      "masterSourceId": "source.opening.ch1.bg.apt_17f_rain"
+    },
+    "assets/opening-ch1-demo/cg-com00-s02-door-assist-v1.webp": {
+      "provider": "gdrive-public",
+      "fileId": "1m8VM1jRZBWza2o-OSCPSSX6P-oMkk--V",
+      "url": "https://drive.google.com/uc?export=download&id=1m8VM1jRZBWza2o-OSCPSSX6P-oMkk--V",
+      "transform": "copy",
+      "sha256": "3a2a340f275c8870840c2103ed3f8f235e5389bd635c87214aa3a48ec1eec59e",
+      "bytes": 136596,
+      "masterSourceId": "source.opening.ch1.cg.com00_s02_door_assist"
+    },
+    "assets/opening-ch1-demo/cg-com00-s04-base-neutral-v1.webp": {
+      "provider": "gdrive-public",
+      "fileId": "1WZjSPUL8IGnfAGPyfbnDPVhRCc3Uopys",
+      "url": "https://drive.google.com/uc?export=download&id=1WZjSPUL8IGnfAGPyfbnDPVhRCc3Uopys",
+      "transform": "copy",
+      "sha256": "7f18dccd8483498adc196c144cc6edafeff6bdd0f6db573bee288b32152862ea",
+      "bytes": 131914,
+      "masterSourceId": "source.opening.ch1.cg.com00_s04_base_neutral"
+    },
+    "assets/opening-ch1-demo/cg-com00-s04-r01-polite-smile-v1.webp": {
+      "provider": "gdrive-public",
+      "fileId": "1sXPDP0DdqcF-RZpW7fiojhwvdAWEi9Gz",
+      "url": "https://drive.google.com/uc?export=download&id=1sXPDP0DdqcF-RZpW7fiojhwvdAWEi9Gz",
+      "transform": "copy",
+      "sha256": "51ab914e1d2cc294b7abcc2040520332c579abecaec80ebd9314a14d0e3452a0",
+      "bytes": 121104,
+      "masterSourceId": "source.opening.ch1.cg.com00_s04_r01_polite_smile"
+    },
+    "assets/opening-ch1-demo/bg-apt-elevator-16x9-v1.webp": {
+      "provider": "gdrive-public",
+      "fileId": "1pof0NVJpUNO2JX7vPKhDyJCunXIGJdZg",
+      "url": "https://drive.google.com/uc?export=download&id=1pof0NVJpUNO2JX7vPKhDyJCunXIGJdZg",
+      "transform": "copy",
+      "sha256": "2e1882334057fbd08b4d2c301b7924efc34cd1875e3d0dc1176c6315525e195e",
+      "bytes": 110612,
+      "masterSourceId": "source.opening.ch1.bg.apt_elevator"
+    },
+    "assets/opening-ch1-demo/cg-com01x-base-normal-v1.webp": {
+      "provider": "gdrive-public",
+      "fileId": "1n1he3lARUHKv3U1Ml8TMsy_BmoVY76mM",
+      "url": "https://drive.google.com/uc?export=download&id=1n1he3lARUHKv3U1Ml8TMsy_BmoVY76mM",
+      "transform": "copy",
+      "sha256": "c93cb5f8395839cef8d1d80f9402fe910f8cd0240dc1a10085f64421d41c95cf",
+      "bytes": 121780,
+      "masterSourceId": "source.opening.ch1.cg.com01x_base_normal"
+    },
+    "assets/opening-ch1-demo/cg-com01x-r01-restart-v1.webp": {
+      "provider": "gdrive-public",
+      "fileId": "1fBJCvJ18WkCA0tRjrMDhrxTBXE4UK--O",
+      "url": "https://drive.google.com/uc?export=download&id=1fBJCvJ18WkCA0tRjrMDhrxTBXE4UK--O",
+      "transform": "copy",
+      "sha256": "4da7ff3dcdc2a563890653125fd20e775a4c0af10dc260b8536c858a2542f0c9",
+      "bytes": 71500,
+      "masterSourceId": "source.opening.ch1.cg.com01x_r01_restart"
+    },
+    "assets/opening-ch1-demo/cg-com01x-r02-dry-smile-v1.webp": {
+      "provider": "gdrive-public",
+      "fileId": "1e3suzDXbDULNP5YGPXGGM1-XFrYSrXJc",
+      "url": "https://drive.google.com/uc?export=download&id=1e3suzDXbDULNP5YGPXGGM1-XFrYSrXJc",
+      "transform": "copy",
+      "sha256": "62c77eba8430f620099a8bc9f7bd6e8d0939e77645129f12f1ec85cf83cfb924",
+      "bytes": 107428,
+      "masterSourceId": "source.opening.ch1.cg.com01x_r02_dry_smile"
+    },
+    "assets/opening-ch1-demo/bg-acg-shop-16x9-v1.webp": {
+      "provider": "gdrive-public",
+      "fileId": "1gyyKP9kEoMk_t4feiylXz6Mo4ZuF8Na8",
+      "url": "https://drive.google.com/uc?export=download&id=1gyyKP9kEoMk_t4feiylXz6Mo4ZuF8Na8",
+      "transform": "copy",
+      "sha256": "3f3a37c605ebbdb8a4a127c4298f435787ecdda40367802aa6d2a1eba8e0b3da",
+      "bytes": 247800,
+      "masterSourceId": "source.opening.ch1.bg.acg_shop"
+    },
+    "assets/opening-ch1-demo/cg-com01j-base-guarded-v1.webp": {
+      "provider": "gdrive-public",
+      "fileId": "1r37gq6GhI2Oe1b-JeZgMcv_6aJQGD2NI",
+      "url": "https://drive.google.com/uc?export=download&id=1r37gq6GhI2Oe1b-JeZgMcv_6aJQGD2NI",
+      "transform": "copy",
+      "sha256": "da44c827e4f0839dc4b9885b3eca9df307660688e1e078b1cf5c8a5133e0b36b",
+      "bytes": 215930,
+      "masterSourceId": "source.opening.ch1.cg.com01j_base_guarded"
+    },
+    "assets/opening-ch1-demo/cg-com01j-r01-interested-v1.webp": {
+      "provider": "gdrive-public",
+      "fileId": "1EKoF5Q9X4Aw_NuSjtRXT8jgPS4gyoscv",
+      "url": "https://drive.google.com/uc?export=download&id=1EKoF5Q9X4Aw_NuSjtRXT8jgPS4gyoscv",
+      "transform": "copy",
+      "sha256": "3c3d1475a1ea1215f744870ba00c1127acd423141bbf4915ba9196e8e75d795f",
+      "bytes": 215292,
+      "masterSourceId": "source.opening.ch1.cg.com01j_r01_interested"
     }
   }
 }

@@ -711,5 +711,277 @@
         ]
       }
     }
-  ]
+  ],
+  "ingestStaging": {
+    "openingCh1DemoV01": {
+      "status": "asset-ingest-only",
+      "note": "Provenance/normalization records only. Active generation recipes remain unchanged until the separate Integration Task.",
+      "recipes": [
+        {
+          "id": "ingest.bg.opening.ch1.apt_17f_rain",
+          "outputAsset": "bg.opening.ch1.apt_17f_rain",
+          "type": "background",
+          "canonicalAssetId": "BG-APT-17F-RAIN-16X9",
+          "masterSourceId": "source.opening.ch1.bg.apt_17f_rain",
+          "runtimePath": "assets/opening-ch1-demo/bg-apt-17f-rain-16x9-v1.webp",
+          "normalization": {
+            "mode": "format-convert",
+            "detail": "native 16:9; RGB WebP quality 88/method 6; no crop or resize"
+          },
+          "provenance": {
+            "observedFilename": "BG-APT-17F-RAIN-16X9.jpg",
+            "canonicalFilename": "bg-apt-17f-rain-16x9-v1.jpg",
+            "masterDriveId": "1vdXT7-IySy1sWnIu82FQ7nL-HJvSn3JP",
+            "runtimeDriveId": "1XYtSjsITajiefIqY2cgvpvQv-rut89Sr",
+            "masterSha256": "34782d241269690df55a96a666cb46ee57675176ed8e4e3a42f533af9aea2b64",
+            "runtimeSha256": "386c9003df0a6658a343907b646e912aa1e6a68254a01c2dfb89bdc838b33077",
+            "humanGeneratedOriginalPreserved": true,
+            "aiRedraw": false
+          },
+          "knownIssues": []
+        },
+        {
+          "id": "ingest.cg.opening.com00.s02_door_assist",
+          "outputAsset": "cg.opening.com00.s02_door_assist",
+          "type": "cg",
+          "canonicalAssetId": "COM00-S02-DOOR-ASSIST",
+          "masterSourceId": "source.opening.ch1.cg.com00_s02_door_assist",
+          "runtimePath": "assets/opening-ch1-demo/cg-com00-s02-door-assist-v1.webp",
+          "normalization": {
+            "mode": "format-convert",
+            "detail": "native 16:9; RGB WebP quality 88/method 6; no crop or resize"
+          },
+          "provenance": {
+            "observedFilename": "COM00-S02-DOOR-ASSIST.jpg",
+            "canonicalFilename": "cg-com00-s02-door-assist-v1.jpg",
+            "masterDriveId": "1ECB7UETCKPgNnh_BgWGjIo4HgIahRuvk",
+            "runtimeDriveId": "1m8VM1jRZBWza2o-OSCPSSX6P-oMkk--V",
+            "masterSha256": "834c97169005e54234fe0c1dcc1772303c6fefece0fdef66c0aca1a0d1d67980",
+            "runtimeSha256": "3a2a340f275c8870840c2103ed3f8f235e5389bd635c87214aa3a48ec1eec59e",
+            "humanGeneratedOriginalPreserved": true,
+            "aiRedraw": false
+          },
+          "knownIssues": []
+        },
+        {
+          "id": "ingest.cg.opening.com00.s04_base_neutral",
+          "outputAsset": "cg.opening.com00.s04_base_neutral",
+          "type": "cg",
+          "canonicalAssetId": "COM00-S04-BASE-NEUTRAL",
+          "masterSourceId": "source.opening.ch1.cg.com00_s04_base_neutral",
+          "runtimePath": "assets/opening-ch1-demo/cg-com00-s04-base-neutral-v1.webp",
+          "normalization": {
+            "mode": "family-aligned-crop-resize",
+            "family": "COM00-S04",
+            "detail": "base uses 1672x941 alignment canvas; shared crop [4,0,1668,936] => 1664x936 exact 16:9; resize to 1536x864 Lanczos; RGB WebP quality 88/method 6"
+          },
+          "provenance": {
+            "observedFilename": "COM00-S04-BASE-NEUTRAL.png",
+            "canonicalFilename": "cg-com00-s04-base-neutral-v1.png",
+            "masterDriveId": "1nTgRcyKwiG6kR3gG3Kjx0bEcH-GVMWCg",
+            "runtimeDriveId": "1WZjSPUL8IGnfAGPyfbnDPVhRCc3Uopys",
+            "masterSha256": "e629b321ed20a071b6d4532bb4a5ff48649265f5d74a0e692064b3466960efbf",
+            "runtimeSha256": "7f18dccd8483498adc196c144cc6edafeff6bdd0f6db573bee288b32152862ea",
+            "humanGeneratedOriginalPreserved": true,
+            "aiRedraw": false
+          },
+          "knownIssues": []
+        },
+        {
+          "id": "ingest.cg.opening.com00.s04_r01_polite_smile",
+          "outputAsset": "cg.opening.com00.s04_r01_polite_smile",
+          "type": "cg",
+          "canonicalAssetId": "COM00-S04-R01-POLITE-SMILE",
+          "masterSourceId": "source.opening.ch1.cg.com00_s04_r01_polite_smile",
+          "runtimePath": "assets/opening-ch1-demo/cg-com00-s04-r01-polite-smile-v1.webp",
+          "normalization": {
+            "mode": "family-aligned-crop-resize",
+            "family": "COM00-S04",
+            "detail": "pre-align scale to 1672px width and top-crop to 1672x941; then same shared crop [4,0,1668,936] => 1664x936 exact 16:9; resize to 1536x864 Lanczos; RGB WebP quality 88/method 6"
+          },
+          "provenance": {
+            "observedFilename": "COM00-S04-R01-POLITE-SMILE.png",
+            "canonicalFilename": "cg-com00-s04-r01-polite-smile-v1.png",
+            "masterDriveId": "1RtqQjUh1Hc7uM2nB618kmhNTVzEy0cOs",
+            "runtimeDriveId": "1sXPDP0DdqcF-RZpW7fiojhwvdAWEi9Gz",
+            "masterSha256": "4b3b4d2013c5fba422aa03d6ee865009f33e380ec0b0c028fdb351267ab3124f",
+            "runtimeSha256": "51ab914e1d2cc294b7abcc2040520332c579abecaec80ebd9314a14d0e3452a0",
+            "humanGeneratedOriginalPreserved": true,
+            "aiRedraw": false
+          },
+          "knownIssues": []
+        },
+        {
+          "id": "ingest.bg.opening.ch1.apt_elevator",
+          "outputAsset": "bg.opening.ch1.apt_elevator",
+          "type": "background",
+          "canonicalAssetId": "BG-APT-ELEVATOR-16X9",
+          "masterSourceId": "source.opening.ch1.bg.apt_elevator",
+          "runtimePath": "assets/opening-ch1-demo/bg-apt-elevator-16x9-v1.webp",
+          "normalization": {
+            "mode": "format-convert",
+            "detail": "native 16:9; RGB WebP quality 88/method 6; no crop or resize"
+          },
+          "provenance": {
+            "observedFilename": "BG-APT-ELEVATOR-16X9.jpg",
+            "canonicalFilename": "bg-apt-elevator-16x9-v1.jpg",
+            "masterDriveId": "1zY1-7RBt9zhBoBwE5gi2_t4WRIPzOhQf",
+            "runtimeDriveId": "1pof0NVJpUNO2JX7vPKhDyJCunXIGJdZg",
+            "masterSha256": "33650c177cec8c6069dfd43fe705c2a47760d5265a31695e173ad009a8f9df7b",
+            "runtimeSha256": "2e1882334057fbd08b4d2c301b7924efc34cd1875e3d0dc1176c6315525e195e",
+            "humanGeneratedOriginalPreserved": true,
+            "aiRedraw": false
+          },
+          "knownIssues": []
+        },
+        {
+          "id": "ingest.cg.opening.com01x.base_normal",
+          "outputAsset": "cg.opening.com01x.base_normal",
+          "type": "cg",
+          "canonicalAssetId": "COM01X-BASE-NORMAL",
+          "masterSourceId": "source.opening.ch1.cg.com01x_base_normal",
+          "runtimePath": "assets/opening-ch1-demo/cg-com01x-base-normal-v1.webp",
+          "normalization": {
+            "mode": "format-convert",
+            "family": "COM01X",
+            "detail": "native 16:9 shared family frame; RGB WebP quality 88/method 6; no crop or resize"
+          },
+          "provenance": {
+            "observedFilename": "COM01X-BASE-NORMAL.jpg",
+            "canonicalFilename": "cg-com01x-base-normal-v1.jpg",
+            "masterDriveId": "1RmoqmI_RFIPy7GqglrU_-AGj76jP7CR3",
+            "runtimeDriveId": "1n1he3lARUHKv3U1Ml8TMsy_BmoVY76mM",
+            "masterSha256": "0d8e8a659c0c21dd0a9812e8d51f081681bbcc6dee3fdb4fd849be182f3df2d1",
+            "runtimeSha256": "c93cb5f8395839cef8d1d80f9402fe910f8cd0240dc1a10085f64421d41c95cf",
+            "humanGeneratedOriginalPreserved": true,
+            "aiRedraw": false
+          },
+          "knownIssues": []
+        },
+        {
+          "id": "ingest.cg.opening.com01x.r01_restart",
+          "outputAsset": "cg.opening.com01x.r01_restart",
+          "type": "cg",
+          "canonicalAssetId": "COM01X-R01-RESTART",
+          "masterSourceId": "source.opening.ch1.cg.com01x_r01_restart",
+          "runtimePath": "assets/opening-ch1-demo/cg-com01x-r01-restart-v1.webp",
+          "normalization": {
+            "mode": "format-convert",
+            "family": "COM01X",
+            "detail": "native 16:9 shared family frame; RGB WebP quality 88/method 6; no crop or resize"
+          },
+          "provenance": {
+            "observedFilename": "COM01X-R01-RESTART.jpg",
+            "canonicalFilename": "cg-com01x-r01-restart-v1.jpg",
+            "masterDriveId": "1vKmuw80y8pcgt1ZGbXlWa4aJ6KRkk10-",
+            "runtimeDriveId": "1fBJCvJ18WkCA0tRjrMDhrxTBXE4UK--O",
+            "masterSha256": "1acaf327607b86975a12ade2317505c893d539fcfcc5403615ea38a1f7b1cc97",
+            "runtimeSha256": "4da7ff3dcdc2a563890653125fd20e775a4c0af10dc260b8536c858a2542f0c9",
+            "humanGeneratedOriginalPreserved": true,
+            "aiRedraw": false
+          },
+          "knownIssues": []
+        },
+        {
+          "id": "ingest.cg.opening.com01x.r02_dry_smile",
+          "outputAsset": "cg.opening.com01x.r02_dry_smile",
+          "type": "cg",
+          "canonicalAssetId": "COM01X-R02-DRY-SMILE",
+          "masterSourceId": "source.opening.ch1.cg.com01x_r02_dry_smile",
+          "runtimePath": "assets/opening-ch1-demo/cg-com01x-r02-dry-smile-v1.webp",
+          "normalization": {
+            "mode": "format-convert",
+            "family": "COM01X",
+            "detail": "native 16:9 shared family frame; RGB WebP quality 88/method 6; no crop or resize"
+          },
+          "provenance": {
+            "observedFilename": "COM01X-R02-DRY-SMILE.jpg",
+            "canonicalFilename": "cg-com01x-r02-dry-smile-v1.jpg",
+            "masterDriveId": "1cT-L31mLrPJF8EEto43Oh4gbrkYRRhs_",
+            "runtimeDriveId": "1e3suzDXbDULNP5YGPXGGM1-XFrYSrXJc",
+            "masterSha256": "16ef8040ee7571fe384a5bd8c4fd75449fa3cad0576de2dd9be6251bef29d81e",
+            "runtimeSha256": "62c77eba8430f620099a8bc9f7bd6e8d0939e77645129f12f1ec85cf83cfb924",
+            "humanGeneratedOriginalPreserved": true,
+            "aiRedraw": false
+          },
+          "knownIssues": []
+        },
+        {
+          "id": "ingest.bg.opening.ch1.acg_shop",
+          "outputAsset": "bg.opening.ch1.acg_shop",
+          "type": "background",
+          "canonicalAssetId": "BG-ACG-SHOP-16X9",
+          "masterSourceId": "source.opening.ch1.bg.acg_shop",
+          "runtimePath": "assets/opening-ch1-demo/bg-acg-shop-16x9-v1.webp",
+          "normalization": {
+            "mode": "format-convert",
+            "detail": "native 16:9; RGB WebP quality 88/method 6; no crop or resize"
+          },
+          "provenance": {
+            "observedFilename": "BG-ACG-SHOP-16X9.jpg",
+            "canonicalFilename": "bg-acg-shop-16x9-v1.jpg",
+            "masterDriveId": "1CTzPKCefu4NEHTDqabdRO0XVaxqVogdM",
+            "runtimeDriveId": "1gyyKP9kEoMk_t4feiylXz6Mo4ZuF8Na8",
+            "masterSha256": "8398bb98f075696630a105a13c578805f5eecdce569cf7da4291200dca9c00be",
+            "runtimeSha256": "3f3a37c605ebbdb8a4a127c4298f435787ecdda40367802aa6d2a1eba8e0b3da",
+            "humanGeneratedOriginalPreserved": true,
+            "aiRedraw": false
+          },
+          "knownIssues": []
+        },
+        {
+          "id": "ingest.cg.opening.com01j.base_guarded",
+          "outputAsset": "cg.opening.com01j.base_guarded",
+          "type": "cg",
+          "canonicalAssetId": "COM01J-BASE-GUARDED",
+          "masterSourceId": "source.opening.ch1.cg.com01j_base_guarded",
+          "runtimePath": "assets/opening-ch1-demo/cg-com01j-base-guarded-v1.webp",
+          "normalization": {
+            "mode": "family-aligned-crop",
+            "family": "COM01J",
+            "detail": "base establishes top-aligned family frame [0,0,1536,864]; native 16:9; RGB WebP quality 88/method 6"
+          },
+          "provenance": {
+            "observedFilename": "COM01J-BASE-GUARDED.jpg",
+            "canonicalFilename": "cg-com01j-base-guarded-v1.jpg",
+            "masterDriveId": "1hE4FAJZ-QBN_RdMF_XJwgf05O6Bxix2b",
+            "runtimeDriveId": "1r37gq6GhI2Oe1b-JeZgMcv_6aJQGD2NI",
+            "masterSha256": "0664c540e2cb6d2fefe5ff4f1169cb73664b265ef449b15c2f1915379033dfc2",
+            "runtimeSha256": "da44c827e4f0839dc4b9885b3eca9df307660688e1e078b1cf5c8a5133e0b36b",
+            "humanGeneratedOriginalPreserved": true,
+            "aiRedraw": false
+          },
+          "knownIssues": [
+            "demo-approved provisional wardrobe drift"
+          ]
+        },
+        {
+          "id": "ingest.cg.opening.com01j.r01_interested",
+          "outputAsset": "cg.opening.com01j.r01_interested",
+          "type": "cg",
+          "canonicalAssetId": "COM01J-R01-INTERESTED",
+          "masterSourceId": "source.opening.ch1.cg.com01j_r01_interested",
+          "runtimePath": "assets/opening-ch1-demo/cg-com01j-r01-interested-v1.webp",
+          "normalization": {
+            "mode": "family-aligned-crop",
+            "family": "COM01J",
+            "detail": "top crop [0,0,1536,864] to match base family frame exactly; RGB WebP quality 88/method 6; no AI redraw"
+          },
+          "provenance": {
+            "observedFilename": "COM01J-R01-INTERESTED.jpg",
+            "canonicalFilename": "cg-com01j-r01-interested-v1.jpg",
+            "masterDriveId": "16m7giiSdWIlJgtVQLauiBFJt73gOIFwo",
+            "runtimeDriveId": "1EKoF5Q9X4Aw_NuSjtRXT8jgPS4gyoscv",
+            "masterSha256": "704eee1ecbe5fc25229c6e9e28a440ec4193d16054ca360ea6c20d9e18c06783",
+            "runtimeSha256": "3c3d1475a1ea1215f744870ba00c1127acd423141bbf4915ba9196e8e75d795f",
+            "humanGeneratedOriginalPreserved": true,
+            "aiRedraw": false
+          },
+          "knownIssues": [
+            "demo-approved provisional wardrobe drift"
+          ]
+        }
+      ]
+    }
+  }
 }
