@@ -26,7 +26,7 @@
 - [x] GitHub Actions 可在沒有 Google Drive credential 的情況下匿名下載 remote runtime assets、驗 hash、full decode、build、validate、test。
 - [x] 三張 date CG 的 damaged GitHub originals 已由完整 master 恢復，runtime WebP 已放入 Drive。
 - [x] 許棠 identity v2 與 first-kiss keyframes 的完整 masters 已恢復並記錄。
-- [x] W4 Player UI / Memories / CG Gallery 的產品與資料契約已寫入 `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md`，**但尚未實作**。
+- [x] W4 Player UI / Memories / CG Gallery 的產品與資料契約已寫入 `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md`，且已在既有 playable fixture 落地。
 - [x] 雙女主 production narrative 已升級為 Braided Narrative v0.5；canonical scene/route/state/art 規格已拆入 `docs/narrative/` 與 `docs/art/`。
 - [x] 許棠／江雨澄 6-sheet production reference packs 已通過 QA，Drive canonical manifest 已記錄於 `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md`。
 - [x] Opening Vertical Slice 已定義為第一個 production-grade content sample，production board 位於 `docs/narrative/CONTENT_PRODUCTION_TODO.md`。
@@ -79,7 +79,7 @@ npm run release
 - [x] AI-operated ephemeral Codespace lifecycle tooling。
 - [x] 在具有 Codespaces lifecycle 權限的 authenticated `gh` operator 上跑一次 end-to-end `codespace:accept`（run `35932727909`）。
 - [x] AI cloud-browser UI / localStorage / playable-flow acceptance（Browser Acceptance run `35933586244`）。
-- [ ] W4 Player UI / Memories / CG Gallery implementation。
+- [x] W4 Player UI / Memories / CG Gallery implementation。
 - [ ] cloud-complete verification/checkpoint command。
 - [ ] SFW / Full compile-time pruning。
 - [ ] production release command / deployment provenance。
@@ -384,65 +384,65 @@ W3 實作完成時，必須同一 milestone 更新：
 
 # 4. W4 — Player UI / Memories / CG Gallery
 
-> 狀態：**spec approved，未實作。**
+> 狀態：**已完成。** Verify `35948336731` 與 Browser Acceptance `35948336719` 均通過。
 >
 > Canonical feature spec：`docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md`
 
-W3 已完成；**W4 現在是 current implementation milestone**。
+W3 已完成；W4 已用現有 123-node playable fixture 完成 runtime / migration / browser acceptance。新 Braided Narrative 內容仍由 Opening Vertical Slice production track 接入。
 
 ## W4.1 Title / navigation
 
-- [ ] title 改成：
-  - [ ] 一個大 Start/Continue；
-  - [ ] Memories；
-  - [ ] CG。
-- [ ] 移除玩家層級的 standalone Branches 入口。
-- [ ] 不新增 New Game / save-slot mental model。
-- [ ] sound/settings 移到輕量 icon/HUD。
-- [ ] title backdrop 依 frontier/memory metadata 決定。
+- [x] title 改成：
+  - [x] 一個大 Start/Continue；
+  - [x] Memories；
+  - [x] CG。
+- [x] 移除玩家層級的 standalone Branches 入口。
+- [x] 不新增 New Game / save-slot mental model。
+- [x] sound/settings 移到輕量 icon/HUD。
+- [x] title backdrop 依 frontier/memory metadata 決定。
 
 ## W4.2 In-game UI
 
-- [ ] desktop dialogue panel 縮小並讓 CG 成為視覺主體。
-- [ ] speaker badge 分離。
-- [ ] choices 與 dialogue panel 分離。
-- [ ] mobile 保持清楚 touch targets 與無 horizontal scroll。
-- [ ] safe zone 不遮臉、手、關鍵互動與劇情物件。
+- [x] desktop dialogue panel 縮小並讓 CG 成為視覺主體。
+- [x] speaker badge 分離。
+- [x] choices 與 dialogue panel 分離。
+- [x] mobile 保持約 44px touch targets 與無 horizontal scroll。
+- [x] 既有 fixture 的 panel/choice 位置與 asset focus 一起處理 safe zone；新 production CG 仍需逐張視覺 QA。
 
 ## W4.3 Memories
 
-- [ ] 一頁式 vertical Memories timeline。
-- [ ] 不做二級 Route Detail。
-- [ ] player-facing primitive = Memory Event，不等同 engine node。
-- [ ] 共通事件使用 scene/background cover。
-- [ ] 單女主事件使用事件 CG 淡化、face-focused backdrop。
-- [ ] 支援 locked / discovered / replayable state。
-- [ ] replay old memory 不得讓 deepest progress 倒退。
+- [x] 一頁式 vertical Memories timeline。
+- [x] 不做二級 Route Detail。
+- [x] player-facing primitive = Memory Event，不等同 engine node。
+- [x] 共通事件使用 scene/background cover。
+- [x] 單女主事件使用事件 CG 淡化、face-focused backdrop。
+- [x] 支援 locked / discovered / replayable state。
+- [x] replay old memory 不得讓 deepest progress 倒退，含同一 Memory Event 內較早的 node。
 
 ## W4.4 Save semantics
 
-- [ ] 分離：
-  - [ ] current/replay cursor；
-  - [ ] deepest story frontier。
-- [ ] Continue 永遠依 frontier，不被 replay regression。
-- [ ] 舊 save migration 保留合理可遷移的 progress / CG / endings。
-- [ ] 新增對應 automated tests。
+- [x] 分離：
+  - [x] current/replay cursor；
+  - [x] deepest story frontier。
+- [x] Continue 永遠依 frontier，不被 replay regression。
+- [x] 舊 save migration 保留合理可遷移的 progress / CG / endings。
+- [x] 新增對應 automated tests。
 
 ## W4.5 CG Gallery
 
-- [ ] 保持簡單 collection wall。
-- [ ] locked/unlocked。
-- [ ] full viewer。
-- [ ] 不承擔 story graph responsibility。
+- [x] 保持簡單 collection wall。
+- [x] locked/unlocked。
+- [x] full viewer，含鍵盤與觸控左右切換。
+- [x] 不承擔 story graph responsibility。
 
 ## W4 DoD
 
-- [ ] spec 的資料契約已落地。
-- [ ] desktop/mobile UI smoke test 通過。
-- [ ] replay/frontier tests 通過。
-- [ ] old save migration tests 通過。
-- [ ] existing story paths 無 regression。
-- [ ] docs/state/TODO 更新並 push verified commit。
+- [x] spec 的資料契約已落地。
+- [x] desktop/mobile UI smoke test 通過。
+- [x] replay/frontier tests 通過。
+- [x] old save migration tests 通過。
+- [x] existing story paths 無 regression。
+- [x] docs/state/TODO 更新並 push verified commit。
 
 ---
 
@@ -885,20 +885,20 @@ Human 驗收最終 feature
 
 > **不要為了 North Star 跳過目前的 proving work。**
 
-## Technical track — NEXT
+## Technical track — W4 complete
 
-- [ ] **W4 — Player UI / Memories / CG Gallery**
-  - [ ] 落地 memory-event / cursor / frontier data contract。
-  - [ ] 更新 title / in-game UI / Memories / CG Gallery。
-  - [ ] old-save migration。
-  - [ ] automated tests + browser acceptance。
-  - [ ] verified commit / docs synchronization。
+- [x] **W4 — Player UI / Memories / CG Gallery**
+  - [x] 落地 memory-event / cursor / frontier data contract。
+  - [x] 更新 title / in-game UI / Memories / CG Gallery。
+  - [x] old-save migration。
+  - [x] automated tests + browser acceptance。
+  - [x] verified commit / docs synchronization。
 
 ## Creative track — 可與 W4 平行
 
 - [ ] **Opening Vertical Slice production**
   - [ ] 依 `docs/narrative/CONTENT_PRODUCTION_TODO.md` 推進 Batch A–D。
-  - [ ] W4/content schema 尚未穩定前，scene 正常先做到 S1–S9。
+  - [ ] W4 runtime contract 已穩定；各 scene 完成 S1–S9 後接入 runtime，續做 S10–S12。
   - [ ] 許棠／江雨澄 production CG 必須使用已批准 6-sheet canonical references。
   - [ ] 不把舊 123-node playable fixture 當成 production narrative ordering。
 

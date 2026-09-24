@@ -27,12 +27,12 @@
 ## 畫面規則
 
 - `src/visuals.js` 負責邏輯素材解析、共用立繪顯示及載入失敗回退；標題與遊戲共用同一個節點畫面定義。
-- `src/progress.js` 保存節點進入時的數值、旗標、隨機場景返回堆疊與已走連線。
-- `src/branches.js` 由故事連線建立垂直分支頁，顯示已走路徑與 CG 狀態；只有已保存快照的節點及起點可以開始播放。
+- `src/progress.js` 保存 journey v2 node-entry snapshot、cursor、最深 frontier 的 Memory Event/rank、節點快照、數值、旗標、返回堆疊與已走連線，並遷移 journey v1。
+- `src/memories.js` 以內容定義的 Memory Event 顯示一頁式回憶時間線，處理場景／角色封面、解鎖、篩選與標題背景。`src/branches.js` 保留工程用 graph helper，不再是玩家入口。
 - `src/engine.js` 協調播放／存檔／收藏；`src/app.js` 只負責載入。
 - 建置為 JS 模組匯入、HTML 入口和樣式加上內容雜湊，內容 JSON 重新驗證快取，避免更新後載入新介面卻沿用舊程式。HTML 本身仍應由主機設定為重新驗證快取。
 
-續玩會回到目前節點開頭，不保存打字到第幾個字或影片時間。節點快照以最後一次走到該節點的狀態為準，並非多存檔槽。CG／結局收藏跨重玩保留，當前好感與旗標隨快照恢復。舊版沒有續玩快照的玩家由起點開始，既有收藏仍保留。
+Continue 會回到 frontier 節點開頭，不保存打字到第幾個字或影片時間。Memories replay 改變 cursor 與當輪數值／旗標；只有進入更高 rank 的 Memory Event 才推進 frontier。節點快照以最後一次走到該節點的狀態為準，並非多存檔槽。CG／結局收藏跨重玩保留；journey v1 的有效 checkpoint 會遷移，無有效快照的玩家由起點開始。
 
 圖片檔名只存在 manifest。換圖保留邏輯 ID 並更新版本、配方、尺寸和焦點；程式與節點不用跟著換檔名。`dist/assets/unavailable.svg` 是介面內建的錯誤替代畫面，不是可收藏的劇情素材。回退只保障執行不中斷，不代表壞圖已修復。
 
@@ -128,5 +128,14 @@ W3 現在另外提供 AI-operated lifecycle：
 - `.github/workflows/codespace-acceptance.yml` 提供 optional workflow_dispatch；需一次性 `CODESPACES_TOKEN`。
 - `Verify` 會執行 lifecycle command `--dry-run`，避免 script syntax/plan drift。
 
-Human 不再需要手動 create/rebuild Codespace 作為 W3 gate。剩餘的是：在真正有 Codespaces lifecycle authentication 的 AI operator 環境跑一次 end-to-end，再由 AI cloud browser 驗 reload/localStorage/playable flows。
+Human 不再需要手動 create/rebuild Codespace 作為 W3 gate。W3 fresh Codespace run `35932727909` 與 Chromium run `35933586244` 已完成工程驗收；主觀 UI/視覺 review 仍可按需使用 `codespace:review`。
 
+## W4 — Player UI / Memories / CG Gallery implementation
+
+- `content/routes/xu-tang/memories.json` 是目前 fixture 的 Memory Section / Event source。每個 event 有 stable ID、replay anchor、unlock node mapping、rank、角色／共通歸屬、cover/focus 與 gallery association。Build/validator 會檢查 node 與 logical asset references。
+- `src/progress.js` 使用 `chapter-01:journey:v2`；有效 v1 `current` 變 cursor，最深 mapped checkpoint 變 frontier。同 rank 時優先舊 current。舊 CG unlock、endings 與 completed keys 不清除。
+- Memories replay 從保存的 node-entry snapshot 恢復 stats、flags 與 return stack。Replay 中同 rank、較低 rank，或同一 event 較早 node 不回退 frontier；只有更高 rank event 更新 frontier。Title Continue 一律使用 frontier。
+- `src/memories.js` 將多個 engine nodes 壓成單一玩家事件；未解鎖卡隱藏標題／分支細節。單女主使用淡化的事件 CG 和 face focus，共通事件使用 scene/background。封面 lazy-load，cinematic 使用 poster。
+- `public/index.html`／`public/styles.css` 提供一大兩小 title、單頁 vertical timeline、桌面分離的對話／選項、mobile 約 44px touch targets，以及簡單 CG 收藏牆／全畫面檢視器。回憶篩選後「回到目前進度」會恢復全部並定位 frontier；CG viewer 支援按鈕、方向鍵與左右觸控切換。
+- `src/branches.js` 僅保留 graph helper，不再暴露玩家層級 Branches。
+- `npm test` 有 20 個 Node tests；W4 Chromium Browser Acceptance run `35948336719` 和 Verify run `35948336731` 通過。新 production content 接入時仍需依 W4 spec 建立新 Memory Events 並檢查每張 CG 的 safe zone。

@@ -1,12 +1,14 @@
 # W4 Player UI / Memories / CG Gallery 規格
 
-> 狀態：**已確認的產品／UX 方向，待實作**
+> 狀態：**W4 runtime 已實作；本文件仍是後續內容整合的功能契約**
 >
 > 更新：2026-09-23
 >
 > 本文件記錄 2026-09-23 對話中已確認的 W4 介面、存檔語意、回憶頁與 CG 收藏設計。它的目的不是保存 mockup，而是讓新的 ChatGPT / Codex / Claude / 人類協作者在沒有聊天紀錄的情況下，也能理解「為什麼這樣設計、資料怎麼表示、現有程式要改哪裡、什麼算完成」。
 >
-> 如本文件與當前程式碼不同，代表 W4 尚未完全落地；不要把現況誤認為目標行為。Canonical architecture 仍以根目錄 `ARCHITECTURE.zh-TW.md` 為準，本文件是 W4 的功能級詳細規格。
+> 目前 123-node playable package 是 W4 engine/migration fixture，不是 Braided Narrative production ordering。Canonical architecture 仍以根目錄 `ARCHITECTURE.zh-TW.md` 為準；本文件是 W4 的功能級詳細規格。
+>
+> 實作驗收：Verify `35948336731`、Playwright Browser Acceptance `35948336719`；新 production Memory Events 仍需隨 Opening Vertical Slice 內容逐批接入。
 
 ---
 

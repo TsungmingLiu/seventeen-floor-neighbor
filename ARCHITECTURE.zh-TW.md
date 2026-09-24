@@ -1280,10 +1280,10 @@ npm run release
 1. **W1 Source Asset Boundary** — `public/`、`assets-src/`、`generated/`、`dist/` 邊界建立，clean build 可重建。
 2. **W2 Asset Check + Asset Build** — full-decode validation、Drive source/runtime store、remote hash verification 已建立。
 3. **W3 complete** — Node 22 + ffmpeg + SSH devcontainer、4173 forwarded preview、`dev/preview/preview:smoke` 與 AI-operated `codespace:accept/review` lifecycle 已完成。Run `35932727909` 證明 fresh Codespace create → SSH → clean asset/build/validate/test → preview readiness → private tunnel smoke → auto-delete；Browser Acceptance run `35933586244` 以 Chromium 證明 reload/localStorage、OL branch、branches/gallery、cinematic、ending persistence、320px layout 與 blocking browser-error behavior。`codespace:review` 僅保留作 subjective UX review，不是 engineering gate。
+4. **W4 complete** — Memory Event contract、journey v2 cursor/frontier 與 v1 migration、單頁 Memories、title/in-game/CG UI 已落地；Verify `35948336731` 與 Browser Acceptance `35948336719` 通過。舊 123-node playable story 仍是 fixture，Opening Vertical Slice production content 另行接入。
 
 接下來：
 
-4. **W4 Player UI / Memories / CG Gallery** — 依 `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md` 實作。
 5. **W5 Cloud-complete verification** — 對 commit + canonical assets + clean build 產生 provenance。
 6. **W6 SFW / Full profiles** — compile-time pruning 與 leakage tests。
 7. **W7 Review / Release pipeline** — Sites review、deterministic release。

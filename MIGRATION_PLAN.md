@@ -106,7 +106,7 @@ W3 is complete. Browser Acceptance run `35933586244` uses a clean runtime plus P
 
 ## 4. W4 — Player UI / Memories / CG Gallery
 
-**Current implementation milestone.** W3 acceptance is complete.
+**Complete on the current playable fixture.** Verify run `35948336731` and Browser Acceptance run `35948336719` passed. Production Opening Vertical Slice scenes will supply new Memory Events as they are integrated.
 
 Canonical feature spec:
 
@@ -123,7 +123,7 @@ Key contracts:
 - common events use scene/background art;
 - CG gallery stays a collection wall.
 
-Do not mix W4 implementation into W3 environment acceptance.
+W4 uses journey v2 cursor/frontier storage while preserving v1 checkpoint, CG unlock, and ending data. The existing 123-node story is the regression fixture, not the new production ordering.
 
 ## 5. W5 — Cloud-complete Verification
 

@@ -9,7 +9,7 @@
 | 項目 | 目前狀態 |
 | --- | --- |
 | Engine / build foundation | **W1–W3 完成**：source/output boundary、Drive-backed asset build、strict media validation、Codespaces-only development、ephemeral Codespace acceptance、Playwright browser acceptance 已驗證 |
-| Current technical milestone | **W4 — Player UI / Memories / CG Gallery**；產品與 data contract 已批准，runtime implementation 是目前下一個工程里程碑 |
+| Current technical milestone | **W4 — Player UI / Memories / CG Gallery 已完成**；下一步是 Opening Vertical Slice 接入 W4 runtime，接著推進 W5 cloud-complete verification |
 | Canonical production story | **Braided Narrative v0.5**；約 66 個 authoring-level scene / gate / ending / after-story 單元，詳見 `docs/narrative/` |
 | Prototype heroines | **許棠**：27 歲、約 170 cm、自由接案視覺設計師；**江雨澄**：23 歲、約 160 cm、研究生＋兼職插畫／ACG creator |
 | Character visual identity | 許棠、江雨澄的 **6-sheet production reference packs 均已 QA PASS**；canonical Drive manifest 見 `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md` |
@@ -34,7 +34,7 @@ Prototype 的核心不是傳統「早期選一位女主後另一位消失」。�
 
 ## 現在的兩條工作線
 
-### 1. Technical track — W4
+### 1. Technical track — W4 complete
 
 W4 把目前偏 prototype/debug 的玩家介面升級成真正適合多女主 VN 的產品介面：
 
@@ -45,6 +45,8 @@ W4 把目前偏 prototype/debug 的玩家介面升級成真正適合多女主 VN
 - CG Gallery：維持單純收藏牆，不承擔 route graph 職責。
 
 詳細規格：`docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md`。
+
+目前 fixture 的 W4 implementation 已通過 [Verify](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/35948336731) 與 [Browser Acceptance](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/35948336719)。新的 Braided Narrative scene 仍需依此 contract 接入 Memory Event 與 CG；舊 123-node playable package 只作 regression fixture。
 
 ### 2. Creative track — Opening Vertical Slice
 
@@ -65,7 +67,7 @@ JYC-06  Gaming Night
 SH-01   17樓第一次同框
 ```
 
-每個 major scene 使用 `docs/narrative/CONTENT_PRODUCTION_TODO.md` 的 S1–S12 Definition of Done。W4/content schema 尚未穩定時，creative production 可以先完成 script、continuity、state contract、shot list、CG generation 與 asset QA；真正 runtime integration / playtest / final polish 在 W4 可承接後完成。
+每個 major scene 使用 `docs/narrative/CONTENT_PRODUCTION_TODO.md` 的 S1–S12 Definition of Done。W4 runtime contract 現已穩定；creative production 的 script、continuity、state contract、shot list、CG generation 與 asset QA 完成後，可接入 W4 runtime 做 playtest 與 final polish。
 
 ## Canonical documents
 

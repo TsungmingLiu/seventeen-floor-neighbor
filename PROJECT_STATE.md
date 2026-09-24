@@ -4,7 +4,7 @@ Updated: 2026-09-23
 
 ## Current milestone
 
-**W4 — Player UI / Memories / CG Gallery. W3 is complete.** W3 has two independent proofs: fresh ephemeral Codespace engineering acceptance run `35932727909` completed create → devcontainer → SSH → clean 44/44 media checks → build/validate/9 tests → 4173 private-tunnel smoke → automatic delete; Chromium browser acceptance run `35933586244` passed start/continue/reload/localStorage, mute persistence, OL choice flow, branches, gallery, real cinematic loading/skip/gallery playback, ending persistence, 320px layout, and blocking console/page-error checks. `codespace:review` remains available for optional subjective UX review, not as an engineering gate.
+**W4 — Player UI / Memories / CG Gallery is complete on `main`.** W4 uses explicit Memory Events, journey v2 cursor/frontier saves, v1 migration, the one-page Memories timeline, a Start/Continue + Memories + CG title, a smaller dialogue/choice layout, and the simple gallery viewer. The 123-node Xu Tang/OL playable package remains an engine and migration fixture; Opening Vertical Slice production content is tracked separately. W4 Verify run `35948336731` and Chromium Browser Acceptance run `35948336719` passed. W3 fresh Codespace proof is run `35932727909`.
 
 
 ## Canonical narrative plan
@@ -36,9 +36,9 @@ Canonical planning docs：
 Creative production 進度不要塞進 root `TODO.md`。獨立使用 `docs/narrative/CONTENT_PRODUCTION_TODO.md`；root `TODO.md` 繼續只追 W3/W4/engine/tooling。建議一個 content production batch 對應一個新 session。
 
 
-## Approved W4 UX target (not implemented yet)
+## W4 player-facing implementation
 
-The next player-facing UX direction is now documented in `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md`.
+The accepted behavior and data contract are documented in `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md`.
 
 Key approved decisions:
 
@@ -50,7 +50,7 @@ Key approved decisions:
 - single-heroine memory scenes use the event CG as a faded, face-focused backdrop; common scenes use scene/background art;
 - CG remains a simple unlocked/locked gallery with full viewer.
 
-This is a target specification, not a claim about the current runtime. Preserve current behavior until W4 is implemented and migrated with tests.
+The current runtime implements these contracts for the existing fixture. New production scenes will need their own stable Memory Event metadata and asset mapping during integration.
 
 ## Playable content
 
@@ -63,11 +63,11 @@ This is a target specification, not a claim about the current runtime. Preserve 
 
 ## Runtime and save contracts
 
-- Title: continue/start, CG, branches, sound. No standalone restart button.
-- Title preview resolves the current node's visual using `src/visuals.js`; cinematic nodes show the poster, completed stories show the selected ending art.
-- `src/progress.js` saves versioned node-entry snapshots, flags, stats, return stack, and explored edges.
-- `src/branches.js` displays a vertically scrolling node graph with explicit destination references, CG state, locked nodes, and latest checkpoints.
-- Starting at the root resets only the current playthrough. Gallery/endings and explored checkpoints remain.
+- Title: one large Start/Continue, two smaller Memories/CG actions, and a sound icon. There is no player-facing Branches or standalone restart entry.
+- Title backdrop resolves from frontier Memory Event metadata, unlocked highlights, and visual fallback; cinematic nodes use posters and completed stories can show selected ending art.
+- `src/progress.js` saves journey v2 node-entry snapshots, cursor, monotonic frontier rank/event, checkpoints, flags, stats, return stack, and explored edges. V1 journeys migrate without clearing CG or endings.
+- `src/memories.js` renders one vertical Memory Event timeline with locked spoiler-safe cards, same-page filters, a frontier marker, and replay. `src/branches.js` remains for developer graph helpers only.
+- Replay at the root resets the active playthrough. Gallery/endings and explored checkpoints remain. Continue resumes the frontier even when a replay cursor is earlier or within the same event.
 - A node stores its latest arrival snapshot, not multiple historical save slots. Resume restarts that node's text/video.
 - Incompatible or damaged snapshots are ignored. Existing pre-refactor CG/endings remain; the old version did not save node positions.
 - Image failures use an interface fallback; this does not repair missing or damaged originals.
@@ -89,9 +89,9 @@ This is a target specification, not a claim about the current runtime. Preserve 
 
 ## Verification
 
-- Build and content validation pass.
-- Nine Node tests cover save isolation/corruption, branch graph and spoiler locks, choice resume, and random-scene return stacks.
-- Browser acceptance covers title/start/resume, reload persistence, identical preview/game visual sources, OL branch, branch navigation, and 320px layout; see the milestone handoff for the final result.
+- W4 source and generated runtime passed 44/44 media checks, build, content validation, preview smoke, and 20/20 Node tests.
+- Playwright Browser Acceptance exercises v1 save migration, old and same-event replay without frontier regression, Start/Continue, Memories, OL choice flow, gallery/cinematic, ending persistence, and 320px overflow/touch targets.
+- W4 final implementation: Verify run `35948336731` and Browser Acceptance run `35948336719`, both successful on commit `1c53504`.
 
 ## Migration status
 
@@ -119,4 +119,4 @@ This is a target specification, not a claim about the current runtime. Preserve 
 
 ## Remaining work
 
-Milestone 2: split the large original story file, audit actual image decoding and GitHub file integrity, deepen focused context packets, and add graph folding/filtering for scale. Full CG/sprite regeneration and final OL character design are intentionally later. Do not assume earlier chat images are available: the project's synced `sources/` directory was empty during this milestone.
+The next creative convergence is integrating the Opening Vertical Slice with W4 runtime and Memory metadata, then a human pacing/composition review. W5 cloud-complete verification, W6 build profiles, and W7 release follow the technical roadmap. Full CG/sprite regeneration and final OL character design are later content work; the old 123-node fixture is not the production narrative.

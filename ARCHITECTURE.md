@@ -1221,10 +1221,10 @@ Completed/current:
 1. **W1 Source Asset Boundary** — established `public/`, `assets-src/`, `generated/`, and disposable `dist/`.
 2. **W2 Asset Check + Asset Build** — full-decode validation, Drive master/runtime storage, remote hash verification.
 3. **W3 complete** — Node 22 + ffmpeg + SSH devcontainer, port 4173 forwarded preview, `dev/preview/preview:smoke`, and AI-operated `codespace:accept/review` lifecycle tooling are complete. Run `35932727909` proved fresh Codespace create → SSH → clean asset/build/validate/test → preview readiness → private tunnel smoke → automatic deletion. Browser Acceptance run `35933586244` proved reload/localStorage, OL branch, branches/gallery, cinematic behavior, ending persistence, 320px layout, and blocking browser-error behavior in Chromium. `codespace:review` remains optional for subjective UX review, not as an engineering gate.
+4. **W4 complete** — Memory Event content, journey v2 cursor/frontier and v1 migration, one-page Memories, and title/game/CG UI are implemented. Verify `35948336731` and Browser Acceptance `35948336719` passed. The old 123-node story remains a fixture; Opening Vertical Slice production content is integrated separately.
 
 Next:
 
-4. **W4 Player UI / Memories / CG Gallery** from `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md`.
 5. **W5 Cloud-complete verification** for commit + canonical assets + clean-build provenance.
 6. **W6 SFW / Full profiles** with compile-time pruning/leakage tests.
 7. **W7 Review / Release pipeline** with Sites review and deterministic release.

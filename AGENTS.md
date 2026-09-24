@@ -18,7 +18,7 @@ The repository may temporarily differ from the target architecture. Preserve the
 
 W1/W2 are complete: `dist/` is disposable generated output, `dist/assets/` is no longer the source of truth, and the build can resolve Git-backed legacy sources plus Google Drive runtime objects.
 
-W3 is complete. Run `35932727909` proved fresh Codespace create → SSH → 44/44 asset checks → build/validate/9 tests → port 4173 readiness → private forwarded-tunnel smoke → automatic delete. Browser Acceptance run `35933586244` proved reload/localStorage, OL branch, branches/gallery, cinematic, ending persistence, mobile width, and browser-error behavior in Chromium. `npm run codespace:accept` is the canonical clean engineering gate; `npm run codespace:review` is optional for subjective UX review. The current engineering milestone is W4.
+W3 is complete. Run `35932727909` proved the fresh Codespace lifecycle; Browser Acceptance run `35933586244` proved the W3 browser flows. W4 player UI, Memories, journey v2 migration, and replay/frontier semantics are implemented on `main`; see `PROJECT_STATE.md` for the latest W4 acceptance runs. `npm run codespace:accept` remains the clean engineering gate when fresh environment proof is needed; `npm run codespace:review` is optional for subjective UX review.
 
 Do not move or delete binary assets merely to make the repository resemble a future target. Preserve existing Git-backed legacy sources until their canonical replacements are safely recorded.
 
