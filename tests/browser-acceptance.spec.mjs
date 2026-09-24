@@ -113,6 +113,9 @@ test('legacy v1 save migrates and office branch choice resumes through the real 
   const choice = snapshot('choice1');
   await seedStorage(page, {
     'chapter-01:journey:v1': legacyJourney(choice),
+    'chapter-01:cgUnlocks': ['cg.ch01.hallway_meet'],
+    'chapter-01:endings': ['neighbor'],
+    'chapter-01:completed': '1',
     neighborMuted: '1'
   });
   const errors = collectBlockingErrors(page);
@@ -130,6 +133,11 @@ test('legacy v1 save migrates and office branch choice resumes through the real 
     JSON.parse(localStorage.getItem('chapter-01:journey:v2')).cursor.nodeId
   );
   expect(current).toBe('office_intro');
+  expect(await page.evaluate(() => JSON.parse(localStorage.getItem('chapter-01:cgUnlocks'))))
+    .toEqual(['cg.ch01.hallway_meet']);
+  expect(await page.evaluate(() => JSON.parse(localStorage.getItem('chapter-01:endings'))))
+    .toEqual(['neighbor']);
+  expect(await page.evaluate(() => localStorage.getItem('chapter-01:completed'))).toBe('1');
   expect(errors).toEqual([]);
 });
 
