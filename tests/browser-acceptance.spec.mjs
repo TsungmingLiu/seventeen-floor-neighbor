@@ -230,6 +230,49 @@ test('replaying the current Memory Event does not rewind its deeper frontier nod
   expect(errors).toEqual([]);
 });
 
+test('return to current progress reveals a frontier hidden by a Memories filter', async ({ page }) => {
+  const office = snapshot('office_intro', { officeRoute: 1 });
+  await seedStorage(page, {
+    'chapter-01:journey:v2': {
+      version: 2,
+      cursor: office,
+      frontier: office,
+      frontierMemoryEventId: 'mem.side.office',
+      frontierRank: 50,
+      checkpoints: { office_intro: office, blackout: snapshot('blackout') },
+      edges: []
+    },
+    neighborMuted: '1'
+  });
+
+  await boot(page);
+  await page.locator('#memories-button').click();
+  await page.locator('#memory-filters button').filter({ hasText: '許棠' }).click();
+  await expect(page.locator('[data-memory-id="mem.side.office"]')).toHaveCount(0);
+  await page.locator('#memories-current').click();
+  await expect(page.locator('[data-memory-id="mem.side.office"]')).toHaveClass(/is-frontier/);
+  await expect(page.locator('#memory-filters button').filter({ hasText: '全部' }))
+    .toHaveAttribute('aria-pressed', 'true');
+});
+
+test('CG viewer advances by horizontal touch swipe', async ({ page }) => {
+  await seedStorage(page, {
+    'chapter-01:cgUnlocks': ['cg.ch01.hallway_meet', 'cg.ch01.elevator_close'],
+    neighborMuted: '1'
+  });
+  await boot(page);
+  await page.locator('#gallery-button').click();
+  await page.locator('#cg-grid button:not(:disabled)').first().click();
+  await expect(page.locator('#cg-viewer-position')).toHaveText('1 / 2');
+
+  await page.locator('.cg-viewer-canvas').evaluate((canvas) => {
+    const touch = (x) => new Touch({ identifier: 1, target: canvas, clientX: x, clientY: 200 });
+    canvas.dispatchEvent(new TouchEvent('touchstart', { bubbles: true, touches: [touch(240)] }));
+    canvas.dispatchEvent(new TouchEvent('touchend', { bubbles: true, changedTouches: [touch(100)] }));
+  });
+  await expect(page.locator('#cg-viewer-position')).toHaveText('2 / 2');
+});
+
 test('cinematic loads as a real 10-second video, can be skipped, and appears in gallery', async ({ page }) => {
   const cinematic = snapshot('first_kiss', {
     heart: 16,
@@ -315,14 +358,23 @@ test('320px viewport has no horizontal overflow on title, Memories, and game scr
   await boot(page);
 
   expect(await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth)).toBeLessThanOrEqual(0);
+  for (const selector of ['#start-button', '#memories-button', '#gallery-button', '#title-mute']) {
+    expect((await page.locator(selector).boundingBox()).height).toBeGreaterThanOrEqual(44);
+  }
   await page.locator('#memories-button').click();
   await expect(page.locator('#memories-screen')).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth)).toBeLessThanOrEqual(0);
+  for (const selector of ['.memory-filter', '#memories-current', '#memories-back']) {
+    expect((await page.locator(selector).first().boundingBox()).height).toBeGreaterThanOrEqual(44);
+  }
 
   await page.locator('#memories-back').click();
   await page.locator('#start-button').click();
   await expect(page.locator('#game-shell')).toBeVisible();
   await waitForDialogueReady(page);
   expect(await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth)).toBeLessThanOrEqual(0);
+  for (const selector of ['#game-memories-button', '#game-home-button', '#mute-button']) {
+    expect((await page.locator(selector).boundingBox()).height).toBeGreaterThanOrEqual(44);
+  }
   expect(errors).toEqual([]);
 });

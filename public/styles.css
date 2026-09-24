@@ -107,9 +107,9 @@ h1 b{font:inherit}
 .memory-summary{margin:.65rem 0 0;color:rgba(255,255,255,.62);font-size:.92rem}
 .memory-toolbar{position:sticky;z-index:4;top:clamp(5.6rem,12vw,7.8rem);display:flex;align-items:center;justify-content:space-between;gap:.75rem;padding:.55rem 0 1rem;background:linear-gradient(180deg,rgba(17,18,26,.96) 60%,transparent)}
 .memory-filters{display:flex;flex-wrap:wrap;gap:.45rem}
-.memory-filter{min-height:42px;padding:.55rem .8rem;border:1px solid rgba(255,255,255,.13);border-radius:999px;background:rgba(12,13,18,.62);color:rgba(255,255,255,.7);cursor:pointer}
+.memory-filter{min-height:44px;padding:.55rem .8rem;border:1px solid rgba(255,255,255,.13);border-radius:999px;background:rgba(12,13,18,.62);color:rgba(255,255,255,.7);cursor:pointer}
 .memory-filter.is-active{border-color:rgba(255,173,192,.65);background:rgba(255,120,152,.14);color:#fff}
-.memory-current{flex:0 0 auto;min-height:42px;padding:.55rem .85rem}
+.memory-current{flex:0 0 auto;min-height:44px;padding:.55rem .85rem}
 .memory-list{display:grid;gap:2.1rem;padding:1rem 0 3rem}
 .memory-section{display:grid;gap:.8rem}
 .memory-section-heading{display:flex;align-items:end;justify-content:space-between;gap:1rem;padding-left:.25rem}

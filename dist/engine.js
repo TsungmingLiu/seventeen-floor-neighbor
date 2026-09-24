@@ -1,6 +1,6 @@
-import { ProgressStore } from './progress.js?v=24e893bd60a5';
-import { paintPreview, paintSprites, resolveVisual, setImage } from './visuals.js?v=24e893bd60a5';
-import { memoryEventById, memoryStats, renderMemories, titleBackdropVisual } from './memories.js?v=24e893bd60a5';
+import { ProgressStore } from './progress.js?v=239dda3d4011';
+import { paintPreview, paintSprites, resolveVisual, setImage } from './visuals.js?v=239dda3d4011';
+import { memoryEventById, memoryStats, renderMemories, titleBackdropVisual } from './memories.js?v=239dda3d4011';
 
 export class GameEngine {
   constructor({ chapter, assetManifest, sceneLibrary, memoryLibrary }) {
@@ -125,6 +125,21 @@ export class GameEngine {
     this.els.cinematicSkip.addEventListener('click', () => this.finishCinematic(true));
     this.els.viewerPrev.addEventListener('click', () => this.moveViewer(-1));
     this.els.viewerNext.addEventListener('click', () => this.moveViewer(1));
+    let viewerTouchStart = null;
+    const viewerCanvas = this.els.viewer.querySelector('.cg-viewer-canvas');
+    viewerCanvas.addEventListener('touchstart', (event) => {
+      if (event.touches.length !== 1) return;
+      viewerTouchStart = { x: event.touches[0].clientX, y: event.touches[0].clientY };
+    }, { passive: true });
+    viewerCanvas.addEventListener('touchend', (event) => {
+      if (!viewerTouchStart || event.changedTouches.length !== 1) return;
+      const dx = event.changedTouches[0].clientX - viewerTouchStart.x;
+      const dy = event.changedTouches[0].clientY - viewerTouchStart.y;
+      viewerTouchStart = null;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+        this.moveViewer(dx < 0 ? 1 : -1);
+      }
+    }, { passive: true });
     this.els.viewer.addEventListener('click', (event) => {
       if (event.target === this.els.viewer) this.closeViewer();
     });
@@ -800,6 +815,10 @@ export class GameEngine {
   scrollToFrontier() {
     const id = this.progress.data.frontierMemoryEventId;
     if (!id) return;
+    if (this.memoryFilter !== 'all') {
+      this.memoryFilter = 'all';
+      this.renderMemoryList();
+    }
     this.els.memoryList.querySelector(`[data-memory-id="${id}"]`)?.scrollIntoView({
       behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
       block: 'center'
