@@ -40,11 +40,14 @@ MVP 的成功標準是：能以低摩擦的方式，完成一條約 10–15 分�
 
 ### 2.1 Web First
 
-- 第一優先裝置：手機直向 9:16。
-- Desktop：置中、自適應的 9:16 viewport。
+- Canonical player 是 responsive full-viewport Web app，不鎖死成手機直向 viewport。
+- Production art 採 **16:9 landscape-first master**；Desktop / laptop / tablet landscape 完整支援，手機以 landscape 為主要遊玩方向。
+- Runtime 應支援 per-asset focal metadata / crop policy，避免 resize 時裁掉人物臉、手或關鍵物件。
+- Portrait 9:16 舊素材可繼續作 legacy fixture，但不是新 production asset 的 master target。
 - 優先使用 static hosting。
 - 在真正出現需求之前，不引入常駐 backend。
 - 遊戲本身必須能獨立在 browser 內執行；AI 是 authoring / development 工具，不是 runtime dependency。
+- 詳細 production visual contract 以 `docs/art/PRODUCTION_VISUAL_DIRECTION.md` 為準。
 
 ### 2.2 Content 與 Player 分離
 
