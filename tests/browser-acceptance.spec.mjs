@@ -89,7 +89,11 @@ test('fresh start persists, reloads, and exposes Memories/CG without blocking er
 
   await page.locator('#start-button').click();
   await waitForDialogueReady(page);
-  await expect(page.locator('#dialogue-text')).toContainText('週五');
+  await expect(page.locator('#dialogue-text')).toContainText('一隻手從門縫外伸進來');
+
+  const resumed = await page.evaluate(() => JSON.parse(localStorage.getItem('chapter-01:journey:v2')));
+  expect(resumed.cursor.nodeId).toBe('intro2');
+  expect(resumed.frontier.nodeId).toBe('intro2');
 
   await page.locator('#game-home-button').click();
   await page.locator('#memories-button').click();

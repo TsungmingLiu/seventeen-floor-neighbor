@@ -123,7 +123,11 @@ export class ProgressStore {
     this.data.cursor = this.clone(snapshot);
     this.data.checkpoints[nodeId] = this.clone(snapshot);
     const event = memoryEventForNode(this.memories, nodeId);
-    if (event && (!this.data.frontier || event.progressRank > this.data.frontierRank)) {
+    if (event && (
+      !this.data.frontier
+      || event.progressRank > this.data.frontierRank
+      || event.id === this.data.frontierMemoryEventId
+    )) {
       this.data.frontier = this.clone(snapshot);
       this.data.frontierMemoryEventId = event.id;
       this.data.frontierRank = event.progressRank;
