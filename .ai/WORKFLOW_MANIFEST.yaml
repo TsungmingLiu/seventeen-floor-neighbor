@@ -55,6 +55,9 @@ harnesses:
   production_coordinator:
     path: .ai/harnesses/production-coordinator.md
     role: decompose high-level work and dispatch bounded tasks
+  narrative_planner:
+    path: .ai/harnesses/narrative-planner.md
+    role: plan route/arc/scene objectives and state contracts
   scene_writer:
     path: .ai/harnesses/scene-writer.md
     role: write one bounded production scene
