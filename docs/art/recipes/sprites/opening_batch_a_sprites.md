@@ -111,14 +111,14 @@
 
 因此本文件不再使用「production candidate complete」代表 scene-ready。完整 set 完成狀態由 `docs/narrative/CONTENT_PRODUCTION_TODO.md` 追蹤。
 
-## 6. Runtime 與 source 檔案
+## 7. Runtime 與 source 檔案
 
 - Runtime WebP：`runtime-public/sprites/xt/`、`runtime-public/sprites/jyc/`
 - Local lossless masters：`assets-src/characters/opening-batch-a/*-master.png`
 - Google Drive：`runtime-public/sprites/xt` 4 張、`runtime-public/sprites/jyc` 6 張；檔名與本文件 delivered files 一致。
 - Alpha QA：10 張 WebP 均保留透明背景；尺寸均為 1024 × 1536。
 
-## 7. Deferred follow-up
+## 8. Deferred follow-up
 
 本批先完成 opening 真正使用的最小集。下列內容尚未生成：
 
@@ -127,6 +127,6 @@
 - `XT-SPR-LATE-CASUAL` 後續可補 `caught-off-guard`、`small-smile`、`teasing`、`sleepy-annoyed`。
 - 四個已完成 set 若進入完整 route production，再依 canonical requirements 擴充其餘 expression，不用重畫已穩定的 body/outfit base。
 
-## 8. Narrative source note
+## 9. Narrative source note
 
 本批最初生成時，指定的 `docs/narrative/scenes/vertical-slice/*.md` 尚不存在，因此第一版只依 `PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md` 與 `PROTOTYPE_ART_REQUIREMENTS.md`。目前 scene files 已存在並完成 post-lock reconciliation；從此以 Human-approved scene file 的 locked expression / staging / art timing 為最高 scene-level authority。
