@@ -183,7 +183,8 @@ W4 runtime 現已完成；正常 production 仍先做到 **S9**。只有 scene/s
 - [ ] S12
 
 ### COM-03X — 包裹 / Line
-- [ ] S1
+- [x] S1
+  - 2026-09-24: COM-03X.md S1 Script v1 written; awaiting Human review. S2/S4/S5/S6 remain intentionally open.
 - [ ] S2
 - [ ] S3
 - [ ] S4
