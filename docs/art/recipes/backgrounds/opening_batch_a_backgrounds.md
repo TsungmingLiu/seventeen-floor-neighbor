@@ -1,6 +1,6 @@
 # Opening / Vertical Slice Batch A — Reusable Background Recipes
 
-> Status: generated / runtime WebP uploaded
+> Status: generated / runtime WebP uploaded; 5 logical backgrounds complete, elevator restart variant pending
 >
 > Date: 2026-09-23
 >
@@ -121,10 +121,10 @@
 
 ---
 
-## BG-CAFE-STATION-DAY
+## BG-CAFE-STATION
 
-- **Asset ID:** `BG-CAFE-STATION-DAY`
-- **Canonical alias:** Current v0.5 art / narrative specs call this location `BG-CAFE-STATION`. Keep the generated filename explicit about the daytime variant; reconcile the logical ID when it enters `content/assets/manifest.json`.
+- **Asset ID:** `BG-CAFE-STATION`
+- **Physical variant:** daytime master; keep the generated filename explicit as `bg-cafe-station-day-v1.webp`. The logical ID is canonical and must remain `BG-CAFE-STATION` in future content/runtime mapping.
 - **Narrative use:** Quiet transit-adjacent café corner for Jiang Yucheng's second meeting, drawing conversation, re-approach, and friendship continuation. The environment suggests a tablet-friendly seat without baking a tablet or personal belongings into the background.
 - **Scene mapping:** `COM-02J`, `RE-J`; optional `JYC-F` / `JYC-FC` café variant.
 - **Time / weather / mood:** Daytime; soft window light plus warm café practicals and cool underground transit ambience; calm, safe, observant, slightly anonymous.
@@ -151,7 +151,7 @@
 | BG-APT-ELEVATOR | Pass | Pass | None for normal master | Derive the locked same-layout `restart_dim` variant before final `COM-01X` art acceptance. |
 | BG-ACG-SHOP | Pass | Pass | None | Inspect at final device scale; regenerate shelf art if any pseudo-title becomes legible after future sharpening. |
 | BG-CONVENIENCE-NIGHT | Pass | Pass | None | Inspect product labels after any higher-resolution remaster; keep them abstract. |
-| BG-CAFE-STATION-DAY | Pass; distant transit flow remains strongly defocused | Pass for seated / 3/4 staging | None | Consider a wider open-floor alternate only if later implementation requires two simultaneous full-body sprites. |
+| BG-CAFE-STATION | Pass; distant transit flow remains strongly defocused | Pass for seated / 3/4 staging | None | Consider a wider open-floor alternate only if later implementation requires two simultaneous full-body sprites. |
 
 ## Scene readiness
 
