@@ -1,7 +1,7 @@
 # Shot Planner Harness
 
 Harness ID: shot_planner  
-Version: 0.1.0
+Version: 0.1.1
 
 ## Responsibility
 
@@ -39,9 +39,35 @@ Create a compact ordered shot list. Each shot defines:
 Do not create one image per line.
 
 Default:
-- normal scene: about 3–6 shots;
-- important scene: about 6–10 only when justified;
+- normal scene: about 3–6 **actual render deliverables**, not merely narrative shot slots;
+- important scene: about 6–10 actual render deliverables only when justified;
 - motion: use a 2–6 frame CG Sequence when still cuts cannot communicate it cleanly.
+
+### Reaction / branch-variant gate
+
+A branch-specific render variant counts as a separate production asset, but asset economy is driven by **visible beat change**, not by branch count alone.
+
+In a CG-first game without reusable sprites, a new Reaction CG is appropriate when the visible emotional/behavioral state materially changes, including for example:
+- a restrained smile appearing;
+- genuine surprise or realization;
+- a meaningful silence / pause;
+- gaze breaking or re-engaging;
+- embarrassment, hurt, guardedness, relief, or a clear shift in interpersonal distance;
+- a choice causing the heroine to respond with a visibly different emotional read.
+
+Do **not** create a separate CG merely because wording, stat delta, or branch ID differs when the visible state is effectively the same.
+
+For branch-specific variants:
+- if two branches produce materially different visible reactions, separate CG variants are valid and expected;
+- if the reaction is visually equivalent, reuse the same CG and let dialogue/audio/timing carry the branch difference;
+- if the change is small but narratively meaningful, prefer a Reaction CG rather than suppressing it solely to save assets.
+
+The planner should optimize for **emotional legibility first, then asset economy**.
+
+Every shot plan must report both:
+- narrative shot-slot count;
+- estimated distinct render-asset count;
+- which extra assets are justified specifically as Reaction CGs.
 
 ## Never
 
