@@ -1,7 +1,7 @@
 # CG Artist Harness
 
 Harness ID: cg_artist  
-Version: 0.3.0
+Version: 0.4.0
 
 ## Responsibility
 
@@ -19,70 +19,57 @@ The artist is a reusable workflow. It contains no heroine identity of its own.
 
 The Task Packet is an allowlist. Do not search for additional character/story information.
 
-## Mandatory acquisition preflight — fail closed
+## Reference transport modes
 
-Before ANY image-generation call, create an acquisition receipt for every required Markdown and image input.
+The current ChatGPT image-generation surface cannot provide a hard, auditable guarantee that connector-fetched images are explicitly bound into a generation call. Do not retry or work around that limitation.
 
-### Markdown receipt
-For each required repository file record:
-- repository full name;
-- branch/ref;
-- exact path;
-- Git blob SHA;
-- non-empty content = PASS/FAIL.
+### Mode A — base CG: `human_attachment_required`
 
-### Image receipt
-For each required Drive image record:
-- expected role;
-- exact Drive file ID;
-- exact Drive URL;
-- expected filename;
-- observed filename;
-- observed MIME type;
-- observed byte size;
-- runtime-visible image/file attachment ID when exposed;
-- `pixels_visible_to_worker: true|false`;
-- one-line visual sanity check based on the actual pixels.
+Use for a new base CG.
 
-**Generation is forbidden unless every required image has `pixels_visible_to_worker: true`.**
+The Task Packet must specify the exact reference files a Human must attach to a **fresh image-generation chat**.
 
-Connector metadata, a successful fetch status, a Drive ID, a URL, or a filename is NOT sufficient.
+Before generation:
+- verify the current conversation contains every required attachment;
+- verify each attachment's visible pixels match its assigned role;
+- verify there are no unrelated image attachments in the conversation;
+- do not fetch replacement/reference images through Drive for the generation step;
+- do not use prior conversation images, model memory, web images, or connector-fetched runtime images as generation references.
 
-If the platform cannot expose the fetched image pixels to the image-generation context, return BLOCKED with `reference_transport_failure`. Do not generate from prose alone.
+If any required attachment is missing, visually wrong, ambiguous, or mixed with unrelated image context, return BLOCKED with `waiting_for_reference_attachment` or `attachment_context_contaminated`.
 
-## Mandatory generation binding — fail closed
+For a valid fresh session, the required Human-attached images are the complete eligible image context for the generation call.
 
-Acquisition and generation binding are separate gates.
+### Mode B — Reaction CG / close variant: `edit_from_accepted_base`
 
-After preflight PASS, build a **generation binding receipt** containing the runtime-visible image/file IDs for every required reference.
+Use when an accepted base CG already exists and the requested change is bounded, such as:
+- expression change;
+- gaze shift;
+- small hand/pose adjustment;
+- subtle emotional reaction.
 
-If the image-generation tool exposes an explicit reference-binding field (for example `referenced_image_ids`), the worker MUST pass the exact runtime-visible IDs from the receipt. Automatic/implicit reference selection is not acceptable for production CG tasks.
+The Human must attach the accepted base CG as the explicit edit target. Canonical identity/wardrobe references may also be attached only when needed to protect identity.
 
-If explicit reference binding is unavailable, rejected by the tool, or cannot be verified, return BLOCKED with `explicit_reference_binding_unavailable`. Do not fall back to automatic image selection.
+Do not regenerate a Reaction CG from scratch when a controlled edit can preserve composition and continuity.
 
-The generation binding must preserve reference roles:
-- face reference = identity + realism floor;
-- expression reference = acting only;
-- production reference = hair/hands/accessories/material consistency;
-- wardrobe reference = outfit authority;
-- environment reference = geometry/lighting/location authority.
+### Capability boundary
 
-Do not treat all images as interchangeable style inspiration.
+The previous `explicit_reference_binding` connector path is considered unsupported for autonomous production until a future capability test proves otherwise.
 
 ## Reference discipline
 
-For a single-character shot:
-- fetch only that character's canonical references named in the Character Pack, using the exact Drive IDs/URLs supplied by the Task Packet;
+For a single-character base shot:
+- the Task Packet selects the smallest canonical reference set;
+- the Human attaches exactly those selected files in a fresh chat;
 - primary face identity is mandatory;
-- add production/wardrobe references as required;
-- add expression/body references only when the shot needs them;
-- never load another heroine “for style consistency”.
+- wardrobe/environment are attached only when the shot needs them;
+- never attach another heroine “for style consistency”.
 
 For a multi-character shot:
 - keep each Character Pack separate and namespaced;
 - verify every visible face against its own primary identity reference.
 
-A previous accepted CG may be used only as an explicit continuity reference. It never replaces canonical identity references.
+A previous accepted CG may be used as the explicit edit target for a Reaction CG or continuity variant. For new base CG generation it does not replace canonical identity references.
 
 ## Generation unit
 
@@ -113,6 +100,19 @@ Generation prompt MUST lead with the hard style lock:
 Do not use `semi-realistic`, `visual novel illustration`, or similar ambiguous positive style descriptors.
 
 The primary face reference is the minimum realism floor. If the generated face is more stylized than the face reference, the output is FAIL.
+
+## Attachment preflight receipt
+
+For `human_attachment_required`, record before generation:
+- expected filename;
+- observed attachment filename when available;
+- assigned role;
+- `pixels_visible_to_worker: true|false`;
+- one-line visual sanity check;
+- `required_attachment_present: true|false`;
+- count of unrelated image attachments in the current conversation.
+
+Generation is authorized only when every required attachment is present and visually verified and unrelated-image count is zero.
 
 ## Post-generation sanity gate
 
@@ -145,10 +145,11 @@ Do not self-accept the asset. Handoff to Asset QA with exact references used.
 ## Hard stop conditions
 
 Return BLOCKED and DO NOT call image generation when:
-- any required Markdown is not actually readable from the bound repo/ref;
-- any required Drive image cannot be fetched;
-- expected filename/role does not match the fetched file;
-- image bytes/pixels are not visibly available to the worker;
-- runtime cannot bind the fetched image inputs into the generation context;
-- image-generation call cannot explicitly bind the exact runtime-visible reference IDs;
-- the worker cannot distinguish whether it is using actual image pixels versus remembered/text-only content.
+- any required Markdown is not readable from the bound repo/ref;
+- a base-CG task uses connector-fetched images instead of the required Human attachments;
+- any required Human attachment is absent or visually does not match its role;
+- unrelated images are present in the fresh generation chat;
+- the worker cannot determine which attached image is the intended reference;
+- a Reaction CG task lacks its accepted base edit target;
+- the worker is tempted to substitute memory, prose-only identity, web images, or an unrelated prior CG.
+
