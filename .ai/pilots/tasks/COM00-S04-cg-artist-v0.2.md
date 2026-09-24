@@ -1,5 +1,7 @@
 # Pilot Task Packet — COM00-S04 CG Artist v0.2
 
+> **DEPRECATED / FAILED PILOT. DO NOT RUN.** Use `.ai/pilots/tasks/COM00-S04-cg-artist-v0.3.md`. v0.2 proved acquisition but did not prove explicit binding of reference images into the generation call.
+
 > This task supersedes v0.1. v0.1 failed because the generated image did not match the bound character/environment references despite a nominal preflight PASS.
 
 ```yaml
