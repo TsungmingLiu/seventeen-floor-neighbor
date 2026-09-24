@@ -1,10 +1,10 @@
 # Opening / Vertical Slice — Batch A Sprite Recipe
 
-> 狀態：**production candidate complete**
+> 狀態：**partial production candidates / post-lock expression reconciliation required**
 >
 > 日期：2026-09-23
 >
-> 範圍：Opening / Vertical Slice 最小可用集，共 4 個 sprite set、10 個可重複使用的 expression assets。
+> 範圍：Opening / Vertical Slice 第一批 production candidates，共 4 個 sprite set、10 個可重複使用的 expression assets。這 10 張是可用 base/candidate，不代表四個 set 已滿足 locked scene 的完整 expression contract。
 
 ## 1. Authority 與共通規格
 
@@ -99,6 +99,18 @@
   - `jyc-spr-cafe-reserved-interest-v1.webp`
 - **prompt / recipe**：使用 JYC canonical face/body/production/expression stack 與 Wardrobe A Look 02。逐項鎖定灰粉針織、黑裙、半透明黑絲襪、厚底 loafers、tablet 與 stylus。道具手勢需可信：手指數量正確、stylus 不穿手、tablet 透視不扭曲。表情以 creator 工作狀態為核心，只改變視線、眉眼、嘴角及微小抬頭角度，維持同一 identity、outfit、身體和鏡位。
 
+## 6. Post-lock scene reconciliation
+
+2026-09-23 Master reconciliation 已讀取現有 `docs/narrative/scenes/vertical-slice/COM-00.md` 至 `COM-02J.md`。這些 scene files 現已高於本 recipe 初始生成時的早期 mapping，因此 expression coverage 以 locked scene files 為準。
+
+- `XT-SPR-WEEKDAY`：現有 `neutral / observant / polite-soft` 可保留為候選 base；locked scenes 還需要 `dry_playful / mild_surprise / soft_goodnight`，且 runtime semantic naming 要與 `neutral_observant / polite_smile` 對齊，不得靠未記錄 alias 猜測。
+- `XT-SPR-LATE-CASUAL`：目前只有 `tired`；COM-02X 還需要 `caught_off_guard / small_smile / teasing / sleepy_annoyed`。
+- `JYC-SPR-CAMPUS`：現有 `neutral-guarded / shy-polite / curious-glance` 保留為候選；COM-01J locked set 為 `neutral_shy / hesitant / thinking_before_reply / small_smile / surprised`。近義表情是否能 reuse 必須逐項 Human/scene QA，不默認等價。
+- `JYC-SPR-CAFE`：現有 `focused / surprised-look-up / reserved-interest` 保留；COM-02J locked set 為 `focused_drawing / caught_drawing / interested / talking_about_art / tiny_laugh`，仍需補齊。
+- Visual QA：10 張候選與 canonical face/body/wardrobe reference 未見 blocking identity drift；目前 blocker 是 acting coverage / semantic mapping，不是角色重設計。
+
+因此本文件不再使用「production candidate complete」代表 scene-ready。完整 set 完成狀態由 `docs/narrative/CONTENT_PRODUCTION_TODO.md` 追蹤。
+
 ## 6. Runtime 與 source 檔案
 
 - Runtime WebP：`runtime-public/sprites/xt/`、`runtime-public/sprites/jyc/`
@@ -117,4 +129,4 @@
 
 ## 8. Narrative source note
 
-本次製作依 `PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md` 與 `PROTOTYPE_ART_REQUIREMENTS.md` 的 scene/asset mapping 鎖定 `COM-00` 至 `COM-03` 與 `SH-01` 用途。任務開始時，指定的 `docs/narrative/scenes/vertical-slice/*.md` 在目前 checkout 中不存在，因此未引用不存在的 scene 細節，也未自行補造。
+本批最初生成時，指定的 `docs/narrative/scenes/vertical-slice/*.md` 尚不存在，因此第一版只依 `PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md` 與 `PROTOTYPE_ART_REQUIREMENTS.md`。目前 scene files 已存在並完成 post-lock reconciliation；從此以 Human-approved scene file 的 locked expression / staging / art timing 為最高 scene-level authority。
