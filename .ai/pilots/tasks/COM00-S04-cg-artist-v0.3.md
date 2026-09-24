@@ -57,25 +57,13 @@ required_acquisition:
       expected_nonempty: true
 
   images:
-    - role: primary_face_identity
+    - role: primary_face_identity_and_realism_floor
       drive_file_id: 1Oynvxve61ipxr9Z7UhaSsZE_8OzVVPRS
       drive_url: https://drive.google.com/file/d/1Oynvxve61ipxr9Z7UhaSsZE_8OzVVPRS/view
       expected_filename: xt-ref-01-face.png
       expected_mime: image/png
       pixels_must_be_visible: true
-    - role: expression_acting
-      drive_file_id: 19kDLngndmnc4eT4EzdxTpjCUwiMo7M3T
-      drive_url: https://drive.google.com/file/d/19kDLngndmnc4eT4EzdxTpjCUwiMo7M3T/view
-      expected_filename: xt-ref-02-expression.png
-      expected_mime: image/png
-      pixels_must_be_visible: true
-    - role: production_consistency
-      drive_file_id: 1dTvm8uC5m2jaq8OUDDzaloOUrzeWBHIx
-      drive_url: https://drive.google.com/file/d/1dTvm8uC5m2jaq8OUDDzaloOUrzeWBHIx/view
-      expected_filename: xt-ref-04-production.png
-      expected_mime: image/png
-      pixels_must_be_visible: true
-    - role: wardrobe
+    - role: exact_wardrobe
       drive_file_id: 1W4t7ICYHx3obH_S03BEyD80ykzy3M9aF
       drive_url: https://drive.google.com/file/d/1W4t7ICYHx3obH_S03BEyD80ykzy3M9aF/view
       expected_filename: xt-ref-05-wardrobe-a.png
@@ -92,13 +80,11 @@ generation_binding:
   explicit_reference_binding_required: true
   binding_receipt_required: true
   required_roles:
-    - primary_face_identity
-    - expression_acting
-    - production_consistency
-    - wardrobe
+    - primary_face_identity_and_realism_floor
+    - exact_wardrobe
     - environment_geometry
   hard_stop: >
-    After acquisition, collect the runtime-visible file/image IDs for all five images.
+    After acquisition, collect the runtime-visible file/image IDs for all three images.
     The image-generation tool call MUST explicitly bind those exact IDs in its reference-image
     argument if the tool exposes one. If explicit binding is unavailable, unsupported, rejected,
     or cannot be verified, return BLOCKED with explicit_reference_binding_unavailable.
@@ -135,8 +121,8 @@ preflight_gate:
   required:
     - exact repo/ref/path verification for all Markdown
     - exact Drive ID/filename/MIME/bytes verification for all images
-    - actual pixel inspection for all five images
-    - runtime-visible file/image ID receipt for all five images
+    - actual pixel inspection for all three images
+    - runtime-visible file/image ID receipt for all three images
     - explicit generation binding receipt
   hard_stop: >
     Any missing acquisition or explicit binding evidence means BLOCKED. Do not generate.
@@ -148,22 +134,22 @@ execution:
     REALISTIC HIGH-END GAME-CINEMATIC / PHOTOGRAPHIC PBR HUMAN RENDERING.
     Preserve realistic adult human facial anatomy, realistic eye size, natural skin pores
     and tonal variation, physically plausible hair strands, cloth, metal, and indoor light.
-    The primary face reference is the minimum realism floor. Do not stylize the face.
+    The primary face reference is both identity authority and the minimum realism floor. Do not stylize the face.
     NO anime, manga, cartoon, Pixar/Disney-like 3D animation-film face, doll/figurine face,
     oversized eyes, simplified nose/mouth, plastic airbrushed skin, cel shading, painterly
     illustration, or stylized visual-novel illustration.
   content_lock: >
     Exactly one visible heroine, Xu Tang. Keep her long dark-brown hair DOWN as shown in
-    the canonical references; do not create a bun/updo/ponytail. Preserve large gold hoop
+    the face and wardrobe references; do not create a bun/updo/ponytail. Preserve large gold hoop
     earrings and Weekday Neighbor Look 01 exactly: cream ribbed V-neck button cardigan,
     gray-brown high-waist wide-leg trousers, black loafers, small black shoulder bag.
-    The protagonist is fully off-camera: no face, head, shoulder, back, hand, arm, silhouette,
-    reflection, or body part.
+    The camera is disembodied, not an over-the-shoulder shot. The protagonist is fully absent:
+    no face, head, shoulder, back, hand, arm, silhouette, reflection, or body part.
   scene_lock: >
-    Indoor dry 17F apartment corridor on a rainy night. Medium to medium-wide 16:9 eye-level
-    composition. Xu Tang is near her own door/homeward direction, calm neutral-observant to
-    restrained polite smile. Use the corridor reference for geometry/lighting/location,
-    not its old portrait crop.
+    Indoor dry SHARED 17F apartment corridor on a rainy night. Medium to medium-wide 16:9
+    eye-level composition. Xu Tang stands outside 1702 in the shared corridor; apartment
+    interior is not visible and no open-door interior view is allowed. Use the corridor
+    reference for geometry/lighting/location, not its old portrait crop.
   output_target:
     preferred_drive_folder_id: 1-KdOiPN-6tEHZO3f2_-psM1kvfw7wf-M
     preferred_filename: pilot-com00-s04-candidate-v003.png
@@ -194,6 +180,7 @@ deliverables:
 acceptance:
   - all acquisition and explicit binding gates PASS
   - candidate is realistically rendered at least as realistically as the primary face reference
+  - exactly three reference images were explicitly bound
   - Xu Tang identity/hair/wardrobe/accessories are preserved
   - protagonist is entirely absent
   - bound indoor corridor is preserved
