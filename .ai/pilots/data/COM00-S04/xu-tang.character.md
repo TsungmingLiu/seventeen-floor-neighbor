@@ -58,12 +58,12 @@ references:
     file: xt-ref-02-expression.png
     drive_file_id: 19kDLngndmnc4eT4EzdxTpjCUwiMo7M3T
     authority: expression_only
-    required: true
+    required: false
   - role: production_consistency
     file: xt-ref-04-production.png
     drive_file_id: 1dTvm8uC5m2jaq8OUDDzaloOUrzeWBHIx
     authority: hair_hands_accessory_lighting
-    required: true
+    required: false
   - role: wardrobe
     file: xt-ref-05-wardrobe-a.png
     drive_file_id: 1W4t7ICYHx3obH_S03BEyD80ykzy3M9aF
@@ -72,13 +72,15 @@ references:
 
 reference_loading:
   rule: >
-    Fetch exactly these four Drive files and make their image content visible to the
-    generation model. Do not fetch any other character image.
+    Use the smallest reference stack required by the Shot Task. For COM00-S04 v0.3,
+    fetch ONLY xt-ref-01-face.png and xt-ref-05-wardrobe-a.png. Do not fetch expression
+    or production sheets unless a later shot explicitly needs them.
+  selected_stack_for_com00_s04_v003:
+    - xt-ref-01-face.png
+    - xt-ref-05-wardrobe-a.png
   identity_priority:
     - xt-ref-01-face.png
-    - xt-ref-04-production.png
     - xt-ref-05-wardrobe-a.png
-    - xt-ref-02-expression.png
   previous_generated_cg_as_identity_source: forbidden
 
 forbidden_identity_traits:

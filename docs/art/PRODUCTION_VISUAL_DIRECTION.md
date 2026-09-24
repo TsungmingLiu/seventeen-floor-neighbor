@@ -2,7 +2,7 @@
 
 > Status: **CANONICAL visual-production contract**
 >
-> Version: 1.0
+> Version: 1.1
 >
 > Updated: 2026-09-24
 >
@@ -55,22 +55,53 @@ General guidance:
 
 ## 4. Style contract
 
-Target:
-- high-end urban romance visual novel;
-- polished cinematic illustration with realistic/semi-realistic rendering;
-- natural skin and material texture;
-- coherent cinematic lighting;
-- adult character proportions and facial structure;
-- environment participates in storytelling.
+### Hard rendering target
 
-Avoid:
-- manga panel composition;
-- comic screentone/ink-line drift;
+New character CGs must read as **realistic high-end game-cinematic / photographic PBR character rendering**, not as an illustration genre.
+
+Required:
+- realistic adult human facial anatomy and proportions;
+- eye size and eyelid structure within realistic human range;
+- visible natural skin texture / pores / fine tonal variation;
+- physically plausible hair strands and material response;
+- physically plausible cloth, leather, metal, and indoor lighting;
+- photographic lens/depth-of-field logic;
+- cinematic but believable exposure and color;
+- facial realism must be at least as realistic as the canonical primary face reference.
+
+Do NOT use the following positive style descriptors in generation prompts:
+- semi-realistic;
+- anime-influenced;
+- visual-novel illustration style;
+- stylized illustration;
+- animation-film look.
+
+These terms are too ambiguous and may trigger unwanted stylization.
+
+### Hard style failures
+
+Reject immediately if the output shows:
+- anime/manga facial proportions;
+- oversized eyes or simplified nose/mouth anatomy;
+- Pixar/Disney-like or generic 3D animation-film facial design;
+- doll-like / figurine-like / game-avatar face;
+- plastic airbrushed skin with no realistic texture;
 - chibi or exaggerated anime expression;
-- generic studio character-sheet posing in narrative CG;
-- plastic doll skin;
+- comic/manga panel language, ink-line drift, screentone, cel-shading;
+- painterly/cartoon illustration replacing realistic PBR rendering;
+- generic studio character-sheet posing in a narrative CG;
 - unrelated character identity traits;
 - embedded captions, UI, watermarks, or logos.
+
+### Reference-based realism floor
+
+For every character CG, the canonical primary face reference is both:
+1. identity authority; and
+2. the minimum realism/style floor for facial anatomy, skin, hair, and eye proportions.
+
+The generated face must not become more stylized/cartoon-like than that source.
+
+Environment art must use the same realistic material/lighting standard.
 
 ## 5. Identity and reference isolation
 
