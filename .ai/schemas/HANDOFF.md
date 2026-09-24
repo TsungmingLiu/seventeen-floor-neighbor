@@ -1,6 +1,6 @@
 # Worker Handoff Schema
 
-Version: 0.1.0
+Version: 0.1.1
 
 Every worker returns a concise, structured handoff.
 
@@ -13,7 +13,8 @@ harness:
   version: 0.1.0
 
 inputs_used:
-  - exact source identifiers
+  - source: exact source identifier
+    version: git_blob_sha | drive_file_id | other immutable version when available
 
 outputs:
   - id: ...
@@ -37,6 +38,9 @@ next:
 ## Handoff rules
 
 - Report only sources actually used.
+- For GitHub files, include the blob SHA when available.
+- For Google Drive references, include the exact Drive file ID.
+- If immutable/version identity is unavailable, say so explicitly instead of omitting provenance.
 - Never claim a file/upload/commit occurred unless it occurred.
 - Do not smuggle new creative decisions into `known_issues`.
 - If a worker detects a canon conflict, stop and return BLOCKED with both conflicting sources.
