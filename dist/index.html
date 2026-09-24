@@ -7,7 +7,7 @@
   <meta name="description" content="17樓多路線第一人稱互動戀愛故事">
   <title>17樓的故事</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0b10'/%3E%3Cpath d='M32 50S12 39 12 24c0-11 14-15 20-6 6-9 20-5 20 6 0 15-20 26-20 26Z' fill='%23ff6b8b'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=64605492fc64">
+  <link rel="stylesheet" href="styles.css?v=c3f8cde6d47c">
 </head>
 <body>
   <main id="app">
@@ -21,26 +21,32 @@
         <p class="resume-label" id="resume-label"></p>
         <p class="premise" id="title-premise"></p>
         <div class="title-actions">
-          <button class="primary-button" id="start-button" type="button" disabled>續玩</button>
-          <button class="text-button gallery-button" id="gallery-button" type="button">CG <span id="gallery-title-count">0 / 17</span></button>
-          <button class="text-button" id="branches-button" type="button">分支</button>
-          <button class="text-button" id="title-mute" type="button" aria-pressed="false">聲音：開</button>
+          <button class="primary-button title-primary" id="start-button" type="button" disabled>開始遊戲</button>
+          <div class="title-secondary-actions">
+            <button class="text-button memories-button" id="memories-button" type="button">回憶 <span id="memories-title-count">1 / 17</span></button>
+            <button class="text-button gallery-button" id="gallery-button" type="button">CG <span id="gallery-title-count">0 / 17</span></button>
+          </div>
         </div>
+        <button class="icon-button title-sound" id="title-mute" type="button" aria-pressed="false" aria-label="關閉聲音">♪</button>
       </div>
       <p class="title-hint" id="title-hint"></p>
     </section>
 
-    <section class="branches-screen is-hidden" id="branches-screen" aria-labelledby="branches-title">
-      <div class="branches-shell">
-        <header class="branches-header">
+    <section class="memories-screen is-hidden" id="memories-screen" aria-labelledby="memories-title">
+      <div class="memories-shell">
+        <header class="memories-header">
           <div>
-            <p class="eyebrow">故事分支</p>
-            <h2 id="branches-title">分支</h2>
-            <p class="branch-summary" id="branch-summary"></p>
+            <p class="eyebrow">MEMORIES</p>
+            <h2 id="memories-title">回憶</h2>
+            <p class="memory-summary" id="memory-summary"></p>
           </div>
-          <button class="text-button" id="branches-back" type="button">返回標題</button>
+          <button class="text-button" id="memories-back" type="button">返回標題</button>
         </header>
-        <div class="branch-list" id="branch-list" aria-live="polite"></div>
+        <div class="memory-toolbar">
+          <div class="memory-filters" id="memory-filters" aria-label="回憶篩選"></div>
+          <button class="text-button memory-current" id="memories-current" type="button">回到目前進度</button>
+        </div>
+        <div class="memory-list" id="memory-list" aria-live="polite"></div>
       </div>
     </section>
 
@@ -48,8 +54,8 @@
       <div class="gallery-shell">
         <header class="gallery-header">
           <div>
-            <p class="eyebrow">回憶收藏</p>
-            <h2 id="gallery-title">回憶收藏</h2>
+            <p class="eyebrow">CG COLLECTION</p>
+            <h2 id="gallery-title">CG 收藏</h2>
             <p class="gallery-progress" id="gallery-progress">已解鎖 0 / 17</p>
           </div>
           <button class="text-button" id="gallery-back" type="button">返回標題</button>
@@ -73,19 +79,18 @@
           <div class="chapter-track" id="chapter-track" aria-label="故事進度"></div>
           <div class="hud-actions">
             <button class="text-button cinematic-skip is-hidden" id="cinematic-skip" type="button">跳過片段</button>
-            <button class="text-button game-home-button" id="game-home-button" type="button">回標題</button>
+            <button class="text-button game-memories-button" id="game-memories-button" type="button">回憶</button>
+            <button class="text-button game-home-button" id="game-home-button" type="button">標題</button>
             <button class="icon-button" id="mute-button" type="button" aria-pressed="false" aria-label="切換聲音">♪</button>
           </div>
         </header>
         <section class="dialogue-panel" id="dialogue-panel" aria-live="polite">
+          <span class="speaker speaker-badge" id="speaker">旁白</span>
           <div class="moment-card is-hidden" id="moment-card" role="status"></div>
-          <div class="speaker-row">
-            <span class="speaker" id="speaker">旁白</span>
-            <span class="advance-hint" id="advance-hint">點擊繼續</span>
-          </div>
+          <span class="advance-hint" id="advance-hint">點擊繼續</span>
           <p class="dialogue-text" id="dialogue-text"></p>
-          <div class="choice-list is-hidden" id="choice-list" aria-label="選擇回應"></div>
         </section>
+        <div class="choice-list is-hidden" id="choice-list" aria-label="選擇回應"></div>
         <button class="advance-zone" id="advance-zone" type="button" aria-label="繼續劇情"></button>
       </div>
     </section>
@@ -99,7 +104,7 @@
         <p id="ending-text"></p>
         <p class="ending-count" id="ending-count"></p>
         <div class="ending-actions">
-          <button class="primary-button" id="replay-button" type="button">換個選擇</button>
+          <button class="primary-button" id="replay-button" type="button">查看回憶</button>
           <button class="text-button" id="home-button" type="button">回到標題</button>
         </div>
       </div>
@@ -126,6 +131,6 @@
       </div>
     </dialog>
   </main>
-  <script type="module" src="app.js?v=64605492fc64"></script>
+  <script type="module" src="app.js?v=c3f8cde6d47c"></script>
 </body>
 </html>

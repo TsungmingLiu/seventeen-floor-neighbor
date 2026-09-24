@@ -1,4 +1,4 @@
-import { GameEngine } from './engine.js?v=64605492fc64';
+import { GameEngine } from './engine.js?v=c3f8cde6d47c';
 
 async function fetchJson(path) {
   const response = await fetch(path, { cache: 'no-cache' });
@@ -13,13 +13,19 @@ async function bootstrap() {
     const route = index.routes.find(candidate => candidate.id === index.defaultRoute);
     if (!route) throw new Error('No playable story configured');
     const base = `content/routes/${route.id}`;
-    const [assetManifest, chapter, sceneLibrary] = await Promise.all([
-      fetchJson(`${base}/assets.json`), fetchJson(`${base}/chapter.json`), fetchJson(`${base}/scenes.json`)
+    const [assetManifest, chapter, sceneLibrary, memoryLibrary] = await Promise.all([
+      fetchJson(`${base}/assets.json`),
+      fetchJson(`${base}/chapter.json`),
+      fetchJson(`${base}/scenes.json`),
+      fetchJson(`${base}/memories.json`)
     ]);
     document.title = chapter.title;
     document.querySelector('#title-prefix').textContent = route.titlePrefix || '17樓的';
     document.querySelector('#title-main').textContent = route.titleMain || '新鄰居';
-    const engine = new GameEngine({ chapter, assetManifest, sceneLibrary });
+    document.querySelector('#title-eyebrow').textContent = route.eyebrow || '第一人稱互動戀愛故事';
+    document.querySelector('#title-premise').textContent = route.premise || '';
+    document.querySelector('#title-hint').textContent = route.hint || '';
+    const engine = new GameEngine({ chapter, assetManifest, sceneLibrary, memoryLibrary });
     engine.mount();
   } catch (error) {
     console.error(error);
