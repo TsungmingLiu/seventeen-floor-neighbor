@@ -1,5 +1,8 @@
 # COM-00 — 雨夜搬家
 
+> **Rendering supersession notice (2026-09-24):** this scene remains canonical for narrative, state, staging, wardrobe, expression, action timing, and continuity. Any older **9:16 / sprite / composite-rendering instruction** in this file is superseded for NEW production by `docs/art/PRODUCTION_VISUAL_DIRECTION.md` and the current Shot Planner harness. Do not rewrite narrative staging merely to preserve the old rendering mode.
+
+
 ## Status
 
 - Production stage: **S4 Script Lock / S5 State Contract / S6 Art Shot Lock**
