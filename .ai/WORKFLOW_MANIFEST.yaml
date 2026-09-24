@@ -1,0 +1,92 @@
+workflow:
+  id: seventeen-floor-production
+  version: 0.1.0
+  updated: 2026-09-24
+  entrypoint: .ai/harnesses/bootstrap.md
+
+principles:
+  - harness_logic_is_separate_from_content_data
+  - repository_current_state_beats_conversation_memory
+  - bounded_context_only
+  - one_worker_one_task
+  - explicit_handoff
+  - no_implicit_cross_character_memory
+  - no_batch_image_generation_across_unrelated_shots
+
+current_visual_direction:
+  authority: docs/art/PRODUCTION_VISUAL_DIRECTION.md
+  production_mode: cg_first
+  new_character_sprites: false
+  master_aspect_ratio: "16:9"
+  mobile_target: landscape
+  desktop_target: responsive_full_viewport
+  ordinary_motion: cg_sequence
+  cinematic_video: supported_but_reserved_for_special_events
+
+source_authority:
+  policy: .ai/policies/SOURCE_AUTHORITY.md
+  context_isolation: .ai/policies/CONTEXT_ISOLATION.md
+  highest_current_state:
+    - PROJECT_STATE.md
+    - .ai/WORKFLOW_MANIFEST.yaml
+  runtime_architecture:
+    - ARCHITECTURE.zh-TW.md
+    - docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md
+  narrative_canon:
+    - docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md
+    - docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md
+    - docs/narrative/scenes/vertical-slice/
+  visual_canon:
+    - docs/art/PRODUCTION_VISUAL_DIRECTION.md
+    - docs/art/CHARACTER_REFERENCE_PACK_SPEC.md
+  progress_trackers:
+    - TODO.md
+    - docs/narrative/CONTENT_PRODUCTION_TODO.md
+  supporting_only:
+    - docs/proposals/urban-dating-sim-setting-proposal.md
+  legacy_or_partially_superseded:
+    - docs/art/PROTOTYPE_ART_REQUIREMENTS.md
+    - docs/art/VERTICAL_SLICE_CG_GENERATION_PROMPTS.md
+    - docs/art/recipes/sprites/
+    - runtime-public/sprites/
+    - assets-src/characters/
+
+harnesses:
+  production_coordinator:
+    path: .ai/harnesses/production-coordinator.md
+    role: decompose high-level work and dispatch bounded tasks
+  narrative_planner:
+    path: .ai/harnesses/narrative-planner.md
+    role: plan route/arc/scene objectives and state contracts
+  scene_writer:
+    path: .ai/harnesses/scene-writer.md
+    role: write one bounded production scene
+  shot_planner:
+    path: .ai/harnesses/shot-planner.md
+    role: convert locked scene intent into CG-first shots
+  cg_artist:
+    path: .ai/harnesses/cg-artist.md
+    role: produce one image task or one tightly related CG sequence
+  asset_qa:
+    path: .ai/harnesses/asset-qa.md
+    role: accept reject or request regeneration against explicit inputs
+  integrator:
+    path: .ai/harnesses/integrator.md
+    role: wire accepted content and assets into runtime contracts
+
+schemas:
+  task_packet: .ai/schemas/TASK_PACKET.md
+  data_packs: .ai/schemas/DATA_PACKS.md
+  handoff: .ai/schemas/HANDOFF.md
+
+execution:
+  default_unit: one_task
+  default_agent_state: fresh
+  read_whole_repo: forbidden_unless_coordinator_explicitly_authorizes
+  worker_may_expand_scope: false
+  worker_may_change_canon: false
+  human_gates:
+    - major_story_direction
+    - canonical_character_design
+    - accepted_master_image_selection
+    - final_playable_acceptance

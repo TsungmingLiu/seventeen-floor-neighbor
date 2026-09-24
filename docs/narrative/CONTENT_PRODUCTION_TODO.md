@@ -10,25 +10,31 @@
 >
 > **不要把 W3/W4/engine/CI/Codespaces 工作塞進這裡。** 技術工作仍以 repo root `TODO.md`、`PROJECT_STATE.md`、`ARCHITECTURE.zh-TW.md` 為準。
 >
-> Canonical inputs：
+> AI production entry：
+> - `.ai/WORKFLOW_MANIFEST.yaml` → Bootstrap → resolved specialist harness
+>
+> Current production authorities（只按 Task Packet 載入需要的部分）：
 > - `docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md`
 > - `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md`
-> - `docs/art/PROTOTYPE_ART_REQUIREMENTS.md`
+> - `docs/art/PRODUCTION_VISUAL_DIRECTION.md`
 > - `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md`
-> - `docs/art/VERTICAL_SLICE_CG_GENERATION_PROMPTS.md`（CG production）
-> - `docs/proposals/urban-dating-sim-setting-proposal.md`
 > - `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md`（只有涉及 Memories / replay / frontier 時）
+>
+> Supporting / partially superseded：
+> - `docs/art/PROTOTYPE_ART_REQUIREMENTS.md` — inventory / broad intent only
+> - `docs/art/VERTICAL_SLICE_CG_GENERATION_PROMPTS.md` — historical shot intent; **禁止直接跑 batch prompt**
+> - `docs/proposals/urban-dating-sim-setting-proposal.md` — supporting context only
 >
 > 原則：**這份 TODO 只記「做到哪裡」，不複製 scene spec。** 所有內容細節仍回 canonical spec 查。
 
 ## 2026-09-23 Master reconciliation snapshot
 
 - W4 runtime 已完成並在 `main` 驗證通過；本 tracker 不再把「等待 W4 完成」列為 S10 前置。Production content 仍必須先滿足各自 S4–S9 gate，才進 runtime integration。
-- Vertical Slice scene files 實際存在 5 / 12：`COM-00`、`COM-01X`、`COM-01J`、`COM-02X`、`COM-02J`，五幕均已到 S6；其餘 7 幕尚未建立。
+- Vertical Slice scene files 實際存在 6 / 12：`COM-00`、`COM-01X`、`COM-01J`、`COM-02X`、`COM-02J`、`COM-03X`；前五幕已到 S6，COM-03X 已有 production script，剩餘 scene 依各自 gate 推進。
 - Drive `runtime-public/bg` 已有 10 張 1080×1920 WebP，覆蓋 A1 的 9 個 logical backgrounds；`BG-APT-ELEVATOR` 的 `normal` + scene-locked `restart_dim` same-layout variant 均已存在並完成 QA。2026-09-24 新增的四個 accepted masters 已存入 `source-private` root（該 folder 目前沒有 canonical backgrounds 子資料夾），完整 Drive IDs / SHA-256 / recipes 見 `docs/art/recipes/backgrounds/opening_batch_a_backgrounds.md`。
-- Drive `runtime-public/sprites` 已有 10 張透明 WebP production candidates；identity / wardrobe 視覺 QA 無 blocking drift，但四個已生成 set 的 expression coverage 與後來鎖定的 scene files 不完整對齊，因此 A2 保持未完成，需補 expression / semantic naming。
+- Drive `runtime-public/sprites` 已有 10 張透明 WebP historical production candidates。2026-09-24 起新 production 改為 CG-first，A2 sprite expansion **退休**；現有 sprite 僅保留 runtime regression/provenance，不再因 expression coverage 補生成。
 - Opening CG 尚無新 production asset；目前可進 generation 的 locked scenes 為 `CG-COM-01`、`CG-COM-02`、`CG-COM-03`、`CG-COM-04`。其餘 CG 等對應 scene S4/S6。
-- 新 backgrounds / sprites 目前只存在 recipe + Drive runtime objects，尚未進 `content/assets` runtime mapping / source map；因此任何 scene 都還沒有達到 S10 integration-ready。
+- 現有 legacy 9:16 backgrounds / sprites 主要作 fixture；新 16:9 CG-first assets 尚未完成 runtime mapping/source-map ingest，因此 production scene 仍未達 S10 integration-ready。
 - Storage deviation：canonical 6-sheet character refs 目前實際位於共享的 `runtime-public` folder；這與 `ARCHITECTURE.zh-TW.md` 的 accepted-master → `source-private` 契約不一致。現有 Drive IDs 暫維持為 generation authority，避免破壞 worker references；後續須用一次原子 migration 同步 source-private/catalog/spec，不得平行建立第二套 authority。
 - Drive `runtime-public` root 有未被 repo reference 的 `test.mp4`；視為 orphan/staging drift，未計入任何 production progress。
 
@@ -62,7 +68,7 @@ SH-01   17樓第一次同框
 3. 玩家是否會自然同時對兩人產生興趣？
 4. online/offline messaging 是否好玩？
 5. 第一次 crossover 是否自然，而不是人工修羅場？
-6. 9:16 背景／立繪／CG 是否真的適合 W4 UI？
+6. 16:9 CG-first + responsive focus/crop 是否能同時支援 desktop 與 mobile landscape？
 7. 圖片與台詞放在一起後，有沒有大量多餘旁白？
 
 ---
@@ -76,10 +82,10 @@ SH-01   17樓第一次同框
 - [ ] **S3 — Character/continuity review**：確認語氣、已知資訊、knowledge flags、前後 continuity。
 - [ ] **S4 — Script lock candidate**：修掉 therapy-speak、obvious-good-choice、重複資訊。
 - [ ] **S5 — State contract**：scene entry、exit、stats、flags、reactive variants 明確。
-- [ ] **S6 — Art shot list lock**：BG / sprite / expression / CG timing 對應 art spec。
-- [ ] **S7 — Generation recipe ready**：需要生成的 asset 有 prompt/reference/camera/safe-zone/filename。
+- [ ] **S6 — Art shot list lock**：依 CG-first visual contract 鎖定 background/dialogue/reaction/event CG 與 CG Sequence timing。
+- [ ] **S7 — Task/Data Pack ready**：每個需要生成的 shot 有 bounded Shot/Character/Environment pack、references、camera/focus/safe-zone、filename/provenance。
 - [ ] **S8 — Asset generated & selected**：Human 生成、挑選 accepted master。
-- [ ] **S9 — Asset QA**：identity / hands / wardrobe / continuity / 9:16 crop 通過。
+- [ ] **S9 — Asset QA**：identity / hands / wardrobe / continuity / 16:9 composition / responsive crop-focus 通過。
 - [ ] **S10 — Runtime integration ready**：等 W4/content schema 接入，不要求現在改 player。
 - [ ] **S11 — In-game playtest**：W4 可用後實機測。
 - [ ] **S12 — Final polish**：依 playtest 回改 script / art。
@@ -1062,122 +1068,34 @@ Beats：
 
 ---
 
-## P-A1 — Opening reusable backgrounds
+## P-A1 — Opening environment / background CG tasks
 
-~~~text
-請為 `TsungmingLiu/seventeen-floor-neighbor` Opening Vertical Slice 準備 A1 Background Production Pack。
+**舊 9:16 bulk-background prompt 已退休。**
 
-先讀 CONTENT_PRODUCTION_TODO、所有已鎖定或最新 scene files、`PROTOTYPE_ART_REQUIREMENTS.md`、architecture 的 9:16 / safe-zone contract、現有 `content/recipes/assets.json`。
-
-範圍只包含：
-- BG-APT-17F-RAIN
-- BG-APT-17F-NIGHT
-- BG-APT-ELEVATOR
-- BG-ACG-SHOP
-- BG-CONVENIENCE-NIGHT
-- BG-CAFE-STATION
-- BG-BOOKSTORE
-- BG-ACG-CORRIDOR
-- BG-PC-HOME-LIVING
-
-任務：
-1. 逐項確認是否已有可接受 master / recipe；能 reuse 就不要重生。
-2. 對需要新生成的 background，建立完整 generation recipe：
-   assetId、scene用途、prompt、negative constraints、camera、lighting、9:16 aspect、resolution、focal point、dialogue safe zone、crop tolerance、source path、runtime ID。
-3. 背景原則上無主要人物，避免把 scene-specific character 烤進 reusable BG。
-4. 禁止真實商標、真 ACG IP、可讀亂碼招牌。
-5. 同一地點的 variant 優先保持 layout continuity，不要每個時間段變成不同建築。
-6. 將 recipe 寫入 repo canonical recipe source，而不是只在聊天裡給 prompt。
-7. CONTENT_PRODUCTION_TODO A1 中，只有 recipe-ready 或 accepted-master 狀態明確時才更新對應進度；「寫了 prompt」不等於「圖片已生成」。
-8. 最後輸出 Generation Queue，按 P0/可重用價值排序，讓我可以逐張去生成。
-
-不要替我假裝完成 S8/S9；圖片必須由我實際生成/選定後才能勾。
-~~~
+新 background-only asset 也必須走 Bootstrap → Shot Planner/Task Packer → CG Artist。每個 task 只包含一個 environment/shot；master 16:9，保留 focus/crop/safe-zone metadata。既有 1080×1920 accepted files保留 provenance/fixture，不因新規格自動刪除或冒充 16:9 master。
 
 ---
 
 ## P-A2 — Opening sprite sets
 
-~~~text
-請為 `TsungmingLiu/seventeen-floor-neighbor` 準備 Opening Vertical Slice 的 A2 Sprite Production Pack，不生成圖片本身。
-
-先讀：
-- CONTENT_PRODUCTION_TODO
-- 最新 scene files
-- Xu/JYC canonical character metadata / identity references
-- PROTOTYPE_ART_REQUIREMENTS
-- 現有 asset recipes
-
-範圍：
-Xu:
-- XT-SPR-WEEKDAY
-- XT-SPR-LATE-CASUAL
-- XT-SPR-BOOKSTORE
-
-JYC:
-- JYC-SPR-CAMPUS
-- JYC-SPR-CAFE
-- JYC-SPR-ACG
-- JYC-SPR-GAMING
-- JYC-SPR-CASUAL
-
-任務：
-1. 每個 set 定義 outfit、hair、makeup、props、full/3/4 framing、透明背景需求。
-2. 每個 set 列出 Opening Vertical Slice 真正需要的 expressions，不要一口氣生成20個幾乎相同表情。
-3. 對每個 expression 定義 head pose / gaze / emotional tell，避免所有圖都是同一三分之四抬頭角度。
-4. 許棠固定為27歲/170cm成熟都市女性；江雨澄23歲/160cm、纖細小骨架、腿相對偏長的成年研究生，不幼態化。
-5. 所有生成必須引用 primary identity + canonical identity sheet，禁止只以上一張 sprite 作唯一 identity source。
-6. 建立/更新 canonical asset recipes，包括 prompt、negative constraints、safe-zone、source path、runtime ID。
-7. 根據 scene reuse 次數排序 generation queue。
-8. 不勾 S8/S9，直到 Human 真正生成並 QA。
-
-最後給我一份可直接照順序生成的清單：asset ID → reference → prompt/recipe location → expressions → expected file path。
-~~~
+**RETIRED for new production.** 2026-09-24 起新 scene 不要求 sprite sets。現有 10 張 sprite candidates 僅保留 runtime regression/provenance；不要補 expression、不要擴 batch。
 
 ---
 
 ## P-A3 — Vertical Slice CG queue
 
-~~~text
-請為 `TsungmingLiu/seventeen-floor-neighbor` Opening Vertical Slice 準備 A3 Special CG Production Queue。
+不要把整個 queue 交給一個通用 session。
 
-先讀所有最新 vertical-slice scene files，尤其每幕的 CG timing，再讀 `PROTOTYPE_ART_REQUIREMENTS.md`、`CHARACTER_REFERENCE_PACK_SPEC.md`、`VERTICAL_SLICE_CG_GENERATION_PROMPTS.md` 與 9:16 composition contract。
+對每個已鎖定 scene：
 
-範圍：
-P0：
-- CG-COM-01 雨夜搬家
-- CG-XT-01 書店午後
-- CG-JYC-01 ACG 主場
-- CG-JYC-03 Gaming Night
+1. Bootstrap current workflow。
+2. Shot Planner 只讀該 scene 的 narrative/staging + current Global Visual Pack，輸出 3–6 個左右的 bounded Shot Packs（重要 scene 可按需要增加）。
+3. 每個 Shot Pack 分別交給 fresh CG Artist；單角色 shot 只注入該角色 Character Pack。
+4. 只有同 scene / 同角色集合 / 同 wardrobe / 同 environment / 連續動作的 2–6 frames 可作一個 CG Sequence task。
+5. Asset QA 對每個輸出做 identity / style / hands / wardrobe / continuity / 16:9 / crop-focus gate。
+6. Human 選定 accepted master 後，才進 Integrator / S10。
 
-P1：
-- CG-SH-01 17樓三人第一次同框
-- CG-COM-02 地下街初遇
-- CG-COM-03 深夜便利店
-- CG-COM-04 咖啡店畫圖
-- CG-JYC-02 小周邊 reward
-
-任務：
-1. 先判斷每張是否真的值得 CG；如果 scene lock 後某張變得重複，可建議降級／取消，但不要自行刪 canonical slot，先說明。
-2. 對每張產生 production-ready recipe：
-   - narrative purpose
-   - exact scene beat / trigger timing
-   - character reference inputs
-   - outfit / hair / expression
-   - camera / framing / head pose
-   - body action / hand interaction
-   - environment continuity
-   - lighting
-   - 9:16 safe zone / focal point
-   - negative constraints
-   - source path / runtime ID
-3. 避免每張都正面看鏡頭、站著擺拍。
-4. 玩家男主如果沒有完整 visual bible，優先使用 POV、手臂、肩背、局部 silhouette；不要忽然生成固定男主臉。
-5. CG 必須提供「立繪+背景做不到的額外情緒」，否則不值得成本。
-6. 把 recipe 寫進 repo canonical asset recipe source。
-7. 最後給我按生成順序排列的 queue，先 P0，再 P1；每張附 identity QA / hands QA / crop QA 要點。
-8. 不假裝圖片已生成；S8/S9 等我實際選圖後再更新。
-~~~
+目前 priority slots 可保留作 planning inventory，但是否生成由最新 locked scene + Shot Planner 決定。
 
 ---
 
@@ -1217,8 +1135,8 @@ P1：
 - Memory Event mapping or none
 - progress band/rank guidance
 - required BG IDs
-- required sprite sets
-- required CG IDs
+- required visual shot / CG class inventory
+- required CG / sequence / background IDs
 - sfw/full profile availability
 - next structural targets
 
@@ -1268,7 +1186,7 @@ COM-00 → COM-01X → COM-01J → COM-02X → COM-02J → COM-03X → COM-03J �
 10. SH-01 是否是自然 tension，不是廉價修羅場？
 11. Art economy：哪些 CG 真值得，哪些只是 expensive illustration？
 12. Text-art redundancy：哪些旁白在重複圖片已經說的事？
-13. Mobile/W4：9:16和Memory representation 是否有 narrative 問題？
+13. Responsive/W4：16:9 landscape-first、focus crop 與 Memory representation 是否有 narrative/UX 問題？
 14. Scope：若刪掉10–15%的文字，最該刪哪裡？
 
 輸出：

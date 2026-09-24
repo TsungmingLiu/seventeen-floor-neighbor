@@ -40,11 +40,14 @@ Do not expand the engine merely because a feature is technically interesting. Ne
 
 ### 2.1 Web First
 
-- Primary device: mobile portrait, 9:16.
-- Desktop: centered adaptive 9:16 viewport.
+- The canonical player is a responsive full-viewport Web app, not a fixed portrait-mobile viewport.
+- Production art uses a **16:9 landscape-first master**. Desktop, laptop, and tablet landscape are first-class; phones target landscape play.
+- Runtime should support per-asset focal metadata / crop policy so resizing does not cut off faces, hands, or critical objects.
+- Existing portrait 9:16 assets may remain as legacy fixtures, but are not the target for new production masters.
 - Static hosting first.
 - No permanent backend until a real requirement appears.
 - The game must run independently in the browser; AI is an authoring/development tool, not a runtime dependency.
+- See `docs/art/PRODUCTION_VISUAL_DIRECTION.md` for the production visual contract.
 
 ### 2.2 Content and Player Are Separate
 

@@ -1,5 +1,10 @@
 # Opening / Vertical Slice — Batch A Sprite Recipe
 
+> **LEGACY-FIXTURE / PROVENANCE ONLY (2026-09-24).**
+>
+> New production is CG-first and does not require sprite expansion. Keep this recipe to document already-generated assets and W4/runtime regression fixtures. **Do not generate missing expressions or new sprite sets from this file.**
+
+
 > 狀態：**partial production candidates / post-lock expression reconciliation required**
 >
 > 日期：2026-09-23

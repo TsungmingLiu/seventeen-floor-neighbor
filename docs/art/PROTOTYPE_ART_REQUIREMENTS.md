@@ -1,5 +1,13 @@
 # Prototype Art Requirements
 
+> **PARTIALLY SUPERSEDED — inventory/reference document.**
+>
+> For all NEW production art, first read `docs/art/PRODUCTION_VISUAL_DIRECTION.md` and `.ai/WORKFLOW_MANIFEST.yaml`.
+> The old mobile-first 9:16 and background+sprite default rendering instructions in this file are **DEPRECATED for new production**.
+> Keep using this file only for historical location inventory, asset IDs, broad scene intent, and other facts not contradicted by newer canon.
+> Do not create new sprites merely because this document lists sprite sets.
+
+
 > 狀態：**Canonical prototype art plan / generation input**
 >
 > 版本：0.5

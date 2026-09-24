@@ -1,10 +1,10 @@
 # 台北都市成人戀愛模擬器：設定與內容提案
 
-> 狀態：Proposal / Canonical Content Draft
+> 狀態：**SUPPORTING proposal / world-and-product ideation; NOT production authority**
 >
 > 版本：0.2
 >
-> 用途：提供可獨立閱讀的世界觀、角色、劇情、場景與 prototype scope 基準，讓後續開發不必依賴舊對話紀錄。
+> 用途：提供世界觀、future heroine 與產品方向的 supporting context。Production worker 不得自行整份載入；只有 Task Packet 明示需要的段落可作輔助資料，且不得覆蓋 current narrative / route-state / visual / locked-scene canon。
 >
 > 架構關係：本文件描述產品與內容方向；實作仍應遵循 `ARCHITECTURE.zh-TW.md` 的 canonical architecture、stable IDs、content compiler 與 source/output boundary。
 >

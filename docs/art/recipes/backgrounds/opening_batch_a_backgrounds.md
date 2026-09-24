@@ -1,5 +1,10 @@
 # Opening / Vertical Slice Batch A — Reusable Background Recipes
 
+> **LEGACY 9:16 PROVENANCE NOTICE (2026-09-24).**
+>
+> Existing accepted 1080×1920 objects remain valid historical/runtime candidates and must not be deleted casually. For NEW production, 16:9 landscape-first + responsive focus/crop from `docs/art/PRODUCTION_VISUAL_DIRECTION.md` supersedes this recipe's old 9:16/sprite-overlay assumptions.
+
+
 > Status: generated / runtime WebP uploaded; all 9 Opening Vertical Slice logical backgrounds complete, including the locked elevator `restart_dim` variant
 >
 > Date: 2026-09-24
