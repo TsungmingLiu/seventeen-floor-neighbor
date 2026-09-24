@@ -28,6 +28,7 @@
 - Drive `runtime-public/bg` 已有 6 張 1080×1920 WebP；其中 5 個 logical backgrounds 可視為 generated + QA documented，`BG-APT-ELEVATOR` 仍缺 scene-locked `restart_dim` same-layout variant。
 - Drive `runtime-public/sprites` 已有 10 張透明 WebP production candidates；identity / wardrobe 視覺 QA 無 blocking drift，但四個已生成 set 的 expression coverage 與後來鎖定的 scene files 不完整對齊，因此 A2 保持未完成，需補 expression / semantic naming。
 - Opening CG 尚無新 production asset；目前可進 generation 的 locked scenes 為 `CG-COM-01`、`CG-COM-02`、`CG-COM-03`、`CG-COM-04`。其餘 CG 等對應 scene S4/S6。
+- 新 backgrounds / sprites 目前只存在 recipe + Drive runtime objects，尚未進 `content/assets` runtime mapping / source map；因此任何 scene 都還沒有達到 S10 integration-ready。
 - Storage deviation：canonical 6-sheet character refs 目前實際位於共享的 `runtime-public` folder；這與 `ARCHITECTURE.zh-TW.md` 的 accepted-master → `source-private` 契約不一致。現有 Drive IDs 暫維持為 generation authority，避免破壞 worker references；後續須用一次原子 migration 同步 source-private/catalog/spec，不得平行建立第二套 authority。
 - Drive `runtime-public` root 有未被 repo reference 的 `test.mp4`；視為 orphan/staging drift，未計入任何 production progress。
 
