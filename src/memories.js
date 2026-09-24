@@ -43,6 +43,40 @@ export function memoryCoverVisual(event, assets) {
   return { mode: 'cg', asset: event.cover.asset, focus };
 }
 
+export function titleBackdropVisual(library, progress, assets) {
+  const frontierEvent = memoryEventById(library, progress?.data?.frontierMemoryEventId);
+  if (!frontierEvent) return null;
+
+  if (frontierEvent.titleBackdropAsset) {
+    const explicit = {
+      ...frontierEvent,
+      cover: { ...(frontierEvent.cover || {}), asset: frontierEvent.titleBackdropAsset }
+    };
+    const visual = memoryCoverVisual(explicit, assets);
+    if (visual) return visual;
+  }
+
+  if ((frontierEvent.characterIds || []).length === 1) {
+    const visual = memoryCoverVisual(frontierEvent, assets);
+    if (visual) return visual;
+  }
+
+  const highlight = orderedMemoryEvents(library)
+    .filter((event) =>
+      event.highlight
+      && event.progressRank <= (progress?.data?.frontierRank ?? -1)
+      && isMemoryUnlocked(event, progress)
+      && ['cg', 'cinematic'].includes(assets[event.cover?.asset]?.kind)
+    )
+    .sort((a, b) => b.progressRank - a.progressRank || b.order - a.order)[0];
+  if (highlight) {
+    const visual = memoryCoverVisual(highlight, assets);
+    if (visual) return visual;
+  }
+
+  return memoryCoverVisual(frontierEvent, assets);
+}
+
 function coverSource(event, assets) {
   const asset = assets[event?.cover?.asset];
   if (!asset) return FALLBACK_ART;
@@ -143,7 +177,11 @@ export function renderMemories({
         image.alt = '';
         image.src = coverSource(event, assets);
         const focus = event.cover?.focus || { x: 50, y: 45 };
-        image.style.objectPosition = `${focus.x}% ${focus.y}%`;
+        const mobileFocus = event.cover?.mobileFocus || focus;
+        image.style.setProperty('--memory-focus-x', `${focus.x}%`);
+        image.style.setProperty('--memory-focus-y', `${focus.y}%`);
+        image.style.setProperty('--memory-mobile-focus-x', `${mobileFocus.x}%`);
+        image.style.setProperty('--memory-mobile-focus-y', `${mobileFocus.y}%`);
         image.onerror = () => { image.onerror = null; image.src = FALLBACK_ART; };
         card.append(image);
       }

@@ -125,7 +125,7 @@ h1 b{font:inherit}
 .memory-card.is-locked{min-height:112px;border-style:dashed;color:rgba(255,255,255,.5);cursor:not-allowed}
 .memory-card.is-locked::before{background:rgba(255,255,255,.25)}
 .memory-card-art,.memory-card-shade{position:absolute;inset:0;width:100%;height:100%}
-.memory-card-art{z-index:-2;object-fit:cover;filter:saturate(.58) brightness(.58) contrast(.92);transform:scale(1.015)}
+.memory-card-art{z-index:-2;object-fit:cover;object-position:var(--memory-focus-x,50%) var(--memory-focus-y,45%);filter:saturate(.58) brightness(.58) contrast(.92);transform:scale(1.015)}
 .memory-card-shade{z-index:-1;background:linear-gradient(90deg,rgba(7,8,12,.93) 0%,rgba(7,8,12,.63) 62%,rgba(7,8,12,.35) 100%),linear-gradient(0deg,rgba(7,8,12,.88),transparent 70%)}
 .memory-card-body{display:flex;flex-direction:column;align-items:flex-start;gap:.38rem;min-height:inherit;padding:1.05rem 1.15rem}
 .memory-card-meta{color:var(--pink-soft);font-size:.7rem;font-weight:850;letter-spacing:.06em}
@@ -149,6 +149,7 @@ h1 b{font:inherit}
   .memory-current{align-self:stretch}
   .memory-cards{grid-template-columns:1fr;padding-left:.95rem}
   .memory-card{min-height:150px}
+  .memory-card-art{object-position:var(--memory-mobile-focus-x,var(--memory-focus-x,50%)) var(--memory-mobile-focus-y,var(--memory-focus-y,45%))}
   .memories-header{align-items:flex-start}
   .memories-header .text-button{min-height:44px;padding:.6rem .78rem}
   .dialogue-panel{left:max(.75rem,env(safe-area-inset-left));right:max(.75rem,env(safe-area-inset-right));bottom:max(.75rem,env(safe-area-inset-bottom));width:auto;max-width:none}

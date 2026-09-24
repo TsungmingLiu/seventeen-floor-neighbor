@@ -85,6 +85,11 @@ function validateMemoryRoute(route, fail) {
     if (!['common', 'heroine', 'side'].includes(section.kind)) fail(`route ${config.id} memory section ${section.id}: unsupported kind ${section.kind}`);
   }
 
+  const validFocus = (focus) =>
+    !!focus
+    && Number.isFinite(focus.x) && focus.x >= 0 && focus.x <= 100
+    && Number.isFinite(focus.y) && focus.y >= 0 && focus.y <= 100;
+
   const eventIds = new Set();
   let hasStart = false;
   for (const event of events) {
@@ -99,8 +104,23 @@ function validateMemoryRoute(route, fail) {
     if (event.replayNode === chapter.startNode) hasStart = true;
     if (!event.title || !event.summary) fail(`route ${config.id} memory ${event.id}: title and summary required`);
     if (!Array.isArray(event.characterIds)) fail(`route ${config.id} memory ${event.id}: characterIds must be an array`);
-    if (!event.cover?.asset || !assets[event.cover.asset]) fail(`route ${config.id} memory ${event.id}: unknown cover asset ${event.cover?.asset}`);
-    if (!['character', 'scene'].includes(event.cover?.mode)) fail(`route ${config.id} memory ${event.id}: cover mode must be character or scene`);
+    const coverAsset = event.cover?.asset ? assets[event.cover.asset] : null;
+    if (!event.cover?.asset || !coverAsset) fail(`route ${config.id} memory ${event.id}: unknown cover asset ${event.cover?.asset}`);
+    if (!['character', 'scene'].includes(event.cover?.mode)) {
+      fail(`route ${config.id} memory ${event.id}: cover mode must be character or scene`);
+    } else if (event.cover.mode === 'character') {
+      if (coverAsset && !['cg', 'cinematic'].includes(coverAsset.kind)) {
+        fail(`route ${config.id} memory ${event.id}: character cover must use CG or cinematic asset`);
+      }
+      if (!validFocus(event.cover.focus)) {
+        fail(`route ${config.id} memory ${event.id}: character cover requires valid focus x/y in 0..100`);
+      }
+    } else if (event.cover.mode === 'scene' && coverAsset && !['background', 'cg'].includes(coverAsset.kind)) {
+      fail(`route ${config.id} memory ${event.id}: scene cover must use background or CG asset`);
+    }
+    if (event.cover?.mobileFocus && !validFocus(event.cover.mobileFocus)) {
+      fail(`route ${config.id} memory ${event.id}: mobileFocus requires valid x/y in 0..100`);
+    }
     if (event.titleBackdropAsset && !assets[event.titleBackdropAsset]) fail(`route ${config.id} memory ${event.id}: unknown titleBackdropAsset ${event.titleBackdropAsset}`);
     for (const assetId of event.galleryAssets || []) {
       if (!assets[assetId]?.gallery) fail(`route ${config.id} memory ${event.id}: gallery asset ${assetId} is missing or not gallery-enabled`);

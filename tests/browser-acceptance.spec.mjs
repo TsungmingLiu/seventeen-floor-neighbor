@@ -100,6 +100,9 @@ test('fresh start persists, reloads, and exposes Memories/CG without blocking er
   await expect(page.locator('#memories-screen')).toBeVisible();
   await expect(page.locator('[data-memory-id="mem.story.start"]')).toBeEnabled();
   expect(await page.locator('.memory-card').count()).toBeGreaterThan(0);
+  const lockedText = await page.locator('.memory-card.is-locked').allTextContents();
+  expect(lockedText.join(' ')).not.toContain('停電時的距離');
+  expect(lockedText.join(' ')).not.toContain('星期六的兩杯咖啡');
 
   await page.locator('#memories-back').click();
   await page.locator('#gallery-button').click();

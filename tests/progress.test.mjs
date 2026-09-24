@@ -80,6 +80,44 @@ test('replaying older content changes cursor without regressing frontier', () =>
   assert.equal(store.data.frontierRank, 300);
 });
 
+test('a replay that reaches a higher-ranked event advances the frontier', () => {
+  const store = new ProgressStore(chapter, memories, new MemoryStorage());
+  store.capture('shallow', state({ warmth: 1 }), []);
+  const replay = store.data.checkpoints.shallow;
+
+  store.setCursor(replay);
+  store.capture('deep', state({ warmth: 9 }), []);
+
+  assert.equal(store.data.cursor.nodeId, 'deep');
+  assert.equal(store.data.frontier.nodeId, 'deep');
+  assert.equal(store.data.frontierMemoryEventId, 'mem.deep');
+  assert.equal(store.data.frontierRank, 300);
+});
+
+test('an invalid saved frontier falls back to the deepest valid mapped checkpoint', () => {
+  const storage = new MemoryStorage({
+    'progress-fixture:journey:v2': JSON.stringify({
+      version: 2,
+      cursor: snap('shallow', 2),
+      frontier: { nodeId: 'deleted', stats: { warmth: 7, trust: 0 }, flags: [], returnNodes: [] },
+      frontierMemoryEventId: 'missing',
+      frontierRank: 999,
+      checkpoints: {
+        start: snap('start'),
+        shallow: snap('shallow', 2),
+        deep: snap('deep', 8)
+      },
+      edges: []
+    })
+  });
+
+  const store = new ProgressStore(chapter, memories, storage);
+  assert.equal(store.data.cursor.nodeId, 'shallow');
+  assert.equal(store.data.frontier.nodeId, 'deep');
+  assert.equal(store.data.frontierMemoryEventId, 'mem.deep');
+  assert.equal(store.data.frontierRank, 300);
+});
+
 test('same-rank alternate memories do not replace the established frontier', () => {
   const store = new ProgressStore(chapter, memories, new MemoryStorage());
   store.capture('branchA', state({ warmth: 1 }), []);

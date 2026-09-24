@@ -1,6 +1,6 @@
 import { ProgressStore } from './progress.js';
 import { paintPreview, paintSprites, resolveVisual, setImage } from './visuals.js';
-import { memoryCoverVisual, memoryEventById, memoryStats, renderMemories } from './memories.js';
+import { memoryEventById, memoryStats, renderMemories, titleBackdropVisual } from './memories.js';
 
 export class GameEngine {
   constructor({ chapter, assetManifest, sceneLibrary, memoryLibrary }) {
@@ -730,17 +730,12 @@ export class GameEngine {
     const snapshot = this.progress.data.frontier;
     const node = this.chapter.nodes[snapshot?.nodeId || this.chapter.startNode];
     const frontierEvent = memoryEventById(this.memoryLibrary, this.progress.data.frontierMemoryEventId);
-    let visual = snapshot && frontierEvent ? memoryCoverVisual(frontierEvent, this.assets) : null;
+    let visual = snapshot ? titleBackdropVisual(this.memoryLibrary, this.progress, this.assets) : null;
     let label = frontierEvent?.title
       || node?.mapLabel
       || node?.moment
       || this.chapter.chapterLabels[node?.chapter || 0]
       || '故事節點';
-
-    if (frontierEvent?.titleBackdropAsset) {
-      const backdrop = { ...frontierEvent, cover: { ...(frontierEvent.cover || {}), asset: frontierEvent.titleBackdropAsset } };
-      visual = memoryCoverVisual(backdrop, this.assets) || visual;
-    }
 
     if (!snapshot) {
       visual = { mode: 'cg', asset: this.chapter.titleArt };
