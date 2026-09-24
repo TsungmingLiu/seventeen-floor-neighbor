@@ -1,5 +1,14 @@
 # Vertical Slice CG Generation Prompts
 
+> **PARTIALLY SUPERSEDED — historical shot/prompt input, NOT a current worker harness.**
+>
+> New CG production MUST run through `.ai/harnesses/shot-planner.md` -> `.ai/harnesses/cg-artist.md`.
+> The CG Artist receives one bounded Shot Pack plus only the relevant Character/Environment packs.
+> **Do not execute the batch-generation session in Section 4 for new work.**
+> Any 9:16 instruction in this file is superseded by `docs/art/PRODUCTION_VISUAL_DIRECTION.md` (16:9 landscape-first).
+> Scene-specific locked staging/expression/wardrobe facts may still be extracted when a Task Packet explicitly allows them.
+
+
 > 狀態：**Production-ready prompt pack**
 >
 > 版本：1.0
