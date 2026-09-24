@@ -163,7 +163,7 @@ test('replaying an old Memory changes cursor but never regresses Continue fronti
   await expect(page.locator('#start-button')).toHaveText('繼續遊戲');
   await page.locator('#start-button').click();
   await waitForDialogueReady(page);
-  await expect(page.locator('#dialogue-text')).toContainText('第一次在 1702 醒來');
+  await expect(page.locator('#dialogue-text')).toContainText('星期日，09:12');
 
   state = await page.evaluate(() => JSON.parse(localStorage.getItem('chapter-01:journey:v2')));
   expect(state.cursor.nodeId).toBe('morning_after');
