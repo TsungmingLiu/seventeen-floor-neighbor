@@ -384,7 +384,7 @@ W3 實作完成時，必須同一 milestone 更新：
 
 # 4. W4 — Player UI / Memories / CG Gallery
 
-> 狀態：**已完成。** Verify `35948336731` 與 Browser Acceptance `35948336719` 均通過。
+> 狀態：**已完成。** W4 Verify `35948336731` 與 Browser Acceptance `35948336719` 通過；post-demo 修正再由 Verify `35951991571` 與 Browser Acceptance `35951991567` 驗證。
 >
 > Canonical feature spec：`docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md`
 

@@ -92,6 +92,7 @@ The current runtime implements these contracts for the existing fixture. New pro
 - W4 source and generated runtime passed 44/44 media checks, build, content validation, preview smoke, and 20/20 Node tests.
 - Playwright Browser Acceptance exercises v1 save migration, old and same-event replay without frontier regression, Start/Continue, Memories, OL choice flow, gallery/cinematic, ending persistence, and 320px overflow/touch targets.
 - W4 final implementation: Verify run `35948336731` and Browser Acceptance run `35948336719`, both successful on commit `1c53504`.
+- Post-demo fixes on `1bf2cb6`: completed runs return the title to Start while explicit new runs resume from their own cursor; cinematic playback prefers MP4 and reveals the poster after ending. The original kiss MP4 and a temporary `runtime-public/test.mp4` swap both advanced normally in browser playback; the test clip was removed from the demo, and no production asset was replaced. Verify `35951991571` and Browser Acceptance `35951991567` passed; Node tests are 22/22.
 
 ## Migration status
 

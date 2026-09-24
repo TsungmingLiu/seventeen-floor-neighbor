@@ -138,4 +138,4 @@ Human 不再需要手動 create/rebuild Codespace 作為 W3 gate。W3 fresh Code
 - `src/memories.js` 將多個 engine nodes 壓成單一玩家事件；未解鎖卡隱藏標題／分支細節。單女主使用淡化的事件 CG 和 face focus，共通事件使用 scene/background。封面 lazy-load，cinematic 使用 poster。
 - `public/index.html`／`public/styles.css` 提供一大兩小 title、單頁 vertical timeline、桌面分離的對話／選項、mobile 約 44px touch targets，以及簡單 CG 收藏牆／全畫面檢視器。回憶篩選後「回到目前進度」會恢復全部並定位 frontier；CG viewer 支援按鈕、方向鍵與左右觸控切換。
 - `src/branches.js` 僅保留 graph helper，不再暴露玩家層級 Branches。
-- `npm test` 有 20 個 Node tests；W4 Chromium Browser Acceptance run `35948336719` 和 Verify run `35948336731` 通過。新 production content 接入時仍需依 W4 spec 建立新 Memory Events 並檢查每張 CG 的 safe zone。
+- `npm test` 有 22 個 Node tests；W4 Chromium Browser Acceptance run `35948336719` 和 Verify run `35948336731` 通過，post-demo 修正另由 Browser Acceptance `35951991567` 與 Verify `35951991571` 驗證。新 production content 接入時仍需依 W4 spec 建立新 Memory Events 並檢查每張 CG 的 safe zone。
