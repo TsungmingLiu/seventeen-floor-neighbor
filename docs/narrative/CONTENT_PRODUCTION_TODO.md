@@ -2,7 +2,7 @@
 
 > 狀態：Canonical creative-production backlog
 >
-> 版本：0.2
+> 版本：0.3
 >
 > 更新：2026-09-23
 >
@@ -20,6 +20,16 @@
 > - `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md`（只有涉及 Memories / replay / frontier 時）
 >
 > 原則：**這份 TODO 只記「做到哪裡」，不複製 scene spec。** 所有內容細節仍回 canonical spec 查。
+
+## 2026-09-23 Master reconciliation snapshot
+
+- W4 runtime 已完成並在 `main` 驗證通過；本 tracker 不再把「等待 W4 完成」列為 S10 前置。Production content 仍必須先滿足各自 S4–S9 gate，才進 runtime integration。
+- Vertical Slice scene files 實際存在 5 / 12：`COM-00`、`COM-01X`、`COM-01J`、`COM-02X`、`COM-02J`，五幕均已到 S6；其餘 7 幕尚未建立。
+- Drive `runtime-public/bg` 已有 6 張 1080×1920 WebP；其中 5 個 logical backgrounds 可視為 generated + QA documented，`BG-APT-ELEVATOR` 仍缺 scene-locked `restart_dim` same-layout variant。
+- Drive `runtime-public/sprites` 已有 10 張透明 WebP production candidates；identity / wardrobe 視覺 QA 無 blocking drift，但四個已生成 set 的 expression coverage 與後來鎖定的 scene files 不完整對齊，因此 A2 保持未完成，需補 expression / semantic naming。
+- Opening CG 尚無新 production asset；目前可進 generation 的 locked scenes 為 `CG-COM-01`、`CG-COM-02`、`CG-COM-03`、`CG-COM-04`。其餘 CG 等對應 scene S4/S6。
+- Storage deviation：canonical 6-sheet character refs 目前實際位於共享的 `runtime-public` folder；這與 `ARCHITECTURE.zh-TW.md` 的 accepted-master → `source-private` 契約不一致。現有 Drive IDs 暫維持為 generation authority，避免破壞 worker references；後續須用一次原子 migration 同步 source-private/catalog/spec，不得平行建立第二套 authority。
+- Drive `runtime-public` root 有未被 repo reference 的 `test.mp4`；視為 orphan/staging drift，未計入任何 production progress。
 
 ---
 
@@ -73,7 +83,7 @@ SH-01   17樓第一次同框
 - [ ] **S11 — In-game playtest**：W4 可用後實機測。
 - [ ] **S12 — Final polish**：依 playtest 回改 script / art。
 
-在 W3/W4 尚未完成時，正常進度可以先做到 **S9**；S10–S12 後補。
+W4 runtime 現已完成；正常 production 仍先做到 **S9**。只有 scene/script/art contract 已鎖且對應 assets 通過 S8/S9 後，才進 S10 integration；S11/S12 仍需實機與 Human review。
 
 ---
 
@@ -316,44 +326,48 @@ SH-01   17樓第一次同框
 
 ## A1 — Opening reusable backgrounds
 
-- [ ] BG-APT-17F-RAIN
-- [ ] BG-APT-17F-NIGHT
-- [ ] BG-APT-ELEVATOR
-- [ ] BG-ACG-SHOP
-- [ ] BG-CONVENIENCE-NIGHT
-- [ ] BG-CAFE-STATION
-- [ ] BG-BOOKSTORE
-- [ ] BG-ACG-CORRIDOR
-- [ ] BG-PC-HOME-LIVING
+- [x] BG-APT-17F-RAIN — generated / Drive runtime WebP / QA documented
+- [x] BG-APT-17F-NIGHT — generated / Drive runtime WebP / QA documented
+- [ ] BG-APT-ELEVATOR — normal master generated / QA documented；仍缺 `restart_dim` locked variant
+- [x] BG-ACG-SHOP — generated / Drive runtime WebP / QA documented
+- [x] BG-CONVENIENCE-NIGHT — generated / Drive runtime WebP / QA documented
+- [x] BG-CAFE-STATION — generated / Drive runtime WebP / QA documented；physical filename 保留 `bg-cafe-station-day-v1.webp`
+- [ ] BG-BOOKSTORE — missing
+- [ ] BG-ACG-CORRIDOR — missing
+- [ ] BG-PC-HOME-LIVING — missing
 
 ## A2 — Opening sprite sets
 
-- [ ] XT-SPR-WEEKDAY
-- [ ] XT-SPR-LATE-CASUAL
-- [ ] XT-SPR-BOOKSTORE
-- [ ] JYC-SPR-CAMPUS
-- [ ] JYC-SPR-CAFE
-- [ ] JYC-SPR-ACG
-- [ ] JYC-SPR-GAMING
-- [ ] JYC-SPR-CASUAL
+> 2026-09-23 reconciliation：現有 10 張候選圖已通過 identity / alpha / wardrobe 基本 QA，但 set completion 以 **locked scene expression contract** 為準；不得把「已有 base sprite」等同 set 完成。
+
+- [ ] XT-SPR-WEEKDAY — 3 candidates 已有；需對齊 `neutral_observant / polite_smile / dry_playful / mild_surprise / soft_goodnight`，至少補缺少 acting variants 並統一 semantic names
+- [ ] XT-SPR-LATE-CASUAL — `tired` 已有；仍缺 `caught_off_guard / small_smile / teasing / sleepy_annoyed`
+- [ ] XT-SPR-BOOKSTORE — missing
+- [ ] JYC-SPR-CAMPUS — 3 candidates 已有；需對齊 `neutral_shy / hesitant / thinking_before_reply / small_smile / surprised`，不可用近義檔名默默代替
+- [ ] JYC-SPR-CAFE — 3 candidates 已有；需對齊 `focused_drawing / caught_drawing / interested / talking_about_art / tiny_laugh`
+- [ ] JYC-SPR-ACG — missing
+- [ ] JYC-SPR-GAMING — missing
+- [ ] JYC-SPR-CASUAL — missing
 
 ## A3 — Vertical Slice CG queue
 
-- [ ] CG-COM-01 — 雨夜搬家 — P0
+> Narrative gate 已開：`CG-COM-01/02/03/04` 對應 scene 均已 S4/S6，可進 generation。其餘 CG 不得提前生成。
+
+- [ ] CG-COM-01 — 雨夜搬家 — P0 — **ready to generate**
 - [ ] CG-XT-01 — 書店午後 — P0
 - [ ] CG-JYC-01 — ACG 主場 — P0
 - [ ] CG-JYC-03 — Gaming Night — P0
 - [ ] CG-SH-01 — 17樓三人第一次同框 — P1
-- [ ] CG-COM-02 — 地下街初遇 — P1
-- [ ] CG-COM-03 — 深夜便利店 — P1
-- [ ] CG-COM-04 — 咖啡店畫圖 — P1
+- [ ] CG-COM-02 — 地下街初遇 — P1 — **ready to generate**
+- [ ] CG-COM-03 — 深夜便利店 — P1 — **ready to generate**
+- [ ] CG-COM-04 — 咖啡店畫圖 — P1 — **ready to generate**
 - [ ] CG-JYC-02 — 小周邊 reward — P1
 
 ---
 
 # 5. Structured-content skeleton
 
-這條工作可與 W3/W4 並行，但**不要接 runtime player**。
+W4 runtime 已完成；這條 structured-content 工作可獨立進行，但在 Opening Vertical Slice production gate 未滿足前，**不要為了搶進度改 player/framework**。
 
 - [ ] 為 66 個 authoring IDs 建立 machine-readable skeleton
 - [ ] 每個 item 至少包含 stable authoring ID
