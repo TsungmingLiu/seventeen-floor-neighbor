@@ -1,4 +1,4 @@
-import { memoryEventForNode } from './memories.js?v=05dbfcdbdd21';
+import { memoryEventForNode } from './memories.js?v=d72704f21b60';
 
 // Snapshots store node-entry state: choices are applied only when the player chooses.
 export class ProgressStore {

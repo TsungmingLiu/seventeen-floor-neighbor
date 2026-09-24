@@ -328,6 +328,61 @@ test('cinematic loads as a real 10-second video, can be skipped, and appears in 
   expect(errors).toEqual([]);
 });
 
+test('cinematic play rejection stays in cinematic mode and offers a manual retry', async ({ page }) => {
+  await page.addInitScript(() => {
+    const originalPlay = HTMLMediaElement.prototype.play;
+    let rejectOnce = true;
+    HTMLMediaElement.prototype.play = function patchedPlay() {
+      if (this.id === 'scene-video' && rejectOnce) {
+        rejectOnce = false;
+        return Promise.reject(new DOMException('Autoplay blocked for test', 'NotAllowedError'));
+      }
+      return originalPlay.call(this);
+    };
+  });
+  await seedStorage(page, {
+    'chapter-01:journey:v1': legacyJourney(snapshot('first_kiss', {
+      heart: 16, trust: 10, comfort: 5, relationship: 1
+    })),
+    neighborMuted: '1'
+  });
+
+  await boot(page);
+  await page.locator('#start-button').click();
+
+  await expect(page.locator('#stage')).toHaveClass(/is-cinematic-playing/);
+  await expect(page.locator('#cinematic-play')).toBeVisible();
+  await expect(page.locator('#stage')).toHaveAttribute('data-cinematic-reason', 'autoplay-blocked');
+  await expect(page.locator('#stage')).toHaveAttribute('data-cinematic-error', 'NotAllowedError');
+  await expect(page.locator('#scene-video')).not.toHaveClass(/is-active/);
+
+  await page.locator('#cinematic-play').click();
+  await expect(page.locator('#cinematic-play')).toBeHidden();
+  await expect(page.locator('#scene-video')).toHaveClass(/is-active/);
+  await expect.poll(() => page.locator('#scene-video').evaluate(video => video.currentTime))
+    .toBeGreaterThan(0.25);
+});
+
+test('reduced-motion still attempts essential cinematic autoplay', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await seedStorage(page, {
+    'chapter-01:journey:v1': legacyJourney(snapshot('first_kiss', {
+      heart: 16, trust: 10, comfort: 5, relationship: 1
+    })),
+    neighborMuted: '1'
+  });
+
+  await boot(page);
+  await page.locator('#start-button').click();
+
+  await expect(page.locator('#stage')).toHaveClass(/is-cinematic-playing/);
+  await expect(page.locator('#cinematic-play')).toBeHidden();
+  await expect(page.locator('#scene-video')).toHaveClass(/is-active/);
+  await expect(page.locator('#stage')).toHaveAttribute('data-cinematic-state', 'playing');
+  await expect.poll(() => page.locator('#scene-video').evaluate(video => video.currentTime))
+    .toBeGreaterThan(0.25);
+});
+
 test('a completed cinematic reveals its poster instead of holding the last video frame', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await seedStorage(page, {

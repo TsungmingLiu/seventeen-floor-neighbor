@@ -27,7 +27,14 @@
     "assets/cg-lin-cheng-shared-headphones-v1.png": "assets-src/cg/cg-lin-cheng-shared-headphones-v1.png",
     "assets/cg-phone-ending.jpg": "assets-src/cg/cg-phone-ending.jpg",
     "assets/mv-first-kiss-poster.jpg": "assets-src/video/mv-first-kiss-poster.jpg",
-    "assets/mv-first-kiss.mp4": "assets-src/video/mv-first-kiss.mp4",
+    "assets/mv-first-kiss.mp4": {
+      "provider": "gdrive-public",
+      "fileId": "1HFHjoZzIjqDeiikc5dVOZzXAfMHvQdT2",
+      "url": "https://drive.google.com/uc?export=download&id=1HFHjoZzIjqDeiikc5dVOZzXAfMHvQdT2",
+      "transform": "copy",
+      "sha256": "e1738efd2fcf69a10557328f3927e121a269a9a9f4ff0de80fd68a3cc31bd239",
+      "bytes": 1222343
+    },
     "assets/mv-first-kiss.webm": "assets-src/video/mv-first-kiss.webm",
     "assets/sprite-lin-cheng-night-v1.png": "assets-src/characters/sprite-lin-cheng-night-v1.png",
     "assets/sprite-neutral.webp": "assets-src/characters/sprite-neutral.webp",

@@ -1,6 +1,6 @@
-import { ProgressStore } from './progress.js?v=05dbfcdbdd21';
-import { paintPreview, paintSprites, resolveVisual, setImage } from './visuals.js?v=05dbfcdbdd21';
-import { memoryEventById, memoryEventForNode, memoryStats, renderMemories, titleBackdropVisual } from './memories.js?v=05dbfcdbdd21';
+import { ProgressStore } from './progress.js?v=d72704f21b60';
+import { paintPreview, paintSprites, resolveVisual, setImage } from './visuals.js?v=d72704f21b60';
+import { memoryEventById, memoryEventForNode, memoryStats, renderMemories, titleBackdropVisual } from './memories.js?v=d72704f21b60';
 
 export class GameEngine {
   constructor({ chapter, assetManifest, sceneLibrary, memoryLibrary }) {
@@ -68,6 +68,7 @@ export class GameEngine {
       titleMute: $('#title-mute'),
       muteButton: $('#mute-button'),
       cinematicSkip: $('#cinematic-skip'),
+      cinematicPlay: $('#cinematic-play'),
       galleryButton: $('#gallery-button'),
       galleryTitleCount: $('#gallery-title-count'),
       galleryProgress: $('#gallery-progress'),
@@ -123,6 +124,7 @@ export class GameEngine {
     this.els.galleryBack.addEventListener('click', () => this.closeGallery());
     this.els.viewerClose.addEventListener('click', () => this.closeViewer());
     this.els.cinematicSkip.addEventListener('click', () => this.finishCinematic());
+    this.els.cinematicPlay.addEventListener('click', () => this.playSceneCinematic({ manual: true }));
     this.els.viewerPrev.addEventListener('click', () => this.moveViewer(-1));
     this.els.viewerNext.addEventListener('click', () => this.moveViewer(1));
     let viewerTouchStart = null;
@@ -435,6 +437,64 @@ export class GameEngine {
     video.load();
   }
 
+  rewindSceneVideo() {
+    try {
+      if (this.els.sceneVideo.readyState >= HTMLMediaElement.HAVE_METADATA) {
+        this.els.sceneVideo.currentTime = 0;
+      }
+    } catch (_) {
+      // A freshly loaded media element already starts at zero; Safari can reject
+      // an eager seek before metadata becomes available.
+    }
+  }
+
+  showCinematicPlayFallback(reason, error = null) {
+    if (!this.isCinematic) return;
+    this.els.sceneVideo.pause();
+    this.rewindSceneVideo();
+    this.els.sceneVideo.classList.remove('is-active');
+    this.els.stage.dataset.cinematicState = 'waiting-for-play';
+    this.els.stage.dataset.cinematicReason = reason;
+    if (error?.name) this.els.stage.dataset.cinematicError = error.name;
+    else delete this.els.stage.dataset.cinematicError;
+    this.els.cinematicPlay.textContent = '播放片段';
+    this.els.cinematicPlay.classList.remove('is-hidden');
+    if (error) {
+      console.warn('[cinematic] playback paused; waiting for user gesture', {
+        reason,
+        name: error.name,
+        message: error.message
+      });
+    }
+  }
+
+  playSceneCinematic({ manual = false } = {}) {
+    if (!this.isCinematic) return;
+    this.els.cinematicPlay.classList.add('is-hidden');
+    this.els.sceneVideo.classList.add('is-active');
+    this.els.stage.dataset.cinematicState = manual ? 'manual-play-requested' : 'play-requested';
+    delete this.els.stage.dataset.cinematicReason;
+    delete this.els.stage.dataset.cinematicError;
+
+    let playback;
+    try {
+      playback = this.els.sceneVideo.play();
+    } catch (error) {
+      this.showCinematicPlayFallback('play-threw', error);
+      return;
+    }
+
+    Promise.resolve(playback)
+      .then(() => {
+        if (!this.isCinematic) return;
+        this.els.stage.dataset.cinematicState = 'playing';
+      })
+      .catch((error) => this.showCinematicPlayFallback(
+        error?.name === 'NotAllowedError' ? 'autoplay-blocked' : 'play-rejected',
+        error
+      ));
+  }
+
   startCinematic(asset, visual) {
     const pendingMoment = this.pendingMoment;
     this.stopCinematic();
@@ -450,29 +510,37 @@ export class GameEngine {
     this.els.sceneVideo.style.setProperty('--focus-x', `${focus.x}%`);
     this.els.sceneVideo.style.setProperty('--focus-y', `${focus.y}%`);
     this.els.sceneVideo.muted = this.muted;
-    this.els.sceneVideo.currentTime = 0;
-    this.els.sceneVideo.classList.add('is-active');
+    this.rewindSceneVideo();
     this.els.stage.classList.add('is-cinematic-playing');
     this.els.cinematicSkip.classList.remove('is-hidden');
     this.isCinematic = true;
     this.els.sceneVideo.onended = () => this.finishCinematic();
+    this.els.sceneVideo.onerror = () => {
+      const mediaError = this.els.sceneVideo.error;
+      const error = new Error(`MediaError ${mediaError?.code || 'unknown'}`);
+      error.name = 'MediaError';
+      this.showCinematicPlayFallback('media-error', error);
+    };
 
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      this.els.sceneVideo.classList.remove('is-active');
-      this.finishCinematic();
-      return;
-    }
-    this.els.sceneVideo.play().catch(() => this.finishCinematic());
+    // Reduced-motion should suppress decorative animation, not the story's
+    // essential cinematic. Always attempt playback; fall back only if play()
+    // is actually rejected or the media element reports an error.
+    this.playSceneCinematic();
   }
 
   finishCinematic() {
     if (!this.isCinematic) return;
     this.isCinematic = false;
     this.els.sceneVideo.onended = null;
+    this.els.sceneVideo.onerror = null;
     this.els.sceneVideo.pause();
     this.els.sceneVideo.classList.remove('is-active');
     this.els.stage.classList.remove('is-cinematic-playing');
+    delete this.els.stage.dataset.cinematicState;
+    delete this.els.stage.dataset.cinematicReason;
+    delete this.els.stage.dataset.cinematicError;
     this.els.cinematicSkip.classList.add('is-hidden');
+    this.els.cinematicPlay.classList.add('is-hidden');
     if (this.pendingMoment) {
       this.renderMoment(this.pendingMoment);
       this.pendingMoment = '';
@@ -483,10 +551,15 @@ export class GameEngine {
     this.isCinematic = false;
     this.pendingMoment = '';
     this.els.sceneVideo.onended = null;
+    this.els.sceneVideo.onerror = null;
     this.els.sceneVideo.pause();
     this.els.sceneVideo.classList.remove('is-active');
     this.els.stage.classList.remove('is-cinematic-playing');
+    delete this.els.stage.dataset.cinematicState;
+    delete this.els.stage.dataset.cinematicReason;
+    delete this.els.stage.dataset.cinematicError;
     this.els.cinematicSkip.classList.add('is-hidden');
+    this.els.cinematicPlay.classList.add('is-hidden');
   }
 
   setScene(asset, visual) {
