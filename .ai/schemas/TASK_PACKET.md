@@ -1,6 +1,6 @@
 # Task Packet Schema
 
-Version: 0.3.0
+Version: 0.4.0
 
 Every specialist task should be representable by this contract.
 
@@ -34,12 +34,20 @@ required_acquisition:
       expected_mime: image/png
       pixels_must_be_visible: true
 
-generation_binding:
-  explicit_reference_binding_required: true
-  binding_receipt_required: true
-  reference_roles:
-    - runtime_visible_id: ...
-      role: primary_face_identity
+reference_transport:
+  mode: human_attachment_required | edit_from_accepted_base
+  fresh_chat_required: true
+  no_unrelated_images_allowed: true
+  required_attachments:
+    - role: primary_face_identity
+      expected_filename: ...
+      canonical_source:
+        drive_file_id: ...
+        drive_url: ...
+      pixels_must_be_visible: true
+  accepted_base_attachment:
+    required: false
+    asset_id: ...
 
 allowed_sources:
   - exact/path/or/connector-object
@@ -77,10 +85,11 @@ handoff_to: asset_qa
 - Markdown acquisition requires exact repo/ref/path + non-empty content + blob SHA.
 - Image acquisition requires exact Drive ID/URL + filename/MIME/bytes + actual visible pixels.
 - A successful connector response that exposes only metadata does not satisfy image acquisition.
-- For image-generation tasks, acquisition PASS does not authorize generation by itself.
-- If the image tool supports explicit reference IDs, the task must bind the exact runtime-visible IDs explicitly.
-- Production image tasks must not rely on automatic/implicit reference-image selection.
-- If explicit binding is unavailable, the correct result is BLOCKED.
+- For base-CG image tasks, the supported production transport is `human_attachment_required`.
+- Connector-fetched image runtime IDs are provenance/discovery aids, not autonomous generation references.
+- A valid base-CG session must be fresh and contain only the exact required Human-attached images.
+- For Reaction CGs, prefer `edit_from_accepted_base` with the accepted base image attached as the edit target.
+- Missing/contaminated attachment context means BLOCKED.
 - `allowed_sources` is an allowlist.
 - A worker may not add sources on its own.
 - If the task would require a second independent objective, split it into another Task Packet.
