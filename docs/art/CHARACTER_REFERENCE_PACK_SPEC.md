@@ -1,5 +1,11 @@
 # Character Reference Pack Specification
 
+> **CANONICAL identity/reference manifest.**
+>
+> AI workflow rule: this document records multiple characters for catalog purposes, but a CG worker must receive a **single-character Character Pack** derived from it unless the Shot Pack explicitly contains multiple visible characters. Do not load both heroines' references into a single-character generation task.
+> Mentions of sprite production are historical/general capability notes; new production is CG-first per `docs/art/PRODUCTION_VISUAL_DIRECTION.md`.
+
+
 > 狀態：**Canonical character-image reference contract**
 >
 > 版本：1.1
