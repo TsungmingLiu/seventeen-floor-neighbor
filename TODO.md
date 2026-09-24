@@ -2,7 +2,7 @@
 
 > 專案執行清單（Execution Board）
 >
-> Updated: 2026-09-23
+> Updated: 2026-09-24
 >
 > 本檔案回答一件事：**現在下一步到底做什麼，以及什麼才算完成。**
 >
@@ -30,6 +30,8 @@
 - [x] 雙女主 production narrative 已升級為 Braided Narrative v0.5；canonical scene/route/state/art 規格已拆入 `docs/narrative/` 與 `docs/art/`。
 - [x] 許棠／江雨澄 6-sheet production reference packs 已通過 QA，Drive canonical manifest 已記錄於 `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md`。
 - [x] Opening Vertical Slice 已定義為第一個 production-grade content sample，production board 位於 `docs/narrative/CONTENT_PRODUCTION_TODO.md`。
+- [x] AI production harness v0.1 control layer：manifest、bootstrap、source lifecycle、context isolation、Task/Data/Handoff contracts、specialist harnesses。
+- [x] 新 production visual direction：CG-first、16:9 landscape-first、CG Sequence；舊 sprites/9:16 保留作 fixture，不再擴產。
 
 ## 0.2 現在 package scripts 的真實狀態
 
@@ -568,7 +570,7 @@ fresh Codespace clean build succeeds
 
 ## M3 Asset Production
 
-- [ ] sprites / CG / backgrounds / cinematic keyframes / posters inventory。
+- [ ] CG / backgrounds / CG-sequence keyframes / cinematic video/posters inventory；sprite 僅在真實需求證明必要時才重新引入。
 - [ ] Asset Recipes。
 - [ ] Generation Queue。
 - [ ] logical asset IDs 穩定。
@@ -748,7 +750,7 @@ npm run assets:build
 
 # 13. Long-term North Star — AI Game Director / Content Factory
 
-> **狀態：目標架構，現在不實作。**
+> **狀態：自動化 Content Factory 仍不實作；其前置的 manual/semiautomated harness contract 已於 2026-09-24 開始落地。**
 >
 > 目的不是建立一個永遠累積 context 的「超級主對話」，而是讓 GitHub 成為長期狀態與 canonical memory；AI workers 每次只拿完成任務所需的 context capsule，完成後把成果寫回 repo。
 >
@@ -786,25 +788,21 @@ Human acceptance
 
 **Delivery surface 是 repo change + playable build，不是一堆需要 Human 手動搬運的 subagent 對話。**
 
-## 13.2 未來角色與現有 canonical docs 的對接
+## 13.2 Specialist harness contract
 
-| Future role | 主要 canonical input | 現有文件可直接承擔的責任 |
+現行 reusable specialists 由 `.ai/WORKFLOW_MANIFEST.yaml` 註冊：
+
+| Harness | Responsibility | Content isolation |
 | --- | --- | --- |
-| **AI Game Director** | `PROJECT_STATE.md`、root `TODO.md`、`docs/narrative/CONTENT_PRODUCTION_TODO.md`、setting proposal | 判斷目前缺口、定義 feature scope、切 production batches、追蹤完成度 |
-| **Narrative Planner** | `PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md`、`PROTOTYPE_ROUTE_GRAPH_AND_STATE.md` | scene 目的、依賴、attention window、relationship/state/knowledge contract |
-| **Scene Writer** | Planner 的局部 scene packet、角色／世界觀設定、相鄰 scene context | narration、dialogue、choices、reactive variants；不重新發明整條 route |
-| **CG Director** | `PROTOTYPE_ART_REQUIREMENTS.md`、`CHARACTER_REFERENCE_PACK_SPEC.md`、`VERTICAL_SLICE_CG_GENERATION_PROMPTS.md` | shot list、構圖、safe zone、identity/wardrobe reference stack、generation recipe |
-| **Asset Producer** | Character refs + recipe + source storage contract | 候選生成、accepted master、runtime derivative、catalog/source-map metadata |
-| **Integrator** | `ARCHITECTURE.zh-TW.md`、route/state spec、W4 memory contract | stable IDs、story JSON、route/state/memory metadata、manifest/recipe wiring |
-| **QA / Continuity** | `CONTENT_PRODUCTION_TODO.md` 的 S1–S12 DoD、validator/tests、W4 spec | 玩家視角、character continuity、graph/schema/assets/build/browser acceptance |
+| Production Coordinator | high-level scope → bounded task graph | 不寫 final dialogue / 不生圖 |
+| Narrative Planner | route/arc/scene objectives + state dependencies | 不讀 art prompts |
+| Scene Writer | one scene 的 narration/dialogue/choices/reactivity | 不讀無關角色，不做 final CG prompt |
+| Shot Planner | locked scene → CG-first shot packs | 把舊 sprite/9:16 rendering notes 排除 |
+| CG Artist | one shot / one tightly linked sequence | 只讀該 shot 的 character/environment packs |
+| Asset QA | identity/style/continuity/composition gate | 不重設計 shot |
+| Integrator | accepted content/assets → runtime contracts | 不改劇情、不生圖 |
 
-原則：
-
-- Planner 不需要讀所有歷史 dialogue。
-- Writer 不需要讀整個 repo，只讀該 scene 的 context capsule。
-- CG worker 不需要知道 engine implementation。
-- QA 不替 Writer 改劇情方向；只回報 violation / regression / acceptance result。
-- Worker 可以一次性建立、完成、退出；**conversation history 不是 source of truth**。
+Harness = reusable behavior；Data Pack = replaceable content。Conversation history 不是 source of truth。
 
 ## 13.3 Automation prerequisites / hard gates
 
