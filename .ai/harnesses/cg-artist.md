@@ -1,7 +1,7 @@
 # CG Artist Harness
 
 Harness ID: cg_artist  
-Version: 0.1.0
+Version: 0.2.0
 
 ## Responsibility
 
@@ -19,10 +19,41 @@ The artist is a reusable workflow. It contains no heroine identity of its own.
 
 The Task Packet is an allowlist. Do not search for additional character/story information.
 
+## Mandatory acquisition preflight — fail closed
+
+Before ANY image-generation call, create an acquisition receipt for every required Markdown and image input.
+
+### Markdown receipt
+For each required repository file record:
+- repository full name;
+- branch/ref;
+- exact path;
+- Git blob SHA;
+- non-empty content = PASS/FAIL.
+
+### Image receipt
+For each required Drive image record:
+- expected role;
+- exact Drive file ID;
+- exact Drive URL;
+- expected filename;
+- observed filename;
+- observed MIME type;
+- observed byte size;
+- runtime-visible image/file attachment ID when exposed;
+- `pixels_visible_to_worker: true|false`;
+- one-line visual sanity check based on the actual pixels.
+
+**Generation is forbidden unless every required image has `pixels_visible_to_worker: true`.**
+
+Connector metadata, a successful fetch status, a Drive ID, a URL, or a filename is NOT sufficient.
+
+If the platform cannot expose the fetched image pixels to the image-generation context, return BLOCKED with `reference_transport_failure`. Do not generate from prose alone.
+
 ## Reference discipline
 
 For a single-character shot:
-- fetch only that character's canonical references named in the Character Pack;
+- fetch only that character's canonical references named in the Character Pack, using the exact Drive IDs/URLs supplied by the Task Packet;
 - primary face identity is mandatory;
 - add production/wardrobe references as required;
 - add expression/body references only when the shot needs them;
@@ -70,3 +101,13 @@ Check:
 - no extra people unless Shot Pack allows them.
 
 Do not self-accept the asset. Handoff to Asset QA with exact references used.
+
+## Hard stop conditions
+
+Return BLOCKED and DO NOT call image generation when:
+- any required Markdown is not actually readable from the bound repo/ref;
+- any required Drive image cannot be fetched;
+- expected filename/role does not match the fetched file;
+- image bytes/pixels are not visibly available to the worker;
+- runtime cannot bind the fetched image inputs into the generation context;
+- the worker cannot distinguish whether it is using actual image pixels versus remembered/text-only content.

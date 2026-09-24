@@ -1,8 +1,25 @@
 workflow:
   id: seventeen-floor-production
-  version: 0.1.0
+  version: 0.2.0
   updated: 2026-09-24
   entrypoint: .ai/harnesses/bootstrap.md
+  repository:
+    full_name: TsungmingLiu/seventeen-floor-neighbor
+    url: https://github.com/TsungmingLiu/seventeen-floor-neighbor
+    canonical_branch: main
+  drive_bindings:
+    runtime_public_root:
+      folder_id: 1bZAb9Fzj-xzFvklYCDNG60SJLuA-28Xn
+      url: https://drive.google.com/drive/folders/1bZAb9Fzj-xzFvklYCDNG60SJLuA-28Xn
+    runtime_public_bg:
+      folder_id: 1GfEhIO-roX_4BWfAB0_wp3_zMDXmoES9
+      url: https://drive.google.com/drive/folders/1GfEhIO-roX_4BWfAB0_wp3_zMDXmoES9
+    source_private:
+      folder_id: 1waCTQsIbfyZi0F80LlnWeerPcoNlPnw1
+      url: https://drive.google.com/drive/folders/1waCTQsIbfyZi0F80LlnWeerPcoNlPnw1
+    pilot_candidates:
+      folder_id: 1-KdOiPN-6tEHZO3f2_-psM1kvfw7wf-M
+      url: https://drive.google.com/drive/folders/1-KdOiPN-6tEHZO3f2_-psM1kvfw7wf-M
 
 principles:
   - harness_logic_is_separate_from_content_data
@@ -12,6 +29,8 @@ principles:
   - explicit_handoff
   - no_implicit_cross_character_memory
   - no_batch_image_generation_across_unrelated_shots
+  - source_acquisition_is_fail_closed
+  - metadata_success_is_not_visual_input_success
 
 current_visual_direction:
   authority: docs/art/PRODUCTION_VISUAL_DIRECTION.md
