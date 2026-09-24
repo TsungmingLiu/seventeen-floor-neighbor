@@ -32,7 +32,7 @@
 - `src/engine.js` 協調播放／存檔／收藏；`src/app.js` 只負責載入。
 - 建置為 JS 模組匯入、HTML 入口和樣式加上內容雜湊，內容 JSON 重新驗證快取，避免更新後載入新介面卻沿用舊程式。HTML 本身仍應由主機設定為重新驗證快取。
 
-Continue 會回到 frontier 節點開頭，不保存打字到第幾個字或影片時間。Memories replay 改變 cursor 與當輪數值／旗標；只有進入更高 rank 的 Memory Event 才推進 frontier。節點快照以最後一次走到該節點的狀態為準，並非多存檔槽。CG／結局收藏跨重玩保留；journey v1 的有效 checkpoint 會遷移，無有效快照的玩家由起點開始。
+一般 Continue 會回到 frontier 節點開頭，不保存打字到第幾個字或影片時間。抵達結局後，主按鈕改為「開始遊戲」；玩家明確從此按鈕開始新一輪後，Continue 恢復該輪 cursor，歷史 frontier 仍不倒退。Memories replay 改變 cursor 與當輪數值／旗標；只有進入更高 rank 的 Memory Event 才推進 frontier。節點快照以最後一次走到該節點的狀態為準，並非多存檔槽。CG／結局收藏跨重玩保留；journey v1 的有效 checkpoint 會遷移，無有效快照的玩家由起點開始。
 
 圖片檔名只存在 manifest。換圖保留邏輯 ID 並更新版本、配方、尺寸和焦點；程式與節點不用跟著換檔名。`dist/assets/unavailable.svg` 是介面內建的錯誤替代畫面，不是可收藏的劇情素材。回退只保障執行不中斷，不代表壞圖已修復。
 
@@ -46,7 +46,7 @@ Continue 會回到 frontier 節點開頭，不保存打字到第幾個字或影�
 
 ## 動態回憶
 
-`cinematic` 資產在 manifest 中保存 `cinematicVersion`、`poster`、`sources.webm`、`sources.mp4`、`duration` 與收藏資料；可重建關鍵幀放在 `content/cinematics/`。引擎播放時暫時隱藏對話框，提供跳過按鈕，結束後顯示本節文字；收藏檢視器可再次播放。首段 `cinematic.ch04.first_kiss` 使用四張身份鎖定的第一視角近距離關鍵幀，依序呈現對視、撩髮、閉眼與微嘟嘴靠近；先以動作補償插值至 48fps，再重定時為 24fps／10 秒，以兼顧動作連續與臉部一致性。
+`cinematic` 資產在 manifest 中保存 `cinematicVersion`、`poster`、`sources.mp4`、可選的 `sources.webm`、`duration` 與收藏資料；可重建關鍵幀放在 `content/cinematics/`。播放器優先選 MP4，WebM 作 fallback。引擎播放時暫時隱藏對話框，提供跳過按鈕，結束後隱藏影片、露出 poster 並顯示本節文字；收藏檢視器可再次播放。首段 `cinematic.ch04.first_kiss` 使用四張身份鎖定的第一視角近距離關鍵幀，依序呈現對視、撩髮、閉眼與微嘟嘴靠近；先以動作補償插值至 48fps，再重定時為 24fps／10 秒，以兼顧動作連續與臉部一致性。
 
 ## 約會場景池
 
@@ -134,7 +134,7 @@ Human 不再需要手動 create/rebuild Codespace 作為 W3 gate。W3 fresh Code
 
 - `content/routes/xu-tang/memories.json` 是目前 fixture 的 Memory Section / Event source。每個 event 有 stable ID、replay anchor、unlock node mapping、rank、角色／共通歸屬、cover/focus 與 gallery association。Build/validator 會檢查 node 與 logical asset references。
 - `src/progress.js` 使用 `chapter-01:journey:v2`；有效 v1 `current` 變 cursor，最深 mapped checkpoint 變 frontier。同 rank 時優先舊 current。舊 CG unlock、endings 與 completed keys 不清除。
-- Memories replay 從保存的 node-entry snapshot 恢復 stats、flags 與 return stack。Replay 中同 rank、較低 rank，或同一 event 較早 node 不回退 frontier；只有更高 rank event 更新 frontier。Title Continue 一律使用 frontier。
+- Memories replay 從保存的 node-entry snapshot 恢復 stats、flags 與 return stack。Replay 中同 rank、較低 rank，或同一 event 較早 node 不回退 frontier；只有更高 rank event 更新 frontier。一般 Title Continue 使用 frontier；結局後顯示 Start，明確開啟新一輪後的 Continue 使用該輪 cursor，同時保留歷史 frontier。
 - `src/memories.js` 將多個 engine nodes 壓成單一玩家事件；未解鎖卡隱藏標題／分支細節。單女主使用淡化的事件 CG 和 face focus，共通事件使用 scene/background。封面 lazy-load，cinematic 使用 poster。
 - `public/index.html`／`public/styles.css` 提供一大兩小 title、單頁 vertical timeline、桌面分離的對話／選項、mobile 約 44px touch targets，以及簡單 CG 收藏牆／全畫面檢視器。回憶篩選後「回到目前進度」會恢復全部並定位 frontier；CG viewer 支援按鈕、方向鍵與左右觸控切換。
 - `src/branches.js` 僅保留 graph helper，不再暴露玩家層級 Branches。

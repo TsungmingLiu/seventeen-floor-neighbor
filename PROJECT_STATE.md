@@ -63,11 +63,11 @@ The current runtime implements these contracts for the existing fixture. New pro
 
 ## Runtime and save contracts
 
-- Title: one large Start/Continue, two smaller Memories/CG actions, and a sound icon. There is no player-facing Branches or standalone restart entry.
+- Title: one large Start/Continue, two smaller Memories/CG actions, and a sound icon. A completed run returns the primary action to Start; an explicitly started fresh run can then be Continued from its cursor without erasing the historical frontier. There is no player-facing Branches or standalone restart entry.
 - Title backdrop resolves from frontier Memory Event metadata, unlocked highlights, and visual fallback; cinematic nodes use posters and completed stories can show selected ending art.
 - `src/progress.js` saves journey v2 node-entry snapshots, cursor, monotonic frontier rank/event, checkpoints, flags, stats, return stack, and explored edges. V1 journeys migrate without clearing CG or endings.
 - `src/memories.js` renders one vertical Memory Event timeline with locked spoiler-safe cards, same-page filters, a frontier marker, and replay. `src/branches.js` remains for developer graph helpers only.
-- Replay at the root resets the active playthrough. Gallery/endings and explored checkpoints remain. Continue resumes the frontier even when a replay cursor is earlier or within the same event.
+- Replay at the root resets the active playthrough. Gallery/endings and explored checkpoints remain. Ordinary Memories replay does not regress Continue's frontier; the explicit post-ending fresh run is the one exception, resuming its own cursor while retaining the historical frontier.
 - A node stores its latest arrival snapshot, not multiple historical save slots. Resume restarts that node's text/video.
 - Incompatible or damaged snapshots are ignored. Existing pre-refactor CG/endings remain; the old version did not save node positions.
 - Image failures use an interface fallback; this does not repair missing or damaged originals.

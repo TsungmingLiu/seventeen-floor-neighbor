@@ -305,7 +305,10 @@ test('cinematic loads as a real 10-second video, can be skipped, and appears in 
   expect(metadata.readyState).toBeGreaterThanOrEqual(1);
   expect(metadata.duration).toBeGreaterThan(9.5);
   expect(metadata.duration).toBeLessThan(10.6);
+  expect(metadata.sources[0]).toContain('mv-first-kiss.mp4');
   expect(metadata.sources.some(src => src.includes('mv-first-kiss'))).toBe(true);
+  await expect.poll(() => page.locator('#scene-video').evaluate(video => video.currentTime))
+    .toBeGreaterThan(0.25);
 
   await page.locator('#cinematic-skip').click();
   await expect(page.locator('#stage')).not.toHaveClass(/is-cinematic-playing/);
@@ -323,6 +326,22 @@ test('cinematic loads as a real 10-second video, can be skipped, and appears in 
   await expect(page.locator('#cg-viewer-video source')).toHaveCount(2);
 
   expect(errors).toEqual([]);
+});
+
+test('a completed cinematic reveals its poster instead of holding the last video frame', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await seedStorage(page, {
+    'chapter-01:journey:v1': legacyJourney(snapshot('first_kiss', {
+      heart: 16, trust: 10, comfort: 5, relationship: 1
+    })),
+    neighborMuted: '1'
+  });
+  await boot(page);
+  await page.locator('#start-button').click();
+  await expect(page.locator('#stage')).toHaveClass(/is-cinematic-playing/);
+  await expect(page.locator('#stage')).not.toHaveClass(/is-cinematic-playing/, { timeout: 15000 });
+  await expect(page.locator('#scene-video')).not.toHaveClass(/is-active/);
+  await expect(page.locator('#dialogue-text')).toContainText('第一個吻很輕');
 });
 
 test('route checkpoint resolves an ending and persists completion', async ({ page }) => {
@@ -349,6 +368,29 @@ test('route checkpoint resolves an ending and persists completion', async ({ pag
 
   await page.locator('#home-button').click();
   await expect(page.locator('#title-screen')).toBeVisible();
+  await expect(page.locator('#start-button')).toHaveText('開始遊戲');
+  const completedFrontier = await page.evaluate(() =>
+    JSON.parse(localStorage.getItem('chapter-01:journey:v2')).frontier.nodeId
+  );
+  await page.reload();
+  await expect(page.locator('#start-button')).toHaveText('開始遊戲');
+  await page.locator('#start-button').click();
+  await waitForDialogueReady(page);
+  await expect(page.locator('#dialogue-text')).toContainText('週五');
+  let journey = await page.evaluate(() => JSON.parse(localStorage.getItem('chapter-01:journey:v2')));
+  expect(journey.cursor.nodeId).toBe('intro1');
+  expect(journey.frontier.nodeId).toBe(completedFrontier);
+  expect(journey.restartActive).toBe(true);
+  expect(journey.runComplete).toBe(false);
+
+  await page.locator('#game-home-button').click();
+  await expect(page.locator('#start-button')).toHaveText('繼續遊戲');
+  await page.reload();
+  await page.locator('#start-button').click();
+  await waitForDialogueReady(page);
+  await expect(page.locator('#dialogue-text')).toContainText('週五');
+  journey = await page.evaluate(() => JSON.parse(localStorage.getItem('chapter-01:journey:v2')));
+  expect(journey.frontier.nodeId).toBe(completedFrontier);
   expect(errors).toEqual([]);
 });
 

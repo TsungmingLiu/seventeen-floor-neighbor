@@ -80,6 +80,47 @@ test('replaying older content changes cursor without regressing frontier', () =>
   assert.equal(store.data.frontierRank, 300);
 });
 
+test('an explicit fresh run resumes its cursor without losing the completed frontier', () => {
+  const terminalChapter = structuredClone(chapter);
+  terminalChapter.nodes.deep.type = 'route';
+  const storage = new MemoryStorage();
+  const store = new ProgressStore(terminalChapter, memories, storage);
+  store.capture('deep', state({ warmth: 8 }), []);
+  store.finishRun();
+  assert.equal(store.data.runComplete, true);
+  store.beginFreshRun();
+  store.capture('start', state(), []);
+
+  const reloaded = new ProgressStore(terminalChapter, memories, storage);
+  assert.equal(reloaded.data.restartActive, true);
+  assert.equal(reloaded.data.runComplete, false);
+  assert.equal(reloaded.replaying, true);
+  assert.equal(reloaded.data.cursor.nodeId, 'start');
+  assert.equal(reloaded.data.frontier.nodeId, 'deep');
+
+  reloaded.beginReplay(reloaded.data.checkpoints.start);
+  assert.equal(reloaded.data.restartActive, false);
+  assert.equal(reloaded.data.frontier.nodeId, 'deep');
+});
+
+test('older v2 saves with a terminal cursor are recognized as completed', () => {
+  const terminalChapter = structuredClone(chapter);
+  terminalChapter.nodes.deep.type = 'route';
+  const storage = new MemoryStorage({
+    'progress-fixture:journey:v2': JSON.stringify({
+      version: 2,
+      cursor: snap('deep', 8),
+      frontier: snap('shallow', 2),
+      checkpoints: { deep: snap('deep', 8), shallow: snap('shallow', 2) },
+      edges: []
+    })
+  });
+
+  const store = new ProgressStore(terminalChapter, memories, storage);
+  assert.equal(store.data.runComplete, true);
+  assert.equal(store.data.frontier.nodeId, 'shallow');
+});
+
 test('replaying an earlier node in the frontier event does not rewind Continue', () => {
   const event = memories.events.find((candidate) => candidate.id === 'mem.shallow');
   event.unlockNodes.push('returnPoint');

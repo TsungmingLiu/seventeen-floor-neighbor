@@ -424,7 +424,8 @@ W3 已完成；W4 已用現有 123-node playable fixture 完成 runtime / migrat
 - [x] 分離：
   - [x] current/replay cursor；
   - [x] deepest story frontier。
-- [x] Continue 永遠依 frontier，不被 replay regression。
+- [x] 一般 Continue 依 frontier，不被 Memories replay regression；結局後 Start 開啟新一輪時，該輪 Continue 依 cursor，歷史 frontier 保留。
+- [x] 結局後主按鈕回到 Start，不再重播終點節點。
 - [x] 舊 save migration 保留合理可遷移的 progress / CG / endings。
 - [x] 新增對應 automated tests。
 
@@ -433,6 +434,7 @@ W3 已完成；W4 已用現有 123-node playable fixture 完成 runtime / migrat
 - [x] 保持簡單 collection wall。
 - [x] locked/unlocked。
 - [x] full viewer，含鍵盤與觸控左右切換。
+- [x] cinematic 優先 MP4、WebM fallback；播完退回 poster，不把最後一幀永久留在場景。已以 `runtime-public/test.mp4` 臨時替換驗證同一播放器可播放，正式素材未替換。
 - [x] 不承擔 story graph responsibility。
 
 ## W4 DoD
