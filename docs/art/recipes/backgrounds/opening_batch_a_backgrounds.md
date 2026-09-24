@@ -1,14 +1,14 @@
 # Opening / Vertical Slice Batch A — Reusable Background Recipes
 
-> Status: generated / runtime WebP uploaded; 5 logical backgrounds complete, elevator restart variant pending
+> Status: generated / runtime WebP uploaded; all 9 Opening Vertical Slice logical backgrounds complete, including the locked elevator `restart_dim` variant
 >
-> Date: 2026-09-23
+> Date: 2026-09-24
 >
 > Visual contract: mobile-first 9:16, 1080 × 1920 runtime WebP, realistic high-end urban romance VN environment art, empty scene, lower ~25% dialogue-safe, sprite-overlay friendly.
 >
 > Canonical inputs: `docs/art/PROTOTYPE_ART_REQUIREMENTS.md`, `docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md`, `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md`.
 >
-> Scene sources read: `COM-00.md`, `COM-01X.md`, `COM-01J.md`, `COM-02X.md`, and `COM-02J.md` under `docs/narrative/scenes/vertical-slice/`, in addition to the canonical art matrix and braided narrative spec. The locked scene staging takes precedence where it is more specific.
+> Scene sources read: all currently existing files under `docs/narrative/scenes/vertical-slice/`: `COM-00.md`, `COM-01X.md`, `COM-01J.md`, `COM-02X.md`, and `COM-02J.md`, in addition to the canonical art matrix and braided narrative spec. `XT-04`, `JYC-05`, and `JYC-06` do not yet have locked scene files, so their backgrounds follow `PROTOTYPE_ART_REQUIREMENTS.md` plus the braided narrative spec without inventing scene-specific blocking. Locked scene staging takes precedence wherever it exists.
 
 ## Shared production rules
 
@@ -79,6 +79,21 @@
 - **Final filename:** `runtime-public/bg/bg-apt-elevator-v1.webp`
 - **Runtime metadata:** Google Drive file ID `1bDN18sR5dO_goUtz5XF8CDBKzBM4SBzR`; 1080 × 1920; 164,942 bytes; SHA-256 `6be99b6609009c445df3d4d58230ba918a3cf24f84b36066c905635483874f18`.
 
+
+### Variant — BG-APT-ELEVATOR.restart_dim
+
+- **Logical asset ID:** `BG-APT-ELEVATOR.restart_dim`
+- **Parent asset / variant ID:** `BG-APT-ELEVATOR` / `restart_dim`
+- **Scene mapping:** `COM-01X` locked Shot B / `common_elevator_restart_stop`.
+- **Narrative use:** 6–8 second control-system restart state. The cabin remains safe and readable; the event must not visually escalate into a blackout, alarm, or horror beat.
+- **Layout authority:** exact decoded pixels of accepted `runtime-public/bg/bg-apt-elevator-v1.webp` (SHA-256 `6be99b6609009c445df3d4d58230ba918a3cf24f84b36066c905635483874f18`). No crop, resize, warp, focal-length change, redecorating, or geometry regeneration was used for the accepted variant.
+- **Accepted recipe:** image-generation relighting was attempted first and **rejected** because wall panels, control panel, floor texture, and camera geometry drifted. The accepted variant instead uses a deterministic 1:1 pixel-coordinate lighting transform of the normal master: reduce main cabin exposure, dim the large ceiling practical more strongly, preserve the two small ceiling/emergency practical pools and control-panel luminance, and add one subtle neutral-warm powered indicator inside the existing panel display area. No text, red alarm light, or new object is introduced.
+- **Negative constraints:** No full darkness; no red emergency wash; no horror contrast; no broken panel; no new text; no person; no changed wall/floor/door/handrail/panel geometry; no reflection edits that move structure.
+- **Master:** `source-private/bg-apt-elevator-restart-dim-master-v1.png` — Drive file ID `1gsXt8wZgRvWfXHG4db8igByNJZL_J9Yd`; https://drive.google.com/file/d/1gsXt8wZgRvWfXHG4db8igByNJZL_J9Yd/view ; 1080 × 1920; 1,228,131 bytes; SHA-256 `5f571069a7d7cd3e713502ac82d1f6043d582de9ba5d0da0eaac12016052dfe4`.
+- **Runtime:** `runtime-public/bg/bg-apt-elevator-restart-dim-v1.webp` — Drive file ID `1KfWruN_mrRDywfgt_7SrxD5iVViPPMGS`; https://drive.google.com/file/d/1KfWruN_mrRDywfgt_7SrxD5iVViPPMGS/view ; 1080 × 1920; 90,702 bytes; SHA-256 `57a5f82c0c03c9587d82f247ad917ba882ce8b74116dc115d538af451bfa631e`.
+- **QA:** **Pass.** Full decode passed. Runtime dimensions/aspect match the normal background exactly. Geometry comparison is structurally exact by construction: every output pixel maps to the same source coordinate; no geometric transform occurred. Door seams, wall panels, floor grout/marbling, handrails, and control-panel position remain unchanged. Main illumination is visibly reduced while emergency/panel practicals remain powered; lower dialogue zone and sprite zones remain usable.
+- **Known limitation:** No higher-resolution normal elevator master was present in `source-private`; the lossless PNG master for this variant is therefore derived from the accepted 1080 × 1920 runtime normal image. Future remastering should relight a higher-resolution architectural master if one becomes available, but must preserve this exact composition.
+
 ---
 
 ## BG-ACG-SHOP
@@ -142,20 +157,86 @@
 
 ---
 
+
+## BG-BOOKSTORE
+
+- **Logical asset ID:** `BG-BOOKSTORE`
+- **Scene mapping:** `XT-04` primary; optional reuse in `JYC-06B` only if later locked staging requests it.
+- **Narrative use:** Zhongshan independent art/design bookstore for Xu Tang's first true one-on-one scene; supports slow browsing, large-format design/photography books, and multiple standing/3/4 sprite placements without baking in a specific interaction.
+- **Composition / lighting:** Narrow but comfortable portrait aisle, warm wood shelving, concrete floor, natural afternoon side/back light, restrained track/pendant practicals, clear central depth, browsing positions along both shelves, and a visually calm lower ~25% floor zone.
+- **Accepted prompt / recipe:**
+
+  ~~~text
+  Empty Taipei Zhongshan independent art / photography / design bookstore in the afternoon. Narrow but comfortable contemporary shop, warm wood shelves, concrete floor, curated photography and design books with abstract or unreadable covers, restrained plants and display objects, natural afternoon side light plus warm practicals. High-end realistic urban-romance VN environment, photographic game-cinematic realism, portrait 9:16, eye-level perspective, enough depth and open aisle for Xu Tang full-body or 3/4 sprites and several browsing positions. Keep the lower 25% visually calm for dialogue UI. Mature and understated rather than a chain store or influencer photo shop.
+  ~~~
+
+- **Negative constraints:** No people; no real bookstore branding; no real or readable book titles; no readable cover text as focal content; no café-chain identity; no excessive lifestyle staging; no fisheye; no Dutch angle; no impossible reflections; no watermark.
+- **Master:** `source-private/bg-bookstore-master-v1.png` — Drive file ID `1TrROVx2vMs5_W2KMFj4lvv1NMtBVaPuQ`; https://drive.google.com/file/d/1TrROVx2vMs5_W2KMFj4lvv1NMtBVaPuQ/view ; 940 × 1672; 2,147,965 bytes; SHA-256 `422a865f15f9f4fe12abd5516dbdf27d5dd3e34a83d77eceb504926cbec0da31`.
+- **Runtime:** `runtime-public/bg/bg-bookstore-v1.webp` — Drive file ID `1QXptJ1k59WURZlE2NmbaEUmvHUj4Wj_M`; https://drive.google.com/file/d/1QXptJ1k59WURZlE2NmbaEUmvHUj4Wj_M/view ; 1080 × 1920; 269,236 bytes; SHA-256 `22565033d7786b6c9b105e3afa7c6d218ac0f05f23546d139e5466b9a2ef248c`.
+- **QA:** **Pass.** Full decode passed; runtime is exactly 1080 × 1920. Central aisle and side shelves provide reusable sprite/browsing zones; lower quarter is predominantly low-detail floor. No people, visible logos, or readable book-title focus. Perspective and furniture scale are coherent.
+- **Known limitation:** Several tiny cover/spine marks read as abstract print texture at runtime scale; if a future sharpening/remaster makes pseudo-text legible, those covers should be simplified rather than preserved.
+
+---
+
+## BG-ACG-CORRIDOR
+
+- **Logical asset ID:** `BG-ACG-CORRIDOR`
+- **Scene mapping:** `JYC-05` primary; `COM-01J` optional 1–2 node entrance/exit transitions.
+- **Narrative use:** Public circulation space outside/around the existing `BG-ACG-SHOP`, showing Jiang Yucheng naturally leading through her ACG environment while preserving a central walking axis and side sprite room.
+- **Continuity:** Uses the existing `BG-ACG-SHOP` as material/lighting reference: exposed retail ceiling, bright public lighting, pale reflective tile, warm/cool shop spill, fictional books/figures/gacha visual language. It is deliberately a public corridor, not a duplicate of the shop interior.
+- **Accepted prompt / recipe:**
+
+  ~~~text
+  Empty Taipei underground ACG shopping corridor, visually continuous with the accepted BG-ACG-SHOP but clearly outside the store. Relatively low exposed ceiling, bright artificial public lighting, polished pale-gray tile, dense small specialty storefronts on both sides, fictional anime/illustration posters, generic figures/model kits, art books and capsule machines. Energetic but believable retail color, not cyberpunk. Strong central walking depth, eye-level 9:16 framing, side room for Jiang Yucheng sprite placement, and a low-detail lower 25% for dialogue UI. No live pedestrians.
+  ~~~
+
+- **Negative constraints:** No people or human silhouettes; no real copyrighted characters; no real shop logos; no readable signage focus; no brand-identifiable gacha/property design; no cyberpunk neon tunnel; no fisheye; no Dutch angle; no watermark.
+- **Generation note:** First draft had distant live-human silhouettes and was rejected. Second draft removed all live pedestrians and is the accepted master.
+- **Master:** `source-private/bg-acg-corridor-master-v1.png` — Drive file ID `1M7344Nsr5Ir-rbEvkBsGFN8FxU3SkL77`; https://drive.google.com/file/d/1M7344Nsr5Ir-rbEvkBsGFN8FxU3SkL77/view ; 940 × 1672; 2,388,629 bytes; SHA-256 `d8d091b582d4cc1e9c8d10d89cfd4ca1c7ee61bf2fd69e72e6c69b7f15d66c2b`.
+- **Runtime:** `runtime-public/bg/bg-acg-corridor-v1.webp` — Drive file ID `18uwnII_DvCeLV3HcYouHF0xE5m-cMksx`; https://drive.google.com/file/d/18uwnII_DvCeLV3HcYouHF0xE5m-cMksx/view ; 1080 × 1920; 314,700 bytes; SHA-256 `76c20ffbbe1fd7d9d1efb5d61770a1dd473d264177e9a7f3f75e8d24ca303b7f`.
+- **QA:** **Pass after one retry.** Full decode passed; runtime is exactly 1080 × 1920. No live people remain. Central vanishing path is clear, lower quarter is calm tile, and shop masses leave usable sprite lanes. Visual language matches the existing ACG shop without cloning its interior.
+- **Known limitation:** Fictional poster/merchandise art is intentionally dense; no existing IP was identifiable in visual QA, but a later high-resolution remaster should repeat the IP-resemblance and pseudo-signage check.
+
+---
+
+## BG-PC-HOME-LIVING
+
+- **Logical asset ID:** `BG-PC-HOME-LIVING`
+- **Scene mapping:** `JYC-06` primary; later reusable for `JYC-07` variant and `JYC-10`.
+- **Narrative use:** Protagonist's Taipei living/work room for Gaming Night and later domestic-intimacy scenes. It must read as a financially comfortable 31-year-old senior software engineer / tech lead's home, not a CEO fantasy or gamer showroom.
+- **Composition / staging:** Work desk and dual monitors on the left, restrained gaming gear, sofa/low seating on the right, central coffee table/rug, and a broad open wood-floor foreground. A few unpacking boxes and partially filled shelves signal a recent return to Taipei. Two adults can plausibly game in the same room, and the open floor/sofa area supports `JYC-SPR-GAMING`.
+- **Accepted prompt / recipe:**
+
+  ~~~text
+  Empty contemporary Taipei apartment living room / work area at night for a 31-year-old senior software engineer / tech lead. Comfortable upper-middle income but ordinary apartment scale: clean organized work desk with dual monitors, ergonomic chair and warm task light; subtle gaming setup and generic controller; sofa / low seating, coffee table and rug; broad open floor for two adults to game in the same room. A few plain unpacking boxes and only partly filled shelves show he recently moved back to Taipei. Warm practical lamps against cool generic residential high-rise night outside. Lived-in and gradually settling, not a showroom. High-end realistic urban-romance VN environment, 9:16, lower 25% calm and sprite-safe.
+  ~~~
+
+- **Negative constraints:** No people; no visible branded hardware logos; no giant penthouse; no floor-to-ceiling luxury fantasy; no RGB gamer cave; no server-room aesthetic; no readable desktop UI/text; no fisheye; no Dutch angle; no watermark.
+- **Master:** `source-private/bg-pc-home-living-master-v1.png` — Drive file ID `15o5MiG3vQSIojk1ZSpZW1vT0WdAzl_eV`; https://drive.google.com/file/d/15o5MiG3vQSIojk1ZSpZW1vT0WdAzl_eV/view ; 941 × 1672; 1,923,699 bytes; SHA-256 `67bafba67807072ec74f54161b74142a92a1edb670d48c8b9d2a75182477fc5a`.
+- **Runtime:** `runtime-public/bg/bg-pc-home-living-v1.webp` — Drive file ID `1wSc3PRnPWYU7pEfArVa_pu-fZZQZaVc_`; https://drive.google.com/file/d/1wSc3PRnPWYU7pEfArVa_pu-fZZQZaVc_/view ; 1080 × 1920; 207,046 bytes; SHA-256 `fca2f4b398a0b8b4bff951e626ca1ca104679a7184bf2b2eb28281ffc598b804`.
+- **QA:** **Pass.** Full decode passed; runtime is exactly 1080 × 1920. Work/gaming/living functions are all readable without luxury excess; open foreground and sofa staging are usable; moving boxes communicate early move-in continuity; no visible brand logo or readable UI is a focal element.
+- **Known limitation:** This accepted asset is a night-state base suited to `JYC-06`; later scenes that explicitly lock a different time of day should request a same-layout lighting variant rather than regenerating the apartment geometry.
+
+---
+
 ## Batch QA summary
 
 | Asset | Composition / UI | Reuse | Blocking rework | Optional polish |
 |---|---|---|---|---|
 | BG-APT-17F-RAIN | Pass | Pass | None | Re-render only if later scene staging requires boxes on the opposite side. |
 | BG-APT-17F-NIGHT | Pass | Pass | None | None. |
-| BG-APT-ELEVATOR | Pass | Pass | None for normal master | Derive the locked same-layout `restart_dim` variant before final `COM-01X` art acceptance. |
+| BG-APT-ELEVATOR.normal | Pass | Pass | None | None. |
+| BG-APT-ELEVATOR.restart_dim | Pass; 1:1 geometry lock | Pass for COM-01X restart beat | None | Remaster only if a higher-resolution normal architectural master becomes available. |
 | BG-ACG-SHOP | Pass | Pass | None | Inspect at final device scale; regenerate shelf art if any pseudo-title becomes legible after future sharpening. |
 | BG-CONVENIENCE-NIGHT | Pass | Pass | None | Inspect product labels after any higher-resolution remaster; keep them abstract. |
 | BG-CAFE-STATION | Pass; distant transit flow remains strongly defocused | Pass for seated / 3/4 staging | None | Consider a wider open-floor alternate only if later implementation requires two simultaneous full-body sprites. |
+| BG-BOOKSTORE | Pass | Pass for XT-04 browsing / 3/4 staging | None | Simplify tiny cover marks if later sharpening makes pseudo-text legible. |
+| BG-ACG-CORRIDOR | Pass after one retry | Pass with BG-ACG-SHOP continuity | None | Repeat IP-resemblance / pseudo-signage QA after any remaster. |
+| BG-PC-HOME-LIVING | Pass | Pass for JYC-06 domestic gaming staging | None | Derive same-layout lighting variants if later locked scenes require other times of day. |
 
 ## Scene readiness
 
-- **Background-ready now:** `COM-00`, `COM-01X` normal-light beats, `COM-01J`, `COM-02X`, `COM-02J`, `SH-01`, `XT-11`, `XT-14`, `XT-G`, `XT-D`, `XT-DC`.
-- **Known follow-up:** `COM-01X` still needs the locked same-layout `restart_dim` lighting variant; this is a seventh variant and was not among the six requested output filenames.
-- **Reusable with scene-level staging confirmation:** `COM-03X` night variant, `JYC-05`, `RE-X`, `RE-J`, `BOTH-D`, `BOTH-DC`, `JYC-F`, `JYC-FC`, and later apartment / convenience transitions.
-- Background-only readiness does not imply the complete scene is art-ready; required sprites, expressions, CG timing, and runtime manifest integration remain separate gates.
+- **Background-ready now:** all currently locked common Opening Vertical Slice background beats, including the full `COM-01X` normal → `restart_dim` → normal sequence; plus planned `XT-04`, `JYC-05`, and `JYC-06` environment IDs from the canonical art/narrative specs.
+- **A1 background blocker status:** none. All nine required logical backgrounds are present in `runtime-public/bg`; `BG-APT-ELEVATOR` has both required locked variants.
+- **Reusable with scene-level staging confirmation:** `COM-03X`, `RE-X`, `RE-J`, `SH-01`, later Xu/JYC apartment, bookstore, ACG, café, and convenience transitions. Do not invent additional variants until a locked scene/art spec explicitly requires one.
+- Background-only readiness does not imply the complete scene is art-ready; required sprites, expressions, CG timing, and runtime manifest integration remain separate gates. No scene S8/S9 status is advanced by this background batch alone.
