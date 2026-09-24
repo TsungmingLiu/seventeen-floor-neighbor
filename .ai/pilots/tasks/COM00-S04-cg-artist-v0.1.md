@@ -1,5 +1,7 @@
 # Pilot Task Packet — COM00-S04 CG Artist
 
+> **DEPRECATED / FAILED PILOT. DO NOT RUN.** Use `.ai/pilots/tasks/COM00-S04-cg-artist-v0.2.md`. v0.1 allowed a nominal reference-fetch PASS without proving that actual image pixels were bound into generation.
+
 ```yaml
 task_id: pilot-com00-s04-cg-v001
 task_type: cg_generate
