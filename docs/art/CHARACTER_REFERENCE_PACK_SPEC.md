@@ -2,7 +2,7 @@
 
 > 狀態：**Canonical character-image reference contract**
 >
-> 版本：1.0
+> 版本：1.1
 >
 > 更新：2026-09-23
 >
@@ -40,7 +40,14 @@ Folder URL：
 
 `https://drive.google.com/drive/folders/1bZAb9Fzj-xzFvklYCDNG60SJLuA-28Xn`
 
-Drive 是 accepted master image storage；repo 保存 semantic mapping / production contract。
+上述 folder 經 2026-09-23 reconciliation 驗證，實際名稱為 `runtime-public`。其中 12 張 6-sheet reference 目前仍是 **canonical generation references**，既有 Drive IDs / URLs 不變，所有 sprite / CG generation 仍必須實際 fetch 這些檔案。
+
+但 storage authority 仍服從 `ARCHITECTURE.zh-TW.md`：新的 accepted master 應保存到 restricted `source-private/`，`runtime-public/` 只放 optimized runtime objects。現有 reference pack 的放置位置因此是已知 architecture deviation，不應被解讀成改寫 storage architecture。
+
+在專門的 asset-migration 任務完成前：
+- 不複製出第二套「同時 canonical」的 identity pack；
+- 不任意改 Drive IDs，避免破壞現有 production recipes；
+- migration 必須一次同步 `source-private` master、catalog/provenance 與本 manifest，再決定 runtime-public 是否保留 optimized reference copies。
 
 ---
 
