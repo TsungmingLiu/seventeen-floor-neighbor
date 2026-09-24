@@ -29,6 +29,8 @@ principles:
   - explicit_handoff
   - no_implicit_cross_character_memory
   - no_batch_image_generation_across_unrelated_shots
+  - one_independent_image_per_generation_call
+  - batch_planning_allowed_but_batch_image_generation_forbidden
   - source_acquisition_is_fail_closed
   - metadata_success_is_not_visual_input_success
   - autonomous_connector_to_image_reference_binding_is_not_supported
@@ -102,6 +104,15 @@ schemas:
   task_packet: .ai/schemas/TASK_PACKET.md
   data_packs: .ai/schemas/DATA_PACKS.md
   handoff: .ai/schemas/HANDOFF.md
+
+operator_packs:
+  opening_ch1_demo_v0_1:
+    path: .ai/operators/OPENING_CH1_DEMO_OPERATOR_PACK_v0.1.md
+    scope:
+      - COM-00
+      - COM-01X
+      - COM-01J
+    purpose: human-executable prompts for first playable CG-first production demo
 
 execution:
   default_unit: one_task

@@ -40,6 +40,21 @@
 
 ---
 
+## 2026-09-24 Opening Chapter 1 playable-demo convergence
+
+Current immediate milestone:
+
+- scope: `COM-00 → COM-01X → COM-01J`;
+- operator surface: `.ai/operators/OPENING_CH1_DEMO_OPERATOR_PACK_v0.1.md`;
+- narrative text: use existing S4/S5/S6 locked scene scripts; no pre-demo rewrite pass;
+- image production: Human Reference Attachment Gate for character base CGs, edit-from-accepted-base for Reaction CGs, one independent image per generation call;
+- first demo intentionally uses a minimal visual set; branch-reaction completeness and line/art polish happen after playtest;
+- integration strategy: create a new `opening-demo` route/package and preserve the existing `xu-tang` package as regression fixture.
+
+The first playable demo is the next convergence target before expanding further into COM-02/03.
+
+---
+
 # 1. Current production goal
 
 先完成一個可以直接餵給 W4 的 **Opening Vertical Slice**，不要一次製作完整 66-node story。

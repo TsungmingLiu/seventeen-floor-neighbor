@@ -203,16 +203,27 @@ preferred 6:
 
 ---
 
-# 6. CG generation reference loading contract
+# 6. CG generation reference transport contract
 
-在任何新 AI session 生成角色 CG 前：
+> **Superseded transport rule (2026-09-24):** capability testing proved that connector/runtime acquisition can expose Drive image pixels to the worker, but the current ChatGPT image-generation surface cannot provide a hard, auditable guarantee that those connector-fetched runtime IDs are the exact references used by generation. Therefore connector-fetched images are **not** the supported production reference transport.
 
-1. 先讀本 manifest。
-2. 用 Google Drive connector **實際 fetch 所需 reference images**。
-3. 確認圖片已成為模型可見 image inputs；不能只讀檔名/URL後聲稱已參考。
-4. 再執行 image generation。
-5. 每張 CG 都重新以 canonical references 為基礎；上一張 CG 只能作 scene continuity 輔助，不能替代 canonical identity。
-6. 若某張 Drive reference 讀取失敗，停止生成並回報；不要默默改用舊圖或網路圖片。
+For new base character CGs:
+
+1. Read this manifest only to identify the minimal canonical reference set.
+2. The Human manually downloads/locates those exact canonical files and attaches them to a **fresh ChatGPT image-generation conversation**.
+3. The worker visually verifies every attachment and its assigned role.
+4. No unrelated images may exist in that generation conversation.
+5. If any required attachment is missing/wrong/ambiguous, return BLOCKED; do not fetch a Drive replacement for generation.
+6. Generate exactly one independent candidate per image task unless the Task Packet explicitly defines a tightly linked sequence.
+7. Previous generated CGs do not replace canonical identity refs for a new base CG.
+
+For Reaction CGs / close continuity variants:
+
+1. Prefer editing the accepted base CG rather than regenerating from scratch.
+2. The Human attaches the accepted base as the explicit edit target.
+3. Canonical identity/wardrobe refs are added only when the edit task specifically requires them.
+
+Google Drive IDs in this document remain canonical provenance/location metadata and are still useful for discovery, ingest, QA, and cataloging.
 
 ---
 
