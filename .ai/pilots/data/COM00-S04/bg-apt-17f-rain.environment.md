@@ -65,8 +65,9 @@ forbidden:
 
 compiled_from:
   - source: docs/art/recipes/backgrounds/opening_batch_a_backgrounds.md
-    git_blob_sha: 4694a64a0c40c1fbec604395155633cb964a3b2d
+    git_blob_sha: 9a48b9dff74831746c2039ebb35d2620349db1e8
     usage: environment facts and accepted Drive reference only; legacy rendering instructions discarded
   - source: docs/narrative/scenes/vertical-slice/COM-00.md
+    git_blob_sha: 6564f63ca55996b6ed157076fd8ab51cb9a7b55f
     usage: locked geography/state facts compiled by the preceding Shot Planner pilot
 ```
