@@ -5,7 +5,7 @@
 ```yaml
 task_id: pilot-com00-s04-cg-v003
 task_type: cg_generate
-workflow_version: 0.2.0
+workflow_version: 0.3.0
 harness: cg_artist
 objective: >
   Generate exactly one COM00-S04 candidate only after both acquisition PASS and explicit
