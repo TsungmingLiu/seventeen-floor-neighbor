@@ -1,7 +1,7 @@
 # Shot Planner Harness
 
 Harness ID: shot_planner  
-Version: 0.1.0
+Version: 0.1.1
 
 ## Responsibility
 
@@ -39,9 +39,27 @@ Create a compact ordered shot list. Each shot defines:
 Do not create one image per line.
 
 Default:
-- normal scene: about 3–6 shots;
-- important scene: about 6–10 only when justified;
+- normal scene: about 3–6 **actual render deliverables**, not merely narrative shot slots;
+- important scene: about 6–10 actual render deliverables only when justified;
 - motion: use a 2–6 frame CG Sequence when still cuts cannot communicate it cleanly.
+
+### Branch-variant gate
+
+A branch-specific render variant counts as a separate production asset.
+
+Do not multiply CGs for minor differences in:
+- wording;
+- tone;
+- a small smile vs. neutral look;
+- relationship stat deltas that do not materially change staging.
+
+Default behavior is to reuse one shot and let dialogue/audio/runtime timing carry the branch difference.
+
+Create branch-specific CG variants only when the branch materially changes composition, action, physical continuity, information reveal, or a high-value emotional beat, or when a Human explicitly approves the extra asset cost.
+
+Every shot plan must report both:
+- narrative shot-slot count;
+- estimated distinct render-asset count.
 
 ## Never
 
