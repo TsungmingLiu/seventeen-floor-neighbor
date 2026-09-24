@@ -1,6 +1,6 @@
 # Task Packet Schema
 
-Version: 0.1.0
+Version: 0.2.0
 
 Every specialist task should be representable by this contract.
 
@@ -10,6 +10,29 @@ task_type: scene_write | shot_plan | cg_generate | asset_qa | integrate
 workflow_version: 0.1.0
 harness: cg_artist
 objective: one sentence describing exactly one deliverable
+
+source_binding:
+  github:
+    repository_full_name: owner/repo
+    repository_url: https://github.com/owner/repo
+    ref: main
+  drive:
+    named_folders:
+      - role: ...
+        folder_id: ...
+        url: ...
+
+required_acquisition:
+  markdown:
+    - path: exact/repo/path.md
+      expected_nonempty: true
+  images:
+    - role: primary_face_identity
+      drive_file_id: ...
+      drive_url: ...
+      expected_filename: ...
+      expected_mime: image/png
+      pixels_must_be_visible: true
 
 allowed_sources:
   - exact/path/or/connector-object
@@ -42,6 +65,11 @@ handoff_to: asset_qa
 ## Rules
 
 - A Task Packet is routing metadata, not a place to duplicate whole canon.
+- `source_binding` is mandatory for tasks that use external repositories or Drive.
+- `required_acquisition` is a pre-execution gate, not documentation.
+- Markdown acquisition requires exact repo/ref/path + non-empty content + blob SHA.
+- Image acquisition requires exact Drive ID/URL + filename/MIME/bytes + actual visible pixels.
+- A successful connector response that exposes only metadata does not satisfy image acquisition.
 - `allowed_sources` is an allowlist.
 - A worker may not add sources on its own.
 - If the task would require a second independent objective, split it into another Task Packet.
