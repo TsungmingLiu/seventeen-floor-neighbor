@@ -1,6 +1,6 @@
 # Project state
 
-Updated: 2026-09-24
+Updated: 2026-09-25
 
 ## Current milestone
 
@@ -18,6 +18,8 @@ Canonical production contracts：`docs/narrative/CONTENT_PRODUCTION_SPEC.md`、`
 新 production visual contract 已改為 **CG-first / 16:9 landscape-first / responsive full viewport**；普通動作優先用 CG Sequence，MP4/WebM 保留給特殊事件。既有 sprites 與 9:16 assets 保留作 runtime/provenance fixture，但不再是新內容的 production requirement。Canonical visual authority：`docs/art/PRODUCTION_VISUAL_DIRECTION.md`.
 
 文件 lifecycle、active source map 與 runtime-fixture boundary：`docs/DOCUMENT_STATUS.md`、`docs/CONTENT_PRODUCTION_SOURCE_MAP.md`。
+
+Opening Chapter 1 (`COM-00`、`COM-01X`、`COM-01J`) 已完成新 contract migration：3 份 Narrative Continuity Contracts 位於 `content/production/narrative/opening-ch1/`，8 筆 accepted demo CG entries 位於 `content/production/cg-manifests/opening-ch1.json`。`npm run production:validate` 會檢查 scene binding、receipt/logical asset 對齊、active harness 集合與 renderer source boundary。COM01J 的 provisional wardrobe drift 僅記為 accepted migration asset 的 `known_issues`，不是未來 render intent。
 
 ## Canonical narrative plan
 

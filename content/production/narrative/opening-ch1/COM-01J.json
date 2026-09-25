@@ -1,0 +1,124 @@
+{
+  "schema_version": "1.0.0",
+  "scene_id": "COM-01J",
+  "lifecycle": "CANONICAL",
+  "source_scene": "docs/narrative/scenes/vertical-slice/COM-01J.md",
+  "entry_state": {
+    "relationships": [
+      {
+        "subject": "jiang_yucheng",
+        "toward": "protagonist",
+        "label": "strangers",
+        "constraints": [
+          "她只把男主視為同一排書架旁的陌生人，對不具體的搭話保持防備。"
+        ]
+      },
+      {
+        "subject": "protagonist",
+        "toward": "jiang_yucheng",
+        "label": "strangers",
+        "constraints": [
+          "他只看見有人正在比較同系列設定集，不知道她姓名、職業或匿名身份。"
+        ]
+      }
+    ],
+    "knowledge": [
+      {
+        "holder": "jiang_yucheng",
+        "knows": ["自己正在比較《逆光航路》兩個版本。"],
+        "does_not_know": ["男主姓名。", "男主工作。", "男主住處。"]
+      },
+      {
+        "holder": "protagonist",
+        "knows": ["兩版設定集在雨港篇與印刷上有差異。"],
+        "does_not_know": ["江雨澄姓名。", "江雨澄職業。", "江雨澄住處。", "江雨澄匿名創作身份。"]
+      }
+    ],
+    "constraints": [
+      "兩人互不知姓名；互動只能由具體共同興趣成立。"
+    ]
+  },
+  "scene_function": [
+    "用具體作品判斷建立江雨澄的首次出場，而不是外貌搭訕。",
+    "呈現她先短答、確認安全後句子變長的 voice rhythm。",
+    "建立北邊出口安靜咖啡店，作為 COM-02J 的 causal geography。"
+  ],
+  "character_intent": [
+    {
+      "character_id": "protagonist",
+      "intent": "找到正確版本；若作品討論成立就交換觀點，但不轉向私人搭訕。"
+    },
+    {
+      "character_id": "jiang_yucheng",
+      "intent": "比較版本內容；先確認陌生人真的理解作品，再決定說多少。"
+    }
+  ],
+  "player_information_gain": [
+    "江雨澄安靜但有具體且能糾正男主的視覺判斷。",
+    "她在內容安全時會主動延長句子，也會在自己選的節點退出。",
+    "北邊出口有一間適合翻書與工作的安靜咖啡店。"
+  ],
+  "emotional_arc": [
+    "兩人各自專注找書。",
+    "男主提供可忽略的具體版本資訊，雨澄先防備評估。",
+    "確認對方真的看過後進入有內容的討論，再於安全節點結束。"
+  ],
+  "required_payoffs": [
+    "雨澄提出至少一項能補充或修正男主的作品判斷。",
+    "三個 topic choices 都證明 genuine interest，沒有隱藏正解。",
+    "咖啡店推薦成立，但兩人不交換姓名或聯絡方式。"
+  ],
+  "exit_state": {
+    "relationships": [
+      {
+        "subject": "jiang_yucheng",
+        "toward": "protagonist",
+        "label": "strangers_with_specific_shared_context",
+        "constraints": [
+          "她確認對方值得進行具體作品討論；這是 interested_but_bounded，不是 romantic attraction。"
+        ]
+      },
+      {
+        "subject": "protagonist",
+        "toward": "jiang_yucheng",
+        "label": "strangers_with_specific_shared_context",
+        "constraints": [
+          "他能以《逆光航路》與第一次 topic 認出她，但仍不知道她姓名。"
+        ]
+      }
+    ],
+    "knowledge": [
+      {
+        "holder": "jiang_yucheng",
+        "knows": ["男主看過舊版且對作品有具體判斷。"],
+        "does_not_know": ["男主姓名。", "男主工作。", "男主住處。"]
+      },
+      {
+        "holder": "protagonist",
+        "knows": ["她對雨港篇、色彩腳本或版本用途有具體判斷。", "北邊出口咖啡店適合安靜工作。"],
+        "does_not_know": ["江雨澄姓名。", "江雨澄職業。", "江雨澄住處。", "江雨澄匿名創作身份。"]
+      }
+    ],
+    "constraints": [
+      "兩人只靠共同作品脈絡可互相辨認；沒有社交債、聯絡方式或約會承諾。"
+    ]
+  },
+  "must_not": [
+    "不得加入碰撞、掉書、撿物或英雄救美。",
+    "不得因外貌搭話或長篇評價她可愛。",
+    "不得詢問姓名、學校、社群帳號或聯絡方式。",
+    "不得提前揭露匿名繪師身份、住處或與許棠的交集。",
+    "不得用 blush、靠近或正面模特凝視暗示 instant crush。"
+  ],
+  "implementation_mapping": {
+    "runtime_only": true,
+    "flags": {
+      "requires_met_xu_tang": true,
+      "forbids_met_jiang_yucheng": true,
+      "met_jiang_yucheng": true,
+      "heard_station_cafe_from_jyc": true,
+      "F_JYC": "increment:1",
+      "jyc_first_topic": "worldbuilding|visual_design|edition_value"
+    }
+  }
+}

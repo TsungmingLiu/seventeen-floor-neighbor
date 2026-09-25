@@ -18,9 +18,9 @@ Fresh worker 先從 `.ai/WORKFLOW_MANIFEST.yaml` 取得 Task Packet；不得把�
 
 | Scene | Script/state | Playable demo | Canonical art completeness | Next review |
 | --- | --- | --- | --- | --- |
-| `COM-00` | locked | integrated | demo-minimal accepted | migrate to continuity + CG manifest contract |
-| `COM-01X` | locked | integrated | demo-minimal accepted | migrate base/reaction family continuity |
-| `COM-01J` | locked | integrated | provisional wardrobe drift accepted for demo | migrate spec; repair art only in later scoped task |
+| `COM-00` | locked + continuity contract | integrated | demo-minimal accepted + manifest-bound | Human schema/usability review |
+| `COM-01X` | locked + continuity contract | integrated | base/reaction family manifest-bound | Human schema/usability review |
+| `COM-01J` | locked + continuity contract | integrated | provisional wardrobe drift recorded in manifest | repair art only in later scoped task |
 | `COM-02X` | locked | not in Chapter 1 demo | partial | future production batch |
 | `COM-02J` | locked | not in Chapter 1 demo | partial | future production batch |
 | `COM-03X` | S1 candidate | not integrated | not art-locked | Human narrative review before art |
@@ -42,7 +42,7 @@ Fresh worker 先從 `.ai/WORKFLOW_MANIFEST.yaml` 取得 Task Packet；不得把�
 
 ## Next production work after this refactor
 
-- [ ] Human review Opening Chapter 1 migration artifacts for schema usability。
+- [ ] Human review Opening Chapter 1 migration artifacts for schema usability（machine migration/validation complete）。
 - [ ] 在一個新 scene 上測試 `Content Writer → CG Planner → Render Packet`，避免只靠 migration fixture 證明流程。
 - [ ] 以獨立 scope 處理 COM01J provisional wardrobe drift。
 - [ ] 繼續 `COM-02X → COM-02J → COM-03X → COM-03J → COM-03M`，每次只處理一個 bounded scene/batch。

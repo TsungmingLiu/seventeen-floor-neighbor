@@ -203,6 +203,14 @@ test('rejects archive and experiment paths anywhere in canonical manifest', () =
   assert.throws(() => validateManifest(manifest), /forbidden source root/);
 });
 
+test('allows known issues only on accepted migration assets', () => {
+  const manifest = validManifest();
+  manifest.entries[0].known_issues = ['Existing accepted asset has a documented wardrobe drift.'];
+  assert.throws(() => validateManifest(manifest), /known_issues is migration-only and requires accepted status/);
+  manifest.entries[0].status = 'accepted';
+  assert.doesNotThrow(() => validateManifest(manifest));
+});
+
 test('defaults to render_ready entries only', () => {
   const manifest = validManifest();
   const accepted = structuredClone(manifest.entries[0]);

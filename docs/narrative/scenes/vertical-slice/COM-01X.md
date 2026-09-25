@@ -20,6 +20,11 @@
 - `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md`
 - `docs/narrative/scenes/vertical-slice/COM-00.md`
 
+## Narrative Continuity Contract
+
+- Canonical contract：`content/production/narrative/opening-ch1/COM-01X.json`。
+- 本 scene 只把關係推進到 `familiar_neighbors_with_boundaries`；不得由 runtime `F_XT` 數字反推更高親密度。
+
 ## Scene summary
 
 搬家後第 3 天晚間，男主與許棠從一樓同乘電梯回 17 樓。電梯在中段短暫頓住、燈光閃爍，面板顯示系統重啟；不到十秒便自行恢復。等待期間，許棠以熟住戶的乾式反應鬆開沉默，兩人第一次真正聊了幾句大樓與附近生活。電梯到站後，他們各自回門，沒有刻意延長。
@@ -91,6 +96,8 @@ Branch guardrails：
 - 實際分支不把 6–8 秒寫成足以長談人生的時間。
 
 ## Locked playable script
+
+> Dialogue/action/state remain locked. Any `Visual` line below is a historical runtime transcript, not a current render instruction；new rendering uses `content/production/cg-manifests/opening-ch1.json` only。
 
 ### `common_elevator_restart_enter`
 
@@ -245,49 +252,18 @@ unchanged:
 
 - 建議拆成 8–10 個 nodes，前綴 `common_elevator_restart_*`。
 - Memory title：**電梯重啟**。
-- Memory cover：使用 `BG-APT-ELEVATOR` + `XT-SPR-WEEKDAY` 的 authored composite；P2 CG 未生成時不得顯示 broken Gallery slot。
+- Current playable Memory cover：`cg.opening.com01x.base_normal`。
 - 此 Memory 的價值是 voice / rhythm，不需用 CG 假裝大事件。
 
-## Art needs
+## Semantic Visual Beats / CG Manifest Binding
 
-### Background
+Canonical manifest：`content/production/cg-manifests/opening-ch1.json`。
 
-- `BG-APT-ELEVATOR` — P0。
-- Locked variants：`normal`、`restart_dim`。兩版 camera/layout 必須完全相同，只改 practical light 與面板狀態。
-- 電梯避免鏡面牆造成多重人物反射；可用霧面深灰金屬＋暖灰石材。
+- `COM01X-BASE-NORMAL`：普通同乘距離與 normal lighting。
+- `COM01X-R01-RESTART`：base 的 lighting/expression/gaze bounded edit；不是危機。
+- `COM01X-R02-DRY-SMILE`：base 的 expression/gaze bounded edit。
 
-### Sprite
-
-- `XT-SPR-WEEKDAY`，沿用 COM-00 Wardrobe A / Look 01。
-- Required expressions：`neutral_observant`, `polite_smile`, `dry_playful`, `mild_surprise`, `soft_goodnight`。
-- Position：許棠初始在畫面右側，與男主 POV 保持一般同乘距離；停頓時不主動靠近。
-
-### CG
-
-- 必需：none。
-- P2 optional：手機／緊急燈下短近景，但目前 **不進首輪 generation queue**。原因：場景的情緒價值主要來自節奏與表情切換，CG 會不成比例地把小停頓拍成事故。
-
-## Art shot lock
-
-### Shot A — Shared elevator wide（locked）
-
-- Camera：男主 POV，胸口至眼高；許棠位於右側 3/4 身，左側留無人物空間表現距離。
-- UI safe zone：下方 25%；樓層面板放上半側邊，不能被 dialogue box 蓋住。
-- Reflection：不得出現可辨認男主臉。
-
-### Shot B — Restart lighting beat（locked）
-
-- Trigger：面板樓層數字停住後立即切 `restart_dim`。
-- Duration：最多 3 dialogue advances / 約 8 秒故事時間。
-- Focal：許棠先看面板，再看男主是否要按通話；不是閉眼害怕。
-- Sprite expression：`mild_surprise → dry_playful`。
-- Sound cue intent：短促電機停止音、提示音；無恐怖低頻、無警報音樂。
-
-### Shot C — Door opens at 17F（locked）
-
-- 電梯恢復後回 wide；門開露出與 COM-00 同 layout 的 17F 走廊。
-- 許棠只按開門鍵讓路，不伸手拿男主袋子；動作對應「尊重能力、提供小協助」。
-- 不使用慢動作或背光 romantic reveal。
+所有 reaction 共用 base camera axis、screen side、body orientation、wardrobe、location、shot size 與 crop；精確 locked/allowed fields 只在 CG Manifest 維護。
 
 ## Dialogue writing notes
 

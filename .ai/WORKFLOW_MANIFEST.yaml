@@ -119,6 +119,11 @@ schemas:
   cg_manifest: .ai/schemas/CG_MANIFEST.md
   cg_manifest_json: .ai/schemas/cg-manifest.schema.json
 
+production_artifacts:
+  narrative_contracts: content/production/narrative/
+  cg_manifests: content/production/cg-manifests/
+  validation: tools/validate-production-contracts.mjs
+
 render_projection:
   tool: tools/render-cg-packets.mjs
   adapters: [chat_manual, work_batch, api]

@@ -176,6 +176,11 @@ function validateEntry(entry, manifest, entryIds, outputIds) {
   invariant(!outputIds.has(entry.output.logical_asset_id), `duplicate logical_asset_id: ${entry.output.logical_asset_id}`);
   outputIds.add(entry.output.logical_asset_id);
   requireNonEmptyStrings(entry.acceptance, `${context}.acceptance`);
+  if (entry.known_issues !== undefined) {
+    invariant(Array.isArray(entry.known_issues), `${context}.known_issues must be an array`);
+    entry.known_issues.forEach((issue, index) => invariant(isNonEmpty(issue), `${context}.known_issues[${index}] must be non-empty`));
+    invariant(entry.status === 'accepted', `${context}.known_issues is migration-only and requires accepted status`);
+  }
 }
 
 export function validateManifest(manifest) {
@@ -326,6 +331,9 @@ export function projectEntry(manifest, entry) {
   lines.push(...section('REFERENCE PREFLIGHT', referenceLines));
 
   lines.push(...section('ACCEPTANCE', numbered(entry.acceptance)));
+  if (entry.known_issues?.length) {
+    lines.push(...section('KNOWN ACCEPTED-ASSET ISSUES — DO NOT REPRODUCE AS DESIGN INTENT', numbered(entry.known_issues)));
+  }
   lines.push(...section('STOP RULE', [
     'Do not reinterpret the scene or load additional project policy.',
     'If any required field/reference is missing or conflicting, stop with BLOCKED: incomplete_cg_spec.',

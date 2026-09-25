@@ -20,6 +20,7 @@ Root `style_contract` 是 CG spec 的一部分，讓 renderer 不需要讀 globa
 Required groups：
 
 - identity：`entry_id`、`scene_id`、`status`、`cg_class`、`beat_range`；
+- optional `known_issues[]`：只記錄 accepted migration asset 的已知偏差；不是新的 design intent；
 - story boundary：`narrative.purpose`、`must_show[]`、`must_not_imply[]`；
 - visible people：`characters[]` + exact `reference_bindings[]`；
 - environment：location/reference/time/weather/lighting/props；

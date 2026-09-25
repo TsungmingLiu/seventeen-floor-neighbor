@@ -45,10 +45,12 @@ Production 文件只有四種 lifecycle：
 | Production layer contract | `docs/narrative/CONTENT_PRODUCTION_SPEC.md` | Narrative Design → Scene/Dialogue → Visual Production boundaries and terminology | story facts |
 | Route/state | `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md` | route graph、knowledge/state semantics | dialogue prose、camera |
 | Locked scene | `docs/narrative/scenes/vertical-slice/*.md` | scene-local narrative facts、dialogue、entry/exit intent、semantic visual beats | image-generation prompt syntax |
+| Narrative contract values | `content/production/narrative/<chapter>/<scene>.json` | approved scene-local continuity values | dialogue prose、camera |
 | Creative backlog | `docs/narrative/CONTENT_PRODUCTION_TODO.md` | progress、gates、known blockers | duplicated prompt/spec |
 | Visual direction | `docs/art/PRODUCTION_VISUAL_DIRECTION.md` | global visual contract、shot economy、responsive composition | scene-specific narrative choice |
 | Character identity | `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md` | reference authority、identity/wardrobe mapping | scene purpose、camera |
 | CG production | `docs/art/CG_PRODUCTION_SPEC.md` + `.ai/schemas/CG_MANIFEST.md` | render-ready manifest、projection、adapter boundary | narrative rewrite |
+| CG manifest values | `content/production/cg-manifests/<chapter>.json` | approved render-ready CG entries and reference bindings | global policy、renderer transport |
 | CG adapters | `docs/art/CG_EXECUTION_ADAPTERS.md` + `tools/render-cg-packets.mjs` | deterministic projection / transport envelopes | creative decisions、rendering |
 | Continuity schemas | `.ai/schemas/NARRATIVE_CONTINUITY.md` + `.ai/schemas/VISUAL_CONTINUITY.md` | required semantic and visual continuity fields | scene-specific values |
 | Runtime | `ARCHITECTURE.zh-TW.md` and applicable feature spec | implementation/data/save constraints | creative canon |
@@ -56,7 +58,7 @@ Production 文件只有四種 lifecycle：
 
 Active production roles are limited to `content_writer`、`cg_planner`、`cg_renderer`、`content_qa`、`integrator`。Bootstrap is routing only；Narrative QA is a `content_qa` pass。
 
-Machine validation shapes：`.ai/schemas/narrative-continuity.schema.json`、`.ai/schemas/cg-manifest.schema.json`。
+Machine validation shapes：`.ai/schemas/narrative-continuity.schema.json`、`.ai/schemas/cg-manifest.schema.json`。Cross-file validation：`tools/validate-production-contracts.mjs`。
 
 ## 4. Non-active inventory
 
@@ -85,6 +87,8 @@ Machine validation shapes：`.ai/schemas/narrative-continuity.schema.json`、`.a
 ## 6. Opening Chapter 1 current facts
 
 - Narrative source：`COM-00 → COM-01X → COM-01J` 三個 locked scene files。
+- Narrative continuity values：`content/production/narrative/opening-ch1/`。
+- Canonical CG values：`content/production/cg-manifests/opening-ch1.json`（8 個 accepted migration entries）。
 - Playable integration：`content/routes/opening-demo/`。
 - Accepted asset provenance：`content/assets/ingest-receipts/opening-ch1-demo-v0.1.json`。
 - Archived operator provenance：`.ai/archive/operators/OPENING_CH1_DEMO_OPERATOR_PACK_v0.1.md`。

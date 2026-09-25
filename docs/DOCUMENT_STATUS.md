@@ -30,12 +30,15 @@ Production documents use exactly four lifecycle labels：`CANONICAL`、`EXPERIME
 | Production layer contract | `docs/narrative/CONTENT_PRODUCTION_SPEC.md` |
 | Route/state | `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md` |
 | Locked scene facts | `docs/narrative/scenes/vertical-slice/*.md` |
+| Narrative continuity values | `content/production/narrative/` |
 | Visual production | `docs/art/PRODUCTION_VISUAL_DIRECTION.md` |
 | Character identity references | `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md` |
 | CG production / manifest | `docs/art/CG_PRODUCTION_SPEC.md` + `.ai/schemas/CG_MANIFEST.md` |
+| Canonical CG manifest values | `content/production/cg-manifests/` |
 | Narrative/visual continuity | `.ai/schemas/NARRATIVE_CONTINUITY.md` + `.ai/schemas/VISUAL_CONTINUITY.md` |
 | Creative progress | `docs/narrative/CONTENT_PRODUCTION_TODO.md` |
 | Runtime architecture | `ARCHITECTURE.zh-TW.md` + applicable feature spec |
+| Cross-file production validation | `tools/validate-production-contracts.mjs` |
 
 Locked scene files own narrative staging and semantic visual beats; they do not own render prompt syntax. Render-mode leftovers inside older scenes are historical annotations and cannot override the active visual/CG contract.
 

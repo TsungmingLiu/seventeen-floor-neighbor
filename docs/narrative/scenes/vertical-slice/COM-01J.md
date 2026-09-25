@@ -21,6 +21,11 @@
 - `docs/narrative/scenes/vertical-slice/COM-00.md`
 - `docs/narrative/scenes/vertical-slice/COM-01X.md`
 
+## Narrative Continuity Contract
+
+- Canonical contract：`content/production/narrative/opening-ch1/COM-01J.json`。
+- Exit label 是 `strangers_with_specific_shared_context`；`interested_but_bounded` 只描述作品討論被打開，不是 romantic attraction。
+
 ## Scene summary
 
 同週末，男主為補齊一套自己真的關注的虛構科幻遊戲設定集，來到台北地下街的 ACG 店。江雨澄站在同一排書架前，比較《逆光航路》兩本不同內容的畫冊。男主不是對她搭話，而是針對版本差異說出一項具體、可驗證的觀察；她先短答，確認他不是硬找話題後，才補上自己在意的美術判斷。兩人聊到足以記住對方，卻沒有交換姓名或聯絡方式。離開前，她順口提到附近一間適合坐著翻書、畫圖的安靜咖啡店，為 COM-02J 建立 causal geography。
@@ -103,6 +108,8 @@ Choice design notes：
 - 若 runtime 暫不支援 enum，可只保留 choice history，COM-02J 用對應 callback。
 
 ## Locked playable script
+
+> Dialogue/action/state remain locked. Any `Visual` line below is a historical runtime transcript, not a current render instruction；new rendering uses `content/production/cg-manifests/opening-ch1.json` only。
 
 ### `common_acg_first_meet_enter`
 
@@ -276,55 +283,17 @@ unchanged:
 
 - 建議拆成 10–13 個 nodes，前綴 `common_acg_first_meet_*`。
 - Memory title：**地下街初遇**。
-- Memory cover：`CG-COM-02`；若 P1 尚未生成，用 `BG-ACG-SHOP` + JYC sprite composite，不顯示空 CG slot。
+- Current playable Memory cover：`cg.opening.com01j.base_guarded`；title backdrop 可使用 accepted reaction。
 - Replay 必須保留玩家原先 `jyc_first_topic` 或以 replay-local state 顯示，不改寫 frontier save。
 
-## Art needs
+## Semantic Visual Beats / CG Manifest Binding
 
-### Background
+Canonical manifest：`content/production/cg-manifests/opening-ch1.json`。
 
-- `BG-ACG-SHOP` — P0。
-- 書架需支援兩人站在不同側、設定集握持與 3/4 sprite；所有 IP、書名、包裝文字保持虛構或不可讀。
-- 可用 `BG-ACG-CORRIDOR` 作進出店的 1–2 node transition，但本幕不要求新增特殊 variant。
+- `COM01J-BASE-GUARDED`：眼睛先離開書頁的 guarded curiosity。
+- `COM01J-R01-INTERESTED`：base 的 expression/gaze bounded edit；interest 指向作品討論。
 
-### Sprite
-
-- `JYC-SPR-CAMPUS` — Wardrobe A / Look 01 Campus / Graduate Student。
-- Required expressions：`neutral_shy`, `hesitant`, `thinking_before_reply`, `small_smile`, `surprised`（極輕），均取自 canonical Campus set。
-- Props：兩本設定／美術書；握法必須能在 sprite composite 自然成立，若 prop 難以跟透明 sprite共用，改由 BG foreground layer 提供一本展示書。
-- 年齡表現：23 歲成年研究生；禁止學生制服、過大頭身、幼女化姿勢。
-
-### CG
-
-- `CG-COM-02` — P1。
-- 這張 CG 的價值是捕捉她從「比較書」到「發現陌生人真的懂」的轉折；若只能畫成持書正面立像，應退回重做而不是接受。
-
-## Art shot lock
-
-### Shot A — Shared shelf establishing（locked）
-
-- Camera：男主 POV，與雨澄保持約一臂半以上距離；書架形成縱深。
-- JYC position：畫面中段偏右；先只看到她 3/4 側面與手上兩本書。
-- Focal：她在比索引／跨頁，而不是外型掃描。
-- UI safe zone：下方 25%；書封關鍵構圖在中段，不依賴可讀字。
-
-### Shot B — CG-COM-02（locked）
-
-- Trigger：男主說完第一句具體作品觀察，她尚未回答的 1–2 秒。
-- Camera：第一人稱自然視高；可見男主手邊一本書角，不得出現男主臉。
-- Composition：雨澄 3/4 持兩本書，一本略開；書架／虛構商品前後分層。
-- Head pose / gaze：頭仍微朝書頁，眼睛先抬向男主，再輕微側頭；禁止驚艷正視鏡頭。
-- Expression：`guarded_curiosity`，不是害羞紅臉或 instant crush。
-- Lighting：乾淨人工店光，背景彩色商品柔焦；膚色自然。
-- Dialogue safe zone：下方中央；臉與握書手在上半／中段。
-- Negative constraints：無掉書、無撞擊、無蹲下撿物、無幼態臉、無真 IP、無亂碼成為視覺焦點、無錯誤手指。
-- Hold / exit：持續到她問「你看過舊版？」；玩家 choice 前 dissolve 回 sprite，以支援不同 topic 反應。
-
-### Shot C — Conversation distance（locked）
-
-- 雨澄談得變多時仍站在原位，不自動向男主靠近。
-- 表情變化由 `hesitant → interested → small_smile` 完成；不使用 blush。
-- 收尾時她先回到書本／結帳動線，讓 visual blocking 自然關閉談話。
+現有 accepted demo base/reaction 有 ingest receipt 記錄的 provisional wardrobe drift。Manifest 的 `known_issues` 保留這個事實，但 canonical wardrobe 仍是 `JYC-WARDROBE-A-ACG-OUTING`；未來 rerender 不得把 drift 當 design precedent。
 
 ## Dialogue writing notes
 

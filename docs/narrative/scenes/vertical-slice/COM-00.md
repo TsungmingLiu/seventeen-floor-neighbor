@@ -19,6 +19,12 @@
 - `docs/art/PRODUCTION_VISUAL_DIRECTION.md`
 - `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md`
 
+## Narrative Continuity Contract
+
+- Canonical contract：`content/production/narrative/opening-ch1/COM-00.json`。
+- 本 scene file owns dialogue、choice、state mapping 與 Semantic Visual Beat；machine contract owns entry/exit relationship/knowledge boundary。
+- Runtime flags 是 implementation mapping，不是 relationship score。
+
 ## Scene summary
 
 Week 1 的雨夜，31 歲男主剛搬回台北，搬家公司離開後獨自整理走廊上的最後幾箱。防火門回彈，一只箱角卡住門線；剛回家的隔壁鄰居許棠順手扶門，和他一起把箱子挪開。兩人只交換姓名與住戶位置，沒有搭訕、聯絡方式或命定感。她回 1702，男主回到仍顯空的新家。
@@ -89,6 +95,8 @@ Branch guardrails：
 - 許棠不說「你很有趣」或任何快速 romantic validation。
 
 ## Locked playable script
+
+> Dialogue/action/state remain locked. Any `Visual` line below is a historical runtime transcript, not a current render instruction；new rendering uses `content/production/cg-manifests/opening-ch1.json` only。
 
 以下為 S4 使用的完整精簡稿。`[PLAYER_NAME]` 是 implementation token；若 prototype 不允許玩家命名，應在 content integration 時一次替換為 canonical 男主姓名，不得逐幕改成不同稱呼。
 
@@ -242,53 +250,18 @@ unset_or_unchanged:
 - 建議 runtime 拆成 8–11 個 stable nodes；不要以 `COM-00` 直接當唯一 runtime node ID。
 - 建議前綴：`common_movein_rain_*`，例如 `common_movein_rain_door`, `common_movein_rain_choice`, `common_movein_rain_goodnight`。
 - Memory title：**雨夜搬家**。
-- Memory cover：`CG-COM-01`。
+- Current playable Memory cover：`bg.opening.ch1.apt_17f_rain`；Gallery assets 由 Opening Chapter 1 manifest/route mapping 管理。
 - Replay anchor：00.1；replay 結束回到本幕既有 frontier，不覆寫後續 knowledge。
 
-## Art needs
+## Semantic Visual Beats / CG Manifest Binding
 
-### Background
+Canonical manifest：`content/production/cg-manifests/opening-ch1.json`。
 
-- `BG-APT-17F-RAIN` — P0，9:16。
-- 同一 17 樓 layout 必須可與日後 `BG-APT-17F-NIGHT` 對位；1702／1703 空間關係在本幕鎖定。
-- 室內走廊保持乾燥；雨感來自遠端窗光、雨聲與鞋底微反光。
+- `COM00-S02-DOOR-ASSIST`：功能性扶門／挪箱，不是 romantic contact。
+- `COM00-S04-BASE-NEUTRAL`：名字與門牌交換的 bounded neighbor distance。
+- `COM00-S04-R01-POLITE-SMILE`：base 的小幅 reaction edit。
 
-### Sprite
-
-- `XT-SPR-WEEKDAY` — Wardrobe A / Look 01 Weekday Neighbor。
-- Required expressions：`neutral_observant`, `mild_surprise`, `polite_smile`, `dry_playful`, `soft_goodnight`。
-- 角色為 27 歲、約 170 cm 的成熟都市女性；服裝與金色 hoop earrings 以 canonical reference pack 為準。
-
-### CG
-
-- `CG-COM-01` — P0 / opening hero image。
-- 這張 CG 值得製作，因為它一次鎖定作品的都市雨夜質地、兩人的初始物理距離、許棠「協助但不接管」的動作。
-
-## Art shot lock
-
-### Shot A — Opening establishing（BG composite）
-
-- Camera：男主視高，沿走廊略帶透視；箱子只佔前景一側。
-- Focal point：卡門的箱角與尚未出現人物的走廊深度。
-- UI safe zone：下方 25% 不放門牌或關鍵手勢。
-- Duration：2–3 narration advances。
-
-### Shot B — CG-COM-01（locked）
-
-- Trigger：許棠的手撐住門，說完第一句功能性台詞後；在交換姓名以前。
-- Camera：第一人稱，略靠近走廊入口；不得生成男主完整臉。
-- Composition：許棠位於上半右側或中右；一手扶門、一手協助挪箱，動作重心可信。紙箱形成前景層次。
-- Head pose / gaze：下巴自然，視線先落在箱角／男主手部，再短暫抬到男主；禁止正面模特凝視。
-- Expression：`neutral_observant`，只有極淡禮貌柔和，不是戀愛驚艷。
-- Lighting：暖色走廊 practical light 對冷藍雨夜 ambient light。
-- Dialogue safe zone：左下至下中；臉、扶門手、箱角均不得落入最底 25%。
-- Negative constraints：無濕透衣服、無豪宅 penthouse、無額外搬家工人、無品牌字樣、無多餘手指、無強烈曖昧 pose。
-- Hold / exit：保留至箱子移開；姓名交換前 dissolve 回 sprite composite，避免整段對話被 CG 固定表情綁死。
-
-### Shot C — Door geography lock（BG + sprite）
-
-- 1702 與 1703 的相對位置要能一眼讀懂，但不以可讀大字門牌佔畫面。
-- 許棠站在自己回家動線上；她不走近男主家門，也不回頭擺 pose。
+Camera、screen side、gaze、wardrobe、held object、location、lighting、time/weather、references、include/exclude 與 output identity 只由上述 CG Manifest Entries 決定；本 scene 不再維護第二套 render instructions。
 
 ## Dialogue writing notes
 

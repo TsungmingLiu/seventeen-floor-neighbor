@@ -1,0 +1,122 @@
+{
+  "schema_version": "1.0.0",
+  "scene_id": "COM-00",
+  "lifecycle": "CANONICAL",
+  "source_scene": "docs/narrative/scenes/vertical-slice/COM-00.md",
+  "entry_state": {
+    "relationships": [
+      {
+        "subject": "xu_tang",
+        "toward": "protagonist",
+        "label": "strangers",
+        "constraints": [
+          "她只知道 1703 今晚有人搬入，不知道對方姓名、工作或背景。"
+        ]
+      },
+      {
+        "subject": "protagonist",
+        "toward": "xu_tang",
+        "label": "strangers",
+        "constraints": [
+          "他不知道隔壁住戶姓名、工作或生活狀態。"
+        ]
+      }
+    ],
+    "knowledge": [
+      {
+        "holder": "xu_tang",
+        "knows": ["1703 今晚有人搬入。"],
+        "does_not_know": ["男主姓名。", "男主工作。", "男主感情狀態。"]
+      },
+      {
+        "holder": "protagonist",
+        "knows": ["自己的門牌是 1703。"],
+        "does_not_know": ["許棠姓名。", "1702 住戶身份。"]
+      }
+    ],
+    "constraints": [
+      "兩人沒有共同 history，也沒有 romantic expectation。"
+    ]
+  },
+  "scene_function": [
+    "以可信的雨夜搬家小麻煩建立作品的都市生活質地。",
+    "建立許棠會提供剛好足夠的協助，但不接管陌生人的生活。",
+    "鎖定 1702／1703 是往後可重複相遇的生活空間。"
+  ],
+  "character_intent": [
+    {
+      "character_id": "protagonist",
+      "intent": "把最後幾箱移進 1703，不妨礙公共動線，也不藉機延長互動。"
+    },
+    {
+      "character_id": "xu_tang",
+      "intent": "回家；處理眼前會卡門的問題，確認完成後離開。"
+    }
+  ],
+  "player_information_gain": [
+    "許棠姓名與 1702 鄰居身份。",
+    "許棠的魅力來自實際協作與清楚邊界，不是 heroine reveal。"
+  ],
+  "emotional_arc": [
+    "陌生城市的任務模式。",
+    "一秒狼狽被看見，但對方只提供功能性協助。",
+    "互相記住姓名與門牌後，各自回到自己的生活。"
+  ],
+  "required_payoffs": [
+    "箱子與防火門問題被兩人協作解決。",
+    "兩人交換姓名與 1702／1703 位置。",
+    "許棠主動結束互動且沒有回頭停留。"
+  ],
+  "exit_state": {
+    "relationships": [
+      {
+        "subject": "xu_tang",
+        "toward": "protagonist",
+        "label": "recognizable_neighbors",
+        "constraints": [
+          "她記得對方能協作且不會把幫忙視為理所當然；沒有 romantic signal。"
+        ]
+      },
+      {
+        "subject": "protagonist",
+        "toward": "xu_tang",
+        "label": "recognizable_neighbors",
+        "constraints": [
+          "他只知道她是許棠、住 1702；不得推論她的職業或性格全貌。"
+        ]
+      }
+    ],
+    "knowledge": [
+      {
+        "holder": "xu_tang",
+        "knows": ["男主姓名。", "男主住 1703。"],
+        "does_not_know": ["男主工作。", "男主感情狀態。"]
+      },
+      {
+        "holder": "protagonist",
+        "knows": ["許棠姓名。", "許棠住 1702。"],
+        "does_not_know": ["許棠工作。", "許棠聯絡方式。", "許棠感情狀態。"]
+      }
+    ],
+    "constraints": [
+      "關係只到可辨認鄰居；沒有聯絡方式、邀約或承諾。"
+    ]
+  },
+  "must_not": [
+    "不得加入外貌搭訕、命定感或 instant attraction。",
+    "不得交換聯絡方式或邀請進門。",
+    "不得出現跌倒接住、長時間碰手或英雄救美。",
+    "許棠不得留下幫忙整晚。"
+  ],
+  "implementation_mapping": {
+    "runtime_only": true,
+    "flags": {
+      "met_xu_tang": true,
+      "xu_knows_player_name": true,
+      "player_knows_xu_name": true,
+      "xu_knows_player_is_neighbor_1703": true,
+      "player_knows_xu_is_neighbor_1702": true,
+      "C_XT_on_humor_branch": "increment:1"
+    }
+  }
+}

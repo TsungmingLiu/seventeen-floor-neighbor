@@ -83,3 +83,5 @@ Renderer/QA handoff 至少記錄：
 - candidate/accepted asset ID。
 
 Accepted asset receipt 可以指向 archived operator provenance，但 active rendering 不可沿該 link 取得 prompt。
+
+Migration-only accepted entries 可帶 `known_issues[]` 記錄已知 asset drift。這個欄位是 future render 的 negative constraint，不是對 defect 的 canonical endorsement；新 `render_ready` entry 不應用它取代完整的 `must_not_imply`、continuity 或 acceptance criteria。
