@@ -36,7 +36,6 @@ principles:
   - no_implicit_cross_character_memory
   - one_independent_image_per_generation_call
   - source_acquisition_is_fail_closed
-  - cost_aware_model_routing
   - no_automatic_retry_or_image_scoring
 
 pipeline:
@@ -145,21 +144,6 @@ execution:
   render_generation_unit: one_manifest_entry
   render_task_unit: one_independent_manifest_entry_or_explicit_linked_sequence
   parallelism: dependency_independent_only
-  model_routing:
-    default_tier: economical
-    allowed_tiers: [economical, capable]
-    capable_reasons:
-      - creative_judgment
-      - material_ambiguity_or_conflict
-      - cross_scene_or_cross_system_reasoning
-      - final_high_impact_qa
-      - validation_escalation
-    prohibited_escalation_reasons:
-      - task_importance_alone
-      - source_count_alone
-      - output_length_alone
-    coordinator_corrective_redispatch_limit: 1
-    renderer_automatic_retry: false
   run_ledger_root: content/production/runs/
   final_gate: READY_FOR_HUMAN_ACCEPTANCE
   human_gates:
