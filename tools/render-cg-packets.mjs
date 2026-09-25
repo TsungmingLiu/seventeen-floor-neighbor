@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const PACKET_VERSION = '1.0.0';
+const PACKET_VERSION = '1.1.0';
 const ADAPTERS = new Set(['chat_manual', 'work_batch', 'api']);
 const DEFAULT_STATUSES = new Set(['render_ready']);
 const FORBIDDEN_SOURCE_ROOTS = ['.ai/archive/', '.ai/experiments/', 'docs/archive/'];
@@ -69,6 +69,9 @@ function validateEntry(entry, manifest, entryIds, outputIds) {
   }
   invariant(['planned', 'render_ready', 'candidate', 'accepted', 'rejected', 'blocked'].includes(entry.status), `${context}.status is invalid`);
   invariant(['background_cg', 'dialogue_cg', 'reaction_cg', 'event_cg', 'cg_sequence_keyframe'].includes(entry.cg_class), `${context}.cg_class is invalid`);
+  invariant(entry.sequence_id == null || isNonEmpty(entry.sequence_id), `${context}.sequence_id must be null or non-empty`);
+  if (entry.sequence_id != null) invariant(isNonEmpty(entry.sequence_continuity_benefit), `${context}.sequence_continuity_benefit is required for a linked sequence`);
+  else invariant(entry.sequence_continuity_benefit === undefined, `${context}.sequence_continuity_benefit requires sequence_id`);
   invariant(!entryIds.has(entry.entry_id), `duplicate entry_id: ${entry.entry_id}`);
   entryIds.add(entry.entry_id);
   invariant(manifest.source_scene_ids.includes(entry.scene_id), `${context}.scene_id is not listed in source_scene_ids`);
@@ -224,6 +227,31 @@ export function validateManifest(manifest) {
       );
     }
   }
+  const sequences = new Map();
+  manifest.entries.forEach((entry, index) => {
+    if (entry.sequence_id == null) return;
+    const group = sequences.get(entry.sequence_id) || [];
+    group.push({ entry, index });
+    sequences.set(entry.sequence_id, group);
+  });
+  for (const [sequenceId, group] of sequences) {
+    invariant(group.length >= 2, `sequence ${sequenceId} must contain at least two entries`);
+    const first = group[0].entry;
+    const signature = (entry) => JSON.stringify({
+      scene_id: entry.scene_id,
+      characters: entry.characters.map((character) => [character.character_id, character.wardrobe_key]).sort(),
+      environment: [entry.environment.location_id, entry.environment.time_of_day, entry.environment.weather, entry.environment.lighting]
+    });
+    for (let index = 0; index < group.length; index++) {
+      const current = group[index];
+      invariant(signature(current.entry) === signature(first), `sequence ${sequenceId} must keep scene, characters, wardrobe and environment`);
+      invariant(current.entry.sequence_continuity_benefit === first.sequence_continuity_benefit, `sequence ${sequenceId} must state one shared continuity benefit`);
+      if (index > 0) {
+        const prior = group[index - 1];
+        invariant(current.index === prior.index + 1 && current.entry.continuity.previous_entry_id === prior.entry.entry_id, `sequence ${sequenceId} must contain consecutive linked entries`);
+      }
+    }
+  }
   return manifest;
 }
 
@@ -342,6 +370,8 @@ export function projectEntry(manifest, entry) {
 
   const sharedPrompt = `${lines.join('\n').trimEnd()}\n`;
   const manifestSha256 = sha256(stableStringify(manifest));
+  const { status: _status, ...renderSpecEntry } = entry;
+  const renderSpecSha256 = sha256(stableStringify({ style_contract: manifest.style_contract, entry: renderSpecEntry }));
   const sharedPromptSha256 = sha256(sharedPrompt);
   return {
     packet_version: PACKET_VERSION,
@@ -349,6 +379,7 @@ export function projectEntry(manifest, entry) {
     manifest_id: manifest.manifest_id,
     manifest_version: manifest.manifest_version,
     manifest_sha256: manifestSha256,
+    render_spec_sha256: renderSpecSha256,
     entry_id: entry.entry_id,
     entry_status: entry.status,
     shared_prompt: sharedPrompt,
@@ -381,6 +412,7 @@ export function adaptChatManual(packets) {
       `# Chat Manual Render Packet — ${packet.entry_id}`,
       '',
       `Manifest SHA-256: \`${packet.manifest_sha256}\``,
+      `Render spec SHA-256: \`${packet.render_spec_sha256}\``,
       `Prompt SHA-256: \`${packet.shared_prompt_sha256}\``,
       '',
       '## Attachment checklist',
@@ -404,6 +436,7 @@ export function adaptWorkBatch(packets) {
     manifest_id: packet.manifest_id,
     manifest_version: packet.manifest_version,
     manifest_sha256: packet.manifest_sha256,
+    render_spec_sha256: packet.render_spec_sha256,
     shared_prompt_sha256: packet.shared_prompt_sha256,
     shared_prompt: packet.shared_prompt,
     reference_transport: packet.reference_transport,
@@ -427,6 +460,7 @@ export function adaptApi(packets) {
         manifest_id: packet.manifest_id,
         manifest_version: packet.manifest_version,
         manifest_sha256: packet.manifest_sha256,
+        render_spec_sha256: packet.render_spec_sha256,
         shared_prompt_sha256: packet.shared_prompt_sha256
       },
       input: {

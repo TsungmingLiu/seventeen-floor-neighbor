@@ -2,7 +2,7 @@
 
 > Lifecycle: **CANONICAL**
 >
-> Version: 1.0.0
+> Version: 1.1.0
 >
 > Updated: 2026-09-25
 
@@ -15,6 +15,7 @@
 - Canonical CG Manifest 是 renderer 的唯一 creative input。
 - Render Packet 是 manifest 的 GENERATED projection，不是第二份 spec。
 - Renderer 只執行，不重新摘要 story/policy。
+- 每個 independent CG Manifest Entry 由一個 fresh bounded renderer task 執行；僅 manifest 明列、符合 `.ai/PRODUCTION_ORCHESTRATION.md` 條件的 linked sequence 可共用 context。
 - Candidate 經 Visual Review 與 Human selection 後才可成為 Accepted Asset。
 
 ## 2. Render-ready definition
@@ -77,11 +78,14 @@ Renderer/QA handoff 至少記錄：
 - manifest ID/version；
 - entry ID；
 - canonical manifest content hash；
+- `render_spec_sha256`（root style contract + one entry）；
 - render packet hash；
 - references actually used；
 - accepted base identity when applicable；
 - candidate/accepted asset ID。
 
 Accepted asset receipt 可以指向 archived operator provenance，但 active rendering 不可沿該 link 取得 prompt。
+
+Manifest/entry version 改變時，相關 Render Packet、candidate、accepted asset/integration 由 Production Coordinator 依 `.ai/PRODUCTION_ORCHESTRATION.md` 標記 `STALE`；不影響的 independent entry 以 `render_spec_sha256` 與 reference/output identity 核對後保留，且保留原始 generation provenance。Continuity 由 manifest、Visual Continuity State 與明列 accepted base 維持，不由 renderer memory 維持。
 
 Migration-only accepted entries 可帶 `known_issues[]` 記錄已知 asset drift。這個欄位是 future render 的 negative constraint，不是對 defect 的 canonical endorsement；新 `render_ready` entry 不應用它取代完整的 `must_not_imply`、continuity 或 acceptance criteria。

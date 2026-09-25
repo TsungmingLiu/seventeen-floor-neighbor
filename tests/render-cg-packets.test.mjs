@@ -127,6 +127,25 @@ test('stableStringify ignores object key insertion order', () => {
   assert.equal(stableStringify({ b: 2, a: { d: 4, c: 3 } }), stableStringify({ a: { c: 3, d: 4 }, b: 2 }));
 });
 
+test('unrelated manifest entry revision preserves independent render spec identity', () => {
+  const manifest = validManifest();
+  const other = structuredClone(manifest.entries[0]);
+  other.entry_id = 'TEST-S02-OTHER';
+  other.output.canonical_asset_id = other.entry_id;
+  other.output.logical_asset_id = 'cg.test.s02.other';
+  other.output.master_filename = 'test-s02-other-v1.png';
+  manifest.entries.push(other);
+  const before = projectEntry(manifest, manifest.entries[0]);
+  manifest.manifest_version = '1.0.1';
+  other.characters[0].screen_side = 'left';
+  const after = projectEntry(manifest, manifest.entries[0]);
+  assert.notEqual(before.manifest_sha256, after.manifest_sha256);
+  assert.notEqual(before.shared_prompt_sha256, after.shared_prompt_sha256);
+  assert.equal(before.render_spec_sha256, after.render_spec_sha256);
+  manifest.entries[0].status = 'accepted';
+  assert.equal(after.render_spec_sha256, projectEntry(manifest, manifest.entries[0]).render_spec_sha256);
+});
+
 test('Chat manual, Work batch and API adapters share one prompt', () => {
   const packets = buildPackets(validManifest());
   const expected = packets[0].shared_prompt;
@@ -224,4 +243,27 @@ test('defaults to render_ready entries only', () => {
   manifest.entries.push(accepted);
   assert.deepEqual(buildPackets(manifest).map((packet) => packet.entry_id), ['TEST-S01-BASE']);
   assert.deepEqual(buildPackets(manifest, { statuses: new Set(['accepted']) }).map((packet) => packet.entry_id), ['TEST-S02-ACCEPTED']);
+});
+
+test('linked sequence requires explicit benefit and consecutive matching entries', () => {
+  const manifest = validManifest();
+  const first = manifest.entries[0];
+  first.sequence_id = 'TEST-SEQ-01';
+  first.sequence_continuity_benefit = 'Preserve the same corridor geography through consecutive action.';
+  const second = structuredClone(first);
+  second.entry_id = 'TEST-S01-NEXT';
+  second.continuity.previous_entry_id = first.entry_id;
+  second.output.canonical_asset_id = second.entry_id;
+  second.output.logical_asset_id = 'cg.test.s01.next';
+  second.output.master_filename = 'test-s01-next-v1.png';
+  manifest.entries.push(second);
+  assert.doesNotThrow(() => validateManifest(manifest));
+  second.characters[0].wardrobe_key = 'DIFFERENT-WARDROBE';
+  assert.throws(() => validateManifest(manifest), /must keep scene, characters, wardrobe and environment/);
+  second.characters[0].wardrobe_key = first.characters[0].wardrobe_key;
+  second.continuity.previous_entry_id = null;
+  assert.throws(() => validateManifest(manifest), /consecutive linked entries/);
+  second.continuity.previous_entry_id = first.entry_id;
+  delete second.sequence_continuity_benefit;
+  assert.throws(() => validateManifest(manifest), /sequence_continuity_benefit is required/);
 });

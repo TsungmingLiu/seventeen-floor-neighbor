@@ -20,6 +20,7 @@ Root `style_contract` 是 CG spec 的一部分，讓 renderer 不需要讀 globa
 Required groups：
 
 - identity：`entry_id`、`scene_id`、`status`、`cg_class`、`beat_range`；
+- linked sequence exception：non-null `sequence_id` 需有 `sequence_continuity_benefit`，同一 sequence 的 entries 必須同 scene、visible characters、wardrobe、environment，並以 `continuity.previous_entry_id` 表示 consecutive action；否則仍各自使用 fresh renderer task；
 - optional `known_issues[]`：只記錄 accepted migration asset 的已知偏差；不是新的 design intent；
 - story boundary：`narrative.purpose`、`must_show[]`、`must_not_imply[]`；
 - visible people：`characters[]` + exact `reference_bindings[]`；
