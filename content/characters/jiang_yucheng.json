@@ -1,0 +1,42 @@
+{
+  "id": "jiang_yucheng",
+  "name": "江雨澄",
+  "age": 23,
+  "designVersion": 1,
+  "identity": {
+    "summary": "23歲成年東亞女性，約160公分，纖細、輕盈、小骨架、腿相對偏長；研究生與兼職插畫／ACG creator 的自然成年感。",
+    "body": "約160公分，纖細小骨架、比例自然，腿相對偏長；禁止幼態化。",
+    "visualAuthority": "docs/art/CHARACTER_REFERENCE_PACK_SPEC.md"
+  },
+  "references": [
+    {
+      "role": "primary_identity",
+      "name": "jyc-ref-01-face.png",
+      "driveId": "13AI1sD0iUm6NpMBnVtlK8Zl5PN0UPsMQ"
+    },
+    {
+      "role": "production_consistency",
+      "name": "jyc-ref-04-production.png",
+      "driveId": "10EH0fmMV0UzFED2-tnf62TYOJexJQK4_"
+    },
+    {
+      "role": "wardrobe_a",
+      "name": "jyc-ref-05-wardrobe-a.png",
+      "driveId": "1FqxmDU0BqzAb6AFmZfebcx6NUaKCUw-A"
+    }
+  ],
+  "outfits": {
+    "acg_outing": {
+      "version": 1,
+      "description": "Canonical Wardrobe A Look 03 ACG Outing. Exact clothing authority remains jyc-ref-05-wardrobe-a.png; the Opening Demo accepted CGs are provisional and retain the documented wardrobe-drift issue.",
+      "invariants": [
+        "adult graduate-student / creator read",
+        "do not reinterpret as school uniform or childlike styling"
+      ]
+    }
+  },
+  "expressions": {
+    "guarded_curiosity": "先判斷對方是否真的懂作品；克制、保留社交邊界。",
+    "interested": "確認對方真的懂作品後，眼神更投入並出現很小的自然笑意。"
+  }
+}
