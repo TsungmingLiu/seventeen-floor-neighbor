@@ -4,9 +4,9 @@
 >
 > 版本：0.2
 >
-> 用途：提供世界觀、future heroine 與產品方向的 supporting context。Production worker 不得自行整份載入；只有 Task Packet 明示需要的段落可作輔助資料，且不得覆蓋 current narrative / route-state / visual / locked-scene canon。
+> 用途：保留早期世界觀、future heroine 與產品方向的 ideation provenance。Production worker 不得載入；只有明確的 research/migration task 可讀 bounded excerpt，且不得覆蓋 current narrative / route-state / visual / locked-scene canon。
 >
-> 架構關係：本文件描述產品與內容方向；實作仍應遵循 `ARCHITECTURE.zh-TW.md` 的 canonical architecture、stable IDs、content compiler 與 source/output boundary。
+> 架構關係：本文件描述當時的產品與內容方向；實作以現行 `ARCHITECTURE.zh-TW.md`、code/JSON/tests 及 active content canon 為準。
 >
 > 2026-09 更新重點：補完五位女主角的人物背景、內在需求、視覺與服裝方向、完整 route 大綱，以及邂逅／約會場景庫。Prototype 仍只實作許棠與江雨澄，其餘角色作為 future character packs。
 

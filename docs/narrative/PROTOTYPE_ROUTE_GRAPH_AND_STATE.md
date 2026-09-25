@@ -8,7 +8,7 @@
 >
 > 目的：把 `PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md` 的劇情意圖轉成可實作的 route graph、scene dependencies、dating state 與 knowledge state。這不是 runtime schema 最終格式；實作時應服從 `ARCHITECTURE.zh-TW.md` 的 stable semantic IDs、content compiler、conditions/actions 與 W4 Memory Event contract。
 >
-> 重要：**本文件描述 authoring graph，不要求玩家 UI 顯示完整 DAG。** 玩家仍依 `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md` 看到單頁縱向 Memories timeline。
+> 重要：**本文件描述 authoring graph，不要求玩家 UI 顯示完整 DAG。** 已實作的玩家 UI／Memories contract 見 `ARCHITECTURE.zh-TW.md`；玩家看到的是單頁縱向 Memories timeline。
 
 ---
 

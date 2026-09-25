@@ -1,5 +1,7 @@
 # 辦公族 OL 臨時支線 Context
 
+> LEGACY-FIXTURE。只用於 `xu-tang` 舊 route 的相容性與回歸檢查，不是新人物或劇情的 production authority。
+
 這是一段掛在許棠主線早期選項上的短篇支線。它使用專案現有的黑絲 OL 立繪與走廊 CG 作為暫代素材，角色只以「辦公族 OL（暫代）」稱呼，不建立尚未確認的長期人設。
 
 ## 不可破壞的連續性
@@ -11,5 +13,5 @@
 
 ## 劇情來源
 
-- `content/routes/office-ol/story.json`
+- `content/routes/xu-tang/office-ol-story.json`
 - `content/characters/office_ol.json`

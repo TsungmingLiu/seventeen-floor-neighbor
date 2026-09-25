@@ -12,11 +12,11 @@
   "accent": "#ff7898",
   "context": "content/routes/xu-tang/context.md",
   "storyFiles": [
-    "content/chapters/chapter-01.json",
-    "content/routes/office-ol/story.json"
+    "content/routes/xu-tang/chapter-01.json",
+    "content/routes/xu-tang/office-ol-story.json"
   ],
   "sceneFiles": [
-    "content/scenes/date-pool.json"
+    "content/routes/xu-tang/date-pool.json"
   ],
   "assetIds": [
     "bg.elevator.normal",

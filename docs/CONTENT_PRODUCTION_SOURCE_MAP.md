@@ -53,8 +53,7 @@ Production 文件只有四種 lifecycle：
 | CG manifest values | `content/production/cg-manifests/<chapter>.json` | approved render-ready CG entries and reference bindings | global policy、renderer transport |
 | CG adapters | `docs/art/CG_EXECUTION_ADAPTERS.md` + `tools/render-cg-packets.mjs` | deterministic projection / transport envelopes | creative decisions、rendering |
 | Continuity schemas | `.ai/schemas/NARRATIVE_CONTINUITY.md` + `.ai/schemas/VISUAL_CONTINUITY.md` | required semantic and visual continuity fields | scene-specific values |
-| Runtime | `ARCHITECTURE.zh-TW.md` and applicable feature spec | implementation/data/save constraints | creative canon |
-| Document index | `docs/DOCUMENT_STATUS.md` | human-readable lifecycle inventory | workflow execution |
+| Runtime | `ARCHITECTURE.zh-TW.md`、current code/JSON/tests | implementation/data/save constraints | creative canon |
 
 Active production roles are limited to `content_writer`、`cg_planner`、`cg_renderer`、`content_qa`、`integrator`。Bootstrap is routing only；Narrative QA is a `content_qa` pass。
 
@@ -68,21 +67,22 @@ Machine validation shapes：`.ai/schemas/narrative-continuity.schema.json`、`.a
 | `docs/archive/art/VERTICAL_SLICE_CG_GENERATION_PROMPTS.md` | `ARCHIVED` | historical one-off prompt wording and batch plan |
 | `docs/archive/art/recipes/` | `ARCHIVED` | provenance for already-generated background/sprite assets |
 | `docs/archive/narrative/CONTENT_PRODUCTION_TODO_v0.3.md` | `ARCHIVED` | old backlog plus copy-paste prompts |
+| `docs/archive/content/lin-cheng/` | `ARCHIVED` | unregistered early second-route slice; not current character/narrative canon |
 | `.ai/archive/operators/OPENING_CH1_DEMO_OPERATOR_PACK_v0.1.md` | `ARCHIVED` | completed one-off demo operator procedure |
 | `.ai/experiments/pilots/` | `EXPERIMENTAL` | capability tests, pilot packets/results, failure evidence |
-| `docs/proposals/urban-dating-sim-setting-proposal.md` | `ARCHIVED` by default | early ideation; a Task Packet may cite a bounded excerpt as supporting input |
+| `docs/archive/proposals/urban-dating-sim-setting-proposal.md` | `ARCHIVED` | early ideation; research/migration provenance only |
 
 ## 5. Runtime fixture boundary
 
 以下能力仍由 runtime/tests 使用，這次不得因文件清理而刪除：
 
 - composite visual mode、existing sprites/backgrounds；
-- `xu-tang` / old OL content package and stable IDs；
+- `xu-tang` / old OL content package and stable IDs（`content/routes/xu-tang/`，不是新 production story）；
 - current asset manifest/source map/recipe provenance；
 - MP4/WebM playback；
 - save/migration/Memory Event compatibility。
 
-它們可繼續作 regression/migration fixture，但新的 production authoring 不再從舊 sprite/background prompt pipeline 開始。
+它們可繼續作 regression/migration fixture，但新的 production authoring 不再從舊 sprite/background prompt pipeline 開始。未註冊的林澄垂直切片已移到 `docs/archive/content/lin-cheng/`，不能作為當前 narrative canon。
 
 ## 6. Opening Chapter 1 current facts
 
