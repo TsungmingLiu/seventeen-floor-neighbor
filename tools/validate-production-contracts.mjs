@@ -212,9 +212,9 @@ function validateOrchestrationContract() {
   invariant(contract.includes('Continuity lives in canonical artifacts, not worker memory.'), 'orchestration lost artifact continuity principle');
   invariant(contract.includes('MUST NOT directly generate CG candidates'), 'orchestration lost parent renderer prohibition');
   invariant(contract.includes('Default is `economical`.'), 'orchestration lost economical-first model routing');
-  invariant(contract.includes('### Baseline workload routing'), 'orchestration lost baseline workload routing matrix');
-  invariant(contract.includes('Production Coordinator / DAG decomposition') && contract.includes('Deterministic render-prompt compilation'), 'orchestration baseline matrix lost key strong/economical workload examples');
-  invariant(contract.includes('真正 image-generation capability 不由此 tier 指定'), 'orchestration must distinguish render orchestration tier from image-generation capability');
+  invariant(contract.includes('### Baseline workload routing'), 'orchestration lost baseline workload routing guidance');
+  invariant(contract.includes('execution.model_routing.baseline_workloads'), 'orchestration must reference manifest-owned baseline workloads');
+  invariant(contract.includes('cg_render_orchestration: economical') && contract.includes('actual image-generation capability/model selection is outside this worker tier'), 'orchestration must distinguish render orchestration tier from image-generation capability');
   invariant(contract.includes('validation_escalation') && contract.includes('最多可對同一 objective 建立一次'), 'orchestration lost bounded escalation policy');
   invariant(contract.includes('no automatic retry / no automatic image scoring'), 'orchestration model routing must preserve renderer retry prohibition');
   invariant(contract.includes('READY_FOR_HUMAN_ACCEPTANCE') && contract.includes('preview:smoke'), 'orchestration lost playable definition of done');
