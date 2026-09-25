@@ -34,6 +34,7 @@
 | CG production | `docs/art/CG_PRODUCTION_SPEC.md` + `.ai/schemas/CG_MANIFEST.md` | render-ready manifest contract、projection boundary | narrative rewrite |
 | CG manifest values | `content/production/cg-manifests/<chapter>.json` | approved render-ready entries、reference bindings | global policy、renderer transport |
 | CG execution | `docs/art/CG_EXECUTION_ADAPTERS.md` + `tools/render-cg-packets.mjs` | deterministic render-packet projection / transport envelopes | creative decisions |
+| Asset metadata / provenance | `content/assets/manifest.json` + `content/assets/source-map.json` + `content/assets/source-catalog.json` + `content/assets/ingest-receipts/` + `content/recipes/assets.json` | logical asset IDs、runtime source/provider metadata、accepted-master provenance、ingest evidence、rebuild dependencies | creative canon、visual policy |
 | Continuity schemas | `.ai/schemas/NARRATIVE_CONTINUITY.md` + `.ai/schemas/VISUAL_CONTINUITY.md` | semantic/visual continuity fields | scene-specific values |
 | Runtime | `ARCHITECTURE.zh-TW.md` + current code/JSON/tests | implementation、data、save、build constraints | creative canon |
 
