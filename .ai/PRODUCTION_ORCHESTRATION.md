@@ -50,6 +50,7 @@ Coordinator 為每個 Task Packet 指定抽象 `model_tier`；exact model name �
 Baseline values are owned by `.ai/WORKFLOW_MANIFEST.yaml` at `execution.model_routing.baseline_workloads`; this contract defines how to interpret and override them rather than duplicating the table.
 
 Coordinator starts from that manifest baseline. If a bounded objective combines multiple workload classes, use the highest reasoning requirement required by the objective. Mechanical substeps inside a capable creative task do not require separate capable workers. `cg_render_orchestration: economical` applies only to acquisition/binding/call orchestration; actual image-generation capability/model selection is outside this worker tier.
+
 只有至少一項成立時可直接指定 `capable`：
 
 - task 需要 material creative judgment，而不是照已鎖定 contract 做機械轉換；
