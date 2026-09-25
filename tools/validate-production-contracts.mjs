@@ -14,6 +14,8 @@ const OPENING_MANIFEST = 'content/production/cg-manifests/opening-ch1.json';
 const OPENING_RECEIPT = 'content/assets/ingest-receipts/opening-ch1-demo-v0.1.json';
 const OPENING_ROUTE = 'content/routes/opening-demo/route.json';
 const SOURCE_CATALOG = 'content/assets/source-catalog.json';
+const ORCHESTRATION = '.ai/PRODUCTION_ORCHESTRATION.md';
+const DRY_RUN = 'tests/fixtures/production-orchestration-dry-run.json';
 const FORBIDDEN_ROOTS = ['.ai/archive/', '.ai/experiments/', 'docs/archive/'];
 const OLD_ACTIVE_PATHS = [
   'docs/art/PROTOTYPE_ART_REQUIREMENTS.md',
@@ -156,6 +158,85 @@ function validateActiveWorkflowBoundary() {
   for (const oldPath of OLD_ACTIVE_PATHS) invariant(!activeText.includes(oldPath), `active production source references obsolete path: ${oldPath}`);
 }
 
+function validateOrchestrationContract() {
+  const requiredFiles = [
+    ORCHESTRATION,
+    '.ai/schemas/TASK_PACKET.md',
+    '.ai/schemas/HANDOFF.md',
+    '.ai/schemas/PRODUCTION_RUN_LEDGER.md',
+    '.ai/policies/CONTEXT_ISOLATION.md',
+    'docs/PRODUCTION_ORCHESTRATION_DRY_RUN.md'
+  ];
+  requiredFiles.forEach((file) => invariant(fs.existsSync(file) && readText(file).trim(), `missing orchestration contract: ${file}`));
+  const manifest = readText('.ai/WORKFLOW_MANIFEST.yaml');
+  const bootstrap = readText('.ai/harnesses/bootstrap.md');
+  const isolation = readText('.ai/policies/CONTEXT_ISOLATION.md');
+  const contract = readText(ORCHESTRATION);
+  const packet = readText('.ai/schemas/TASK_PACKET.md');
+  const handoff = readText('.ai/schemas/HANDOFF.md');
+  const ledger = readText('.ai/schemas/PRODUCTION_RUN_LEDGER.md');
+  invariant(manifest.includes(`orchestration_contract: ${ORCHESTRATION}`), 'manifest does not identify canonical orchestration contract');
+  invariant(manifest.includes('each_independent_task_requires_fresh_worker: true'), 'manifest must require fresh task workers');
+  invariant(manifest.includes('parent_role: production_coordinator_control_plane_only'), 'manifest must keep parent control-plane-only');
+  invariant(manifest.includes('render_task_unit: one_independent_manifest_entry_or_explicit_linked_sequence'), 'manifest lost one-entry render boundary');
+  for (const [name, value] of [['bootstrap', bootstrap], ['context isolation', isolation], ['orchestration', contract]]) {
+    invariant(/fresh bounded worker|fresh worker\/session/.test(value), `${name} lost fresh-worker requirement`);
+  }
+  invariant(contract.includes('Continuity lives in canonical artifacts, not worker memory.'), 'orchestration lost artifact continuity principle');
+  invariant(contract.includes('MUST NOT directly generate CG candidates'), 'orchestration lost parent renderer prohibition');
+  invariant(contract.includes('READY_FOR_HUMAN_ACCEPTANCE') && contract.includes('preview:smoke'), 'orchestration lost playable definition of done');
+  for (const field of ['run_id:', 'task_id:', 'task_type:', 'depends_on:', 'harness:', 'pass:', 'objective:', 'required_acquisition:', 'allowed_sources:', 'input_versions:', 'constraints:', 'deliverables:', 'acceptance:', 'handoff_to:', 'human_gate:']) {
+    invariant(packet.includes(field), `Task Packet cannot represent ${field}`);
+  }
+  for (const field of ['run_id:', 'task_id:', 'status:', 'outputs:', 'input_versions:', 'output_versions:', 'qa:', 'known_issues:', 'invalidates:', 'next_recommended_stage:', 'human_gate_required:']) {
+    invariant(handoff.includes(field), `Handoff cannot represent ${field}`);
+  }
+  for (const status of ['PENDING', 'READY', 'RUNNING', 'PASS', 'NEEDS_REVIEW', 'FAIL', 'BLOCKED', 'STALE', 'SKIPPED']) {
+    invariant(ledger.includes(`\`${status}\``), `run ledger missing ${status}`);
+  }
+  for (const root of FORBIDDEN_ROOTS) {
+    invariant(manifest.includes(`- ${root}`) && packet.includes(`- ${root}`), `forbidden root not preserved: ${root}`);
+  }
+
+  const example = readJson(DRY_RUN);
+  invariant(example.hypothetical_only === true && example.run_id, 'dry-run fixture must be hypothetical');
+  const tasks = new Map(example.tasks.map((task) => [task.task_id, task]));
+  invariant(tasks.size === example.tasks.length, 'dry-run task IDs must be unique');
+  const visiting = new Set();
+  const visited = new Set();
+  function visit(id) {
+    invariant(tasks.has(id), `dry-run dependency missing: ${id}`);
+    invariant(!visiting.has(id), `dry-run DAG cycle at ${id}`);
+    if (visited.has(id)) return;
+    visiting.add(id);
+    for (const dependency of tasks.get(id).depends_on) visit(dependency);
+    visiting.delete(id);
+    visited.add(id);
+  }
+  for (const task of example.tasks) visit(task.task_id);
+  function ancestors(id, found = new Set()) {
+    for (const dependency of tasks.get(id).depends_on) {
+      found.add(dependency);
+      ancestors(dependency, found);
+    }
+    return found;
+  }
+  for (const group of example.parallel_groups) {
+    for (const id of group) {
+      invariant(tasks.has(id), `parallel task missing: ${id}`);
+      for (const other of group) if (id !== other) invariant(!ancestors(id).has(other), `parallel tasks have dependency: ${id} -> ${other}`);
+    }
+  }
+  const renders = example.tasks.filter((task) => task.task_type === 'cg_render');
+  invariant(renders.length === 3 && new Set(renders.map((task) => task.entry_id)).size === renders.length, 'dry-run must allocate one independent entry per fresh render task');
+  invariant(tasks.get('CGP-001').depends_on.includes('NQA-001') && renders.every((task) => task.depends_on.includes('MQA-001')), 'dry-run cannot render before approved scene/manifest');
+  invariant(tasks.get('INT-001').depends_on.every((id) => tasks.has(id)) && ['VQA-001', 'VQA-002', 'VQA-003'].every((id) => tasks.get('INT-001').depends_on.includes(id)), 'integration must await all required visual reviews');
+  for (const scenario of example.invalidation_cases) {
+    invariant(scenario.stale.every((id) => tasks.has(id)), `invalid stale task in ${scenario.change}`);
+    invariant((scenario.preserve || []).every((id) => tasks.has(id) && !scenario.stale.includes(id)), `invalidation crosses preserved task in ${scenario.change}`);
+  }
+}
+
 function validateOpeningMigration(contracts, manifest) {
   const contractSceneIds = new Set(contracts.map((contract) => contract.scene_id));
   invariant(manifest.source_scene_ids.every((sceneId) => contractSceneIds.has(sceneId)), 'CG manifest scene has no Narrative Continuity Contract');
@@ -222,6 +303,7 @@ function validateOpeningMigration(contracts, manifest) {
 
 function main() {
   validateActiveWorkflowBoundary();
+  validateOrchestrationContract();
   const narrativeFiles = listJsonFiles(NARRATIVE_ROOT);
   invariant(narrativeFiles.length > 0, 'no Narrative Continuity Contracts found');
   const contracts = narrativeFiles.map((file) => validateNarrativeContract(readJson(file), file));
