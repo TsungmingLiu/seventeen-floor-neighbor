@@ -49,6 +49,7 @@ Production 文件只有四種 lifecycle：
 | Visual direction | `docs/art/PRODUCTION_VISUAL_DIRECTION.md` | global visual contract、shot economy、responsive composition | scene-specific narrative choice |
 | Character identity | `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md` | reference authority、identity/wardrobe mapping | scene purpose、camera |
 | CG production | `docs/art/CG_PRODUCTION_SPEC.md` + `.ai/schemas/CG_MANIFEST.md` | render-ready manifest、projection、adapter boundary | narrative rewrite |
+| CG adapters | `docs/art/CG_EXECUTION_ADAPTERS.md` + `tools/render-cg-packets.mjs` | deterministic projection / transport envelopes | creative decisions、rendering |
 | Continuity schemas | `.ai/schemas/NARRATIVE_CONTINUITY.md` + `.ai/schemas/VISUAL_CONTINUITY.md` | required semantic and visual continuity fields | scene-specific values |
 | Runtime | `ARCHITECTURE.zh-TW.md` and applicable feature spec | implementation/data/save constraints | creative canon |
 | Document index | `docs/DOCUMENT_STATUS.md` | human-readable lifecycle inventory | workflow execution |

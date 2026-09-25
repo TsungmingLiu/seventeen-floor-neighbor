@@ -119,6 +119,12 @@ schemas:
   cg_manifest: .ai/schemas/CG_MANIFEST.md
   cg_manifest_json: .ai/schemas/cg-manifest.schema.json
 
+render_projection:
+  tool: tools/render-cg-packets.mjs
+  adapters: [chat_manual, work_batch, api]
+  shared_prompt_must_match: true
+  free_summary_allowed: false
+
 execution:
   default_unit: one_task
   default_agent_state: fresh

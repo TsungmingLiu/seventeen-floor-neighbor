@@ -11,7 +11,7 @@ Version: 1.0.0
 ## Allowed inputs
 
 - one canonical CG manifest entry；
-- deterministic projection 產生的 render packet；
+- `tools/render-cg-packets.mjs` deterministic projection 產生的 render packet；
 - exactly the reference attachments/bindings named by that entry；
 - accepted base image when `reference_transport.mode = edit_from_accepted_base`。
 

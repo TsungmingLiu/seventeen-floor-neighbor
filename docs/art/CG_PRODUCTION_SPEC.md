@@ -6,7 +6,7 @@
 >
 > Updated: 2026-09-25
 
-本文件定義 `Locked Scene → Canonical CG Manifest → Render Packet → Candidate → Accepted Asset`。Machine-valid shape 以 `.ai/schemas/cg-manifest.schema.json` 為準；欄位語意見 `.ai/schemas/CG_MANIFEST.md`。
+本文件定義 `Locked Scene → Canonical CG Manifest → Render Packet → Candidate → Accepted Asset`。Machine-valid shape 以 `.ai/schemas/cg-manifest.schema.json` 為準；欄位語意見 `.ai/schemas/CG_MANIFEST.md`。Execution adapter contract and CLI 見 `docs/art/CG_EXECUTION_ADAPTERS.md`、`tools/render-cg-packets.mjs`。
 
 ## 1. Authority boundary
 

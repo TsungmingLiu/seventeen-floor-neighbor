@@ -17,6 +17,7 @@
     "assets:check": "node tools/check-assets.mjs",
     "assets:build": "node tools/build-assets.mjs",
     "assets:plan": "node tools/asset-plan.mjs",
+    "cg:packet": "node tools/render-cg-packets.mjs",
     "context": "node tools/context.mjs"
   }
 }
