@@ -10,7 +10,7 @@
 - 新故事採 Braided Narrative v0.5、CG-first / 16:9。宏觀故事、route/state、visual 與 CG 契約分別在 `docs/narrative/`、`docs/art/`；Chapter 1 的 machine-readable values 在 `content/production/`。
 - `content/` 的現行 production values、playable route、legacy fixture 與 asset metadata 分界見 [Content data boundary](content/README.md)。未註冊的早期林澄短篇已歸檔，不是新林澄線的 canon。
 
-舊 `xu-tang` / OL playable package、sprites/backgrounds 與 composite rendering 留作 runtime/save regression fixture。已退出 production policy 的 prompt、operator 與 pilot 放在 `docs/archive/`、`.ai/archive/`、`.ai/experiments/`。
+舊 `xu-tang` playable package、sprites/backgrounds 與 composite rendering 留作 runtime/save regression fixture。已退出 production policy 的 prompt、operator 與 pilot 放在 `docs/archive/`、`.ai/archive/`、`.ai/experiments/`。
 
 ## 開發與驗證
 

@@ -77,7 +77,7 @@ Machine validation shapes：`.ai/schemas/narrative-continuity.schema.json`、`.a
 以下能力仍由 runtime/tests 使用，這次不得因文件清理而刪除：
 
 - composite visual mode、existing sprites/backgrounds；
-- `xu-tang` / old OL content package and stable IDs（`content/routes/xu-tang/`，不是新 production story）；
+- `xu-tang` legacy content package and its remaining stable IDs（`content/routes/xu-tang/`，不是新 production story）；
 - current asset manifest/source map/recipe provenance；
 - MP4/WebM playback；
 - save/migration/Memory Event compatibility。

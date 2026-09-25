@@ -8,7 +8,7 @@
 | `routes/opening-demo/` | current playable integration | Opening Chapter 1 節點、route config、Memories；creative source 仍是 locked scene 與 approved contracts。 |
 | `production/narrative/` | CANONICAL production values | 少量 semantic state 與跨場連續性；不存 dialogue prose。 |
 | `production/cg-manifests/` | CANONICAL production values | render-ready CG entries；Render Packet 由工具重建，不手改回寫。 |
-| `routes/xu-tang/` | LEGACY-FIXTURE | 舊 123-node 長篇、OL 臨時支線、date pool、Memories；保留 stable IDs 供 runtime/save/測試。不是新劇情或 CG 的起點。 |
+| `routes/xu-tang/` | LEGACY-FIXTURE | 舊長篇、date pool、Memories；保留仍有效的 stable IDs 供 runtime/save/測試。不是新劇情或 CG 的起點。 |
 | `characters/` | runtime dependency metadata | 已登記角色設計版本與 asset dependency；角色故事方向以 narrative canon 為準。 |
 | `assets/`、`recipes/` | runtime/provenance metadata | manifest、source-map、source-catalog、ingest receipt、recipe。`source-map` 仍包含 preservation-only 來源；其存在不代表該圖可供新 production 使用。 |
 

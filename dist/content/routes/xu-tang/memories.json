@@ -30,12 +30,6 @@
       "characterId": "xu_tang",
       "title": "許棠・門打開之後",
       "order": 40
-    },
-    {
-      "id": "side-memories",
-      "kind": "side",
-      "title": "其他回憶",
-      "order": 50
     }
   ],
   "events": [
@@ -604,36 +598,6 @@
       },
       "galleryAssets": [
         "cg.ch04.sunday_morning"
-      ]
-    },
-    {
-      "id": "mem.side.office",
-      "sectionId": "side-memories",
-      "order": 160,
-      "progressRank": 50,
-      "title": "電梯外的臨時偶遇",
-      "summary": "替一位剛加完班的陌生人按住電梯門，只留下了一句「下次見」。",
-      "characterIds": [],
-      "replayNode": "office_intro",
-      "unlockNodes": [
-        "office_intro",
-        "office_line",
-        "office_choice",
-        "office_close"
-      ],
-      "kind": "side",
-      "highlight": false,
-      "cover": {
-        "asset": "cg.office_ol.hallway",
-        "mode": "scene",
-        "focus": {
-          "x": 62,
-          "y": 42
-        },
-        "overlay": "dark-soft"
-      },
-      "galleryAssets": [
-        "cg.office_ol.hallway"
       ]
     }
   ]

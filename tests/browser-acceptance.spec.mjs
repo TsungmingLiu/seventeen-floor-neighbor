@@ -7,8 +7,7 @@ const defaultStats = {
   trust: 0,
   chaos: 0,
   comfort: 0,
-  relationship: 0,
-  officeRoute: 0
+  relationship: 0
 };
 
 function snapshot(nodeId, stats = {}, flags = [], returnNodes = []) {
@@ -231,15 +230,15 @@ test('replaying the current Memory Event does not rewind its deeper frontier nod
 });
 
 test('return to current progress reveals a frontier hidden by a Memories filter', async ({ page }) => {
-  const office = snapshot('office_intro', { officeRoute: 1 });
+  const storyStart = snapshot('intro1');
   await seedStorage(page, {
     'chapter-01:journey:v2': {
       version: 2,
-      cursor: office,
-      frontier: office,
-      frontierMemoryEventId: 'mem.side.office',
-      frontierRank: 50,
-      checkpoints: { office_intro: office, blackout: snapshot('blackout') },
+      cursor: storyStart,
+      frontier: storyStart,
+      frontierMemoryEventId: 'mem.story.start',
+      frontierRank: 0,
+      checkpoints: { intro1: storyStart, blackout: snapshot('blackout') },
       edges: []
     },
     neighborMuted: '1'
@@ -248,9 +247,9 @@ test('return to current progress reveals a frontier hidden by a Memories filter'
   await boot(page);
   await page.locator('#memories-button').click();
   await page.locator('#memory-filters button').filter({ hasText: '許棠' }).click();
-  await expect(page.locator('[data-memory-id="mem.side.office"]')).toHaveCount(0);
+  await expect(page.locator('[data-memory-id="mem.story.start"]')).toHaveCount(0);
   await page.locator('#memories-current').click();
-  await expect(page.locator('[data-memory-id="mem.side.office"]')).toHaveClass(/is-frontier/);
+  await expect(page.locator('[data-memory-id="mem.story.start"]')).toHaveClass(/is-frontier/);
   await expect(page.locator('#memory-filters button').filter({ hasText: '全部' }))
     .toHaveAttribute('aria-pressed', 'true');
 });

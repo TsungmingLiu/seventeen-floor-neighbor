@@ -31,7 +31,7 @@ New production art is **CG-first, 16:9 landscape-first, responsive full viewport
 
 W1/W2/W3/W4 foundation is complete. Preserve runnable runtime fixtures while migrating production content. Check actual manifest/source-map/build references before deleting binary assets; an unreferenced local candidate is not a required runtime fixture.
 
-The old 123-node playable story and temporary sprite-heavy visual data remain engine/migration fixtures; they are not the canonical production story or art pipeline.
+The old `xu-tang` playable story and its remaining sprite-heavy visual data remain engine/migration fixtures; they are not the canonical production story or art pipeline.
 
 ## Story and asset invariants
 

@@ -7,7 +7,7 @@ Updated: 2026-09-25
 - W1–W3：source/output boundary、strict asset check/build、GitHub Codespaces development/preview/acceptance 已實作。`dist/` 可 clean rebuild。Canonical engineering environment 是 Codespaces；local clone 是 fallback。
 - W4：Player UI、Memories、CG Gallery、journey v2 cursor/frontier、v1 save migration、browser acceptance 已完成。實際 code/data contract 見 `ARCHITECTURE.zh-TW.md`、`src/` 與 route `memories.json`。
 - Asset storage：GitHub 保存 code/content/metadata 與既有 Git-backed legacy sources；Google Drive `source-private` 保存 accepted masters，Drive `runtime-public` 保存目前由 source-map 使用的 optimized runtime objects。本地 repo `runtime-public/` 已退出，不是 build input。
-- 預設 playable route 是 `opening-demo`；`xu-tang` 123-node package 和 office OL 內容保留作 runtime/save/regression fixture，不代表新的 production story ordering。
+- 預設 playable route 是 `opening-demo`；`xu-tang` 舊 package 保留作 runtime/save/regression fixture，不代表新的 production story ordering。已廢棄的 office OL 臨時支線已完整移除。
 
 ## 現在的 creative production
 

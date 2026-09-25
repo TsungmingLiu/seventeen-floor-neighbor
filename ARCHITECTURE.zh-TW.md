@@ -13,7 +13,7 @@
 | UI shell | `public/index.html`、`public/styles.css` | 標題、遊戲、Memories、CG Gallery |
 | Runtime | `src/` | 播放、visuals、progress、Memories、branch graph helper |
 | Route registry / packages | `content/routes/index.json`、`content/routes/<id>/` | default route、story/scene files、asset allowlist、Memory Events |
-| Route data | `content/routes/opening-demo/`、`content/routes/xu-tang/` | 現行 Chapter 1；舊長篇 regression fixture（含 OL 支線、date pool） |
+| Route data | `content/routes/opening-demo/`、`content/routes/xu-tang/` | 現行 Chapter 1；舊長篇 regression fixture（含 date pool） |
 | Character metadata | `content/characters/` | 已登記角色的設計／依賴資料 |
 | Production values | `content/production/` | Narrative Continuity Contract、Canonical CG Manifest |
 | Asset metadata | `content/assets/manifest.json`、`source-map.json`、`source-catalog.json`、`content/recipes/assets.json` | logical ID、runtime provider、master provenance、recipe/dependency |

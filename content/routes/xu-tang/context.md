@@ -13,8 +13,7 @@
 
 ## 路由提示
 
-- 劇情來源：`content/routes/xu-tang/chapter-01.json`、`content/routes/xu-tang/office-ol-story.json`
-- 早期辦公族 OL 臨時支線連續性：`content/routes/xu-tang/office-ol-context.md`
+- 劇情來源：`content/routes/xu-tang/chapter-01.json`
 - 約會池：`content/routes/xu-tang/date-pool.json`
 - 角色設定：`content/characters/xu_tang.json`
 - 針對單一節點工作時，先執行 `npm run context -- --route xu-tang --node <node-id>`。

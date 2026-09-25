@@ -96,8 +96,7 @@
       "choices": [
         { "text": "不是囤貨，是成年人的情緒穩定用品。", "next": "c1a", "effects": { "heart": 1, "chaos": 1 } },
         { "text": "鄰居見面禮。妳喜歡豚骨還是辣味？", "next": "c1b", "effects": { "heart": 2, "chaos": 1 } },
-        { "text": "我可以解釋。", "next": "c1c", "effects": { "chaos": 1 } },
-        { "text": "先替電梯外剛加完班的人按住門。", "next": "office_intro", "effects": { "officeRoute": 1 }, "mapLabel": "辦公族 OL 支線" }
+        { "text": "我可以解釋。", "next": "c1c", "effects": { "chaos": 1 } }
       ]
     },
     "c1a": {
