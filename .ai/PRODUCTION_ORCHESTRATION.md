@@ -43,6 +43,32 @@ Human request → narrative_design → scene_dialogue → narrative_review
 
 Coordinator 為每個 Task Packet 指定抽象 `model_tier`；exact model name 由 execution adapter 依當前可用模型映射，避免 workflow 綁死產品型號。**Default is `economical`.** Coordinator 應使用能可靠完成 bounded task 的最低成本 tier，而不是因 task「重要」就直接使用最強模型。
 
+若 execution runtime 可選 parent Coordinator 的 reasoning tier，Coordinator 本身優先使用 `capable`，因其工作包含 DAG decomposition、routing、invalidation 與 escalation judgment；這是 control-plane guidance，不代表 production worker 預設也使用 `capable`。
+
+### Baseline workload routing
+
+以下是 Coordinator 的預設 routing matrix。它是 baseline，不取代下方的 ambiguity / cross-system / escalation 規則；若一個 Task Packet 同時包含多種工作，以**整個 bounded objective 所需的最高 reasoning requirement**決定 tier。Mechanical work 若只是 capable creative task 內的必要步驟，不應再拆出額外 capable worker。
+
+| Workload | Baseline tier | Notes |
+| --- | --- | --- |
+| Production Coordinator / DAG decomposition（runtime 可選時） | `capable` | Control-plane reasoning only；不親自做 production stage。 |
+| Narrative design | `capable` | Scene function、relationship state、character intent、emotional arc。 |
+| Scene dialogue / prose | `capable` | Voice、subtext、pacing 與 bounded creative execution。 |
+| CG planning / shot design | `capable` | Composition、visual storytelling、continuity-sensitive shot judgment。 |
+| Cross-scene continuity review / reconciliation | `capable` | 跨 scene / character state / artifact synthesis。 |
+| Final high-impact QA | `capable` | 錯誤會造成大範圍 downstream rework 時。 |
+| Narrative review（single bounded scene） | `economical` | Checklist/contract review；遇 material ambiguity 再升級。 |
+| Manifest usability / pre-render review | `economical` | Bounded schema/reference/shot-contract validation。 |
+| CG render orchestration wrapper | `economical` | 只做 acquisition/binding/call orchestration；真正 image-generation capability 不由此 tier 指定。 |
+| Visual review（single candidate） | `economical` | Identity/wardrobe/framing/checklist 初篩；borderline judgment 可升級。 |
+| Integration / runtime wiring | `economical` | 已接受 artifacts 的 deterministic wiring；缺 creative decision 時回 upstream。 |
+| Repo/source extraction | `economical` | Exact path/ref/content retrieval、摘要與 bounded extraction。 |
+| Character/environment spec extraction | `economical` | 從 canonical source 投影已存在的 identity/environment facts。 |
+| Deterministic render-prompt compilation | `economical` | 已鎖定規格 → compact render packet；不重新做 creative design。 |
+| Filename / manifest / inventory bookkeeping | `economical` | Stable IDs、mapping、receipt、inventory。 |
+| Schema transformation | `economical` | 已定義 contract 間的結構化轉換。 |
+| Bounded checklist validation | `economical` | Machine-checkable / reviewable criteria。 |
+
 只有至少一項成立時可直接指定 `capable`：
 
 - task 需要 material creative judgment，而不是照已鎖定 contract 做機械轉換；
