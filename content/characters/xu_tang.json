@@ -175,6 +175,15 @@
         "內搭保持奶油白羅紋圓領與完整覆蓋",
         "整體是適合夜市步行與街頭小吃的輕鬆週末造型"
       ]
+    },
+    "weekday_neighbor": {
+      "version": 1,
+      "description": "Canonical Wardrobe A Look 01 Weekday Neighbor. Exact visual authority remains xt-ref-05-wardrobe-a.png; this runtime metadata exists so accepted Opening Demo CG provenance can reference the approved production outfit without reusing legacy office styling.",
+      "invariants": [
+        "use the approved Wardrobe A Look 01 silhouette and materials",
+        "retain Xu Tang's mature 27-year-old urban presentation",
+        "large gold hoop earrings follow the current canonical reference pack for this production look"
+      ]
     }
   },
   "makeups": {
