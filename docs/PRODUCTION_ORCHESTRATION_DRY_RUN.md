@@ -8,18 +8,24 @@ Hypothetical Human directive: 「在 COM-01J 後增加一個短 scene，讓江�
 
 `tests/fixtures/production-orchestration-dry-run.json` 是可驗證的 DAG fixture。每列代表一個獨立 fresh worker/task；真正執行時 Coordinator 按 `.ai/schemas/TASK_PACKET.md` 補 `run_id`、exact source binding/allowlist/acquisition、immutable input versions、deliverable、acceptance、handoff/Human gate。以下是 bounded source policy，不是已寫好的 production packet。
 
-| Task Packet | Depends on | Worker sees | Worker cannot see |
-| --- | --- | --- | --- |
-| `ND-001` narrative_design | Human directive | relevant narrative canon/state、COM-01J immediate continuity | image prompt、unrelated heroine、archive |
-| `SC-001` scene_dialogue | `ND-001` PASS | approved Narrative Continuity Contract、voice/state excerpt、immediate scene continuity | CG manifest、render/reference pixels、ND conversation |
-| `NQA-001` narrative_review | `SC-001` PASS | contract、one scene、same bounded canon excerpts | renderer inputs、full repo |
-| `CGP-001` cg_plan | `NQA-001` PASS | approved Locked Scene、visual contract、visible-character/environment refs、Visual Continuity State | unrelated routes、writer conversation、archive |
-| `MQA-001` manifest usability | `CGP-001` PASS | manifest entries and required reference identities | candidate pixels（尚未生成）、full story |
-| `CGR-001/002/003` cg_render | `MQA-001` PASS | each worker only its own entry、deterministic Render Packet、entry-declared pixels/accepted base | other entries/candidates、scene、canon、prior renderer chat |
-| `VQA-001/002/003` visual_review | corresponding render PASS | one candidate、entry、actual reference binding、optional accepted base | other candidates、writer conversation |
-| `INT-001` integrate | `NQA-001` and all three VQA PASS / accepted assets | locked narrative、accepted assets/receipts、runtime contract | rejected candidates、raw render prompts、creative rewrite |
+| Task Packet | Depends on | Model tier | Routing reason | Worker sees | Worker cannot see |
+| --- | --- | --- | --- | --- | --- |
+| `ND-001` narrative_design | Human directive | `capable` | `creative_judgment` | relevant narrative canon/state、COM-01J immediate continuity | image prompt、unrelated heroine、archive |
+| `SC-001` scene_dialogue | `ND-001` PASS | `capable` | `creative_judgment` | approved Narrative Continuity Contract、voice/state excerpt、immediate scene continuity | CG manifest、render/reference pixels、ND conversation |
+| `NQA-001` narrative_review | `SC-001` PASS | `economical` | `default_bounded` | contract、one scene、same bounded canon excerpts | renderer inputs、full repo |
+| `CGP-001` cg_plan | `NQA-001` PASS | `capable` | `creative_judgment` | approved Locked Scene、visual contract、visible-character/environment refs、Visual Continuity State | unrelated routes、writer conversation、archive |
+| `MQA-001` manifest usability | `CGP-001` PASS | `economical` | `default_bounded` | manifest entries and required reference identities | candidate pixels（尚未生成）、full story |
+| `CGR-001/002/003` cg_render | `MQA-001` PASS | `economical` wrapper | `default_bounded` | each worker only its own entry、deterministic Render Packet、entry-declared pixels/accepted base | other entries/candidates、scene、canon、prior renderer chat |
+| `VQA-001/002/003` visual_review | corresponding render PASS | `economical` | `default_bounded` | one candidate、entry、actual reference binding、optional accepted base | other candidates、writer conversation |
+| `INT-001` integrate | `NQA-001` and all three VQA PASS / accepted assets | `economical` | `default_bounded` | locked narrative、accepted assets/receipts、runtime contract | rejected candidates、raw render prompts、creative rewrite |
 
 `ND → SC → NQA → CGP → MQA` 是 sequential。Manifest approval 後，三筆假設彼此 independent、`sequence_id: null`，可派三個不同 fresh render workers 並行；各自 VQA 僅等待自己的 render。若 manifest 明列合法 linked sequence，才把該 sequence 視為一個 bounded render task，並遵守 sequence 內 dependency。Integration 等全部 required outputs accepted。Unknown dependency 預設 sequential。
+
+## Cost-aware routing example
+
+這個 dry run 故意只把真正需要 creative judgment 的 `ND`、`SC`、`CGP` 起始 attempt 放在 `capable`；bounded narrative/visual review、renderer wrapper 與 integration 維持 `economical`。這不是按 task importance 分級，而是按 reasoning requirement 分級；exact model name 由 execution adapter 映射。
+
+若 `VQA-002` 這類 bounded task 的 economical worker 本身 validation 失敗，Coordinator 可建立 **一次** fresh focused corrective redispatch，仍用 `economical`。若同一 objective 再次因 capability/reasoning limitation 失敗，下一個 fresh attempt 才改 `capable`，`routing_reason: validation_escalation`。若第一次失敗已證明是 material ambiguity/source conflict，則可直接依 contract 升級。這個規則不授權 CG 自動重畫；renderer candidate 是否重派仍由 explicit Visual QA rejection routing 決定。
 
 ## Handoff, provenance, and interruption
 
