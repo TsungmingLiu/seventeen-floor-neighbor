@@ -27,10 +27,13 @@ Production documents use exactly four lifecycle labels：`CANONICAL`、`EXPERIME
 | Current milestone | `PROJECT_STATE.md` |
 | Source/lifecycle map | `docs/CONTENT_PRODUCTION_SOURCE_MAP.md` |
 | Narrative design | `docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md` |
+| Production layer contract | `docs/narrative/CONTENT_PRODUCTION_SPEC.md` |
 | Route/state | `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md` |
 | Locked scene facts | `docs/narrative/scenes/vertical-slice/*.md` |
 | Visual production | `docs/art/PRODUCTION_VISUAL_DIRECTION.md` |
 | Character identity references | `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md` |
+| CG production / manifest | `docs/art/CG_PRODUCTION_SPEC.md` + `.ai/schemas/CG_MANIFEST.md` |
+| Narrative/visual continuity | `.ai/schemas/NARRATIVE_CONTINUITY.md` + `.ai/schemas/VISUAL_CONTINUITY.md` |
 | Creative progress | `docs/narrative/CONTENT_PRODUCTION_TODO.md` |
 | Runtime architecture | `ARCHITECTURE.zh-TW.md` + applicable feature spec |
 

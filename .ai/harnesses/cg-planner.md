@@ -23,7 +23,7 @@ Planner 決定「哪個 beat 值得一張圖、如何呈現、如何連貫」，
 
 ## Required output
 
-輸出 canonical CG manifest，不輸出自由格式 prompt。每個 entry 必須 self-contained，至少包含：
+輸出符合 `.ai/schemas/CG_MANIFEST.md` 與 `.ai/schemas/cg-manifest.schema.json` 的 Canonical CG Manifest，不輸出自由格式 prompt。每個 entry 必須 self-contained，至少包含：
 
 - stable `entry_id` / `scene_id` / `beat_range` / `cg_class`；
 - narrative purpose、`must_show`、`must_not_imply`；

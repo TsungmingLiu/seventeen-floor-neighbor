@@ -13,6 +13,8 @@ Updated: 2026-09-24
 
 目前 active production roles 已收斂為 `Content Writer`、`CG Planner`、`CG Renderer`、`Content QA`、`Integrator`。Narrative Design 與 Scene/Dialogue 由同一 writer harness 的不同 pass 保護；Narrative QA 是 QA pass，不另建重 agent。這仍是 manual/semiautomated layer，不等於 automated Content Factory。
 
+Canonical production contracts：`docs/narrative/CONTENT_PRODUCTION_SPEC.md`、`.ai/schemas/NARRATIVE_CONTINUITY.md`、`.ai/schemas/VISUAL_CONTINUITY.md`、`docs/art/CG_PRODUCTION_SPEC.md`、`.ai/schemas/CG_MANIFEST.md`。Renderer boundary 是 one CG Manifest Entry + deterministic Render Packet + declared refs；不得重新讀 narrative/project policy。
+
 新 production visual contract 已改為 **CG-first / 16:9 landscape-first / responsive full viewport**；普通動作優先用 CG Sequence，MP4/WebM 保留給特殊事件。既有 sprites 與 9:16 assets 保留作 runtime/provenance fixture，但不再是新內容的 production requirement。Canonical visual authority：`docs/art/PRODUCTION_VISUAL_DIRECTION.md`.
 
 文件 lifecycle、active source map 與 runtime-fixture boundary：`docs/DOCUMENT_STATUS.md`、`docs/CONTENT_PRODUCTION_SOURCE_MAP.md`。

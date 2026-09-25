@@ -30,7 +30,7 @@ Version: 1.0.0
 
 ### `narrative_design`
 
-輸出一份最小 `Narrative Continuity Contract`，包含：
+輸出一份符合 `.ai/schemas/NARRATIVE_CONTINUITY.md` 的最小 `Narrative Continuity Contract`，包含：
 
 - `scene_id`
 - `entry_state` semantic labels + natural-language constraints

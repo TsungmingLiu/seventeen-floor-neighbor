@@ -72,12 +72,14 @@ source_authority:
   inventory: docs/CONTENT_PRODUCTION_SOURCE_MAP.md
   current_state: PROJECT_STATE.md
   narrative_canon:
+    - docs/narrative/CONTENT_PRODUCTION_SPEC.md
     - docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md
     - docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md
     - docs/narrative/scenes/vertical-slice/
   visual_canon:
     - docs/art/PRODUCTION_VISUAL_DIRECTION.md
     - docs/art/CHARACTER_REFERENCE_PACK_SPEC.md
+    - docs/art/CG_PRODUCTION_SPEC.md
   runtime_architecture:
     - ARCHITECTURE.zh-TW.md
     - docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md
@@ -111,6 +113,11 @@ schemas:
   task_packet: .ai/schemas/TASK_PACKET.md
   data_packs: .ai/schemas/DATA_PACKS.md
   handoff: .ai/schemas/HANDOFF.md
+  narrative_continuity: .ai/schemas/NARRATIVE_CONTINUITY.md
+  narrative_continuity_json: .ai/schemas/narrative-continuity.schema.json
+  visual_continuity: .ai/schemas/VISUAL_CONTINUITY.md
+  cg_manifest: .ai/schemas/CG_MANIFEST.md
+  cg_manifest_json: .ai/schemas/cg-manifest.schema.json
 
 execution:
   default_unit: one_task

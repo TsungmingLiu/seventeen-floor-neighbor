@@ -81,11 +81,13 @@ SH-01   17樓第一次同框
 | `.ai/WORKFLOW_MANIFEST.yaml` | 新 AI session 的唯一 workflow 入口；五個 active role、layer gate、source lifecycle |
 | `AGENTS.md` | repo-level safety/verification guidance；AI production 仍先走 `.ai/` bootstrap |
 | `docs/narrative/CONTENT_PRODUCTION_TODO.md` | creative production batch board；只記進度，不重複 scene spec |
+| `docs/narrative/CONTENT_PRODUCTION_SPEC.md` | Narrative Design → Scene/Dialogue → Visual Production layer contract 與固定術語 |
 | `docs/CONTENT_PRODUCTION_SOURCE_MAP.md` | active/archive/experimental/generated inventory 與 source-of-truth map |
 | `docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md` | prototype scene/beat/character arc/pre-script authority |
 | `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md` | route DAG、relationship/knowledge/deception state contract |
 | `docs/art/PRODUCTION_VISUAL_DIRECTION.md` | **現行** CG-first、16:9、responsive crop/focus、CG sequence/video contract |
 | `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md` | 角色 6-sheet identity/body/wardrobe reference catalog；worker 必須按角色隔離 |
+| `docs/art/CG_PRODUCTION_SPEC.md` | Canonical CG Manifest、deterministic Render Packet、adapter boundary |
 | `docs/archive/` | **ARCHIVED**：舊 art/prompt/recipe/backlog，只保留歷史與 provenance |
 | `.ai/archive/` / `.ai/experiments/` | **ARCHIVED / EXPERIMENTAL**：一次性 operator 與 pilot，不可供 production worker 使用 |
 | `docs/proposals/urban-dating-sim-setting-proposal.md` | archived-by-default ideation；只有 Task Packet 指定的 bounded excerpt 可作 supporting context |

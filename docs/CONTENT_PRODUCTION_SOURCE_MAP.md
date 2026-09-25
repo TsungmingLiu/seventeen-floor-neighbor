@@ -42,17 +42,20 @@ Production 文件只有四種 lifecycle：
 | Context policy | `.ai/policies/CONTEXT_ISOLATION.md` | bounded acquisition、character/scene isolation | creative decisions |
 | Current state | `PROJECT_STATE.md` | milestone、accepted decisions、migration state | reusable workflow detail |
 | Narrative design | `docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md` | macro arc、scene purpose、relationship pacing | final render prompt |
+| Production layer contract | `docs/narrative/CONTENT_PRODUCTION_SPEC.md` | Narrative Design → Scene/Dialogue → Visual Production boundaries and terminology | story facts |
 | Route/state | `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md` | route graph、knowledge/state semantics | dialogue prose、camera |
 | Locked scene | `docs/narrative/scenes/vertical-slice/*.md` | scene-local narrative facts、dialogue、entry/exit intent、semantic visual beats | image-generation prompt syntax |
 | Creative backlog | `docs/narrative/CONTENT_PRODUCTION_TODO.md` | progress、gates、known blockers | duplicated prompt/spec |
 | Visual direction | `docs/art/PRODUCTION_VISUAL_DIRECTION.md` | global visual contract、shot economy、responsive composition | scene-specific narrative choice |
 | Character identity | `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md` | reference authority、identity/wardrobe mapping | scene purpose、camera |
+| CG production | `docs/art/CG_PRODUCTION_SPEC.md` + `.ai/schemas/CG_MANIFEST.md` | render-ready manifest、projection、adapter boundary | narrative rewrite |
+| Continuity schemas | `.ai/schemas/NARRATIVE_CONTINUITY.md` + `.ai/schemas/VISUAL_CONTINUITY.md` | required semantic and visual continuity fields | scene-specific values |
 | Runtime | `ARCHITECTURE.zh-TW.md` and applicable feature spec | implementation/data/save constraints | creative canon |
 | Document index | `docs/DOCUMENT_STATUS.md` | human-readable lifecycle inventory | workflow execution |
 
 Active production roles are limited to `content_writer`、`cg_planner`、`cg_renderer`、`content_qa`、`integrator`。Bootstrap is routing only；Narrative QA is a `content_qa` pass。
 
-The production contracts and canonical CG manifest are introduced by this refactor and must be registered here and in `.ai/WORKFLOW_MANIFEST.yaml` in the same commit that makes them active.
+Machine validation shapes：`.ai/schemas/narrative-continuity.schema.json`、`.ai/schemas/cg-manifest.schema.json`。
 
 ## 4. Non-active inventory
 
