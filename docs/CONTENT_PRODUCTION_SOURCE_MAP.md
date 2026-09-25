@@ -50,6 +50,8 @@ Production 文件只有四種 lifecycle：
 | Runtime | `ARCHITECTURE.zh-TW.md` and applicable feature spec | implementation/data/save constraints | creative canon |
 | Document index | `docs/DOCUMENT_STATUS.md` | human-readable lifecycle inventory | workflow execution |
 
+Active production roles are limited to `content_writer`、`cg_planner`、`cg_renderer`、`content_qa`、`integrator`。Bootstrap is routing only；Narrative QA is a `content_qa` pass。
+
 The production contracts and canonical CG manifest are introduced by this refactor and must be registered here and in `.ai/WORKFLOW_MANIFEST.yaml` in the same commit that makes them active.
 
 ## 4. Non-active inventory

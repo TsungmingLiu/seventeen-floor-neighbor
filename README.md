@@ -14,7 +14,7 @@
 | Prototype heroines | **許棠**：27 歲、約 170 cm、自由接案視覺設計師；**江雨澄**：23 歲、約 160 cm、研究生＋兼職插畫／ACG creator |
 | Character visual identity | 許棠、江雨澄的 **6-sheet production reference packs 均已 QA PASS**；canonical Drive manifest 見 `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md` |
 | Current creative milestone | **Opening Vertical Slice**：COM-00 → SH-01；進度板在 `docs/narrative/CONTENT_PRODUCTION_TODO.md` |
-| AI production workflow | **Harness v0.1**：Bootstrap → bounded Task Packet → specialist → structured handoff；見 `.ai/` |
+| AI production workflow | **Workflow v1.0**：Bootstrap → bounded Task Packet → five active roles/passes → structured handoff；見 `.ai/` |
 | Visual production | **CG-first / 16:9 landscape-first**；新 production 不要求 sprite；詳見 `docs/art/PRODUCTION_VISUAL_DIRECTION.md` |
 | Current playable runtime | 仍保留舊 **123-node Xu Tang + temporary office-OL branch** 作為 engine / migration / W4 regression fixture；**它不是新的 canonical production story ordering** |
 | Runtime | Browser-native JavaScript，無 backend、無 database；save/progress 使用 `localStorage` |
@@ -78,7 +78,7 @@ SH-01   17樓第一次同框
 | `PROJECT_STATE.md` | 現在正在做什麼、最新 milestone / migration / acceptance 狀態 |
 | `TODO.md` | 技術執行順序、milestones、hard gates，以及長期 AI Game Director / Content Factory North Star |
 | `ARCHITECTURE.zh-TW.md` | canonical runtime / content / asset / build architecture |
-| `.ai/WORKFLOW_MANIFEST.yaml` | 新 AI session 的唯一 workflow 入口、harness registry、source lifecycle |
+| `.ai/WORKFLOW_MANIFEST.yaml` | 新 AI session 的唯一 workflow 入口；五個 active role、layer gate、source lifecycle |
 | `AGENTS.md` | repo-level safety/verification guidance；AI production 仍先走 `.ai/` bootstrap |
 | `docs/narrative/CONTENT_PRODUCTION_TODO.md` | creative production batch board；只記進度，不重複 scene spec |
 | `docs/CONTENT_PRODUCTION_SOURCE_MAP.md` | active/archive/experimental/generated inventory 與 source-of-truth map |

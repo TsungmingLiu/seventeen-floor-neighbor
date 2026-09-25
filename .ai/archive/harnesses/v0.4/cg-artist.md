@@ -1,5 +1,9 @@
 # CG Artist Harness
 
+> Lifecycle: **ARCHIVED — NOT A PRODUCTION SOURCE OF TRUTH**
+>
+> Historical harness retained for provenance. Do not resolve or execute it.
+
 Harness ID: cg_artist  
 Version: 0.4.0
 

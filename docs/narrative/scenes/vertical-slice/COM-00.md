@@ -1,6 +1,6 @@
 # COM-00 — 雨夜搬家
 
-> **Rendering supersession notice (2026-09-24):** this scene remains canonical for narrative, state, staging, wardrobe, expression, action timing, and continuity. Any older **9:16 / sprite / composite-rendering instruction** in this file is superseded for NEW production by `docs/art/PRODUCTION_VISUAL_DIRECTION.md` and the current Shot Planner harness. Do not rewrite narrative staging merely to preserve the old rendering mode.
+> **Rendering boundary:** this scene remains canonical for narrative/state/staging and semantic visual beats. Older 9:16/sprite/composite instructions are historical annotations; new render-ready decisions belong to the canonical CG manifest produced by `cg_planner`.
 
 
 ## Status

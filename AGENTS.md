@@ -9,8 +9,8 @@ For any new AI production or development session:
 1. Read `.ai/WORKFLOW_MANIFEST.yaml`.
 2. Follow `.ai/harnesses/bootstrap.md`.
 3. Read `.ai/policies/SOURCE_AUTHORITY.md` and `.ai/policies/CONTEXT_ISOLATION.md`.
-4. Read `PROJECT_STATE.md` for the current milestone.
-5. Resolve exactly one specialist harness unless the Production Coordinator explicitly decomposes a multi-step directive.
+4. Read `docs/CONTENT_PRODUCTION_SOURCE_MAP.md`; read `PROJECT_STATE.md` only when the resolved stage requires current milestone context.
+5. Resolve exactly one active harness/pass. Multi-stage work uses sequential bounded Task Packets; there is no separate coordinator role.
 6. Load only the sources allowed by the resulting Task Packet.
 
 **Do not start by reading the entire repo. Do not reuse a stale production prompt from an earlier conversation.**
@@ -25,7 +25,7 @@ New production art is **CG-first, 16:9 landscape-first, responsive full viewport
 - Existing sprite assets remain legacy/runtime regression fixtures until intentionally migrated.
 - Ordinary motion should use tightly related CG sequences when appropriate.
 - MP4/WebM support remains; production video is reserved for special events.
-- Old 9:16/sprite instructions in scene/art/recipe files are superseded where they conflict with the current visual contract.
+- Old 9:16/sprite/operator/pilot guidance is archived or experimental and cannot be used as production input.
 
 ## Current migration caveat
 

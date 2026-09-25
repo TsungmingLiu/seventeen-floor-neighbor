@@ -796,21 +796,19 @@ Human acceptance
 
 **Delivery surface 是 repo change + playable build，不是一堆需要 Human 手動搬運的 subagent 對話。**
 
-## 13.2 Specialist harness contract
+## 13.2 Production role contract
 
-現行 reusable specialists 由 `.ai/WORKFLOW_MANIFEST.yaml` 註冊：
+現行 active roles 由 `.ai/WORKFLOW_MANIFEST.yaml` 註冊：
 
 | Harness | Responsibility | Content isolation |
 | --- | --- | --- |
-| Production Coordinator | high-level scope → bounded task graph | 不寫 final dialogue / 不生圖 |
-| Narrative Planner | route/arc/scene objectives + state dependencies | 不讀 art prompts |
-| Scene Writer | one scene 的 narration/dialogue/choices/reactivity | 不讀無關角色，不做 final CG prompt |
-| Shot Planner | locked scene → CG-first shot packs | 把舊 sprite/9:16 rendering notes 排除 |
-| CG Artist | one shot / one tightly linked sequence | 只讀該 shot 的 character/environment packs |
-| Asset QA | identity/style/continuity/composition gate | 不重設計 shot |
+| Content Writer | Narrative Design 或 Scene/Dialogue pass | 不讀 render material；一次只做一層 |
+| CG Planner | locked scene → canonical CG manifest | 只讀 visible characters/environment + immediate continuity |
+| CG Renderer | manifest entry + declared references → one candidate | 不讀 scene/route/project policy |
+| Content QA | Narrative Review 或 Visual Review pass | 不在 QA 內重寫 creative authority |
 | Integrator | accepted content/assets → runtime contracts | 不改劇情、不生圖 |
 
-Harness = reusable behavior；Data Pack = replaceable content。Conversation history 不是 source of truth。
+Harness = reusable behavior；canonical contract/manifest = content source。Conversation history 不是 source of truth。
 
 ## 13.3 Automation prerequisites / hard gates
 

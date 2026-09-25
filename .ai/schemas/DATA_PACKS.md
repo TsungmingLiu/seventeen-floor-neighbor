@@ -1,85 +1,35 @@
-# Data Pack Contracts
+# Production Data Boundaries
 
-Version: 0.1.0
+Version: 1.0.0
 
-Data packs contain task content. Harnesses contain reusable behavior.
+Harness 定義 reusable behavior；canonical artifacts 定義 task content。
 
-## Global Visual Pack
+## Narrative Continuity Contract
 
-Contains only game-wide production rules:
-- current aspect ratio and responsive/crop policy;
-- rendering/style contract;
-- global negative style constraints;
-- dialogue safe-zone guidance;
-- output/master/runtime requirements;
-- CG / CG-sequence / video semantics.
+最小 semantic relationship/knowledge boundary + natural-language constraints。它不是 affection/trust scoring model，也不取代 runtime flags。
 
-Current authority: `docs/art/PRODUCTION_VISUAL_DIRECTION.md`.
+## Locked Scene
 
-## Character Pack
+Exactly one scene 的 narration/dialogue/choices、state mapping、branch/rejoin、semantic visual beats。不得內嵌 render prompt。
 
-Exactly one character per pack.
+## Character Reference Binding
 
-Required concepts:
-- stable character ID;
-- canonical age/body/face/hair facts needed for visual identity;
-- reference asset IDs/URLs;
-- wardrobe selection for the task;
-- task-relevant expression/behavior constraints;
-- forbidden identity traits.
+Exactly one character per binding：stable character ID、identity/age/body/hair facts、reference IDs、wardrobe key、forbidden drift。Multi-character entry 分開 namespaced。
 
-Do not include another character for comparison.
+## Environment Binding
 
-## Environment Pack
+Location、time/weather、layout、lighting、persistent props、reference ID。不得混入 character identity。
 
-Contains:
-- location ID;
-- time/weather;
-- persistent layout facts;
-- lighting;
-- scene-specific props;
-- composition constraints;
-- continuity anchors.
+## Visual Continuity State
 
-No character identity data.
+保存 screen side、body orientation、gaze、wardrobe、held object、camera axis/side、shot size、location、lighting、time/weather，以及 immediate previous accepted entry when needed。
 
-## Scene Pack
+## Canonical CG Manifest Entry
 
-Contains only the narrative facts needed for one scene:
-- objective;
-- entry/exit state;
-- dialogue/narration/choices as applicable;
-- locked staging;
-- continuity facts;
-- intended emotional beats.
+Planner 的 render-ready source of truth。包含 narrative purpose、visible characters/references、Visual Continuity State、camera/composition、include/exclude、reference transport、output/acceptance。
 
-No generation workflow instructions.
+Renderer 不讀其他 packs；deterministic projection 會把 entry 轉成 render packet。任何無法投影的 creative ambiguity 必須退回 Planner。
 
-## Shot Pack
+## Render Packet
 
-One visual shot or one explicitly linked CG sequence.
-
-Required concepts:
-- shot ID;
-- scene ID;
-- visible character IDs;
-- CG class: background_cg | dialogue_cg | reaction_cg | event_cg | cg_sequence_keyframe;
-- framing/camera/action;
-- expression;
-- wardrobe key;
-- environment ID;
-- continuity;
-- focus point / safe-zone intent;
-- dialogue beat range;
-- forbidden changes.
-
-Old 9:16 or sprite notes in scene files are not copied into new Shot Packs.
-
-## Continuity Pack
-
-Optional and minimal:
-- immediately previous accepted shot ID;
-- stable physical facts that must persist;
-- props/positions/lighting state.
-
-It is not a substitute for canonical character references.
+`GENERATED` artifact：由 canonical CG entry 逐欄位 deterministic projection，包含 shared prompt、reference checklist、provenance。Adapter 可以包裝 packet，但不得摘要或修改 shared prompt。

@@ -1,5 +1,9 @@
 # Shot Planner Harness
 
+> Lifecycle: **ARCHIVED — NOT A PRODUCTION SOURCE OF TRUTH**
+>
+> Historical harness retained for provenance. Do not resolve or execute it.
+
 Harness ID: shot_planner  
 Version: 0.1.1
 

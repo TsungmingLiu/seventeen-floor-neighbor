@@ -11,7 +11,7 @@ Updated: 2026-09-24
 
 2026-09-24 起，新的 AI production session 以 `.ai/WORKFLOW_MANIFEST.yaml` 為唯一 workflow 入口，並由 Bootstrap Harness 選擇單一 specialist。Harness 與內容資料分離；worker 預設 fresh/stateless，只讀 Task Packet allowlist 內的 bounded context。
 
-目前 v0.1 specialist：Production Coordinator、Narrative Planner、Scene Writer、Shot Planner、CG Artist、Asset QA、Integrator。這是 manual/semiautomated proving layer，不等於已開始 automated Content Factory。
+目前 active production roles 已收斂為 `Content Writer`、`CG Planner`、`CG Renderer`、`Content QA`、`Integrator`。Narrative Design 與 Scene/Dialogue 由同一 writer harness 的不同 pass 保護；Narrative QA 是 QA pass，不另建重 agent。這仍是 manual/semiautomated layer，不等於 automated Content Factory。
 
 新 production visual contract 已改為 **CG-first / 16:9 landscape-first / responsive full viewport**；普通動作優先用 CG Sequence，MP4/WebM 保留給特殊事件。既有 sprites 與 9:16 assets 保留作 runtime/provenance fixture，但不再是新內容的 production requirement。Canonical visual authority：`docs/art/PRODUCTION_VISUAL_DIRECTION.md`.
 

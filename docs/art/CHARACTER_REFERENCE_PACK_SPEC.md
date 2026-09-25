@@ -2,7 +2,7 @@
 
 > **CANONICAL identity/reference manifest.**
 >
-> AI workflow rule: this document records multiple characters for catalog purposes, but a CG worker must receive a **single-character Character Pack** derived from it unless the Shot Pack explicitly contains multiple visible characters. Do not load both heroines' references into a single-character generation task.
+> AI workflow rule: this document records multiple characters for catalog purposes, but a CG manifest entry binds only the visible character reference(s). Do not load both heroines' references into a single-character render task.
 > Mentions of sprite production are historical/general capability notes; new production is CG-first per `docs/art/PRODUCTION_VISUAL_DIRECTION.md`.
 
 

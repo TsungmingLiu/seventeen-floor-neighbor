@@ -1,5 +1,9 @@
 # Scene Writer Harness
 
+> Lifecycle: **ARCHIVED — NOT A PRODUCTION SOURCE OF TRUTH**
+>
+> Historical harness retained for provenance. Do not resolve or execute it.
+
 Harness ID: scene_writer  
 Version: 0.1.0
 
