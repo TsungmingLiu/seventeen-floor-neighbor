@@ -1,7 +1,20 @@
 {
   "schemaVersion": 1,
-  "defaultRoute": "xu-tang",
+  "defaultRoute": "opening-demo",
   "routes": [
+    {
+      "id": "opening-demo",
+      "label": "Opening Chapter 1 Demo",
+      "titlePrefix": "17樓的",
+      "titleMain": "新鄰居",
+      "eyebrow": "Opening Chapter 1・CG-first Demo",
+      "premise": "雨夜搬家、電梯重啟、地下街初遇：三段城市日常，兩個剛開始被記住的人。",
+      "startLabel": "開始第一章",
+      "hint": "三個選擇點只決定你回應事情的方式，不存在明顯正解。",
+      "titleAlt": "雨夜公寓走廊中的 Opening Chapter 1 demo",
+      "endingAlt": "第一章 demo 完成畫面",
+      "accent": "#d79b72"
+    },
     {
       "id": "xu-tang",
       "label": "許棠・完整路線",
