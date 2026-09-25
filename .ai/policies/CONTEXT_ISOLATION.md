@@ -1,55 +1,49 @@
 # Context Isolation Policy
 
-Version: 0.1.0
+Version: 1.0.0
 
 ## Core rule
 
-A worker receives the smallest context required to complete exactly one task.
+一個 worker 只取得完成 exactly one task 所需的最小 context。缺資料時 `BLOCKED`，不自行 browse repo 擴張來源。
 
-**Do not make a worker smarter by giving it more unrelated documents.**
+## Layer isolation
+
+### Content Writer
+
+- `narrative_design` 不讀 image-generation material。
+- `scene_dialogue` 只讀 approved Narrative Continuity Contract、task-local canon/voice/state 與 immediate continuity。
+- 不讀 CG manifest、reference image 或 archived prompt。
+
+### CG Planner
+
+- 只讀 one approved locked scene、global visual contract、visible characters/environment references、immediate continuity。
+- 不讀 unrelated route/heroine、archive/experiment。
+- 產生 self-contained canonical CG manifest entry，不產生 prompt。
+
+### CG Renderer
+
+- 只讀 one CG manifest entry、deterministic render packet、entry-declared references。
+- 不讀 scene、route、`PROJECT_STATE.md`、global visual prose 或其他 character。
+- 缺 execution-critical field 時 `BLOCKED: incomplete_cg_spec`。
+
+### Content QA
+
+- `narrative_review` 與 `visual_review` inputs 不混用。
+- QA 不搜尋新資料來替作者/planner 解決 contradiction。
+
+### Integrator
+
+- 只接 accepted/locked artifacts 與 task-specific runtime contract。
+- 不讀 rejected candidate 或 raw prompt 作替代來源。
 
 ## Character isolation
 
-For a single-character CG:
-- load only that character's approved references and facts;
-- do not load any other heroine's reference pack, prose description, wardrobe sheet, or prior CG;
-- do not reuse hidden conversational memory about another character.
-
-For a multi-character shot:
-- load one separate Character Pack per visible character;
-- keep identities explicitly namespaced;
-- use only characters listed in the Shot Pack.
-
-## Scene isolation
-
-A CG Artist does not read the whole route. It receives:
-- Global Visual Pack;
-- relevant Character Pack(s);
-- Environment Pack;
-- one Shot Pack;
-- optional immediate continuity input explicitly named by the Shot Pack.
-
-A Scene Writer does not receive image-generation prompts.
+Single-character entry 只帶該角色 references/facts。Multi-character entry 每個角色分開 namespaced；任何未列在 entry 的人物都不可出現或被當成 style reference。
 
 ## Fresh-worker rule
 
-Default execution uses a fresh worker/session per task or per tightly coupled micro-batch. Prior worker conversation history is not an input.
+Default 是 fresh worker/session。只有 explicit CG sequence 可共用 context，且必須 same scene、visible characters、wardrobe、environment、consecutive action、sequence ID。
 
-A tightly coupled CG sequence may share context only when all are true:
-- same scene;
-- same visible character set;
-- same wardrobe;
-- same environment;
-- consecutive action;
-- explicit sequence ID.
+## Forbidden source roots
 
-## Forbidden context expansion
-
-Specialist workers must not:
-- browse the repo to “learn more” unless their harness allows it;
-- read unrelated character files;
-- read proposals for inspiration during production;
-- import old prompts just because they mention the same character;
-- silently merge conflicting facts.
-
-When required data is missing, return BLOCKED with the missing field/source instead of expanding scope.
+Production task 禁止：`.ai/archive/`、`.ai/experiments/`、`docs/archive/`。Provenance receipt 指向 archive 不表示 worker 可以沿 link 載入內容。

@@ -1,43 +1,38 @@
-# Content & CG Integrator Harness
+# Content Integrator Harness
 
-Harness ID: integrator  
-Version: 0.1.0
+Harness ID: `integrator`
+
+Version: 1.0.0
 
 ## Responsibility
 
-Wire already accepted narrative/art outputs into repository runtime contracts without changing their creative meaning.
+把已通過 QA 的 locked scene、accepted CG/master 與 metadata 接入 runtime contracts，不改變 creative meaning。
 
 ## Inputs
 
-Only accepted/locked artifacts:
-- scene/state contract;
-- accepted asset IDs and storage/provenance;
-- shot-to-dialogue mapping;
-- Memory Event metadata requirements;
-- runtime architecture/schema;
-- task-specific integration target.
+- accepted scene + narrative contract；
+- accepted CG manifest entries and asset provenance；
+- accepted logical asset IDs/storage records；
+- shot-to-dialogue mapping and Memory Event requirements；
+- task-specific runtime/schema files。
+
+Archive/experiment、rejected candidate、raw operator prompt 不是 integration input。
 
 ## Work
 
-As applicable:
-- create/update stable logical asset IDs;
-- update source/catalog/recipe metadata;
-- map accepted CG/background/cinematic objects;
-- convert locked scene into story/runtime representation;
-- wire route/state/knowledge flags;
-- wire Memory Event/frontier/gallery metadata;
-- preserve save-compatible stable IDs once published.
+- preserve/create stable logical asset and node IDs；
+- update source/catalog/recipe metadata；
+- map accepted CG/background/cinematic assets；
+- compile locked scene into runtime representation；
+- wire state/knowledge/Memory Event/frontier/gallery metadata；
+- verify build/validate/tests for changed surfaces。
 
 ## Never
 
-- regenerate images;
-- improve dialogue while integrating;
-- change relationship outcomes;
-- substitute a different asset because it is easier to wire;
-- reintroduce sprites merely because legacy engine fixtures support them.
+- regenerate images；
+- improve dialogue during integration；
+- infer missing creative constraints；
+- substitute another asset because it is easier to wire；
+- remove legacy runtime support/fixtures without a separate migration decision。
 
-## Verification
-
-Run the repository-required build/validate/tests for changed surfaces. Return exact verification results in the handoff.
-
-If accepted content cannot be represented by the current schema without a design change, return BLOCKED and describe the smallest schema gap.
+Schema gap or conflict means `BLOCKED` with the smallest missing runtime capability。

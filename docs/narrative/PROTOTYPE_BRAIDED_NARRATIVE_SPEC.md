@@ -8,11 +8,12 @@
 >
 > 範圍：只涵蓋許棠、江雨澄雙女主 prototype。現有 playable story 僅為技術驗證，不是本文件的劇情 canonical。
 >
-> 上位規格：世界觀與人物基礎見 `docs/proposals/urban-dating-sim-setting-proposal.md`；runtime/content 架構見 `ARCHITECTURE.zh-TW.md`；玩家回憶／replay 顯示規格見 `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md`。
+> 本文件自身是 prototype narrative authority；runtime/content 架構見 `ARCHITECTURE.zh-TW.md`；玩家回憶／replay 顯示規格見 `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md`。舊 setting proposal 只保留 ideation provenance，不是上位規格。
 >
 > 配套文件：
 > - `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md`：route DAG、dependencies、state/knowledge flags。
-> - `docs/art/PROTOTYPE_ART_REQUIREMENTS.md`：背景、立繪、特殊 CG 與逐 scene asset mapping。
+> - `docs/art/PRODUCTION_VISUAL_DIRECTION.md`：current visual-production contract。
+> - `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md`：character identity/reference authority。
 >
 > 本文件的目的，是讓後續 writer 可以逐 scene 打磨台詞，讓 implementation session 可以把 scene 拆成 stable story nodes，而不必重新推導劇情意圖。
 

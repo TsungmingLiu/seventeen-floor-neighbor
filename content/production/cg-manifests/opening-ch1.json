@@ -1,0 +1,1095 @@
+{
+  "schema_version": "1.0.0",
+  "manifest_id": "opening-ch1-cg",
+  "manifest_version": "1.0.0",
+  "lifecycle": "CANONICAL",
+  "source_scene_ids": [
+    "COM-00",
+    "COM-01X",
+    "COM-01J"
+  ],
+  "style_contract": {
+    "style_id": "realistic-game-cinematic-v1",
+    "positive": [
+      "realistic high-end game-cinematic and photographic PBR human rendering",
+      "realistic adult facial anatomy and eye proportions",
+      "natural skin texture, pores, hair strands, cloth and material response",
+      "physically plausible indoor lighting, exposure, color and depth-of-field"
+    ],
+    "negative": [
+      "anime, manga, cartoon, chibi or cel-shaded rendering",
+      "3D animation-film, doll, figurine or generic game-avatar face",
+      "oversized eyes, simplified facial anatomy or plastic airbrushed skin",
+      "painterly concept art, comic panels, captions, UI, watermarks or logos"
+    ],
+    "aspect_ratio": "16:9",
+    "output_count": 1
+  },
+  "entries": [
+    {
+      "entry_id": "COM00-S02-DOOR-ASSIST",
+      "scene_id": "COM-00",
+      "source_scene": "docs/narrative/scenes/vertical-slice/COM-00.md",
+      "status": "accepted",
+      "cg_class": "event_cg",
+      "sequence_id": null,
+      "beat_range": "00.3-00.4",
+      "narrative": {
+        "purpose": "以功能性協作建立許棠的首次出場與雨夜都市質地。",
+        "must_show": [
+          "許棠先穩住回彈的防火門，再對卡住的箱角提供剛好足夠的協助。",
+          "她的注意力主要在門線、箱角與動作，而不是對鏡頭擺 pose。",
+          "男主最多只有必要的局部手或前臂，沒有可辨認臉或完整身體。"
+        ],
+        "must_not_imply": [
+          "不得暗示英雄救美、碰手、失衡接住或即時戀愛吸引。",
+          "不得讓許棠接管整個搬家工作。"
+        ]
+      },
+      "characters": [
+        {
+          "character_id": "xu_tang",
+          "screen_side": "right",
+          "body_orientation": "three_quarter_left_toward_door_and_box",
+          "pose": "一手撐住防火門，另一側只在箱角需要時協助，重心可信。",
+          "gaze": "先看箱角與男主手部，再短暫抬向 off-camera protagonist。",
+          "expression": "neutral_observant",
+          "wardrobe_key": "XT-WARDROBE-A-WEEKDAY-NEIGHBOR",
+          "held_objects": [],
+          "reference_bindings": [
+            {
+              "role": "primary_face_identity",
+              "source_id": "gdrive:1Oynvxve61ipxr9Z7UhaSsZE_8OzVVPRS",
+              "expected_filename": "xt-ref-01-face.png"
+            },
+            {
+              "role": "wardrobe",
+              "source_id": "gdrive:1W4t7ICYHx3obH_S03BEyD80ykzy3M9aF",
+              "expected_filename": "xt-ref-05-wardrobe-a.png"
+            }
+          ]
+        }
+      ],
+      "environment": {
+        "location_id": "BG-APT-17F-RAIN",
+        "time_of_day": "21:10",
+        "weather": "steady_rain_outside_dry_corridor",
+        "lighting": "warm corridor practicals with cool blue rainy ambient spill",
+        "persistent_props": [
+          "moving_boxes",
+          "fire_door",
+          "1702_1703_door_geography"
+        ],
+        "reference_binding": {
+          "role": "environment",
+          "source_id": "source.opening.ch1.bg.apt_17f_rain",
+          "expected_filename": "bg-apt-17f-rain-16x9-v1.jpg"
+        }
+      },
+      "camera": {
+        "shot_size": "medium_wide",
+        "angle": "eye_level",
+        "pov": "protagonist",
+        "axis_id": "COM00-CORRIDOR-AXIS-A",
+        "camera_side": "1703_door_side",
+        "lens_intent": "natural perspective with readable door and box action"
+      },
+      "continuity": {
+        "previous_entry_id": null,
+        "locked_fields": [],
+        "allowed_changes": []
+      },
+      "composition": {
+        "focus": {
+          "x": 72,
+          "y": 38
+        },
+        "dialogue_safe_zone": "lower_left_to_lower_center",
+        "framing_notes": [
+          "許棠位於中右；紙箱形成前景層次。",
+          "臉、扶門手與箱角不得落入最底 25%。"
+        ]
+      },
+      "render_constraints": {
+        "include": [
+          "27 歲成年東亞女性，長深棕髮、大型金色 hoop earrings。",
+          "動作中的 narrative frame，不是 fashion portrait。",
+          "同一 17 樓雨夜走廊與可信紙箱／防火門物理關係。"
+        ],
+        "exclude": [
+          "男主臉、頭、肩、背或完整身體。",
+          "額外人物、搬家公司人員、豪宅 penthouse 或濕透衣服。",
+          "強烈曖昧 pose、正面模特凝視、錯誤手指或肢體。"
+        ],
+        "text_policy": "No readable door numbers, brands, captions, UI, logos or watermark as focal content."
+      },
+      "reference_transport": {
+        "mode": "references_required",
+        "fresh_session_required": true,
+        "no_unrelated_images_allowed": true,
+        "accepted_base_asset_id": null,
+        "attachments": [
+          {
+            "role": "primary_face_identity",
+            "source_id": "gdrive:1Oynvxve61ipxr9Z7UhaSsZE_8OzVVPRS",
+            "expected_filename": "xt-ref-01-face.png",
+            "pixels_must_be_visible": true
+          },
+          {
+            "role": "wardrobe",
+            "source_id": "gdrive:1W4t7ICYHx3obH_S03BEyD80ykzy3M9aF",
+            "expected_filename": "xt-ref-05-wardrobe-a.png",
+            "pixels_must_be_visible": true
+          },
+          {
+            "role": "environment",
+            "source_id": "source.opening.ch1.bg.apt_17f_rain",
+            "expected_filename": "bg-apt-17f-rain-16x9-v1.jpg",
+            "pixels_must_be_visible": true
+          }
+        ]
+      },
+      "output": {
+        "canonical_asset_id": "COM00-S02-DOOR-ASSIST",
+        "logical_asset_id": "cg.opening.com00.s02_door_assist",
+        "master_filename": "cg-com00-s02-door-assist-v1.jpg",
+        "quantity": 1
+      },
+      "acceptance": [
+        "Xu Tang identity, age, hair, earrings and Weekday Neighbor wardrobe match references.",
+        "Door/box action is physically legible and keeps ordinary stranger distance.",
+        "Frame communicates functional help without romantic escalation."
+      ]
+    },
+    {
+      "entry_id": "COM00-S04-BASE-NEUTRAL",
+      "scene_id": "COM-00",
+      "source_scene": "docs/narrative/scenes/vertical-slice/COM-00.md",
+      "status": "accepted",
+      "cg_class": "dialogue_cg",
+      "sequence_id": null,
+      "beat_range": "00.5-00.7",
+      "narrative": {
+        "purpose": "承載 choice 後的名字與 1702／1703 鄰居地理交換。",
+        "must_show": [
+          "許棠站在自己的回家動線上，保持剛認識鄰居的普通距離。",
+          "1702／1703 空間關係可讀，但不依賴大字門牌。"
+        ],
+        "must_not_imply": [
+          "不得暗示她想進 1703 或刻意延長互動。",
+          "不得將姓名交換拍成 romantic reveal。"
+        ]
+      },
+      "characters": [
+        {
+          "character_id": "xu_tang",
+          "screen_side": "right",
+          "body_orientation": "three_quarter_left_toward_protagonist",
+          "pose": "自然站在 1702 回家動線上，肩膀放鬆，沒有靠近鏡頭。",
+          "gaze": "短暫看向 off-camera protagonist，之後回到門與箱子。",
+          "expression": "neutral_observant",
+          "wardrobe_key": "XT-WARDROBE-A-WEEKDAY-NEIGHBOR",
+          "held_objects": [],
+          "reference_bindings": [
+            {
+              "role": "primary_face_identity",
+              "source_id": "gdrive:1Oynvxve61ipxr9Z7UhaSsZE_8OzVVPRS",
+              "expected_filename": "xt-ref-01-face.png"
+            },
+            {
+              "role": "wardrobe",
+              "source_id": "gdrive:1W4t7ICYHx3obH_S03BEyD80ykzy3M9aF",
+              "expected_filename": "xt-ref-05-wardrobe-a.png"
+            }
+          ]
+        }
+      ],
+      "environment": {
+        "location_id": "BG-APT-17F-RAIN",
+        "time_of_day": "21:10",
+        "weather": "steady_rain_outside_dry_corridor",
+        "lighting": "warm corridor practicals with cool blue rainy ambient spill",
+        "persistent_props": [
+          "moving_boxes",
+          "1702_1703_door_geography"
+        ],
+        "reference_binding": {
+          "role": "environment",
+          "source_id": "source.opening.ch1.bg.apt_17f_rain",
+          "expected_filename": "bg-apt-17f-rain-16x9-v1.jpg"
+        }
+      },
+      "camera": {
+        "shot_size": "medium",
+        "angle": "eye_level",
+        "pov": "protagonist",
+        "axis_id": "COM00-CORRIDOR-AXIS-A",
+        "camera_side": "1703_door_side",
+        "lens_intent": "natural neighbor-distance dialogue framing with corridor context"
+      },
+      "continuity": {
+        "previous_entry_id": "COM00-S02-DOOR-ASSIST",
+        "locked_fields": [],
+        "allowed_changes": []
+      },
+      "composition": {
+        "focus": {
+          "x": 72,
+          "y": 36
+        },
+        "dialogue_safe_zone": "lower_left_to_lower_center",
+        "framing_notes": [
+          "許棠在右／中右，左下保留 dialogue space。",
+          "構圖保留 1702 回家動線，不讓她站在 1703 門內。"
+        ]
+      },
+      "render_constraints": {
+        "include": [
+          "27 歲成年東亞女性與 canonical Weekday Neighbor wardrobe。",
+          "克制、普通、剛認識的鄰居對話。"
+        ],
+        "exclude": [
+          "男主可辨認臉或完整身體。",
+          "正面 fashion portrait、flirtatious pose、blush 或 instant attraction。",
+          "額外住戶或搬家公司人員。"
+        ],
+        "text_policy": "No readable door numbers, brands, captions, UI, logos or watermark as focal content."
+      },
+      "reference_transport": {
+        "mode": "references_required",
+        "fresh_session_required": true,
+        "no_unrelated_images_allowed": true,
+        "accepted_base_asset_id": null,
+        "attachments": [
+          {
+            "role": "primary_face_identity",
+            "source_id": "gdrive:1Oynvxve61ipxr9Z7UhaSsZE_8OzVVPRS",
+            "expected_filename": "xt-ref-01-face.png",
+            "pixels_must_be_visible": true
+          },
+          {
+            "role": "wardrobe",
+            "source_id": "gdrive:1W4t7ICYHx3obH_S03BEyD80ykzy3M9aF",
+            "expected_filename": "xt-ref-05-wardrobe-a.png",
+            "pixels_must_be_visible": true
+          },
+          {
+            "role": "environment",
+            "source_id": "source.opening.ch1.bg.apt_17f_rain",
+            "expected_filename": "bg-apt-17f-rain-16x9-v1.jpg",
+            "pixels_must_be_visible": true
+          }
+        ]
+      },
+      "output": {
+        "canonical_asset_id": "COM00-S04-BASE-NEUTRAL",
+        "logical_asset_id": "cg.opening.com00.s04_base_neutral",
+        "master_filename": "cg-com00-s04-base-neutral-v1.png",
+        "quantity": 1
+      },
+      "acceptance": [
+        "Same Xu Tang identity/wardrobe/environment family as COM00-S02.",
+        "Camera axis and screen side preserve corridor geography.",
+        "Expression is neutral-observant and relationship remains bounded."
+      ]
+    },
+    {
+      "entry_id": "COM00-S04-R01-POLITE-SMILE",
+      "scene_id": "COM-00",
+      "source_scene": "docs/narrative/scenes/vertical-slice/COM-00.md",
+      "status": "accepted",
+      "cg_class": "reaction_cg",
+      "sequence_id": null,
+      "beat_range": "00.5-00.7 branch reaction",
+      "narrative": {
+        "purpose": "在不改變構圖與距離下，表達選擇後非常輕微的禮貌／乾式笑意。",
+        "must_show": [
+          "只有嘴角與眼神的小幅反應，仍保持克制。"
+        ],
+        "must_not_imply": [
+          "不得變成 flirtatious、idol 或 broad cute smile。"
+        ]
+      },
+      "characters": [
+        {
+          "character_id": "xu_tang",
+          "screen_side": "right",
+          "body_orientation": "three_quarter_left_toward_protagonist",
+          "pose": "與 COM00-S04-BASE-NEUTRAL 完全相同。",
+          "gaze": "與 base 相同，只增加極輕的 conversational warmth。",
+          "expression": "small_polite_dry_smile",
+          "wardrobe_key": "XT-WARDROBE-A-WEEKDAY-NEIGHBOR",
+          "held_objects": [],
+          "reference_bindings": [
+            {
+              "role": "primary_face_identity",
+              "source_id": "gdrive:1Oynvxve61ipxr9Z7UhaSsZE_8OzVVPRS",
+              "expected_filename": "xt-ref-01-face.png"
+            },
+            {
+              "role": "wardrobe",
+              "source_id": "gdrive:1W4t7ICYHx3obH_S03BEyD80ykzy3M9aF",
+              "expected_filename": "xt-ref-05-wardrobe-a.png"
+            }
+          ]
+        }
+      ],
+      "environment": {
+        "location_id": "BG-APT-17F-RAIN",
+        "time_of_day": "21:10",
+        "weather": "steady_rain_outside_dry_corridor",
+        "lighting": "warm corridor practicals with cool blue rainy ambient spill",
+        "persistent_props": [
+          "moving_boxes",
+          "1702_1703_door_geography"
+        ],
+        "reference_binding": {
+          "role": "environment",
+          "source_id": "source.opening.ch1.bg.apt_17f_rain",
+          "expected_filename": "bg-apt-17f-rain-16x9-v1.jpg"
+        }
+      },
+      "camera": {
+        "shot_size": "medium",
+        "angle": "eye_level",
+        "pov": "protagonist",
+        "axis_id": "COM00-CORRIDOR-AXIS-A",
+        "camera_side": "1703_door_side",
+        "lens_intent": "identical to accepted base"
+      },
+      "continuity": {
+        "previous_entry_id": "COM00-S04-BASE-NEUTRAL",
+        "locked_fields": [
+          "/characters/0/character_id",
+          "/characters/0/screen_side",
+          "/characters/0/body_orientation",
+          "/characters/0/pose",
+          "/characters/0/wardrobe_key",
+          "/environment",
+          "/camera",
+          "/composition"
+        ],
+        "allowed_changes": [
+          "/characters/0/expression",
+          "/characters/0/gaze"
+        ]
+      },
+      "composition": {
+        "focus": {
+          "x": 72,
+          "y": 36
+        },
+        "dialogue_safe_zone": "lower_left_to_lower_center",
+        "framing_notes": [
+          "Camera、crop、body position 與 environment 完全沿用 base。"
+        ]
+      },
+      "render_constraints": {
+        "include": [
+          "對 accepted base 做 bounded reaction edit。",
+          "非常小、自然、克制的 polite/dry smile。"
+        ],
+        "exclude": [
+          "identity、hair、wardrobe、body、pose、camera、crop 或 environment 變更。",
+          "大笑、blush、flirtatious smile、idol smile 或 cartoon expression。"
+        ],
+        "text_policy": "Preserve base text-free image; add no captions, UI, logos or watermark."
+      },
+      "reference_transport": {
+        "mode": "edit_from_accepted_base",
+        "fresh_session_required": true,
+        "no_unrelated_images_allowed": true,
+        "accepted_base_asset_id": "COM00-S04-BASE-NEUTRAL",
+        "attachments": [
+          {
+            "role": "accepted_base",
+            "source_id": "COM00-S04-BASE-NEUTRAL",
+            "expected_filename": "cg-com00-s04-base-neutral-v1.png",
+            "pixels_must_be_visible": true
+          }
+        ]
+      },
+      "output": {
+        "canonical_asset_id": "COM00-S04-R01-POLITE-SMILE",
+        "logical_asset_id": "cg.opening.com00.s04_r01_polite_smile",
+        "master_filename": "cg-com00-s04-r01-polite-smile-v1.png",
+        "quantity": 1
+      },
+      "acceptance": [
+        "Base identity, wardrobe, camera, crop and environment are preserved.",
+        "Only the bounded expression/gaze change is visible.",
+        "Reaction remains neighborly rather than romantic."
+      ]
+    },
+    {
+      "entry_id": "COM01X-BASE-NORMAL",
+      "scene_id": "COM-01X",
+      "source_scene": "docs/narrative/scenes/vertical-slice/COM-01X.md",
+      "status": "accepted",
+      "cg_class": "dialogue_cg",
+      "sequence_id": null,
+      "beat_range": "01X.1-01X.2 and 01X.7-01X.8",
+      "narrative": {
+        "purpose": "承載第二次相遇的普通同乘距離與短生活對話。",
+        "must_show": [
+          "許棠站在電梯右／中右側，另一側保留普通同乘空間。",
+          "她只有輕微辨認出的 warmth，不是 romantic close-up。"
+        ],
+        "must_not_imply": [
+          "不得拍成封閉空間曖昧或 fashion portrait。",
+          "不得出現男主或他的鏡面反射。"
+        ]
+      },
+      "characters": [
+        {
+          "character_id": "xu_tang",
+          "screen_side": "right",
+          "body_orientation": "three_quarter_left_toward_shared_elevator_space",
+          "pose": "自然站立，保持一般鄰居同乘距離。",
+          "gaze": "短暫看向 off-camera protagonist，之後看樓層面板。",
+          "expression": "neutral_observant_with_recognition_warmth",
+          "wardrobe_key": "XT-WARDROBE-A-WEEKDAY-NEIGHBOR",
+          "held_objects": [],
+          "reference_bindings": [
+            {
+              "role": "primary_face_identity",
+              "source_id": "gdrive:1Oynvxve61ipxr9Z7UhaSsZE_8OzVVPRS",
+              "expected_filename": "xt-ref-01-face.png"
+            },
+            {
+              "role": "wardrobe",
+              "source_id": "gdrive:1W4t7ICYHx3obH_S03BEyD80ykzy3M9aF",
+              "expected_filename": "xt-ref-05-wardrobe-a.png"
+            }
+          ]
+        }
+      ],
+      "environment": {
+        "location_id": "BG-APT-ELEVATOR",
+        "time_of_day": "19:20",
+        "weather": "dry_indoor_evening",
+        "lighting": "normal warm-white residential elevator practical lighting",
+        "persistent_props": [
+          "closed_elevator_doors",
+          "control_panel",
+          "handrails"
+        ],
+        "reference_binding": {
+          "role": "environment",
+          "source_id": "source.opening.ch1.bg.apt_elevator",
+          "expected_filename": "bg-apt-elevator-16x9-v1.jpg"
+        }
+      },
+      "camera": {
+        "shot_size": "medium_wide",
+        "angle": "eye_level",
+        "pov": "protagonist",
+        "axis_id": "COM01X-ELEVATOR-AXIS-A",
+        "camera_side": "left_front_of_cabin",
+        "lens_intent": "moderately wide natural perspective with readable elevator geometry"
+      },
+      "continuity": {
+        "previous_entry_id": null,
+        "locked_fields": [],
+        "allowed_changes": []
+      },
+      "composition": {
+        "focus": {
+          "x": 78,
+          "y": 36
+        },
+        "dialogue_safe_zone": "lower_left_to_lower_center",
+        "framing_notes": [
+          "許棠在右側，左側保留無人物空間。",
+          "樓層面板在上半側邊，不被 dialogue UI 蓋住。"
+        ]
+      },
+      "render_constraints": {
+        "include": [
+          "同一 contemporary Taipei residential elevator。",
+          "克制、普通的鄰居同乘構圖。"
+        ],
+        "exclude": [
+          "男主、任何人物反射或額外乘客。",
+          "fashion portrait、romantic close-up、hotel spectacle、horror 或 liminal-space framing。"
+        ],
+        "text_policy": "Control-panel markings must not become readable focal text; no captions, UI, logos or watermark."
+      },
+      "reference_transport": {
+        "mode": "references_required",
+        "fresh_session_required": true,
+        "no_unrelated_images_allowed": true,
+        "accepted_base_asset_id": null,
+        "attachments": [
+          {
+            "role": "primary_face_identity",
+            "source_id": "gdrive:1Oynvxve61ipxr9Z7UhaSsZE_8OzVVPRS",
+            "expected_filename": "xt-ref-01-face.png",
+            "pixels_must_be_visible": true
+          },
+          {
+            "role": "wardrobe",
+            "source_id": "gdrive:1W4t7ICYHx3obH_S03BEyD80ykzy3M9aF",
+            "expected_filename": "xt-ref-05-wardrobe-a.png",
+            "pixels_must_be_visible": true
+          },
+          {
+            "role": "environment",
+            "source_id": "source.opening.ch1.bg.apt_elevator",
+            "expected_filename": "bg-apt-elevator-16x9-v1.jpg",
+            "pixels_must_be_visible": true
+          }
+        ]
+      },
+      "output": {
+        "canonical_asset_id": "COM01X-BASE-NORMAL",
+        "logical_asset_id": "cg.opening.com01x.base_normal",
+        "master_filename": "cg-com01x-base-normal-v1.jpg",
+        "quantity": 1
+      },
+      "acceptance": [
+        "Xu Tang identity and Weekday Neighbor wardrobe match references.",
+        "Elevator location, screen side and axis are stable for both reaction edits.",
+        "Frame reads as ordinary neighbor distance, not romantic confinement."
+      ]
+    },
+    {
+      "entry_id": "COM01X-R01-RESTART",
+      "scene_id": "COM-01X",
+      "source_scene": "docs/narrative/scenes/vertical-slice/COM-01X.md",
+      "status": "accepted",
+      "cg_class": "reaction_cg",
+      "sequence_id": null,
+      "beat_range": "01X.3-01X.5",
+      "narrative": {
+        "purpose": "表達電梯短暫重啟時的輕微注意力變化，不升級成危機。",
+        "must_show": [
+          "主 practical light 克制地 dim，下方安全／面板仍有供電感。",
+          "許棠只出現 very mild surprise，視線移向樓層面板。"
+        ],
+        "must_not_imply": [
+          "不得暗示停電、恐怖、長時間受困、恐慌或尋求男主安慰。"
+        ]
+      },
+      "characters": [
+        {
+          "character_id": "xu_tang",
+          "screen_side": "right",
+          "body_orientation": "three_quarter_left_toward_shared_elevator_space",
+          "pose": "與 COM01X-BASE-NORMAL 相同，沒有靠近鏡頭。",
+          "gaze": "短暫轉向樓層／控制面板。",
+          "expression": "very_mild_surprise_attentive_pause",
+          "wardrobe_key": "XT-WARDROBE-A-WEEKDAY-NEIGHBOR",
+          "held_objects": [],
+          "reference_bindings": [
+            {
+              "role": "primary_face_identity",
+              "source_id": "gdrive:1Oynvxve61ipxr9Z7UhaSsZE_8OzVVPRS",
+              "expected_filename": "xt-ref-01-face.png"
+            },
+            {
+              "role": "wardrobe",
+              "source_id": "gdrive:1W4t7ICYHx3obH_S03BEyD80ykzy3M9aF",
+              "expected_filename": "xt-ref-05-wardrobe-a.png"
+            }
+          ]
+        }
+      ],
+      "environment": {
+        "location_id": "BG-APT-ELEVATOR",
+        "time_of_day": "19:20",
+        "weather": "dry_indoor_evening",
+        "lighting": "dimmed practical light with weak safe panel power; not dark or red",
+        "persistent_props": [
+          "closed_elevator_doors",
+          "control_panel",
+          "handrails"
+        ],
+        "reference_binding": {
+          "role": "environment",
+          "source_id": "source.opening.ch1.bg.apt_elevator",
+          "expected_filename": "bg-apt-elevator-16x9-v1.jpg"
+        }
+      },
+      "camera": {
+        "shot_size": "medium_wide",
+        "angle": "eye_level",
+        "pov": "protagonist",
+        "axis_id": "COM01X-ELEVATOR-AXIS-A",
+        "camera_side": "left_front_of_cabin",
+        "lens_intent": "identical to accepted base"
+      },
+      "continuity": {
+        "previous_entry_id": "COM01X-BASE-NORMAL",
+        "locked_fields": [
+          "/characters/0/character_id",
+          "/characters/0/screen_side",
+          "/characters/0/body_orientation",
+          "/characters/0/pose",
+          "/characters/0/wardrobe_key",
+          "/camera",
+          "/composition",
+          "/environment/location_id",
+          "/environment/persistent_props"
+        ],
+        "allowed_changes": [
+          "/characters/0/expression",
+          "/characters/0/gaze",
+          "/environment/lighting"
+        ]
+      },
+      "composition": {
+        "focus": {
+          "x": 78,
+          "y": 36
+        },
+        "dialogue_safe_zone": "lower_left_to_lower_center",
+        "framing_notes": [
+          "Camera、crop、body position 與 elevator geometry 完全沿用 base。"
+        ]
+      },
+      "render_constraints": {
+        "include": [
+          "對 accepted base 做 bounded lighting/expression/gaze edit。",
+          "主燈 dim，但安全供電仍可見。"
+        ],
+        "exclude": [
+          "identity、hair、wardrobe、pose、camera、crop 或 elevator geometry 變更。",
+          "全黑、紅色 emergency wash、horror、恐慌、靠近或男主反射。"
+        ],
+        "text_policy": "Preserve base text policy; add no captions, UI, logos or watermark."
+      },
+      "reference_transport": {
+        "mode": "edit_from_accepted_base",
+        "fresh_session_required": true,
+        "no_unrelated_images_allowed": true,
+        "accepted_base_asset_id": "COM01X-BASE-NORMAL",
+        "attachments": [
+          {
+            "role": "accepted_base",
+            "source_id": "COM01X-BASE-NORMAL",
+            "expected_filename": "cg-com01x-base-normal-v1.jpg",
+            "pixels_must_be_visible": true
+          }
+        ]
+      },
+      "output": {
+        "canonical_asset_id": "COM01X-R01-RESTART",
+        "logical_asset_id": "cg.opening.com01x.r01_restart",
+        "master_filename": "cg-com01x-r01-restart-v1.jpg",
+        "quantity": 1
+      },
+      "acceptance": [
+        "Base identity, wardrobe, camera, crop and geometry are preserved.",
+        "Only mild attention and bounded lighting change are visible.",
+        "Scene still reads as an ordinary short restart, not danger."
+      ]
+    },
+    {
+      "entry_id": "COM01X-R02-DRY-SMILE",
+      "scene_id": "COM-01X",
+      "source_scene": "docs/narrative/scenes/vertical-slice/COM-01X.md",
+      "status": "accepted",
+      "cg_class": "reaction_cg",
+      "sequence_id": null,
+      "beat_range": "01X.6 dry-line reaction",
+      "narrative": {
+        "purpose": "在 normal lighting/base framing 中呈現許棠極輕的乾式笑意。",
+        "must_show": [
+          "嘴角與眼神只出現很小、克制的 dry playful change。"
+        ],
+        "must_not_imply": [
+          "不得變成 broad、cute、flirtatious 或 idol smile。"
+        ]
+      },
+      "characters": [
+        {
+          "character_id": "xu_tang",
+          "screen_side": "right",
+          "body_orientation": "three_quarter_left_toward_shared_elevator_space",
+          "pose": "與 COM01X-BASE-NORMAL 相同。",
+          "gaze": "略看樓層面板或 off-camera protagonist，保持日常。",
+          "expression": "very_small_dry_playful_smile",
+          "wardrobe_key": "XT-WARDROBE-A-WEEKDAY-NEIGHBOR",
+          "held_objects": [],
+          "reference_bindings": [
+            {
+              "role": "primary_face_identity",
+              "source_id": "gdrive:1Oynvxve61ipxr9Z7UhaSsZE_8OzVVPRS",
+              "expected_filename": "xt-ref-01-face.png"
+            },
+            {
+              "role": "wardrobe",
+              "source_id": "gdrive:1W4t7ICYHx3obH_S03BEyD80ykzy3M9aF",
+              "expected_filename": "xt-ref-05-wardrobe-a.png"
+            }
+          ]
+        }
+      ],
+      "environment": {
+        "location_id": "BG-APT-ELEVATOR",
+        "time_of_day": "19:20",
+        "weather": "dry_indoor_evening",
+        "lighting": "normal warm-white residential elevator practical lighting",
+        "persistent_props": [
+          "closed_elevator_doors",
+          "control_panel",
+          "handrails"
+        ],
+        "reference_binding": {
+          "role": "environment",
+          "source_id": "source.opening.ch1.bg.apt_elevator",
+          "expected_filename": "bg-apt-elevator-16x9-v1.jpg"
+        }
+      },
+      "camera": {
+        "shot_size": "medium_wide",
+        "angle": "eye_level",
+        "pov": "protagonist",
+        "axis_id": "COM01X-ELEVATOR-AXIS-A",
+        "camera_side": "left_front_of_cabin",
+        "lens_intent": "identical to accepted base"
+      },
+      "continuity": {
+        "previous_entry_id": "COM01X-BASE-NORMAL",
+        "locked_fields": [
+          "/characters/0/character_id",
+          "/characters/0/screen_side",
+          "/characters/0/body_orientation",
+          "/characters/0/pose",
+          "/characters/0/wardrobe_key",
+          "/environment",
+          "/camera",
+          "/composition"
+        ],
+        "allowed_changes": [
+          "/characters/0/expression",
+          "/characters/0/gaze"
+        ]
+      },
+      "composition": {
+        "focus": {
+          "x": 78,
+          "y": 36
+        },
+        "dialogue_safe_zone": "lower_left_to_lower_center",
+        "framing_notes": [
+          "Camera、crop、lighting、body position 與 environment 完全沿用 base。"
+        ]
+      },
+      "render_constraints": {
+        "include": [
+          "對 accepted base 做 bounded expression/gaze edit。",
+          "正常電梯燈光與非常小的 dry playful smile。"
+        ],
+        "exclude": [
+          "identity、hair、wardrobe、pose、camera、crop、lighting 或 environment 變更。",
+          "大笑、可愛笑、flirtatious smile、idol smile 或 cartoon expression。"
+        ],
+        "text_policy": "Preserve base text policy; add no captions, UI, logos or watermark."
+      },
+      "reference_transport": {
+        "mode": "edit_from_accepted_base",
+        "fresh_session_required": true,
+        "no_unrelated_images_allowed": true,
+        "accepted_base_asset_id": "COM01X-BASE-NORMAL",
+        "attachments": [
+          {
+            "role": "accepted_base",
+            "source_id": "COM01X-BASE-NORMAL",
+            "expected_filename": "cg-com01x-base-normal-v1.jpg",
+            "pixels_must_be_visible": true
+          }
+        ]
+      },
+      "output": {
+        "canonical_asset_id": "COM01X-R02-DRY-SMILE",
+        "logical_asset_id": "cg.opening.com01x.r02_dry_smile",
+        "master_filename": "cg-com01x-r02-dry-smile-v1.jpg",
+        "quantity": 1
+      },
+      "acceptance": [
+        "Base identity, wardrobe, camera, crop, lighting and geometry are preserved.",
+        "Only the bounded dry-smile/gaze change is visible.",
+        "Expression remains adult, natural and restrained."
+      ]
+    },
+    {
+      "entry_id": "COM01J-BASE-GUARDED",
+      "scene_id": "COM-01J",
+      "source_scene": "docs/narrative/scenes/vertical-slice/COM-01J.md",
+      "status": "accepted",
+      "cg_class": "dialogue_cg",
+      "sequence_id": null,
+      "known_issues": [
+        "The existing demo-approved asset has provisional wardrobe drift recorded in the ingest receipt; future rerender must follow JYC-WARDROBE-A-ACG-OUTING and must not reproduce the drift."
+      ],
+      "beat_range": "01J.3-01J.5",
+      "narrative": {
+        "purpose": "捕捉雨澄從書頁抬眼、確認陌生人是否真的看過作品的 guarded curiosity。",
+        "must_show": [
+          "她仍在比較兩本虛構設定／美術書，頭朝書頁、眼睛先抬起。",
+          "兩人保持普通陌生人距離，男主完全 off-camera。"
+        ],
+        "must_not_imply": [
+          "不得暗示害羞 crush、blush、掉書碰撞或正面 glamour reveal。",
+          "不得提前暗示姓名、創作者身份或私人連結。"
+        ]
+      },
+      "characters": [
+        {
+          "character_id": "jiang_yucheng",
+          "screen_side": "left",
+          "body_orientation": "three_quarter_right_toward_bookshelf",
+          "pose": "站在設定集書架前比較兩本書，其中一本微開，保持至少普通陌生人距離。",
+          "gaze": "頭仍朝書頁，眼睛先抬向 off-camera protagonist。",
+          "expression": "guarded_curiosity",
+          "wardrobe_key": "JYC-WARDROBE-A-ACG-OUTING",
+          "held_objects": [
+            "fictional_art_book_a",
+            "fictional_art_book_b"
+          ],
+          "reference_bindings": [
+            {
+              "role": "primary_face_identity",
+              "source_id": "gdrive:13AI1sD0iUm6NpMBnVtlK8Zl5PN0UPsMQ",
+              "expected_filename": "jyc-ref-01-face.png"
+            },
+            {
+              "role": "wardrobe",
+              "source_id": "gdrive:1FqxmDU0BqzAb6AFmZfebcx6NUaKCUw-A",
+              "expected_filename": "jyc-ref-05-wardrobe-a.png"
+            }
+          ]
+        }
+      ],
+      "environment": {
+        "location_id": "BG-ACG-SHOP",
+        "time_of_day": "15:40",
+        "weather": "dry_indoor_weekend_afternoon",
+        "lighting": "clean retail ceiling light with natural skin tone and soft colorful shelf bokeh",
+        "persistent_props": [
+          "art_book_shelf",
+          "fictional_merchandise",
+          "clear_aisle_distance"
+        ],
+        "reference_binding": {
+          "role": "environment",
+          "source_id": "source.opening.ch1.bg.acg_shop",
+          "expected_filename": "bg-acg-shop-16x9-v1.jpg"
+        }
+      },
+      "camera": {
+        "shot_size": "medium_wide",
+        "angle": "eye_level",
+        "pov": "protagonist",
+        "axis_id": "COM01J-SHELF-AXIS-A",
+        "camera_side": "aisle_entrance_side",
+        "lens_intent": "natural perspective with readable shelf depth and stranger distance"
+      },
+      "continuity": {
+        "previous_entry_id": null,
+        "locked_fields": [],
+        "allowed_changes": []
+      },
+      "composition": {
+        "focus": {
+          "x": 39,
+          "y": 35
+        },
+        "dialogue_safe_zone": "lower_center",
+        "framing_notes": [
+          "雨澄在左／中左，書架形成縱深。",
+          "臉與握書手保持在上半／中段；下方中央保留 dialogue space。"
+        ]
+      },
+      "render_constraints": {
+        "include": [
+          "23 歲成年東亞女性、約 160 cm、纖細小骨架與相對長腿比例。",
+          "canonical ACG Outing wardrobe and adult graduate-student/creator read。",
+          "兩本不可讀文字的虛構設定／美術書。"
+        ],
+        "exclude": [
+          "男主或任何男主身體部位。",
+          "學生制服、幼態臉、過大眼睛、內八、小動物 pose。",
+          "掉書、碰撞、蹲下撿物、blush、正面模特 pose 或真實 IP。"
+        ],
+        "text_policy": "Book covers and merchandise use abstract unreadable fictional graphics; no real IP, readable labels, captions, UI, logos or watermark."
+      },
+      "reference_transport": {
+        "mode": "references_required",
+        "fresh_session_required": true,
+        "no_unrelated_images_allowed": true,
+        "accepted_base_asset_id": null,
+        "attachments": [
+          {
+            "role": "primary_face_identity",
+            "source_id": "gdrive:13AI1sD0iUm6NpMBnVtlK8Zl5PN0UPsMQ",
+            "expected_filename": "jyc-ref-01-face.png",
+            "pixels_must_be_visible": true
+          },
+          {
+            "role": "wardrobe",
+            "source_id": "gdrive:1FqxmDU0BqzAb6AFmZfebcx6NUaKCUw-A",
+            "expected_filename": "jyc-ref-05-wardrobe-a.png",
+            "pixels_must_be_visible": true
+          },
+          {
+            "role": "environment",
+            "source_id": "source.opening.ch1.bg.acg_shop",
+            "expected_filename": "bg-acg-shop-16x9-v1.jpg",
+            "pixels_must_be_visible": true
+          }
+        ]
+      },
+      "output": {
+        "canonical_asset_id": "COM01J-BASE-GUARDED",
+        "logical_asset_id": "cg.opening.com01j.base_guarded",
+        "master_filename": "cg-com01j-base-guarded-v1.jpg",
+        "quantity": 1
+      },
+      "acceptance": [
+        "Jiang Yucheng identity, adult age read, body proportion and intended ACG Outing wardrobe are explicit review targets.",
+        "Books, gaze order, screen side, camera axis and stranger distance communicate guarded curiosity.",
+        "No romantic/private information is visually implied."
+      ]
+    },
+    {
+      "entry_id": "COM01J-R01-INTERESTED",
+      "scene_id": "COM-01J",
+      "source_scene": "docs/narrative/scenes/vertical-slice/COM-01J.md",
+      "status": "accepted",
+      "cg_class": "reaction_cg",
+      "sequence_id": null,
+      "known_issues": [
+        "The existing demo-approved reaction inherits the base asset's provisional wardrobe drift; future rerender must follow JYC-WARDROBE-A-ACG-OUTING and must not reproduce the drift."
+      ],
+      "beat_range": "01J.6-01J.8",
+      "narrative": {
+        "purpose": "雨澄確認對方真的懂作品後，從 guarded curiosity 轉為 genuinely interested discussion。",
+        "must_show": [
+          "眼神更投入、非常小的自然 smile，仍留在書架原位。",
+          "兩本書、身體位置、camera 與商店空間延續 accepted base。"
+        ],
+        "must_not_imply": [
+          "不得變成 blush、instant crush、broad cute smile 或主動靠近。"
+        ]
+      },
+      "characters": [
+        {
+          "character_id": "jiang_yucheng",
+          "screen_side": "left",
+          "body_orientation": "three_quarter_right_toward_bookshelf",
+          "pose": "與 COM01J-BASE-GUARDED 相同，仍在原位持兩本書。",
+          "gaze": "比 base 更專注於 off-camera protagonist，但不改成正面模特凝視。",
+          "expression": "genuinely_interested_with_very_small_smile",
+          "wardrobe_key": "JYC-WARDROBE-A-ACG-OUTING",
+          "held_objects": [
+            "fictional_art_book_a",
+            "fictional_art_book_b"
+          ],
+          "reference_bindings": [
+            {
+              "role": "primary_face_identity",
+              "source_id": "gdrive:13AI1sD0iUm6NpMBnVtlK8Zl5PN0UPsMQ",
+              "expected_filename": "jyc-ref-01-face.png"
+            },
+            {
+              "role": "wardrobe",
+              "source_id": "gdrive:1FqxmDU0BqzAb6AFmZfebcx6NUaKCUw-A",
+              "expected_filename": "jyc-ref-05-wardrobe-a.png"
+            }
+          ]
+        }
+      ],
+      "environment": {
+        "location_id": "BG-ACG-SHOP",
+        "time_of_day": "15:40",
+        "weather": "dry_indoor_weekend_afternoon",
+        "lighting": "clean retail ceiling light with natural skin tone and soft colorful shelf bokeh",
+        "persistent_props": [
+          "art_book_shelf",
+          "fictional_merchandise",
+          "clear_aisle_distance"
+        ],
+        "reference_binding": {
+          "role": "environment",
+          "source_id": "source.opening.ch1.bg.acg_shop",
+          "expected_filename": "bg-acg-shop-16x9-v1.jpg"
+        }
+      },
+      "camera": {
+        "shot_size": "medium_wide",
+        "angle": "eye_level",
+        "pov": "protagonist",
+        "axis_id": "COM01J-SHELF-AXIS-A",
+        "camera_side": "aisle_entrance_side",
+        "lens_intent": "identical to accepted base"
+      },
+      "continuity": {
+        "previous_entry_id": "COM01J-BASE-GUARDED",
+        "locked_fields": [
+          "/characters/0/character_id",
+          "/characters/0/screen_side",
+          "/characters/0/body_orientation",
+          "/characters/0/pose",
+          "/characters/0/wardrobe_key",
+          "/characters/0/held_objects",
+          "/environment",
+          "/camera",
+          "/composition"
+        ],
+        "allowed_changes": [
+          "/characters/0/expression",
+          "/characters/0/gaze"
+        ]
+      },
+      "composition": {
+        "focus": {
+          "x": 39,
+          "y": 35
+        },
+        "dialogue_safe_zone": "lower_center",
+        "framing_notes": [
+          "Camera、crop、body position、books、lighting 與 shop geometry 完全沿用 base。"
+        ]
+      },
+      "render_constraints": {
+        "include": [
+          "對 accepted base 做 bounded expression/gaze edit。",
+          "genuinely interested eyes and a very small natural smile。"
+        ],
+        "exclude": [
+          "identity、age read、hair、wardrobe、books、hands、body position、camera、crop、lighting 或 shop geometry 變更。",
+          "blush、instant crush、broad cute smile、靠近、正面模特 pose 或 exaggerated anime reaction。"
+        ],
+        "text_policy": "Preserve base fictional/unreadable graphics and add no captions, UI, logos or watermark."
+      },
+      "reference_transport": {
+        "mode": "edit_from_accepted_base",
+        "fresh_session_required": true,
+        "no_unrelated_images_allowed": true,
+        "accepted_base_asset_id": "COM01J-BASE-GUARDED",
+        "attachments": [
+          {
+            "role": "accepted_base",
+            "source_id": "COM01J-BASE-GUARDED",
+            "expected_filename": "cg-com01j-base-guarded-v1.jpg",
+            "pixels_must_be_visible": true
+          }
+        ]
+      },
+      "output": {
+        "canonical_asset_id": "COM01J-R01-INTERESTED",
+        "logical_asset_id": "cg.opening.com01j.r01_interested",
+        "master_filename": "cg-com01j-r01-interested-v1.jpg",
+        "quantity": 1
+      },
+      "acceptance": [
+        "Base identity, adult age read, books, body position, camera, crop and environment are preserved.",
+        "Only bounded expression/gaze change is visible.",
+        "Interest remains about the shared work and does not imply instant romance."
+      ]
+    }
+  ]
+}

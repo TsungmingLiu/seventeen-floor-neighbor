@@ -1,29 +1,49 @@
 # AI Production Control Layer
 
-This directory is the single entry point for AI-assisted production work.
+> Lifecycle: **CANONICAL**
+
+這個目錄是 AI-assisted content production 的唯一入口。
 
 ## Start here
 
-Every new production session MUST:
+1. Read `.ai/WORKFLOW_MANIFEST.yaml`。
+2. Follow `.ai/harnesses/bootstrap.md`。
+3. Resolve exactly one active harness/pass。
+4. Load only the Task Packet allowlist。
+5. Return `.ai/schemas/HANDOFF.md` handoff。
 
-1. Read `.ai/WORKFLOW_MANIFEST.yaml`.
-2. Run the Bootstrap Harness in `.ai/harnesses/bootstrap.md`.
-3. Resolve exactly one specialist harness for the current task.
-4. Load only the bounded inputs allowed by that harness.
-5. Return a structured handoff using `.ai/schemas/HANDOFF.md`.
+不要從舊聊天、operator prompt、pilot 或整個 repo 開始。
 
-Do not begin by reading the whole repository. Do not use an old chat prompt as workflow authority.
+## Active roles
 
-## Design rule
+| Role | Owns |
+| --- | --- |
+| `content_writer` | `narrative_design` 或 `scene_dialogue`，一次一個 pass |
+| `cg_planner` | locked scene → canonical render-ready CG manifest |
+| `cg_renderer` | one manifest entry + declared references → one candidate |
+| `content_qa` | `narrative_review` 或 `visual_review` |
+| `integrator` | accepted outputs → runtime contract |
 
-**Harnesses are reusable specialists. Data packs are replaceable content.**
+`Narrative QA` 是 `content_qa` 的 pass，不是第六個 creative role。Bootstrap 是 routing procedure，不是 production role。
 
-A harness must not embed Xu Tang, Jiang Yucheng, a route, a scene, or any other task-specific content. Character, environment, scene, shot, and continuity facts are injected per task.
+## Layer boundary
 
-## Why this exists
+```text
+Narrative Design
+  → Scene / Dialogue
+  → Narrative Review
+  → Canonical CG Manifest
+  → Deterministic Render Packet
+  → Render / Visual Review
+  → Integration
+```
 
-The repository contains historical prototype material, runtime fixtures, proposals, and production canon. Reading all of it indiscriminately causes identity bleed, style drift, stale-spec conflicts, and oversized context. The control layer defines source authority, context isolation, worker contracts, and handoff rules so each session operates from the current method.
+Renderer 不讀 narrative/project policy；CG manifest entry 必須已含 execution-critical constraints。Chat manual、Work batch、future API 只使用不同 adapter envelope，共享同一 spec 和 prompt projection。
 
-## Current phase
+## Lifecycle boundary
 
-Workflow v0.1 is a manual/semiautomated proving layer. It is NOT the automated Content Factory. Human review remains required for creative direction, accepted image selection, and final playable acceptance.
+- `.ai/harnesses/` / `.ai/schemas/`：active canonical control layer。
+- `.ai/archive/`：historical only。
+- `.ai/experiments/`：pilot/research only。
+
+Active Task Packet 不得引用後兩者。

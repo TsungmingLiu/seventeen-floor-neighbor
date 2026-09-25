@@ -7,7 +7,8 @@
   },
   "scripts": {
     "test": "node --test tests/*.test.mjs",
-    "validate": "node tools/validate-content.mjs",
+    "validate": "node tools/validate-content.mjs && node tools/validate-production-contracts.mjs",
+    "production:validate": "node tools/validate-production-contracts.mjs",
     "build": "node tools/build.mjs",
     "dev": "node tools/preview-server.mjs --dev --port 4173",
     "preview": "node tools/preview-server.mjs --preview --port 4173",
@@ -17,6 +18,7 @@
     "assets:check": "node tools/check-assets.mjs",
     "assets:build": "node tools/build-assets.mjs",
     "assets:plan": "node tools/asset-plan.mjs",
+    "cg:packet": "node tools/render-cg-packets.mjs",
     "context": "node tools/context.mjs"
   }
 }

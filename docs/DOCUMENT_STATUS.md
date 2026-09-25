@@ -1,54 +1,61 @@
 # Document Status and Cleanup Map
 
-> Status: **CANONICAL human-readable lifecycle index**
+> Lifecycle: **CANONICAL** human-readable index
 >
-> Updated: 2026-09-24
->
-> Machine/agent workflow authority lives in `.ai/WORKFLOW_MANIFEST.yaml` and `.ai/policies/SOURCE_AUTHORITY.md`.
+> Updated: 2026-09-25
 
-## Current authorities
+Machine routing authority lives in `.ai/WORKFLOW_MANIFEST.yaml`; conflict rules live in `.ai/policies/SOURCE_AUTHORITY.md`. Full inventory and runtime-fixture boundary：`docs/CONTENT_PRODUCTION_SOURCE_MAP.md`。
 
-| Area | Current authority | Status |
+## Lifecycle vocabulary
+
+Production documents use exactly four lifecycle labels：`CANONICAL`、`EXPERIMENTAL`、`GENERATED`、`ARCHIVED`。
+
+| Lifecycle | Meaning |
+| --- | --- |
+| `CANONICAL` | current authority within a declared domain |
+| `EXPERIMENTAL` | pilot/research input or result; never production authority |
+| `GENERATED` | deterministic output derived from canonical source; replaceable |
+| `ARCHIVED` | historical record; never production authority |
+
+`LEGACY-FIXTURE` describes runtime assets/capabilities, not document authority.
+
+## Active authorities
+
+| Area | Current authority |
+| --- | --- |
+| AI workflow | `.ai/WORKFLOW_MANIFEST.yaml` + active `.ai/harnesses/` + `.ai/schemas/` |
+| Current milestone | `PROJECT_STATE.md` |
+| Source/lifecycle map | `docs/CONTENT_PRODUCTION_SOURCE_MAP.md` |
+| Narrative design | `docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md` |
+| Production layer contract | `docs/narrative/CONTENT_PRODUCTION_SPEC.md` |
+| Route/state | `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md` |
+| Locked scene facts | `docs/narrative/scenes/vertical-slice/*.md` |
+| Narrative continuity values | `content/production/narrative/` |
+| Visual production | `docs/art/PRODUCTION_VISUAL_DIRECTION.md` |
+| Character identity references | `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md` |
+| CG production / manifest | `docs/art/CG_PRODUCTION_SPEC.md` + `.ai/schemas/CG_MANIFEST.md` |
+| Canonical CG manifest values | `content/production/cg-manifests/` |
+| Narrative/visual continuity | `.ai/schemas/NARRATIVE_CONTINUITY.md` + `.ai/schemas/VISUAL_CONTINUITY.md` |
+| Creative progress | `docs/narrative/CONTENT_PRODUCTION_TODO.md` |
+| Runtime architecture | `ARCHITECTURE.zh-TW.md` + applicable feature spec |
+| Cross-file production validation | `tools/validate-production-contracts.mjs` |
+
+Locked scene files own narrative staging and semantic visual beats; they do not own render prompt syntax. Render-mode leftovers inside older scenes are historical annotations and cannot override the active visual/CG contract.
+
+## Archived or experimental
+
+| Path | Lifecycle | Notes |
 | --- | --- | --- |
-| AI work method | `.ai/WORKFLOW_MANIFEST.yaml` + `.ai/harnesses/` | CANONICAL |
-| Current project state | `PROJECT_STATE.md` | CANONICAL |
-| Runtime architecture | `ARCHITECTURE.zh-TW.md` | CANONICAL |
-| Narrative plan | `docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md` | CANONICAL |
-| Route/state | `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md` | CANONICAL |
-| Locked scene facts | `docs/narrative/scenes/vertical-slice/*.md` | CANONICAL within each scene, except rendering instructions superseded below |
-| Visual production | `docs/art/PRODUCTION_VISUAL_DIRECTION.md` | CANONICAL |
-| Character visual identity | `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md` | CANONICAL catalog; per-task isolation required |
-| W4 Memories/player contract | `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md` | CANONICAL |
+| `docs/archive/` | `ARCHIVED` | old art plan, prompt pack, recipe and backlog history |
+| `.ai/archive/` | `ARCHIVED` | completed one-off operator material |
+| `.ai/experiments/` | `EXPERIMENTAL` | pilots, capability tests, failure evidence |
+| `docs/proposals/urban-dating-sim-setting-proposal.md` | `ARCHIVED` by default | bounded excerpts may be cited as supporting input; never overrides canon |
 
-## Partially superseded but retained
+Active harnesses and Task Packets must not reference archive/experiment paths. Provenance receipts may point to an archived source that actually produced an asset.
 
-| File / area | Keep for | Do NOT use for |
-| --- | --- | --- |
-| `docs/art/PROTOTYPE_ART_REQUIREMENTS.md` | location inventory, old asset IDs, broad art intent | 9:16 master, sprite-first production |
-| `docs/art/VERTICAL_SLICE_CG_GENERATION_PROMPTS.md` | historical shot intent / wording | batch-session execution, 9:16 generation |
-| existing scene rendering notes | narrative staging, wardrobe, expression, action timing | old sprite/9:16 rendering mode |
-| `docs/art/recipes/backgrounds/opening_batch_a_backgrounds.md` | provenance for already-generated 9:16 assets | default spec for new background generation |
-| `docs/art/recipes/sprites/` | provenance / runtime regression fixture | new production requirement |
+## Cleanup rule
 
-## Supporting only
-
-`docs/proposals/urban-dating-sim-setting-proposal.md` is world/product/future-character supporting context. Specialist workers load only explicitly allowed sections. It cannot override prototype narrative, route/state, visual direction, or locked scene facts.
-
-## Cleanup policy
-
-Phase 1 (current):
-- establish manifest, harnesses, lifecycle labels, and supersession notices;
-- stop new work from depending on stale instructions;
-- preserve runtime fixtures and provenance.
-
-Phase 2 (after harness pilot passes):
-- extract reusable character/environment/task data into normalized packs;
-- remove duplicate production instructions from old docs;
-- move clearly historical material into an archive namespace when no runtime/tool references depend on path;
-- update links atomically.
-
-Phase 3:
-- add validation/linting for forbidden stale production references (for example new tasks requesting sprite-first or 9:16 masters);
-- automate Task Packet construction only after manual harness runs are stable.
-
-Do not physically delete legacy files merely because they are no longer production authority.
+- Moving guidance to archive changes authority, not runtime capability.
+- Do not delete composite/sprite/background/video support or binary fixtures merely to match the CG-first authoring model.
+- Do not use a historical prompt as input to a new production task.
+- New canonical contracts must be registered atomically in the workflow manifest and source map.

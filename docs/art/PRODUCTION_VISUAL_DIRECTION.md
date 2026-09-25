@@ -4,7 +4,7 @@
 >
 > Version: 1.1
 >
-> Updated: 2026-09-24
+> Updated: 2026-09-25
 >
 > This file supersedes older 9:16 mobile-first and sprite-first production instructions wherever they conflict.
 
@@ -147,10 +147,10 @@ Runtime presentation may use cut, crossfade, subtle pan/zoom, shake, blur/focus,
 
 ## 8. Legacy supersession map
 
-The following old instructions are superseded for new production:
+The following archived instructions are not production sources:
 - `ARCHITECTURE*.md`: mobile portrait 9:16 as primary visual target;
-- `docs/art/PROTOTYPE_ART_REQUIREMENTS.md`: background + sprite as default scene construction;
-- `docs/art/VERTICAL_SLICE_CG_GENERATION_PROMPTS.md`: 9:16 output and all-in-one batch-session workflow;
-- `docs/art/recipes/sprites/`: new sprite production requirement.
+- `docs/archive/art/PROTOTYPE_ART_REQUIREMENTS.md`: background + sprite as default scene construction;
+- `docs/archive/art/VERTICAL_SLICE_CG_GENERATION_PROMPTS.md`: 9:16 output and all-in-one batch-session workflow;
+- `docs/archive/art/recipes/`: old background/sprite production recipes.
 
-Historical location IDs, scene intent, wardrobe facts, and accepted assets may still be useful when separately allowed by a Task Packet.
+Historical location IDs and accepted asset provenance remain visible through current canonical scene/asset records; production workers must not load the archived files.

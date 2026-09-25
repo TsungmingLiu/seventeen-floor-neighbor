@@ -13,8 +13,8 @@
 | Canonical production story | **Braided Narrative v0.5**；約 66 個 authoring-level scene / gate / ending / after-story 單元，詳見 `docs/narrative/` |
 | Prototype heroines | **許棠**：27 歲、約 170 cm、自由接案視覺設計師；**江雨澄**：23 歲、約 160 cm、研究生＋兼職插畫／ACG creator |
 | Character visual identity | 許棠、江雨澄的 **6-sheet production reference packs 均已 QA PASS**；canonical Drive manifest 見 `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md` |
-| Current creative milestone | **Opening Vertical Slice**：COM-00 → SH-01；進度板在 `docs/narrative/CONTENT_PRODUCTION_TODO.md` |
-| AI production workflow | **Harness v0.1**：Bootstrap → bounded Task Packet → specialist → structured handoff；見 `.ai/` |
+| Current creative milestone | **Opening Vertical Slice**：COM-00 → SH-01；Opening Chapter 1 已遷移到 canonical continuity/CG contracts，進度板在 `docs/narrative/CONTENT_PRODUCTION_TODO.md` |
+| AI production workflow | **Workflow v1.0**：Bootstrap → bounded Task Packet → five active roles/passes → structured handoff；見 `.ai/` |
 | Visual production | **CG-first / 16:9 landscape-first**；新 production 不要求 sprite；詳見 `docs/art/PRODUCTION_VISUAL_DIRECTION.md` |
 | Current playable runtime | 仍保留舊 **123-node Xu Tang + temporary office-OL branch** 作為 engine / migration / W4 regression fixture；**它不是新的 canonical production story ordering** |
 | Runtime | Browser-native JavaScript，無 backend、無 database；save/progress 使用 `localStorage` |
@@ -69,7 +69,7 @@ JYC-06  Gaming Night
 SH-01   17樓第一次同框
 ```
 
-每個 major scene 使用 `docs/narrative/CONTENT_PRODUCTION_TODO.md` 的 S1–S12 Definition of Done。W4 runtime contract 現已穩定；creative production 的 script、continuity、state contract、shot list、CG generation 與 asset QA 完成後，可接入 W4 runtime 做 playtest 與 final polish。
+每個 major scene 依 `docs/narrative/CONTENT_PRODUCTION_TODO.md` 的 production gates 前進。W4 runtime contract 現已穩定；creative production 的 narrative contract、locked scene、CG manifest、render packet 與 QA 完成後，可接入 W4 runtime 做 playtest 與 final polish。
 
 ## Canonical documents
 
@@ -78,16 +78,20 @@ SH-01   17樓第一次同框
 | `PROJECT_STATE.md` | 現在正在做什麼、最新 milestone / migration / acceptance 狀態 |
 | `TODO.md` | 技術執行順序、milestones、hard gates，以及長期 AI Game Director / Content Factory North Star |
 | `ARCHITECTURE.zh-TW.md` | canonical runtime / content / asset / build architecture |
-| `.ai/WORKFLOW_MANIFEST.yaml` | 新 AI session 的唯一 workflow 入口、harness registry、source lifecycle |
+| `.ai/WORKFLOW_MANIFEST.yaml` | 新 AI session 的唯一 workflow 入口；五個 active role、layer gate、source lifecycle |
 | `AGENTS.md` | repo-level safety/verification guidance；AI production 仍先走 `.ai/` bootstrap |
 | `docs/narrative/CONTENT_PRODUCTION_TODO.md` | creative production batch board；只記進度，不重複 scene spec |
+| `docs/narrative/CONTENT_PRODUCTION_SPEC.md` | Narrative Design → Scene/Dialogue → Visual Production layer contract 與固定術語 |
+| `docs/CONTENT_PRODUCTION_SOURCE_MAP.md` | active/archive/experimental/generated inventory 與 source-of-truth map |
 | `docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md` | prototype scene/beat/character arc/pre-script authority |
 | `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md` | route DAG、relationship/knowledge/deception state contract |
 | `docs/art/PRODUCTION_VISUAL_DIRECTION.md` | **現行** CG-first、16:9、responsive crop/focus、CG sequence/video contract |
 | `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md` | 角色 6-sheet identity/body/wardrobe reference catalog；worker 必須按角色隔離 |
-| `docs/art/PROTOTYPE_ART_REQUIREMENTS.md` | **PARTIALLY SUPERSEDED**：location/asset inventory 與 broad intent；不可再作 9:16/sprite-first authority |
-| `docs/art/VERTICAL_SLICE_CG_GENERATION_PROMPTS.md` | **PARTIALLY SUPERSEDED**：historical shot intent；不可直接跑 batch prompt |
-| `docs/proposals/urban-dating-sim-setting-proposal.md` | **SUPPORTING** world/product/future heroine context，不是 production authority |
+| `docs/art/CG_PRODUCTION_SPEC.md` | Canonical CG Manifest、deterministic Render Packet、adapter boundary |
+| `content/production/` | approved Narrative Continuity values 與 canonical CG Manifest values；不是 policy prose |
+| `docs/archive/` | **ARCHIVED**：舊 art/prompt/recipe/backlog，只保留歷史與 provenance |
+| `.ai/archive/` / `.ai/experiments/` | **ARCHIVED / EXPERIMENTAL**：一次性 operator 與 pilot，不可供 production worker 使用 |
+| `docs/proposals/urban-dating-sim-setting-proposal.md` | archived-by-default ideation；只有 Task Packet 指定的 bounded excerpt 可作 supporting context |
 | `docs/DOCUMENT_STATUS.md` | human-readable document lifecycle / cleanup map |
 | `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md` | W4 UI / Memories / replay / frontier data contract |
 
@@ -139,6 +143,8 @@ W3 的 canonical engineering proof 已完成；GitHub Actions 的 Browser Accept
 | `npm run codespace:accept` | ephemeral fresh Codespace engineering acceptance |
 | `npm run codespace:review` | acceptance 後建立 temporary public review surface |
 | `npm run validate` | content graph / logical assets / recipes / character dependency validation |
+| `npm run production:validate` | narrative/CG contracts、scene/receipt binding、active source boundary validation |
+| `npm run cg:packet -- --manifest <path> --check` | validate one canonical CG Manifest without rendering |
 | `npm run assets:check` | media mapping/hash/metadata/full-decode 檢查 |
 | `npm run assets:build` | 從 Git/Drive canonical sources 建立 runtime assets |
 | `npm run build` | clean rebuild `dist/` |
@@ -159,6 +165,7 @@ W3 的 canonical engineering proof 已完成；GitHub Actions 的 Browser Accept
 | Route registry | `content/routes/index.json` | 可玩 package 登錄與 default route |
 | Route packages | `content/routes/<route-id>/` | storyFiles / sceneFiles / asset whitelist / route context |
 | Shared scenes | `content/scenes/*.json` | reusable pools / scene templates |
+| Production contracts | `content/production/` | scene-local narrative continuity values + render-ready CG manifest values |
 | Runtime engine | `src/` | playback、branching、save/progress、visuals、gallery、memories |
 | Static UI source | `public/` | HTML/CSS shell |
 | Tooling | `tools/` | build / validation / context / asset / Codespace automation |
@@ -219,7 +226,7 @@ Codespaces playable review
 - New production master 是 16:9 landscape-first；CG/BG 要保存 focal point、safe zone、crop tolerance、face/hand/object composition，runtime 以 responsive focus metadata 避免誤裁。
 - story 只引用 logical asset ID，不直接耦合 physical filename/provider。
 
-完整 contract 見 `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md` 與 `docs/art/PROTOTYPE_ART_REQUIREMENTS.md`。
+完整 identity contract 見 `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md`；historical art matrix 已歸檔，不再是 production input。
 
 ## 驗證與 Definition of Done
 
@@ -259,13 +266,11 @@ npm run assets:build
 
 ### 劇情 / production content
 
-1. `PROJECT_STATE.md`
-2. `docs/narrative/CONTENT_PRODUCTION_TODO.md`
-3. `docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md`
-4. `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md`
-5. `docs/art/PROTOTYPE_ART_REQUIREMENTS.md`
-6. `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md`
-7. 需要 CG 時再讀 `docs/art/VERTICAL_SLICE_CG_GENERATION_PROMPTS.md`
+1. `.ai/WORKFLOW_MANIFEST.yaml`
+2. `.ai/harnesses/bootstrap.md`
+3. Task Packet allowlist 中的最小 canonical inputs
+
+不要直接讀 archive/experiment，也不要自行擴張成整包 narrative + art context。
 
 不要為了「完整 context」把所有舊聊天塞進新 session；應以 repo canonical docs + task-local context packet 為準。
 

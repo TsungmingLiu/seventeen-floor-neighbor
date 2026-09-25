@@ -1,60 +1,38 @@
 # Source Authority and Document Lifecycle
 
-Version: 0.1.0
+Version: 1.0.0
+
+Canonical inventory: `docs/CONTENT_PRODUCTION_SOURCE_MAP.md`.
 
 ## 1. Conflict order
 
-When two sources conflict, use this order:
+1. `.ai/WORKFLOW_MANIFEST.yaml` — workflow routing and source classes.
+2. `PROJECT_STATE.md` — current milestone and accepted superseding decisions.
+3. Task-specific locked artifact — approved scene, canonical CG manifest entry, accepted asset receipt.
+4. Domain canon — narrative, visual, character identity, runtime contracts.
+5. A bounded supporting excerpt explicitly named by the Task Packet.
 
-1. `.ai/WORKFLOW_MANIFEST.yaml` for **how work is performed** and which source class may be read.
-2. `PROJECT_STATE.md` for **current milestone and superseding project decisions**.
-3. Task-specific locked production artifact, such as an approved scene file, for **its narrative facts, staging, wardrobe, expression, state, and continuity**.
-4. Domain canon:
-   - narrative: braided narrative + route/state specs;
-   - visual: `docs/art/PRODUCTION_VISUAL_DIRECTION.md` + character reference manifest;
-   - runtime: `ARCHITECTURE.zh-TW.md` + applicable implementation contract.
-5. Supporting documents.
-6. Proposal, historical recipe, migration fixture, archived material.
+A lower layer never overrides a higher layer. Conflicting sources at the same authority level require `BLOCKED`; the worker must not invent a compromise.
 
-A lower layer never overrides a higher layer.
+## 2. Lifecycle
 
-## 2. Important partial supersession
-
-Some files remain useful but contain obsolete production instructions.
-
-### `docs/art/PROTOTYPE_ART_REQUIREMENTS.md`
-Useful for location inventory, historical asset IDs, scene intent, and broad art needs.
-
-Superseded for:
-- sprite-first composition;
-- mobile portrait 9:16 as the production master;
-- assumptions that empty background + character sprite is the default rendered scene.
-
-### `docs/art/VERTICAL_SLICE_CG_GENERATION_PROMPTS.md`
-Useful as historical shot intent and old prompt wording.
-
-Superseded for:
-- 9:16 output;
-- batch queue execution in one general session;
-- direct use as an all-in-one worker prompt.
-
-New CG work MUST be repacked through Shot Planner -> CG Artist.
-
-### Sprite recipes and sprite assets
-Retained as W4/runtime regression fixtures and historical candidates. They are not requirements for new production content.
-
-## 3. Proposal status
-
-`docs/proposals/urban-dating-sim-setting-proposal.md` is supporting world/product ideation. It must not be loaded by a specialist worker unless a Task Packet names a specific needed section. It never overrides current prototype narrative, route/state, visual direction, or locked scene files.
-
-## 4. Lifecycle labels
-
-Use these labels in documents when practical:
+Documents use exactly these lifecycle labels：
 
 - **CANONICAL** — current authority in its declared domain.
-- **SUPPORTING** — usable context, never allowed to override canon.
-- **LEGACY-FIXTURE** — kept because current runtime/tests still use it.
-- **DEPRECATED** — do not use for new work.
-- **ARCHIVED** — historical record only.
+- **EXPERIMENTAL** — pilot/capability work; never production input.
+- **GENERATED** — deterministic output rebuilt from canonical source; never reverse authority.
+- **ARCHIVED** — historical record only; never production input.
 
-Do not delete a LEGACY-FIXTURE merely to make the tree look cleaner.
+`LEGACY-FIXTURE` describes a runtime asset/capability that remains necessary for regression or migration. It does not make its old production document canonical.
+
+## 3. Read rules
+
+- A production Task Packet may allowlist only `CANONICAL` sources and the minimum task-specific accepted references.
+- Active harnesses must not reference `.ai/archive/`, `.ai/experiments/`, or `docs/archive/`.
+- A provenance receipt may retain a pointer to archived material that actually produced an asset; that pointer is evidence, not executable guidance.
+- A research/migration task may read archive/experiment material only when its objective explicitly requires it. Its output still cannot silently change canon.
+- `docs/proposals/urban-dating-sim-setting-proposal.md` is archived-by-default ideation. A Task Packet may cite a precise excerpt as supporting context, but it never overrides current narrative/route/scene facts.
+
+## 4. Runtime fixtures
+
+Existing sprite/background assets, composite rendering, legacy route packages, stable IDs, video support, and save/migration behavior remain available until intentionally migrated. Removing obsolete guidance never authorizes deleting these capabilities or assets.

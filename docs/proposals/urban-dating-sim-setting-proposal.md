@@ -1,6 +1,6 @@
 # 台北都市成人戀愛模擬器：設定與內容提案
 
-> 狀態：**SUPPORTING proposal / world-and-product ideation; NOT production authority**
+> Lifecycle: **ARCHIVED — NOT A PRODUCTION SOURCE OF TRUTH**
 >
 > 版本：0.2
 >
@@ -19,11 +19,11 @@
 
 角色 production visual identity 已另行 canonicalize：6-sheet reference pack 規格與許棠／江雨澄實際 Drive manifest 見 `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md`。
 
-本文件仍是世界觀、人物設定、主題與 future character pack 的 canonical content draft；但凡涉及以下 prototype 細節，請以新文件為準：
+本文件仍可保存世界觀、人物設定、主題與 future character ideation；但不是 production authority。若 Task Packet 需要其中一小段，必須明確引用範圍，且以下 prototype 細節一律以現行文件為準：
 
 - 完整雙女主 scene / beat / conflict / repair / ending：`docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md`
 - route DAG、scene dependencies、attention windows、overlap/deception/knowledge flags：`docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md`
-- 每個 scene 的背景、立繪、特殊 CG 與 production 描述：`docs/art/PROTOTYPE_ART_REQUIREMENTS.md`
+- production visual contract：`docs/art/PRODUCTION_VISUAL_DIRECTION.md`
 
 重要差異：
 

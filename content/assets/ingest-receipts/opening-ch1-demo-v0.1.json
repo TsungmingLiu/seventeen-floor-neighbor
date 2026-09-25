@@ -1,7 +1,7 @@
 {
   "receiptVersion": 1,
   "task": "ASSET INGEST TASK — run once after all images are ready",
-  "operatorPack": ".ai/operators/OPENING_CH1_DEMO_OPERATOR_PACK_v0.1.md",
+  "operatorPack": ".ai/archive/operators/OPENING_CH1_DEMO_OPERATOR_PACK_v0.1.md",
   "createdAt": "2026-09-24T19:26:00-04:00",
   "sourcePrivateFolderId": "1l717fFWJAmuCM84AZIgrWn_bfoXb0lJm",
   "runtimePublicFolderId": "1sXzfp5IZsYon5bxL9A_Fsrl_ZhF9ajvt",

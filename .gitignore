@@ -6,6 +6,8 @@
 # Disposable generated asset/cache directories
 generated/runtime-assets/
 generated/source-cache/
+generated/render-packets/
+generated/asset-check-cache/
 
 # OS/editor noise
 .DS_Store

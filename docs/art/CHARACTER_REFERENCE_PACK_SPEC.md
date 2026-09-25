@@ -2,7 +2,7 @@
 
 > **CANONICAL identity/reference manifest.**
 >
-> AI workflow rule: this document records multiple characters for catalog purposes, but a CG worker must receive a **single-character Character Pack** derived from it unless the Shot Pack explicitly contains multiple visible characters. Do not load both heroines' references into a single-character generation task.
+> AI workflow rule: this document records multiple characters for catalog purposes, but a CG manifest entry binds only the visible character reference(s). Do not load both heroines' references into a single-character render task.
 > Mentions of sprite production are historical/general capability notes; new production is CG-first per `docs/art/PRODUCTION_VISUAL_DIRECTION.md`.
 
 
@@ -15,7 +15,7 @@
 > 目的：定義所有可進 production 的戀愛角色，在大量生成 sprite / event CG / ending CG 前必須具備的 6-sheet reference pack；同時記錄目前許棠與江雨澄已批准的 canonical Drive references。
 >
 > 本文件負責「角色設定圖如何製作、哪張圖是什麼 authority、生成 CG 時該載入哪些 reference」。  
-> Scene art intent 仍由 `docs/art/PROTOTYPE_ART_REQUIREMENTS.md` 負責；實際 Vertical Slice CG prompts 見 `docs/art/VERTICAL_SLICE_CG_GENERATION_PROMPTS.md`。
+> Scene-local intent 由 locked scene file 負責；global visual rules 由 `docs/art/PRODUCTION_VISUAL_DIRECTION.md` 負責。Archived art matrix / prompt pack 不再是 production input。
 
 ---
 
@@ -205,25 +205,17 @@ preferred 6:
 
 # 6. CG generation reference transport contract
 
-> **Superseded transport rule (2026-09-24):** capability testing proved that connector/runtime acquisition can expose Drive image pixels to the worker, but the current ChatGPT image-generation surface cannot provide a hard, auditable guarantee that those connector-fetched runtime IDs are the exact references used by generation. Therefore connector-fetched images are **not** the supported production reference transport.
+Canonical CG Manifest 的 `reference_transport.attachments[]` 指定 generation 必須收到的 image inputs。取得方式由 `Execution Adapter` 決定，不是角色 reference pack 的設計決策：
 
-For new base character CGs:
+1. `chat_manual`：Human 在 fresh image-generation chat 附上 entry 指定的圖；worker 逐張確認 pixels、role、filename。
+2. `work_batch`：Work executor 可透過已授權 connected source 自動取得 entry 指定的 Drive files 或 source catalog records；逐張確認 pixels、role、filename 後送進 generation call。
+3. `api`：未來 executor 以相同 bindings 提供 image inputs，並留下實際使用的來源紀錄。
 
-1. Read this manifest only to identify the minimal canonical reference set.
-2. The Human manually downloads/locates those exact canonical files and attaches them to a **fresh ChatGPT image-generation conversation**.
-3. The worker visually verifies every attachment and its assigned role.
-4. No unrelated images may exist in that generation conversation.
-5. If any required attachment is missing/wrong/ambiguous, return BLOCKED; do not fetch a Drive replacement for generation.
-6. Generate exactly one independent candidate per image task unless the Task Packet explicitly defines a tightly linked sequence.
-7. Previous generated CGs do not replace canonical identity refs for a new base CG.
+任何 adapter 遇到缺失、錯誤或 unrelated images 都須 `BLOCKED`。只知道 Drive ID、URL 或檔名，不算已把像素送進 generation。每個獨立 image task 只生成一張 candidate；previous generated CG 不可取代新 base CG 的 canonical identity refs。
 
-For Reaction CGs / close continuity variants:
+Reaction CG / close continuity variant 優先以 Accepted Base 作 edit target；Human 或 Work executor 依 adapter 提供這張 base。只有 manifest 明列時，才另外加入 identity/wardrobe refs。
 
-1. Prefer editing the accepted base CG rather than regenerating from scratch.
-2. The Human attaches the accepted base as the explicit edit target.
-3. Canonical identity/wardrobe refs are added only when the edit task specifically requires them.
-
-Google Drive IDs in this document remain canonical provenance/location metadata and are still useful for discovery, ingest, QA, and cataloging.
+早期 Chat/connector pilot 未證明該介面的硬性 reference binding；它不構成 Work batch 的全面禁令。Work batch 已跑過自動取得 references 的流程，仍須對每次輸出的 image quality 與 continuity 做 Visual Review。Google Drive IDs 在此文件中維持 canonical location/provenance metadata。
 
 ---
 

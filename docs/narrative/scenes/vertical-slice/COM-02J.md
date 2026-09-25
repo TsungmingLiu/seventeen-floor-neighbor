@@ -1,6 +1,6 @@
 # COM-02J — 咖啡店重逢
 
-> **Rendering supersession notice (2026-09-24):** this scene remains canonical for narrative, state, staging, wardrobe, expression, action timing, and continuity. Any older **9:16 / sprite / composite-rendering instruction** in this file is superseded for NEW production by `docs/art/PRODUCTION_VISUAL_DIRECTION.md` and the current Shot Planner harness. Do not rewrite narrative staging merely to preserve the old rendering mode.
+> **Rendering boundary:** this scene remains canonical for narrative/state/staging and semantic visual beats. Older 9:16/sprite/composite instructions are historical annotations; new render-ready decisions belong to the canonical CG manifest produced by `cg_planner`.
 
 
 ## Status
@@ -16,10 +16,8 @@
 
 - `docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md` — COM-02J
 - `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md`
-- `docs/art/PROTOTYPE_ART_REQUIREMENTS.md`
+- `docs/art/PRODUCTION_VISUAL_DIRECTION.md`
 - `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md`
-- `docs/art/VERTICAL_SLICE_CG_GENERATION_PROMPTS.md` — CG-COM-04
-- `docs/proposals/urban-dating-sim-setting-proposal.md`
 - `docs/narrative/scenes/vertical-slice/COM-01J.md`
 
 ## Scene summary

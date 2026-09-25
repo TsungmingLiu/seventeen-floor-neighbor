@@ -1,0 +1,119 @@
+{
+  "schema_version": "1.0.0",
+  "scene_id": "COM-01X",
+  "lifecycle": "CANONICAL",
+  "source_scene": "docs/narrative/scenes/vertical-slice/COM-01X.md",
+  "entry_state": {
+    "relationships": [
+      {
+        "subject": "xu_tang",
+        "toward": "protagonist",
+        "label": "recognizable_neighbors",
+        "constraints": [
+          "記得姓名與門牌，但沒有聯絡方式，也不知道對方工作。"
+        ]
+      },
+      {
+        "subject": "protagonist",
+        "toward": "xu_tang",
+        "label": "recognizable_neighbors",
+        "constraints": [
+          "知道她住隔壁；不能把第二次相遇讀成命定或邀約。"
+        ]
+      }
+    ],
+    "knowledge": [
+      {
+        "holder": "xu_tang",
+        "knows": ["男主姓名。", "男主住 1703 且剛搬來。"],
+        "does_not_know": ["男主工作。", "男主感情狀態。"]
+      },
+      {
+        "holder": "protagonist",
+        "knows": ["許棠姓名。", "許棠住 1702。"],
+        "does_not_know": ["許棠工作。", "許棠聯絡方式。"]
+      }
+    ],
+    "constraints": [
+      "這是普通同乘與短暫設備重啟，不是危機場景。"
+    ]
+  },
+  "scene_function": [
+    "證明沒有幫忙藉口時，兩人也能自然聊幾句。",
+    "讓玩家第一次聽見許棠短、乾、生活化的 early voice。",
+    "把關係從知道名字推進到能聊幾句的鄰居，仍保留距離。"
+  ],
+  "character_intent": [
+    {
+      "character_id": "protagonist",
+      "intent": "回家；在短暫停頓時判斷是否需要操作通話，不表演救援能力。"
+    },
+    {
+      "character_id": "xu_tang",
+      "intent": "回家；用一句乾話把不必要的緊張縮回日常，有限度確認新鄰居是否住得習慣。"
+    }
+  ],
+  "player_information_gain": [
+    "許棠熟悉大樓的小摩擦，也會主動提供一項可用生活資訊。",
+    "她能主動開話題，但到站就自然結束。"
+  ],
+  "emotional_arc": [
+    "普通同乘與可接受的沉默。",
+    "設備短暫停頓，兩人各自確認狀況。",
+    "乾式笑點打開短對話，恢復後以生活資訊收束。"
+  ],
+  "required_payoffs": [
+    "電梯在 6–8 秒內自行恢復，沒有救援升級。",
+    "玩家三種 tone 都合理前進。",
+    "許棠提供垃圾室動線資訊，17 樓到站後兩人分開。"
+  ],
+  "exit_state": {
+    "relationships": [
+      {
+        "subject": "xu_tang",
+        "toward": "protagonist",
+        "label": "familiar_neighbors_with_boundaries",
+        "constraints": [
+          "她知道兩人能維持自然節奏，但沒有邀約或 romantic commitment。"
+        ]
+      },
+      {
+        "subject": "protagonist",
+        "toward": "xu_tang",
+        "label": "familiar_neighbors_with_boundaries",
+        "constraints": [
+          "他辨識出她的乾式幽默與生活熟悉感，但沒有額外私人資訊。"
+        ]
+      }
+    ],
+    "knowledge": [
+      {
+        "holder": "xu_tang",
+        "knows": ["男主搬家進度仍在第三天的普通狀態。"],
+        "does_not_know": ["男主工作。", "男主感情狀態。"]
+      },
+      {
+        "holder": "protagonist",
+        "knows": ["垃圾室過十點要走左邊門。", "許棠遇到小設備問題不會戲劇化。"],
+        "does_not_know": ["許棠工作。", "許棠聯絡方式。"]
+      }
+    ],
+    "constraints": [
+      "兩人仍只在共同生活空間內互動；到站即分開。"
+    ]
+  },
+  "must_not": [
+    "不得升級為長時間受困、停電、恐慌或救援。",
+    "不得新增許棠幽閉恐懼或依賴男主安撫。",
+    "男主不得修電梯或藉故展現英雄能力。",
+    "不得在 17 樓門口繼續長聊或交換聯絡方式。"
+  ],
+  "implementation_mapping": {
+    "runtime_only": true,
+    "flags": {
+      "requires_met_xu_tang": true,
+      "F_XT": "increment:1",
+      "xu_shared_building_tip": true
+    }
+  }
+}

@@ -1,7 +1,7 @@
 workflow:
   id: seventeen-floor-production
-  version: 0.4.0
-  updated: 2026-09-24
+  version: 1.0.0
+  updated: 2026-09-25
   entrypoint: .ai/harnesses/bootstrap.md
   repository:
     full_name: TsungmingLiu/seventeen-floor-neighbor
@@ -17,111 +17,126 @@ workflow:
     source_private:
       folder_id: 1waCTQsIbfyZi0F80LlnWeerPcoNlPnw1
       url: https://drive.google.com/drive/folders/1waCTQsIbfyZi0F80LlnWeerPcoNlPnw1
-    pilot_candidates:
-      folder_id: 1-KdOiPN-6tEHZO3f2_-psM1kvfw7wf-M
-      url: https://drive.google.com/drive/folders/1-KdOiPN-6tEHZO3f2_-psM1kvfw7wf-M
 
 principles:
+  - one_canonical_content_pipeline
+  - narrative_design_precedes_scene_dialogue
+  - locked_scene_precedes_visual_planning
+  - cg_manifest_is_renderer_boundary
+  - render_prompt_is_deterministic_projection
+  - adapters_change_transport_not_creative_content
   - harness_logic_is_separate_from_content_data
   - repository_current_state_beats_conversation_memory
   - bounded_context_only
   - one_worker_one_task
   - explicit_handoff
   - no_implicit_cross_character_memory
-  - no_batch_image_generation_across_unrelated_shots
   - one_independent_image_per_generation_call
-  - batch_planning_allowed_but_batch_image_generation_forbidden
   - source_acquisition_is_fail_closed
-  - metadata_success_is_not_visual_input_success
-  - autonomous_connector_to_image_reference_binding_is_not_supported
-  - base_cg_reference_transport_uses_human_attachment_gate
-  - reaction_variants_prefer_edit_from_accepted_base
+  - no_automatic_retry_or_image_scoring
 
-current_visual_direction:
-  authority: docs/art/PRODUCTION_VISUAL_DIRECTION.md
-  production_mode: cg_first
-  new_character_sprites: false
-  master_aspect_ratio: "16:9"
-  mobile_target: landscape
-  desktop_target: responsive_full_viewport
-  ordinary_motion: cg_sequence
-  cinematic_video: supported_but_reserved_for_special_events
-  base_cg_reference_transport: human_attachment_required
-  reaction_cg_transport: edit_from_accepted_base_preferred
+pipeline:
+  - layer: narrative_design
+    harness: content_writer
+    pass: narrative_design
+    output: narrative_continuity_contract
+  - layer: scene_dialogue
+    harness: content_writer
+    pass: scene_dialogue
+    requires: approved_narrative_continuity_contract
+    output: locked_scene
+  - layer: narrative_review
+    harness: content_qa
+    pass: narrative_review
+    output: approved_locked_scene
+  - layer: visual_production
+    harness: cg_planner
+    requires: approved_locked_scene
+    output: canonical_cg_manifest
+  - layer: render
+    harness: cg_renderer
+    requires: canonical_cg_manifest_entry_and_declared_references
+    output: cg_candidate
+  - layer: visual_review
+    harness: content_qa
+    pass: visual_review
+    output: accepted_or_rejected_candidate
+  - layer: integration
+    harness: integrator
+    requires: accepted_content_and_assets
+    output: playable_content
 
 source_authority:
   policy: .ai/policies/SOURCE_AUTHORITY.md
   context_isolation: .ai/policies/CONTEXT_ISOLATION.md
-  highest_current_state:
-    - PROJECT_STATE.md
-    - .ai/WORKFLOW_MANIFEST.yaml
-  runtime_architecture:
-    - ARCHITECTURE.zh-TW.md
-    - docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md
+  inventory: docs/CONTENT_PRODUCTION_SOURCE_MAP.md
+  current_state: PROJECT_STATE.md
   narrative_canon:
+    - docs/narrative/CONTENT_PRODUCTION_SPEC.md
     - docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md
     - docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md
     - docs/narrative/scenes/vertical-slice/
   visual_canon:
     - docs/art/PRODUCTION_VISUAL_DIRECTION.md
     - docs/art/CHARACTER_REFERENCE_PACK_SPEC.md
-  progress_trackers:
-    - TODO.md
-    - docs/narrative/CONTENT_PRODUCTION_TODO.md
-  supporting_only:
-    - docs/proposals/urban-dating-sim-setting-proposal.md
-  legacy_or_partially_superseded:
-    - docs/art/PROTOTYPE_ART_REQUIREMENTS.md
-    - docs/art/VERTICAL_SLICE_CG_GENERATION_PROMPTS.md
-    - docs/art/recipes/sprites/
+    - docs/art/CG_PRODUCTION_SPEC.md
+  runtime_architecture:
+    - ARCHITECTURE.zh-TW.md
+    - docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md
+  forbidden_source_roots:
+    - .ai/archive/
+    - .ai/experiments/
+    - docs/archive/
+  runtime_fixtures_not_production_guidance:
     - runtime-public/sprites/
     - assets-src/characters/
+    - content/routes/xu-tang/
 
 harnesses:
-  production_coordinator:
-    path: .ai/harnesses/production-coordinator.md
-    role: decompose high-level work and dispatch bounded tasks
-  narrative_planner:
-    path: .ai/harnesses/narrative-planner.md
-    role: plan route/arc/scene objectives and state contracts
-  scene_writer:
-    path: .ai/harnesses/scene-writer.md
-    role: write one bounded production scene
-  shot_planner:
-    path: .ai/harnesses/shot-planner.md
-    role: convert locked scene intent into CG-first shots
-  cg_artist:
-    path: .ai/harnesses/cg-artist.md
-    role: produce one image task or one tightly related CG sequence
-  asset_qa:
-    path: .ai/harnesses/asset-qa.md
-    role: accept reject or request regeneration against explicit inputs
+  content_writer:
+    path: .ai/harnesses/content-writer.md
+    passes: [narrative_design, scene_dialogue]
+  cg_planner:
+    path: .ai/harnesses/cg-planner.md
+    output: canonical_cg_manifest
+  cg_renderer:
+    path: .ai/harnesses/cg-renderer.md
+    input_boundary: cg_manifest_entry_plus_references
+  content_qa:
+    path: .ai/harnesses/content-qa.md
+    passes: [narrative_review, visual_review]
   integrator:
     path: .ai/harnesses/integrator.md
-    role: wire accepted content and assets into runtime contracts
+    input_boundary: accepted_outputs_only
 
 schemas:
   task_packet: .ai/schemas/TASK_PACKET.md
   data_packs: .ai/schemas/DATA_PACKS.md
   handoff: .ai/schemas/HANDOFF.md
+  narrative_continuity: .ai/schemas/NARRATIVE_CONTINUITY.md
+  narrative_continuity_json: .ai/schemas/narrative-continuity.schema.json
+  visual_continuity: .ai/schemas/VISUAL_CONTINUITY.md
+  cg_manifest: .ai/schemas/CG_MANIFEST.md
+  cg_manifest_json: .ai/schemas/cg-manifest.schema.json
 
-operator_packs:
-  opening_ch1_demo_v0_1:
-    path: .ai/operators/OPENING_CH1_DEMO_OPERATOR_PACK_v0.1.md
-    scope:
-      - COM-00
-      - COM-01X
-      - COM-01J
-    purpose: human-executable prompts for first playable CG-first production demo
+production_artifacts:
+  narrative_contracts: content/production/narrative/
+  cg_manifests: content/production/cg-manifests/
+  validation: tools/validate-production-contracts.mjs
+
+render_projection:
+  tool: tools/render-cg-packets.mjs
+  adapters: [chat_manual, work_batch, api]
+  shared_prompt_must_match: true
+  free_summary_allowed: false
 
 execution:
   default_unit: one_task
   default_agent_state: fresh
-  read_whole_repo: forbidden_unless_coordinator_explicitly_authorizes
   worker_may_expand_scope: false
   worker_may_change_canon: false
+  render_generation_unit: one_manifest_entry
   human_gates:
-    - base_cg_reference_attachment
     - major_story_direction
     - canonical_character_design
     - accepted_master_image_selection

@@ -1,6 +1,6 @@
 # COM-03X — 包裹 / Line
 
-> **Rendering supersession notice (2026-09-24):** this scene remains canonical for narrative, state, staging, wardrobe, expression, action timing, and continuity. Any older **9:16 / sprite / composite-rendering instruction** in this file is superseded for NEW production by `docs/art/PRODUCTION_VISUAL_DIRECTION.md` and the current Shot Planner harness. Do not rewrite narrative staging merely to preserve the old rendering mode.
+> **Rendering boundary:** this scene remains canonical for narrative/state/staging and semantic visual beats. Older 9:16/sprite/composite instructions are historical annotations; new render-ready decisions belong to the canonical CG manifest produced by `cg_planner`.
 
 
 ## Status
@@ -19,10 +19,8 @@
 - docs/narrative/CONTENT_PRODUCTION_TODO.md
 - docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md — COM-03X
 - docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md
-- docs/art/PROTOTYPE_ART_REQUIREMENTS.md
+- docs/art/PRODUCTION_VISUAL_DIRECTION.md
 - docs/art/CHARACTER_REFERENCE_PACK_SPEC.md
-- docs/art/VERTICAL_SLICE_CG_GENERATION_PROMPTS.md
-- docs/proposals/urban-dating-sim-setting-proposal.md
 - docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md
 - Locked voice / continuity sources: COM-00, COM-01X, COM-01J, COM-02X, COM-02J
 
@@ -497,7 +495,7 @@ Asset policy:
 - Gallery unlock: none
 
 Reason:
-- canonical PROTOTYPE_ART_REQUIREMENTS 對 COM-03X 明確為 reuse / no CG；
+- 本 scene 的 current art intent 明確為 reuse / no CG；
 - 本幕價值在「門口聊得比以前久 + contact channel 自然建立」，不值得用 hero CG 把生活 logistics 拍成戀愛大事件。
 
 ## Art Shot List — S1 proposed, NOT S6-locked
