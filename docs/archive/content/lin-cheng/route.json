@@ -10,9 +10,9 @@
   "titleAlt": "雨後屋頂上拿著錄音機的林澄",
   "endingAlt": "林澄在天亮前把另一邊耳機遞向你",
   "accent": "#75c9bd",
-  "context": "content/routes/lin-cheng/context.md",
-  "storyFiles": ["content/routes/lin-cheng/story.json"],
-  "sceneFiles": ["content/routes/lin-cheng/scenes.json"],
+  "context": "docs/archive/content/lin-cheng/context.md",
+  "storyFiles": ["docs/archive/content/lin-cheng/story.json"],
+  "sceneFiles": ["docs/archive/content/lin-cheng/scenes.json"],
   "assetIds": [
     "bg.elevator.normal",
     "sprite.lin_cheng.night.neutral",

@@ -1,4 +1,6 @@
-# 許棠路線 Context
+# 許棠舊路線 Context
+
+> LEGACY-FIXTURE。這是仍被 route index 註冊的 runtime/save regression package，不是新 content production 的 narrative authority。
 
 完整主線。玩家住 1703，許棠住 1702。核心語氣是都市日常、克制曖昧與帶刺的幽默。
 
@@ -11,8 +13,8 @@
 
 ## 路由提示
 
-- 劇情來源：`content/chapters/chapter-01.json`、`content/routes/office-ol/story.json`
-- 早期辦公族 OL 臨時支線連續性：`content/routes/office-ol/context.md`
-- 約會池：`content/scenes/date-pool.json`
+- 劇情來源：`content/routes/xu-tang/chapter-01.json`、`content/routes/xu-tang/office-ol-story.json`
+- 早期辦公族 OL 臨時支線連續性：`content/routes/xu-tang/office-ol-context.md`
+- 約會池：`content/routes/xu-tang/date-pool.json`
 - 角色設定：`content/characters/xu_tang.json`
 - 針對單一節點工作時，先執行 `npm run context -- --route xu-tang --node <node-id>`。

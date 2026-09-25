@@ -8,7 +8,7 @@
 >
 > 範圍：只涵蓋許棠、江雨澄雙女主 prototype。現有 playable story 僅為技術驗證，不是本文件的劇情 canonical。
 >
-> 本文件自身是 prototype narrative authority；runtime/content 架構見 `ARCHITECTURE.zh-TW.md`；玩家回憶／replay 顯示規格見 `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md`。舊 setting proposal 只保留 ideation provenance，不是上位規格。
+> 本文件自身是 prototype narrative authority；runtime/content 與已實作的 Memories／replay 契約見 `ARCHITECTURE.zh-TW.md`。舊 setting proposal 只保留 ideation provenance，不是上位規格。
 >
 > 配套文件：
 > - `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md`：route DAG、dependencies、state/knowledge flags。
