@@ -1,0 +1,546 @@
+{
+  "id": "opening-demo-chapter-01",
+  "title": "Opening Chapter 1",
+  "startNode": "common_movein_rain_open",
+  "titleArt": "cg.opening.com00.s02_door_assist",
+  "endingArt": "cg.opening.com01j.r01_interested",
+  "chapterLabels": [
+    "雨夜搬家",
+    "電梯重啟",
+    "地下街初遇"
+  ],
+  "initialState": {
+    "mc_tone_formal": 0,
+    "mc_tone_humorous": 0,
+    "mc_tone_practical": 0,
+    "mc_tone_restrained": 0,
+    "mc_tone_serious": 0,
+    "mc_tone_observant": 0,
+    "C_XT": 0,
+    "F_XT": 0,
+    "F_JYC": 0,
+    "met_xu_tang": 0,
+    "xu_knows_player_name": 0,
+    "player_knows_xu_name": 0,
+    "xu_knows_player_is_neighbor_1703": 0,
+    "player_knows_xu_is_neighbor_1702": 0,
+    "xu_shared_building_tip": 0,
+    "met_jiang_yucheng": 0,
+    "heard_station_cafe_from_jyc": 0,
+    "jyc_first_topic": 0
+  },
+  "endingRules": [
+    {
+      "ending": "demo_complete",
+      "default": true
+    }
+  ],
+  "endings": {
+    "demo_complete": {
+      "title": "第一章 Demo 完成",
+      "art": "cg.opening.com01j.r01_interested",
+      "text": "Opening Chapter 1 到此結束。\n\n你記住了隔壁鄰居許棠，也記住了地下街那個對《逆光航路》有自己判斷的陌生女孩。\n\n這是 demo 的 runtime 邊界，不是任何關係結局。"
+    }
+  },
+  "nodes": {
+    "common_movein_rain_open": {
+      "speaker": "旁白",
+      "text": "搬家公司走了十分鐘。走廊上還剩三箱，和一張怎麼都過不了門框的椅子。",
+      "chapter": 0,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.opening.ch1.apt_17f_rain",
+        "sprites": []
+      },
+      "next": "common_movein_rain_open_chair"
+    },
+    "common_movein_rain_open_chair": {
+      "speaker": "旁白",
+      "text": "我先處理箱子。椅子可以留給明天的自己後悔。",
+      "chapter": 0,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.opening.ch1.apt_17f_rain",
+        "sprites": []
+      },
+      "next": "common_movein_rain_door"
+    },
+    "common_movein_rain_door": {
+      "speaker": "旁白",
+      "text": "我用肩膀頂住回彈的防火門，箱子卻選了另一個方向。",
+      "chapter": 0,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.opening.ch1.apt_17f_rain",
+        "sprites": []
+      },
+      "next": "common_movein_rain_assist"
+    },
+    "common_movein_rain_assist": {
+      "speaker": "許棠",
+      "text": "等一下。\n你先把右邊抬高。我扶著門。",
+      "chapter": 0,
+      "moment": "一隻手先把門穩穩撐住。",
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening.com00.s02_door_assist",
+        "effects": {
+          "push": true
+        }
+      },
+      "next": "common_movein_rain_move"
+    },
+    "common_movein_rain_move": {
+      "speaker": "許棠",
+      "text": "再一點。\n\n箱子向內轉過門線。\n\n你：過了。",
+      "chapter": 0,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening.com00.s02_door_assist"
+      },
+      "next": "common_movein_rain_choice"
+    },
+    "common_movein_rain_choice": {
+      "speaker": "旁白",
+      "text": "箱子落地後，許棠鬆開門。",
+      "chapter": 0,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening.com00.s04_base_neutral"
+      },
+      "choices": [
+        {
+          "text": "謝謝，第一天就麻煩妳。",
+          "next": "common_movein_rain_formal",
+          "effects": {
+            "met_xu_tang": 1,
+            "xu_knows_player_name": 1,
+            "player_knows_xu_name": 1,
+            "xu_knows_player_is_neighbor_1703": 1,
+            "player_knows_xu_is_neighbor_1702": 1,
+            "mc_tone_formal": 1
+          }
+        },
+        {
+          "text": "入住第一晚，先從不佔用逃生路線開始。",
+          "next": "common_movein_rain_joke",
+          "effects": {
+            "met_xu_tang": 1,
+            "xu_knows_player_name": 1,
+            "player_knows_xu_name": 1,
+            "xu_knows_player_is_neighbor_1703": 1,
+            "player_knows_xu_is_neighbor_1702": 1,
+            "mc_tone_humorous": 1,
+            "C_XT": 1
+          }
+        },
+        {
+          "text": "我來抬就好，妳幫我留著門。",
+          "next": "common_movein_rain_practical",
+          "effects": {
+            "met_xu_tang": 1,
+            "xu_knows_player_name": 1,
+            "player_knows_xu_name": 1,
+            "xu_knows_player_is_neighbor_1703": 1,
+            "player_knows_xu_is_neighbor_1702": 1,
+            "mc_tone_practical": 1
+          }
+        }
+      ]
+    },
+    "common_movein_rain_formal": {
+      "speaker": "許棠",
+      "text": "只是剛好。\n不過這箱再往裡一點，門才關得上。",
+      "chapter": 0,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening.com00.s04_r01_polite_smile"
+      },
+      "next": "common_movein_rain_names"
+    },
+    "common_movein_rain_joke": {
+      "speaker": "許棠",
+      "text": "目標很務實。\n\n你：先從做得到的開始。\n\n許棠：那這箱再往裡一點。",
+      "chapter": 0,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening.com00.s04_r01_polite_smile"
+      },
+      "next": "common_movein_rain_names"
+    },
+    "common_movein_rain_practical": {
+      "speaker": "許棠",
+      "text": "好。你往裡，我顧門。\n\n你：三、二——\n\n許棠：不用數，已經過了。",
+      "chapter": 0,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening.com00.s04_base_neutral"
+      },
+      "next": "common_movein_rain_names"
+    },
+    "common_movein_rain_names": {
+      "speaker": "許棠",
+      "text": "剛搬來？\n\n你：嗯，1703。\n\n我報了名字。她朝隔壁那扇門抬了抬下巴。\n\n許棠：許棠。1702。",
+      "chapter": 0,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening.com00.s04_base_neutral"
+      },
+      "next": "common_movein_rain_name_reply"
+    },
+    "common_movein_rain_name_reply": {
+      "speaker": "許棠",
+      "text": "你：謝謝，許小姐。\n\n許棠：叫許棠就好。住隔壁一直叫許小姐，會有點像管委會。",
+      "chapter": 0,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening.com00.s04_r01_polite_smile"
+      },
+      "next": "common_movein_rain_goodnight"
+    },
+    "common_movein_rain_goodnight": {
+      "speaker": "許棠",
+      "text": "那你繼續忙。晚安。\n\n你：晚安。",
+      "chapter": 0,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening.com00.s04_r01_polite_smile"
+      },
+      "next": "common_movein_rain_coda"
+    },
+    "common_movein_rain_coda": {
+      "speaker": "旁白",
+      "text": "她刷卡進 1702，沒有回頭停留。我把最後一箱拖進 1703。\n\n門關上後，走廊又只剩雨聲。\n至少現在，我知道隔壁住的是誰。",
+      "chapter": 0,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.opening.ch1.apt_17f_rain",
+        "sprites": []
+      },
+      "next": "common_elevator_restart_enter"
+    },
+    "common_elevator_restart_enter": {
+      "speaker": "旁白",
+      "text": "搬家後第三天，19:20。\n一樓電梯門將關時，許棠伸手擋住感應區進來。她看見我，點了一下頭。",
+      "chapter": 1,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.opening.ch1.apt_elevator",
+        "sprites": []
+      },
+      "next": "common_elevator_restart_greeting"
+    },
+    "common_elevator_restart_greeting": {
+      "speaker": "許棠",
+      "text": "晚上好。\n\n你：晚上好。\n\n許棠：箱子清完了嗎？\n\n你：已經能走路了。找東西還是得開三箱。\n\n許棠：聽起來很符合第三天的進度。",
+      "chapter": 1,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening.com01x.base_normal"
+      },
+      "next": "common_elevator_restart_stop"
+    },
+    "common_elevator_restart_stop": {
+      "speaker": "旁白",
+      "text": "電機聲停下，一聲短提示音。電梯輕頓，樓層數字停住；緊急通話燈與面板仍亮。\n\n不是下墜。只是所有聲音突然少了一層。",
+      "chapter": 1,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening.com01x.r01_restart"
+      },
+      "next": "common_elevator_restart_dry"
+    },
+    "common_elevator_restart_dry": {
+      "speaker": "許棠",
+      "text": "它偶爾會先想一下。",
+      "chapter": 1,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening.com01x.r01_restart"
+      },
+      "next": "common_elevator_restart_choice"
+    },
+    "common_elevator_restart_choice": {
+      "speaker": "你",
+      "text": "",
+      "chapter": 1,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening.com01x.r01_restart"
+      },
+      "choices": [
+        {
+          "text": "可能還在讀取住戶資料。",
+          "next": "common_elevator_restart_match_dry",
+          "effects": {
+            "mc_tone_humorous": 1,
+            "F_XT": 1,
+            "xu_shared_building_tip": 1
+          }
+        },
+        {
+          "text": "面板還有電。再幾秒，沒動我就按通話。",
+          "next": "common_elevator_restart_check_panel",
+          "effects": {
+            "mc_tone_practical": 1,
+            "F_XT": 1,
+            "xu_shared_building_tip": 1
+          }
+        },
+        {
+          "text": "往旁邊讓半步，安靜等重啟。",
+          "next": "common_elevator_restart_wait",
+          "effects": {
+            "mc_tone_restrained": 1,
+            "F_XT": 1,
+            "xu_shared_building_tip": 1
+          }
+        }
+      ]
+    },
+    "common_elevator_restart_match_dry": {
+      "speaker": "許棠",
+      "text": "那你還在新手教學。",
+      "chapter": 1,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening.com01x.r01_restart"
+      },
+      "next": "common_elevator_restart_resume"
+    },
+    "common_elevator_restart_check_panel": {
+      "speaker": "許棠",
+      "text": "好。\n\n她向旁邊讓開，保留我操作面板的空間，沒有靠近。",
+      "chapter": 1,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening.com01x.r01_restart"
+      },
+      "next": "common_elevator_restart_resume"
+    },
+    "common_elevator_restart_wait": {
+      "speaker": "旁白",
+      "text": "我往旁邊讓半步，沒有伸手碰她。兩人一起看著樓層面板。\n\n六秒不長。也沒有長到需要找話填滿。",
+      "chapter": 1,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening.com01x.r01_restart"
+      },
+      "next": "common_elevator_restart_resume"
+    },
+    "common_elevator_restart_resume": {
+      "speaker": "許棠",
+      "text": "比上次快。\n\n你：還有上次？\n\n許棠：兩秒。不要替它記錄績效。",
+      "chapter": 1,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening.com01x.r02_dry_smile"
+      },
+      "next": "common_elevator_restart_smalltalk"
+    },
+    "common_elevator_restart_smalltalk": {
+      "speaker": "許棠",
+      "text": "住得還習慣嗎？\n\n你：大致上。垃圾室我找了兩次。\n\n許棠：過十點要走左邊那扇門。右邊那扇看起來比較像，實際上只通機房。",
+      "chapter": 1,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening.com01x.base_normal"
+      },
+      "next": "common_elevator_restart_smalltalk_reply"
+    },
+    "common_elevator_restart_smalltalk_reply": {
+      "speaker": "許棠",
+      "text": "你：難怪。\n\n許棠：這棟樓有幾個地方，不太尊重直覺。",
+      "chapter": 1,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening.com01x.base_normal"
+      },
+      "next": "common_elevator_restart_exit"
+    },
+    "common_elevator_restart_exit": {
+      "speaker": "許棠",
+      "text": "17 樓到了。她按住開門鍵，我先提著袋子走出去。\n\n你：垃圾室的事，謝了。\n\n許棠：那個資訊比電梯可靠。\n\n你：晚安。\n許棠：晚安。",
+      "chapter": 1,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening.com01x.base_normal"
+      },
+      "next": "common_acg_first_meet_enter"
+    },
+    "common_acg_first_meet_enter": {
+      "speaker": "旁白",
+      "text": "同週末，15:40。\n《逆光航路》的新版設定集比電子版晚了半年。網路上的評價很一致：印得漂亮，補了什麼沒人說得清楚。\n\n我來找的就是「補了什麼」。",
+      "chapter": 2,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.opening.ch1.acg_shop",
+        "sprites": []
+      },
+      "next": "common_acg_first_meet_shelf"
+    },
+    "common_acg_first_meet_shelf": {
+      "speaker": "旁白",
+      "text": "我走到設定集區。書架前已經有人，各翻著一本書，比對索引和跨頁。我停在另一側，沒有靠近她手邊。",
+      "chapter": 2,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.opening.ch1.acg_shop",
+        "sprites": []
+      },
+      "next": "common_acg_first_meet_observation"
+    },
+    "common_acg_first_meet_observation": {
+      "speaker": "你",
+      "text": "如果是找雨港篇，那本少了舊版兩張色彩稿。",
+      "chapter": 2,
+      "moment": "她的眼睛先離開書頁，頭才微微轉過來。",
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening.com01j.base_guarded",
+        "effects": {
+          "push": true
+        }
+      },
+      "next": "common_acg_first_meet_confirm"
+    },
+    "common_acg_first_meet_confirm": {
+      "speaker": "江雨澄",
+      "text": "你看過舊版？\n\n你：看過電子版。排版很舊，內容比較完整。",
+      "chapter": 2,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening.com01j.base_guarded"
+      },
+      "next": "common_acg_first_meet_choice"
+    },
+    "common_acg_first_meet_choice": {
+      "speaker": "你",
+      "text": "",
+      "chapter": 2,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening.com01j.base_guarded"
+      },
+      "choices": [
+        {
+          "text": "舊版的雨港篇比較完整；新版補的是殖民站。",
+          "next": "common_acg_first_meet_worldbuilding",
+          "effects": {
+            "met_jiang_yucheng": 1,
+            "heard_station_cafe_from_jyc": 1,
+            "F_JYC": 1,
+            "mc_tone_serious": 1,
+            "jyc_first_topic": 1
+          }
+        },
+        {
+          "text": "我想看實體印刷。電子版把夜景的層次壓掉了。",
+          "next": "common_acg_first_meet_visual_design",
+          "effects": {
+            "met_jiang_yucheng": 1,
+            "heard_station_cafe_from_jyc": 1,
+            "F_JYC": 1,
+            "mc_tone_observant": 1,
+            "jyc_first_topic": 2
+          }
+        },
+        {
+          "text": "如果只買一本，機械稿比較像資料；另一本比較適合從頭翻。",
+          "next": "common_acg_first_meet_buying_practical",
+          "effects": {
+            "met_jiang_yucheng": 1,
+            "heard_station_cafe_from_jyc": 1,
+            "F_JYC": 1,
+            "mc_tone_practical": 1,
+            "jyc_first_topic": 3
+          }
+        }
+      ]
+    },
+    "common_acg_first_meet_worldbuilding": {
+      "speaker": "江雨澄",
+      "text": "可是新版多了雨港停電那張色彩腳本。\n那張其實把前面兩章的光源都解釋了。不是只有殖民站。\n\n你：所以目錄寫得比內容保守。\n\n江雨澄：或者編輯根本沒看圖。",
+      "chapter": 2,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening.com01j.r01_interested"
+      },
+      "next": "common_acg_first_meet_rejoin"
+    },
+    "common_acg_first_meet_visual_design": {
+      "speaker": "江雨澄",
+      "text": "對。暗部全部糊在一起。\n實體版好一點，但這本的紙又太亮，翻到燈下面會反光。\n\n她把書頁偏離頂燈，沒有把書遞過來。\n\n你：所以兩版各自壞一半。\n\n江雨澄：差不多。",
+      "chapter": 2,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening.com01j.r01_interested"
+      },
+      "next": "common_acg_first_meet_rejoin"
+    },
+    "common_acg_first_meet_buying_practical": {
+      "speaker": "江雨澄",
+      "text": "機械稿的索引比較好。\n可是註釋縮得很小。真的要拿來查，會先看得很生氣。\n\n你：聽起來妳已經試過了。\n\n江雨澄：看過朋友那本。",
+      "chapter": 2,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening.com01j.r01_interested"
+      },
+      "next": "common_acg_first_meet_rejoin"
+    },
+    "common_acg_first_meet_rejoin": {
+      "speaker": "江雨澄",
+      "text": "所以……你要買哪本？\n\n你：目前的結論是，出版社很會讓人買兩本。\n\n江雨澄：這點沒有版本差異。",
+      "chapter": 2,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening.com01j.r01_interested"
+      },
+      "next": "common_acg_first_meet_cafe_seed"
+    },
+    "common_acg_first_meet_cafe_seed": {
+      "speaker": "你",
+      "text": "這附近有能坐著翻書的地方嗎？我晚點還要處理一點工作。",
+      "chapter": 2,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening.com01j.r01_interested"
+      },
+      "next": "common_acg_first_meet_cafe_reply"
+    },
+    "common_acg_first_meet_cafe_reply": {
+      "speaker": "江雨澄",
+      "text": "北邊出口有一間咖啡店。\n平日下午窗邊比較安靜，插座也有。店員不太趕人。\n\n你：聽起來比這裡適合做決定。\n\n江雨澄：這裡只適合做錯決定。",
+      "chapter": 2,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening.com01j.r01_interested"
+      },
+      "next": "common_acg_first_meet_exit"
+    },
+    "common_acg_first_meet_exit": {
+      "speaker": "江雨澄",
+      "text": "如果只看雨港篇，舊版比較值得。\n\n你：那我先省下一本。\n\n江雨澄：暫時。",
+      "chapter": 2,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening.com01j.r01_interested"
+      },
+      "next": "common_acg_first_meet_coda"
+    },
+    "common_acg_first_meet_coda": {
+      "speaker": "旁白",
+      "text": "她拿著選定的書走向結帳。兩人沒有交換姓名，也沒有回頭追問。\n\n我記住了版本差異，也記住了北邊出口那間咖啡店。\n至於她是誰，今天沒有一定要知道。",
+      "chapter": 2,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.opening.ch1.acg_shop",
+        "sprites": []
+      },
+      "next": "opening_demo_complete"
+    },
+    "opening_demo_complete": {
+      "type": "route"
+    }
+  }
+}
