@@ -15,7 +15,7 @@
 > 目的：定義所有可進 production 的戀愛角色，在大量生成 sprite / event CG / ending CG 前必須具備的 6-sheet reference pack；同時記錄目前許棠與江雨澄已批准的 canonical Drive references。
 >
 > 本文件負責「角色設定圖如何製作、哪張圖是什麼 authority、生成 CG 時該載入哪些 reference」。  
-> Scene art intent 仍由 `docs/art/PROTOTYPE_ART_REQUIREMENTS.md` 負責；實際 Vertical Slice CG prompts 見 `docs/art/VERTICAL_SLICE_CG_GENERATION_PROMPTS.md`。
+> Scene-local intent 由 locked scene file 負責；global visual rules 由 `docs/art/PRODUCTION_VISUAL_DIRECTION.md` 負責。Archived art matrix / prompt pack 不再是 production input。
 
 ---
 

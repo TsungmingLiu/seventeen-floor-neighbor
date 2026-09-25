@@ -19,10 +19,8 @@
 - docs/narrative/CONTENT_PRODUCTION_TODO.md
 - docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md — COM-03X
 - docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md
-- docs/art/PROTOTYPE_ART_REQUIREMENTS.md
+- docs/art/PRODUCTION_VISUAL_DIRECTION.md
 - docs/art/CHARACTER_REFERENCE_PACK_SPEC.md
-- docs/art/VERTICAL_SLICE_CG_GENERATION_PROMPTS.md
-- docs/proposals/urban-dating-sim-setting-proposal.md
 - docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md
 - Locked voice / continuity sources: COM-00, COM-01X, COM-01J, COM-02X, COM-02J
 
@@ -497,7 +495,7 @@ Asset policy:
 - Gallery unlock: none
 
 Reason:
-- canonical PROTOTYPE_ART_REQUIREMENTS 對 COM-03X 明確為 reuse / no CG；
+- 本 scene 的 current art intent 明確為 reuse / no CG；
 - 本幕價值在「門口聊得比以前久 + contact channel 自然建立」，不值得用 hero CG 把生活 logistics 拍成戀愛大事件。
 
 ## Art Shot List — S1 proposed, NOT S6-locked

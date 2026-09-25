@@ -15,7 +15,7 @@ Updated: 2026-09-24
 
 新 production visual contract 已改為 **CG-first / 16:9 landscape-first / responsive full viewport**；普通動作優先用 CG Sequence，MP4/WebM 保留給特殊事件。既有 sprites 與 9:16 assets 保留作 runtime/provenance fixture，但不再是新內容的 production requirement。Canonical visual authority：`docs/art/PRODUCTION_VISUAL_DIRECTION.md`.
 
-文件 lifecycle 與舊 spec supersession map：`docs/DOCUMENT_STATUS.md`.
+文件 lifecycle、active source map 與 runtime-fixture boundary：`docs/DOCUMENT_STATUS.md`、`docs/CONTENT_PRODUCTION_SOURCE_MAP.md`。
 
 ## Canonical narrative plan
 
@@ -26,7 +26,7 @@ Canonical planning docs：
 - `docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md` — 完整約 66 個 authoring-level scene/gate/ending/after-story 規格、每幕目的、choice/state、conflict/repair/endings。
 - `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md` — route graph、attention windows、re-approach、crossover、knowledge flags、honest overlap / deception / commitment gate 與 implementation guardrails。
 - `docs/art/PRODUCTION_VISUAL_DIRECTION.md` — 現行 CG-first / 16:9 / responsive composition / CG sequence contract。
-- `docs/art/PROTOTYPE_ART_REQUIREMENTS.md` — 保留 location/asset inventory 與 broad intent；其中 9:16 / sprite-first 指示已被 supersede。
+- 舊 `PROTOTYPE_ART_REQUIREMENTS`、Vertical Slice prompt pack、background/sprite recipe、Opening Chapter 1 operator pack 與 pilot run 已分流到 `docs/archive/`、`.ai/archive/`、`.ai/experiments/`；它們只保留 provenance，不再是 production input。
 
 核心 narrative decisions：
 
@@ -42,7 +42,7 @@ Canonical planning docs：
 - Ending 不再等同 runtime terminal：Good 解鎖 3 段 Relationship After Story；Friend / Distance 各有短 coda。
 - After Story 是玩家 reward phase，會提高親密度與 fan-service 密度；`full` profile 可加入 profile-gated mature-only extension，`sfw` 必須 compile-time prune 並維持完整自然流程。
 
-後續 AI work 不再使用固定『先讀一串文件』方式；先 Bootstrap，再依 harness 產生 bounded Task Packet。Narrative worker 只讀任務所需 canon；CG production 必須經 Shot Planner → CG Artist，且只注入該 shot 的角色／環境資料。`VERTICAL_SLICE_CG_GENERATION_PROMPTS.md` 只保留 historical shot intent，不再可直接當 batch worker prompt。
+後續 AI work 不再使用固定「先讀一串文件」方式；先 Bootstrap，再依 active harness 產生 bounded Task Packet。Narrative worker 只讀任務所需 canon；archive/experiment 不得進 production allowlist。
 
 Creative production 進度不要塞進 root `TODO.md`。獨立使用 `docs/narrative/CONTENT_PRODUCTION_TODO.md`；root `TODO.md` 繼續只追 W3/W4/engine/tooling。建議一個 content production batch 對應一個新 session。
 

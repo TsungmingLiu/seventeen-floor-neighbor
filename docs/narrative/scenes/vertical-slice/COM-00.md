@@ -16,10 +16,8 @@
 
 - `docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md` — COM-00
 - `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md`
-- `docs/art/PROTOTYPE_ART_REQUIREMENTS.md`
+- `docs/art/PRODUCTION_VISUAL_DIRECTION.md`
 - `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md`
-- `docs/art/VERTICAL_SLICE_CG_GENERATION_PROMPTS.md` — CG-COM-01
-- `docs/proposals/urban-dating-sim-setting-proposal.md`
 
 ## Scene summary
 

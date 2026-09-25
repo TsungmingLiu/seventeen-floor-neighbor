@@ -1,7 +1,7 @@
 workflow:
   id: seventeen-floor-production
-  version: 0.4.0
-  updated: 2026-09-24
+  version: 0.4.1
+  updated: 2026-09-25
   entrypoint: .ai/harnesses/bootstrap.md
   repository:
     full_name: TsungmingLiu/seventeen-floor-neighbor
@@ -52,6 +52,7 @@ current_visual_direction:
 source_authority:
   policy: .ai/policies/SOURCE_AUTHORITY.md
   context_isolation: .ai/policies/CONTEXT_ISOLATION.md
+  inventory: docs/CONTENT_PRODUCTION_SOURCE_MAP.md
   highest_current_state:
     - PROJECT_STATE.md
     - .ai/WORKFLOW_MANIFEST.yaml
@@ -68,12 +69,11 @@ source_authority:
   progress_trackers:
     - TODO.md
     - docs/narrative/CONTENT_PRODUCTION_TODO.md
-  supporting_only:
-    - docs/proposals/urban-dating-sim-setting-proposal.md
-  legacy_or_partially_superseded:
-    - docs/art/PROTOTYPE_ART_REQUIREMENTS.md
-    - docs/art/VERTICAL_SLICE_CG_GENERATION_PROMPTS.md
-    - docs/art/recipes/sprites/
+  forbidden_source_roots:
+    - .ai/archive/
+    - .ai/experiments/
+    - docs/archive/
+  runtime_fixtures_not_production_guidance:
     - runtime-public/sprites/
     - assets-src/characters/
 
@@ -104,15 +104,6 @@ schemas:
   task_packet: .ai/schemas/TASK_PACKET.md
   data_packs: .ai/schemas/DATA_PACKS.md
   handoff: .ai/schemas/HANDOFF.md
-
-operator_packs:
-  opening_ch1_demo_v0_1:
-    path: .ai/operators/OPENING_CH1_DEMO_OPERATOR_PACK_v0.1.md
-    scope:
-      - COM-00
-      - COM-01X
-      - COM-01J
-    purpose: human-executable prompts for first playable CG-first production demo
 
 execution:
   default_unit: one_task

@@ -2,7 +2,7 @@
 
 > 專案執行清單（Execution Board）
 >
-> Updated: 2026-09-24
+> Updated: 2026-09-25
 >
 > 本檔案回答一件事：**現在下一步到底做什麼，以及什麼才算完成。**
 >
@@ -88,6 +88,14 @@ npm run release
 - [ ] 多女主 scale test。
 - [ ] 大量 legacy node IDs semantic migration。
 - [ ] React/TypeScript/Vite migration（目前 intentionally deferred）。
+
+## 0.5 Opening demo UI follow-ups（本輪只記錄，不實作）
+
+- [ ] choice node 的 `text: ""` 不應顯示空 dialogue box。
+- [ ] 釐清 narrator + character content 同框時的閱讀層級與切分方式。
+- [ ] 決定 choice 是否移除自動 `A/B/C` prefix。
+
+這三項不是 Content Production Stabilization refactor 的 acceptance gate；需另開 UI/runtime scope，並保持 existing playable behavior 可回歸驗證。
 
 ---
 

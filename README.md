@@ -81,13 +81,14 @@ SH-01   17樓第一次同框
 | `.ai/WORKFLOW_MANIFEST.yaml` | 新 AI session 的唯一 workflow 入口、harness registry、source lifecycle |
 | `AGENTS.md` | repo-level safety/verification guidance；AI production 仍先走 `.ai/` bootstrap |
 | `docs/narrative/CONTENT_PRODUCTION_TODO.md` | creative production batch board；只記進度，不重複 scene spec |
+| `docs/CONTENT_PRODUCTION_SOURCE_MAP.md` | active/archive/experimental/generated inventory 與 source-of-truth map |
 | `docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md` | prototype scene/beat/character arc/pre-script authority |
 | `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md` | route DAG、relationship/knowledge/deception state contract |
 | `docs/art/PRODUCTION_VISUAL_DIRECTION.md` | **現行** CG-first、16:9、responsive crop/focus、CG sequence/video contract |
 | `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md` | 角色 6-sheet identity/body/wardrobe reference catalog；worker 必須按角色隔離 |
-| `docs/art/PROTOTYPE_ART_REQUIREMENTS.md` | **PARTIALLY SUPERSEDED**：location/asset inventory 與 broad intent；不可再作 9:16/sprite-first authority |
-| `docs/art/VERTICAL_SLICE_CG_GENERATION_PROMPTS.md` | **PARTIALLY SUPERSEDED**：historical shot intent；不可直接跑 batch prompt |
-| `docs/proposals/urban-dating-sim-setting-proposal.md` | **SUPPORTING** world/product/future heroine context，不是 production authority |
+| `docs/archive/` | **ARCHIVED**：舊 art/prompt/recipe/backlog，只保留歷史與 provenance |
+| `.ai/archive/` / `.ai/experiments/` | **ARCHIVED / EXPERIMENTAL**：一次性 operator 與 pilot，不可供 production worker 使用 |
+| `docs/proposals/urban-dating-sim-setting-proposal.md` | archived-by-default ideation；只有 Task Packet 指定的 bounded excerpt 可作 supporting context |
 | `docs/DOCUMENT_STATUS.md` | human-readable document lifecycle / cleanup map |
 | `docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md` | W4 UI / Memories / replay / frontier data contract |
 
@@ -219,7 +220,7 @@ Codespaces playable review
 - New production master 是 16:9 landscape-first；CG/BG 要保存 focal point、safe zone、crop tolerance、face/hand/object composition，runtime 以 responsive focus metadata 避免誤裁。
 - story 只引用 logical asset ID，不直接耦合 physical filename/provider。
 
-完整 contract 見 `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md` 與 `docs/art/PROTOTYPE_ART_REQUIREMENTS.md`。
+完整 identity contract 見 `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md`；historical art matrix 已歸檔，不再是 production input。
 
 ## 驗證與 Definition of Done
 
@@ -259,13 +260,11 @@ npm run assets:build
 
 ### 劇情 / production content
 
-1. `PROJECT_STATE.md`
-2. `docs/narrative/CONTENT_PRODUCTION_TODO.md`
-3. `docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md`
-4. `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md`
-5. `docs/art/PROTOTYPE_ART_REQUIREMENTS.md`
-6. `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md`
-7. 需要 CG 時再讀 `docs/art/VERTICAL_SLICE_CG_GENERATION_PROMPTS.md`
+1. `.ai/WORKFLOW_MANIFEST.yaml`
+2. `.ai/harnesses/bootstrap.md`
+3. Task Packet allowlist 中的最小 canonical inputs
+
+不要直接讀 archive/experiment，也不要自行擴張成整包 narrative + art context。
 
 不要為了「完整 context」把所有舊聊天塞進新 session；應以 repo canonical docs + task-local context packet 為準。
 
