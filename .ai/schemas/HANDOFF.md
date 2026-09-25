@@ -50,8 +50,8 @@ next:
 - For GitHub files, include the blob SHA when available.
 - For Google Drive references, include the exact Drive file ID.
 - If immutable/version identity is unavailable, say so explicitly instead of omitting provenance.
-- For Human-attached image tasks, report only attachments actually present in the generation chat and their assigned roles.
-- Do not claim a Drive image was used for generation merely because its canonical Drive ID is known; distinguish canonical source provenance from the Human-attached runtime image.
+- For image tasks, report only reference pixels actually passed to generation and their assigned roles; note whether each was Human-attached or fetched through a connected source.
+- Do not claim a Drive image was used for generation merely because its canonical Drive ID is known; distinguish canonical source provenance from the runtime image input.
 - Never claim a file/upload/commit occurred unless it occurred.
 - Do not smuggle new creative decisions into `known_issues`.
 - If a worker detects a canon conflict, stop and return BLOCKED with both conflicting sources.

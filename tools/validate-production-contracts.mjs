@@ -13,6 +13,7 @@ const NARRATIVE_ROOT = 'content/production/narrative';
 const OPENING_MANIFEST = 'content/production/cg-manifests/opening-ch1.json';
 const OPENING_RECEIPT = 'content/assets/ingest-receipts/opening-ch1-demo-v0.1.json';
 const OPENING_ROUTE = 'content/routes/opening-demo/route.json';
+const SOURCE_CATALOG = 'content/assets/source-catalog.json';
 const FORBIDDEN_ROOTS = ['.ai/archive/', '.ai/experiments/', 'docs/archive/'];
 const OLD_ACTIVE_PATHS = [
   'docs/art/PROTOTYPE_ART_REQUIREMENTS.md',
@@ -185,6 +186,23 @@ function validateOpeningMigration(contracts, manifest) {
   invariant([...manifestLogicalIds].every((id) => routeAssets.has(id)), 'Opening route does not allow every manifest logical asset ID');
   invariant(manifest.entries.every((entry) => entry.status === 'accepted'), 'Opening migration entries must represent accepted demo assets');
 
+  const catalogFiles = readJson(SOURCE_CATALOG).files;
+  for (const entry of manifest.entries) {
+    for (const binding of entry.reference_transport.attachments) {
+      if (binding.source_id.startsWith('gdrive:')) {
+        invariant(binding.source_id.length > 'gdrive:'.length, `${entry.entry_id} has an empty Drive reference ID`);
+      } else if (binding.source_id.startsWith('source.')) {
+        const source = catalogFiles[binding.source_id];
+        invariant(source?.fileId && source.name === binding.expected_filename, `${entry.entry_id} source catalog reference cannot be resolved exactly: ${binding.source_id}`);
+      } else if (binding.role === 'accepted_base') {
+        const matches = Object.values(catalogFiles).filter((source) => source.canonicalAssetId === binding.source_id);
+        invariant(matches.length === 1 && matches[0].fileId && matches[0].name === binding.expected_filename, `${entry.entry_id} accepted base cannot be resolved exactly: ${binding.source_id}`);
+      } else {
+        invariant(false, `${entry.entry_id} has unsupported Work reference source: ${binding.source_id}`);
+      }
+    }
+  }
+
   const [packet] = buildPackets(manifest, {
     entryIds: ['COM01X-BASE-NORMAL'],
     statuses: new Set(['accepted'])
@@ -193,7 +211,11 @@ function validateOpeningMigration(contracts, manifest) {
   const workBatch = JSON.parse(adaptWorkBatch([packet]).trim());
   const apiJob = JSON.parse(adaptApi([packet])).jobs[0];
   invariant(chatManual.includes(packet.shared_prompt.trimEnd()), 'Chat manual adapter changed the canonical shared prompt');
+  invariant(chatManual.includes('Attachment checklist'), 'Chat manual adapter lost the Human attachment checklist');
   invariant(workBatch.shared_prompt === packet.shared_prompt, 'Work batch adapter changed the canonical shared prompt');
+  invariant(workBatch.reference_acquisition.method === 'connected_source', 'Work batch adapter did not request connected-source acquisition');
+  invariant(workBatch.reference_acquisition.source_catalog === SOURCE_CATALOG, 'Work batch adapter points to the wrong source catalog');
+  invariant(JSON.stringify(workBatch.reference_acquisition.required_bindings) === JSON.stringify(packet.reference_transport.attachments), 'Work batch adapter changed required reference bindings');
   invariant(apiJob.input.prompt === packet.shared_prompt, 'API adapter changed the canonical shared prompt');
   invariant(workBatch.shared_prompt_sha256 === apiJob.provenance.shared_prompt_sha256, 'adapter prompt hashes differ');
 }

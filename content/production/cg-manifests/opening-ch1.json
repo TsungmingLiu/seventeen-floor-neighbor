@@ -124,7 +124,7 @@
         "text_policy": "No readable door numbers, brands, captions, UI, logos or watermark as focal content."
       },
       "reference_transport": {
-        "mode": "human_attachment_required",
+        "mode": "references_required",
         "fresh_session_required": true,
         "no_unrelated_images_allowed": true,
         "accepted_base_asset_id": null,
@@ -256,7 +256,7 @@
         "text_policy": "No readable door numbers, brands, captions, UI, logos or watermark as focal content."
       },
       "reference_transport": {
-        "mode": "human_attachment_required",
+        "mode": "references_required",
         "fresh_session_required": true,
         "no_unrelated_images_allowed": true,
         "accepted_base_asset_id": null,
@@ -516,7 +516,7 @@
         "text_policy": "Control-panel markings must not become readable focal text; no captions, UI, logos or watermark."
       },
       "reference_transport": {
-        "mode": "human_attachment_required",
+        "mode": "references_required",
         "fresh_session_required": true,
         "no_unrelated_images_allowed": true,
         "accepted_base_asset_id": null,
@@ -917,7 +917,7 @@
         "text_policy": "Book covers and merchandise use abstract unreadable fictional graphics; no real IP, readable labels, captions, UI, logos or watermark."
       },
       "reference_transport": {
-        "mode": "human_attachment_required",
+        "mode": "references_required",
         "fresh_session_required": true,
         "no_unrelated_images_allowed": true,
         "accepted_base_asset_id": null,

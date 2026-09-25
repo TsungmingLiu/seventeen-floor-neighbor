@@ -141,16 +141,16 @@ function validateEntry(entry, manifest, entryIds, outputIds) {
 
   const transport = entry.reference_transport;
   requireKeys(transport, ['mode', 'fresh_session_required', 'no_unrelated_images_allowed', 'accepted_base_asset_id', 'attachments'], `${context}.reference_transport`);
-  invariant(['human_attachment_required', 'edit_from_accepted_base', 'none'].includes(transport.mode), `${context}.reference_transport.mode is invalid`);
+  invariant(['references_required', 'edit_from_accepted_base', 'none'].includes(transport.mode), `${context}.reference_transport.mode is invalid`);
   invariant(Array.isArray(transport.attachments), `${context}.reference_transport.attachments must be an array`);
   transport.attachments.forEach((binding, index) => {
     validateReferenceBinding(binding, `${context}.reference_transport.attachments[${index}]`);
     invariant(binding.pixels_must_be_visible === true, `${context}.reference_transport.attachments[${index}].pixels_must_be_visible must be true`);
   });
 
-  if (transport.mode === 'human_attachment_required') {
-    invariant(transport.fresh_session_required === true, `${context} Human Attachment Gate requires a fresh session`);
-    invariant(transport.no_unrelated_images_allowed === true, `${context} Human Attachment Gate forbids unrelated images`);
+  if (transport.mode === 'references_required') {
+    invariant(transport.fresh_session_required === true, `${context} reference preflight requires a fresh session`);
+    invariant(transport.no_unrelated_images_allowed === true, `${context} reference preflight forbids unrelated images`);
     invariant(transport.accepted_base_asset_id === null, `${context} base render cannot declare accepted_base_asset_id`);
     const declared = new Set(declaredReferences.map(referenceKey));
     const attached = new Set(transport.attachments.map(referenceKey));
@@ -407,6 +407,12 @@ export function adaptWorkBatch(packets) {
     shared_prompt_sha256: packet.shared_prompt_sha256,
     shared_prompt: packet.shared_prompt,
     reference_transport: packet.reference_transport,
+    reference_acquisition: {
+      method: 'connected_source',
+      source_catalog: 'content/assets/source-catalog.json',
+      required_bindings: packet.reference_transport.attachments,
+      preflight: 'Resolve gdrive:<file_id> directly, source.* via source_catalog.files[source_id].fileId, and accepted_base via a unique source_catalog.files[*].canonicalAssetId; fetch exact pixels, verify role and expected_filename, and pass only these images to generation. Block if any reference cannot be resolved or inspected.'
+    },
     output: packet.output
   })).join('\n')}\n`;
 }

@@ -155,7 +155,7 @@
       "additionalProperties": false,
       "required": ["mode", "fresh_session_required", "no_unrelated_images_allowed", "accepted_base_asset_id", "attachments"],
       "properties": {
-        "mode": { "enum": ["human_attachment_required", "edit_from_accepted_base", "none"] },
+        "mode": { "enum": ["references_required", "edit_from_accepted_base", "none"] },
         "fresh_session_required": { "type": "boolean" },
         "no_unrelated_images_allowed": { "type": "boolean" },
         "accepted_base_asset_id": { "type": ["string", "null"] },
@@ -261,7 +261,7 @@
             "properties": {
               "characters": { "maxItems": 0 },
               "reference_transport": {
-                "properties": { "mode": { "enum": ["human_attachment_required", "none"] } }
+                "properties": { "mode": { "enum": ["references_required", "none"] } }
               }
             }
           },
@@ -302,7 +302,7 @@
             "properties": {
               "reference_transport": {
                 "properties": {
-                  "mode": { "const": "human_attachment_required" },
+                  "mode": { "const": "references_required" },
                   "accepted_base_asset_id": { "type": "null" },
                   "attachments": { "minItems": 1 }
                 }
@@ -314,7 +314,7 @@
           "if": {
             "properties": {
               "reference_transport": {
-                "properties": { "mode": { "const": "human_attachment_required" } },
+                "properties": { "mode": { "const": "references_required" } },
                 "required": ["mode"]
               }
             }

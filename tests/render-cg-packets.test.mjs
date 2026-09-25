@@ -73,7 +73,7 @@ function baseEntry() {
       text_policy: 'No readable text, captions, logos, UI, or watermark.'
     },
     reference_transport: {
-      mode: 'human_attachment_required',
+      mode: 'references_required',
       fresh_session_required: true,
       no_unrelated_images_allowed: true,
       accepted_base_asset_id: null,
@@ -138,12 +138,15 @@ test('Chat manual, Work batch and API adapters share one prompt', () => {
 
   assert.equal(chatPrompt, expected);
   assert.equal(work.shared_prompt, expected);
+  assert.equal(work.reference_acquisition.method, 'connected_source');
+  assert.deepEqual(work.reference_acquisition.required_bindings, packets[0].reference_transport.attachments);
+  assert.match(chat, /Attachment checklist/);
   assert.equal(api.jobs[0].input.prompt, expected);
   assert.equal(work.shared_prompt_sha256, packets[0].shared_prompt_sha256);
   assert.equal(api.jobs[0].provenance.shared_prompt_sha256, packets[0].shared_prompt_sha256);
 });
 
-test('rejects Human Attachment Gate mismatch', () => {
+test('rejects missing required reference binding', () => {
   const manifest = validManifest();
   manifest.entries[0].reference_transport.attachments.pop();
   assert.throws(() => validateManifest(manifest), /attachments must exactly match/);

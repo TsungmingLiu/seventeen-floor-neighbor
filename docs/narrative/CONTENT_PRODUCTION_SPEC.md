@@ -105,7 +105,7 @@ Candidate 僅對 manifest entry、refs、accepted base 評估，不回頭自由�
 | `Render Packet` | deterministic projection 的 generated execution artifact |
 | `Deterministic Projection` | 無自由摘要、固定欄位順序的 mechanical conversion |
 | `Execution Adapter` | Chat manual / Work batch / API 的 transport envelope |
-| `Human Attachment Gate` | base CG 的人工 reference attachment 驗證 |
+| `Reference Preflight` | 確認 manifest 指定的 image pixels、role、filename；Chat manual 由 Human 附圖，Work batch 可從 connected source 取得 |
 | `Accepted Base` | reaction edit 的 approved source image |
 
 文件與 code 只使用右側說明來解釋，不另創「鏡頭包」「繪圖指令集」「提示詞編譯器」等同義名。

@@ -21,6 +21,8 @@ Canonical production contracts：`docs/narrative/CONTENT_PRODUCTION_SPEC.md`、`
 
 Opening Chapter 1 (`COM-00`、`COM-01X`、`COM-01J`) 已完成新 contract migration：3 份 Narrative Continuity Contracts 位於 `content/production/narrative/opening-ch1/`，8 筆 accepted demo CG entries 位於 `content/production/cg-manifests/opening-ch1.json`。`npm run production:validate` 會檢查 scene binding、receipt/logical asset 對齊、active harness 集合與 renderer source boundary。COM01J 的 provisional wardrobe drift 僅記為 accepted migration asset 的 `known_issues`，不是未來 render intent。
 
+Reference acquisition 依 adapter：`chat_manual` 由 Human 附指定圖片；`work_batch` 可從已授權 connected source 自動取得指定 references。兩者必須在 generation 前實際檢查 pixels/role/filename，且使用相同 deterministic shared prompt。早期 Chat/connector binding pilot 的限制不得被套成 Work batch 全面禁令。
+
 ## Canonical narrative plan
 
 2026-09-23 已確認雙女主 prototype 採 **Braided Narrative v0.5**，取代「早期 route lock 後兩條完全分離」的舊劇情方向。

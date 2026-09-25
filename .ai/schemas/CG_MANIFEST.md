@@ -28,10 +28,12 @@ Required groups：
 - continuity：previous/locked/allowed changes；
 - composition：focus/safe zone/framing notes；
 - hard constraints：ordered `include[]` / `exclude[]`；
-- transport：Human Attachment Gate / Accepted Base / attachments；
+- transport：`references_required` / `edit_from_accepted_base` / `none`，以及完整的 reference bindings；
 - output and acceptance。
 
 `background_cg` may have an empty `characters[]`; other classes require visible character constraints at planning/validation time。
+
+`reference_transport.attachments[]` 列出 image-generation call 必須得到的精確 image inputs，並不指定由誰上傳。`chat_manual` 由 Human 提供；`work_batch` 依 source ID 從授權 connected source 取得。兩者均須做 pixel/role preflight。
 
 ## Status
 

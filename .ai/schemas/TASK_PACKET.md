@@ -45,7 +45,7 @@ inputs:
   accepted_outputs: []
 
 reference_transport:
-  mode: human_attachment_required | edit_from_accepted_base | not_applicable
+  mode: references_required | edit_from_accepted_base | not_applicable
   fresh_session_required: true
   no_unrelated_images_allowed: true
   accepted_base_asset_id: optional
@@ -73,5 +73,5 @@ handoff_to: active harness or human gate
 - Markdown acquisition 要有 exact repo/ref/path + non-empty contents + blob SHA when available。
 - Image acquisition 要有 exact role/identity + visible pixels；metadata-only 不成立。
 - `cg_renderer` packet 必須只指定 one manifest entry、its deterministic packet and references。
-- Base CG 使用 `human_attachment_required`；Reaction CG 優先 `edit_from_accepted_base`。
+- Base CG 使用 `references_required`；Reaction CG 優先 `edit_from_accepted_base`。Reference acquisition 由所選 execution adapter 負責。
 - 第二個獨立 objective 必須拆成另一個 Task Packet。

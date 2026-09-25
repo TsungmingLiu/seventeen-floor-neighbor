@@ -12,7 +12,7 @@ Version: 1.0.0
 
 - one canonical CG manifest entry；
 - `tools/render-cg-packets.mjs` deterministic projection 產生的 render packet；
-- exactly the reference attachments/bindings named by that entry；
+- exactly the reference bindings named by that entry；
 - accepted base image when `reference_transport.mode = edit_from_accepted_base`。
 
 上述輸入以外一律禁止，包括 scene file、narrative canon、visual-direction prose、another heroine、archive/experiment、old prompt。
@@ -27,9 +27,9 @@ Version: 1.0.0
 
 ## Reference transport
 
-### `human_attachment_required`
+### `references_required`
 
-Base CG 只使用 entry 明列的 Human-attached references。生成前確認 filename/role/pixels，且沒有 unrelated images；缺失或污染即 `BLOCKED`。
+Base CG 只使用 entry 明列的 references。`chat_manual` 由 Human 附圖；`work_batch` 可從授權的 connected source 自動取得；未來 `api` 由其 executor 提供 image input。三者生成前都須確認 filename/role/pixels，且沒有 unrelated images；缺失或污染即 `BLOCKED`。取得方式屬 adapter，並不改動 shared render prompt。
 
 ### `edit_from_accepted_base`
 

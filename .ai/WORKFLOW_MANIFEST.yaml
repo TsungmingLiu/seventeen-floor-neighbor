@@ -139,6 +139,5 @@ execution:
   human_gates:
     - major_story_direction
     - canonical_character_design
-    - base_cg_reference_attachment
     - accepted_master_image_selection
     - final_playable_acceptance
