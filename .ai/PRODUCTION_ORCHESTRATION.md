@@ -38,6 +38,27 @@ Human request → narrative_design → scene_dialogue → narrative_review
 
 **One independent CG Manifest Entry = one fresh renderer task.** 唯有 manifest 明列 `sequence_id` 且同 scene、visible characters、wardrobe、environment、consecutive action 並寫明 continuity benefit 的 linked sequence，才能共用一個 bounded renderer context；sequence 內的 entry dependency 仍須遵守。CG continuity 由 Canonical CG Manifest、Visual Continuity State 和明確引用的 previous accepted asset 維持，不靠 renderer 記憶。不得把六個 unrelated entries 裝進單一 renderer task。Renderer 不改 manifest/Render Packet，不 self-accept，不 automatic retry。
 
+
+## 2.1 Cost-aware model routing
+
+Coordinator 為每個 Task Packet 指定抽象 `model_tier`；exact model name 由 execution adapter 依當前可用模型映射，避免 workflow 綁死產品型號。**Default is `economical`.** Coordinator 應使用能可靠完成 bounded task 的最低成本 tier，而不是因 task「重要」就直接使用最強模型。
+
+只有至少一項成立時可直接指定 `capable`：
+
+- task 需要 material creative judgment，而不是照已鎖定 contract 做機械轉換；
+- requirements/canonical sources 存在實質 ambiguity 或 conflict，需要推理後才能安全繼續；
+- 需要跨 scene、跨角色狀態或跨系統 artifact 做 synthesis/reconciliation；
+- 是 final high-impact QA，錯誤會造成大範圍 downstream rework；
+- 同一 bounded objective 已由 `economical` worker 完成一次 focused corrective redispatch，仍未通過 validation，作為 `validation_escalation`。
+
+以下情況**不得單獨構成升級理由**：task importance、source/file count、output length。Mechanical extraction、schema transformation、deterministic prompt compilation、manifest/inventory update、bounded checklist review、runtime wiring 等，若沒有上述 capable 條件，維持 `economical`。
+
+每個 Task Packet 的 `execution_policy` 必須記 `model_tier`、`routing_reason`、`attempt`；corrective redispatch / escalation 另記 `correction_of` / `escalation_from`。Worker 不自行換 model tier，也不自行 retry。
+
+**Bounded escalation:** validation `FAIL` 時，Coordinator 最多可對同一 objective 建立一次 fresh、focused corrective redispatch，沿用原 tier 並只帶 failure evidence；若再次失敗，且失敗屬 capability/reasoning limitation，下一個 fresh attempt 才可升為 `capable`，理由記為 `validation_escalation`。不得 infinite retry。若第一次 failure 已明確是 source conflict/material ambiguity，Coordinator 可依上述 capable 條件直接升級，不需浪費 correction attempt。
+
+此 policy 不授權自動重畫 CG。Image generation 仍遵守 `cg_renderer` 的 **no automatic retry / no automatic image scoring**；Visual QA rejection 只能依既有 rejection routing 建新的 explicit renderer attempt。
+
 ## 3. Run record and dispatch loop
 
 每個 end-to-end request 建一個 `run_id`，以 `.ai/schemas/PRODUCTION_RUN_LEDGER.md` 的 GENERATED `Production Run Ledger` 記錄。建議持久路徑為 `content/production/runs/<run_id>/ledger.json`，Task Packets/Handoffs 放同 run 目錄；僅在真的執行 production 時建立，不把本輪 dry-run 當成 story artifact。Ledger 保存 task graph/status、packet/handoff path、input/output versions、gate/invalidation/preview evidence；不保存 full prose、pixels、prompt 或 worker conversation。
@@ -47,7 +68,7 @@ Coordinator loop：
 1. Bootstrap 只讀 routing/policy/source map 與現有 run record；若 workflow authority conflict，`BLOCKED`，不搜尋 archive。
 2. 建 DAG。為第一個 `READY` task 寫 exact Task Packet；後續 packet 在 dependencies `PASS` 且 immutable input versions 已知後才完成並派送。
 3. 派給 fresh worker；記 `RUNNING`。只有所有 required acquisition verified 才執行。收到 `.ai/schemas/HANDOFF.md` 後核對 `run_id`、`task_id`、harness/pass、input versions、outputs 與 QA；不完整者 `BLOCKED`。
-4. 記錄結果、artifact identity/version、Human gate。重新計算 runnable tasks；不自動 retry。
+4. 記錄結果、artifact identity/version、Human gate。重新計算 runnable tasks；不得由 worker 自動 retry。Coordinator 若依 §2.1 建 corrective redispatch / escalation，必須建立新的 Task Packet attempt 並記 routing reason。
 5. 完成 integration/preview 後記 `READY_FOR_HUMAN_ACCEPTANCE`；Human final acceptance 才記 `ACCEPTED`。
 
 跨 Work session 恢復時，fresh Coordinator 只讀 ledger、Task Packets、Handoffs 和 canonical artifact versions。核對每個 `PASS` 的 output identity 是否仍存在、其 input identity 是否仍匹配；重新標記 `STALE`/`READY`/`BLOCKED`，先處理任何 orphan `RUNNING` task（以 Handoff/evidence 確認完成或退回 `READY`），再派下一個 runnable task。不可依賴前一 parent chat memory。若平台無法真正建立 fresh bounded worker 或持久化必要 artifact，記 `BLOCKED: worker_isolation_unavailable`，不可改由 parent 直接做 creative stage。
@@ -69,7 +90,7 @@ Coordinator 比對 Task Packet/Handoff/ledger 的 versions。上游改變時先�
 
 ## 5. Rejection routing and Human gates
 
-Narrative QA `FAIL`：scene execution defect 回 `scene_dialogue`；contract/relationship direction 問題回 `narrative_design`。Manifest usability/QA `FAIL` 回 `cg_plan`。Visual QA 若 image expression、screen side、identity 等執行 defect，回同 entry 的 fresh `cg_render`，沿用 approved manifest；若 manifest 本身錯，回 `cg_plan` 並 invalidate 該 entry 的 packet/candidate。Integration 缺 creative decision 時回對應 upstream worker，不由 integrator 補寫。每次重派需新 Task Packet/task attempt、記 failure reason 和依賴版本；不 automatic infinite retry 或 automatic image scoring。Retry/Human gate 次數按現有 policy。
+Narrative QA `FAIL`：scene execution defect 回 `scene_dialogue`；contract/relationship direction 問題回 `narrative_design`。Manifest usability/QA `FAIL` 回 `cg_plan`。Visual QA 若 image expression、screen side、identity 等執行 defect，回同 entry 的 fresh `cg_render`，沿用 approved manifest；若 manifest 本身錯，回 `cg_plan` 並 invalidate 該 entry 的 packet/candidate。Integration 缺 creative decision 時回對應 upstream worker，不由 integrator 補寫。每次重派需新 Task Packet/task attempt、記 failure reason、依賴版本與 `execution_policy`；遵守 §2.1 的一次 focused corrective redispatch + bounded escalation，不 automatic infinite retry 或 automatic image scoring。CG renderer 仍不得自行 retry。Retry/Human gate 次數按現有 policy。
 
 Human gates：major story direction、canonical character design、需要 Human 選擇的 accepted master image、final playable acceptance。Coordinator 可停在 gate，記 `NEEDS_REVIEW`/`BLOCKED` 和明確問題。Scene splitting、dialogue detail、filename/asset ID、既有 canon wardrobe、continuity inheritance、camera implementation、build wiring 由 canonical workflow 解決，無需反覆詢問 Human。
 

@@ -179,13 +179,20 @@ function validateOrchestrationContract() {
   invariant(manifest.includes('each_independent_task_requires_fresh_worker: true'), 'manifest must require fresh task workers');
   invariant(manifest.includes('parent_role: production_coordinator_control_plane_only'), 'manifest must keep parent control-plane-only');
   invariant(manifest.includes('render_task_unit: one_independent_manifest_entry_or_explicit_linked_sequence'), 'manifest lost one-entry render boundary');
+  invariant(manifest.includes('default_tier: economical'), 'manifest must default delegated work to economical model tier');
+  invariant(manifest.includes('allowed_tiers: [economical, capable]'), 'manifest must keep bounded economical/capable model tiers');
+  invariant(manifest.includes('coordinator_corrective_redispatch_limit: 1'), 'manifest must bound same-tier corrective redispatch to one attempt');
+  invariant(manifest.includes('renderer_automatic_retry: false'), 'model routing must not authorize automatic renderer retry');
   for (const [name, value] of [['bootstrap', bootstrap], ['context isolation', isolation], ['orchestration', contract]]) {
     invariant(/fresh bounded worker|fresh worker\/session/.test(value), `${name} lost fresh-worker requirement`);
   }
   invariant(contract.includes('Continuity lives in canonical artifacts, not worker memory.'), 'orchestration lost artifact continuity principle');
   invariant(contract.includes('MUST NOT directly generate CG candidates'), 'orchestration lost parent renderer prohibition');
+  invariant(contract.includes('Default is `economical`.'), 'orchestration lost economical-first model routing');
+  invariant(contract.includes('validation_escalation') && contract.includes('最多可對同一 objective 建立一次'), 'orchestration lost bounded escalation policy');
+  invariant(contract.includes('no automatic retry / no automatic image scoring'), 'orchestration model routing must preserve renderer retry prohibition');
   invariant(contract.includes('READY_FOR_HUMAN_ACCEPTANCE') && contract.includes('preview:smoke'), 'orchestration lost playable definition of done');
-  for (const field of ['run_id:', 'task_id:', 'task_type:', 'depends_on:', 'harness:', 'pass:', 'objective:', 'required_acquisition:', 'allowed_sources:', 'input_versions:', 'constraints:', 'deliverables:', 'acceptance:', 'handoff_to:', 'human_gate:']) {
+  for (const field of ['run_id:', 'task_id:', 'task_type:', 'depends_on:', 'harness:', 'pass:', 'objective:', 'execution_policy:', 'model_tier:', 'routing_reason:', 'attempt:', 'required_acquisition:', 'allowed_sources:', 'input_versions:', 'constraints:', 'deliverables:', 'acceptance:', 'handoff_to:', 'human_gate:']) {
     invariant(packet.includes(field), `Task Packet cannot represent ${field}`);
   }
   for (const field of ['run_id:', 'task_id:', 'status:', 'outputs:', 'input_versions:', 'output_versions:', 'qa:', 'known_issues:', 'invalidates:', 'next_recommended_stage:', 'human_gate_required:']) {
@@ -202,6 +209,34 @@ function validateOrchestrationContract() {
   invariant(example.hypothetical_only === true && example.run_id, 'dry-run fixture must be hypothetical');
   const tasks = new Map(example.tasks.map((task) => [task.task_id, task]));
   invariant(tasks.size === example.tasks.length, 'dry-run task IDs must be unique');
+  const modelTiers = new Set(['economical', 'capable']);
+  const routingReasons = new Set([
+    'default_bounded',
+    'creative_judgment',
+    'material_ambiguity_or_conflict',
+    'cross_scene_or_cross_system_reasoning',
+    'final_high_impact_qa',
+    'validation_escalation'
+  ]);
+  for (const task of example.tasks) {
+    requireKeys(task.execution_policy, ['model_tier', 'routing_reason', 'attempt', 'correction_of', 'escalation_from'], `${task.task_id}.execution_policy`);
+    invariant(modelTiers.has(task.execution_policy.model_tier), `${task.task_id} has invalid model tier`);
+    invariant(routingReasons.has(task.execution_policy.routing_reason), `${task.task_id} has invalid routing reason`);
+    invariant(Number.isInteger(task.execution_policy.attempt) && task.execution_policy.attempt >= 1, `${task.task_id} has invalid attempt`);
+    invariant(task.execution_policy.routing_reason !== 'default_bounded' || task.execution_policy.model_tier === 'economical', `${task.task_id} cannot use capable for default_bounded routing`);
+  }
+  invariant(['ND-001', 'SC-001', 'CGP-001'].every((id) => tasks.get(id).execution_policy.model_tier === 'capable'), 'dry-run creative judgment tasks should demonstrate capable routing');
+  invariant(['NQA-001', 'MQA-001', 'CGR-001', 'CGR-002', 'CGR-003', 'VQA-001', 'VQA-002', 'VQA-003', 'INT-001'].every((id) => tasks.get(id).execution_policy.model_tier === 'economical'), 'dry-run bounded tasks should demonstrate economical-first routing');
+  const boundedFailure = example.routing_cases.find((item) => item.case === 'bounded_visual_review_failure');
+  invariant(
+    boundedFailure &&
+      boundedFailure.initial_tier === 'economical' &&
+      boundedFailure.corrective_redispatch_tier === 'economical' &&
+      boundedFailure.post_correction_failure_tier === 'capable' &&
+      boundedFailure.post_correction_reason === 'validation_escalation' &&
+      boundedFailure.max_corrective_redispatches === 1,
+    'dry-run must demonstrate one same-tier correction before validation escalation'
+  );
   const visiting = new Set();
   const visited = new Set();
   function visit(id) {

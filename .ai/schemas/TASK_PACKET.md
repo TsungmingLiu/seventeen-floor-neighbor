@@ -14,6 +14,13 @@ harness: content_writer | cg_planner | cg_renderer | content_qa | integrator
 pass: narrative_design | scene_dialogue | narrative_review | visual_review | null
 objective: one sentence describing exactly one deliverable
 
+execution_policy:
+  model_tier: economical | capable
+  routing_reason: default_bounded | creative_judgment | material_ambiguity_or_conflict | cross_scene_or_cross_system_reasoning | final_high_impact_qa | validation_escalation
+  attempt: 1
+  correction_of: optional prior task attempt id
+  escalation_from: optional prior task attempt id
+
 source_binding:
   github:
     repository_full_name: owner/repo
@@ -75,6 +82,9 @@ human_gate: none | major_story_direction | canonical_character_design | accepted
 ## Rules
 
 - Routing metadata 不複製 whole canon。
+- `execution_policy.model_tier` 是 adapter-independent tier，不綁 exact model name。預設 `economical`；只有 orchestration contract 明列的 capable 條件才可使用 `capable`。Task importance、source count、output length 不得單獨成為升級理由。
+- `routing_reason: default_bounded` 只能搭配 `economical`。`validation_escalation` 只用於 cheaper attempt + 最多一次 focused corrective redispatch 仍未通過 validation 之後；每次重派都增加 `attempt` 並明確填 `correction_of` 或 `escalation_from`。
+- Worker 不得自行切換 tier 或自行 retry。CG generation 的既有 no-automatic-retry 規則優先；model routing 不構成自動重畫授權。
 - `run_id`、`task_id`、`depends_on` 對應 Production Run Ledger；只有 dependencies `PASS` 且 input versions verified 才 dispatch。One Task Packet = one bounded fresh worker task；reuse harness 不等於 reuse worker context。
 - `allowed_sources` 是完整 allowlist；worker 不可自行加來源。
 - Production Task Packet 不得 allowlist archive/experiment。
