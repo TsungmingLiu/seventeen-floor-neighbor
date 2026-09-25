@@ -25,6 +25,8 @@ Checks：
 
 Inputs：one canonical CG manifest entry、candidate image、references actually used、optional accepted base。
 
+在 rendering 前可用獨立 fresh `visual_review` task 檢查一個 scene 的 manifest usability（沒有 candidate 時只回 manifest gate，不宣稱 candidate QA）。Candidate review 仍為每個 candidate/linked sequence 的另一個 fresh task。
+
 Checks：
 
 - identity/age/body/hair/wardrobe/held object；

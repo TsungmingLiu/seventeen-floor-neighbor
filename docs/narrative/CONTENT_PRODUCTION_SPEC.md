@@ -2,11 +2,13 @@
 
 > Lifecycle: **CANONICAL**
 >
-> Version: 1.0.0
+> Version: 1.1.0
 >
 > Updated: 2026-09-25
 
 本文件定義 production content 的單一路徑。語言規則是中文 prose + English canonical schema/identifier/production terminology；固定術語不得自行換成近義翻譯。
+
+完整 Human request 的 parent Work session 依 `.ai/PRODUCTION_ORCHESTRATION.md` 只做 Production Coordinator control plane；各層由 fresh bounded worker 執行，從 dependency DAG、Task Packet、Handoff、Production Run Ledger 推進。Continuity lives in canonical artifacts, not worker memory。
 
 ## 1. Canonical pipeline
 

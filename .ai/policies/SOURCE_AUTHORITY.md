@@ -1,8 +1,10 @@
 # Source Authority and Document Lifecycle
 
-Version: 1.0.0
+Version: 1.1.0
 
 Canonical inventory: `docs/CONTENT_PRODUCTION_SOURCE_MAP.md`.
+
+End-to-end routing、dependency/invalidation 與 resume 由 `.ai/PRODUCTION_ORCHESTRATION.md` 定義；Production Run Ledger 是 `GENERATED` execution evidence，不是新的 creative authority。Coordinator 遇到 canonical conflict 需 `BLOCKED`，不得為解釋衝突擴讀 archive。
 
 ## 1. Conflict order
 

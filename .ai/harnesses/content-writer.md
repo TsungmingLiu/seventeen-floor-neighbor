@@ -11,7 +11,7 @@ Version: 1.0.0
 - `narrative_design`：定義 scene function、entry/exit relationship state、character intent、player information gain、emotional arc、required payoff、`must_not`。
 - `scene_dialogue`：在已批准的 `Narrative Continuity Contract` 內寫或修一個 scene 的 narration、dialogue、choice、rejoin 與 semantic visual beat。
 
-同一個 reusable harness 取代舊 `Narrative Planner` + `Scene Writer` 角色；Task Packet 的 `pass` 防止一次工作同時任意改 planning 與 prose。
+同一個 reusable harness 取代舊 `Narrative Planner` + `Scene Writer` 角色；Task Packet 的 `pass` 防止一次工作同時任意改 planning 與 prose。兩個 pass 必須由不同 fresh bounded workers 執行，parent Production Coordinator 不自行寫作。
 
 ## Allowed inputs
 

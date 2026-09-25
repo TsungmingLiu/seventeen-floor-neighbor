@@ -19,6 +19,6 @@ Updated: 2026-09-25
 
 ## 現行工作入口
 
-- AI content work：先讀 `.ai/WORKFLOW_MANIFEST.yaml`，由 Bootstrap 選一個 active harness/pass 與 bounded Task Packet。五個 active roles 是 Content Writer、CG Planner、CG Renderer、Content QA、Integrator；Narrative QA 是 review pass。
+- AI content work：先讀 `.ai/WORKFLOW_MANIFEST.yaml`。完整 production request 由 parent Work session 依 `.ai/PRODUCTION_ORCHESTRATION.md` 作 control-plane-only Production Coordinator，以 DAG、bounded Task Packet、fresh worker、Handoff/ledger 推進；五個 active harnesses 是 Content Writer、CG Planner、CG Renderer、Content QA、Integrator；Narrative QA 是 review pass。
 - Source lifecycle 與 authority：`docs/CONTENT_PRODUCTION_SOURCE_MAP.md`。Archived/experimental guidance 不進 production Task Packet；舊 sprite/background runtime capability 仍可供 fixture 使用。
 - Technical next actions：`TODO.md`。Creative batch/review gates：`docs/narrative/CONTENT_PRODUCTION_TODO.md`。已實作 runtime、Memory/save、asset/build contract：`ARCHITECTURE.zh-TW.md`。

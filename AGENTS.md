@@ -10,10 +10,12 @@ For any new AI production or development session:
 2. Follow `.ai/harnesses/bootstrap.md`.
 3. Read `.ai/policies/SOURCE_AUTHORITY.md` and `.ai/policies/CONTEXT_ISOLATION.md`.
 4. Read `docs/CONTENT_PRODUCTION_SOURCE_MAP.md`; read `PROJECT_STATE.md` only when the resolved stage requires current milestone context.
-5. Resolve exactly one active harness/pass. Multi-stage work uses sequential bounded Task Packets; there is no separate coordinator role.
+5. For an end-to-end request, the parent Work session follows `.ai/PRODUCTION_ORCHESTRATION.md` as control-plane-only Production Coordinator and dispatches each stage to a fresh bounded worker. A single-stage worker resolves exactly one active harness/pass.
 6. Load only the sources allowed by the resulting Task Packet.
 
 **Do not start by reading the entire repo. Do not reuse a stale production prompt from an earlier conversation.**
+
+**Continuity lives in canonical artifacts, not worker memory.** The Coordinator never substitutes for a creative, QA, rendering, or integration worker.
 
 For engineering work, the specialist may additionally use `TODO.md`, `ARCHITECTURE.zh-TW.md`, and task-specific implementation files.
 

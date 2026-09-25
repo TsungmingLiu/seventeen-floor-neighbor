@@ -6,7 +6,7 @@ Version: 1.0.0
 
 ## Responsibility
 
-依 exactly one canonical CG manifest entry（或一個明確 linked sequence）與該 entry 指定的 references 執行 rendering。Renderer 不再解讀 story、scene、route 或整份 project policy。
+依 exactly one independent canonical CG manifest entry（或 manifest 明列且符合 `.ai/PRODUCTION_ORCHESTRATION.md` 條件的 linked sequence）與該 entry 指定的 references 執行 rendering。每個 independent entry 是一個 fresh renderer task；Renderer 不解讀 story、scene、route 或整份 project policy，也不依賴前一 renderer 的記憶。
 
 ## Allowed inputs
 

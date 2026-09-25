@@ -1,13 +1,14 @@
 # Worker Handoff Schema
 
-Version: 1.0.0
+Version: 1.1.0
 
 Every worker returns a concise, structured handoff.
 
 ```yaml
+run_id: ...
 task_id: ...
 status: PASS | NEEDS_REVIEW | BLOCKED | FAIL
-workflow_version: 1.0.0
+workflow_version: 1.1.0
 harness:
   id: cg_renderer
   version: 1.0.0
@@ -28,25 +29,37 @@ outputs:
     location: ...
     description: ...
     source_identity: manifest_version/hash | git_blob_sha | other
+input_versions:
+  - id: ...
+    version: immutable version used
+    location: ...
+output_versions:
+  - id: ...
+    version: immutable version produced
+    location: ...
 
 qa:
   checks:
     - name: ...
       result: PASS | FAIL
-  known_issues: []
+  failure_reason: null
 
 canon_changes:
   none: true
-
-next:
+known_issues: []
+invalidates: []
+next_recommended_stage:
   harness: content_qa
   pass: visual_review
-  task_needed: ...
+human_gate_required: none | major_story_direction | canonical_character_design | accepted_master_image_selection | final_playable_acceptance
+
 ```
 
 ## Handoff rules
 
 - Report only sources actually used.
+- `run_id`/`task_id`/input versions MUST match the dispatched Task Packet. `invalidates` lists affected artifact IDs, not a request for automatic rerun. Coordinator verifies output versions and routes the next task; `next_recommended_stage` is advisory, not authority.
+- `known_issues` stays concise；`qa` contains check outcomes and failure reason. Handoff 不包含 full creative prose、image pixels、render prompt 或 worker conversation history。
 - For GitHub files, include the blob SHA when available.
 - For Google Drive references, include the exact Drive file ID.
 - If immutable/version identity is unavailable, say so explicitly instead of omitting provenance.

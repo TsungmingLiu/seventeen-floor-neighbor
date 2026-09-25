@@ -6,6 +6,8 @@
 
 `tools/render-cg-packets.mjs` 從 Canonical CG Manifest 做 deterministic projection。它不呼叫 LLM、不改寫 prompt、不生圖、不 retry、不評分。
 
+Work batch envelope 仍由 `.ai/PRODUCTION_ORCHESTRATION.md` 控制 dispatch：one independent entry = one fresh renderer task；linked sequence 例外以 manifest 明列為準。Adapter JSONL 的多行不授權單一 renderer worker 連續處理 unrelated entries。
+
 ## Commands
 
 Validate manifest：
@@ -40,7 +42,7 @@ node tools/render-cg-packets.mjs \
 
 ## Determinism guarantee
 
-同一個 manifest values + entry ID 會得到 identical `shared_prompt`、`manifest_sha256`、`shared_prompt_sha256`。
+同一個 manifest values + entry ID 會得到 identical `shared_prompt`、`manifest_sha256`、`shared_prompt_sha256`、`render_spec_sha256`。最後一個 hash 只覆蓋 root style contract + 該 entry，供 Coordinator 在整份 manifest 修訂後判定 unrelated entry 可否保留；它不改寫原 generation manifest provenance。
 
 Object key insertion order 不影響 manifest hash。Array order 是 canonical ordering 的一部分，會影響 prompt/hash。
 

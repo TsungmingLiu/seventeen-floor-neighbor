@@ -8,7 +8,7 @@
 
 這份文件只記 production progress、review gate 與 blocker。它不複製 scene spec、CG prompt 或 operator instructions。
 
-Fresh worker 先從 `.ai/WORKFLOW_MANIFEST.yaml` 取得 Task Packet；不得把本 backlog 當成 source bundle。
+完整 request 由 Production Coordinator 依 `.ai/PRODUCTION_ORCHESTRATION.md` 建 Task Packet；fresh worker 先讀 `.ai/WORKFLOW_MANIFEST.yaml` 與該 packet。不得把本 backlog 當成 source bundle。
 
 ## Current objective
 

@@ -1,13 +1,15 @@
 # Task Packet Schema
 
-Version: 1.0.0
+Version: 1.1.0
 
 Task Packet routes exactly one active harness/pass and one deliverable。
 
 ```yaml
+run_id: unique-production-run-id
 task_id: unique-stable-id
 task_type: narrative_design | scene_dialogue | narrative_review | cg_plan | cg_render | visual_review | integrate
-workflow_version: 1.0.0
+depends_on: [upstream-task-id]
+workflow_version: 1.1.0
 harness: content_writer | cg_planner | cg_renderer | content_qa | integrator
 pass: narrative_design | scene_dialogue | narrative_review | visual_review | null
 objective: one sentence describing exactly one deliverable
@@ -43,6 +45,10 @@ inputs:
   render_packet: optional
   references: []
   accepted_outputs: []
+input_versions:
+  - id: canonical-artifact-id
+    version: immutable hash / Git blob SHA / accepted asset receipt
+    location: exact path or source ID
 
 reference_transport:
   mode: references_required | edit_from_accepted_base | not_applicable
@@ -63,15 +69,17 @@ acceptance:
   - machine-checkable or reviewable criterion
 
 handoff_to: active harness or human gate
+human_gate: none | major_story_direction | canonical_character_design | accepted_master_image_selection | final_playable_acceptance
 ```
 
 ## Rules
 
 - Routing metadata 不複製 whole canon。
+- `run_id`、`task_id`、`depends_on` 對應 Production Run Ledger；只有 dependencies `PASS` 且 input versions verified 才 dispatch。One Task Packet = one bounded fresh worker task；reuse harness 不等於 reuse worker context。
 - `allowed_sources` 是完整 allowlist；worker 不可自行加來源。
 - Production Task Packet 不得 allowlist archive/experiment。
 - Markdown acquisition 要有 exact repo/ref/path + non-empty contents + blob SHA when available。
 - Image acquisition 要有 exact role/identity + visible pixels；metadata-only 不成立。
-- `cg_renderer` packet 必須只指定 one manifest entry、its deterministic packet and references。
+- `cg_renderer` packet 必須只指定 one independent manifest entry、its deterministic packet and references；只有 manifest 明列並符合 sequence 條件的 linked sequence 可作一個 bounded task。
 - Base CG 使用 `references_required`；Reaction CG 優先 `edit_from_accepted_base`。Reference acquisition 由所選 execution adapter 負責。
 - 第二個獨立 objective 必須拆成另一個 Task Packet。

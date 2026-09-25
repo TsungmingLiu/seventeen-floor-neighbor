@@ -214,6 +214,7 @@
         "status": { "enum": ["planned", "render_ready", "candidate", "accepted", "rejected", "blocked"] },
         "cg_class": { "enum": ["background_cg", "dialogue_cg", "reaction_cg", "event_cg", "cg_sequence_keyframe"] },
         "sequence_id": { "type": ["string", "null"] },
+        "sequence_continuity_benefit": { "$ref": "#/$defs/nonEmpty" },
         "known_issues": { "type": "array", "items": { "$ref": "#/$defs/nonEmpty" } },
         "beat_range": { "$ref": "#/$defs/nonEmpty" },
         "narrative": {
@@ -246,6 +247,11 @@
         "acceptance": { "$ref": "#/$defs/nonEmptyStringArray" }
       },
       "allOf": [
+        {
+          "if": { "properties": { "sequence_id": { "type": "string", "minLength": 1 } }, "required": ["sequence_id"] },
+          "then": { "required": ["sequence_continuity_benefit"] },
+          "else": { "not": { "required": ["sequence_continuity_benefit"] } }
+        },
         {
           "if": { "required": ["known_issues"] },
           "then": {

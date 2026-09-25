@@ -2,7 +2,7 @@
 
 > Lifecycle: **CANONICAL**
 >
-> Version: 1.0.0
+> Version: 1.1.0
 >
 > Updated: 2026-09-25
 
@@ -38,6 +38,8 @@ Production 文件只有四種 lifecycle：
 | Domain | Canonical source | Owns | Does not own |
 | --- | --- | --- | --- |
 | Workflow entry | `.ai/WORKFLOW_MANIFEST.yaml` | pipeline routing、active roles、schema paths | story facts、shot content |
+| Production orchestration | `.ai/PRODUCTION_ORCHESTRATION.md` | parent control plane、dependency DAG、invalidation、resume、playable DoD | creative production stage |
+| Run ledger | `.ai/schemas/PRODUCTION_RUN_LEDGER.md` + `content/production/runs/<run_id>/` | GENERATED task/identity/status record | creative authority、worker memory |
 | Source policy | `.ai/policies/SOURCE_AUTHORITY.md` | authority/lifecycle/conflict handling | task content |
 | Context policy | `.ai/policies/CONTEXT_ISOLATION.md` | bounded acquisition、character/scene isolation | creative decisions |
 | Current state | `PROJECT_STATE.md` | milestone、accepted decisions、migration state | reusable workflow detail |
@@ -55,7 +57,7 @@ Production 文件只有四種 lifecycle：
 | Continuity schemas | `.ai/schemas/NARRATIVE_CONTINUITY.md` + `.ai/schemas/VISUAL_CONTINUITY.md` | required semantic and visual continuity fields | scene-specific values |
 | Runtime | `ARCHITECTURE.zh-TW.md`、current code/JSON/tests | implementation/data/save constraints | creative canon |
 
-Active production roles are limited to `content_writer`、`cg_planner`、`cg_renderer`、`content_qa`、`integrator`。Bootstrap is routing only；Narrative QA is a `content_qa` pass。
+Active production harnesses are limited to `content_writer`、`cg_planner`、`cg_renderer`、`content_qa`、`integrator`。Production Coordinator is parent Work control plane only, not a sixth production harness；Bootstrap is routing only；Narrative QA is a `content_qa` pass。Continuity lives in canonical artifacts, not worker memory。
 
 Machine validation shapes：`.ai/schemas/narrative-continuity.schema.json`、`.ai/schemas/cg-manifest.schema.json`。Cross-file validation：`tools/validate-production-contracts.mjs`。
 
