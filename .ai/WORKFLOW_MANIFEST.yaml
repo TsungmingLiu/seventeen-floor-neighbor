@@ -148,6 +148,25 @@ execution:
   model_routing:
     default_tier: economical
     allowed_tiers: [economical, capable]
+    coordinator_if_runtime_selectable: capable
+    baseline_workloads:
+      narrative_design: capable
+      scene_dialogue: capable
+      cg_plan: capable
+      cross_scene_continuity_review: capable
+      final_high_impact_qa: capable
+      narrative_review: economical
+      manifest_usability_review: economical
+      cg_render_orchestration: economical
+      visual_review: economical
+      integrate: economical
+      source_extraction: economical
+      character_environment_spec_extraction: economical
+      deterministic_prompt_compilation: economical
+      filename_manifest_inventory: economical
+      schema_transformation: economical
+      bounded_checklist_validation: economical
+      runtime_wiring: economical
     capable_reasons:
       - creative_judgment
       - material_ambiguity_or_conflict

@@ -43,6 +43,14 @@ Human request → narrative_design → scene_dialogue → narrative_review
 
 Coordinator 為每個 Task Packet 指定抽象 `model_tier`；exact model name 由 execution adapter 依當前可用模型映射，避免 workflow 綁死產品型號。**Default is `economical`.** Coordinator 應使用能可靠完成 bounded task 的最低成本 tier，而不是因 task「重要」就直接使用最強模型。
 
+若 execution runtime 可選 parent Coordinator 的 reasoning tier，Coordinator 本身優先使用 `capable`，因其工作包含 DAG decomposition、routing、invalidation 與 escalation judgment；這是 control-plane guidance，不代表 production worker 預設也使用 `capable`。
+
+### Baseline workload routing
+
+Baseline values are owned by `.ai/WORKFLOW_MANIFEST.yaml` at `execution.model_routing.baseline_workloads`; this contract defines how to interpret and override them rather than duplicating the table.
+
+Coordinator starts from that manifest baseline. If a bounded objective combines multiple workload classes, use the highest reasoning requirement required by the objective. Mechanical substeps inside a capable creative task do not require separate capable workers. `cg_render_orchestration: economical` applies only to acquisition/binding/call orchestration; actual image-generation capability/model selection is outside this worker tier.
+
 只有至少一項成立時可直接指定 `capable`：
 
 - task 需要 material creative judgment，而不是照已鎖定 contract 做機械轉換；
