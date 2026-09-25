@@ -560,3 +560,41 @@ chibi transformation, childish tantrum, oversized toy dominating composition, br
 - [ ] collectible CG adds something sprite+BG could not
 
 Only after PASS should an image be accepted as canonical master / moved into the asset integration pipeline.
+
+---
+
+# 7. Production results
+
+> Generated 2026-09-24 under the canonical 16:9 visual contract. Runtime derivatives use a portrait-safe 1080×1920 container with the complete 16:9 frame preserved over a darkened blurred extension, so locked actions are not lost to a destructive 9:16 crop.
+
+## CG-COM-01 — COM-00
+
+- Refs actually fetched: `xt-ref-01-face.png` (`1Oynvxve61ipxr9Z7UhaSsZE_8OzVVPRS`), `xt-ref-04-production.png` (`1dTvm8uC5m2jaq8OUDDzaloOUrzeWBHIx`), `xt-ref-05-wardrobe-a.png` (`1W4t7ICYHx3obH_S03BEyD80ykzy3M9aF`, Look 01 Weekday Neighbor).
+- Accepted master: `cg-com-01-master-v1.png` — 2560×1440 PNG — Drive [`1gx1xKI9jW-JxKfQIGygx8B9pNNezAiLk`](https://drive.google.com/file/d/1gx1xKI9jW-JxKfQIGygx8B9pNNezAiLk/view) — SHA-256 `8184c5a9108804f23b04a2bbfdb1391ba2a0c1aee14ac01f3ca0bf03100b0f48`.
+- Runtime: `cg-com-01-v1.webp` — 1080×1920 WebP — Drive [`1YoCB0FXzK9HhCcjyVTTwjw_tqze7-jhB`](https://drive.google.com/file/d/1YoCB0FXzK9HhCcjyVTTwjw_tqze7-jhB/view) — SHA-256 `19f67503fafc705427c5e6907af910e187abb6dd046507cd128204e4bd076002`.
+- QA: **PASS** — identity, age, hair, earrings, Look 01, door/box/hand anatomy, POV, safe-zone, exact pre-name ordinary-neighbor beat, and no text/logo/watermark passed.
+- Generation/version note: built-in image generation; second independent candidate accepted after the first candidate was rejected for dialogue-zone obstruction; canonical refs were freshly fetched again before retry.
+
+## CG-COM-02 — COM-01J
+
+- Refs actually fetched: `jyc-ref-01-face.png` (`13AI1sD0iUm6NpMBnVtlK8Zl5PN0UPsMQ`), `jyc-ref-04-production.png` (`10EH0fmMV0UzFED2-tnf62TYOJexJQK4_`), `jyc-ref-05-wardrobe-a.png` (`1FqxmDU0BqzAb6AFmZfebcx6NUaKCUw-A`, Look 01 Campus / Graduate Student).
+- Accepted master: `cg-com-02-master-v1.png` — 2560×1440 PNG — Drive [`1tnVtYgpfHynmZlvDK0UhBtLpjeddYbWi`](https://drive.google.com/file/d/1tnVtYgpfHynmZlvDK0UhBtLpjeddYbWi/view) — SHA-256 `ff259f77dbe003a041cc6bf8c49dfbcd23af0585817392d1656f31b2dec119ca`.
+- Runtime: `cg-com-02-v1.webp` — 1080×1920 WebP — Drive [`16T8iJKngA8zPPU5aAmDQXZToz_b2mPxu`](https://drive.google.com/file/d/16T8iJKngA8zPPU5aAmDQXZToz_b2mPxu/view) — SHA-256 `d226ea8c17d2bf5ae4b04d2f2da992dd51c0fa528a71c8059d0909deb3f05627`.
+- QA: **PASS** — identity, adult age read, bob construction, Look 01, two-book/hand geometry, guarded-curiosity beat, protagonist POV, safe-zone, fictional art, and no extra people/text/logo/watermark passed.
+- Generation/version note: built-in image generation; second independent candidate accepted after the first candidate was rejected for an unapproved background person; canonical refs were freshly fetched again before retry.
+
+## CG-COM-03 — COM-02X
+
+- Refs actually fetched: `xt-ref-01-face.png` (`1Oynvxve61ipxr9Z7UhaSsZE_8OzVVPRS`), `xt-ref-04-production.png` (`1dTvm8uC5m2jaq8OUDDzaloOUrzeWBHIx`), `xt-ref-05-wardrobe-a.png` (`1W4t7ICYHx3obH_S03BEyD80ykzy3M9aF`, Look 02 Late-night Convenience Store).
+- Accepted master: `cg-com-03-master-v1.png` — 2560×1440 PNG — Drive [`1xXOD5Ktaw9pTZJIxcCrj9eaPa1M3bXGj`](https://drive.google.com/file/d/1xXOD5Ktaw9pTZJIxcCrj9eaPa1M3bXGj/view) — SHA-256 `a1c7cf49c50244ed702ca2ac629e9266c70bf855aeeb1a67f05d044e5c858f5f`.
+- Runtime: `cg-com-03-v1.webp` — 1080×1920 WebP — Drive [`1LGV0AhMqm6PVYQI0zgJl8LAEAJ03WPYC`](https://drive.google.com/file/d/1LGV0AhMqm6PVYQI0zgJl8LAEAJ03WPYC/view) — SHA-256 `6511682cddca5aff6df3b1e73905d09573d5312876dbca9dc8663ce16b89295d`.
+- QA: **PASS** — identity, age, hair, earrings, Look 02, coffee/meal/hand anatomy, wet-night convenience-store context, exact name-recognition beat, safe-zone, and no extra people/text/logo/watermark passed.
+- Generation/version note: built-in image generation; first candidate accepted.
+
+## CG-COM-04 — COM-02J
+
+- Refs actually fetched: `jyc-ref-01-face.png` (`13AI1sD0iUm6NpMBnVtlK8Zl5PN0UPsMQ`), `jyc-ref-04-production.png` (`10EH0fmMV0UzFED2-tnf62TYOJexJQK4_`), `jyc-ref-05-wardrobe-a.png` (`1FqxmDU0BqzAb6AFmZfebcx6NUaKCUw-A`, Look 02 Café / Creator).
+- Accepted master: `cg-com-04-master-v1.png` — 2560×1440 PNG — Drive [`1TNxS7cBf1jgC9DsxHDXcJ-Ndl7w1Clir`](https://drive.google.com/file/d/1TNxS7cBf1jgC9DsxHDXcJ-Ndl7w1Clir/view) — SHA-256 `8defcc44839e340dcbc81e5bb0b41e21668b38a53139413e50708879213c4c4b`.
+- Runtime: `cg-com-04-v1.webp` — 1080×1920 WebP — Drive [`1qL2SiV0QrBbN55HAK7K0sBHpIpZ0SpvT`](https://drive.google.com/file/d/1qL2SiV0QrBbN55HAK7K0sBHpIpZ0SpvT/view) — SHA-256 `01f3d19cc25c677a03787f2adf518daa2540099336c33ffdf3dcb049dbf02381`.
+- QA: **PASS** — identity, adult age read, bob construction, Look 02, stylus grip/tablet/support-hand geometry, creator-focus-to-recognition beat, safe-zone, non-fetish framing, and no extra people/real IP/text/logo/watermark passed.
+- Generation/version note: built-in image generation; first candidate accepted.

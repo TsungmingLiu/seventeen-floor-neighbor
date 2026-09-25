@@ -378,14 +378,14 @@ W4 runtime 現已完成；正常 production 仍先做到 **S9**。只有 scene/s
 
 > Narrative gate 已開：`CG-COM-01/02/03/04` 對應 scene 均已 S4/S6，可進 generation。其餘 CG 不得提前生成。
 
-- [ ] CG-COM-01 — 雨夜搬家 — P0 — **ready to generate**
+- [x] CG-COM-01 — 雨夜搬家 — P0 — accepted master + runtime object uploaded; QA PASS
 - [ ] CG-XT-01 — 書店午後 — P0
 - [ ] CG-JYC-01 — ACG 主場 — P0
 - [ ] CG-JYC-03 — Gaming Night — P0
 - [ ] CG-SH-01 — 17樓三人第一次同框 — P1
-- [ ] CG-COM-02 — 地下街初遇 — P1 — **ready to generate**
-- [ ] CG-COM-03 — 深夜便利店 — P1 — **ready to generate**
-- [ ] CG-COM-04 — 咖啡店畫圖 — P1 — **ready to generate**
+- [x] CG-COM-02 — 地下街初遇 — P1 — accepted master + runtime object uploaded; QA PASS
+- [x] CG-COM-03 — 深夜便利店 — P1 — accepted master + runtime object uploaded; QA PASS
+- [x] CG-COM-04 — 咖啡店畫圖 — P1 — accepted master + runtime object uploaded; QA PASS
 - [ ] CG-JYC-02 — 小周邊 reward — P1
 
 ---
