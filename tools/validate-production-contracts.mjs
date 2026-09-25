@@ -15,6 +15,7 @@ const OPENING_RECEIPT = 'content/assets/ingest-receipts/opening-ch1-demo-v0.1.js
 const OPENING_ROUTE = 'content/routes/opening-demo/route.json';
 const SOURCE_CATALOG = 'content/assets/source-catalog.json';
 const ORCHESTRATION = '.ai/PRODUCTION_ORCHESTRATION.md';
+const SOURCE_MAP = 'docs/CONTENT_PRODUCTION_SOURCE_MAP.md';
 const DRY_RUN = 'tests/fixtures/production-orchestration-dry-run.json';
 const FORBIDDEN_ROOTS = ['.ai/archive/', '.ai/experiments/', 'docs/archive/'];
 const OLD_ACTIVE_PATHS = [
@@ -156,6 +157,14 @@ function validateActiveWorkflowBoundary() {
   ];
   const activeText = activeFiles.map(readText).join('\n');
   for (const oldPath of OLD_ACTIVE_PATHS) invariant(!activeText.includes(oldPath), `active production source references obsolete path: ${oldPath}`);
+
+  const sourceMap = readText(SOURCE_MAP);
+  invariant(sourceMap.includes('source inventory / routing index'), 'source map must remain an inventory, not a duplicate policy');
+  invariant(sourceMap.includes('.ai/policies/SOURCE_AUTHORITY.md') && sourceMap.includes('PROJECT_STATE.md') && sourceMap.includes('TODO.md'), 'source map must route policy/state/backlog to their owning documents');
+  invariant(sourceMap.includes('Asset metadata / provenance') && sourceMap.includes('content/assets/manifest.json') && sourceMap.includes('content/assets/source-catalog.json') && sourceMap.includes('content/assets/ingest-receipts/'), 'source map must route asset metadata/provenance sources');
+  for (const duplicateSection of ['## 1. Document lifecycle', '## 2. Conflict order', 'Opening Chapter 1 current facts', 'UI items explicitly out of scope']) {
+    invariant(!sourceMap.includes(duplicateSection), `source map reintroduced duplicated section: ${duplicateSection}`);
+  }
 }
 
 function validateOrchestrationContract() {

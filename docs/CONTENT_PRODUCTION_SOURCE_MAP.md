@@ -6,102 +6,50 @@
 >
 > Updated: 2026-09-25
 
-這份 map 回答 fresh worker 的第一個問題：**這次工作唯一可以信什麼？**
+這份文件只做 **source inventory / routing index**：告訴 fresh worker 某個 domain 的 canonical source 在哪裡，以及該 source 擁有什麼。
 
-## 1. Document lifecycle
+- Lifecycle、conflict order、archive/read rules：以 `.ai/policies/SOURCE_AUTHORITY.md` 為唯一 authority。
+- Current milestone / accepted migration facts：只看 `PROJECT_STATE.md`。
+- Technical/UI backlog：只看 `TODO.md`；creative production progress 只看 `docs/narrative/CONTENT_PRODUCTION_TODO.md`。
+- Task-local worker 仍只能讀 Task Packet 明確 allowlist 的最小來源；這張 map 本身不授權擴讀。
 
-Production 文件只有四種 lifecycle：
-
-| Lifecycle | Meaning | Worker rule |
-| --- | --- | --- |
-| `CANONICAL` | 對特定 domain 的現行 authority | 只有 Task Packet 明確 allowlist 後才可讀 |
-| `EXPERIMENTAL` | capability test / pilot / 尚未採用的設計 | 不得用於 production |
-| `GENERATED` | 由 canonical input deterministic 產生的輸出 | 可重建，不可反向覆蓋 source |
-| `ARCHIVED` | 歷史記錄、舊 prompt、已退出 policy 的 guidance | 不得用於 production |
-
-`LEGACY-FIXTURE` 是 runtime asset/capability 狀態，不是第五種文件 authority。保留 fixture 不表示保留舊 production guidance。
-
-## 2. Conflict order
-
-由高至低：
-
-1. `.ai/WORKFLOW_MANIFEST.yaml`：workflow routing、allowed source classes、active harness/schema registry。
-2. `PROJECT_STATE.md`：current milestone 與已接受的 superseding decision。
-3. task-specific locked artifact：approved scene、canonical CG manifest entry、accepted asset receipt。
-4. domain canon：narrative、visual、runtime contract。
-5. Task Packet 中明確引用的 supporting excerpt。
-
-若兩個同層 `CANONICAL` 文件互斥，worker 必須 `BLOCKED`；不得自行折衷。`EXPERIMENTAL`、`GENERATED`、`ARCHIVED` 永遠不能覆蓋 `CANONICAL`。
-
-## 3. Active source-of-truth inventory
+## 1. Active source-of-truth inventory
 
 | Domain | Canonical source | Owns | Does not own |
 | --- | --- | --- | --- |
-| Workflow entry | `.ai/WORKFLOW_MANIFEST.yaml` | pipeline routing、active roles、schema paths | story facts、shot content |
-| Production orchestration | `.ai/PRODUCTION_ORCHESTRATION.md` | parent control plane、dependency DAG、invalidation、resume、playable DoD | creative production stage |
-| Run ledger | `.ai/schemas/PRODUCTION_RUN_LEDGER.md` + `content/production/runs/<run_id>/` | GENERATED task/identity/status record | creative authority、worker memory |
-| Source policy | `.ai/policies/SOURCE_AUTHORITY.md` | authority/lifecycle/conflict handling | task content |
+| Workflow entry | `.ai/WORKFLOW_MANIFEST.yaml` | pipeline routing、active harness/schema registry、execution defaults | story facts、shot content |
+| Production orchestration | `.ai/PRODUCTION_ORCHESTRATION.md` | parent control plane、DAG、invalidation、resume、playable DoD | creative production stage |
+| Run ledger | `.ai/schemas/PRODUCTION_RUN_LEDGER.md` + `content/production/runs/<run_id>/` | GENERATED task/identity/status evidence | creative authority、worker memory |
+| Source policy | `.ai/policies/SOURCE_AUTHORITY.md` | lifecycle、precedence、conflict/read rules、fixture policy | task content |
 | Context policy | `.ai/policies/CONTEXT_ISOLATION.md` | bounded acquisition、character/scene isolation | creative decisions |
-| Current state | `PROJECT_STATE.md` | milestone、accepted decisions、migration state | reusable workflow detail |
-| Narrative design | `docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md` | macro arc、scene purpose、relationship pacing | final render prompt |
-| Production layer contract | `docs/narrative/CONTENT_PRODUCTION_SPEC.md` | Narrative Design → Scene/Dialogue → Visual Production boundaries and terminology | story facts |
+| Current state | `PROJECT_STATE.md` | milestone、accepted decisions、migration/current production facts | reusable workflow detail |
+| Narrative macro design | `docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md` | macro arc、scene purpose、relationship pacing | final render prompt |
 | Route/state | `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md` | route graph、knowledge/state semantics | dialogue prose、camera |
-| Locked scene | `docs/narrative/scenes/vertical-slice/*.md` | scene-local narrative facts、dialogue、entry/exit intent、semantic visual beats | image-generation prompt syntax |
+| Production layer contract | `docs/narrative/CONTENT_PRODUCTION_SPEC.md` | Narrative Design → Scene/Dialogue → Visual Production boundaries | story facts |
+| Locked scene | `docs/narrative/scenes/vertical-slice/*.md` | scene-local narrative facts、dialogue、semantic visual beats | image-generation prompt syntax |
 | Narrative contract values | `content/production/narrative/<chapter>/<scene>.json` | approved scene-local continuity values | dialogue prose、camera |
-| Creative backlog | `docs/narrative/CONTENT_PRODUCTION_TODO.md` | progress、gates、known blockers | duplicated prompt/spec |
+| Creative backlog | `docs/narrative/CONTENT_PRODUCTION_TODO.md` | production progress、gates、known blockers | duplicated prompt/spec |
 | Visual direction | `docs/art/PRODUCTION_VISUAL_DIRECTION.md` | global visual contract、shot economy、responsive composition | scene-specific narrative choice |
-| Character identity | `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md` | reference authority、identity/wardrobe mapping | scene purpose、camera |
-| CG production | `docs/art/CG_PRODUCTION_SPEC.md` + `.ai/schemas/CG_MANIFEST.md` | render-ready manifest、projection、adapter boundary | narrative rewrite |
-| CG manifest values | `content/production/cg-manifests/<chapter>.json` | approved render-ready CG entries and reference bindings | global policy、renderer transport |
-| CG adapters | `docs/art/CG_EXECUTION_ADAPTERS.md` + `tools/render-cg-packets.mjs` | deterministic projection / transport envelopes | creative decisions、rendering |
-| Continuity schemas | `.ai/schemas/NARRATIVE_CONTINUITY.md` + `.ai/schemas/VISUAL_CONTINUITY.md` | required semantic and visual continuity fields | scene-specific values |
-| Runtime | `ARCHITECTURE.zh-TW.md`、current code/JSON/tests | implementation/data/save constraints | creative canon |
-
-Active production harnesses are limited to `content_writer`、`cg_planner`、`cg_renderer`、`content_qa`、`integrator`。Production Coordinator is parent Work control plane only, not a sixth production harness；Bootstrap is routing only；Narrative QA is a `content_qa` pass。Continuity lives in canonical artifacts, not worker memory。
+| Character identity | `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md` | identity/wardrobe/reference authority | scene purpose、camera |
+| CG production | `docs/art/CG_PRODUCTION_SPEC.md` + `.ai/schemas/CG_MANIFEST.md` | render-ready manifest contract、projection boundary | narrative rewrite |
+| CG manifest values | `content/production/cg-manifests/<chapter>.json` | approved render-ready entries、reference bindings | global policy、renderer transport |
+| CG execution | `docs/art/CG_EXECUTION_ADAPTERS.md` + `tools/render-cg-packets.mjs` | deterministic render-packet projection / transport envelopes | creative decisions |
+| Asset metadata / provenance | `content/assets/manifest.json` + `content/assets/source-map.json` + `content/assets/source-catalog.json` + `content/assets/ingest-receipts/` + `content/recipes/assets.json` | logical asset IDs、runtime source/provider metadata、accepted-master provenance、ingest evidence、rebuild dependencies | creative canon、visual policy |
+| Continuity schemas | `.ai/schemas/NARRATIVE_CONTINUITY.md` + `.ai/schemas/VISUAL_CONTINUITY.md` | semantic/visual continuity fields | scene-specific values |
+| Runtime | `ARCHITECTURE.zh-TW.md` + current code/JSON/tests | implementation、data、save、build constraints | creative canon |
 
 Machine validation shapes：`.ai/schemas/narrative-continuity.schema.json`、`.ai/schemas/cg-manifest.schema.json`。Cross-file validation：`tools/validate-production-contracts.mjs`。
 
-## 4. Non-active inventory
+## 2. Non-production roots
 
-| Path | Lifecycle | Reason retained |
+| Root | Lifecycle | Production rule |
 | --- | --- | --- |
-| `docs/archive/art/PROTOTYPE_ART_REQUIREMENTS.md` | `ARCHIVED` | historical asset/location matrix and sprite-first plan |
-| `docs/archive/art/VERTICAL_SLICE_CG_GENERATION_PROMPTS.md` | `ARCHIVED` | historical one-off prompt wording and batch plan |
-| `docs/archive/art/recipes/` | `ARCHIVED` | provenance for already-generated background/sprite assets |
-| `docs/archive/narrative/CONTENT_PRODUCTION_TODO_v0.3.md` | `ARCHIVED` | old backlog plus copy-paste prompts |
-| `docs/archive/content/lin-cheng/` | `ARCHIVED` | unregistered early second-route slice; not current character/narrative canon |
-| `.ai/archive/operators/OPENING_CH1_DEMO_OPERATOR_PACK_v0.1.md` | `ARCHIVED` | completed one-off demo operator procedure |
-| `.ai/experiments/pilots/` | `EXPERIMENTAL` | capability tests, pilot packets/results, failure evidence |
-| `docs/archive/proposals/urban-dating-sim-setting-proposal.md` | `ARCHIVED` | early ideation; research/migration provenance only |
+| `.ai/archive/` | `ARCHIVED` | historical operators/harnesses only；not Task Packet input |
+| `.ai/experiments/` | `EXPERIMENTAL` | pilots/capability evidence only；not Task Packet input |
+| `docs/archive/` | `ARCHIVED` | historical specs/prompts/recipes/proposals/content only；not Task Packet input |
 
-## 5. Runtime fixture boundary
+A provenance receipt may point into these roots as historical evidence. That pointer does not make the target executable guidance. A bounded research/migration task may inspect them only under the exception rules in `.ai/policies/SOURCE_AUTHORITY.md`.
 
-以下能力仍由 runtime/tests 使用，這次不得因文件清理而刪除：
+## 3. Runtime fixture note
 
-- composite visual mode、existing sprites/backgrounds；
-- `xu-tang` legacy content package and its remaining stable IDs（`content/routes/xu-tang/`，不是新 production story）；
-- current asset manifest/source map/recipe provenance；
-- MP4/WebM playback；
-- save/migration/Memory Event compatibility。
-
-它們可繼續作 regression/migration fixture，但新的 production authoring 不再從舊 sprite/background prompt pipeline 開始。未註冊的林澄垂直切片已移到 `docs/archive/content/lin-cheng/`，不能作為當前 narrative canon。
-
-## 6. Opening Chapter 1 current facts
-
-- Narrative source：`COM-00 → COM-01X → COM-01J` 三個 locked scene files。
-- Narrative continuity values：`content/production/narrative/opening-ch1/`。
-- Canonical CG values：`content/production/cg-manifests/opening-ch1.json`（8 個 accepted migration entries）。
-- Playable integration：`content/routes/opening-demo/`。
-- Accepted asset provenance：`content/assets/ingest-receipts/opening-ch1-demo-v0.1.json`。
-- Archived operator provenance：`.ai/archive/operators/OPENING_CH1_DEMO_OPERATOR_PACK_v0.1.md`。
-- Known visual issue：COM01J demo asset 保留 provisional wardrobe drift；這是 asset issue，不是修改 narrative canon 的理由。
-
-## 7. UI items explicitly out of scope
-
-本輪只記錄、不修 UI：
-
-- choice node 的 `text: ""` 仍顯示空 dialogue box；
-- narrator + character content 同框時的閱讀分工不清；
-- choice 自動顯示 `A/B/C` prefix。
-
-追蹤位置：root `TODO.md` 的 `Opening demo UI follow-ups`。
+Runtime fixtures are not production-authoring guidance. Paths such as `assets-src/characters/` and `content/routes/xu-tang/` may remain while runtime/tests still depend on them; removing a used fixture requires an explicit migration decision. The canonical fixture rule lives in `.ai/policies/SOURCE_AUTHORITY.md` and the manifest's `runtime_fixtures_not_production_guidance` list.
