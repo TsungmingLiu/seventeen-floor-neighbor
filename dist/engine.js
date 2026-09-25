@@ -1,6 +1,6 @@
-import { ProgressStore } from './progress.js?v=05dbfcdbdd21';
-import { paintPreview, paintSprites, resolveVisual, setImage } from './visuals.js?v=05dbfcdbdd21';
-import { memoryEventById, memoryEventForNode, memoryStats, renderMemories, titleBackdropVisual } from './memories.js?v=05dbfcdbdd21';
+import { ProgressStore } from './progress.js?v=a3fa985a9bee';
+import { paintPreview, paintSprites, resolveVisual, setImage } from './visuals.js?v=a3fa985a9bee';
+import { memoryEventById, memoryEventForNode, memoryStats, renderMemories, titleBackdropVisual } from './memories.js?v=a3fa985a9bee';
 
 export class GameEngine {
   constructor({ chapter, assetManifest, sceneLibrary, memoryLibrary }) {
