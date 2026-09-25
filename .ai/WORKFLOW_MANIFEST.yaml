@@ -1,6 +1,6 @@
 workflow:
   id: seventeen-floor-production
-  version: 1.0.0
+  version: 1.1.0
   updated: 2026-09-25
   entrypoint: .ai/harnesses/bootstrap.md
   repository:
@@ -29,6 +29,9 @@ principles:
   - repository_current_state_beats_conversation_memory
   - bounded_context_only
   - one_worker_one_task
+  - parent_control_plane_only
+  - continuity_in_canonical_artifacts_not_worker_memory
+  - dependency_dag_and_provenance_invalidation
   - explicit_handoff
   - no_implicit_cross_character_memory
   - one_independent_image_per_generation_call
@@ -109,6 +112,7 @@ harnesses:
 
 schemas:
   task_packet: .ai/schemas/TASK_PACKET.md
+  production_run_ledger: .ai/schemas/PRODUCTION_RUN_LEDGER.md
   data_packs: .ai/schemas/DATA_PACKS.md
   handoff: .ai/schemas/HANDOFF.md
   narrative_continuity: .ai/schemas/NARRATIVE_CONTINUITY.md
@@ -129,11 +133,19 @@ render_projection:
   free_summary_allowed: false
 
 execution:
+  orchestration_contract: .ai/PRODUCTION_ORCHESTRATION.md
+  parent_role: production_coordinator_control_plane_only
   default_unit: one_task
   default_agent_state: fresh
+  each_independent_task_requires_fresh_worker: true
+  worker_conversation_inheritance: forbidden
   worker_may_expand_scope: false
   worker_may_change_canon: false
   render_generation_unit: one_manifest_entry
+  render_task_unit: one_independent_manifest_entry_or_explicit_linked_sequence
+  parallelism: dependency_independent_only
+  run_ledger_root: content/production/runs/
+  final_gate: READY_FOR_HUMAN_ACCEPTANCE
   human_gates:
     - major_story_direction
     - canonical_character_design

@@ -9,7 +9,7 @@
 - [ ] 依 `docs/narrative/CONTENT_PRODUCTION_TODO.md` 完成下一批 locked scene、Narrative/Visual Continuity、CG manifest、Visual QA 與 accepted asset ingest。
 - [ ] 以 accepted outputs 更新 route nodes、`assetIds`、asset manifest/recipe/source map、Memory Events 與 ingest receipt；保持 stable IDs。
 - [ ] 在 fresh Codespace clean build/validate/test/preview，跑 browser 主流程；Human 檢查 pacing、角色 voice、CG continuity、UI safe zones 後接受 playable slice。
-- [ ] 用第一個 net-new scene 試用目前 production schema，記錄返工原因，再決定是否調整 contract。不要先擴張成 orchestration engine。
+- [ ] 用第一個 net-new scene 試用 `.ai/PRODUCTION_ORCHESTRATION.md` 的 DAG / Task Packet / Handoff / ledger contract，記錄 fresh worker dispatch、reconciliation 與返工原因；不要擴張成 orchestration engine。
 
 ## Opening demo UI follow-ups
 

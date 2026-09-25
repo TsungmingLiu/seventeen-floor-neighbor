@@ -6,7 +6,7 @@
 
 - 修改 code、route、Memory/save 或 assets：讀 [程式與內容架構](ARCHITECTURE.zh-TW.md)，再讀相關實際 JSON/code。
 - 查當前狀態：讀 [PROJECT_STATE.md](PROJECT_STATE.md)。查未完成技術事項：讀 [TODO.md](TODO.md)。
-- 寫劇情／對白／CG：先讀 `.ai/WORKFLOW_MANIFEST.yaml`，依 Bootstrap 選一個 active harness/pass 與 bounded Task Packet；[source-of-truth map](docs/CONTENT_PRODUCTION_SOURCE_MAP.md) 列出各 domain authority。[Creative TODO](docs/narrative/CONTENT_PRODUCTION_TODO.md) 只記 production 進度。
+- 寫劇情／對白／CG：先讀 `.ai/WORKFLOW_MANIFEST.yaml`；完整 request 由 parent Coordinator 建 DAG 並派 fresh bounded workers，單一 worker 依 Bootstrap 執行一個 harness/pass/Task Packet。[source-of-truth map](docs/CONTENT_PRODUCTION_SOURCE_MAP.md) 列出各 domain authority。[Creative TODO](docs/narrative/CONTENT_PRODUCTION_TODO.md) 只記 production 進度。
 - 新故事採 Braided Narrative v0.5、CG-first / 16:9。宏觀故事、route/state、visual 與 CG 契約分別在 `docs/narrative/`、`docs/art/`；Chapter 1 的 machine-readable values 在 `content/production/`。
 - `content/` 的現行 production values、playable route、legacy fixture 與 asset metadata 分界見 [Content data boundary](content/README.md)。未註冊的早期林澄短篇已歸檔，不是新林澄線的 canon。
 
@@ -25,7 +25,7 @@ npm test                       # runtime/projection regression
 npm run preview:smoke -- --skip-build
 ```
 
-其他工具：`npm run assets:check` 做 full-decode/hash validation；`npm run assets:build` 取用 runtime objects；`npm run context -- --route <id> --node <id>` 建立局部 context；`npm run cg:packet -- --manifest <path> --check` 檢查 CG manifest；`npm run codespace:accept` 做一次性 fresh Codespace acceptance。實際命令以 `package.json` 為準。
+其他工具：`npm run assets:check` 做 full-decode/hash validation；`npm run assets:build` 取用 runtime objects；`npm run context -- --route <id> --node <id>` 建立局部 context；`npm run cg:packet -- --manifest <path> --check` 檢查 CG manifest；`npm run codespace:accept` 做一次性 fresh Codespace acceptance。完整 content request 的 parent Work session 依 [Production Orchestration Contract](.ai/PRODUCTION_ORCHESTRATION.md) 作 control-plane-only Coordinator，使用 fresh bounded workers 與 Production Run Ledger。實際命令以 `package.json` 為準。
 
 ## Source boundary
 

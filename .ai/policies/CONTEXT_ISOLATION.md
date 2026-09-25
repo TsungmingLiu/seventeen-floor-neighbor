@@ -1,10 +1,12 @@
 # Context Isolation Policy
 
-Version: 1.0.0
+Version: 1.1.0
 
 ## Core rule
 
 一個 worker 只取得完成 exactly one task 所需的最小 context。缺資料時 `BLOCKED`，不自行 browse repo 擴張來源。
+
+Parent Work session 是 `.ai/PRODUCTION_ORCHESTRATION.md` 的 control-plane-only Production Coordinator。它只保留 directive、DAG/ledger、Task Packet/Handoff 摘要、artifact ID/version、gate/status，不累積 full canon、scene prose、reference pixels、render prompts、candidate images 或 worker conversation history。Continuity lives in canonical artifacts, not worker memory。
 
 ## Layer isolation
 
@@ -42,7 +44,7 @@ Single-character entry 只帶該角色 references/facts。Multi-character entry 
 
 ## Fresh-worker rule
 
-Default 是 fresh worker/session。只有 explicit CG sequence 可共用 context，且必須 same scene、visible characters、wardrobe、environment、consecutive action、sequence ID。
+Each independent production task MUST execute in a fresh bounded worker/session。Worker 不繼承 parent 或 previous worker conversation。One independent CG Manifest Entry = one fresh renderer task。只有 manifest 明列的 linked sequence 可共用 renderer context，且必須 same scene、visible characters、wardrobe、environment、consecutive action、sequence ID 與明確 continuity benefit。
 
 ## Forbidden source roots
 
