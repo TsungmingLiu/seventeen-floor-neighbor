@@ -47,7 +47,7 @@ function collectBlockingErrors(page) {
 }
 
 async function boot(page) {
-  await page.goto('/');
+  await page.goto('/?route=xu-tang');
   await expect(page.locator('#title-screen')).toBeVisible();
   await expect(page.locator('#start-button')).toBeEnabled();
   await expect(page.locator('#start-button')).toHaveText(/開始遊戲|繼續遊戲/);
@@ -420,5 +420,51 @@ test('320px viewport has no horizontal overflow on title, Memories, and game scr
   for (const selector of ['#game-memories-button', '#game-home-button', '#mute-button']) {
     expect((await page.locator(selector).boundingBox()).height).toBeGreaterThanOrEqual(44);
   }
+  expect(errors).toEqual([]);
+});
+
+
+test('default opening-demo plays COM-00 → COM-01X → COM-01J and ends at demo boundary', async ({ page }) => {
+  const errors = collectBlockingErrors(page);
+  await page.goto('/');
+  await expect(page.locator('#title-screen')).toBeVisible();
+  await expect(page.locator('#title-main')).toHaveText('新鄰居');
+  await expect(page.locator('#start-button')).toBeEnabled();
+  await page.locator('#start-button').click();
+
+  const seen = new Set();
+  for (let step = 0; step < 120; step += 1) {
+    if (await page.locator('#ending-screen').isVisible().catch(() => false)) break;
+    await expect(page.locator('#game-shell')).toBeVisible();
+    await waitForDialogueReady(page);
+    const choiceButtons = page.locator('#choice-list .choice-button');
+    const count = await choiceButtons.count();
+    if (count > 0 && !(await page.locator('#choice-list').getAttribute('class') || '').includes('is-hidden')) {
+      await choiceButtons.nth(Math.min(1, count - 1)).click();
+    } else {
+      const state = await page.evaluate(() => JSON.parse(localStorage.getItem('opening-demo-chapter-01:journey:v2') || 'null'));
+      if (state?.cursor?.nodeId) seen.add(state.cursor.nodeId);
+      await page.locator('#advance-zone').click();
+    }
+  }
+
+  await expect(page.locator('#ending-screen')).toBeVisible({ timeout: 5000 });
+  await expect(page.locator('#ending-title')).toHaveText('第一章 Demo 完成');
+  expect(await page.evaluate(() => localStorage.getItem('opening-demo-chapter-01:completed'))).toBe('1');
+
+  await page.locator('#home-button').click();
+  await page.locator('#memories-button').click();
+  await expect(page.locator('[data-memory-id="mem.opening.ch1.movein"]')).toBeEnabled();
+  await expect(page.locator('[data-memory-id="mem.opening.ch1.elevator-restart"]')).toBeEnabled();
+  await expect(page.locator('[data-memory-id="mem.opening.ch1.acg-first-meet"]')).toBeEnabled();
+
+  await page.locator('#memories-back').click();
+  await page.locator('#gallery-button').click();
+  await expect(page.locator('#cg-grid button')).toHaveCount(8);
+  await expect(page.locator('#cg-grid button:not(:disabled)')).toHaveCount(8);
+
+  const finalJourney = await page.evaluate(() => JSON.parse(localStorage.getItem('opening-demo-chapter-01:journey:v2')));
+  expect(finalJourney.frontierMemoryEventId).toBe('mem.opening.ch1.acg-first-meet');
+  expect(finalJourney.frontierRank).toBe(140);
   expect(errors).toEqual([]);
 });
