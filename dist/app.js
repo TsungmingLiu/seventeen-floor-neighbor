@@ -1,4 +1,4 @@
-import { GameEngine } from './engine.js?v=05dbfcdbdd21';
+import { GameEngine } from './engine.js?v=a3fa985a9bee';
 
 async function fetchJson(path) {
   const response = await fetch(path, { cache: 'no-cache' });
@@ -10,7 +10,9 @@ async function bootstrap() {
   const startButton = document.querySelector('#start-button');
   try {
     const index = await fetchJson('content/routes/index.json');
-    const route = index.routes.find(candidate => candidate.id === index.defaultRoute);
+    const requestedRoute = new URLSearchParams(window.location.search).get('route');
+    const route = index.routes.find(candidate => candidate.id === requestedRoute)
+      || index.routes.find(candidate => candidate.id === index.defaultRoute);
     if (!route) throw new Error('No playable story configured');
     const base = `content/routes/${route.id}`;
     const [assetManifest, chapter, sceneLibrary, memoryLibrary] = await Promise.all([
