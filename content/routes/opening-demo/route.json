@@ -1,0 +1,77 @@
+{
+  "id": "opening-demo",
+  "label": "Opening Chapter 1 Demo",
+  "titlePrefix": "17樓的",
+  "titleMain": "新鄰居",
+  "eyebrow": "Opening Chapter 1・CG-first Demo",
+  "premise": "雨夜搬家、電梯重啟、地下街初遇：三段城市日常，兩個剛開始被記住的人。",
+  "startLabel": "開始第一章",
+  "hint": "三個選擇點只決定你回應事情的方式，不存在明顯正解。",
+  "titleAlt": "雨夜公寓走廊中的 Opening Chapter 1 demo",
+  "endingAlt": "第一章 demo 完成畫面",
+  "accent": "#d79b72",
+  "context": "content/routes/opening-demo/context.md",
+  "storyFiles": [
+    "content/routes/opening-demo/chapter-01.json"
+  ],
+  "sceneFiles": [],
+  "assetIds": [
+    "bg.opening.ch1.apt_17f_rain",
+    "cg.opening.com00.s02_door_assist",
+    "cg.opening.com00.s04_base_neutral",
+    "cg.opening.com00.s04_r01_polite_smile",
+    "bg.opening.ch1.apt_elevator",
+    "cg.opening.com01x.base_normal",
+    "cg.opening.com01x.r01_restart",
+    "cg.opening.com01x.r02_dry_smile",
+    "bg.opening.ch1.acg_shop",
+    "cg.opening.com01j.base_guarded",
+    "cg.opening.com01j.r01_interested"
+  ],
+  "story": {
+    "id": "opening-demo-chapter-01",
+    "title": "Opening Chapter 1",
+    "startNode": "common_movein_rain_open",
+    "titleArt": "cg.opening.com00.s02_door_assist",
+    "endingArt": "cg.opening.com01j.r01_interested",
+    "chapterLabels": [
+      "雨夜搬家",
+      "電梯重啟",
+      "地下街初遇"
+    ],
+    "initialState": {
+      "mc_tone_formal": 0,
+      "mc_tone_humorous": 0,
+      "mc_tone_practical": 0,
+      "mc_tone_restrained": 0,
+      "mc_tone_serious": 0,
+      "mc_tone_observant": 0,
+      "C_XT": 0,
+      "F_XT": 0,
+      "F_JYC": 0,
+      "met_xu_tang": 0,
+      "xu_knows_player_name": 0,
+      "player_knows_xu_name": 0,
+      "xu_knows_player_is_neighbor_1703": 0,
+      "player_knows_xu_is_neighbor_1702": 0,
+      "xu_shared_building_tip": 0,
+      "met_jiang_yucheng": 0,
+      "heard_station_cafe_from_jyc": 0,
+      "jyc_first_topic": 0
+    },
+    "endingRules": [
+      {
+        "ending": "demo_complete",
+        "default": true
+      }
+    ],
+    "endings": {
+      "demo_complete": {
+        "title": "第一章 Demo 完成",
+        "art": "cg.opening.com01j.r01_interested",
+        "text": "Opening Chapter 1 到此結束。\n\n你記住了隔壁鄰居許棠，也記住了地下街那個對《逆光航路》有自己判斷的陌生女孩。\n\n這是 demo 的 runtime 邊界，不是任何關係結局。"
+      }
+    }
+  },
+  "memoryFile": "content/routes/opening-demo/memories.json"
+}
