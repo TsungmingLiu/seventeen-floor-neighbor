@@ -22,16 +22,16 @@ For engineering work, the specialist may additionally use `TODO.md`, `ARCHITECTU
 New production art is **CG-first, 16:9 landscape-first, responsive full viewport**. The canonical contract is `docs/art/PRODUCTION_VISUAL_DIRECTION.md`.
 
 - New production scenes do not require sprites.
-- Existing sprite assets remain legacy/runtime regression fixtures until intentionally migrated.
+- Existing sprite assets still referenced by the runtime remain legacy/regression fixtures until intentionally migrated.
 - Ordinary motion should use tightly related CG sequences when appropriate.
 - MP4/WebM support remains; production video is reserved for special events.
 - Old 9:16/sprite/operator/pilot guidance is archived or experimental and cannot be used as production input.
 
 ## Current migration caveat
 
-W1/W2/W3/W4 foundation is complete. Preserve runnable runtime fixtures while migrating production content. Do not move/delete binary assets merely to make the repository resemble a future target.
+W1/W2/W3/W4 foundation is complete. Preserve runnable runtime fixtures while migrating production content. Check actual manifest/source-map/build references before deleting binary assets; an unreferenced local candidate is not a required runtime fixture.
 
-The old 123-node playable story and temporary sprite-heavy visual data remain engine/migration fixtures; they are not the canonical production story or art pipeline.
+The old `xu-tang` playable story and its remaining sprite-heavy visual data remain engine/migration fixtures; they are not the canonical production story or art pipeline.
 
 ## Story and asset invariants
 

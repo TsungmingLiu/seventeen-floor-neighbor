@@ -21,7 +21,7 @@
 - docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md
 - docs/art/PRODUCTION_VISUAL_DIRECTION.md
 - docs/art/CHARACTER_REFERENCE_PACK_SPEC.md
-- docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md
+- ARCHITECTURE.zh-TW.md
 - Locked voice / continuity sources: COM-00, COM-01X, COM-01J, COM-02X, COM-02J
 
 ## Scene summary

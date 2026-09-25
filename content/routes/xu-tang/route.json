@@ -12,23 +12,19 @@
   "accent": "#ff7898",
   "context": "content/routes/xu-tang/context.md",
   "storyFiles": [
-    "content/chapters/chapter-01.json",
-    "content/routes/office-ol/story.json"
+    "content/routes/xu-tang/chapter-01.json"
   ],
   "sceneFiles": [
-    "content/scenes/date-pool.json"
+    "content/routes/xu-tang/date-pool.json"
   ],
   "assetIds": [
     "bg.elevator.normal",
     "sprite.xu_tang.office.neutral",
     "sprite.xu_tang.office.playful",
-    "sprite.office_ol.office.neutral",
-    "sprite.office_ol.office.playful",
     "cg.ch01.hallway_meet",
     "cg.ch01.elevator_close",
     "cg.ch01.elevator_blush",
     "cg.ch01.phone_ending",
-    "cg.office_ol.hallway",
     "cg.ch02.cafe_morning",
     "cg.date.bookstore",
     "cg.date.riverwalk",
@@ -68,20 +64,9 @@
       "trust": 0,
       "chaos": 0,
       "comfort": 0,
-      "relationship": 0,
-      "officeRoute": 0
+      "relationship": 0
     },
     "endingRules": [
-      {
-        "ending": "office_teaser",
-        "conditions": [
-          {
-            "stat": "officeRoute",
-            "operator": ">=",
-            "value": 1
-          }
-        ]
-      },
       {
         "ending": "lover",
         "conditions": [
@@ -128,12 +113,6 @@
       }
     ],
     "endings": {
-      "office_teaser": {
-        "title": "17樓的臨時同事",
-        "mapLabel": "辦公族 OL 支線結局",
-        "art": "cg.office_ol.hallway",
-        "text": "她把差點被電梯門夾住的資料夾抱回懷裡，向你點頭道謝。\n\n辦公族 OL：謝謝。下次見。\n\n電梯門重新合上。你甚至還不知道她的名字，只記得那身黑色下裝和剛下班的腳步。"
-      },
       "lover": {
         "title": "1702，星期日早晨",
         "art": "cg.ch04.sunday_morning",

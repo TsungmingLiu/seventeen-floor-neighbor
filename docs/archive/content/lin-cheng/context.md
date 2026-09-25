@@ -1,5 +1,7 @@
 # 林澄路線 Context
 
+> ARCHIVED — NOT A PRODUCTION SOURCE OF TRUTH. 此短篇未列入 `content/routes/index.json`，也沒有完整的當前 asset manifest binding。不可作為新林澄線的 canon 或直接接入 build。
+
 第二角色線的垂直切片。玩家仍住 1703，林澄剛搬進 1704，職業是夜班聲音剪輯師。
 
 ## 角色與語氣
@@ -17,6 +19,6 @@
 
 ## 路由提示
 
-- 劇情來源：`content/routes/lin-cheng/story.json`
-- 角色設定：`content/characters/lin_cheng.json`
-- 精準修改前執行 `npm run context -- --route lin-cheng --node <node-id>`。
+- 歷史劇情來源：`docs/archive/content/lin-cheng/story.json`
+- 歷史角色資料：`docs/archive/content/lin-cheng/character.json`
+- 若未來重啟林澄線，須先在新的 narrative canon、route index、asset manifest 與驗證流程下重新審核，不能沿用本短篇當 production input。

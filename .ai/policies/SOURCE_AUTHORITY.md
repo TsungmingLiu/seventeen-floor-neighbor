@@ -31,8 +31,8 @@ Documents use exactly these lifecycle labels：
 - Active harnesses must not reference `.ai/archive/`, `.ai/experiments/`, or `docs/archive/`.
 - A provenance receipt may retain a pointer to archived material that actually produced an asset; that pointer is evidence, not executable guidance.
 - A research/migration task may read archive/experiment material only when its objective explicitly requires it. Its output still cannot silently change canon.
-- `docs/proposals/urban-dating-sim-setting-proposal.md` is archived-by-default ideation. A Task Packet may cite a precise excerpt as supporting context, but it never overrides current narrative/route/scene facts.
+- `docs/archive/proposals/urban-dating-sim-setting-proposal.md` is retired ideation. Only a bounded research/migration task may inspect it; it is not a production Task Packet source.
 
 ## 4. Runtime fixtures
 
-Existing sprite/background assets, composite rendering, legacy route packages, stable IDs, video support, and save/migration behavior remain available until intentionally migrated. Removing obsolete guidance never authorizes deleting these capabilities or assets.
+Sprite/background assets still referenced by the manifest/source map, composite rendering, registered legacy route packages, stable IDs, video support, and save/migration behavior remain available until intentionally migrated. Removing obsolete guidance does not itself authorize deleting a used capability or asset; verified unreferenced local candidates may be removed as an explicit cleanup task.

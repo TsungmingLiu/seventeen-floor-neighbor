@@ -7,8 +7,7 @@ const defaultStats = {
   trust: 0,
   chaos: 0,
   comfort: 0,
-  relationship: 0,
-  officeRoute: 0
+  relationship: 0
 };
 
 function snapshot(nodeId, stats = {}, flags = [], returnNodes = []) {
@@ -112,7 +111,7 @@ test('fresh start persists, reloads, and exposes Memories/CG without blocking er
   expect(errors).toEqual([]);
 });
 
-test('legacy v1 save migrates and office branch choice resumes through the real choice UI', async ({ page }) => {
+test('legacy v1 save migrates and a current choice resumes through the real choice UI', async ({ page }) => {
   const choice = snapshot('choice1');
   await seedStorage(page, {
     'chapter-01:journey:v1': legacyJourney(choice),
@@ -126,16 +125,16 @@ test('legacy v1 save migrates and office branch choice resumes through the real 
   await boot(page);
   await page.locator('#start-button').click();
   await expect(page.locator('#choice-list')).not.toHaveClass(/is-hidden/, { timeout: 5000 });
-  await expect(page.locator('#choice-list .choice-button')).toHaveCount(4);
-  await page.locator('#choice-list .choice-button').nth(3).click();
+  await expect(page.locator('#choice-list .choice-button')).toHaveCount(3);
+  await page.locator('#choice-list .choice-button').nth(2).click();
 
   await waitForDialogueReady(page);
-  await expect(page.locator('#dialogue-text')).toContainText(/資料夾|加完班|電梯/);
+  await expect(page.locator('#dialogue-text')).toContainText('通常這句話後面的內容');
 
   const current = await page.evaluate(() =>
     JSON.parse(localStorage.getItem('chapter-01:journey:v2')).cursor.nodeId
   );
-  expect(current).toBe('office_intro');
+  expect(current).toBe('c1c');
   expect(await page.evaluate(() => JSON.parse(localStorage.getItem('chapter-01:cgUnlocks'))))
     .toEqual(['cg.ch01.hallway_meet']);
   expect(await page.evaluate(() => JSON.parse(localStorage.getItem('chapter-01:endings'))))
@@ -231,15 +230,15 @@ test('replaying the current Memory Event does not rewind its deeper frontier nod
 });
 
 test('return to current progress reveals a frontier hidden by a Memories filter', async ({ page }) => {
-  const office = snapshot('office_intro', { officeRoute: 1 });
+  const storyStart = snapshot('intro1');
   await seedStorage(page, {
     'chapter-01:journey:v2': {
       version: 2,
-      cursor: office,
-      frontier: office,
-      frontierMemoryEventId: 'mem.side.office',
-      frontierRank: 50,
-      checkpoints: { office_intro: office, blackout: snapshot('blackout') },
+      cursor: storyStart,
+      frontier: storyStart,
+      frontierMemoryEventId: 'mem.story.start',
+      frontierRank: 0,
+      checkpoints: { intro1: storyStart, blackout: snapshot('blackout') },
       edges: []
     },
     neighborMuted: '1'
@@ -248,9 +247,9 @@ test('return to current progress reveals a frontier hidden by a Memories filter'
   await boot(page);
   await page.locator('#memories-button').click();
   await page.locator('#memory-filters button').filter({ hasText: '許棠' }).click();
-  await expect(page.locator('[data-memory-id="mem.side.office"]')).toHaveCount(0);
+  await expect(page.locator('[data-memory-id="mem.story.start"]')).toHaveCount(0);
   await page.locator('#memories-current').click();
-  await expect(page.locator('[data-memory-id="mem.side.office"]')).toHaveClass(/is-frontier/);
+  await expect(page.locator('[data-memory-id="mem.story.start"]')).toHaveClass(/is-frontier/);
   await expect(page.locator('#memory-filters button').filter({ hasText: '全部' }))
     .toHaveAttribute('aria-pressed', 'true');
 });
@@ -292,10 +291,14 @@ test('cinematic loads as a real 10-second video, can be skipped, and appears in 
   await expect(page.locator('#stage')).toHaveClass(/is-cinematic-playing/, { timeout: 8000 });
   await expect(page.locator('#scene-video source')).toHaveCount(2);
 
-  await expect.poll(async () => page.locator('#scene-video').evaluate(video => ({
-    readyState: video.readyState,
-    duration: Number.isFinite(video.duration) ? video.duration : 0
-  })), { timeout: 10000 }).toMatchObject({ readyState: expect.any(Number) });
+  await expect.poll(
+    async () => page.locator('#scene-video').evaluate(video => video.readyState),
+    { timeout: 10000 }
+  ).toBeGreaterThanOrEqual(1);
+  await expect.poll(
+    async () => page.locator('#scene-video').evaluate(video => Number.isFinite(video.duration) ? video.duration : 0),
+    { timeout: 10000 }
+  ).toBeGreaterThan(9.5);
 
   const metadata = await page.locator('#scene-video').evaluate(video => ({
     readyState: video.readyState,

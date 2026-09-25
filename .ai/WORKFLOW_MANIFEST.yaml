@@ -82,13 +82,11 @@ source_authority:
     - docs/art/CG_PRODUCTION_SPEC.md
   runtime_architecture:
     - ARCHITECTURE.zh-TW.md
-    - docs/W4_PLAYER_UI_MEMORIES_GALLERY_SPEC.md
   forbidden_source_roots:
     - .ai/archive/
     - .ai/experiments/
     - docs/archive/
   runtime_fixtures_not_production_guidance:
-    - runtime-public/sprites/
     - assets-src/characters/
     - content/routes/xu-tang/
 
