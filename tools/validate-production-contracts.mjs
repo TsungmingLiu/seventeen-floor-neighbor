@@ -181,6 +181,29 @@ function validateOrchestrationContract() {
   invariant(manifest.includes('render_task_unit: one_independent_manifest_entry_or_explicit_linked_sequence'), 'manifest lost one-entry render boundary');
   invariant(manifest.includes('default_tier: economical'), 'manifest must default delegated work to economical model tier');
   invariant(manifest.includes('allowed_tiers: [economical, capable]'), 'manifest must keep bounded economical/capable model tiers');
+  invariant(manifest.includes('coordinator_if_runtime_selectable: capable'), 'manifest must preserve capable Coordinator guidance when runtime-selectable');
+  const baselineRouting = {
+    narrative_design: 'capable',
+    scene_dialogue: 'capable',
+    cg_plan: 'capable',
+    cross_scene_continuity_review: 'capable',
+    final_high_impact_qa: 'capable',
+    narrative_review: 'economical',
+    manifest_usability_review: 'economical',
+    cg_render_orchestration: 'economical',
+    visual_review: 'economical',
+    integrate: 'economical',
+    source_extraction: 'economical',
+    character_environment_spec_extraction: 'economical',
+    deterministic_prompt_compilation: 'economical',
+    filename_manifest_inventory: 'economical',
+    schema_transformation: 'economical',
+    bounded_checklist_validation: 'economical',
+    runtime_wiring: 'economical'
+  };
+  for (const [workload, tier] of Object.entries(baselineRouting)) {
+    invariant(manifest.includes(`${workload}: ${tier}`), `manifest baseline routing missing ${workload}: ${tier}`);
+  }
   invariant(manifest.includes('coordinator_corrective_redispatch_limit: 1'), 'manifest must bound same-tier corrective redispatch to one attempt');
   invariant(manifest.includes('renderer_automatic_retry: false'), 'model routing must not authorize automatic renderer retry');
   for (const [name, value] of [['bootstrap', bootstrap], ['context isolation', isolation], ['orchestration', contract]]) {
@@ -189,6 +212,9 @@ function validateOrchestrationContract() {
   invariant(contract.includes('Continuity lives in canonical artifacts, not worker memory.'), 'orchestration lost artifact continuity principle');
   invariant(contract.includes('MUST NOT directly generate CG candidates'), 'orchestration lost parent renderer prohibition');
   invariant(contract.includes('Default is `economical`.'), 'orchestration lost economical-first model routing');
+  invariant(contract.includes('### Baseline workload routing'), 'orchestration lost baseline workload routing matrix');
+  invariant(contract.includes('Production Coordinator / DAG decomposition') && contract.includes('Deterministic render-prompt compilation'), 'orchestration baseline matrix lost key strong/economical workload examples');
+  invariant(contract.includes('真正 image-generation capability 不由此 tier 指定'), 'orchestration must distinguish render orchestration tier from image-generation capability');
   invariant(contract.includes('validation_escalation') && contract.includes('最多可對同一 objective 建立一次'), 'orchestration lost bounded escalation policy');
   invariant(contract.includes('no automatic retry / no automatic image scoring'), 'orchestration model routing must preserve renderer retry prohibition');
   invariant(contract.includes('READY_FOR_HUMAN_ACCEPTANCE') && contract.includes('preview:smoke'), 'orchestration lost playable definition of done');
