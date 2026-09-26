@@ -17,7 +17,7 @@
 | Character metadata | `content/characters/` | 已登記角色的設計／依賴資料 |
 | Production values | `content/production/` | Narrative Continuity Contract、Canonical CG Manifest |
 | Asset metadata | `content/assets/manifest.json`、`source-map.json`、`source-catalog.json`、`content/recipes/assets.json` | logical ID、runtime provider、master provenance、recipe/dependency |
-| Binary source | `assets-src/`、Google Drive accepted masters/runtime objects | local legacy preservation 與 remote accepted assets |
+| Binary source | `assets-src/` | repo-backed source references and accepted runtime objects |
 | Build / QA | `tools/`、`tests/`、`.github/workflows/` | asset check/build、content validation、preview、acceptance |
 | Output | `dist/`、`generated/` | 可重建，不能當 source of truth |
 
@@ -52,7 +52,7 @@
 
 ## 4. Asset storage 與 build
 
-`content/assets/manifest.json` 讓 story 只引用 logical ID。`source-map.json` 將每個 runtime path 映射到 Git 追蹤的 `assets-src/` 檔案；新入庫檔案另記錄 bytes 與 SHA-256。`content/recipes/assets.json` 記錄依賴與重建資訊。已驗收的 WebP 保留原位元組，已驗收的 PNG/JPG 透過 `tools/asset-ingest.mjs` 以固定參數轉檔，更新既有 manifest、source map 及 receipt；build 只複製 repo 內檔案。現有 `source-catalog.json` 仍記載歷史 Drive master/reference metadata，CG 生成 reference transport 的轉換屬後續 production workflow gate；它不參與 runtime build。
+`content/assets/manifest.json` 讓 story 只引用 logical ID。`source-map.json` 將每個 runtime path 映射到 Git 追蹤的 `assets-src/` 檔案；新入庫檔案另記錄 bytes 與 SHA-256。`content/recipes/assets.json` 記錄依賴與重建資訊。已驗收的 WebP 保留原位元組，已驗收的 PNG/JPG 透過 `tools/asset-ingest.mjs` 以固定參數轉檔，更新既有 manifest、source map 及 receipt；build 只複製 repo 內檔案。`source-catalog.json` 以 source ID 對應的 repository-relative `sourcePath` 綁定 generation references 與 accepted masters，供 renderer adapter 解析；catalog 不參與 runtime build。Generation reference PNG/JPEG 保持原格式，runtime accepted CG/background objects 使用 WebP。
 
 `npm run assets:check` 驗證本地 runtime 來源、已釘選的 bytes/hash、尺寸/比例與媒體 full decode；catalog 中尚未遷移的私有 master 是歷史 metadata attestation，這一步不會重新下載或解碼它們。`npm run assets:build` 只複製 repo 檔案到 generated output；`npm run build` clean rebuild `dist/`，包含 UI、JS、route packages 與 runtime assets。缺少 runtime object 時應阻擋 build，不得用舊 sprite 或暫存圖悄悄替代。`dist/`、`generated/` 可丟棄。
 
@@ -60,7 +60,7 @@
 
 ## 5. Content production 與 runtime integration
 
-Narrative Design → Scene/Dialogue → Visual Production 的規則在 `docs/narrative/CONTENT_PRODUCTION_SPEC.md`。Approved narrative values 位於 `content/production/narrative/`，render-ready CG values 位於 `content/production/cg-manifests/`。Planner 將 locked scene 的 visual beat 轉為 Canonical CG Manifest；`tools/render-cg-packets.mjs` 依固定欄位順序投影同一份 render prompt；Chat manual / Work batch / API 只改 reference acquisition 和 transport envelope。
+Narrative Design → Scene/Dialogue → Visual Production 的規則在 `docs/narrative/CONTENT_PRODUCTION_SPEC.md`。Approved narrative values 位於 `content/production/narrative/`，render-ready CG values 位於 `content/production/cg-manifests/`。Planner 將 locked scene 的 visual beat 轉為 Canonical CG Manifest；`tools/render-cg-packets.mjs` 依固定欄位順序投影同一份 render prompt；execution adapters 只改 repository-file reference acquisition 和 transport envelope。
 
 Renderer 只讀一個 CG entry、其 packet、declared references；Visual QA 後才選 Accepted Asset。Integrator 把 accepted outputs 接入 route asset allowlist、manifest、recipe、Memory Events、節點與 ingest receipt；不能改 narrative beat 以方便生圖。`npm run production:validate` 會查 Opening Chapter 1 contracts、scene/asset bindings 與 source boundary。
 

@@ -16,12 +16,12 @@ harness:
 
 inputs_used:
   - source: exact source identifier
-    version: git_blob_sha | drive_file_id | other immutable version when available
+    version: git_blob_sha | sha256 | other immutable version when available
 
 attachments_used:
   - role: primary_face_identity
     observed_filename: ...
-    canonical_source: drive_file_id | asset_id | other
+    canonical_source: repo_path | asset_id | other
     pixels_verified: true | false
 
 outputs:
@@ -61,10 +61,10 @@ human_gate_required: none | major_story_direction | canonical_character_design |
 - `run_id`/`task_id`/input versions MUST match the dispatched Task Packet. `invalidates` lists affected artifact IDs, not a request for automatic rerun. Coordinator verifies output versions and routes the next task; `next_recommended_stage` is advisory, not authority.
 - `known_issues` stays concise；`qa` contains check outcomes and failure reason. Handoff 不包含 full creative prose、image pixels、render prompt 或 worker conversation history。
 - For GitHub files, include the blob SHA when available.
-- For Google Drive references, include the exact Drive file ID.
+- For repository image references, include the exact repository path and immutable SHA-256.
 - If immutable/version identity is unavailable, say so explicitly instead of omitting provenance.
-- For image tasks, report only reference pixels actually passed to generation and their assigned roles; note whether each was Human-attached or fetched through a connected source.
-- Do not claim a Drive image was used for generation merely because its canonical Drive ID is known; distinguish canonical source provenance from the runtime image input.
+- For image tasks, report only reference pixels actually passed to generation and their assigned roles, with the repository binding used.
+- Distinguish canonical source provenance from the image pixels actually supplied to generation.
 - Never claim a file/upload/commit occurred unless it occurred.
 - Do not smuggle new creative decisions into `known_issues`.
 - If a worker detects a canon conflict, stop and return BLOCKED with both conflicting sources.

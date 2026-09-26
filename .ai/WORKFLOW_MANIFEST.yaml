@@ -7,16 +7,11 @@ workflow:
     full_name: TsungmingLiu/seventeen-floor-neighbor
     url: https://github.com/TsungmingLiu/seventeen-floor-neighbor
     canonical_branch: main
-  drive_bindings:
-    runtime_public_root:
-      folder_id: 1bZAb9Fzj-xzFvklYCDNG60SJLuA-28Xn
-      url: https://drive.google.com/drive/folders/1bZAb9Fzj-xzFvklYCDNG60SJLuA-28Xn
-    runtime_public_bg:
-      folder_id: 1GfEhIO-roX_4BWfAB0_wp3_zMDXmoES9
-      url: https://drive.google.com/drive/folders/1GfEhIO-roX_4BWfAB0_wp3_zMDXmoES9
-    source_private:
-      folder_id: 1waCTQsIbfyZi0F80LlnWeerPcoNlPnw1
-      url: https://drive.google.com/drive/folders/1waCTQsIbfyZi0F80LlnWeerPcoNlPnw1
+  reference_resolution:
+    provider: repo_file
+    catalog: content/assets/source-catalog.json
+    rule: Resolve source IDs only through source_catalog.files[sourceId].sourcePath; verify exact role, filename, MIME, SHA-256, and visible pixels before generation.
+    missing_reference: BLOCKED
 
 principles:
   - one_canonical_content_pipeline

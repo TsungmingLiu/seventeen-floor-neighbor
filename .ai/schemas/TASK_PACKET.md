@@ -34,7 +34,7 @@ required_acquisition:
   images:
     - role: primary_face_identity
       expected_filename: exact-file.png
-      canonical_source: exact asset/Drive identity
+      canonical_source: exact repository path or asset identity
       pixels_must_be_visible: true
 
 allowed_sources:
@@ -89,7 +89,7 @@ human_gate: none | major_story_direction | canonical_character_design | accepted
 - `allowed_sources` 是完整 allowlist；worker 不可自行加來源。
 - Production Task Packet 不得 allowlist archive/experiment。
 - Markdown acquisition 要有 exact repo/ref/path + non-empty contents + blob SHA when available。
-- Image acquisition 要有 exact role/identity + visible pixels；metadata-only 不成立。
+- Image acquisition 要有 exact role/filename/MIME/repository path/SHA-256 + visible pixels；metadata-only 不成立。
 - `cg_renderer` packet 必須只指定 one independent manifest entry、its deterministic packet and references；只有 manifest 明列並符合 sequence 條件的 linked sequence 可作一個 bounded task。
-- Base CG 使用 `references_required`；Reaction CG 優先 `edit_from_accepted_base`。Reference acquisition 由所選 execution adapter 負責。
+- Base CG 使用 `references_required`；Reaction CG 優先 `edit_from_accepted_base`。Reference acquisition 由所選 execution adapter 從 repository-relative catalog binding 負責。
 - 第二個獨立 objective 必須拆成另一個 Task Packet。

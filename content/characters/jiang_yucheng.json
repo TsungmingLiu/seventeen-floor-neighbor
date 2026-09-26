@@ -12,17 +12,12 @@
     {
       "role": "primary_identity",
       "name": "jyc-ref-01-face.png",
-      "driveId": "13AI1sD0iUm6NpMBnVtlK8Zl5PN0UPsMQ"
-    },
-    {
-      "role": "production_consistency",
-      "name": "jyc-ref-04-production.png",
-      "driveId": "10EH0fmMV0UzFED2-tnf62TYOJexJQK4_"
+      "sourceId": "ref.jiang_yucheng.face.01"
     },
     {
       "role": "wardrobe_a",
       "name": "jyc-ref-05-wardrobe-a.png",
-      "driveId": "1FqxmDU0BqzAb6AFmZfebcx6NUaKCUw-A"
+      "sourceId": "ref.jiang_yucheng.wardrobe.a"
     }
   ],
   "outfits": {
