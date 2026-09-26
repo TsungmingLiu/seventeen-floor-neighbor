@@ -44,6 +44,28 @@ async function loadRoute(entry, manifest) {
   };
 }
 
+function reachableNodes(route, start) {
+  const nodes = route.chapter.nodes || {};
+  const pools = route.sceneLibrary.pools || {};
+  const seen = new Set();
+  const pending = [start];
+  while (pending.length) {
+    const id = pending.pop();
+    if (!id || seen.has(id) || !nodes[id]) continue;
+    seen.add(id);
+    const node = nodes[id];
+    pending.push(
+      node.next,
+      ...(node.choices || []).map((choice) => choice.next),
+      node.default,
+      ...(node.cases || []).map((branch) => branch.next),
+      node.after,
+      ...((node.type === 'random' ? pools[node.pool]?.entries : []) || []).map((entry) => entry.entryNode)
+    );
+  }
+  return seen;
+}
+
 export async function loadContent() {
   const characterFiles = (await readdir(path.join(projectRoot, 'content/characters')))
     .filter((name) => name.endsWith('.json'));
@@ -98,8 +120,13 @@ function validateMemoryRoute(route, fail) {
     if (!sectionIds.has(event.sectionId)) fail(`route ${config.id} memory ${event.id}: unknown section ${event.sectionId}`);
     if (!Number.isFinite(event.order) || !Number.isFinite(event.progressRank)) fail(`route ${config.id} memory ${event.id}: numeric order/progressRank required`);
     if (!chapter.nodes[event.replayNode]) fail(`route ${config.id} memory ${event.id}: unknown replayNode ${event.replayNode}`);
-    for (const nodeId of event.unlockNodes || []) {
+    if (!Array.isArray(event.unlockNodes) || !event.unlockNodes.includes(event.replayNode)) {
+      fail(`route ${config.id} memory ${event.id}: unlockNodes must include its replayNode`);
+    }
+    const fromReplay = reachableNodes(route, event.replayNode);
+    for (const nodeId of Array.isArray(event.unlockNodes) ? event.unlockNodes : []) {
       if (!chapter.nodes[nodeId]) fail(`route ${config.id} memory ${event.id}: unknown unlockNode ${nodeId}`);
+      else if (!fromReplay.has(nodeId)) fail(`route ${config.id} memory ${event.id}: unlockNode ${nodeId} is not reachable from replayNode ${event.replayNode}`);
     }
     if (event.replayNode === chapter.startNode) hasStart = true;
     if (!event.title || !event.summary) fail(`route ${config.id} memory ${event.id}: title and summary required`);
@@ -164,6 +191,9 @@ function validateStoryRoute(route, fail) {
     fail(`route ${config.id}: allowPreviewArt must be boolean`);
   }
   if (!nodes[chapter.startNode]) fail(`route ${config.id}: unknown start node ${chapter.startNode}`);
+  for (const [stat, value] of Object.entries(chapter.initialState || {})) {
+    if (!Number.isFinite(value)) fail(`route ${config.id}: initialState ${stat} must be a finite number`);
+  }
   requireChapterArt(chapter.titleArt, 'titleArt');
   requireChapterArt(chapter.endingArt, 'endingArt');
   Object.entries(chapter.endings || {}).forEach(([id, ending]) => {
@@ -186,6 +216,10 @@ function validateStoryRoute(route, fail) {
     if (node.next && !nodes[node.next]) fail(`route ${config.id} node ${id}: unknown next node ${node.next}`);
     for (const choice of node.choices || []) {
       if (!nodes[choice.next]) fail(`route ${config.id} node ${id}: choice points to unknown node ${choice.next}`);
+      for (const [stat, amount] of Object.entries(choice.effects || {})) {
+        if (!(stat in (chapter.initialState || {}))) fail(`route ${config.id} node ${id}: choice writes undeclared stat ${stat}`);
+        if (!Number.isFinite(amount)) fail(`route ${config.id} node ${id}: choice effect ${stat} must be a finite number`);
+      }
     }
     if (node.type === 'branch') {
       if (!nodes[node.default]) fail(`route ${config.id} node ${id}: unknown default branch ${node.default}`);
@@ -194,6 +228,7 @@ function validateStoryRoute(route, fail) {
         for (const condition of branch.conditions || []) {
           if (!(condition.stat in (chapter.initialState || {}))) fail(`route ${config.id} node ${id}: unknown stat ${condition.stat}`);
           if (!['>=', '>', '<=', '<', '=='].includes(condition.operator)) fail(`route ${config.id} node ${id}: unsupported operator ${condition.operator}`);
+          if (!Number.isFinite(condition.value)) fail(`route ${config.id} node ${id}: condition ${condition.stat} must compare a finite number`);
         }
       }
       continue;
@@ -235,28 +270,18 @@ function validateStoryRoute(route, fail) {
     }
   }
 
-  const reachable = new Set();
-  const pending = [chapter.startNode];
-  while (pending.length) {
-    const id = pending.pop();
-    if (!id || reachable.has(id) || !nodes[id]) continue;
-    reachable.add(id);
-    const node = nodes[id];
-    pending.push(
-      node.next,
-      ...(node.choices || []).map((choice) => choice.next),
-      node.default,
-      ...(node.cases || []).map((branch) => branch.next),
-      node.after,
-      ...((node.type === 'random' ? scenePools[node.pool]?.entries : []) || []).map((entry) => entry.entryNode)
-    );
-  }
+  const reachable = reachableNodes(route, chapter.startNode);
   for (const id of Object.keys(nodes)) if (!reachable.has(id)) fail(`route ${config.id} node ${id}: unreachable`);
+  if (![...reachable].some((id) => nodes[id].type === 'route')) fail(`route ${config.id}: no reachable route terminal`);
+  if (!Array.isArray(chapter.endingRules) || !chapter.endingRules.some((rule) => rule.default === true)) {
+    fail(`route ${config.id}: endingRules require a default ending`);
+  }
   for (const rule of chapter.endingRules || []) {
     if (!chapter.endings?.[rule.ending]) fail(`route ${config.id} ending rule: unknown ending ${rule.ending}`);
     for (const condition of rule.conditions || []) {
       if (!(condition.stat in (chapter.initialState || {}))) fail(`route ${config.id} ending rule: unknown stat ${condition.stat}`);
       if (!['>=', '>', '<=', '<', '=='].includes(condition.operator)) fail(`route ${config.id} ending rule: unsupported operator ${condition.operator}`);
+      if (!Number.isFinite(condition.value)) fail(`route ${config.id} ending rule: condition ${condition.stat} must compare a finite number`);
     }
   }
 }

@@ -93,7 +93,7 @@ human_gate: none | major_story_direction | canonical_character_design | accepted
 - `allowed_sources` 是完整 allowlist；worker 不可自行加來源。
 - Production Task Packet 不得 allowlist archive/experiment。
 - Markdown acquisition 要有 exact repo/ref/path + non-empty contents + blob SHA when available。
-- `narrative_review` 的既有 scene 可由 `npm run context -- --task narrative_review --scene <id> --run-id <id> --task-id <id>` 產生 JSON Task Packet。明列 scene、contract 與該 scene 的 narrative canon 範圍及 Git blob/excerpt hashes；`--verify-packet <path>` 在派工前 fail closed。來源從 Locked Scene / Narrative Contract 的既有 binding 解析，不另建 registry。這僅準備獨立 QA task，不偽造上游 PASS 或 Human approval；後續任務仍須 Ledger 與 gate 審核。
+- `narrative_review` 的既有 scene 可由 `npm run context -- --task narrative_review --scene <id> --run-id <id> --task-id <id>` 產生 JSON Task Packet。明列 scene、contract 與該 scene 的 narrative canon 範圍及 Git blob/excerpt hashes；`--verify-packet <path>` 在派工前 fail closed，並執行既有 runtime/content 與 production machine validators。來源從 Locked Scene / Narrative Contract 的既有 binding 解析，不另建 registry。這僅準備獨立 QA task，不偽造上游 PASS 或 Human approval；後續任務仍須 Ledger 與 gate 審核。
 - Image acquisition 要有 exact role/filename/MIME/repository path/SHA-256 + visible pixels；metadata-only 不成立。
 - `cg_renderer` packet 必須只指定 one independent manifest entry、its deterministic packet and references；只有 manifest 明列並符合 sequence 條件的 linked sequence 可作一個 bounded task。
 - Base CG 使用 `references_required`；Reaction CG 優先 `edit_from_accepted_base`。Reference acquisition 由所選 execution adapter 從 repository-relative catalog binding 負責。

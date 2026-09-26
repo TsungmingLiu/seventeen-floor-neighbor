@@ -33,9 +33,15 @@ if (argument('task') || argument('verify-packet')) {
     if (argument('verify-packet')) {
       const packet = JSON.parse(await readFile(path.resolve(argument('verify-packet')), 'utf8'));
       await verifyNarrativeReviewPacket(packet);
-      console.log(`PASS: ${packet.task_id} sources, bindings and hashes match the committed canon`);
+      await loadAndValidate();
+      const { validateProductionContracts } = await import('./validate-production-contracts.mjs');
+      validateProductionContracts();
+      console.log(`PASS: ${packet.task_id} sources, bindings and machine QA match committed canon and current content`);
     } else {
       if (argument('task') !== 'narrative_review') throw new Error('Only narrative_review Task Packet generation is supported');
+      await loadAndValidate();
+      const { validateProductionContracts } = await import('./validate-production-contracts.mjs');
+      validateProductionContracts();
       const packet = await buildNarrativeReviewPacket({
         sceneId: argument('scene'), runId: argument('run-id'), taskId: argument('task-id')
       });

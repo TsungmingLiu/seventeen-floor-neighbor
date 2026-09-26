@@ -42,6 +42,47 @@ test('character-bearing CGs still require dependencies and headPose', async () =
   assert.ok((await validateContent(missingHeadPose)).some((error) => error.includes('recipe.cg.opening.com01b.02: CG prompt requires an explicit headPose')));
 });
 
+test('Opening choice effects must use finite amounts for declared state keys', async () => {
+  const base = await loadContent();
+  const undeclaredState = clone(base);
+  undeclaredState.routes.find((item) => item.config.id === 'opening-demo')
+    .chapter.nodes.common_movein_rain_choice.choices[0].effects.undeclared_flag = 1;
+  assert.ok((await validateContent(undeclaredState)).some((error) => error.includes('choice writes undeclared stat undeclared_flag')));
+
+  const nonfiniteAmount = clone(base);
+  nonfiniteAmount.routes.find((item) => item.config.id === 'opening-demo')
+    .chapter.nodes.common_movein_rain_choice.choices[0].effects.C_XT = Number.NaN;
+  assert.ok((await validateContent(nonfiniteAmount)).some((error) => error.includes('choice effect C_XT must be a finite number')));
+});
+
+test('Opening memory unlock nodes must follow and include their replay anchor', async () => {
+  const base = await loadContent();
+  const earlierNode = clone(base);
+  const elevator = earlierNode.routes.find((item) => item.config.id === 'opening-demo')
+    .memoryLibrary.events.find((event) => event.id === 'mem.opening.ch1.elevator-restart');
+  elevator.unlockNodes.unshift('common_movein_rain_door');
+  assert.ok((await validateContent(earlierNode)).some((error) => error.includes('unlockNode common_movein_rain_door is not reachable from replayNode common_elevator_restart_enter')));
+
+  const missingAnchor = clone(base);
+  const missingReplay = missingAnchor.routes.find((item) => item.config.id === 'opening-demo')
+    .memoryLibrary.events.find((event) => event.id === 'mem.opening.ch1.movein');
+  missingReplay.unlockNodes = missingReplay.unlockNodes.filter((nodeId) => nodeId !== missingReplay.replayNode);
+  assert.ok((await validateContent(missingAnchor)).some((error) => error.includes('unlockNodes must include its replayNode')));
+});
+
+test('Opening route must retain a terminal node and reject a reachable cycle in its place', async () => {
+  const content = await loadContent();
+  const route = content.routes.find((item) => item.config.id === 'opening-demo');
+  route.chapter.nodes.opening_demo_complete = {
+    speaker: '旁白',
+    text: 'cycle fixture',
+    chapter: 2,
+    visual: { mode: 'cg', asset: 'cg.opening.com01j.r01_interested' },
+    next: 'opening_demo_complete'
+  };
+  assert.ok((await validateContent(content)).some((error) => error.includes('no reachable route terminal')));
+});
+
 test('all COM-01B questions rejoin after goodnight and reach the existing COM-01J opening', async () => {
   const content = await loadContent();
   const route = content.routes.find((item) => item.config.id === 'opening-demo');

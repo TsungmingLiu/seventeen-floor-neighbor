@@ -18,6 +18,7 @@ Updated: 2026-09-26
 - Adapters 由 source catalog source ID 對應的 `sourcePath` 讀取 generation references；使用同一 Canonical CG Manifest 與 deterministic shared prompt，generation 前均須檢查實際像素、role、filename、MIME 與 SHA-256。
 - 劇情先行預覽可使用 repo 內共用的 `bg.narrative_preview.placeholder` WebP 作 composite 背景；它是 `previewOnly` 功能性佔位圖，沒有任何 current scene 綁定，不是 accepted CG，也不進 Gallery。實際接入時需由 chapter 明示 `allowPreviewArt` 並列入 route `assetIds`；正式視覺驗收執行 `npm run validate:final`。目前尚未新增依賴此圖的劇情 scene。
 - Issue #16 context gate：`npm run context -- --task narrative_review --scene COM-00 --run-id <id> --task-id <id>` 可由已鎖定 scene 與 contract 生成 hash-bound Task Packet 至 gitignored session cache，`--verify-packet` 核對 Git blob、節錄、路徑與 binding；實際審查和上游 gate 未因此自動 PASS。基準、實測與範圍見 `docs/migration/ISSUE16_CONTEXT_GATE.md`。
+- Issue #16 machine QA gate：同一 `narrative_review` Task Packet 在生成和 dispatch verification 時執行現有 runtime/content、production validators，結構、state、Memory、terminal 和每筆 CG entry 的 scene binding 有錯便 `BLOCKED`；Human／semantic QA 仍須獨立完成。錯誤注入和範圍見 `docs/migration/ISSUE16_MACHINE_QA_GATE.md`。
 
 ## 現行工作入口
 

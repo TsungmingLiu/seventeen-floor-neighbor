@@ -77,7 +77,7 @@ Coordinator loop：
 
 1. Bootstrap 只讀 routing/policy/source map 與現有 run record；若 workflow authority conflict，`BLOCKED`，不搜尋 archive。
 2. 建 DAG。為第一個 `READY` task 寫 exact Task Packet；後續 packet 在 dependencies `PASS` 且 immutable input versions 已知後才完成並派送。已 Locked 的 scene 需要獨立 `narrative_review` 時，使用現有 `npm run context -- --task narrative_review --scene <id> --run-id <id> --task-id <id>` 產生 gitignored session-cache packet，派工前 `--verify-packet <path>`；此工具只核對確定性的來源/版本/binding，不聲稱上游 QA/Human gate 已 PASS。其他 task 仍按 Task Packet schema 準備，直到另有驗證過的 generator。
-3. 派給 fresh worker；記 `RUNNING`。只有所有 required acquisition verified 才執行。收到 `.ai/schemas/HANDOFF.md` 後核對 `run_id`、`task_id`、harness/pass、input versions、outputs 與 QA；不完整者 `BLOCKED`。
+3. 派給 fresh worker；記 `RUNNING`。只有所有 required acquisition verified 才執行。對 `narrative_review` generated packet，`npm run context -- --verify-packet <path>` 是派工前必需的 machine preflight：執行既有 content/runtime、production validators，檢查 scene/manifest/asset/Memory 結構及 immutable input；FAIL 即 `BLOCKED`，不交給 semantic worker。收到 `.ai/schemas/HANDOFF.md` 後核對 `run_id`、`task_id`、harness/pass、input versions、outputs 與 QA；不完整者 `BLOCKED`。
 4. 記錄結果、artifact identity/version、Human gate。重新計算 runnable tasks；不得由 worker 自動 retry。Coordinator 若依 §2.1 建 corrective redispatch / escalation，必須建立新的 Task Packet attempt 並記 routing reason。
 5. Narrative-only preview 只記 `NARRATIVE_PREVIEW_READY` 與 Human 劇情審閱結果；完成 final integration/preview 後才記 `READY_FOR_HUMAN_ACCEPTANCE`；Human final acceptance 才記 `ACCEPTED`。
 

@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import {
   adaptApi,
@@ -364,17 +365,22 @@ function validateManifestRepositoryReferences(manifest, catalog, context) {
   }
 }
 
-function validateOpeningMigration(contracts, manifest, catalog, gate3Receipt) {
-  const contractSceneIds = new Set(contracts.map((contract) => contract.scene_id));
-  invariant(manifest.source_scene_ids.every((sceneId) => contractSceneIds.has(sceneId)), 'CG manifest scene has no Narrative Continuity Contract');
-
+export function validateManifestSceneBindings(manifest, manifestPath, contracts, { requireSceneBacklink = false } = {}) {
+  const byScene = new Map(contracts.map((contract) => [contract.scene_id, contract]));
   for (const sceneId of manifest.source_scene_ids) {
-    const sourceScene = manifest.entries.find((entry) => entry.scene_id === sceneId)?.source_scene;
-    invariant(sourceScene, `manifest has no entry for ${sceneId}`);
-    const sceneText = readText(sourceScene);
-    invariant(sceneText.includes(OPENING_MANIFEST), `${sourceScene} does not bind ${OPENING_MANIFEST}`);
+    invariant(byScene.has(sceneId), `${manifestPath}: scene ${sceneId} has no Narrative Continuity Contract`);
+    invariant(manifest.entries.some((entry) => entry.scene_id === sceneId), `${manifestPath}: no entry for ${sceneId}`);
   }
+  for (const entry of manifest.entries) {
+    const expectedScene = byScene.get(entry.scene_id)?.source_scene;
+    invariant(entry.source_scene === expectedScene, `${manifestPath} entry ${entry.entry_id}: source_scene does not match ${entry.scene_id} Narrative Continuity Contract`);
+    if (requireSceneBacklink) {
+      invariant(readText(expectedScene).includes(manifestPath), `${expectedScene} does not bind ${manifestPath}`);
+    }
+  }
+}
 
+function validateOpeningMigration(manifest, catalog, gate3Receipt) {
   const receipt = readJson(OPENING_RECEIPT);
   const receiptCgs = receipt.inventory.filter((item) => item.kind === 'cg');
   const receiptCanonicalIds = new Set(receiptCgs.map((item) => item.canonicalAssetId));
@@ -419,7 +425,7 @@ function validateOpeningMigration(contracts, manifest, catalog, gate3Receipt) {
   invariant(workBatch.shared_prompt_sha256 === apiJob.provenance.shared_prompt_sha256, 'adapter prompt hashes differ');
 }
 
-function main() {
+export function validateProductionContracts() {
   validateActiveWorkflowBoundary();
   validateOrchestrationContract();
   const narrativeFiles = listJsonFiles(NARRATIVE_ROOT);
@@ -429,14 +435,19 @@ function main() {
   const com01bManifest = validateManifest(readJson(COM01B_MANIFEST));
   const catalog = readJson(SOURCE_CATALOG);
   const gate3Receipt = validateGate3RepositorySources(catalog);
+  validateManifestSceneBindings(manifest, OPENING_MANIFEST, contracts, { requireSceneBacklink: true });
+  validateManifestSceneBindings(com01bManifest, COM01B_MANIFEST, contracts);
   validateManifestRepositoryReferences(com01bManifest, catalog, 'COM01B manifest');
-  validateOpeningMigration(contracts, manifest, catalog, gate3Receipt);
-  process.stdout.write(`Validated ${contracts.length} Narrative Continuity Contracts and ${manifest.entries.length} Opening Chapter 1 CG Manifest Entries.\n`);
+  validateOpeningMigration(manifest, catalog, gate3Receipt);
+  return { narrativeContracts: contracts.length, cgEntries: manifest.entries.length };
 }
 
-try {
-  main();
-} catch (error) {
-  process.stderr.write(`${error.message}\n`);
-  process.exitCode = 1;
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  try {
+    const { narrativeContracts, cgEntries } = validateProductionContracts();
+    process.stdout.write(`Validated ${narrativeContracts} Narrative Continuity Contracts and ${cgEntries} Opening Chapter 1 CG Manifest Entries.\n`);
+  } catch (error) {
+    process.stderr.write(`${error.message}\n`);
+    process.exitCode = 1;
+  }
 }

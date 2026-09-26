@@ -12,6 +12,8 @@ Version: 1.0.0
 
 Inputs：one Narrative Continuity Contract、one scene、only the canon excerpts used to author them。
 
+Pre-dispatch：對 generated `narrative_review` Task Packet 先跑 `npm run context -- --verify-packet <path>`；runtime graph、state writes、Memory、asset IDs、contract／CG manifest bindings 和 source hashes 由 machine QA 阻擋，FAIL 不進此 semantic pass。Worker 專注以下敘事判斷，不以機器 PASS 代替 QA。
+
 Checks：
 
 - scene function / entry / exit / required payoff 完成；
