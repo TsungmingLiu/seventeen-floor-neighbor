@@ -8,6 +8,7 @@ generated/runtime-assets/
 generated/render-packets/
 generated/asset-check-cache/
 generated/session-cache/
+generated/reviews/
 
 # OS/editor noise
 .DS_Store

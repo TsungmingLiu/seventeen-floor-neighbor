@@ -81,6 +81,8 @@ Coordinator loop：
 4. 記錄結果、artifact identity/version、Human gate。重新計算 runnable tasks；不得由 worker 自動 retry。Coordinator 若依 §2.1 建 corrective redispatch / escalation，必須建立新的 Task Packet attempt 並記 routing reason。
 5. Narrative-only preview 只記 `NARRATIVE_PREVIEW_READY` 與 Human 劇情審閱結果；完成 final integration/preview 後才記 `READY_FOR_HUMAN_ACCEPTANCE`；Human final acceptance 才記 `ACCEPTED`。
 
+Human 檢視既有 scene 時，可執行 `npm run production:review -- --scene <id>` 重建 gitignored 的 `generated/reviews/<id>/index.html`。這是唯讀的來源/CG/Memory/route/hashes 彙整，不是另一個 ledger、authoring UI 或 approval gate。頁面所示的 validator PASS、manifest `accepted` 與 repo WebP bytes 不等於獨立 Narrative/Visual QA 或 Human 決定；沒有可核對的持久化 Handoff/ledger 時，該等 status 必須顯示 `UNRECORDED`，stale 顯示 `UNKNOWN_NO_RUN_LEDGER`，不可推斷整個 scene 已 ready。具體 baseline 和邊界見 `docs/migration/ISSUE16_REVIEW_BUNDLE_GATE.md`。
+
 跨 Work session 恢復時，fresh Coordinator 只讀 ledger、Task Packets、Handoffs 和 canonical artifact versions。核對每個 `PASS` 的 output identity 是否仍存在、其 input identity 是否仍匹配；重新標記 `STALE`/`READY`/`BLOCKED`，先處理任何 orphan `RUNNING` task（以 Handoff/evidence 確認完成或退回 `READY`），再派下一個 runnable task。不可依賴前一 parent chat memory。若平台無法真正建立 fresh bounded worker 或持久化必要 artifact，記 `BLOCKED: worker_isolation_unavailable`，不可改由 parent 直接做 creative stage。
 
 ## 4. Provenance and invalidation
