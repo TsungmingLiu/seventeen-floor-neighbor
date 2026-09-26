@@ -33,11 +33,18 @@ The committed WebP is an inert preservation copy at this gate: the active source
 | `npm run preview:smoke -- --skip-build` | PASS |
 | Fresh checkout, Drive requests blocked, `npm run assets:build` | Expected **FAIL**, 18 blocking Drive sources (53/71 other media checks passed); proves current build is not offline. The one committed WebP does not mask this failure. |
 | Fresh checkout binary SHA-256, blob SHA and complete decode | PASS |
-| Actual browser story/network/console run | Not completed: Work Cloud Browser blocked the local preview URL with `ERR_BLOCKED_BY_CLIENT`. Source-level browser tests were reviewed; preview smoke is not a substitute for Chromium acceptance. |
-| Cloudflare Pages project settings/deployed output | Not accessible from this repo; `dist/` build output was observed locally, but real Pages limits and cache behavior remain unverified. |
+| Static output | `npm run build` emitted `dist/`; route asset bindings and built file existence still need to be rechecked after source-map cutover. |
 
-Commands ran in Work Cloud with Node 24.19 and FFmpeg 6.1.1; repository CI declares Node 22. The new branch should run its normal CI before integration. The expected offline failure, real browser test and deployed Pages check remain acceptance gates for the eventual provider cutover.
+Commands ran in Work Cloud with Node 24.19 and FFmpeg 6.1.1; repository CI declares Node 22. GitHub Verify passed on a bounded rerun after two existing Drive URLs returned transient HTTP 500 on the first attempt. The expected offline failure remains an acceptance gate for the provider cutover.
 
 ## Gate boundary and continuation
 
-Gate 1 establishes the complete checked-in inventory/dependency baseline and proves authenticated Drive acquisition, conversion and Git binary readback. It does not accept a new image, convert the four PNG gameplay assets, switch a provider, retire the old package, implement Issue #16 tooling, or claim a network-free build. The next Work session can start at this branch and use the checked-in inventory/hashes, without this chat or its scratch files. Its first bounded engineering gate should implement and test the single approved Asset Ingest contract and begin a safe, reproducible batch of default-gameplay asset migration. Keep the old Drive objects until clean offline build, browser review and cutover gates pass.
+Gate 1 establishes the checked-in inventory/dependency baseline and proves authenticated Drive acquisition, conversion capability and Git binary readback. It does not accept a new image, convert the four PNG gameplay assets, switch a provider, retire the old package, implement Issue #16 tooling, or claim a network-free build. The next Work session can start at this branch and use the checked-in inventory/hashes, without this chat or its scratch files.
+
+## Revised next gate (user decision, 2026-09-25)
+
+Gate 2 is the **actual asset migration**. For all 18 current `gdrive-public` runtime entries, first obtain the real bytes from Drive into Work Cloud, verify each against its checked-in byte count/SHA-256 and full decode, and place approved outputs in the Git repository. Copy already accepted WebP byte-for-byte; use the single approved Asset Ingest entry for PNG/JPG conversion, including the four COM-01B PNGs, with explicit dimensions/alpha/crop checks and new output hashes. Do not treat a session cache file or a Git LFS pointer as a repository asset.
+
+Once every referenced asset has a verified repository file, update the **existing** manifest/source-map/recipes/receipts and relevant validators together so logical IDs resolve locally. Include the three old `xu-tang` date CGs among the 18 byte-copy/localization entries while that regression fixture remains registered; its already local video needs no replacement sequence. The gate passes only when a fresh Git checkout with Drive credentials absent and Drive network blocked runs `assets:check`, `assets:build`, `build`, `validate`, `test`, `preview:smoke` and `git diff --check`, and every referenced asset path exists with the expected bytes and decodes. The current 18 blocked downloads are an expected **pre-migration baseline**, not a conversion failure.
+
+No Cloudflare-specific deployment check or real browser story test is required for this migration. Validate the built `dist/` asset files and logical bindings with deterministic checks instead. Keep the old Drive objects until the repository migration passes; Issue #16 workflow optimization remains part of the later shared implementation scope.
