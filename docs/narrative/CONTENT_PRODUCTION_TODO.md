@@ -2,9 +2,9 @@
 
 > Lifecycle: **CANONICAL** creative-production backlog
 >
-> Version: 1.0.0
+> Version: 1.1.0
 >
-> Updated: 2026-09-25
+> Updated: 2026-09-26
 
 這份文件只記 production progress、review gate 與 blocker。它不複製 scene spec、CG prompt 或 operator instructions。
 
@@ -12,7 +12,7 @@
 
 ## Current objective
 
-穩定 `Narrative Design → Scene/Dialogue → Visual Production → Runtime Integration` 單一路徑。當前 priority 是降低 CG 的返工成本，同時保護 story pacing、character voice 與跨 scene continuity。
+穩定 `Narrative Design → Scene/Dialogue → Visual Production → Runtime Integration` 單一路徑，同時允許 **narrative production 主動跑在 visual production 前面**。當前 priority 是先把完整 braided route 做到可逐 scene authoring / narrative QA，不讓缺少 CG 阻塞後續劇情設計與對白生產；CG 在 locked narrative 穩定後再按批次補齊。
 
 ## Opening Vertical Slice
 
@@ -42,11 +42,13 @@
 
 ## Next production work after this refactor
 
+- [x] 將雙女主 macro outline 展開成 canonical detailed pre-script blueprints：common/shared、Xu、JYC、overlap/endings。
 - [ ] Human review Opening Chapter 1 migration artifacts for schema usability（machine migration/validation complete）。
-- [ ] 在一個新 scene 上測試 `Content Writer → CG Planner → Render Packet`，避免只靠 migration fixture 證明流程。
+- [ ] 依 `docs/narrative/route-blueprints/` 從剩餘 common scenes 開始批量推進 `Narrative Design → Scene/Dialogue → Narrative QA`；**不要等待 CG 完成才寫下一個 scene**。
+- [ ] 接著完成 Xu early/mid route（XT-04 → XT-12）與 JYC early/mid route（JYC-05 → JYC-12）的 Locked Scene / dialogue batch。
+- [ ] 再完成 COMMIT / honest-overlap / deception / DECIDE / late lock / ending / coda 的 script batch。
+- [ ] Narrative batch 穩定後，再以 approved Locked Scene 分批進 `CG Planner → Render Packet → Render / Visual QA`；缺少 CG 不應反向改寫 narrative。
 - [ ] 以獨立 scope 處理 COM01J provisional wardrobe drift。
-- [ ] 繼續 `COM-02X → COM-02J → COM-03X → COM-03J → COM-03M`，每次只處理一個 bounded scene/batch。
-- [ ] Vertical Slice 穩定後再進 `XT-04 / JYC-05 / JYC-06 / SH-01`。
 
 ## Explicit non-goals
 
