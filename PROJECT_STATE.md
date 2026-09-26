@@ -1,12 +1,12 @@
 # Project state
 
-Updated: 2026-09-25
+Updated: 2026-09-26
 
 ## 已完成的基礎
 
 - W1–W3：source/output boundary、strict asset check/build、GitHub Codespaces development/preview/acceptance 已實作。`dist/` 可 clean rebuild。Canonical engineering environment 是 Codespaces；local clone 是 fallback。
 - W4：Player UI、Memories、CG Gallery、journey v2 cursor/frontier、v1 save migration、browser acceptance 已完成。實際 code/data contract 見 `ARCHITECTURE.zh-TW.md`、`src/` 與 route `memories.json`。
-- Asset storage：GitHub 保存 code/content/metadata 與既有 Git-backed legacy sources；Google Drive `source-private` 保存 accepted masters，Drive `runtime-public` 保存目前由 source-map 使用的 optimized runtime objects。本地 repo `runtime-public/` 已退出，不是 build input。
+- Asset storage：Gate 2 已將 18 個 Drive runtime 映射遷入 Git；目前 48 個 runtime path 全部從 `assets-src/` 複製，clean build 不需 Drive。14 個 WebP 保留原位元組；四個已驗收 COM01B PNG 經唯一 Asset Ingest 轉成 WebP，logical ID 不變。對照與 hash 見 `docs/migration/GATE2_REPO_RUNTIME_ASSETS.md`。`source-catalog.json` 與 CG generation references 仍沿用私有 Drive metadata／像素取得契約；尚待後續 workflow gate 遷移，不能將 Gate 2 當作全案完成。
 - 預設 playable route 是 `opening-demo`；`xu-tang` 舊 package 保留作 runtime/save/regression fixture，不代表新的 production story ordering。已廢棄的 office OL 臨時支線已完整移除。
 
 ## 現在的 creative production
