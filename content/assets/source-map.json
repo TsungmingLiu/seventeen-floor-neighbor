@@ -158,6 +158,12 @@
       "sha256": "6ade85b6b4f6ece1ee95923784fe8469bdc0a6b03acf6b9608f4466141a87f3a",
       "bytes": 313186,
       "masterSourceId": "source.opening.ch1.com01b.04"
+    },
+    "assets/ui/narrative-preview-v1.webp": {
+      "source": "assets-src/ui/narrative-preview-v1.webp",
+      "transform": "copy",
+      "sha256": "9dc448840d09cf38718710881991c9f251e01eefd44eb94980d7dd9743778145",
+      "bytes": 17610
     }
   }
 }

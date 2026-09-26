@@ -982,6 +982,22 @@
           "Accepted CG; preserve exact source pixels"
         ]
       }
+    },
+    {
+      "id": "recipe.bg.narrative_preview.placeholder",
+      "outputAsset": "bg.narrative_preview.placeholder",
+      "type": "background",
+      "dependencies": [],
+      "provenance": "procedural_preview_fixture",
+      "prompt": {
+        "scene": "中性敘事預覽佔位畫面；只用於尚未製作 CG 的人類劇情審閱，不代表場景美術或已驗收 CG。",
+        "camera": "16:9，中心安全區兼容手機裁切",
+        "constraints": [
+          "無角色",
+          "明示美術待補",
+          "不可加入 Gallery 或作正式 CG"
+        ]
+      }
     }
   ]
 }

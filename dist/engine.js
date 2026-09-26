@@ -1,6 +1,6 @@
-import { ProgressStore } from './progress.js?v=a3fa985a9bee';
-import { paintPreview, paintSprites, resolveVisual, setImage } from './visuals.js?v=a3fa985a9bee';
-import { memoryEventById, memoryEventForNode, memoryStats, renderMemories, titleBackdropVisual } from './memories.js?v=a3fa985a9bee';
+import { ProgressStore } from './progress.js?v=e7c696d09c0a';
+import { paintPreview, paintSprites, resolveVisual, setImage } from './visuals.js?v=e7c696d09c0a';
+import { memoryEventById, memoryEventForNode, memoryStats, renderMemories, titleBackdropVisual } from './memories.js?v=e7c696d09c0a';
 
 export class GameEngine {
   constructor({ chapter, assetManifest, sceneLibrary, memoryLibrary }) {
@@ -98,8 +98,23 @@ export class GameEngine {
     return asset;
   }
 
+  chapterArt(id) {
+    const art = this.asset(id);
+    if (art.kind === 'cg' || (this.chapter.allowPreviewArt === true && art.kind === 'background' && art.previewOnly === true)) {
+      return art;
+    }
+    throw new Error(`Chapter art ${id} must be an accepted CG or enabled preview background`);
+  }
+
+  chapterArtVisual(id) {
+    const art = this.chapterArt(id);
+    return art.kind === 'background'
+      ? { mode: 'composite', background: id, sprites: [] }
+      : { mode: 'cg', asset: id };
+  }
+
   mount() {
-    const endingArt = this.asset(this.chapter.endingArt, 'cg');
+    const endingArt = this.chapterArt(this.chapter.endingArt);
     setImage(this.els.endingArt, endingArt.src, endingArt.focus);
     this.migrateCGUnlocks();
     this.updateGalleryProgress();
@@ -703,8 +718,8 @@ export class GameEngine {
   finish() {
     const key = this.resolveEnding();
     const ending = this.chapter.endings[key];
-    const endingArt = this.asset(ending.art || this.chapter.endingArt, 'cg');
-    this.unlockCG(ending.art || this.chapter.endingArt);
+    const endingArt = this.chapterArt(ending.art || this.chapter.endingArt);
+    if (endingArt.kind === 'cg') this.unlockCG(ending.art || this.chapter.endingArt);
     const storageKey = `${this.chapter.id}:endings`;
     const unlocked = this.storedSet(storageKey);
     unlocked.add(key);
@@ -772,7 +787,7 @@ export class GameEngine {
       || '故事節點';
 
     if (!snapshot) {
-      visual = { mode: 'cg', asset: this.chapter.titleArt };
+      visual = this.chapterArtVisual(this.chapter.titleArt);
       label = '搬進 17 樓';
     } else if (node?.type === 'route') {
       const restored = this.progress.restore(snapshot);
@@ -781,7 +796,7 @@ export class GameEngine {
         this.state = restored.state;
         const ending = this.chapter.endings[this.resolveEnding()];
         this.state = savedState;
-        visual = { mode: 'cg', asset: ending.art || this.chapter.endingArt };
+        visual = this.chapterArtVisual(ending.art || this.chapter.endingArt);
         label = ending.title;
       }
     }

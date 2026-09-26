@@ -26,6 +26,7 @@ New production art is **CG-first, 16:9 landscape-first, responsive full viewport
 - New production scenes do not require sprites.
 - Existing sprite assets still referenced by the runtime remain legacy/regression fixtures until intentionally migrated.
 - Ordinary motion should use tightly related CG sequences when appropriate.
+- Text-first narrative preview may use the one registered preview-only background; this does not count as an accepted CG or final visual acceptance.
 - MP4/WebM support remains; production video is reserved for special events.
 - Old 9:16/sprite/operator/pilot guidance is archived or experimental and cannot be used as production input.
 

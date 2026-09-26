@@ -230,6 +230,10 @@ function validateOrchestrationContract() {
   invariant(contract.includes('validation_escalation') && contract.includes('最多可對同一 objective 建立一次'), 'orchestration lost bounded escalation policy');
   invariant(contract.includes('no automatic retry / no automatic image scoring'), 'orchestration model routing must preserve renderer retry prohibition');
   invariant(contract.includes('READY_FOR_HUMAN_ACCEPTANCE') && contract.includes('preview:smoke'), 'orchestration lost playable definition of done');
+  invariant(manifest.includes('narrative_preview:') && manifest.includes('preview_asset_property: previewOnly') &&
+    contract.includes('NARRATIVE_PREVIEW_READY') && contract.includes('npm run validate:final') &&
+    packet.includes('integration_mode: narrative_preview | final') && ledger.includes('NARRATIVE_PREVIEW_READY'),
+    'orchestration lost the bounded text-first preview gate');
   for (const field of ['run_id:', 'task_id:', 'task_type:', 'depends_on:', 'harness:', 'pass:', 'objective:', 'execution_policy:', 'model_tier:', 'routing_reason:', 'attempt:', 'required_acquisition:', 'allowed_sources:', 'input_versions:', 'constraints:', 'deliverables:', 'acceptance:', 'handoff_to:', 'human_gate:']) {
     invariant(packet.includes(field), `Task Packet cannot represent ${field}`);
   }

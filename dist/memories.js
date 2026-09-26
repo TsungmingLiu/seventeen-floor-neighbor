@@ -1,4 +1,4 @@
-import { FALLBACK_ART } from './visuals.js?v=a3fa985a9bee';
+import { FALLBACK_ART } from './visuals.js?v=e7c696d09c0a';
 
 export function orderedMemoryEvents(library) {
   return [...(library?.events || [])].sort((a, b) => a.order - b.order);

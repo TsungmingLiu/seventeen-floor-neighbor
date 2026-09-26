@@ -844,6 +844,17 @@
       "participants": [],
       "canonicalCgManifest": "content/production/cg-manifests/opening-ch1-com01b.json",
       "canonicalCgEntry": "COM-01B-CG-04"
+    },
+    "bg.narrative_preview.placeholder": {
+      "kind": "background",
+      "src": "assets/ui/narrative-preview-v1.webp",
+      "width": 1600,
+      "height": 900,
+      "focus": {
+        "x": 50,
+        "y": 49
+      },
+      "previewOnly": true
     }
   }
 }

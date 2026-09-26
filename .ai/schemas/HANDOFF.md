@@ -1,6 +1,6 @@
 # Worker Handoff Schema
 
-Version: 1.1.0
+Version: 1.2.0
 
 Every worker returns a concise, structured handoff.
 
@@ -8,7 +8,7 @@ Every worker returns a concise, structured handoff.
 run_id: ...
 task_id: ...
 status: PASS | NEEDS_REVIEW | BLOCKED | FAIL
-workflow_version: 1.1.0
+workflow_version: 1.3.0
 harness:
   id: cg_renderer
   version: 1.0.0
@@ -51,7 +51,7 @@ invalidates: []
 next_recommended_stage:
   harness: content_qa
   pass: visual_review
-human_gate_required: none | major_story_direction | canonical_character_design | accepted_master_image_selection | final_playable_acceptance
+human_gate_required: none | major_story_direction | canonical_character_design | accepted_master_image_selection | narrative_preview_review | final_playable_acceptance
 
 ```
 
@@ -66,6 +66,7 @@ human_gate_required: none | major_story_direction | canonical_character_design |
 - For image tasks, report only reference pixels actually passed to generation and their assigned roles, with the repository binding used.
 - Distinguish canonical source provenance from the image pixels actually supplied to generation.
 - Never claim a file/upload/commit occurred unless it occurred.
+- Integrator handoff reports `integration_mode` and exact preview background ID/hash when applicable. `NARRATIVE_PREVIEW_READY` is story-review evidence, never accepted CG/visual QA evidence.
 - Do not smuggle new creative decisions into `known_issues`.
 - If a worker detects a canon conflict, stop and return BLOCKED with both conflicting sources.
 - Provenance must make it possible to identify which workflow/harness version produced an artifact.

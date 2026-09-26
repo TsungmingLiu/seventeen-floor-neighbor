@@ -1,6 +1,6 @@
 workflow:
   id: seventeen-floor-production
-  version: 1.2.0
+  version: 1.3.0
   updated: 2026-09-26
   entrypoint: .ai/harnesses/bootstrap.md
   repository:
@@ -64,6 +64,15 @@ pipeline:
     harness: integrator
     requires: accepted_content_and_assets
     output: playable_content
+
+narrative_preview:
+  harness: integrator
+  requires: approved_locked_scene
+  asset_registry: content/assets/manifest.json
+  preview_asset_property: previewOnly
+  chapter_opt_in: allowPreviewArt
+  output: NARRATIVE_PREVIEW_READY
+  final_visual_acceptance: false
 
 source_authority:
   policy: .ai/policies/SOURCE_AUTHORITY.md
@@ -181,4 +190,5 @@ execution:
     - major_story_direction
     - canonical_character_design
     - accepted_master_image_selection
+    - narrative_preview_review
     - final_playable_acceptance

@@ -106,6 +106,9 @@ function validateMemoryRoute(route, fail) {
     if (!Array.isArray(event.characterIds)) fail(`route ${config.id} memory ${event.id}: characterIds must be an array`);
     const coverAsset = event.cover?.asset ? assets[event.cover.asset] : null;
     if (!event.cover?.asset || !coverAsset) fail(`route ${config.id} memory ${event.id}: unknown cover asset ${event.cover?.asset}`);
+    if (coverAsset?.previewOnly && chapter.allowPreviewArt !== true) {
+      fail(`route ${config.id} memory ${event.id}: preview art requires allowPreviewArt`);
+    }
     if (!['character', 'scene'].includes(event.cover?.mode)) {
       fail(`route ${config.id} memory ${event.id}: cover mode must be character or scene`);
     } else if (event.cover.mode === 'character') {
@@ -122,6 +125,9 @@ function validateMemoryRoute(route, fail) {
       fail(`route ${config.id} memory ${event.id}: mobileFocus requires valid x/y in 0..100`);
     }
     if (event.titleBackdropAsset && !assets[event.titleBackdropAsset]) fail(`route ${config.id} memory ${event.id}: unknown titleBackdropAsset ${event.titleBackdropAsset}`);
+    if (assets[event.titleBackdropAsset]?.previewOnly && chapter.allowPreviewArt !== true) {
+      fail(`route ${config.id} memory ${event.id}: preview title backdrop requires allowPreviewArt`);
+    }
     for (const assetId of event.galleryAssets || []) {
       if (!assets[assetId]?.gallery) fail(`route ${config.id} memory ${event.id}: gallery asset ${assetId} is missing or not gallery-enabled`);
     }
@@ -144,12 +150,24 @@ function validateStoryRoute(route, fail) {
     return asset;
   };
 
+  const requireChapterArt = (id, where) => {
+    const asset = assets[id];
+    if (asset?.kind === 'background' && asset.previewOnly === true) {
+      if (chapter.allowPreviewArt !== true) fail(`route ${config.id} ${where}: preview art requires allowPreviewArt`);
+      return requireAsset(id, 'background', where);
+    }
+    return requireAsset(id, 'cg', where);
+  };
+
   if (!config.label || !config.context) fail(`route ${config.id}: label and context are required`);
+  if ('allowPreviewArt' in chapter && typeof chapter.allowPreviewArt !== 'boolean') {
+    fail(`route ${config.id}: allowPreviewArt must be boolean`);
+  }
   if (!nodes[chapter.startNode]) fail(`route ${config.id}: unknown start node ${chapter.startNode}`);
-  requireAsset(chapter.titleArt, 'cg', 'titleArt');
-  requireAsset(chapter.endingArt, 'cg', 'endingArt');
+  requireChapterArt(chapter.titleArt, 'titleArt');
+  requireChapterArt(chapter.endingArt, 'endingArt');
   Object.entries(chapter.endings || {}).forEach(([id, ending]) => {
-    if (ending.art) requireAsset(ending.art, 'cg', `ending ${id}`);
+    if (ending.art) requireChapterArt(ending.art, `ending ${id}`);
   });
 
   const galleryOrders = new Set();
@@ -203,7 +221,10 @@ function validateStoryRoute(route, fail) {
       requireAsset(visual.asset, 'cg', `node ${id}`);
       if ('background' in visual || 'sprites' in visual) fail(`route ${config.id} node ${id}: CG cannot include composite fields`);
     } else if (visual.mode === 'composite') {
-      requireAsset(visual.background, 'background', `node ${id}`);
+      const background = requireAsset(visual.background, 'background', `node ${id}`);
+      if (background?.previewOnly && chapter.allowPreviewArt !== true) {
+        fail(`route ${config.id} node ${id}: preview art requires allowPreviewArt`);
+      }
       (visual.sprites || []).forEach((sprite) => requireAsset(sprite.asset, 'sprite', `node ${id}`));
       if ('asset' in visual) fail(`route ${config.id} node ${id}: composite cannot include CG asset field`);
     } else if (visual.mode === 'cinematic') {
@@ -240,7 +261,7 @@ function validateStoryRoute(route, fail) {
   }
 }
 
-export async function validateContent(content) {
+export async function validateContent(content, { finalVisuals = false } = {}) {
   const errors = [];
   const { manifest, recipes, characters, routeIndex, routes, assetSources } = content;
   const assets = manifest.assets || {};
@@ -302,6 +323,15 @@ export async function validateContent(content) {
   }
 
   for (const [id, asset] of Object.entries(assets)) {
+    if (id === 'bg.narrative_preview.placeholder' && asset.previewOnly !== true) {
+      fail(`asset ${id}: previewOnly must remain true`);
+    }
+    if (asset.previewOnly !== undefined) {
+      if (asset.previewOnly !== true || id !== 'bg.narrative_preview.placeholder' || asset.kind !== 'background' ||
+          asset.gallery || asset.participants || asset.canonicalCgEntry || asset.src !== 'assets/ui/narrative-preview-v1.webp') {
+        fail(`asset ${id}: invalid preview-only asset contract`);
+      }
+    }
     const files = asset.kind === 'cinematic' ? [asset.poster, ...Object.values(asset.sources || {})] : [asset.src];
     for (const file of files) {
       if (!file) {
@@ -362,10 +392,16 @@ export async function validateContent(content) {
   }
   for (const id of Object.keys(assets)) {
     if (!recipeOutputs.has(id)) fail(`asset ${id}: no generation recipe`);
-    if (!routes.some((route) => route.config.assetIds?.includes(id))) fail(`asset ${id}: not assigned to any route`);
+    if (!assets[id].previewOnly && !routes.some((route) => route.config.assetIds?.includes(id))) fail(`asset ${id}: not assigned to any route`);
   }
   for (const route of routes) {
     for (const id of route.config.assetIds || []) if (!assets[id]) fail(`route ${route.config.id}: unknown asset ${id}`);
+    if (finalVisuals && (route.config.assetIds || []).some((id) => assets[id]?.previewOnly)) {
+      fail(`route ${route.config.id}: final visual acceptance forbids preview asset allowlist entries`);
+    }
+    if (finalVisuals && route.chapter.allowPreviewArt === true) {
+      fail(`route ${route.config.id}: final visual acceptance forbids allowPreviewArt`);
+    }
     validateStoryRoute(route, fail);
     validateMemoryRoute(route, fail);
   }
