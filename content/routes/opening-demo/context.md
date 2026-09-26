@@ -5,7 +5,8 @@ Status: production demo route.
 Canonical order:
 1. COM-00 — 雨夜搬家
 2. COM-01X — 電梯重啟
-3. COM-01J — 地下街初遇
+3. COM-01B — 週末前的方向（common bridge；不新增獨立 Memory）
+4. COM-01J — 地下街初遇
 
 This package integrates the locked Vertical Slice scripts without changing their creative meaning. It intentionally uses the demo-minimal accepted CG set and no legacy character sprites.
 

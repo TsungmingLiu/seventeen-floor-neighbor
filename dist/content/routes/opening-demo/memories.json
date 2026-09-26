@@ -79,7 +79,30 @@
         "common_elevator_restart_resume",
         "common_elevator_restart_smalltalk",
         "common_elevator_restart_smalltalk_reply",
-        "common_elevator_restart_exit"
+        "common_elevator_restart_exit",
+        "common_bookstore_bridge_enter",
+        "common_bookstore_bridge_greeting",
+        "common_bookstore_bridge_xu_greeting",
+        "common_bookstore_bridge_bags_reply",
+        "common_bookstore_bridge_progress",
+        "common_bookstore_bridge_pause",
+        "common_bookstore_bridge_choice",
+        "com01b_browse_shops",
+        "com01b_browse_shops_recommendation",
+        "com01b_browse_shops_goodnight",
+        "com01b_browse_shops_thanks",
+        "com01b_find_books",
+        "com01b_find_books_recommendation",
+        "com01b_find_books_goodnight",
+        "com01b_find_books_thanks",
+        "com01b_food_or_coffee",
+        "com01b_food_or_coffee_recommendation",
+        "com01b_food_or_coffee_goodnight",
+        "com01b_food_or_coffee_thanks",
+        "common_bookstore_bridge_rejoin",
+        "common_bookstore_bridge_quiet",
+        "common_bookstore_bridge_book_goal",
+        "common_bookstore_bridge_weekend_transition"
       ],
       "kind": "scene",
       "highlight": true,
@@ -95,7 +118,11 @@
       "galleryAssets": [
         "cg.opening.com01x.base_normal",
         "cg.opening.com01x.r01_restart",
-        "cg.opening.com01x.r02_dry_smile"
+        "cg.opening.com01x.r02_dry_smile",
+        "cg.opening-ch1.com01b.01",
+        "cg.opening-ch1.com01b.02",
+        "cg.opening-ch1.com01b.03",
+        "cg.opening-ch1.com01b.04"
       ]
     },
     {

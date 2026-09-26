@@ -1,0 +1,130 @@
+{
+  "schema_version": "1.0.0",
+  "scene_id": "COM-01B",
+  "lifecycle": "CANONICAL",
+  "source_scene": "docs/narrative/scenes/vertical-slice/COM-01B.md",
+  "entry_state": {
+    "relationships": [
+      {
+        "subject": "xu_tang",
+        "toward": "protagonist",
+        "label": "familiar_neighbors_with_boundaries",
+        "constraints": ["兩人已在電梯聊過大樓瑣事並各自回門；沒有聯絡方式、邀約或 romantic signal。"]
+      },
+      {
+        "subject": "protagonist",
+        "toward": "xu_tang",
+        "label": "familiar_neighbors_with_boundaries",
+        "constraints": ["他記得她的乾式幽默與垃圾室資訊；在新城市認識的人仍少，不能把她的禮貌當作親密承諾。"]
+      },
+      {
+        "subject": "protagonist",
+        "toward": "jiang_yucheng",
+        "label": "strangers",
+        "constraints": ["尚未見過江雨澄；對即將在書架前遇見的人沒有預期。"]
+      }
+    ],
+    "knowledge": [
+      {
+        "holder": "xu_tang",
+        "knows": ["男主姓名、住 1703、剛搬來。"],
+        "does_not_know": ["男主工作。", "男主感情狀態。", "江雨澄與男主未來的相遇。"]
+      },
+      {
+        "holder": "protagonist",
+        "knows": ["許棠姓名、住 1702。", "垃圾室過十點要走左邊門。", "自己本來就想找《逆光航路》新版設定集的實體增補內容。"],
+        "does_not_know": ["許棠工作與聯絡方式。", "江雨澄姓名、職業、住處與匿名身份。"]
+      },
+      {
+        "holder": "jiang_yucheng",
+        "knows": ["自己正在比較《逆光航路》的版本。"],
+        "does_not_know": ["男主姓名、工作與住處。", "男主曾向許棠問附近去處。"]
+      }
+    ],
+    "constraints": ["COM-01X 已於搬家後第 3–4 天約 19:20 在 17 樓到站分開；本橋段是同週末前另一晚在大樓外的短暫偶遇，不延長電梯或家門口的既有結尾。", "COM-01J 仍發生於同週末約 15:40 的台北地下街 ACG 設定集／周邊店。"]
+  },
+  "scene_function": [
+    "讓男主在少有熟人的新環境裡，藉由詢問可自行去逛的地方多說一兩句；保留他用平常話掩飾一點失落的習慣。",
+    "以許棠實用且有界線的推薦，提供到地下街書店的地理線索；男主仍因自己原本想查《逆光航路》設定集而於週末前往。",
+    "在不改動 COM-01X 的 17 樓分開、不改動 COM-01J 的地下街初遇與咖啡店伏筆的前提下，銜接兩幕。"
+  ],
+  "character_intent": [
+    {
+      "character_id": "protagonist",
+      "intent": "不想讓少數能自然說話的對話太快結束，於是問附近可一個人閒逛的去處；接受推薦後不要求許棠同行，週末依自己的興趣去找設定集。"
+    },
+    {
+      "character_id": "xu_tang",
+      "intent": "給新鄰居一項足夠實用的方向：步行約十分鐘可到的地下街設定集／周邊書店，出口上層也有咖啡可坐；說完道晚安，繼續自己的行程。"
+    }
+  ],
+  "player_information_gain": [
+    "從公寓步行約十分鐘可到地下街一家以設定集與周邊為主的書店；附近出口往上有咖啡可坐，但此時沒有店名、北邊出口位置或安靜工作條件。",
+    "男主稍微捨不得結束一段普通交談，卻以刻意明亮的道謝笑容遮住一點寂寞；許棠不因此被設定成能讀心或留下陪他。",
+    "週末地下街行程兼有許棠推薦與男主既有的《逆光航路》購書目標，並非為了追隨任何人。"
+  ],
+  "emotional_arc": [
+    "偶遇時沿用能聊幾句的鄰居節奏；男主察覺話題將盡，想留住一點新地方的聲音。",
+    "玩家以逛街、看書或找吃喝三種成人日常口吻問路；許棠用短而實際的話給同一個可行方向。",
+    "許棠道晚安離開；男主明亮地道謝，笑意收下後仍有一點孤單，但不把此刻寫成戀愛失落。",
+    "隔至同週末白天，男主帶著自己的找書目的走進地下街，接上 COM-01J 的既有開場。"
+  ],
+  "required_payoffs": [
+    "三個選項只改變提問切口：隨意逛店、找書、餐廳或咖啡；都讓許棠給出同一處地下街書店方向，並於她道晚安後 rejoin，不形成互斥地點或隱藏最佳答案。",
+    "許棠只指出大約十分鐘的方向與出口上層有咖啡，不替江雨澄說出北邊出口那間店的安靜時段、窗邊與插座；COM-01J 的 cafe seed 仍由江雨澄完成。",
+    "男主的笑容是有意維持明快的道謝，旁白只點出微弱寂寞；許棠離開後沒有回頭慰問、邀約或交換聯絡方式。",
+    "時間由週末前一晚清楚轉到同週末約 15:40；男主在 COM-01J 開場仍明確為《逆光航路》新版設定集而來，江雨澄尚未出現。"
+  ],
+  "exit_state": {
+    "relationships": [
+      {
+        "subject": "xu_tang",
+        "toward": "protagonist",
+        "label": "familiar_neighbors_with_boundaries",
+        "constraints": ["她提供普通鄰里推薦後離開；沒有約他同去，也不知道笑容後的失落。"]
+      },
+      {
+        "subject": "protagonist",
+        "toward": "xu_tang",
+        "label": "familiar_neighbors_with_boundaries",
+        "constraints": ["他感謝她給的方向，但不把推薦視作私人邀請或特別情感暗示。"]
+      },
+      {
+        "subject": "protagonist",
+        "toward": "jiang_yucheng",
+        "label": "strangers",
+        "constraints": ["下一幕進店前仍互不相識，首次互動只能從同一作品的具體內容發生。"]
+      }
+    ],
+    "knowledge": [
+      {
+        "holder": "xu_tang",
+        "knows": ["男主想找附近可閒逛的地方。"],
+        "does_not_know": ["男主工作與感情狀態。", "男主會遇見江雨澄。", "男主內心的微弱寂寞。"]
+      },
+      {
+        "holder": "protagonist",
+        "knows": ["地下街設定集／周邊書店的大致方向與約十分鐘步行距離。", "附近出口上層有咖啡可坐。", "自己要查《逆光航路》新版設定集的增補內容。"],
+        "does_not_know": ["江雨澄姓名、工作、住處與匿名創作身份。", "江雨澄稍後會推薦的北邊出口咖啡店具體使用條件。", "許棠工作與聯絡方式。"]
+      },
+      {
+        "holder": "jiang_yucheng",
+        "knows": ["自己正在比較《逆光航路》的版本。"],
+        "does_not_know": ["男主姓名、工作與住處。", "許棠曾給男主地下街方向。"]
+      }
+    ],
+    "constraints": ["無新增 Xu 或 Jiang 的 familiarity、trust、chemistry、compatibility、romanticSignal、contact 或 cross-knowledge；不改 recentFocus。", "COM-01J 的地點、週末白天時間、雙方陌生狀態與作品目的保持不變。"]
+  },
+  "must_not": [
+    "不得把此橋段接在 COM-01X 已結束的 17 樓家門口繼續長談，也不得修改其垃圾室資訊或到站分開。",
+    "不得把 COM-01J 移到一般書店、咖啡店或晚上；地下街 ACG 設定集／周邊店與約 15:40 仍是唯一相遇地點與時間。",
+    "不得讓許棠推薦特定雨澄咖啡店的北邊出口、平日下午安靜、窗邊或插座細節，搶先完成雨澄後續重逢伏筆。",
+    "不得讓許棠陪逛、追問寂寞、察覺未說出的情緒、交換聯絡方式或給浪漫暗示。",
+    "不得把三個提問選項設計成道德高低或不同 route；三條都不加 heroine relationship 數值。",
+    "不得提前揭露江雨澄姓名、身份、她與許棠的交集，或讓男主因預期邂逅才去店裡。"
+  ],
+  "implementation_mapping": {
+    "runtime_only": true,
+    "flags": {}
+  }
+}

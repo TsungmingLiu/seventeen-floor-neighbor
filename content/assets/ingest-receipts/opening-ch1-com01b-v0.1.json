@@ -1,0 +1,107 @@
+{
+  "receiptVersion": 1,
+  "taskId": "IN-003",
+  "workflowVersion": "1.1.0",
+  "harness": "integrator:1.0.0",
+  "sourceManifest": "content/production/cg-manifests/opening-ch1-com01b.json",
+  "sourceManifestSha256": "f0fc7ed55e01ffdbf44ae98f0fe148cc027a580d268b7db10c9895bc0fdced1c",
+  "policy": {
+    "acceptedOnly": true,
+    "aiRedraw": false,
+    "originalPixelsPreserved": true,
+    "canonicalMasterLocation": "Google Drive private source",
+    "runtimeAssetLocation": "Google Drive public runtime"
+  },
+  "inventory": [
+    {
+      "canonicalAssetId": "COM-01B-CG-01",
+      "logicalAssetId": "cg.opening-ch1.com01b.01",
+      "masterSourceId": "source.opening.ch1.com01b.01",
+      "sourceFileId": "1y6AMUEiOAQ1v8-sXNry5LarDURO4UKK2",
+      "sourceFolderId": "1l717fFWJAmuCM84AZIgrWn_bfoXb0lJm",
+      "sourceFilename": "COM01B-CG-01-STREET-EXCHANGE.png",
+      "sourceSha256": "d668f4deeb2b7a180355c250e6150f5eb492e1cafbc74742bd8a38a15604f5c0",
+      "sourceMimeType": "image/png",
+      "sourceWidth": 1672,
+      "sourceHeight": 941,
+      "runtimeFileId": "1hbcherxCNgEyygQKUUs8wQAYAY9PqsDt",
+      "runtimeUrl": "https://drive.google.com/uc?export=download&id=1hbcherxCNgEyygQKUUs8wQAYAY9PqsDt",
+      "runtimePath": "assets/opening-ch1-demo/opening-ch1-com01b-01.png",
+      "runtimeSha256": "d668f4deeb2b7a180355c250e6150f5eb492e1cafbc74742bd8a38a15604f5c0",
+      "normalization": {
+        "mode": "byte-for-byte copy",
+        "resize": false,
+        "crop": false
+      },
+      "knownIssues": []
+    },
+    {
+      "canonicalAssetId": "COM-01B-CG-02",
+      "logicalAssetId": "cg.opening-ch1.com01b.02",
+      "masterSourceId": "source.opening.ch1.com01b.02",
+      "sourceFileId": "11s-aDcmkZNBod7We5u9jZK3QUWu0nDxh",
+      "sourceFolderId": "1l717fFWJAmuCM84AZIgrWn_bfoXb0lJm",
+      "sourceFilename": "COM01B-CG-02-XU-DEPARTURE.png",
+      "sourceSha256": "c20cc361ba92105b634127473e7de51e9591140793d49d65ed9f47757f6c9651",
+      "sourceMimeType": "image/png",
+      "sourceWidth": 1672,
+      "sourceHeight": 941,
+      "runtimeFileId": "1sWyv3QQ0uipdvcvmbZg2vq_prKj9OkZH",
+      "runtimeUrl": "https://drive.google.com/uc?export=download&id=1sWyv3QQ0uipdvcvmbZg2vq_prKj9OkZH",
+      "runtimePath": "assets/opening-ch1-demo/opening-ch1-com01b-02.png",
+      "runtimeSha256": "c20cc361ba92105b634127473e7de51e9591140793d49d65ed9f47757f6c9651",
+      "normalization": {
+        "mode": "byte-for-byte copy",
+        "resize": false,
+        "crop": false
+      },
+      "knownIssues": [
+        "Minor shoulder accessory drift from CG-01 to CG-02; accepted during visual review."
+      ]
+    },
+    {
+      "canonicalAssetId": "COM-01B-CG-03",
+      "logicalAssetId": "cg.opening-ch1.com01b.03",
+      "masterSourceId": "source.opening.ch1.com01b.03",
+      "sourceFileId": "1ODZy438M88l2f1J0phwI8t_FC-oj5vPQ",
+      "sourceFolderId": "1l717fFWJAmuCM84AZIgrWn_bfoXb0lJm",
+      "sourceFilename": "COM01B-CG-03-QUIET-STREET.png",
+      "sourceSha256": "9b794d6de92aad0c79388b15f999587d05fe989ee5548421582720f5a4bd2f7c",
+      "sourceMimeType": "image/png",
+      "sourceWidth": 1672,
+      "sourceHeight": 940,
+      "runtimeFileId": "1aXHBZ3x9GK_q9CnPXBogVJdBQaFqzp6a",
+      "runtimeUrl": "https://drive.google.com/uc?export=download&id=1aXHBZ3x9GK_q9CnPXBogVJdBQaFqzp6a",
+      "runtimePath": "assets/opening-ch1-demo/opening-ch1-com01b-03.png",
+      "runtimeSha256": "9b794d6de92aad0c79388b15f999587d05fe989ee5548421582720f5a4bd2f7c",
+      "normalization": {
+        "mode": "byte-for-byte copy",
+        "resize": false,
+        "crop": false
+      },
+      "knownIssues": []
+    },
+    {
+      "canonicalAssetId": "COM-01B-CG-04",
+      "logicalAssetId": "cg.opening-ch1.com01b.04",
+      "masterSourceId": "source.opening.ch1.com01b.04",
+      "sourceFileId": "1kxwOImlZOt0ZcEstZEKDkANRg15A09NV",
+      "sourceFolderId": "1l717fFWJAmuCM84AZIgrWn_bfoXb0lJm",
+      "sourceFilename": "COM01B-CG-04-BOOKSTORE-ENTRANCE.png",
+      "sourceSha256": "97b4202f59d58934cc990ca560ced7786e1c61e32b887f6021e6406980e23d10",
+      "sourceMimeType": "image/png",
+      "sourceWidth": 1672,
+      "sourceHeight": 941,
+      "runtimeFileId": "1T-zEpa8NBSHuq6LAS5Fj_WzmNBeRCB-B",
+      "runtimeUrl": "https://drive.google.com/uc?export=download&id=1T-zEpa8NBSHuq6LAS5Fj_WzmNBeRCB-B",
+      "runtimePath": "assets/opening-ch1-demo/opening-ch1-com01b-04.png",
+      "runtimeSha256": "97b4202f59d58934cc990ca560ced7786e1c61e32b887f6021e6406980e23d10",
+      "normalization": {
+        "mode": "byte-for-byte copy",
+        "resize": false,
+        "crop": false
+      },
+      "knownIssues": []
+    }
+  ]
+}

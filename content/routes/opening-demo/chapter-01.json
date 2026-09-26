@@ -325,7 +325,7 @@
         "mode": "cg",
         "asset": "cg.opening.com01x.base_normal"
       },
-      "next": "common_acg_first_meet_enter"
+      "next": "common_bookstore_bridge_enter"
     },
     "common_acg_first_meet_enter": {
       "speaker": "旁白",
@@ -500,6 +500,252 @@
     },
     "opening_demo_complete": {
       "type": "route"
+    },
+    "common_bookstore_bridge_enter": {
+      "speaker": "旁白",
+      "text": "電梯重啟那晚已經過去。週末前的另一個晚上，我在大樓外碰見許棠；她正沿著街邊往前走。",
+      "chapter": 1,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening-ch1.com01b.01"
+      },
+      "next": "common_bookstore_bridge_greeting"
+    },
+    "common_bookstore_bridge_greeting": {
+      "speaker": "你",
+      "text": "晚上好。",
+      "chapter": 1,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening-ch1.com01b.01"
+      },
+      "next": "common_bookstore_bridge_xu_greeting"
+    },
+    "common_bookstore_bridge_xu_greeting": {
+      "speaker": "許棠",
+      "text": "晚上好。今天沒提袋子？",
+      "chapter": 1,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening-ch1.com01b.01"
+      },
+      "next": "common_bookstore_bridge_bags_reply"
+    },
+    "common_bookstore_bridge_bags_reply": {
+      "speaker": "你",
+      "text": "總算不用每次回家都像在搬第二輪。",
+      "chapter": 1,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening-ch1.com01b.01"
+      },
+      "next": "common_bookstore_bridge_progress"
+    },
+    "common_bookstore_bridge_progress": {
+      "speaker": "許棠",
+      "text": "進度不錯。",
+      "chapter": 1,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening-ch1.com01b.01"
+      },
+      "next": "common_bookstore_bridge_pause"
+    },
+    "common_bookstore_bridge_pause": {
+      "speaker": "旁白",
+      "text": "她往自己要走的方向看了一眼。這段話到了可以自然結束的地方。\n\n搬來以後，能這樣接上兩句話的人還不多。我想起週末本來要出去找書，便多問了一句。",
+      "chapter": 1,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening-ch1.com01b.01"
+      },
+      "next": "common_bookstore_bridge_choice"
+    },
+    "common_bookstore_bridge_choice": {
+      "speaker": "你",
+      "text": "",
+      "chapter": 1,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening-ch1.com01b.01"
+      },
+      "choices": [
+        {
+          "id": "com01b_browse_shops",
+          "text": "這附近有沒有適合一個人慢慢逛的店？",
+          "next": "com01b_browse_shops"
+        },
+        {
+          "id": "com01b_find_books",
+          "text": "附近有能翻設定集的書店嗎？週末想去找一本書。",
+          "next": "com01b_find_books"
+        },
+        {
+          "id": "com01b_food_or_coffee",
+          "text": "想找個地方吃點東西、喝杯咖啡，再順路逛逛。這附近有方向嗎？",
+          "next": "com01b_food_or_coffee"
+        }
+      ]
+    },
+    "com01b_browse_shops": {
+      "speaker": "你",
+      "text": "這附近有沒有適合一個人慢慢逛的店？",
+      "chapter": 1,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening-ch1.com01b.01"
+      },
+      "next": "com01b_browse_shops_recommendation"
+    },
+    "com01b_browse_shops_recommendation": {
+      "speaker": "許棠",
+      "text": "有。從這裡走大概十分鐘，地下街有家主要賣設定集和周邊的書店。要坐一下，附近出口往上也有咖啡。",
+      "chapter": 1,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening-ch1.com01b.01"
+      },
+      "next": "com01b_browse_shops_goodnight"
+    },
+    "com01b_browse_shops_goodnight": {
+      "speaker": "許棠",
+      "text": "晚安。",
+      "chapter": 1,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening-ch1.com01b.01"
+      },
+      "next": "com01b_browse_shops_thanks"
+    },
+    "com01b_browse_shops_thanks": {
+      "speaker": "你",
+      "text": "這個方向很好。謝謝，晚安！",
+      "chapter": 1,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening-ch1.com01b.01"
+      },
+      "next": "common_bookstore_bridge_rejoin"
+    },
+    "com01b_find_books": {
+      "speaker": "你",
+      "text": "附近有能翻設定集的書店嗎？週末想去找一本書。",
+      "chapter": 1,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening-ch1.com01b.01"
+      },
+      "next": "com01b_find_books_recommendation"
+    },
+    "com01b_find_books_recommendation": {
+      "speaker": "許棠",
+      "text": "有。從這裡走大概十分鐘，地下街有家主要賣設定集和周邊的書店。要坐一下，附近出口往上也有咖啡。",
+      "chapter": 1,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening-ch1.com01b.01"
+      },
+      "next": "com01b_find_books_goodnight"
+    },
+    "com01b_find_books_goodnight": {
+      "speaker": "許棠",
+      "text": "晚安。",
+      "chapter": 1,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening-ch1.com01b.01"
+      },
+      "next": "com01b_find_books_thanks"
+    },
+    "com01b_find_books_thanks": {
+      "speaker": "你",
+      "text": "正好。謝謝，晚安！",
+      "chapter": 1,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening-ch1.com01b.01"
+      },
+      "next": "common_bookstore_bridge_rejoin"
+    },
+    "com01b_food_or_coffee": {
+      "speaker": "你",
+      "text": "想找個地方吃點東西、喝杯咖啡，再順路逛逛。這附近有方向嗎？",
+      "chapter": 1,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening-ch1.com01b.01"
+      },
+      "next": "com01b_food_or_coffee_recommendation"
+    },
+    "com01b_food_or_coffee_recommendation": {
+      "speaker": "許棠",
+      "text": "吃的我不替你保證。從這裡走大概十分鐘，地下街有家主要賣設定集和周邊的書店。要坐一下，附近出口往上也有咖啡。",
+      "chapter": 1,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening-ch1.com01b.01"
+      },
+      "next": "com01b_food_or_coffee_goodnight"
+    },
+    "com01b_food_or_coffee_goodnight": {
+      "speaker": "許棠",
+      "text": "晚安。",
+      "chapter": 1,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening-ch1.com01b.01"
+      },
+      "next": "com01b_food_or_coffee_thanks"
+    },
+    "com01b_food_or_coffee_thanks": {
+      "speaker": "你",
+      "text": "有地方逛就夠了。謝謝，晚安！",
+      "chapter": 1,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening-ch1.com01b.01"
+      },
+      "next": "common_bookstore_bridge_rejoin"
+    },
+    "common_bookstore_bridge_rejoin": {
+      "speaker": "旁白",
+      "text": "許棠繼續往原來的方向走，沒有回頭，也沒有等我同行。",
+      "chapter": 1,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening-ch1.com01b.02"
+      },
+      "next": "common_bookstore_bridge_quiet"
+    },
+    "common_bookstore_bridge_quiet": {
+      "speaker": "旁白",
+      "text": "我剛才把那句謝謝說得比平常亮一點。等笑意慢慢收下來，街上又只剩自己的腳步聲；有一點空，但還不至於讓人停在原地。",
+      "chapter": 1,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening-ch1.com01b.03"
+      },
+      "next": "common_bookstore_bridge_book_goal"
+    },
+    "common_bookstore_bridge_book_goal": {
+      "speaker": "旁白",
+      "text": "週末找《逆光航路》新版設定集的實體增補內容，現在多了一個可以去看看的地方。",
+      "chapter": 1,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening-ch1.com01b.03"
+      },
+      "next": "common_bookstore_bridge_weekend_transition"
+    },
+    "common_bookstore_bridge_weekend_transition": {
+      "speaker": "旁白",
+      "text": "同週末，約 15:40。\n\n我走進台北地下街，來到那家以設定集與周邊為主的 ACG 店。我要查《逆光航路》新版究竟增補了什麼。",
+      "chapter": 1,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening-ch1.com01b.04"
+      },
+      "next": "common_acg_first_meet_enter"
     }
   }
 }

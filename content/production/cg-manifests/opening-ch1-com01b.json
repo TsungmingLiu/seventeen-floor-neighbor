@@ -1,0 +1,460 @@
+{
+  "schema_version": "1.0.0",
+  "manifest_id": "opening-ch1-com01b",
+  "manifest_version": "1.0.4",
+  "lifecycle": "CANONICAL",
+  "source_scene_ids": [
+    "COM-01B"
+  ],
+  "style_contract": {
+    "style_id": "production-realistic-pbr-16x9-v1.1",
+    "positive": [
+      "Realistic high-end game-cinematic photographic PBR rendering with adult human anatomy, natural skin texture, plausible hair strands and fabric, and believable light and exposure.",
+      "Xu Tang's facial anatomy, eyes, hair, skin, and adult age read must match the primary face identity sheet at or above its realism level.",
+      "Landscape full-viewport composition with critical subject detail in a crop-tolerant central band and a dialogue-safe lower region."
+    ],
+    "negative": [
+      "Anime or manga proportions, oversized eyes, simplified face, doll or generic game-avatar face, animation-film look, plastic skin, cel shading, painterly or comic treatment.",
+      "Studio character-sheet posing, unrelated character identity, captions, interface elements, watermarks, logos, or invented legible signage."
+    ],
+    "aspect_ratio": "16:9",
+    "output_count": 1
+  },
+  "entries": [
+    {
+      "entry_id": "COM-01B-CG-01",
+      "scene_id": "COM-01B",
+      "source_scene": "docs/narrative/scenes/vertical-slice/COM-01B.md",
+      "status": "render_ready",
+      "cg_class": "dialogue_cg",
+      "beat_range": "01B.1–01B.4; common_bookstore_bridge_enter through the common recommendation across all three choice wordings",
+      "narrative": {
+        "purpose": "Establish a chance encounter on a different evening outside the apartment and support an ordinary, bounded exchange in which Xu Tang gives a practical direction.",
+        "must_show": [
+          "Xu Tang briefly stops during her own walk on an apartment-side sidewalk at night.",
+          "Her attention is on the off-camera protagonist for the short conversation; the two retain normal pedestrian distance.",
+          "The same image serves all three question choices and the shared bookstore recommendation."
+        ],
+        "must_not_imply": [
+          "The elevator night continues, a meeting was arranged, Xu Tang accompanies him, or the recommendation is a private invitation.",
+          "Xu Tang knows the protagonist's unspoken loneliness or has met Jiang Yucheng."
+        ]
+      },
+      "characters": [
+        {
+          "character_id": "xu_tang",
+          "screen_side": "right",
+          "body_orientation": "three_quarter_right, torso still oriented along her walking route, head turned toward the off-camera protagonist",
+          "pose": "Natural brief sidewalk pause with comfortable distance; arms relaxed, no reaching or intimate gesture.",
+          "gaze": "Toward the off-camera protagonist to frame left; ordinary attentive eye contact, not a romantic or consoling gaze.",
+          "expression": "Polite, restrained, conversational; small natural response, no heightened flirtation.",
+          "wardrobe_key": "xu_tang_grey_home_sweater_casual_evening",
+          "held_objects": [],
+          "reference_bindings": [
+            {
+              "role": "xu_tang_primary_face_identity",
+              "source_id": "gdrive:1Oynvxve61ipxr9Z7UhaSsZE_8OzVVPRS",
+              "expected_filename": "xt-ref-01-face.png"
+            },
+            {
+              "role": "xu_tang_early_mid_wardrobe",
+              "source_id": "gdrive:1W4t7ICYHx3obH_S03BEyD80ykzy3M9aF",
+              "expected_filename": "xt-ref-05-wardrobe-a.png"
+            }
+          ]
+        }
+      ],
+      "environment": {
+        "location_id": "apartment_exterior_sidewalk",
+        "time_of_day": "another evening before the same weekend, after the COM-01X elevator night",
+        "weather": "dry; no rain event specified",
+        "lighting": "Believable evening street and apartment exterior practical light; faces remain readable, no dramatic romantic spotlight.",
+        "persistent_props": [
+          "apartment exterior edge",
+          "continuous sidewalk",
+          "street-side depth extending toward frame right"
+        ],
+        "reference_binding": null
+      },
+      "camera": {
+        "shot_size": "medium",
+        "angle": "eye level",
+        "pov": "protagonist",
+        "axis_id": "COM-01B-sidewalk-travel-axis",
+        "camera_side": "street-facing side of sidewalk axis, held through evening beats",
+        "lens_intent": "Natural conversational perspective with plausible moderate depth of field; preserve walking direction toward frame right."
+      },
+      "continuity": {
+        "previous_entry_id": null,
+        "locked_fields": [],
+        "allowed_changes": []
+      },
+      "composition": {
+        "focus": {
+          "x": 62,
+          "y": 43
+        },
+        "dialogue_safe_zone": "Lower 25 percent has no essential face, hands, or directional cue.",
+        "framing_notes": [
+          "Xu Tang occupies the central-right safe band, leaving open street space to frame left for off-camera dialogue.",
+          "Keep face, hoop earrings, and visible grey sweater neckline away from crop edges.",
+          "No visible protagonist design or second heroine."
+        ]
+      },
+      "render_constraints": {
+        "include": [
+          "Xu Tang's face and long dark hair follow the attached primary face sheet; large gold hoop earrings remain visible.",
+          "Grey casual sweater visible at neckline and upper torso as on the primary face sheet.",
+          "Ordinary apartment-side urban sidewalk at night, with a clear frame-right continuation of her walking route."
+        ],
+        "exclude": [
+          "Visible protagonist face or body, Jiang Yucheng, couple staging, touch, exchanged contact details, shopping bags implying the elevator night, specified bookstore or café name.",
+          "Rain, elevator interior, seventeenth-floor corridor, legible fictional text, logos, UI, subtitles."
+        ],
+        "text_policy": "No legible in-image text; recommendation and choice wording remain in the locked script and UI."
+      },
+      "reference_transport": {
+        "mode": "references_required",
+        "fresh_session_required": true,
+        "no_unrelated_images_allowed": true,
+        "accepted_base_asset_id": null,
+        "attachments": [
+          {
+            "role": "xu_tang_primary_face_identity",
+            "source_id": "gdrive:1Oynvxve61ipxr9Z7UhaSsZE_8OzVVPRS",
+            "expected_filename": "xt-ref-01-face.png",
+            "pixels_must_be_visible": true
+          },
+          {
+            "role": "xu_tang_early_mid_wardrobe",
+            "source_id": "gdrive:1W4t7ICYHx3obH_S03BEyD80ykzy3M9aF",
+            "expected_filename": "xt-ref-05-wardrobe-a.png",
+            "pixels_must_be_visible": true
+          }
+        ]
+      },
+      "output": {
+        "canonical_asset_id": "cg.opening-ch1.com01b.01",
+        "logical_asset_id": "opening_ch1_com01b_street_exchange",
+        "master_filename": "opening-ch1-com01b-01-street-exchange.png",
+        "quantity": 1
+      },
+      "acceptance": [
+        "Reads as a separate evening chance encounter outside the apartment, not as a continuation at the elevator.",
+        "Xu Tang matches the face sheet's adult identity, realistic anatomy, gold hoops, dark hair, and visible grey sweater.",
+        "Pedestrian distance and frame-right travel direction are clear; no relationship escalation or unapproved person appears.",
+        "Face and action remain usable under moderate landscape crop and above the dialogue-safe zone."
+      ]
+    },
+    {
+      "entry_id": "COM-01B-CG-02",
+      "scene_id": "COM-01B",
+      "source_scene": "docs/narrative/scenes/vertical-slice/COM-01B.md",
+      "status": "render_ready",
+      "cg_class": "event_cg",
+      "beat_range": "01B.5; Xu Tang's goodnight and departure after the shared recommendation",
+      "narrative": {
+        "purpose": "Make Xu Tang's ordinary boundary visible as she continues her original route after saying goodnight, leaving the protagonist to decide on his own weekend trip.",
+        "must_show": [
+          "Xu Tang moving away toward frame right along the same sidewalk, without turning back or waiting.",
+          "Her departure follows the protagonist's bright thanks in every choice branch."
+        ],
+        "must_not_imply": [
+          "She accompanies him to the bookstore, notices his later loneliness, offers comfort, or begins a romantic leave-taking.",
+          "The scene changes to the weekend before she leaves."
+        ]
+      },
+      "characters": [
+        {
+          "character_id": "xu_tang",
+          "screen_side": "right",
+          "body_orientation": "three_quarter_back_right",
+          "pose": "Natural walking stride continuing her preexisting route, no backward reach or pause.",
+          "gaze": "Forward in her direction of travel, away from the off-camera protagonist; no look back.",
+          "expression": "Not emphasized because she faces away; neutral ordinary departure.",
+          "wardrobe_key": "xu_tang_grey_home_sweater_casual_evening",
+          "held_objects": [],
+          "reference_bindings": [
+            {
+              "role": "xu_tang_primary_face_identity",
+              "source_id": "gdrive:1Oynvxve61ipxr9Z7UhaSsZE_8OzVVPRS",
+              "expected_filename": "xt-ref-01-face.png"
+            },
+            {
+              "role": "xu_tang_early_mid_wardrobe",
+              "source_id": "gdrive:1W4t7ICYHx3obH_S03BEyD80ykzy3M9aF",
+              "expected_filename": "xt-ref-05-wardrobe-a.png"
+            }
+          ]
+        }
+      ],
+      "environment": {
+        "location_id": "apartment_exterior_sidewalk",
+        "time_of_day": "same evening as COM-01B-CG-01",
+        "weather": "dry; no rain event specified",
+        "lighting": "Same believable evening street and apartment practical light as COM-01B-CG-01.",
+        "persistent_props": [
+          "apartment exterior edge",
+          "continuous sidewalk",
+          "street-side depth extending toward frame right"
+        ],
+        "reference_binding": null
+      },
+      "camera": {
+        "shot_size": "medium",
+        "angle": "eye level",
+        "pov": "protagonist",
+        "axis_id": "COM-01B-sidewalk-travel-axis",
+        "camera_side": "street-facing side of sidewalk axis, held through evening beats",
+        "lens_intent": "Natural perspective with depth along the sidewalk; screen travel remains toward frame right."
+      },
+      "continuity": {
+        "previous_entry_id": "COM-01B-CG-01",
+        "locked_fields": [
+          "/characters/0/character_id",
+          "/characters/0/wardrobe_key",
+          "/environment/location_id",
+          "/environment/time_of_day",
+          "/environment/weather",
+          "/environment/lighting",
+          "/camera/axis_id",
+          "/camera/camera_side"
+        ],
+        "allowed_changes": []
+      },
+      "composition": {
+        "focus": {
+          "x": 65,
+          "y": 51
+        },
+        "dialogue_safe_zone": "Lower 25 percent stays clear of essential travel direction or identity detail.",
+        "framing_notes": [
+          "Frame Xu Tang from the waist up in the central-right crop-safe band, with open sidewalk ahead toward frame right; avoid inventing unreferenced lower-body wardrobe.",
+          "Show walking separation without exaggerating distance into a dramatic farewell.",
+          "No protagonist body or face is shown."
+        ]
+      },
+      "render_constraints": {
+        "include": [
+          "The same Xu Tang identity, dark hair, gold hoop earrings, and grey sweater as in COM-01B-CG-01.",
+          "Same apartment-side sidewalk and evening light; her path continues toward frame right."
+        ],
+        "exclude": [
+          "Looking back, waiting, waving, touching, handholding, visible protagonist design, Jiang Yucheng, rain, elevator or corridor setting.",
+          "Café or bookstore destination in the night frame, legible signage, logos, UI, subtitles."
+        ],
+        "text_policy": "No legible in-image text; the goodbye and thanks remain script dialogue."
+      },
+      "reference_transport": {
+        "mode": "references_required",
+        "fresh_session_required": true,
+        "no_unrelated_images_allowed": true,
+        "accepted_base_asset_id": null,
+        "attachments": [
+          {
+            "role": "xu_tang_primary_face_identity",
+            "source_id": "gdrive:1Oynvxve61ipxr9Z7UhaSsZE_8OzVVPRS",
+            "expected_filename": "xt-ref-01-face.png",
+            "pixels_must_be_visible": true
+          },
+          {
+            "role": "xu_tang_early_mid_wardrobe",
+            "source_id": "gdrive:1W4t7ICYHx3obH_S03BEyD80ykzy3M9aF",
+            "expected_filename": "xt-ref-05-wardrobe-a.png",
+            "pixels_must_be_visible": true
+          }
+        ]
+      },
+      "output": {
+        "canonical_asset_id": "cg.opening-ch1.com01b.02",
+        "logical_asset_id": "opening_ch1_com01b_xu_departure",
+        "master_filename": "opening-ch1-com01b-02-xu-departure.png",
+        "quantity": 1
+      },
+      "acceptance": [
+        "Xu Tang clearly continues her own route without looking back, waiting, or offering company.",
+        "Character, sweater, earrings, light, location, axis, and frame-right travel agree with COM-01B-CG-01.",
+        "The frame is a normal parting between neighbors, not a romantic or distressed event."
+      ]
+    },
+    {
+      "entry_id": "COM-01B-CG-03",
+      "scene_id": "COM-01B",
+      "source_scene": "docs/narrative/scenes/vertical-slice/COM-01B.md",
+      "status": "render_ready",
+      "cg_class": "background_cg",
+      "beat_range": "01B.5 rejoin; after Xu Tang has left, before the weekend transition",
+      "narrative": {
+        "purpose": "Let the street become quiet after the protagonist's deliberately bright thanks; the restrained loneliness remains in narration while he keeps moving.",
+        "must_show": [
+          "The same apartment-side sidewalk after Xu Tang has walked out of view, with the route still open ahead.",
+          "Quiet ordinary evening atmosphere rather than a dramatic abandonment image."
+        ],
+        "must_not_imply": [
+          "Xu Tang remains to comfort him, the protagonist collapses or stops indefinitely, or any relationship value changes.",
+          "A new destination or another character enters the scene."
+        ]
+      },
+      "characters": [],
+      "environment": {
+        "location_id": "apartment_exterior_sidewalk",
+        "time_of_day": "same evening as COM-01B-CG-01 and COM-01B-CG-02",
+        "weather": "dry; no rain event specified",
+        "lighting": "Same believable evening street and apartment practical light, slightly quieter framing without changing time or exposure logic.",
+        "persistent_props": [
+          "apartment exterior edge",
+          "continuous sidewalk",
+          "street-side depth extending toward frame right"
+        ],
+        "reference_binding": null
+      },
+      "camera": {
+        "shot_size": "wide",
+        "angle": "eye level",
+        "pov": "protagonist",
+        "axis_id": "COM-01B-sidewalk-travel-axis",
+        "camera_side": "street-facing side of sidewalk axis, held through evening beats",
+        "lens_intent": "Natural wide perspective preserving the same sidewalk direction, with moderate depth and believable practical-light falloff."
+      },
+      "continuity": {
+        "previous_entry_id": "COM-01B-CG-02",
+        "locked_fields": [
+          "/environment/location_id",
+          "/environment/time_of_day",
+          "/environment/weather",
+          "/environment/lighting",
+          "/camera/axis_id",
+          "/camera/camera_side"
+        ],
+        "allowed_changes": []
+      },
+      "composition": {
+        "focus": {
+          "x": 61,
+          "y": 50
+        },
+        "dialogue_safe_zone": "Lower 25 percent can carry narration without hiding the open route.",
+        "framing_notes": [
+          "Use the vacant central-right sidewalk as the focus after Xu Tang exits toward frame right.",
+          "Keep the environment crop-tolerant; do not substitute a different street or a bookstore view."
+        ]
+      },
+      "render_constraints": {
+        "include": [
+          "Same apartment-side sidewalk and practical evening lighting as the prior two frames.",
+          "An open route that supports the protagonist's ability to move onward."
+        ],
+        "exclude": [
+          "Visible people, faces, rain, abandoned or threatening street mood, visualized internal monologue, implied romantic rejection.",
+          "Legible signs, logos, UI, subtitles."
+        ],
+        "text_policy": "No legible in-image text; emotional meaning stays in the locked narration."
+      },
+      "reference_transport": {
+        "mode": "none",
+        "fresh_session_required": true,
+        "no_unrelated_images_allowed": true,
+        "accepted_base_asset_id": null,
+        "attachments": []
+      },
+      "output": {
+        "canonical_asset_id": "cg.opening-ch1.com01b.03",
+        "logical_asset_id": "opening_ch1_com01b_quiet_street",
+        "master_filename": "opening-ch1-com01b-03-quiet-street.png",
+        "quantity": 1
+      },
+      "acceptance": [
+        "The environment reads as the same evening apartment-side sidewalk with no visible person.",
+        "The image leaves room for a small, private emotional pause without implying crisis, comfort, or a changed relationship.",
+        "The continuation toward frame right remains understandable and the frame is landscape crop-safe."
+      ]
+    },
+    {
+      "entry_id": "COM-01B-CG-04",
+      "scene_id": "COM-01B",
+      "source_scene": "docs/narrative/scenes/vertical-slice/COM-01B.md",
+      "status": "render_ready",
+      "cg_class": "background_cg",
+      "beat_range": "01B.6; common_bookstore_bridge_weekend_transition ending at the ACG setting-book and merchandise store entrance",
+      "narrative": {
+        "purpose": "Show the protagonist independently reaching the underground bookstore for his preexisting search for the revised 《逆光航路》 setting book before COM-01J begins.",
+        "must_show": [
+          "Taipei underground shopping street on the same weekend at approximately 15:40, seen from the approaching protagonist's point of view.",
+          "An ACG setting-book and merchandise bookstore entrance as the destination, with book and merchandise categories readable visually without exact title text."
+        ],
+        "must_not_imply": [
+          "Xu Tang accompanied him, provided a private invitation, or appears at the store.",
+          "Jiang Yucheng has already entered the frame or made contact; COM-01J's first meeting has already occurred.",
+          "A specific café name, northern exit, quiet weekday conditions, window seat, power outlet, or staff habit has already been learned."
+        ]
+      },
+      "characters": [],
+      "environment": {
+        "location_id": "taipei_underground_street_acg_setting_book_merchandise_store_entrance",
+        "time_of_day": "same weekend, approximately 15:40 daytime",
+        "weather": "not visible indoors; do not imply rain",
+        "lighting": "Believable underground shopping-street retail illumination with daylight-independent interior light; inviting but not romanticized.",
+        "persistent_props": [
+          "underground pedestrian passage",
+          "ACG setting-book and merchandise displays within the store entrance",
+          "clear store threshold"
+        ],
+        "reference_binding": null
+      },
+      "camera": {
+        "shot_size": "wide",
+        "angle": "eye level",
+        "pov": "protagonist",
+        "axis_id": "COM-01B-bookstore-approach-axis",
+        "camera_side": "centered on the pedestrian approach to the store threshold",
+        "lens_intent": "Natural walking-eye perspective that leads into the store without depicting an unseen protagonist body."
+      },
+      "continuity": {
+        "previous_entry_id": null,
+        "locked_fields": [],
+        "allowed_changes": []
+      },
+      "composition": {
+        "focus": {
+          "x": 53,
+          "y": 47
+        },
+        "dialogue_safe_zone": "Lower 25 percent remains clear of the store threshold and essential book-display read.",
+        "framing_notes": [
+          "Place the entrance in the central safe band with enough passage context for the underground-street location.",
+          "Book and merchandise displays convey the shop type through objects; no exact title, brand, or invented story facts need be legible.",
+          "No visible protagonist or future scene character."
+        ]
+      },
+      "render_constraints": {
+        "include": [
+          "Taipei underground shopping street and an ACG setting-book / merchandise store entrance seen at a walk-in moment.",
+          "Visible books and merchandise as category cues, with retail materials and light rendered realistically."
+        ],
+        "exclude": [
+          "Visible Xu Tang, Jiang Yucheng, protagonist face or body, character encounter, café-specific detail, named exit or store, readable copyrighted title or brand art.",
+          "Legible invented signage, logos, UI, subtitles, rain or nighttime exterior cues."
+        ],
+        "text_policy": "No legible in-image text; the named work and the protagonist's research goal remain in the locked script."
+      },
+      "reference_transport": {
+        "mode": "none",
+        "fresh_session_required": true,
+        "no_unrelated_images_allowed": true,
+        "accepted_base_asset_id": null,
+        "attachments": []
+      },
+      "output": {
+        "canonical_asset_id": "cg.opening-ch1.com01b.04",
+        "logical_asset_id": "opening_ch1_com01b_bookstore_entrance",
+        "master_filename": "opening-ch1-com01b-04-bookstore-entrance.png",
+        "quantity": 1
+      },
+      "acceptance": [
+        "Reads as an underground ACG setting-book and merchandise shop entrance at a daytime weekend arrival, ending before COM-01J's first encounter.",
+        "No Xu Tang, Jiang Yucheng, or invented café information appears.",
+        "The approach and store threshold remain readable under moderate landscape crop and above the dialogue-safe region."
+      ]
+    }
+  ]
+}

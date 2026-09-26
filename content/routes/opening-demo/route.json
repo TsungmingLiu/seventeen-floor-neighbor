@@ -26,7 +26,11 @@
     "cg.opening.com01x.r02_dry_smile",
     "bg.opening.ch1.acg_shop",
     "cg.opening.com01j.base_guarded",
-    "cg.opening.com01j.r01_interested"
+    "cg.opening.com01j.r01_interested",
+    "cg.opening-ch1.com01b.01",
+    "cg.opening-ch1.com01b.02",
+    "cg.opening-ch1.com01b.03",
+    "cg.opening-ch1.com01b.04"
   ],
   "story": {
     "id": "opening-demo-chapter-01",
