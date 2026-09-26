@@ -7,6 +7,7 @@ Task Packet routes exactly one active harness/pass and one deliverable。
 ```yaml
 run_id: unique-production-run-id
 task_id: unique-stable-id
+scene_id: one explicit scene when task is scene-scoped
 task_type: narrative_design | scene_dialogue | narrative_review | cg_plan | cg_render | visual_review | integrate
 depends_on: [upstream-task-id]
 workflow_version: 1.3.0
@@ -32,6 +33,8 @@ required_acquisition:
   markdown:
     - path: exact/canonical/path.md
       expected_nonempty: true
+      git_blob_sha: exact committed Git blob SHA
+      excerpts: [] # optional [{label, start_line, end_line, sha256}], 1-based inclusive lines
   images:
     - role: primary_face_identity
       expected_filename: exact-file.png
@@ -90,6 +93,7 @@ human_gate: none | major_story_direction | canonical_character_design | accepted
 - `allowed_sources` 是完整 allowlist；worker 不可自行加來源。
 - Production Task Packet 不得 allowlist archive/experiment。
 - Markdown acquisition 要有 exact repo/ref/path + non-empty contents + blob SHA when available。
+- `narrative_review` 的既有 scene 可由 `npm run context -- --task narrative_review --scene <id> --run-id <id> --task-id <id>` 產生 JSON Task Packet。明列 scene、contract 與該 scene 的 narrative canon 範圍及 Git blob/excerpt hashes；`--verify-packet <path>` 在派工前 fail closed。來源從 Locked Scene / Narrative Contract 的既有 binding 解析，不另建 registry。這僅準備獨立 QA task，不偽造上游 PASS 或 Human approval；後續任務仍須 Ledger 與 gate 審核。
 - Image acquisition 要有 exact role/filename/MIME/repository path/SHA-256 + visible pixels；metadata-only 不成立。
 - `cg_renderer` packet 必須只指定 one independent manifest entry、its deterministic packet and references；只有 manifest 明列並符合 sequence 條件的 linked sequence 可作一個 bounded task。
 - Base CG 使用 `references_required`；Reaction CG 優先 `edit_from_accepted_base`。Reference acquisition 由所選 execution adapter 從 repository-relative catalog binding 負責。

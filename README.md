@@ -25,7 +25,7 @@ npm test                       # runtime/projection regression
 npm run preview:smoke -- --skip-build
 ```
 
-其他工具：`npm run assets:check` 做 full-decode/hash validation；`npm run assets:build` 取用 runtime objects；`npm run context -- --route <id> --node <id>` 建立局部 context；`npm run cg:packet -- --manifest <path> --check` 檢查 CG manifest；`npm run codespace:accept` 做一次性 fresh Codespace acceptance。完整 content request 的 parent Work session 依 [Production Orchestration Contract](.ai/PRODUCTION_ORCHESTRATION.md) 作 control-plane-only Coordinator，使用 fresh bounded workers 與 Production Run Ledger。實際命令以 `package.json` 為準。
+其他工具：`npm run assets:check` 做 full-decode/hash validation；`npm run assets:build` 取用 runtime objects；`npm run context -- --route <id> --node <id>` 建立局部 context；`npm run context -- --task narrative_review --scene <id> --run-id <id> --task-id <id>` 產生可驗證的 bounded Task Packet（見 [Issue #16 context gate](docs/migration/ISSUE16_CONTEXT_GATE.md)）；`npm run cg:packet -- --manifest <path> --check` 檢查 CG manifest；`npm run codespace:accept` 做一次性 fresh Codespace acceptance。完整 content request 的 parent Work session 依 [Production Orchestration Contract](.ai/PRODUCTION_ORCHESTRATION.md) 作 control-plane-only Coordinator，使用 fresh bounded workers 與 Production Run Ledger。實際命令以 `package.json` 為準。
 
 ## Source boundary
 
