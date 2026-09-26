@@ -2,9 +2,9 @@
 
 > Lifecycle: **CANONICAL**
 >
-> Version: 1.1.0
+> Version: 1.2.0
 >
-> Updated: 2026-09-25
+> Updated: 2026-09-26
 
 這份文件只做 **source inventory / routing index**：告訴 fresh worker 某個 domain 的 canonical source 在哪裡，以及該 source 擁有什麼。
 
@@ -24,6 +24,7 @@
 | Context policy | `.ai/policies/CONTEXT_ISOLATION.md` | bounded acquisition、character/scene isolation | creative decisions |
 | Current state | `PROJECT_STATE.md` | milestone、accepted decisions、migration/current production facts | reusable workflow detail |
 | Narrative macro design | `docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md` | macro arc、scene purpose、relationship pacing | final render prompt |
+| Detailed route pre-script | `docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_INDEX.md` + sibling blueprint files | pre-dialogue scene progression、branch intent、rejoin logic、transition hooks | final dialogue prose、camera、CG planning |
 | Route/state | `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md` | route graph、knowledge/state semantics | dialogue prose、camera |
 | Production layer contract | `docs/narrative/CONTENT_PRODUCTION_SPEC.md` | Narrative Design → Scene/Dialogue → Visual Production boundaries | story facts |
 | Locked scene | `docs/narrative/scenes/vertical-slice/*.md` | scene-local narrative facts、dialogue、semantic visual beats | image-generation prompt syntax |
