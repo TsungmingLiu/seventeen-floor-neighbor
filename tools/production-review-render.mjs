@@ -36,6 +36,7 @@ export function renderProductionReview(model) {
   const bindings = Array.isArray(runtime.nodeBindings) ? runtime.nodeBindings : [];
   const nextScenes = Array.isArray(runtime.nextScenes) ? runtime.nextScenes : [];
   const sources = Array.isArray(provenance.sources) ? provenance.sources : [];
+  const nqa = provenance.narrativeQa && typeof provenance.narrativeQa === 'object' ? provenance.narrativeQa : null;
 
   const visualHtml = visuals.length ? visuals.map((v) => {
     const image = typeof v?.thumbnailDataUrl === 'string' && /^data:image\/webp;base64,[A-Za-z0-9+/]*={0,2}$/.test(v.thumbnailDataUrl)
@@ -49,6 +50,7 @@ export function renderProductionReview(model) {
   const statusNames = [['readiness', 'Readiness'], ['narrativeQa', 'Narrative QA'], ['manifestStatus', 'Manifest status'], ['visualQa', 'Visual QA'], ['integrationStatus', 'Runtime integration'], ['staleStatus', 'Stale check'], ['validator', 'Validator'], ['humanGate', 'Human decision']];
   const productionHtml = statusNames.map(([key, label]) => field(label, production[key])).join('');
   const sourceHtml = sources.length ? `<ul>${sources.map((s) => `<li>${text(s?.path)} <span class="muted">SHA-256: ${text(s?.sha256)}</span></li>`).join('')}</ul>` : '<p class="empty">UNRECORDED sources</p>';
+  const qaProvenance = nqa ? `<h3>Narrative QA evidence</h3><dl class="grid">${field('Status', nqa.status)}${field('Run ID', nqa.runId)}${field('Task ID', nqa.taskId)}${field('Source commit', nqa.sourceRef)}${field('Receipt', nqa.receiptPath)}${field('Packet SHA-256', nqa.packetSha256)}${field('Receipt SHA-256', nqa.receiptSha256)}${field('Input digest SHA-256', nqa.inputDigestSha256)}${field('Input versions', (nqa.inputVersions || []).map((item) => `${item.id} ${item.version}`).join('\n'))}${field('Output versions', (nqa.outputVersions || []).map((item) => `${item.id} ${item.version}`).join('\n'))}${field('QA codes', (nqa.qaCodes || []).join(', '))}</dl>` : '<h3>Narrative QA evidence</h3><p class="empty">UNRECORDED</p>';
 
   return `<!doctype html>
 <html lang="en">
@@ -65,7 +67,7 @@ export function renderProductionReview(model) {
 <header class="hero"><div class="eyebrow">Static production review</div><h1>${text(scene.title)}</h1><dl class="grid">${field('Scene ID', scene.id)}${field('Source scene', scene.source_scene)}<div class="field"><dt>Purpose</dt><dd>${list(scene.purpose)}</dd></div></dl></header>
 <section><h2>Narrative state</h2><div class="grid">${stateCard('Entry state', scene.entry_state)}${stateCard('Exit state', scene.exit_state)}</div><h3>Choices</h3>${choiceHtml}</section>
 <section><h2>Visuals</h2>${visualHtml}</section>
-<section><h2>Production status</h2><dl class="grid">${productionHtml}</dl><p class="muted">An accepted manifest or WebP asset, and a validator PASS, do not replace independent QA or Human decisions. Readiness is NOT_READY; stale status is UNKNOWN_NO_RUN_LEDGER.</p></section>
+<section><h2>Production status</h2><dl class="grid">${productionHtml}</dl><p class="muted">An accepted manifest or WebP asset, and a validator PASS, do not replace independent QA or Human decisions. Readiness is ${text(production.readiness)}; stale status is ${text(production.staleStatus)}.</p>${qaProvenance}</section>
 <section><h2>Runtime</h2><dl class="grid">${field('Route ID', runtime.routeId)}${field('Memory ID', memory.id)}${field('Memory title', memory.title)}${field('Replay node', memory.replayNode)}${field('Cover asset', memory.coverAsset)}<div class="field"><dt>Gallery assets</dt><dd>${list(memory.galleryAssets)}</dd></div><div class="field"><dt>Planned targets</dt><dd>${list(runtime.plannedTargets)}</dd></div></dl><h3>Node bindings</h3>${bindings.length ? `<ul>${bindings.map((b) => `<li>${text(b?.nodeId)} → ${text(b?.assetId)}</li>`).join('')}</ul>` : '<p class="empty">UNRECORDED</p>'}<h3>Next scenes</h3>${nextScenes.length ? `<ul>${nextScenes.map((n) => `<li>${text(n?.sceneId)} via ${text(n?.nodeId)}</li>`).join('')}</ul>` : '<p class="empty">UNRECORDED</p>'}</section>
 <section><h2>Provenance</h2><dl>${field('Commit', provenance.commit)}</dl><h3>Sources</h3>${sourceHtml}</section>
 </main></body></html>

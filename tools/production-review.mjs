@@ -5,6 +5,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadAndValidate, projectRoot } from './content-lib.mjs';
 import { validateProductionContracts } from './validate-production-contracts.mjs';
+import { verifyProductionRun } from './verify-production-run.mjs';
 import { renderProductionReview } from './production-review-render.mjs';
 
 const narrativeRoot = 'content/production/narrative';
@@ -49,6 +50,44 @@ async function jsonPaths(relative) {
     return entry.isFile() && entry.name.endsWith('.json') ? [item] : [];
   }));
   return paths.flat().sort();
+}
+
+async function narrativeQaEvidence(sceneId, sources) {
+  const root = 'content/production/runs';
+  let directories;
+  try { directories = await readdir(path.join(projectRoot, root), { withFileTypes: true }); }
+  catch (error) { if (error.code === 'ENOENT') return null; throw error; }
+  const relevant = [];
+  for (const directory of directories.filter((entry) => entry.isDirectory())) {
+    const runId = directory.name;
+    const ledgerPath = `${root}/${runId}/ledger.json`;
+    let ledger;
+    try { ledger = JSON.parse(await committedSource(ledgerPath, sources)); }
+    catch (error) { throw new Error(`cannot classify production run ${runId}: ${error.message}`); }
+    requireCondition(Array.isArray(ledger.tasks), `cannot classify production run ${runId}: missing tasks`);
+    if (ledger.tasks.some((task) => task?.scene_id === sceneId && task?.task_type === 'narrative_review')) {
+      relevant.push({ runId, ledger, ledgerPath });
+    }
+  }
+  requireCondition(relevant.length <= 1, `ambiguous Narrative QA evidence for ${sceneId}: ${relevant.map((run) => run.runId).join(', ')}`);
+  if (!relevant.length) return null;
+  const { runId, ledger } = relevant[0];
+  const verified = await verifyProductionRun(runId);
+  const task = ledger.tasks.find((item) => item.scene_id === sceneId && item.task_type === 'narrative_review');
+  const result = {
+    status: verified.task_status === 'CURRENT_PASS' ? 'PASS_CURRENT' : 'REVIEW_REQUIRED',
+    runId, taskId: task.task_id, sourceRef: verified.source_ref,
+    packetSha256: verified.packet_sha256,
+    inputVersions: task.input_versions.map(({ id, version }) => ({ id, version })),
+    outputVersions: task.output_versions.map(({ id, version }) => ({ id, version })),
+    qaCodes: verified.qa_codes || [], receiptPath: task.decision_receipt
+  };
+  if (verified.task_status === 'CURRENT_PASS') {
+    const receipt = await committedJson(task.decision_receipt, sources);
+    result.receiptSha256 = sources.get(task.decision_receipt).sha256;
+    result.inputDigestSha256 = receipt.input_digest_sha256;
+  }
+  return result;
 }
 
 function sceneNodeIds(text) {
@@ -195,6 +234,7 @@ export async function buildProductionReviewModel(sceneId) {
     outputIds.every((id) => nodeBindings.some((node) => node.assetId === id)) ? 'ROUTE_BOUND' : 'PARTIAL';
   const manifestStatus = !entries.length ? 'NO_CG_ENTRIES' :
     entries.every(({ entry }) => entry.status === 'accepted') ? 'ENTRIES_ACCEPTED' : 'IN_PROGRESS';
+  const narrativeQa = await narrativeQaEvidence(sceneId, sources);
   return {
     scene: {
       id: sceneId, title, purpose: contract.scene_function,
@@ -204,9 +244,11 @@ export async function buildProductionReviewModel(sceneId) {
     choices,
     visuals,
     production: {
-      readiness: 'NOT_READY', narrativeQa: 'UNRECORDED', manifestStatus,
+      readiness: 'NOT_READY', narrativeQa: narrativeQa?.status || 'UNRECORDED', manifestStatus,
       visualQa: 'UNRECORDED', integrationStatus,
-      staleStatus: 'UNKNOWN_NO_RUN_LEDGER', validator: 'PASS_CURRENT_TREE',
+      staleStatus: narrativeQa?.status === 'PASS_CURRENT' ? 'NARRATIVE_QA_CURRENT_OTHER_GATES_UNKNOWN' :
+        narrativeQa ? 'NARRATIVE_QA_REVIEW_REQUIRED' : 'UNKNOWN_NO_RUN_LEDGER',
+      validator: 'PASS_CURRENT_TREE',
       humanGate: 'UNRECORDED'
     },
     runtime: {
@@ -219,7 +261,7 @@ export async function buildProductionReviewModel(sceneId) {
       nextScenes: route ? nextScenes(route, nodeIds.at(-1), sceneId, nodeToScene) : [],
       plannedTargets: plannedTargets(locked)
     },
-    provenance: { commit: git('rev-parse', 'HEAD'), sources: [...sources.values()].sort((a, b) => a.path.localeCompare(b.path)) }
+    provenance: { commit: git('rev-parse', 'HEAD'), narrativeQa, sources: [...sources.values()].sort((a, b) => a.path.localeCompare(b.path)) }
   };
 }
 

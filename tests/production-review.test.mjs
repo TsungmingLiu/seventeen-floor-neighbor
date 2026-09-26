@@ -1,7 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
-import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
+import { copyFile, mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import { execFileSync } from 'node:child_process';
+import os from 'node:os';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { buildProductionReviewModel, writeProductionReview } from '../tools/production-review.mjs';
 import { renderProductionReview } from '../tools/production-review-render.mjs';
 
@@ -45,6 +49,51 @@ test('production review preserves unknown QA, human, and stale status as not rea
   assert.equal(production.visualQa, 'UNRECORDED');
   assert.equal(production.humanGate, 'UNRECORDED');
   assert.equal(production.staleStatus, 'UNKNOWN_NO_RUN_LEDGER');
+});
+
+test('COM-00 shows only the independently verified current Narrative QA receipt', async () => {
+  const model = await buildProductionReviewModel('COM-00');
+  assert.equal(model.production.narrativeQa, 'PASS_CURRENT');
+  assert.equal(model.production.visualQa, 'UNRECORDED');
+  assert.equal(model.production.humanGate, 'UNRECORDED');
+  assert.equal(model.production.readiness, 'NOT_READY');
+  assert.equal(model.production.staleStatus, 'NARRATIVE_QA_CURRENT_OTHER_GATES_UNKNOWN');
+  assert.equal(model.provenance.narrativeQa.runId, 'issue16-com00-nqa-20260926');
+  assert.equal(model.provenance.narrativeQa.taskId, 'NQA-COM00-001');
+  assert.equal(model.provenance.narrativeQa.sourceRef, 'ea788a958c83851cfa0cca235825552fa66f2cb2');
+  assert.equal(model.provenance.narrativeQa.qaCodes.length, 5);
+  const html = renderProductionReview(model);
+  assert.match(html, /Narrative QA evidence/);
+  assert.match(html, /NQA-PROVENANCE-01/);
+  assert.doesNotMatch(html, /stale status is UNKNOWN_NO_RUN_LEDGER/);
+});
+
+test('tampered committed QA receipt blocks and removes prior page in isolated worktree', async () => {
+  const repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+  const temporary = await mkdtemp(path.join(os.tmpdir(), 'production-review-'));
+  const worktree = path.join(temporary, 'repo');
+  const git = (...args) => execFileSync('git', ['-C', repo, ...args], { encoding: 'utf8' }).trim();
+  let added = false;
+  try {
+    git('worktree', 'add', '--detach', worktree, 'HEAD');
+    added = true;
+    for (const file of ['tools/production-review.mjs', 'tools/production-review-render.mjs']) {
+      await copyFile(path.join(repo, file), path.join(worktree, file));
+    }
+    const run = (...args) => execFileSync('node', args, { cwd: worktree, encoding: 'utf8' });
+    run('tools/production-review.mjs', '--scene', 'COM-00');
+    const page = path.join(worktree, 'generated/reviews/COM-00/index.html');
+    assert.match(await readFile(page, 'utf8'), /PASS_CURRENT/);
+    const receipt = path.join(worktree, 'content/production/runs/issue16-com00-nqa-20260926/NQA-COM00-001.decision.json');
+    const original = await readFile(receipt, 'utf8');
+    await writeFile(receipt, original.replace('NQA-FUNCTION-01', 'NQA-FUNCTION-99'));
+    assert.throws(() => run('tools/production-review.mjs', '--scene', 'COM-00'),
+      (error) => error.stderr?.toString().includes('decision source differs from committed HEAD'));
+    await assert.rejects(readFile(page), { code: 'ENOENT' });
+  } finally {
+    if (added) git('worktree', 'remove', '--force', worktree);
+    await rm(temporary, { recursive: true, force: true });
+  }
 });
 
 test('review HTML is deterministic, self-contained, and contains three WebP thumbnails', async () => {
