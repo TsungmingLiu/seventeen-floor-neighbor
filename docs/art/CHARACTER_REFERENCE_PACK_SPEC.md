@@ -8,11 +8,11 @@
 
 > 狀態：**Canonical character-image reference contract**
 >
-> 版本：1.1
+> 版本：1.2
 >
-> 更新：2026-09-23
+> 更新：2026-09-26
 >
-> 目的：定義所有可進 production 的戀愛角色，在大量生成 sprite / event CG / ending CG 前必須具備的 6-sheet reference pack；同時記錄目前許棠與江雨澄已批准的 canonical Drive references。
+> 目的：定義所有可進 production 的戀愛角色，在大量生成 CG 前必須具備的 6-sheet reference pack；同時記錄目前已入庫、可供 generation 綁定的參考圖與缺失項目。
 >
 > 本文件負責「角色設定圖如何製作、哪張圖是什麼 authority、生成 CG 時該載入哪些 reference」。  
 > Scene-local intent 由 locked scene file 負責；global visual rules 由 `docs/art/PRODUCTION_VISUAL_DIRECTION.md` 負責。Archived art matrix / prompt pack 不再是 production input。
@@ -21,12 +21,7 @@
 
 # 1. Production status
 
-2026-09-23 QA 結論：
-
-- **Xu Tang / 許棠：PASS**
-- **Jiang Yucheng / 江雨澄：PASS**
-
-兩套 6-sheet pack 均可作為後續 production 的 canonical identity / body / wardrobe reference。
+2026-09-23 QA review 記錄兩套角色 reference pack 通過設計驗收。該歷史 QA 狀態不表示目前所有圖檔均可取得。當前可綁定檔案與缺失項目以第 2–4 節的 repository status 為準。
 
 非阻擋性注意：
 
@@ -36,24 +31,18 @@
 
 ---
 
-# 2. Canonical Drive folder
+# 2. Current repository reference availability
 
-Folder ID：
+Production adapters resolve source IDs through `content/assets/source-catalog.json` to its `sourcePath` and verify the file, MIME, SHA-256, role, and visible pixels before generation. Historical provider metadata is not an active acquisition binding.
 
-`1bZAb9Fzj-xzFvklYCDNG60SJLuA-28Xn`
+Currently available in the repository:
 
-Folder URL：
+- Xu Tang: face identity (`xt-ref-01-face.png`), optional body/proportions (`xt-ref-03-body.jpeg`), and Wardrobe A (`xt-ref-05-wardrobe-a.png`).
+- Jiang Yucheng: face identity (`jyc-ref-01-face.png`) and Wardrobe A (`jyc-ref-05-wardrobe-a.png`).
 
-`https://drive.google.com/drive/folders/1bZAb9Fzj-xzFvklYCDNG60SJLuA-28Xn`
+The other seven reference sheets are unavailable in the repository. Any task that requires one of those missing images must be `BLOCKED` until that exact image is supplied and cataloged.
 
-上述 folder 經 2026-09-23 reconciliation 驗證，實際名稱為 `runtime-public`。其中 12 張 6-sheet reference 目前仍是 **canonical generation references**，既有 Drive IDs / URLs 不變，所有 sprite / CG generation 仍必須實際 fetch 這些檔案。
-
-但 storage authority 仍服從 `ARCHITECTURE.zh-TW.md`：新的 accepted master 應保存到 restricted `source-private/`，`runtime-public/` 只放 optimized runtime objects。現有 reference pack 的放置位置因此是已知 architecture deviation，不應被解讀成改寫 storage architecture。
-
-在專門的 asset-migration 任務完成前：
-- 不複製出第二套「同時 canonical」的 identity pack；
-- 不任意改 Drive IDs，避免破壞現有 production recipes；
-- migration 必須一次同步 `source-private` master、catalog/provenance 與本 manifest，再決定 runtime-public 是否保留 optimized reference copies。
+Xu Tang's body JPEG is user supplied and replaces an unavailable former PNG reference as a distinct byte sequence. It is optional. Do not claim byte identity or pixel equivalence with the former PNG. Its SHA-256 is `d436d6ceeda95a2cd8115087d6b49e39baa72ec2f7552909da2b9a2eb933cdd4` (1055 × 1491).
 
 ---
 
@@ -68,14 +57,14 @@ Canonical character facts：
 - Signature accessory：大型金色 hoop earrings
 - Signature home piece：灰色居家毛衣上衣
 
-| Role | File | Drive ID | Drive URL | Authority |
-|---|---|---|---|---|
-| Primary face identity | `xt-ref-01-face.png` | `1Oynvxve61ipxr9Z7UhaSsZE_8OzVVPRS` | `https://drive.google.com/file/d/1Oynvxve61ipxr9Z7UhaSsZE_8OzVVPRS/view` | **Highest** |
-| Expression / acting | `xt-ref-02-expression.png` | `19kDLngndmnc4eT4EzdxTpjCUwiMo7M3T` | `https://drive.google.com/file/d/19kDLngndmnc4eT4EzdxTpjCUwiMo7M3T/view` | Secondary |
-| Body / proportions | `xt-ref-03-body.png` | `1iqAzlOSU7shHNrrntNhqWytWyqSWjVPl` | `https://drive.google.com/file/d/1iqAzlOSU7shHNrrntNhqWytWyqSWjVPl/view` | Body authority |
-| Hair / hands / props / lighting | `xt-ref-04-production.png` | `1dTvm8uC5m2jaq8OUDDzaloOUrzeWBHIx` | `https://drive.google.com/file/d/1dTvm8uC5m2jaq8OUDDzaloOUrzeWBHIx/view` | Production consistency |
-| Early/mid wardrobe | `xt-ref-05-wardrobe-a.png` | `1W4t7ICYHx3obH_S03BEyD80ykzy3M9aF` | `https://drive.google.com/file/d/1W4t7ICYHx3obH_S03BEyD80ykzy3M9aF/view` | Wardrobe A |
-| Late/after-story wardrobe | `xt-ref-06-wardrobe-b.png` | `1Ls-1LSF_9rUs7ZkQydvB2K7w9P-Aimp4` | `https://drive.google.com/file/d/1Ls-1LSF_9rUs7ZkQydvB2K7w9P-Aimp4/view` | Wardrobe B |
+| Role | File | Repository status | Authority |
+|---|---|---|---|
+| Primary face identity | `xt-ref-01-face.png` | Available: `assets-src/references/xu-tang/xt-ref-01-face.png` | **Highest** |
+| Expression / acting | `xt-ref-02-expression.png` | Unavailable | Secondary |
+| Body / proportions | `xt-ref-03-body.jpeg` | Optional; available: `assets-src/references/xu-tang/xt-ref-03-body.jpeg` | Body authority |
+| Hair / hands / props / lighting | `xt-ref-04-production.png` | Unavailable | Production consistency |
+| Early/mid wardrobe | `xt-ref-05-wardrobe-a.png` | Available: `assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png` | Wardrobe A |
+| Late/after-story wardrobe | `xt-ref-06-wardrobe-b.png` | Unavailable | Wardrobe B |
 
 ## 3.1 Xu wardrobe semantics
 
@@ -106,14 +95,14 @@ Canonical character facts：
 - Visual direction：可愛、精緻、有成年女大生／研究生感，ACG/creator 主場時更靈動
 - Wardrobe signature：黑絲、白絲、過膝襪可高頻出現；但角色 identity 不依賴單一襪裝
 
-| Role | File | Drive ID | Drive URL | Authority |
-|---|---|---|---|---|
-| Primary face identity | `jyc-ref-01-face.png` | `13AI1sD0iUm6NpMBnVtlK8Zl5PN0UPsMQ` | `https://drive.google.com/file/d/13AI1sD0iUm6NpMBnVtlK8Zl5PN0UPsMQ/view` | **Highest** |
-| Expression / acting | `jyc-ref-02-expression.png` | `1uiyGTWLqnjsdtTOHalEwfyooy-_-1Xkz` | `https://drive.google.com/file/d/1uiyGTWLqnjsdtTOHalEwfyooy-_-1Xkz/view` | Secondary |
-| Body / proportions | `jyc-ref-03-body.png` | `1OfAOJTafTrfMzljAGa3KsOGLOPXggw8j` | `https://drive.google.com/file/d/1OfAOJTafTrfMzljAGa3KsOGLOPXggw8j/view` | Body authority |
-| Hair / hands / props / lighting | `jyc-ref-04-production.png` | `10EH0fmMV0UzFED2-tnf62TYOJexJQK4_` | `https://drive.google.com/file/d/10EH0fmMV0UzFED2-tnf62TYOJexJQK4_/view` | Production consistency |
-| Early/mid wardrobe | `jyc-ref-05-wardrobe-a.png` | `1FqxmDU0BqzAb6AFmZfebcx6NUaKCUw-A` | `https://drive.google.com/file/d/1FqxmDU0BqzAb6AFmZfebcx6NUaKCUw-A/view` | Wardrobe A |
-| Late/after-story wardrobe | `jyc-ref-06-wardrobe-b.png` | `19lOGj4CYsC2HD7lx0AoBmZynipPYMKPZ` | `https://drive.google.com/file/d/19lOGj4CYsC2HD7lx0AoBmZynipPYMKPZ/view` | Wardrobe B |
+| Role | File | Repository status | Authority |
+|---|---|---|---|
+| Primary face identity | `jyc-ref-01-face.png` | Available: `assets-src/references/jiang-yucheng/jyc-ref-01-face.png` | **Highest** |
+| Expression / acting | `jyc-ref-02-expression.png` | Unavailable | Secondary |
+| Body / proportions | `jyc-ref-03-body.png` | Unavailable | Body authority |
+| Hair / hands / props / lighting | `jyc-ref-04-production.png` | Unavailable | Production consistency |
+| Early/mid wardrobe | `jyc-ref-05-wardrobe-a.png` | Available: `assets-src/references/jiang-yucheng/jyc-ref-05-wardrobe-a.png` | Wardrobe A |
+| Late/after-story wardrobe | `jyc-ref-06-wardrobe-b.png` | Unavailable | Wardrobe B |
 
 ## 4.1 JYC wardrobe semantics
 
@@ -207,15 +196,15 @@ preferred 6:
 
 Canonical CG Manifest 的 `reference_transport.attachments[]` 指定 generation 必須收到的 image inputs。取得方式由 `Execution Adapter` 決定，不是角色 reference pack 的設計決策：
 
-1. `chat_manual`：Human 在 fresh image-generation chat 附上 entry 指定的圖；worker 逐張確認 pixels、role、filename。
-2. `work_batch`：Work executor 可透過已授權 connected source 自動取得 entry 指定的 Drive files 或 source catalog records；逐張確認 pixels、role、filename 後送進 generation call。
+1. `chat_manual`：依 source catalog 的 repository-relative path 取得 entry 指定的圖，並在 fresh image-generation chat 附上；worker 逐張確認 pixels、role、filename、MIME 與 SHA-256。
+2. `work_batch`：依 source catalog 的 repository-relative path 取得 entry 指定的 files；逐張確認 pixels、role、filename、MIME 與 SHA-256 後送進 generation call。
 3. `api`：未來 executor 以相同 bindings 提供 image inputs，並留下實際使用的來源紀錄。
 
-任何 adapter 遇到缺失、錯誤或 unrelated images 都須 `BLOCKED`。只知道 Drive ID、URL 或檔名，不算已把像素送進 generation。每個獨立 image task 只生成一張 candidate；previous generated CG 不可取代新 base CG 的 canonical identity refs。
+任何 adapter 遇到缺失、錯誤或 unrelated images 都須 `BLOCKED`。只知道 path、hash 或檔名，不算已把像素送進 generation。每個獨立 image task 只生成一張 candidate；previous generated CG 不可取代新 base CG 的 canonical identity refs。
 
-Reaction CG / close continuity variant 優先以 Accepted Base 作 edit target；Human 或 Work executor 依 adapter 提供這張 base。只有 manifest 明列時，才另外加入 identity/wardrobe refs。
+Reaction CG / close continuity variant 優先以 Accepted Base 作 edit target；executor 依 adapter 從 repository catalog 提供這張 base。只有 manifest 明列時，才另外加入 identity/wardrobe refs。
 
-早期 Chat/connector pilot 未證明該介面的硬性 reference binding；它不構成 Work batch 的全面禁令。Work batch 已跑過自動取得 references 的流程，仍須對每次輸出的 image quality 與 continuity 做 Visual Review。Google Drive IDs 在此文件中維持 canonical location/provenance metadata。
+每次 generation 輸出仍須經 Visual Review 確認 image quality 與 continuity。Generation reference files retain their source PNG/JPEG formats; accepted runtime CG/background bases use their repository WebP objects.
 
 ---
 
@@ -416,7 +405,7 @@ all pages clearly depict the same established adult character
 - [ ] wardrobe 覆蓋早期、約會、工作/興趣、ending/after-story
 - [ ] canonical signature element 一致
 - [ ] filenames 完全符合 `<slug>-ref-01..06-*.png`
-- [ ] Drive file IDs 已寫入 manifest
+- [ ] Repository-relative source paths and immutable hashes are recorded in the catalog and manifest
 - [ ] 後續 CG prompt 有明確 reference selection，不只寫「保持角色一致」
 
-許棠與江雨澄目前均已通過上述 production gate。
+許棠與江雨澄均有上述 reference-pack QA 通過紀錄；當前本地可用影像仍以第 2–4 節為準。

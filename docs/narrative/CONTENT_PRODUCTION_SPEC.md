@@ -2,7 +2,7 @@
 
 > Lifecycle: **CANONICAL**
 >
-> Version: 1.1.0
+> Version: 1.2.0
 >
 > Updated: 2026-09-25
 
@@ -16,14 +16,16 @@
 Narrative Design
   → Scene / Dialogue
   → Narrative Review
-  → Visual Production / Canonical CG Manifest
+  → approved Locked Scene
+      ↳ optional narrative preview integration (registered background / preview-only WebP)
+      ↳ Visual Production / Canonical CG Manifest
   → Deterministic Render Packet
   → Render / Visual Review
-  → Asset Ingest / Runtime Integration
+  → Asset Ingest / final Runtime Integration
   → Playable Review
 ```
 
-CG 成本目前是 immediate blocker，但它不擁有 narrative。若 CG 數量需要下降，先調整 shot economy；不得把「較容易生成」當成改寫 scene purpose、character decision 或 relationship pace 的理由。
+Approved Locked Scene 可以先以 repo 內的背景或明示的 preview-only WebP 進可玩劇情預覽，供 Human 審閱對白、選項與 state；這不代表 CG / visual gate 完成。CG 可在故事穩定後另批次補齊。若 CG 數量需要下降，先調整 shot economy；不得把「較容易生成」當成改寫 scene purpose、character decision 或 relationship pace 的理由。
 
 ## 2. Layer ownership
 
@@ -50,6 +52,10 @@ CG 成本目前是 immediate blocker，但它不擁有 narrative。若 CG 數量
 `CG Planner` 只從 approved Locked Scene 選擇值得 render 的 beat，建立 `Canonical CG Manifest`。每個 `CG Manifest Entry` 必須 render-ready and self-contained；任何未決 creative ambiguity 都退回前一層。
 
 `CG Renderer` 只接收 entry、deterministic `Render Packet` 與 entry-declared refs；不得重新讀 narrative/project policy 做二次解讀。
+
+### Text-first narrative preview
+
+同一個 `integrator` 的 `integration_mode: narrative_preview` 可在 Narrative QA 後接入劇情。畫面仍須有有效 logical asset ID；沒有合適的既有背景時，使用 `bg.narrative_preview.placeholder`（`content/assets/manifest.json` 中 `previewOnly: true` 的 `background`）。在 route `assetIds` 加入該 ID，chapter 明示 `allowPreviewArt: true`，scene node 使用 `visual: {"mode":"composite","background":"bg.narrative_preview.placeholder","sprites":[]}`。需要無 CG 的章節封面或結尾時，也可在同一明示模式下引用該背景。Memory 的 scene cover 可以引用它；不得用於 character cover、Gallery、CG unlock、accepted-master receipt 或 CG Manifest。正式 visual integration 以已驗收資產替換該 node 的 visual binding，保留 node/save ID；`npm run validate:final` 要求移除 chapter 的 `allowPreviewArt`。
 
 ## 3. Narrative continuity rule
 
@@ -107,7 +113,7 @@ Candidate 僅對 manifest entry、refs、accepted base 評估，不回頭自由�
 | `Render Packet` | deterministic projection 的 generated execution artifact |
 | `Deterministic Projection` | 無自由摘要、固定欄位順序的 mechanical conversion |
 | `Execution Adapter` | Chat manual / Work batch / API 的 transport envelope |
-| `Reference Preflight` | 確認 manifest 指定的 image pixels、role、filename；Chat manual 由 Human 附圖，Work batch 可從 connected source 取得 |
+| `Reference Preflight` | 確認 manifest 指定的 image pixels、role、filename；Chat manual 由 Human 附圖，Work batch 從 repo 內的 source catalog 綁定取得 |
 | `Accepted Base` | reaction edit 的 approved source image |
 
 文件與 code 只使用右側說明來解釋，不另創「鏡頭包」「繪圖指令集」「提示詞編譯器」等同義名。

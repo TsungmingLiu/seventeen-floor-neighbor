@@ -1,19 +1,23 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import {
   adaptApi,
   adaptChatManual,
   adaptWorkBatch,
   buildPackets,
-  validateManifest
+  validateManifest,
+  validateRepoSourceCatalog
 } from './render-cg-packets.mjs';
 
 const NARRATIVE_ROOT = 'content/production/narrative';
 const OPENING_MANIFEST = 'content/production/cg-manifests/opening-ch1.json';
+const COM01B_MANIFEST = 'content/production/cg-manifests/opening-ch1-com01b.json';
 const OPENING_RECEIPT = 'content/assets/ingest-receipts/opening-ch1-demo-v0.1.json';
 const OPENING_ROUTE = 'content/routes/opening-demo/route.json';
 const SOURCE_CATALOG = 'content/assets/source-catalog.json';
+const GATE3_RECEIPT = 'content/assets/ingest-receipts/repo-source-gate3-v1.json';
 const ORCHESTRATION = '.ai/PRODUCTION_ORCHESTRATION.md';
 const SOURCE_MAP = 'docs/CONTENT_PRODUCTION_SOURCE_MAP.md';
 const DRY_RUN = 'tests/fixtures/production-orchestration-dry-run.json';
@@ -227,6 +231,10 @@ function validateOrchestrationContract() {
   invariant(contract.includes('validation_escalation') && contract.includes('最多可對同一 objective 建立一次'), 'orchestration lost bounded escalation policy');
   invariant(contract.includes('no automatic retry / no automatic image scoring'), 'orchestration model routing must preserve renderer retry prohibition');
   invariant(contract.includes('READY_FOR_HUMAN_ACCEPTANCE') && contract.includes('preview:smoke'), 'orchestration lost playable definition of done');
+  invariant(manifest.includes('narrative_preview:') && manifest.includes('preview_asset_property: previewOnly') &&
+    contract.includes('NARRATIVE_PREVIEW_READY') && contract.includes('npm run validate:final') &&
+    packet.includes('integration_mode: narrative_preview | final') && ledger.includes('NARRATIVE_PREVIEW_READY'),
+    'orchestration lost the bounded text-first preview gate');
   for (const field of ['run_id:', 'task_id:', 'task_type:', 'depends_on:', 'harness:', 'pass:', 'objective:', 'execution_policy:', 'model_tier:', 'routing_reason:', 'attempt:', 'required_acquisition:', 'allowed_sources:', 'input_versions:', 'constraints:', 'deliverables:', 'acceptance:', 'handoff_to:', 'human_gate:']) {
     invariant(packet.includes(field), `Task Packet cannot represent ${field}`);
   }
@@ -307,17 +315,72 @@ function validateOrchestrationContract() {
   }
 }
 
-function validateOpeningMigration(contracts, manifest) {
-  const contractSceneIds = new Set(contracts.map((contract) => contract.scene_id));
-  invariant(manifest.source_scene_ids.every((sceneId) => contractSceneIds.has(sceneId)), 'CG manifest scene has no Narrative Continuity Contract');
-
-  for (const sceneId of manifest.source_scene_ids) {
-    const sourceScene = manifest.entries.find((entry) => entry.scene_id === sceneId)?.source_scene;
-    invariant(sourceScene, `manifest has no entry for ${sceneId}`);
-    const sceneText = readText(sourceScene);
-    invariant(sceneText.includes(OPENING_MANIFEST), `${sourceScene} does not bind ${OPENING_MANIFEST}`);
+function validateGate3RepositorySources(catalog) {
+  validateRepoSourceCatalog(catalog);
+  const receipt = readJson(GATE3_RECEIPT);
+  invariant(receipt.receiptVersion === 1 && receipt.gate === 'repo-production-reference-gate3', 'Gate 3 repository source receipt identity is invalid');
+  invariant(receipt.sourceCatalog === SOURCE_CATALOG, 'Gate 3 receipt must bind the active source catalog');
+  invariant(Array.isArray(receipt.acceptedAssets) && receipt.acceptedAssets.length === 15, 'Gate 3 receipt must contain 15 accepted Opening assets');
+  invariant(Array.isArray(receipt.references) && receipt.references.length === 5, 'Gate 3 receipt must contain four PNG references and the optional supplied JPEG');
+  const acceptedIds = new Set();
+  for (const item of receipt.acceptedAssets) {
+    invariant(!acceptedIds.has(item.canonicalAssetId), `duplicate accepted canonicalAssetId: ${item.canonicalAssetId}`);
+    acceptedIds.add(item.canonicalAssetId);
+    const source = catalog.files[item.sourceId];
+    invariant(source && source.canonicalAssetId === item.canonicalAssetId && source.logicalAssetId === item.logicalAssetId, `accepted receipt identity mismatch: ${item.sourceId}`);
+    invariant(source.sourcePath === item.repoPath && source.name === item.acceptedFilename, `accepted receipt path/name mismatch: ${item.sourceId}`);
+    invariant(source.sha256 === item.sha256 && source.bytes === item.bytes, `accepted receipt fingerprint mismatch: ${item.sourceId}`);
+    invariant(JSON.stringify(source.knownIssues ?? []) === JSON.stringify(item.knownIssues), `accepted receipt knownIssues mismatch: ${item.sourceId}`);
   }
+  const referenceIds = new Set();
+  for (const item of receipt.references) {
+    invariant(!referenceIds.has(item.sourceId), `duplicate reference sourceId: ${item.sourceId}`);
+    referenceIds.add(item.sourceId);
+    const source = catalog.files[item.sourceId];
+    invariant(source && item.sourceId.startsWith('ref.'), `reference receipt source is missing or invalid: ${item.sourceId}`);
+    for (const [receiptKey, catalogKey] of [['repoPath', 'sourcePath'], ['sha256', 'sha256'], ['bytes', 'bytes'], ['width', 'width'], ['height', 'height'], ['mimeType', 'mimeType'], ['status', 'status'], ['characterId', 'characterId'], ['role', 'role']]) {
+      invariant(source[catalogKey] === item[receiptKey], `reference receipt ${receiptKey} mismatch: ${item.sourceId}`);
+    }
+  }
+  invariant([...referenceIds].some((id) => id === 'ref.xu_tang.body.03'), 'Gate 3 receipt must include the user-provided Xu Tang body JPEG');
+  invariant(receipt.references.filter((item) => item.mimeType === 'image/png').length === 4 && receipt.references.filter((item) => item.mimeType === 'image/jpeg').length === 1, 'Gate 3 references must be four PNGs plus one JPEG');
+  invariant(acceptedIds.size === 15 && referenceIds.size === 5, 'Gate 3 accepted source IDs must be unique');
+  invariant(Object.keys(catalog.files).length === acceptedIds.size + referenceIds.size + 3, 'source catalog contains an unexpected active source set');
+  return receipt;
+}
 
+function validateManifestRepositoryReferences(manifest, catalog, context) {
+  for (const entry of manifest.entries) {
+    for (const binding of entry.reference_transport.attachments) {
+      invariant(!binding.source_id.startsWith('gdrive:'), `${context} ${entry.entry_id} cannot use a Drive reference`);
+      if (binding.role === 'accepted_base') {
+        const matches = Object.values(catalog.files).filter((source) => source.canonicalAssetId === binding.source_id);
+        invariant(matches.length === 1 && matches[0].name === binding.expected_filename, `${context} ${entry.entry_id} accepted base cannot be resolved exactly: ${binding.source_id}`);
+      } else {
+        invariant(binding.source_id.startsWith('source.') || binding.source_id.startsWith('ref.'), `${context} ${entry.entry_id} has unsupported repository reference: ${binding.source_id}`);
+        const source = catalog.files[binding.source_id];
+        invariant(source?.name === binding.expected_filename, `${context} ${entry.entry_id} repository reference cannot be resolved exactly: ${binding.source_id}`);
+      }
+    }
+  }
+}
+
+export function validateManifestSceneBindings(manifest, manifestPath, contracts, { requireSceneBacklink = false } = {}) {
+  const byScene = new Map(contracts.map((contract) => [contract.scene_id, contract]));
+  for (const sceneId of manifest.source_scene_ids) {
+    invariant(byScene.has(sceneId), `${manifestPath}: scene ${sceneId} has no Narrative Continuity Contract`);
+    invariant(manifest.entries.some((entry) => entry.scene_id === sceneId), `${manifestPath}: no entry for ${sceneId}`);
+  }
+  for (const entry of manifest.entries) {
+    const expectedScene = byScene.get(entry.scene_id)?.source_scene;
+    invariant(entry.source_scene === expectedScene, `${manifestPath} entry ${entry.entry_id}: source_scene does not match ${entry.scene_id} Narrative Continuity Contract`);
+    if (requireSceneBacklink) {
+      invariant(readText(expectedScene).includes(manifestPath), `${expectedScene} does not bind ${manifestPath}`);
+    }
+  }
+}
+
+function validateOpeningMigration(manifest, catalog, gate3Receipt) {
   const receipt = readJson(OPENING_RECEIPT);
   const receiptCgs = receipt.inventory.filter((item) => item.kind === 'cg');
   const receiptCanonicalIds = new Set(receiptCgs.map((item) => item.canonicalAssetId));
@@ -328,7 +391,6 @@ function validateOpeningMigration(contracts, manifest) {
   invariant(receiptLogicalIds.size === manifestLogicalIds.size && [...receiptLogicalIds].every((id) => manifestLogicalIds.has(id)), 'manifest logical CG IDs do not exactly match Opening Chapter 1 receipt');
   for (const receiptItem of receiptCgs) {
     const entry = manifest.entries.find((candidate) => candidate.output.canonical_asset_id === receiptItem.canonicalAssetId);
-    invariant(entry.output.master_filename === receiptItem.canonicalFilename, `${entry.entry_id} master filename does not match receipt`);
     invariant(Boolean(entry.known_issues?.length) === Boolean(receiptItem.knownIssues?.length), `${entry.entry_id} known issue state does not match receipt`);
   }
 
@@ -336,23 +398,13 @@ function validateOpeningMigration(contracts, manifest) {
   const routeAssets = new Set(route.assetIds);
   invariant([...manifestLogicalIds].every((id) => routeAssets.has(id)), 'Opening route does not allow every manifest logical asset ID');
   invariant(manifest.entries.every((entry) => entry.status === 'accepted'), 'Opening migration entries must represent accepted demo assets');
-
-  const catalogFiles = readJson(SOURCE_CATALOG).files;
+  invariant(manifest.entries.length === 8, 'Opening canonical CG manifest must contain eight accepted CG entries');
   for (const entry of manifest.entries) {
-    for (const binding of entry.reference_transport.attachments) {
-      if (binding.source_id.startsWith('gdrive:')) {
-        invariant(binding.source_id.length > 'gdrive:'.length, `${entry.entry_id} has an empty Drive reference ID`);
-      } else if (binding.source_id.startsWith('source.')) {
-        const source = catalogFiles[binding.source_id];
-        invariant(source?.fileId && source.name === binding.expected_filename, `${entry.entry_id} source catalog reference cannot be resolved exactly: ${binding.source_id}`);
-      } else if (binding.role === 'accepted_base') {
-        const matches = Object.values(catalogFiles).filter((source) => source.canonicalAssetId === binding.source_id);
-        invariant(matches.length === 1 && matches[0].fileId && matches[0].name === binding.expected_filename, `${entry.entry_id} accepted base cannot be resolved exactly: ${binding.source_id}`);
-      } else {
-        invariant(false, `${entry.entry_id} has unsupported Work reference source: ${binding.source_id}`);
-      }
-    }
+    const accepted = gate3Receipt.acceptedAssets.find((item) => item.canonicalAssetId === entry.output.canonical_asset_id);
+    invariant(accepted && accepted.logicalAssetId === entry.output.logical_asset_id, `${entry.entry_id} is not a Gate 3 accepted asset`);
+    invariant(entry.output.master_filename === accepted.acceptedFilename, `${entry.entry_id} output filename does not match Gate 3 accepted representation`);
   }
+  validateManifestRepositoryReferences(manifest, catalog, 'Opening manifest');
 
   const [packet] = buildPackets(manifest, {
     entryIds: ['COM01X-BASE-NORMAL'],
@@ -364,27 +416,38 @@ function validateOpeningMigration(contracts, manifest) {
   invariant(chatManual.includes(packet.shared_prompt.trimEnd()), 'Chat manual adapter changed the canonical shared prompt');
   invariant(chatManual.includes('Attachment checklist'), 'Chat manual adapter lost the Human attachment checklist');
   invariant(workBatch.shared_prompt === packet.shared_prompt, 'Work batch adapter changed the canonical shared prompt');
-  invariant(workBatch.reference_acquisition.method === 'connected_source', 'Work batch adapter did not request connected-source acquisition');
+  invariant(workBatch.reference_acquisition.method === 'repo_file', 'Work batch adapter did not request repository-file acquisition');
   invariant(workBatch.reference_acquisition.source_catalog === SOURCE_CATALOG, 'Work batch adapter points to the wrong source catalog');
   invariant(JSON.stringify(workBatch.reference_acquisition.required_bindings) === JSON.stringify(packet.reference_transport.attachments), 'Work batch adapter changed required reference bindings');
+  invariant(workBatch.reference_acquisition.resolved_files.length === packet.reference_transport.attachments.length, 'Work batch adapter resolved unrelated or missing files');
+  invariant(workBatch.reference_acquisition.resolved_files.every((file) => file.sourcePath.startsWith('assets-src/')), 'Work batch adapter returned a non-repository reference path');
   invariant(apiJob.input.prompt === packet.shared_prompt, 'API adapter changed the canonical shared prompt');
   invariant(workBatch.shared_prompt_sha256 === apiJob.provenance.shared_prompt_sha256, 'adapter prompt hashes differ');
 }
 
-function main() {
+export function validateProductionContracts() {
   validateActiveWorkflowBoundary();
   validateOrchestrationContract();
   const narrativeFiles = listJsonFiles(NARRATIVE_ROOT);
   invariant(narrativeFiles.length > 0, 'no Narrative Continuity Contracts found');
   const contracts = narrativeFiles.map((file) => validateNarrativeContract(readJson(file), file));
   const manifest = validateManifest(readJson(OPENING_MANIFEST));
-  validateOpeningMigration(contracts, manifest);
-  process.stdout.write(`Validated ${contracts.length} Narrative Continuity Contracts and ${manifest.entries.length} Opening Chapter 1 CG Manifest Entries.\n`);
+  const com01bManifest = validateManifest(readJson(COM01B_MANIFEST));
+  const catalog = readJson(SOURCE_CATALOG);
+  const gate3Receipt = validateGate3RepositorySources(catalog);
+  validateManifestSceneBindings(manifest, OPENING_MANIFEST, contracts, { requireSceneBacklink: true });
+  validateManifestSceneBindings(com01bManifest, COM01B_MANIFEST, contracts);
+  validateManifestRepositoryReferences(com01bManifest, catalog, 'COM01B manifest');
+  validateOpeningMigration(manifest, catalog, gate3Receipt);
+  return { narrativeContracts: contracts.length, cgEntries: manifest.entries.length };
 }
 
-try {
-  main();
-} catch (error) {
-  process.stderr.write(`${error.message}\n`);
-  process.exitCode = 1;
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  try {
+    const { narrativeContracts, cgEntries } = validateProductionContracts();
+    process.stdout.write(`Validated ${narrativeContracts} Narrative Continuity Contracts and ${cgEntries} Opening Chapter 1 CG Manifest Entries.\n`);
+  } catch (error) {
+    process.stderr.write(`${error.message}\n`);
+    process.exitCode = 1;
+  }
 }

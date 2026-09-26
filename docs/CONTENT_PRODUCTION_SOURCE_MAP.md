@@ -41,6 +41,8 @@
 
 Machine validation shapes：`.ai/schemas/narrative-continuity.schema.json`、`.ai/schemas/cg-manifest.schema.json`。Cross-file validation：`tools/validate-production-contracts.mjs`。
 
+`npm run production:review -- --scene <id>` 由上述既有 sources 重建 `generated/reviews/<id>/index.html`，僅作 Human 唯讀檢視。它不是新的 source of truth；缺少獨立 QA/Human Handoff 時不得將已驗收圖片或 validator PASS 當成 production-ready。
+
 ## 2. Non-production roots
 
 | Root | Lifecycle | Production rule |

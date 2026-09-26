@@ -53,12 +53,12 @@
           "reference_bindings": [
             {
               "role": "xu_tang_primary_face_identity",
-              "source_id": "gdrive:1Oynvxve61ipxr9Z7UhaSsZE_8OzVVPRS",
+              "source_id": "ref.xu_tang.face.01",
               "expected_filename": "xt-ref-01-face.png"
             },
             {
               "role": "xu_tang_early_mid_wardrobe",
-              "source_id": "gdrive:1W4t7ICYHx3obH_S03BEyD80ykzy3M9aF",
+              "source_id": "ref.xu_tang.wardrobe.a",
               "expected_filename": "xt-ref-05-wardrobe-a.png"
             }
           ]
@@ -121,13 +121,13 @@
         "attachments": [
           {
             "role": "xu_tang_primary_face_identity",
-            "source_id": "gdrive:1Oynvxve61ipxr9Z7UhaSsZE_8OzVVPRS",
+            "source_id": "ref.xu_tang.face.01",
             "expected_filename": "xt-ref-01-face.png",
             "pixels_must_be_visible": true
           },
           {
             "role": "xu_tang_early_mid_wardrobe",
-            "source_id": "gdrive:1W4t7ICYHx3obH_S03BEyD80ykzy3M9aF",
+            "source_id": "ref.xu_tang.wardrobe.a",
             "expected_filename": "xt-ref-05-wardrobe-a.png",
             "pixels_must_be_visible": true
           }
@@ -177,12 +177,12 @@
           "reference_bindings": [
             {
               "role": "xu_tang_primary_face_identity",
-              "source_id": "gdrive:1Oynvxve61ipxr9Z7UhaSsZE_8OzVVPRS",
+              "source_id": "ref.xu_tang.face.01",
               "expected_filename": "xt-ref-01-face.png"
             },
             {
               "role": "xu_tang_early_mid_wardrobe",
-              "source_id": "gdrive:1W4t7ICYHx3obH_S03BEyD80ykzy3M9aF",
+              "source_id": "ref.xu_tang.wardrobe.a",
               "expected_filename": "xt-ref-05-wardrobe-a.png"
             }
           ]
@@ -253,13 +253,13 @@
         "attachments": [
           {
             "role": "xu_tang_primary_face_identity",
-            "source_id": "gdrive:1Oynvxve61ipxr9Z7UhaSsZE_8OzVVPRS",
+            "source_id": "ref.xu_tang.face.01",
             "expected_filename": "xt-ref-01-face.png",
             "pixels_must_be_visible": true
           },
           {
             "role": "xu_tang_early_mid_wardrobe",
-            "source_id": "gdrive:1W4t7ICYHx3obH_S03BEyD80ykzy3M9aF",
+            "source_id": "ref.xu_tang.wardrobe.a",
             "expected_filename": "xt-ref-05-wardrobe-a.png",
             "pixels_must_be_visible": true
           }

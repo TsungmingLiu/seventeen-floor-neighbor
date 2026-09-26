@@ -1,4 +1,5 @@
-import { readFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
+import { readFile, mkdir, writeFile, link, unlink } from 'node:fs/promises';
 import path from 'node:path';
 import { loadAndValidate, projectRoot } from './content-lib.mjs';
 
@@ -24,6 +25,50 @@ function outgoing(node, route) {
 function assetIds(node) {
   if (!node?.visual) return [];
   return [node.visual.asset, node.visual.background, ...(node.visual.sprites || []).map((sprite) => sprite.asset)].filter(Boolean);
+}
+
+if (argument('task') || argument('verify-packet')) {
+  const { buildNarrativeReviewPacket, verifyNarrativeReviewPacket } = await import('./context-packet.mjs');
+  try {
+    if (argument('verify-packet')) {
+      const packet = JSON.parse(await readFile(path.resolve(argument('verify-packet')), 'utf8'));
+      await verifyNarrativeReviewPacket(packet);
+      await loadAndValidate();
+      const { validateProductionContracts } = await import('./validate-production-contracts.mjs');
+      validateProductionContracts();
+      console.log(`PASS: ${packet.task_id} sources, bindings and machine QA match committed canon and current content`);
+    } else {
+      if (argument('task') !== 'narrative_review') throw new Error('Only narrative_review Task Packet generation is supported');
+      await loadAndValidate();
+      const { validateProductionContracts } = await import('./validate-production-contracts.mjs');
+      validateProductionContracts();
+      const packet = await buildNarrativeReviewPacket({
+        sceneId: argument('scene'), runId: argument('run-id'), taskId: argument('task-id')
+      });
+      const relative = `generated/session-cache/${packet.run_id}/${packet.task_id}.packet.json`;
+      const destination = path.join(projectRoot, relative);
+      const body = `${JSON.stringify(packet, null, 2)}\n`;
+      await mkdir(path.dirname(destination), { recursive: true });
+      const temporary = `${destination}.${process.pid}.tmp`;
+      await writeFile(temporary, body, { flag: 'wx' });
+      try {
+        try {
+          await link(temporary, destination);
+        } catch (error) {
+          if (error.code !== 'EEXIST' || await readFile(destination, 'utf8') !== body) {
+            throw new Error(`Task Packet destination conflict: ${relative}`);
+          }
+        }
+      } finally {
+        await unlink(temporary);
+      }
+      console.log(`Packet: ${relative} SHA-256 ${createHash('sha256').update(body).digest('hex')}`);
+    }
+    process.exit(0);
+  } catch (error) {
+    console.error(`BLOCKED: ${error.message}`);
+    process.exit(1);
+  }
 }
 
 const routeId = argument('route');

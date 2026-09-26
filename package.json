@@ -8,7 +8,10 @@
   "scripts": {
     "test": "node --test tests/*.test.mjs",
     "validate": "node tools/validate-content.mjs && node tools/validate-production-contracts.mjs",
+    "validate:final": "node tools/validate-content.mjs --final-visuals && node tools/validate-production-contracts.mjs",
     "production:validate": "node tools/validate-production-contracts.mjs",
+    "production:review": "node tools/production-review.mjs",
+    "production:impact": "node tools/production-impact.mjs",
     "build": "node tools/build.mjs",
     "dev": "node tools/preview-server.mjs --dev --port 4173",
     "preview": "node tools/preview-server.mjs --preview --port 4173",

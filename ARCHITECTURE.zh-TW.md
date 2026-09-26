@@ -1,6 +1,6 @@
 # 程式與內容架構
 
-> CANONICAL runtime / content / asset / build contract。更新：2026-09-25。
+> CANONICAL runtime / content / asset / build contract。更新：2026-09-26。
 >
 > 本文件記錄已實作、修改程式時須維持的邊界。當前進度見 `PROJECT_STATE.md`；待辦見 `TODO.md`；內容生產的 authority 見 `.ai/WORKFLOW_MANIFEST.yaml` 與 `docs/CONTENT_PRODUCTION_SOURCE_MAP.md`。實際欄位以 code、JSON 與 validator 為準。
 
@@ -17,7 +17,7 @@
 | Character metadata | `content/characters/` | 已登記角色的設計／依賴資料 |
 | Production values | `content/production/` | Narrative Continuity Contract、Canonical CG Manifest |
 | Asset metadata | `content/assets/manifest.json`、`source-map.json`、`source-catalog.json`、`content/recipes/assets.json` | logical ID、runtime provider、master provenance、recipe/dependency |
-| Binary source | `assets-src/`、Google Drive accepted masters/runtime objects | local legacy preservation 與 remote accepted assets |
+| Binary source | `assets-src/` | repo-backed source references and accepted runtime objects |
 | Build / QA | `tools/`、`tests/`、`.github/workflows/` | asset check/build、content validation、preview、acceptance |
 | Output | `dist/`、`generated/` | 可重建，不能當 source of truth |
 
@@ -25,7 +25,7 @@
 
 - Route 的 `storyFiles` / `sceneFiles` 在 build 時合併；每個 route 只能使用其 `assetIds` 列出的 logical assets。進入 runtime/save contract 的 node ID 與 logical asset ID 要穩定；換 physical filename/provider 不應改 story JSON。
 - `src/engine.js` 播放節點、choices、random scene return 與 ending；`src/visuals.js` 解析 logical asset、顯示畫面並提供載入失敗 fallback；`src/app.js` 載入 package。
-- 每個 node 的 visual mode 只能是 `composite`（背景與可選 sprites）、`cg`（完整圖片）或 `cinematic`（MP4 primary、WebM fallback、poster）。CG/cinematic 不能混入 composite sprites。保留 composite 與舊 sprites 以支援現有 fixture；新 production art 依 `docs/art/PRODUCTION_VISUAL_DIRECTION.md` 採 CG-first / 16:9。
+- 每個 node 的 visual mode 只能是 `composite`（背景與可選 sprites）、`cg`（完整圖片）或 `cinematic`（MP4 primary、WebM fallback、poster）。CG/cinematic 不能混入 composite sprites。`allowPreviewArt: true` 的 chapter 可明確引用 `previewOnly` background 作劇情審閱佔位圖，不能當成已驗收 CG；新 production art 依 `docs/art/PRODUCTION_VISUAL_DIRECTION.md` 採 CG-first / 16:9。
 - `src/branches.js` 保留 graph helper 供 debug/validation，不是玩家的 route UI。
 - 修改局部 route 可先用 `npm run context -- --route <id> --node <id>` 取得相關 nodes、assets、角色與 recipe。角色設計變更可用 `npm run assets:plan -- <character-id>` 查依賴。
 
@@ -52,17 +52,19 @@
 
 ## 4. Asset storage 與 build
 
-`content/assets/manifest.json` 讓 story 只引用 logical ID。`source-map.json` 把 runtime path 映射到 local `assets-src/` 或 `gdrive-public` 的 URL、bytes、SHA-256；`source-catalog.json` 記錄 accepted master 的 file ID、尺寸、hash 與 provenance。`content/recipes/assets.json` 記錄依賴/重建資訊。新的 accepted master 應保存至受限的 Google Drive `source-private`；已登記的 optimized runtime objects 仍由 Google Drive `runtime-public` 提供。這個遠端儲存位置與已廢棄的 repo 本地 `runtime-public/` 目錄不同。
+`content/assets/manifest.json` 讓 story 只引用 logical ID。`source-map.json` 將每個 runtime path 映射到 Git 追蹤的 `assets-src/` 檔案；新入庫檔案另記錄 bytes 與 SHA-256。`content/recipes/assets.json` 記錄依賴與重建資訊。已驗收的 WebP 保留原位元組，已驗收的 PNG/JPG 透過 `tools/asset-ingest.mjs` 以固定參數轉檔，更新既有 manifest、source map 及 receipt；build 只複製 repo 內檔案。`source-catalog.json` 以 source ID 對應的 repository-relative `sourcePath` 綁定 generation references 與 accepted masters，供 renderer adapter 解析；catalog 不參與 runtime build。Generation reference PNG/JPEG 保持原格式，runtime accepted CG/background objects 使用 WebP。
 
-`npm run assets:check` 驗證來源、bytes/hash、尺寸/比例與媒體 full decode；`npm run assets:build` 依 provider 複製或下載到 generated output；`npm run build` clean rebuild `dist/`，包含 UI、JS、route packages 與 runtime assets。遠端 object 不可只靠檔名或 URL 宣稱已驗證。缺少 master 或 runtime object 時應阻擋 ingest/build，不得用舊 sprite 或暫存圖悄悄替代。`dist/`、`generated/` 可丟棄。
+`npm run assets:check` 驗證本地 runtime 來源、已釘選的 bytes/hash、尺寸/比例與媒體 full decode；active generation source catalog 另由 production validation 核對 repo 原圖。`npm run assets:build` 只複製 repo 檔案到 generated output；`npm run build` clean rebuild `dist/`，包含 UI、JS、route packages 與 runtime assets。缺少 runtime object 時應阻擋 build，不得用舊 sprite 或暫存圖悄悄替代。唯一共用的 `bg.narrative_preview.placeholder` 是 manifest/source map 明示、hash 釘選的 preview-only WebP，不是 remote fallback，也不進 CG Gallery。`dist/`、`generated/` 可丟棄。
 
-本 repo 本地 `runtime-public/sprites/` 的十張舊候選圖未被 manifest、source-map、route 或 build 讀取，已退出 source tree。仍在使用的 `assets-src/characters/` 與 Google Drive runtime objects 不受此清理影響。
+本 repo 本地 `runtime-public/sprites/` 的十張舊候選圖未被 manifest、source-map、route 或 build 讀取，已退出 source tree。仍在使用的 `assets-src/characters/` 與舊路線影片仍作回歸 fixture，不能僅因非預設路線就刪除。
 
 ## 5. Content production 與 runtime integration
 
-Narrative Design → Scene/Dialogue → Visual Production 的規則在 `docs/narrative/CONTENT_PRODUCTION_SPEC.md`。Approved narrative values 位於 `content/production/narrative/`，render-ready CG values 位於 `content/production/cg-manifests/`。Planner 將 locked scene 的 visual beat 轉為 Canonical CG Manifest；`tools/render-cg-packets.mjs` 依固定欄位順序投影同一份 render prompt；Chat manual / Work batch / API 只改 reference acquisition 和 transport envelope。
+Narrative Design → Scene/Dialogue → Visual Production 的規則在 `docs/narrative/CONTENT_PRODUCTION_SPEC.md`。Approved narrative values 位於 `content/production/narrative/`，render-ready CG values 位於 `content/production/cg-manifests/`。Planner 將 locked scene 的 visual beat 轉為 Canonical CG Manifest；`tools/render-cg-packets.mjs` 依固定欄位順序投影同一份 render prompt；execution adapters 只改 repository-file reference acquisition 和 transport envelope。
 
 Renderer 只讀一個 CG entry、其 packet、declared references；Visual QA 後才選 Accepted Asset。Integrator 把 accepted outputs 接入 route asset allowlist、manifest、recipe、Memory Events、節點與 ingest receipt；不能改 narrative beat 以方便生圖。`npm run production:validate` 會查 Opening Chapter 1 contracts、scene/asset bindings 與 source boundary。
+
+Narrative QA 通過後，Integrator 可先接 `narrative_preview`：用已登記背景或 preview-only WebP 與 `composite` node visual 讓對白、選項、狀態及保存可試玩。章節封面/結尾只在明示 `allowPreviewArt` 時接受該 background；Gallery 不登記它。後續正式 CG 接入仍使用穩定 node/asset IDs，完成前執行 `npm run validate:final`，其會拒絕仍允許 preview art 的 route。
 
 ## 6. 開發、驗證與未來變更
 

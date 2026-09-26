@@ -34,7 +34,7 @@ Required groups：
 
 `background_cg` may have an empty `characters[]`; other classes require visible character constraints at planning/validation time。
 
-`reference_transport.attachments[]` 列出 image-generation call 必須得到的精確 image inputs，並不指定由誰上傳。`chat_manual` 由 Human 提供；`work_batch` 依 source ID 從授權 connected source 取得。兩者均須做 pixel/role preflight。
+`reference_transport.attachments[]` 列出 image-generation call 必須得到的精確 image inputs，並不指定由誰上傳。`chat_manual` 由 Human 提供；`work_batch` 依 source ID 從 repo source catalog 指向的檔案取得。兩者均須做 hash、完整解碼、pixel/role preflight；缺件則 `BLOCKED`。
 
 ## Status
 

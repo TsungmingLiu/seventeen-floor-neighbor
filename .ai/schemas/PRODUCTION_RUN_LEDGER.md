@@ -1,13 +1,13 @@
 # Production Run Ledger Schema
 
-Version: 1.1.0
+Version: 1.2.0
 
 Lifecycle: **GENERATED** execution record. `.ai/PRODUCTION_ORCHESTRATION.md` owns behavior；ledger only records facts and never overrides canon. Persist actual runs at `content/production/runs/<run_id>/ledger.json` with adjacent Task Packets and Handoffs. Do not create a run for a hypothetical example.
 
 ```json
 {
   "run_id": "chapter-update-001",
-  "workflow_version": "1.1.0",
+  "workflow_version": "1.3.0",
   "source_ref": "commit SHA or immutable ref",
   "human_request": { "summary": "bounded directive", "gate_status": "none" },
   "status": "ACTIVE",
@@ -32,8 +32,10 @@ Lifecycle: **GENERATED** execution record. `.ai/PRODUCTION_ORCHESTRATION.md` own
 }
 ```
 
-Task `status`: `PENDING`、`READY`、`RUNNING`、`PASS`、`NEEDS_REVIEW`、`FAIL`、`BLOCKED`、`STALE`、`SKIPPED`。Run `status`: `ACTIVE`、`BLOCKED`、`READY_FOR_HUMAN_ACCEPTANCE`、`ACCEPTED`。Each dependency is a task ID in the same acyclic run. `READY` requires all dependencies `PASS` and approved/gated outputs. `SKIPPED` requires explicit reason and cannot satisfy a required dependency. `PASS` requires a Handoff, verified output version, and passing acceptance. `RUNNING` without recoverable Handoff must be reconciled on resume. Every task attempt has a stable ID; reruns get a new attempt ID or a clearly versioned packet/handoff, preserving prior evidence.
+Task `status`: `PENDING`、`READY`、`RUNNING`、`PASS`、`NEEDS_REVIEW`、`FAIL`、`BLOCKED`、`STALE`、`SKIPPED`。Run `status`: `ACTIVE`、`NARRATIVE_PREVIEW_READY`、`BLOCKED`、`READY_FOR_HUMAN_ACCEPTANCE`、`ACCEPTED`。Narrative preview remains a resumable story-review checkpoint; it cannot satisfy dependencies on accepted CG/visual QA. Each dependency is a task ID in the same acyclic run. `READY` requires all dependencies `PASS` and approved/gated outputs. `SKIPPED` requires explicit reason and cannot satisfy a required dependency. `PASS` requires a Handoff, verified output version, and passing acceptance. `RUNNING` without recoverable Handoff must be reconciled on resume. Every task attempt has a stable ID; reruns get a new attempt ID or a clearly versioned packet/handoff, preserving prior evidence.
 
 `input_versions[]` / `output_versions[]` use `{id, version, location}`. `version` is immutable: Git blob SHA, canonical content SHA-256, packet hash, accepted asset receipt/hash, or explicit equivalent. Unknown versions are recorded as `unknown` and block dependent dispatch until resolved. The ledger stores identities, not artifact contents.
 
 `invalidation_events[]` records `{changed_artifact_id, old_version, new_version, affected_task_ids, decision, evidence}`. `decision` is `STALE` or documented `no_visual_impact` after fresh Narrative QA. Scope only descendants that actually consume the changed artifact. `preview` records `{commit, profile, url_or_access_path, visibility, build, validation, tests, smoke}`; `READY_FOR_HUMAN_ACCEPTANCE` requires all evidence and a Human-accessible demo.
+
+`npm run production:impact -- --scene <id> --from <commit> --to <commit|WORKTREE>` writes an ignored **read-only comparison**, not this ledger. Its `would_invalidate` and `visual_artifacts_not_impacted_by_diff` are proposed scopes between versions, not task statuses or proof of historical QA. A Coordinator may append a real `invalidation_events[]` entry and mark affected tasks `STALE` only after matching the comparison to this run's recorded immutable `input_versions`/`output_versions` and verifying its Handoff/Human decisions; otherwise status remains unknown/blocked. The tool compares accepted Opening entries now; it blocks render-ready entries lacking accepted bindings.

@@ -35,7 +35,6 @@
 
 - [ ] 穩定 review URL 綁定明確 commit 與 profile；preview 與 release 分開。
 - [ ] 提供 deterministic release command/workflow、smoke 與 release receipt。
-- [ ] 依真實流量、CDN/cache、domain 與商業需求再決定是否把目前 Google Drive runtime provider 遷移到 R2；logical asset IDs 不跟 provider 改名。
 
 ## 之後：內容規模化
 

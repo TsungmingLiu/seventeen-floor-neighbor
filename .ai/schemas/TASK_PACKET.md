@@ -1,17 +1,19 @@
 # Task Packet Schema
 
-Version: 1.1.0
+Version: 1.2.0
 
 Task Packet routes exactly one active harness/pass and one deliverable。
 
 ```yaml
 run_id: unique-production-run-id
 task_id: unique-stable-id
+scene_id: one explicit scene when task is scene-scoped
 task_type: narrative_design | scene_dialogue | narrative_review | cg_plan | cg_render | visual_review | integrate
 depends_on: [upstream-task-id]
-workflow_version: 1.1.0
+workflow_version: 1.3.0
 harness: content_writer | cg_planner | cg_renderer | content_qa | integrator
 pass: narrative_design | scene_dialogue | narrative_review | visual_review | null
+integration_mode: narrative_preview | final  # required only for integrator
 objective: one sentence describing exactly one deliverable
 
 execution_policy:
@@ -31,10 +33,12 @@ required_acquisition:
   markdown:
     - path: exact/canonical/path.md
       expected_nonempty: true
+      git_blob_sha: exact committed Git blob SHA
+      excerpts: [] # optional [{label, start_line, end_line, sha256}], 1-based inclusive lines
   images:
     - role: primary_face_identity
       expected_filename: exact-file.png
-      canonical_source: exact asset/Drive identity
+      canonical_source: exact repository path or asset identity
       pixels_must_be_visible: true
 
 allowed_sources:
@@ -76,7 +80,7 @@ acceptance:
   - machine-checkable or reviewable criterion
 
 handoff_to: active harness or human gate
-human_gate: none | major_story_direction | canonical_character_design | accepted_master_image_selection | final_playable_acceptance
+human_gate: none | major_story_direction | canonical_character_design | accepted_master_image_selection | narrative_preview_review | final_playable_acceptance
 ```
 
 ## Rules
@@ -89,7 +93,9 @@ human_gate: none | major_story_direction | canonical_character_design | accepted
 - `allowed_sources` 是完整 allowlist；worker 不可自行加來源。
 - Production Task Packet 不得 allowlist archive/experiment。
 - Markdown acquisition 要有 exact repo/ref/path + non-empty contents + blob SHA when available。
-- Image acquisition 要有 exact role/identity + visible pixels；metadata-only 不成立。
+- `narrative_review` 的既有 scene 可由 `npm run context -- --task narrative_review --scene <id> --run-id <id> --task-id <id>` 產生 JSON Task Packet。明列 scene、contract 與該 scene 的 narrative canon 範圍及 Git blob/excerpt hashes；`--verify-packet <path>` 在派工前 fail closed，並執行既有 runtime/content 與 production machine validators。來源從 Locked Scene / Narrative Contract 的既有 binding 解析，不另建 registry。這僅準備獨立 QA task，不偽造上游 PASS 或 Human approval；後續任務仍須 Ledger 與 gate 審核。
+- Image acquisition 要有 exact role/filename/MIME/repository path/SHA-256 + visible pixels；metadata-only 不成立。
 - `cg_renderer` packet 必須只指定 one independent manifest entry、its deterministic packet and references；只有 manifest 明列並符合 sequence 條件的 linked sequence 可作一個 bounded task。
-- Base CG 使用 `references_required`；Reaction CG 優先 `edit_from_accepted_base`。Reference acquisition 由所選 execution adapter 負責。
+- Base CG 使用 `references_required`；Reaction CG 優先 `edit_from_accepted_base`。Reference acquisition 由所選 execution adapter 從 repository-relative catalog binding 負責。
 - 第二個獨立 objective 必須拆成另一個 Task Packet。
+- `integration_mode: narrative_preview` 只依賴 approved Locked Scene 與已核對 repo bytes 的 background/preview-only WebP；Task Packet 必須列明 logical ID、route allowlist、預覽狀態與 review ref。`integration_mode: final` 要求所有必要 accepted CG 與 `npm run validate:final`，不得以 preview-only asset 滿足視覺驗收。
