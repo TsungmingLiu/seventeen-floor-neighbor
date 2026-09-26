@@ -1,5 +1,5 @@
 {
-  "manifestVersion": 8,
+  "manifestVersion": 9,
   "assets": {
     "bg.elevator.normal": {
       "kind": "background",
@@ -744,6 +744,106 @@
           "outfitVersion": 1
         }
       ]
+    },
+    "cg.opening-ch1.com01b.01": {
+      "canonicalAssetId": "COM-01B-CG-01",
+      "kind": "cg",
+      "src": "assets/opening-ch1-demo/opening-ch1-com01b-01.png",
+      "width": 1672,
+      "height": 941,
+      "masterSourceId": "source.opening.ch1.com01b.01",
+      "knownIssues": [],
+      "focus": {
+        "x": 62,
+        "y": 43
+      },
+      "gallery": {
+        "title": "街邊問路",
+        "chapter": "第一章・週末前的方向",
+        "order": 61
+      },
+      "participants": [
+        {
+          "character": "xu_tang",
+          "designVersion": 2,
+          "outfit": "weekday_neighbor",
+          "outfitVersion": 1
+        }
+      ],
+      "canonicalCgManifest": "content/production/cg-manifests/opening-ch1-com01b.json",
+      "canonicalCgEntry": "COM-01B-CG-01"
+    },
+    "cg.opening-ch1.com01b.02": {
+      "canonicalAssetId": "COM-01B-CG-02",
+      "kind": "cg",
+      "src": "assets/opening-ch1-demo/opening-ch1-com01b-02.png",
+      "width": 1672,
+      "height": 941,
+      "masterSourceId": "source.opening.ch1.com01b.02",
+      "knownIssues": [
+        "Minor shoulder accessory drift from CG-01 to CG-02; accepted by VR-007."
+      ],
+      "focus": {
+        "x": 65,
+        "y": 51
+      },
+      "gallery": {
+        "title": "她繼續往前",
+        "chapter": "第一章・週末前的方向",
+        "order": 62
+      },
+      "participants": [
+        {
+          "character": "xu_tang",
+          "designVersion": 2,
+          "outfit": "weekday_neighbor",
+          "outfitVersion": 1
+        }
+      ],
+      "canonicalCgManifest": "content/production/cg-manifests/opening-ch1-com01b.json",
+      "canonicalCgEntry": "COM-01B-CG-02"
+    },
+    "cg.opening-ch1.com01b.03": {
+      "canonicalAssetId": "COM-01B-CG-03",
+      "kind": "cg",
+      "src": "assets/opening-ch1-demo/opening-ch1-com01b-03.png",
+      "width": 1672,
+      "height": 940,
+      "masterSourceId": "source.opening.ch1.com01b.03",
+      "knownIssues": [],
+      "focus": {
+        "x": 61,
+        "y": 50
+      },
+      "gallery": {
+        "title": "街上只剩腳步聲",
+        "chapter": "第一章・週末前的方向",
+        "order": 63
+      },
+      "participants": [],
+      "canonicalCgManifest": "content/production/cg-manifests/opening-ch1-com01b.json",
+      "canonicalCgEntry": "COM-01B-CG-03"
+    },
+    "cg.opening-ch1.com01b.04": {
+      "canonicalAssetId": "COM-01B-CG-04",
+      "kind": "cg",
+      "src": "assets/opening-ch1-demo/opening-ch1-com01b-04.png",
+      "width": 1672,
+      "height": 941,
+      "masterSourceId": "source.opening.ch1.com01b.04",
+      "knownIssues": [],
+      "focus": {
+        "x": 53,
+        "y": 47
+      },
+      "gallery": {
+        "title": "週末・地下街店口",
+        "chapter": "第一章・週末前的方向",
+        "order": 64
+      },
+      "participants": [],
+      "canonicalCgManifest": "content/production/cg-manifests/opening-ch1-com01b.json",
+      "canonicalCgEntry": "COM-01B-CG-04"
     }
   },
   "ingestStaging": {

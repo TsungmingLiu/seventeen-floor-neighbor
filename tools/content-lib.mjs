@@ -329,6 +329,7 @@ export async function validateContent(content) {
   }
 
   const recipeOutputs = new Set();
+  const canonicalCgManifests = new Map();
   for (const recipe of recipes.recipes || []) {
     const asset = assets[recipe.outputAsset];
     if (!asset) fail(`recipe ${recipe.id}: unknown asset ${recipe.outputAsset}`);
@@ -336,8 +337,24 @@ export async function validateContent(content) {
     if (recipeOutputs.has(recipe.outputAsset)) fail(`duplicate recipe output ${recipe.outputAsset}`);
     recipeOutputs.add(recipe.outputAsset);
     (recipe.dependencies || []).forEach((dependency) => validateDependency(dependency, `recipe ${recipe.id}`));
-    if (asset?.kind !== 'background' && !(recipe.dependencies || []).length) fail(`recipe ${recipe.id}: character asset requires dependencies`);
-    if (recipe.type === 'cg' && !recipe.prompt?.headPose) fail(`recipe ${recipe.id}: CG prompt requires an explicit headPose`);
+    let environmentOnlyCg = false;
+    if (recipe.type === 'cg' && !(recipe.dependencies || []).length && asset?.kind === 'cg') {
+      const manifestPath = asset.canonicalCgManifest;
+      if (manifestPath?.startsWith('content/production/cg-manifests/') && asset.canonicalCgEntry &&
+          recipe.canonicalCgManifest === manifestPath && recipe.canonicalCgEntry === asset.canonicalCgEntry &&
+          Array.isArray(asset.participants) && asset.participants.length === 0) {
+        try {
+          if (!canonicalCgManifests.has(manifestPath)) canonicalCgManifests.set(manifestPath, await readJson(manifestPath));
+          const entry = canonicalCgManifests.get(manifestPath).entries?.find((item) => item.entry_id === asset.canonicalCgEntry);
+          environmentOnlyCg = entry?.entry_id === asset.canonicalAssetId && entry.cg_class === 'background_cg' &&
+            Array.isArray(entry.characters) && entry.characters.length === 0;
+        } catch {
+          environmentOnlyCg = false;
+        }
+      }
+    }
+    if (asset?.kind !== 'background' && !(recipe.dependencies || []).length && !environmentOnlyCg) fail(`recipe ${recipe.id}: character asset requires dependencies`);
+    if (recipe.type === 'cg' && !environmentOnlyCg && !recipe.prompt?.headPose) fail(`recipe ${recipe.id}: CG prompt requires an explicit headPose`);
   }
   for (const id of Object.keys(assets)) {
     if (!recipeOutputs.has(id)) fail(`asset ${id}: no generation recipe`);

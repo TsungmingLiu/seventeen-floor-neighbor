@@ -1,5 +1,5 @@
 {
-  "recipeVersion": 8,
+  "recipeVersion": 9,
   "defaults": {
     "style": "寫實電影感、自然皮膚紋理、可信的都市生活攝影、無UI、無文字、無水印",
     "quality": "production",
@@ -905,6 +905,82 @@
       },
       "provenance": {
         "acceptedMasterSourceId": "source.opening.ch1.cg.com01j_r01_interested"
+      }
+    },
+    {
+      "id": "recipe.cg.opening.com01b.01",
+      "outputAsset": "cg.opening-ch1.com01b.01",
+      "type": "cg",
+      "dependencies": [
+        {
+          "character": "xu_tang",
+          "designVersion": 2,
+          "outfit": "weekday_neighbor",
+          "outfitVersion": 1
+        }
+      ],
+      "canonicalCgManifest": "content/production/cg-manifests/opening-ch1-com01b.json",
+      "canonicalCgEntry": "COM-01B-CG-01",
+      "prompt": {
+        "scene": "apartment_exterior_sidewalk",
+        "camera": "16:9 landscape; accepted canonical manifest entry",
+        "constraints": [
+          "Accepted CG; preserve exact source pixels"
+        ],
+        "headPose": "頭轉向畫面左側鏡頭外的男主，自然對視，沒有仰頭。"
+      }
+    },
+    {
+      "id": "recipe.cg.opening.com01b.02",
+      "outputAsset": "cg.opening-ch1.com01b.02",
+      "type": "cg",
+      "dependencies": [
+        {
+          "character": "xu_tang",
+          "designVersion": 2,
+          "outfit": "weekday_neighbor",
+          "outfitVersion": 1
+        }
+      ],
+      "canonicalCgManifest": "content/production/cg-manifests/opening-ch1-com01b.json",
+      "canonicalCgEntry": "COM-01B-CG-02",
+      "prompt": {
+        "scene": "apartment_exterior_sidewalk",
+        "camera": "16:9 landscape; accepted canonical manifest entry",
+        "constraints": [
+          "Accepted CG; preserve exact source pixels"
+        ],
+        "headPose": "向右前方行走的背側三分之四角度，頭朝行進方向，不回頭。"
+      }
+    },
+    {
+      "id": "recipe.cg.opening.com01b.03",
+      "outputAsset": "cg.opening-ch1.com01b.03",
+      "type": "cg",
+      "dependencies": [],
+      "canonicalCgManifest": "content/production/cg-manifests/opening-ch1-com01b.json",
+      "canonicalCgEntry": "COM-01B-CG-03",
+      "prompt": {
+        "scene": "apartment_exterior_sidewalk",
+        "camera": "16:9 landscape; accepted canonical manifest entry",
+        "constraints": [
+          "Accepted CG; preserve exact source pixels"
+        ]
+      }
+    },
+    {
+      "id": "recipe.cg.opening.com01b.04",
+      "outputAsset": "cg.opening-ch1.com01b.04",
+      "type": "cg",
+      "dependencies": [],
+      "canonicalCgManifest": "content/production/cg-manifests/opening-ch1-com01b.json",
+      "canonicalCgEntry": "COM-01B-CG-04",
+      "prompt": {
+        "scene": "taipei_underground_street_acg_setting_book_merchandise_store_entrance",
+        "camera": "16:9 landscape; accepted canonical manifest entry",
+        "constraints": [
+          "Accepted CG; preserve exact source pixels"
+        ]
       }
     }
   ],
