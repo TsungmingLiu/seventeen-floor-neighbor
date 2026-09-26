@@ -1,7 +1,7 @@
 workflow:
   id: seventeen-floor-production
-  version: 1.1.0
-  updated: 2026-09-25
+  version: 1.2.0
+  updated: 2026-09-26
   entrypoint: .ai/harnesses/bootstrap.md
   repository:
     full_name: TsungmingLiu/seventeen-floor-neighbor
@@ -79,6 +79,7 @@ source_authority:
     - docs/narrative/CONTENT_PRODUCTION_SPEC.md
     - docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md
     - docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md
+    - docs/narrative/route-blueprints/
     - docs/narrative/scenes/vertical-slice/
   visual_canon:
     - docs/art/PRODUCTION_VISUAL_DIRECTION.md
