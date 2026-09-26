@@ -287,7 +287,7 @@ export function compareSceneSnapshots(before, after, { noVisualImpactEvidence = 
     events.push(event(`locked_scene:${id}`, lockedOld, lockedNew,
       recognized ? 'dialogue_only_qa_confirmed' : 'locked_scene_change_requires_fresh_narrative_qa',
       recognized ? dialogueScope(id) : [...dialogueScope(id), ...allVisual]));
-    if (recognized) events.at(-1).evidence = noVisualImpactEvidence.handoff;
+    if (recognized) events.at(-1).evidence = noVisualImpactEvidence.receipt;
   }
 
   const oldStructure = Object.fromEntries(Object.entries(before.nodes).map(([nodeId, node]) => [nodeId, withoutDialogue(node)]));
@@ -362,30 +362,45 @@ export function compareSceneSnapshots(before, after, { noVisualImpactEvidence = 
   };
 }
 
-async function verifiedQaEvidence(reader, handoffPath, before, after) {
+async function verifiedQaEvidence(reader, decisionPath, before, after) {
   requireCondition(reader.label !== 'WORKTREE', 'QA decision requires a committed target ref');
-  requireCondition(/^content\/production\/runs\/[^/]+\/[^/]+\.handoff\.json$/.test(handoffPath),
-    'QA handoff must be under a production run');
-  const handoff = await reader.json(handoffPath);
-  const runId = handoffPath.split('/')[3];
+  requireCondition(/^content\/production\/runs\/[a-zA-Z0-9_-]+\/[a-zA-Z0-9_-]+\.decision\.json$/.test(decisionPath),
+    'QA decision receipt must be under a production run');
+  const receipt = await reader.json(decisionPath);
+  const runId = decisionPath.split('/')[3];
   const ledger = await reader.json(`content/production/runs/${runId}/ledger.json`);
-  const task = ledger.tasks?.find((item) => item.task_id === handoff.task_id);
-  const decision = handoff.invalidation_decision;
-  requireCondition(ledger.run_id === runId && handoff.run_id === runId && task?.status === 'PASS' &&
-    task.handoff === handoffPath && handoff.status === 'PASS' &&
-    handoff.harness?.id === 'content_qa' && handoff.harness?.pass === 'narrative_review' &&
-    handoff.qa?.checks?.some((check) => check.name === 'no_visual_impact' && check.result === 'PASS') &&
+  const task = ledger.tasks?.find((item) => item.task_id === receipt.task_id);
+  const decision = receipt.invalidation_decision;
+  const sameVersions = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+  const output = receipt.output_versions?.find((item) => item.id === `approved_locked_scene:${before.sceneId}`);
+  const input = receipt.input_versions?.find((item) => item.location === output?.location);
+  const currentInputs = await Promise.all((receipt.input_versions || []).map(async (item) => {
+    const bytes = await reader.readBytes(item.location);
+    return createHash('sha1').update(`blob ${bytes.length}\0`).update(bytes).digest('hex') === item.version;
+  }));
+  requireCondition(ledger.run_id === runId && receipt.run_id === runId &&
+    receipt.scene_id === before.sceneId && task?.scene_id === before.sceneId &&
+    task?.task_type === 'narrative_review' && task?.status === 'PASS' && ledger.status === 'ACTIVE' &&
+    task.decision_receipt === decisionPath && receipt.status === 'PASS' &&
+    receipt.harness?.id === 'content_qa' && receipt.harness?.pass === 'narrative_review' &&
+    receipt.packet_sha256 === task.packet?.sha256 &&
+    sameVersions(receipt.input_versions, task.input_versions) &&
+    sameVersions(receipt.output_versions, task.output_versions) &&
+    receipt.input_digest_sha256 === sha256(JSON.stringify(task.input_versions)) &&
+    currentInputs.length > 0 && currentInputs.every(Boolean) &&
+    receipt.qa_codes?.some((check) => check.name === 'no_visual_impact' && check.result === 'PASS') &&
+    output?.version === input?.version &&
     decision?.decision === 'no_visual_impact' && decision.scene_id === before.sceneId &&
     decision.old_scene_sha256 === version(before.locked) && decision.new_scene_sha256 === version(after.locked),
   'missing or mismatched persisted Narrative QA no_visual_impact decision');
-  return { ...decision, verified_from_persisted_qa: true, handoff: handoffPath };
+  return { ...decision, verified_from_persisted_qa: true, receipt: decisionPath };
 }
 
-export async function buildProductionImpact({ sceneId, from = 'HEAD', to = 'WORKTREE', qaHandoff = null, root = projectRoot }) {
+export async function buildProductionImpact({ sceneId, from = 'HEAD', to = 'WORKTREE', qaDecision = null, root = projectRoot }) {
   const previous = await snapshotScene(readerFor(root, from), sceneId);
   const targetReader = readerFor(root, to);
   const current = await snapshotScene(targetReader, sceneId);
-  const evidence = qaHandoff ? await verifiedQaEvidence(targetReader, qaHandoff, previous, current) : null;
+  const evidence = qaDecision ? await verifiedQaEvidence(targetReader, qaDecision, previous, current) : null;
   return compareSceneSnapshots(previous, current, { noVisualImpactEvidence: evidence });
 }
 
@@ -406,8 +421,8 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   try {
     const args = process.argv.slice(2);
     requireCondition(args.length % 2 === 0 && args.every((_, index) => index % 2 === 1 ||
-      ['--scene', '--from', '--to', '--qa-handoff'].includes(args[index])),
-    'usage: npm run production:impact -- --scene COM-01X --from HEAD --to WORKTREE [--qa-handoff path]');
+      ['--scene', '--from', '--to', '--qa-decision'].includes(args[index])),
+    'usage: npm run production:impact -- --scene COM-01X --from HEAD --to WORKTREE [--qa-decision path]');
     const options = Object.fromEntries(Array.from({ length: args.length / 2 }, (_, index) =>
       [args[2 * index].slice(2).replaceAll('-', ''), args[2 * index + 1]]));
     requireCondition(options.scene && args.filter((arg) => arg === '--scene').length === 1 &&
@@ -415,7 +430,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
       options.from !== 'WORKTREE' && options.from !== '' && options.to !== '', 'invalid arguments');
     const result = await writeProductionImpact({ sceneId: options.scene,
       ...(options.from && { from: options.from }), ...(options.to && { to: options.to }),
-      ...(options.qahandoff && { qaHandoff: options.qahandoff }) });
+      ...(options.qadecision && { qaDecision: options.qadecision }) });
     console.log(`Impact: ${result.path} SHA-256 ${result.sha256}; ${result.impact.changes.length} changed artifact(s); QA ${result.impact.qa_status}`);
   } catch (error) {
     console.error(`BLOCKED: ${error.message}`);

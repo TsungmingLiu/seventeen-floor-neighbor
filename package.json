@@ -12,6 +12,7 @@
     "production:validate": "node tools/validate-production-contracts.mjs",
     "production:review": "node tools/production-review.mjs",
     "production:impact": "node tools/production-impact.mjs",
+    "production:run:check": "node tools/verify-production-run.mjs",
     "build": "node tools/build.mjs",
     "dev": "node tools/preview-server.mjs --dev --port 4173",
     "preview": "node tools/preview-server.mjs --preview --port 4173",

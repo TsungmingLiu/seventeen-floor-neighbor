@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "issue16-com00-nqa-20260926",
+  "task_id": "NQA-COM00-001",
+  "scene_id": "COM-00",
+  "status": "PASS",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.0.0",
+    "pass": "narrative_review"
+  },
+  "worker_model": "gpt-6-luna",
+  "packet_sha256": "7d04cc37570c82c0b64446775e8e4abe20b8ad71b2aec95d6f9f543890388730",
+  "input_digest_sha256": "f59fef85fb9e8b16583361d3b9834d8684db5db943d215f362fb3420fc89bd00",
+  "input_versions": [
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-00.json",
+      "version": "8c06b6872300ac75808326dfc60179a0e82f76a5",
+      "location": "content/production/narrative/opening-ch1/COM-00.json"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-00.md",
+      "version": "4c8b9396fdf43556b474f9cbf7a90813ef533309",
+      "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+    },
+    {
+      "id": "file:docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md",
+      "version": "673db60efa8f0cb2585c00ac5cda86aeb2d3d806",
+      "location": "docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md"
+    },
+    {
+      "id": "file:docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md",
+      "version": "3a41b862fce504c96c505eceb49ae06b2226d31f",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "approved_locked_scene:COM-00",
+      "version": "4c8b9396fdf43556b474f9cbf7a90813ef533309",
+      "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "scene_function_entry_exit_payoffs",
+      "code": "NQA-FUNCTION-01",
+      "result": "PASS"
+    },
+    {
+      "name": "voice_knowledge_relationship_pacing",
+      "code": "NQA-VOICE-01",
+      "result": "PASS"
+    },
+    {
+      "name": "choice_rejoin_state",
+      "code": "NQA-CHOICE-01",
+      "result": "PASS"
+    },
+    {
+      "name": "must_not_and_visual_semantics",
+      "code": "NQA-BOUNDARY-01",
+      "result": "PASS"
+    },
+    {
+      "name": "canon_excerpt_hashes",
+      "code": "NQA-PROVENANCE-01",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [],
+  "human_gate_required": "none",
+  "invalidates": [],
+  "worker_handoff_sha256": "99213dac77b8e44f15b1e08d804ba34fb230b228707072e2c58f49c9b61f700d"
+}

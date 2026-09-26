@@ -117,7 +117,7 @@ test('locked scene change is conservative without QA and narrows with synthetic 
     new_scene_sha256: version(after.locked),
     decision: 'no_visual_impact',
     verified_from_persisted_qa: true,
-    handoff: 'content/production/runs/synthetic/qa.handoff.json'
+    receipt: 'content/production/runs/synthetic/qa.decision.json'
   };
   const narrowed = compareSceneSnapshots(before, after, { noVisualImpactEvidence: evidence });
   assert.ok(narrowed.changes.some((item) => item.reason === 'dialogue_only_qa_confirmed'));

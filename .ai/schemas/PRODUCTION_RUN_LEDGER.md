@@ -1,11 +1,12 @@
 # Production Run Ledger Schema
 
-Version: 1.2.0
+Version: 1.3.0
 
-Lifecycle: **GENERATED** execution record. `.ai/PRODUCTION_ORCHESTRATION.md` owns behavior；ledger only records facts and never overrides canon. Persist actual runs at `content/production/runs/<run_id>/ledger.json` with adjacent Task Packets and Handoffs. Do not create a run for a hypothetical example.
+Lifecycle: **GENERATED** execution record. `.ai/PRODUCTION_ORCHESTRATION.md` owns behavior；ledger only records facts and never overrides canon. Persist actual runs at `content/production/runs/<run_id>/ledger.json` with only necessary short decision receipts. Full worker Task Packets/Handoffs/logs stay in gitignored `generated/session-cache/`. Do not create a run for a hypothetical example.
 
 ```json
 {
+  "schema_version": "1.3.0",
   "run_id": "chapter-update-001",
   "workflow_version": "1.3.0",
   "source_ref": "commit SHA or immutable ref",
@@ -13,15 +14,16 @@ Lifecycle: **GENERATED** execution record. `.ai/PRODUCTION_ORCHESTRATION.md` own
   "status": "ACTIVE",
   "tasks": [
     {
-      "task_id": "ND-001",
-      "task_type": "narrative_design",
+      "task_id": "NQA-001",
+      "task_type": "narrative_review",
+      "scene_id": "COM-00",
       "depends_on": [],
       "status": "PASS",
-      "packet": "content/production/runs/chapter-update-001/ND-001.packet.json",
-      "handoff": "content/production/runs/chapter-update-001/ND-001.handoff.json",
+      "packet": { "generator": "tools/context.mjs:narrative_review", "sha256": "SHA-256 of exact regenerated Task Packet bytes" },
+      "decision_receipt": "content/production/runs/chapter-update-001/NQA-001.decision.json",
       "input_versions": [],
       "output_versions": [
-        { "id": "contract:scene-id", "version": "git blob SHA", "location": "exact path" }
+        { "id": "approved_locked_scene:COM-00", "version": "git blob SHA", "location": "exact scene path" }
       ],
       "human_gate": "none",
       "reason": null
@@ -32,10 +34,12 @@ Lifecycle: **GENERATED** execution record. `.ai/PRODUCTION_ORCHESTRATION.md` own
 }
 ```
 
-Task `status`: `PENDING`、`READY`、`RUNNING`、`PASS`、`NEEDS_REVIEW`、`FAIL`、`BLOCKED`、`STALE`、`SKIPPED`。Run `status`: `ACTIVE`、`NARRATIVE_PREVIEW_READY`、`BLOCKED`、`READY_FOR_HUMAN_ACCEPTANCE`、`ACCEPTED`。Narrative preview remains a resumable story-review checkpoint; it cannot satisfy dependencies on accepted CG/visual QA. Each dependency is a task ID in the same acyclic run. `READY` requires all dependencies `PASS` and approved/gated outputs. `SKIPPED` requires explicit reason and cannot satisfy a required dependency. `PASS` requires a Handoff, verified output version, and passing acceptance. `RUNNING` without recoverable Handoff must be reconciled on resume. Every task attempt has a stable ID; reruns get a new attempt ID or a clearly versioned packet/handoff, preserving prior evidence.
+Task `status`: `PENDING`、`READY`、`RUNNING`、`PASS`、`NEEDS_REVIEW`、`FAIL`、`BLOCKED`、`STALE`、`SKIPPED`。Run `status`: `ACTIVE`、`NARRATIVE_PREVIEW_READY`、`BLOCKED`、`READY_FOR_HUMAN_ACCEPTANCE`、`ACCEPTED`。Narrative preview remains a resumable story-review checkpoint; it cannot satisfy dependencies on accepted CG/visual QA. Each dependency is a task ID in the same acyclic run. `READY` requires all dependencies `PASS` and approved/gated outputs. `SKIPPED` requires explicit reason and cannot satisfy a required dependency. `PASS` requires an actually reviewed worker Handoff at execution time, a committed decision receipt with matching input/output identities, verified output version, and passing acceptance. `RUNNING` without a durable decision receipt must be reconciled or reset to `READY` on resume; missing cache cannot prove PASS. Every task attempt has a stable ID; reruns get a new attempt ID or a clearly versioned packet/decision receipt, preserving prior evidence.
+
+`packet.generator` identifies an existing deterministic generator; `packet.sha256` hashes exact JSON bytes including trailing newline. Regenerate using `source_ref`, verify the packet, and compare SHA-256. Canonical ledgers/receipts never store session URLs, absolute paths, or cache paths as required cross-session input. `decision_receipt` is a committed repo-relative JSON path, or `null` before the decision. It records only run/task/scene/status, packet SHA-256, input digest, output ID/path/hash, QA result codes, concise issues, Human gate and invalidation. It identifies the fresh worker harness/pass and matches this ledger's immutable input/output versions; it does not replace independent review. Full handoffs, logs and rejected candidates stay in session cache.
 
 `input_versions[]` / `output_versions[]` use `{id, version, location}`. `version` is immutable: Git blob SHA, canonical content SHA-256, packet hash, accepted asset receipt/hash, or explicit equivalent. Unknown versions are recorded as `unknown` and block dependent dispatch until resolved. The ledger stores identities, not artifact contents.
 
 `invalidation_events[]` records `{changed_artifact_id, old_version, new_version, affected_task_ids, decision, evidence}`. `decision` is `STALE` or documented `no_visual_impact` after fresh Narrative QA. Scope only descendants that actually consume the changed artifact. `preview` records `{commit, profile, url_or_access_path, visibility, build, validation, tests, smoke}`; `READY_FOR_HUMAN_ACCEPTANCE` requires all evidence and a Human-accessible demo.
 
-`npm run production:impact -- --scene <id> --from <commit> --to <commit|WORKTREE>` writes an ignored **read-only comparison**, not this ledger. Its `would_invalidate` and `visual_artifacts_not_impacted_by_diff` are proposed scopes between versions, not task statuses or proof of historical QA. A Coordinator may append a real `invalidation_events[]` entry and mark affected tasks `STALE` only after matching the comparison to this run's recorded immutable `input_versions`/`output_versions` and verifying its Handoff/Human decisions; otherwise status remains unknown/blocked. The tool compares accepted Opening entries now; it blocks render-ready entries lacking accepted bindings.
+`npm run production:impact -- --scene <id> --from <commit> --to <commit|WORKTREE>` writes an ignored **read-only comparison**, not this ledger. Its `would_invalidate` and `visual_artifacts_not_impacted_by_diff` are proposed scopes between versions, not task statuses or proof of historical QA. A Coordinator may append a real `invalidation_events[]` entry and mark affected tasks `STALE` only after matching the comparison to this run's recorded immutable `input_versions`/`output_versions` and verifying its committed QA/Human decision receipts; otherwise status remains unknown/blocked. The tool compares accepted Opening entries now; it blocks render-ready entries lacking accepted bindings.

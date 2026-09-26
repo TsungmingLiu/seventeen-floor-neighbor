@@ -43,7 +43,8 @@ if (argument('task') || argument('verify-packet')) {
       const { validateProductionContracts } = await import('./validate-production-contracts.mjs');
       validateProductionContracts();
       const packet = await buildNarrativeReviewPacket({
-        sceneId: argument('scene'), runId: argument('run-id'), taskId: argument('task-id')
+        sceneId: argument('scene'), runId: argument('run-id'), taskId: argument('task-id'),
+        ref: argument('ref')
       });
       const relative = `generated/session-cache/${packet.run_id}/${packet.task_id}.packet.json`;
       const destination = path.join(projectRoot, relative);
