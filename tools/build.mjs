@@ -13,11 +13,6 @@ const generatedRoot = path.join(projectRoot, 'generated');
 await rm(distRoot, { recursive: true, force: true });
 await mkdir(distRoot, { recursive: true });
 await cp(publicRoot, distRoot, { recursive: true });
-await Promise.all([
-  mkdir(path.join(generatedRoot, 'runtime-assets'), { recursive: true }),
-  mkdir(path.join(generatedRoot, 'source-cache'), { recursive: true })
-]);
-
 await cp(path.join(generatedRoot, 'runtime-assets'), distRoot, { recursive: true });
 
 const routesRoot = path.join(distRoot, 'content/routes');

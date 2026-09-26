@@ -358,7 +358,7 @@ node --version
 ffmpeg -version | head -1
 ffprobe -version | head -1
 test -x /usr/sbin/sshd
-rm -rf generated/runtime-assets generated/source-cache dist
+rm -rf generated/runtime-assets dist
 npm run assets:check
 npm run assets:build
 npm run build

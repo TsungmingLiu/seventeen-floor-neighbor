@@ -52,11 +52,11 @@
 
 ## 4. Asset storage 與 build
 
-`content/assets/manifest.json` 讓 story 只引用 logical ID。`source-map.json` 把 runtime path 映射到 local `assets-src/` 或 `gdrive-public` 的 URL、bytes、SHA-256；`source-catalog.json` 記錄 accepted master 的 file ID、尺寸、hash 與 provenance。`content/recipes/assets.json` 記錄依賴/重建資訊。新的 accepted master 應保存至受限的 Google Drive `source-private`；已登記的 optimized runtime objects 仍由 Google Drive `runtime-public` 提供。這個遠端儲存位置與已廢棄的 repo 本地 `runtime-public/` 目錄不同。
+`content/assets/manifest.json` 讓 story 只引用 logical ID。`source-map.json` 將每個 runtime path 映射到 Git 追蹤的 `assets-src/` 檔案；新入庫檔案另記錄 bytes 與 SHA-256。`content/recipes/assets.json` 記錄依賴與重建資訊。已驗收的 WebP 保留原位元組，已驗收的 PNG/JPG 透過 `tools/asset-ingest.mjs` 以固定參數轉檔，更新既有 manifest、source map 及 receipt；build 只複製 repo 內檔案。現有 `source-catalog.json` 仍記載歷史 Drive master/reference metadata，CG 生成 reference transport 的轉換屬後續 production workflow gate；它不參與 runtime build。
 
-`npm run assets:check` 驗證來源、bytes/hash、尺寸/比例與媒體 full decode；`npm run assets:build` 依 provider 複製或下載到 generated output；`npm run build` clean rebuild `dist/`，包含 UI、JS、route packages 與 runtime assets。遠端 object 不可只靠檔名或 URL 宣稱已驗證。缺少 master 或 runtime object 時應阻擋 ingest/build，不得用舊 sprite 或暫存圖悄悄替代。`dist/`、`generated/` 可丟棄。
+`npm run assets:check` 驗證本地 runtime 來源、已釘選的 bytes/hash、尺寸/比例與媒體 full decode；catalog 中尚未遷移的私有 master 是歷史 metadata attestation，這一步不會重新下載或解碼它們。`npm run assets:build` 只複製 repo 檔案到 generated output；`npm run build` clean rebuild `dist/`，包含 UI、JS、route packages 與 runtime assets。缺少 runtime object 時應阻擋 build，不得用舊 sprite 或暫存圖悄悄替代。`dist/`、`generated/` 可丟棄。
 
-本 repo 本地 `runtime-public/sprites/` 的十張舊候選圖未被 manifest、source-map、route 或 build 讀取，已退出 source tree。仍在使用的 `assets-src/characters/` 與 Google Drive runtime objects 不受此清理影響。
+本 repo 本地 `runtime-public/sprites/` 的十張舊候選圖未被 manifest、source-map、route 或 build 讀取，已退出 source tree。仍在使用的 `assets-src/characters/` 與舊路線影片仍作回歸 fixture，不能僅因非預設路線就刪除。
 
 ## 5. Content production 與 runtime integration
 

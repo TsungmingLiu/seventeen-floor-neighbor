@@ -255,7 +255,7 @@
     "cg.opening-ch1.com01b.01": {
       "canonicalAssetId": "COM-01B-CG-01",
       "kind": "cg",
-      "src": "assets/opening-ch1-demo/opening-ch1-com01b-01.png",
+      "src": "assets/opening-ch1-demo/opening-ch1-com01b-01.webp",
       "width": 1672,
       "height": 941,
       "masterSourceId": "source.opening.ch1.com01b.01",
@@ -283,7 +283,7 @@
     "cg.opening-ch1.com01b.02": {
       "canonicalAssetId": "COM-01B-CG-02",
       "kind": "cg",
-      "src": "assets/opening-ch1-demo/opening-ch1-com01b-02.png",
+      "src": "assets/opening-ch1-demo/opening-ch1-com01b-02.webp",
       "width": 1672,
       "height": 941,
       "masterSourceId": "source.opening.ch1.com01b.02",
@@ -313,7 +313,7 @@
     "cg.opening-ch1.com01b.03": {
       "canonicalAssetId": "COM-01B-CG-03",
       "kind": "cg",
-      "src": "assets/opening-ch1-demo/opening-ch1-com01b-03.png",
+      "src": "assets/opening-ch1-demo/opening-ch1-com01b-03.webp",
       "width": 1672,
       "height": 940,
       "masterSourceId": "source.opening.ch1.com01b.03",
@@ -334,7 +334,7 @@
     "cg.opening-ch1.com01b.04": {
       "canonicalAssetId": "COM-01B-CG-04",
       "kind": "cg",
-      "src": "assets/opening-ch1-demo/opening-ch1-com01b-04.png",
+      "src": "assets/opening-ch1-demo/opening-ch1-com01b-04.webp",
       "width": 1672,
       "height": 941,
       "masterSourceId": "source.opening.ch1.com01b.04",

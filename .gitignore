@@ -5,7 +5,6 @@
 
 # Disposable generated asset/cache directories
 generated/runtime-assets/
-generated/source-cache/
 generated/render-packets/
 generated/asset-check-cache/
 
@@ -14,6 +13,7 @@ generated/asset-check-cache/
 
 # Generated media validation report
 generated/asset-report.json
+.asset-ingest-*/
 
-# Runtime binaries are generated/fetched during build
+# Runtime binaries in dist/ are copied from tracked assets-src/ during build
 dist/assets/

@@ -748,7 +748,7 @@
     "cg.opening-ch1.com01b.01": {
       "canonicalAssetId": "COM-01B-CG-01",
       "kind": "cg",
-      "src": "assets/opening-ch1-demo/opening-ch1-com01b-01.png",
+      "src": "assets/opening-ch1-demo/opening-ch1-com01b-01.webp",
       "width": 1672,
       "height": 941,
       "masterSourceId": "source.opening.ch1.com01b.01",
@@ -776,7 +776,7 @@
     "cg.opening-ch1.com01b.02": {
       "canonicalAssetId": "COM-01B-CG-02",
       "kind": "cg",
-      "src": "assets/opening-ch1-demo/opening-ch1-com01b-02.png",
+      "src": "assets/opening-ch1-demo/opening-ch1-com01b-02.webp",
       "width": 1672,
       "height": 941,
       "masterSourceId": "source.opening.ch1.com01b.02",
@@ -806,7 +806,7 @@
     "cg.opening-ch1.com01b.03": {
       "canonicalAssetId": "COM-01B-CG-03",
       "kind": "cg",
-      "src": "assets/opening-ch1-demo/opening-ch1-com01b-03.png",
+      "src": "assets/opening-ch1-demo/opening-ch1-com01b-03.webp",
       "width": 1672,
       "height": 940,
       "masterSourceId": "source.opening.ch1.com01b.03",
@@ -827,7 +827,7 @@
     "cg.opening-ch1.com01b.04": {
       "canonicalAssetId": "COM-01B-CG-04",
       "kind": "cg",
-      "src": "assets/opening-ch1-demo/opening-ch1-com01b-04.png",
+      "src": "assets/opening-ch1-demo/opening-ch1-com01b-04.webp",
       "width": 1672,
       "height": 941,
       "masterSourceId": "source.opening.ch1.com01b.04",
@@ -844,121 +844,6 @@
       "participants": [],
       "canonicalCgManifest": "content/production/cg-manifests/opening-ch1-com01b.json",
       "canonicalCgEntry": "COM-01B-CG-04"
-    }
-  },
-  "ingestStaging": {
-    "openingCh1DemoV01": {
-      "status": "integrated-into-opening-demo",
-      "integrationRequired": false,
-      "note": "Staged here so the ingest PR can pass current route-assignment validation without performing the separate Integration Task. Integration promotes these stable logical IDs into active assets/routes.",
-      "runtimeFolderId": "1sXzfp5IZsYon5bxL9A_Fsrl_ZhF9ajvt",
-      "sourceFolderId": "1l717fFWJAmuCM84AZIgrWn_bfoXb0lJm",
-      "assets": {
-        "bg.opening.ch1.apt_17f_rain": {
-          "canonicalAssetId": "BG-APT-17F-RAIN-16X9",
-          "kind": "background",
-          "src": "assets/opening-ch1-demo/bg-apt-17f-rain-16x9-v1.webp",
-          "width": 1536,
-          "height": 864,
-          "masterSourceId": "source.opening.ch1.bg.apt_17f_rain",
-          "knownIssues": []
-        },
-        "cg.opening.com00.s02_door_assist": {
-          "canonicalAssetId": "COM00-S02-DOOR-ASSIST",
-          "kind": "cg",
-          "src": "assets/opening-ch1-demo/cg-com00-s02-door-assist-v1.webp",
-          "width": 1536,
-          "height": 864,
-          "masterSourceId": "source.opening.ch1.cg.com00_s02_door_assist",
-          "knownIssues": []
-        },
-        "cg.opening.com00.s04_base_neutral": {
-          "canonicalAssetId": "COM00-S04-BASE-NEUTRAL",
-          "kind": "cg",
-          "src": "assets/opening-ch1-demo/cg-com00-s04-base-neutral-v1.webp",
-          "width": 1536,
-          "height": 864,
-          "masterSourceId": "source.opening.ch1.cg.com00_s04_base_neutral",
-          "knownIssues": []
-        },
-        "cg.opening.com00.s04_r01_polite_smile": {
-          "canonicalAssetId": "COM00-S04-R01-POLITE-SMILE",
-          "kind": "cg",
-          "src": "assets/opening-ch1-demo/cg-com00-s04-r01-polite-smile-v1.webp",
-          "width": 1536,
-          "height": 864,
-          "masterSourceId": "source.opening.ch1.cg.com00_s04_r01_polite_smile",
-          "knownIssues": []
-        },
-        "bg.opening.ch1.apt_elevator": {
-          "canonicalAssetId": "BG-APT-ELEVATOR-16X9",
-          "kind": "background",
-          "src": "assets/opening-ch1-demo/bg-apt-elevator-16x9-v1.webp",
-          "width": 1536,
-          "height": 864,
-          "masterSourceId": "source.opening.ch1.bg.apt_elevator",
-          "knownIssues": []
-        },
-        "cg.opening.com01x.base_normal": {
-          "canonicalAssetId": "COM01X-BASE-NORMAL",
-          "kind": "cg",
-          "src": "assets/opening-ch1-demo/cg-com01x-base-normal-v1.webp",
-          "width": 1536,
-          "height": 864,
-          "masterSourceId": "source.opening.ch1.cg.com01x_base_normal",
-          "knownIssues": []
-        },
-        "cg.opening.com01x.r01_restart": {
-          "canonicalAssetId": "COM01X-R01-RESTART",
-          "kind": "cg",
-          "src": "assets/opening-ch1-demo/cg-com01x-r01-restart-v1.webp",
-          "width": 1536,
-          "height": 864,
-          "masterSourceId": "source.opening.ch1.cg.com01x_r01_restart",
-          "knownIssues": []
-        },
-        "cg.opening.com01x.r02_dry_smile": {
-          "canonicalAssetId": "COM01X-R02-DRY-SMILE",
-          "kind": "cg",
-          "src": "assets/opening-ch1-demo/cg-com01x-r02-dry-smile-v1.webp",
-          "width": 1536,
-          "height": 864,
-          "masterSourceId": "source.opening.ch1.cg.com01x_r02_dry_smile",
-          "knownIssues": []
-        },
-        "bg.opening.ch1.acg_shop": {
-          "canonicalAssetId": "BG-ACG-SHOP-16X9",
-          "kind": "background",
-          "src": "assets/opening-ch1-demo/bg-acg-shop-16x9-v1.webp",
-          "width": 1536,
-          "height": 864,
-          "masterSourceId": "source.opening.ch1.bg.acg_shop",
-          "knownIssues": []
-        },
-        "cg.opening.com01j.base_guarded": {
-          "canonicalAssetId": "COM01J-BASE-GUARDED",
-          "kind": "cg",
-          "src": "assets/opening-ch1-demo/cg-com01j-base-guarded-v1.webp",
-          "width": 1536,
-          "height": 864,
-          "masterSourceId": "source.opening.ch1.cg.com01j_base_guarded",
-          "knownIssues": [
-            "demo-approved provisional wardrobe drift"
-          ]
-        },
-        "cg.opening.com01j.r01_interested": {
-          "canonicalAssetId": "COM01J-R01-INTERESTED",
-          "kind": "cg",
-          "src": "assets/opening-ch1-demo/cg-com01j-r01-interested-v1.webp",
-          "width": 1536,
-          "height": 864,
-          "masterSourceId": "source.opening.ch1.cg.com01j_r01_interested",
-          "knownIssues": [
-            "demo-approved provisional wardrobe drift"
-          ]
-        }
-      },
-      "integratedRouteId": "opening-demo"
     }
   }
 }

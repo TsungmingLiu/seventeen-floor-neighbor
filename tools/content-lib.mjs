@@ -284,16 +284,20 @@ export async function validateContent(content) {
     if (!runtimePath.startsWith('assets/')) fail(`asset source map: runtime path must stay under assets/: ${runtimePath}`);
     if (entry.provider === 'local') {
       if (!entry.source?.startsWith('assets-src/')) fail(`asset source map: local source must stay under assets-src/: ${entry.source}`);
+      if (entry.source?.split('/').includes('..') || entry.source?.includes('\\')) fail(`asset source map: invalid local path ${entry.source}`);
+      if (entry.fileId || entry.url) fail(`asset source map: remote fields are forbidden on local source ${runtimePath}`);
       try {
         await access(path.join(projectRoot, entry.source));
       } catch {
         fail(`asset source map: missing local source ${entry.source} for ${runtimePath}`);
       }
-    } else if (entry.provider === 'gdrive-public') {
-      if (!entry.fileId || !entry.url || !entry.sha256) fail(`asset source map: gdrive-public entry ${runtimePath} requires fileId, url, and sha256`);
-      if (!entry.url.startsWith('https://drive.google.com/')) fail(`asset source map: unsupported Drive URL for ${runtimePath}`);
     } else {
       fail(`asset source map: unsupported provider ${entry.provider} for ${runtimePath}`);
+    }
+    if (entry.provider === 'local') {
+      if (entry.transform !== 'copy') fail(`asset source map: runtime conversion is not allowed for ${runtimePath}; ingest first`);
+      if (entry.sha256 && !/^[0-9a-f]{64}$/.test(entry.sha256)) fail(`asset source map: invalid SHA-256 for ${runtimePath}`);
+      if (entry.bytes != null && (!Number.isSafeInteger(entry.bytes) || entry.bytes <= 0)) fail(`asset source map: invalid byte count for ${runtimePath}`);
     }
   }
 

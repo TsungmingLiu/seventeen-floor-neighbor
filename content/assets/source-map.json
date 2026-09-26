@@ -1,7 +1,7 @@
 {
   "sourceMapVersion": 2,
-  "migrationState": "w2-drive-provider",
-  "note": "Runtime assets may come from local preservation sources or public Google Drive runtime objects. Private masters are recorded separately in source-catalog.json.",
+  "migrationState": "repo-runtime-gate2",
+  "note": "All runtime assets resolve to tracked assets-src/ files. Source-catalog master/reference transport migration is tracked separately.",
   "files": {
     "assets/bg-elevator-normal.jpg": "assets-src/backgrounds/bg-elevator-normal.jpg",
     "assets/cg-ch01-v2-elevator-blush.jpg": "assets-src/cg/cg-ch01-v2-elevator-blush.jpg",
@@ -34,165 +34,129 @@
     "assets/sprite-xu-tang-v2-playful.webp": "assets-src/characters/sprite-xu-tang-v2-playful.webp",
     "assets/unavailable.svg": "assets-src/ui/unavailable.svg",
     "assets/cg-date-bookstore.webp": {
-      "provider": "gdrive-public",
-      "fileId": "1IuuvVNQrNOlK9R3ZYr2quaNOHH5CoaTj",
-      "url": "https://drive.google.com/uc?export=download&id=1IuuvVNQrNOlK9R3ZYr2quaNOHH5CoaTj",
+      "source": "assets-src/cg-date-bookstore.webp",
       "transform": "copy",
       "sha256": "92d854021e3b7d83081d9cf1307e2c4677101ae1b87da62bda98727f23efb779",
       "bytes": 143762,
       "masterSourceId": "source.xu_tang.date.bookstore"
     },
     "assets/cg-date-riverwalk.webp": {
-      "provider": "gdrive-public",
-      "fileId": "1cAMdIu-AALAlJ1QW5ja8N5q62imzjunX",
-      "url": "https://drive.google.com/uc?export=download&id=1cAMdIu-AALAlJ1QW5ja8N5q62imzjunX",
+      "source": "assets-src/cg-date-riverwalk.webp",
       "transform": "copy",
       "sha256": "4419c6d7cadfbf61a18d9876df63b8b8737ad29fef35ee5a430498e13d0fcd9a",
       "bytes": 229018,
       "masterSourceId": "source.xu_tang.date.riverwalk"
     },
     "assets/cg-date-night-market.webp": {
-      "provider": "gdrive-public",
-      "fileId": "10LLYD2_wxAmxVgLGjk6RDOcA-Rhtz1d7",
-      "url": "https://drive.google.com/uc?export=download&id=10LLYD2_wxAmxVgLGjk6RDOcA-Rhtz1d7",
+      "source": "assets-src/cg-date-night-market.webp",
       "transform": "copy",
       "sha256": "de67b8be103b5dfe5d4eabc987d24b0b9395b4fa146457f99a46d867df149b25",
       "bytes": 155166,
       "masterSourceId": "source.xu_tang.date.night_market"
     },
     "assets/opening-ch1-demo/bg-apt-17f-rain-16x9-v1.webp": {
-      "provider": "gdrive-public",
-      "fileId": "1XYtSjsITajiefIqY2cgvpvQv-rut89Sr",
-      "url": "https://drive.google.com/uc?export=download&id=1XYtSjsITajiefIqY2cgvpvQv-rut89Sr",
+      "source": "assets-src/opening-ch1-demo/bg-apt-17f-rain-16x9-v1.webp",
       "transform": "copy",
       "sha256": "386c9003df0a6658a343907b646e912aa1e6a68254a01c2dfb89bdc838b33077",
       "bytes": 125184,
       "masterSourceId": "source.opening.ch1.bg.apt_17f_rain"
     },
     "assets/opening-ch1-demo/cg-com00-s02-door-assist-v1.webp": {
-      "provider": "gdrive-public",
-      "fileId": "1m8VM1jRZBWza2o-OSCPSSX6P-oMkk--V",
-      "url": "https://drive.google.com/uc?export=download&id=1m8VM1jRZBWza2o-OSCPSSX6P-oMkk--V",
+      "source": "assets-src/opening-ch1-demo/cg-com00-s02-door-assist-v1.webp",
       "transform": "copy",
       "sha256": "3a2a340f275c8870840c2103ed3f8f235e5389bd635c87214aa3a48ec1eec59e",
       "bytes": 136596,
       "masterSourceId": "source.opening.ch1.cg.com00_s02_door_assist"
     },
     "assets/opening-ch1-demo/cg-com00-s04-base-neutral-v1.webp": {
-      "provider": "gdrive-public",
-      "fileId": "1WZjSPUL8IGnfAGPyfbnDPVhRCc3Uopys",
-      "url": "https://drive.google.com/uc?export=download&id=1WZjSPUL8IGnfAGPyfbnDPVhRCc3Uopys",
+      "source": "assets-src/opening-ch1-demo/cg-com00-s04-base-neutral-v1.webp",
       "transform": "copy",
       "sha256": "7f18dccd8483498adc196c144cc6edafeff6bdd0f6db573bee288b32152862ea",
       "bytes": 131914,
       "masterSourceId": "source.opening.ch1.cg.com00_s04_base_neutral"
     },
     "assets/opening-ch1-demo/cg-com00-s04-r01-polite-smile-v1.webp": {
-      "provider": "gdrive-public",
-      "fileId": "1sXPDP0DdqcF-RZpW7fiojhwvdAWEi9Gz",
-      "url": "https://drive.google.com/uc?export=download&id=1sXPDP0DdqcF-RZpW7fiojhwvdAWEi9Gz",
+      "source": "assets-src/opening-ch1-demo/cg-com00-s04-r01-polite-smile-v1.webp",
       "transform": "copy",
       "sha256": "51ab914e1d2cc294b7abcc2040520332c579abecaec80ebd9314a14d0e3452a0",
       "bytes": 121104,
       "masterSourceId": "source.opening.ch1.cg.com00_s04_r01_polite_smile"
     },
     "assets/opening-ch1-demo/bg-apt-elevator-16x9-v1.webp": {
-      "provider": "gdrive-public",
-      "fileId": "1pof0NVJpUNO2JX7vPKhDyJCunXIGJdZg",
-      "url": "https://drive.google.com/uc?export=download&id=1pof0NVJpUNO2JX7vPKhDyJCunXIGJdZg",
+      "source": "assets-src/opening-ch1-demo/bg-apt-elevator-16x9-v1.webp",
       "transform": "copy",
       "sha256": "2e1882334057fbd08b4d2c301b7924efc34cd1875e3d0dc1176c6315525e195e",
       "bytes": 110612,
       "masterSourceId": "source.opening.ch1.bg.apt_elevator"
     },
     "assets/opening-ch1-demo/cg-com01x-base-normal-v1.webp": {
-      "provider": "gdrive-public",
-      "fileId": "1n1he3lARUHKv3U1Ml8TMsy_BmoVY76mM",
-      "url": "https://drive.google.com/uc?export=download&id=1n1he3lARUHKv3U1Ml8TMsy_BmoVY76mM",
+      "source": "assets-src/opening-ch1-demo/cg-com01x-base-normal-v1.webp",
       "transform": "copy",
       "sha256": "c93cb5f8395839cef8d1d80f9402fe910f8cd0240dc1a10085f64421d41c95cf",
       "bytes": 121780,
       "masterSourceId": "source.opening.ch1.cg.com01x_base_normal"
     },
     "assets/opening-ch1-demo/cg-com01x-r01-restart-v1.webp": {
-      "provider": "gdrive-public",
-      "fileId": "1fBJCvJ18WkCA0tRjrMDhrxTBXE4UK--O",
-      "url": "https://drive.google.com/uc?export=download&id=1fBJCvJ18WkCA0tRjrMDhrxTBXE4UK--O",
+      "source": "assets-src/opening-ch1-demo/cg-com01x-r01-restart-v1.webp",
       "transform": "copy",
       "sha256": "4da7ff3dcdc2a563890653125fd20e775a4c0af10dc260b8536c858a2542f0c9",
       "bytes": 71500,
       "masterSourceId": "source.opening.ch1.cg.com01x_r01_restart"
     },
     "assets/opening-ch1-demo/cg-com01x-r02-dry-smile-v1.webp": {
-      "provider": "gdrive-public",
-      "fileId": "1e3suzDXbDULNP5YGPXGGM1-XFrYSrXJc",
-      "url": "https://drive.google.com/uc?export=download&id=1e3suzDXbDULNP5YGPXGGM1-XFrYSrXJc",
+      "source": "assets-src/opening-ch1-demo/cg-com01x-r02-dry-smile-v1.webp",
       "transform": "copy",
       "sha256": "62c77eba8430f620099a8bc9f7bd6e8d0939e77645129f12f1ec85cf83cfb924",
       "bytes": 107428,
       "masterSourceId": "source.opening.ch1.cg.com01x_r02_dry_smile"
     },
     "assets/opening-ch1-demo/bg-acg-shop-16x9-v1.webp": {
-      "provider": "gdrive-public",
-      "fileId": "1gyyKP9kEoMk_t4feiylXz6Mo4ZuF8Na8",
-      "url": "https://drive.google.com/uc?export=download&id=1gyyKP9kEoMk_t4feiylXz6Mo4ZuF8Na8",
+      "source": "assets-src/opening-ch1-demo/bg-acg-shop-16x9-v1.webp",
       "transform": "copy",
       "sha256": "3f3a37c605ebbdb8a4a127c4298f435787ecdda40367802aa6d2a1eba8e0b3da",
       "bytes": 247800,
       "masterSourceId": "source.opening.ch1.bg.acg_shop"
     },
     "assets/opening-ch1-demo/cg-com01j-base-guarded-v1.webp": {
-      "provider": "gdrive-public",
-      "fileId": "1r37gq6GhI2Oe1b-JeZgMcv_6aJQGD2NI",
-      "url": "https://drive.google.com/uc?export=download&id=1r37gq6GhI2Oe1b-JeZgMcv_6aJQGD2NI",
+      "source": "assets-src/opening-ch1-demo/cg-com01j-base-guarded-v1.webp",
       "transform": "copy",
       "sha256": "da44c827e4f0839dc4b9885b3eca9df307660688e1e078b1cf5c8a5133e0b36b",
       "bytes": 215930,
       "masterSourceId": "source.opening.ch1.cg.com01j_base_guarded"
     },
     "assets/opening-ch1-demo/cg-com01j-r01-interested-v1.webp": {
-      "provider": "gdrive-public",
-      "fileId": "1EKoF5Q9X4Aw_NuSjtRXT8jgPS4gyoscv",
-      "url": "https://drive.google.com/uc?export=download&id=1EKoF5Q9X4Aw_NuSjtRXT8jgPS4gyoscv",
+      "source": "assets-src/opening-ch1-demo/cg-com01j-r01-interested-v1.webp",
       "transform": "copy",
       "sha256": "3c3d1475a1ea1215f744870ba00c1127acd423141bbf4915ba9196e8e75d795f",
       "bytes": 215292,
       "masterSourceId": "source.opening.ch1.cg.com01j_r01_interested"
     },
-    "assets/opening-ch1-demo/opening-ch1-com01b-01.png": {
-      "provider": "gdrive-public",
-      "fileId": "1hbcherxCNgEyygQKUUs8wQAYAY9PqsDt",
-      "url": "https://drive.google.com/uc?export=download&id=1hbcherxCNgEyygQKUUs8wQAYAY9PqsDt",
+    "assets/opening-ch1-demo/opening-ch1-com01b-01.webp": {
+      "source": "assets-src/opening-ch1-demo/opening-ch1-com01b-01.webp",
       "transform": "copy",
-      "sha256": "d668f4deeb2b7a180355c250e6150f5eb492e1cafbc74742bd8a38a15604f5c0",
-      "bytes": 2079798,
+      "sha256": "38eff53cc0fecff024acb346c091706f6b74d98501e950ee47e1cb2c2e98c741",
+      "bytes": 161284,
       "masterSourceId": "source.opening.ch1.com01b.01"
     },
-    "assets/opening-ch1-demo/opening-ch1-com01b-02.png": {
-      "provider": "gdrive-public",
-      "fileId": "1sWyv3QQ0uipdvcvmbZg2vq_prKj9OkZH",
-      "url": "https://drive.google.com/uc?export=download&id=1sWyv3QQ0uipdvcvmbZg2vq_prKj9OkZH",
+    "assets/opening-ch1-demo/opening-ch1-com01b-02.webp": {
+      "source": "assets-src/opening-ch1-demo/opening-ch1-com01b-02.webp",
       "transform": "copy",
-      "sha256": "c20cc361ba92105b634127473e7de51e9591140793d49d65ed9f47757f6c9651",
-      "bytes": 1978733,
+      "sha256": "4127f991bcaf31e0ebd7db9c35ca8d9cf30b8f24ad889bf0741614e3db7297b7",
+      "bytes": 150416,
       "masterSourceId": "source.opening.ch1.com01b.02"
     },
-    "assets/opening-ch1-demo/opening-ch1-com01b-03.png": {
-      "provider": "gdrive-public",
-      "fileId": "1aXHBZ3x9GK_q9CnPXBogVJdBQaFqzp6a",
-      "url": "https://drive.google.com/uc?export=download&id=1aXHBZ3x9GK_q9CnPXBogVJdBQaFqzp6a",
+    "assets/opening-ch1-demo/opening-ch1-com01b-03.webp": {
+      "source": "assets-src/opening-ch1-demo/opening-ch1-com01b-03.webp",
       "transform": "copy",
-      "sha256": "9b794d6de92aad0c79388b15f999587d05fe989ee5548421582720f5a4bd2f7c",
-      "bytes": 2371190,
+      "sha256": "aa6a236bceca59882edd5f3e1eded77b99347ca62fe5ed81ff74ee4d84bdcbc0",
+      "bytes": 264598,
       "masterSourceId": "source.opening.ch1.com01b.03"
     },
-    "assets/opening-ch1-demo/opening-ch1-com01b-04.png": {
-      "provider": "gdrive-public",
-      "fileId": "1T-zEpa8NBSHuq6LAS5Fj_WzmNBeRCB-B",
-      "url": "https://drive.google.com/uc?export=download&id=1T-zEpa8NBSHuq6LAS5Fj_WzmNBeRCB-B",
+    "assets/opening-ch1-demo/opening-ch1-com01b-04.webp": {
+      "source": "assets-src/opening-ch1-demo/opening-ch1-com01b-04.webp",
       "transform": "copy",
-      "sha256": "97b4202f59d58934cc990ca560ced7786e1c61e32b887f6021e6406980e23d10",
-      "bytes": 2563972,
+      "sha256": "6ade85b6b4f6ece1ee95923784fe8469bdc0a6b03acf6b9608f4466141a87f3a",
+      "bytes": 313186,
       "masterSourceId": "source.opening.ch1.com01b.04"
     }
   }
