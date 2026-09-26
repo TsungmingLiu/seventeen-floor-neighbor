@@ -70,3 +70,5 @@ human_gate_required: none | major_story_direction | canonical_character_design |
 - Do not smuggle new creative decisions into `known_issues`.
 - If a worker detects a canon conflict, stop and return BLOCKED with both conflicting sources.
 - Provenance must make it possible to identify which workflow/harness version produced an artifact.
+
+For an actual `content_qa / narrative_review` decision that a changed Locked Scene has **no visual impact**, a committed Handoff may additionally include `invalidation_decision: {decision: no_visual_impact, scene_id, old_scene_sha256, new_scene_sha256}` and a `qa.checks[]` item `{name: no_visual_impact, result: PASS}`. The run ledger must refer to that exact Handoff and record its task as `PASS`. Both hashes refer to the complete old/new Locked Scene bytes and must match the compared Git commits. This exception is never inferred from a text diff or supplied by a fixture pretending to be a real review. `production:impact --qa-handoff <committed run handoff>` accepts it only against a committed target ref; it still does not update ledger task statuses or replace Human acceptance.

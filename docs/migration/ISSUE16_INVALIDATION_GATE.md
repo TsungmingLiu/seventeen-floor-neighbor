@@ -1,0 +1,28 @@
+# Issue #16 — artifact-level invalidation checkpoint
+
+Baseline: `8385c203e3126977a245ee313f8f244dd26f9f46`. This gate adds `npm run production:impact -- --scene COM-01X --from HEAD --to WORKTREE` and a read-only JSON impact report in the ignored session cache. It does not create a production run, edit narrative or runtime content, change existing accepted WebPs, or assign historical QA/Human decisions.
+
+## Dependency boundary
+
+For an accepted Opening scene, the comparison reads each version directly from a Git commit or from the worktree: its Narrative Continuity Contract, Locked Scene, playable node IDs, runtime node dialogue and structure, route allowlist and scene-specific Memory bindings, CG manifest entry render spec and status, bound reference bytes, accepted asset manifest/source map/catalog/receipt and WebP bytes, and the renderer projection tool. All paths and image bytes are checked against current repository identities. Changed bytes with stale catalog hashes cause `BLOCKED`, and failed regeneration removes the earlier report.
+
+The report records each changed artifact's old/new SHA-256, reason and proposed `would_invalidate` descendants. CG dependencies are keyed by the existing `render_spec_sha256` (style contract plus one entry without `status`) and accepted-base edges. A change to the manifest's overall version or an unrelated entry does not alone invalidate COM-01X; `manifest_reconciliation_required` preserves old/new whole-manifest identities for an eventual recorded-run reconciliation without rewriting the original generation provenance. A base-spec edit expands to the two Reaction entries; an R01-only edit does not touch base or R02. A shared Memory's next-scene nodes/gallery assets are excluded from COM-01X's projection. The JSON's `visual_artifacts_not_impacted_by_diff` means **only that this comparison found no relevant changed input**; it does not claim prior QA PASS.
+
+## Controlled edits against the real COM-01X files
+
+The following edits were performed one at a time in a detached temporary worktree based on the baseline, with the changed file restored between runs. The committed project content was not modified. Each CLI invocation generated JSON; the SHA-256 below is that report's hash.
+
+| Controlled edit | Changed artifact and effect | Visual scope | Report SHA-256 |
+| --- | --- | --- | --- |
+| `common_elevator_restart_choice.text` only | `runtime_dialogue:COM-01X`; narrative review, dialogue/integration/playable review proposed | 12 visual artifacts not impacted by this diff; no CG replanning or redraw | `1dddf5e43781ff22d681015e051ed2321e6a91c224d89787efd72251153f823a` |
+| `COM01X-R01-RESTART.characters[0].expression` | `cg_manifest_entry:COM01X-R01-RESTART`; its manifest review, packet, candidate, accepted asset and integration proposed | Base and R02 unaffected; narrative/state review unaffected | `e82f690895ce0898bf81e63c9348edc7ef479226f06b9c23b08b4ee5b1828ada` |
+| COM-01X contract `exit_state.relationships[0].label` | `contract:COM-01X`; narrative/state review and all three local CG descendants proposed | COM-01J/COM-01B outside this scene's scope | `cd12fcc6207f715d11a46fe09295efee18dcbd2a6464cd4a96bf457106691464` |
+| Locked Scene text with no QA decision | `locked_scene:COM-01X`; conservative Narrative QA plus CG review proposed | All three images considered affected until fresh QA | `490726e6e30e589277fb619707628d6ede41e6acca6fc29ff3caf4c6bd528ec9` |
+
+The dialogue-only row still requires fresh Narrative QA before integration; a text-only runtime edit is not proof that semantics remain unchanged. If QA finds a changed visual beat or relationship meaning, the Locked Scene/contract must be updated and the wider scope recomputed. The test suite additionally changes the actual manifest's base camera through a virtual Git reader and confirms both accepted-base Reaction descendants become affected. It changes the root manifest version and an entry in another scene and confirms zero COM-01X changes, and rejects tampered accepted WebP bytes. Synthetic QA evidence in a unit test exercises the **conditional** dialogue-only branch; it is explicitly not a production decision. On the real detached worktree, `--qa-handoff` with an uncommitted target returned `BLOCKED: QA decision requires a committed target ref` and removed the old report. A real no-visual-impact exception requires a committed fresh Narrative QA Handoff, matching old/new Locked Scene hashes, and a PASS task referencing that Handoff in the same run ledger.
+
+## Scope and next dependency
+
+The existing Gate 7 review showed `UNKNOWN_NO_RUN_LEDGER`, and this comparison remains `UNKNOWN_NO_RUN_LEDGER`. The tool computes a precise **potential** invalidation scope; it does not mutate task statuses or turn existing art into verified QA/Human acceptance. The current comparison requires accepted CGs and their repository receipts. COM-01B's future CG manifest entries remain `render_ready` and have no accepted asset binding, so this command intentionally blocks that scene while production continues through its proper gates. Existing COM-00, COM-01X and COM-01J accepted entries compare without changes at the baseline.
+
+Before actual cross-session recovery, a real bounded production task must persist immutable input/output versions, a verified QA/Human Handoff where required, and an actual run ledger; then the Coordinator can reconcile this report with those versions and update only affected run tasks. No normalised Story IR is introduced: this scene's current contract, Locked Scene, manifest and runtime mappings suffice for the bounded comparison.

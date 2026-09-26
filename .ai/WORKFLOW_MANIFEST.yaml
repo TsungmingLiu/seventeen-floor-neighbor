@@ -131,6 +131,7 @@ production_artifacts:
   narrative_contracts: content/production/narrative/
   cg_manifests: content/production/cg-manifests/
   validation: tools/validate-production-contracts.mjs
+  read_only_impact: tools/production-impact.mjs
 
 render_projection:
   tool: tools/render-cg-packets.mjs
