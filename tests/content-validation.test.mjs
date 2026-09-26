@@ -83,6 +83,25 @@ test('Opening route must retain a terminal node and reject a reachable cycle in 
   assert.ok((await validateContent(content)).some((error) => error.includes('no reachable route terminal')));
 });
 
+test('every reachable opening node must have a path to a terminal, including choice-only dead ends', async () => {
+  const content = await loadContent();
+  const route = content.routes.find((item) => item.config.id === 'opening-demo');
+  const choiceNode = route.chapter.nodes.common_movein_rain_choice;
+  const strandedChoiceTarget = choiceNode.choices[0].next;
+  choiceNode.choices[0].next = strandedChoiceTarget;
+  route.chapter.nodes[strandedChoiceTarget].next = strandedChoiceTarget;
+  const errors = await validateContent(content);
+  assert.ok(errors.some((error) => error.includes(`node ${strandedChoiceTarget}: no graph path to a route terminal`)));
+  assert.ok(!errors.some((error) => error.includes('no reachable route terminal')));
+});
+
+test('route must declare exactly one default ending rule', async () => {
+  const content = await loadContent();
+  const route = content.routes.find((item) => item.config.id === 'opening-demo');
+  route.chapter.endingRules.push(clone(route.chapter.endingRules.find((rule) => rule.default === true)));
+  assert.ok((await validateContent(content)).some((error) => error.includes('endingRules require exactly one default ending (found 2)')));
+});
+
 test('all COM-01B questions rejoin after goodnight and reach the existing COM-01J opening', async () => {
   const content = await loadContent();
   const route = content.routes.find((item) => item.config.id === 'opening-demo');

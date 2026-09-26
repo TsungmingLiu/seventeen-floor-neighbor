@@ -66,6 +66,57 @@ function reachableNodes(route, start) {
   return seen;
 }
 
+function nodesWithPathToRouteTerminal(route, reachable) {
+  const nodes = route.chapter.nodes || {};
+  const pools = route.sceneLibrary.pools || {};
+  const returnTargets = new Map();
+  const outgoing = (node) => [
+    node.next,
+    ...(node.choices || []).map((choice) => choice.next),
+    node.default,
+    ...(node.cases || []).map((branch) => branch.next),
+    ...(node.type === 'random' ? (pools[node.pool]?.entries || []).map((entry) => entry.entryNode) : [])
+  ].filter((id) => id && nodes[id]);
+
+  // A pool return resumes at that random node's `after` target.
+  for (const node of Object.values(nodes)) {
+    if (node.type !== 'random' || !nodes[node.after]) continue;
+    const pending = (pools[node.pool]?.entries || []).map((entry) => entry.entryNode);
+    const seen = new Set();
+    while (pending.length) {
+      const id = pending.pop();
+      if (!id || seen.has(id) || !nodes[id]) continue;
+      seen.add(id);
+      if (nodes[id].type === 'return') {
+        if (!returnTargets.has(id)) returnTargets.set(id, new Set());
+        returnTargets.get(id).add(node.after);
+      } else pending.push(...outgoing(nodes[id]));
+    }
+  }
+
+  const predecessors = new Map();
+  for (const id of reachable) {
+    const node = nodes[id];
+    const targets = outgoing(node);
+    if (node.type === 'return') targets.push(...(returnTargets.get(id) || []));
+    for (const target of targets) {
+      if (!predecessors.has(target)) predecessors.set(target, []);
+      predecessors.get(target).push(id);
+    }
+  }
+  const canFinish = new Set([...reachable].filter((id) => nodes[id].type === 'route'));
+  const pending = [...canFinish];
+  while (pending.length) {
+    for (const previous of predecessors.get(pending.pop()) || []) {
+      if (!canFinish.has(previous)) {
+        canFinish.add(previous);
+        pending.push(previous);
+      }
+    }
+  }
+  return canFinish;
+}
+
 export async function loadContent() {
   const characterFiles = (await readdir(path.join(projectRoot, 'content/characters')))
     .filter((name) => name.endsWith('.json'));
@@ -273,9 +324,12 @@ function validateStoryRoute(route, fail) {
   const reachable = reachableNodes(route, chapter.startNode);
   for (const id of Object.keys(nodes)) if (!reachable.has(id)) fail(`route ${config.id} node ${id}: unreachable`);
   if (![...reachable].some((id) => nodes[id].type === 'route')) fail(`route ${config.id}: no reachable route terminal`);
-  if (!Array.isArray(chapter.endingRules) || !chapter.endingRules.some((rule) => rule.default === true)) {
-    fail(`route ${config.id}: endingRules require a default ending`);
-  }
+  const canFinish = nodesWithPathToRouteTerminal(route, reachable);
+  for (const id of reachable) if (!canFinish.has(id)) fail(`route ${config.id} node ${id}: no graph path to a route terminal`);
+  const defaultEndingCount = Array.isArray(chapter.endingRules)
+    ? chapter.endingRules.filter((rule) => rule.default === true).length
+    : 0;
+  if (defaultEndingCount !== 1) fail(`route ${config.id}: endingRules require exactly one default ending (found ${defaultEndingCount})`);
   for (const rule of chapter.endingRules || []) {
     if (!chapter.endings?.[rule.ending]) fail(`route ${config.id} ending rule: unknown ending ${rule.ending}`);
     for (const condition of rule.conditions || []) {

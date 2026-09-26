@@ -101,7 +101,7 @@ function semanticKeys(value, keys = []) {
   return keys;
 }
 
-function validateNarrativeContract(contract, file) {
+export function validateNarrativeContract(contract, file) {
   requireKeys(contract, [
     'schema_version', 'scene_id', 'lifecycle', 'source_scene', 'entry_state', 'scene_function',
     'character_intent', 'player_information_gain', 'emotional_arc', 'required_payoffs',
@@ -133,8 +133,16 @@ function validateNarrativeContract(contract, file) {
   const bannedKey = semanticKeys(semantic).find((key) => /(?:^|_)(?:trust|affection|intimacy)?_?score$/i.test(key));
   invariant(!bannedKey, `${file} contains banned semantic score key: ${bannedKey}`);
 
-  const sceneText = readText(contract.source_scene);
-  invariant(sceneText.includes(file), `${contract.source_scene} does not bind narrative contract ${file}`);
+  const sceneLines = readText(contract.source_scene).split(/\r?\n/);
+  const headings = sceneLines.flatMap((line, index) => /^## Narrative Continuity Contract\s*$/.test(line) ? [index] : []);
+  invariant(headings.length === 1, `${contract.source_scene} must have exactly one Narrative Continuity Contract section`);
+  const sectionEnd = sceneLines.findIndex((line, index) => index > headings[0] && /^##\s/.test(line));
+  const section = sceneLines.slice(headings[0] + 1, sectionEnd < 0 ? undefined : sectionEnd);
+  const bindings = section.filter((line) => /^- Canonical contract(?:\s|:|：)/.test(line));
+  invariant(bindings.length === 1, `${contract.source_scene} must have exactly one Canonical contract binding in Narrative Continuity Contract`);
+  const binding = bindings[0].match(/^- Canonical contract[:：]\s*`([^`]+)`(?:[。。，]|\s|$)/);
+  invariant(binding, `${contract.source_scene} has a malformed Canonical contract binding`);
+  invariant(binding[1] === file, `${contract.source_scene} Canonical contract binding does not match ${file}`);
   return contract;
 }
 
