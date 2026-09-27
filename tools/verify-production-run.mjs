@@ -37,7 +37,7 @@ async function committedJson(root, relative) {
   return JSON.parse(bytes);
 }
 
-function versionIdentity(item) {
+export function versionIdentity(item) {
   return { id: item.id, version: item.version,
     // Excerpt line numbers may shift when an unrelated entry is edited.
     location: item.location.replace(/#L\d+-L\d+$/, '#excerpt') };

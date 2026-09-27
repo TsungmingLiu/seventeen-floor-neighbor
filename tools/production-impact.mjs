@@ -6,7 +6,8 @@ import { fileURLToPath } from 'node:url';
 import { tmpdir } from 'node:os';
 import { projectRoot } from './content-lib.mjs';
 import { projectEntry, sha256, stableStringify } from './render-cg-packets.mjs';
-import { verifyProductionRun } from './verify-production-run.mjs';
+import { verifyProductionRun, versionIdentity } from './verify-production-run.mjs';
+import { buildManifestUsabilityPacket } from './context-packet.mjs';
 
 const narrativeRoot = 'content/production/narrative';
 const manifestRoot = 'content/production/cg-manifests';
@@ -413,11 +414,13 @@ async function reconcileRun(impact, runId, { root, from, to }) {
   const ledgerPath = `content/production/runs/${runId}/ledger.json`;
   const ledger = JSON.parse(execFileSync('git', ['-C', root, 'show', `${target}:${ledgerPath}`], { encoding: 'utf8' }));
   requireCondition(from === ledger.source_ref, '--from must equal ledger.source_ref');
-  requireCondition(ledger.tasks?.length === 1 && ledger.tasks[0].task_type === 'narrative_review' &&
-    ledger.tasks[0].scene_id === impact.scene_id && impact.scene_id === 'COM-00',
-  'only one COM-00 narrative_review task is supported');
+  requireCondition(ledger.tasks?.length === 1 &&
+    ['narrative_review', 'visual_review'].includes(ledger.tasks[0].task_type) &&
+    ledger.tasks[0].scene_id === impact.scene_id && impact.scene_id === 'COM-00' &&
+    (ledger.tasks[0].task_type !== 'visual_review' || ledger.tasks[0].review_scope === 'manifest_usability'),
+  'only verified COM-00 narrative_review or manifest_usability tasks are supported');
   const task = ledger.tasks[0];
-  const tempBase = await mkdtemp(path.join(tmpdir(), 'gate12-source-'));
+  const tempBase = await mkdtemp(path.join(tmpdir(), 'impact-source-'));
   const sourceRoot = path.join(tempBase, 'source');
   let added = false;
   try {
@@ -425,26 +428,94 @@ async function reconcileRun(impact, runId, { root, from, to }) {
     added = true;
     const run = await verifyProductionRun(runId, { root, sourceRoot });
     requireCondition(run.task_status === 'RECORDED_PASS' && run.task_id === task.task_id,
-      'run does not have a verified recorded Narrative QA PASS');
+      'run does not have a verified recorded QA PASS');
     const changedVersions = [];
-    for (const kind of ['input_versions', 'output_versions']) {
-      for (const item of task[kind]) {
+    if (task.task_type === 'narrative_review') {
+      for (const kind of ['input_versions', 'output_versions']) {
+        for (const item of task[kind]) {
+          safePath(item.location);
+          const currentVersion = git(root, 'rev-parse', `${target}:${item.location}`);
+          if (currentVersion !== item.version) changedVersions.push({
+            kind, id: item.id, location: item.location,
+            old_version: item.version, new_version: currentVersion
+          });
+        }
+      }
+    } else {
+      const upstreamLedgerPath = `content/production/runs/${task.upstream_run_id}/ledger.json`;
+      const upstreamReceipt = task.input_versions.find((item) => item.id ===
+        `receipt:${task.upstream_run_id}/${task.upstream_task_id}`);
+      requireCondition(upstreamReceipt &&
+        git(root, 'rev-parse', `${ledger.source_ref}:${upstreamLedgerPath}`) ===
+          git(root, 'rev-parse', `${target}:${upstreamLedgerPath}`) &&
+        git(root, 'rev-parse', `${target}:${upstreamReceipt.location}`) === upstreamReceipt.version,
+      'upstream Narrative QA ledger or receipt differs from recorded manifest review');
+      const upstreamLedger = JSON.parse(execFileSync('git', ['-C', root, 'show',
+        `${target}:${upstreamLedgerPath}`], { encoding: 'utf8' }));
+      const upstreamTask = upstreamLedger.tasks?.find((item) => item.task_id === task.upstream_task_id);
+      requireCondition(upstreamTask?.task_type === 'narrative_review' && upstreamTask.status === 'PASS' &&
+        upstreamTask.scene_id === task.scene_id && task.output_versions?.length === 1,
+        'manifest usability run is missing selected source or output identities');
+      const selectedInputs = new Map(task.input_versions
+        .filter((item) => item.id === `file:docs/narrative/scenes/vertical-slice/${task.scene_id}.md` ||
+          item.id === `file:content/production/narrative/opening-ch1/${task.scene_id}.json`)
+        .map((item) => [item.id, item]));
+      const seen = new Set();
+      for (const item of upstreamTask.input_versions) {
         safePath(item.location);
+        const reviewed = selectedInputs.get(item.id) ?? item;
         const currentVersion = git(root, 'rev-parse', `${target}:${item.location}`);
         if (currentVersion !== item.version) changedVersions.push({
-          kind, id: item.id, location: item.location,
-          old_version: item.version, new_version: currentVersion
+          kind: selectedInputs.has(item.id) ? 'input_versions' : 'upstream_input_versions',
+          id: item.id, location: item.location,
+          old_version: reviewed.version, new_version: currentVersion
+        });
+        seen.add(item.id);
+      }
+      requireCondition([...selectedInputs].every(([id, item]) => seen.has(id) &&
+        upstreamTask.input_versions.find((upstream) => upstream.id === id)?.version === item.version),
+      'selected scene/contract differs from recorded upstream Narrative QA');
+      const upstreamStale = changedVersions.length > 0;
+      if (!upstreamStale) {
+        const packet = await buildManifestUsabilityPacket({ sceneId: task.scene_id,
+          runId, taskId: task.task_id, ref: target, upstreamRunId: task.upstream_run_id,
+          upstreamTaskId: task.upstream_task_id, entryIds: task.entry_ids, root });
+        const recorded = task.input_versions.map(versionIdentity);
+        const current = packet.input_versions.map(versionIdentity);
+        requireCondition(recorded.length === current.length && recorded.every((item, index) =>
+          item.id === current[index].id && item.location === current[index].location),
+        'manifest usability input identity set changed; fresh QA is required');
+        for (let index = 0; index < recorded.length; index++) {
+          if (recorded[index].version !== current[index].version) changedVersions.push({
+            kind: 'input_versions', id: recorded[index].id,
+            location: packet.input_versions[index].location,
+            old_version: recorded[index].version, new_version: current[index].version
+          });
+        }
+        const selected = packet.input_versions.filter((item) => item.id.startsWith('manifest-entry:'));
+        const currentOutput = sha256(JSON.stringify(selected.map(({ id, version }) => ({ id, version }))));
+        if (task.output_versions[0].version !== currentOutput) changedVersions.push({
+          kind: 'output_versions', id: task.output_versions[0].id,
+          location: task.output_versions[0].location,
+          old_version: task.output_versions[0].version, new_version: currentOutput
         });
       }
     }
     impact.run_reconciliation = {
       run_id: runId, task_id: task.task_id, task_type: task.task_type,
+      ...(task.review_scope && { review_scope: task.review_scope }),
       source_ref: ledger.source_ref, decision_receipt: task.decision_receipt,
       recorded_status: 'RECORDED_PASS',
       target_status: changedVersions.length ? 'STALE_PROPOSED' : 'CURRENT_PASS',
-      changed_versions: changedVersions
+      changed_versions: changedVersions,
+      ...(task.task_type === 'visual_review' && changedVersions.some((item) =>
+        item.kind === 'upstream_input_versions' || item.id ===
+          `file:docs/narrative/scenes/vertical-slice/${task.scene_id}.md` || item.id ===
+          `file:content/production/narrative/opening-ch1/${task.scene_id}.json`) &&
+        { requires_fresh_upstream_narrative_qa: true })
     };
-    impact.qa_status = 'VERIFIED_RECORDED_NARRATIVE_QA';
+    impact.qa_status = task.task_type === 'narrative_review'
+      ? 'VERIFIED_RECORDED_NARRATIVE_QA' : 'VERIFIED_RECORDED_MANIFEST_USABILITY_QA';
   } finally {
     try {
       if (added) execFileSync('git', ['-C', root, 'worktree', 'remove', '--force', sourceRoot], { stdio: 'pipe' });
@@ -480,7 +551,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
     const args = process.argv.slice(2);
     requireCondition(args.length % 2 === 0 && args.every((_, index) => index % 2 === 1 ||
       ['--scene', '--from', '--to', '--qa-decision', '--run-id'].includes(args[index])),
-    'usage: npm run production:impact -- --scene <id> --from <commit> --to <commit|WORKTREE> [--qa-decision path] [--run-id id (COM-00 only, from ledger.source_ref to HEAD)]');
+    'usage: npm run production:impact -- --scene <id> --from <commit> --to <commit|WORKTREE> [--qa-decision path] [--run-id id (one verified COM-00 QA task, from ledger.source_ref to HEAD)]');
     const options = Object.fromEntries(Array.from({ length: args.length / 2 }, (_, index) =>
       [args[2 * index].slice(2).replaceAll('-', ''), args[2 * index + 1]]));
     requireCondition(options.scene && args.filter((arg) => arg === '--scene').length === 1 &&
