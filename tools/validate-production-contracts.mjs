@@ -12,6 +12,7 @@ import {
 } from './render-cg-packets.mjs';
 
 const NARRATIVE_ROOT = 'content/production/narrative';
+const CG_MANIFEST_ROOT = 'content/production/cg-manifests';
 const OPENING_MANIFEST = 'content/production/cg-manifests/opening-ch1.json';
 const COM01B_MANIFEST = 'content/production/cg-manifests/opening-ch1-com01b.json';
 const OPENING_RECEIPT = 'content/assets/ingest-receipts/opening-ch1-demo-v0.1.json';
@@ -165,7 +166,7 @@ function validateActiveWorkflowBoundary() {
     'docs/narrative/CONTENT_PRODUCTION_SPEC.md',
     'docs/art/CG_PRODUCTION_SPEC.md',
     ...listJsonFiles(NARRATIVE_ROOT),
-    OPENING_MANIFEST
+    ...listJsonFiles(CG_MANIFEST_ROOT)
   ];
   const activeText = activeFiles.map(readText).join('\n');
   for (const oldPath of OLD_ACTIVE_PATHS) invariant(!activeText.includes(oldPath), `active production source references obsolete path: ${oldPath}`);
@@ -388,6 +389,24 @@ export function validateManifestSceneBindings(manifest, manifestPath, contracts,
   }
 }
 
+function validateManifestIdentities(manifests) {
+  const identities = new Map();
+  function unique(kind, id, file) {
+    const key = `${kind}\u0000${id}`;
+    const previous = identities.get(key);
+    invariant(!previous, `${file}: duplicate ${kind} ${id} in ${previous}`);
+    identities.set(key, file);
+  }
+  for (const [file, manifest] of manifests) {
+    unique('manifest_id', manifest.manifest_id, file);
+    for (const entry of manifest.entries) {
+      unique('entry_id', entry.entry_id, file);
+      unique('canonical_asset_id', entry.output.canonical_asset_id, file);
+      unique('logical_asset_id', entry.output.logical_asset_id, file);
+    }
+  }
+}
+
 function validateOpeningMigration(manifest, catalog, gate3Receipt) {
   const receipt = readJson(OPENING_RECEIPT);
   const receiptCgs = receipt.inventory.filter((item) => item.kind === 'cg');
@@ -439,21 +458,27 @@ export function validateProductionContracts() {
   const narrativeFiles = listJsonFiles(NARRATIVE_ROOT);
   invariant(narrativeFiles.length > 0, 'no Narrative Continuity Contracts found');
   const contracts = narrativeFiles.map((file) => validateNarrativeContract(readJson(file), file));
-  const manifest = validateManifest(readJson(OPENING_MANIFEST));
-  const com01bManifest = validateManifest(readJson(COM01B_MANIFEST));
+  const manifestFiles = listJsonFiles(CG_MANIFEST_ROOT);
+  invariant(manifestFiles.includes(OPENING_MANIFEST) && manifestFiles.includes(COM01B_MANIFEST),
+    'required Opening CG manifest is missing');
+  const manifests = manifestFiles.map((file) => [file, validateManifest(readJson(file))]);
+  validateManifestIdentities(manifests);
   const catalog = readJson(SOURCE_CATALOG);
   const gate3Receipt = validateGate3RepositorySources(catalog);
-  validateManifestSceneBindings(manifest, OPENING_MANIFEST, contracts, { requireSceneBacklink: true });
-  validateManifestSceneBindings(com01bManifest, COM01B_MANIFEST, contracts);
-  validateManifestRepositoryReferences(com01bManifest, catalog, 'COM01B manifest');
+  for (const [file, manifest] of manifests) {
+    validateManifestSceneBindings(manifest, file, contracts, { requireSceneBacklink: file === OPENING_MANIFEST });
+    validateManifestRepositoryReferences(manifest, catalog, file);
+  }
+  const manifest = manifests.find(([file]) => file === OPENING_MANIFEST)[1];
   validateOpeningMigration(manifest, catalog, gate3Receipt);
-  return { narrativeContracts: contracts.length, cgEntries: manifest.entries.length };
+  return { narrativeContracts: contracts.length,
+    cgEntries: manifests.reduce((count, [, item]) => count + item.entries.length, 0) };
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   try {
     const { narrativeContracts, cgEntries } = validateProductionContracts();
-    process.stdout.write(`Validated ${narrativeContracts} Narrative Continuity Contracts and ${cgEntries} Opening Chapter 1 CG Manifest Entries.\n`);
+    process.stdout.write(`Validated ${narrativeContracts} Narrative Continuity Contracts and ${cgEntries} CG Manifest Entries.\n`);
   } catch (error) {
     process.stderr.write(`${error.message}\n`);
     process.exitCode = 1;
