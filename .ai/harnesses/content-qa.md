@@ -29,6 +29,8 @@ Inputs：one canonical CG manifest entry、candidate image、references actually
 
 在 rendering 前可用獨立 fresh `visual_review` task 檢查一個 scene 的 manifest usability（沒有 candidate 時只回 manifest gate，不宣稱 candidate QA）。Candidate review 仍為每個 candidate/linked sequence 的另一個 fresh task。
 
+COM-00 的 pre-render review 可使用 `context.mjs` 產生、並以 `--verify-packet` 核對的 `review_scope: manifest_usability` packet；只讀該 packet 列出的 manifest entry/style 節錄與 scene/許棠資料。這個 packet 沒有 candidate pixels，不能用 manifest `accepted` 狀態或 machine PASS 代替獨立 QA/Human 決定。
+
 Checks：
 
 - identity/age/body/hair/wardrobe/held object；

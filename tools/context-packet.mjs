@@ -4,7 +4,7 @@ import { readFile, readdir, realpath, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { verifyProductionRun } from './verify-production-run.mjs';
-import { validateRepoSourceCatalog } from './render-cg-packets.mjs';
+import { buildPackets, validateManifest, validateRepoSourceCatalog } from './render-cg-packets.mjs';
 
 const defaultRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const contractRoot = 'content/production/narrative';
@@ -337,5 +337,236 @@ export async function verifyCgPlanPacket(packet, { root = defaultRoot } = {}) {
     upstreamTaskId: packet.inputs?.accepted_outputs?.[0]?.task_id,
     referenceIds: packet.inputs?.references, root });
   insist(JSON.stringify(packet) === JSON.stringify(rebuilt), 'CG Plan Packet fields, allowlist or input hashes differ from canonical sources');
+  return true;
+}
+
+const manifestUsabilityPaths = {
+  contract: 'content/production/narrative/opening-ch1/COM-00.json',
+  scene: 'docs/narrative/scenes/vertical-slice/COM-00.md',
+  visual: 'docs/art/PRODUCTION_VISUAL_DIRECTION.md',
+  character: 'docs/art/CHARACTER_REFERENCE_PACK_SPEC.md',
+  schema: '.ai/schemas/CG_MANIFEST.md',
+  manifest: 'content/production/cg-manifests/opening-ch1.json',
+  catalog: 'content/assets/source-catalog.json'
+};
+
+function exactJsonLineExcerpt(text, selector, label) {
+  const lines = text.split('\n');
+  const start = selector(lines);
+  insist(Number.isInteger(start) && start >= 0, `missing ${label} excerpt`);
+  let depth = 0, inString = false, escaped = false, started = false, end = -1;
+  for (let i = start; i < lines.length; i++) {
+    for (const char of `${lines[i]}\n`) {
+      if (inString) {
+        if (escaped) escaped = false;
+        else if (char === '\\') escaped = true;
+        else if (char === '"') inString = false;
+      } else if (char === '"') inString = true;
+      else if (char === '{') { depth++; started = true; }
+      else if (char === '}') {
+        depth--;
+        if (started && depth === 0) { end = i; break; }
+      }
+    }
+    if (end >= 0) break;
+  }
+  insist(end >= start, `unparseable ${label} excerpt`);
+  const fragment = lines.slice(start, end + 1).join('\n');
+  try { JSON.parse((fragment.trimStart().startsWith('{') ? fragment : `{${fragment}}`).replace(/,\s*}$/, '}').replace(/,\s*$/, '')); }
+  catch (error) { throw new Error(`${label} excerpt does not parse as a complete manifest object: ${error.message}`); }
+  return excerpt(lines, start, end + 1, label);
+}
+
+export async function buildManifestUsabilityPacket({ sceneId, runId, taskId, ref, upstreamRunId,
+  upstreamTaskId, entryIds, root = defaultRoot } = {}) {
+  insist(sceneId === 'COM-00', 'manifest usability supports COM-00 only');
+  insist(/^[a-zA-Z0-9][a-zA-Z0-9_-]*$/.test(runId || ''), 'invalid run ID');
+  insist(/^[a-zA-Z0-9][a-zA-Z0-9_-]*$/.test(taskId || ''), 'invalid task ID');
+  insist(Array.isArray(entryIds) && new Set(entryIds).size === entryIds.length,
+    'entryIds must be explicitly supplied and duplicate-free');
+  root = path.resolve(root);
+  ref = ref || git(root, 'rev-parse', 'HEAD');
+  insist(/^[0-9a-f]{40}$/.test(ref), 'source ref must be a commit SHA');
+  insist(git(root, 'rev-parse', 'HEAD') === ref, 'source ref must be current HEAD');
+  const upstream = await verifyProductionRun(upstreamRunId, { root, requireCurrent: true });
+  insist(upstream.task_status === 'CURRENT_PASS', 'upstream Narrative QA is not CURRENT_PASS');
+  const ledger = JSON.parse(await readFile(path.join(root, `content/production/runs/${upstreamRunId}/ledger.json`), 'utf8'));
+  const qaTask = ledger.tasks.find((item) => item.task_id === upstreamTaskId);
+  insist(qaTask?.task_type === 'narrative_review' && qaTask.scene_id === sceneId && qaTask.status === 'PASS' &&
+    qaTask.output_versions?.length === 1 && qaTask.output_versions[0].id === `approved_locked_scene:${sceneId}` &&
+    qaTask.output_versions[0].location === manifestUsabilityPaths.scene,
+  'upstream task ID does not identify the committed COM-00 Narrative QA PASS');
+
+  const source = {};
+  for (const [key, relative] of Object.entries(manifestUsabilityPaths)) source[key] = await committedSource(root, ref, relative);
+  const workflow = await committedSource(root, ref, '.ai/WORKFLOW_MANIFEST.yaml');
+  const workflowVersion = workflow.text.match(/^  version: ([0-9]+\.[0-9]+\.[0-9]+)$/m)?.[1];
+  const repositoryFullName = workflow.text.match(/^    full_name: ([\w-]+\/[\w-]+)$/m)?.[1];
+  const repositoryUrl = workflow.text.match(/^    url: (https:\/\/github\.com\/[^\s]+)$/m)?.[1];
+  const forbiddenRoots = manifestList(workflow.text, 'forbidden_source_roots');
+  insist(workflowVersion && repositoryFullName && repositoryUrl?.endsWith(repositoryFullName),
+    'workflow version/repository binding is invalid');
+
+  const manifest = JSON.parse(source.manifest.text);
+  validateManifest(manifest);
+  const selected = manifest.entries.filter((entry) => entry.scene_id === sceneId);
+  const expectedIds = selected.map((entry) => entry.entry_id).sort();
+  insist(selected.length === 3 && JSON.stringify([...entryIds].sort()) === JSON.stringify(expectedIds),
+    'entryIds must exactly identify all three canonical COM-00 entries');
+  insist(selected.every((entry) => entry.source_scene === manifestUsabilityPaths.scene && entry.status === 'accepted'),
+    'every selected COM-00 entry must bind the Locked Scene and be accepted');
+  insist(selected.every((entry) => entry.characters.length > 0 &&
+    entry.characters.every((character) => character.character_id === 'xu_tang')),
+  'COM-00 review cannot include an unrelated character');
+
+  const catalog = JSON.parse(source.catalog.text);
+  validateRepoSourceCatalog(catalog, { repoRoot: root });
+  const neededRefs = new Map();
+  const neededAssetIds = new Set();
+  const assetManifestSource = await committedSource(root, ref, 'content/assets/manifest.json');
+  const assetManifest = JSON.parse(assetManifestSource.text);
+  const byOutputId = new Map(selected.flatMap((entry) => [[entry.output.canonical_asset_id, entry], [entry.output.logical_asset_id, entry]]));
+  for (const entry of selected) {
+    const outputAsset = assetManifest.assets?.[entry.output.logical_asset_id];
+    const outputSources = Object.entries(catalog.files).filter(([, record]) =>
+      record.canonicalAssetId === entry.output.canonical_asset_id);
+    insist(outputSources.length === 1 && outputAsset?.canonicalAssetId === entry.output.canonical_asset_id &&
+      outputAsset.masterSourceId === outputSources[0][0] &&
+      outputSources[0][1].logicalAssetId === entry.output.logical_asset_id &&
+      outputSources[0][1].name === entry.output.master_filename &&
+      outputSources[0][1].status === 'active-production',
+    `accepted output asset/source binding is invalid: ${entry.entry_id}`);
+    neededAssetIds.add(entry.output.logical_asset_id);
+    for (const character of entry.characters) for (const binding of character.reference_bindings) {
+      const rec = catalog.files[binding.source_id];
+      insist(rec && rec.role === binding.role && rec.name === binding.expected_filename && rec.characterId === character.character_id && rec.status === 'active-production',
+        `reference binding differs from source catalog for ${entry.entry_id}`);
+      neededRefs.set(binding.source_id, rec);
+    }
+    const binding = entry.environment.reference_binding;
+    if (binding) {
+      const rec = catalog.files[binding.source_id];
+      insist(rec && binding.role === 'environment' && rec.name === binding.expected_filename &&
+        rec.logicalAssetId === 'bg.opening.ch1.apt_17f_rain' &&
+        entry.environment.location_id === 'BG-APT-17F-RAIN' && rec.status === 'active-production',
+        `environment reference binding differs from source catalog for ${entry.entry_id}`);
+      const registered = assetManifest.assets?.[rec.logicalAssetId];
+      insist(registered?.masterSourceId === binding.source_id && registered.canonicalAssetId === rec.canonicalAssetId &&
+        registered.kind === 'background' && typeof entry.environment.location_id === 'string',
+      `environment asset registration differs from source catalog for ${entry.entry_id}`);
+      neededRefs.set(binding.source_id, rec);
+      neededAssetIds.add(rec.logicalAssetId);
+    }
+    const baseId = entry.reference_transport.accepted_base_asset_id;
+    if (baseId) {
+      const base = byOutputId.get(baseId);
+      insist(base && base.status === 'accepted' && base.scene_id === sceneId &&
+        entry.reference_transport.attachments.some((item) => item.role === 'accepted_base' && item.source_id === baseId),
+      `accepted base is not one of the selected accepted COM-00 entries: ${entry.entry_id}`);
+      const asset = assetManifest.assets?.[base.output.logical_asset_id];
+      const catalogMatches = Object.entries(catalog.files).filter(([, record]) => record.canonicalAssetId === baseId);
+      const baseAttachment = entry.reference_transport.attachments.find((item) => item.role === 'accepted_base' && item.source_id === baseId);
+      insist(asset?.canonicalAssetId === base.output.canonical_asset_id && catalogMatches.length === 1 &&
+        asset.masterSourceId === catalogMatches[0][0] && catalogMatches[0][1].name === base.output.master_filename &&
+        catalogMatches[0][1].logicalAssetId === base.output.logical_asset_id && catalogMatches[0][1].status === 'active-production' &&
+        baseAttachment?.expected_filename === catalogMatches[0][1].name,
+      `accepted base asset/source binding is invalid: ${entry.entry_id}`);
+      neededRefs.set(catalogMatches[0][0], catalogMatches[0][1]);
+      neededAssetIds.add(base.output.logical_asset_id);
+    }
+  }
+  const imageVersions = await Promise.all([...neededRefs].map(async ([id, record]) => {
+    const bytes = await readFile(path.join(root, record.sourcePath));
+    const blob = git(root, 'rev-parse', `${ref}:${record.sourcePath}`);
+    const sha = createHash('sha256').update(Buffer.from(bytes)).digest('hex');
+    insist(record.sha256 === sha, `source catalog SHA-256 mismatch: ${id}`);
+    return { id, record, blob };
+  }));
+
+  const manifestLines = source.manifest.text.split('\n');
+  const excerpts = [exactJsonLineExcerpt(source.manifest.text,
+    (lines) => lines.findIndex((line) => /^  "style_contract": \{$/.test(line)), 'manifest-style-contract')];
+  for (const entry of selected) excerpts.push(exactJsonLineExcerpt(source.manifest.text,
+    (lines) => {
+      const index = lines.findIndex((line) => line.trim() === `"entry_id": "${entry.entry_id}",`);
+      return index > 0 && lines[index - 1]?.trim() === '{' ? index - 1 : -1;
+    }, `manifest-entry:${entry.entry_id}`));
+  const markdown = [
+    { path: manifestUsabilityPaths.contract, expected_nonempty: true, git_blob_sha: source.contract.blob },
+    { path: manifestUsabilityPaths.scene, expected_nonempty: true, git_blob_sha: source.scene.blob },
+    { path: manifestUsabilityPaths.visual, expected_nonempty: true, git_blob_sha: source.visual.blob },
+    { path: manifestUsabilityPaths.character, expected_nonempty: true, git_blob_sha: source.character.blob,
+      excerpts: [headingExcerpt(source.character.text, '# 3. Xu Tang canonical reference manifest', 'xu-tang-reference-spec')] },
+    { path: manifestUsabilityPaths.schema, expected_nonempty: true, git_blob_sha: source.schema.blob },
+    { path: manifestUsabilityPaths.manifest, expected_nonempty: true, git_blob_sha: source.manifest.blob, excerpts }
+  ];
+  const contract = JSON.parse(source.contract.text);
+  insist(contract.scene_id === sceneId && contract.source_scene === manifestUsabilityPaths.scene && contract.lifecycle === 'CANONICAL',
+    'COM-00 scene contract identity or source binding is invalid');
+  insist(Array.isArray(contract.character_intent) &&
+    contract.character_intent.some((item) => item.character_id === 'xu_tang') &&
+    contract.character_intent.every((item) => ['xu_tang', 'protagonist'].includes(item.character_id)),
+  'COM-00 contract character intent conflicts with Xu Tang-only review');
+  insist(source.scene.text.includes(`\`${manifestUsabilityPaths.contract}\``) && /Production stage:.*Script Lock/.test(source.scene.text),
+    'COM-00 scene is not a bound Locked Scene');
+  // Ensure each manifest excerpt parses to exactly the selected canonical object.
+  for (const part of excerpts) {
+    const slice = manifestLines.slice(part.start_line - 1, part.end_line).join('\n');
+    const parsed = JSON.parse((slice.trimStart().startsWith('{') ? slice : `{${slice}}`).replace(/,\s*}$/, '}').replace(/,\s*$/, ''));
+    if (part.label === 'manifest-style-contract') insist(JSON.stringify(parsed.style_contract) === JSON.stringify(manifest.style_contract), 'style excerpt differs from manifest object');
+    else { const expected = selected.find((entry) => part.label === `manifest-entry:${entry.entry_id}`); insist(expected && JSON.stringify(parsed) === JSON.stringify(expected), `entry excerpt differs from manifest object: ${part.label}`); }
+  }
+  const sceneBlob = qaTask.output_versions[0].version;
+  const acceptedOutput = { id: `narrative-qa:${sceneId}`, run_id: upstreamRunId, task_id: upstreamTaskId,
+    status: 'CURRENT_PASS', approved_locked_scene_git_blob: sceneBlob };
+  const catalogVersions = [...neededRefs].map(([id, record]) => ({ id: `catalog-record:${id}`,
+    version: createHash('sha256').update(JSON.stringify(record)).digest('hex'), location: `${manifestUsabilityPaths.catalog}#${id}` }));
+  const assetVersions = [...neededAssetIds].map((id) => {
+    const asset = assetManifest.assets?.[id];
+    insist(asset, `missing selected runtime asset record: ${id}`);
+    return { id: `asset-record:${id}`, version: createHash('sha256').update(JSON.stringify(asset)).digest('hex'),
+      location: `content/assets/manifest.json#${id}` };
+  });
+  const renderPackets = buildPackets(manifest, { entryIds: expectedIds, statuses: ['accepted'] });
+  const entryVersions = renderPackets.map((renderPacket) => ({ id: `manifest-entry:${renderPacket.entry_id}`,
+    version: renderPacket.render_spec_sha256, location: `${manifestUsabilityPaths.manifest}#${renderPacket.entry_id}` }));
+  return {
+    run_id: runId, task_id: taskId, scene_id: sceneId, task_type: 'visual_review', review_scope: 'manifest_usability', depends_on: [],
+    workflow_version: workflowVersion, harness: 'content_qa', pass: 'visual_review',
+    objective: 'Review whether the three accepted COM-00 canonical CG manifest entries provide complete, unambiguous render instructions and valid reference bindings.',
+    execution_policy: { model_tier: 'economical', routing_reason: 'default_bounded', attempt: 1 },
+    source_binding: { github: { repository_full_name: repositoryFullName, repository_url: repositoryUrl, ref } },
+    required_acquisition: { markdown, images: [] },
+    allowed_sources: markdown.flatMap(allowedSource), forbidden_source_roots: forbiddenRoots,
+    inputs: { narrative_contract: manifestUsabilityPaths.contract, locked_scene: manifestUsabilityPaths.scene,
+      cg_manifest: manifestUsabilityPaths.manifest, cg_entry_ids: expectedIds,
+      references: [...neededRefs.keys()], accepted_outputs: [acceptedOutput] },
+    input_versions: [
+      ...markdown.flatMap((item) => item.excerpts?.length
+        ? item.excerpts.map((part) => ({ id: `excerpt:${item.path}:${part.label}`, version: part.sha256,
+          location: `${item.path}#L${part.start_line}-L${part.end_line}` }))
+        : [{ id: `file:${item.path}`, version: item.git_blob_sha, location: item.path }]),
+      ...entryVersions, ...imageVersions.map(({ id, record, blob }) => ({ id: `image:${id}`, version: blob, location: record.sourcePath })),
+      ...catalogVersions, ...assetVersions, { id: `receipt:${upstreamRunId}/${upstreamTaskId}`,
+        version: git(root, 'rev-parse', `${ref}:content/production/runs/${upstreamRunId}/${upstreamTaskId}.decision.json`),
+        location: `content/production/runs/${upstreamRunId}/${upstreamTaskId}.decision.json` }
+    ],
+    reference_transport: { mode: 'not_applicable', fresh_session_required: true, no_unrelated_images_allowed: true },
+    constraints: { locked: ['Review COM-00 manifest usability only; inspect the three supplied entry excerpts and declared reference IDs.', 'Reference IDs are machine evidence only; no candidate image or pixel QA is requested.'],
+      must_not_change: ['Do not generate images, claim visual acceptance, or change canonical content.'], output_format: '.ai/schemas/HANDOFF.md' },
+    deliverables: [{ id: `manifest-usability-qa:${sceneId}`, destination: `generated/session-cache/${runId}/${taskId}.handoff.json` }],
+    acceptance: ['Return PASS, NEEDS_REVIEW, FAIL or BLOCKED with concrete entry-level evidence about render completeness, continuity and reference binding.'],
+    handoff_to: 'production_coordinator', human_gate: 'none'
+  };
+}
+
+export async function verifyManifestUsabilityPacket(packet, { root = defaultRoot } = {}) {
+  insist(packet && typeof packet === 'object' && !Array.isArray(packet), 'packet must be an object');
+  const rebuilt = await buildManifestUsabilityPacket({ sceneId: packet.scene_id, runId: packet.run_id,
+    taskId: packet.task_id, ref: packet.source_binding?.github?.ref,
+    upstreamRunId: packet.inputs?.accepted_outputs?.[0]?.run_id,
+    upstreamTaskId: packet.inputs?.accepted_outputs?.[0]?.task_id,
+    entryIds: packet.inputs?.cg_entry_ids, root });
+  insist(JSON.stringify(packet) === JSON.stringify(rebuilt), 'Manifest Usability Task Packet fields, allowlist or input hashes differ from canonical sources');
   return true;
 }

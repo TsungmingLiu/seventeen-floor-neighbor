@@ -29,19 +29,24 @@ function assetIds(node) {
 
 if (argument('task') || argument('verify-packet')) {
   const { buildNarrativeReviewPacket, verifyNarrativeReviewPacket,
-    buildCgPlanPacket, verifyCgPlanPacket } = await import('./context-packet.mjs');
+    buildCgPlanPacket, verifyCgPlanPacket,
+    buildManifestUsabilityPacket, verifyManifestUsabilityPacket } = await import('./context-packet.mjs');
   try {
     if (argument('verify-packet')) {
       const packet = JSON.parse(await readFile(path.resolve(argument('verify-packet')), 'utf8'));
       if (packet.task_type === 'narrative_review') await verifyNarrativeReviewPacket(packet);
       else if (packet.task_type === 'cg_plan') await verifyCgPlanPacket(packet);
+      else if (packet.task_type === 'visual_review' && packet.review_scope === 'manifest_usability')
+        await verifyManifestUsabilityPacket(packet);
       else throw new Error(`Unsupported Task Packet type: ${packet.task_type}`);
       await loadAndValidate();
       const { validateProductionContracts } = await import('./validate-production-contracts.mjs');
       validateProductionContracts();
       console.log(`PASS: ${packet.task_id} sources, bindings and machine QA match committed canon and current content`);
     } else {
-      if (!['narrative_review', 'cg_plan'].includes(argument('task'))) throw new Error('Unsupported Task Packet type');
+      if (!['narrative_review', 'cg_plan', 'visual_review'].includes(argument('task')) ||
+        (argument('task') === 'visual_review' && argument('review-scope') !== 'manifest_usability'))
+        throw new Error('Unsupported Task Packet type or review scope');
       await loadAndValidate();
       const { validateProductionContracts } = await import('./validate-production-contracts.mjs');
       validateProductionContracts();
@@ -49,9 +54,13 @@ if (argument('task') || argument('verify-packet')) {
         taskId: argument('task-id'), ref: argument('ref') };
       const packet = argument('task') === 'narrative_review'
         ? await buildNarrativeReviewPacket(options)
-        : await buildCgPlanPacket({ ...options,
-          upstreamRunId: argument('upstream-run-id'), upstreamTaskId: argument('upstream-task-id'),
-          referenceIds: argument('reference-ids')?.split(',') });
+        : argument('task') === 'cg_plan'
+          ? await buildCgPlanPacket({ ...options,
+            upstreamRunId: argument('upstream-run-id'), upstreamTaskId: argument('upstream-task-id'),
+            referenceIds: argument('reference-ids')?.split(',') })
+          : await buildManifestUsabilityPacket({ ...options,
+            upstreamRunId: argument('upstream-run-id'), upstreamTaskId: argument('upstream-task-id'),
+            entryIds: argument('entry-ids')?.split(',') });
       const relative = `generated/session-cache/${packet.run_id}/${packet.task_id}.packet.json`;
       const destination = path.join(projectRoot, relative);
       const body = `${JSON.stringify(packet, null, 2)}\n`;
