@@ -33,25 +33,27 @@
 
 ### 2. Missing-CG placeholder contract
 
-- [ ] 建立 canonical placeholder WebP / asset behavior。
-- [ ] Locked Scene 缺少正式 CG 時仍能進入 playable integration。
+- [x] 登記唯一的 preview-only WebP，並由現有 asset registry / validator 驗證其身分。
+- [ ] 以真實 Locked Scene 證明缺正式 CG 時仍可用 preview asset 進入 playable integration。
 - [ ] final CG 補上後，不需要修改 narrative node structure。
-- [ ] placeholder 狀態必須 machine-visible，不得被誤認為 accepted final art。
+- [x] placeholder 狀態 machine-visible；現有 `validate:final` 不接受仍啟用 preview art 的 route。
 - [ ] release-oriented validation 能區分 placeholder / provisional / accepted coverage。
 
 ### 3. Narrative → visual stale dependency
 
+M0 先以一個真實 scene 的受控修改，證明定點影響報告可供整合前判斷。多 task DAG 的自動阻擋與 checkpoint 恢復由下方 [Issue #27](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/27) 另行處理。
+
 - [ ] 定義哪些 upstream narrative 變更會讓 downstream visual artifact stale。
 - [ ] CG Manifest / render-derived artifact 必須能追溯其 source scene / revision。
-- [ ] 上游發生 material change 後，舊 visual artifact 不得無聲地繼續被視為 current。
-- [ ] validation 至少能偵測或阻擋明顯 stale dependency。
+- [ ] 在驗證的 scene 中，上游發生 material change 後，整合檢查不得把舊 visual artifact 當成 current。
+- [ ] 在該輪整合前執行 machine-readable stale 檢查；偵測到失效時停止使用舊 visual artifact。
 
 ### 4. Active source-authority cleanup
 
 - [x] 完成 GitHub Issue #23：清理 active docs 中過期的 Google Drive `runtime-public` 描述（PR #21）。
-- [ ] `README.md`、`PROJECT_STATE.md`、`ARCHITECTURE.zh-TW.md`、`.ai/WORKFLOW_MANIFEST.yaml` 與實際 runtime/build behavior 一致。
-- [ ] 清楚區分 runtime asset、accepted master、generation reference 與 legacy/archive provenance。
-- [ ] 不修改純歷史 archive，除非它仍會被 active workflow 誤讀。
+- [x] `README.md`、`PROJECT_STATE.md`、`ARCHITECTURE.zh-TW.md`、`.ai/WORKFLOW_MANIFEST.yaml` 與實際 runtime/build behavior 一致。
+- [x] 區分 runtime asset、accepted master、generation reference 與 legacy/archive provenance。
+- [x] 保留純歷史 archive；不讓它進入 active workflow。
 
 ### 5. M0 baseline verification
 

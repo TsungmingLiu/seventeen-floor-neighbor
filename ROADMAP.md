@@ -51,7 +51,7 @@
 - 缺 CG 不會阻塞 playable integration；
 - 正式 CG 補上後不需要改寫 narrative/runtime 結構；
 - visual asset 只有一套 active production/runtime paradigm；
-- 上游內容修改不會讓舊的 visual artifact 無聲地繼續被視為有效。
+- 上游內容修改時，指定 scene 的 visual artifact 會在整合前接受明確的 stale 影響檢查。
 
 ## Scope
 
@@ -60,7 +60,7 @@ M0 只處理目前已經開始的 production / asset architecture 收尾工作�
 - 完成 repo-native visual asset migration；
 - 建立 canonical placeholder asset contract；
 - 區分 placeholder / provisional / accepted / release-ready；
-- 建立 narrative → visual dependency invalidation / stale detection；
+- 以真實 scene 驗證 narrative → visual 的定點 stale detection 與整合前檢查；跨階段自動阻擋／恢復另由 [Issue #27](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/27) 追蹤；
 - 清理 active source-of-truth 文件中的過期 asset/storage 描述；
 - 保持 build、validate、tests、fresh playable acceptance 通過。
 
@@ -71,7 +71,7 @@ M0 完成時必須滿足：
 - 有 accepted CG 的 scene 正常使用正式 asset；
 - 沒有 CG 的 Locked Scene 可以使用 canonical placeholder 並正常遊玩；
 - placeholder 不可能被誤認為 release-complete asset；
-- scene 發生實質修改後，依賴它的 visual artifact 可以被識別為 stale；
+- 對一個真實 scene 的受控修改，機器可讀報告能指出相關 visual artifact 是否 stale，並作為該輪整合前的檢查依據；
 - active docs、source map、runtime 與 build 行為描述一致；
 - 不再存在兩套互相競爭的 active asset/runtime production path；
 - `main` 通過相關 build、validation、tests 與 fresh playable acceptance。
@@ -343,13 +343,13 @@ Roadmap 只維護工作所在的 horizon，不維護完整 task list。
 
 只包含直接幫助 **M0 Exit Gate** 的工作。
 
-目前包括：
+目前尚需：
 
-- repo-native asset migration；
-- placeholder contract；
-- dependency stale detection；
-- active asset/source authority cleanup；
-- migration regression / validation。
+- 用真實 scene 驗證 placeholder contract 與替換路徑；
+- 用受控修改驗證定點 stale detection 與整合前檢查；
+- 完成 M0 的 clean validation / playable acceptance。
+
+Repo-native asset migration 與 active source-authority cleanup 已由 PR #21 完成；跨階段自動失效與恢復另列未來工作。
 
 ## NEXT
 
@@ -409,15 +409,13 @@ M0 — Foundation Stable
 
 **Current Goal**
 
-完成正在進行中的 asset / workflow migration，建立可靠的 Narrative-first、Art-later playable baseline。
+在已合併的 repo-native asset / workflow baseline 上，驗證 Narrative-first、Art-later 的 playable gate。
 
 **Current Critical Path**
 
 ```text
-repo-native asset migration
-→ placeholder contract
+placeholder scene integration / replacement proof
 → stale dependency handling
-→ source authority cleanup
 → clean validation / playable acceptance
 → M0 COMPLETE
 ```
