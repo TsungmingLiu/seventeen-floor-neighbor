@@ -16,7 +16,7 @@
 
 目前唯一 active technical milestone。
 
-目標不是繼續擴張 architecture，而是完成正在進行中的 asset / workflow migration，建立可靠的 Narrative-first、Art-later playable baseline。
+目標不是繼續擴張 architecture；PR #21 的 repo-native asset / workflow migration 已合併，接下來驗證 Narrative-first、Art-later playable baseline 的其餘 Exit Gates。
 
 詳細產品定義與 Exit Gate 見 `ROADMAP.md`。
 
@@ -26,10 +26,10 @@
 
 ### 1. Repo-native visual asset migration
 
-- [ ] 完成正在進行中的 visual asset migration。
-- [ ] 確認 active runtime/build path 只有一套 canonical asset paradigm。
-- [ ] 保留仍有用途的 master / reference / legacy assets，但不得讓它們形成第二套 runtime authority。
-- [ ] 確認 story 仍只依賴 stable logical asset IDs，而不是 physical provider/path。
+- [x] 完成 PR #21 的 visual asset migration 與舊 route 退役。
+- [x] 確認 active runtime/build path 只有一套 canonical asset paradigm。
+- [x] 保留仍有用途的 master / reference assets，且不讓歷史資料形成第二套 runtime authority。
+- [x] 確認 story 仍只依賴 stable logical asset IDs，而不是 physical provider/path。
 
 ### 2. Missing-CG placeholder contract
 
@@ -105,7 +105,7 @@ Roadmap milestone 到達相應階段後再重新確認 scope，不因為列在�
 
 ## Issue #16 cross-stage workflow follow-up
 
-**待 PR #21 合併後按 [Issue #27](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/27) 排期；不列入 PR #21 的驗收。**
+**PR #21 已合併；按 [Issue #27](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/27) 另行排期，不計入 PR #21 的驗收。**
 
 - [ ] 以一個 multi-task scene DAG 驗證跨階段 artifact stale 決策、整合阻擋與空 session cache 的 checkpoint 恢復，維持 dialogue-only、visual-only、relationship/state 變更的精準失效範圍。
 - [ ] 明確界定 visual beat 的機器 QA：只對 canonical 結構化 ID／binding 做存在、唯一性與依賴檢查；畫面是否表達劇情語意，仍由獨立 Visual QA 與 Human 驗收。

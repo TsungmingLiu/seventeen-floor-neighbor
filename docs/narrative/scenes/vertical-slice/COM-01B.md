@@ -7,6 +7,11 @@
 - Memory ownership: `common`；不新增獨立 Memory 或 route 分歧。
 - Lock rule: 電梯那晚已在 17 樓分開。本幕是週末前另一晚、大樓外的短暫偶遇；許棠給路，不陪同，也不讀出男主未說出的心情。
 
+## Canonical inputs
+
+- `docs/narrative/scenes/vertical-slice/COM-01X.md`
+- `docs/narrative/scenes/vertical-slice/COM-01J.md`
+
 ## Narrative Continuity Contract
 
 - Canonical contract: `content/production/narrative/opening-ch1/COM-01B.json`，內容保持原樣。

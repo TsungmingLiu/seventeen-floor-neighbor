@@ -2,40 +2,6 @@ import { test, expect } from '@playwright/test';
 
 test.use({ baseURL: process.env.BASE_URL || 'http://127.0.0.1:4173' });
 
-const defaultStats = {
-  heart: 0,
-  trust: 0,
-  chaos: 0,
-  comfort: 0,
-  relationship: 0
-};
-
-function snapshot(nodeId, stats = {}, flags = [], returnNodes = []) {
-  return {
-    nodeId,
-    stats: { ...defaultStats, ...stats },
-    flags,
-    returnNodes
-  };
-}
-
-function legacyJourney(current, checkpoints = {}, edges = []) {
-  return {
-    version: 1,
-    current,
-    checkpoints: { [current.nodeId]: current, ...checkpoints },
-    edges
-  };
-}
-
-async function seedStorage(page, values) {
-  await page.addInitScript((entries) => {
-    for (const [key, value] of Object.entries(entries)) {
-      localStorage.setItem(key, typeof value === 'string' ? value : JSON.stringify(value));
-    }
-  }, values);
-}
-
 function collectBlockingErrors(page) {
   const errors = [];
   page.on('pageerror', error => errors.push(`pageerror: ${error.message}`));
@@ -45,387 +11,61 @@ function collectBlockingErrors(page) {
   return errors;
 }
 
-async function boot(page) {
-  await page.goto('/?route=xu-tang');
-  await expect(page.locator('#title-screen')).toBeVisible();
-  await expect(page.locator('#start-button')).toBeEnabled();
-  await expect(page.locator('#start-button')).toHaveText(/開始遊戲|繼續遊戲/);
-}
-
 async function waitForDialogueReady(page) {
   await expect(page.locator('#advance-hint')).toHaveText(/點擊繼續|選擇回應/, { timeout: 5000 });
 }
 
-test('fresh start persists, reloads, and exposes Memories/CG without blocking errors', async ({ page }) => {
-  const errors = collectBlockingErrors(page);
-  await boot(page);
-
-  await expect(page.locator('#start-button')).toHaveText('開始遊戲');
-  await expect(page.locator('#branches-button')).toHaveCount(0);
+test('opening-demo saves its real cursor and resumes after reload', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('#title-screen')).toBeVisible();
   await page.locator('#start-button').click();
-  await expect(page.locator('#game-shell')).toBeVisible();
   await waitForDialogueReady(page);
-  await expect(page.locator('#dialogue-text')).toContainText('週五');
 
   await page.locator('#advance-zone').click();
   await waitForDialogueReady(page);
-  await expect(page.locator('#dialogue-text')).toContainText('一隻手從門縫外伸進來');
-
-  const journey = await page.evaluate(() => JSON.parse(localStorage.getItem('chapter-01:journey:v2')));
-  expect(journey.cursor.nodeId).toBe('intro2');
-  expect(journey.frontierMemoryEventId).toBe('mem.story.start');
+  await expect(page.locator('#dialogue-text')).toContainText('椅子可以留給明天的自己後悔');
+  const savedNode = await page.evaluate(() =>
+    JSON.parse(localStorage.getItem('opening-demo-chapter-01:journey:v2')).cursor.nodeId
+  );
+  expect(savedNode).toBe('common_movein_rain_open_chair');
 
   await page.locator('#game-home-button').click();
-  await expect(page.locator('#title-screen')).toBeVisible();
   await expect(page.locator('#start-button')).toHaveText('繼續遊戲');
-
-  await page.locator('#title-mute').click();
-  await expect(page.locator('#title-mute')).toHaveAttribute('aria-pressed', 'true');
-
   await page.reload();
   await expect(page.locator('#start-button')).toHaveText('繼續遊戲');
-  await expect(page.locator('#title-mute')).toHaveAttribute('aria-pressed', 'true');
-
   await page.locator('#start-button').click();
   await waitForDialogueReady(page);
-  await expect(page.locator('#dialogue-text')).toContainText('一隻手從門縫外伸進來');
+  await expect(page.locator('#dialogue-text')).toContainText('椅子可以留給明天的自己後悔');
+});
 
-  const resumed = await page.evaluate(() => JSON.parse(localStorage.getItem('chapter-01:journey:v2')));
-  expect(resumed.cursor.nodeId).toBe('intro2');
-  expect(resumed.frontier.nodeId).toBe('intro2');
+test('opening-demo title, Memories, Gallery, and game controls fit a 320px viewport', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 720 });
+  await page.goto('/');
+  await expect(page.locator('#title-screen')).toBeVisible();
+  const fitsViewport = () => page.evaluate(() =>
+    document.documentElement.scrollWidth <= window.innerWidth
+  );
+  expect(await fitsViewport()).toBe(true);
 
-  await page.locator('#game-home-button').click();
   await page.locator('#memories-button').click();
   await expect(page.locator('#memories-screen')).toBeVisible();
-  await expect(page.locator('[data-memory-id="mem.story.start"]')).toBeEnabled();
-  expect(await page.locator('.memory-card').count()).toBeGreaterThan(0);
-  const lockedText = await page.locator('.memory-card.is-locked').allTextContents();
-  expect(lockedText.join(' ')).not.toContain('停電時的距離');
-  expect(lockedText.join(' ')).not.toContain('星期六的兩杯咖啡');
-
+  await expect(page.locator('[data-memory-id="mem.opening.ch1.movein"]')).toBeVisible();
+  expect(await fitsViewport()).toBe(true);
   await page.locator('#memories-back').click();
+
   await page.locator('#gallery-button').click();
   await expect(page.locator('#gallery-screen')).toBeVisible();
-  expect(await page.locator('#cg-grid button').count()).toBeGreaterThanOrEqual(17);
+  await expect(page.locator('#cg-grid button')).toHaveCount(8);
+  expect(await fitsViewport()).toBe(true);
+  await page.locator('#gallery-back').click();
 
-  expect(errors).toEqual([]);
-});
-
-test('legacy v1 save migrates and a current choice resumes through the real choice UI', async ({ page }) => {
-  const choice = snapshot('choice1');
-  await seedStorage(page, {
-    'chapter-01:journey:v1': legacyJourney(choice),
-    'chapter-01:cgUnlocks': ['cg.ch01.hallway_meet'],
-    'chapter-01:endings': ['neighbor'],
-    'chapter-01:completed': '1',
-    neighborMuted: '1'
-  });
-  const errors = collectBlockingErrors(page);
-
-  await boot(page);
-  await page.locator('#start-button').click();
-  await expect(page.locator('#choice-list')).not.toHaveClass(/is-hidden/, { timeout: 5000 });
-  await expect(page.locator('#choice-list .choice-button')).toHaveCount(3);
-  await page.locator('#choice-list .choice-button').nth(2).click();
-
-  await waitForDialogueReady(page);
-  await expect(page.locator('#dialogue-text')).toContainText('通常這句話後面的內容');
-
-  const current = await page.evaluate(() =>
-    JSON.parse(localStorage.getItem('chapter-01:journey:v2')).cursor.nodeId
-  );
-  expect(current).toBe('c1c');
-  expect(await page.evaluate(() => JSON.parse(localStorage.getItem('chapter-01:cgUnlocks'))))
-    .toEqual(['cg.ch01.hallway_meet']);
-  expect(await page.evaluate(() => JSON.parse(localStorage.getItem('chapter-01:endings'))))
-    .toEqual(['neighbor']);
-  expect(await page.evaluate(() => localStorage.getItem('chapter-01:completed'))).toBe('1');
-  expect(errors).toEqual([]);
-});
-
-test('replaying an old Memory changes cursor but never regresses Continue frontier', async ({ page }) => {
-  const intro = snapshot('intro1');
-  const morning = snapshot('morning_after', {
-    heart: 16,
-    trust: 10,
-    comfort: 5,
-    relationship: 1
-  });
-  await seedStorage(page, {
-    'chapter-01:journey:v1': legacyJourney(morning, { intro1: intro }),
-    neighborMuted: '1'
-  });
-  const errors = collectBlockingErrors(page);
-
-  await boot(page);
-  await expect(page.locator('#start-button')).toHaveText('繼續遊戲');
-  await page.locator('#memories-button').click();
-  await expect(page.locator('[data-memory-id="mem.xu.sunday"]')).toHaveClass(/is-frontier/);
-  await page.locator('[data-memory-id="mem.story.start"]').click();
-
-  await waitForDialogueReady(page);
-  let state = await page.evaluate(() => JSON.parse(localStorage.getItem('chapter-01:journey:v2')));
-  expect(state.cursor.nodeId).toBe('intro1');
-  expect(state.frontier.nodeId).toBe('morning_after');
-  expect(state.frontierMemoryEventId).toBe('mem.xu.sunday');
-
-  await page.locator('#game-home-button').click();
-  await expect(page.locator('#start-button')).toHaveText('繼續遊戲');
   await page.locator('#start-button').click();
   await waitForDialogueReady(page);
-  await expect(page.locator('#dialogue-text')).toContainText('星期日，09:12');
-
-  state = await page.evaluate(() => JSON.parse(localStorage.getItem('chapter-01:journey:v2')));
-  expect(state.cursor.nodeId).toBe('morning_after');
-  expect(state.frontier.nodeId).toBe('morning_after');
-  expect(errors).toEqual([]);
-});
-
-test('replaying the current Memory Event does not rewind its deeper frontier node', async ({ page }) => {
-  const morning = snapshot('morning_after', {
-    heart: 16,
-    trust: 10,
-    comfort: 5,
-    relationship: 1
-  });
-  const answer = snapshot('c14a', {
-    heart: 16,
-    trust: 10,
-    comfort: 5,
-    relationship: 1
-  });
-  await seedStorage(page, {
-    'chapter-01:journey:v2': {
-      version: 2,
-      cursor: answer,
-      frontier: answer,
-      frontierMemoryEventId: 'mem.xu.sunday',
-      frontierRank: 800,
-      checkpoints: { morning_after: morning, c14a: answer },
-      edges: [['morning_after', 'c14a']]
-    },
-    neighborMuted: '1'
-  });
-  const errors = collectBlockingErrors(page);
-
-  await boot(page);
-  await page.locator('#memories-button').click();
-  await page.locator('[data-memory-id="mem.xu.sunday"]').click();
-  await waitForDialogueReady(page);
-  await expect(page.locator('#dialogue-text')).toContainText('星期日，09:12');
-
-  let state = await page.evaluate(() => JSON.parse(localStorage.getItem('chapter-01:journey:v2')));
-  expect(state.cursor.nodeId).toBe('morning_after');
-  expect(state.frontier.nodeId).toBe('c14a');
-
-  await page.locator('#game-home-button').click();
-  await page.locator('#start-button').click();
-  await waitForDialogueReady(page);
-  await expect(page.locator('#dialogue-text')).toContainText('但你還是住隔壁');
-
-  state = await page.evaluate(() => JSON.parse(localStorage.getItem('chapter-01:journey:v2')));
-  expect(state.cursor.nodeId).toBe('c14a');
-  expect(state.frontier.nodeId).toBe('c14a');
-  expect(errors).toEqual([]);
-});
-
-test('return to current progress reveals a frontier hidden by a Memories filter', async ({ page }) => {
-  const storyStart = snapshot('intro1');
-  await seedStorage(page, {
-    'chapter-01:journey:v2': {
-      version: 2,
-      cursor: storyStart,
-      frontier: storyStart,
-      frontierMemoryEventId: 'mem.story.start',
-      frontierRank: 0,
-      checkpoints: { intro1: storyStart, blackout: snapshot('blackout') },
-      edges: []
-    },
-    neighborMuted: '1'
-  });
-
-  await boot(page);
-  await page.locator('#memories-button').click();
-  await page.locator('#memory-filters button').filter({ hasText: '許棠' }).click();
-  await expect(page.locator('[data-memory-id="mem.story.start"]')).toHaveCount(0);
-  await page.locator('#memories-current').click();
-  await expect(page.locator('[data-memory-id="mem.story.start"]')).toHaveClass(/is-frontier/);
-  await expect(page.locator('#memory-filters button').filter({ hasText: '全部' }))
-    .toHaveAttribute('aria-pressed', 'true');
-});
-
-test('CG viewer advances by horizontal touch swipe', async ({ page }) => {
-  await seedStorage(page, {
-    'chapter-01:cgUnlocks': ['cg.ch01.hallway_meet', 'cg.ch01.elevator_close'],
-    neighborMuted: '1'
-  });
-  await boot(page);
-  await page.locator('#gallery-button').click();
-  await page.locator('#cg-grid button:not(:disabled)').first().click();
-  await expect(page.locator('#cg-viewer-position')).toHaveText('1 / 2');
-
-  await page.locator('.cg-viewer-canvas').evaluate((canvas) => {
-    const touch = (x) => new Touch({ identifier: 1, target: canvas, clientX: x, clientY: 200 });
-    canvas.dispatchEvent(new TouchEvent('touchstart', { bubbles: true, touches: [touch(240)] }));
-    canvas.dispatchEvent(new TouchEvent('touchend', { bubbles: true, changedTouches: [touch(100)] }));
-  });
-  await expect(page.locator('#cg-viewer-position')).toHaveText('2 / 2');
-});
-
-test('cinematic loads as a real 10-second video, can be skipped, and appears in gallery', async ({ page }) => {
-  const cinematic = snapshot('first_kiss', {
-    heart: 16,
-    trust: 10,
-    comfort: 5,
-    relationship: 1
-  });
-  await seedStorage(page, {
-    'chapter-01:journey:v1': legacyJourney(cinematic),
-    neighborMuted: '1'
-  });
-  const errors = collectBlockingErrors(page);
-
-  await boot(page);
-  await page.locator('#start-button').click();
-
-  await expect(page.locator('#stage')).toHaveClass(/is-cinematic-playing/, { timeout: 8000 });
-  await expect(page.locator('#scene-video source')).toHaveCount(2);
-
-  await expect.poll(
-    async () => page.locator('#scene-video').evaluate(video => video.readyState),
-    { timeout: 10000 }
-  ).toBeGreaterThanOrEqual(1);
-  await expect.poll(
-    async () => page.locator('#scene-video').evaluate(video => Number.isFinite(video.duration) ? video.duration : 0),
-    { timeout: 10000 }
-  ).toBeGreaterThan(9.5);
-
-  const metadata = await page.locator('#scene-video').evaluate(video => ({
-    readyState: video.readyState,
-    duration: video.duration,
-    sources: [...video.querySelectorAll('source')].map(source => source.src)
-  }));
-  expect(metadata.readyState).toBeGreaterThanOrEqual(1);
-  expect(metadata.duration).toBeGreaterThan(9.5);
-  expect(metadata.duration).toBeLessThan(10.6);
-  expect(metadata.sources[0]).toContain('mv-first-kiss.mp4');
-  expect(metadata.sources.some(src => src.includes('mv-first-kiss'))).toBe(true);
-  await expect.poll(() => page.locator('#scene-video').evaluate(video => video.currentTime))
-    .toBeGreaterThan(0.25);
-
-  await page.locator('#cinematic-skip').click();
-  await expect(page.locator('#stage')).not.toHaveClass(/is-cinematic-playing/);
-  await waitForDialogueReady(page);
-  await expect(page.locator('#dialogue-text')).toContainText('第一個吻很輕');
-
-  await page.locator('#game-home-button').click();
-  await page.locator('#gallery-button').click();
-  const cinematicCard = page.locator('button[aria-label*="第一次接吻"]');
-  await expect(cinematicCard).toBeEnabled();
-  await cinematicCard.click();
-
-  await expect(page.locator('#cg-viewer')).toHaveAttribute('open', '');
-  await expect(page.locator('#cg-viewer-video')).not.toHaveClass(/is-hidden/);
-  await expect(page.locator('#cg-viewer-video source')).toHaveCount(2);
-
-  expect(errors).toEqual([]);
-});
-
-test('a completed cinematic reveals its poster instead of holding the last video frame', async ({ page }) => {
-  await page.emulateMedia({ reducedMotion: 'no-preference' });
-  await seedStorage(page, {
-    'chapter-01:journey:v1': legacyJourney(snapshot('first_kiss', {
-      heart: 16, trust: 10, comfort: 5, relationship: 1
-    })),
-    neighborMuted: '1'
-  });
-  await boot(page);
-  await page.locator('#start-button').click();
-  await expect(page.locator('#stage')).toHaveClass(/is-cinematic-playing/);
-  await expect(page.locator('#stage')).not.toHaveClass(/is-cinematic-playing/, { timeout: 15000 });
-  await expect(page.locator('#scene-video')).not.toHaveClass(/is-active/);
-  await expect(page.locator('#dialogue-text')).toContainText('第一個吻很輕');
-});
-
-test('finishing a route returns the title to Start and preserves a fresh run', async ({ page }) => {
-  const route = snapshot('c14a', {
-    heart: 16,
-    trust: 10,
-    comfort: 5,
-    relationship: 1
-  });
-  await seedStorage(page, {
-    'chapter-01:journey:v1': legacyJourney(route),
-    neighborMuted: '1'
-  });
-  const errors = collectBlockingErrors(page);
-
-  await boot(page);
-  await page.locator('#start-button').click();
-  await waitForDialogueReady(page);
-  await page.locator('#advance-zone').click();
-
-  await expect(page.locator('#ending-screen')).toBeVisible();
-  await expect(page.locator('#ending-title')).toHaveText('1702，星期日早晨');
-  expect(await page.evaluate(() => localStorage.getItem('chapter-01:completed'))).toBe('1');
-  const endings = await page.evaluate(() => JSON.parse(localStorage.getItem('chapter-01:endings')));
-  expect(endings).toContain('lover');
-
-  await page.locator('#home-button').click();
-  await expect(page.locator('#title-screen')).toBeVisible();
-  await expect(page.locator('#start-button')).toHaveText('開始遊戲');
-  const completedFrontier = await page.evaluate(() =>
-    JSON.parse(localStorage.getItem('chapter-01:journey:v2')).frontier.nodeId
-  );
-  await page.reload();
-  await expect(page.locator('#start-button')).toHaveText('開始遊戲');
-  await page.locator('#start-button').click();
-  await waitForDialogueReady(page);
-  await expect(page.locator('#dialogue-text')).toContainText('週五');
-  let journey = await page.evaluate(() => JSON.parse(localStorage.getItem('chapter-01:journey:v2')));
-  expect(journey.cursor.nodeId).toBe('intro1');
-  expect(journey.frontier.nodeId).toBe(completedFrontier);
-  expect(journey.restartActive).toBe(true);
-  expect(journey.runComplete).toBe(false);
-
-  await page.locator('#game-home-button').click();
-  await expect(page.locator('#start-button')).toHaveText('繼續遊戲');
-  await page.reload();
-  await page.locator('#start-button').click();
-  await waitForDialogueReady(page);
-  await expect(page.locator('#dialogue-text')).toContainText('週五');
-  journey = await page.evaluate(() => JSON.parse(localStorage.getItem('chapter-01:journey:v2')));
-  expect(journey.frontier.nodeId).toBe(completedFrontier);
-  expect(errors).toEqual([]);
-});
-
-test('320px viewport has no horizontal overflow on title, Memories, and game screens', async ({ page }) => {
-  await page.setViewportSize({ width: 320, height: 800 });
-  const errors = collectBlockingErrors(page);
-  await boot(page);
-
-  expect(await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth)).toBeLessThanOrEqual(0);
-  for (const selector of ['#start-button', '#memories-button', '#gallery-button', '#title-mute']) {
+  expect(await fitsViewport()).toBe(true);
+  for (const selector of ['#game-memories-button', '#game-home-button']) {
     expect((await page.locator(selector).boundingBox()).height).toBeGreaterThanOrEqual(44);
   }
-  await page.locator('#memories-button').click();
-  await expect(page.locator('#memories-screen')).toBeVisible();
-  expect(await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth)).toBeLessThanOrEqual(0);
-  for (const selector of ['.memory-filter', '#memories-current', '#memories-back']) {
-    expect((await page.locator(selector).first().boundingBox()).height).toBeGreaterThanOrEqual(44);
-  }
-
-  await page.locator('#memories-back').click();
-  await page.locator('#start-button').click();
-  await expect(page.locator('#game-shell')).toBeVisible();
-  await waitForDialogueReady(page);
-  expect(await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth)).toBeLessThanOrEqual(0);
-  for (const selector of ['#game-memories-button', '#game-home-button', '#mute-button']) {
-    expect((await page.locator(selector).boundingBox()).height).toBeGreaterThanOrEqual(44);
-  }
-  expect(errors).toEqual([]);
 });
-
 
 test('default opening-demo plays COM-00 → COM-01X → COM-01J and ends at demo boundary', async ({ page }) => {
   const errors = collectBlockingErrors(page);

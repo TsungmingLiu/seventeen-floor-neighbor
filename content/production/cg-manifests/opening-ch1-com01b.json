@@ -53,12 +53,12 @@
           "reference_bindings": [
             {
               "role": "xu_tang_primary_face_identity",
-              "source_id": "gdrive:1Oynvxve61ipxr9Z7UhaSsZE_8OzVVPRS",
+              "source_id": "ref.xu_tang.face.01",
               "expected_filename": "xt-ref-01-face.png"
             },
             {
               "role": "xu_tang_early_mid_wardrobe",
-              "source_id": "gdrive:1W4t7ICYHx3obH_S03BEyD80ykzy3M9aF",
+              "source_id": "ref.xu_tang.wardrobe.a",
               "expected_filename": "xt-ref-05-wardrobe-a.png"
             }
           ]
@@ -121,21 +121,21 @@
         "attachments": [
           {
             "role": "xu_tang_primary_face_identity",
-            "source_id": "gdrive:1Oynvxve61ipxr9Z7UhaSsZE_8OzVVPRS",
+            "source_id": "ref.xu_tang.face.01",
             "expected_filename": "xt-ref-01-face.png",
             "pixels_must_be_visible": true
           },
           {
             "role": "xu_tang_early_mid_wardrobe",
-            "source_id": "gdrive:1W4t7ICYHx3obH_S03BEyD80ykzy3M9aF",
+            "source_id": "ref.xu_tang.wardrobe.a",
             "expected_filename": "xt-ref-05-wardrobe-a.png",
             "pixels_must_be_visible": true
           }
         ]
       },
       "output": {
-        "canonical_asset_id": "cg.opening-ch1.com01b.01",
-        "logical_asset_id": "opening_ch1_com01b_street_exchange",
+        "canonical_asset_id": "COM-01B-CG-01",
+        "logical_asset_id": "cg.opening-ch1.com01b.01",
         "master_filename": "opening-ch1-com01b-01-street-exchange.png",
         "quantity": 1
       },
@@ -177,12 +177,12 @@
           "reference_bindings": [
             {
               "role": "xu_tang_primary_face_identity",
-              "source_id": "gdrive:1Oynvxve61ipxr9Z7UhaSsZE_8OzVVPRS",
+              "source_id": "ref.xu_tang.face.01",
               "expected_filename": "xt-ref-01-face.png"
             },
             {
               "role": "xu_tang_early_mid_wardrobe",
-              "source_id": "gdrive:1W4t7ICYHx3obH_S03BEyD80ykzy3M9aF",
+              "source_id": "ref.xu_tang.wardrobe.a",
               "expected_filename": "xt-ref-05-wardrobe-a.png"
             }
           ]
@@ -253,21 +253,21 @@
         "attachments": [
           {
             "role": "xu_tang_primary_face_identity",
-            "source_id": "gdrive:1Oynvxve61ipxr9Z7UhaSsZE_8OzVVPRS",
+            "source_id": "ref.xu_tang.face.01",
             "expected_filename": "xt-ref-01-face.png",
             "pixels_must_be_visible": true
           },
           {
             "role": "xu_tang_early_mid_wardrobe",
-            "source_id": "gdrive:1W4t7ICYHx3obH_S03BEyD80ykzy3M9aF",
+            "source_id": "ref.xu_tang.wardrobe.a",
             "expected_filename": "xt-ref-05-wardrobe-a.png",
             "pixels_must_be_visible": true
           }
         ]
       },
       "output": {
-        "canonical_asset_id": "cg.opening-ch1.com01b.02",
-        "logical_asset_id": "opening_ch1_com01b_xu_departure",
+        "canonical_asset_id": "COM-01B-CG-02",
+        "logical_asset_id": "cg.opening-ch1.com01b.02",
         "master_filename": "opening-ch1-com01b-02-xu-departure.png",
         "quantity": 1
       },
@@ -358,8 +358,8 @@
         "attachments": []
       },
       "output": {
-        "canonical_asset_id": "cg.opening-ch1.com01b.03",
-        "logical_asset_id": "opening_ch1_com01b_quiet_street",
+        "canonical_asset_id": "COM-01B-CG-03",
+        "logical_asset_id": "cg.opening-ch1.com01b.03",
         "master_filename": "opening-ch1-com01b-03-quiet-street.png",
         "quantity": 1
       },
@@ -445,8 +445,8 @@
         "attachments": []
       },
       "output": {
-        "canonical_asset_id": "cg.opening-ch1.com01b.04",
-        "logical_asset_id": "opening_ch1_com01b_bookstore_entrance",
+        "canonical_asset_id": "COM-01B-CG-04",
+        "logical_asset_id": "cg.opening-ch1.com01b.04",
         "master_filename": "opening-ch1-com01b-04-bookstore-entrance.png",
         "quantity": 1
       },

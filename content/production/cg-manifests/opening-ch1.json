@@ -59,12 +59,12 @@
           "reference_bindings": [
             {
               "role": "primary_face_identity",
-              "source_id": "gdrive:1Oynvxve61ipxr9Z7UhaSsZE_8OzVVPRS",
+              "source_id": "ref.xu_tang.face.01",
               "expected_filename": "xt-ref-01-face.png"
             },
             {
               "role": "wardrobe",
-              "source_id": "gdrive:1W4t7ICYHx3obH_S03BEyD80ykzy3M9aF",
+              "source_id": "ref.xu_tang.wardrobe.a",
               "expected_filename": "xt-ref-05-wardrobe-a.png"
             }
           ]
@@ -83,7 +83,7 @@
         "reference_binding": {
           "role": "environment",
           "source_id": "source.opening.ch1.bg.apt_17f_rain",
-          "expected_filename": "bg-apt-17f-rain-16x9-v1.jpg"
+          "expected_filename": "bg-apt-17f-rain-16x9-v1.webp"
         }
       },
       "camera": {
@@ -131,20 +131,20 @@
         "attachments": [
           {
             "role": "primary_face_identity",
-            "source_id": "gdrive:1Oynvxve61ipxr9Z7UhaSsZE_8OzVVPRS",
+            "source_id": "ref.xu_tang.face.01",
             "expected_filename": "xt-ref-01-face.png",
             "pixels_must_be_visible": true
           },
           {
             "role": "wardrobe",
-            "source_id": "gdrive:1W4t7ICYHx3obH_S03BEyD80ykzy3M9aF",
+            "source_id": "ref.xu_tang.wardrobe.a",
             "expected_filename": "xt-ref-05-wardrobe-a.png",
             "pixels_must_be_visible": true
           },
           {
             "role": "environment",
             "source_id": "source.opening.ch1.bg.apt_17f_rain",
-            "expected_filename": "bg-apt-17f-rain-16x9-v1.jpg",
+            "expected_filename": "bg-apt-17f-rain-16x9-v1.webp",
             "pixels_must_be_visible": true
           }
         ]
@@ -152,7 +152,7 @@
       "output": {
         "canonical_asset_id": "COM00-S02-DOOR-ASSIST",
         "logical_asset_id": "cg.opening.com00.s02_door_assist",
-        "master_filename": "cg-com00-s02-door-assist-v1.jpg",
+        "master_filename": "cg-com00-s02-door-assist-v1.webp",
         "quantity": 1
       },
       "acceptance": [
@@ -193,12 +193,12 @@
           "reference_bindings": [
             {
               "role": "primary_face_identity",
-              "source_id": "gdrive:1Oynvxve61ipxr9Z7UhaSsZE_8OzVVPRS",
+              "source_id": "ref.xu_tang.face.01",
               "expected_filename": "xt-ref-01-face.png"
             },
             {
               "role": "wardrobe",
-              "source_id": "gdrive:1W4t7ICYHx3obH_S03BEyD80ykzy3M9aF",
+              "source_id": "ref.xu_tang.wardrobe.a",
               "expected_filename": "xt-ref-05-wardrobe-a.png"
             }
           ]
@@ -216,7 +216,7 @@
         "reference_binding": {
           "role": "environment",
           "source_id": "source.opening.ch1.bg.apt_17f_rain",
-          "expected_filename": "bg-apt-17f-rain-16x9-v1.jpg"
+          "expected_filename": "bg-apt-17f-rain-16x9-v1.webp"
         }
       },
       "camera": {
@@ -263,20 +263,20 @@
         "attachments": [
           {
             "role": "primary_face_identity",
-            "source_id": "gdrive:1Oynvxve61ipxr9Z7UhaSsZE_8OzVVPRS",
+            "source_id": "ref.xu_tang.face.01",
             "expected_filename": "xt-ref-01-face.png",
             "pixels_must_be_visible": true
           },
           {
             "role": "wardrobe",
-            "source_id": "gdrive:1W4t7ICYHx3obH_S03BEyD80ykzy3M9aF",
+            "source_id": "ref.xu_tang.wardrobe.a",
             "expected_filename": "xt-ref-05-wardrobe-a.png",
             "pixels_must_be_visible": true
           },
           {
             "role": "environment",
             "source_id": "source.opening.ch1.bg.apt_17f_rain",
-            "expected_filename": "bg-apt-17f-rain-16x9-v1.jpg",
+            "expected_filename": "bg-apt-17f-rain-16x9-v1.webp",
             "pixels_must_be_visible": true
           }
         ]
@@ -284,7 +284,7 @@
       "output": {
         "canonical_asset_id": "COM00-S04-BASE-NEUTRAL",
         "logical_asset_id": "cg.opening.com00.s04_base_neutral",
-        "master_filename": "cg-com00-s04-base-neutral-v1.png",
+        "master_filename": "cg-com00-s04-base-neutral-v1.webp",
         "quantity": 1
       },
       "acceptance": [
@@ -323,12 +323,12 @@
           "reference_bindings": [
             {
               "role": "primary_face_identity",
-              "source_id": "gdrive:1Oynvxve61ipxr9Z7UhaSsZE_8OzVVPRS",
+              "source_id": "ref.xu_tang.face.01",
               "expected_filename": "xt-ref-01-face.png"
             },
             {
               "role": "wardrobe",
-              "source_id": "gdrive:1W4t7ICYHx3obH_S03BEyD80ykzy3M9aF",
+              "source_id": "ref.xu_tang.wardrobe.a",
               "expected_filename": "xt-ref-05-wardrobe-a.png"
             }
           ]
@@ -346,7 +346,7 @@
         "reference_binding": {
           "role": "environment",
           "source_id": "source.opening.ch1.bg.apt_17f_rain",
-          "expected_filename": "bg-apt-17f-rain-16x9-v1.jpg"
+          "expected_filename": "bg-apt-17f-rain-16x9-v1.webp"
         }
       },
       "camera": {
@@ -404,7 +404,7 @@
           {
             "role": "accepted_base",
             "source_id": "COM00-S04-BASE-NEUTRAL",
-            "expected_filename": "cg-com00-s04-base-neutral-v1.png",
+            "expected_filename": "cg-com00-s04-base-neutral-v1.webp",
             "pixels_must_be_visible": true
           }
         ]
@@ -412,7 +412,7 @@
       "output": {
         "canonical_asset_id": "COM00-S04-R01-POLITE-SMILE",
         "logical_asset_id": "cg.opening.com00.s04_r01_polite_smile",
-        "master_filename": "cg-com00-s04-r01-polite-smile-v1.png",
+        "master_filename": "cg-com00-s04-r01-polite-smile-v1.webp",
         "quantity": 1
       },
       "acceptance": [
@@ -453,12 +453,12 @@
           "reference_bindings": [
             {
               "role": "primary_face_identity",
-              "source_id": "gdrive:1Oynvxve61ipxr9Z7UhaSsZE_8OzVVPRS",
+              "source_id": "ref.xu_tang.face.01",
               "expected_filename": "xt-ref-01-face.png"
             },
             {
               "role": "wardrobe",
-              "source_id": "gdrive:1W4t7ICYHx3obH_S03BEyD80ykzy3M9aF",
+              "source_id": "ref.xu_tang.wardrobe.a",
               "expected_filename": "xt-ref-05-wardrobe-a.png"
             }
           ]
@@ -477,7 +477,7 @@
         "reference_binding": {
           "role": "environment",
           "source_id": "source.opening.ch1.bg.apt_elevator",
-          "expected_filename": "bg-apt-elevator-16x9-v1.jpg"
+          "expected_filename": "bg-apt-elevator-16x9-v1.webp"
         }
       },
       "camera": {
@@ -523,20 +523,20 @@
         "attachments": [
           {
             "role": "primary_face_identity",
-            "source_id": "gdrive:1Oynvxve61ipxr9Z7UhaSsZE_8OzVVPRS",
+            "source_id": "ref.xu_tang.face.01",
             "expected_filename": "xt-ref-01-face.png",
             "pixels_must_be_visible": true
           },
           {
             "role": "wardrobe",
-            "source_id": "gdrive:1W4t7ICYHx3obH_S03BEyD80ykzy3M9aF",
+            "source_id": "ref.xu_tang.wardrobe.a",
             "expected_filename": "xt-ref-05-wardrobe-a.png",
             "pixels_must_be_visible": true
           },
           {
             "role": "environment",
             "source_id": "source.opening.ch1.bg.apt_elevator",
-            "expected_filename": "bg-apt-elevator-16x9-v1.jpg",
+            "expected_filename": "bg-apt-elevator-16x9-v1.webp",
             "pixels_must_be_visible": true
           }
         ]
@@ -544,7 +544,7 @@
       "output": {
         "canonical_asset_id": "COM01X-BASE-NORMAL",
         "logical_asset_id": "cg.opening.com01x.base_normal",
-        "master_filename": "cg-com01x-base-normal-v1.jpg",
+        "master_filename": "cg-com01x-base-normal-v1.webp",
         "quantity": 1
       },
       "acceptance": [
@@ -584,12 +584,12 @@
           "reference_bindings": [
             {
               "role": "primary_face_identity",
-              "source_id": "gdrive:1Oynvxve61ipxr9Z7UhaSsZE_8OzVVPRS",
+              "source_id": "ref.xu_tang.face.01",
               "expected_filename": "xt-ref-01-face.png"
             },
             {
               "role": "wardrobe",
-              "source_id": "gdrive:1W4t7ICYHx3obH_S03BEyD80ykzy3M9aF",
+              "source_id": "ref.xu_tang.wardrobe.a",
               "expected_filename": "xt-ref-05-wardrobe-a.png"
             }
           ]
@@ -608,7 +608,7 @@
         "reference_binding": {
           "role": "environment",
           "source_id": "source.opening.ch1.bg.apt_elevator",
-          "expected_filename": "bg-apt-elevator-16x9-v1.jpg"
+          "expected_filename": "bg-apt-elevator-16x9-v1.webp"
         }
       },
       "camera": {
@@ -668,7 +668,7 @@
           {
             "role": "accepted_base",
             "source_id": "COM01X-BASE-NORMAL",
-            "expected_filename": "cg-com01x-base-normal-v1.jpg",
+            "expected_filename": "cg-com01x-base-normal-v1.webp",
             "pixels_must_be_visible": true
           }
         ]
@@ -676,7 +676,7 @@
       "output": {
         "canonical_asset_id": "COM01X-R01-RESTART",
         "logical_asset_id": "cg.opening.com01x.r01_restart",
-        "master_filename": "cg-com01x-r01-restart-v1.jpg",
+        "master_filename": "cg-com01x-r01-restart-v1.webp",
         "quantity": 1
       },
       "acceptance": [
@@ -715,12 +715,12 @@
           "reference_bindings": [
             {
               "role": "primary_face_identity",
-              "source_id": "gdrive:1Oynvxve61ipxr9Z7UhaSsZE_8OzVVPRS",
+              "source_id": "ref.xu_tang.face.01",
               "expected_filename": "xt-ref-01-face.png"
             },
             {
               "role": "wardrobe",
-              "source_id": "gdrive:1W4t7ICYHx3obH_S03BEyD80ykzy3M9aF",
+              "source_id": "ref.xu_tang.wardrobe.a",
               "expected_filename": "xt-ref-05-wardrobe-a.png"
             }
           ]
@@ -739,7 +739,7 @@
         "reference_binding": {
           "role": "environment",
           "source_id": "source.opening.ch1.bg.apt_elevator",
-          "expected_filename": "bg-apt-elevator-16x9-v1.jpg"
+          "expected_filename": "bg-apt-elevator-16x9-v1.webp"
         }
       },
       "camera": {
@@ -797,7 +797,7 @@
           {
             "role": "accepted_base",
             "source_id": "COM01X-BASE-NORMAL",
-            "expected_filename": "cg-com01x-base-normal-v1.jpg",
+            "expected_filename": "cg-com01x-base-normal-v1.webp",
             "pixels_must_be_visible": true
           }
         ]
@@ -805,7 +805,7 @@
       "output": {
         "canonical_asset_id": "COM01X-R02-DRY-SMILE",
         "logical_asset_id": "cg.opening.com01x.r02_dry_smile",
-        "master_filename": "cg-com01x-r02-dry-smile-v1.jpg",
+        "master_filename": "cg-com01x-r02-dry-smile-v1.webp",
         "quantity": 1
       },
       "acceptance": [
@@ -852,12 +852,12 @@
           "reference_bindings": [
             {
               "role": "primary_face_identity",
-              "source_id": "gdrive:13AI1sD0iUm6NpMBnVtlK8Zl5PN0UPsMQ",
+              "source_id": "ref.jiang_yucheng.face.01",
               "expected_filename": "jyc-ref-01-face.png"
             },
             {
               "role": "wardrobe",
-              "source_id": "gdrive:1FqxmDU0BqzAb6AFmZfebcx6NUaKCUw-A",
+              "source_id": "ref.jiang_yucheng.wardrobe.a",
               "expected_filename": "jyc-ref-05-wardrobe-a.png"
             }
           ]
@@ -876,7 +876,7 @@
         "reference_binding": {
           "role": "environment",
           "source_id": "source.opening.ch1.bg.acg_shop",
-          "expected_filename": "bg-acg-shop-16x9-v1.jpg"
+          "expected_filename": "bg-acg-shop-16x9-v1.webp"
         }
       },
       "camera": {
@@ -924,20 +924,20 @@
         "attachments": [
           {
             "role": "primary_face_identity",
-            "source_id": "gdrive:13AI1sD0iUm6NpMBnVtlK8Zl5PN0UPsMQ",
+            "source_id": "ref.jiang_yucheng.face.01",
             "expected_filename": "jyc-ref-01-face.png",
             "pixels_must_be_visible": true
           },
           {
             "role": "wardrobe",
-            "source_id": "gdrive:1FqxmDU0BqzAb6AFmZfebcx6NUaKCUw-A",
+            "source_id": "ref.jiang_yucheng.wardrobe.a",
             "expected_filename": "jyc-ref-05-wardrobe-a.png",
             "pixels_must_be_visible": true
           },
           {
             "role": "environment",
             "source_id": "source.opening.ch1.bg.acg_shop",
-            "expected_filename": "bg-acg-shop-16x9-v1.jpg",
+            "expected_filename": "bg-acg-shop-16x9-v1.webp",
             "pixels_must_be_visible": true
           }
         ]
@@ -945,7 +945,7 @@
       "output": {
         "canonical_asset_id": "COM01J-BASE-GUARDED",
         "logical_asset_id": "cg.opening.com01j.base_guarded",
-        "master_filename": "cg-com01j-base-guarded-v1.jpg",
+        "master_filename": "cg-com01j-base-guarded-v1.webp",
         "quantity": 1
       },
       "acceptance": [
@@ -991,12 +991,12 @@
           "reference_bindings": [
             {
               "role": "primary_face_identity",
-              "source_id": "gdrive:13AI1sD0iUm6NpMBnVtlK8Zl5PN0UPsMQ",
+              "source_id": "ref.jiang_yucheng.face.01",
               "expected_filename": "jyc-ref-01-face.png"
             },
             {
               "role": "wardrobe",
-              "source_id": "gdrive:1FqxmDU0BqzAb6AFmZfebcx6NUaKCUw-A",
+              "source_id": "ref.jiang_yucheng.wardrobe.a",
               "expected_filename": "jyc-ref-05-wardrobe-a.png"
             }
           ]
@@ -1015,7 +1015,7 @@
         "reference_binding": {
           "role": "environment",
           "source_id": "source.opening.ch1.bg.acg_shop",
-          "expected_filename": "bg-acg-shop-16x9-v1.jpg"
+          "expected_filename": "bg-acg-shop-16x9-v1.webp"
         }
       },
       "camera": {
@@ -1074,7 +1074,7 @@
           {
             "role": "accepted_base",
             "source_id": "COM01J-BASE-GUARDED",
-            "expected_filename": "cg-com01j-base-guarded-v1.jpg",
+            "expected_filename": "cg-com01j-base-guarded-v1.webp",
             "pixels_must_be_visible": true
           }
         ]
@@ -1082,7 +1082,7 @@
       "output": {
         "canonical_asset_id": "COM01J-R01-INTERESTED",
         "logical_asset_id": "cg.opening.com01j.r01_interested",
-        "master_filename": "cg-com01j-r01-interested-v1.jpg",
+        "master_filename": "cg-com01j-r01-interested-v1.webp",
         "quantity": 1
       },
       "acceptance": [

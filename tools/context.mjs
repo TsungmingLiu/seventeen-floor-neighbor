@@ -1,4 +1,5 @@
-import { readFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
+import { readFile, mkdir, writeFile, link, unlink } from 'node:fs/promises';
 import path from 'node:path';
 import { loadAndValidate, projectRoot } from './content-lib.mjs';
 
@@ -24,6 +25,73 @@ function outgoing(node, route) {
 function assetIds(node) {
   if (!node?.visual) return [];
   return [node.visual.asset, node.visual.background, ...(node.visual.sprites || []).map((sprite) => sprite.asset)].filter(Boolean);
+}
+
+if (argument('task') || argument('verify-packet')) {
+  const { buildNarrativeReviewPacket, verifyNarrativeReviewPacket,
+    buildCgPlanPacket, verifyCgPlanPacket,
+    buildManifestUsabilityPacket, verifyManifestUsabilityPacket,
+    buildCandidateVisualReviewPacket, verifyCandidateVisualReviewPacket } = await import('./context-packet.mjs');
+  try {
+    if (argument('verify-packet')) {
+      const packet = JSON.parse(await readFile(path.resolve(argument('verify-packet')), 'utf8'));
+      if (packet.task_type === 'narrative_review') await verifyNarrativeReviewPacket(packet);
+      else if (packet.task_type === 'cg_plan') await verifyCgPlanPacket(packet);
+      else if (packet.task_type === 'visual_review' && packet.review_scope === 'manifest_usability')
+        await verifyManifestUsabilityPacket(packet);
+      else if (packet.task_type === 'visual_review' && packet.review_scope === 'candidate')
+        await verifyCandidateVisualReviewPacket(packet);
+      else throw new Error(`Unsupported Task Packet type: ${packet.task_type}`);
+      await loadAndValidate();
+      const { validateProductionContracts } = await import('./validate-production-contracts.mjs');
+      validateProductionContracts();
+      console.log(`PASS: ${packet.task_id} sources, bindings and machine QA match committed canon and current content`);
+    } else {
+      if (!['narrative_review', 'cg_plan', 'visual_review'].includes(argument('task')) ||
+        (argument('task') === 'visual_review' && !['manifest_usability', 'candidate'].includes(argument('review-scope'))))
+        throw new Error('Unsupported Task Packet type or review scope');
+      await loadAndValidate();
+      const { validateProductionContracts } = await import('./validate-production-contracts.mjs');
+      validateProductionContracts();
+      const options = { sceneId: argument('scene'), runId: argument('run-id'),
+        taskId: argument('task-id'), ref: argument('ref') };
+      const packet = argument('task') === 'narrative_review'
+        ? await buildNarrativeReviewPacket(options)
+        : argument('task') === 'cg_plan'
+          ? await buildCgPlanPacket({ ...options,
+            upstreamRunId: argument('upstream-run-id'), upstreamTaskId: argument('upstream-task-id'),
+            referenceIds: argument('reference-ids')?.split(',') })
+          : argument('review-scope') === 'candidate'
+            ? await buildCandidateVisualReviewPacket({ ...options,
+              upstreamRunId: argument('upstream-run-id'), upstreamTaskId: argument('upstream-task-id'),
+              entryId: argument('entry-id'), candidateSourceId: argument('candidate-source-id') })
+            : await buildManifestUsabilityPacket({ ...options,
+              upstreamRunId: argument('upstream-run-id'), upstreamTaskId: argument('upstream-task-id'),
+              entryIds: argument('entry-ids')?.split(',') });
+      const relative = `generated/session-cache/${packet.run_id}/${packet.task_id}.packet.json`;
+      const destination = path.join(projectRoot, relative);
+      const body = `${JSON.stringify(packet, null, 2)}\n`;
+      await mkdir(path.dirname(destination), { recursive: true });
+      const temporary = `${destination}.${process.pid}.tmp`;
+      await writeFile(temporary, body, { flag: 'wx' });
+      try {
+        try {
+          await link(temporary, destination);
+        } catch (error) {
+          if (error.code !== 'EEXIST' || await readFile(destination, 'utf8') !== body) {
+            throw new Error(`Task Packet destination conflict: ${relative}`);
+          }
+        }
+      } finally {
+        await unlink(temporary);
+      }
+      console.log(`Packet: ${relative} SHA-256 ${createHash('sha256').update(body).digest('hex')}`);
+    }
+    process.exit(0);
+  } catch (error) {
+    console.error(`BLOCKED: ${error.message}`);
+    process.exit(1);
+  }
 }
 
 const routeId = argument('route');

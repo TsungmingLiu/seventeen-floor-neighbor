@@ -2,7 +2,7 @@
 
 > Lifecycle: **CANONICAL** creative-production backlog
 >
-> Version: 1.1.0
+> Version: 1.2.0
 >
 > Updated: 2026-09-26
 
@@ -27,18 +27,19 @@
 
 ## Production gates
 
-每個 scene 依序通過：
+每個 scene 的共同依賴與兩個驗收點：
 
 1. `Narrative Contract`：scene function、entry/exit relationship state、information gain、required payoff、`must_not`。
 2. `Locked Scene`：dialogue、choice intent、state mutation、semantic visual beats。
 3. `Narrative QA`：character voice、pacing、knowledge、relationship progression、branch/rejoin consistency。
-4. `Canonical CG Manifest`：render-ready entries + `Visual Continuity State`。
-5. `Render Packet`：由 deterministic projection 產生；Chat manual / Work batch / API 共用內容。
-6. `Visual QA`：identity、continuity、story beat、composition、reference provenance。
-7. `Runtime Integration`：stable asset/node IDs、Memory Events、build/validate/tests。
-8. `Playable Review`：pacing、choice readability、visual continuity、Human acceptance。
+4. 可選 `Narrative Preview`：以已登記背景或明示 preview-only WebP 接入 runtime，驗證 branch/state/save/Memory，供 Human 審閱劇情；這一點不等於視覺完工。
+5. `Canonical CG Manifest`：以已批准 Locked Scene 為輸入，產生 render-ready entries + `Visual Continuity State`。
+6. `Render Packet`：由 deterministic projection 產生；Chat manual / Work batch / API 共用內容。
+7. `Visual QA`：identity、continuity、story beat、composition、reference provenance。
+8. `Final Runtime Integration`：以 accepted CG 替換預覽畫面，保留 stable node/asset IDs，驗證 Gallery/Memory/build/tests 與 `npm run validate:final`。
+9. `Playable Review`：pacing、choice readability、visual continuity、Human final acceptance。
 
-前一 gate 未通過時，後一 gate 不得自行補寫缺失的 creative decision。
+Narrative Preview 與視覺分支都依賴 Narrative QA；任一分支不可自行補寫上游 creative decision。CG 尚未完成時，仍可開始下一個 scene 的劇本工作。
 
 ## Next production work after this refactor
 

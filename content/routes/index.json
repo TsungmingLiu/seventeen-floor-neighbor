@@ -5,10 +5,6 @@
     {
       "id": "opening-demo",
       "config": "content/routes/opening-demo/route.json"
-    },
-    {
-      "id": "xu-tang",
-      "config": "content/routes/xu-tang/route.json"
     }
   ]
 }

@@ -1,17 +1,20 @@
 # Task Packet Schema
 
-Version: 1.1.0
+Version: 1.3.0
 
 Task Packet routes exactly one active harness/pass and one deliverable。
 
 ```yaml
 run_id: unique-production-run-id
 task_id: unique-stable-id
+scene_id: one explicit scene when task is scene-scoped
 task_type: narrative_design | scene_dialogue | narrative_review | cg_plan | cg_render | visual_review | integrate
 depends_on: [upstream-task-id]
-workflow_version: 1.1.0
+workflow_version: 1.3.0
 harness: content_writer | cg_planner | cg_renderer | content_qa | integrator
 pass: narrative_design | scene_dialogue | narrative_review | visual_review | null
+review_scope: manifest_usability | candidate  # visual_review only
+integration_mode: narrative_preview | final  # required only for integrator
 objective: one sentence describing exactly one deliverable
 
 execution_policy:
@@ -31,10 +34,18 @@ required_acquisition:
   markdown:
     - path: exact/canonical/path.md
       expected_nonempty: true
+      git_blob_sha: exact committed Git blob SHA
+      excerpts: [] # optional [{label, start_line, end_line, sha256}], 1-based inclusive lines
   images:
     - role: primary_face_identity
-      expected_filename: exact-file.png
-      canonical_source: exact asset/Drive identity
+      source_id: exact existing source-catalog ID
+      path: exact repository path
+      filename: exact-file.png
+      mime_type: image/png
+      sha256: SHA-256 of source bytes
+      git_blob_sha: committed Git blob SHA
+      width: 1055
+      height: 1491
       pixels_must_be_visible: true
 
 allowed_sources:
@@ -49,6 +60,7 @@ inputs:
   locked_scene: optional
   cg_manifest: optional
   cg_entry_id: optional
+  cg_entry_ids: optional exact scene-scoped list for manifest_usability
   render_packet: optional
   references: []
   accepted_outputs: []
@@ -76,7 +88,7 @@ acceptance:
   - machine-checkable or reviewable criterion
 
 handoff_to: active harness or human gate
-human_gate: none | major_story_direction | canonical_character_design | accepted_master_image_selection | final_playable_acceptance
+human_gate: none | major_story_direction | canonical_character_design | accepted_master_image_selection | narrative_preview_review | final_playable_acceptance
 ```
 
 ## Rules
@@ -89,7 +101,12 @@ human_gate: none | major_story_direction | canonical_character_design | accepted
 - `allowed_sources` 是完整 allowlist；worker 不可自行加來源。
 - Production Task Packet 不得 allowlist archive/experiment。
 - Markdown acquisition 要有 exact repo/ref/path + non-empty contents + blob SHA when available。
-- Image acquisition 要有 exact role/identity + visible pixels；metadata-only 不成立。
+- `narrative_review` 的既有 scene 可由 `npm run context -- --task narrative_review --scene <id> --run-id <id> --task-id <id> --ref <ledger.source_ref>` 產生 JSON Task Packet。明列 scene、contract 與該 scene 的 narrative canon 範圍及 Git blob/excerpt hashes；`--verify-packet <path>` 在派工前 fail closed，並執行既有 runtime/content 與 production machine validators。`--ref` 固定已記錄的 source commit，使空 cache 的全新 checkout 可重建完全相同的 packet bytes。來源從 Locked Scene / Narrative Contract 的既有 binding 解析，不另建 registry。Packet 留在 gitignored session cache；Ledger 持久化 generator 與 packet SHA-256，不持久化 cache path。這僅準備獨立 QA task，不偽造上游 PASS 或 Human approval；後續任務仍須 Ledger 與 gate 審核。
+- `cg_plan` 目前限 `COM-00`，使用同一個 `context.mjs`：明列 current PASS 的外部 Narrative QA run/task 與所選 `--reference-ids`。這些 IDs 是 Coordinator 的明確輸入；不可從既有 CG manifest 反推。工具核對已提交的上游 ledger/decision receipt、目前 Locked Scene、選定的 source-catalog rows、repo 圖片 bytes/完整解碼及背景的 asset manifest row；只把契約、Locked Scene、全域視覺規格、許棠 reference pack 節錄、CG schema 和選定圖片列入 worker allowlist。上游在另一個 run，記在 `inputs.accepted_outputs`，`depends_on` 保持本 run 內 task IDs 的語意；不得偽造跨 run 依賴。這個 packet 是待審的 planning proposal，並非新 CG manifest、CG QA、人類決策或 production run。現階段 source ref 必須是目前 HEAD；跨其他 commit 後重建時，先按選定來源的 hash 與上游 QA 核對並重新派發，不將 repo ref 變更直接等同重畫已接受 CG。
+- `visual_review` 的 `review_scope: manifest_usability` 目前限既有 `COM-00` 的三個明列 `--entry-ids`，用同一個 `context.mjs` 產生一個 scene-scoped pre-render review packet。上游 Narrative QA 必須有可核對的 committed PASS；manifest 的 COM-00 entries、style contract 與 accepted-base 由現有 schema/registry/source catalog 機器核對。Worker 只讀 COM-00 的 Locked Scene、contract、許棠文字節錄、視覺規格與 CG manifest 的 style/三個 entry 節錄；整份章節 manifest 不進 allowlist。沒有 candidate image，`required_acquisition.images` 為空且 `reference_transport.mode` 為 `not_applicable`。此 task 若真的交給 fresh QA worker，僅檢查 manifest usability；既有 entry 的 `accepted` 值、validator PASS 和 packet 生成都不能被當成新 Visual QA PASS、planner/Human decision 或圖片驗收。
+- `visual_review` 的 `review_scope: candidate` 目前限 `COM00-S04-BASE-NEUTRAL` 的一張既有 repo WebP，透過 `context.mjs --task visual_review --review-scope candidate --scene COM-00 --entry-id COM00-S04-BASE-NEUTRAL --candidate-source-id source.opening.ch1.cg.com00_s04_base_neutral --upstream-run-id issue16-com00-mua-20260927 --upstream-task-id MUA-COM00-001 --run-id <id> --task-id <id>` 產生。上游 manifest-usability run/decision 必須 `CURRENT_PASS`；從既有 manifest/source catalog/asset registry/source map 推導候選圖與許棠臉、服裝、背景三張參考圖，核對 Git blob、SHA-256、MIME、尺寸與完整解碼。Worker 僅取得 style/一個 entry 的精確節錄、必要 Locked Scene/contract/視覺文件，以及四張像素可見的圖。Packet 留在 gitignored cache；機器核對和 manifest `accepted` 只容許派工，不能代替獨立 pixel QA 或 Human accepted-master 決策。
+- Image acquisition 要有 exact role/filename/MIME/repository path/SHA-256 + visible pixels；metadata-only 不成立。
 - `cg_renderer` packet 必須只指定 one independent manifest entry、its deterministic packet and references；只有 manifest 明列並符合 sequence 條件的 linked sequence 可作一個 bounded task。
-- Base CG 使用 `references_required`；Reaction CG 優先 `edit_from_accepted_base`。Reference acquisition 由所選 execution adapter 負責。
+- Base CG 使用 `references_required`；Reaction CG 優先 `edit_from_accepted_base`。Reference acquisition 由所選 execution adapter 從 repository-relative catalog binding 負責。
 - 第二個獨立 objective 必須拆成另一個 Task Packet。
+- `integration_mode: narrative_preview` 只依賴 approved Locked Scene 與已核對 repo bytes 的 background/preview-only WebP；Task Packet 必須列明 logical ID、route allowlist、預覽狀態與 review ref。`integration_mode: final` 要求所有必要 accepted CG 與 `npm run validate:final`，不得以 preview-only asset 滿足視覺驗收。

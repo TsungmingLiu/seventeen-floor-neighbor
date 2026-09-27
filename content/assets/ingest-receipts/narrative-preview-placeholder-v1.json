@@ -1,0 +1,16 @@
+{
+  "receiptVersion": 1,
+  "lifecycle": "PREVIEW-ONLY",
+  "logicalAssetId": "bg.narrative_preview.placeholder",
+  "decision": "functional_story_review_fixture; not a CG candidate or accepted master",
+  "repoPath": "assets-src/ui/narrative-preview-v1.webp",
+  "runtimePath": "assets/ui/narrative-preview-v1.webp",
+  "mimeType": "image/webp",
+  "width": 1600,
+  "height": 900,
+  "alpha": false,
+  "bytes": 17610,
+  "sha256": "9dc448840d09cf38718710881991c9f251e01eefd44eb94980d7dd9743778145",
+  "creation": "Procedural 1600x900 RGB gradient/typography rendered to temporary PNG with Pillow; FFmpeg 6.1.1 libwebp quality 88 compression_level 6 lossless 0; full decode and visual inspection.",
+  "replacementRule": "Replace preview bindings with QA-approved scene CG/background via existing stable node IDs and asset registry before final visual acceptance."
+}

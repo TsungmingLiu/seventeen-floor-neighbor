@@ -29,7 +29,8 @@ Version: 1.0.0
 
 ### `references_required`
 
-Base CG 只使用 entry 明列的 references。`chat_manual` 由 Human 附圖；`work_batch` 可從授權的 connected source 自動取得；未來 `api` 由其 executor 提供 image input。三者生成前都須確認 filename/role/pixels，且沒有 unrelated images；缺失或污染即 `BLOCKED`。取得方式屬 adapter，並不改動 shared render prompt。
+Base CG 只使用 entry 明列的 references。所有 adapter 依 `content/assets/source-catalog.json` 中 source ID 對應的 `sourcePath` 綁定取得檔案；生成前確認 exact filename、role、MIME、SHA-256 和可見 pixels，且沒有 unrelated images。缺失或污染即 `BLOCKED`。取得方式屬 adapter，並不改動 shared render prompt。
+Character generation references may be PNG or JPEG. Accepted CG/background base images use their cataloged WebP objects; validate MIME against the bound file rather than converting a reference during acquisition.
 
 ### `edit_from_accepted_base`
 

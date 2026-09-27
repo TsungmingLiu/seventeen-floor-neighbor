@@ -1,12 +1,12 @@
-import { mkdir, readdir, rm, stat, writeFile } from 'node:fs/promises';
+import { mkdir, readdir, stat, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
+import { createReadStream } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { loadContent, projectRoot, readJson } from './content-lib.mjs';
+import { loadContent, projectRoot } from './content-lib.mjs';
 import { approxEqual, inspectMedia, mediaKind, ratio, requireMediaTools } from './media-lib.mjs';
 
 const generatedRoot = path.join(projectRoot, 'generated');
-const cacheRoot = path.join(generatedRoot, 'asset-check-cache');
 const reportPath = path.join(generatedRoot, 'asset-report.json');
 
 function normalizedSource(entry) {
@@ -15,8 +15,10 @@ function normalizedSource(entry) {
     : { provider: 'local', transform: 'copy', ...entry };
 }
 
-function sha256(buffer) {
-  return createHash('sha256').update(buffer).digest('hex');
+async function sha256File(file) {
+  const hash = createHash('sha256');
+  for await (const chunk of createReadStream(file)) hash.update(chunk);
+  return hash.digest('hex');
 }
 
 function addUsage(map, assetId, value) {
@@ -125,27 +127,6 @@ function preservationContexts(content, coveredRuntimePaths) {
   return result;
 }
 
-function catalogContexts(sourceCatalog) {
-  return Object.entries(sourceCatalog.files || {}).map(([sourceId, entry]) => ({
-    category: 'private-master-catalog',
-    logicalAssetId: sourceId,
-    role: 'private-master',
-    runtimePath: null,
-    provider: 'gdrive-private-catalog',
-    sourcePath: `gdrive-private:${entry.fileId}`,
-    sourceEntry: entry,
-    recipe: null,
-    usage: ['private Drive master; verified at ingest'],
-    expected: {
-      width: entry.width ?? null,
-      height: entry.height ?? null,
-      ratio: ratio(entry.width, entry.height),
-      duration: entry.duration ?? null
-    },
-    blocking: true
-  }));
-}
-
 async function walkFiles(root) {
   const files = [];
   async function visit(current) {
@@ -189,25 +170,6 @@ async function authoringTreeContexts() {
   return result;
 }
 
-async function downloadToCache(context) {
-  const entry = context.sourceEntry;
-  const response = await fetch(entry.url, { redirect: 'follow' });
-  if (!response.ok) {
-    throw new Error(`remote fetch failed ${response.status} ${response.statusText}: ${entry.url}`);
-  }
-  const buffer = Buffer.from(await response.arrayBuffer());
-  if (entry.bytes != null && buffer.length !== entry.bytes) {
-    throw new Error(`byte-size mismatch: expected ${entry.bytes}, received ${buffer.length}`);
-  }
-  if (entry.sha256 && sha256(buffer) !== entry.sha256) {
-    throw new Error('SHA-256 mismatch for public Drive runtime asset');
-  }
-  const safeName = context.runtimePath.replace(/[^a-zA-Z0-9._-]+/g, '_');
-  const target = path.join(cacheRoot, safeName);
-  await writeFile(target, buffer);
-  return target;
-}
-
 function formatContext(context, observed, errors) {
   return { ...context, observed, ok: errors.length === 0, errors };
 }
@@ -215,14 +177,9 @@ function formatContext(context, observed, errors) {
 export async function checkAssets({ print = true } = {}) {
   const tools = await requireMediaTools();
   const content = await loadContent();
-  const sourceCatalog = await readJson('content/assets/source-catalog.json');
-  await rm(cacheRoot, { recursive: true, force: true });
-  await mkdir(cacheRoot, { recursive: true });
-
   const contexts = runtimeContexts(content);
   const coveredRuntimePaths = new Set(contexts.map((item) => item.runtimePath).filter(Boolean));
   contexts.push(...preservationContexts(content, coveredRuntimePaths));
-  contexts.push(...catalogContexts(sourceCatalog));
   contexts.push(...await authoringTreeContexts());
 
   const results = [];
@@ -233,33 +190,19 @@ export async function checkAssets({ print = true } = {}) {
     try {
       if (!context.sourceEntry) throw new Error(`no source mapping for runtime path ${context.runtimePath}`);
 
-      if (context.provider === 'gdrive-private-catalog') {
-        const entry = context.sourceEntry;
-        if (!entry.fileId || !entry.sha256 || !entry.bytes) errors.push('private master catalog requires fileId, sha256, and bytes');
-        if (!entry.verifiedDecode) errors.push('private master has not been verified by full decode at ingest');
-        observed = {
-          bytes: entry.bytes,
-          width: entry.width ?? null,
-          height: entry.height ?? null,
-          duration: entry.duration ?? null,
-          format: entry.mimeType || null,
-          codec: 'ingest-verified'
-        };
-      } else {
-        let absolute;
-        if (context.provider === 'gdrive-public') {
-          absolute = await downloadToCache(context);
-        } else if (context.provider === 'local') {
-          absolute = path.join(projectRoot, context.sourceEntry.source);
-          const info = await stat(absolute);
-          if (!info.isFile()) throw new Error('path is not a regular file');
-        } else {
-          throw new Error(`unsupported provider: ${context.provider}`);
-        }
-
-        const info = await stat(absolute);
-        observed = { bytes: info.size, ...(await inspectMedia(absolute)) };
+      if (context.provider !== 'local') {
+        throw new Error(`unsupported provider: ${context.provider}`);
       }
+      const absolute = path.join(projectRoot, context.sourceEntry.source);
+      const info = await stat(absolute);
+      if (!info.isFile()) throw new Error('path is not a regular file');
+      if (context.sourceEntry.bytes != null && info.size !== context.sourceEntry.bytes) {
+        errors.push(`byte-size mismatch: expected ${context.sourceEntry.bytes}, observed ${info.size}`);
+      }
+      if (context.sourceEntry.sha256 && (await sha256File(absolute)) !== context.sourceEntry.sha256) {
+        errors.push('SHA-256 mismatch for ingested repo asset');
+      }
+      observed = { bytes: info.size, ...(await inspectMedia(absolute)) };
 
       if (context.expected.width && observed.width !== context.expected.width) {
         errors.push(`width mismatch: expected ${context.expected.width}, observed ${observed.width}`);

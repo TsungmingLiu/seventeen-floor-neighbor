@@ -63,7 +63,7 @@ Roadmap 決定目前 active milestone，以及哪些事情現在不應該做。
 | `content/assets/` | Logical asset 與 source/runtime metadata |
 | `content/recipes/` | Asset dependency / rebuild metadata |
 | `content/characters/` | Character metadata |
-| `assets-src/` | 仍被 active metadata 使用的 local / legacy source assets |
+| `assets-src/` | Git 追蹤的 runtime WebP 與生成用 PNG/JPEG references |
 | `docs/` | Architecture、narrative、art 與 production documentation |
 | `.ai/` | AI production harness、policy、schema 與 orchestration contract |
 | `tools/`、`tests/` | Build、validation、content / asset tooling 與 regression tests |

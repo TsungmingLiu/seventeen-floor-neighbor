@@ -56,7 +56,7 @@ Projection 依固定 section 順序逐欄位輸出：
 | Adapter | Changes | Must stay identical |
 | --- | --- | --- |
 | `chat_manual` | Human-facing attachment checklist + copy/paste envelope | shared prompt、entry identity、refs |
-| `work_batch` | machine-readable job envelope / ordering / connected-source reference acquisition | shared prompt、entry identity、refs |
+| `work_batch` | machine-readable job envelope / ordering / verified repo-file reference acquisition | shared prompt、entry identity、refs |
 | `api` | future request body fields | shared prompt、entry identity、refs |
 
 Adapter 不得擁有自己的 prompt template 或 creative defaults。
