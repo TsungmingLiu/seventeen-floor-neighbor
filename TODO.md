@@ -48,7 +48,7 @@
 
 ### 4. Active source-authority cleanup
 
-- [ ] 完成 GitHub Issue #23：清理 active docs 中過期的 Google Drive `runtime-public` 描述。
+- [x] 完成 GitHub Issue #23：清理 active docs 中過期的 Google Drive `runtime-public` 描述（PR #21）。
 - [ ] `README.md`、`PROJECT_STATE.md`、`ARCHITECTURE.zh-TW.md`、`.ai/WORKFLOW_MANIFEST.yaml` 與實際 runtime/build behavior 一致。
 - [ ] 清楚區分 runtime asset、accepted master、generation reference 與 legacy/archive provenance。
 - [ ] 不修改純歷史 archive，除非它仍會被 active workflow 誤讀。
