@@ -103,6 +103,16 @@
 
 Roadmap milestone 到達相應階段後再重新確認 scope，不因為列在本文件中就自動執行。
 
+## Issue #16 cross-stage workflow follow-up
+
+**待 PR #21 合併後按 [Issue #27](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/27) 排期；不列入 PR #21 的驗收。**
+
+- [ ] 以一個 multi-task scene DAG 驗證跨階段 artifact stale 決策、整合阻擋與空 session cache 的 checkpoint 恢復，維持 dialogue-only、visual-only、relationship/state 變更的精準失效範圍。
+- [ ] 明確界定 visual beat 的機器 QA：只對 canonical 結構化 ID／binding 做存在、唯一性與依賴檢查；畫面是否表達劇情語意，仍由獨立 Visual QA 與 Human 驗收。
+- [ ] 注入 stale integration、缺少 beat binding 與僅語意不符的候選畫面，記錄前兩者的機器阻擋與最後一者的人工審查邊界。
+
+新 scene 的完整生產與 Locked Scene → runtime 效率實證另由 [Issue #26](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/26) 追蹤。
+
 ## Opening demo UI follow-ups
 
 較適合在 M1 playable validation 或 M3 polish 時重新評估：
