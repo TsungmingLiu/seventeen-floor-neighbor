@@ -95,9 +95,7 @@ source_authority:
     - .ai/archive/
     - .ai/experiments/
     - docs/archive/
-  runtime_fixtures_not_production_guidance:
-    - assets-src/characters/
-    - content/routes/xu-tang/
+  runtime_fixtures_not_production_guidance: []
 
 harnesses:
   content_writer:

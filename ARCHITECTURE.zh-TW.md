@@ -1,19 +1,19 @@
 # 程式與內容架構
 
-> CANONICAL runtime / content / asset / build contract。更新：2026-09-26。
+> CANONICAL runtime / content / asset / build contract。更新：2026-09-27。
 >
 > 本文件記錄已實作、修改程式時須維持的邊界。當前進度見 `PROJECT_STATE.md`；待辦見 `TODO.md`；內容生產的 authority 見 `.ai/WORKFLOW_MANIFEST.yaml` 與 `docs/CONTENT_PRODUCTION_SOURCE_MAP.md`。實際欄位以 code、JSON 與 validator 為準。
 
 ## 1. 目前的系統
 
-遊戲是 browser-native JavaScript 的靜態站點，沒有 backend 或 database。`content/routes/index.json` 指定唯一可玩的 default route，目前為 `opening-demo`。`xu-tang` 保留作舊內容、save 與引擎 regression fixture；角色分支由故事節點處理，標題不提供平行 route selector。
+遊戲是 browser-native JavaScript 的靜態站點，沒有 backend 或 database。`content/routes/index.json` 目前只註冊 `opening-demo`。舊 `xu-tang` 原型 route 及其專用資產已退役；角色分支由故事節點處理，標題不提供平行 route selector。
 
 | 層 | 來源 | 職責 |
 | --- | --- | --- |
 | UI shell | `public/index.html`、`public/styles.css` | 標題、遊戲、Memories、CG Gallery |
 | Runtime | `src/` | 播放、visuals、progress、Memories、branch graph helper |
 | Route registry / packages | `content/routes/index.json`、`content/routes/<id>/` | default route、story/scene files、asset allowlist、Memory Events |
-| Route data | `content/routes/opening-demo/`、`content/routes/xu-tang/` | 現行 Chapter 1；舊長篇 regression fixture（含 date pool） |
+| Route data | `content/routes/opening-demo/` | 現行 Chapter 1 playable route |
 | Character metadata | `content/characters/` | 已登記角色的設計／依賴資料 |
 | Production values | `content/production/` | Narrative Continuity Contract、Canonical CG Manifest |
 | Asset metadata | `content/assets/manifest.json`、`source-map.json`、`source-catalog.json`、`content/recipes/assets.json` | logical ID、runtime provider、master provenance、recipe/dependency |
@@ -56,7 +56,7 @@
 
 `npm run assets:check` 驗證本地 runtime 來源、已釘選的 bytes/hash、尺寸/比例與媒體 full decode；active generation source catalog 另由 production validation 核對 repo 原圖。`npm run assets:build` 只複製 repo 檔案到 generated output；`npm run build` clean rebuild `dist/`，包含 UI、JS、route packages 與 runtime assets。缺少 runtime object 時應阻擋 build，不得用舊 sprite 或暫存圖悄悄替代。唯一共用的 `bg.narrative_preview.placeholder` 是 manifest/source map 明示、hash 釘選的 preview-only WebP，不是 remote fallback，也不進 CG Gallery。`dist/`、`generated/` 可丟棄。
 
-本 repo 本地 `runtime-public/sprites/` 的十張舊候選圖未被 manifest、source-map、route 或 build 讀取，已退出 source tree。仍在使用的 `assets-src/characters/` 與舊路線影片仍作回歸 fixture，不能僅因非預設路線就刪除。
+舊 `xu-tang` route 專用的 sprite、日期 CG、背景與影片均已移除。Opening 的 CG、背景和 preview-only WebP 仍依既有 manifest/source map 驗證；角色 PNG/JPEG 仍是 production references。引擎的通用 composite 與 cinematic 能力保留，不宣稱舊影片仍可玩。
 
 ## 5. Content production 與 runtime integration
 

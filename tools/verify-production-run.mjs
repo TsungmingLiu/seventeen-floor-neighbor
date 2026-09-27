@@ -235,10 +235,18 @@ export async function verifyProductionRun(runId, { root = projectRoot, sourceRoo
     Array.isArray(task.depends_on) && task.depends_on.length === 0 &&
     task.packet?.generator === 'tools/context.mjs:narrative_review' &&
     task.human_gate === 'none', 'unsupported or malformed bounded task');
+  let temporary;
+  let narrativeRoot = packetRoot;
+  try {
+    if (!sourceRoot && git(root, 'rev-parse', 'HEAD') !== ledger.source_ref) {
+      temporary = await mkdtemp(path.join(os.tmpdir(), 'narrative-review-source-'));
+      narrativeRoot = path.join(temporary, 'source');
+      git(root, 'worktree', 'add', '--detach', narrativeRoot, ledger.source_ref);
+    }
   const packet = await buildNarrativeReviewPacket({
-    sceneId: task.scene_id, runId, taskId: task.task_id, ref: ledger.source_ref, root: packetRoot
+    sceneId: task.scene_id, runId, taskId: task.task_id, ref: ledger.source_ref, root: narrativeRoot
   });
-  await verifyNarrativeReviewPacket(packet, { root: packetRoot });
+  await verifyNarrativeReviewPacket(packet, { root: narrativeRoot });
   const packetSha256 = sha256(`${JSON.stringify(packet, null, 2)}\n`);
   requireCondition(packetSha256 === task.packet.sha256 &&
     versionListEqual(packet.input_versions, task.input_versions),
@@ -271,15 +279,25 @@ export async function verifyProductionRun(runId, { root = projectRoot, sourceRoo
   requireCondition(output.id === `approved_locked_scene:${task.scene_id}` &&
     output.location === packet.inputs.locked_scene &&
     output.version === packet.input_versions.find((item) => item.location === output.location)?.version &&
-    git(packetRoot, 'rev-parse', `${sourceRoot ? ledger.source_ref : 'HEAD'}:${output.location}`) === output.version,
+    git(narrativeRoot, 'rev-parse', `${ledger.source_ref}:${output.location}`) === output.version,
   'approved Locked Scene output differs from reviewed source bytes');
-  if (sourceRoot && requireCurrent) requireCondition(
-    git(root, 'rev-parse', `HEAD:${output.location}`) === output.version,
-    'approved Locked Scene output differs from current target checkout');
+  if (!sourceRoot || requireCurrent) {
+    const current = await buildNarrativeReviewPacket({ sceneId: task.scene_id,
+      runId, taskId: task.task_id, root, ref: git(root, 'rev-parse', 'HEAD') });
+    requireCondition(versionListEqual(current.input_versions, packet.input_versions),
+      'reviewed narrative inputs differ from current committed content');
+  }
   return { run_id: runId, source_ref: ledger.source_ref, packet_sha256: packetSha256,
     task_id: task.task_id, task_status: sourceRoot && !requireCurrent ? 'RECORDED_PASS' : 'CURRENT_PASS', run_status: ledger.status,
     qa_codes: receipt.qa_codes.map(({ code }) => code),
     next_action: 'this Narrative QA task is complete; other production and Human gates remain independent' };
+  } finally {
+    if (temporary) {
+      try { git(root, 'worktree', 'remove', '--force', narrativeRoot); } finally {
+        await rm(temporary, { recursive: true, force: true });
+      }
+    }
+  }
 }
 
 export async function writeProductionRunCheck(runId, { root = projectRoot } = {}) {

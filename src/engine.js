@@ -247,11 +247,6 @@ export class GameEngine {
         .filter((entry) => entry.gallery.order <= 90)
         .forEach((entry) => unlocked.add(entry.id));
     }
-    if (endings.has('heart') || endings.has('lover')) unlocked.add('cg.ch03.close_conversation');
-    if (endings.has('lover')) {
-      unlocked.add('cg.ch04.hallway_pause');
-      unlocked.add('cg.ch04.sunday_morning');
-    }
     localStorage.setItem(this.cgStorageKey, JSON.stringify([...unlocked]));
   }
 

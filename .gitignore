@@ -17,5 +17,5 @@ generated/reviews/
 generated/asset-report.json
 .asset-ingest-*/
 
-# Runtime binaries in dist/ are copied from tracked assets-src/ during build
-dist/assets/
+# Runtime output is rebuilt from tracked sources
+dist/

@@ -1,13 +1,13 @@
 # Project state
 
-Updated: 2026-09-26
+Updated: 2026-09-27
 
 ## 已完成的基礎
 
 - W1–W3：source/output boundary、strict asset check/build、GitHub Codespaces development/preview/acceptance 已實作。`dist/` 可 clean rebuild。Canonical engineering environment 是 Codespaces；local clone 是 fallback。
 - W4：Player UI、Memories、CG Gallery、journey v2 cursor/frontier、v1 save migration、browser acceptance 已完成。實際 code/data contract 見 `ARCHITECTURE.zh-TW.md`、`src/` 與 route `memories.json`。
-- Asset storage：Gate 2 已將 18 個遠端 runtime 映射遷入 Git；目前 48 個 runtime path 全部從 `assets-src/` 複製，clean build 不需遠端儲存。14 個 WebP 保留原位元組；四個已驗收 COM01B PNG 經唯一 Asset Ingest 轉成 WebP，logical ID 不變。對照與 hash 見 `docs/migration/GATE2_REPO_RUNTIME_ASSETS.md`。CG rendering inputs 現由 repository-relative catalog bindings 解析，generation refs 保留 PNG/JPEG；runtime accepted CG/background objects 使用既有 WebP。
-- 預設 playable route 是 `opening-demo`；`xu-tang` 舊 package 保留作 runtime/save/regression fixture，不代表新的 production story ordering。已廢棄的 office OL 臨時支線已完整移除。
+- Asset storage：Gate 2 曾將 18 個遠端 runtime 映射遷入 Git；舊路線退役後，現有 16 個 runtime path 全部從 `assets-src/` 複製，clean build 不需遠端儲存。Opening 的既有 WebP 保留原位元組；四個已驗收 COM01B PNG 經唯一 Asset Ingest 轉成 WebP，logical ID 不變。歷史對照與 hash 見 `docs/migration/GATE2_REPO_RUNTIME_ASSETS.md`。CG rendering inputs 現由 repository-relative catalog bindings 解析，generation refs 保留 PNG/JPEG；runtime accepted CG/background objects 使用既有 WebP。
+- `opening-demo` 是唯一註冊的 playable route；`xu-tang` 原型 route 和專用資產已按 Owner 決定退役，角色生成參考圖仍在使用。已廢棄的 office OL 臨時支線已完整移除。
 
 ## 現在的 creative production
 

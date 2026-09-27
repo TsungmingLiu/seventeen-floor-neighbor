@@ -55,4 +55,4 @@ A provenance receipt may point into these roots as historical evidence. That poi
 
 ## 3. Runtime fixture note
 
-Runtime fixtures are not production-authoring guidance. Paths such as `assets-src/characters/` and `content/routes/xu-tang/` may remain while runtime/tests still depend on them; removing a used fixture requires an explicit migration decision. The canonical fixture rule lives in `.ai/policies/SOURCE_AUTHORITY.md` and the manifest's `runtime_fixtures_not_production_guidance` list.
+Runtime fixtures are not production-authoring guidance. The former `content/routes/xu-tang/` package and its exclusive media have been retired; the active Opening route and CG identity references remain registered. Removing any other used fixture requires an explicit migration decision. The fixture rule lives in `.ai/policies/SOURCE_AUTHORITY.md`.

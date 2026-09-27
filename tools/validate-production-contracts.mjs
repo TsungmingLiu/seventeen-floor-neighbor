@@ -354,7 +354,7 @@ function validateGate3RepositorySources(catalog) {
   invariant([...referenceIds].some((id) => id === 'ref.xu_tang.body.03'), 'Gate 3 receipt must include the user-provided Xu Tang body JPEG');
   invariant(receipt.references.filter((item) => item.mimeType === 'image/png').length === 4 && receipt.references.filter((item) => item.mimeType === 'image/jpeg').length === 1, 'Gate 3 references must be four PNGs plus one JPEG');
   invariant(acceptedIds.size === 15 && referenceIds.size === 5, 'Gate 3 accepted source IDs must be unique');
-  invariant(Object.keys(catalog.files).length === acceptedIds.size + referenceIds.size + 3, 'source catalog contains an unexpected active source set');
+  invariant(Object.keys(catalog.files).length === acceptedIds.size + referenceIds.size, 'source catalog contains an unexpected active source set');
   return receipt;
 }
 

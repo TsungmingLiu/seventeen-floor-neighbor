@@ -105,5 +105,5 @@
     }
   ],
   "lifecycle": "historical-only",
-  "supersededRuntimeBy": "content/assets/ingest-receipts/repo-runtime-gate2-v1.json"
+  "supersededRuntimeReport": "docs/migration/GATE2_REPO_RUNTIME_ASSETS.md"
 }

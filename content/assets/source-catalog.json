@@ -3,42 +3,6 @@
   "provider": "repo",
   "note": "Opening accepted CG/background WebP and character reference PNG/JPEG resolve to tracked repo files. Old provider metadata is historical-only in repo-source-gate3-historical.json.",
   "files": {
-    "source.xu_tang.date.bookstore": {
-      "name": "cg-date-bookstore.webp",
-      "mimeType": "image/webp",
-      "sourcePath": "assets-src/cg-date-bookstore.webp",
-      "bytes": 143762,
-      "width": 1672,
-      "height": 941,
-      "sha256": "92d854021e3b7d83081d9cf1307e2c4677101ae1b87da62bda98727f23efb779",
-      "verifiedDecode": true,
-      "status": "regression-fixture",
-      "provenance": "User-approved existing repo WebP representation; previous source metadata in historical-only receipt"
-    },
-    "source.xu_tang.date.riverwalk": {
-      "name": "cg-date-riverwalk.webp",
-      "mimeType": "image/webp",
-      "sourcePath": "assets-src/cg-date-riverwalk.webp",
-      "bytes": 229018,
-      "width": 1672,
-      "height": 941,
-      "sha256": "4419c6d7cadfbf61a18d9876df63b8b8737ad29fef35ee5a430498e13d0fcd9a",
-      "verifiedDecode": true,
-      "status": "regression-fixture",
-      "provenance": "User-approved existing repo WebP representation; previous source metadata in historical-only receipt"
-    },
-    "source.xu_tang.date.night_market": {
-      "name": "cg-date-night-market.webp",
-      "mimeType": "image/webp",
-      "sourcePath": "assets-src/cg-date-night-market.webp",
-      "bytes": 155166,
-      "width": 1672,
-      "height": 941,
-      "sha256": "de67b8be103b5dfe5d4eabc987d24b0b9395b4fa146457f99a46d867df149b25",
-      "verifiedDecode": true,
-      "status": "regression-fixture",
-      "provenance": "User-approved existing repo WebP representation; previous source metadata in historical-only receipt"
-    },
     "source.opening.ch1.bg.apt_17f_rain": {
       "name": "bg-apt-17f-rain-16x9-v1.webp",
       "mimeType": "image/webp",

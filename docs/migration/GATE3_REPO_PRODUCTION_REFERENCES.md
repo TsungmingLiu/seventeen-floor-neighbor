@@ -2,6 +2,8 @@
 
 > Lifecycle: migration checkpoint. The active authority is `content/assets/source-catalog.json`; this document reports its verified cutover.
 
+> Later PR #21 closeout retired the three date CG catalog entries with the old nondefault route. This document records the earlier Gate 3 state; the historical-only receipt remains provenance, never an adapter input.
+
 The existing Opening accepted CG/background WebPs are now also the approved production reference representation. Character identity/wardrobe sheets keep exact source PNG bytes. The user-supplied Xu Tang body image is a distinct JPEG replacement and is optional; its pixels are not asserted equivalent to the unavailable historical PNG. Only four face/wardrobe sheets are bound by current Opening CG manifests.
 
 The prior Drive ID → source ID mapping and old master hashes live **only** in `content/assets/ingest-receipts/repo-source-gate3-historical.json` (historical-only). The 15 accepted current source IDs, paths and hashes plus five character references are recorded in `repo-source-gate3-v1.json`. The Gate 2 runtime old → new mapping remains in `docs/migration/GATE2_REPO_RUNTIME_ASSETS.md`.
