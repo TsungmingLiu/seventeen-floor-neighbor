@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
-import { mkdir, readFile, rename, rm, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, realpath, rename, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { projectRoot } from './content-lib.mjs';
@@ -35,7 +35,7 @@ async function committedJson(root, relative) {
   return JSON.parse(bytes);
 }
 
-export async function verifyProductionRun(runId, { root = projectRoot } = {}) {
+export async function verifyProductionRun(runId, { root = projectRoot, sourceRoot, requireCurrent = false } = {}) {
   safeName(runId);
   const ledgerPath = `content/production/runs/${runId}/ledger.json`;
   const ledger = await committedJson(root, ledgerPath);
@@ -44,6 +44,18 @@ export async function verifyProductionRun(runId, { root = projectRoot } = {}) {
     Array.isArray(ledger.tasks) && ledger.tasks.length === 1,
   'invalid production run ledger identity or task count');
   const task = ledger.tasks[0];
+  if (sourceRoot !== undefined) {
+    sourceRoot = path.resolve(sourceRoot);
+    const targetRoot = await realpath(root);
+    const historicalRoot = await realpath(sourceRoot);
+    requireCondition(targetRoot !== historicalRoot, 'historical sourceRoot must be separate from target root');
+    requireCondition(git(sourceRoot, 'rev-parse', 'HEAD') === ledger.source_ref,
+      'historical sourceRoot HEAD differs from ledger source_ref');
+    let symbolicHead = '';
+    try { symbolicHead = git(sourceRoot, 'symbolic-ref', '-q', 'HEAD'); } catch { /* detached HEAD */ }
+    requireCondition(!symbolicHead, 'historical sourceRoot must be a detached checkout');
+  }
+  const packetRoot = sourceRoot ?? root;
   requireCondition(task.task_type === 'narrative_review' &&
     /^[A-Z][A-Z0-9]*(?:-[A-Z0-9]+)+$/.test(task.scene_id || '') &&
     /^[a-zA-Z0-9][a-zA-Z0-9_-]*$/.test(task.task_id || '') &&
@@ -51,9 +63,9 @@ export async function verifyProductionRun(runId, { root = projectRoot } = {}) {
     task.packet?.generator === 'tools/context.mjs:narrative_review' &&
     task.human_gate === 'none', 'unsupported or malformed bounded task');
   const packet = await buildNarrativeReviewPacket({
-    sceneId: task.scene_id, runId, taskId: task.task_id, ref: ledger.source_ref, root
+    sceneId: task.scene_id, runId, taskId: task.task_id, ref: ledger.source_ref, root: packetRoot
   });
-  await verifyNarrativeReviewPacket(packet, { root });
+  await verifyNarrativeReviewPacket(packet, { root: packetRoot });
   const packetSha256 = sha256(`${JSON.stringify(packet, null, 2)}\n`);
   requireCondition(packetSha256 === task.packet.sha256 &&
     versionListEqual(packet.input_versions, task.input_versions),
@@ -86,10 +98,13 @@ export async function verifyProductionRun(runId, { root = projectRoot } = {}) {
   requireCondition(output.id === `approved_locked_scene:${task.scene_id}` &&
     output.location === packet.inputs.locked_scene &&
     output.version === packet.input_versions.find((item) => item.location === output.location)?.version &&
-    git(root, 'rev-parse', `HEAD:${output.location}`) === output.version,
+    git(packetRoot, 'rev-parse', `${sourceRoot ? ledger.source_ref : 'HEAD'}:${output.location}`) === output.version,
   'approved Locked Scene output differs from reviewed source bytes');
+  if (sourceRoot && requireCurrent) requireCondition(
+    git(root, 'rev-parse', `HEAD:${output.location}`) === output.version,
+    'approved Locked Scene output differs from current target checkout');
   return { run_id: runId, source_ref: ledger.source_ref, packet_sha256: packetSha256,
-    task_id: task.task_id, task_status: 'CURRENT_PASS', run_status: ledger.status,
+    task_id: task.task_id, task_status: sourceRoot && !requireCurrent ? 'RECORDED_PASS' : 'CURRENT_PASS', run_status: ledger.status,
     qa_codes: receipt.qa_codes.map(({ code }) => code),
     next_action: 'this Narrative QA task is complete; other production and Human gates remain independent' };
 }

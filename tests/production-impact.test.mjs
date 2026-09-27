@@ -1,8 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { compareSceneSnapshots, snapshotScene, readerFor } from '../tools/production-impact.mjs';
+import { buildProductionImpact, compareSceneSnapshots, readerFor, snapshotScene, writeProductionImpact } from '../tools/production-impact.mjs';
 import { projectRoot } from '../tools/content-lib.mjs';
 import { sha256, stableStringify } from '../tools/render-cg-packets.mjs';
+import { execFileSync } from 'node:child_process';
+import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import os from 'node:os';
+import path from 'node:path';
 
 const root = projectRoot;
 const manifestPath = 'content/production/cg-manifests/opening-ch1.json';
@@ -166,4 +170,117 @@ test('tampered accepted WebP bytes block the snapshot before an impact plan is p
     return altered;
   };
   await assert.rejects(snapshot(reader), /accepted WebP bytes differ/);
+});
+
+const runId = 'issue16-com00-nqa-20260926';
+const runLedgerPath = `content/production/runs/${runId}/ledger.json`;
+
+function gitAt(checkout, ...args) {
+  return execFileSync('git', ['-C', checkout, ...args], { encoding: 'utf8', stdio: 'pipe' }).trim();
+}
+
+async function inDetachedCheckout(action) {
+  const temporary = await mkdtemp(path.join(os.tmpdir(), 'gate12-impact-'));
+  const checkout = path.join(temporary, 'checkout');
+  gitAt(root, 'worktree', 'add', '--detach', checkout, 'HEAD');
+  try {
+    const ledger = JSON.parse(await readFile(path.join(checkout, runLedgerPath), 'utf8'));
+    return await action(checkout, ledger);
+  } finally {
+    gitAt(root, 'worktree', 'remove', '--force', checkout);
+    await rm(temporary, { recursive: true, force: true });
+  }
+}
+
+function commitChanged(checkout, relative) {
+  gitAt(checkout, 'add', '--', relative);
+  gitAt(checkout, '-c', 'user.name=Gate Test', '-c', 'user.email=gate@example.invalid',
+    'commit', '-qm', `Change ${relative} for impact test`);
+}
+
+test('COM-00 recorded narrative PASS reconciles against the real decision without writing a ledger', async () => {
+  await inDetachedCheckout(async (checkout, ledger) => {
+    const options = { sceneId: 'COM-00', from: ledger.source_ref, to: 'HEAD', runId, root: checkout };
+    const plain = await buildProductionImpact(options);
+    const beforeLedger = await readFile(path.join(checkout, runLedgerPath));
+    const { impact, path: reportPath } = await writeProductionImpact(options);
+    assert.equal(impact.qa_status, 'VERIFIED_RECORDED_NARRATIVE_QA');
+    assert.equal(impact.run_reconciliation.recorded_status, 'RECORDED_PASS');
+    assert.equal(impact.run_reconciliation.target_status, 'CURRENT_PASS');
+    assert.deepEqual(impact.run_reconciliation.changed_versions, []);
+    assert.equal(impact.ledger_mutated, false);
+    assert.deepEqual(impact.would_invalidate, plain.would_invalidate);
+    assert.deepEqual(await readFile(path.join(checkout, runLedgerPath)), beforeLedger);
+    assert.ok(reportPath.startsWith('generated/session-cache/impact/COM-00/'));
+  });
+});
+
+test('changed committed Locked Scene proposes stale Narrative QA and conservative visual descendants', async () => {
+  await inDetachedCheckout(async (checkout, ledger) => {
+    const relative = 'docs/narrative/scenes/vertical-slice/COM-00.md';
+    await writeFile(path.join(checkout, relative), `${await readFile(path.join(checkout, relative), 'utf8')}\nTest changed narrative beat.\n`);
+    commitChanged(checkout, relative);
+    const { impact } = await writeProductionImpact({ sceneId: 'COM-00', from: ledger.source_ref,
+      to: 'HEAD', runId, root: checkout });
+    assert.equal(impact.run_reconciliation.target_status, 'STALE_PROPOSED');
+    assert.ok(impact.run_reconciliation.changed_versions.some((item) =>
+      item.id === 'approved_locked_scene:COM-00' && item.old_version !== item.new_version));
+    assert.ok(impact.changes.some((item) => item.reason === 'locked_scene_change_requires_fresh_narrative_qa'));
+    assert.ok(impact.would_invalidate.includes('narrative_review:COM-00'));
+    assert.ok(impact.would_invalidate.some((id) => id.startsWith('manifest_review:COM00')));
+    assert.equal(impact.ledger_mutated, false);
+  });
+});
+
+test('visual-only manifest edit preserves this run Narrative QA while proposing visual rework', async () => {
+  await inDetachedCheckout(async (checkout, ledger) => {
+    const relative = 'content/production/cg-manifests/opening-ch1.json';
+    const manifest = JSON.parse(await readFile(path.join(checkout, relative), 'utf8'));
+    const entry = manifest.entries.find((item) => item.scene_id === 'COM-00');
+    assert.ok(entry);
+    entry.camera.lens_intent += ' (controlled visual change)';
+    await writeFile(path.join(checkout, relative), `${JSON.stringify(manifest, null, 2)}\n`);
+    commitChanged(checkout, relative);
+    const { impact } = await writeProductionImpact({ sceneId: 'COM-00', from: ledger.source_ref,
+      to: 'HEAD', runId, root: checkout });
+    assert.equal(impact.run_reconciliation.target_status, 'CURRENT_PASS');
+    assert.deepEqual(impact.run_reconciliation.changed_versions, []);
+    assert.ok(impact.would_invalidate.includes(`manifest_review:${entry.entry_id}`));
+    assert.ok(!impact.would_invalidate.includes('narrative_review:COM-00'));
+  });
+});
+
+test('a changed recorded canon input makes the QA task stale even when the scene impact projection is unchanged', async () => {
+  await inDetachedCheckout(async (checkout, ledger) => {
+    const relative = 'docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md';
+    await writeFile(path.join(checkout, relative), `${await readFile(path.join(checkout, relative), 'utf8')}\nUnrelated test note.\n`);
+    commitChanged(checkout, relative);
+    const { impact } = await writeProductionImpact({ sceneId: 'COM-00', from: ledger.source_ref,
+      to: 'HEAD', runId, root: checkout });
+    assert.deepEqual(impact.changes, []);
+    assert.equal(impact.run_reconciliation.target_status, 'STALE_PROPOSED');
+    assert.ok(impact.run_reconciliation.changed_versions.some((item) =>
+      item.id === `file:${relative}` && item.old_version !== item.new_version));
+  });
+});
+
+test('wrong source ref and tampered receipt BLOCK and clear any previous impact report', async () => {
+  await inDetachedCheckout(async (checkout, ledger) => {
+    const destination = path.join(checkout, 'generated/session-cache/impact/COM-00/impact.json');
+    await mkdir(path.dirname(destination), { recursive: true });
+    await writeFile(destination, 'stale');
+    await assert.rejects(writeProductionImpact({ sceneId: 'COM-00', from: 'HEAD',
+      to: 'HEAD', runId, root: checkout }), /--from must equal ledger\.source_ref/);
+    await assert.rejects(readFile(destination), { code: 'ENOENT' });
+
+    const receiptPath = `content/production/runs/${runId}/NQA-COM00-001.decision.json`;
+    const receipt = JSON.parse(await readFile(path.join(checkout, receiptPath), 'utf8'));
+    receipt.qa_codes[0].result = 'FAIL';
+    await writeFile(path.join(checkout, receiptPath), `${JSON.stringify(receipt, null, 2)}\n`);
+    commitChanged(checkout, receiptPath);
+    await writeFile(destination, 'stale');
+    await assert.rejects(writeProductionImpact({ sceneId: 'COM-00', from: ledger.source_ref,
+      to: 'HEAD', runId, root: checkout }), /decision receipt conflicts/);
+    await assert.rejects(readFile(destination), { code: 'ENOENT' });
+  });
 });

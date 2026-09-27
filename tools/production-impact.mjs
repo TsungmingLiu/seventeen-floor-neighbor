@@ -1,10 +1,12 @@
 import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
-import { mkdir, readFile, readdir, rename, rm, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, readFile, readdir, rename, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { tmpdir } from 'node:os';
 import { projectRoot } from './content-lib.mjs';
 import { projectEntry, sha256, stableStringify } from './render-cg-packets.mjs';
+import { verifyProductionRun } from './verify-production-run.mjs';
 
 const narrativeRoot = 'content/production/narrative';
 const manifestRoot = 'content/production/cg-manifests';
@@ -404,11 +406,67 @@ export async function buildProductionImpact({ sceneId, from = 'HEAD', to = 'WORK
   return compareSceneSnapshots(previous, current, { noVisualImpactEvidence: evidence });
 }
 
+async function reconcileRun(impact, runId, { root, from, to }) {
+  requireCondition(/^[a-zA-Z0-9][a-zA-Z0-9_-]*$/.test(runId), `invalid run ID: ${runId}`);
+  const target = git(root, 'rev-parse', '--verify', `${to}^{commit}`);
+  requireCondition(target === git(root, 'rev-parse', 'HEAD'), '--to must be committed current HEAD');
+  const ledgerPath = `content/production/runs/${runId}/ledger.json`;
+  const ledger = JSON.parse(execFileSync('git', ['-C', root, 'show', `${target}:${ledgerPath}`], { encoding: 'utf8' }));
+  requireCondition(from === ledger.source_ref, '--from must equal ledger.source_ref');
+  requireCondition(ledger.tasks?.length === 1 && ledger.tasks[0].task_type === 'narrative_review' &&
+    ledger.tasks[0].scene_id === impact.scene_id && impact.scene_id === 'COM-00',
+  'only one COM-00 narrative_review task is supported');
+  const task = ledger.tasks[0];
+  const tempBase = await mkdtemp(path.join(tmpdir(), 'gate12-source-'));
+  const sourceRoot = path.join(tempBase, 'source');
+  let added = false;
+  try {
+    execFileSync('git', ['-C', root, 'worktree', 'add', '--detach', sourceRoot, ledger.source_ref], { stdio: 'pipe' });
+    added = true;
+    const run = await verifyProductionRun(runId, { root, sourceRoot });
+    requireCondition(run.task_status === 'RECORDED_PASS' && run.task_id === task.task_id,
+      'run does not have a verified recorded Narrative QA PASS');
+    const changedVersions = [];
+    for (const kind of ['input_versions', 'output_versions']) {
+      for (const item of task[kind]) {
+        safePath(item.location);
+        const currentVersion = git(root, 'rev-parse', `${target}:${item.location}`);
+        if (currentVersion !== item.version) changedVersions.push({
+          kind, id: item.id, location: item.location,
+          old_version: item.version, new_version: currentVersion
+        });
+      }
+    }
+    impact.run_reconciliation = {
+      run_id: runId, task_id: task.task_id, task_type: task.task_type,
+      source_ref: ledger.source_ref, decision_receipt: task.decision_receipt,
+      recorded_status: 'RECORDED_PASS',
+      target_status: changedVersions.length ? 'STALE_PROPOSED' : 'CURRENT_PASS',
+      changed_versions: changedVersions
+    };
+    impact.qa_status = 'VERIFIED_RECORDED_NARRATIVE_QA';
+  } finally {
+    try {
+      if (added) execFileSync('git', ['-C', root, 'worktree', 'remove', '--force', sourceRoot], { stdio: 'pipe' });
+    } finally {
+      await rm(tempBase, { recursive: true, force: true });
+    }
+  }
+  return impact;
+}
+
 export async function writeProductionImpact(options) {
   const { sceneId, root = projectRoot } = options;
   const destination = path.join(root, `generated/session-cache/impact/${sceneId}/impact.json`);
   await rm(destination, { force: true });
+  requireCondition(!options.runId || !options.qaDecision, '--run-id cannot use an unrelated --qa-decision');
+  if (options.runId) {
+    requireCondition(/^[a-zA-Z0-9][a-zA-Z0-9_-]*$/.test(options.runId), `invalid run ID: ${options.runId}`);
+    requireCondition(options.from && options.to && options.to !== 'WORKTREE',
+      '--run-id requires a recorded --from commit and committed --to HEAD');
+  }
   const impact = await buildProductionImpact(options);
+  if (options.runId) await reconcileRun(impact, options.runId, { root, from: options.from || 'HEAD', to: options.to || 'WORKTREE' });
   const data = `${JSON.stringify(impact, null, 2)}\n`;
   await mkdir(path.dirname(destination), { recursive: true });
   const temporary = `${destination}.${process.pid}.tmp`;
@@ -421,8 +479,8 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   try {
     const args = process.argv.slice(2);
     requireCondition(args.length % 2 === 0 && args.every((_, index) => index % 2 === 1 ||
-      ['--scene', '--from', '--to', '--qa-decision'].includes(args[index])),
-    'usage: npm run production:impact -- --scene COM-01X --from HEAD --to WORKTREE [--qa-decision path]');
+      ['--scene', '--from', '--to', '--qa-decision', '--run-id'].includes(args[index])),
+    'usage: npm run production:impact -- --scene <id> --from <commit> --to <commit|WORKTREE> [--qa-decision path] [--run-id id (COM-00 only, from ledger.source_ref to HEAD)]');
     const options = Object.fromEntries(Array.from({ length: args.length / 2 }, (_, index) =>
       [args[2 * index].slice(2).replaceAll('-', ''), args[2 * index + 1]]));
     requireCondition(options.scene && args.filter((arg) => arg === '--scene').length === 1 &&
@@ -430,7 +488,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
       options.from !== 'WORKTREE' && options.from !== '' && options.to !== '', 'invalid arguments');
     const result = await writeProductionImpact({ sceneId: options.scene,
       ...(options.from && { from: options.from }), ...(options.to && { to: options.to }),
-      ...(options.qadecision && { qaDecision: options.qadecision }) });
+      ...(options.qadecision && { qaDecision: options.qadecision }), ...(options.runid && { runId: options.runid }) });
     console.log(`Impact: ${result.path} SHA-256 ${result.sha256}; ${result.impact.changes.length} changed artifact(s); QA ${result.impact.qa_status}`);
   } catch (error) {
     console.error(`BLOCKED: ${error.message}`);

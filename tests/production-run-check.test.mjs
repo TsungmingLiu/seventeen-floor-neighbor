@@ -44,3 +44,30 @@ test('a new checkout rejects altered receipt and source bytes, clearing any prio
     await rm(temp, { recursive: true, force: true });
   }
 });
+
+test('historical verification records the committed PASS from its exact detached source ref', async () => {
+  const temp = await mkdtemp(path.join(os.tmpdir(), 'production-run-history-'));
+  const target = path.join(temp, 'target');
+  const source = path.join(temp, 'source');
+  const ledger = JSON.parse(await readFile(path.join(projectRoot,
+    `content/production/runs/${runId}/ledger.json`), 'utf8'));
+  execFileSync('git', ['-C', projectRoot, 'worktree', 'add', '--detach', target, 'HEAD'], { stdio: 'pipe' });
+  execFileSync('git', ['-C', projectRoot, 'worktree', 'add', '--detach', source, ledger.source_ref], { stdio: 'pipe' });
+  try {
+    const historical = await verifyProductionRun(runId, { root: target, sourceRoot: source });
+    assert.equal(historical.task_status, 'RECORDED_PASS');
+    assert.equal(historical.packet_sha256, '7d04cc37570c82c0b64446775e8e4abe20b8ad71b2aec95d6f9f543890388730');
+    await assert.rejects(verifyProductionRun(runId, { root: target, sourceRoot: target }), /separate from target root/);
+    await assert.rejects(verifyProductionRun(runId, { root: target, sourceRoot: projectRoot }), /HEAD differs from ledger source_ref/);
+
+    const scene = path.join(source, 'docs/narrative/scenes/vertical-slice/COM-00.md');
+    const originalScene = await readFile(scene);
+    await writeFile(scene, `${originalScene}\nchanged after QA\n`);
+    await assert.rejects(verifyProductionRun(runId, { root: target, sourceRoot: source }), /source differs from committed ref/);
+    await writeFile(scene, originalScene);
+  } finally {
+    execFileSync('git', ['-C', projectRoot, 'worktree', 'remove', '--force', source], { stdio: 'pipe' });
+    execFileSync('git', ['-C', projectRoot, 'worktree', 'remove', '--force', target], { stdio: 'pipe' });
+    await rm(temp, { recursive: true, force: true });
+  }
+});
