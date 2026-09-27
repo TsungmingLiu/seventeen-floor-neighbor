@@ -51,20 +51,33 @@ test('production review preserves unknown QA, human, and stale status as not rea
   assert.equal(production.staleStatus, 'UNKNOWN_NO_RUN_LEDGER');
 });
 
-test('COM-00 shows only the independently verified current Narrative QA receipt', async () => {
+test('COM-00 shows independently verified Narrative QA and one candidate Visual QA failure', async () => {
   const model = await buildProductionReviewModel('COM-00');
   assert.equal(model.production.narrativeQa, 'PASS_CURRENT');
-  assert.equal(model.production.visualQa, 'UNRECORDED');
+  assert.equal(model.production.visualQa, 'CURRENT_FAIL');
   assert.equal(model.production.humanGate, 'UNRECORDED');
   assert.equal(model.production.readiness, 'NOT_READY');
-  assert.equal(model.production.staleStatus, 'NARRATIVE_QA_CURRENT_OTHER_GATES_UNKNOWN');
+  assert.equal(model.production.staleStatus, 'CANDIDATE_VISUAL_QA_CURRENT_FAIL_OTHER_GATES_UNKNOWN');
   assert.equal(model.provenance.narrativeQa.runId, 'issue16-com00-nqa-20260926');
   assert.equal(model.provenance.narrativeQa.taskId, 'NQA-COM00-001');
   assert.equal(model.provenance.narrativeQa.sourceRef, 'ea788a958c83851cfa0cca235825552fa66f2cb2');
   assert.equal(model.provenance.narrativeQa.qaCodes.length, 5);
+  assert.equal(model.provenance.candidateVisualQa.length, 1);
+  const candidate = model.provenance.candidateVisualQa[0];
+  assert.equal(candidate.status, 'CURRENT_FAIL');
+  assert.equal(candidate.entryId, 'COM00-S04-BASE-NEUTRAL');
+  assert.equal(candidate.runId, 'issue16-com00-vqa-recovery-20260927');
+  assert.equal(candidate.taskId, 'VQA-COM00-S04-BASE-002');
+  assert.equal(candidate.candidateSha256, '7f18dccd8483498adc196c144cc6edafeff6bdd0f6db573bee288b32152862ea');
+  assert.ok(candidate.qaCodes.includes('VQA-DIALOGUE-SAFE-ZONE'));
+  assert.ok(model.provenance.sources.some((source) => source.path === candidate.receiptPath));
   const html = renderProductionReview(model);
   assert.match(html, /Narrative QA evidence/);
   assert.match(html, /NQA-PROVENANCE-01/);
+  assert.match(html, /Candidate Visual QA evidence/);
+  assert.match(html, /CURRENT_FAIL/);
+  assert.match(html, /VQA-DIALOGUE-SAFE-ZONE/);
+  assert.match(html, /Human decision<\/dt><dd>UNRECORDED/);
   assert.doesNotMatch(html, /stale status is UNKNOWN_NO_RUN_LEDGER/);
 });
 
@@ -87,6 +100,32 @@ test('tampered committed QA receipt blocks and removes prior page in isolated wo
     const receipt = path.join(worktree, 'content/production/runs/issue16-com00-nqa-20260926/NQA-COM00-001.decision.json');
     const original = await readFile(receipt, 'utf8');
     await writeFile(receipt, original.replace('NQA-FUNCTION-01', 'NQA-FUNCTION-99'));
+    assert.throws(() => run('tools/production-review.mjs', '--scene', 'COM-00'),
+      (error) => error.stderr?.toString().includes('decision source differs from committed HEAD'));
+    await assert.rejects(readFile(page), { code: 'ENOENT' });
+  } finally {
+    if (added) git('worktree', 'remove', '--force', worktree);
+    await rm(temporary, { recursive: true, force: true });
+  }
+});
+
+test('tampered candidate decision blocks review and removes an earlier failure page', async () => {
+  const repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+  const temporary = await mkdtemp(path.join(os.tmpdir(), 'production-review-candidate-'));
+  const worktree = path.join(temporary, 'repo');
+  const git = (...args) => execFileSync('git', ['-C', repo, ...args], { encoding: 'utf8' }).trim();
+  let added = false;
+  try {
+    git('worktree', 'add', '--detach', worktree, 'HEAD');
+    added = true;
+    const run = (...args) => execFileSync('node', args, { cwd: worktree, encoding: 'utf8' });
+    run('tools/production-review.mjs', '--scene', 'COM-00');
+    const page = path.join(worktree, 'generated/reviews/COM-00/index.html');
+    assert.match(await readFile(page, 'utf8'), /Candidate Visual QA evidence/);
+    const receipt = path.join(worktree,
+      'content/production/runs/issue16-com00-vqa-recovery-20260927/VQA-COM00-S04-BASE-002.decision.json');
+    const original = await readFile(receipt, 'utf8');
+    await writeFile(receipt, original.replace('VQA-DIALOGUE-SAFE-ZONE', 'VQA-UNKNOWN-FORGED-CODE'));
     assert.throws(() => run('tools/production-review.mjs', '--scene', 'COM-00'),
       (error) => error.stderr?.toString().includes('decision source differs from committed HEAD'));
     await assert.rejects(readFile(page), { code: 'ENOENT' });

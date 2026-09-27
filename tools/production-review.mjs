@@ -90,6 +90,41 @@ async function narrativeQaEvidence(sceneId, sources) {
   return result;
 }
 
+async function candidateVisualQaEvidence(sceneId, visuals, sources) {
+  const root = 'content/production/runs';
+  let directories;
+  try { directories = await readdir(path.join(projectRoot, root), { withFileTypes: true }); }
+  catch (error) { if (error.code === 'ENOENT') return []; throw error; }
+  const evidence = [];
+  const seenEntries = new Set();
+  for (const directory of directories.filter((entry) => entry.isDirectory())) {
+    const runId = directory.name;
+    const ledger = await committedJson(`${root}/${runId}/ledger.json`, sources);
+    requireCondition(Array.isArray(ledger.tasks), `cannot classify production run ${runId}: missing tasks`);
+    const matching = ledger.tasks.filter((task) => task?.scene_id === sceneId &&
+      task?.task_type === 'visual_review' && task?.review_scope === 'candidate');
+    for (const task of matching) {
+      requireCondition(!seenEntries.has(task.entry_id), `ambiguous candidate Visual QA for ${task.entry_id}`);
+      seenEntries.add(task.entry_id);
+      const verified = await verifyProductionRun(runId);
+      requireCondition(verified.task_status === 'CURRENT_FAIL',
+        `${runId}: candidate Visual QA does not have a current verified failure`);
+      const visual = visuals.find((item) => item.entryId === task.entry_id);
+      requireCondition(visual && task.output_versions?.length === 1 &&
+        task.output_versions[0].location === visual.repoPath &&
+        task.output_versions[0].version === `sha256:${visual.sha256}`,
+      `${runId}: candidate Visual QA does not identify the scene's current WebP`);
+      const receipt = await committedJson(task.decision_receipt, sources);
+      evidence.push({ status: 'CURRENT_FAIL', entryId: task.entry_id, runId,
+        taskId: task.task_id, sourceRef: verified.source_ref, packetSha256: verified.packet_sha256,
+        receiptPath: task.decision_receipt, receiptSha256: sources.get(task.decision_receipt).sha256,
+        inputDigestSha256: receipt.input_digest_sha256, candidateSha256: visual.sha256,
+        qaCodes: verified.qa_codes, knownIssues: receipt.known_issues });
+    }
+  }
+  return evidence.sort((a, b) => a.entryId.localeCompare(b.entryId));
+}
+
 function sceneNodeIds(text) {
   const script = text.match(/^## Locked playable script\s*\n([\s\S]*?)(?=^## |$(?![\s\S]))/m)?.[1] || '';
   return [...script.matchAll(/^### `([a-z0-9_]+)`\s*$/gm)].map((match) => match[1]);
@@ -235,6 +270,7 @@ export async function buildProductionReviewModel(sceneId) {
   const manifestStatus = !entries.length ? 'NO_CG_ENTRIES' :
     entries.every(({ entry }) => entry.status === 'accepted') ? 'ENTRIES_ACCEPTED' : 'IN_PROGRESS';
   const narrativeQa = await narrativeQaEvidence(sceneId, sources);
+  const candidateVisualQa = await candidateVisualQaEvidence(sceneId, visuals, sources);
   return {
     scene: {
       id: sceneId, title, purpose: contract.scene_function,
@@ -245,8 +281,9 @@ export async function buildProductionReviewModel(sceneId) {
     visuals,
     production: {
       readiness: 'NOT_READY', narrativeQa: narrativeQa?.status || 'UNRECORDED', manifestStatus,
-      visualQa: 'UNRECORDED', integrationStatus,
-      staleStatus: narrativeQa?.status === 'PASS_CURRENT' ? 'NARRATIVE_QA_CURRENT_OTHER_GATES_UNKNOWN' :
+      visualQa: candidateVisualQa.length ? 'CURRENT_FAIL' : 'UNRECORDED', integrationStatus,
+      staleStatus: candidateVisualQa.length ? 'CANDIDATE_VISUAL_QA_CURRENT_FAIL_OTHER_GATES_UNKNOWN' :
+        narrativeQa?.status === 'PASS_CURRENT' ? 'NARRATIVE_QA_CURRENT_OTHER_GATES_UNKNOWN' :
         narrativeQa ? 'NARRATIVE_QA_REVIEW_REQUIRED' : 'UNKNOWN_NO_RUN_LEDGER',
       validator: 'PASS_CURRENT_TREE',
       humanGate: 'UNRECORDED'
@@ -261,7 +298,8 @@ export async function buildProductionReviewModel(sceneId) {
       nextScenes: route ? nextScenes(route, nodeIds.at(-1), sceneId, nodeToScene) : [],
       plannedTargets: plannedTargets(locked)
     },
-    provenance: { commit: git('rev-parse', 'HEAD'), narrativeQa, sources: [...sources.values()].sort((a, b) => a.path.localeCompare(b.path)) }
+    provenance: { commit: git('rev-parse', 'HEAD'), narrativeQa, candidateVisualQa,
+      sources: [...sources.values()].sort((a, b) => a.path.localeCompare(b.path)) }
   };
 }
 

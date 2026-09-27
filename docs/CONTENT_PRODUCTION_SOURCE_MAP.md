@@ -41,7 +41,7 @@
 
 Machine validation shapes：`.ai/schemas/narrative-continuity.schema.json`、`.ai/schemas/cg-manifest.schema.json`。Cross-file validation：`tools/validate-production-contracts.mjs`。
 
-`npm run production:review -- --scene <id>` 由上述既有 sources 重建 `generated/reviews/<id>/index.html`，僅作 Human 唯讀檢視。只有匹配的 run ledger、decision receipt 和來源版本通過 `production:run:check` 才顯示該項 Narrative QA `PASS_CURRENT`；沒有獨立 Visual QA/Human 決定時，已驗收圖片或 validator PASS 仍不代表 production-ready。該頁不是新的 source of truth。
+`npm run production:review -- --scene <id>` 由上述既有 sources 重建 `generated/reviews/<id>/index.html`，僅作 Human 唯讀檢視。只有匹配的 run ledger、decision receipt 和來源版本通過 `production:run:check`，才顯示該項 Narrative QA `PASS_CURRENT` 或已記錄候選圖 Visual QA `CURRENT_FAIL`；每張候選圖的結果互不推定。沒有獨立 Visual QA/Human 決定時，已驗收圖片或 validator PASS 仍不代表 production-ready。該頁不是新的 source of truth。
 
 ## 2. Non-production roots
 
