@@ -61,6 +61,10 @@ test('source-side accepted-base mapping faults block in an isolated committed wo
   const root = await mkdtemp(path.join(os.tmpdir(), 'manifest-usability-worktree-'));
   const worktree = path.join(root, 'checkout');
   const git = (...args) => execFileSync('git', ['-C', process.cwd(), ...args], { encoding: 'utf8', stdio: 'pipe' }).trim();
+  const commit = (message) => execFileSync('git', [
+    '-C', worktree, '-c', 'user.name=Packet Test', '-c', 'user.email=packet-test@example.invalid',
+    'commit', '-m', message,
+  ], { stdio: 'pipe' });
   try {
     git('worktree', 'add', '--detach', worktree, git('rev-parse', 'HEAD'));
     const catalogPath = path.join(worktree, 'content/assets/source-catalog.json');
@@ -69,17 +73,17 @@ test('source-side accepted-base mapping faults block in an isolated committed wo
     catalog.files['source.opening.ch1.cg.com00_s04_base_neutral'].logicalAssetId = 'cg.invalid.accepted_base';
     await writeFile(catalogPath, `${JSON.stringify(catalog, null, 2)}\n`);
     execFileSync('git', ['-C', worktree, 'add', 'content/assets/source-catalog.json'], { stdio: 'pipe' });
-    execFileSync('git', ['-C', worktree, 'commit', '-m', 'test invalid accepted-base asset binding'], { stdio: 'pipe' });
+    commit('test invalid accepted-base asset binding');
     await assert.rejects(buildManifestUsabilityPacket({ ...args, root: worktree }), /accepted (?:base|output) asset\/source binding is invalid/);
     await writeFile(catalogPath, originalCatalog);
     execFileSync('git', ['-C', worktree, 'add', 'content/assets/source-catalog.json'], { stdio: 'pipe' });
-    execFileSync('git', ['-C', worktree, 'commit', '-m', 'restore catalog'], { stdio: 'pipe' });
+    commit('restore catalog');
     const manifestPath = path.join(worktree, 'content/production/cg-manifests/opening-ch1.json');
     const manifest = JSON.parse(await readFile(manifestPath, 'utf8'));
     manifest.entries.find((entry) => entry.entry_id === entryIds[0]).characters[0].character_id = 'jiang_yucheng';
     await writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
     execFileSync('git', ['-C', worktree, 'add', 'content/production/cg-manifests/opening-ch1.json'], { stdio: 'pipe' });
-    execFileSync('git', ['-C', worktree, 'commit', '-m', 'inject unrelated character into COM-00'], { stdio: 'pipe' });
+    commit('inject unrelated character into COM-00');
     await assert.rejects(buildManifestUsabilityPacket({ ...args, root: worktree }), /unrelated character/);
   } finally {
     try { execFileSync('git', ['-C', process.cwd(), 'worktree', 'remove', '--force', worktree], { stdio: 'pipe' }); } catch {}
