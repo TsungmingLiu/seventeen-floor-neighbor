@@ -42,13 +42,16 @@ test('COM-01X review binds its contract, accepted WebP bytes, route choices, Mem
   assert.deepEqual(model.runtime.nextScenes, [{ sceneId: 'COM-01B', nodeId: 'common_bookstore_bridge_enter' }]);
 });
 
-test('production review preserves unknown QA, human, and stale status as not ready', async () => {
-  const { production } = await modelPromise;
+test('COM-01X shows independently verified Narrative QA while Visual QA and Human remain unknown', async () => {
+  const model = await modelPromise;
+  const { production } = model;
   assert.equal(production.readiness, 'NOT_READY');
-  assert.equal(production.narrativeQa, 'UNRECORDED');
+  assert.equal(production.narrativeQa, 'PASS_CURRENT');
   assert.equal(production.visualQa, 'UNRECORDED');
   assert.equal(production.humanGate, 'UNRECORDED');
-  assert.equal(production.staleStatus, 'UNKNOWN_NO_RUN_LEDGER');
+  assert.equal(production.staleStatus, 'NARRATIVE_QA_CURRENT_OTHER_GATES_UNKNOWN');
+  assert.equal(model.provenance.narrativeQa.runId, 'issue16-com01x-nqa-20260927');
+  assert.equal(model.provenance.narrativeQa.taskId, 'NQA-COM01X-001');
 });
 
 test('COM-00 shows independently verified Narrative QA and one candidate Visual QA failure', async () => {
