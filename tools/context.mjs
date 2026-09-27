@@ -28,24 +28,30 @@ function assetIds(node) {
 }
 
 if (argument('task') || argument('verify-packet')) {
-  const { buildNarrativeReviewPacket, verifyNarrativeReviewPacket } = await import('./context-packet.mjs');
+  const { buildNarrativeReviewPacket, verifyNarrativeReviewPacket,
+    buildCgPlanPacket, verifyCgPlanPacket } = await import('./context-packet.mjs');
   try {
     if (argument('verify-packet')) {
       const packet = JSON.parse(await readFile(path.resolve(argument('verify-packet')), 'utf8'));
-      await verifyNarrativeReviewPacket(packet);
+      if (packet.task_type === 'narrative_review') await verifyNarrativeReviewPacket(packet);
+      else if (packet.task_type === 'cg_plan') await verifyCgPlanPacket(packet);
+      else throw new Error(`Unsupported Task Packet type: ${packet.task_type}`);
       await loadAndValidate();
       const { validateProductionContracts } = await import('./validate-production-contracts.mjs');
       validateProductionContracts();
       console.log(`PASS: ${packet.task_id} sources, bindings and machine QA match committed canon and current content`);
     } else {
-      if (argument('task') !== 'narrative_review') throw new Error('Only narrative_review Task Packet generation is supported');
+      if (!['narrative_review', 'cg_plan'].includes(argument('task'))) throw new Error('Unsupported Task Packet type');
       await loadAndValidate();
       const { validateProductionContracts } = await import('./validate-production-contracts.mjs');
       validateProductionContracts();
-      const packet = await buildNarrativeReviewPacket({
-        sceneId: argument('scene'), runId: argument('run-id'), taskId: argument('task-id'),
-        ref: argument('ref')
-      });
+      const options = { sceneId: argument('scene'), runId: argument('run-id'),
+        taskId: argument('task-id'), ref: argument('ref') };
+      const packet = argument('task') === 'narrative_review'
+        ? await buildNarrativeReviewPacket(options)
+        : await buildCgPlanPacket({ ...options,
+          upstreamRunId: argument('upstream-run-id'), upstreamTaskId: argument('upstream-task-id'),
+          referenceIds: argument('reference-ids')?.split(',') });
       const relative = `generated/session-cache/${packet.run_id}/${packet.task_id}.packet.json`;
       const destination = path.join(projectRoot, relative);
       const body = `${JSON.stringify(packet, null, 2)}\n`;
