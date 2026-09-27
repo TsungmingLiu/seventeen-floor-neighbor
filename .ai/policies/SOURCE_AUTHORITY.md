@@ -37,4 +37,4 @@ Documents use exactly these lifecycle labels：
 
 ## 4. Runtime fixtures
 
-Sprite/background assets still referenced by the manifest/source map, composite rendering, registered legacy route packages, stable IDs, video support, and save/migration behavior remain available until intentionally migrated. Removing obsolete guidance does not itself authorize deleting a used capability or asset; verified unreferenced local candidates may be removed as an explicit cleanup task.
+Assets referenced by the manifest/source map, composite rendering, stable IDs, generic video support, and save/migration behavior remain available until intentionally migrated. The old `xu-tang` route and its exclusive assets were retired by an explicit Owner decision; its archived pointers are historical evidence, not production inputs. Removing obsolete guidance does not itself authorize deleting any other used capability or asset.

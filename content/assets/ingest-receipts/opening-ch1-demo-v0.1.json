@@ -299,5 +299,7 @@
         "demo-approved provisional wardrobe drift"
       ]
     }
-  ]
+  ],
+  "lifecycle": "historical-only",
+  "supersededRuntimeReport": "docs/migration/GATE2_REPO_RUNTIME_ASSETS.md"
 }

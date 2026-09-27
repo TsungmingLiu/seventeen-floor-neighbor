@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
 import test from 'node:test';
 
 import {
@@ -8,8 +9,11 @@ import {
   buildPackets,
   projectEntry,
   stableStringify,
-  validateManifest
+  validateManifest,
+  validateRepoSourceCatalog
 } from '../tools/render-cg-packets.mjs';
+
+const sourceCatalog = JSON.parse(fs.readFileSync(new URL('../content/assets/source-catalog.json', import.meta.url), 'utf8'));
 
 function baseEntry() {
   return {
@@ -36,8 +40,8 @@ function baseEntry() {
         wardrobe_key: 'XT-WARDROBE-A-WEEKDAY-NEIGHBOR',
         held_objects: [],
         reference_bindings: [
-          { role: 'primary_face_identity', source_id: 'ref.xt.face.01', expected_filename: 'xt-ref-01-face.png' },
-          { role: 'wardrobe', source_id: 'ref.xt.wardrobe.a', expected_filename: 'xt-ref-05-wardrobe-a.png' }
+          { role: 'primary_face_identity', source_id: 'ref.xu_tang.face.01', expected_filename: 'xt-ref-01-face.png' },
+          { role: 'wardrobe', source_id: 'ref.xu_tang.wardrobe.a', expected_filename: 'xt-ref-05-wardrobe-a.png' }
         ]
       }
     ],
@@ -47,7 +51,7 @@ function baseEntry() {
       weather: 'rain',
       lighting: 'warm corridor practicals with cool rainy ambient spill',
       persistent_props: ['moving_box'],
-      reference_binding: { role: 'environment', source_id: 'bg.apt.17f.rain', expected_filename: 'bg-apt-17f-rain-16x9-v1.jpg' }
+      reference_binding: { role: 'environment', source_id: 'source.opening.ch1.bg.apt_17f_rain', expected_filename: 'bg-apt-17f-rain-16x9-v1.webp' }
     },
     camera: {
       shot_size: 'medium_wide',
@@ -78,9 +82,9 @@ function baseEntry() {
       no_unrelated_images_allowed: true,
       accepted_base_asset_id: null,
       attachments: [
-        { role: 'primary_face_identity', source_id: 'ref.xt.face.01', expected_filename: 'xt-ref-01-face.png', pixels_must_be_visible: true },
-        { role: 'wardrobe', source_id: 'ref.xt.wardrobe.a', expected_filename: 'xt-ref-05-wardrobe-a.png', pixels_must_be_visible: true },
-        { role: 'environment', source_id: 'bg.apt.17f.rain', expected_filename: 'bg-apt-17f-rain-16x9-v1.jpg', pixels_must_be_visible: true }
+        { role: 'primary_face_identity', source_id: 'ref.xu_tang.face.01', expected_filename: 'xt-ref-01-face.png', pixels_must_be_visible: true },
+        { role: 'wardrobe', source_id: 'ref.xu_tang.wardrobe.a', expected_filename: 'xt-ref-05-wardrobe-a.png', pixels_must_be_visible: true },
+        { role: 'environment', source_id: 'source.opening.ch1.bg.apt_17f_rain', expected_filename: 'bg-apt-17f-rain-16x9-v1.webp', pixels_must_be_visible: true }
       ]
     },
     output: {
@@ -157,12 +161,50 @@ test('Chat manual, Work batch and API adapters share one prompt', () => {
 
   assert.equal(chatPrompt, expected);
   assert.equal(work.shared_prompt, expected);
-  assert.equal(work.reference_acquisition.method, 'connected_source');
+  assert.equal(work.reference_acquisition.method, 'repo_file');
   assert.deepEqual(work.reference_acquisition.required_bindings, packets[0].reference_transport.attachments);
+  assert.deepEqual(work.reference_acquisition.resolved_files.map((file) => file.source_id), ['ref.xu_tang.face.01', 'ref.xu_tang.wardrobe.a', 'source.opening.ch1.bg.apt_17f_rain']);
+  assert.equal(work.reference_acquisition.resolved_files.length, packets[0].reference_transport.attachments.length);
+  assert.ok(work.reference_acquisition.resolved_files.every((file) => file.sourcePath.startsWith('assets-src/')));
   assert.match(chat, /Attachment checklist/);
   assert.equal(api.jobs[0].input.prompt, expected);
   assert.equal(work.shared_prompt_sha256, packets[0].shared_prompt_sha256);
   assert.equal(api.jobs[0].provenance.shared_prompt_sha256, packets[0].shared_prompt_sha256);
+});
+
+test('Work batch resolves accepted bases by one canonical asset ID', () => {
+  const [packet] = buildPackets(validManifest());
+  const source = sourceCatalog.files['source.opening.ch1.cg.com00_s04_base_neutral'];
+  packet.reference_transport.attachments = [{ role: 'accepted_base', source_id: source.canonicalAssetId, expected_filename: source.name, pixels_must_be_visible: true }];
+  const work = JSON.parse(adaptWorkBatch([packet], { catalog: sourceCatalog }).trim());
+  assert.equal(work.reference_acquisition.resolved_files.length, 1);
+  assert.equal(work.reference_acquisition.resolved_files[0].source_id, 'source.opening.ch1.cg.com00_s04_base_neutral');
+  assert.equal(work.reference_acquisition.resolved_files[0].canonicalAssetId, source.canonicalAssetId);
+});
+
+test('repository source catalog rejects hash tampering, path traversal and remote bindings', () => {
+  const badHash = structuredClone(sourceCatalog);
+  badHash.files['ref.xu_tang.face.01'].sha256 = '0'.repeat(64);
+  assert.throws(() => validateRepoSourceCatalog(badHash), /SHA-256 mismatch/);
+
+  const traversal = structuredClone(sourceCatalog);
+  traversal.files['ref.xu_tang.face.01'].sourcePath = 'assets-src/../../outside.png';
+  traversal.files['ref.xu_tang.face.01'].name = 'outside.png';
+  assert.throws(() => validateRepoSourceCatalog(traversal), /escapes assets-src/);
+
+  const remote = structuredClone(sourceCatalog);
+  remote.files['ref.xu_tang.face.01'].fileId = 'fake-drive-id';
+  assert.throws(() => validateRepoSourceCatalog(remote), /fileId is forbidden remote metadata/);
+});
+
+test('Work batch blocks Drive IDs and mismatched filenames', () => {
+  const [packet] = buildPackets(validManifest());
+  packet.reference_transport.attachments[0].source_id = 'gdrive:abc123';
+  assert.throws(() => adaptWorkBatch([packet], { catalog: sourceCatalog }), /Drive reference source is forbidden/);
+
+  const [otherPacket] = buildPackets(validManifest());
+  otherPacket.reference_transport.attachments[0].expected_filename = 'wrong.png';
+  assert.throws(() => adaptWorkBatch([otherPacket], { catalog: sourceCatalog }), /reference filename mismatch/);
 });
 
 test('rejects missing required reference binding', () => {

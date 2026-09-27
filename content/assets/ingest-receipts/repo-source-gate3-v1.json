@@ -1,0 +1,231 @@
+{
+  "receiptVersion": 1,
+  "gate": "repo-production-reference-gate3",
+  "decision": "User approved existing repo CG/background WebP as accepted representation. Character face/wardrobe references retain exact PNG bytes. Human supplied separate JPEG body replacement; not used in current Opening manifests.",
+  "sourceCatalog": "content/assets/source-catalog.json",
+  "acceptedAssets": [
+    {
+      "canonicalAssetId": "BG-APT-17F-RAIN-16X9",
+      "logicalAssetId": "bg.opening.ch1.apt_17f_rain",
+      "sourceId": "source.opening.ch1.bg.apt_17f_rain",
+      "repoPath": "assets-src/opening-ch1-demo/bg-apt-17f-rain-16x9-v1.webp",
+      "acceptedFilename": "bg-apt-17f-rain-16x9-v1.webp",
+      "sha256": "386c9003df0a6658a343907b646e912aa1e6a68254a01c2dfb89bdc838b33077",
+      "bytes": 125184,
+      "knownIssues": []
+    },
+    {
+      "canonicalAssetId": "COM00-S02-DOOR-ASSIST",
+      "logicalAssetId": "cg.opening.com00.s02_door_assist",
+      "sourceId": "source.opening.ch1.cg.com00_s02_door_assist",
+      "repoPath": "assets-src/opening-ch1-demo/cg-com00-s02-door-assist-v1.webp",
+      "acceptedFilename": "cg-com00-s02-door-assist-v1.webp",
+      "sha256": "3a2a340f275c8870840c2103ed3f8f235e5389bd635c87214aa3a48ec1eec59e",
+      "bytes": 136596,
+      "knownIssues": []
+    },
+    {
+      "canonicalAssetId": "COM00-S04-BASE-NEUTRAL",
+      "logicalAssetId": "cg.opening.com00.s04_base_neutral",
+      "sourceId": "source.opening.ch1.cg.com00_s04_base_neutral",
+      "repoPath": "assets-src/opening-ch1-demo/cg-com00-s04-base-neutral-v1.webp",
+      "acceptedFilename": "cg-com00-s04-base-neutral-v1.webp",
+      "sha256": "7f18dccd8483498adc196c144cc6edafeff6bdd0f6db573bee288b32152862ea",
+      "bytes": 131914,
+      "knownIssues": []
+    },
+    {
+      "canonicalAssetId": "COM00-S04-R01-POLITE-SMILE",
+      "logicalAssetId": "cg.opening.com00.s04_r01_polite_smile",
+      "sourceId": "source.opening.ch1.cg.com00_s04_r01_polite_smile",
+      "repoPath": "assets-src/opening-ch1-demo/cg-com00-s04-r01-polite-smile-v1.webp",
+      "acceptedFilename": "cg-com00-s04-r01-polite-smile-v1.webp",
+      "sha256": "51ab914e1d2cc294b7abcc2040520332c579abecaec80ebd9314a14d0e3452a0",
+      "bytes": 121104,
+      "knownIssues": []
+    },
+    {
+      "canonicalAssetId": "BG-APT-ELEVATOR-16X9",
+      "logicalAssetId": "bg.opening.ch1.apt_elevator",
+      "sourceId": "source.opening.ch1.bg.apt_elevator",
+      "repoPath": "assets-src/opening-ch1-demo/bg-apt-elevator-16x9-v1.webp",
+      "acceptedFilename": "bg-apt-elevator-16x9-v1.webp",
+      "sha256": "2e1882334057fbd08b4d2c301b7924efc34cd1875e3d0dc1176c6315525e195e",
+      "bytes": 110612,
+      "knownIssues": []
+    },
+    {
+      "canonicalAssetId": "COM01X-BASE-NORMAL",
+      "logicalAssetId": "cg.opening.com01x.base_normal",
+      "sourceId": "source.opening.ch1.cg.com01x_base_normal",
+      "repoPath": "assets-src/opening-ch1-demo/cg-com01x-base-normal-v1.webp",
+      "acceptedFilename": "cg-com01x-base-normal-v1.webp",
+      "sha256": "c93cb5f8395839cef8d1d80f9402fe910f8cd0240dc1a10085f64421d41c95cf",
+      "bytes": 121780,
+      "knownIssues": []
+    },
+    {
+      "canonicalAssetId": "COM01X-R01-RESTART",
+      "logicalAssetId": "cg.opening.com01x.r01_restart",
+      "sourceId": "source.opening.ch1.cg.com01x_r01_restart",
+      "repoPath": "assets-src/opening-ch1-demo/cg-com01x-r01-restart-v1.webp",
+      "acceptedFilename": "cg-com01x-r01-restart-v1.webp",
+      "sha256": "4da7ff3dcdc2a563890653125fd20e775a4c0af10dc260b8536c858a2542f0c9",
+      "bytes": 71500,
+      "knownIssues": []
+    },
+    {
+      "canonicalAssetId": "COM01X-R02-DRY-SMILE",
+      "logicalAssetId": "cg.opening.com01x.r02_dry_smile",
+      "sourceId": "source.opening.ch1.cg.com01x_r02_dry_smile",
+      "repoPath": "assets-src/opening-ch1-demo/cg-com01x-r02-dry-smile-v1.webp",
+      "acceptedFilename": "cg-com01x-r02-dry-smile-v1.webp",
+      "sha256": "62c77eba8430f620099a8bc9f7bd6e8d0939e77645129f12f1ec85cf83cfb924",
+      "bytes": 107428,
+      "knownIssues": []
+    },
+    {
+      "canonicalAssetId": "BG-ACG-SHOP-16X9",
+      "logicalAssetId": "bg.opening.ch1.acg_shop",
+      "sourceId": "source.opening.ch1.bg.acg_shop",
+      "repoPath": "assets-src/opening-ch1-demo/bg-acg-shop-16x9-v1.webp",
+      "acceptedFilename": "bg-acg-shop-16x9-v1.webp",
+      "sha256": "3f3a37c605ebbdb8a4a127c4298f435787ecdda40367802aa6d2a1eba8e0b3da",
+      "bytes": 247800,
+      "knownIssues": []
+    },
+    {
+      "canonicalAssetId": "COM01J-BASE-GUARDED",
+      "logicalAssetId": "cg.opening.com01j.base_guarded",
+      "sourceId": "source.opening.ch1.cg.com01j_base_guarded",
+      "repoPath": "assets-src/opening-ch1-demo/cg-com01j-base-guarded-v1.webp",
+      "acceptedFilename": "cg-com01j-base-guarded-v1.webp",
+      "sha256": "da44c827e4f0839dc4b9885b3eca9df307660688e1e078b1cf5c8a5133e0b36b",
+      "bytes": 215930,
+      "knownIssues": [
+        "demo-approved provisional wardrobe drift"
+      ]
+    },
+    {
+      "canonicalAssetId": "COM01J-R01-INTERESTED",
+      "logicalAssetId": "cg.opening.com01j.r01_interested",
+      "sourceId": "source.opening.ch1.cg.com01j_r01_interested",
+      "repoPath": "assets-src/opening-ch1-demo/cg-com01j-r01-interested-v1.webp",
+      "acceptedFilename": "cg-com01j-r01-interested-v1.webp",
+      "sha256": "3c3d1475a1ea1215f744870ba00c1127acd423141bbf4915ba9196e8e75d795f",
+      "bytes": 215292,
+      "knownIssues": [
+        "demo-approved provisional wardrobe drift"
+      ]
+    },
+    {
+      "canonicalAssetId": "COM-01B-CG-01",
+      "logicalAssetId": "cg.opening-ch1.com01b.01",
+      "sourceId": "source.opening.ch1.com01b.01",
+      "repoPath": "assets-src/opening-ch1-demo/opening-ch1-com01b-01.webp",
+      "acceptedFilename": "opening-ch1-com01b-01.webp",
+      "sha256": "38eff53cc0fecff024acb346c091706f6b74d98501e950ee47e1cb2c2e98c741",
+      "bytes": 161284,
+      "knownIssues": []
+    },
+    {
+      "canonicalAssetId": "COM-01B-CG-02",
+      "logicalAssetId": "cg.opening-ch1.com01b.02",
+      "sourceId": "source.opening.ch1.com01b.02",
+      "repoPath": "assets-src/opening-ch1-demo/opening-ch1-com01b-02.webp",
+      "acceptedFilename": "opening-ch1-com01b-02.webp",
+      "sha256": "4127f991bcaf31e0ebd7db9c35ca8d9cf30b8f24ad889bf0741614e3db7297b7",
+      "bytes": 150416,
+      "knownIssues": [
+        "Minor shoulder accessory drift from CG-01 to CG-02; accepted during visual review."
+      ]
+    },
+    {
+      "canonicalAssetId": "COM-01B-CG-03",
+      "logicalAssetId": "cg.opening-ch1.com01b.03",
+      "sourceId": "source.opening.ch1.com01b.03",
+      "repoPath": "assets-src/opening-ch1-demo/opening-ch1-com01b-03.webp",
+      "acceptedFilename": "opening-ch1-com01b-03.webp",
+      "sha256": "aa6a236bceca59882edd5f3e1eded77b99347ca62fe5ed81ff74ee4d84bdcbc0",
+      "bytes": 264598,
+      "knownIssues": []
+    },
+    {
+      "canonicalAssetId": "COM-01B-CG-04",
+      "logicalAssetId": "cg.opening-ch1.com01b.04",
+      "sourceId": "source.opening.ch1.com01b.04",
+      "repoPath": "assets-src/opening-ch1-demo/opening-ch1-com01b-04.webp",
+      "acceptedFilename": "opening-ch1-com01b-04.webp",
+      "sha256": "6ade85b6b4f6ece1ee95923784fe8469bdc0a6b03acf6b9608f4466141a87f3a",
+      "bytes": 313186,
+      "knownIssues": []
+    }
+  ],
+  "references": [
+    {
+      "sourceId": "ref.xu_tang.face.01",
+      "characterId": "xu_tang",
+      "role": "primary_face_identity",
+      "repoPath": "assets-src/references/xu-tang/xt-ref-01-face.png",
+      "sha256": "2fd137f796d0e7667a5913748158f75705b1a538b346b9e7f76aacb3c79acfd0",
+      "bytes": 2317146,
+      "width": 1055,
+      "height": 1491,
+      "mimeType": "image/png",
+      "status": "active-production",
+      "decision": "Previously approved canonical PNG source"
+    },
+    {
+      "sourceId": "ref.xu_tang.body.03",
+      "characterId": "xu_tang",
+      "role": "body_proportions",
+      "repoPath": "assets-src/references/xu-tang/xt-ref-03-body.jpeg",
+      "sha256": "d436d6ceeda95a2cd8115087d6b49e39baa72ec2f7552909da2b9a2eb933cdd4",
+      "bytes": 441517,
+      "width": 1055,
+      "height": 1491,
+      "mimeType": "image/jpeg",
+      "status": "optional-reference",
+      "decision": "Human supplied replacement JPEG"
+    },
+    {
+      "sourceId": "ref.xu_tang.wardrobe.a",
+      "characterId": "xu_tang",
+      "role": "wardrobe",
+      "repoPath": "assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png",
+      "sha256": "aaf33f06f3e39fc476deee03ab261a43e0911b8393366ae7399c633abfadc716",
+      "bytes": 2168454,
+      "width": 1055,
+      "height": 1491,
+      "mimeType": "image/png",
+      "status": "active-production",
+      "decision": "Previously approved canonical PNG source"
+    },
+    {
+      "sourceId": "ref.jiang_yucheng.face.01",
+      "characterId": "jiang_yucheng",
+      "role": "primary_face_identity",
+      "repoPath": "assets-src/references/jiang-yucheng/jyc-ref-01-face.png",
+      "sha256": "9f16028a4f763779bc74b28c0524707cbcc77306f623674e8b8b49384a045d72",
+      "bytes": 2308758,
+      "width": 1491,
+      "height": 1055,
+      "mimeType": "image/png",
+      "status": "active-production",
+      "decision": "Previously approved canonical PNG source"
+    },
+    {
+      "sourceId": "ref.jiang_yucheng.wardrobe.a",
+      "characterId": "jiang_yucheng",
+      "role": "wardrobe",
+      "repoPath": "assets-src/references/jiang-yucheng/jyc-ref-05-wardrobe-a.png",
+      "sha256": "87abb71fa21c2cf939da5fc16741d26d67add479a5185d2140220c449340e0af",
+      "bytes": 2223889,
+      "width": 1491,
+      "height": 1055,
+      "mimeType": "image/png",
+      "status": "active-production",
+      "decision": "Previously approved canonical PNG source"
+    }
+  ]
+}

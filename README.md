@@ -10,7 +10,7 @@
 - 新故事採 Braided Narrative v0.5、CG-first / 16:9。宏觀故事、route/state、visual 與 CG 契約分別在 `docs/narrative/`、`docs/art/`；Chapter 1 的 machine-readable values 在 `content/production/`。
 - `content/` 的現行 production values、playable route、legacy fixture 與 asset metadata 分界見 [Content data boundary](content/README.md)。未註冊的早期林澄短篇已歸檔，不是新林澄線的 canon。
 
-舊 `xu-tang` playable package、sprites/backgrounds 與 composite rendering 留作 runtime/save regression fixture。已退出 production policy 的 prompt、operator 與 pilot 放在 `docs/archive/`、`.ai/archive/`、`.ai/experiments/`。
+舊 `xu-tang` playable package 和其專用圖片／影片已退役；通用 composite、cinematic、save 與 Gallery 功能仍可供現行故事使用。已退出 production policy 的 prompt、operator 與 pilot 放在 `docs/archive/`、`.ai/archive/`、`.ai/experiments/`。
 
 ## 開發與驗證
 
@@ -25,7 +25,7 @@ npm test                       # runtime/projection regression
 npm run preview:smoke -- --skip-build
 ```
 
-其他工具：`npm run assets:check` 做 full-decode/hash validation；`npm run assets:build` 取用 runtime objects；`npm run context -- --route <id> --node <id>` 建立局部 context；`npm run cg:packet -- --manifest <path> --check` 檢查 CG manifest；`npm run codespace:accept` 做一次性 fresh Codespace acceptance。完整 content request 的 parent Work session 依 [Production Orchestration Contract](.ai/PRODUCTION_ORCHESTRATION.md) 作 control-plane-only Coordinator，使用 fresh bounded workers 與 Production Run Ledger。實際命令以 `package.json` 為準。
+其他工具：`npm run assets:check` 做 full-decode/hash validation；`npm run assets:build` 取用 runtime objects；`npm run context -- --route <id> --node <id>` 建立局部 context；`npm run context -- --task narrative_review --scene <id> --run-id <id> --task-id <id>` 產生可驗證的 bounded Task Packet（見 [Issue #16 context gate](docs/migration/ISSUE16_CONTEXT_GATE.md)）；`npm run cg:packet -- --manifest <path> --check` 檢查 CG manifest；`npm run codespace:accept` 做一次性 fresh Codespace acceptance。完整 content request 的 parent Work session 依 [Production Orchestration Contract](.ai/PRODUCTION_ORCHESTRATION.md) 作 control-plane-only Coordinator，使用 fresh bounded workers 與 Production Run Ledger。實際命令以 `package.json` 為準。
 
 ## Source boundary
 
@@ -33,10 +33,8 @@ npm run preview:smoke -- --skip-build
 | --- | --- |
 | `public/`、`src/` | UI shell 與 runtime engine |
 | `content/routes/`、`content/production/` | playable data 與 approved production contracts |
-| `content/assets/`、`content/recipes/` | logical asset、source/provider/hash、recipe metadata |
-| `assets-src/` | 仍由 source-map 使用的本地 legacy binary sources |
-| Google Drive `source-private` | accepted private master images |
-| Google Drive `runtime-public` | 目前仍由 source-map 使用的 optimized runtime objects |
+| `content/assets/`、`content/recipes/` | logical asset、repo source/hash、recipe、必要 provenance |
+| `assets-src/` | Git 追蹤的 runtime WebP 與生成用 PNG/JPEG references |
 | `dist/`、`generated/` | 可重建的 output/cache，不作 source of truth |
 
-Repo 舊的本地 `runtime-public/` 目錄已移除；它與上表中的 Google Drive folder 不是同一個來源。Story 只引用 stable logical asset ID，不直接引用 physical filename 或 storage provider。
+Story 只引用 stable logical asset ID；`source-map.json` 將 runtime path 對應到 repo 檔案。舊 Google Drive ID 僅保存在標示 historical-only 的遷移紀錄中，不是 build 或後續生產的輸入。

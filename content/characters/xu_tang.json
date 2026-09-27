@@ -44,15 +44,20 @@
   "references": [
     {
       "role": "primary_identity",
-      "libraryFileId": "libfile_c00164e0e34c8191b2ad04a9b51941fd",
-      "name": "IMG_9458.jpeg"
+      "name": "xt-ref-01-face.png",
+      "sourceId": "ref.xu_tang.face.01"
     },
     {
-      "role": "canonical_identity_sheet",
-      "name": "許棠 v2 四角度臉部錨點",
-      "usage": "所有新立繪與CG必須和 primary_identity 一起引用；此圖只決定五官與頭骨比例，不決定服裝、場景或表情。",
-      "sourceId": "source.xu_tang.identity_v2",
-      "provider": "google-drive-private"
+      "role": "body_proportions_optional",
+      "name": "xt-ref-03-body.jpeg",
+      "sourceId": "ref.xu_tang.body.03",
+      "sha256": "d436d6ceeda95a2cd8115087d6b49e39baa72ec2f7552909da2b9a2eb933cdd4",
+      "usage": "Optional body/proportion reference. User-supplied JPEG replaces an unavailable former Drive PNG as a new byte sequence; it is not claimed byte-identical or pixel-equivalent to that PNG."
+    },
+    {
+      "role": "wardrobe_a",
+      "name": "xt-ref-05-wardrobe-a.png",
+      "sourceId": "ref.xu_tang.wardrobe.a"
     }
   ],
   "hairstyles": {

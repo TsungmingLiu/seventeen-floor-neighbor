@@ -12,6 +12,8 @@ Version: 1.0.0
 
 Inputs：one Narrative Continuity Contract、one scene、only the canon excerpts used to author them。
 
+Pre-dispatch：對 generated `narrative_review` Task Packet 先跑 `npm run context -- --verify-packet <path>`；runtime graph、state writes、Memory、asset IDs、contract／CG manifest bindings 和 source hashes 由 machine QA 阻擋，FAIL 不進此 semantic pass。Worker 專注以下敘事判斷，不以機器 PASS 代替 QA。
+
 Checks：
 
 - scene function / entry / exit / required payoff 完成；
@@ -26,6 +28,10 @@ Checks：
 Inputs：one canonical CG manifest entry、candidate image、references actually used、optional accepted base。
 
 在 rendering 前可用獨立 fresh `visual_review` task 檢查一個 scene 的 manifest usability（沒有 candidate 時只回 manifest gate，不宣稱 candidate QA）。Candidate review 仍為每個 candidate/linked sequence 的另一個 fresh task。
+
+COM-00 的 pre-render review 可使用 `context.mjs` 產生、並以 `--verify-packet` 核對的 `review_scope: manifest_usability` packet；只讀該 packet 列出的 manifest entry/style 節錄與 scene/許棠資料。這個 packet 沒有 candidate pixels，不能用 manifest `accepted` 狀態或 machine PASS 代替獨立 QA/Human 決定。
+
+`COM00-S04-BASE-NEUTRAL` 的單張既有 WebP 可使用 `context.mjs` 的 `review_scope: candidate` packet；派工前用 `--verify-packet` 核對，並讓 fresh worker 實際查看四張 repo 圖片的像素。候選圖與臉／服裝／背景參考的角色、檔名、MIME、SHA-256 及 Git blob 由 packet 限定；worker 回傳獨立的 Visual QA，Human accepted-master 選擇仍另行決定。
 
 Checks：
 

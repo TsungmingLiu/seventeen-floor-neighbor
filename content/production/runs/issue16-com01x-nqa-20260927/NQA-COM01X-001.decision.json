@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "issue16-com01x-nqa-20260927",
+  "task_id": "NQA-COM01X-001",
+  "scene_id": "COM-01X",
+  "status": "PASS",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.0.0",
+    "pass": "narrative_review"
+  },
+  "worker_model": "gpt-6-luna",
+  "packet_sha256": "dcca09647592c9b27dbe3382e09fdf0a67b110971fe54e439258cafed8105e12",
+  "input_digest_sha256": "1123ca8e1c309b66f93a6374367ea0a0c83f3436b42bb4a6775b2454d91b131b",
+  "input_versions": [
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-01X.json",
+      "version": "8165567565b295e051abaf3bc0abb760eb60670d",
+      "location": "content/production/narrative/opening-ch1/COM-01X.json"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-01X.md",
+      "version": "f9be677e0c589bab2c7c49560e1fe882b553ec2e",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01X.md"
+    },
+    {
+      "id": "file:docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md",
+      "version": "673db60efa8f0cb2585c00ac5cda86aeb2d3d806",
+      "location": "docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md"
+    },
+    {
+      "id": "file:docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md",
+      "version": "3a41b862fce504c96c505eceb49ae06b2226d31f",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-00.md",
+      "version": "4c8b9396fdf43556b474f9cbf7a90813ef533309",
+      "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "approved_locked_scene:COM-01X",
+      "version": "f9be677e0c589bab2c7c49560e1fe882b553ec2e",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01X.md"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "nqa_function_entry_exit",
+      "code": "NQA-FUNCTION-ENTRY-EXIT",
+      "result": "PASS"
+    },
+    {
+      "name": "nqa_voice_pace_knowledge",
+      "code": "NQA-VOICE-PACE-KNOWLEDGE",
+      "result": "PASS"
+    },
+    {
+      "name": "nqa_choice_rejoin_state",
+      "code": "NQA-CHOICE-REJOIN-STATE",
+      "result": "PASS"
+    },
+    {
+      "name": "nqa_must_not_visual_boundary",
+      "code": "NQA-MUST-NOT-VISUAL-BOUNDARY",
+      "result": "PASS"
+    },
+    {
+      "name": "nqa_provenance",
+      "code": "NQA-PROVENANCE",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [],
+  "human_gate_required": "none",
+  "invalidates": [],
+  "worker_handoff_sha256": "ca1ca63dc67fde51c88baacc71b93f1321427c8873e4715073954d33cbae11c2"
+}
