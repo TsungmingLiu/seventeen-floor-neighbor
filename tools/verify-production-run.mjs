@@ -6,7 +6,8 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { projectRoot } from './content-lib.mjs';
 import { buildNarrativeReviewPacket, verifyNarrativeReviewPacket,
-  buildManifestUsabilityPacket, verifyManifestUsabilityPacket } from './context-packet.mjs';
+  buildManifestUsabilityPacket, verifyManifestUsabilityPacket,
+  buildCandidateVisualReviewPacket, verifyCandidateVisualReviewPacket } from './context-packet.mjs';
 
 function requireCondition(condition, message) {
   if (!condition) throw new Error(message);
@@ -120,6 +121,86 @@ async function verifyManifestUsabilityRun({ runId, root, ledger, task, sourceRoo
   }
 }
 
+async function verifyCandidateVisualReviewRun({ runId, root, ledger, task, sourceRoot, requireCurrent }) {
+  requireCondition(task.task_type === 'visual_review' && task.review_scope === 'candidate' &&
+    task.scene_id === 'COM-00' && task.entry_id === 'COM00-S04-BASE-NEUTRAL' &&
+    task.candidate_source_id === 'source.opening.ch1.cg.com00_s04_base_neutral' &&
+    task.upstream_run_id === 'issue16-com00-mua-20260927' && task.upstream_task_id === 'MUA-COM00-001' &&
+    Array.isArray(task.depends_on) && task.depends_on.length === 0 &&
+    task.packet?.generator === 'tools/context.mjs:candidate' &&
+    task.human_gate === 'accepted_master_image_selection',
+  'unsupported or malformed candidate visual review task');
+  let temporary;
+  let packetRoot = sourceRoot ?? root;
+  let createdWorktree = false;
+  try {
+    if (!sourceRoot && git(root, 'rev-parse', 'HEAD') !== ledger.source_ref) {
+      temporary = await mkdtemp(path.join(os.tmpdir(), 'candidate-visual-source-'));
+      packetRoot = path.join(temporary, 'source');
+      git(root, 'worktree', 'add', '--detach', packetRoot, ledger.source_ref);
+      createdWorktree = true;
+    }
+    const options = { sceneId: task.scene_id, runId, taskId: task.task_id, ref: ledger.source_ref,
+      upstreamRunId: task.upstream_run_id, upstreamTaskId: task.upstream_task_id,
+      entryId: task.entry_id, candidateSourceId: task.candidate_source_id, root: packetRoot };
+    const packet = await buildCandidateVisualReviewPacket(options);
+    await verifyCandidateVisualReviewPacket(packet, { root: packetRoot });
+    const packetSha256 = sha256(`${JSON.stringify(packet, null, 2)}\n`);
+    requireCondition(packetSha256 === task.packet.sha256 &&
+      versionListEqual(packet.input_versions, task.input_versions),
+    'candidate visual review packet hash or recorded inputs differ');
+    if (task.status === 'RUNNING' && task.decision_receipt === null) {
+      return { run_id: runId, source_ref: ledger.source_ref, packet_sha256: packetSha256,
+        task_id: task.task_id, task_status: 'ORPHAN_RUNNING_REVIEW_REQUIRED', run_status: ledger.status,
+        next_action: 'dispatch a fresh bounded candidate pixel review; missing cache is not QA evidence' };
+    }
+    requireCondition(task.status === 'FAIL' && ledger.status === 'BLOCKED' &&
+      task.decision_receipt === `content/production/runs/${runId}/${task.task_id}.decision.json`,
+    'candidate visual review has no verified FAIL decision receipt');
+    const receipt = await committedJson(root, task.decision_receipt);
+    const candidate = packet.required_acquisition.images[0];
+    const output = { id: `reviewed_candidate:${task.entry_id}`, version: `sha256:${candidate.sha256}`,
+      location: candidate.path };
+    requireCondition(receipt.schema_version === '1.0.0' && receipt.run_id === runId &&
+      receipt.task_id === task.task_id && receipt.scene_id === task.scene_id &&
+      receipt.entry_id === task.entry_id && receipt.candidate_source_id === task.candidate_source_id &&
+      receipt.status === 'FAIL' && receipt.review_scope === 'candidate' &&
+      receipt.harness?.id === 'content_qa' && receipt.harness?.pass === 'visual_review' &&
+      receipt.packet_sha256 === packetSha256 &&
+      versionListEqual(receipt.input_versions, task.input_versions) &&
+      receipt.input_digest_sha256 === sha256(JSON.stringify(task.input_versions)) &&
+      versionListEqual(task.output_versions, [output]) &&
+      versionListEqual(receipt.output_versions, [output]) &&
+      receipt.human_gate_required === 'accepted_master_image_selection' &&
+      receipt.pixels_verified === true && receipt.acquired_image_count === 4 &&
+      Array.isArray(receipt.qa_codes) && receipt.qa_codes.length > 0 &&
+      receipt.qa_codes.some(({ code, result }) => code === 'VQA-PROVENANCE-PIXELS' && result === 'PASS') &&
+      receipt.qa_codes.some(({ result }) => result === 'FAIL') &&
+      receipt.qa_codes.every(({ code, result }) => /^VQA-[A-Z0-9-]+$/.test(code) &&
+        ['PASS', 'FAIL', 'NEEDS_REVIEW'].includes(result)) &&
+      Array.isArray(receipt.known_issues) && receipt.known_issues.length > 0 &&
+      Array.isArray(receipt.invalidates) && receipt.invalidates.length === 0 &&
+      /^[0-9a-f]{64}$/.test(receipt.worker_handoff_sha256),
+    'candidate visual review decision conflicts with packet, pixels, or recorded failure');
+    if (!sourceRoot || requireCurrent) {
+      const current = await buildCandidateVisualReviewPacket({ ...options,
+        ref: git(root, 'rev-parse', 'HEAD'), root });
+      requireCondition(versionListEqual(current.input_versions.map(versionIdentity),
+        packet.input_versions.map(versionIdentity)),
+      'reviewed candidate inputs differ from current committed content');
+    }
+    return { run_id: runId, source_ref: ledger.source_ref, packet_sha256: packetSha256,
+      task_id: task.task_id, task_status: sourceRoot && !requireCurrent ? 'RECORDED_FAIL' : 'CURRENT_FAIL',
+      run_status: ledger.status, qa_codes: receipt.qa_codes.filter(({ result }) => result === 'FAIL').map(({ code }) => code),
+      next_action: 'candidate rejected by independent pixel QA; no automatic redraw or accepted-master decision' };
+  } finally {
+    if (temporary) {
+      try { if (createdWorktree) git(root, 'worktree', 'remove', '--force', packetRoot); }
+      finally { await rm(temporary, { recursive: true, force: true }); }
+    }
+  }
+}
+
 export async function verifyProductionRun(runId, { root = projectRoot, sourceRoot, requireCurrent = false } = {}) {
   safeName(runId);
   const ledgerPath = `content/production/runs/${runId}/ledger.json`;
@@ -141,8 +222,13 @@ export async function verifyProductionRun(runId, { root = projectRoot, sourceRoo
     requireCondition(!symbolicHead, 'historical sourceRoot must be a detached checkout');
   }
   const packetRoot = sourceRoot ?? root;
-  if (task.task_type === 'visual_review') return verifyManifestUsabilityRun({
-    runId, root, ledger, task, sourceRoot, requireCurrent });
+  if (task.task_type === 'visual_review') {
+    if (task.review_scope === 'manifest_usability') return verifyManifestUsabilityRun({
+      runId, root, ledger, task, sourceRoot, requireCurrent });
+    if (task.review_scope === 'candidate') return verifyCandidateVisualReviewRun({
+      runId, root, ledger, task, sourceRoot, requireCurrent });
+    throw new Error(`unsupported visual review scope: ${task.review_scope}`);
+  }
   requireCondition(task.task_type === 'narrative_review' &&
     /^[A-Z][A-Z0-9]*(?:-[A-Z0-9]+)+$/.test(task.scene_id || '') &&
     /^[a-zA-Z0-9][a-zA-Z0-9_-]*$/.test(task.task_id || '') &&

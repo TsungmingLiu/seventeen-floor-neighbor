@@ -1,0 +1,143 @@
+{
+  "schema_version": "1.3.0",
+  "run_id": "issue16-com00-vqa-recovery-20260927",
+  "workflow_version": "1.3.0",
+  "source_ref": "8a952d5fd06e27e009e4eec05942e6f275b074d9",
+  "human_request": {
+    "summary": "Independent pixel review of existing COM00-S04-BASE-NEUTRAL candidate; re-dispatched after an unrecorded session cache loss",
+    "gate_status": "none"
+  },
+  "status": "BLOCKED",
+  "tasks": [
+    {
+      "task_id": "VQA-COM00-S04-BASE-002",
+      "task_type": "visual_review",
+      "review_scope": "candidate",
+      "scene_id": "COM-00",
+      "entry_id": "COM00-S04-BASE-NEUTRAL",
+      "candidate_source_id": "source.opening.ch1.cg.com00_s04_base_neutral",
+      "upstream_run_id": "issue16-com00-mua-20260927",
+      "upstream_task_id": "MUA-COM00-001",
+      "depends_on": [],
+      "status": "FAIL",
+      "packet": {
+        "generator": "tools/context.mjs:candidate",
+        "sha256": "d098110fe85ac64ca6bf96160b23c85a7a78cfcb4db67014e4cea177d9b37abb"
+      },
+      "decision_receipt": "content/production/runs/issue16-com00-vqa-recovery-20260927/VQA-COM00-S04-BASE-002.decision.json",
+      "input_versions": [
+        {
+          "id": "file:content/production/narrative/opening-ch1/COM-00.json",
+          "version": "8c06b6872300ac75808326dfc60179a0e82f76a5",
+          "location": "content/production/narrative/opening-ch1/COM-00.json"
+        },
+        {
+          "id": "file:docs/narrative/scenes/vertical-slice/COM-00.md",
+          "version": "4c8b9396fdf43556b474f9cbf7a90813ef533309",
+          "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+        },
+        {
+          "id": "file:docs/art/PRODUCTION_VISUAL_DIRECTION.md",
+          "version": "4abc2e8957cdcd9c96c2329f17a1238bd6b42df1",
+          "location": "docs/art/PRODUCTION_VISUAL_DIRECTION.md"
+        },
+        {
+          "id": "excerpt:docs/art/CHARACTER_REFERENCE_PACK_SPEC.md:xu-tang-reference-spec",
+          "version": "9d136c64e14c71dd1b76b0ea836bdf7c545b7225b8bcc22b8ace903cfdb32f9e",
+          "location": "docs/art/CHARACTER_REFERENCE_PACK_SPEC.md#L49-L86"
+        },
+        {
+          "id": "file:.ai/schemas/CG_MANIFEST.md",
+          "version": "3fe4dbddf92f4bee9d84109672a9c0d912bd0c07",
+          "location": ".ai/schemas/CG_MANIFEST.md"
+        },
+        {
+          "id": "excerpt:content/production/cg-manifests/opening-ch1.json:manifest-style-contract",
+          "version": "abfa534c2cca6f7b8943db08aa358142469b707fdbbd11e63480882e8e27d391",
+          "location": "content/production/cg-manifests/opening-ch1.json#L11-L27"
+        },
+        {
+          "id": "excerpt:content/production/cg-manifests/opening-ch1.json:manifest-entry:COM00-S04-BASE-NEUTRAL",
+          "version": "6995b910154f96f85ceafa4b2cc2aad145dc4aa37e4660520a923fd84aae3cfe",
+          "location": "content/production/cg-manifests/opening-ch1.json#L164-L295"
+        },
+        {
+          "id": "manifest-entry:COM00-S04-BASE-NEUTRAL",
+          "version": "a78b4b422c1d0d8b6f4321fd80d1ffaec3ac458f3e2a590603a0b9a386d7481c",
+          "location": "content/production/cg-manifests/opening-ch1.json#COM00-S04-BASE-NEUTRAL"
+        },
+        {
+          "id": "image:source.opening.ch1.cg.com00_s04_base_neutral",
+          "version": "a2c97c7134dabe79be10ebce93a20fff57ab2e64",
+          "location": "assets-src/opening-ch1-demo/cg-com00-s04-base-neutral-v1.webp"
+        },
+        {
+          "id": "image:ref.xu_tang.face.01",
+          "version": "bd2b9eff6323dd24fabf28ef48f1492fdf12098f",
+          "location": "assets-src/references/xu-tang/xt-ref-01-face.png"
+        },
+        {
+          "id": "image:ref.xu_tang.wardrobe.a",
+          "version": "67998d2e618f89fb141357dca324e7c85783440b",
+          "location": "assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png"
+        },
+        {
+          "id": "image:source.opening.ch1.bg.apt_17f_rain",
+          "version": "bdd62c66c5b1dc78966a9d98f337cd499a243295",
+          "location": "assets-src/opening-ch1-demo/bg-apt-17f-rain-16x9-v1.webp"
+        },
+        {
+          "id": "catalog-record:ref.xu_tang.face.01",
+          "version": "eb195828c76479f837ff06c2af526d8683efb71a3a928d546deee64b9b7e994a",
+          "location": "content/assets/source-catalog.json#ref.xu_tang.face.01"
+        },
+        {
+          "id": "catalog-record:ref.xu_tang.wardrobe.a",
+          "version": "ea475011a12241c57ea1de6039d8f5c23cc6fda4055f24f7c5f4a39a4d255483",
+          "location": "content/assets/source-catalog.json#ref.xu_tang.wardrobe.a"
+        },
+        {
+          "id": "catalog-record:source.opening.ch1.bg.apt_17f_rain",
+          "version": "f288479efa53c45d016ca5faf3704a1137b957f82603f9c062ff65f7e7b06d95",
+          "location": "content/assets/source-catalog.json#source.opening.ch1.bg.apt_17f_rain"
+        },
+        {
+          "id": "catalog-record:source.opening.ch1.cg.com00_s04_base_neutral",
+          "version": "350f89f822e8ae250b1e38b577603a9cad9db80f991ff1deb71a52c46cb87f3d",
+          "location": "content/assets/source-catalog.json#source.opening.ch1.cg.com00_s04_base_neutral"
+        },
+        {
+          "id": "asset-record:bg.opening.ch1.apt_17f_rain",
+          "version": "af50745e46f34b2268aef526b8ad5d77e6ed618bbb651b80a450bc20e51f7782",
+          "location": "content/assets/manifest.json#bg.opening.ch1.apt_17f_rain"
+        },
+        {
+          "id": "asset-record:cg.opening.com00.s04_base_neutral",
+          "version": "fea3be55a47862787ff8aae9be997aa00b83ec7f0eac54df39909538a89ddaae",
+          "location": "content/assets/manifest.json#cg.opening.com00.s04_base_neutral"
+        },
+        {
+          "id": "source-map:assets/opening-ch1-demo/cg-com00-s04-base-neutral-v1.webp",
+          "version": "dbf87641443136de679b732771835163cab26782aca6c28d8820519210bd9fd2",
+          "location": "content/assets/source-map.json#assets/opening-ch1-demo/cg-com00-s04-base-neutral-v1.webp"
+        },
+        {
+          "id": "receipt:issue16-com00-mua-20260927/MUA-COM00-001",
+          "version": "072170d916604ed7a6b34337e21f5a3a61f77fe5",
+          "location": "content/production/runs/issue16-com00-mua-20260927/MUA-COM00-001.decision.json"
+        }
+      ],
+      "output_versions": [
+        {
+          "id": "reviewed_candidate:COM00-S04-BASE-NEUTRAL",
+          "version": "sha256:7f18dccd8483498adc196c144cc6edafeff6bdd0f6db573bee288b32152862ea",
+          "location": "assets-src/opening-ch1-demo/cg-com00-s04-base-neutral-v1.webp"
+        }
+      ],
+      "human_gate": "accepted_master_image_selection",
+      "reason": "candidate_visual_qa_failed"
+    }
+  ],
+  "invalidation_events": [],
+  "preview": null
+}
