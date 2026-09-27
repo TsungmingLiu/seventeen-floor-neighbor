@@ -570,3 +570,141 @@ export async function verifyManifestUsabilityPacket(packet, { root = defaultRoot
   insist(JSON.stringify(packet) === JSON.stringify(rebuilt), 'Manifest Usability Task Packet fields, allowlist or input hashes differ from canonical sources');
   return true;
 }
+
+/** Prepare one existing repository image for an independent, pixel-visible Visual QA pass. */
+export async function buildCandidateVisualReviewPacket({ sceneId, runId, taskId, ref, upstreamRunId,
+  upstreamTaskId, entryId, candidateSourceId, root = defaultRoot } = {}) {
+  insist(sceneId === 'COM-00', 'candidate visual review supports COM-00 only');
+  insist(/^[a-zA-Z0-9][a-zA-Z0-9_-]*$/.test(runId || ''), 'invalid run ID');
+  insist(/^[a-zA-Z0-9][a-zA-Z0-9_-]*$/.test(taskId || ''), 'invalid task ID');
+  insist(entryId === 'COM00-S04-BASE-NEUTRAL', 'candidate visual review is bounded to COM00-S04-BASE-NEUTRAL');
+  root = path.resolve(root);
+  ref = ref || git(root, 'rev-parse', 'HEAD');
+  insist(/^[0-9a-f]{40}$/.test(ref) && git(root, 'rev-parse', 'HEAD') === ref,
+    'source ref must be the current commit SHA');
+
+  const upstream = await verifyProductionRun(upstreamRunId, { root, requireCurrent: true });
+  insist(upstream.task_status === 'CURRENT_PASS', 'upstream Manifest Usability QA is not CURRENT_PASS');
+  const ledger = JSON.parse((await committedSource(root, ref,
+    `content/production/runs/${upstreamRunId}/ledger.json`)).text);
+  const qaTask = ledger.tasks.find((task) => task.task_id === upstreamTaskId);
+  insist(qaTask?.task_type === 'visual_review' && qaTask.review_scope === 'manifest_usability' &&
+    qaTask.scene_id === sceneId && qaTask.status === 'PASS' && qaTask.entry_ids.includes(entryId) &&
+    qaTask.output_versions?.length === 1, 'upstream task is not the committed COM-00 Manifest Usability PASS');
+  const receiptPath = `content/production/runs/${upstreamRunId}/${upstreamTaskId}.decision.json`;
+  const receipt = JSON.parse((await committedSource(root, ref, receiptPath)).text);
+  insist(receipt.status === 'PASS' && receipt.packet_sha256 === upstream.packet_sha256 &&
+    receipt.output_versions?.[0]?.version === qaTask.output_versions[0].version,
+  'upstream manifest usability decision receipt differs from verified run');
+
+  // Reuse the existing machine checks for the scene, canonical bindings, and complete image decode.
+  const preflight = await buildManifestUsabilityPacket({ sceneId, runId, taskId, ref,
+    upstreamRunId: qaTask.upstream_run_id, upstreamTaskId: qaTask.upstream_task_id,
+    entryIds: qaTask.entry_ids, root });
+  const manifest = JSON.parse((await committedSource(root, ref, manifestUsabilityPaths.manifest)).text);
+  const entry = manifest.entries.find((item) => item.scene_id === sceneId && item.entry_id === entryId);
+  insist(entry?.status === 'accepted' && entry.reference_transport.mode === 'references_required' &&
+    entry.reference_transport.accepted_base_asset_id === null, 'selected candidate is not an accepted base CG entry');
+  const catalog = JSON.parse((await committedSource(root, ref, manifestUsabilityPaths.catalog)).text);
+  const assetManifest = JSON.parse((await committedSource(root, ref, 'content/assets/manifest.json')).text);
+  const sourceMap = JSON.parse((await committedSource(root, ref, 'content/assets/source-map.json')).text);
+  const candidate = catalog.files[candidateSourceId];
+  const asset = assetManifest.assets?.[entry.output.logical_asset_id];
+  insist(candidate?.status === 'active-production' && candidate.canonicalAssetId === entry.output.canonical_asset_id &&
+    candidate.logicalAssetId === entry.output.logical_asset_id && candidate.name === entry.output.master_filename &&
+    candidate.mimeType === 'image/webp' && asset?.masterSourceId === candidateSourceId &&
+    asset.canonicalAssetId === entry.output.canonical_asset_id && asset.kind === 'cg',
+  'candidate source ID, output, and asset registration do not match');
+  const mapped = sourceMap.files?.[asset.src];
+  insist(mapped?.source === candidate.sourcePath && mapped.transform === 'copy' &&
+    mapped.sha256 === candidate.sha256 && mapped.bytes === candidate.bytes &&
+    mapped.masterSourceId === candidateSourceId, 'candidate runtime source map differs from repo bytes');
+
+  const bindings = [...entry.characters.flatMap((character) => character.reference_bindings),
+    ...(entry.environment.reference_binding ? [entry.environment.reference_binding] : [])];
+  insist(bindings.length === 3 && entry.characters.every((character) => character.character_id === 'xu_tang') &&
+    JSON.stringify(bindings.map(({ role, source_id }) => [role, source_id])) === JSON.stringify([
+      ['primary_face_identity', 'ref.xu_tang.face.01'],
+      ['wardrobe', 'ref.xu_tang.wardrobe.a'],
+      ['environment', 'source.opening.ch1.bg.apt_17f_rain']
+    ]), 'selected candidate requires exactly the declared Xu Tang face, wardrobe and environment');
+  const imageSpec = async (sourceId, role, filename) => {
+    const record = catalog.files[sourceId];
+    insist(record && record.name === filename && record.status === 'active-production',
+      `invalid candidate/reference source binding: ${sourceId}`);
+    const relative = safePath(record.sourcePath);
+    insist(relative.startsWith('assets-src/'), `image is outside repository asset sources: ${relative}`);
+    const absolute = path.join(root, relative);
+    insist((await realpath(absolute)) === absolute, `source is a symlink: ${relative}`);
+    const bytes = await readFile(absolute);
+    const blob = createHash('sha1').update(`blob ${bytes.length}\0`).update(bytes).digest('hex');
+    insist(blob === git(root, 'rev-parse', `${ref}:${relative}`) &&
+      createHash('sha256').update(bytes).digest('hex') === record.sha256,
+    `image bytes differ from committed source/catalog: ${sourceId}`);
+    return { role, source_id: sourceId, path: relative, filename: record.name,
+      mime_type: record.mimeType, sha256: record.sha256, git_blob_sha: blob,
+      width: record.width, height: record.height, pixels_must_be_visible: true };
+  };
+  const images = [await imageSpec(candidateSourceId, 'candidate', candidate.name),
+    ...await Promise.all(bindings.map((binding) => imageSpec(binding.source_id, binding.role, binding.expected_filename)))];
+  const markdown = preflight.required_acquisition.markdown.map((item) => item.path !== manifestUsabilityPaths.manifest
+    ? item : { ...item, excerpts: item.excerpts.filter((part) =>
+      part.label === 'manifest-style-contract' || part.label === `manifest-entry:${entryId}`) });
+  const sourceIds = new Set(images.map((item) => item.source_id));
+  const assetIds = new Set([entry.output.logical_asset_id, catalog.files[bindings[2].source_id].logicalAssetId]);
+  const inputVersions = preflight.input_versions.filter((item) =>
+    !item.id.startsWith('manifest-entry:') || item.id === `manifest-entry:${entryId}`)
+    .filter((item) => !item.id.startsWith('excerpt:') || markdown.some((source) =>
+      source.excerpts?.some((part) => item.id === `excerpt:${source.path}:${part.label}`)))
+    .filter((item) => !item.id.startsWith('image:') && !item.id.startsWith('catalog-record:') &&
+      !item.id.startsWith('asset-record:') && !item.id.startsWith('receipt:'));
+  inputVersions.push(...images.map((item) => ({ id: `image:${item.source_id}`, version: item.git_blob_sha, location: item.path })));
+  inputVersions.push(...preflight.input_versions.filter((item) =>
+    (item.id.startsWith('catalog-record:') && sourceIds.has(item.id.slice('catalog-record:'.length))) ||
+    (item.id.startsWith('asset-record:') && assetIds.has(item.id.slice('asset-record:'.length)))));
+  inputVersions.push({ id: `source-map:${asset.src}`,
+    version: createHash('sha256').update(JSON.stringify(mapped)).digest('hex'),
+    location: `content/assets/source-map.json#${asset.src}` });
+  inputVersions.push({ id: `receipt:${upstreamRunId}/${upstreamTaskId}`,
+    version: git(root, 'rev-parse', `${ref}:${receiptPath}`), location: receiptPath });
+  return {
+    run_id: runId, task_id: taskId, scene_id: sceneId, task_type: 'visual_review', review_scope: 'candidate', depends_on: [],
+    workflow_version: preflight.workflow_version, harness: 'content_qa', pass: 'visual_review',
+    objective: `Independently review the pixels of one existing ${entryId} candidate against its locked render instructions and exact references.`,
+    execution_policy: { model_tier: 'economical', routing_reason: 'default_bounded', attempt: 1 },
+    source_binding: preflight.source_binding,
+    required_acquisition: { markdown, images },
+    allowed_sources: [...markdown.flatMap(allowedSource), ...images.map((item) => item.path)],
+    forbidden_source_roots: preflight.forbidden_source_roots,
+    inputs: { narrative_contract: manifestUsabilityPaths.contract, locked_scene: manifestUsabilityPaths.scene,
+      cg_manifest: manifestUsabilityPaths.manifest, cg_entry_id: entryId, candidate_source_id: candidateSourceId,
+      candidate_asset_id: entry.output.logical_asset_id, render_spec_sha256: inputVersions.find((item) => item.id === `manifest-entry:${entryId}`).version,
+      references: bindings.map((item) => item.source_id), accepted_outputs: [{ id: `manifest-usability-qa:${sceneId}`,
+        run_id: upstreamRunId, task_id: upstreamTaskId, status: 'CURRENT_PASS',
+        reviewed_manifest_entries_sha256: qaTask.output_versions[0].version }] },
+    input_versions: inputVersions,
+    reference_transport: { mode: 'references_required', fresh_session_required: true,
+      no_unrelated_images_allowed: true },
+    constraints: { locked: ['Review exactly one COM-00 base CG; inspect candidate and three reference images as actual pixels.',
+      'Preserve Xu Tang identity, ordinary-neighbor distance, corridor axis and dialogue safe zone.'],
+      must_not_change: ['Do not create, edit, accept, ingest or replace art or canonical content.',
+        'Manifest accepted status and machine checks are not candidate QA or Human approval.'],
+      output_format: '.ai/schemas/HANDOFF.md' },
+    deliverables: [{ id: `candidate-visual-qa:${entryId}`,
+      destination: `generated/session-cache/${runId}/${taskId}.handoff.json` }],
+    acceptance: ['Return PASS, NEEDS_REVIEW, FAIL or BLOCKED with visual evidence about identity, wardrobe, framing, environment, continuity, anatomy and style.'],
+    handoff_to: 'production_coordinator', human_gate: 'accepted_master_image_selection'
+  };
+}
+
+export async function verifyCandidateVisualReviewPacket(packet, { root = defaultRoot } = {}) {
+  insist(packet && typeof packet === 'object' && !Array.isArray(packet), 'packet must be an object');
+  const rebuilt = await buildCandidateVisualReviewPacket({ sceneId: packet.scene_id, runId: packet.run_id,
+    taskId: packet.task_id, ref: packet.source_binding?.github?.ref,
+    upstreamRunId: packet.inputs?.accepted_outputs?.[0]?.run_id,
+    upstreamTaskId: packet.inputs?.accepted_outputs?.[0]?.task_id,
+    entryId: packet.inputs?.cg_entry_id, candidateSourceId: packet.inputs?.candidate_source_id, root });
+  insist(JSON.stringify(packet) === JSON.stringify(rebuilt),
+    'Candidate Visual QA Task Packet fields, allowlist or input hashes differ from canonical sources');
+  return true;
+}

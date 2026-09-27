@@ -31,6 +31,8 @@ Inputs：one canonical CG manifest entry、candidate image、references actually
 
 COM-00 的 pre-render review 可使用 `context.mjs` 產生、並以 `--verify-packet` 核對的 `review_scope: manifest_usability` packet；只讀該 packet 列出的 manifest entry/style 節錄與 scene/許棠資料。這個 packet 沒有 candidate pixels，不能用 manifest `accepted` 狀態或 machine PASS 代替獨立 QA/Human 決定。
 
+`COM00-S04-BASE-NEUTRAL` 的單張既有 WebP 可使用 `context.mjs` 的 `review_scope: candidate` packet；派工前用 `--verify-packet` 核對，並讓 fresh worker 實際查看四張 repo 圖片的像素。候選圖與臉／服裝／背景參考的角色、檔名、MIME、SHA-256 及 Git blob 由 packet 限定；worker 回傳獨立的 Visual QA，Human accepted-master 選擇仍另行決定。
+
 Checks：
 
 - identity/age/body/hair/wardrobe/held object；
