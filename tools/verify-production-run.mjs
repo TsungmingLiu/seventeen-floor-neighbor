@@ -1,10 +1,12 @@
 import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
-import { mkdir, readFile, realpath, rename, rm, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, readFile, realpath, rename, rm, writeFile } from 'node:fs/promises';
+import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { projectRoot } from './content-lib.mjs';
-import { buildNarrativeReviewPacket, verifyNarrativeReviewPacket } from './context-packet.mjs';
+import { buildNarrativeReviewPacket, verifyNarrativeReviewPacket,
+  buildManifestUsabilityPacket, verifyManifestUsabilityPacket } from './context-packet.mjs';
 
 function requireCondition(condition, message) {
   if (!condition) throw new Error(message);
@@ -35,6 +37,89 @@ async function committedJson(root, relative) {
   return JSON.parse(bytes);
 }
 
+function versionIdentity(item) {
+  return { id: item.id, version: item.version,
+    // Excerpt line numbers may shift when an unrelated entry is edited.
+    location: item.location.replace(/#L\d+-L\d+$/, '#excerpt') };
+}
+
+async function verifyManifestUsabilityRun({ runId, root, ledger, task, sourceRoot, requireCurrent }) {
+  requireCondition(task.scene_id === 'COM-00' && task.review_scope === 'manifest_usability' &&
+    task.task_type === 'visual_review' && task.task_id === 'MUA-COM00-001' &&
+    Array.isArray(task.depends_on) && task.depends_on.length === 0 &&
+    task.packet?.generator === 'tools/context.mjs:manifest_usability' &&
+    task.upstream_run_id === 'issue16-com00-nqa-20260926' &&
+    task.upstream_task_id === 'NQA-COM00-001' &&
+    Array.isArray(task.entry_ids) && task.entry_ids.length === 3 &&
+    new Set(task.entry_ids).size === 3 && task.human_gate === 'none',
+  'unsupported or malformed manifest usability task');
+  let temporary;
+  let packetRoot = sourceRoot ?? root;
+  try {
+    if (!sourceRoot && git(root, 'rev-parse', 'HEAD') !== ledger.source_ref) {
+      temporary = await mkdtemp(path.join(os.tmpdir(), 'manifest-usability-source-'));
+      packetRoot = path.join(temporary, 'source');
+      git(root, 'worktree', 'add', '--detach', packetRoot, ledger.source_ref);
+    }
+    const packet = await buildManifestUsabilityPacket({ sceneId: task.scene_id,
+      runId, taskId: task.task_id, ref: ledger.source_ref,
+      upstreamRunId: task.upstream_run_id, upstreamTaskId: task.upstream_task_id,
+      entryIds: task.entry_ids, root: packetRoot });
+    await verifyManifestUsabilityPacket(packet, { root: packetRoot });
+    const packetSha256 = sha256(`${JSON.stringify(packet, null, 2)}\n`);
+    requireCondition(packetSha256 === task.packet.sha256 &&
+      versionListEqual(packet.input_versions, task.input_versions),
+    'manifest usability packet hash or recorded input identities differ');
+    if (task.status === 'RUNNING' && task.decision_receipt === null) {
+      return { run_id: runId, source_ref: ledger.source_ref, packet_sha256: packetSha256,
+        task_id: task.task_id, task_status: 'ORPHAN_RUNNING_REVIEW_REQUIRED', run_status: ledger.status,
+        next_action: 'dispatch fresh bounded manifest usability QA; no PASS evidence' };
+    }
+    requireCondition(task.status === 'PASS' && ledger.status === 'ACTIVE' &&
+      task.decision_receipt === `content/production/runs/${runId}/${task.task_id}.decision.json`,
+    'manifest usability run has no verified PASS decision receipt');
+    const receipt = await committedJson(root, task.decision_receipt);
+    const selected = packet.input_versions.filter((item) => item.id.startsWith('manifest-entry:'));
+    const output = { id: `manifest-usability-qa:${task.scene_id}`,
+      version: sha256(JSON.stringify(selected.map(({ id, version }) => ({ id, version })))),
+      location: `${packet.inputs.cg_manifest}#${task.scene_id}` };
+    requireCondition(receipt.schema_version === '1.0.0' && receipt.run_id === runId &&
+      receipt.task_id === task.task_id && receipt.scene_id === task.scene_id &&
+      receipt.status === 'PASS' && receipt.review_scope === task.review_scope &&
+      receipt.harness?.id === 'content_qa' && receipt.harness?.pass === 'visual_review' &&
+      receipt.packet_sha256 === packetSha256 &&
+      versionListEqual(receipt.input_versions, task.input_versions) &&
+      receipt.input_digest_sha256 === sha256(JSON.stringify(task.input_versions)) &&
+      receipt.human_gate_required === 'none' && Array.isArray(receipt.qa_codes) &&
+      receipt.qa_codes.length > 0 && receipt.qa_codes.every(({ result, code }) =>
+        result === 'PASS' && /^MUA-[A-Z0-9-]+$/.test(code)) &&
+      versionListEqual(task.output_versions, [output]) &&
+      versionListEqual(receipt.output_versions, [output]) &&
+      /^[0-9a-f]{64}$/.test(receipt.worker_handoff_sha256) &&
+      Array.isArray(receipt.invalidates) && receipt.invalidates.length === 0,
+    'manifest usability decision receipt conflicts with QA, packet, or selected output versions');
+    if (!sourceRoot || requireCurrent) {
+      const current = await buildManifestUsabilityPacket({ sceneId: task.scene_id,
+        runId, taskId: task.task_id, ref: git(root, 'rev-parse', 'HEAD'),
+        upstreamRunId: task.upstream_run_id, upstreamTaskId: task.upstream_task_id,
+        entryIds: task.entry_ids, root });
+      requireCondition(versionListEqual(current.input_versions.map(versionIdentity),
+        packet.input_versions.map(versionIdentity)),
+      'reviewed manifest usability inputs differ from current committed content');
+    }
+    return { run_id: runId, source_ref: ledger.source_ref, packet_sha256: packetSha256,
+      task_id: task.task_id, task_status: sourceRoot && !requireCurrent ? 'RECORDED_PASS' : 'CURRENT_PASS',
+      run_status: ledger.status, qa_codes: receipt.qa_codes.map(({ code }) => code),
+      next_action: 'manifest usability QA is complete; candidate Visual QA and Human gates remain independent' };
+  } finally {
+    if (temporary) {
+      try { git(root, 'worktree', 'remove', '--force', packetRoot); } finally {
+        await rm(temporary, { recursive: true, force: true });
+      }
+    }
+  }
+}
+
 export async function verifyProductionRun(runId, { root = projectRoot, sourceRoot, requireCurrent = false } = {}) {
   safeName(runId);
   const ledgerPath = `content/production/runs/${runId}/ledger.json`;
@@ -56,6 +141,8 @@ export async function verifyProductionRun(runId, { root = projectRoot, sourceRoo
     requireCondition(!symbolicHead, 'historical sourceRoot must be a detached checkout');
   }
   const packetRoot = sourceRoot ?? root;
+  if (task.task_type === 'visual_review') return verifyManifestUsabilityRun({
+    runId, root, ledger, task, sourceRoot, requireCurrent });
   requireCondition(task.task_type === 'narrative_review' &&
     /^[A-Z][A-Z0-9]*(?:-[A-Z0-9]+)+$/.test(task.scene_id || '') &&
     /^[a-zA-Z0-9][a-zA-Z0-9_-]*$/.test(task.task_id || '') &&
