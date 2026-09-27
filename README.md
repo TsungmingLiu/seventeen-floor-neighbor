@@ -1,42 +1,153 @@
 # 《17 樓的新鄰居》
 
-台北都市成人戀愛視覺小說。Browser-native JavaScript 靜態站點；目前 prototype 聚焦許棠與江雨澄的 braided narrative。W1–W4 技術基礎已完成，`opening-demo` 是預設 playable route；後續 scene/CG production 與 W5–W7 仍在進行。
+台北都市成人戀愛視覺小說。
 
-## 從哪裡開始
+Browser-native JavaScript 靜態站點；目前 prototype 聚焦許棠與江雨澄的 braided narrative。遊戲核心不是早期選定單一路線，而是在一段共同生活中分配時間、注意力與誠實程度，直到關係逐漸要求玩家做出真正的選擇。
 
-- 修改 code、route、Memory/save 或 assets：讀 [程式與內容架構](ARCHITECTURE.zh-TW.md)，再讀相關實際 JSON/code。
-- 查當前狀態：讀 [PROJECT_STATE.md](PROJECT_STATE.md)。查未完成技術事項：讀 [TODO.md](TODO.md)。
-- 寫劇情／對白／CG：先讀 `.ai/WORKFLOW_MANIFEST.yaml`；完整 request 由 parent Coordinator 建 DAG 並派 fresh bounded workers，單一 worker 依 Bootstrap 執行一個 harness/pass/Task Packet。[source-of-truth map](docs/CONTENT_PRODUCTION_SOURCE_MAP.md) 列出各 domain authority。[Creative TODO](docs/narrative/CONTENT_PRODUCTION_TODO.md) 只記 production 進度。
-- 新故事採 Braided Narrative v0.5、CG-first / 16:9。宏觀故事、route/state、visual 與 CG 契約分別在 `docs/narrative/`、`docs/art/`；Chapter 1 的 machine-readable values 在 `content/production/`。
-- `content/` 的現行 production values、playable route、legacy fixture 與 asset metadata 分界見 [Content data boundary](content/README.md)。未註冊的早期林澄短篇已歸檔，不是新林澄線的 canon。
+---
 
-舊 `xu-tang` playable package、sprites/backgrounds 與 composite rendering 留作 runtime/save regression fixture。已退出 production policy 的 prompt、operator 與 pilot 放在 `docs/archive/`、`.ai/archive/`、`.ai/experiments/`。
+## 專案文件怎麼讀
 
-## 開發與驗證
+不同文件有明確分工。不要把某一份文件當成所有問題的 source of truth。
 
-Canonical engineering environment 是 GitHub Codespaces：Node 22、ffmpeg/ffprobe、preview port 4173。Local clone 可作 fallback，但 fresh acceptance 以 Codespaces 為準。
+| 文件 | 用途 |
+| --- | --- |
+| [`ROADMAP.md`](ROADMAP.md) | 專案里程碑、目前優先級、下一階段與 Exit Gate |
+| [`PROJECT_STATE.md`](PROJECT_STATE.md) | repo 當前已完成／已實作的客觀狀態 |
+| [`TODO.md`](TODO.md) | 目前 milestone 的技術執行工作與 technical backlog |
+| [`docs/narrative/CONTENT_PRODUCTION_TODO.md`](docs/narrative/CONTENT_PRODUCTION_TODO.md) | 劇情、美術與 playable content 的 production progress |
+| [`.ai/WORKFLOW_MANIFEST.yaml`](.ai/WORKFLOW_MANIFEST.yaml) | AI content-production workflow、harness 與 worker execution contract |
+| [`ARCHITECTURE.zh-TW.md`](ARCHITECTURE.zh-TW.md) | runtime、content、asset、save、build 等已實作工程 contract |
+| [`docs/CONTENT_PRODUCTION_SOURCE_MAP.md`](docs/CONTENT_PRODUCTION_SOURCE_MAP.md) | Narrative / Art / Production 各 domain 的 source authority |
 
-```bash
-npm run dev                    # build、serve 4173、watch
-npm run preview                # clean build + preview
-npm run build                  # clean rebuild dist/
-npm run validate               # route/content + production contracts
-npm test                       # runtime/projection regression
-npm run preview:smoke -- --skip-build
-```
+### 判斷「現在該做什麼」
 
-其他工具：`npm run assets:check` 做 full-decode/hash validation；`npm run assets:build` 取用 runtime objects；`npm run context -- --route <id> --node <id>` 建立局部 context；`npm run cg:packet -- --manifest <path> --check` 檢查 CG manifest；`npm run codespace:accept` 做一次性 fresh Codespace acceptance。完整 content request 的 parent Work session 依 [Production Orchestration Contract](.ai/PRODUCTION_ORCHESTRATION.md) 作 control-plane-only Coordinator，使用 fresh bounded workers 與 Production Run Ledger。實際命令以 `package.json` 為準。
+先讀 `ROADMAP.md`。
 
-## Source boundary
+Roadmap 決定目前 active milestone，以及哪些事情現在不應該做。
+
+### 判斷「repo 現在到底是什麼狀態」
+
+讀 `PROJECT_STATE.md`。
+
+### 要修改程式、runtime、route、asset 或 save
+
+先讀 `ARCHITECTURE.zh-TW.md`，再讀相關實際 code / JSON，以及 `TODO.md` 中目前 milestone 的技術工作。
+
+### 要寫劇情、對白或製作 CG
+
+先讀 `.ai/WORKFLOW_MANIFEST.yaml`。
+
+具體 production progress 與 blocker 在 `docs/narrative/CONTENT_PRODUCTION_TODO.md`。
+
+---
+
+## Current Milestone
+
+目前專案 milestone 以 [`ROADMAP.md`](ROADMAP.md) 為準。
+
+不要從 README、TODO、舊 issue 或 archive 文件推導專案優先級。
+
+一個 backlog item 即使仍然有效，也不代表現在應該執行。
+
+---
+
+## 專案結構
 
 | 位置 | 用途 |
 | --- | --- |
-| `public/`、`src/` | UI shell 與 runtime engine |
-| `content/routes/`、`content/production/` | playable data 與 approved production contracts |
-| `content/assets/`、`content/recipes/` | logical asset、source/provider/hash、recipe metadata |
-| `assets-src/` | 仍由 source-map 使用的本地 legacy binary sources |
-| Google Drive `source-private` | accepted private master images |
-| Google Drive `runtime-public` | 目前仍由 source-map 使用的 optimized runtime objects |
-| `dist/`、`generated/` | 可重建的 output/cache，不作 source of truth |
+| `public/` | Browser UI shell |
+| `src/` | Runtime engine、visual、progress、Memories 等 |
+| `content/routes/` | Playable route / story data |
+| `content/production/` | Approved narrative / CG production contracts |
+| `content/assets/` | Logical asset 與 source/runtime metadata |
+| `content/recipes/` | Asset dependency / rebuild metadata |
+| `content/characters/` | Character metadata |
+| `assets-src/` | 仍被 active metadata 使用的 local / legacy source assets |
+| `docs/` | Architecture、narrative、art 與 production documentation |
+| `.ai/` | AI production harness、policy、schema 與 orchestration contract |
+| `tools/`、`tests/` | Build、validation、content / asset tooling 與 regression tests |
+| `dist/`、`generated/` | 可重建 output / cache，不作 source of truth |
 
-Repo 舊的本地 `runtime-public/` 目錄已移除；它與上表中的 Google Drive folder 不是同一個來源。Story 只引用 stable logical asset ID，不直接引用 physical filename 或 storage provider。
+Asset 的實際 provider、master location、runtime source 與 migration 狀態容易隨 architecture 演進，不在 README 重複維護。
+
+**當前實際狀態以 `PROJECT_STATE.md`、`ARCHITECTURE.zh-TW.md`、active asset metadata 與 validators 為準。**
+
+---
+
+## Content / Production Boundary
+
+新 production content 使用單一 canonical workflow。
+
+大致關係為：
+
+```text
+Narrative Design
+→ Scene / Dialogue
+→ Narrative QA
+→ Visual Planning
+→ Render / Visual QA
+→ Runtime Integration
+→ Playable Review
+```
+
+Narrative、runtime integration 與 final art 不要求完全同步推進。
+
+具體 gate、dependency 與 worker contract 不在 README 重複描述，統一以：
+
+- `.ai/WORKFLOW_MANIFEST.yaml`
+- `docs/narrative/CONTENT_PRODUCTION_TODO.md`
+- 相關 Narrative / Art specs
+
+為準。
+
+Archive、experiment、舊 operator 與舊 prompt 只保留歷史 provenance，不應作為新的 production authority。
+
+---
+
+## 開發環境
+
+Canonical engineering environment 是 GitHub Codespaces。
+
+目前主要環境：
+
+- Node 22
+- ffmpeg / ffprobe
+- preview port `4173`
+
+Local clone 可以作 fallback；需要 fresh environment acceptance 的工作以 Codespaces 為準。
+
+常用命令：
+
+```bash
+npm run dev
+npm run preview
+npm run build
+npm run validate
+npm test
+npm run preview:smoke -- --skip-build
+```
+
+其他工具包括：
+
+```bash
+npm run assets:check
+npm run assets:build
+npm run context -- --route <id> --node <id>
+npm run cg:packet -- --manifest <path> --check
+npm run codespace:accept
+```
+
+實際可用命令與 script contract 以 `package.json` 為準。
+
+---
+
+## 核心開發原則
+
+- `main` 應維持可重建、可驗證。
+- Story 依賴 stable logical IDs，而不是 physical storage filename。
+- `dist/` 與 `generated/` 不作 source of truth。
+- Production content 不從 archive / experiment 恢復成 active authority。
+- Persistent runtime IDs 應保持穩定，避免破壞 save / replay。
+- Human 保留重大故事方向、角色設計、關鍵 CG acceptance 與最終 playable acceptance。
+- 新需求是否現在執行，由 `ROADMAP.md` 的 current milestone 與 Exit Gate 決定。
