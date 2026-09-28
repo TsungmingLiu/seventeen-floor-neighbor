@@ -265,6 +265,10 @@ function validateStoryRoute(route, fail) {
 
   for (const [id, node] of Object.entries(nodes)) {
     if (node.next && !nodes[node.next]) fail(`route ${config.id} node ${id}: unknown next node ${node.next}`);
+    const hasChoiceText = typeof node.text === 'string' && node.text.trim().length > 0;
+    if ((node.choices || []).length && !hasChoiceText && ('speaker' in node || 'text' in node)) {
+      fail(`route ${config.id} node ${id}: pure choice nodes must omit speaker and empty text`);
+    }
     for (const choice of node.choices || []) {
       if (!nodes[choice.next]) fail(`route ${config.id} node ${id}: choice points to unknown node ${choice.next}`);
       for (const [stat, amount] of Object.entries(choice.effects || {})) {
