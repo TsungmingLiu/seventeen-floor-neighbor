@@ -13,11 +13,10 @@ Browser-native JavaScript 靜態站點；目前 prototype 聚焦許棠與江雨�
 | 文件 | 用途 |
 | --- | --- |
 | [`ROADMAP.md`](ROADMAP.md) | 專案里程碑、目前優先級、下一階段與 Exit Gate |
-| [`PROJECT_STATE.md`](PROJECT_STATE.md) | repo 當前已完成／已實作的客觀狀態 |
 | [`TODO.md`](TODO.md) | 目前 milestone 的技術執行工作與 technical backlog |
 | [`docs/narrative/CONTENT_PRODUCTION_TODO.md`](docs/narrative/CONTENT_PRODUCTION_TODO.md) | 劇情、美術與 playable content 的 production progress |
 | [`.ai/WORKFLOW_MANIFEST.yaml`](.ai/WORKFLOW_MANIFEST.yaml) | AI content-production workflow、harness 與 worker execution contract |
-| [`ARCHITECTURE.zh-TW.md`](ARCHITECTURE.zh-TW.md) | runtime、content、asset、save、build 等已實作工程 contract |
+| [`ARCHITECTURE.md`](ARCHITECTURE.md) | runtime、content、asset、save、build 等已實作工程 contract |
 | [`docs/CONTENT_PRODUCTION_SOURCE_MAP.md`](docs/CONTENT_PRODUCTION_SOURCE_MAP.md) | Narrative / Art / Production 各 domain 的 source authority |
 
 ### 判斷「現在該做什麼」
@@ -28,11 +27,11 @@ Roadmap 決定目前 active milestone，以及哪些事情現在不應該做。
 
 ### 判斷「repo 現在到底是什麼狀態」
 
-讀 `PROJECT_STATE.md`。
+讀 `ROADMAP.md` 的已驗證基線與當前 milestone；內容場景進度看 `docs/narrative/CONTENT_PRODUCTION_TODO.md`，實際實作以 `ARCHITECTURE.md` 和 code/data/tests 為準。
 
 ### 要修改程式、runtime、route、asset 或 save
 
-先讀 `ARCHITECTURE.zh-TW.md`，再讀相關實際 code / JSON，以及 `TODO.md` 中目前 milestone 的技術工作。
+先讀 `ARCHITECTURE.md`，再讀相關實際 code / JSON，以及 `TODO.md` 中目前 milestone 的技術工作。
 
 ### 要寫劇情、對白或製作 CG
 
@@ -71,7 +70,7 @@ Roadmap 決定目前 active milestone，以及哪些事情現在不應該做。
 
 Asset 的實際 provider、master location、runtime source 與 migration 狀態容易隨 architecture 演進，不在 README 重複維護。
 
-**當前實際狀態以 `PROJECT_STATE.md`、`ARCHITECTURE.zh-TW.md`、active asset metadata 與 validators 為準。**
+**當前 milestone 以 `ROADMAP.md`、content progress 以 `docs/narrative/CONTENT_PRODUCTION_TODO.md`、實際工程行為以 `ARCHITECTURE.md`、active asset metadata、code 與 validators 為準。**
 
 ---
 

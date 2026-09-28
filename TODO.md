@@ -6,7 +6,7 @@
 >
 > 劇情、美術與 content-production progress 見 `docs/narrative/CONTENT_PRODUCTION_TODO.md`。
 >
-> 已完成的客觀狀態見 `PROJECT_STATE.md`。
+> 已驗證的 milestone 基線見 `ROADMAP.md`；實際工程契約見 `ARCHITECTURE.md` 與 code/tests。
 
 ---
 
@@ -51,7 +51,7 @@ M0 先以一個真實 scene 的受控修改，證明定點影響報告可供整�
 ### 4. Active source-authority cleanup
 
 - [x] 完成 GitHub Issue #23：清理 active docs 中過期的 Google Drive `runtime-public` 描述（PR #21）。
-- [x] `README.md`、`PROJECT_STATE.md`、`ARCHITECTURE.zh-TW.md`、`.ai/WORKFLOW_MANIFEST.yaml` 與實際 runtime/build behavior 一致。
+- [x] `README.md`、`ROADMAP.md`、`ARCHITECTURE.md`、`.ai/WORKFLOW_MANIFEST.yaml` 與實際 runtime/build behavior 一致。
 - [x] 區分 runtime asset、accepted master、generation reference 與 legacy/archive provenance。
 - [x] 保留純歷史 archive；不讓它進入 active workflow。
 

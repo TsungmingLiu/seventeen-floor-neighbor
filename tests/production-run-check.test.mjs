@@ -18,6 +18,35 @@ test('the real COM-00 decision reconstructs as a current QA PASS without session
   assert.equal(result.qa_codes.length, 5);
 });
 
+test('narrative QA ignores unrelated document text but invalidates a reviewed scene excerpt', async () => {
+  const temp = await mkdtemp(path.join(os.tmpdir(), 'production-run-scope-'));
+  const checkout = path.join(temp, 'checkout');
+  execFileSync('git', ['-C', projectRoot, 'worktree', 'add', '--detach', checkout, 'HEAD'], { stdio: 'pipe' });
+  const relative = 'docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md';
+  const commit = (message) => {
+    execFileSync('git', ['-C', checkout, 'add', relative], { stdio: 'pipe' });
+    execFileSync('git', ['-C', checkout, '-c', 'user.name=Production Test',
+      '-c', 'user.email=production-test@example.invalid', 'commit', '-qm', message], { stdio: 'pipe' });
+  };
+  try {
+    const source = path.join(checkout, relative);
+    const original = await readFile(source, 'utf8');
+    await writeFile(source, `<!-- routing note outside the reviewed COM-00 excerpt -->\n${original}`);
+    commit('Unrelated narrative document heading');
+    assert.equal((await verifyProductionRun(runId, { root: checkout })).task_status, 'CURRENT_PASS');
+
+    const updated = await readFile(source, 'utf8');
+    assert.ok(updated.includes('**Entry**：遊戲起點。'));
+    await writeFile(source, updated.replace('**Entry**：遊戲起點。', '**Entry**：不同的劇情起點。'));
+    commit('Change reviewed COM-00 narrative beat');
+    await assert.rejects(verifyProductionRun(runId, { root: checkout }),
+      /reviewed narrative inputs differ from current committed content/);
+  } finally {
+    execFileSync('git', ['-C', projectRoot, 'worktree', 'remove', '--force', checkout], { stdio: 'pipe' });
+    await rm(temp, { recursive: true, force: true });
+  }
+});
+
 test('the committed COM-01X decision resumes as a current PASS and rejects receipt tampering', async () => {
   const temp = await mkdtemp(path.join(os.tmpdir(), 'production-run-check-com01x-'));
   const checkout = path.join(temp, 'checkout');

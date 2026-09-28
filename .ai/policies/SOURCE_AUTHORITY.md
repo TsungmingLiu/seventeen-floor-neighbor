@@ -9,12 +9,12 @@ End-to-end routing、dependency/invalidation 與 resume 由 `.ai/PRODUCTION_ORCH
 ## 1. Conflict order
 
 1. `.ai/WORKFLOW_MANIFEST.yaml` — workflow routing and source classes.
-2. `PROJECT_STATE.md` — current milestone and accepted superseding decisions.
+2. `ROADMAP.md` — current milestone and work priority; it does not override task-specific accepted artifacts or domain contracts.
 3. Task-specific locked artifact — approved scene, canonical CG manifest entry, accepted asset receipt.
 4. Domain canon — narrative, visual, character identity, runtime contracts.
 5. A bounded supporting excerpt explicitly named by the Task Packet.
 
-A lower layer never overrides a higher layer. Conflicting sources at the same authority level require `BLOCKED`; the worker must not invent a compromise.
+This order applies only when two sources claim the same decision. `ROADMAP.md` owns milestone priority, never scene facts or technical schema; a locked artifact owns its approved task-local values, and domain canon owns its declared rules. A lower layer never overrides a higher layer within the same domain. Conflicting sources at the same authority level require `BLOCKED`; the worker must not invent a compromise.
 
 ## 2. Lifecycle
 

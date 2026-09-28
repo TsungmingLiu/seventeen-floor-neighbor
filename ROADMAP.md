@@ -41,6 +41,12 @@
 
 **狀態：NOW**
 
+## 已驗證的基線
+
+- W1–W4 的 source/output、嚴格 asset check/build、Codespaces 開發與驗收，以及 Player UI、Memories、CG Gallery、journey v2 / v1 save migration 已實作；實際契約見 [`ARCHITECTURE.md`](ARCHITECTURE.md) 與 code/tests。
+- PR #21 已將 active runtime 圖片遷至 repo，退役舊 `xu-tang` playable route；目前只有 `opening-demo` 註冊為 playable route。資產逐項 hash 與歷史對照見 `docs/migration/GATE2_REPO_RUNTIME_ASSETS.md`，現行檔案與使用範圍以 asset registry、route 與 build 為準。
+- 已登記共用的 preview-only WebP，但目前沒有 scene 使用它。已整合的 Opening 場景與下一批 production 狀態只在 `docs/narrative/CONTENT_PRODUCTION_TODO.md` 維護；已實作的 reference/ingest/preview 與 QA 工具契約見 `ARCHITECTURE.md`、`.ai/WORKFLOW_MANIFEST.yaml` 和對應的工具。此處的基線不代表 M0 Exit Gate 已完成。
+
 ## Outcome
 
 建立一個可信任的 `main` baseline。

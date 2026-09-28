@@ -30,6 +30,13 @@ function versionListEqual(a, b) {
   return JSON.stringify(a) === JSON.stringify(b);
 }
 
+function narrativeReviewContentIdentities(packet) {
+  return packet.required_acquisition.markdown.flatMap((source) => source.excerpts?.length
+    ? source.excerpts.map((part) => ({ id: `excerpt:${source.path}:${part.label}`,
+      version: part.sha256, location: `${source.path}#excerpt` }))
+    : [{ id: `file:${source.path}`, version: source.git_blob_sha, location: source.path }]);
+}
+
 async function committedJson(root, relative) {
   const bytes = await readFile(path.join(root, relative));
   const blob = createHash('sha1').update(`blob ${bytes.length}\0`).update(bytes).digest('hex');
@@ -284,7 +291,8 @@ export async function verifyProductionRun(runId, { root = projectRoot, sourceRoo
   if (!sourceRoot || requireCurrent) {
     const current = await buildNarrativeReviewPacket({ sceneId: task.scene_id,
       runId, taskId: task.task_id, root, ref: git(root, 'rev-parse', 'HEAD') });
-    requireCondition(versionListEqual(current.input_versions, packet.input_versions),
+    requireCondition(versionListEqual(narrativeReviewContentIdentities(current),
+      narrativeReviewContentIdentities(packet)),
       'reviewed narrative inputs differ from current committed content');
   }
   return { run_id: runId, source_ref: ledger.source_ref, packet_sha256: packetSha256,
