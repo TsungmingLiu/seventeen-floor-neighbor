@@ -81,7 +81,7 @@ Choice 出現在許棠說「看來不是只有我」之後。
 | Choice ID | Player-facing intent | Xu response intent | Stats / flags | Rejoin |
 | --- | --- | --- | --- | --- |
 | `com02x_ask_food` | 「附近這個時間，還有別的能吃嗎？」 | 她先給一個方向／位置輪廓；具體店家資訊留到 shared walk-back，確保不是只有此 branch 才成立。 | `F_XT +1` bonus; `mc_tone_practical +=1` | 02X.5 |
-| `com02x_share_work` | 「我也是剛收工。今天晚餐就……先這樣吧。」 | 她接住「也忙到現在」；branch 不獨占 remote/tech knowledge，共同工作段再讓所有路徑自然建立。 | `T_XT +1`; `mc_tone_humorous +=1` | 02X.5 |
+| `com02x_share_work` | 「我也是剛收工。今天能微波就算有煮了。」 | 她接住「也忙到現在」；branch 不獨占 remote/tech knowledge，共同工作段再讓所有路徑自然建立。 | `T_XT +1`; `mc_tone_humorous +=1` | 02X.5 |
 | `com02x_tease_same` | 「至少妳那盒看起來比我的像晚餐。」 | 她看兩份餐盒，給一個很普通、沒有刻意做 punchline 的比較。 | `C_XT +1` | 02X.5 |
 | `com02x_tell_eat_better` | 「妳如果常常都這麼晚吃，還是要注意一下吧。」 | 她用事實校正「沒有常常，今天而已」，不升級衝突；男主也不漂亮地把話圓回來。 | `K_XT -1`; `xt_advice_tendency +=1`; **不增加** `xt_boundary_strikes` | 02X.5 |
 
@@ -122,7 +122,7 @@ Base scene exit 另有 `F_XT +1`；`com02x_ask_food` 的 bonus 保持鎖定，�
 ### `common_convenience_xu_choice`
 
 1. `com02x_ask_food` — **「附近這個時間，還有別的能吃嗎？」**
-2. `com02x_share_work` — **「我也是剛收工。今天晚餐就……先這樣吧。」**
+2. `com02x_share_work` — **「我也是剛收工。今天能微波就算有煮了。」**
 3. `com02x_tease_same` — **「至少妳那盒看起來比我的像晚餐。」**
 4. `com02x_tell_eat_better` — **「妳如果常常都這麼晚吃，還是要注意一下吧。」**
 
@@ -142,7 +142,7 @@ Base scene exit 另有 `F_XT +1`；`com02x_ask_food` 的 bonus 保持鎖定，�
 
 #### Branch `com02x_share_work`
 
-**Protagonist**：我也是剛收工。今天晚餐就……先這樣吧。
+**Protagonist**：我也是剛收工。今天能微波就算有煮了。
 
 **Xu Tang**：你也拖到現在喔。
 
@@ -184,37 +184,43 @@ Base scene exit 另有 `F_XT +1`；`com02x_ask_food` 的 bonus 保持鎖定，�
 
 **Protagonist**：嗯。當我沒說。
 
+**Xu Tang**：嗯。
+
+**Action**：她把視線收回架上。兩人各自看了幾秒，沒有立刻把這句接下去。
+
 → Rejoin `common_convenience_xu_work`
 
 ### `common_convenience_xu_work`
 
 **Visual**：`XT-SPR-LATE-CASUAL.sleepy_annoyed`。
 
-**Action**：櫃檯那邊的微波爐開始運轉。兩人往結帳方向挪了幾步，剛才的話題自然斷掉。
+**Action**：櫃檯那邊的微波爐開始運轉。兩人往結帳方向挪了幾步；不管剛才聊到哪裡，聲音一停下來，話題也跟著鬆了一下。
 
-**Xu Tang**：你這個時間來，也是剛忙完？
+**Xu Tang**：你剛說忙完，是公司那邊？
 
-**Protagonist**：嗯。其實人一直在家。
+**Protagonist**：嗯……算是。我今天其實整天都在家。
 
-**Xu Tang**：在家工作？
+**Xu Tang**：喔，在家工作。
 
-**Protagonist**：大部分。做軟體的。剛才有東西要上線，拖了一下。
-
-**Xu Tang**：喔。
-
-**Action**：微波爐還在轉。兩人安靜了幾秒。
-
-**Xu Tang**：我這邊是送印。明早要看。
-
-**Protagonist**：妳做印刷？
-
-**Xu Tang**：不是，視覺設計。
-
-**Xu Tang**：我自己接案。這個剛好要送印。
-
-**Protagonist**：喔。
+**Protagonist**：對。做軟體的。剛好有東西要上線，一拖就拖到現在。
 
 **Xu Tang**：嗯。
+
+**Action**：微波爐還在轉。男主低頭看了一眼手裡那盒東西。
+
+**Protagonist**：妳也是趕工作？
+
+**Xu Tang**：嗯。明早要看稿。
+
+**Protagonist**：設計的？
+
+**Xu Tang**：對，視覺。我自己接案。
+
+**Action**：她把餐盒換到另一隻手。
+
+**Xu Tang**：這個剛好要送印，今天比較晚。
+
+**Protagonist**：喔。
 
 **Action**：櫃檯傳來提示音。許棠看過去。
 
@@ -368,7 +374,7 @@ unchanged:
 - 疲憊時可以短，但不要把 `dry / reserved` 寫成每句都有 punchline；本幕允許她只回「喔」「嗯」或讓一句話停掉。
 - 她叫名字自然，不加「居然又遇到你」。
 - 工作資訊採 disclosure → 誤解／確認 → correction：先提「送印」，再自然澄清自己做視覺設計、自己接案；不一次報完整履歷。
-- 被規訓式關心時只把事實校正回來，不上價值課，也不負責替男主把尷尬收漂亮。
+- 被規訓式關心時只把事實校正回來，不上價值課，也不負責替男主把尷尬收漂亮；該 branch 在 rejoin 前保留一小段真的冷下來的空白。
 - shared rejoin 必須獨立建立所有路徑需要的工作 knowledge；任何 branch-specific 句子都不能成為 unconditional state 的唯一來源。
 
 ### Male protagonist
