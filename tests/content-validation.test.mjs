@@ -55,6 +55,31 @@ test('Opening choice effects must use finite amounts for declared state keys', a
   assert.ok((await validateContent(nonfiniteAmount)).some((error) => error.includes('choice effect C_XT must be a finite number')));
 });
 
+
+
+test('pure choice nodes omit placeholder speaker/text and legacy shapes are rejected', async () => {
+  const base = await loadContent();
+  const route = base.routes.find((item) => item.config.id === 'opening-demo');
+  for (const id of [
+    'common_elevator_restart_choice',
+    'common_acg_first_meet_choice',
+    'common_bookstore_bridge_choice'
+  ]) {
+    assert.equal('speaker' in route.chapter.nodes[id], false);
+    assert.equal('text' in route.chapter.nodes[id], false);
+    assert.ok(route.chapter.nodes[id].choices.length > 0);
+  }
+
+  const legacy = clone(base);
+  const node = legacy.routes.find((item) => item.config.id === 'opening-demo')
+    .chapter.nodes.common_elevator_restart_choice;
+  node.speaker = '你';
+  node.text = '';
+  assert.ok((await validateContent(legacy)).some((error) =>
+    error.includes('pure choice nodes must omit speaker and empty text')
+  ));
+});
+
 test('Opening memory unlock nodes must follow and include their replay anchor', async () => {
   const base = await loadContent();
   const earlierNode = clone(base);
