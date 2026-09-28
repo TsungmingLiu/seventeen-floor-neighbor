@@ -111,10 +111,20 @@ test('relationship changes mark reviewed contract stale; a changed Locked Scene 
   });
 });
 
-test('a committed upstream narrative canon change makes the manifest review stale without a scene diff', async () => {
+test('manifest review ignores unrelated canon text and stales on a reviewed upstream beat', async () => {
   await checkoutFor(async ({ checkout, impact, commit }) => {
     const relative = 'docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md';
     await writeFile(path.join(checkout, relative), `${await readFile(path.join(checkout, relative), 'utf8')}\nUnrelated test note.\n`);
+    commit(relative);
+    const { impact: unrelated } = await impact();
+    assert.deepEqual(unrelated.changes, []);
+    assert.equal(unrelated.run_reconciliation.target_status, 'CURRENT_PASS');
+    assert.deepEqual(unrelated.run_reconciliation.changed_versions, []);
+
+    const source = path.join(checkout, relative);
+    const original = await readFile(source, 'utf8');
+    assert.ok(original.includes('**Entry**：遊戲起點。'));
+    await writeFile(source, original.replace('**Entry**：遊戲起點。', '**Entry**：不同的劇情起點。'));
     commit(relative);
     const { impact: report } = await impact();
     assert.deepEqual(report.changes, []);
