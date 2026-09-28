@@ -30,10 +30,10 @@ function versionListEqual(a, b) {
   return JSON.stringify(a) === JSON.stringify(b);
 }
 
-function narrativeReviewContentIdentities(packet) {
+export function narrativeReviewContentIdentities(packet) {
   return packet.required_acquisition.markdown.flatMap((source) => source.excerpts?.length
     ? source.excerpts.map((part) => ({ id: `excerpt:${source.path}:${part.label}`,
-      version: part.sha256, location: `${source.path}#excerpt` }))
+      version: part.sha256, location: source.path }))
     : [{ id: `file:${source.path}`, version: source.git_blob_sha, location: source.path }]);
 }
 

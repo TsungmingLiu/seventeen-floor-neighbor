@@ -6,8 +6,8 @@ import { fileURLToPath } from 'node:url';
 import { tmpdir } from 'node:os';
 import { projectRoot } from './content-lib.mjs';
 import { projectEntry, sha256, stableStringify } from './render-cg-packets.mjs';
-import { verifyProductionRun, versionIdentity } from './verify-production-run.mjs';
-import { buildManifestUsabilityPacket } from './context-packet.mjs';
+import { verifyProductionRun, versionIdentity, narrativeReviewContentIdentities } from './verify-production-run.mjs';
+import { buildManifestUsabilityPacket, buildNarrativeReviewPacket } from './context-packet.mjs';
 
 const narrativeRoot = 'content/production/narrative';
 const manifestRoot = 'content/production/cg-manifests';
@@ -423,6 +423,7 @@ async function reconcileRun(impact, runId, { root, from, to }) {
   const tempBase = await mkdtemp(path.join(tmpdir(), 'impact-source-'));
   const sourceRoot = path.join(tempBase, 'source');
   let added = false;
+  let upstreamRoot;
   try {
     execFileSync('git', ['-C', root, 'worktree', 'add', '--detach', sourceRoot, ledger.source_ref], { stdio: 'pipe' });
     added = true;
@@ -431,15 +432,27 @@ async function reconcileRun(impact, runId, { root, from, to }) {
       'run does not have a verified recorded QA PASS');
     const changedVersions = [];
     if (task.task_type === 'narrative_review') {
-      for (const kind of ['input_versions', 'output_versions']) {
-        for (const item of task[kind]) {
-          safePath(item.location);
-          const currentVersion = git(root, 'rev-parse', `${target}:${item.location}`);
-          if (currentVersion !== item.version) changedVersions.push({
-            kind, id: item.id, location: item.location,
-            old_version: item.version, new_version: currentVersion
-          });
-        }
+      const packetArgs = { sceneId: task.scene_id, runId, taskId: task.task_id };
+      const historical = await buildNarrativeReviewPacket({ ...packetArgs, root: sourceRoot, ref: ledger.source_ref });
+      const current = await buildNarrativeReviewPacket({ ...packetArgs, root, ref: target });
+      const reviewed = narrativeReviewContentIdentities(historical);
+      const latest = narrativeReviewContentIdentities(current);
+      requireCondition(reviewed.length === latest.length && reviewed.every((item, index) =>
+        item.id === latest[index].id && item.location === latest[index].location),
+      'narrative input identity set changed; fresh QA is required');
+      for (let index = 0; index < reviewed.length; index++) {
+        if (reviewed[index].version !== latest[index].version) changedVersions.push({
+          kind: 'input_versions', id: reviewed[index].id, location: reviewed[index].location,
+          old_version: reviewed[index].version, new_version: latest[index].version
+        });
+      }
+      for (const item of task.output_versions) {
+        safePath(item.location);
+        const currentVersion = git(root, 'rev-parse', `${target}:${item.location}`);
+        if (currentVersion !== item.version) changedVersions.push({
+          kind: 'output_versions', id: item.id, location: item.location,
+          old_version: item.version, new_version: currentVersion
+        });
       }
     } else {
       const upstreamLedgerPath = `content/production/runs/${task.upstream_run_id}/ledger.json`;
@@ -460,21 +473,28 @@ async function reconcileRun(impact, runId, { root, from, to }) {
         .filter((item) => item.id === `file:docs/narrative/scenes/vertical-slice/${task.scene_id}.md` ||
           item.id === `file:content/production/narrative/opening-ch1/${task.scene_id}.json`)
         .map((item) => [item.id, item]));
-      const seen = new Set();
-      for (const item of upstreamTask.input_versions) {
-        safePath(item.location);
-        const reviewed = selectedInputs.get(item.id) ?? item;
-        const currentVersion = git(root, 'rev-parse', `${target}:${item.location}`);
-        if (currentVersion !== item.version) changedVersions.push({
-          kind: selectedInputs.has(item.id) ? 'input_versions' : 'upstream_input_versions',
-          id: item.id, location: item.location,
-          old_version: reviewed.version, new_version: currentVersion
-        });
-        seen.add(item.id);
-      }
-      requireCondition([...selectedInputs].every(([id, item]) => seen.has(id) &&
+      requireCondition([...selectedInputs].every(([id, item]) =>
         upstreamTask.input_versions.find((upstream) => upstream.id === id)?.version === item.version),
       'selected scene/contract differs from recorded upstream Narrative QA');
+      upstreamRoot = path.join(tempBase, 'upstream');
+      execFileSync('git', ['-C', root, 'worktree', 'add', '--detach', upstreamRoot,
+        upstreamLedger.source_ref], { stdio: 'pipe' });
+      const packetArgs = { sceneId: task.scene_id, runId: task.upstream_run_id, taskId: task.upstream_task_id };
+      const historical = await buildNarrativeReviewPacket({ ...packetArgs, root: upstreamRoot,
+        ref: upstreamLedger.source_ref });
+      const current = await buildNarrativeReviewPacket({ ...packetArgs, root, ref: target });
+      const reviewed = narrativeReviewContentIdentities(historical);
+      const latest = narrativeReviewContentIdentities(current);
+      requireCondition(reviewed.length === latest.length && reviewed.every((item, index) =>
+        item.id === latest[index].id && item.location === latest[index].location),
+      'upstream narrative input identity set changed; fresh QA is required');
+      for (let index = 0; index < reviewed.length; index++) {
+        if (reviewed[index].version !== latest[index].version) changedVersions.push({
+          kind: selectedInputs.has(reviewed[index].id) ? 'input_versions' : 'upstream_input_versions',
+          id: reviewed[index].id, location: reviewed[index].location,
+          old_version: reviewed[index].version, new_version: latest[index].version
+        });
+      }
       const upstreamStale = changedVersions.length > 0;
       if (!upstreamStale) {
         const packet = await buildManifestUsabilityPacket({ sceneId: task.scene_id,
@@ -518,6 +538,7 @@ async function reconcileRun(impact, runId, { root, from, to }) {
       ? 'VERIFIED_RECORDED_NARRATIVE_QA' : 'VERIFIED_RECORDED_MANIFEST_USABILITY_QA';
   } finally {
     try {
+      if (upstreamRoot) execFileSync('git', ['-C', root, 'worktree', 'remove', '--force', upstreamRoot], { stdio: 'pipe' });
       if (added) execFileSync('git', ['-C', root, 'worktree', 'remove', '--force', sourceRoot], { stdio: 'pipe' });
     } finally {
       await rm(tempBase, { recursive: true, force: true });

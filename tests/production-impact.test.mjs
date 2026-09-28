@@ -250,17 +250,28 @@ test('visual-only manifest edit preserves this run Narrative QA while proposing 
   });
 });
 
-test('a changed recorded canon input makes the QA task stale even when the scene impact projection is unchanged', async () => {
+test('unrelated canon text preserves QA, while a reviewed beat makes the task stale', async () => {
   await inDetachedCheckout(async (checkout, ledger) => {
     const relative = 'docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md';
     await writeFile(path.join(checkout, relative), `${await readFile(path.join(checkout, relative), 'utf8')}\nUnrelated test note.\n`);
+    commitChanged(checkout, relative);
+    const { impact: unrelated } = await writeProductionImpact({ sceneId: 'COM-00', from: ledger.source_ref,
+      to: 'HEAD', runId, root: checkout });
+    assert.deepEqual(unrelated.changes, []);
+    assert.equal(unrelated.run_reconciliation.target_status, 'CURRENT_PASS');
+    assert.deepEqual(unrelated.run_reconciliation.changed_versions, []);
+
+    const source = path.join(checkout, relative);
+    const original = await readFile(source, 'utf8');
+    assert.ok(original.includes('**Entry**：遊戲起點。'));
+    await writeFile(source, original.replace('**Entry**：遊戲起點。', '**Entry**：不同的劇情起點。'));
     commitChanged(checkout, relative);
     const { impact } = await writeProductionImpact({ sceneId: 'COM-00', from: ledger.source_ref,
       to: 'HEAD', runId, root: checkout });
     assert.deepEqual(impact.changes, []);
     assert.equal(impact.run_reconciliation.target_status, 'STALE_PROPOSED');
     assert.ok(impact.run_reconciliation.changed_versions.some((item) =>
-      item.id === `file:${relative}` && item.old_version !== item.new_version));
+      item.id.startsWith(`excerpt:${relative}:`) && item.old_version !== item.new_version));
   });
 });
 
