@@ -1,6 +1,7 @@
 import { ProgressStore } from './progress.js';
 import { paintPreview, paintSprites, resolveVisual, setImage } from './visuals.js';
 import { memoryEventById, memoryEventForNode, memoryStats, renderMemories, titleBackdropVisual } from './memories.js';
+import { hasRenderableText, presentationModeForNode, speakerLabelForNode } from './presentation.js';
 
 export class GameEngine {
   constructor({ chapter, assetManifest, sceneLibrary, memoryLibrary }) {
@@ -13,6 +14,7 @@ export class GameEngine {
     this.state = this.createInitialState();
     this.isTyping = false;
     this.typingToken = 0;
+    this.awaitingChoiceReveal = false;
     this.muted = localStorage.getItem('neighborMuted') === '1';
     this.audioContext = null;
     this.currentSpriteSignature = '';
@@ -566,6 +568,24 @@ export class GameEngine {
     this.els.track.setAttribute('aria-label', `故事進度：${this.chapter.chapterLabels[chapterIndex]}`);
   }
 
+  applyPresentationMode(node, mode = presentationModeForNode(node)) {
+    this.els.stage.dataset.presentation = mode;
+    this.els.dialoguePanel.dataset.mode = mode;
+    const speaker = speakerLabelForNode(node, mode);
+    this.els.speaker.textContent = speaker;
+    this.els.speaker.classList.toggle('is-hidden', !speaker);
+    this.els.speaker.classList.toggle('is-protagonist', mode === 'protagonist');
+    this.els.dialoguePanel.classList.toggle('is-hidden', mode === 'choice');
+    return mode;
+  }
+
+  enterChoiceMode(choices) {
+    this.awaitingChoiceReveal = false;
+    this.applyPresentationMode(this.chapter.nodes[this.nodeId], 'choice');
+    this.els.hint.textContent = '';
+    this.showChoices(choices);
+  }
+
   async typeText(text) {
     const token = ++this.typingToken;
     this.isTyping = true;
@@ -579,8 +599,12 @@ export class GameEngine {
     if (token !== this.typingToken) return;
     this.isTyping = false;
     const node = this.chapter.nodes[this.nodeId];
-    this.els.hint.textContent = node.choices ? '選擇回應' : '點擊繼續';
-    if (node.choices) this.showChoices(node.choices);
+    if (node.choices) {
+      this.awaitingChoiceReveal = true;
+      this.els.hint.textContent = '點擊選擇';
+    } else {
+      this.els.hint.textContent = '點擊繼續';
+    }
   }
 
   revealText() {
@@ -589,8 +613,12 @@ export class GameEngine {
     this.isTyping = false;
     const node = this.chapter.nodes[this.nodeId];
     this.els.text.textContent = node.text || '';
-    this.els.hint.textContent = node.choices ? '選擇回應' : '點擊繼續';
-    if (node.choices) this.showChoices(node.choices);
+    if (node.choices) {
+      this.awaitingChoiceReveal = true;
+      this.els.hint.textContent = '點擊選擇';
+    } else {
+      this.els.hint.textContent = '點擊繼續';
+    }
     return true;
   }
 
@@ -666,9 +694,10 @@ export class GameEngine {
       return;
     }
     this.progress.capture(this.nodeId, this.state, this.returnNodes);
+    this.awaitingChoiceReveal = false;
     this.els.choices.classList.add('is-hidden');
     this.els.choices.replaceChildren();
-    this.els.speaker.textContent = node.speaker || '旁白';
+    const presentationMode = this.applyPresentationMode(node);
     this.els.hint.textContent = '…';
     const isCinematicNode = node.visual?.mode === 'cinematic';
     if (isCinematicNode) this.pendingMoment = node.moment || '';
@@ -676,13 +705,22 @@ export class GameEngine {
     this.updateTrack(node.chapter || 0);
     if (!isCinematicNode) this.renderMoment(node.moment);
     if (node.tone) this.tone(node.tone);
+    if (presentationMode === 'choice' && node.choices && !hasRenderableText(node)) {
+      this.els.text.textContent = '';
+      this.enterChoiceMode(node.choices);
+      return;
+    }
     this.typeText(node.text);
   }
 
   advance() {
     const node = this.chapter.nodes[this.nodeId];
-    if (!node || node.choices || this.isCinematic) return;
+    if (!node || this.isCinematic) return;
     if (this.revealText()) return;
+    if (node.choices) {
+      if (this.awaitingChoiceReveal) this.enterChoiceMode(node.choices);
+      return;
+    }
     if (node.next) {
       this.tone('tap');
       this.nodeId = node.next;
