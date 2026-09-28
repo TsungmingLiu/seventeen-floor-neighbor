@@ -109,6 +109,39 @@ function runtimeIdentity(binding) {
   return binding && { asset: binding.asset, runtime: binding.mapped };
 }
 
+function sceneRouteBinding(config, memory, nodes, nodeIds, logicalIds, assets) {
+  const story = config.story || {};
+  const indices = new Set(Object.values(nodes).map((node) => node.chapter).filter(Number.isInteger));
+  const stats = new Set();
+  for (const node of Object.values(nodes)) {
+    Object.keys(node.effects || {}).forEach((stat) => stats.add(stat));
+    for (const choice of node.choices || []) Object.keys(choice.effects || {}).forEach((stat) => stats.add(stat));
+    for (const branch of node.cases || []) {
+      for (const condition of branch.conditions || []) stats.add(condition.stat);
+    }
+  }
+  const artIds = new Set(Object.values(nodes).flatMap((node) => [
+    node.visual?.asset, node.visual?.background,
+    ...(node.visual?.sprites || []).map((sprite) => sprite.asset)
+  ]).filter(Boolean));
+  const titleArt = logicalIds.has(story.titleArt) ? story.titleArt : null;
+  const endingArt = logicalIds.has(story.endingArt) ? story.endingArt : null;
+  const usesPreviewArt = [...artIds, titleArt, endingArt].some((id) => assets[id]?.previewOnly);
+  return {
+    id: config.id,
+    story: {
+      id: story.id,
+      startNode: nodeIds.includes(story.startNode) || memory.replayNode === story.startNode ? story.startNode : null,
+      titleArt,
+      endingArt,
+      chapterLabels: Object.fromEntries([...indices].sort((a, b) => a - b).map((index) => [index, story.chapterLabels?.[index]])),
+      initialState: Object.fromEntries([...stats].sort().map((stat) => [stat, story.initialState?.[stat]])),
+      ...(usesPreviewArt && { allowPreviewArt: story.allowPreviewArt })
+    },
+    assetIds: config.assetIds.filter((id) => logicalIds.has(id))
+  };
+}
+
 export async function snapshotScene(reader, sceneId) {
   requireCondition(/^[A-Z][A-Z0-9]*(?:-[A-Z0-9]+)+$/.test(sceneId), `invalid scene ID: ${sceneId}`);
   const contracts = await Promise.all((await reader.jsonFiles(narrativeRoot)).map(async (file) =>
@@ -209,10 +242,7 @@ export async function snapshotScene(reader, sceneId) {
       cover: logicalIds.has(memory.cover?.asset) ? memory.cover : null,
       galleryAssets: memory.galleryAssets.filter((id) => logicalIds.has(id))
     },
-    route: {
-      id: config.id, story: config.story, allowPreviewArt: config.allowPreviewArt,
-      assetIds: config.assetIds.filter((id) => logicalIds.has(id))
-    },
+    route: sceneRouteBinding(config, memory, nodes, nodeIds, logicalIds, manifest.assets),
     images
   };
 }

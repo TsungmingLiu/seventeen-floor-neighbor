@@ -12,6 +12,7 @@ const root = projectRoot;
 const manifestPath = 'content/production/cg-manifests/opening-ch1.json';
 const contractPath = 'content/production/narrative/opening-ch1/COM-01X.json';
 const chapterPath = 'content/routes/opening-demo/chapter-01.json';
+const routePath = 'content/routes/opening-demo/route.json';
 const lockedPath = 'docs/narrative/scenes/vertical-slice/COM-01X.md';
 
 function editedReader(edits = {}) {
@@ -44,6 +45,33 @@ function modifyManifest(entryId, edit) {
 
 const affects = (impact, predicate) => impact.would_invalidate.filter(predicate).sort();
 const visualEntry = (id) => (value) => value.endsWith(`:${id}`) || value === `accepted_asset:${id}`;
+
+test('committed COM-02X preview append leaves COM-00 route binding unchanged', async () => {
+  const before = await snapshotScene(readerFor(root, '0c0b3f44b809a067b114f29504019accfa79f910'), 'COM-00');
+  const after = await snapshotScene(readerFor(root, 'HEAD'), 'COM-00');
+  const impact = compareSceneSnapshots(before, after);
+  assert.deepEqual(impact.changes, []);
+  assert.deepEqual(impact.would_invalidate, []);
+});
+
+test('COM-00 route identity catches its own art, asset allowlist, chapter label and state changes', async () => {
+  const before = await snapshotScene(editedReader(), 'COM-00');
+  const cases = [
+    (route) => { route.story.titleArt = 'cg.opening.com01x.base_normal'; },
+    (route) => { route.assetIds = route.assetIds.filter((id) => id !== 'cg.opening.com00.s02_door_assist'); },
+    (route) => { route.story.chapterLabels[0] += ' adjusted'; },
+    (route) => { route.story.initialState.C_XT = 3; }
+  ];
+  for (const edit of cases) {
+    const after = await snapshotScene(editedReader({ [routePath]: { json: (route) => {
+      edit(route);
+      return route;
+    } } }), 'COM-00');
+    const impact = compareSceneSnapshots(before, after);
+    assert.ok(impact.changes.some((item) => item.changed_artifact_id === 'route_binding:COM-00'));
+    assert.ok(impact.would_invalidate.includes('integration:COM-00'));
+  }
+});
 
 test('runtime dialogue text change leaves CG artifacts intact', async () => {
   const before = await snapshot();

@@ -3,11 +3,18 @@ import assert from 'node:assert/strict';
 import { loadContent, validateContent } from '../tools/content-lib.mjs';
 import { GameEngine } from '../src/engine.js';
 import { resolveVisual } from '../src/visuals.js';
+import { ProgressStore } from '../src/progress.js';
 
 function clone(value) { return structuredClone(value); }
 
 function recipe(content, suffix) {
   return content.recipes.recipes.find((item) => item.outputAsset === `cg.opening-ch1.com01b.${suffix}`);
+}
+
+class MemoryStorage {
+  constructor() { this.values = new Map(); }
+  getItem(key) { return this.values.has(key) ? this.values.get(key) : null; }
+  setItem(key, value) { this.values.set(key, String(value)); }
 }
 
 test('accepted character-free CGs pass without invented character dependencies or head poses', async () => {
@@ -53,6 +60,37 @@ test('Opening choice effects must use finite amounts for declared state keys', a
   nonfiniteAmount.routes.find((item) => item.config.id === 'opening-demo')
     .chapter.nodes.common_movein_rain_choice.choices[0].effects.C_XT = Number.NaN;
   assert.ok((await validateContent(nonfiniteAmount)).some((error) => error.includes('choice effect C_XT must be a finite number')));
+});
+
+test('route node effects must use finite amounts for declared state keys', async () => {
+  const base = await loadContent();
+  const undeclaredState = clone(base);
+  undeclaredState.routes.find((item) => item.config.id === 'opening-demo')
+    .chapter.nodes.common_convenience_xu_work.effects.undeclared_flag = 1;
+  assert.ok((await validateContent(undeclaredState)).some((error) => error.includes('node effect writes undeclared stat undeclared_flag')));
+
+  const nonfiniteAmount = clone(base);
+  nonfiniteAmount.routes.find((item) => item.config.id === 'opening-demo')
+    .chapter.nodes.common_convenience_xu_exit.effects.F_XT = Number.NaN;
+  assert.ok((await validateContent(nonfiniteAmount)).some((error) => error.includes('node effect F_XT must be a finite number')));
+});
+
+test('route node effects are rejected where the runtime cannot apply them', async () => {
+  const base = await loadContent();
+  const route = (content) => content.routes.find((item) => item.config.id === 'opening-demo');
+
+  const choiceNode = clone(base);
+  route(choiceNode).chapter.nodes.common_convenience_xu_choice.effects = { F_XT: 1 };
+  assert.ok((await validateContent(choiceNode)).some((error) => error.includes('node effects require an advanceable narrative node')));
+
+  const terminal = clone(base);
+  route(terminal).chapter.nodes.opening_demo_complete.effects = { F_XT: 1 };
+  assert.ok((await validateContent(terminal)).some((error) => error.includes('node effects require an advanceable narrative node')));
+
+  const cinematic = clone(base);
+  route(cinematic).chapter.nodes.common_convenience_xu_exit.visual.mode = 'cinematic';
+  route(cinematic).chapter.nodes.common_convenience_xu_exit.effects = { F_XT: 1 };
+  assert.ok((await validateContent(cinematic)).some((error) => error.includes('node effects require an advanceable narrative node')));
 });
 
 test('Opening memory unlock nodes must follow and include their replay anchor', async () => {
@@ -126,6 +164,77 @@ test('all COM-01B questions rejoin after goodnight and reach the existing COM-01
     assert.ok(visited.includes('common_bookstore_bridge_weekend_transition'));
   }
   assert.deepEqual(route.chapter.initialState, content.routes.find((item) => item.config.id === 'opening-demo').config.story.initialState);
+});
+
+test('COM-02X is reachable after COM-01J and all four choice effects survive Continue with Memory unlocked', async () => {
+  const content = await loadContent();
+  const route = content.routes.find((item) => item.config.id === 'opening-demo');
+  const nodes = route.chapter.nodes;
+  const choiceNodeId = 'common_convenience_xu_choice';
+  const choices = nodes[choiceNodeId].choices;
+  assert.equal(nodes.common_acg_first_meet_coda.next, 'common_convenience_xu_enter');
+  assert.equal(route.config.assetIds.includes('bg.narrative_preview.placeholder'), true);
+  assert.equal(route.chapter.allowPreviewArt, true);
+  assert.equal(route.config.premise.includes('深夜便利店'), true);
+  assert.equal(route.config.hint.includes('四個選擇點'), true);
+  assert.equal(route.config.eyebrow.includes('Narrative Preview'), true);
+  assert.equal(route.chapter.endings.demo_complete.art, 'bg.narrative_preview.placeholder');
+  assert.equal(route.chapter.endings.demo_complete.text.includes('深夜便利店'), true);
+
+  const reachable = new Set([route.chapter.startNode]);
+  const queue = [route.chapter.startNode];
+  while (queue.length) {
+    const id = queue.shift();
+    const node = nodes[id];
+    for (const next of [node.next, ...(node.choices || []).map((choice) => choice.next)]) {
+      if (next && !reachable.has(next)) { reachable.add(next); queue.push(next); }
+    }
+  }
+  assert.ok(reachable.has(choiceNodeId), 'COM-02X choice is reachable from the real route start');
+  assert.equal(choices.length, 4);
+
+  const memory = route.memoryLibrary.events.find((event) => event.id === 'mem.opening.ch1.convenience-xu');
+  assert.ok(memory);
+  assert.equal(memory.replayNode, 'common_convenience_xu_enter');
+  assert.ok(memory.unlockNodes.includes(memory.replayNode));
+  assert.deepEqual(memory.galleryAssets, []);
+  const expected = [
+    { F_XT: 1, mc_tone_practical: 1 },
+    { T_XT: 1, mc_tone_humorous: 1 },
+    { C_XT: 1 },
+    { K_XT: -1, xt_advice_tendency: 1 }
+  ];
+  choices.forEach((choice, index) => assert.deepEqual(choice.effects, expected[index], choice.id));
+  assert.deepEqual(nodes.common_convenience_xu_work.effects, {
+    player_knows_xu_freelance_creative_work: 1, xu_knows_player_remote_tech_work: 1
+  });
+  assert.deepEqual(nodes.common_convenience_xu_exit.effects, { F_XT: 1 });
+
+  for (const [index, choice] of choices.entries()) {
+    assert.ok(reachable.has(choice.next), `${choice.id} branch is reachable`);
+    let current = choice.next;
+    const visited = new Set();
+    while (current !== 'opening_demo_complete') {
+      assert.ok(nodes[current] && !visited.has(current), `${choice.id} must reach the ending without a missing node or cycle`);
+      visited.add(current);
+      current = nodes[current].next;
+    }
+    assert.ok(visited.has('common_convenience_xu_exit'));
+
+    const storage = new MemoryStorage();
+    const state = { ...route.chapter.initialState, flags: new Set() };
+    for (const [key, amount] of Object.entries(choice.effects)) state[key] = (state[key] || 0) + amount;
+    const progress = new ProgressStore(route.chapter, route.memoryLibrary, storage);
+    progress.capture(choice.next, state, []);
+    const continued = new ProgressStore(route.chapter, route.memoryLibrary, storage);
+    assert.equal(continued.data.cursor.nodeId, choice.next);
+    assert.equal(continued.data.cursor.stats.F_XT, index === 0 ? 1 : 0);
+    for (const [key, amount] of Object.entries(choice.effects)) assert.equal(continued.data.cursor.stats[key], amount);
+    assert.equal(continued.data.cursor.stats.player_knows_xu_freelance_creative_work, 0);
+    assert.equal(continued.data.cursor.stats.xu_knows_player_remote_tech_work, 0);
+    assert.equal(continued.data.frontierMemoryEventId, memory.id);
+    assert.equal(continued.data.frontierRank, memory.progressRank);
+  }
 });
 
 test('narrative preview uses one local background without claiming CG or Gallery acceptance', async () => {

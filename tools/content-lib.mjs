@@ -265,6 +265,12 @@ function validateStoryRoute(route, fail) {
 
   for (const [id, node] of Object.entries(nodes)) {
     if (node.next && !nodes[node.next]) fail(`route ${config.id} node ${id}: unknown next node ${node.next}`);
+    for (const [stat, amount] of Object.entries(node.effects || {})) {
+      const effectCanApply = !node.type && !node.choices && Boolean(node.next) && node.visual?.mode !== 'cinematic';
+      if (!effectCanApply) fail(`route ${config.id} node ${id}: node effects require an advanceable narrative node`);
+      if (!(stat in (chapter.initialState || {}))) fail(`route ${config.id} node ${id}: node effect writes undeclared stat ${stat}`);
+      if (!Number.isFinite(amount)) fail(`route ${config.id} node ${id}: node effect ${stat} must be a finite number`);
+    }
     for (const choice of node.choices || []) {
       if (!nodes[choice.next]) fail(`route ${config.id} node ${id}: choice points to unknown node ${choice.next}`);
       for (const [stat, amount] of Object.entries(choice.effects || {})) {

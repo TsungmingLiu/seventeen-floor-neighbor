@@ -496,7 +496,7 @@
         "background": "bg.opening.ch1.acg_shop",
         "sprites": []
       },
-      "next": "opening_demo_complete"
+      "next": "common_convenience_xu_enter"
     },
     "opening_demo_complete": {
       "type": "route"
@@ -746,6 +746,161 @@
         "asset": "cg.opening-ch1.com01b.04"
       },
       "next": "common_acg_first_meet_enter"
+    },
+    "common_convenience_xu_enter": {
+      "speaker": "旁白",
+      "text": "晚上十一點，做飯已經從選項降成了明天的待辦事項。\n\n我在兩份微波食品前站了太久，仍然沒有得到比較成熟的答案。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_recognize"
+    },
+    "common_convenience_xu_recognize": {
+      "speaker": "許棠",
+      "text": "你也現在才吃？\n\n我轉過身。她一手拿著黑咖啡，另一手提著簡單餐盒。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_choice",
+      "moment": "她自然地叫出我的名字。"
+    },
+    "common_convenience_xu_choice": {
+      "speaker": "旁白",
+      "text": "",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "",
+      "choices": [
+        {
+          "id": "com02x_ask_food",
+          "text": "附近這個時間，除了這裡還有能吃的嗎？",
+          "next": "com02x_ask_food",
+          "effects": {
+            "mc_tone_practical": 1,
+            "F_XT": 1
+          }
+        },
+        {
+          "id": "com02x_share_work",
+          "text": "我也是剛收工。現在煮飯已經超出今晚的版本範圍。",
+          "next": "com02x_share_work",
+          "effects": {
+            "T_XT": 1,
+            "mc_tone_humorous": 1
+          }
+        },
+        {
+          "id": "com02x_tease_same",
+          "text": "至少妳拿的看起來比我的像晚餐。",
+          "next": "com02x_tease_same",
+          "effects": {
+            "C_XT": 1
+          }
+        },
+        {
+          "id": "com02x_tell_eat_better",
+          "text": "妳這樣常常太晚吃，身體會撐不住。",
+          "next": "com02x_tell_eat_better",
+          "effects": {
+            "K_XT": -1,
+            "xt_advice_tendency": 1
+          }
+        }
+      ]
+    },
+    "com02x_ask_food": {
+      "speaker": "你",
+      "text": "附近這個時間，除了這裡還有能吃的嗎？\n\n許棠：有。從回家的路上還要多繞五分鐘。\n\n我：這個條件很有說服力。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_work"
+    },
+    "com02x_share_work": {
+      "speaker": "你",
+      "text": "我也是剛收工。現在煮飯已經超出今晚的版本範圍。\n\n許棠：那我們都選擇先能運作。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_work"
+    },
+    "com02x_tease_same": {
+      "speaker": "你",
+      "text": "至少妳拿的看起來比我的像晚餐。\n\n她看了一眼兩人手上的餐盒。\n\n許棠：我的有兩種顏色。暫時領先。\n\n我：我接受判定。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_work"
+    },
+    "com02x_tell_eat_better": {
+      "speaker": "你",
+      "text": "妳這樣常常太晚吃，身體會撐不住。\n\n許棠：今天晚，不等於每天晚。\n\n她看向我手上的微波食品。\n\n許棠：而且你現在好像不太適合做這個提醒。\n\n我：公平。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_work"
+    },
+    "common_convenience_xu_work": {
+      "speaker": "許棠",
+      "text": "客戶明早要看最後一版。\n\n我：所以咖啡是工作配備。\n\n許棠：咖啡是錯誤決策。工作配備在家裡。\n\n我：設計案？\n\n許棠：嗯，自己接的案子。印刷前最後一輪。通常「最後」不是很準。\n\n我：我大部分時間遠端做技術工作。剛處理完一個上線前的問題，才下來找吃的。\n\n許棠：聽起來你那邊的「最後」也不太準。\n\n她沒有把案子說得很慘。我也沒有問一個剛認識的鄰居，為什麼不早點做完。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_checkout",
+      "effects": {
+        "player_knows_xu_freelance_creative_work": 1,
+        "xu_knows_player_remote_tech_work": 1
+      }
+    },
+    "common_convenience_xu_checkout": {
+      "speaker": "旁白",
+      "text": "兩人前後結帳，各付各的。走出店門後，同方向往公寓走；許棠朝巷口方向抬了抬下巴。\n\n許棠：巷口那間粥店開到十二點。你如果哪天想吃熱的，可以去看看。\n\n我：這個時間還開，先記下。\n\n許棠：不過週三休。\n\n我：這條也得記。\n\n許棠：我也是白走一次才知道。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_exit"
+    },
+    "common_convenience_xu_exit": {
+      "speaker": "旁白",
+      "text": "到公寓門口，許棠抬了抬手裡的咖啡。\n\n許棠：我先上去。還有兩個「最後版本」。\n\n我：祝它們真的是最後。\n\n許棠：你剛搬來，還可以保留這種樂觀。\n\n我：晚安。\n\n許棠：晚安。\n\n我們各自回家。聯絡方式沒有交換；只是對彼此的生活多知道了一點。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "opening_demo_complete",
+      "effects": {
+        "F_XT": 1
+      }
     }
   }
 }

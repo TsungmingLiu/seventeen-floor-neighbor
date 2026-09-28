@@ -68,6 +68,8 @@ Required semantic states：
 - `constraints[]`：natural-language boundary；
 - `scene_function[]`、`character_intent[]`、`player_information_gain[]`、`required_payoffs[]`、`must_not[]`。
 
+設計 branch/rejoin 時，後續共同連續性需要的資訊原則上放在共同 rejoin；選項可改變語氣、當下回應，也可保留少量有敘事價值且範圍明確的 callback。若分支知識會延續到後續 scene，先衡量跨 scene 追蹤的 authoring / QA 成本是否值得；不必替每個選項建立全域 knowledge flags。需要的條件式對白仍可使用，並明確界定觸發條件與 rejoin 後的相容性。
+
 Runtime boolean/numeric flags 只放在 `implementation_mapping`。它們必須可追溯到 semantic contract，但不能反過來取代 contract。
 
 ## 4. Review gates

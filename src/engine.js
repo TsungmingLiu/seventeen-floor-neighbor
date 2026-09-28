@@ -684,6 +684,9 @@ export class GameEngine {
     if (!node || node.choices || this.isCinematic) return;
     if (this.revealText()) return;
     if (node.next) {
+      Object.entries(node.effects || {}).forEach(([key, value]) => {
+        this.state[key] = (this.state[key] || 0) + value;
+      });
       this.tone('tap');
       this.nodeId = node.next;
       this.render();

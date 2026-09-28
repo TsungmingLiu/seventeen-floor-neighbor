@@ -167,6 +167,42 @@
         "cg.opening.com01j.base_guarded",
         "cg.opening.com01j.r01_interested"
       ]
+    },
+    {
+      "id": "mem.opening.ch1.convenience-xu",
+      "sectionId": "opening-ch1",
+      "order": 40,
+      "progressRank": 160,
+      "title": "深夜便利店",
+      "summary": "第二週深夜，在微波食品與咖啡之間，兩個晚收工的鄰居交換了一點工作與街區近況。",
+      "characterIds": [
+        "xu_tang"
+      ],
+      "replayNode": "common_convenience_xu_enter",
+      "unlockNodes": [
+        "common_convenience_xu_enter",
+        "common_convenience_xu_recognize",
+        "common_convenience_xu_choice",
+        "com02x_ask_food",
+        "com02x_share_work",
+        "com02x_tease_same",
+        "com02x_tell_eat_better",
+        "common_convenience_xu_work",
+        "common_convenience_xu_checkout",
+        "common_convenience_xu_exit"
+      ],
+      "kind": "scene",
+      "highlight": true,
+      "cover": {
+        "asset": "bg.narrative_preview.placeholder",
+        "mode": "scene",
+        "focus": {
+          "x": 50,
+          "y": 50
+        },
+        "overlay": "dark-soft"
+      },
+      "galleryAssets": []
     }
   ]
 }

@@ -21,6 +21,10 @@
 - `docs/narrative/scenes/vertical-slice/COM-00.md`
 - `docs/narrative/scenes/vertical-slice/COM-01X.md`
 
+## Narrative Continuity Contract
+
+- Canonical contract: `content/production/narrative/opening-ch1/COM-02X.json`
+
 ## Scene summary
 
 Week 2 前段，約 23:00。男主結束遠端工作後下樓買宵夜，在無品牌便利店的冷藏櫃前遇見穿居家 casual 的許棠。她手上是黑咖啡與一份簡單晚餐，先自然叫出男主名字。談話從附近還開著的食物、各自晚吃的原因，帶到自由接案與遠端工作的零碎作息。她不需要替晚餐時間辯解；玩家可以好奇、分享或輕鬆吐槽，也可以說出帶管理意味的關心，讓她用一句短回覆示範界線。
@@ -53,8 +57,8 @@ requires:
 | 02X.2 Name first | recognition | 許棠從飲料櫃另一側先叫男主名字，語氣像確認，不像驚喜。男主轉身看到她手裡的咖啡與餐盒。 | **CG-COM-03 trigger**；`tired → caught_off_guard`。 | none |
 | 02X.3 Mutual evidence | grounding | 她看一眼男主手上的宵夜，他也看一眼她的；兩人都沒有資格評論對方。她可乾乾說「看來不是只有我把晚餐拖到現在。」 | CG hold → sprite。`teasing / small_smile`。 | none |
 | 02X.4 Player choice | local branch | 玩家談附近食物、分享工作拖晚、開輕微同盟玩笑，或提出規訓式關心。 | expressions vary。 | stats/pattern，見下表 |
-| 02X.5 Work texture | rejoin | 許棠只透露「客戶明早要看／印刷前要改完」等具體工作情境；男主以自己剛結束 deployment／review 的等量資訊交換。兩人都不講完整履歷。 | `tired`, `dry_resignation`, `small_smile`。 | none |
-| 02X.6 Nearby recommendation | relationship texture | 她指出附近某間粥店／麵店其實還開著，但今晚自己懶得繞；男主可記住。這不是她替他安排晚餐。 | aisle-to-checkout blocking。 | none |
+| 02X.5 Work texture | rejoin | 許棠只透露「客戶明早要看／印刷前要改完」等具體工作情境；男主在共同段說明自己大部分時間遠端做技術工作、剛處理上線前問題。兩人都不講完整履歷。 | `tired`, `dry_resignation`, `small_smile`。 | none |
+| 02X.6 Nearby recommendation | relationship texture | 兩人離店經過巷口時，她向所有路徑指出粥店開到午夜、週三休；問食物的分支只先談多繞五分鐘的取捨。這不是她替男主安排晚餐。 | aisle-to-checkout blocking。 | none |
 | 02X.7 Checkout split | exit | 兩人前後結帳；不安排「我請妳」。走到店外後一起走同一小段回公寓，再因步速／拿東西自然錯半步。 | night exterior transition；`sleepy_annoyed` 可用於自嘲 deadline，不對男主。 | `F_XT +=1` |
 | 02X.8 Elevator/lobby goodbye | coda | 她說「先走了，我還有兩個版本要改。」男主不提出幫她看設計。 | `soft small_smile`；不另進 COM-01X 電梯重演。 | exit |
 
@@ -75,8 +79,8 @@ Choice 出現在許棠說「看來不是只有我」之後。
 
 | Choice ID | Player-facing intent（可微調字句） | Xu response intent | Stats / flags | Rejoin |
 | --- | --- | --- | --- | --- |
-| `com02x_ask_food` | 「附近這個時間，除了這裡還有能吃的嗎？」 | 她給一個真正實用的選項，順便說自己今晚不想多走五分鐘。 | `F_XT +1` bonus; `mc_tone_practical +=1` | 02X.5 |
-| `com02x_share_work` | 「我也是剛收工。現在煮飯已經超出今晚的版本範圍。」 | 她問一句「你也在家工作？」讓職業輪廓自然出現；乾回「那我們都選擇先能運作。」 | `T_XT +1`; `mc_tone_humorous +=1` | 02X.5 |
+| `com02x_ask_food` | 「附近這個時間，除了這裡還有能吃的嗎？」 | 她說還有一個要從回家路上多繞五分鐘的選項，今晚自己不想繞；共同離店段才說明是哪間粥店及其營業資訊。 | `F_XT +1` bonus; `mc_tone_practical +=1` | 02X.5 |
+| `com02x_share_work` | 「我也是剛收工。現在煮飯已經超出今晚的版本範圍。」 | 她以兩人都挑了能先運作的晚餐乾回；職業輪廓留待共同工作段交換。 | `T_XT +1`; `mc_tone_humorous +=1` | 02X.5 |
 | `com02x_tease_same` | 「至少妳拿的看起來比我的像晚餐。」 | 她比較兩份餐盒，回一句不過度熱絡的勝負判定。 | `C_XT +1` | 02X.5 |
 | `com02x_tell_eat_better` | 「妳這樣常常太晚吃，身體會撐不住。」 | 她平靜回「今天晚，不等於每天晚。」然後把話題轉回男主手上的宵夜；沒有爆氣。 | `K_XT -1`; `xt_advice_tendency +=1`; **不增加** `xt_boundary_strikes` | 02X.5 |
 
@@ -121,9 +125,9 @@ Base scene exit 另有 `F_XT +1`；`com02x_ask_food` 的 bonus 代表共享 neig
 
 **Protagonist**：附近這個時間，除了這裡還有能吃的嗎？
 
-**Xu Tang**：巷口那間粥店開到十二點。
+**Xu Tang**：有。從回家的路上還要多繞五分鐘。
 
-**Xu Tang**：但要多走五分鐘。我今晚沒有那五分鐘。
+**Xu Tang**：我今晚沒有那五分鐘。
 
 **Protagonist**：這個條件很有說服力。
 
@@ -132,10 +136,6 @@ Base scene exit 另有 `F_XT +1`；`com02x_ask_food` 的 bonus 代表共享 neig
 #### Branch `com02x_share_work`
 
 **Protagonist**：我也是剛收工。現在煮飯已經超出今晚的版本範圍。
-
-**Xu Tang**：你也在家工作？
-
-**Protagonist**：大部分時間。剛才有一個上線前的問題。
 
 **Xu Tang**：那我們都選擇先能運作。
 
@@ -181,17 +181,25 @@ Base scene exit 另有 `F_XT +1`；`com02x_ask_food` 的 bonus 代表共享 neig
 
 **Protagonist**：設計案？
 
-**Xu Tang**：嗯，印刷前最後一輪。通常「最後」不是很準。
+**Xu Tang**：嗯，自己接的案子。印刷前最後一輪。通常「最後」不是很準。
+
+**Protagonist**：我大部分時間遠端做技術工作。剛處理完一個上線前的問題，才下來找吃的。
+
+**Xu Tang**：聽起來你那邊的「最後」也不太準。
 
 **Narration**：她沒有把案子說得很慘。我也沒有問一個剛認識的鄰居，為什麼不早點做完。
 
 ### `common_convenience_xu_checkout`
 
-**Action**：兩人前後結帳，各付各的。走出店門後，同方向往公寓走。
+**Action**：兩人前後結帳，各付各的。走出店門後，同方向往公寓走；許棠朝巷口方向抬了抬下巴。
 
-**Xu Tang**：你如果哪天真的想吃熱的，剛才那間粥店週三休。
+**Xu Tang**：巷口那間粥店開到十二點。你如果哪天想吃熱的，可以去看看。
 
-**Protagonist**：這個資訊比營業時間更重要。
+**Protagonist**：這個時間還開，先記下。
+
+**Xu Tang**：不過週三休。
+
+**Protagonist**：這條也得記。
 
 **Xu Tang**：我也是白走一次才知道。
 
@@ -348,4 +356,4 @@ unchanged:
 - Character/continuity pass：姓名來源回扣 COM-00；職業只揭露到能支撐 COM-03X。
 - Choice pass：規訓式關心有可感知但可修復的差異，不是一鍵壞結局。
 - Art pass：CG 以疲憊與生活物件敘事，不與 sprite 重複擺拍。
-- Locked unresolved items：實際 tuning 時決定 `ask_food` 是否保留額外 `F +1`。
+- Choice/rejoin audit：四條路徑在共同工作段取得彼此職業輪廓，離店段取得粥店營業資訊；`share_work` 不預先交代遠端／上線問題，`ask_food` 不預先交代店名／營業時間。`ask_food` 額外 `F +1` 依鎖定 contract 保留。

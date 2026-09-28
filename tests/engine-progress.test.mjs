@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { GameEngine } from '../src/engine.js';
+import { loadContent } from '../tools/content-lib.mjs';
 
 class MemoryStorage {
   constructor() { this.values = new Map(); }
@@ -146,4 +147,55 @@ test('random entries restore at the selected scene with their return destination
   } finally {
     Math.random = originalRandom;
   }
+});
+
+test('COM-02X applies knowledge and base familiarity at their disclosure and exit checkpoints', async () => {
+  const content = await loadContent();
+  const route = content.routes.find((item) => item.config.id === 'opening-demo');
+  installBrowserMocks();
+  const createEngine = () => {
+    const engine = new GameEngine({
+      chapter: route.chapter,
+      assetManifest: route.assetManifest,
+      sceneLibrary: route.sceneLibrary,
+      memoryLibrary: route.memoryLibrary
+    });
+    engine.typeText = async () => { engine.isTyping = false; };
+    engine.revealText = () => false;
+    return engine;
+  };
+
+  let engine = createEngine();
+  engine.state.F_XT = 1; // The ask_food choice bonus is already in the save.
+  engine.nodeId = 'common_convenience_xu_work';
+  engine.render();
+  assert.equal(engine.progress.data.cursor.stats.player_knows_xu_freelance_creative_work, 0);
+  assert.equal(engine.progress.data.cursor.stats.xu_knows_player_remote_tech_work, 0);
+  engine.advance();
+  assert.equal(engine.nodeId, 'common_convenience_xu_checkout');
+  assert.equal(engine.state.player_knows_xu_freelance_creative_work, 1);
+  assert.equal(engine.state.xu_knows_player_remote_tech_work, 1);
+  assert.equal(engine.state.F_XT, 1);
+
+  engine = createEngine();
+  engine.resumeGame(engine.progress.data.cursor);
+  assert.equal(engine.nodeId, 'common_convenience_xu_checkout');
+  assert.equal(engine.state.player_knows_xu_freelance_creative_work, 1);
+  assert.equal(engine.state.xu_knows_player_remote_tech_work, 1);
+  engine.advance();
+  assert.equal(engine.nodeId, 'common_convenience_xu_exit');
+  assert.equal(engine.state.F_XT, 1);
+  assert.equal(engine.progress.data.cursor.stats.player_knows_xu_freelance_creative_work, 1);
+
+  engine = createEngine();
+  engine.resumeGame(engine.progress.data.cursor);
+  assert.equal(engine.state.F_XT, 1, 'base familiarity has not applied at exit entry');
+  engine.advance();
+  assert.equal(engine.state.F_XT, 2, 'base familiarity applies when leaving the scene');
+  assert.equal(engine.nodeId, 'opening_demo_complete');
+  assert.equal(engine.progress.data.cursor.stats.F_XT, 2);
+
+  engine = createEngine();
+  engine.resumeGame(engine.progress.data.cursor);
+  assert.equal(engine.state.F_XT, 2, 'Continue restores the applied exit effect without applying it twice');
 });
