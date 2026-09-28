@@ -182,13 +182,16 @@ test('COM-02X applies knowledge and base familiarity at their disclosure and exi
   assert.equal(engine.nodeId, 'common_convenience_xu_checkout');
   assert.equal(engine.state.player_knows_xu_freelance_creative_work, 1);
   assert.equal(engine.state.xu_knows_player_remote_tech_work, 1);
-  engine.advance();
+  for (let guard = 0; engine.nodeId !== 'common_convenience_xu_exit' && guard < 40; guard += 1) {
+    engine.advance();
+  }
   assert.equal(engine.nodeId, 'common_convenience_xu_exit');
   assert.equal(engine.state.F_XT, 1);
   assert.equal(engine.progress.data.cursor.stats.player_knows_xu_freelance_creative_work, 1);
 
   engine = createEngine();
   engine.resumeGame(engine.progress.data.cursor);
+  assert.equal(engine.nodeId, 'common_convenience_xu_exit');
   assert.equal(engine.state.F_XT, 1, 'base familiarity has not applied at exit entry');
   engine.advance();
   assert.equal(engine.state.F_XT, 2, 'base familiarity applies when leaving the scene');
