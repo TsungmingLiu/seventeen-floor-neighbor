@@ -9,7 +9,7 @@
 這份文件只做 **source inventory / routing index**：告訴 fresh worker 某個 domain 的 canonical source 在哪裡，以及該 source 擁有什麼。
 
 - Lifecycle、conflict order、archive/read rules：以 `.ai/policies/SOURCE_AUTHORITY.md` 為唯一 authority。
-- Current milestone / accepted migration facts：只看 `PROJECT_STATE.md`。
+- Current milestone / priority：只看 `ROADMAP.md`；已實作工程行為看 `ARCHITECTURE.md`、code/tests；歷史遷移對照看 `docs/migration/`，不作 active production 指令。
 - Technical/UI backlog：只看 `TODO.md`；creative production progress 只看 `docs/narrative/CONTENT_PRODUCTION_TODO.md`。
 - Task-local worker 仍只能讀 Task Packet 明確 allowlist 的最小來源；這張 map 本身不授權擴讀。
 
@@ -22,7 +22,7 @@
 | Run ledger | `.ai/schemas/PRODUCTION_RUN_LEDGER.md` + `content/production/runs/<run_id>/` | GENERATED task/identity/status evidence | creative authority、worker memory |
 | Source policy | `.ai/policies/SOURCE_AUTHORITY.md` | lifecycle、precedence、conflict/read rules、fixture policy | task content |
 | Context policy | `.ai/policies/CONTEXT_ISOLATION.md` | bounded acquisition、character/scene isolation | creative decisions |
-| Current state | `PROJECT_STATE.md` | milestone、accepted decisions、migration/current production facts | reusable workflow detail |
+| Milestone / priority | `ROADMAP.md` | current milestone、已驗證的產品基線、優先順序與 exit criteria | task-specific accepted values、工程實作契約 |
 | Narrative macro design | `docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md` | macro arc、scene purpose、relationship pacing | final render prompt |
 | Detailed route pre-script | `docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_INDEX.md` + sibling blueprint files | pre-dialogue scene progression、branch intent、rejoin logic、transition hooks | final dialogue prose、camera、CG planning |
 | Route/state | `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md` | route graph、knowledge/state semantics | dialogue prose、camera |
@@ -37,7 +37,7 @@
 | CG execution | `docs/art/CG_EXECUTION_ADAPTERS.md` + `tools/render-cg-packets.mjs` | deterministic render-packet projection / transport envelopes | creative decisions |
 | Asset metadata / provenance | `content/assets/manifest.json` + `content/assets/source-map.json` + `content/assets/source-catalog.json` + `content/assets/ingest-receipts/` + `content/recipes/assets.json` | logical asset IDs、runtime source/provider metadata、accepted-master provenance、ingest evidence、rebuild dependencies | creative canon、visual policy |
 | Continuity schemas | `.ai/schemas/NARRATIVE_CONTINUITY.md` + `.ai/schemas/VISUAL_CONTINUITY.md` | semantic/visual continuity fields | scene-specific values |
-| Runtime | `ARCHITECTURE.zh-TW.md` + current code/JSON/tests | implementation、data、save、build constraints | creative canon |
+| Runtime | `ARCHITECTURE.md` + current code/JSON/tests | implementation、data、save、build constraints | creative canon |
 
 Machine validation shapes：`.ai/schemas/narrative-continuity.schema.json`、`.ai/schemas/cg-manifest.schema.json`。Cross-file validation：`tools/validate-production-contracts.mjs` recursively discovers every JSON manifest under `content/production/cg-manifests/`, checks its scene/contract and repo reference bindings, and rejects duplicate IDs across manifest files before a production Task Packet is released. The Opening acceptance receipt remains scoped to its original manifest.
 

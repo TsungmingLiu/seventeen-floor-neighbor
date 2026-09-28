@@ -6,9 +6,9 @@
 >
 > 更新：2026-09-23
 >
-> 範圍：只涵蓋許棠、江雨澄雙女主 prototype。現有 playable story 僅為技術驗證，不是本文件的劇情 canonical。
+> 範圍：只涵蓋許棠、江雨澄雙女主 prototype。`opening-demo` 已接入的故事以相應 Locked Scene 與 Narrative Contract 為準；已退役的舊 route 不能反推本文件的劇情。
 >
-> 本文件自身是 prototype narrative authority；runtime/content 與已實作的 Memories／replay 契約見 `ARCHITECTURE.zh-TW.md`。舊 setting proposal 只保留 ideation provenance，不是上位規格。
+> 本文件自身是 prototype narrative authority；runtime/content 與已實作的 Memories／replay 契約見 `ARCHITECTURE.md`。舊 setting proposal 只保留 ideation provenance，不是上位規格。
 >
 > 配套文件：
 > - `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md`：route DAG、dependencies、state/knowledge flags。
@@ -25,7 +25,7 @@
 - 許棠：**27 歲 / 約 170 cm**，自由接案視覺設計師，17 樓隔壁。
 - 江雨澄：23 歲 / 約 160 cm，纖細小骨架、腿相對偏長，研究生＋兼職插畫師。
 
-角色年齡與身高若和舊 runtime fixture / 舊 asset recipe 衝突，以本節、setting proposal 與 Character Bible 最新版本為準。
+角色年齡與身高若和舊 runtime fixture / 舊 asset recipe 衝突，以本節及 `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md` 的現行角色設定為準；舊 setting proposal 只作歷史 ideation。
 
 # 1. Narrative pillars
 

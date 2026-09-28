@@ -2,7 +2,7 @@
 
 > CANONICAL runtime / content / asset / build contract。更新：2026-09-27。
 >
-> 本文件記錄已實作、修改程式時須維持的邊界。當前進度見 `PROJECT_STATE.md`；待辦見 `TODO.md`；內容生產的 authority 見 `.ai/WORKFLOW_MANIFEST.yaml` 與 `docs/CONTENT_PRODUCTION_SOURCE_MAP.md`。實際欄位以 code、JSON 與 validator 為準。
+> 本文件記錄已實作、修改程式時須維持的邊界。當前 milestone 見 `ROADMAP.md`；待辦見 `TODO.md`；內容生產的 authority 見 `.ai/WORKFLOW_MANIFEST.yaml` 與 `docs/CONTENT_PRODUCTION_SOURCE_MAP.md`。實際欄位以 code、JSON 與 validator 為準。
 
 ## 1. 目前的系統
 

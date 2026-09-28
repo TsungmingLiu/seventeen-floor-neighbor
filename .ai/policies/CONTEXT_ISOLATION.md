@@ -25,7 +25,7 @@ Parent Work session 是 `.ai/PRODUCTION_ORCHESTRATION.md` 的 control-plane-only
 ### CG Renderer
 
 - 只讀 one CG manifest entry、deterministic render packet、entry-declared references。
-- 不讀 scene、route、`PROJECT_STATE.md`、global visual prose 或其他 character。
+- 不讀 scene、route、`ROADMAP.md`、global visual prose 或其他 character。
 - 缺 execution-critical field 時 `BLOCKED: incomplete_cg_spec`。
 
 ### Content QA

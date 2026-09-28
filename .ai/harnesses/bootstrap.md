@@ -24,7 +24,7 @@ Each independent production task MUST execute in a fresh bounded worker。Multi-
 
 ## Renderer exception boundary
 
-`cg_renderer` receives only one canonical CG manifest entry、its deterministic render packet and declared references. It does not read `PROJECT_STATE.md`、scene/narrative docs or global art policy；those decisions must already be projected into the entry。
+`cg_renderer` receives only one canonical CG manifest entry、its deterministic render packet and declared references. It does not read `ROADMAP.md`、scene/narrative docs or global art policy；those decisions must already be projected into the entry。
 
 ## Source acquisition gate
 

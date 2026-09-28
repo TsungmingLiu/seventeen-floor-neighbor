@@ -78,7 +78,7 @@ source_authority:
   policy: .ai/policies/SOURCE_AUTHORITY.md
   context_isolation: .ai/policies/CONTEXT_ISOLATION.md
   inventory: docs/CONTENT_PRODUCTION_SOURCE_MAP.md
-  current_state: PROJECT_STATE.md
+  current_state: ROADMAP.md
   narrative_canon:
     - docs/narrative/CONTENT_PRODUCTION_SPEC.md
     - docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md
@@ -90,7 +90,7 @@ source_authority:
     - docs/art/CHARACTER_REFERENCE_PACK_SPEC.md
     - docs/art/CG_PRODUCTION_SPEC.md
   runtime_architecture:
-    - ARCHITECTURE.zh-TW.md
+    - ARCHITECTURE.md
   forbidden_source_roots:
     - .ai/archive/
     - .ai/experiments/

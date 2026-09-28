@@ -3,6 +3,8 @@
 > Audit ref: `work/asset-migration-gate1-audit` at `084e7519dfcf76265d192f0a6c3a60042e4a0438` (main baseline)
 >
 > Scope: dependency and workflow audit only. This records observed paths and required follow-up; it does not change providers or assets. Asset-by-asset inventory and binary migration verification are tracked separately.
+>
+> **Historical snapshot only.** The observations below describe the audit commit, including a then-registered `xu-tang` route and former document names. PR #21 later migrated runtime assets and retired that route. Current milestone, runtime and source bindings are defined by `ROADMAP.md`, `ARCHITECTURE.md` and the checked-in registry/code; do not use the findings below as a current production checklist.
 
 ## Finding
 

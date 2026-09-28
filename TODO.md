@@ -1,50 +1,223 @@
 # Technical TODO
 
-> CANONICAL technical execution board。更新：2026-09-25。
+> 本文件是 **technical execution board**。
 >
-> 已完成的 W1–W4 狀態在 `PROJECT_STATE.md`；已實作的 code/data contract 在 `ARCHITECTURE.zh-TW.md`。劇情、美術與 scene 進度在 `docs/narrative/CONTENT_PRODUCTION_TODO.md`。本檔只追未完成的技術工作與驗收 gate。
+> 專案 milestone 與優先順序由 [`ROADMAP.md`](ROADMAP.md) 決定；本文件只記錄工程上需要實際執行的工作。
+>
+> 劇情、美術與 content-production progress 見 `docs/narrative/CONTENT_PRODUCTION_TODO.md`。
+>
+> 已驗證的 milestone 基線見 `ROADMAP.md`；實際工程契約見 `ARCHITECTURE.md` 與 code/tests。
 
-## 下一個交會點：Opening Vertical Slice
+---
 
-- [ ] 依 `docs/narrative/CONTENT_PRODUCTION_TODO.md` 完成下一批 locked scene、Narrative/Visual Continuity、CG manifest、Visual QA 與 accepted asset ingest。
-- [ ] 以 accepted outputs 更新 route nodes、`assetIds`、asset manifest/recipe/source map、Memory Events 與 ingest receipt；保持 stable IDs。
-- [ ] 在 fresh Codespace clean build/validate/test/preview，跑 browser 主流程；Human 檢查 pacing、角色 voice、CG continuity、UI safe zones 後接受 playable slice。
-- [ ] 用第一個 net-new scene 試用 `.ai/PRODUCTION_ORCHESTRATION.md` 的 DAG / Task Packet / Handoff / ledger contract，記錄 fresh worker dispatch、reconciliation 與返工原因；不要擴張成 orchestration engine。
+# Current Milestone
+
+## M0 — Foundation Stable
+
+目前唯一 active technical milestone。
+
+目標不是繼續擴張 architecture；PR #21 的 repo-native asset / workflow migration 已合併，接下來驗證 Narrative-first、Art-later playable baseline 的其餘 Exit Gates。
+
+詳細產品定義與 Exit Gate 見 `ROADMAP.md`。
+
+---
+
+## M0 Critical Path
+
+### 1. Repo-native visual asset migration
+
+- [x] 完成 PR #21 的 visual asset migration 與舊 route 退役。
+- [x] 確認 active runtime/build path 只有一套 canonical asset paradigm。
+- [x] 保留仍有用途的 master / reference assets，且不讓歷史資料形成第二套 runtime authority。
+- [x] 確認 story 仍只依賴 stable logical asset IDs，而不是 physical provider/path。
+
+### 2. Missing-CG placeholder contract
+
+- [x] 登記唯一的 preview-only WebP，並由現有 asset registry / validator 驗證其身分。
+- [ ] 以真實 Locked Scene 證明缺正式 CG 時仍可用 preview asset 進入 playable integration。
+- [ ] final CG 補上後，不需要修改 narrative node structure。
+- [x] placeholder 狀態 machine-visible；現有 `validate:final` 不接受仍啟用 preview art 的 route。
+- [ ] release-oriented validation 能區分 placeholder / provisional / accepted coverage。
+
+### 3. Narrative → visual stale dependency
+
+M0 先以一個真實 scene 的受控修改，證明定點影響報告可供整合前判斷。多 task DAG 的自動阻擋與 checkpoint 恢復由下方 [Issue #27](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/27) 另行處理。
+
+- [ ] 定義哪些 upstream narrative 變更會讓 downstream visual artifact stale。
+- [ ] CG Manifest / render-derived artifact 必須能追溯其 source scene / revision。
+- [ ] 在驗證的 scene 中，上游發生 material change 後，整合檢查不得把舊 visual artifact 當成 current。
+- [ ] 在該輪整合前執行 machine-readable stale 檢查；偵測到失效時停止使用舊 visual artifact。
+
+### 4. Active source-authority cleanup
+
+- [x] 完成 GitHub Issue #23：清理 active docs 中過期的 Google Drive `runtime-public` 描述（PR #21）。
+- [x] `README.md`、`ROADMAP.md`、`ARCHITECTURE.md`、`.ai/WORKFLOW_MANIFEST.yaml` 與實際 runtime/build behavior 一致。
+- [x] 區分 runtime asset、accepted master、generation reference 與 legacy/archive provenance。
+- [x] 保留純歷史 archive；不讓它進入 active workflow。
+
+### 5. M0 baseline verification
+
+完成上述工作後：
+
+- [ ] `npm run build`
+- [ ] `npm run validate`
+- [ ] `npm test`
+- [ ] `git diff --check`
+- [ ] 必要 asset validation
+- [ ] fresh Codespace / playable acceptance
+- [ ] 驗證「有 final CG」與「只有 placeholder」兩種 scene 都能正常運作
+- [ ] 驗證 stale dependency case
+
+全部通過後，依 `ROADMAP.md` 判定 M0 是否可以結束。
+
+---
+
+# NEXT — M1 Gameplay Validation 技術準備
+
+以下工作屬於下一個 milestone。
+
+在 M0 Exit Gate 通過前，不應搶占目前 critical path。
+
+## Gameplay Validation Slice integration
+
+- [ ] 將 M1 選定的 30–60 分鐘 validation slice 接成真正 playable flow。
+- [ ] 允許 incomplete art 使用 M0 placeholder contract。
+- [ ] 保持 narrative integration 與 final CG production 解耦。
+
+## Lightweight graph / state validation
+
+先實作足夠支撐 M1 的最小版本：
+
+- [ ] unreachable node detection
+- [ ] dangling target detection
+- [ ] impossible gate detection
+- [ ] dead / invalid state detection
+- [ ] obvious knowledge contradiction detection
+- [ ] invalid transition detection
+
+不要在沒有實際需求前擴張成通用 model-checking framework。
+
+---
+
+# Deferred Technical Backlog
+
+以下事項仍然有效，但目前不是 `NOW`。
+
+Roadmap milestone 到達相應階段後再重新確認 scope，不因為列在本文件中就自動執行。
+
+## Issue #16 cross-stage workflow follow-up
+
+**PR #21 已合併；按 [Issue #27](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/27) 另行排期，不計入 PR #21 的驗收。**
+
+- [ ] 以一個 multi-task scene DAG 驗證跨階段 artifact stale 決策、整合阻擋與空 session cache 的 checkpoint 恢復，維持 dialogue-only、visual-only、relationship/state 變更的精準失效範圍。
+- [ ] 明確界定 visual beat 的機器 QA：只對 canonical 結構化 ID／binding 做存在、唯一性與依賴檢查；畫面是否表達劇情語意，仍由獨立 Visual QA 與 Human 驗收。
+- [ ] 注入 stale integration、缺少 beat binding 與僅語意不符的候選畫面，記錄前兩者的機器阻擋與最後一者的人工審查邊界。
+
+新 scene 的完整生產與 Locked Scene → runtime 效率實證另由 [Issue #26](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/26) 追蹤。
 
 ## Opening demo UI follow-ups
 
-以下是獨立 UI 改善；未在 content-production refactor 實作：
+較適合在 M1 playable validation 或 M3 polish 時重新評估：
 
-- [ ] Choice node 的 `text: ""` 不顯示空 dialogue box（COM-01X、COM-01J 可重現）。
+- [ ] Choice node 的 `text: ""` 不顯示空 dialogue box。
 - [ ] 調整 narrator 與 character 同框時的閱讀層級。
-- [ ] 評估移除 choice 前的自動 `A/B/C` prefix。
+- [ ] 評估是否移除 choice 前的自動 `A/B/C` prefix。
 
-## W5 — Cloud-complete Verification
+若其中某項直接妨礙 M1 playtest，可提前提升為 M1 work。
 
-- [ ] 定義一次性驗證：GitHub commit、每個 accepted master 的 canonical storage/provenance、每個 required runtime object 的 provider/bytes/SHA-256、fresh Codespace clean rebuild 必須對得上。
-- [ ] 缺檔、hash mismatch、未 full-decode 或只存在單一本機的 accepted master 應 fail closed。
-- [ ] 保留驗證 receipt；`checkpoint` 若作命令名稱，只代表 verification/provenance，不代表本機同步。
+---
 
-## W6 — SFW / Full Build Profiles
+## Cloud-complete / reproducibility
 
-- [ ] Build 時實際 prune profile 不適用的 nodes、assets、Memory/Gallery metadata；禁止 dangling targets 和 profile leakage。
-- [ ] SFW 保有自然的劇情連續性；不能只在 UI 隱藏 mature content。
-- [ ] 對兩種 profile 做 clean build、schema/graph/media、save/replay 與 browser regression。
+**預計 milestone：M4，除非更早成為 correctness blocker。**
 
-## W7 — Review / Release
+既有方向保留：
 
-- [ ] 穩定 review URL 綁定明確 commit 與 profile；preview 與 release 分開。
-- [ ] 提供 deterministic release command/workflow、smoke 與 release receipt。
+- 驗證 source revision、required assets、hash/provenance 與 fresh rebuild 一致；
+- 缺檔、hash mismatch、decode failure 應 fail closed；
+- 保留可重現 verification receipt。
 
-## 之後：內容規模化
+實際方案必須依 M4 開始時的 asset architecture 重新確認，不沿用已過期 storage assumption。
 
-- [ ] Opening Vertical Slice 完整 loop 被接受後，再跑至少 1–2 個跨許棠／江雨澄的 bounded production batches。
-- [ ] 當 scene/story schema、Memory metadata、asset IDs、Task Packet 與 QA gate 已穩定，再決定 Content Factory MVP 的最小 automation scope。
-- [ ] 將 3–4 女主規模的壓力測試建立在實際 bottleneck 上；不要預先為未知複雜度改寫引擎。
+---
 
-## 固定 gate
+## SFW / Full Build Profiles
 
-- 不刪除唯一安全 master；`dist/`、`generated/` 不作 source of truth。
-- 不提交 secrets，不 hardcode Codespaces forwarded URL。
-- 開發以 Codespaces 為 canonical；code/content integration 至少跑 build、validate、diff check，runtime/save 變更再跑 tests。
-- Human 保留 major story direction、角色設計、關鍵 CG acceptance 與 final playable acceptance。Reference acquisition 可依 execution adapter 自動化，但 image pixels、role 與 provenance 必須可驗證。
+**預計 milestone：M4；只有 release scope 確定需要時執行。**
+
+若最終需要：
+
+- build-time 真正 prune 不適用 nodes/assets/Memory/Gallery metadata；
+- 禁止 dangling targets 與 profile leakage；
+- SFW 必須保持自然 narrative continuity；
+- 對各 profile 執行 clean build、graph、save/replay 與 browser regression。
+
+不能只因舊設計中曾經規劃過，就視為 v1 必做功能。
+
+---
+
+## Review / Release
+
+**預計 milestone：M4。**
+
+可能包括：
+
+- stable review URL 綁定 commit/profile；
+- deterministic release build；
+- release smoke；
+- release receipt；
+- hosting / CDN / cache；
+- final production provider 決策。
+
+等 Content Complete 後再依實際產品需求定案。
+
+---
+
+# Scaling Backlog
+
+**預計 milestone：M2。**
+
+只有 M1 Gameplay Validation 通過後才開始。
+
+可能需要的 technical work：
+
+- 擴張 graph/state traversal；
+- batch integration validation；
+- save/replay regression；
+- knowledge/state consistency；
+- stable persistent ID tooling；
+- 大型 narrative graph 的 dependency validation。
+
+不要為尚未存在的 3–4 女主規模提前重寫 runtime。
+
+---
+
+# Fixed Technical Gates
+
+無論目前 milestone 為何，以下原則保持成立：
+
+- 不刪除唯一安全 master。
+- `dist/`、`generated/` 不作 source of truth。
+- 不提交 secrets。
+- 不 hardcode ephemeral Codespaces forwarded URL。
+- Canonical engineering environment 以現行 architecture contract 為準。
+- code/content integration 至少執行相應 build / validate / diff check。
+- runtime/save 變更必須執行相應 regression tests。
+- stable node / asset IDs 不應因 storage 或 presentation 改動任意重命名。
+- archive / experiment 不自動恢復成 production authority。
+
+---
+
+# Task Placement Rule
+
+新增 technical task 時：
+
+**如果它直接影響目前 Roadmap Milestone 的 Exit Gate，放進 Current Milestone。**
+
+否則：
+
+- 下一 milestone 必須處理 → `NEXT`
+- 已知之後有價值 → Deferred / 對應 milestone
+- 純假想未來需求 → 不加入 active TODO，必要時記 GitHub Issue / Icebox
+
+`TODO.md` 的長度不應隨所有未來想法無限制增加。
