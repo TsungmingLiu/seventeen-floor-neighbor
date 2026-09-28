@@ -169,3 +169,160 @@ h1 b{font:inherit}
   .hud-actions{gap:.3rem}
   .game-memories-button,.game-home-button{padding-inline:.6rem}
 }
+
+
+/* Adaptive ADV presentation: one primary reading/interaction state at a time. */
+.dialogue-panel[data-mode="narration"]{
+  border-color:rgba(255,255,255,.12);
+  background:linear-gradient(180deg,rgba(12,13,19,.7),rgba(9,10,15,.82));
+}
+.dialogue-panel[data-mode="narration"] .dialogue-text{
+  color:rgba(255,255,255,.92);
+  letter-spacing:.01em;
+}
+.dialogue-panel[data-mode="thought"]{
+  width:min(42%,32rem);
+  border-color:rgba(255,173,192,.2);
+  background:linear-gradient(180deg,rgba(16,13,20,.64),rgba(9,9,15,.8));
+}
+.dialogue-panel[data-mode="thought"] .dialogue-text{
+  color:rgba(255,244,248,.9);
+  font-style:italic;
+}
+.dialogue-panel[data-mode="protagonist"]{
+  border-color:rgba(255,255,255,.13);
+}
+.dialogue-panel[data-mode="protagonist"] .speaker-badge{
+  color:rgba(255,255,255,.72);
+  border-color:rgba(255,255,255,.16);
+  background:rgba(12,13,19,.82);
+}
+.choice-list{
+  left:50%;
+  right:auto;
+  bottom:max(1.25rem,env(safe-area-inset-bottom));
+  width:min(92vw,34rem);
+  transform:translateX(-50%);
+  gap:.7rem;
+}
+.choice-button{
+  min-height:56px;
+  padding:.9rem 1rem;
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:16px;
+  background:linear-gradient(180deg,rgba(28,26,33,.9),rgba(15,15,21,.94));
+  color:#fff;
+  box-shadow:0 14px 34px rgba(0,0,0,.28);
+  backdrop-filter:blur(18px) saturate(1.08);
+  transition:transform .16s ease,border-color .16s ease,background .16s ease,box-shadow .16s ease;
+}
+.choice-button:hover,
+.choice-button:focus-visible{
+  background:linear-gradient(180deg,rgba(86,43,58,.96),rgba(42,24,33,.96));
+  border-color:rgba(255,173,192,.72);
+  box-shadow:0 16px 42px rgba(0,0,0,.34),0 0 0 1px rgba(255,120,152,.16);
+}
+.choice-button small{
+  display:inline-grid;
+  place-items:center;
+  min-width:1.6rem;
+  height:1.6rem;
+  margin-right:.75rem;
+  border:1px solid rgba(255,173,192,.3);
+  border-radius:999px;
+  color:var(--pink-soft);
+  background:rgba(255,120,152,.08);
+  font-size:.72rem;
+}
+.stage[data-presentation="choice"] .advance-zone{
+  pointer-events:none;
+}
+.stage[data-presentation="choice"] .choice-list{
+  animation:choice-rise .22s ease-out both;
+}
+@keyframes choice-rise{
+  from{opacity:0;transform:translate(-50%,10px)}
+  to{opacity:1;transform:translate(-50%,0)}
+}
+
+@media(max-width:760px){
+  .dialogue-panel{
+    left:max(.72rem,env(safe-area-inset-left));
+    right:max(.72rem,env(safe-area-inset-right));
+    bottom:max(.72rem,env(safe-area-inset-bottom));
+    width:auto;
+    padding:1.05rem 1rem .95rem;
+    border-radius:20px;
+    background:linear-gradient(180deg,rgba(16,16,23,.7),rgba(9,10,15,.88));
+    box-shadow:0 18px 54px rgba(0,0,0,.42);
+  }
+  .dialogue-panel[data-mode="thought"]{width:auto}
+  .dialogue-text{
+    min-height:3.6em;
+    margin:.5rem 0 0;
+    font-size:clamp(1rem,4.2vw,1.12rem);
+    line-height:1.68;
+  }
+  .speaker-badge{
+    left:.85rem;
+    top:-1rem;
+    min-height:32px;
+    padding:.32rem .68rem;
+  }
+  .advance-hint{
+    right:.85rem;
+    top:.58rem;
+    font-size:.7rem;
+  }
+  .choice-list{
+    left:max(.72rem,env(safe-area-inset-left));
+    right:max(.72rem,env(safe-area-inset-right));
+    bottom:max(.72rem,env(safe-area-inset-bottom));
+    width:auto;
+    transform:none;
+    gap:.62rem;
+  }
+  .choice-button{
+    min-height:58px;
+    padding:.88rem .95rem;
+    font-size:1rem;
+    line-height:1.45;
+    border-radius:17px;
+  }
+  .stage[data-presentation="choice"] .choice-list{
+    animation:choice-rise-mobile .22s ease-out both;
+  }
+  @keyframes choice-rise-mobile{
+    from{opacity:0;transform:translateY(10px)}
+    to{opacity:1;transform:translateY(0)}
+  }
+}
+
+@media(max-width:520px) and (orientation:portrait){
+  .game-hud{
+    top:max(.65rem,env(safe-area-inset-top));
+    left:max(.65rem,env(safe-area-inset-left));
+    right:max(.65rem,env(safe-area-inset-right));
+  }
+  .chapter-track{
+    gap:.35rem;
+    padding:.46rem .55rem;
+    background:rgba(8,9,13,.38);
+  }
+  .hud-actions .text-button{
+    min-height:40px;
+    padding:.5rem .68rem;
+    font-size:.76rem;
+  }
+  .hud-actions .icon-button{
+    width:40px;
+    height:40px;
+  }
+  .dialogue-panel{
+    bottom:max(.8rem,env(safe-area-inset-bottom));
+    padding:1rem .95rem .88rem;
+  }
+  .choice-list{
+    bottom:max(.9rem,env(safe-area-inset-bottom));
+  }
+}
