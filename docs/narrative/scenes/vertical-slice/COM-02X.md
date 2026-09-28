@@ -21,6 +21,11 @@
 - `docs/narrative/scenes/vertical-slice/COM-00.md`
 - `docs/narrative/scenes/vertical-slice/COM-01X.md`
 
+## Narrative Continuity Contract
+
+- Canonical contract：`content/production/narrative/opening-ch1/COM-02X.json`。
+- Entry / exit 都維持 `familiar_neighbors_with_boundaries`；本幕增加的是生活質地與有限工作資訊，不交換聯絡方式，也不產生 romantic signal。
+- Runtime 的 `F_XT` / `T_XT` / `C_XT` / `K_XT` 與 `xt_advice_tendency` 只屬 implementation mapping，不定義創作上的親密層級。
 ## Scene summary
 
 Week 2 前段，約 23:00。男主結束遠端工作後下樓買宵夜，在無品牌便利店的冷藏櫃前遇見穿居家 casual 的許棠。她手上是黑咖啡與一份簡單晚餐，先自然叫出男主名字。談話從附近還開著的食物、各自晚吃的原因，帶到自由接案與遠端工作的零碎作息。她不需要替晚餐時間辯解；玩家可以好奇、分享或輕鬆吐槽，也可以說出帶管理意味的關心，讓她用一句短回覆示範界線。
