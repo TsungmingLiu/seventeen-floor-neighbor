@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "qa-com02x-fresh-worker-20260928-rerun",
+  "task_id": "NQA-COM02X-FRESH-002",
+  "scene_id": "COM-02X",
+  "status": "NEEDS_REVIEW",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.1.0",
+    "pass": "narrative_review"
+  },
+  "packet_sha256": "aaa6f4f52b49c4d4d2556e74f9290dc78b9bbd0cb2cc5fd3358a2d1354f728d8",
+  "input_versions": [
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-02X.json",
+      "version": "5f85482b7c420a5f7726035e369679360f83cfd5",
+      "location": "content/production/narrative/opening-ch1/COM-02X.json"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-02X.md",
+      "version": "e8d02a990d4b8b71e4a9bd255ed72e8416ce67b3",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02X.md"
+    },
+    {
+      "id": "file:docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md",
+      "version": "a45247d93c2a1736e54aa13aca2110ee08a5b8c8",
+      "location": "docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md"
+    },
+    {
+      "id": "file:docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md",
+      "version": "fa68288637f8d1cddc0857b64b5d84b66469f173",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-00.md",
+      "version": "4c8b9396fdf43556b474f9cbf7a90813ef533309",
+      "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-01X.md",
+      "version": "f9be677e0c589bab2c7c49560e1fe882b553ec2e",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01X.md"
+    }
+  ],
+  "input_digest_sha256": "05867fe934f508bdd9327c0113c3a1ac52c7ba0a8d3ea960800b99892d1ece33",
+  "worker_handoff_sha256": "7459e6c772d8fc8d4888b836ffaf1b880bd4dff740272c3e68ad4fcaff68367b",
+  "output_versions": [],
+  "qa_codes": [
+    {
+      "name": "Locked Scene / Narrative Continuity Contract consistency",
+      "code": "NQA-CONTRACT-CONSISTENCY",
+      "result": "FAIL"
+    },
+    {
+      "name": "Required payoff and knowledge continuity",
+      "code": "NQA-KNOWLEDGE-CONTINUITY",
+      "result": "FAIL"
+    },
+    {
+      "name": "Choice branch / rejoin consistency",
+      "code": "NQA-CHOICE-REJOIN",
+      "result": "PASS"
+    },
+    {
+      "name": "Conversational naturalism",
+      "code": "NQA-DIALOGUE-NATURALISM",
+      "result": "PASS"
+    },
+    {
+      "name": "Choice IDs and state effects",
+      "code": "NQA-CHOICE-STATE-MAPPING",
+      "result": "PASS"
+    },
+    {
+      "name": "Relationship pacing and boundaries",
+      "code": "NQA-RELATIONSHIP-PACING",
+      "result": "PASS"
+    },
+    {
+      "name": "Premature reveal / contact / romance guardrails",
+      "code": "NQA-PREMATURE-REVEAL",
+      "result": "PASS"
+    },
+    {
+      "name": "Memory ownership and immediate continuity",
+      "code": "NQA-MEMORY-CONTINUITY",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    {
+      "location": "common_convenience_xu_work -> End actions / State contract; Narrative Continuity Contract exit_state.knowledge[xu_tang]",
+      "evidence": [
+        "Locked script: 「我今天其實整天都在家。」→「喔，在家工作。」→「對。做軟體的。剛好有東西要上線，一拖就拖到現在。」",
+        "Contract exit knowledge: 「男主多數時間可在家工作。」",
+        "Dialogue writing note also requires the shared rejoin to establish 「大部分在家工作」."
+      ],
+      "issue_type": "knowledge_continuity / contract_consistency",
+      "why": "The scene establishes that the protagonist worked from home today and does software/deployment work, but it does not establish the stronger frequency claim that he works from home most of the time. The exit-state knowledge therefore exceeds what Xu Tang actually learns in-scene.",
+      "change_requirement": "Either make the shared work disclosure causally establish the intended work-from-home frequency on every path, or narrow the canonical exit-state knowledge to exactly what the scene establishes. Preserve the existing choice intents, state effects, and relationship pace."
+    }
+  ],
+  "human_gate_required": "none",
+  "invalidates": []
+}
