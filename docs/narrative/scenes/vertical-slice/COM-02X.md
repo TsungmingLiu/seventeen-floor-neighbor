@@ -194,7 +194,7 @@ Base scene exit 另有 `F_XT +1`；`com02x_ask_food` 的 bonus 保持鎖定，�
 
 **Visual**：`XT-SPR-LATE-CASUAL.sleepy_annoyed`。
 
-**Action**：櫃檯那邊的微波爐開始運轉。兩人往結帳方向挪了幾步；不管剛才聊到哪裡，聲音一停下來，話題也跟著鬆了一下。
+**Action**：櫃檯那邊的微波爐開始運轉。兩人往結帳方向挪了幾步。許棠看著轉盤轉了一圈。
 
 **Xu Tang**：你剛說忙完，是公司那邊？
 
