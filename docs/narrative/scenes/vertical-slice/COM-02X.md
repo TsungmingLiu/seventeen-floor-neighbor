@@ -198,7 +198,7 @@ Base scene exit 另有 `F_XT +1`；`com02x_ask_food` 的 bonus 保持鎖定，�
 
 **Xu Tang**：你剛說忙完，是公司那邊？
 
-**Protagonist**：嗯……算是。我今天其實整天都在家。
+**Protagonist**：嗯……算是。我大部分時間都在家工作。今天也是。
 
 **Xu Tang**：喔，在家工作。
 
