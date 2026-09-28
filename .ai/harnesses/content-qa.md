@@ -2,7 +2,7 @@
 
 Harness ID: `content_qa`
 
-Version: 1.0.0
+Version: 1.1.0
 
 ## Responsibility
 
@@ -21,7 +21,41 @@ Checks：
 - choice/rejoin consistency；
 - `must_not`、forbidden shortcut、premature reveal；
 - semantic visual beats 未反向改寫 narrative；
-- runtime state mapping 不冒充 creative truth。
+- runtime state mapping 不冒充 creative truth；
+- 中文 casual dialogue 的 conversational naturalism 成立。
+
+
+### Conversational naturalism
+
+對 dialogue-heavy scene，必須把稿件當成**真人連續說話**審一次，不能只確認每個 beat、state、payoff 都正確。
+
+以下 pattern 若持續出現，至少回 `NEEDS_REVIEW`；若已明顯破壞角色可信度或 scene purpose，回 `FAIL`：
+
+- 台詞被最佳化成高資訊密度，而不像人在當下說話；
+- 反覆出現「問題 → 精準答案 → 下一問題」；
+- 幾乎每輪都以 polished joke、乾式反擊、insight 或 character-defining line 收尾；
+- 尚不熟的人表現出不合理的高度默契，沒有任何 acknowledgement、試探、停頓、改口、話題落空或 awkward small talk；
+- `reserved`、`dry`、`quiet` 等 voice trait 被寫成固定句長或固定 verbal gimmick；
+- required continuity facts 在 branch rejoin 後被集中傾倒，讓玩家看見 state contract；
+- 角色說話像履歷／摘要，例如一次完整交代工作型態、職種、當前事件，只因未來 canon 都需要知道；
+- narration 明講「沒有交換聯絡方式」「沒有浪漫意味」「各付各的」等 production guardrail，而 scene 行動本來已足夠證明；
+- 中文出現明顯翻譯腔、書面摘要腔、過度工整對偶，與角色當時的口語情境不符。
+
+反過來，**不要把 filler 數量當成自然度指標**。沒有語助詞不代表錯；短句也不代表錯。QA 要判斷的是：角色與關係階段是否允許這種 conversational efficiency，以及整幕是否有自然的節奏變化。
+
+尤其注意：
+
+- 許棠可以乾、可以短，但不應每次都像 prepared comeback。
+- 江雨澄初識可以短答，但進入熟悉題目後應有可感知的語速／句長／修正方式變化。
+- 男主不應永遠用最漂亮的方式接話；合理的「喔」「嗯」「不知道」「那……」或一句沒接好的話可以是正面品質。
+- 尷尬、沉默、普通寒暄不是 narrative waste；若符合 scene function，它們可以是 relationship texture。
+
+Narrative QA 的 structured QA / decision receipt 若支援 named QA code，必須將這一項獨立記為：
+
+`NQA-DIALOGUE-NATURALISM`
+
+不得只把它隱含在 `NQA-VOICE-AND-PACING` 中。沒有通過此項，不得因其他 continuity/state checks 都 PASS 就宣稱整體 Narrative QA PASS。
+
 
 ## `visual_review`
 
