@@ -79,8 +79,8 @@ Choice 出現在許棠說「看來不是只有我」之後。
 
 | Choice ID | Player-facing intent（可微調字句） | Xu response intent | Stats / flags | Rejoin |
 | --- | --- | --- | --- | --- |
-| `com02x_ask_food` | 「附近這個時間，除了這裡還有能吃的嗎？」 | 她說還有一個要從回家路上多繞五分鐘的選項，今晚自己不想繞；共同離店段才說明是哪間粥店及其營業資訊。 | `F_XT +1` bonus; `mc_tone_practical +=1` | 02X.5 |
-| `com02x_share_work` | 「我也是剛收工。現在煮飯已經超出今晚的版本範圍。」 | 她以兩人都挑了能先運作的晚餐乾回；職業輪廓留待共同工作段交換。 | `T_XT +1`; `mc_tone_humorous +=1` | 02X.5 |
+| `com02x_ask_food` | 「附近這個時間，還有別的能吃嗎？」 | 她說還有一個要從回家路上多繞五分鐘的選項，今晚自己不想繞；共同離店段才說明是哪間粥店及其營業資訊。 | `F_XT +1` bonus; `mc_tone_practical +=1` | 02X.5 |
+| `com02x_share_work` | 「我也是剛收工。現在叫我回去煮飯，有點太看得起我。」 | 她以兩人都挑了能先運作的晚餐乾回；職業輪廓留待共同工作段交換。 | `T_XT +1`; `mc_tone_humorous +=1` | 02X.5 |
 | `com02x_tease_same` | 「至少妳拿的看起來比我的像晚餐。」 | 她比較兩份餐盒，回一句不過度熱絡的勝負判定。 | `C_XT +1` | 02X.5 |
 | `com02x_tell_eat_better` | 「妳這樣常常太晚吃，身體會撐不住。」 | 她平靜回「今天晚，不等於每天晚。」然後把話題轉回男主手上的宵夜；沒有爆氣。 | `K_XT -1`; `xt_advice_tendency +=1`; **不增加** `xt_boundary_strikes` | 02X.5 |
 
@@ -92,9 +92,9 @@ Base scene exit 另有 `F_XT +1`；`com02x_ask_food` 的 bonus 代表共享 neig
 
 **Visual**：`BG-CONVENIENCE-NIGHT`，冷藏櫃近景，窗外濕夜。無人物。
 
-**Narration**：晚上十一點，做飯已經從選項降成了明天的待辦事項。
+**Narration**：晚上十一點。我打開冷藏櫃，看了半天，最後只確定一件事：今晚不會煮飯。
 
-**Narration**：我在兩份微波食品前站了太久，仍然沒有得到比較成熟的答案。
+**Narration**：兩份微波食品拿起來又放回去，我還是沒決定。
 
 **Xu Tang（off-screen）**：[PLAYER_NAME]？
 
@@ -104,40 +104,56 @@ Base scene exit 另有 `F_XT +1`；`com02x_ask_food` 的 bonus 代表共享 neig
 
 **Action**：男主轉身。許棠一手拿黑咖啡，另一手提著簡單餐盒。
 
-**Protagonist**：嗨。
+**Protagonist**：欸，嗨。
 
-**Xu Tang**：你也現在才吃？
+**Xu Tang**：嗨。你也……現在才吃？
 
-**Protagonist**：看來是。
+**Protagonist**：嗯。很明顯嗎？
 
-**Xu Tang**：那至少不是只有我把晚餐拖到宵夜。
+**Action**：許棠看了一眼男主手上的微波食品，又低頭看自己的餐盒。
+
+**Xu Tang**：有一點。
+
+**Protagonist**：妳也差不多吧。
+
+**Xu Tang**：所以我才沒有資格說你。
 
 **Visual**：回 BG + `XT-SPR-LATE-CASUAL.teasing`。
 
 ### `common_convenience_xu_choice`
 
-1. `com02x_ask_food` — **「附近這個時間，除了這裡還有能吃的嗎？」**
-2. `com02x_share_work` — **「我也是剛收工。現在煮飯已經超出今晚的版本範圍。」**
+1. `com02x_ask_food` — **「附近這個時間，還有別的能吃嗎？」**
+2. `com02x_share_work` — **「我也是剛收工。現在叫我回去煮飯，有點太看得起我。」**
 3. `com02x_tease_same` — **「至少妳拿的看起來比我的像晚餐。」**
 4. `com02x_tell_eat_better` — **「妳這樣常常太晚吃，身體會撐不住。」**
 
 #### Branch `com02x_ask_food`
 
-**Protagonist**：附近這個時間，除了這裡還有能吃的嗎？
+**Protagonist**：附近這個時間，還有別的能吃嗎？
 
-**Xu Tang**：有。從回家的路上還要多繞五分鐘。
+**Xu Tang**：有是有。
+
+**Protagonist**：嗯？
+
+**Xu Tang**：回去要多繞五分鐘。
+
+**Protagonist**：喔。
 
 **Xu Tang**：我今晚沒有那五分鐘。
 
-**Protagonist**：這個條件很有說服力。
+**Protagonist**：懂了。那當我沒問。
 
 → Rejoin `common_convenience_xu_work`
 
 #### Branch `com02x_share_work`
 
-**Protagonist**：我也是剛收工。現在煮飯已經超出今晚的版本範圍。
+**Protagonist**：我也是剛收工。現在叫我回去煮飯，有點太看得起我。
 
-**Xu Tang**：那我們都選擇先能運作。
+**Xu Tang**：……那你應該懂。
+
+**Protagonist**：嗯。今天先吃到東西再說。
+
+**Xu Tang**：差不多。
 
 → Rejoin `common_convenience_xu_work`
 
@@ -145,11 +161,19 @@ Base scene exit 另有 `F_XT +1`；`com02x_ask_food` 的 bonus 代表共享 neig
 
 **Protagonist**：至少妳拿的看起來比我的像晚餐。
 
-**Action**：許棠看一眼兩人手上的餐盒。
+**Action**：許棠看了一眼兩人手上的餐盒。
 
-**Xu Tang**：我的有兩種顏色。暫時領先。
+**Xu Tang**：……有嗎？
 
-**Protagonist**：我接受判定。
+**Protagonist**：至少不只一個顏色。
+
+**Action**：她又低頭確認了一次自己的晚餐。
+
+**Xu Tang**：好吧。那我暫時贏。
+
+**Protagonist**：這也要比？
+
+**Xu Tang**：你先開始的。
 
 → Rejoin `common_convenience_xu_work`
 
@@ -159,63 +183,105 @@ Base scene exit 另有 `F_XT +1`；`com02x_ask_food` 的 bonus 代表共享 neig
 
 **Visual**：`XT-SPR-LATE-CASUAL.tired`，笑意收回，但不進 conflict expression。
 
-**Xu Tang**：今天晚，不等於每天晚。
+**Xu Tang**：我今天只是晚。
+
+**Protagonist**：喔，我是說——
 
 **Action**：她看向男主手上的微波食品。
 
-**Xu Tang**：而且你現在好像不太適合做這個提醒。
+**Xu Tang**：而且你拿那個跟我說這個，好像也沒什麼說服力。
 
-**Protagonist**：公平。
+**Protagonist**：……好。當我沒說。
 
 → Rejoin `common_convenience_xu_work`
 
 ### `common_convenience_xu_work`
 
-**Visual**：`XT-SPR-LATE-CASUAL.sleepy_annoyed`。
+**Action**：旁邊的微波爐「叮」了一聲。兩人都下意識往聲音的方向看了一眼，話停了兩秒。
 
-**Xu Tang**：客戶明早要看最後一版。
+**Protagonist**：妳等一下還要回去忙？
 
-**Protagonist**：所以咖啡是工作配備。
+**Xu Tang**：嗯。明早要交東西。
 
-**Xu Tang**：咖啡是錯誤決策。工作配備在家裡。
+**Protagonist**：難怪買咖啡。
 
-**Protagonist**：設計案？
+**Xu Tang**：其實現在喝這個也不是什麼好決定。
 
-**Xu Tang**：嗯，自己接的案子。印刷前最後一輪。通常「最後」不是很準。
+**Protagonist**：但還是買了。
 
-**Protagonist**：我大部分時間遠端做技術工作。剛處理完一個上線前的問題，才下來找吃的。
+**Xu Tang**：嗯。
 
-**Xu Tang**：聽起來你那邊的「最後」也不太準。
+**Protagonist**：設計的案子？
 
-**Narration**：她沒有把案子說得很慘。我也沒有問一個剛認識的鄰居，為什麼不早點做完。
+**Xu Tang**：對，自己接的。現在卡在印刷前最後一輪。
+
+**Protagonist**：「最後一輪」。
+
+**Xu Tang**：你不要學。
+
+**Protagonist**：我只是覺得這四個字通常不太可信。
+
+**Xu Tang**：你也有這種東西？
+
+**Protagonist**：有啊。我平常大部分在家做技術工作。剛才有個東西要上線，卡到現在。
+
+**Xu Tang**：喔。
+
+**Protagonist**：怎麼？
+
+**Xu Tang**：沒有。只是突然覺得你剛剛站在這裡選晚餐的表情，很像還在工作。
+
+**Protagonist**：我只是選不出來。
+
+**Xu Tang**：嗯。那可能更嚴重。
 
 ### `common_convenience_xu_checkout`
 
-**Action**：兩人前後結帳，各付各的。走出店門後，同方向往公寓走；許棠朝巷口方向抬了抬下巴。
+**Action**：排到櫃台時，許棠先把咖啡和餐盒放上去。男主還在後面拿著最後選中的微波食品。她結完帳先往門口走，男主隔了一個人跟上。
 
-**Xu Tang**：巷口那間粥店開到十二點。你如果哪天想吃熱的，可以去看看。
+**Action**：出了店門，兩人同方向往公寓走。許棠走了幾步，朝旁邊巷口抬了抬下巴。
 
-**Protagonist**：這個時間還開，先記下。
+**Xu Tang**：對了。
 
-**Xu Tang**：不過週三休。
+**Protagonist**：嗯？
 
-**Protagonist**：這條也得記。
+**Xu Tang**：巷口有間粥店，開到十二點。你哪天不想吃這些，可以去。
 
-**Xu Tang**：我也是白走一次才知道。
+**Protagonist**：這個時間還開？
+
+**Xu Tang**：嗯。不過週三休。
+
+**Protagonist**：妳連休哪天都記得。
+
+**Xu Tang**：因為我週三去過。
+
+**Protagonist**：……喔。
+
+**Xu Tang**：白走一趟就會記得。
+
+**Protagonist**：那我先記週三。
 
 ### `common_convenience_xu_exit`
 
-**Action**：到公寓門口，許棠抬了抬手裡的咖啡。
+**Action**：到公寓門口，許棠把咖啡換到另一隻手。
 
-**Xu Tang**：我先上去。還有兩個「最後版本」。
+**Xu Tang**：我先上去了。
 
-**Protagonist**：祝它們真的是最後。
+**Protagonist**：還要繼續？
+
+**Xu Tang**：嗯。還有兩個版本要改。
+
+**Protagonist**：兩個？
+
+**Xu Tang**：兩個「最後版本」。
+
+**Protagonist**：那祝它們真的是最後。
 
 **Xu Tang**：你剛搬來，還可以保留這種樂觀。
 
 **Visual**：`XT-SPR-LATE-CASUAL.small_smile`。
 
-**Protagonist**：晚安。
+**Protagonist**：……晚安。
 
 **Xu Tang**：晚安。
 
@@ -267,7 +333,7 @@ unchanged:
 
 ## Runtime / Memory intent
 
-- 建議拆成 10–13 個 nodes，前綴 `common_convenience_xu_*`。
+- Runtime 應以 conversational turn 為單位拆 node；不要把不同 speaker 的台詞合併進同一個 text field。前綴 `common_convenience_xu_*`。
 - Memory title：**深夜便利店**。
 - Memory cover：`CG-COM-03`；未生成時用 BG + `XT-SPR-LATE-CASUAL` composite。
 - 本幕可在後續 RE-X 用「同一間便利店」作自然 callback。
@@ -320,7 +386,7 @@ unchanged:
 
 ### Xu Tang
 
-- 疲憊時語句更短，但不是脾氣差。
+- 疲憊時可以更短、更慢，也可以出現停頓與低資訊量回應；不是脾氣差，更不是每句都要壓成 punchline。
 - 她叫名字自然，不加「居然又遇到你」。
 - 談工作只給 deadline 的具體一角；不一次解釋 freelance 身份焦慮。
 - 被規訓式關心時用事實校正，不上價值課：「今天晚，不等於每天晚。」
@@ -333,8 +399,8 @@ unchanged:
 
 ### Voice contrast target
 
-- 許棠的日常談話靠共享現實與短回扣累積熟悉。
-- 她不像雨澄因興趣而突然長篇；即使談工作也維持精簡，讓停頓與一起走回家承擔親近感。
+- 許棠的日常談話靠共享現實、短回扣、停頓與偶爾沒接好的話累積熟悉。
+- 她不像雨澄因興趣而突然長篇；談工作仍偏克制，但句長與資訊密度要有起伏，不得把「克制」寫成每句都極短。
 
 ### Prohibited beats
 
