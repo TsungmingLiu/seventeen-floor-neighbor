@@ -1,0 +1,127 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "qa-com02x-preview-independent-20260928",
+  "task_id": "NQA-COM02X-001",
+  "scene_id": "COM-02X",
+  "status": "FAIL",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.1.0",
+    "pass": "narrative_review"
+  },
+  "worker_model": "gpt-5.6-sol",
+  "packet_sha256": "b262a684373b781922f96f4ce9fd69493234ae1472a20673b4559a89f46fe7be",
+  "input_digest_sha256": "4bbaa63efdcd99410f82ad32a04e0e257f34654c37de75612105588f401c5911",
+  "input_versions": [
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-02X.json",
+      "version": "5f85482b7c420a5f7726035e369679360f83cfd5",
+      "location": "content/production/narrative/opening-ch1/COM-02X.json"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-02X.md",
+      "version": "a2469042a1629ca79801d22180876c7403202a10",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02X.md"
+    },
+    {
+      "id": "file:docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md",
+      "version": "a45247d93c2a1736e54aa13aca2110ee08a5b8c8",
+      "location": "docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md"
+    },
+    {
+      "id": "file:docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md",
+      "version": "fa68288637f8d1cddc0857b64b5d84b66469f173",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-00.md",
+      "version": "4c8b9396fdf43556b474f9cbf7a90813ef533309",
+      "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-01X.md",
+      "version": "f9be677e0c589bab2c7c49560e1fe882b553ec2e",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01X.md"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "reviewed_locked_scene:COM-02X",
+      "version": "a2469042a1629ca79801d22180876c7403202a10",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02X.md"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "scene_function_entry_exit",
+      "code": "NQA-FUNCTION-ENTRY-EXIT",
+      "result": "PASS"
+    },
+    {
+      "name": "choice_rejoin_state",
+      "code": "NQA-CHOICE-REJOIN-STATE",
+      "result": "FAIL"
+    },
+    {
+      "name": "knowledge_continuity",
+      "code": "NQA-KNOWLEDGE-CONTINUITY",
+      "result": "FAIL"
+    },
+    {
+      "name": "dialogue_naturalism",
+      "code": "NQA-DIALOGUE-NATURALISM",
+      "result": "FAIL"
+    },
+    {
+      "name": "relationship_boundary",
+      "code": "NQA-RELATIONSHIP-BOUNDARY",
+      "result": "PASS"
+    },
+    {
+      "name": "must_not_visual_boundary",
+      "code": "NQA-MUST-NOT-VISUAL-BOUNDARY",
+      "result": "PASS"
+    },
+    {
+      "name": "source_provenance",
+      "code": "NQA-PROVENANCE",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    {
+      "location": "common_convenience_xu_checkout",
+      "type": "choice_rejoin_continuity",
+      "evidence": "「你如果哪天真的想吃熱的，剛才那間粥店週三休。」",
+      "requirement": "Make the rejoin valid on all four choices; do not assume information introduced only by com02x_ask_food."
+    },
+    {
+      "location": "common_convenience_xu_work / End actions",
+      "type": "knowledge_state_mapping",
+      "evidence": "Only com02x_share_work discloses 「你也在家工作？」與「剛才有一個上線前的問題。」, but all paths set xu_knows_player_remote_tech_work.",
+      "requirement": "Ensure every path earns the knowledge before the state write, or narrow the mapping to facts actually disclosed."
+    },
+    {
+      "location": "common_convenience_xu_work / State contract",
+      "type": "knowledge_scope",
+      "evidence": "Dialogue establishes a client/design/printing context, but the unconditional state sets player_knows_xu_freelance_creative_work=true.",
+      "requirement": "Align the knowledge state with information actually disclosed in the scene; do not grant an unspoken employment model."
+    },
+    {
+      "location": "com02x_ask_food / com02x_share_work / com02x_tease_same / com02x_tell_eat_better / common_convenience_xu_work / common_convenience_xu_exit",
+      "type": "dialogue_naturalism",
+      "evidence": "The scene repeatedly resolves turns with polished dry lines, including 「我今晚沒有那五分鐘。」→「這個條件很有說服力。」, 「那我們都選擇先能運作。」, 「我的有兩種顏色。暫時領先。」→「我接受判定。」, and 「你剛搬來，還可以保留這種樂觀。」",
+      "requirement": "Reduce the persistent setup/punchline and precision-answer cadence so newly acquainted neighbors read as continuous late-night conversation while preserving locked beats, choice intent and state boundaries."
+    },
+    {
+      "location": "common_convenience_xu_work",
+      "type": "guardrail_narration",
+      "evidence": "「她沒有把案子說得很慘。我也沒有問一個剛認識的鄰居，為什麼不早點做完。」",
+      "requirement": "Do not use narration to explain the relationship/production guardrail when the scene behavior can demonstrate it."
+    }
+  ],
+  "failure_reason": "Choice/rejoin continuity and knowledge-state mapping fail, and the required NQA-DIALOGUE-NATURALISM gate fails.",
+  "human_gate_required": "none",
+  "invalidates": [],
+  "worker_handoff_sha256": "aeb9c3ac1bd0ef6c36ada9acd428a8ac474ea14a8c810ec3eaeeb366bdbc4372"
+}

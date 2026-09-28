@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.3.0",
+  "run_id": "qa-com02x-preview-independent-20260928",
+  "workflow_version": "1.3.0",
+  "source_ref": "40c1d260aea60126fdb5c524f6e6a2eab6bf615e",
+  "human_request": {
+    "summary": "Independent fresh-worker Narrative QA for locked COM-02X on qa-com02x-preview-independent.",
+    "gate_status": "none"
+  },
+  "status": "BLOCKED",
+  "tasks": [
+    {
+      "task_id": "NQA-COM02X-001",
+      "task_type": "narrative_review",
+      "scene_id": "COM-02X",
+      "depends_on": [],
+      "status": "FAIL",
+      "packet": {
+        "generator": "tools/context.mjs:narrative_review",
+        "sha256": "b262a684373b781922f96f4ce9fd69493234ae1472a20673b4559a89f46fe7be"
+      },
+      "decision_receipt": "content/production/runs/qa-com02x-preview-independent-20260928/NQA-COM02X-001.decision.json",
+      "input_versions": [
+        {
+          "id": "file:content/production/narrative/opening-ch1/COM-02X.json",
+          "version": "5f85482b7c420a5f7726035e369679360f83cfd5",
+          "location": "content/production/narrative/opening-ch1/COM-02X.json"
+        },
+        {
+          "id": "file:docs/narrative/scenes/vertical-slice/COM-02X.md",
+          "version": "a2469042a1629ca79801d22180876c7403202a10",
+          "location": "docs/narrative/scenes/vertical-slice/COM-02X.md"
+        },
+        {
+          "id": "file:docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md",
+          "version": "a45247d93c2a1736e54aa13aca2110ee08a5b8c8",
+          "location": "docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md"
+        },
+        {
+          "id": "file:docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md",
+          "version": "fa68288637f8d1cddc0857b64b5d84b66469f173",
+          "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md"
+        },
+        {
+          "id": "file:docs/narrative/scenes/vertical-slice/COM-00.md",
+          "version": "4c8b9396fdf43556b474f9cbf7a90813ef533309",
+          "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+        },
+        {
+          "id": "file:docs/narrative/scenes/vertical-slice/COM-01X.md",
+          "version": "f9be677e0c589bab2c7c49560e1fe882b553ec2e",
+          "location": "docs/narrative/scenes/vertical-slice/COM-01X.md"
+        }
+      ],
+      "output_versions": [
+        {
+          "id": "reviewed_locked_scene:COM-02X",
+          "version": "a2469042a1629ca79801d22180876c7403202a10",
+          "location": "docs/narrative/scenes/vertical-slice/COM-02X.md"
+        }
+      ],
+      "human_gate": "none",
+      "reason": "Narrative QA failed choice/rejoin continuity, knowledge continuity, and dialogue naturalism gates."
+    }
+  ],
+  "invalidation_events": [],
+  "preview": null
+}
