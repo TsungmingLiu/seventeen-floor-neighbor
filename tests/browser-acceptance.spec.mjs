@@ -141,9 +141,9 @@ test('COM-02X reaches the ending through each locked choice and keeps preview ou
         await page.locator('#game-home-button').click();
         await page.reload();
         await page.locator('#start-button').click();
-        await expect(page.locator('#dialogue-text')).toContainText(selected === 0
-          ? '從回家的路上還要多繞五分鐘'
-          : ['','那我們都選擇先能運作','我的有兩種顏色','今天晚，不等於每天晚'][selected]);
+        await expect(page.locator('#dialogue-text')).toContainText(
+          ['有是有','……那你應該懂','……有嗎？','我今天只是晚'][selected]
+        );
         const branchStats = await page.evaluate(() => JSON.parse(localStorage.getItem('opening-demo-chapter-01:journey:v2')).cursor.stats);
         expect(branchStats.F_XT - entryStats.F_XT).toBe(selected === 0 ? 1 : 0);
         expect(branchStats.player_knows_xu_freelance_creative_work).toBe(0);
