@@ -1,0 +1,138 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "qa-com02x-fresh-worker-20260928",
+  "task_id": "NQA-COM02X-FRESH-001",
+  "scene_id": "COM-02X",
+  "status": "FAIL",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.1.0",
+    "pass": "narrative_review"
+  },
+  "packet_sha256": "770bebc00607b171b0cace415e61fc7cfebeff085cfee1b88463acaa620e51a5",
+  "input_versions": [
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-02X.json",
+      "version": "5f85482b7c420a5f7726035e369679360f83cfd5",
+      "location": "content/production/narrative/opening-ch1/COM-02X.json"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-02X.md",
+      "version": "a2469042a1629ca79801d22180876c7403202a10",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02X.md"
+    },
+    {
+      "id": "file:docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md",
+      "version": "a45247d93c2a1736e54aa13aca2110ee08a5b8c8",
+      "location": "docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md"
+    },
+    {
+      "id": "file:docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md",
+      "version": "fa68288637f8d1cddc0857b64b5d84b66469f173",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-00.md",
+      "version": "4c8b9396fdf43556b474f9cbf7a90813ef533309",
+      "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-01X.md",
+      "version": "f9be677e0c589bab2c7c49560e1fe882b553ec2e",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01X.md"
+    }
+  ],
+  "input_digest_sha256": "4bbaa63efdcd99410f82ad32a04e0e257f34654c37de75612105588f401c5911",
+  "worker_handoff_sha256": "62a0a35bd4432af562b60ed9c7e54bd37ee8900af2866a7f8125c5a0aca17d11",
+  "output_versions": [],
+  "qa_codes": [
+    {
+      "name": "Locked Scene / Narrative Continuity Contract consistency",
+      "code": "NQA-CONTRACT-CONSISTENCY",
+      "result": "FAIL"
+    },
+    {
+      "name": "Required payoff and knowledge continuity",
+      "code": "NQA-KNOWLEDGE-CONTINUITY",
+      "result": "FAIL"
+    },
+    {
+      "name": "Choice branch / rejoin consistency",
+      "code": "NQA-CHOICE-REJOIN",
+      "result": "FAIL"
+    },
+    {
+      "name": "Conversational naturalism",
+      "code": "NQA-DIALOGUE-NATURALISM",
+      "result": "FAIL"
+    },
+    {
+      "name": "Choice IDs and state effects",
+      "code": "NQA-CHOICE-STATE-MAPPING",
+      "result": "PASS"
+    },
+    {
+      "name": "Relationship pacing and boundaries",
+      "code": "NQA-RELATIONSHIP-PACING",
+      "result": "PASS"
+    },
+    {
+      "name": "Premature reveal / contact / romance guardrails",
+      "code": "NQA-PREMATURE-REVEAL",
+      "result": "PASS"
+    },
+    {
+      "name": "Memory ownership and immediate continuity",
+      "code": "NQA-MEMORY-CONTINUITY",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    {
+      "location": "Branches com02x_ask_food / com02x_tease_same / com02x_tell_eat_better -> common_convenience_xu_work -> End actions / State contract",
+      "evidence": [
+        "Only com02x_share_work contains: 「你也在家工作？」 / 「大部分時間。剛才有一個上線前的問題。」",
+        "Common End actions: 「設定雙方工作輪廓 knowledge」",
+        "State contract unconditionally sets `xu_knows_player_remote_tech_work: true`."
+      ],
+      "issue_type": "knowledge_continuity / contract_consistency",
+      "why": "Three of four paths never disclose the protagonist's remote/tech work to Xu Tang, yet the common exit and contract grant that knowledge on every path. This violates the canonical rule that knowledge must come from an actual scene/message/honest disclosure and breaks the contract's all-path required payoff.",
+      "change_requirement": "Every incoming path must causally earn the exit-state work knowledge before it is written, or the canonical contract/state must be revised to match what the scene actually establishes. Preserve the locked choice intents and do not create new premature information."
+    },
+    {
+      "location": "common_convenience_xu_checkout after rejoin",
+      "evidence": [
+        "「你如果哪天真的想吃熱的，剛才那間粥店週三休。」",
+        "The porridge shop is introduced only inside Branch `com02x_ask_food`: 「巷口那間粥店開到十二點。」"
+      ],
+      "issue_type": "choice_rejoin_consistency",
+      "why": "On com02x_share_work, com02x_tease_same, and com02x_tell_eat_better, 「剛才那間粥店」 has no prior referent. The shared rejoin therefore leaks branch-only information and does not actually support the contract's all-path neighborhood-information payoff.",
+      "change_requirement": "Make the shared rejoin semantically valid from every branch, with any referenced neighborhood fact established on all incoming paths before a deictic callback is used."
+    },
+    {
+      "location": "Scene-wide: common_convenience_xu_recognize; all choice branches; common_convenience_xu_work; common_convenience_xu_exit",
+      "evidence": [
+        "「你也現在才吃？」→「看來是。」→「那至少不是只有我把晚餐拖到宵夜。」",
+        "「我也是剛收工。現在煮飯已經超出今晚的版本範圍。」→「你也在家工作？」→「大部分時間。剛才有一個上線前的問題。」→「那我們都選擇先能運作。」",
+        "「我的有兩種顏色。暫時領先。」→「我接受判定。」",
+        "「咖啡是錯誤決策。工作配備在家裡。」 / 「通常『最後』不是很準。」",
+        "「祝它們真的是最後。」→「你剛搬來，還可以保留這種樂觀。」"
+      ],
+      "issue_type": "dialogue_naturalism",
+      "why": "The pattern is sustained rather than occasional: questions receive unusually exact answers, most exchanges close on prepared dry punchlines, and two early-stage neighbors hand each other clean setups with very little hesitation, acknowledgement, mundane connective talk, or failed conversational timing. The Chinese frequently reads as polished authored copy rather than spontaneous late-night small talk, materially weakening the scene's intended ordinary-life credibility.",
+      "change_requirement": "Rework the scene-wide conversational rhythm rather than line-polishing isolated sentences: reduce systematic setup/punchline closure and information-density, allow more ordinary or imperfect handoffs appropriate to early-neighbor familiarity, while preserving scene beats, voice constraints, choice intent, and relationship pace."
+    },
+    {
+      "location": "common_convenience_xu_work narration and tell_eat_better rejoin",
+      "evidence": [
+        "「她沒有把案子說得很慘。我也沒有問一個剛認識的鄰居，為什麼不早點做完。」",
+        "After 「公平。」 the tell_eat_better branch immediately rejoins at 「客戶明早要看最後一版。」"
+      ],
+      "issue_type": "dialogue_naturalism / production_guardrail_exposition",
+      "why": "The narration explicitly explains the relationship guardrail instead of allowing the protagonist's behavior to demonstrate it. The boundary-setting branch also snaps directly into required work exposition with no conversational consequence, making the rejoin feel like state-contract delivery rather than a human interaction.",
+      "change_requirement": "Keep the restraint legible through behavior and pacing rather than narrating the production/relationship rule; ensure the corrective branch can rejoin without erasing the immediately preceding social beat."
+    }
+  ],
+  "human_gate_required": "none",
+  "invalidates": []
+}
