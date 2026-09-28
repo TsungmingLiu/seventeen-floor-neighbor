@@ -55,7 +55,7 @@ requires:
 | --- | --- | --- | --- | --- |
 | 02X.1 Late aisle | establishing | 男主在冷藏櫃前比較兩個都稱不上晚餐的選項；旁白輕寫他把做飯排除在今晚之外。 | `BG-CONVENIENCE-NIGHT`；冷白光、窗外濕夜。 | none |
 | 02X.2 Name first | recognition | 許棠從飲料櫃另一側先叫男主名字，語氣像確認，不像驚喜。男主轉身看到她手裡的咖啡與餐盒。 | **CG-COM-03 trigger**；`tired → caught_off_guard`。 | none |
-| 02X.3 Mutual evidence | grounding | 她看一眼男主手上的宵夜，他也看一眼她的；兩人都沒有資格評論對方。她可乾乾說「看來不是只有我把晚餐拖到現在。」 | CG hold → sprite。`teasing / small_smile`。 | none |
+| 02X.3 Mutual evidence | grounding | 她看一眼男主手上的宵夜，他也看一眼她的；兩人都沒有資格評論對方。她先看兩人手上的晚餐，再用「所以我才沒有資格說你」把尷尬放回平等位置。 | CG hold → sprite。`teasing / small_smile`。 | none |
 | 02X.4 Player choice | local branch | 玩家談附近食物、分享工作拖晚、開輕微同盟玩笑，或提出規訓式關心。 | expressions vary。 | stats/pattern，見下表 |
 | 02X.5 Work texture | rejoin | 許棠只透露「客戶明早要看／印刷前要改完」等具體工作情境；男主在共同段說明自己大部分時間遠端做技術工作、剛處理上線前問題。兩人都不講完整履歷。 | `tired`, `dry_resignation`, `small_smile`。 | none |
 | 02X.6 Nearby recommendation | relationship texture | 兩人離店經過巷口時，她向所有路徑指出粥店開到午夜、週三休；問食物的分支只先談多繞五分鐘的取捨。這不是她替男主安排晚餐。 | aisle-to-checkout blocking。 | none |
@@ -75,7 +75,7 @@ requires:
 
 ## Player choice / local branch
 
-Choice 出現在許棠說「看來不是只有我」之後。
+Choice 出現在許棠說「所以我才沒有資格說你」之後。
 
 | Choice ID | Player-facing intent（可微調字句） | Xu response intent | Stats / flags | Rejoin |
 | --- | --- | --- | --- | --- |
@@ -375,7 +375,7 @@ unchanged:
 - Lighting：冷白 fluorescent；窗外冷藍濕夜；不使用 beauty commercial rim light。
 - Safe zone：下方 25% 保持低資訊；臉、餐盒與手在上中段。
 - Negative constraints：無品牌、無性感 pose、無誇張胸腰比例、無高跟鞋臨時搭配、無錯誤手指。
-- Hold / exit：保留至「看來不是只有我」；choice 前切回 sprite composite。
+- Hold / exit：保留至「所以我才沒有資格說你」；choice 前切回 sprite composite。
 
 ### Shot C — Walk-back transition（locked）
 
