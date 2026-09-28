@@ -150,3 +150,11 @@ npm run codespace:accept
 - Persistent runtime IDs 應保持穩定，避免破壞 save / replay。
 - Human 保留重大故事方向、角色設計、關鍵 CG acceptance 與最終 playable acceptance。
 - 新需求是否現在執行，由 `ROADMAP.md` 的 current milestone 與 Exit Gate 決定。
+
+---
+
+## 著作權與授權
+
+Copyright © 2026 TsungmingLiu. All rights reserved.
+
+本專案目前未提供開源或其他公開再利用授權。除另有明確標示的第三方授權外，程式碼、文件、劇情、角色設定、圖像及其他素材均保留權利。公開存放於 GitHub 不代表授權他人在 GitHub 服務條款容許的操作以外重製、修改、再散布或商業使用；如需取得授權，請先聯繫專案維護者。
