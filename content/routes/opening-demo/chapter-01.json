@@ -220,8 +220,6 @@
       "next": "common_elevator_restart_choice"
     },
     "common_elevator_restart_choice": {
-      "speaker": "你",
-      "text": "",
       "chapter": 1,
       "visual": {
         "mode": "cg",
@@ -374,8 +372,6 @@
       "next": "common_acg_first_meet_choice"
     },
     "common_acg_first_meet_choice": {
-      "speaker": "你",
-      "text": "",
       "chapter": 2,
       "visual": {
         "mode": "cg",
@@ -562,8 +558,6 @@
       "next": "common_bookstore_bridge_choice"
     },
     "common_bookstore_bridge_choice": {
-      "speaker": "你",
-      "text": "",
       "chapter": 1,
       "visual": {
         "mode": "cg",
