@@ -56,6 +56,8 @@
 
 `npm run assets:check` 驗證本地 runtime 來源、已釘選的 bytes/hash、尺寸/比例與媒體 full decode；active generation source catalog 另由 production validation 核對 repo 原圖。`npm run assets:build` 只複製 repo 檔案到 generated output；`npm run build` clean rebuild `dist/`，包含 UI、JS、route packages 與 runtime assets。缺少 runtime object 時應阻擋 build，不得用舊 sprite 或暫存圖悄悄替代。唯一共用的 `bg.narrative_preview.placeholder` 是 manifest/source map 明示、hash 釘選的 preview-only WebP，不是 remote fallback，也不進 CG Gallery。`dist/`、`generated/` 可丟棄。
 
+Cloudflare Pages 只接收 Verify 在 fresh GitHub runner 上通過檢查後保存的 `dist/`；`main` 對應 production，repo 內 PR 對應 `pr-<number>` preview branch alias。Pages 不是內容或 build source of truth。靜態站點的相對 URL 以根目錄為 base，使 SPA fallback 的深層路徑重新整理後仍能載入 JS、route JSON 與素材。帳號設定及操作見 `docs/CLOUDFLARE_DEPLOYMENT.md`。
+
 舊 `xu-tang` route 專用的 sprite、日期 CG、背景與影片均已移除。Opening 的 CG、背景和 preview-only WebP 仍依既有 manifest/source map 驗證；角色 PNG/JPEG 仍是 production references。引擎的通用 composite 與 cinematic 能力保留，不宣稱舊影片仍可玩。
 
 ## 5. Content production 與 runtime integration
