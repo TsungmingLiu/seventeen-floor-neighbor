@@ -776,7 +776,7 @@
     },
     "common_convenience_xu_recognize": {
       "speaker": "旁白",
-      "text": "男主轉身。許棠一手拿黑咖啡，另一手提著簡單餐盒。",
+      "text": "我轉身。許棠一手拿黑咖啡，另一手提著簡單餐盒。",
       "chapter": 3,
       "visual": {
         "mode": "composite",
@@ -831,7 +831,7 @@
     },
     "common_convenience_xu_recognize_06": {
       "speaker": "旁白",
-      "text": "她低頭看了一眼男主手上的餐盒，又看看自己那盒。",
+      "text": "她低頭看了一眼我手上的餐盒，又看看自己那盒。",
       "chapter": 3,
       "visual": {
         "mode": "composite",
@@ -1392,7 +1392,7 @@
     },
     "common_convenience_xu_checkout": {
       "speaker": "旁白",
-      "text": "許棠先拿回自己的餐盒，和咖啡一起結帳。男主還在等自己的加熱完成；等他走出店門時，她正站在騎樓邊把收據塞進袋子。",
+      "text": "許棠先拿回自己的餐盒，和咖啡一起結帳。我還在等自己的餐盒加熱完成；等他走出店門時，她正站在騎樓邊把收據塞進袋子。",
       "chapter": 3,
       "visual": {
         "mode": "composite",
@@ -1623,7 +1623,7 @@
     },
     "common_convenience_xu_exit_08": {
       "speaker": "旁白",
-      "text": "她進 1702。男主繼續往 1703 走。",
+      "text": "她進 1702。我繼續往 1703 走。",
       "chapter": 3,
       "visual": {
         "mode": "composite",

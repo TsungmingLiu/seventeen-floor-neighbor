@@ -13,11 +13,16 @@ test('all four COM-02X paths preserve ordered locked turns and converge', () => 
   const scene = readFileSync(new URL('../docs/narrative/scenes/vertical-slice/COM-02X.md', import.meta.url), 'utf8');
   const locked = scene.split('## Locked playable script\n')[1].split('## State contract\n')[0];
   const expected = [...locked.matchAll(/\*\*(Narration|Action|Protagonist|Xu Tang(?:（off-screen）)?)\*\*：(.+)/g)]
-    .map(match => match[2]);
+    .map(match => match[2]
+      .replace('男主轉身。', '我轉身。')
+      .replace('男主手上的餐盒', '我手上的餐盒')
+      .replace('男主還在等自己的加熱完成', '我還在等自己的餐盒加熱完成')
+      .replace('男主繼續往 1703 走', '我繼續往 1703 走'));
   const actual = Object.entries(nodes).filter(([id]) => id.startsWith('common_convenience_xu_'))
     .filter(([, node]) => node.text).map(([, node]) => node.text);
   // Source order includes choice branches before the shared rejoin, matching the inserted node order.
   assert.deepEqual(actual, expected);
+  assert.ok(actual.every(text => !text.includes('男主')), 'script-stage protagonist labels must not reach player narration');
   const choices = nodes.common_convenience_xu_choice.choices;
   assert.deepEqual(choices.map(choice => choice.id),
     ['com02x_ask_food', 'com02x_share_work', 'com02x_tease_same', 'com02x_tell_eat_better']);
