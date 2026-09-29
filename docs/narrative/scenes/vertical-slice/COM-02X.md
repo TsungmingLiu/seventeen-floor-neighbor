@@ -56,7 +56,7 @@ requires:
 | --- | --- | --- | --- | --- |
 | 02X.1 Late aisle | establishing | 男主在冷藏櫃前比較兩個都稱不上晚餐的選項；旁白輕寫他把做飯排除在今晚之外。 | `BG-CONVENIENCE-NIGHT`；冷白光、窗外濕夜。 | none |
 | 02X.2 Name first | recognition | 許棠從飲料櫃另一側先叫男主名字，語氣像確認，不像驚喜。男主轉身看到她手裡的咖啡與餐盒。 | **CG-COM-03 trigger**；`tired → caught_off_guard`。 | none |
-| 02X.3 Mutual evidence | grounding | 她看一眼男主手上的宵夜，他也看一眼她的；兩人都沒有資格評論對方。她可乾乾說「看來不是只有我把晚餐拖到現在。」 | CG hold → sprite。`teasing / small_smile`。 | none |
+| 02X.3 Mutual evidence | grounding | 她看一眼男主手上的宵夜，他也看一眼她的；兩人都沒有資格評論對方。半秒沉默後，她只說「喔。那差不多。」 | CG hold → sprite。`teasing / small_smile`。 | none |
 | 02X.4 Player choice | local branch | 玩家談附近食物、分享工作拖晚、開輕微同盟玩笑，或提出規訓式關心。 | expressions vary。 | stats/pattern，見下表 |
 | 02X.5 Work texture | rejoin | 許棠只透露「客戶明早要看／印刷前要改完」等具體工作情境；男主以自己剛結束 deployment／review 的等量資訊交換。兩人都不講完整履歷。 | `tired`, `dry_resignation`, `small_smile`。 | none |
 | 02X.6 Nearby recommendation | relationship texture | 她指出附近某間粥店／麵店其實還開著，但今晚自己懶得繞；男主可記住。這不是她替他安排晚餐。 | aisle-to-checkout blocking。 | none |
@@ -76,7 +76,7 @@ requires:
 
 ## Player choice / local branch
 
-Choice 出現在許棠說「看來不是只有我」之後。
+Choice 出現在許棠說「喔。那差不多。」、畫面切回 BG + sprite 之後。
 
 | Choice ID | Player-facing intent | Xu response intent | Stats / flags | Rejoin |
 | --- | --- | --- | --- | --- |
@@ -216,27 +216,19 @@ Base scene exit 另有 `F_XT +1`；`com02x_ask_food` 的 bonus 保持鎖定，�
 
 **Xu Tang**：你剛剛說弄完事情，是工作？
 
-**Protagonist**：嗯。
+**Protagonist**：嗯。做軟體的，今晚有東西要上線，弄到剛剛。
 
-**Xu Tang**：做到現在喔。
+**Xu Tang**：喔，辛苦。
 
-**Protagonist**：今天比較晚。我大部分時間都在家工作。
-
-**Xu Tang**：在家喔。
-
-**Protagonist**：對，做軟體的。今晚有東西要上線，弄到剛剛。
-
-**Xu Tang**：喔。
+**Protagonist**：還好啦。我大部分時間在家工作，省掉通勤。
 
 **Action**：微波爐還有一分多鐘。兩人都看著轉盤轉了一圈，沒有立刻接話。
 
-**Protagonist**：妳也是工作？
+**Xu Tang**：我還沒弄完。
 
-**Xu Tang**：嗯。客戶明早要看最後一版。
+**Protagonist**：啊。
 
-**Protagonist**：喔。
-
-**Xu Tang**：過了就送印。
+**Xu Tang**：客戶明早要看最後一版。過了就送印。
 
 **Protagonist**：妳做印刷的？
 
@@ -394,7 +386,7 @@ unchanged:
 - Lighting：冷白 fluorescent；窗外冷藍濕夜；不使用 beauty commercial rim light。
 - Safe zone：下方 25% 保持低資訊；臉、餐盒與手在上中段。
 - Negative constraints：無品牌、無性感 pose、無誇張胸腰比例、無高跟鞋臨時搭配、無錯誤手指。
-- Hold / exit：保留至「看來不是只有我」；choice 前切回 sprite composite。
+- Hold / exit：保留至兩人看過彼此餐盒、許棠說「喔。那差不多。」；choice 前切回 sprite composite。
 
 ### Shot C — Walk-back transition（locked）
 
