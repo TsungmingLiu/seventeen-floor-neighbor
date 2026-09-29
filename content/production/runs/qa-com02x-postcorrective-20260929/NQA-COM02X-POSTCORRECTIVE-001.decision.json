@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "qa-com02x-postcorrective-20260929",
+  "task_id": "NQA-COM02X-POSTCORRECTIVE-001",
+  "scene_id": "COM-02X",
+  "status": "PASS",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.1.0",
+    "pass": "narrative_review"
+  },
+  "packet_sha256": "e277dc42213bac32c56fd45c659d8ec43be5bfcca9d0313baedaf99a61fce90a",
+  "input_digest_sha256": "98760d703827f6f563767f117dc04ad02849e589df7496898841e0bf95da1d1d",
+  "input_versions": [
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-02X.json",
+      "version": "5f85482b7c420a5f7726035e369679360f83cfd5",
+      "location": "content/production/narrative/opening-ch1/COM-02X.json"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-02X.md",
+      "version": "fcf2992035622ed09d39238fd7563041f565b8d8",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02X.md"
+    },
+    {
+      "id": "file:docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md",
+      "version": "a45247d93c2a1736e54aa13aca2110ee08a5b8c8",
+      "location": "docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md"
+    },
+    {
+      "id": "file:docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md",
+      "version": "fa68288637f8d1cddc0857b64b5d84b66469f173",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-00.md",
+      "version": "4c8b9396fdf43556b474f9cbf7a90813ef533309",
+      "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-01X.md",
+      "version": "f9be677e0c589bab2c7c49560e1fe882b553ec2e",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01X.md"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "approved_locked_scene:COM-02X",
+      "version": "fcf2992035622ed09d39238fd7563041f565b8d8",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02X.md"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "nqa_scene_function_entry_exit",
+      "code": "NQA-SCENE-FUNCTION-ENTRY-EXIT",
+      "result": "PASS"
+    },
+    {
+      "name": "nqa_voice_and_pacing",
+      "code": "NQA-VOICE-AND-PACING",
+      "result": "PASS"
+    },
+    {
+      "name": "nqa_dialogue_naturalism",
+      "code": "NQA-DIALOGUE-NATURALISM",
+      "result": "PASS"
+    },
+    {
+      "name": "nqa_choice_rejoin",
+      "code": "NQA-CHOICE-REJOIN",
+      "result": "PASS"
+    },
+    {
+      "name": "nqa_knowledge_contract",
+      "code": "NQA-KNOWLEDGE-CONTRACT",
+      "result": "PASS"
+    },
+    {
+      "name": "nqa_visible_choice_state",
+      "code": "NQA-VISIBLE-CHOICE-STATE",
+      "result": "PASS"
+    },
+    {
+      "name": "nqa_must_not_and_visual_beats",
+      "code": "NQA-MUST-NOT-AND-VISUAL-BEATS",
+      "result": "PASS"
+    },
+    {
+      "name": "nqa_no_visual_impact",
+      "code": "NQA-NO-VISUAL-IMPACT",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    {
+      "code": "NQA-NONBLOCKING-1",
+      "evidence": "Nonblocking editorial anchors: beat 02X.1 mentions comparing two products while the playable text only observes the shelf; summary lists nearby food before work although the shared scene reverses that order (scene L31,L57,L96-L98,L211-L277)."
+    },
+    {
+      "code": "NQA-NONBLOCKING-2",
+      "evidence": "Nonblocking prop handoff is implicit: Xu holds a meal box at recognition and later retrieves hers from the microwave; an action bridge is not written (scene L106,L215,L245-L251)."
+    }
+  ],
+  "invalidation_decision": {
+    "decision": "no_visual_impact",
+    "scene_id": "COM-02X",
+    "old_scene_sha256": "a77022a7377eaa40b7a481bcba975ff6511fd2a9a69d957c0c264a9c4af7ee5e",
+    "new_scene_sha256": "d0e409d53d0f43bd5731b33f9943842e4fe91519b9c369b2b00da94971305bdf"
+  },
+  "human_gate_required": "none",
+  "invalidates": [],
+  "worker_handoff_sha256": "0a72c9e68404d412a796d82491e9eb3f6db9c5f39b42e419c9001a0616055870"
+}
