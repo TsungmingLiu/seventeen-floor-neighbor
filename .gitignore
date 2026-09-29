@@ -19,3 +19,4 @@ generated/asset-report.json
 
 # Runtime output is rebuilt from tracked sources
 dist/
+.wrangler/

@@ -108,6 +108,8 @@ Archive、experiment、舊 operator 與舊 prompt 只保留歷史 provenance，�
 
 Canonical engineering environment 是 GitHub Codespaces。
 
+PR 的瀏覽器試玩網址與 `main` 的 Cloudflare Pages 部署方式見 [`docs/CLOUDFLARE_DEPLOYMENT.md`](docs/CLOUDFLARE_DEPLOYMENT.md)。Cloudflare 是 playable review / hosting；Codespaces、Verify 與 Browser Acceptance 繼續負責工程驗收。
+
 目前主要環境：
 
 - Node 22

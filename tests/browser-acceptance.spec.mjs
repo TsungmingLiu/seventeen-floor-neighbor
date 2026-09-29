@@ -18,6 +18,15 @@ async function waitForDialogueReady(page) {
   }, { timeout: 5000 }).toBe(true);
 }
 
+async function galleryEntryCount(page) {
+  const response = await page.request.get('/content/routes/opening-demo/assets.json');
+  expect(response.ok()).toBe(true);
+  const manifest = await response.json();
+  return Object.values(manifest.assets).filter((asset) =>
+    ['cg', 'cinematic'].includes(asset.kind) && asset.gallery
+  ).length;
+}
+
 test('opening-demo saves its real cursor and resumes after reload', async ({ page }) => {
   await page.goto('/');
   await expect(page.locator('#title-screen')).toBeVisible();
@@ -58,7 +67,7 @@ test('opening-demo title, Memories, Gallery, and game controls fit a 320px viewp
 
   await page.locator('#gallery-button').click();
   await expect(page.locator('#gallery-screen')).toBeVisible();
-  await expect(page.locator('#cg-grid button')).toHaveCount(8);
+  await expect(page.locator('#cg-grid button')).toHaveCount(await galleryEntryCount(page));
   expect(await fitsViewport()).toBe(true);
   await page.locator('#gallery-back').click();
 
@@ -127,8 +136,8 @@ test('opening preview plays COM-00 → COM-01X → COM-01J → COM-02X and saves
 
   await page.locator('#memories-back').click();
   await page.locator('#gallery-button').click();
-  await expect(page.locator('#cg-grid button')).toHaveCount(8);
-  await expect(page.locator('#cg-grid button:not(:disabled)')).toHaveCount(8);
+  await expect(page.locator('#cg-grid button')).toHaveCount(await galleryEntryCount(page));
+  await expect(page.locator('#cg-grid button:not(:disabled)')).toHaveCount(await galleryEntryCount(page));
 
   const finalJourney = await page.evaluate(() => JSON.parse(localStorage.getItem('opening-demo-chapter-01:journey:v2')));
   expect(finalJourney.frontierMemoryEventId).toBe('mem.opening.ch1.convenience-xu');
