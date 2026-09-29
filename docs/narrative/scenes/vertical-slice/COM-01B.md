@@ -75,29 +75,35 @@ next: COM-01J
 
 **Xu Tang**：晚上好。今天沒提袋子？
 
-**Protagonist**：總算不用每次回家都像在搬第二輪。
+**Protagonist**：今天終於空手了。家裡還有幾箱不想面對的。
 
-**Xu Tang**：進度不錯。
+**Xu Tang**：喔，那很正常。
 
-**Action**：她往自己要走的方向看了一眼。這段話到了可以自然結束的地方。
+**Action**：她往原本要走的方向看了一眼。兩人安靜了片刻。
 
-**Narration**：搬來以後，能這樣接上兩句話的人還不多。我想起週末本來要出去找書，便多問了一句。
+**Protagonist (thought)**：搬來以後，能這樣隨口聊兩句的人還不多。週末正好要出去找書，不如問問附近能去哪裡。
 
 ### `common_bookstore_bridge_choice`
 
 1. `com01b_browse_shops` — **「這附近有沒有適合一個人慢慢逛的店？」**
 2. `com01b_find_books` — **「附近有能翻設定集的書店嗎？週末想去找一本書。」**
-3. `com01b_food_or_coffee` — **「想找個地方吃點東西、喝杯咖啡，再順路逛逛。這附近有方向嗎？」**
+3. `com01b_food_or_coffee` — **「這附近有沒有什麼吃的？想喝杯咖啡，等一下再隨便逛逛。」**
 
 #### Branch `com01b_browse_shops`
 
 **Protagonist**：這附近有沒有適合一個人慢慢逛的店？
 
-**Xu Tang**：有。從這裡走大概十分鐘，地下街有家主要賣設定集和周邊的書店。要坐一下，附近出口往上也有咖啡。
+**Xu Tang**：慢慢逛的話，地下街有家書店，主要賣設定集跟周邊。從這裡走過去大概十分鐘。
 
-**Xu Tang**：晚安。
+**Protagonist**：喔，地下街啊。
 
-**Protagonist**：這個方向很好。謝謝，晚安！
+**Xu Tang**：嗯。逛累了，附近出口上去也有咖啡可以坐。
+
+**Action**：她稍微挪了挪腳步，轉回原本要走的方向。
+
+**Xu Tang**：那我先走了，晚安。
+
+**Protagonist**：好，謝啦。晚安！
 
 → Rejoin `common_bookstore_bridge_rejoin`
 
@@ -105,33 +111,45 @@ next: COM-01J
 
 **Protagonist**：附近有能翻設定集的書店嗎？週末想去找一本書。
 
-**Xu Tang**：有。從這裡走大概十分鐘，地下街有家主要賣設定集和周邊的書店。要坐一下，附近出口往上也有咖啡。
+**Xu Tang**：設定集？地下街有家書店主要賣這個，也有周邊。從這裡走過去大概十分鐘。
 
-**Xu Tang**：晚安。
+**Protagonist**：喔，那可以去翻翻看。
 
-**Protagonist**：正好。謝謝，晚安！
+**Xu Tang**：嗯。附近出口上去也有咖啡，想坐一下的話。
+
+**Action**：她稍微挪了挪腳步，轉回原本要走的方向。
+
+**Xu Tang**：那我先走了，晚安。
+
+**Protagonist**：好，謝謝。晚安！
 
 → Rejoin `common_bookstore_bridge_rejoin`
 
 #### Branch `com01b_food_or_coffee`
 
-**Protagonist**：想找個地方吃點東西、喝杯咖啡，再順路逛逛。這附近有方向嗎？
+**Protagonist**：這附近有沒有什麼吃的？想喝杯咖啡，等一下再隨便逛逛。
 
-**Xu Tang**：吃的我不替你保證。從這裡走大概十分鐘，地下街有家主要賣設定集和周邊的書店。要坐一下，附近出口往上也有咖啡。
+**Xu Tang**：吃的我不太熟。你說逛的話，地下街有家賣設定集跟周邊的書店，從這裡走過去大概十分鐘。
 
-**Xu Tang**：晚安。
+**Protagonist**：喔，地下街啊。那我可以去逛逛。
 
-**Protagonist**：有地方逛就夠了。謝謝，晚安！
+**Xu Tang**：咖啡的話，附近出口上去也有地方可以坐。
+
+**Action**：她稍微挪了挪腳步，轉回原本要走的方向。
+
+**Xu Tang**：那我先走了，晚安。
+
+**Protagonist**：好，我去看看。謝謝，晚安！
 
 → Rejoin `common_bookstore_bridge_rejoin`
 
 ### `common_bookstore_bridge_rejoin`
 
-**Action**：許棠繼續往原來的方向走，沒有回頭，也沒有等我同行。
+**Action**：許棠沿著原來的方向走遠。男主剛才道謝時笑得明亮，等她離開，笑意才慢慢收下來。
 
-**Narration**：我剛才把那句謝謝說得比平常亮一點。等笑意慢慢收下來，街上又只剩自己的腳步聲；有一點空，但還不至於讓人停在原地。
+**Narration**：街上又只剩我的腳步聲。那一小段路忽然安靜了些，我還是繼續往前走。
 
-**Narration**：週末找《逆光航路》新版設定集的實體增補內容，現在多了一個可以去看看的地方。
+**Protagonist (thought)**：週末正好要看《逆光航路》新版設定集的實體增補。那家店，去看看吧。
 
 ### `common_bookstore_bridge_weekend_transition`
 

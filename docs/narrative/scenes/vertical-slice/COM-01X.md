@@ -27,7 +27,7 @@
 
 ## Scene summary
 
-搬家後第 3 天晚間，男主與許棠從一樓同乘電梯回 17 樓。電梯在中段短暫頓住、燈光閃爍，面板顯示系統重啟；不到十秒便自行恢復。等待期間，許棠以熟住戶的乾式反應鬆開沉默，兩人第一次真正聊了幾句大樓與附近生活。電梯到站後，他們各自回門，沒有刻意延長。
+搬家後第 3 天晚間，男主與許棠從一樓同乘電梯回 17 樓。上升途中，他們從紙箱聊到一件小小的住戶麻煩。電梯在中段短暫頓住、燈光閃爍，面板顯示系統重啟；不到十秒便自行恢復。等待期間，許棠以熟住戶的乾式反應鬆開沉默；恢復後，她接回剛才的話，給男主一項生活資訊。電梯到站後，他們各自回門，沒有刻意延長。
 
 這不是危機場景。它要證明兩人在沒有明確事件可做時也能維持自然節奏，並讓許棠的幽默、觀察力與生活熟悉感第一次被聽見。
 
@@ -46,7 +46,7 @@ requires:
 recommended_previous: COM-00
 ```
 
-- 時間：COM-00 後 3–4 天，約 19:20。
+- 時間：搬家後第 3 天，約 19:20。
 - 地點：公寓一樓電梯 → 17 樓。
 - 男主知道：許棠姓名、住 1702。
 - 許棠知道：男主姓名、住 1703、剛搬來。
@@ -58,12 +58,12 @@ recommended_previous: COM-00
 | Beat | Runtime intent | Action / dialogue intent | Visual / expression | State |
 | --- | --- | --- | --- | --- |
 | 01X.1 Lobby recognition | entrance | 門即將關時許棠進來；兩人以姓名或「晚上好」確認記得對方。男主不說「又見面了」製造命定感。 | `BG-APT-ELEVATOR` normal；`neutral_observant → polite_smile`。 | none |
-| 01X.2 Ordinary silence | pacing | 兩人站不同側；電梯上升。可有一則很短的搬家後續：「箱子清完了嗎？」男主給務實回答。 | wide two-position composition。 | none |
+| 01X.2 Ordinary silence | pacing | 兩人站不同側；電梯上升。從搬家後續聊到住得是否習慣；男主提起垃圾室的門，話題被設備停頓打斷。 | wide two-position composition。 | none |
 | 01X.3 Brief stop | event | 輕微頓感、頂燈閃一下、樓層數字停住；面板顯示重啟符號／提示音。男主先看面板，不碰許棠。 | lighting variant：normal → dim/emergency → normal。`mild_surprise`。 | none |
 | 01X.4 Xu dry line | voice reveal | 許棠看著停住的樓層，說一句把情況縮回日常的乾式話，例如「它偶爾會先想一下。」不是裝鎮定，也不暗示恐懼。 | `dry_playful`，視線在面板。 | none |
 | 01X.5 Player tone choice | local branch | 玩家可接幽默、確認系統、或安靜等待。三者都不觸發 hero/comfort framing。 | expression 依分支。 | tone only |
 | 01X.6 Restart | rejoin | 男主尚未需要按緊急通話，電梯便恢復。許棠可補一句「比上次快」，顯示她熟悉大樓但不誇張老舊。 | lighting normal；小小失重感用畫面 transition，不用 CG。 | none |
-| 01X.7 Nearby life | actual conversation | 許棠問「住得還習慣嗎？」男主回答一項具體生活摩擦；她提供一個有限、可驗證的附近資訊，例如垃圾室時段／樓下咖啡早上較空。她不一次介紹整個街區。 | `polite_smile`, `neutral_observant`。 | none |
+| 01X.7 Nearby life | actual conversation | 恢復上升後，許棠接回先前的垃圾室話題，只提供過十點走左邊門這一項生活資訊；兩人短短應答，到站即收住。她不一次介紹整個街區。 | `polite_smile`, `neutral_observant`。 | none |
 | 01X.8 17F split | exit | 門開，許棠先按住開門鍵半秒讓男主拿大袋子，不搬他的東西。兩人各走向自己的門，道晚安。 | wide corridor-facing elevator shot；`soft_goodnight`。 | `F_XT += 1` |
 
 ## Emotion arc
@@ -73,7 +73,7 @@ recommended_previous: COM-00
   → 機械停頓造成一點被迫共享的空白
   → 許棠用乾式一句話恢復日常尺度
   → 玩家選擇自己的相處 tone
-  → 設備恢復，聊天反而自然開始
+  → 設備恢復，先前的話題自然接下去
   → 17樓到站，剛好停在還想再知道一點的位置
 ```
 
@@ -85,8 +85,8 @@ Choice 顯示時，電梯仍在重啟、面板與緊急通話可見。
 
 | Choice ID | Player-facing intent（可微調字句） | Xu response intent | Stats / flags | Rejoin |
 | --- | --- | --- | --- | --- |
-| `com01x_match_dry` | 「可能還在讀取住戶資料。」 | 她看一眼男主，回「那你還在新手教學。」短笑，不延伸成科技嘴砲。 | `mc_tone_humorous += 1` | 01X.6 |
-| `com01x_check_panel` | 「面板還有電。再幾秒，沒動我就按通話。」 | 她點頭，接受這個判斷；不稱讚他冷靜可靠。 | `mc_tone_practical += 1` | 01X.6 |
+| `com01x_match_dry` | 「可能還在讀取住戶資料。」 | 她看一眼男主，回「那你可能還在新手教學。」短笑，不延伸成科技嘴砲。 | `mc_tone_humorous += 1` | 01X.6 |
+| `com01x_check_panel` | 「面板還亮著。再等幾秒，沒動我再按通話。」 | 她點頭，接受這個判斷；不稱讚他冷靜可靠。 | `mc_tone_practical += 1` | 01X.6 |
 | `com01x_wait_quietly` | 往旁邊讓半步，安靜等重啟。 | 她也靠回原位；短暫沉默不被寫成失敗。恢復時她主動接下一句。 | `mc_tone_restrained += 1` | 01X.6 |
 
 Branch guardrails：
@@ -109,13 +109,19 @@ Branch guardrails：
 
 **Protagonist**：晚上好。
 
-**Action**：男主按下 17 樓；按鍵已亮。
+**Action**：男主伸手要按 17 樓，發現按鍵已亮，又把手收回來。兩人各站一側，電梯往上走。
 
-**Xu Tang**：箱子清完了嗎？
+**Xu Tang**：箱子都清完了？
 
-**Protagonist**：已經能走路了。找東西還是得開三箱。
+**Protagonist**：能走路了。找東西還是得翻箱子。
 
-**Xu Tang**：聽起來很符合第三天的進度。
+**Xu Tang**：嗯，第三天差不多都這樣。
+
+**Action**：電梯繼續往上。兩人安靜了一會兒；許棠看見男主手上的袋子。
+
+**Xu Tang**：住得還習慣嗎？
+
+**Protagonist**：還行。垃圾室那個門，我昨晚繞了兩次。
 
 ### `common_elevator_restart_stop`
 
@@ -123,16 +129,16 @@ Branch guardrails：
 
 **Visual**：切 `BG-APT-ELEVATOR.restart_dim`，許棠表情 `mild_surprise`。
 
-**Action**：電梯輕頓，樓層數字停住。緊急通話燈與面板仍亮。
+**Action**：九樓剛過，電梯輕頓，樓層數字停住。緊急通話燈與面板仍亮。
 
-**Narration**：不是下墜。只是所有聲音突然少了一層。
+**Narration**：電機聲一停，裡面忽然只剩通風的聲音。
 
 **Xu Tang**：它偶爾會先想一下。
 
 ### `common_elevator_restart_choice`
 
 1. `com01x_match_dry` — **「可能還在讀取住戶資料。」**
-2. `com01x_check_panel` — **「面板還有電。再幾秒，沒動我就按通話。」**
+2. `com01x_check_panel` — **「面板還亮著。再等幾秒，沒動我再按通話。」**
 3. `com01x_wait_quietly` — **往旁邊讓半步，安靜等重啟。**
 
 #### Branch `com01x_match_dry`
@@ -141,25 +147,27 @@ Branch guardrails：
 
 **Protagonist**：可能還在讀取住戶資料。
 
-**Xu Tang**：那你還在新手教學。
+**Action**：許棠看了他一眼，嘴角動了一下。
+
+**Xu Tang**：那你可能還在新手教學。
 
 → Rejoin `common_elevator_restart_resume`
 
 #### Branch `com01x_check_panel`
 
-**Protagonist**：面板還有電。再幾秒，沒動我就按通話。
+**Protagonist**：面板還亮著。再等幾秒，沒動我再按通話。
 
-**Xu Tang**：好。
+**Xu Tang**：嗯，好。
 
-**Action**：她向旁邊讓開，保留男主操作面板的空間；沒有靠近他。
+**Action**：她往旁邊讓了一點，空出面板前的位置。
 
 → Rejoin `common_elevator_restart_resume`
 
 #### Branch `com01x_wait_quietly`
 
-**Action**：男主往旁邊讓半步，沒有伸手碰她。兩人一起看著樓層面板。
+**Action**：男主往旁邊讓半步。兩人一起看著樓層面板。
 
-**Narration**：六秒不長。也沒有長到需要找話填滿。
+**Narration**：那幾秒，只有通風聲。誰也沒開口。
 
 → Rejoin `common_elevator_restart_resume`
 
@@ -171,23 +179,17 @@ Branch guardrails：
 
 **Xu Tang**：比上次快。
 
-**Protagonist**：還有上次？
-
-**Xu Tang**：兩秒。不要替它記錄績效。
-
 **Visual**：`XT-SPR-WEEKDAY.polite_smile`。
 
 ### `common_elevator_restart_smalltalk`
 
-**Xu Tang**：住得還習慣嗎？
+**Action**：電梯接著往上。許棠接回剛剛沒說完的話。
 
-**Protagonist**：大致上。垃圾室我找了兩次。
+**Xu Tang**：剛剛說垃圾室？過十點走左邊那扇。右邊通機房。
 
-**Xu Tang**：過十點要走左邊那扇門。右邊那扇看起來比較像，實際上只通機房。
+**Protagonist**：喔，難怪。我還以為自己走錯層。
 
-**Protagonist**：難怪。
-
-**Xu Tang**：這棟樓有幾個地方，不太尊重直覺。
+**Xu Tang**：我第一次也走錯。
 
 ### `common_elevator_restart_exit`
 
@@ -197,13 +199,11 @@ Branch guardrails：
 
 **Action**：許棠按住開門鍵。男主先提著手上的袋子走出電梯。
 
-**Protagonist**：垃圾室的事，謝了。
+**Protagonist**：喔，剛剛那個，謝啦。
 
-**Xu Tang**：那個資訊比電梯可靠。
+**Xu Tang**：不會。晚安。
 
 **Protagonist**：晚安。
-
-**Xu Tang**：晚安。
 
 **Action**：兩人各自走向 1703 與 1702，不在門前續聊。
 

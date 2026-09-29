@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "opening-ch1-voice-20260929",
+  "task_id": "CW-COM00-CHAIR-001",
+  "scene_id": "COM-00",
+  "task_type": "scene_dialogue",
+  "status": "PASS",
+  "workflow_version": "1.3.0",
+  "harness": {
+    "id": "content_writer",
+    "pass": "scene_dialogue"
+  },
+  "packet_sha256": "becb2f03adce08242ddc89424d234ac687843b85cdcfd24859c10225dacd0f02",
+  "handoff_sha256": "38605e56e7166de04c2dbaf7e88a3579ae252c467159f553b5428d87e5793e07",
+  "source_ref": "f80c904434da46fb4db9c157d4f86f55d41a3b36",
+  "input_versions": [
+    {
+      "id": "file:.ai/harnesses/content-writer.md",
+      "version": "22fd6954f8bb3133a2526ff3e850d2f8e711485a",
+      "location": ".ai/harnesses/content-writer.md"
+    },
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-00.json",
+      "version": "8c06b6872300ac75808326dfc60179a0e82f76a5",
+      "location": "content/production/narrative/opening-ch1/COM-00.json"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-00.md",
+      "version": "7e53cf510bc670aca3fa14fb756c28d23366cdfe",
+      "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "locked_scene:COM-00",
+      "version": "665fdd021d27b0e2ee8bd26c462fadbd00d1a1a8",
+      "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "bounded-continuity-correction",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [],
+  "human_gate": "none"
+}

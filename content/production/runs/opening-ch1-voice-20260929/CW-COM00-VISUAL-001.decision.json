@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "opening-ch1-voice-20260929",
+  "task_id": "CW-COM00-VISUAL-001",
+  "scene_id": "COM-00",
+  "task_type": "scene_dialogue",
+  "status": "PASS",
+  "workflow_version": "1.3.0",
+  "harness": {
+    "id": "content_writer",
+    "pass": "scene_dialogue"
+  },
+  "packet_sha256": "e6d6efa3fddacc9085d3168815b97a16a656a1ab591bd60b0dbf497286c7f945",
+  "input_versions": [
+    {
+      "id": "old_locked_scene:COM-00",
+      "version": "4c8b9396fdf43556b474f9cbf7a90813ef533309",
+      "location": "bfe5058a46ac9eab0d860b921fc8cf7a20f6abe2:docs/narrative/scenes/vertical-slice/COM-00.md"
+    },
+    {
+      "id": "current_locked_scene:COM-00",
+      "version": "2df3b420dfeac56aa5637b3c9015b9d7e3ec056b",
+      "location": "f3000984f1e518473e8e6b7ac62abf11e827e951:docs/narrative/scenes/vertical-slice/COM-00.md"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "locked_scene:COM-00",
+      "version": "d2377fdc090e2c48fc3fd295b72d95681a4598bb",
+      "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "focused_corrective_sweep",
+      "result": "PASS"
+    },
+    {
+      "name": "stable_node_and_state",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [],
+  "human_gate": "none"
+}

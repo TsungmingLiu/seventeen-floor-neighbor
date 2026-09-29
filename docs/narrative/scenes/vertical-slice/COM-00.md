@@ -56,9 +56,9 @@ Scene 的作用不是展示「第一女主」，而是同時建立三件事：�
 | 00.3 許棠扶門 | entrance + CG trigger | 一只手先把門撐住。許棠只說功能性短句，例如「你先轉，我扶著。」她等男主回應，不直接拿走箱子。 | **CG-COM-01**；`neutral_observant`。 | none |
 | 00.4 合力挪箱 | short exchange | 男主調整箱子，她推開卡住的角；動作在數秒內完成。她看門線確認沒有再卡住。 | CG hold 1–2 dialogue advances，之後回 sprite composite。 | none |
 | 00.5 Player choice | local branch | 玩家決定第一個回應的 tone：正式、乾式幽默、實際克制。三條均為成年人合理反應。 | `polite_smile` / `dry_playful` / `mild_surprise`。 | tone/stat，見下表 |
-| 00.6 名字與門牌 | rejoin | 許棠用「剛搬來？」確認，而非盤問。兩人交換名字；她指向 1702，男主說 1703。她不問工作、收入或感情狀態。 | 中景雙門構圖；`neutral_observant → polite_smile`。 | `met_xu_tang=true` |
+| 00.6 名字與門牌 | rejoin | 許棠確認他是 1703 的住戶；兩人交換名字，她指向 1702。不再重述箱角怎麼過門。 | 中景雙門構圖；`neutral_observant → polite_smile`。 | `met_xu_tang=true` |
 | 00.7 到此為止 | exit beat | 她以「那以後門口見」或同等低壓語意收尾，進 1702。若前面走幽默分支，她可留一句乾式回扣；其他分支只自然道晚安。 | `soft_goodnight`；門關上，不停留回望。 | base exit |
-| 00.8 安靜新家 | coda | 男主把最後一箱拖進門。旁白不判斷她是否對自己有興趣；只記住名字與隔壁有人。 | 無人物；門口到室內的短 transition。 | unlock outputs |
+| 00.8 安靜新家 | coda | 男主把最後一箱拖進門，騰出空間後把椅子側過來搬進 1703。旁白不判斷她是否對自己有興趣；只記住名字與隔壁有人。 | 無人物；門口到室內的短 transition。 | unlock outputs |
 
 ## Emotion arc
 
@@ -84,9 +84,9 @@ Choice prompt 應出現在箱子已挪開、許棠準備鬆手時。不要使用
 
 | Choice ID | Player-facing intent（可微調字句） | Xu response intent | Stats / flags | Rejoin |
 | --- | --- | --- | --- | --- |
-| `com00_thank_formal` | 「謝謝，第一天就麻煩妳。」 | 她說只是剛好，並看一眼箱子是否已離門線。溫和但不擴張話題。 | `mc_tone_formal += 1` | 00.6 |
-| `com00_joke_corridor` | 「入住第一晚，先從不佔用逃生路線開始。」 | 她停半拍，乾乾回一句類似「目標很務實。」出現第一個小笑。 | `mc_tone_humorous += 1`; `C_XT += 1` | 00.6 |
-| `com00_take_weight` | 「我來抬就好，妳幫我留著門。」 | 她接受分工，不把這讀成逞強；回一句「好，那你往裡一點。」 | `mc_tone_practical += 1` | 00.6 |
+| `com00_thank_formal` | 「謝謝。才第一天就麻煩妳。」 | 她說只是剛好，並看一眼箱子是否已離門線。溫和但不擴張話題。 | `mc_tone_formal += 1` | 00.6 |
+| `com00_joke_corridor` | 「入住第一晚，差點先把逃生路線堵了。」 | 她停半拍，乾乾回一句，出現第一個小笑。 | `mc_tone_humorous += 1`; `C_XT += 1` | 00.6 |
+| `com00_take_weight` | 「我把這箱往裡挪，妳幫我看一下門線。」 | 她接受分工，不把這讀成逞強；看著門線提醒他再挪一點。 | `mc_tone_practical += 1` | 00.6 |
 
 Branch guardrails：
 
@@ -98,7 +98,7 @@ Branch guardrails：
 
 > Dialogue/action/state remain locked. Any `Visual` line below is a historical runtime transcript, not a current render instruction；new rendering uses `content/production/cg-manifests/opening-ch1.json` only。
 
-以下為 S4 使用的完整精簡稿。`[PLAYER_NAME]` 是 implementation token；若 prototype 不允許玩家命名，應在 content integration 時一次替換為 canonical 男主姓名，不得逐幕改成不同稱呼。
+以下為 S4 使用的完整稿。`[PLAYER_NAME]` 是 implementation token；若 prototype 不允許玩家命名，應在 content integration 時一次替換為 canonical 男主姓名，不得逐幕改成不同稱呼。
 
 ### `common_movein_rain_open`
 
@@ -106,47 +106,53 @@ Branch guardrails：
 
 **Audio**：隔窗雨聲、膠帶被扯開、電梯下行。
 
-**Narration**：搬家公司走了十分鐘。走廊上還剩三箱，和一張怎麼都過不了門框的椅子。
+**Narration**：搬家公司走了十來分鐘。電梯下去後，走廊又聽得見窗外的雨。
 
-**Narration**：我先處理箱子。椅子可以留給明天的自己後悔。
+**Narration**：走廊上還剩三箱，和一張怎麼都過不了門框的椅子。
+
+**Narration**：先把箱子搬進去。椅子……等走廊空了再說。
 
 ### `common_movein_rain_door`
 
 **Action**：男主抬起紙箱右側；箱角卡住正在回彈的防火門。
 
-**Narration**：我用肩膀頂住門，箱子卻選了另一個方向。
+**Narration**：我用肩膀頂住門，箱子偏偏往外歪。
 
-**Xu Tang（off-screen）**：等一下。
+**Xu Tang（off-screen）**：欸，等一下。
 
 **Visual**：切入 `CG-COM-01`。
 
-**Xu Tang**：你先把右邊抬高。我扶著門。
+**Xu Tang**：右邊先抬高一點。我扶門。
 
-**Protagonist**：好。
+**Protagonist**：喔，好。等我一下。
 
 **Action**：箱子向內轉過門線。許棠只在箱角仍卡住時推了一下。
 
-**Xu Tang**：再一點。
+**Xu Tang**：嗯，再一點點。
 
-**Protagonist**：過了。
+**Protagonist**：好了，過了。
 
 ### `common_movein_rain_choice`
 
 **Choice prompt**：箱子落地後，許棠鬆開門。
 
-1. `com00_thank_formal` — **「謝謝，第一天就麻煩妳。」**
-2. `com00_joke_corridor` — **「入住第一晚，先從不佔用逃生路線開始。」**
-3. `com00_take_weight` — **「我來抬就好，妳幫我留著門。」**
+1. `com00_thank_formal` — **「謝謝。才第一天就麻煩妳。」**
+2. `com00_joke_corridor` — **「入住第一晚，差點先把逃生路線堵了。」**
+3. `com00_take_weight` — **「我把這箱往裡挪，妳幫我看一下門線。」**
 
 #### Branch `com00_thank_formal`
 
 **Visual**：回 `BG-APT-17F-RAIN` + `XT-SPR-WEEKDAY.polite_smile`。
 
-**Xu Tang**：只是剛好。
+**Xu Tang**：沒事，我剛好要過來。
 
-**Xu Tang**：不過這箱再往裡一點，門才關得上。
+**Xu Tang**：這箱再往裡一點好嗎？門等一下會碰到。
+
+**Protagonist**：啊，對。這樣呢？
 
 **Action**：男主把箱子推離門線。
+
+**Xu Tang**：可以了。
 
 → Rejoin `common_movein_rain_names`
 
@@ -154,11 +160,13 @@ Branch guardrails：
 
 **Visual**：`XT-SPR-WEEKDAY.dry_playful`。
 
-**Xu Tang**：目標很務實。
+**Xu Tang**：還好沒成功。
 
-**Protagonist**：先從做得到的開始。
+**Protagonist**：嗯，差一點。
 
-**Xu Tang**：那這箱再往裡一點。
+**Xu Tang**：再往裡一點就沒事了。不然它還是會碰到。
+
+**Protagonist**：喔，對。我以為過線就好了。
 
 **Action**：男主把箱子推離門線。
 
@@ -168,39 +176,37 @@ Branch guardrails：
 
 **Visual**：`XT-SPR-WEEKDAY.neutral_observant`。
 
-**Xu Tang**：好。你往裡，我顧門。
+**Xu Tang**：好。再一點點。
 
-**Protagonist**：三、二——
+**Action**：男主把箱子挪離門線；她確認門線淨空。
 
-**Xu Tang**：不用數，已經過了。
+**Protagonist**：這樣可以嗎？
 
-**Action**：男主把箱子落地；她確認門線淨空。
+**Xu Tang**：嗯，可以了。
 
 → Rejoin `common_movein_rain_names`
 
 ### `common_movein_rain_names`
 
-**Xu Tang**：剛搬來？
+**Xu Tang**：你是 1703 的吧？
 
-**Protagonist**：嗯，1703。
+**Protagonist**：嗯。我叫 [PLAYER_NAME]。
 
-**Narration**：我報了名字。她朝隔壁那扇門抬了抬下巴。
+**Action**：她朝隔壁那扇門抬了抬下巴。
 
-**Xu Tang**：許棠。1702。
+**Xu Tang**：我叫許棠，住 1702，就隔壁。
 
-**Protagonist**：謝謝，許小姐。
-
-**Xu Tang**：叫許棠就好。住隔壁一直叫許小姐，會有點像管委會。
+**Protagonist**：喔。謝謝妳，許棠。
 
 **Visual**：`XT-SPR-WEEKDAY.polite_smile`。
 
 ### `common_movein_rain_goodnight`
 
-**Xu Tang**：那你繼續忙。晚安。
+**Xu Tang**：那你慢慢搬。晚安。
 
 **Protagonist**：晚安。
 
-**Action**：她刷卡進 1702，沒有回頭停留。男主把最後一箱拖進 1703。
+**Action**：她刷卡進 1702，沒有回頭停留。男主把最後一箱拖進 1703。門口騰出空間後，他回頭把椅子側過來，椅背斜進門框，椅腳也跟著進了 1703。
 
 **Visual**：無人物；走廊恢復空景。
 
@@ -282,7 +288,7 @@ Camera、screen side、gaze、wardrobe、held object、location、lighting、tim
 ### Sample line intents（非最終逐字稿）
 
 - 許棠第一句：功能性指示，不是自我介紹。
-- 名字交換：男主先說自己剛搬 1703；她才回姓名與 1702。
+- 名字交換：許棠確認 1703，男主報上姓名；她才回姓名與 1702。搬入時間已在部分選項中說過，共同段不再追問。
 - 收尾：語意是「以後會在門口遇見」，不是「期待再見」。
 
 ### Prohibited beats

@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "opening-ch1-voice-20260929",
+  "task_id": "NQA-COM01J-FINAL-001",
+  "scene_id": "COM-01J",
+  "task_type": "narrative_review",
+  "status": "PASS",
+  "workflow_version": "1.3.0",
+  "harness": {
+    "id": "content_qa",
+    "pass": "narrative_review"
+  },
+  "packet_sha256": "05827b5cbd625e163d0d93182abe04cc056004361fbd8068e6069333d31a857c",
+  "handoff_sha256": "f1b3765db84b39080e8b6cc0f41c37a03b59137ec6dd20dab10742cb53ca9280",
+  "source_ref": "79f712259bb4dcb84f74c7a0ef274058f686aa48",
+  "input_versions": [
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-01J.json",
+      "version": "faf7e36eb017124e43f511d3cea9c00884d4cb86",
+      "location": "content/production/narrative/opening-ch1/COM-01J.json"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-01J.md",
+      "version": "3f305bda05e504ab7e8a0722337ee4c7cac6ff8b",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01J.md"
+    },
+    {
+      "id": "file:docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md",
+      "version": "a45247d93c2a1736e54aa13aca2110ee08a5b8c8",
+      "location": "docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md"
+    },
+    {
+      "id": "file:docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md",
+      "version": "fa68288637f8d1cddc0857b64b5d84b66469f173",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-00.md",
+      "version": "665fdd021d27b0e2ee8bd26c462fadbd00d1a1a8",
+      "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-01X.md",
+      "version": "8196a1182f25276255aecea74d7b41026a9aaf32",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01X.md"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "approved_locked_scene:COM-01J",
+      "version": "3f305bda05e504ab7e8a0722337ee4c7cac6ff8b",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01J.md"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "NQA-SCENE-FUNCTION",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-VOICE-AND-PACING",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-DIALOGUE-NATURALISM",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-ATTRIBUTION",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-CHOICE-REJOIN",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-KNOWLEDGE-AND-BOUNDARIES",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-STATE",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-VISUAL-SEMANTICS",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [],
+  "visual_impact": "UNKNOWN in this single-ref packet",
+  "human_gate": "none"
+}

@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "opening-ch1-voice-20260929",
+  "task_id": "CW-COM01X-CHRONO-001",
+  "scene_id": "COM-01X",
+  "task_type": "scene_dialogue",
+  "status": "PASS",
+  "workflow_version": "1.3.0",
+  "harness": {
+    "id": "content_writer",
+    "pass": "scene_dialogue"
+  },
+  "packet_sha256": "d2c18ed01583de90f5b235431330dc46db3423a149a331eefb5376a9dbaab1b7",
+  "handoff_sha256": "a1519812d67fe897708bb01f8f7926a80961f97b59eb280f831ee257aa7b5c49",
+  "source_ref": "f80c904434da46fb4db9c157d4f86f55d41a3b36",
+  "input_versions": [
+    {
+      "id": "file:.ai/harnesses/content-writer.md",
+      "version": "22fd6954f8bb3133a2526ff3e850d2f8e711485a",
+      "location": ".ai/harnesses/content-writer.md"
+    },
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-01X.json",
+      "version": "8165567565b295e051abaf3bc0abb760eb60670d",
+      "location": "content/production/narrative/opening-ch1/COM-01X.json"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-01X.md",
+      "version": "1e75a77e0972f19855bb91f0ca1cb85abc4c8975",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01X.md"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-00.md",
+      "version": "7e53cf510bc670aca3fa14fb756c28d23366cdfe",
+      "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "locked_scene:COM-01X",
+      "version": "8196a1182f25276255aecea74d7b41026a9aaf32",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01X.md"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "bounded-continuity-correction",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [],
+  "human_gate": "none"
+}

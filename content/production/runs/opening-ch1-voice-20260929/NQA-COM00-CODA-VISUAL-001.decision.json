@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "opening-ch1-voice-20260929",
+  "task_id": "NQA-COM00-CODA-VISUAL-001",
+  "scene_id": "COM-00",
+  "task_type": "narrative_review",
+  "status": "PASS",
+  "workflow_version": "1.3.0",
+  "harness": {
+    "id": "content_qa",
+    "pass": "narrative_review"
+  },
+  "packet_sha256": "9052547277271ac614d6d0cf4a906adc47347147c20bfb6dc222d08afca19637",
+  "handoff_sha256": "a8c9fb058641b799c61316093381400a1691b8526ac04720d21dfe0f41d8627d",
+  "source_ref": "79f712259bb4dcb84f74c7a0ef274058f686aa48",
+  "input_versions": [
+    {
+      "id": "locked_scene_old:COM-00",
+      "version": "7e53cf510bc670aca3fa14fb756c28d23366cdfe",
+      "location": "f80c904434da46fb4db9c157d4f86f55d41a3b36:docs/narrative/scenes/vertical-slice/COM-00.md"
+    },
+    {
+      "id": "locked_scene_new:COM-00",
+      "version": "665fdd021d27b0e2ee8bd26c462fadbd00d1a1a8",
+      "location": "79f712259bb4dcb84f74c7a0ef274058f686aa48:docs/narrative/scenes/vertical-slice/COM-00.md"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "approved_locked_scene:COM-00",
+      "version": "665fdd021d27b0e2ee8bd26c462fadbd00d1a1a8",
+      "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "no_visual_impact",
+      "code": "NQA-NO-VISUAL-IMPACT",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [],
+  "invalidation_decision": {
+    "decision": "no_visual_impact",
+    "scene_id": "COM-00",
+    "old_scene_sha256": "b9f975958656a85e93c6ab7cd8c74643c40bff7a720d4ff7ff364d1483e16ea5",
+    "new_scene_sha256": "79002c7249660352c40e5415939a7becf5abe2eac7e593d16cbe87c5fdcba31a"
+  },
+  "human_gate": "none"
+}

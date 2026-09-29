@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "opening-ch1-voice-20260929",
+  "task_id": "NQA-COM02X-001",
+  "scene_id": "COM-02X",
+  "task_type": "narrative_review",
+  "status": "PASS",
+  "workflow_version": "1.3.0",
+  "harness": {
+    "id": "content_qa",
+    "pass": "narrative_review"
+  },
+  "packet_sha256": "cc05c22b81724e85646d4d8ceb06845d45a6bcbedb897d4850a32585abe89976",
+  "handoff_sha256": "a472e3ca69d38ebb8cbafd2d5f0585075e1f7504d153105894d56337c247b928",
+  "source_ref": "c4c825846effbb6dea09180110f3c1224657cab5",
+  "input_versions": [
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-02X.json",
+      "version": "5f85482b7c420a5f7726035e369679360f83cfd5",
+      "location": "content/production/narrative/opening-ch1/COM-02X.json"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-02X.md",
+      "version": "0858e051caf47c8cd4c50826a70cdd3d1b8b0f5a",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02X.md"
+    },
+    {
+      "id": "file:docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md",
+      "version": "a45247d93c2a1736e54aa13aca2110ee08a5b8c8",
+      "location": "docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md"
+    },
+    {
+      "id": "file:docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md",
+      "version": "fa68288637f8d1cddc0857b64b5d84b66469f173",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-00.md",
+      "version": "7e53cf510bc670aca3fa14fb756c28d23366cdfe",
+      "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-01X.md",
+      "version": "1e75a77e0972f19855bb91f0ca1cb85abc4c8975",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01X.md"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "approved_locked_scene:COM-02X",
+      "version": "0858e051caf47c8cd4c50826a70cdd3d1b8b0f5a",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02X.md"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "NQA-SCENE-FUNCTION-AND-PAYOFF",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-VOICE-AND-PACING",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-DIALOGUE-NATURALISM",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-CHOICE-REJOIN",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-KNOWLEDGE-NAME-RELATIONSHIP",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-STATE-AND-BOUNDARY-SEMANTICS",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-VISUAL-SEMANTICS",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-FORBIDDEN-SHORTCUTS",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [],
+  "visual_impact": "UNKNOWN in this single-ref packet; no accepted COM-02X CG",
+  "human_gate": "none"
+}

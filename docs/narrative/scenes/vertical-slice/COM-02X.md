@@ -93,9 +93,9 @@ Base scene exit 另有 `F_XT +1`；`com02x_ask_food` 的 bonus 保持鎖定，�
 
 **Visual**：`BG-CONVENIENCE-NIGHT`，冷藏櫃近景，窗外濕夜。無人物。
 
-**Narration**：晚上十一點多，家裡冰箱剩下的東西都需要動腦處理。
+**Narration**：晚上十一點多，我打開冰箱看了一遍，又關上。裡面的東西不是不能吃，只是都得先開火。
 
-**Narration**：我站在冷藏櫃前看了幾秒，最後拿了一盒寫著加熱四分鐘的。
+**Narration**：便利店冷藏櫃裡有兩盒看起來差不多的飯。我把其中一盒放回去，拿了標著加熱四分鐘的那盒。
 
 **Xu Tang（off-screen）**：[PLAYER_NAME]？
 
@@ -105,25 +105,21 @@ Base scene exit 另有 `F_XT +1`；`com02x_ask_food` 的 bonus 保持鎖定，�
 
 **Action**：男主轉身。許棠一手拿黑咖啡，另一手提著簡單餐盒。
 
-**Protagonist**：欸。嗨。
+**Protagonist**：欸，許棠。妳也下來買東西？
 
-**Xu Tang**：你也還沒吃？
+**Xu Tang**：嗯。你還沒吃？
 
-**Protagonist**：嗯。剛弄完事情。
+**Protagonist**：還沒。本來想在家弄點什麼，打開冰箱又關起來了。
 
-**Xu Tang**：喔。
+**Xu Tang**：喔，我懂。
 
 **Action**：她低頭看了一眼男主手上的餐盒，又看看自己那盒。
 
-**Protagonist**：妳也是？
+**Action**：男主也看了她手上的餐盒。兩人停了半秒，冷藏櫃壓縮機重新響起來。
 
-**Xu Tang**：嗯。
+**Xu Tang**：你那盒也要加熱？
 
-**Action**：兩人中間空了半秒。冷藏櫃壓縮機重新響起來。
-
-**Xu Tang**：你那個也要微波？
-
-**Protagonist**：對。
+**Protagonist**：對。我剛剛挑半天，結果只是挑了比較快的。
 
 **Xu Tang**：喔。那差不多。
 
@@ -131,26 +127,26 @@ Base scene exit 另有 `F_XT +1`；`com02x_ask_food` 的 bonus 保持鎖定，�
 
 ### `common_convenience_xu_choice`
 
-1. `com02x_ask_food` — **「附近這個時間，還有別的店開著嗎？」**
+1. `com02x_ask_food` — **「附近這個時間，還有別的店開著嗎？我每次下來都只看到這間。」**
 2. `com02x_share_work` — **「我也剛收工。現在能微波就算有煮了。」**
 3. `com02x_tease_same` — **「妳那盒至少比我這個像一餐。」**
 4. `com02x_tell_eat_better` — **「妳如果常常都拖到這麼晚才吃，還是要注意一下吧。」**
 
 #### Branch `com02x_ask_food`
 
-**Protagonist**：附近這個時間，還有別的店開著嗎？
+**Protagonist**：附近這個時間，還有別的店開著嗎？我每次下來都只看到這間。
 
-**Xu Tang**：這個點喔……
+**Xu Tang**：有啊，過了前面那個路口還有一間。等出去比較好指。
 
-**Action**：她往玻璃門外看了一眼。
+**Action**：她往玻璃門外看了一眼，又看回男主手裡的餐盒。
 
-**Xu Tang**：有一間。你等一下出去會看到。
+**Xu Tang**：不過你已經拿了。是想現在去吃嗎？
 
-**Protagonist**：好。我搬來之後還沒搞清楚這附近晚上剩什麼。
+**Protagonist**：沒有，今天就這盒了。我是想下次別又站在這裡挑半天。
 
-**Xu Tang**：嗯。白天看不出來。
+**Xu Tang**：喔。這附近白天看不太出來，晚上還有幾家沒收。
 
-**Protagonist**：也是。
+**Protagonist**：我搬來之後，晚上真的沒走過別條路。
 
 → Rejoin `common_convenience_xu_work`
 
@@ -158,15 +154,15 @@ Base scene exit 另有 `F_XT +1`；`com02x_ask_food` 的 bonus 保持鎖定，�
 
 **Protagonist**：我也剛收工。現在能微波就算有煮了。
 
-**Xu Tang**：嗯。
+**Xu Tang**：你也是忙到現在？
 
-**Action**：她點了一下頭，視線又回到手裡的餐盒。
+**Protagonist**：剛才才關電腦。原本想叫外送，又覺得下樓可能快一點。
 
-**Xu Tang**：那你今天也拖很晚。
+**Xu Tang**：嗯。我剛剛也在想要不要出來，坐著想了好一會兒。
 
-**Protagonist**：對。
+**Protagonist**：結果還是都來了。
 
-**Xu Tang**：喔。
+**Action**：許棠點點頭，把餐盒往自己手裡攏了攏。
 
 → Rejoin `common_convenience_xu_work`
 
@@ -174,17 +170,19 @@ Base scene exit 另有 `F_XT +1`；`com02x_ask_food` 的 bonus 保持鎖定，�
 
 **Protagonist**：妳那盒至少比我這個像一餐。
 
-**Xu Tang**：哪裡？
+**Xu Tang**：是嗎？我拿的時候還嫌它小盒。
 
-**Protagonist**：有綠色的。
+**Protagonist**：至少有點綠色的。我這盒從外面看只有飯。
 
 **Action**：許棠低頭看了一眼透明盒蓋。
 
-**Xu Tang**：那是蔥。
+**Xu Tang**：那是蔥。只有蔥。
 
-**Protagonist**：……喔。
+**Protagonist**：喔，我沒看清。
 
-**Action**：她嘴角動了一下，沒有再接。
+**Xu Tang**：嗯。也算有一點綠色啦。
+
+**Action**：她嘴角動了一下。男主低頭把自己的餐盒轉了半圈，還是看不出裡面有什麼菜。
 
 → Rejoin `common_convenience_xu_work`
 
@@ -194,17 +192,15 @@ Base scene exit 另有 `F_XT +1`；`com02x_ask_food` 的 bonus 保持鎖定，�
 
 **Visual**：`XT-SPR-LATE-CASUAL.tired`，笑意收回，但不進 conflict expression。
 
-**Xu Tang**：沒有常常。今天而已。
+**Xu Tang**：沒有常常。今天有事趕，才弄到現在。
 
-**Protagonist**：喔。
+**Protagonist**：喔。是我亂猜了。
 
 **Action**：許棠把咖啡換到另一隻手，往旁邊讓了一點，給要拿商品的人過。
 
-**Protagonist**：……嗯，當我沒說。
-
 **Xu Tang**：嗯。
 
-**Action**：兩人各自看了幾秒架上的東西。這句話就停在那裡。
+**Action**：兩人各自看了幾秒架上的東西。男主把餐盒拿穩，沒有再接這句。
 
 → Rejoin `common_convenience_xu_work`
 
@@ -212,69 +208,59 @@ Base scene exit 另有 `F_XT +1`；`com02x_ask_food` 的 bonus 保持鎖定，�
 
 **Visual**：`XT-SPR-LATE-CASUAL.sleepy_annoyed`。
 
-**Action**：結帳區的微波爐開始運轉。兩人往前挪了幾步，先後排到櫃檯旁邊。
+**Action**：櫃檯前的人拿走加熱好的晚餐，店員問下一盒是誰的。男主應了一聲，把餐盒遞過去。許棠跟著往前挪，等另一台微波爐空出來。男主的手機亮了一下；他看過通知，按暗螢幕。
 
-**Xu Tang**：你剛剛說弄完事情，是工作？
+**Xu Tang**：你還得回去忙喔？
 
-**Protagonist**：嗯。做軟體的，今晚有東西要上線，弄到剛剛。
+**Protagonist**：不用，這個明天再看。我做軟體的，今晚有東西要上線，review 來回了幾次，剛剛才算弄完。
 
-**Xu Tang**：喔，辛苦。
+**Xu Tang**：喔。至少今天結束了。
 
-**Protagonist**：還好啦。我大部分時間在家工作，省掉通勤。
+**Protagonist**：對。我大部分時間在家工作，忙起來就一直坐在那邊，連下樓都拖到現在。
 
-**Action**：微波爐還有一分多鐘。兩人都看著轉盤轉了一圈，沒有立刻接話。
+**Xu Tang**：難怪。我還想說你看起來像剛從電腦前面站起來。
 
-**Xu Tang**：我還沒弄完。
+**Protagonist**：這麼明顯？
 
-**Protagonist**：啊。
+**Xu Tang**：沒有啦。我也差不多。我那個還沒做完，做到一半才發現家裡沒東西吃。
 
-**Xu Tang**：客戶明早要看最後一版。過了就送印。
+**Action**：微波爐轉了一圈。男主往計時器看了一眼。
+
+**Protagonist**：妳那個很趕嗎？
+
+**Xu Tang**：明早客戶要看最後一輪，過了就要送印。所以今晚得改完。
 
 **Protagonist**：妳做印刷的？
 
-**Xu Tang**：不是。
+**Xu Tang**：不是啦，我做視覺設計，自己接案。只是這次做的東西剛好要印出來。
 
-**Action**：她搖了一下頭。
+**Protagonist**：啊，我一聽到送印就猜那邊去了。
 
-**Xu Tang**：視覺設計。自己接案。這個案子剛好要印。
+**Xu Tang**：嗯，常有人這樣以為。
 
-**Protagonist**：喔，懂了。
-
-**Xu Tang**：嗯。
-
-**Action**：微波爐提示音響起。許棠抬頭看了一眼。
+**Action**：微波爐提示音響起。許棠抬頭看了一眼，店員從另一台取出她的餐盒。
 
 **Xu Tang**：我的好了。
 
 ### `common_convenience_xu_checkout`
 
-**Action**：許棠先拿回自己的餐盒，和咖啡一起結帳。男主還在等自己的加熱完成；等他走出店門時，她正站在騎樓邊把收據塞進袋子。
+**Action**：許棠先拿回自己的餐盒，和咖啡一起結帳。男主的那盒晚一步加熱好；等他結完帳走出店門，她正站在騎樓邊把收據塞進袋子。
 
 **Action**：兩人往同一個方向走。路口還有剛下過雨的水光，前半段誰也沒有特地找話。
 
-**Xu Tang**：對了。
+**Action**：走到巷口，右邊一塊白色招牌還亮著。許棠朝那邊抬了抬下巴。
 
-**Action**：走到巷口，她朝右邊還亮著燈的店面抬了抬下巴。
+**Xu Tang**：喏，那間是粥店，開到十二點。你下次要是又這個時間下來，可以走過去看看。
 
-**Xu Tang**：那間粥店開到十二點。
+**Protagonist**：喔，那間。我一直以為它九點就收了。
 
-**Protagonist**：哪間？
+**Xu Tang**：週三休就是了。我上次週三走過去，看到門關著才記住。
 
-**Xu Tang**：白色招牌那間。
+**Protagonist**：白跑一趟啊。
 
-**Protagonist**：喔。
+**Xu Tang**：嗯。所以今天我不繞了，這盒都買了。
 
-**Xu Tang**：週三休。
-
-**Protagonist**：妳怎麼記那麼清楚？
-
-**Xu Tang**：因為我上次週三走過去。
-
-**Protagonist**：……好，這種會記得。
-
-**Xu Tang**：嗯。
-
-**Action**：過了路口後，兩人又安靜了一小段。許棠沒有往粥店轉，繼續往公寓方向走。
+**Action**：過了路口後，兩人又安靜了一小段。許棠提著袋子，走到公寓前才稍微慢下來，讓男主先推開玻璃門。
 
 ### `common_convenience_xu_exit`
 
@@ -282,17 +268,13 @@ Base scene exit 另有 `F_XT +1`；`com02x_ask_food` 的 bonus 保持鎖定，�
 
 **Action**：電梯門打開。許棠走到 1702 前，從袋子裡摸出鑰匙。
 
-**Xu Tang**：我先進去了。
+**Xu Tang**：我先進去了。還有兩個版本等著改。
 
-**Protagonist**：嗯。
-
-**Xu Tang**：還有兩版。
-
-**Protagonist**：好。晚安。
+**Protagonist**：喔，那妳快去吧。晚安。
 
 **Visual**：`XT-SPR-LATE-CASUAL.small_smile`。
 
-**Xu Tang**：晚安。
+**Xu Tang**：嗯，晚安。
 
 **Action**：她進 1702。男主繼續往 1703 走。
 

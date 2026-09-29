@@ -115,9 +115,9 @@ Choice design notes：
 
 **Visual**：`BG-ACG-SHOP`。無角色近景；先看見設定集書架與虛構商品。
 
-**Narration**：《逆光航路》的新版設定集比電子版晚了半年。網路上的評價很一致：印得漂亮，補了什麼沒人說得清楚。
+**Narration**：《逆光航路》的新版設定集比電子版晚了半年。設定集區擺著世界設定增補版，旁邊是機械／角色設計稿。
 
-**Narration**：我來找的就是「補了什麼」。
+**Protagonist (thought)**：網路上都說印得漂亮。我想看的倒是雨港篇究竟補了什麼。
 
 **Action**：男主走到設定集區。江雨澄已站在書架前，手上各翻著一本書。
 
@@ -127,35 +127,41 @@ Choice design notes：
 
 **Action**：她翻到其中一本索引，再對照另一本跨頁。男主停在書架另一側，不靠近她手邊。
 
-**Protagonist**：如果是找雨港篇，那本少了舊版兩張色彩稿。
+**Protagonist**：雨港篇的話，那本新版少了舊版兩張色彩稿。
 
 **Visual**：切入 `CG-COM-02`。
 
-**Action**：她的眼睛先離開書頁，頭才微微轉過來。
+**Action**：她的眼睛先離開書頁，過了一拍才微微側過頭。
 
 **Jiang Yucheng**：你看過舊版？
 
-**Protagonist**：看過電子版。排版很舊，內容比較完整。
+**Protagonist**：嗯，電子版。排版有點難翻，不過雨港那幾頁我記得。
 
 ### `common_acg_first_meet_choice`
 
-1. `com01j_worldbuilding` — **「舊版的雨港篇比較完整；新版補的是殖民站。」**
-2. `com01j_visual_design` — **「我想看實體印刷。電子版把夜景的層次壓掉了。」**
-3. `com01j_buying_practical` — **「如果只買一本，機械稿比較像資料；另一本比較適合從頭翻。」**
+1. `com01j_worldbuilding` — **「舊版雨港那段比較完整。新版補了殖民站，我以為重點移過去了。」**
+2. `com01j_visual_design` — **「我想看實體印刷。電子版夜景暗的地方都糊在一起。」**
+3. `com01j_buying_practical` — **「只買一本的話，機械稿比較像查資料；世界那本適合從頭翻。」**
 
 #### Branch `com01j_worldbuilding`
 
 **Visual**：回 BG + `JYC-SPR-CAMPUS.small_smile`。
 
-**Protagonist**：舊版的雨港篇比較完整；新版補的是殖民站。
+**Protagonist**：舊版雨港那段比較完整。新版補了殖民站，我以為重點移過去了。
 
-**Jiang Yucheng**：可是新版多了雨港停電那張色彩腳本。
+**Jiang Yucheng**：嗯……可是你看這張。雨港停電那段的色彩腳本，是新版才有的。
 
-**Jiang Yucheng**：那張其實把前面兩章的光源都解釋了。不是只有殖民站。
+**Action**：她指著自己手上那本書的一角，沒有把書遞過來。
 
-**Protagonist**：所以目錄寫得比內容保守。
+**Protagonist**：喔，目錄沒寫。我只看了目錄。
 
-**Jiang Yucheng**：或者編輯根本沒看圖。
+**Jiang Yucheng**：對。前面兩章的光從哪裡來，看這張才講得通。殖民站是補得比較多啦，但雨港也不只是重印。
+
+**Protagonist**：那我剛剛講太早了。
+
+**Jiang Yucheng**：也沒有。目錄真的看不出來。
+
+**Action**：她翻回目錄，手指還停在剛才那張圖的頁碼上。
 
 → Rejoin `common_acg_first_meet_rejoin`
 
@@ -163,17 +169,21 @@ Choice design notes：
 
 **Visual**：回 BG + `JYC-SPR-CAMPUS.small_smile`。
 
-**Protagonist**：我想看實體印刷。電子版把夜景的層次壓掉了。
+**Protagonist**：我想看實體印刷。電子版夜景暗的地方都糊在一起。
 
-**Jiang Yucheng**：對。暗部全部糊在一起。
+**Action**：她這次立刻抬眼看了男主一下，又低頭看書頁。
 
-**Jiang Yucheng**：實體版好一點，但這本的紙又太亮，翻到燈下面會反光。
+**Jiang Yucheng**：對，暗部幾乎黏在一起。實體這本分得開，可是紙又太亮；你看，燈正好照在這裡。
 
 **Action**：她把書頁偏離頂燈，示意反光位置；沒有把書遞給男主。
 
-**Protagonist**：所以兩版各自壞一半。
+**Protagonist**：喔，真的。要一直避著燈翻？
 
-**Jiang Yucheng**：差不多。
+**Jiang Yucheng**：在這裡可能要。我也是剛剛才發現，顏色印回來了，翻起來又有點累。
+
+**Protagonist**：嗯，這樣選還是很難。
+
+**Action**：她看了那頁片刻，沒有急著把書闔上。
 
 → Rejoin `common_acg_first_meet_rejoin`
 
@@ -181,15 +191,19 @@ Choice design notes：
 
 **Visual**：回 BG + `JYC-SPR-CAMPUS.thinking_before_reply`。
 
-**Protagonist**：如果只買一本，機械稿比較像資料；另一本比較適合從頭翻。
+**Protagonist**：只買一本的話，機械稿比較像查資料；世界那本適合從頭翻。
 
-**Jiang Yucheng**：機械稿的索引比較好。
+**Jiang Yucheng**：嗯，機械稿的索引比較好。
 
-**Jiang Yucheng**：可是註釋縮得很小。真的要拿來查，會先看得很生氣。
+**Action**：她用手指沿著索引往下一行，再翻到圖旁的註釋。
 
-**Protagonist**：聽起來妳已經試過了。
+**Jiang Yucheng**：可是註釋縮得太小了。朋友買的那本我翻過，查一個零件要湊很近，看到一半就先放回去。
 
-**Jiang Yucheng**：看過朋友那本。
+**Protagonist**：可是妳現在還在看這本。
+
+**Jiang Yucheng**：圖還是有用啊。就是……買之前想再看一次。
+
+**Action**：她又翻回索引，像是還沒替自己決定好。
 
 → Rejoin `common_acg_first_meet_rejoin`
 
@@ -199,41 +213,41 @@ Choice design notes：
 
 **Jiang Yucheng**：所以……你要買哪本？
 
-**Protagonist**：目前的結論是，出版社很會讓人買兩本。
+**Protagonist**：我本來只打算找世界設定那本。現在有點難說。
 
-**Jiang Yucheng**：這點沒有版本差異。
+**Jiang Yucheng**：嗯。我也是還沒決定。
 
 **Action**：她把其中一本闔上，仍留在自己手裡。
 
 ### `common_acg_first_meet_cafe_seed`
 
-**Protagonist**：這附近有能坐著翻書的地方嗎？我晚點還要處理一點工作。
+**Protagonist**：這兩本我可能還要想一下。我晚點也得處理一點工作……這附近有哪裡能坐著翻書、不太吵的嗎？
 
-**Jiang Yucheng**：北邊出口有一間咖啡店。
+**Jiang Yucheng**：北邊出口那間可以去看看。
 
-**Jiang Yucheng**：平日下午窗邊比較安靜，插座也有。店員不太趕人。
+**Jiang Yucheng**：週末這時候我不太確定會不會吵。平日下午窗邊滿安靜的，插座也有。坐久一點，店員不太會趕。
 
-**Protagonist**：聽起來比這裡適合做決定。
+**Protagonist**：好，謝謝。我等一下去看看。
 
-**Jiang Yucheng**：這裡只適合做錯決定。
+**Jiang Yucheng**：嗯。這裡人太多，翻一頁要讓一次路。
 
-**Visual**：她說完才意識到自己接了兩次玩笑，表情回到 `polite`；不要 blush。
+**Visual**：她話音一停，表情回到 `polite`；不要 blush。
 
 ### `common_acg_first_meet_exit`
 
 **Action**：有人從兩人中間的走道經過。雨澄往結帳方向退半步，男主讓開書架。
 
-**Jiang Yucheng**：如果只看雨港篇，舊版比較值得。
+**Jiang Yucheng**：如果主要看雨港篇，舊版還是比較值得。
 
-**Protagonist**：那我先省下一本。
+**Protagonist**：好，我回去再翻舊的。謝謝。
 
-**Jiang Yucheng**：暫時。
+**Jiang Yucheng**：嗯。
 
-**Action**：她拿著選定的書走向結帳。兩人沒有交換姓名，也沒有回頭追問。
+**Action**：她拿著選定的書走向結帳。男主退回書架另一側，翻開展示本。
 
-**Narration**：我記住了版本差異，也記住了北邊出口那間咖啡店。
+**Protagonist (thought)**：這兩本還得再翻一下。北邊出口那間咖啡店，等一下也可以去看看。
 
-**Narration**：至於她是誰，今天沒有一定要知道。
+**Narration**：結帳的人潮隔開了書架兩側。她帶著書走了，我還在展示本前翻頁。
 
 **End actions**：`met_jiang_yucheng=true`；`relationship.jyc.familiarity +=1`；設定 `heard_station_cafe_from_jyc=true` 與 `jyc_first_topic`。
 

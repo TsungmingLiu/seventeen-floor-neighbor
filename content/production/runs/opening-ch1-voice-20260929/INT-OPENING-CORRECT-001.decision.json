@@ -1,0 +1,110 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "opening-ch1-voice-20260929",
+  "task_id": "INT-OPENING-CORRECT-001",
+  "task_type": "integrate",
+  "status": "BLOCKED",
+  "workflow_version": "1.3.0",
+  "harness": {
+    "id": "integrator",
+    "pass": "narrative_preview"
+  },
+  "packet_sha256": "963c743f92ba8a961adc8e5119166637a0122307d4d7209483c472e5bf21e636",
+  "handoff_sha256": "9b1c15684f6be829502a75390dd86e34d115af22fd1632c5689188300a7dd719",
+  "source_ref": "b2b187dd8534c3eb4ebdb772aba9d6d817d31fdc",
+  "input_versions": [
+    {
+      "id": "file:.ai/harnesses/integrator.md",
+      "version": "1c87e85f277ae5f71805aa8f14be5ea94f94c9c3",
+      "location": ".ai/harnesses/integrator.md"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-00.md",
+      "version": "665fdd021d27b0e2ee8bd26c462fadbd00d1a1a8",
+      "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-01B.md",
+      "version": "081bef01e36323c11fdeb3262ebd110ac63ed641",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01B.md"
+    },
+    {
+      "id": "file:content/production/runs/opening-ch1-voice-20260929/NQA-COM00-FINAL-001.decision.json",
+      "version": "733cfc5ec111de55101d35f4878a8e507e58907d",
+      "location": "content/production/runs/opening-ch1-voice-20260929/NQA-COM00-FINAL-001.decision.json"
+    },
+    {
+      "id": "file:content/production/runs/opening-ch1-voice-20260929/NQA-COM01B-RECHECK-001.decision.json",
+      "version": "60e15da11b44dffaab143aabe64b8c66719a0b2f",
+      "location": "content/production/runs/opening-ch1-voice-20260929/NQA-COM01B-RECHECK-001.decision.json"
+    },
+    {
+      "id": "file:content/routes/opening-demo/chapter-01.json",
+      "version": "c94cf2fb5d51e50df0ba55a1e5471508f51f6b8d",
+      "location": "content/routes/opening-demo/chapter-01.json"
+    },
+    {
+      "id": "file:content/routes/opening-demo/memories.json",
+      "version": "89ecdf0d7b7bb2b0b3dc0fe2e71133b28749f2b9",
+      "location": "content/routes/opening-demo/memories.json"
+    },
+    {
+      "id": "file:tests/opening-locked-scenes.test.mjs",
+      "version": "7409d9181b5dd09036cd2b0486ef545adeeda63a",
+      "location": "tests/opening-locked-scenes.test.mjs"
+    },
+    {
+      "id": "file:tests/com02x-preview.test.mjs",
+      "version": "b78fe492343d1998a4ee9b5dffd5e62c0b01cf56",
+      "location": "tests/com02x-preview.test.mjs"
+    },
+    {
+      "id": "file:tests/content-validation.test.mjs",
+      "version": "64d2c5711d0630e64019dd351b72093428a173a4",
+      "location": "tests/content-validation.test.mjs"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "route:opening-demo",
+      "version": "891e6e5e6935a57f826cc365ee31c226eaf5f739",
+      "location": "content/routes/opening-demo/chapter-01.json"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "focused_route_tests",
+      "result": "PASS"
+    },
+    {
+      "name": "build",
+      "result": "PASS"
+    },
+    {
+      "name": "validate",
+      "result": "PASS"
+    },
+    {
+      "name": "diff_check",
+      "result": "PASS"
+    },
+    {
+      "name": "preview_smoke",
+      "result": "PASS"
+    },
+    {
+      "name": "browser_story_flow",
+      "result": "BLOCKED"
+    },
+    {
+      "name": "human_access_url",
+      "result": "BLOCKED"
+    }
+  ],
+  "known_issues": [
+    "Browser story-flow smoke is unverified because the installed Playwright module has no browser executable.",
+    "No Human-accessible preview URL, Codespaces name, forwarding profile, or visibility was available."
+  ],
+  "reason": "No browser executable or Codespaces/Human-accessible preview URL is available in this workspace.",
+  "human_gate": "narrative_preview_review"
+}

@@ -12,17 +12,36 @@ const nodes = chapter.nodes;
 test('all four COM-02X paths preserve ordered locked turns and converge', () => {
   const scene = readFileSync(new URL('../docs/narrative/scenes/vertical-slice/COM-02X.md', import.meta.url), 'utf8');
   const locked = scene.split('## Locked playable script\n')[1].split('## State contract\n')[0];
-  const expected = [...locked.matchAll(/\*\*(Narration|Action|Protagonist|Xu Tang(?:（off-screen）)?)\*\*：(.+)/g)]
-    .map(match => match[2]
-      .replace('男主轉身。', '我轉身。')
-      .replace('男主手上的餐盒', '我手上的餐盒')
-      .replace('男主還在等自己的加熱完成', '我還在等自己的餐盒加熱完成')
-      .replace('男主繼續往 1703 走', '我繼續往 1703 走'));
-  const actual = Object.entries(nodes).filter(([id]) => id.startsWith('common_convenience_xu_'))
-    .filter(([, node]) => node.text).map(([, node]) => node.text);
-  // Source order includes choice branches before the shared rejoin, matching the inserted node order.
-  assert.deepEqual(actual, expected);
-  assert.ok(actual.every(text => !text.includes('男主')), 'script-stage protagonist labels must not reach player narration');
+  const groups = [...locked.matchAll(/(?:### `([^`]+)`|#### Branch `([^`]+)`)([\s\S]*?)(?=### `|#### Branch |$)/g)];
+  const end = {
+    common_convenience_xu_enter: 'common_convenience_xu_recognize',
+    common_convenience_xu_recognize: 'common_convenience_xu_choice',
+    com02x_ask_food: 'common_convenience_xu_work',
+    com02x_share_work: 'common_convenience_xu_work',
+    com02x_tease_same: 'common_convenience_xu_work',
+    com02x_tell_eat_better: 'common_convenience_xu_work',
+    common_convenience_xu_work: 'common_convenience_xu_checkout',
+    common_convenience_xu_checkout: 'common_convenience_xu_exit',
+    common_convenience_xu_exit: 'opening_demo_complete'
+  };
+  for (const [, heading, branch, body] of groups) {
+    const key = heading || branch;
+    if (!(key in end)) continue;
+    const approved = [...body.matchAll(/\*\*(Narration|Action|Protagonist|Xu Tang(?:（off-screen）)?)\*\*：(.+)/g)];
+    const start = branch ? nodes.common_convenience_xu_choice.choices.find(choice => choice.id === branch).next : key;
+    let id = start;
+    const compiled = [];
+    while (id !== end[key]) {
+      assert.ok(nodes[id], `missing ${id}`);
+      compiled.push(nodes[id]);
+      assert.ok(compiled.length < 40, `cycle after ${start}`);
+      id = nodes[id].next;
+    }
+    assert.equal(compiled.map(node => node.text).join(''), approved.map(match => match[2]).join(''), key);
+    assert.deepEqual(compiled.filter(node => node.speaker !== '旁白').map(node => [node.speaker, node.text]),
+      approved.filter(match => !['Narration', 'Action'].includes(match[1]))
+        .map(match => [match[1].startsWith('Xu Tang') ? '許棠' : '你', match[2]]), key);
+  }
   const choices = nodes.common_convenience_xu_choice.choices;
   assert.deepEqual(choices.map(choice => choice.id),
     ['com02x_ask_food', 'com02x_share_work', 'com02x_tease_same', 'com02x_tell_eat_better']);

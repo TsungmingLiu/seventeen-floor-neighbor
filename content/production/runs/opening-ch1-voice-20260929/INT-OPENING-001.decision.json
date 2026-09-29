@@ -1,0 +1,233 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "opening-ch1-voice-20260929",
+  "task_id": "INT-OPENING-001",
+  "task_type": "integrate",
+  "status": "BLOCKED",
+  "workflow_version": "1.3.0",
+  "harness": {
+    "id": "integrator",
+    "pass": null
+  },
+  "packet_sha256": "aefc10504b7fd745879488d6ad047a3380848367add8d409a23ad49e387aba68",
+  "handoff_sha256": "5e3c77e683d0f9befb27c1e7a3754c672038e76b4978b051fad64268c0396b53",
+  "source_ref": "fae7a33f2048c67e3232515aa24f47923d4f03c5",
+  "integration_commit": "ac61a2fcfda83c1b52ecbc6f534ae7fc3e02268c",
+  "input_versions": [
+    {
+      "id": "file:.ai/harnesses/integrator.md",
+      "version": "1c87e85f277ae5f71805aa8f14be5ea94f94c9c3",
+      "location": ".ai/harnesses/integrator.md"
+    },
+    {
+      "id": "file:ARCHITECTURE.md",
+      "version": "9f2194f8413e0bb5d838592a7b3725867719c900",
+      "location": "ARCHITECTURE.md"
+    },
+    {
+      "id": "file:content/routes/opening-demo/chapter-01.json",
+      "version": "7c338a74abeb5dd3f6e7947f75d9fdbb50628a6b",
+      "location": "content/routes/opening-demo/chapter-01.json"
+    },
+    {
+      "id": "file:content/routes/opening-demo/route.json",
+      "version": "74b405d2fc4c8d4ad813e515cb6d9ed02805af29",
+      "location": "content/routes/opening-demo/route.json"
+    },
+    {
+      "id": "file:content/routes/opening-demo/memories.json",
+      "version": "6c382652dc81d263f3db4d9281007f272550660e",
+      "location": "content/routes/opening-demo/memories.json"
+    },
+    {
+      "id": "file:content/routes/opening-demo/context.md",
+      "version": "433ca493d7cc7dbeb8a0ad5319ccb73ebca3210d",
+      "location": "content/routes/opening-demo/context.md"
+    },
+    {
+      "id": "file:content/assets/manifest.json",
+      "version": "ee0b5ddf71f1226625caa37aded4c9e5e6aa9054",
+      "location": "content/assets/manifest.json"
+    },
+    {
+      "id": "file:src/presentation.js",
+      "version": "8c3842b345cacac0f3fa548558171b52ee66fc74",
+      "location": "src/presentation.js"
+    },
+    {
+      "id": "file:src/engine.js",
+      "version": "3ab830b2c4115fabf272382cd98fdf2958cc7b0b",
+      "location": "src/engine.js"
+    },
+    {
+      "id": "file:src/player-name.js",
+      "version": "72e6ab71e78006519ae7c34d0b85600501ca1277",
+      "location": "src/player-name.js"
+    },
+    {
+      "id": "file:src/progress.js",
+      "version": "416a863e44658916d16e0cde746794048e689cc7",
+      "location": "src/progress.js"
+    },
+    {
+      "id": "file:public/styles.css",
+      "version": "a5a47414b0c1c2f0e2942dd05708af3ee9b7b05b",
+      "location": "public/styles.css"
+    },
+    {
+      "id": "file:tools/validate-content.mjs",
+      "version": "3a069ea1610ec45096492e87474817d1c27ee3d8",
+      "location": "tools/validate-content.mjs"
+    },
+    {
+      "id": "file:tests/com02x-preview.test.mjs",
+      "version": "bb9b1b0251ad46fdc1a0e90c8b0e60343c73b7eb",
+      "location": "tests/com02x-preview.test.mjs"
+    },
+    {
+      "id": "file:tests/presentation.test.mjs",
+      "version": "2404cc5648aea7a9fc320a4be557da20bc77b889",
+      "location": "tests/presentation.test.mjs"
+    },
+    {
+      "id": "file:tests/engine-progress.test.mjs",
+      "version": "504e71b12cec188b6734e8fa1538b482b76e9367",
+      "location": "tests/engine-progress.test.mjs"
+    },
+    {
+      "id": "file:tests/progress.test.mjs",
+      "version": "a108eaa692554e97e60eebe17141d24f0a572e82",
+      "location": "tests/progress.test.mjs"
+    },
+    {
+      "id": "file:tests/content-validation.test.mjs",
+      "version": "d09807749e92b52b886d4d12c363e30807c461e8",
+      "location": "tests/content-validation.test.mjs"
+    },
+    {
+      "id": "file:tests/browser-acceptance.spec.mjs",
+      "version": "6f14db0ae9d5202a4b98b40d006fd6c8947aff85",
+      "location": "tests/browser-acceptance.spec.mjs"
+    },
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-00.json",
+      "version": "8c06b6872300ac75808326dfc60179a0e82f76a5",
+      "location": "content/production/narrative/opening-ch1/COM-00.json"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-00.md",
+      "version": "7e53cf510bc670aca3fa14fb756c28d23366cdfe",
+      "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+    },
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-01X.json",
+      "version": "8165567565b295e051abaf3bc0abb760eb60670d",
+      "location": "content/production/narrative/opening-ch1/COM-01X.json"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-01X.md",
+      "version": "1e75a77e0972f19855bb91f0ca1cb85abc4c8975",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01X.md"
+    },
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-01B.json",
+      "version": "d02125cf9395eb81d7e2818fcab632caeaa69e3e",
+      "location": "content/production/narrative/opening-ch1/COM-01B.json"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-01B.md",
+      "version": "ef71fc8bc9fa1c14e001c8b0ef0ebd1a7a17a459",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01B.md"
+    },
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-01J.json",
+      "version": "faf7e36eb017124e43f511d3cea9c00884d4cb86",
+      "location": "content/production/narrative/opening-ch1/COM-01J.json"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-01J.md",
+      "version": "3f305bda05e504ab7e8a0722337ee4c7cac6ff8b",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01J.md"
+    },
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-02X.json",
+      "version": "5f85482b7c420a5f7726035e369679360f83cfd5",
+      "location": "content/production/narrative/opening-ch1/COM-02X.json"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-02X.md",
+      "version": "0858e051caf47c8cd4c50826a70cdd3d1b8b0f5a",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02X.md"
+    },
+    {
+      "id": "asset:bg.narrative_preview.placeholder",
+      "version": "9dc448840d09cf38718710881991c9f251e01eefd44eb94980d7dd9743778145",
+      "location": "assets-src/ui/narrative-preview-v1.webp"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "file:content/routes/opening-demo/chapter-01.json",
+      "version": "c94cf2fb5d51e50df0ba55a1e5471508f51f6b8d",
+      "location": "content/routes/opening-demo/chapter-01.json"
+    },
+    {
+      "id": "file:content/routes/opening-demo/memories.json",
+      "version": "89ecdf0d7b7bb2b0b3dc0fe2e71133b28749f2b9",
+      "location": "content/routes/opening-demo/memories.json"
+    },
+    {
+      "id": "file:tests/opening-locked-scenes.test.mjs",
+      "version": "7409d9181b5dd09036cd2b0486ef545adeeda63a",
+      "location": "tests/opening-locked-scenes.test.mjs"
+    },
+    {
+      "id": "file:tests/com02x-preview.test.mjs",
+      "version": "b78fe492343d1998a4ee9b5dffd5e62c0b01cf56",
+      "location": "tests/com02x-preview.test.mjs"
+    },
+    {
+      "id": "file:tests/content-validation.test.mjs",
+      "version": "64d2c5711d0630e64019dd351b72093428a173a4",
+      "location": "tests/content-validation.test.mjs"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "required source acquisition",
+      "result": "PASS"
+    },
+    {
+      "name": "locked scene ordered passages and branch turns, stable IDs and choice effects, visual and Memory coverage",
+      "result": "PASS"
+    },
+    {
+      "name": "npm run build",
+      "result": "PASS"
+    },
+    {
+      "name": "npm run validate",
+      "result": "PASS"
+    },
+    {
+      "name": "git diff --check",
+      "result": "PASS"
+    },
+    {
+      "name": "npm run preview:smoke -- --skip-build",
+      "result": "PASS"
+    },
+    {
+      "name": "browser story-flow smoke",
+      "result": "BLOCKED"
+    },
+    {
+      "name": "Human-accessible preview URL",
+      "result": "BLOCKED"
+    }
+  ],
+  "known_issues": [
+    "Narrative preview integration is locally verified but cannot be marked NARRATIVE_PREVIEW_READY until a Human-accessible preview path is established and story-flow browser smoke is completed."
+  ],
+  "human_gate": "narrative_preview_review"
+}
