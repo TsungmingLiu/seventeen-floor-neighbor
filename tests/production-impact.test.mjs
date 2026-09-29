@@ -252,12 +252,14 @@ test('visual-only manifest edit preserves this run Narrative QA while proposing 
 
 test('unrelated canon text preserves QA, while a reviewed beat makes the task stale', async () => {
   await inDetachedCheckout(async (checkout, ledger) => {
+    const options = { sceneId: 'COM-00', from: ledger.source_ref, to: 'HEAD', runId, root: checkout };
+    const baseline = (await writeProductionImpact(options)).impact;
+    assert.equal(baseline.run_reconciliation.target_status, 'CURRENT_PASS');
     const relative = 'docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md';
     await writeFile(path.join(checkout, relative), `${await readFile(path.join(checkout, relative), 'utf8')}\nUnrelated test note.\n`);
     commitChanged(checkout, relative);
-    const { impact: unrelated } = await writeProductionImpact({ sceneId: 'COM-00', from: ledger.source_ref,
-      to: 'HEAD', runId, root: checkout });
-    assert.deepEqual(unrelated.changes, []);
+    const { impact: unrelated } = await writeProductionImpact(options);
+    assert.deepEqual(unrelated.changes, baseline.changes);
     assert.equal(unrelated.run_reconciliation.target_status, 'CURRENT_PASS');
     assert.deepEqual(unrelated.run_reconciliation.changed_versions, []);
 
@@ -266,9 +268,8 @@ test('unrelated canon text preserves QA, while a reviewed beat makes the task st
     assert.ok(original.includes('**Entry**：遊戲起點。'));
     await writeFile(source, original.replace('**Entry**：遊戲起點。', '**Entry**：不同的劇情起點。'));
     commitChanged(checkout, relative);
-    const { impact } = await writeProductionImpact({ sceneId: 'COM-00', from: ledger.source_ref,
-      to: 'HEAD', runId, root: checkout });
-    assert.deepEqual(impact.changes, []);
+    const { impact } = await writeProductionImpact(options);
+    assert.deepEqual(impact.changes, baseline.changes);
     assert.equal(impact.run_reconciliation.target_status, 'STALE_PROPOSED');
     assert.ok(impact.run_reconciliation.changed_versions.some((item) =>
       item.id.startsWith(`excerpt:${relative}:`) && item.old_version !== item.new_version));
