@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "qa-com02x-fresh-worker-20260928-postrewrite",
+  "task_id": "NQA-COM02X-POSTREWRITE-001",
+  "scene_id": "COM-02X",
+  "status": "NEEDS_REVIEW",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.1.0",
+    "pass": "narrative_review"
+  },
+  "packet_sha256": "8719181809a9abb601f9bda9f8145afa4dd1fc05957a37c106d12072493a1b8b",
+  "input_digest_sha256": "a0f0c123f7a208f5c260bcfc6b439302b960afa42047bc8e1a889923c683fa0d",
+  "input_versions": [
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-02X.json",
+      "version": "5f85482b7c420a5f7726035e369679360f83cfd5",
+      "location": "content/production/narrative/opening-ch1/COM-02X.json"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-02X.md",
+      "version": "cfe46a406ae7a47e1268bda0d9cb65c189fe66ff",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02X.md"
+    },
+    {
+      "id": "file:docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md",
+      "version": "a45247d93c2a1736e54aa13aca2110ee08a5b8c8",
+      "location": "docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md"
+    },
+    {
+      "id": "file:docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md",
+      "version": "fa68288637f8d1cddc0857b64b5d84b66469f173",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-00.md",
+      "version": "4c8b9396fdf43556b474f9cbf7a90813ef533309",
+      "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-01X.md",
+      "version": "f9be677e0c589bab2c7c49560e1fe882b553ec2e",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01X.md"
+    }
+  ],
+  "output_versions": [],
+  "qa_codes": [
+    {
+      "name": "scene_function_and_required_payoffs",
+      "code": "NQA-SCENE-FUNCTION",
+      "result": "PASS"
+    },
+    {
+      "name": "locked_scene_continuity_contract_alignment",
+      "code": "NQA-CONTINUITY",
+      "result": "PASS"
+    },
+    {
+      "name": "choice_ids_rejoin_and_branch_effects",
+      "code": "NQA-CHOICE-REJOIN",
+      "result": "PASS"
+    },
+    {
+      "name": "choice_visible_intent_state_semantics",
+      "code": "NQA-CHOICE-STATE-SEMANTICS",
+      "result": "NEEDS_REVIEW"
+    },
+    {
+      "name": "relationship_knowledge_memory_continuity",
+      "code": "NQA-KNOWLEDGE-BOUNDARY",
+      "result": "PASS"
+    },
+    {
+      "name": "dialogue_conversational_naturalism",
+      "code": "NQA-DIALOGUE-NATURALISM",
+      "result": "PASS"
+    },
+    {
+      "name": "must_not_and_premature_escalation",
+      "code": "NQA-MUST-NOT",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    {
+      "code": "NQA-CHOICE-STATE-SEMANTICS",
+      "scene_location": "common_convenience_xu_choice / com02x_share_work",
+      "evidence": [
+        "Locked playable choice: 「我也剛把工作收掉。現在只想吃快一點的。」",
+        "Choice/state contract: `T_XT +1`; `mc_tone_humorous +=1`.",
+        "Choice intent table still frames this branch as the light/humorous work-sharing option."
+      ],
+      "problem_type": "choice intent / state effect semantic mismatch",
+      "why_it_violates_qa": "The player-visible line now reads as straightforward self-disclosure rather than a humorous tone choice, while runtime telemetry still records `mc_tone_humorous`. This can make later tone-dependent content treat the player as having chosen a style that was not actually presented.",
+      "required_change": "Make the player-visible branch intent and `mc_tone_humorous` state write semantically consistent. Preserve the choice ID, `T_XT +1`, rejoin, relationship pace, and all continuity boundaries; QA does not prescribe replacement dialogue."
+    }
+  ],
+  "human_gate_required": "none",
+  "invalidates": [],
+  "worker_handoff_sha256": "9e7872afb65cd9a5db1ddd49523f45e5ee683dfea5c08844f1d30a03b2ac0344"
+}
