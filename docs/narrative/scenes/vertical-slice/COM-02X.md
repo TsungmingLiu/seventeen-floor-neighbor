@@ -93,9 +93,9 @@ Base scene exit 另有 `F_XT +1`；`com02x_ask_food` 的 bonus 保持鎖定，�
 
 **Visual**：`BG-CONVENIENCE-NIGHT`，冷藏櫃近景，窗外濕夜。無人物。
 
-**Narration**：晚上十一點多，我才發現冰箱裡沒有能直接吃的東西。
+**Narration**：晚上十一點多，家裡冰箱剩下的東西都需要動腦處理。
 
-**Narration**：到便利店後，我在兩盒微波食品前來回看了半天，最後拿了比較近的那盒。
+**Narration**：我站在冷藏櫃前看了幾秒，最後拿了一盒寫著加熱四分鐘的。
 
 **Xu Tang（off-screen）**：[PLAYER_NAME]？
 
@@ -105,88 +105,106 @@ Base scene exit 另有 `F_XT +1`；`com02x_ask_food` 的 bonus 保持鎖定，�
 
 **Action**：男主轉身。許棠一手拿黑咖啡，另一手提著簡單餐盒。
 
-**Protagonist**：喔，嗨。
+**Protagonist**：欸。嗨。
 
-**Xu Tang**：你也現在才吃？
+**Xu Tang**：你也還沒吃？
 
-**Protagonist**：嗯。剛忙完。
+**Protagonist**：嗯。剛弄完事情。
 
 **Xu Tang**：喔。
 
-**Action**：她看了一眼男主手上的餐盒，又看回自己的。
+**Action**：她低頭看了一眼男主手上的餐盒，又看看自己那盒。
 
-**Xu Tang**：看來不是只有我。
+**Protagonist**：妳也是？
+
+**Xu Tang**：嗯。
+
+**Action**：兩人中間空了半秒。冷藏櫃壓縮機重新響起來。
+
+**Xu Tang**：你那個也要微波？
+
+**Protagonist**：對。
+
+**Xu Tang**：喔。那差不多。
 
 **Visual**：回 BG + `XT-SPR-LATE-CASUAL.teasing`。
 
 ### `common_convenience_xu_choice`
 
-1. `com02x_ask_food` — **「附近這個時間，還有別的能吃嗎？」**
-2. `com02x_share_work` — **「我也是剛收工。今天能微波就算有煮了。」**
-3. `com02x_tease_same` — **「至少妳那盒看起來比我的像晚餐。」**
-4. `com02x_tell_eat_better` — **「妳如果常常都這麼晚吃，還是要注意一下吧。」**
+1. `com02x_ask_food` — **「附近這個時間，還有別的店開著嗎？」**
+2. `com02x_share_work` — **「我也剛把工作收掉。現在只想吃快一點的。」**
+3. `com02x_tease_same` — **「妳那盒至少比我這個像一餐。」**
+4. `com02x_tell_eat_better` — **「妳如果常常都拖到這麼晚才吃，還是要注意一下吧。」**
 
 #### Branch `com02x_ask_food`
 
-**Protagonist**：附近這個時間，還有別的能吃嗎？
+**Protagonist**：附近這個時間，還有別的店開著嗎？
 
-**Xu Tang**：有。你回去會經過一間。
+**Xu Tang**：這個點喔……
 
-**Protagonist**：哪邊？
+**Action**：她往玻璃門外看了一眼。
 
-**Xu Tang**：巷口。出去就看得到。
+**Xu Tang**：有一間。你等一下出去會看到。
 
-**Protagonist**：喔，好。
+**Protagonist**：好。我搬來之後還沒搞清楚這附近晚上剩什麼。
+
+**Xu Tang**：嗯。白天看不出來。
+
+**Protagonist**：也是。
 
 → Rejoin `common_convenience_xu_work`
 
 #### Branch `com02x_share_work`
 
-**Protagonist**：我也是剛收工。今天能微波就算有煮了。
+**Protagonist**：我也剛把工作收掉。現在只想吃快一點的。
 
-**Xu Tang**：你也拖到現在喔。
+**Xu Tang**：嗯。
 
-**Protagonist**：嗯。
+**Action**：她點了一下頭，視線又回到手裡的餐盒。
 
-**Action**：許棠看了一眼男主手上的餐盒，又低頭看自己的。
+**Xu Tang**：那你今天也拖很晚。
 
-**Xu Tang**：那差不多。
+**Protagonist**：對。
+
+**Xu Tang**：喔。
 
 → Rejoin `common_convenience_xu_work`
 
 #### Branch `com02x_tease_same`
 
-**Protagonist**：至少妳那盒看起來比我的像晚餐。
+**Protagonist**：妳那盒至少比我這個像一餐。
 
-**Action**：許棠看了一眼兩人手上的餐盒。
+**Xu Tang**：哪裡？
 
-**Xu Tang**：有嗎？
+**Protagonist**：有綠色的。
 
-**Protagonist**：至少有菜。
+**Action**：許棠低頭看了一眼透明盒蓋。
 
-**Xu Tang**：喔。那好一點。
+**Xu Tang**：那是蔥。
+
+**Protagonist**：……喔。
+
+**Action**：她嘴角動了一下，沒有再接。
 
 → Rejoin `common_convenience_xu_work`
 
 #### Branch `com02x_tell_eat_better`
 
-**Protagonist**：妳如果常常都這麼晚吃，還是要注意一下吧。
+**Protagonist**：妳如果常常都拖到這麼晚才吃，還是要注意一下吧。
 
 **Visual**：`XT-SPR-LATE-CASUAL.tired`，笑意收回，但不進 conflict expression。
 
 **Xu Tang**：沒有常常。今天而已。
 
-**Action**：她看向男主手上的微波食品。
+**Protagonist**：喔。
 
-**Protagonist**：……喔。
+**Action**：許棠把咖啡換到另一隻手，往旁邊讓了一點，給要拿商品的人過。
 
-**Xu Tang**：你不是也還沒吃？
-
-**Protagonist**：嗯。當我沒說。
+**Protagonist**：……嗯，當我沒說。
 
 **Xu Tang**：嗯。
 
-**Action**：她把視線收回架上。兩人各自看了幾秒，沒有立刻把這句接下去。
+**Action**：兩人各自看了幾秒架上的東西。這句話就停在那裡。
 
 → Rejoin `common_convenience_xu_work`
 
@@ -194,81 +212,97 @@ Base scene exit 另有 `F_XT +1`；`com02x_ask_food` 的 bonus 保持鎖定，�
 
 **Visual**：`XT-SPR-LATE-CASUAL.sleepy_annoyed`。
 
-**Action**：櫃檯那邊的微波爐開始運轉。兩人往結帳方向挪了幾步。許棠看著轉盤轉了一圈。
+**Action**：結帳區的微波爐開始運轉。兩人往前挪了幾步，先後排到櫃檯旁邊。
 
-**Xu Tang**：你剛說忙完，是公司那邊？
+**Xu Tang**：你剛剛說弄完事情，是工作？
 
-**Protagonist**：嗯……算是。我大部分時間都在家工作。今天也是。
+**Protagonist**：嗯。
 
-**Xu Tang**：喔，在家工作。
+**Xu Tang**：做到現在喔。
 
-**Protagonist**：對。做軟體的。剛好有東西要上線，一拖就拖到現在。
+**Protagonist**：今天比較晚。我大部分時間都在家工作。
 
-**Xu Tang**：嗯。
+**Xu Tang**：在家喔。
 
-**Action**：微波爐還在轉。男主低頭看了一眼手裡那盒東西。
+**Protagonist**：對，做軟體的。今晚有東西要上線，弄到剛剛。
 
-**Protagonist**：妳也是趕工作？
+**Xu Tang**：喔。
 
-**Xu Tang**：嗯。明早要看稿。
+**Action**：微波爐還有一分多鐘。兩人都看著轉盤轉了一圈，沒有立刻接話。
 
-**Protagonist**：設計的？
+**Protagonist**：妳也是工作？
 
-**Xu Tang**：對，視覺。我自己接案。
-
-**Action**：她把餐盒換到另一隻手。
-
-**Xu Tang**：這個剛好要送印，今天比較晚。
+**Xu Tang**：嗯。客戶明早要看最後一版。
 
 **Protagonist**：喔。
 
-**Action**：櫃檯傳來提示音。許棠看過去。
+**Xu Tang**：過了就送印。
 
-**Xu Tang**：啊，我的。
+**Protagonist**：妳做印刷的？
+
+**Xu Tang**：不是。
+
+**Action**：她搖了一下頭。
+
+**Xu Tang**：視覺設計。自己接案。這個案子剛好要印。
+
+**Protagonist**：喔，懂了。
+
+**Xu Tang**：嗯。
+
+**Action**：微波爐提示音響起。許棠抬頭看了一眼。
+
+**Xu Tang**：我的好了。
 
 ### `common_convenience_xu_checkout`
 
-**Action**：許棠先把自己的餐盒和咖啡結掉，拎著袋子退到門邊。男主也結完帳後，兩人前後走出店門，同方向往公寓走。
+**Action**：許棠先拿回自己的餐盒，和咖啡一起結帳。男主還在等自己的加熱完成；等他走出店門時，她正站在騎樓邊把收據塞進袋子。
 
-**Action**：走到巷口時，許棠朝右邊偏了偏下巴。
+**Action**：兩人往同一個方向走。路口還有剛下過雨的水光，前半段誰也沒有特地找話。
 
-**Xu Tang**：那間。
+**Xu Tang**：對了。
 
-**Protagonist**：嗯？
+**Action**：走到巷口，她朝右邊還亮著燈的店面抬了抬下巴。
 
-**Xu Tang**：粥店。開到十二點。
+**Xu Tang**：那間粥店開到十二點。
+
+**Protagonist**：哪間？
+
+**Xu Tang**：白色招牌那間。
 
 **Protagonist**：喔。
 
 **Xu Tang**：週三休。
 
-**Protagonist**：好，我記一下。
+**Protagonist**：妳怎麼記那麼清楚？
 
-**Xu Tang**：嗯。我上次白走一次。
+**Xu Tang**：因為我上次週三走過去。
 
-**Protagonist**：喔。
+**Protagonist**：……好，這種會記得。
 
-**Action**：許棠沒有往巷子裡轉，繼續往公寓方向走。兩人的步子偶爾錯開半拍。
+**Xu Tang**：嗯。
+
+**Action**：過了路口後，兩人又安靜了一小段。許棠沒有往粥店轉，繼續往公寓方向走。
 
 ### `common_convenience_xu_exit`
 
-**Action**：到公寓門口，許棠抬了抬手裡的咖啡。
+**Action**：進大樓後，兩人一起搭電梯上 17 樓。這次一路正常，沒有人特地把沉默填滿。
 
-**Xu Tang**：我先上去。
+**Action**：電梯門打開。許棠走到 1702 前，從袋子裡摸出鑰匙。
+
+**Xu Tang**：我先進去了。
 
 **Protagonist**：嗯。
 
-**Xu Tang**：還有兩版要改。
+**Xu Tang**：還有兩版。
 
-**Protagonist**：辛苦了。
-
-**Xu Tang**：還好。
+**Protagonist**：好。晚安。
 
 **Visual**：`XT-SPR-LATE-CASUAL.small_smile`。
 
-**Protagonist**：晚安。
-
 **Xu Tang**：晚安。
+
+**Action**：她進 1702。男主繼續往 1703 走。
 
 **End actions**：套用 choice stats；`relationship.xu.familiarity +=1`；設定雙方工作輪廓 knowledge；前往 common sequence next target。
 
@@ -371,26 +405,26 @@ unchanged:
 
 ### Xu Tang
 
-- 疲憊時可以短，但不要把 `dry / reserved` 寫成每句都有 punchline；本幕允許她只回「喔」「嗯」或讓一句話停掉。
-- 她叫名字自然，不加「居然又遇到你」。
-- 工作資訊採 disclosure → 誤解／確認 → correction：先提「送印」，再自然澄清自己做視覺設計、自己接案；不一次報完整履歷。
-- 被規訓式關心時只把事實校正回來，不上價值課，也不負責替男主把尷尬收漂亮；該 branch 在 rejoin 前保留一小段真的冷下來的空白。
-- shared rejoin 必須獨立建立所有路徑需要的工作 knowledge；任何 branch-specific 句子都不能成為 unconditional state 的唯一來源。
+- 疲憊時可以短，但不要把 `dry / reserved` 寫成每句都有 punchline；本幕允許她只回「喔」「嗯」，也允許她把一句話放著不接。
+- 她叫名字自然，不加「居然又遇到你」；她在便利店的狀態是普通下樓買晚餐，不是被玩家撞見祕密的一面。
+- 工作 disclosure 採生活語境逐步落地：先說「客戶明早看最後一版／過了要送印」，男主誤以為她做印刷後，她才校正成「視覺設計／自己接案」。這些資訊合起來才支撐 `player_knows_xu_freelance_creative_work`。
+- 被規訓式關心時只校正「今天而已」，不說教，也不替男主把尷尬收漂亮；該 branch 必須真的留一小段沉默後才進 shared rejoin。
+- 附近店家 knowledge 的完整落點在 shared walk-back；`ask_food` branch 只先打開「附近還有沒有東西吃」這個話題，不能獨占店名／營業資訊。
 
 ### Male protagonist
 
-- 可以同樣承認自己的宵夜與晚收工，不占據高位照顧她。
-- 他不必每次都接得漂亮；可以誤會「送印」成印刷工作，也可以只回「喔」「嗯」。
-- remote/tech 輪廓必須在 shared rejoin 中由他自己自然說出：大部分在家工作、做軟體、今晚有上線工作拖晚。
-- 不猜她吃不飽、替她買更健康的餐或要求她回家報平安。
-- 不主動提出看設計／解決 client 問題；他目前不具備 context。
+- 可以承認自己晚收工、吃微波食品，但不占據照顧高位；普通回應、沒接好、問得有點笨都可以。
+- remote/tech knowledge 必須在 shared rejoin 由他自己自然說出，而且所有 branch 都經過：**大部分時間在家工作、做軟體、今晚有東西要上線所以拖晚**。
+- 對許棠工作資訊不要一次猜對；「妳做印刷的？」是允許的普通誤解，讓後續澄清自然建立 freelance / visual-design knowledge。
+- 不猜她吃不飽、不替她買更健康的餐、不要求她回家報平安，也不主動提出看設計或解決 client 問題。
 
 ### Voice contrast target
 
-- 許棠的日常談話靠共享現實、停頓與少量回扣累積熟悉，不靠連續乾式金句。
-- 本幕允許話題短暫斷掉；微波、結帳、走路本身承擔一部分節奏。
-- 附近粥店的具體資訊在 shared walk-back 才完整落地，因此四個 choice 都能成立；`ask_food` 只是更早主動打開這個話題。
-- 她不像雨澄因興趣而突然長篇；即使談工作也維持精簡，讓一起走回家的 ordinary silence 承擔親近感。
+- 許棠的熟悉感靠共享現實、停頓與少量回扣累積；一幕裡可以有一兩個乾點，但不能形成 setup → comeback 的連續節拍。
+- 男主也不是每句都能接住；本幕刻意保留「……喔」、短暫誤解、話題落空與共同沉默。
+- shared rejoin 不能變成履歷交換：必要 knowledge 被微波等待、短問答、誤解與更正拆開，資訊密度有高有低。
+- 一起走回公寓的 ordinary silence 本身就是 relationship texture；不需要用 romantic narration 解釋它。
+- 最後不交換聯絡方式、不邀約、不互相照顧，透過實際行為自然成立，不額外朗讀 production guardrail。
 
 ### Prohibited beats
 
