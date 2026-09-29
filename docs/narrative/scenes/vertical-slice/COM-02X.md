@@ -81,7 +81,7 @@ Choice 出現在許棠說「看來不是只有我」之後。
 | Choice ID | Player-facing intent | Xu response intent | Stats / flags | Rejoin |
 | --- | --- | --- | --- | --- |
 | `com02x_ask_food` | 「附近這個時間，還有別的能吃嗎？」 | 她先給一個方向／位置輪廓；具體店家資訊留到 shared walk-back，確保不是只有此 branch 才成立。 | `F_XT +1` bonus; `mc_tone_practical +=1` | 02X.5 |
-| `com02x_share_work` | 「我也是剛收工。今天能微波就算有煮了。」 | 她接住「也忙到現在」；branch 不獨占 remote/tech knowledge，共同工作段再讓所有路徑自然建立。 | `T_XT +1`; `mc_tone_humorous +=1` | 02X.5 |
+| `com02x_share_work` | 「我也剛收工。現在能微波就算有煮了。」 | 她接住「也忙到現在」；branch 不獨占 remote/tech knowledge，共同工作段再讓所有路徑自然建立。 | `T_XT +1`; `mc_tone_humorous +=1` | 02X.5 |
 | `com02x_tease_same` | 「至少妳那盒看起來比我的像晚餐。」 | 她看兩份餐盒，給一個很普通、沒有刻意做 punchline 的比較。 | `C_XT +1` | 02X.5 |
 | `com02x_tell_eat_better` | 「妳如果常常都這麼晚吃，還是要注意一下吧。」 | 她用事實校正「沒有常常，今天而已」，不升級衝突；男主也不漂亮地把話圓回來。 | `K_XT -1`; `xt_advice_tendency +=1`; **不增加** `xt_boundary_strikes` | 02X.5 |
 
@@ -132,7 +132,7 @@ Base scene exit 另有 `F_XT +1`；`com02x_ask_food` 的 bonus 保持鎖定，�
 ### `common_convenience_xu_choice`
 
 1. `com02x_ask_food` — **「附近這個時間，還有別的店開著嗎？」**
-2. `com02x_share_work` — **「我也剛把工作收掉。現在只想吃快一點的。」**
+2. `com02x_share_work` — **「我也剛收工。現在能微波就算有煮了。」**
 3. `com02x_tease_same` — **「妳那盒至少比我這個像一餐。」**
 4. `com02x_tell_eat_better` — **「妳如果常常都拖到這麼晚才吃，還是要注意一下吧。」**
 
@@ -156,7 +156,7 @@ Base scene exit 另有 `F_XT +1`；`com02x_ask_food` 的 bonus 保持鎖定，�
 
 #### Branch `com02x_share_work`
 
-**Protagonist**：我也剛把工作收掉。現在只想吃快一點的。
+**Protagonist**：我也剛收工。現在能微波就算有煮了。
 
 **Xu Tang**：嗯。
 
