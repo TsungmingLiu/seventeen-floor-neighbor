@@ -191,6 +191,7 @@ export class GameEngine {
       }
       if (this.els.game.classList.contains('is-hidden')) return;
       if (event.key === ' ' || event.key === 'Enter') {
+        if (event.target?.closest?.('#choice-list .choice-button')) return;
         event.preventDefault();
         this.advance();
       }
