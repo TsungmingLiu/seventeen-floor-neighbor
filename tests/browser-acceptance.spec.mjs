@@ -12,7 +12,10 @@ function collectBlockingErrors(page) {
 }
 
 async function waitForDialogueReady(page) {
-  await expect(page.locator('#advance-hint')).toHaveText(/點擊繼續|選擇回應/, { timeout: 5000 });
+  await expect.poll(async () => {
+    const hint = await page.locator('#advance-hint').textContent();
+    return /點擊繼續|點擊選擇/.test(hint || '') || await page.locator('#choice-list').isVisible();
+  }, { timeout: 5000 }).toBe(true);
 }
 
 test('opening-demo saves its real cursor and resumes after reload', async ({ page }) => {
@@ -76,6 +79,7 @@ test('default opening-demo plays COM-00 → COM-01X → COM-01J and ends at demo
   await page.locator('#start-button').click();
 
   const seen = new Set();
+  let usedKeyboardChoice = false;
   for (let step = 0; step < 120; step += 1) {
     if (await page.locator('#ending-screen').isVisible().catch(() => false)) break;
     await expect(page.locator('#game-shell')).toBeVisible();
@@ -83,7 +87,17 @@ test('default opening-demo plays COM-00 → COM-01X → COM-01J and ends at demo
     const choiceButtons = page.locator('#choice-list .choice-button');
     const count = await choiceButtons.count();
     if (count > 0 && !(await page.locator('#choice-list').getAttribute('class') || '').includes('is-hidden')) {
-      await choiceButtons.nth(Math.min(1, count - 1)).click();
+      if (!usedKeyboardChoice) {
+        const previousNode = (await page.evaluate(() => JSON.parse(localStorage.getItem('opening-demo-chapter-01:journey:v2')))).cursor.nodeId;
+        await choiceButtons.first().focus();
+        await page.keyboard.press('Enter');
+        await expect.poll(() => page.evaluate(() =>
+          JSON.parse(localStorage.getItem('opening-demo-chapter-01:journey:v2')).cursor.nodeId
+        )).not.toBe(previousNode);
+        usedKeyboardChoice = true;
+      } else {
+        await choiceButtons.nth(Math.min(1, count - 1)).click();
+      }
     } else {
       const state = await page.evaluate(() => JSON.parse(localStorage.getItem('opening-demo-chapter-01:journey:v2') || 'null'));
       if (state?.cursor?.nodeId) seen.add(state.cursor.nodeId);
@@ -92,6 +106,7 @@ test('default opening-demo plays COM-00 → COM-01X → COM-01J and ends at demo
   }
 
   await expect(page.locator('#ending-screen')).toBeVisible({ timeout: 5000 });
+  expect(usedKeyboardChoice).toBe(true);
   await expect(page.locator('#ending-title')).toHaveText('第一章 Demo 完成');
   expect(await page.evaluate(() => localStorage.getItem('opening-demo-chapter-01:completed'))).toBe('1');
 
