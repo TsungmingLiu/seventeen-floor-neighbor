@@ -12,7 +12,10 @@ function collectBlockingErrors(page) {
 }
 
 async function waitForDialogueReady(page) {
-  await expect(page.locator('#advance-hint')).toHaveText(/點擊繼續|選擇回應/, { timeout: 5000 });
+  await expect.poll(async () => {
+    const hint = await page.locator('#advance-hint').textContent();
+    return /點擊繼續|點擊選擇/.test(hint || '') || await page.locator('#choice-list').isVisible();
+  }, { timeout: 5000 }).toBe(true);
 }
 
 test('opening-demo saves its real cursor and resumes after reload', async ({ page }) => {
@@ -67,7 +70,15 @@ test('opening-demo title, Memories, Gallery, and game controls fit a 320px viewp
   }
 });
 
-test('default opening-demo plays COM-00 → COM-01X → COM-01J and ends at demo boundary', async ({ page }) => {
+test('opening preview plays COM-00 → COM-01X → COM-01J → COM-02X and saves its shared exit', async ({ page }) => {
+  // The approved script contains [PLAYER_NAME]. A central production display-name value
+  // is still undecided; supply a test-only value to exercise the full route.
+  await page.route('**/content/routes/opening-demo/chapter.json', async route => {
+    const response = await route.fetch();
+    const chapter = await response.json();
+    chapter.playerDisplayName = '測試姓名';
+    await route.fulfill({ response, json: chapter });
+  });
   const errors = collectBlockingErrors(page);
   await page.goto('/');
   await expect(page.locator('#title-screen')).toBeVisible();
@@ -76,14 +87,25 @@ test('default opening-demo plays COM-00 → COM-01X → COM-01J and ends at demo
   await page.locator('#start-button').click();
 
   const seen = new Set();
-  for (let step = 0; step < 120; step += 1) {
+  let usedKeyboardChoice = false;
+  for (let step = 0; step < 240; step += 1) {
     if (await page.locator('#ending-screen').isVisible().catch(() => false)) break;
     await expect(page.locator('#game-shell')).toBeVisible();
     await waitForDialogueReady(page);
     const choiceButtons = page.locator('#choice-list .choice-button');
     const count = await choiceButtons.count();
     if (count > 0 && !(await page.locator('#choice-list').getAttribute('class') || '').includes('is-hidden')) {
-      await choiceButtons.nth(Math.min(1, count - 1)).click();
+      if (!usedKeyboardChoice) {
+        const previousNode = (await page.evaluate(() => JSON.parse(localStorage.getItem('opening-demo-chapter-01:journey:v2')))).cursor.nodeId;
+        await choiceButtons.first().focus();
+        await page.keyboard.press('Enter');
+        await expect.poll(() => page.evaluate(() =>
+          JSON.parse(localStorage.getItem('opening-demo-chapter-01:journey:v2')).cursor.nodeId
+        )).not.toBe(previousNode);
+        usedKeyboardChoice = true;
+      } else {
+        await choiceButtons.nth(Math.min(1, count - 1)).click();
+      }
     } else {
       const state = await page.evaluate(() => JSON.parse(localStorage.getItem('opening-demo-chapter-01:journey:v2') || 'null'));
       if (state?.cursor?.nodeId) seen.add(state.cursor.nodeId);
@@ -92,6 +114,7 @@ test('default opening-demo plays COM-00 → COM-01X → COM-01J and ends at demo
   }
 
   await expect(page.locator('#ending-screen')).toBeVisible({ timeout: 5000 });
+  expect(usedKeyboardChoice).toBe(true);
   await expect(page.locator('#ending-title')).toHaveText('第一章 Demo 完成');
   expect(await page.evaluate(() => localStorage.getItem('opening-demo-chapter-01:completed'))).toBe('1');
 
@@ -100,6 +123,7 @@ test('default opening-demo plays COM-00 → COM-01X → COM-01J and ends at demo
   await expect(page.locator('[data-memory-id="mem.opening.ch1.movein"]')).toBeEnabled();
   await expect(page.locator('[data-memory-id="mem.opening.ch1.elevator-restart"]')).toBeEnabled();
   await expect(page.locator('[data-memory-id="mem.opening.ch1.acg-first-meet"]')).toBeEnabled();
+  await expect(page.locator('[data-memory-id="mem.opening.ch1.convenience-xu"]')).toBeEnabled();
 
   await page.locator('#memories-back').click();
   await page.locator('#gallery-button').click();
@@ -107,7 +131,10 @@ test('default opening-demo plays COM-00 → COM-01X → COM-01J and ends at demo
   await expect(page.locator('#cg-grid button:not(:disabled)')).toHaveCount(8);
 
   const finalJourney = await page.evaluate(() => JSON.parse(localStorage.getItem('opening-demo-chapter-01:journey:v2')));
-  expect(finalJourney.frontierMemoryEventId).toBe('mem.opening.ch1.acg-first-meet');
-  expect(finalJourney.frontierRank).toBe(140);
+  expect(finalJourney.frontierMemoryEventId).toBe('mem.opening.ch1.convenience-xu');
+  expect(finalJourney.frontierRank).toBe(160);
+  expect(finalJourney.cursor.stats.F_XT).toBeGreaterThanOrEqual(2);
+  expect(finalJourney.cursor.flags).toContain('player_knows_xu_freelance_creative_work');
+  expect(seen.has('common_convenience_xu_work')).toBe(true);
   expect(errors).toEqual([]);
 });

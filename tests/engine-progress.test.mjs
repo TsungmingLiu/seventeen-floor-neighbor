@@ -111,6 +111,22 @@ test('resuming a choice-entry checkpoint does not apply its effects a second tim
   assert.deepEqual(engine.state.flags, new Set());
 });
 
+test('shared scene exit applies base state once and preserves it across Continue', () => {
+  const story = chapter({
+    start: { next: 'exit' },
+    exit: { text: '晚安。', entryEffects: { warmth: 1 }, entryFlags: ['work-known'], next: 'finish' },
+    finish: { type: 'route' }
+  });
+  const engine = engineFor(story);
+  engine.nodeId = 'exit';
+  engine.render();
+  assert.equal(engine.state.warmth, 1);
+  assert.equal(engine.progress.data.cursor.stats.warmth, 1);
+  engine.resumeGame(engine.progress.data.cursor);
+  assert.equal(engine.state.warmth, 1);
+  assert.ok(engine.state.flags.has('work-known'));
+});
+
 test('random entries restore at the selected scene with their return destination intact', () => {
   const story = chapter({
     start: { next: 'random' },
@@ -146,4 +162,52 @@ test('random entries restore at the selected scene with their return destination
   } finally {
     Math.random = originalRandom;
   }
+});
+
+
+test('pure choice nodes render choices without an empty dialogue panel', () => {
+  const story = chapter({
+    start: {
+      choices: [{ text: '回答她', next: 'after' }]
+    },
+    after: { text: '繼續', next: 'finish' },
+    finish: { type: 'route' }
+  });
+  const engine = engineFor(story);
+  engine.nodeId = 'start';
+  engine.render();
+
+  assert.equal(engine.els.dialoguePanel.classList.values.has('is-hidden'), true);
+  assert.equal(engine.els.choices.classList.values.has('is-hidden'), false);
+  assert.equal(engine.els.choices.children.length, 1);
+  assert.equal(engine.els.speaker.textContent, '');
+  assert.equal(engine.els.stage.dataset.presentation, 'choice');
+});
+
+test('captioned choice nodes finish the caption before switching to exclusive choice mode', () => {
+  const story = chapter({
+    start: {
+      speaker: '旁白',
+      text: '她停下來，看著我。',
+      choices: [{ text: '開口', next: 'after' }]
+    },
+    after: { text: '繼續', next: 'finish' },
+    finish: { type: 'route' }
+  });
+  const engine = engineFor(story);
+  engine.nodeId = 'start';
+  engine.render();
+  engine.revealText();
+
+  assert.equal(engine.awaitingChoiceReveal, true);
+  assert.equal(engine.els.dialoguePanel.classList.values.has('is-hidden'), false);
+  assert.equal(engine.els.choices.classList.values.has('is-hidden'), true);
+  assert.equal(engine.els.stage.dataset.presentation, 'narration');
+
+  engine.advance();
+
+  assert.equal(engine.awaitingChoiceReveal, false);
+  assert.equal(engine.els.dialoguePanel.classList.values.has('is-hidden'), true);
+  assert.equal(engine.els.choices.classList.values.has('is-hidden'), false);
+  assert.equal(engine.els.stage.dataset.presentation, 'choice');
 });

@@ -220,8 +220,6 @@
       "next": "common_elevator_restart_choice"
     },
     "common_elevator_restart_choice": {
-      "speaker": "你",
-      "text": "",
       "chapter": 1,
       "visual": {
         "mode": "cg",
@@ -374,8 +372,6 @@
       "next": "common_acg_first_meet_choice"
     },
     "common_acg_first_meet_choice": {
-      "speaker": "你",
-      "text": "",
       "chapter": 2,
       "visual": {
         "mode": "cg",
@@ -496,7 +492,7 @@
         "background": "bg.opening.ch1.acg_shop",
         "sprites": []
       },
-      "next": "opening_demo_complete"
+      "next": "common_convenience_xu_enter"
     },
     "opening_demo_complete": {
       "type": "route"
@@ -562,8 +558,6 @@
       "next": "common_bookstore_bridge_choice"
     },
     "common_bookstore_bridge_choice": {
-      "speaker": "你",
-      "text": "",
       "chapter": 1,
       "visual": {
         "mode": "cg",
@@ -746,6 +740,949 @@
         "asset": "cg.opening-ch1.com01b.04"
       },
       "next": "common_acg_first_meet_enter"
+    },
+    "common_convenience_xu_enter": {
+      "speaker": "旁白",
+      "text": "晚上十一點多，家裡冰箱剩下的東西都需要動腦處理。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_enter_02"
+    },
+    "common_convenience_xu_enter_02": {
+      "speaker": "旁白",
+      "text": "我站在冷藏櫃前看了幾秒，最後拿了一盒寫著加熱四分鐘的。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_enter_03"
+    },
+    "common_convenience_xu_enter_03": {
+      "speaker": "許棠",
+      "text": "[PLAYER_NAME]？",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_recognize"
+    },
+    "common_convenience_xu_recognize": {
+      "speaker": "旁白",
+      "text": "男主轉身。許棠一手拿黑咖啡，另一手提著簡單餐盒。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_recognize_02"
+    },
+    "common_convenience_xu_recognize_02": {
+      "speaker": "你",
+      "text": "欸。嗨。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_recognize_03"
+    },
+    "common_convenience_xu_recognize_03": {
+      "speaker": "許棠",
+      "text": "你也還沒吃？",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_recognize_04"
+    },
+    "common_convenience_xu_recognize_04": {
+      "speaker": "你",
+      "text": "嗯。剛弄完事情。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_recognize_05"
+    },
+    "common_convenience_xu_recognize_05": {
+      "speaker": "許棠",
+      "text": "喔。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_recognize_06"
+    },
+    "common_convenience_xu_recognize_06": {
+      "speaker": "旁白",
+      "text": "她低頭看了一眼男主手上的餐盒，又看看自己那盒。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_recognize_07"
+    },
+    "common_convenience_xu_recognize_07": {
+      "speaker": "你",
+      "text": "妳也是？",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_recognize_08"
+    },
+    "common_convenience_xu_recognize_08": {
+      "speaker": "許棠",
+      "text": "嗯。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_recognize_09"
+    },
+    "common_convenience_xu_recognize_09": {
+      "speaker": "旁白",
+      "text": "兩人中間空了半秒。冷藏櫃壓縮機重新響起來。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_recognize_10"
+    },
+    "common_convenience_xu_recognize_10": {
+      "speaker": "許棠",
+      "text": "你那個也要微波？",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_recognize_11"
+    },
+    "common_convenience_xu_recognize_11": {
+      "speaker": "你",
+      "text": "對。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_recognize_12"
+    },
+    "common_convenience_xu_recognize_12": {
+      "speaker": "許棠",
+      "text": "喔。那差不多。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_choice"
+    },
+    "common_convenience_xu_ask_food": {
+      "speaker": "你",
+      "text": "附近這個時間，還有別的店開著嗎？",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_ask_food_02"
+    },
+    "common_convenience_xu_ask_food_02": {
+      "speaker": "許棠",
+      "text": "這個點喔……",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_ask_food_03"
+    },
+    "common_convenience_xu_ask_food_03": {
+      "speaker": "旁白",
+      "text": "她往玻璃門外看了一眼。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_ask_food_04"
+    },
+    "common_convenience_xu_ask_food_04": {
+      "speaker": "許棠",
+      "text": "有一間。你等一下出去會看到。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_ask_food_05"
+    },
+    "common_convenience_xu_ask_food_05": {
+      "speaker": "你",
+      "text": "好。我搬來之後還沒搞清楚這附近晚上剩什麼。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_ask_food_06"
+    },
+    "common_convenience_xu_ask_food_06": {
+      "speaker": "許棠",
+      "text": "嗯。白天看不出來。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_ask_food_07"
+    },
+    "common_convenience_xu_ask_food_07": {
+      "speaker": "你",
+      "text": "也是。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_work"
+    },
+    "common_convenience_xu_share_work": {
+      "speaker": "你",
+      "text": "我也剛收工。現在能微波就算有煮了。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_share_work_02"
+    },
+    "common_convenience_xu_share_work_02": {
+      "speaker": "許棠",
+      "text": "嗯。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_share_work_03"
+    },
+    "common_convenience_xu_share_work_03": {
+      "speaker": "旁白",
+      "text": "她點了一下頭，視線又回到手裡的餐盒。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_share_work_04"
+    },
+    "common_convenience_xu_share_work_04": {
+      "speaker": "許棠",
+      "text": "那你今天也拖很晚。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_share_work_05"
+    },
+    "common_convenience_xu_share_work_05": {
+      "speaker": "你",
+      "text": "對。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_share_work_06"
+    },
+    "common_convenience_xu_share_work_06": {
+      "speaker": "許棠",
+      "text": "喔。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_work"
+    },
+    "common_convenience_xu_tease_same": {
+      "speaker": "你",
+      "text": "妳那盒至少比我這個像一餐。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_tease_same_02"
+    },
+    "common_convenience_xu_tease_same_02": {
+      "speaker": "許棠",
+      "text": "哪裡？",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_tease_same_03"
+    },
+    "common_convenience_xu_tease_same_03": {
+      "speaker": "你",
+      "text": "有綠色的。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_tease_same_04"
+    },
+    "common_convenience_xu_tease_same_04": {
+      "speaker": "旁白",
+      "text": "許棠低頭看了一眼透明盒蓋。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_tease_same_05"
+    },
+    "common_convenience_xu_tease_same_05": {
+      "speaker": "許棠",
+      "text": "那是蔥。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_tease_same_06"
+    },
+    "common_convenience_xu_tease_same_06": {
+      "speaker": "你",
+      "text": "……喔。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_tease_same_07"
+    },
+    "common_convenience_xu_tease_same_07": {
+      "speaker": "旁白",
+      "text": "她嘴角動了一下，沒有再接。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_work"
+    },
+    "common_convenience_xu_tell_eat_better": {
+      "speaker": "你",
+      "text": "妳如果常常都拖到這麼晚才吃，還是要注意一下吧。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_tell_eat_better_02"
+    },
+    "common_convenience_xu_tell_eat_better_02": {
+      "speaker": "許棠",
+      "text": "沒有常常。今天而已。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_tell_eat_better_03"
+    },
+    "common_convenience_xu_tell_eat_better_03": {
+      "speaker": "你",
+      "text": "喔。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_tell_eat_better_04"
+    },
+    "common_convenience_xu_tell_eat_better_04": {
+      "speaker": "旁白",
+      "text": "許棠把咖啡換到另一隻手，往旁邊讓了一點，給要拿商品的人過。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_tell_eat_better_05"
+    },
+    "common_convenience_xu_tell_eat_better_05": {
+      "speaker": "你",
+      "text": "……嗯，當我沒說。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_tell_eat_better_06"
+    },
+    "common_convenience_xu_tell_eat_better_06": {
+      "speaker": "許棠",
+      "text": "嗯。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_tell_eat_better_07"
+    },
+    "common_convenience_xu_tell_eat_better_07": {
+      "speaker": "旁白",
+      "text": "兩人各自看了幾秒架上的東西。這句話就停在那裡。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_work"
+    },
+    "common_convenience_xu_work": {
+      "speaker": "旁白",
+      "text": "結帳區的微波爐開始運轉。兩人往前挪了幾步，先後排到櫃檯旁邊。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_work_02"
+    },
+    "common_convenience_xu_work_02": {
+      "speaker": "許棠",
+      "text": "你剛剛說弄完事情，是工作？",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_work_03"
+    },
+    "common_convenience_xu_work_03": {
+      "speaker": "你",
+      "text": "嗯。做軟體的，今晚有東西要上線，弄到剛剛。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_work_04"
+    },
+    "common_convenience_xu_work_04": {
+      "speaker": "許棠",
+      "text": "喔，辛苦。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_work_05"
+    },
+    "common_convenience_xu_work_05": {
+      "speaker": "你",
+      "text": "還好啦。我大部分時間在家工作，省掉通勤。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_work_06"
+    },
+    "common_convenience_xu_work_06": {
+      "speaker": "旁白",
+      "text": "微波爐還有一分多鐘。兩人都看著轉盤轉了一圈，沒有立刻接話。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_work_07"
+    },
+    "common_convenience_xu_work_07": {
+      "speaker": "許棠",
+      "text": "我還沒弄完。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_work_08"
+    },
+    "common_convenience_xu_work_08": {
+      "speaker": "你",
+      "text": "啊。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_work_09"
+    },
+    "common_convenience_xu_work_09": {
+      "speaker": "許棠",
+      "text": "客戶明早要看最後一版。過了就送印。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_work_10"
+    },
+    "common_convenience_xu_work_10": {
+      "speaker": "你",
+      "text": "妳做印刷的？",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_work_11"
+    },
+    "common_convenience_xu_work_11": {
+      "speaker": "許棠",
+      "text": "不是。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_work_12"
+    },
+    "common_convenience_xu_work_12": {
+      "speaker": "旁白",
+      "text": "她搖了一下頭。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_work_13"
+    },
+    "common_convenience_xu_work_13": {
+      "speaker": "許棠",
+      "text": "視覺設計。自己接案。這個案子剛好要印。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_work_14"
+    },
+    "common_convenience_xu_work_14": {
+      "speaker": "你",
+      "text": "喔，懂了。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_work_15"
+    },
+    "common_convenience_xu_work_15": {
+      "speaker": "許棠",
+      "text": "嗯。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_work_16"
+    },
+    "common_convenience_xu_work_16": {
+      "speaker": "旁白",
+      "text": "微波爐提示音響起。許棠抬頭看了一眼。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_work_17"
+    },
+    "common_convenience_xu_work_17": {
+      "speaker": "許棠",
+      "text": "我的好了。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_checkout"
+    },
+    "common_convenience_xu_checkout": {
+      "speaker": "旁白",
+      "text": "許棠先拿回自己的餐盒，和咖啡一起結帳。男主還在等自己的加熱完成；等他走出店門時，她正站在騎樓邊把收據塞進袋子。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_checkout_02"
+    },
+    "common_convenience_xu_checkout_02": {
+      "speaker": "旁白",
+      "text": "兩人往同一個方向走。路口還有剛下過雨的水光，前半段誰也沒有特地找話。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_checkout_03"
+    },
+    "common_convenience_xu_checkout_03": {
+      "speaker": "許棠",
+      "text": "對了。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_checkout_04"
+    },
+    "common_convenience_xu_checkout_04": {
+      "speaker": "旁白",
+      "text": "走到巷口，她朝右邊還亮著燈的店面抬了抬下巴。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_checkout_05"
+    },
+    "common_convenience_xu_checkout_05": {
+      "speaker": "許棠",
+      "text": "那間粥店開到十二點。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_checkout_06"
+    },
+    "common_convenience_xu_checkout_06": {
+      "speaker": "你",
+      "text": "哪間？",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_checkout_07"
+    },
+    "common_convenience_xu_checkout_07": {
+      "speaker": "許棠",
+      "text": "白色招牌那間。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_checkout_08"
+    },
+    "common_convenience_xu_checkout_08": {
+      "speaker": "你",
+      "text": "喔。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_checkout_09"
+    },
+    "common_convenience_xu_checkout_09": {
+      "speaker": "許棠",
+      "text": "週三休。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_checkout_10"
+    },
+    "common_convenience_xu_checkout_10": {
+      "speaker": "你",
+      "text": "妳怎麼記那麼清楚？",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_checkout_11"
+    },
+    "common_convenience_xu_checkout_11": {
+      "speaker": "許棠",
+      "text": "因為我上次週三走過去。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_checkout_12"
+    },
+    "common_convenience_xu_checkout_12": {
+      "speaker": "你",
+      "text": "……好，這種會記得。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_checkout_13"
+    },
+    "common_convenience_xu_checkout_13": {
+      "speaker": "許棠",
+      "text": "嗯。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_checkout_14"
+    },
+    "common_convenience_xu_checkout_14": {
+      "speaker": "旁白",
+      "text": "過了路口後，兩人又安靜了一小段。許棠沒有往粥店轉，繼續往公寓方向走。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_exit"
+    },
+    "common_convenience_xu_exit": {
+      "speaker": "旁白",
+      "text": "進大樓後，兩人一起搭電梯上 17 樓。這次一路正常，沒有人特地把沉默填滿。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_exit_02"
+    },
+    "common_convenience_xu_exit_02": {
+      "speaker": "旁白",
+      "text": "電梯門打開。許棠走到 1702 前，從袋子裡摸出鑰匙。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_exit_03"
+    },
+    "common_convenience_xu_exit_03": {
+      "speaker": "許棠",
+      "text": "我先進去了。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_exit_04"
+    },
+    "common_convenience_xu_exit_04": {
+      "speaker": "你",
+      "text": "嗯。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_exit_05"
+    },
+    "common_convenience_xu_exit_05": {
+      "speaker": "許棠",
+      "text": "還有兩版。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_exit_06"
+    },
+    "common_convenience_xu_exit_06": {
+      "speaker": "你",
+      "text": "好。晚安。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_exit_07"
+    },
+    "common_convenience_xu_exit_07": {
+      "speaker": "許棠",
+      "text": "晚安。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_convenience_xu_exit_08"
+    },
+    "common_convenience_xu_exit_08": {
+      "speaker": "旁白",
+      "text": "她進 1702。男主繼續往 1703 走。",
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "opening_demo_complete",
+      "entryEffects": {
+        "F_XT": 1
+      },
+      "entryFlags": [
+        "player_knows_xu_freelance_creative_work",
+        "xu_knows_player_remote_tech_work"
+      ]
+    },
+    "common_convenience_xu_choice": {
+      "chapter": 3,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "choices": [
+        {
+          "id": "com02x_ask_food",
+          "text": "附近這個時間，還有別的店開著嗎？",
+          "next": "common_convenience_xu_ask_food",
+          "effects": {
+            "F_XT": 1,
+            "mc_tone_practical": 1
+          }
+        },
+        {
+          "id": "com02x_share_work",
+          "text": "我也剛收工。現在能微波就算有煮了。",
+          "next": "common_convenience_xu_share_work",
+          "effects": {
+            "T_XT": 1,
+            "mc_tone_humorous": 1
+          }
+        },
+        {
+          "id": "com02x_tease_same",
+          "text": "妳那盒至少比我這個像一餐。",
+          "next": "common_convenience_xu_tease_same",
+          "effects": {
+            "C_XT": 1
+          }
+        },
+        {
+          "id": "com02x_tell_eat_better",
+          "text": "妳如果常常都拖到這麼晚才吃，還是要注意一下吧。",
+          "next": "common_convenience_xu_tell_eat_better",
+          "effects": {
+            "K_XT": -1,
+            "xt_advice_tendency": 1
+          }
+        }
+      ]
     }
   }
 }
