@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.1.0",
+  "schema_version": "1.2.0",
   "policy_path": "docs/narrative/DIALOGUE_CALIBRATION.md",
   "examples": [
     {
@@ -13,48 +13,14 @@
               "character_id": "xu_tang",
               "role": "neighbor and dialogue speaker"
             },
-            "certainty": "confirmed",
-            "evidence": [
-              {
-                "source_type": "normalized_human_message_snapshot",
-                "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
-                "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
-                "line_start": 9,
-                "line_end": 27
-              },
-              {
-                "repository": "TsungmingLiu/seventeen-floor-neighbor",
-                "path": "content/production/narrative/opening-ch1/COM-02X.json",
-                "commit": "9b0066ff7240c918c87cb8d5ab38affef44cddb4",
-                "git_blob_sha": "5f85482b7c420a5f7726035e369679360f83cfd5",
-                "sha256": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952",
-                "json_pointer": "/character_intent/1"
-              }
-            ]
+            "certainty": "confirmed"
           },
           {
             "value": {
               "character_id": "protagonist",
               "role": "player first-person narrator and dialogue speaker"
             },
-            "certainty": "confirmed",
-            "evidence": [
-              {
-                "source_type": "normalized_human_message_snapshot",
-                "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
-                "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
-                "line_start": 9,
-                "line_end": 27
-              },
-              {
-                "repository": "TsungmingLiu/seventeen-floor-neighbor",
-                "path": "content/production/narrative/opening-ch1/COM-02X.json",
-                "commit": "9b0066ff7240c918c87cb8d5ab38affef44cddb4",
-                "git_blob_sha": "5f85482b7c420a5f7726035e369679360f83cfd5",
-                "sha256": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952",
-                "json_pointer": "/character_intent/0"
-              }
-            ]
+            "certainty": "confirmed"
           }
         ],
         "prior_events": {
@@ -63,34 +29,7 @@
             "Both know the other’s residence and have earlier everyday greetings.",
             "Week 2 weekday about 23:00; encounter is in the convenience store within walking distance of the apartment."
           ],
-          "certainty": "confirmed",
-          "evidence": [
-            {
-              "repository": "TsungmingLiu/seventeen-floor-neighbor",
-              "path": "docs/narrative/scenes/vertical-slice/COM-02X.md",
-              "commit": "9b0066ff7240c918c87cb8d5ab38affef44cddb4",
-              "git_blob_sha": "938edf40f2f34a9faee054971f72747e213c73ee",
-              "sha256": "46d1566ec766adbefbfc2fc93964ee84cf70eca81078f6d35f589e65ddf579c6",
-              "line_start": 13,
-              "line_end": 13
-            },
-            {
-              "repository": "TsungmingLiu/seventeen-floor-neighbor",
-              "path": "content/production/narrative/opening-ch1/COM-02X.json",
-              "commit": "9b0066ff7240c918c87cb8d5ab38affef44cddb4",
-              "git_blob_sha": "5f85482b7c420a5f7726035e369679360f83cfd5",
-              "sha256": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952",
-              "json_pointer": "/entry_state/relationships"
-            },
-            {
-              "repository": "TsungmingLiu/seventeen-floor-neighbor",
-              "path": "content/production/narrative/opening-ch1/COM-02X.json",
-              "commit": "9b0066ff7240c918c87cb8d5ab38affef44cddb4",
-              "git_blob_sha": "5f85482b7c420a5f7726035e369679360f83cfd5",
-              "sha256": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952",
-              "json_pointer": "/entry_state/constraints/0"
-            }
-          ]
+          "certainty": "confirmed"
         },
         "knowledge": [
           {
@@ -108,24 +47,7 @@
               "during_excerpt": "Meal-box and not-yet-eaten information is exchanged only as spoken; no work disclosure.",
               "after_excerpt": "No occupation or contact-information disclosure in this passage."
             },
-            "certainty": "confirmed",
-            "evidence": [
-              {
-                "repository": "TsungmingLiu/seventeen-floor-neighbor",
-                "path": "content/production/narrative/opening-ch1/COM-02X.json",
-                "commit": "9b0066ff7240c918c87cb8d5ab38affef44cddb4",
-                "git_blob_sha": "5f85482b7c420a5f7726035e369679360f83cfd5",
-                "sha256": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952",
-                "json_pointer": "/entry_state/knowledge/0"
-              },
-              {
-                "source_type": "normalized_human_message_snapshot",
-                "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
-                "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
-                "line_start": 9,
-                "line_end": 27
-              }
-            ]
+            "certainty": "confirmed"
           },
           {
             "value": {
@@ -142,24 +64,7 @@
               "during_excerpt": "Meal-box and not-yet-eaten information is exchanged only as spoken; no work disclosure.",
               "after_excerpt": "No occupation or contact-information disclosure in this passage."
             },
-            "certainty": "confirmed",
-            "evidence": [
-              {
-                "repository": "TsungmingLiu/seventeen-floor-neighbor",
-                "path": "content/production/narrative/opening-ch1/COM-02X.json",
-                "commit": "9b0066ff7240c918c87cb8d5ab38affef44cddb4",
-                "git_blob_sha": "5f85482b7c420a5f7726035e369679360f83cfd5",
-                "sha256": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952",
-                "json_pointer": "/entry_state/knowledge/1"
-              },
-              {
-                "source_type": "normalized_human_message_snapshot",
-                "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
-                "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
-                "line_start": 9,
-                "line_end": 27
-              }
-            ]
+            "certainty": "confirmed"
           }
         ],
         "familiarity": [
@@ -168,24 +73,7 @@
             "toward": "protagonist",
             "label": {
               "value": "familiar_neighbors_with_boundaries",
-              "certainty": "confirmed",
-              "evidence": [
-                {
-                  "repository": "TsungmingLiu/seventeen-floor-neighbor",
-                  "path": "content/production/narrative/opening-ch1/COM-02X.json",
-                  "commit": "9b0066ff7240c918c87cb8d5ab38affef44cddb4",
-                  "git_blob_sha": "5f85482b7c420a5f7726035e369679360f83cfd5",
-                  "sha256": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952",
-                  "json_pointer": "/entry_state/relationships/0"
-                },
-                {
-                  "source_type": "normalized_human_message_snapshot",
-                  "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
-                  "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
-                  "line_start": 32,
-                  "line_end": 32
-                }
-              ]
+              "certainty": "confirmed"
             }
           },
           {
@@ -193,24 +81,7 @@
             "toward": "xu_tang",
             "label": {
               "value": "familiar_neighbors_with_boundaries",
-              "certainty": "confirmed",
-              "evidence": [
-                {
-                  "repository": "TsungmingLiu/seventeen-floor-neighbor",
-                  "path": "content/production/narrative/opening-ch1/COM-02X.json",
-                  "commit": "9b0066ff7240c918c87cb8d5ab38affef44cddb4",
-                  "git_blob_sha": "5f85482b7c420a5f7726035e369679360f83cfd5",
-                  "sha256": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952",
-                  "json_pointer": "/entry_state/relationships/1"
-                },
-                {
-                  "source_type": "normalized_human_message_snapshot",
-                  "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
-                  "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
-                  "line_start": 32,
-                  "line_end": 32
-                }
-              ]
+              "certainty": "confirmed"
             }
           }
         ],
@@ -220,20 +91,7 @@
             "toward": "protagonist",
             "label": {
               "value": null,
-              "certainty": "unknown",
-              "evidence": [
-                {
-                  "source": {
-                    "repository": "TsungmingLiu/seventeen-floor-neighbor",
-                    "path": "content/production/narrative/opening-ch1/COM-02X.json",
-                    "commit": "9b0066ff7240c918c87cb8d5ab38affef44cddb4",
-                    "git_blob_sha": "5f85482b7c420a5f7726035e369679360f83cfd5",
-                    "sha256": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952",
-                    "json_pointer": "/entry_state/relationships"
-                  },
-                  "absence": "No confirmed directional trust level in this excerpt; politeness and branch implementation statistics cannot establish trust."
-                }
-              ]
+              "certainty": "unknown"
             }
           },
           {
@@ -241,20 +99,7 @@
             "toward": "xu_tang",
             "label": {
               "value": null,
-              "certainty": "unknown",
-              "evidence": [
-                {
-                  "source": {
-                    "repository": "TsungmingLiu/seventeen-floor-neighbor",
-                    "path": "content/production/narrative/opening-ch1/COM-02X.json",
-                    "commit": "9b0066ff7240c918c87cb8d5ab38affef44cddb4",
-                    "git_blob_sha": "5f85482b7c420a5f7726035e369679360f83cfd5",
-                    "sha256": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952",
-                    "json_pointer": "/entry_state/relationships"
-                  },
-                  "absence": "No confirmed directional trust level in this excerpt; politeness and branch implementation statistics cannot establish trust."
-                }
-              ]
+              "certainty": "unknown"
             }
           }
         ],
@@ -264,20 +109,7 @@
             "toward": "protagonist",
             "label": {
               "value": null,
-              "certainty": "unknown",
-              "evidence": [
-                {
-                  "source": {
-                    "repository": "TsungmingLiu/seventeen-floor-neighbor",
-                    "path": "content/production/narrative/opening-ch1/COM-02X.json",
-                    "commit": "9b0066ff7240c918c87cb8d5ab38affef44cddb4",
-                    "git_blob_sha": "5f85482b7c420a5f7726035e369679360f83cfd5",
-                    "sha256": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952",
-                    "json_pointer": "/exit_state/constraints/2"
-                  },
-                  "absence": "Private attraction level is not established. Canonical absence of a romantic signal is a scene boundary, not evidence of a personal attraction level."
-                }
-              ]
+              "certainty": "unknown"
             }
           },
           {
@@ -285,20 +117,7 @@
             "toward": "xu_tang",
             "label": {
               "value": null,
-              "certainty": "unknown",
-              "evidence": [
-                {
-                  "source": {
-                    "repository": "TsungmingLiu/seventeen-floor-neighbor",
-                    "path": "content/production/narrative/opening-ch1/COM-02X.json",
-                    "commit": "9b0066ff7240c918c87cb8d5ab38affef44cddb4",
-                    "git_blob_sha": "5f85482b7c420a5f7726035e369679360f83cfd5",
-                    "sha256": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952",
-                    "json_pointer": "/exit_state/constraints/2"
-                  },
-                  "absence": "Private attraction level is not established. Canonical absence of a romantic signal is a scene boundary, not evidence of a personal attraction level."
-                }
-              ]
+              "certainty": "unknown"
             }
           }
         ],
@@ -307,40 +126,14 @@
             "holder": "xu_tang",
             "label": {
               "value": null,
-              "certainty": "unknown",
-              "evidence": [
-                {
-                  "source": {
-                    "repository": "TsungmingLiu/seventeen-floor-neighbor",
-                    "path": "content/production/narrative/opening-ch1/COM-02X.json",
-                    "commit": "9b0066ff7240c918c87cb8d5ab38affef44cddb4",
-                    "git_blob_sha": "5f85482b7c420a5f7726035e369679360f83cfd5",
-                    "sha256": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952",
-                    "json_pointer": "/entry_state/constraints/1"
-                  },
-                  "absence": "Actual energy at this moment is not specified; permissible fatigue and late work do not establish it."
-                }
-              ]
+              "certainty": "unknown"
             }
           },
           {
             "holder": "protagonist",
             "label": {
               "value": null,
-              "certainty": "unknown",
-              "evidence": [
-                {
-                  "source": {
-                    "repository": "TsungmingLiu/seventeen-floor-neighbor",
-                    "path": "content/production/narrative/opening-ch1/COM-02X.json",
-                    "commit": "9b0066ff7240c918c87cb8d5ab38affef44cddb4",
-                    "git_blob_sha": "5f85482b7c420a5f7726035e369679360f83cfd5",
-                    "sha256": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952",
-                    "json_pointer": "/entry_state/constraints/1"
-                  },
-                  "absence": "Actual energy at this moment is not specified; permissible fatigue and late work do not establish it."
-                }
-              ]
+              "certainty": "unknown"
             }
           }
         ],
@@ -352,25 +145,7 @@
             "position": "refrigerated meal aisle",
             "host_guest": "Neither hosts; shared public everyday space"
           },
-          "certainty": "confirmed",
-          "evidence": [
-            {
-              "repository": "TsungmingLiu/seventeen-floor-neighbor",
-              "path": "docs/narrative/scenes/vertical-slice/COM-02X.md",
-              "commit": "9b0066ff7240c918c87cb8d5ab38affef44cddb4",
-              "git_blob_sha": "938edf40f2f34a9faee054971f72747e213c73ee",
-              "sha256": "46d1566ec766adbefbfc2fc93964ee84cf70eca81078f6d35f589e65ddf579c6",
-              "line_start": 48,
-              "line_end": 50
-            },
-            {
-              "source_type": "normalized_human_message_snapshot",
-              "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
-              "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
-              "line_start": 9,
-              "line_end": 27
-            }
-          ]
+          "certainty": "confirmed"
         },
         "topic": {
           "value": {
@@ -378,16 +153,7 @@
             "activity": "Holding meal boxes and considering heating",
             "first_person_observation": "Immediate visible actions only; no assertion of Xu’s private motives"
           },
-          "certainty": "confirmed",
-          "evidence": [
-            {
-              "source_type": "normalized_human_message_snapshot",
-              "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
-              "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
-              "line_start": 9,
-              "line_end": 27
-            }
-          ]
+          "certainty": "confirmed"
         }
       },
       "interaction": [
@@ -669,62 +435,6 @@
           "hash_target": "ordered interaction.text joined with LF and one final LF, UTF-8",
           "passage_sha256": "8ba6dad2e86037e661d9f2dbd2857196f60720be97907d6f02adb9f6ec407c92"
         },
-        "approved_scope": {
-          "character_ids": [
-            "xu_tang",
-            "protagonist"
-          ],
-          "passes": [
-            "scene_dialogue",
-            "narrative_review"
-          ],
-          "formal_narrative_review_packet_injection": false,
-          "reference_scene_id": "COM-02X",
-          "relationship_boundary": "Early familiar neighbors with boundaries; mutual politeness, conversational distance and room for hesitation; no contact exchange, invitation, caretaking obligation or romantic escalation.",
-          "permitted_analogy": "Equivalent early-neighbor everyday interaction for register, response rhythm and first-person immediate observation, only where the current approved relationship and knowledge boundaries match.",
-          "knowledge_boundary": "Only each speaker’s canonically established knowledge may be used; never copy this excerpt’s facts, discovery, misunderstanding or disclosures into another scene.",
-          "energy_condition": "Personal energy is unknown and is not an eligibility condition. Do not infer exhaustion from polite or short replies.",
-          "place_topic_condition": "COM-02X everyday convenience-store food/waiting conversation; limited style analogy requires an equivalent ordinary early-neighbor context, not transplantation of refrigerator/printing events.",
-          "unknown_labels_not_selection_conditions": [
-            "trust",
-            "attraction",
-            "energy"
-          ],
-          "excluded_scope": [
-            "late relationship",
-            "other heroine voice or facts",
-            "global character canon",
-            "word bans",
-            "filler quotas",
-            "longer-is-better rules",
-            "event/fact/choice transfer"
-          ],
-          "human_scope_evidence": [
-            {
-              "source_type": "normalized_human_message_snapshot",
-              "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
-              "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
-              "line_start": 5,
-              "line_end": 5
-            },
-            {
-              "source_type": "normalized_human_message_snapshot",
-              "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
-              "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
-              "line_start": 31,
-              "line_end": 32
-            },
-            {
-              "source_type": "normalized_human_message_snapshot",
-              "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
-              "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
-              "line_start": 57,
-              "line_end": 57
-            }
-          ],
-          "scene_approval": false,
-          "occupational_clarification_condition": "Not applicable to this reference; no occupation disclosure in the excerpt."
-        },
         "decision_receipt": {
           "path": "content/production/voice/receipts/human-reference-001.json",
           "receipt_id": "HUMAN-REFERENCE-COM02X-001",
@@ -734,7 +444,8 @@
           "hash_target": "corresponding decisions item, UTF-8 canonical JSON (sorted keys, compact separators)"
         },
         "scene_approval": false,
-        "second_confirmation_required": false
+        "second_confirmation_required": false,
+        "approved_scope_ref": "/examples/0/approved_scope"
       },
       "provenance": {
         "proposal_run_id": "dialogue-calibration-pilot-20260930",
@@ -742,40 +453,6 @@
         "recording_task_id": "RECORD-HUMAN-COM02X-001",
         "generation_method": "Verbatim deterministic extraction of Human-authored replacement passage; no creative revision or polishing",
         "generation_version": "human-reference-recording-1",
-        "candidate_sources": {
-          "path": ".ai/experiments/dialogue-calibration/evidence/candidates-20260930.json",
-          "sha256": "5bd47afa159ab3f6fd9043f2926fb25eaec56fae9fd388f2d560a400b142fd46",
-          "json_pointer": "/cases/0",
-          "versions": {
-            "A": {
-              "candidate_id": "dialogue-calibration-pilot-20260930.case01.A",
-              "version": 1,
-              "version_basis": "Frozen originally displayed candidate; source has no standalone version field. Version 1 binds this immutable snapshot only.",
-              "variant": "A",
-              "sha256": "ab5044624e0b487d9777b08652949d82186f7012a55947a94d9457bdbb831675",
-              "hash_format": "UTF-8 canonical JSON: ensure_ascii=false, sort_keys=true, compact separators",
-              "container": {
-                "path": ".ai/experiments/dialogue-calibration/evidence/candidates-20260930.json",
-                "sha256": "5bd47afa159ab3f6fd9043f2926fb25eaec56fae9fd388f2d560a400b142fd46",
-                "json_pointer": "/cases/0/A"
-              }
-            },
-            "B": {
-              "candidate_id": "dialogue-calibration-pilot-20260930.case01.B",
-              "version": 1,
-              "version_basis": "Frozen originally displayed candidate; source has no standalone version field. Version 1 binds this immutable snapshot only.",
-              "variant": "B",
-              "sha256": "93f9cf8eca18380a9e4b467cfbbba1b2b0e81a4a59044d47bf4df71d3e6781b9",
-              "hash_format": "UTF-8 canonical JSON: ensure_ascii=false, sort_keys=true, compact separators",
-              "container": {
-                "path": ".ai/experiments/dialogue-calibration/evidence/candidates-20260930.json",
-                "sha256": "5bd47afa159ab3f6fd9043f2926fb25eaec56fae9fd388f2d560a400b142fd46",
-                "json_pointer": "/cases/0/B"
-              }
-            }
-          },
-          "production_worker_may_follow_pointer": false
-        },
         "curator": "Codex bounded engineering/data-recording worker",
         "approval_binding": {
           "path": "content/production/voice/receipts/human-reference-001.json",
@@ -793,6 +470,17 @@
           "sha256": "850d0bf6a476a110350817e2de12c5f6a5d01b50be7ee5960fca01195711259c"
         },
         "recorded_at": "2026-09-30T13:36:26Z"
+      },
+      "storage_projection": {
+        "source": {
+          "ref": "15f8383220d13a4530cfa4141bbda01cfeac08af",
+          "path": "content/production/voice/approved-examples.json",
+          "git_blob_sha": "d152d72c15ba1160bcdec625d36539739f58dee1",
+          "sha256": "f63005e9aa8d1ae9c7b3726b2337d9a0a8b75508f9ad4cb11e0abb65ad14b4d1"
+        },
+        "entry_pointer": "/examples/0",
+        "projection": "storage-only; reconstructable complete entry at the pinned source",
+        "schema_version": "1.2.0"
       }
     },
     {
@@ -806,48 +494,14 @@
               "character_id": "xu_tang",
               "role": "neighbor and dialogue speaker"
             },
-            "certainty": "confirmed",
-            "evidence": [
-              {
-                "source_type": "normalized_human_message_snapshot",
-                "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
-                "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
-                "line_start": 38,
-                "line_end": 54
-              },
-              {
-                "repository": "TsungmingLiu/seventeen-floor-neighbor",
-                "path": "content/production/narrative/opening-ch1/COM-02X.json",
-                "commit": "9b0066ff7240c918c87cb8d5ab38affef44cddb4",
-                "git_blob_sha": "5f85482b7c420a5f7726035e369679360f83cfd5",
-                "sha256": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952",
-                "json_pointer": "/character_intent/1"
-              }
-            ]
+            "certainty": "confirmed"
           },
           {
             "value": {
               "character_id": "protagonist",
               "role": "player first-person narrator and dialogue speaker"
             },
-            "certainty": "confirmed",
-            "evidence": [
-              {
-                "source_type": "normalized_human_message_snapshot",
-                "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
-                "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
-                "line_start": 38,
-                "line_end": 54
-              },
-              {
-                "repository": "TsungmingLiu/seventeen-floor-neighbor",
-                "path": "content/production/narrative/opening-ch1/COM-02X.json",
-                "commit": "9b0066ff7240c918c87cb8d5ab38affef44cddb4",
-                "git_blob_sha": "5f85482b7c420a5f7726035e369679360f83cfd5",
-                "sha256": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952",
-                "json_pointer": "/character_intent/0"
-              }
-            ]
+            "certainty": "confirmed"
           }
         ],
         "prior_events": {
@@ -856,34 +510,7 @@
             "Both know the other’s residence and have earlier everyday greetings.",
             "Week 2 weekday about 23:00; encounter is in the convenience store within walking distance of the apartment."
           ],
-          "certainty": "confirmed",
-          "evidence": [
-            {
-              "repository": "TsungmingLiu/seventeen-floor-neighbor",
-              "path": "docs/narrative/scenes/vertical-slice/COM-02X.md",
-              "commit": "9b0066ff7240c918c87cb8d5ab38affef44cddb4",
-              "git_blob_sha": "938edf40f2f34a9faee054971f72747e213c73ee",
-              "sha256": "46d1566ec766adbefbfc2fc93964ee84cf70eca81078f6d35f589e65ddf579c6",
-              "line_start": 13,
-              "line_end": 13
-            },
-            {
-              "repository": "TsungmingLiu/seventeen-floor-neighbor",
-              "path": "content/production/narrative/opening-ch1/COM-02X.json",
-              "commit": "9b0066ff7240c918c87cb8d5ab38affef44cddb4",
-              "git_blob_sha": "5f85482b7c420a5f7726035e369679360f83cfd5",
-              "sha256": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952",
-              "json_pointer": "/entry_state/relationships"
-            },
-            {
-              "repository": "TsungmingLiu/seventeen-floor-neighbor",
-              "path": "content/production/narrative/opening-ch1/COM-02X.json",
-              "commit": "9b0066ff7240c918c87cb8d5ab38affef44cddb4",
-              "git_blob_sha": "5f85482b7c420a5f7726035e369679360f83cfd5",
-              "sha256": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952",
-              "json_pointer": "/entry_state/constraints/0"
-            }
-          ]
+          "certainty": "confirmed"
         },
         "knowledge": [
           {
@@ -901,41 +528,7 @@
               "during_excerpt": "Xu speaks about her own deadline and work; her account is the disclosure source, not player foreknowledge.",
               "after_excerpt": "No additional player biography established by this passage."
             },
-            "certainty": "confirmed",
-            "evidence": [
-              {
-                "repository": "TsungmingLiu/seventeen-floor-neighbor",
-                "path": "content/production/narrative/opening-ch1/COM-02X.json",
-                "commit": "9b0066ff7240c918c87cb8d5ab38affef44cddb4",
-                "git_blob_sha": "5f85482b7c420a5f7726035e369679360f83cfd5",
-                "sha256": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952",
-                "json_pointer": "/entry_state/knowledge/0"
-              },
-              {
-                "source_type": "normalized_human_message_snapshot",
-                "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
-                "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
-                "line_start": 38,
-                "line_end": 54
-              },
-              {
-                "repository": "TsungmingLiu/seventeen-floor-neighbor",
-                "path": "docs/narrative/scenes/vertical-slice/COM-02X.md",
-                "commit": "9b0066ff7240c918c87cb8d5ab38affef44cddb4",
-                "git_blob_sha": "938edf40f2f34a9faee054971f72747e213c73ee",
-                "sha256": "46d1566ec766adbefbfc2fc93964ee84cf70eca81078f6d35f589e65ddf579c6",
-                "line_start": 207,
-                "line_end": 225
-              },
-              {
-                "repository": "TsungmingLiu/seventeen-floor-neighbor",
-                "path": "content/production/narrative/opening-ch1/COM-02X.json",
-                "commit": "9b0066ff7240c918c87cb8d5ab38affef44cddb4",
-                "git_blob_sha": "5f85482b7c420a5f7726035e369679360f83cfd5",
-                "sha256": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952",
-                "json_pointer": "/player_information_gain"
-              }
-            ]
+            "certainty": "confirmed"
           },
           {
             "value": {
@@ -964,41 +557,7 @@
                 ]
               }
             },
-            "certainty": "confirmed",
-            "evidence": [
-              {
-                "repository": "TsungmingLiu/seventeen-floor-neighbor",
-                "path": "content/production/narrative/opening-ch1/COM-02X.json",
-                "commit": "9b0066ff7240c918c87cb8d5ab38affef44cddb4",
-                "git_blob_sha": "5f85482b7c420a5f7726035e369679360f83cfd5",
-                "sha256": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952",
-                "json_pointer": "/entry_state/knowledge/1"
-              },
-              {
-                "source_type": "normalized_human_message_snapshot",
-                "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
-                "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
-                "line_start": 38,
-                "line_end": 54
-              },
-              {
-                "repository": "TsungmingLiu/seventeen-floor-neighbor",
-                "path": "docs/narrative/scenes/vertical-slice/COM-02X.md",
-                "commit": "9b0066ff7240c918c87cb8d5ab38affef44cddb4",
-                "git_blob_sha": "938edf40f2f34a9faee054971f72747e213c73ee",
-                "sha256": "46d1566ec766adbefbfc2fc93964ee84cf70eca81078f6d35f589e65ddf579c6",
-                "line_start": 207,
-                "line_end": 225
-              },
-              {
-                "repository": "TsungmingLiu/seventeen-floor-neighbor",
-                "path": "content/production/narrative/opening-ch1/COM-02X.json",
-                "commit": "9b0066ff7240c918c87cb8d5ab38affef44cddb4",
-                "git_blob_sha": "5f85482b7c420a5f7726035e369679360f83cfd5",
-                "sha256": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952",
-                "json_pointer": "/player_information_gain"
-              }
-            ]
+            "certainty": "confirmed"
           }
         ],
         "familiarity": [
@@ -1007,24 +566,7 @@
             "toward": "protagonist",
             "label": {
               "value": "familiar_neighbors_with_boundaries",
-              "certainty": "confirmed",
-              "evidence": [
-                {
-                  "repository": "TsungmingLiu/seventeen-floor-neighbor",
-                  "path": "content/production/narrative/opening-ch1/COM-02X.json",
-                  "commit": "9b0066ff7240c918c87cb8d5ab38affef44cddb4",
-                  "git_blob_sha": "5f85482b7c420a5f7726035e369679360f83cfd5",
-                  "sha256": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952",
-                  "json_pointer": "/entry_state/relationships/0"
-                },
-                {
-                  "source_type": "normalized_human_message_snapshot",
-                  "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
-                  "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
-                  "line_start": 32,
-                  "line_end": 32
-                }
-              ]
+              "certainty": "confirmed"
             }
           },
           {
@@ -1032,24 +574,7 @@
             "toward": "xu_tang",
             "label": {
               "value": "familiar_neighbors_with_boundaries",
-              "certainty": "confirmed",
-              "evidence": [
-                {
-                  "repository": "TsungmingLiu/seventeen-floor-neighbor",
-                  "path": "content/production/narrative/opening-ch1/COM-02X.json",
-                  "commit": "9b0066ff7240c918c87cb8d5ab38affef44cddb4",
-                  "git_blob_sha": "5f85482b7c420a5f7726035e369679360f83cfd5",
-                  "sha256": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952",
-                  "json_pointer": "/entry_state/relationships/1"
-                },
-                {
-                  "source_type": "normalized_human_message_snapshot",
-                  "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
-                  "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
-                  "line_start": 32,
-                  "line_end": 32
-                }
-              ]
+              "certainty": "confirmed"
             }
           }
         ],
@@ -1059,20 +584,7 @@
             "toward": "protagonist",
             "label": {
               "value": null,
-              "certainty": "unknown",
-              "evidence": [
-                {
-                  "source": {
-                    "repository": "TsungmingLiu/seventeen-floor-neighbor",
-                    "path": "content/production/narrative/opening-ch1/COM-02X.json",
-                    "commit": "9b0066ff7240c918c87cb8d5ab38affef44cddb4",
-                    "git_blob_sha": "5f85482b7c420a5f7726035e369679360f83cfd5",
-                    "sha256": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952",
-                    "json_pointer": "/entry_state/relationships"
-                  },
-                  "absence": "No confirmed directional trust level in this excerpt; politeness and branch implementation statistics cannot establish trust."
-                }
-              ]
+              "certainty": "unknown"
             }
           },
           {
@@ -1080,20 +592,7 @@
             "toward": "xu_tang",
             "label": {
               "value": null,
-              "certainty": "unknown",
-              "evidence": [
-                {
-                  "source": {
-                    "repository": "TsungmingLiu/seventeen-floor-neighbor",
-                    "path": "content/production/narrative/opening-ch1/COM-02X.json",
-                    "commit": "9b0066ff7240c918c87cb8d5ab38affef44cddb4",
-                    "git_blob_sha": "5f85482b7c420a5f7726035e369679360f83cfd5",
-                    "sha256": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952",
-                    "json_pointer": "/entry_state/relationships"
-                  },
-                  "absence": "No confirmed directional trust level in this excerpt; politeness and branch implementation statistics cannot establish trust."
-                }
-              ]
+              "certainty": "unknown"
             }
           }
         ],
@@ -1103,20 +602,7 @@
             "toward": "protagonist",
             "label": {
               "value": null,
-              "certainty": "unknown",
-              "evidence": [
-                {
-                  "source": {
-                    "repository": "TsungmingLiu/seventeen-floor-neighbor",
-                    "path": "content/production/narrative/opening-ch1/COM-02X.json",
-                    "commit": "9b0066ff7240c918c87cb8d5ab38affef44cddb4",
-                    "git_blob_sha": "5f85482b7c420a5f7726035e369679360f83cfd5",
-                    "sha256": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952",
-                    "json_pointer": "/exit_state/constraints/2"
-                  },
-                  "absence": "Private attraction level is not established. Canonical absence of a romantic signal is a scene boundary, not evidence of a personal attraction level."
-                }
-              ]
+              "certainty": "unknown"
             }
           },
           {
@@ -1124,20 +610,7 @@
             "toward": "xu_tang",
             "label": {
               "value": null,
-              "certainty": "unknown",
-              "evidence": [
-                {
-                  "source": {
-                    "repository": "TsungmingLiu/seventeen-floor-neighbor",
-                    "path": "content/production/narrative/opening-ch1/COM-02X.json",
-                    "commit": "9b0066ff7240c918c87cb8d5ab38affef44cddb4",
-                    "git_blob_sha": "5f85482b7c420a5f7726035e369679360f83cfd5",
-                    "sha256": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952",
-                    "json_pointer": "/exit_state/constraints/2"
-                  },
-                  "absence": "Private attraction level is not established. Canonical absence of a romantic signal is a scene boundary, not evidence of a personal attraction level."
-                }
-              ]
+              "certainty": "unknown"
             }
           }
         ],
@@ -1146,40 +619,14 @@
             "holder": "xu_tang",
             "label": {
               "value": null,
-              "certainty": "unknown",
-              "evidence": [
-                {
-                  "source": {
-                    "repository": "TsungmingLiu/seventeen-floor-neighbor",
-                    "path": "content/production/narrative/opening-ch1/COM-02X.json",
-                    "commit": "9b0066ff7240c918c87cb8d5ab38affef44cddb4",
-                    "git_blob_sha": "5f85482b7c420a5f7726035e369679360f83cfd5",
-                    "sha256": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952",
-                    "json_pointer": "/entry_state/constraints/1"
-                  },
-                  "absence": "Actual energy at this moment is not specified; permissible fatigue and late work do not establish it."
-                }
-              ]
+              "certainty": "unknown"
             }
           },
           {
             "holder": "protagonist",
             "label": {
               "value": null,
-              "certainty": "unknown",
-              "evidence": [
-                {
-                  "source": {
-                    "repository": "TsungmingLiu/seventeen-floor-neighbor",
-                    "path": "content/production/narrative/opening-ch1/COM-02X.json",
-                    "commit": "9b0066ff7240c918c87cb8d5ab38affef44cddb4",
-                    "git_blob_sha": "5f85482b7c420a5f7726035e369679360f83cfd5",
-                    "sha256": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952",
-                    "json_pointer": "/entry_state/constraints/1"
-                  },
-                  "absence": "Actual energy at this moment is not specified; permissible fatigue and late work do not establish it."
-                }
-              ]
+              "certainty": "unknown"
             }
           }
         ],
@@ -1191,25 +638,7 @@
             "position": "microwave waiting area",
             "host_guest": "Neither hosts; shared public everyday space"
           },
-          "certainty": "confirmed",
-          "evidence": [
-            {
-              "repository": "TsungmingLiu/seventeen-floor-neighbor",
-              "path": "docs/narrative/scenes/vertical-slice/COM-02X.md",
-              "commit": "9b0066ff7240c918c87cb8d5ab38affef44cddb4",
-              "git_blob_sha": "938edf40f2f34a9faee054971f72747e213c73ee",
-              "sha256": "46d1566ec766adbefbfc2fc93964ee84cf70eca81078f6d35f589e65ddf579c6",
-              "line_start": 48,
-              "line_end": 50
-            },
-            {
-              "source_type": "normalized_human_message_snapshot",
-              "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
-              "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
-              "line_start": 38,
-              "line_end": 54
-            }
-          ]
+          "certainty": "confirmed"
         },
         "topic": {
           "value": {
@@ -1217,16 +646,7 @@
             "activity": "Waiting for microwaves; Xu meal finishes",
             "first_person_observation": "Immediate visible actions only; no assertion of Xu’s private motives"
           },
-          "certainty": "confirmed",
-          "evidence": [
-            {
-              "source_type": "normalized_human_message_snapshot",
-              "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
-              "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
-              "line_start": 38,
-              "line_end": 54
-            }
-          ]
+          "certainty": "confirmed"
         }
       },
       "interaction": [
@@ -1496,62 +916,6 @@
           "hash_target": "ordered interaction.text joined with LF and one final LF, UTF-8",
           "passage_sha256": "b35cb101b409968375c4cf834aea31311556630b381459918f413e6593b6a88d"
         },
-        "approved_scope": {
-          "character_ids": [
-            "xu_tang",
-            "protagonist"
-          ],
-          "passes": [
-            "scene_dialogue",
-            "narrative_review"
-          ],
-          "formal_narrative_review_packet_injection": false,
-          "reference_scene_id": "COM-02X",
-          "relationship_boundary": "Early familiar neighbors with boundaries; mutual politeness, conversational distance and room for hesitation; no contact exchange, invitation, caretaking obligation or romantic escalation.",
-          "permitted_analogy": "Equivalent early-neighbor everyday interaction for register, response rhythm and first-person immediate observation, only where the current approved relationship and knowledge boundaries match.",
-          "knowledge_boundary": "Only each speaker’s canonically established knowledge may be used; never copy this excerpt’s facts, discovery, misunderstanding or disclosures into another scene.",
-          "energy_condition": "Personal energy is unknown and is not an eligibility condition. Do not infer exhaustion from polite or short replies.",
-          "place_topic_condition": "COM-02X everyday convenience-store food/waiting conversation; limited style analogy requires an equivalent ordinary early-neighbor context, not transplantation of refrigerator/printing events.",
-          "unknown_labels_not_selection_conditions": [
-            "trust",
-            "attraction",
-            "energy"
-          ],
-          "excluded_scope": [
-            "late relationship",
-            "other heroine voice or facts",
-            "global character canon",
-            "word bans",
-            "filler quotas",
-            "longer-is-better rules",
-            "event/fact/choice transfer"
-          ],
-          "human_scope_evidence": [
-            {
-              "source_type": "normalized_human_message_snapshot",
-              "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
-              "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
-              "line_start": 5,
-              "line_end": 5
-            },
-            {
-              "source_type": "normalized_human_message_snapshot",
-              "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
-              "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
-              "line_start": 31,
-              "line_end": 32
-            },
-            {
-              "source_type": "normalized_human_message_snapshot",
-              "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
-              "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
-              "line_start": 57,
-              "line_end": 57
-            }
-          ],
-          "scene_approval": false,
-          "occupational_clarification_condition": "For occupational disclosure behavior, the current contract must permit the player not to know Xu’s precise work before the exchange; show client deadline/printing context before ordinary misconception and her own clarification. If the profession is already known, do not reenact the discovery or misunderstanding; only separately eligible early-neighbor register/rhythm may inform the task."
-        },
         "decision_receipt": {
           "path": "content/production/voice/receipts/human-reference-001.json",
           "receipt_id": "HUMAN-REFERENCE-COM02X-001",
@@ -1561,7 +925,8 @@
           "hash_target": "corresponding decisions item, UTF-8 canonical JSON (sorted keys, compact separators)"
         },
         "scene_approval": false,
-        "second_confirmation_required": false
+        "second_confirmation_required": false,
+        "approved_scope_ref": "/examples/1/approved_scope"
       },
       "provenance": {
         "proposal_run_id": "dialogue-calibration-pilot-20260930",
@@ -1569,40 +934,6 @@
         "recording_task_id": "RECORD-HUMAN-COM02X-001",
         "generation_method": "Verbatim deterministic extraction of Human-authored replacement passage; no creative revision or polishing",
         "generation_version": "human-reference-recording-1",
-        "candidate_sources": {
-          "path": ".ai/experiments/dialogue-calibration/evidence/candidates-20260930.json",
-          "sha256": "5bd47afa159ab3f6fd9043f2926fb25eaec56fae9fd388f2d560a400b142fd46",
-          "json_pointer": "/cases/1",
-          "versions": {
-            "A": {
-              "candidate_id": "dialogue-calibration-pilot-20260930.case02.A",
-              "version": 1,
-              "version_basis": "Frozen originally displayed candidate; source has no standalone version field. Version 1 binds this immutable snapshot only.",
-              "variant": "A",
-              "sha256": "dc050a53071b106b4b26afee1f6d0a6c3dfa92e55efc186a6b7be9d5c98255cc",
-              "hash_format": "UTF-8 canonical JSON: ensure_ascii=false, sort_keys=true, compact separators",
-              "container": {
-                "path": ".ai/experiments/dialogue-calibration/evidence/candidates-20260930.json",
-                "sha256": "5bd47afa159ab3f6fd9043f2926fb25eaec56fae9fd388f2d560a400b142fd46",
-                "json_pointer": "/cases/1/A"
-              }
-            },
-            "B": {
-              "candidate_id": "dialogue-calibration-pilot-20260930.case02.B",
-              "version": 1,
-              "version_basis": "Frozen originally displayed candidate; source has no standalone version field. Version 1 binds this immutable snapshot only.",
-              "variant": "B",
-              "sha256": "4a84711167eba6d2735a72de6c109b767b9958c6f0135cbaee0670ebe6fe3f54",
-              "hash_format": "UTF-8 canonical JSON: ensure_ascii=false, sort_keys=true, compact separators",
-              "container": {
-                "path": ".ai/experiments/dialogue-calibration/evidence/candidates-20260930.json",
-                "sha256": "5bd47afa159ab3f6fd9043f2926fb25eaec56fae9fd388f2d560a400b142fd46",
-                "json_pointer": "/cases/1/B"
-              }
-            }
-          },
-          "production_worker_may_follow_pointer": false
-        },
         "curator": "Codex bounded engineering/data-recording worker",
         "approval_binding": {
           "path": "content/production/voice/receipts/human-reference-001.json",
@@ -1620,7 +951,88 @@
           "sha256": "850d0bf6a476a110350817e2de12c5f6a5d01b50be7ee5960fca01195711259c"
         },
         "recorded_at": "2026-09-30T13:36:26Z"
+      },
+      "storage_projection": {
+        "source": {
+          "ref": "15f8383220d13a4530cfa4141bbda01cfeac08af",
+          "path": "content/production/voice/approved-examples.json",
+          "git_blob_sha": "d152d72c15ba1160bcdec625d36539739f58dee1",
+          "sha256": "f63005e9aa8d1ae9c7b3726b2337d9a0a8b75508f9ad4cb11e0abb65ad14b4d1"
+        },
+        "entry_pointer": "/examples/1",
+        "projection": "storage-only; reconstructable complete entry at the pinned source",
+        "schema_version": "1.2.0"
       }
     }
-  ]
+  ],
+  "storage_resolution": {
+    "source_ref": "15f8383220d13a4530cfa4141bbda01cfeac08af",
+    "source_ref_semantics": "immutable Git commit retained in merge history",
+    "historical_artifacts": [
+      {
+        "path": ".ai/experiments/dialogue-calibration/feedback-template.md",
+        "git_blob_sha": "3a4f39ea2948ca73c8b227244a91df6a815f2a25",
+        "sha256": "0b1b0666624dd23fa2d0114e6f356a07e026c7e5c811dad6c94f9cad100cc646",
+        "bytes": 2859,
+        "lines": 41
+      },
+      {
+        "path": ".ai/experiments/dialogue-calibration/evidence/candidates-20260930.json",
+        "git_blob_sha": "f5020d014f29c5ffdd125eb74464e8fd7a721019",
+        "sha256": "5bd47afa159ab3f6fd9043f2926fb25eaec56fae9fd388f2d560a400b142fd46",
+        "bytes": 21816,
+        "lines": 656
+      },
+      {
+        "path": ".ai/experiments/dialogue-calibration/evidence/approved-reference-excerpts-001.md",
+        "git_blob_sha": "3a206feb0c22e53142b10d11ee428fa97112eda1",
+        "sha256": "0437be2ef26bfd7ee3310144edc1cc22d2f441349747e73fc00325b09aa28caf",
+        "bytes": 2341,
+        "lines": 55
+      },
+      {
+        "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
+        "git_blob_sha": "8ee6ed9c370bc49f845ff0f81b9fa4bd0b02b835",
+        "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
+        "bytes": 2864,
+        "lines": 65
+      },
+      {
+        "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-003.json",
+        "git_blob_sha": "b118f0cab6bbc5992338d4ee4b1dedb46af54807",
+        "sha256": "4938411a41f35d590beaa3321963667a0d9bda45bdb0b8ca29e7e1f2f564e8a2",
+        "bytes": 1098,
+        "lines": 26
+      },
+      {
+        "path": ".ai/experiments/dialogue-calibration/evidence/com00-short-positive-20260930.md",
+        "git_blob_sha": "9aeaedad0f21c86c536bc706df5f876e13f084e5",
+        "sha256": "0f1e70979ec234043dc53343c0511f7d9592fa549344f21ada50e461325a2ef0",
+        "bytes": 614,
+        "lines": 19
+      },
+      {
+        "path": "content/production/runs/dialogue-calibration-com00-20260930/accepted-baseline-COM00.md",
+        "git_blob_sha": "a6c518a8fb5a4297045672096a0c72de3631321a",
+        "sha256": "a97fef35cb68e8319b1a235e3c2b6b96535be39724e330d6f4024611127ed91a",
+        "bytes": 14411,
+        "lines": 315
+      },
+      {
+        "path": "content/production/runs/dialogue-calibration-com00-20260930/accepted-long-excerpt.md",
+        "git_blob_sha": "3d4e3594bb24c843c2bc23300ac2d0dc24798b04",
+        "sha256": "cb357b4c4ba019622e70de9d0c175706c693441657abb6880ea00aa75d220506",
+        "bytes": 1791,
+        "lines": 59
+      }
+    ],
+    "original_approved_bank": {
+      "path": "content/production/voice/approved-examples.json",
+      "git_blob_sha": "d152d72c15ba1160bcdec625d36539739f58dee1",
+      "sha256": "f63005e9aa8d1ae9c7b3726b2337d9a0a8b75508f9ad4cb11e0abb65ad14b4d1"
+    },
+    "resolution_rule": "Legacy repository-relative evidence paths in this artifact resolve only to the exact path and hash listed here; resolution is provenance only and does not authorize production input.",
+    "projection_schema_version": "1.2.0",
+    "original_bank_schema_version": "1.1.0"
+  }
 }

@@ -28,7 +28,11 @@
     {
       "id": "human-approved-path:COM-00",
       "version": "cb357b4c4ba019622e70de9d0c175706c693441657abb6880ea00aa75d220506",
-      "location": "content/production/runs/dialogue-calibration-com00-20260930/accepted-long-excerpt.md"
+      "location": "15f8383220d13a4530cfa4141bbda01cfeac08af:content/production/runs/dialogue-calibration-com00-20260930/accepted-long-excerpt.md",
+      "storage_binding": {
+        "git_blob_sha": "3d4e3594bb24c843c2bc23300ac2d0dc24798b04",
+        "sha256": "cb357b4c4ba019622e70de9d0c175706c693441657abb6880ea00aa75d220506"
+      }
     },
     {
       "id": "human-decision:COM-00",
@@ -89,5 +93,12 @@
   "known_issues": [],
   "human_gate": "none",
   "formal_qa_pass": false,
-  "visual_impact_status": "AWAIT_FRESH_INDEPENDENT_NARRATIVE_QA"
+  "visual_impact_status": "AWAIT_FRESH_INDEPENDENT_NARRATIVE_QA",
+  "storage_resolution": {
+    "ref": "15f8383220d13a4530cfa4141bbda01cfeac08af",
+    "path": "content/production/runs/dialogue-calibration-com00-20260930/accepted-long-excerpt.md",
+    "git_blob_sha": "3d4e3594bb24c843c2bc23300ac2d0dc24798b04",
+    "sha256": "cb357b4c4ba019622e70de9d0c175706c693441657abb6880ea00aa75d220506",
+    "purpose": "immutable acquisition binding for removed snapshot; original decision/status fields retained"
+  }
 }

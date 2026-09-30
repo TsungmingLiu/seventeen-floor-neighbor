@@ -18,7 +18,11 @@
     {
       "id": "file:content/production/runs/dialogue-calibration-com00-20260930/accepted-baseline-COM00.md",
       "version": "a6c518a8fb5a4297045672096a0c72de3631321a",
-      "location": "content/production/runs/dialogue-calibration-com00-20260930/accepted-baseline-COM00.md"
+      "location": "15f8383220d13a4530cfa4141bbda01cfeac08af:content/production/runs/dialogue-calibration-com00-20260930/accepted-baseline-COM00.md",
+      "storage_binding": {
+        "git_blob_sha": "a6c518a8fb5a4297045672096a0c72de3631321a",
+        "sha256": "a97fef35cb68e8319b1a235e3c2b6b96535be39724e330d6f4024611127ed91a"
+      }
     },
     {
       "id": "file:docs/narrative/scenes/vertical-slice/COM-00.md",
@@ -43,7 +47,7 @@
       "ref": "0b6915220ce6f62a60af224f592c23f0ae1130ef",
       "git_blob_sha": "a6c518a8fb5a4297045672096a0c72de3631321a",
       "sha256": "a97fef35cb68e8319b1a235e3c2b6b96535be39724e330d6f4024611127ed91a",
-      "acquisition_path": "content/production/runs/dialogue-calibration-com00-20260930/accepted-baseline-COM00.md",
+      "acquisition_path": "15f8383220d13a4530cfa4141bbda01cfeac08af:content/production/runs/dialogue-calibration-com00-20260930/accepted-baseline-COM00.md",
       "snapshot_is_new_canon": false
     },
     {
@@ -121,5 +125,12 @@
   "known_issues": [],
   "invalidates": [],
   "human_gate_required": "none",
-  "acquisition_mode": "manually pinned canonical comparison; not generated verifier-certified"
+  "acquisition_mode": "manually pinned canonical comparison; not generated verifier-certified",
+  "storage_resolution": {
+    "ref": "15f8383220d13a4530cfa4141bbda01cfeac08af",
+    "path": "content/production/runs/dialogue-calibration-com00-20260930/accepted-baseline-COM00.md",
+    "git_blob_sha": "a6c518a8fb5a4297045672096a0c72de3631321a",
+    "sha256": "a97fef35cb68e8319b1a235e3c2b6b96535be39724e330d6f4024611127ed91a",
+    "purpose": "immutable acquisition binding for removed snapshot; original decision/status fields retained"
+  }
 }

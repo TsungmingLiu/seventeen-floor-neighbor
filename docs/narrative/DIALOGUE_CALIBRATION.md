@@ -2,7 +2,7 @@
 
 > Lifecycle: **CANONICAL**（只規範校準流程，不新增角色或場景 canon）
 >
-> Version: 1.2.0
+> Version: 1.2.1
 >
 > Updated: 2026-09-30
 
@@ -13,7 +13,7 @@ Human 已提供兩份自行修訂的情境參考，依下列契約保存精確�
 ## 1. 資料邊界與批准
 
 - Production 樣本庫：`content/production/voice/approved-examples.json`。只有 Human 明確批准的特定版本、特定用途樣本可以進入；批准範圍外沒有 authority。
-- 候選、A/B 比較、退稿與未確認標籤留在非 production 工作區，例如 `.ai/experiments/dialogue-calibration/<pilot_id>/`；production worker 不得讀取。空白紀錄範本在 `.ai/experiments/dialogue-calibration/feedback-template.md`，也不是 production input。
+- 候選、A/B 比較、退稿與未確認標籤留在非 production 工作區；production worker 不得讀取。歷史原始 evidence 與空白範本只保存在不可變 Git 歷史中，不是 production input。
 - Human 對比較可選 `A`、`B`、`tie`、`neither`，也可以自行提供修訂／混合版本，記為 `human_revision`；可選填一句原因或指出回合，不要求 Human 重寫台詞。純偏好不代表批准：tie 不批准兩份，neither 不產生正向樣本。
 - AI 先展示固定版本的完整 A/B 互動、情境及擬用 scope，再負責所有 provenance／context／版本紀錄。Human 可一次回「偏好 B，B 可作本頁情境的參考」，這已明示批准展示版本及範圍，**不需第二輪確認**。只有純偏好時才沒有批准，不自行推定。既有 Locked Scene、QA PASS、模型評分或自動摘要都不能代替 Human 決定。
 - Human 在該比較情境直接交付替代全文，並說「我觉得比较合适」等明示採用意圖，可一次授權把**該精確修訂版本**作本情境參考，無需另問批准。AI 原樣保存文字與版本，不把修訂／混合稿標成 A 或 B，也不順手潤飾；這不是 scene integration 授權。AI 補出的 context／tag 仍是 provisional，除非另有明確來源，不能隨文字批准變成 canon。
@@ -22,7 +22,7 @@ Human 已提供兩份自行修訂的情境參考，依下列契約保存精確�
 
 ## 2. 輕量資料契約（人工核對，非新增 validator）
 
-樣本庫根物件固定包含 `schema_version`（資料格式為 `1.1.0`）、`policy_path`、`examples` 陣列。`examples: []` 仍是有效狀態；沒有適用樣本時維持既有 writer／QA 流程，不自行造樣本。每筆 entry 必須具備下表欄位，空字串不能當作已確認資料。
+樣本庫根物件固定包含 `schema_version`（原始資料格式為 `1.1.0`；目前儲存投影為 `1.2.0`）、`policy_path`、`examples` 陣列。`examples: []` 仍是有效狀態；沒有適用樣本時維持既有 writer／QA 流程，不自行造樣本。每筆 entry 必須具備下表欄位，空字串不能當作已確認資料。
 
 | 欄位 | 必填內容與邊界 |
 | --- | --- |
@@ -39,6 +39,10 @@ Human 已提供兩份自行修訂的情境參考，依下列契約保存精確�
 | `provenance` | 提案 task/run ID、產生方式／版本、完整候選來源 binding、整理者、批准紀錄 binding、前一 approved 版本 ID（沒有則 null）；來源變更如何重新核對。紀錄可指向實驗 evidence，但 worker 不可沿指標讀取該內容。 |
 
 每個 context 標籤採同一格式：`{ value, certainty, evidence }`，其中 `certainty` 僅可為 `confirmed`／`tentative`／`unknown`，`evidence` 記精確來源與版本；unknown 用 `value: null`，tentative 明列推論理由。確認本身也要有來源，Human 批准一段口語不等於批准所有推測出的 relationship labels。這些是情境描述，不引入 affection/trust 分數或 runtime state。
+
+### 儲存投影
+
+目前 approved bank 是純儲存投影：每筆 entry 保留互動、ID/version/status、完整 approved_scope 與所有非 evidence context 值／certainty；為避免重複，context 內的 evidence payload、approval 內重複的 scope，以及 provenance 中重複的候選描述由投影省略。storage_projection 指向不可變來源 bank 的精確 Git ref/path/blob/SHA；bank 共用 storage_resolution 對照表可解析舊 evidence 路徑。完整原始 bank 與原始 evidence 仍可由該 ref 重建。此 locator 僅供 provenance 核對，不是批准、scope 或 production input 的擴張；不改變 Human decision hashes。
 
 若適用判斷依賴 tentative／unknown 標籤，不能當作符合條件；要先取得已批准 contract／canon 的依據或回報無適用樣本。Human 可把仍有未知的樣本限縮到不依賴該未知的用途，但必須寫明。Confirmed 標籤仍不能覆蓋更高 authority 的當前 contract。
 

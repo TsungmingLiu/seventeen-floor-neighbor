@@ -192,6 +192,8 @@
     "smoke": "PASS",
     "public_deployment": "PASS",
     "verify_run": "https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/36781169880",
-    "human_review": "PENDING"
+    "human_review": "PASS",
+    "human_review_scope": "narrative_preview_quality",
+    "human_review_statement": "質量過關，我可以給pass"
   }
 }

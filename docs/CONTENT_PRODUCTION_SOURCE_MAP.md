@@ -2,7 +2,7 @@
 
 > Lifecycle: **CANONICAL**
 >
-> Version: 1.3.0
+> Version: 1.4.0
 >
 > Updated: 2026-09-30
 
@@ -55,9 +55,9 @@ Machine validation shapes：`.ai/schemas/narrative-continuity.schema.json`、`.a
 
 A provenance receipt may point into these roots as historical evidence. That pointer does not make the target executable guidance. A bounded research/migration task may inspect them only under the exception rules in `.ai/policies/SOURCE_AUTHORITY.md`.
 
-`.ai/experiments/dialogue-calibration/feedback-template.md` 是空白人工比較範本。候選／退稿／原始回饋留在非 production 區；不能因範本或 provenance link 將它們帶入 writer／QA。Approved bank 的現行內容以檔案及對應 Human 決定為準；新增／改版／縮限需本政策的 Human 明示決定，Human 直接提供且明示較合適的修訂可在該情境範圍內收錄，不由純比較偏好自動升格。
+候選／退稿／原始回饋與空白範本是非 production 歷史材料；current bank 以精簡儲存投影呈現，storage_projection 與 storage_resolution 將省略欄位及歷史 evidence 路徑綁定到不可變 Git ref/path/blob/SHA。這些 locator 只供 provenance 核對，不授權 writer／QA 讀取原始候選，也不改變 Human approval、scope 或 entry 版本。Approved bank 的互動與 scope 仍以 current bank 及對應 Human 決定為準；新增／改版／縮限需本政策的 Human 明示決定。
 
-Human 參考決定保存在 `content/production/voice/receipts/`，原始回饋／候選 evidence 保存在 `.ai/experiments/dialogue-calibration/evidence/`；binding 使用 repository-relative path 與不可變 hash，避免依賴某一聊天的本地輸出位置。Evidence 指標只供來源核對，不授權 production worker 讀取；正式 authoring input 仍限已批准 bank 的 task-local 節錄。參考決定 receipt 不代替 scene QA 或 Human playable acceptance。
+Human 參考決定保存在 content/production/voice/receipts/。刪除的回饋、候選、比較快照及完整原始 bank 由 bank／receipt 的 storage map 綁定到不可變 Git ref/path/blob/SHA；current bank 的互動、完整 scope 及非 evidence context 值維持原樣。Evidence locator 只供來源核對，不授權 production worker 沿指標讀取原始材料；正式 authoring input 仍限已批准 bank 的 task-local 節錄。參考決定 receipt 不代替 scene QA 或 Human playable acceptance。
 
 ## 3. Runtime fixture note
 

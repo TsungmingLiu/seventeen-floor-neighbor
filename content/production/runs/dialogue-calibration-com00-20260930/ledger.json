@@ -35,7 +35,7 @@
         {
           "id": "human-approved-path:COM-00",
           "version": "cb357b4c4ba019622e70de9d0c175706c693441657abb6880ea00aa75d220506",
-          "location": "content/production/runs/dialogue-calibration-com00-20260930/accepted-long-excerpt.md"
+          "location": "15f8383220d13a4530cfa4141bbda01cfeac08af:content/production/runs/dialogue-calibration-com00-20260930/accepted-long-excerpt.md"
         },
         {
           "id": "human-decision:COM-00",
@@ -115,7 +115,7 @@
         {
           "id": "file:content/production/runs/dialogue-calibration-com00-20260930/accepted-baseline-COM00.md",
           "version": "a6c518a8fb5a4297045672096a0c72de3631321a",
-          "location": "content/production/runs/dialogue-calibration-com00-20260930/accepted-baseline-COM00.md"
+          "location": "15f8383220d13a4530cfa4141bbda01cfeac08af:content/production/runs/dialogue-calibration-com00-20260930/accepted-baseline-COM00.md"
         },
         {
           "id": "file:docs/narrative/scenes/vertical-slice/COM-00.md",
@@ -140,7 +140,7 @@
           "ref": "0b6915220ce6f62a60af224f592c23f0ae1130ef",
           "git_blob_sha": "a6c518a8fb5a4297045672096a0c72de3631321a",
           "sha256": "a97fef35cb68e8319b1a235e3c2b6b96535be39724e330d6f4024611127ed91a",
-          "acquisition_path": "content/production/runs/dialogue-calibration-com00-20260930/accepted-baseline-COM00.md",
+          "acquisition_path": "15f8383220d13a4530cfa4141bbda01cfeac08af:content/production/runs/dialogue-calibration-com00-20260930/accepted-baseline-COM00.md",
           "snapshot_is_new_canon": false
         },
         {
@@ -312,5 +312,22 @@
     "human_gate": "narrative_preview_review",
     "human_playable_acceptance": "PENDING",
     "final_visual_acceptance": false
+  },
+  "storage_resolution": {
+    "source_ref": "15f8383220d13a4530cfa4141bbda01cfeac08af",
+    "bindings": [
+      {
+        "path": "content/production/runs/dialogue-calibration-com00-20260930/accepted-long-excerpt.md",
+        "ref": "15f8383220d13a4530cfa4141bbda01cfeac08af",
+        "git_blob_sha": "3d4e3594bb24c843c2bc23300ac2d0dc24798b04",
+        "sha256": "cb357b4c4ba019622e70de9d0c175706c693441657abb6880ea00aa75d220506"
+      },
+      {
+        "path": "content/production/runs/dialogue-calibration-com00-20260930/accepted-baseline-COM00.md",
+        "ref": "15f8383220d13a4530cfa4141bbda01cfeac08af",
+        "git_blob_sha": "a6c518a8fb5a4297045672096a0c72de3631321a",
+        "sha256": "a97fef35cb68e8319b1a235e3c2b6b96535be39724e330d6f4024611127ed91a"
+      }
+    ]
   }
 }

@@ -264,5 +264,75 @@
     "authoring_input": false,
     "production_worker_may_follow_raw_evidence_pointers": false,
     "durable_receipt": "content/production/voice/receipts/human-reference-001.json"
+  },
+  "storage_resolution": {
+    "source_ref": "15f8383220d13a4530cfa4141bbda01cfeac08af",
+    "source_ref_semantics": "immutable Git commit retained in merge history",
+    "historical_artifacts": [
+      {
+        "path": ".ai/experiments/dialogue-calibration/feedback-template.md",
+        "git_blob_sha": "3a4f39ea2948ca73c8b227244a91df6a815f2a25",
+        "sha256": "0b1b0666624dd23fa2d0114e6f356a07e026c7e5c811dad6c94f9cad100cc646",
+        "bytes": 2859,
+        "lines": 41
+      },
+      {
+        "path": ".ai/experiments/dialogue-calibration/evidence/candidates-20260930.json",
+        "git_blob_sha": "f5020d014f29c5ffdd125eb74464e8fd7a721019",
+        "sha256": "5bd47afa159ab3f6fd9043f2926fb25eaec56fae9fd388f2d560a400b142fd46",
+        "bytes": 21816,
+        "lines": 656
+      },
+      {
+        "path": ".ai/experiments/dialogue-calibration/evidence/approved-reference-excerpts-001.md",
+        "git_blob_sha": "3a206feb0c22e53142b10d11ee428fa97112eda1",
+        "sha256": "0437be2ef26bfd7ee3310144edc1cc22d2f441349747e73fc00325b09aa28caf",
+        "bytes": 2341,
+        "lines": 55
+      },
+      {
+        "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
+        "git_blob_sha": "8ee6ed9c370bc49f845ff0f81b9fa4bd0b02b835",
+        "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
+        "bytes": 2864,
+        "lines": 65
+      },
+      {
+        "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-003.json",
+        "git_blob_sha": "b118f0cab6bbc5992338d4ee4b1dedb46af54807",
+        "sha256": "4938411a41f35d590beaa3321963667a0d9bda45bdb0b8ca29e7e1f2f564e8a2",
+        "bytes": 1098,
+        "lines": 26
+      },
+      {
+        "path": ".ai/experiments/dialogue-calibration/evidence/com00-short-positive-20260930.md",
+        "git_blob_sha": "9aeaedad0f21c86c536bc706df5f876e13f084e5",
+        "sha256": "0f1e70979ec234043dc53343c0511f7d9592fa549344f21ada50e461325a2ef0",
+        "bytes": 614,
+        "lines": 19
+      },
+      {
+        "path": "content/production/runs/dialogue-calibration-com00-20260930/accepted-baseline-COM00.md",
+        "git_blob_sha": "a6c518a8fb5a4297045672096a0c72de3631321a",
+        "sha256": "a97fef35cb68e8319b1a235e3c2b6b96535be39724e330d6f4024611127ed91a",
+        "bytes": 14411,
+        "lines": 315
+      },
+      {
+        "path": "content/production/runs/dialogue-calibration-com00-20260930/accepted-long-excerpt.md",
+        "git_blob_sha": "3d4e3594bb24c843c2bc23300ac2d0dc24798b04",
+        "sha256": "cb357b4c4ba019622e70de9d0c175706c693441657abb6880ea00aa75d220506",
+        "bytes": 1791,
+        "lines": 59
+      }
+    ],
+    "original_approved_bank": {
+      "path": "content/production/voice/approved-examples.json",
+      "git_blob_sha": "d152d72c15ba1160bcdec625d36539739f58dee1",
+      "sha256": "f63005e9aa8d1ae9c7b3726b2337d9a0a8b75508f9ad4cb11e0abb65ad14b4d1"
+    },
+    "resolution_rule": "Legacy repository-relative evidence paths in this artifact resolve only to the exact path and hash listed here; resolution is provenance only and does not authorize production input.",
+    "projection_schema_version": "1.2.0",
+    "original_bank_schema_version": "1.1.0"
   }
 }
