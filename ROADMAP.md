@@ -4,6 +4,8 @@
 >
 > 詳細技術工作見 `TODO.md`；內容生產進度見 `docs/narrative/CONTENT_PRODUCTION_TODO.md`；AI production 執行方式見 `.ai/WORKFLOW_MANIFEST.yaml`。
 >
+> 目前版本與有效／歷史證據見 [目前可玩版本驗收證據索引](docs/migration/CURRENT_PLAYABLE_ACCEPTANCE.md)（2026-09-30 main `9b0066f…`）；本次對齊不代表 M0 完成。
+>
 > Roadmap 不追蹤每一個 task。它只回答三個問題：
 >
 > 1. 我們現在在哪裡？
@@ -45,7 +47,9 @@
 
 - W1–W4 的 source/output、嚴格 asset check/build、Codespaces 開發與驗收，以及 Player UI、Memories、CG Gallery、journey v2 / v1 save migration 已實作；實際契約見 [`ARCHITECTURE.md`](ARCHITECTURE.md) 與 code/tests。
 - PR #21 已將 active runtime 圖片遷至 repo，退役舊 `xu-tang` playable route；目前只有 `opening-demo` 註冊為 playable route。資產逐項 hash 與歷史對照見 `docs/migration/GATE2_REPO_RUNTIME_ASSETS.md`，現行檔案與使用範圍以 asset registry、route 與 build 為準。
-- 已登記共用的 preview-only WebP，但目前沒有 scene 使用它。已整合的 Opening 場景與下一批 production 狀態只在 `docs/narrative/CONTENT_PRODUCTION_TODO.md` 維護；已實作的 reference/ingest/preview 與 QA 工具契約見 `ARCHITECTURE.md`、`.ai/WORKFLOW_MANIFEST.yaml` 和對應的工具。此處的基線不代表 M0 Exit Gate 已完成。
+- PR #33 已將 COM-02X 接入 Opening 可玩流程，使用已登記的 preview-only WebP；Memory 可重播，預覽圖不進 Gallery，既有敘事／POV／姓名輸入批准沿用。其餘 scene progress 由 `docs/narrative/CONTENT_PRODUCTION_TODO.md` 維護。
+- main `9b0066f…` 的 Node 22 Verify（82/82）與 Cloudflare deployment／部署時 smoke 已查證；同一 runtime 的本地 Chromium 5/5 receipt 可沿用。遠端 Browser Acceptance 在 shallow checkout 缺歷史 commit 的前置測試失敗、Chromium skipped；目前 alias 可達性與 fresh Codespace 尚未查證。來源與限制見驗收證據索引。
+- 定點 read-only impact／provenance 已實作，有 pinned 歷史受控檢查；目前 scene 的 material-change／實際整合阻擋證據與 preview → final CG 替換實證仍待補齊。既有工具契約見 `ARCHITECTURE.md`、`.ai/WORKFLOW_MANIFEST.yaml` 與對應工具；此基線不代表 M0 Exit Gate 已完成。
 
 ## Outcome
 
@@ -351,9 +355,9 @@ Roadmap 只維護工作所在的 horizon，不維護完整 task list。
 
 目前尚需：
 
-- 用真實 scene 驗證 placeholder contract 與替換路徑；
-- 用受控修改驗證定點 stale detection 與整合前檢查；
-- 完成 M0 的 clean validation / playable acceptance。
+- COM-02X 已證明真實 Locked Scene 可使用 placeholder 遊玩；尚需正式 CG 替換與 stable node/save/Memory/Gallery 驗證；
+- 沿用已實作的定點 impact／provenance，補目前 scene 受控 material change 與實際整合阻擋的證據；
+- 修正 Browser Acceptance 的 checkout history 並取得 Node 22 Chromium 結果；另補 fresh Codespace 與 alias 可達性證據。現有 main Verify／部署 smoke 與人工敘事批准直接引用，不重跑已驗證的敘事 QA。
 
 Repo-native asset migration 與 active source-authority cleanup 已由 PR #21 完成；跨階段自動失效與恢復另列未來工作。
 
@@ -420,10 +424,10 @@ M0 — Foundation Stable
 **Current Critical Path**
 
 ```text
-placeholder scene integration / replacement proof
-→ stale dependency handling
-→ clean validation / playable acceptance
-→ M0 COMPLETE
+COM-02X placeholder integration proved; final CG replacement proof pending
+→ current material-change / stale integration evidence
+→ Node 22 remote Chromium / fresh Codespace evidence
+→ M0 Exit Gate review
 ```
 
 **Next Milestone**

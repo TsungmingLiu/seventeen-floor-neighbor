@@ -20,6 +20,8 @@
 
 詳細產品定義與 Exit Gate 見 `ROADMAP.md`。
 
+2026-09-30 main `9b0066f…` 的結果與限制見 [目前可玩版本驗收證據索引](docs/migration/CURRENT_PLAYABLE_ACCEPTANCE.md)。下列勾選只代表指定項目有證據，不代表全部 M0 Exit Gate 通過；既有 PR #33 人工敘事批准直接沿用。
+
 ---
 
 ## M0 Critical Path
@@ -34,7 +36,7 @@
 ### 2. Missing-CG placeholder contract
 
 - [x] 登記唯一的 preview-only WebP，並由現有 asset registry / validator 驗證其身分。
-- [ ] 以真實 Locked Scene 證明缺正式 CG 時仍可用 preview asset 進入 playable integration。
+- [x] COM-02X 已以真實 Locked Scene／continuity contract 接入 Opening `narrative_preview`；四分支、Memory replay、Gallery 排除與 main Node 22 驗證有證據。
 - [ ] final CG 補上後，不需要修改 narrative node structure。
 - [x] placeholder 狀態 machine-visible；現有 `validate:final` 不接受仍啟用 preview art 的 route。
 - [ ] release-oriented validation 能區分 placeholder / provisional / accepted coverage。
@@ -43,10 +45,10 @@
 
 M0 先以一個真實 scene 的受控修改，證明定點影響報告可供整合前判斷。多 task DAG 的自動阻擋與 checkpoint 恢復由下方 [Issue #27](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/27) 另行處理。
 
-- [ ] 定義哪些 upstream narrative 變更會讓 downstream visual artifact stale。
-- [ ] CG Manifest / render-derived artifact 必須能追溯其 source scene / revision。
-- [ ] 在驗證的 scene 中，上游發生 material change 後，整合檢查不得把舊 visual artifact 當成 current。
-- [ ] 在該輪整合前執行 machine-readable stale 檢查；偵測到失效時停止使用舊 visual artifact。
+- [x] 已在 `.ai/PRODUCTION_ORCHESTRATION.md` 定義 upstream narrative／visual 變更的失效範圍與 `no_visual_impact` 證據要求。
+- [x] source scene/revision、entry spec/reference/output hashes 與 read-only impact／run reconciliation 已實作；證據範圍見索引及 `docs/migration/ISSUE16_INVALIDATION_GATE.md`。
+- [ ] 補目前 scene 的受控 material-change 驗證：舊 visual artifact 不可被當作 current。既有受控 gate／11 個 pinned historical suites 僅作歷史回歸證據。
+- [ ] 補該輪整合前的 machine-readable stale report 與停止使用失效 visual artifact 的實證；read-only report 不等於自動 integration blocking。
 
 ### 4. Active source-authority cleanup
 
@@ -57,16 +59,19 @@ M0 先以一個真實 scene 的受控修改，證明定點影響報告可供整�
 
 ### 5. M0 baseline verification
 
-完成上述工作後：
+目前 main 的已驗證快照（詳細版本／環境／job links 見索引）；後續 material change 再補跑受影響項目：
 
-- [ ] `npm run build`
-- [ ] `npm run validate`
-- [ ] `npm test`
-- [ ] `git diff --check`
-- [ ] 必要 asset validation
-- [ ] fresh Codespace / playable acceptance
-- [ ] 驗證「有 final CG」與「只有 placeholder」兩種 scene 都能正常運作
-- [ ] 驗證 stale dependency case
+- [x] `npm run build`（main Node 22 Verify）
+- [x] `npm run validate`（main Node 22 Verify；不是 `validate:final`）
+- [x] `npm test`（main Node 22 Verify 82/82；含 pinned historical suites wrapper）
+- [x] `git diff --check`（main Verify；本次文件 diff 另查）
+- [x] 必要 asset validation（main Verify 26/26）
+- [x] Opening 現有 CG 與 COM-02X placeholder 同一流程可玩（main tests＋同 runtime 本地 Chromium 5/5；不推定 final visual acceptance）
+- [ ] 修正 Browser Acceptance shallow checkout 缺 pinned refs 的問題，取得 main Node 22 遠端 Chromium acceptance（目前前置測試 80/82，Chromium skipped）。
+- [ ] fresh Codespace acceptance（目前僅 command dry-run；尚未查證實際當前版本結果）
+- [ ] main／PR Cloudflare alias 目前可達性／內容對應（本次 HTTP 403；部署當時 smoke 已通過）
+- [ ] COM-02X accepted final CG 替換後的 stable nodes／save／Memory／Gallery／`validate:final` 證據
+- [ ] 當前 scene material-change 與實際 stale integration blocking case
 
 全部通過後，依 `ROADMAP.md` 判定 M0 是否可以結束。
 
