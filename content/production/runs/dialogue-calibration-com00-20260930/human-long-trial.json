@@ -1,0 +1,20 @@
+{
+  "decision_id": "HUMAN-COM00-LONG-20260930",
+  "recorded_date": "2026-09-30",
+  "message_timestamp": null,
+  "reviewer": "current_chat_user",
+  "quote": "我覺得這版不錯，我給到85-90分，可以直接做進遊戲了。",
+  "artifact": {
+    "path": "accepted-long-excerpt.md",
+    "sha256": "cb357b4c4ba019622e70de9d0c175706c693441657abb6880ea00aa75d220506",
+    "scene_id": "COM-00",
+    "selected_branch": "com00_thank_formal"
+  },
+  "decision": "APPROVE_EXACT_DISPLAYED_PATH_FOR_GAME_INTEGRATION",
+  "scope": [
+    "Exact displayed COM00 longer interaction on formal-thanks branch and its common segments.",
+    "Preserve approved other branches/IDs/state/semantic visual beats; independent fullscene QA and runtime verification still required."
+  ],
+  "bank_approval": false,
+  "formal_qa_pass": false
+}

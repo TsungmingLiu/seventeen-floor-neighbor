@@ -1,0 +1,268 @@
+{
+  "schema_version": "1.1.0",
+  "receipt_id": "HUMAN-REFERENCE-COM02X-001",
+  "version": 1,
+  "artifact_class": "scoped_human_reference_approval_record",
+  "recorded_at": "2026-09-30T13:36:26Z",
+  "message_timestamp": null,
+  "message_timestamp_status": "unavailable; actual record time used without inventing message time",
+  "human_source": {
+    "identity_type": "current_chat_user",
+    "message_id": null,
+    "snapshot": {
+      "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
+      "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611"
+    }
+  },
+  "policy": {
+    "path": "docs/narrative/DIALOGUE_CALIBRATION.md",
+    "version": "1.1.0",
+    "sha256": "850d0bf6a476a110350817e2de12c5f6a5d01b50be7ee5960fca01195711259c"
+  },
+  "decisions": [
+    {
+      "entry": {
+        "id": "voice.xu_tang.early.com02x.human.01",
+        "version": 1,
+        "sha256": "183cfa7e3771e70f317d9a8db480650955cbd9f23d9dcfb8f1f58d765a884053",
+        "hash_target": "ordered interaction.text joined with LF and one final LF, UTF-8",
+        "passage_sha256": "8ba6dad2e86037e661d9f2dbd2857196f60720be97907d6f02adb9f6ec407c92"
+      },
+      "reviewer": {
+        "identity_type": "current_chat_user",
+        "name": null
+      },
+      "outcome": "human_revision",
+      "choice": null,
+      "approval_basis": "Human directly supplied a replacement full passage in the displayed COM-02X comparison context and expressed adoption intent; policy 1.1.0 section 1 accepts this one reply as approval of the exact narrow reference without a second confirmation.",
+      "approval_quote": "我來改個我覺得比較合適的：",
+      "scope": {
+        "character_ids": [
+          "xu_tang",
+          "protagonist"
+        ],
+        "passes": [
+          "scene_dialogue",
+          "narrative_review"
+        ],
+        "formal_narrative_review_packet_injection": false,
+        "reference_scene_id": "COM-02X",
+        "relationship_boundary": "Early familiar neighbors with boundaries; mutual politeness, conversational distance and room for hesitation; no contact exchange, invitation, caretaking obligation or romantic escalation.",
+        "permitted_analogy": "Equivalent early-neighbor everyday interaction for register, response rhythm and first-person immediate observation, only where the current approved relationship and knowledge boundaries match.",
+        "knowledge_boundary": "Only each speaker’s canonically established knowledge may be used; never copy this excerpt’s facts, discovery, misunderstanding or disclosures into another scene.",
+        "energy_condition": "Personal energy is unknown and is not an eligibility condition. Do not infer exhaustion from polite or short replies.",
+        "place_topic_condition": "COM-02X everyday convenience-store food/waiting conversation; limited style analogy requires an equivalent ordinary early-neighbor context, not transplantation of refrigerator/printing events.",
+        "unknown_labels_not_selection_conditions": [
+          "trust",
+          "attraction",
+          "energy"
+        ],
+        "excluded_scope": [
+          "late relationship",
+          "other heroine voice or facts",
+          "global character canon",
+          "word bans",
+          "filler quotas",
+          "longer-is-better rules",
+          "event/fact/choice transfer"
+        ],
+        "human_scope_evidence": [
+          {
+            "source_type": "normalized_human_message_snapshot",
+            "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
+            "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
+            "line_start": 5,
+            "line_end": 5
+          },
+          {
+            "source_type": "normalized_human_message_snapshot",
+            "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
+            "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
+            "line_start": 31,
+            "line_end": 32
+          },
+          {
+            "source_type": "normalized_human_message_snapshot",
+            "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
+            "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
+            "line_start": 57,
+            "line_end": 57
+          }
+        ],
+        "scene_approval": false,
+        "occupational_clarification_condition": "Not applicable to this reference; no occupation disclosure in the excerpt."
+      },
+      "original_response": {
+        "source_type": "normalized_human_message_snapshot",
+        "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
+        "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
+        "line_start": 5,
+        "line_end": 59
+      },
+      "message_id": null,
+      "message_timestamp": null,
+      "message_timestamp_status": "unavailable",
+      "recorded_at": "2026-09-30T13:36:26Z",
+      "scene_approval": false,
+      "formal_qa_pass": false,
+      "dependency_release": false
+    },
+    {
+      "entry": {
+        "id": "voice.xu_tang.early.com02x.human.02",
+        "version": 1,
+        "sha256": "67f3b65fc667a4e0fd28084a6a26175cd8c64a4234e0935d49667ec74a32f42b",
+        "hash_target": "ordered interaction.text joined with LF and one final LF, UTF-8",
+        "passage_sha256": "b35cb101b409968375c4cf834aea31311556630b381459918f413e6593b6a88d"
+      },
+      "reviewer": {
+        "identity_type": "current_chat_user",
+        "name": null
+      },
+      "outcome": "human_revision",
+      "choice": null,
+      "approval_basis": "Human directly supplied a replacement full passage in the displayed COM-02X comparison context and expressed adoption intent; policy 1.1.0 section 1 accepts this one reply as approval of the exact narrow reference without a second confirmation.",
+      "approval_quote": "我來改個我覺得比較合適的：",
+      "scope": {
+        "character_ids": [
+          "xu_tang",
+          "protagonist"
+        ],
+        "passes": [
+          "scene_dialogue",
+          "narrative_review"
+        ],
+        "formal_narrative_review_packet_injection": false,
+        "reference_scene_id": "COM-02X",
+        "relationship_boundary": "Early familiar neighbors with boundaries; mutual politeness, conversational distance and room for hesitation; no contact exchange, invitation, caretaking obligation or romantic escalation.",
+        "permitted_analogy": "Equivalent early-neighbor everyday interaction for register, response rhythm and first-person immediate observation, only where the current approved relationship and knowledge boundaries match.",
+        "knowledge_boundary": "Only each speaker’s canonically established knowledge may be used; never copy this excerpt’s facts, discovery, misunderstanding or disclosures into another scene.",
+        "energy_condition": "Personal energy is unknown and is not an eligibility condition. Do not infer exhaustion from polite or short replies.",
+        "place_topic_condition": "COM-02X everyday convenience-store food/waiting conversation; limited style analogy requires an equivalent ordinary early-neighbor context, not transplantation of refrigerator/printing events.",
+        "unknown_labels_not_selection_conditions": [
+          "trust",
+          "attraction",
+          "energy"
+        ],
+        "excluded_scope": [
+          "late relationship",
+          "other heroine voice or facts",
+          "global character canon",
+          "word bans",
+          "filler quotas",
+          "longer-is-better rules",
+          "event/fact/choice transfer"
+        ],
+        "human_scope_evidence": [
+          {
+            "source_type": "normalized_human_message_snapshot",
+            "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
+            "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
+            "line_start": 5,
+            "line_end": 5
+          },
+          {
+            "source_type": "normalized_human_message_snapshot",
+            "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
+            "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
+            "line_start": 31,
+            "line_end": 32
+          },
+          {
+            "source_type": "normalized_human_message_snapshot",
+            "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
+            "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
+            "line_start": 57,
+            "line_end": 57
+          }
+        ],
+        "scene_approval": false,
+        "occupational_clarification_condition": "For occupational disclosure behavior, the current contract must permit the player not to know Xu’s precise work before the exchange; show client deadline/printing context before ordinary misconception and her own clarification. If the profession is already known, do not reenact the discovery or misunderstanding; only separately eligible early-neighbor register/rhythm may inform the task."
+      },
+      "original_response": {
+        "source_type": "normalized_human_message_snapshot",
+        "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
+        "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
+        "line_start": 5,
+        "line_end": 59
+      },
+      "message_id": null,
+      "message_timestamp": null,
+      "message_timestamp_status": "unavailable",
+      "recorded_at": "2026-09-30T13:36:26Z",
+      "scene_approval": false,
+      "formal_qa_pass": false,
+      "dependency_release": false
+    }
+  ],
+  "decision_hash_format": "UTF-8 canonical JSON: ensure_ascii=false, sort_keys=true, compact separators",
+  "decision_sha256": "9eb097d48d783f8433ca3c631980c2f82a315d525e22e37e2c3aefa345c6a3ea",
+  "outputs": {
+    "bank": {
+      "path": "content/production/voice/approved-examples.json",
+      "sha256": "f63005e9aa8d1ae9c7b3726b2337d9a0a8b75508f9ad4cb11e0abb65ad14b4d1",
+      "schema_version": "1.1.0"
+    },
+    "human_excerpts": {
+      "path": ".ai/experiments/dialogue-calibration/evidence/approved-reference-excerpts-001.md",
+      "sha256": "0437be2ef26bfd7ee3310144edc1cc22d2f441349747e73fc00325b09aa28caf"
+    },
+    "entries": [
+      {
+        "id": "voice.xu_tang.early.com02x.human.01",
+        "version": 1,
+        "entry_sha256": "13d103e1224722cc0c5cfb5f704b2f26192476259df32e591aff8fc0ff5831b7",
+        "interaction_text_sha256": "183cfa7e3771e70f317d9a8db480650955cbd9f23d9dcfb8f1f58d765a884053",
+        "passage_markdown_sha256": "8ba6dad2e86037e661d9f2dbd2857196f60720be97907d6f02adb9f6ec407c92"
+      },
+      {
+        "id": "voice.xu_tang.early.com02x.human.02",
+        "version": 1,
+        "entry_sha256": "3fc4d3eac06da103484016b9b7dabd6bff8c687275b29cbcf429d414a093fe6e",
+        "interaction_text_sha256": "67f3b65fc667a4e0fd28084a6a26175cd8c64a4234e0935d49667ec74a32f42b",
+        "passage_markdown_sha256": "b35cb101b409968375c4cf834aea31311556630b381459918f413e6593b6a88d"
+      }
+    ]
+  },
+  "scene_approval": false,
+  "formal_qa_pass": false,
+  "production_stage_status": null,
+  "dependency_release": false,
+  "effectiveness_measured": false,
+  "held_out_evaluation_completed": false,
+  "canonical_scene_runtime_harness_changes": false,
+  "source_revision_type": "human_authored_revision",
+  "A_B_originals_preserved": {
+    "path": ".ai/experiments/dialogue-calibration/evidence/candidates-20260930.json",
+    "sha256": "5bd47afa159ab3f6fd9043f2926fb25eaec56fae9fd388f2d560a400b142fd46",
+    "mutated": false
+  },
+  "future_directives": {
+    "stored_in_production_bank": false,
+    "source_snapshot_only": true,
+    "source_path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
+    "source_sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
+    "line_ranges": [
+      [
+        33,
+        33
+      ],
+      [
+        58,
+        59
+      ]
+    ],
+    "status": "future bounded direction only; no later-scene effectiveness evidence or other-heroine production input"
+  },
+  "limitations": [
+    "Human source message ID and timestamp unavailable; normalized local snapshot plus exact SHA-256 and ranges provide auditable binding.",
+    "No measured general effectiveness, held-out test, formal QA PASS, scene integration or dependency release.",
+    "Context relationship/knowledge facts depend only on pinned COM-02X scene/contract; uncertain labels cannot authorize application."
+  ],
+  "evidence_policy": {
+    "raw_evidence_root": ".ai/experiments/dialogue-calibration/evidence",
+    "authoring_input": false,
+    "production_worker_may_follow_raw_evidence_pointers": false,
+    "durable_receipt": "content/production/voice/receipts/human-reference-001.json"
+  }
+}

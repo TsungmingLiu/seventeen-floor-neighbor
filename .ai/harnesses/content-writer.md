@@ -2,7 +2,7 @@
 
 Harness ID: `content_writer`
 
-Version: 1.1.0
+Version: 1.4.0
 
 ## Responsibility
 
@@ -25,6 +25,12 @@ Version: 1.1.0
 - Human directive。
 
 不得讀 image prompt、CG manifest entry、unrelated heroine、archive 或 experiment。
+
+`scene_dialogue` 若使用對話校準參考，須在 Task Packet 明列 `docs/narrative/DIALOGUE_CALIBRATION.md`，再依該政策只讀 packet 明列 ID/version/hash、Human 明示批准且 context／scope 適用的完整互動節錄，不自行讀整份 `content/production/voice/approved-examples.json`。沒有適用樣本就維持既有流程；缺必要批准／版本回 `BLOCKED`。候選、退稿、未確認標籤不作 input；樣本不覆蓋 canon／contract，tentative 推論不變成 hard rule，也不從回饋自動學習。此參考不適用 `narrative_design`；保留 approved baseline，校準修正仍受原有 bounded sweep 與最多一次 focused corrective redispatch 限制。
+
+若 packet 明列本輪 Human directive／適用修訂樣本，口語自然度與 informality 分開判斷：禮貌／距離也可自然，語域依角色＋熟悉度＋情境，不靠 filler 數量或一律加「沒有啦」。第一人稱當下觀察不斷言他人動機。Human 修訂／混合稿記為 `human_revision`，保留精確文字及 scope；AI context 推定仍 provisional，未示範的後續語域方向不變成固定 voice rule，不帶入其他角色資料。
+
+若 packet 明列本輪許棠初識 Human directive，不熟悉限制主動性、話題深度／自我揭露，不強迫短答；簡潔不能刪掉必要 acknowledgement／普通鼓勵，也不把這些禮貌回應寫成信任／浪漫進展。搬家提問須有共享前事的橋接。當面稱呼依接觸程度與 Human 方向，不因知道全名就使用全名；narrator／speaker label 不等於 spoken address。語氣詞服務當下回應，不設 quota，也不外推為所有角色的稱呼或用字禁令。
 
 ## Required output
 
@@ -82,6 +88,7 @@ Version: 1.1.0
 - Branch rejoin 必須有當地合理的 conversational bridge。不得因為所有 branch 都需要同一資訊，就從分支回覆直接跳進共同 exposition block。
 - A/shared-rejoin 原則只要求後續 continuity 必要事實在所有路徑成立；**不要求所有事實集中在最短共同段一次說完**。
 - 能用 action、停頓、反問、短答、後續 callback 自然建立的事實，不要改寫成角色主動報告履歷或 state。
+- 對方已提出具體問題或誤解時，角色可以用完整的一個回合澄清必要資訊；例如回答「妳是做印刷的嗎？」不必為了降低資訊密度而強行拆短。判斷當地提問與回應是否相稱，不以句長或資訊項數單獨判定自然度。
 
 ### 不要讓 guardrail 直接出現在 prose
 
