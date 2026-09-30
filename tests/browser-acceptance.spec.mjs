@@ -43,7 +43,7 @@ test('opening-demo saves its real cursor and resumes after reload', async ({ pag
 
   await page.locator('#advance-zone').click();
   await waitForDialogueReady(page);
-  await expect(page.locator('#dialogue-text')).toContainText('走廊上還剩三箱');
+  await expect(page.locator('#dialogue-text')).toContainText('還有三只紙箱，一張過不了門框的椅子。');
   const savedNode = await page.evaluate(() =>
     JSON.parse(localStorage.getItem('opening-demo-chapter-01:journey:v2')).cursor.nodeId
   );
@@ -56,7 +56,7 @@ test('opening-demo saves its real cursor and resumes after reload', async ({ pag
   await page.locator('#start-button').click();
   await enterPlayerName(page);
   await waitForDialogueReady(page);
-  await expect(page.locator('#dialogue-text')).toContainText('走廊上還剩三箱');
+  await expect(page.locator('#dialogue-text')).toContainText('還有三只紙箱，一張過不了門框的椅子。');
 });
 
 test('opening-demo title, Memories, Gallery, and game controls fit a 320px viewport', async ({ page }) => {
