@@ -304,19 +304,13 @@
     }
   ],
   "preview": {
-    "commit": "48980950ddff769895874579054be85f521b7e81",
-    "profile": "narrative_preview",
-    "url_or_access_path": null,
-    "visibility": "local engineering verification only; remote Cloudflare PR access pending",
-    "build": "PASS",
-    "validation": "PASS",
-    "tests": "82/82 PASS with TMPDIR=/private/tmp",
-    "smoke": "PASS local command; local browser NOT_RUN",
-    "pending": [
-      "committed integrated output ref",
-      "changed-branch Node22 CI",
-      "Cloudflare PR URL/access",
-      "Human playable acceptance"
-    ]
+    "status": "NARRATIVE_PREVIEW_READY",
+    "verified_code_ref": "ade6333452f97be86b2038a3d6ae530e0d40033a",
+    "url": "https://pr-37.seventeen-floor-neighbor.pages.dev",
+    "pull_request": "https://github.com/TsungmingLiu/seventeen-floor-neighbor/pull/37",
+    "decision_receipt": "content/production/runs/dialogue-calibration-com00-20260930/PUBLIC-COM00-PREVIEW-001.decision.json",
+    "human_gate": "narrative_preview_review",
+    "human_playable_acceptance": "PENDING",
+    "final_visual_acceptance": false
   }
 }

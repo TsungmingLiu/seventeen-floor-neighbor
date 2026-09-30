@@ -1,0 +1,55 @@
+{
+  "receipt_id": "PUBLIC-COM00-PREVIEW-001",
+  "run_id": "dialogue-calibration-com00-20260930",
+  "status": "NARRATIVE_PREVIEW_READY",
+  "verified_code_ref": "ade6333452f97be86b2038a3d6ae530e0d40033a",
+  "pull_request": "https://github.com/TsungmingLiu/seventeen-floor-neighbor/pull/37",
+  "preview_url": "https://pr-37.seventeen-floor-neighbor.pages.dev",
+  "deployment_url": "https://660527ae.seventeen-floor-neighbor.pages.dev",
+  "node22_verify": {
+    "url": "https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/36770480063",
+    "result": "PASS",
+    "tests": 82,
+    "deployment": "PASS"
+  },
+  "public_browser": {
+    "result": "PASS",
+    "tests": 6,
+    "environment": "Bundled Node24.19.0 + Playwright1.62.1 + installed Chrome154; direct public deployment; temporary spec differs only by import transport.",
+    "evidence_sha256": "5e992f94d4f44fe33e7b595b21e4d15be8a22b6f741261434272919c1015f11e"
+  },
+  "http_verification": "Public app.js and index.html byte-identical to locally verified dist; deployed pipeline separately checked package/resources.",
+  "outputs": [
+    {
+      "path": "content/routes/opening-demo/chapter-01.json",
+      "git_blob_sha": "8b210eb3e8a93bfdb64cd51fef6888234a9cb468",
+      "sha256": "4f5cfcbd7c36a32a3c2fc01fbe09776262615aba91a7a6c088e8ff490607cd6c"
+    },
+    {
+      "path": "content/routes/opening-demo/memories.json",
+      "git_blob_sha": "6f28a2433a1f667985051b72b2330d7baab61fc7",
+      "sha256": "486ac672eda8900e30c6bc462cd467013d10f9db861062256480899f4c0a3649"
+    },
+    {
+      "path": "public/index.html",
+      "git_blob_sha": "7d8bd442c20f7d008dd183fb4fd58db92aa9250e",
+      "sha256": "62d3e020dd527c49715e7f6602e689c2afcd304673064cdc052b95f6d5ebbc29"
+    },
+    {
+      "path": "src/engine.js",
+      "git_blob_sha": "679316afcea678b83e69f11080494824ba4f3dff",
+      "sha256": "4477982249fe27654009e759698fbcad8371402fb696accde8223d992933a398"
+    },
+    {
+      "path": "tests/browser-acceptance.spec.mjs",
+      "git_blob_sha": "91412aae5634339087c556554d5fcf7c62c97a7d",
+      "sha256": "4a1f5345c0feaf07560be693bf0bc43914acb3850ae43b7271bc937e2a23e497"
+    }
+  ],
+  "extra_github_chromium": {
+    "url": "https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/36770503120",
+    "status_at_public_verification": "PENDING_ENVIRONMENT_MEDIA_INSTALL; not a claimed PASS"
+  },
+  "human_playable_acceptance": "PENDING",
+  "final_visual_acceptance": false
+}
