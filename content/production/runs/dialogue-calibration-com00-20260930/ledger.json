@@ -60,12 +60,12 @@
       "depends_on": [
         "CW-COM00-APPROVED-ASSEMBLY-001"
       ],
-      "status": "READY",
+      "status": "PASS",
       "packet": {
         "generator": "tools/context.mjs:narrative_review",
         "sha256": "125c73021f8bc2819b85b835480348f09a9c2df2c3cc38d80ae1eb28cbb2e473"
       },
-      "decision_receipt": null,
+      "decision_receipt": "content/production/runs/dialogue-calibration-com00-20260930/NQA-COM00-CALIBRATION-001.decision.json",
       "input_versions": [
         {
           "id": "file:content/production/narrative/opening-ch1/COM-00.json",
@@ -88,9 +88,15 @@
           "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md"
         }
       ],
-      "output_versions": [],
+      "output_versions": [
+        {
+          "id": "approved_locked_scene:COM-00",
+          "version": "59520478b9c3132cc3ccb1b6105f091b244131dc",
+          "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+        }
+      ],
       "human_gate": "none",
-      "reason": "Official generated packet verification and machine QA PASS on Node25.9.0; target Node22 checks still required for changed branch. Fresh formal QA not yet performed."
+      "reason": "Fresh official whole-scene QA PASS; old/new visual-impact comparison still pending, no automatic artifact preservation."
     }
   ],
   "invalidation_events": [],

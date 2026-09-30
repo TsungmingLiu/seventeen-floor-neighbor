@@ -1,0 +1,122 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "dialogue-calibration-com00-20260930",
+  "task_id": "NQA-COM00-CALIBRATION-001",
+  "task_type": "narrative_review",
+  "scene_id": "COM-00",
+  "status": "PASS",
+  "workflow_version": "1.3.0",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.4.0",
+    "pass": "narrative_review"
+  },
+  "source_ref": "65ae8abebd3b2dcf969d893f880fc0a61b566f3c",
+  "packet_sha256": "125c73021f8bc2819b85b835480348f09a9c2df2c3cc38d80ae1eb28cbb2e473",
+  "worker_handoff_sha256": "74e8dca7a176986beef71f3e60c2887c269ff9c283a049b61714d68111fbd618",
+  "handoff_sha256": "74e8dca7a176986beef71f3e60c2887c269ff9c283a049b61714d68111fbd618",
+  "input_versions": [
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-00.json",
+      "version": "8c06b6872300ac75808326dfc60179a0e82f76a5",
+      "location": "content/production/narrative/opening-ch1/COM-00.json"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-00.md",
+      "version": "59520478b9c3132cc3ccb1b6105f091b244131dc",
+      "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+    },
+    {
+      "id": "file:docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md",
+      "version": "a45247d93c2a1736e54aa13aca2110ee08a5b8c8",
+      "location": "docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md"
+    },
+    {
+      "id": "file:docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md",
+      "version": "fa68288637f8d1cddc0857b64b5d84b66469f173",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md"
+    }
+  ],
+  "input_digest_sha256": "b90fa2a0e193ce0776268ca272c1d7f655533dbb02ea59209d7d8e310cd328eb",
+  "output_versions": [
+    {
+      "id": "approved_locked_scene:COM-00",
+      "version": "59520478b9c3132cc3ccb1b6105f091b244131dc",
+      "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+    }
+  ],
+  "handoff_result_versions": [
+    {
+      "id": "narrative-qa:COM-00",
+      "version": "09530df44757e0e6fddb81e22e0c962427cd90c48418bf77b1b7a4ee177ed5ff",
+      "location": "generated/session-cache/dialogue-calibration-com00-20260930/NQA-COM00-CALIBRATION-001.handoff.json",
+      "version_scheme": "sha256 of decision_payload encoded as UTF-8 compact JSON with recursively sorted keys, ensure_ascii=false"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "source_acquisition",
+      "code": "NQA-SOURCE-ACQUISITION",
+      "result": "PASS"
+    },
+    {
+      "name": "machine_preflight",
+      "code": "NQA-MACHINE-PREFLIGHT",
+      "result": "PASS"
+    },
+    {
+      "name": "scene_function_and_payoffs",
+      "code": "NQA-SCENE-FUNCTION",
+      "result": "PASS"
+    },
+    {
+      "name": "voice_and_relationship_pacing",
+      "code": "NQA-VOICE-AND-PACING",
+      "result": "PASS"
+    },
+    {
+      "name": "knowledge_boundaries",
+      "code": "NQA-KNOWLEDGE",
+      "result": "PASS"
+    },
+    {
+      "name": "choice_and_rejoin",
+      "code": "NQA-CHOICE-REJOIN",
+      "result": "PASS"
+    },
+    {
+      "name": "must_not_and_premature_reveal",
+      "code": "NQA-MUST-NOT",
+      "result": "PASS"
+    },
+    {
+      "name": "pov",
+      "code": "NQA-POV",
+      "result": "PASS"
+    },
+    {
+      "name": "state_mapping",
+      "code": "NQA-STATE-MAPPING",
+      "result": "PASS"
+    },
+    {
+      "name": "semantic_visual_beats",
+      "code": "NQA-SEMANTIC-VISUAL-BEATS",
+      "result": "PASS"
+    },
+    {
+      "name": "dialogue_naturalism",
+      "code": "NQA-DIALOGUE-NATURALISM",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    {
+      "code": "NQA-VISUAL-IMPACT-COMPARISON-REQUIRED",
+      "summary": "Separate exact-version comparison pending; no no_visual_impact asserted."
+    }
+  ],
+  "human_gate_required": "none",
+  "invalidates": [],
+  "invalidation_decision": null
+}
