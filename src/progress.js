@@ -1,4 +1,8 @@
 import { memoryEventForNode } from './memories.js';
+import { normalizePlayerName } from './player-name.js';
+
+// These are the only additive stats introduced by the COM-02X preview.
+const OPENING_ADDITIVE_STATS = new Set(['T_XT', 'K_XT', 'xt_advice_tendency']);
 
 // Snapshots store node-entry state: choices are applied only when the player chooses.
 export class ProgressStore {
@@ -21,6 +25,7 @@ export class ProgressStore {
   emptyData() {
     return {
       version: 2,
+      playerDisplayName: null,
       cursor: null,
       frontier: null,
       restartActive: false,
@@ -37,9 +42,29 @@ export class ProgressStore {
     catch { return null; }
   }
 
+  normalizeStats(stats) {
+    if (!stats || typeof stats !== 'object' || Array.isArray(stats)) return null;
+    const normalized = { ...stats };
+    for (const [key, value] of Object.entries(this.chapter.initialState)) {
+      if (!Object.hasOwn(stats, key) && this.chapter.id === 'opening-demo-chapter-01' && OPENING_ADDITIVE_STATS.has(key)) {
+        normalized[key] = value;
+      }
+      if (!Number.isFinite(normalized[key])) return null;
+    }
+    return normalized;
+  }
+
+  setPlayerName(value) {
+    const name = normalizePlayerName(value);
+    if (!name) return false;
+    this.data.playerDisplayName = name;
+    this.flush();
+    return true;
+  }
+
   valid(snapshot) {
     return !!snapshot && !!this.chapter.nodes[snapshot.nodeId]
-      && snapshot.stats && Object.keys(this.chapter.initialState).every(key => Number.isFinite(snapshot.stats[key]))
+      && this.normalizeStats(snapshot.stats)
       && Array.isArray(snapshot.flags) && snapshot.flags.every(flag => typeof flag === 'string')
       && Array.isArray(snapshot.returnNodes) && snapshot.returnNodes.every(id => this.chapter.nodes[id]);
   }
@@ -48,7 +73,7 @@ export class ProgressStore {
     if (!this.valid(snapshot)) return null;
     return {
       nodeId: snapshot.nodeId,
-      stats: { ...snapshot.stats },
+      stats: this.normalizeStats(snapshot.stats),
       flags: [...snapshot.flags],
       returnNodes: [...snapshot.returnNodes]
     };
@@ -92,6 +117,7 @@ export class ProgressStore {
   load() {
     const saved = this.parse(this.key);
     if (saved?.version === 2) {
+      this.data.playerDisplayName = normalizePlayerName(saved.playerDisplayName);
       this.data.checkpoints = this.sanitizeCheckpoints(saved.checkpoints);
       this.data.cursor = this.clone(saved.cursor);
       this.data.frontier = this.clone(saved.frontier);

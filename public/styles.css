@@ -310,7 +310,7 @@ h1 b{font:inherit}
     background:rgba(8,9,13,.38);
   }
   .hud-actions .text-button{
-    min-height:40px;
+    min-height:44px;
     padding:.5rem .68rem;
     font-size:.76rem;
   }
@@ -326,3 +326,15 @@ h1 b{font:inherit}
     bottom:max(.9rem,env(safe-area-inset-bottom));
   }
 }
+
+/* A named journey uses one saved name for play, Continue, and Memories. */
+.player-name-dialog{width:min(28rem,calc(100% - 2rem));max-height:calc(100svh - 2rem);padding:1.5rem;border:1px solid rgba(255,173,192,.3);border-radius:20px;background:#11121a;color:#fff;overflow:auto}
+.player-name-dialog::backdrop{background:rgba(0,0,0,.78)}
+.player-name-dialog h2{margin:0;font-size:1.8rem}
+.player-name-dialog p{line-height:1.6;color:rgba(255,255,255,.7)}
+.player-name-dialog label{display:block;margin-bottom:.5rem}
+.player-name-dialog input{width:100%;min-height:48px;padding:.7rem;border:1px solid rgba(255,173,192,.45);border-radius:10px;background:#08090d;color:#fff;font:inherit}
+.player-name-dialog input:focus-visible{outline:2px solid var(--pink-soft);outline-offset:2px}
+#player-name-error{min-height:1.6em;color:var(--pink-soft)}
+.player-name-actions{display:flex;flex-wrap:wrap;gap:.75rem}
+.player-name-actions button{min-height:44px}

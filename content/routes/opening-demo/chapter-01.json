@@ -26,7 +26,7 @@
     },
     "common_movein_rain_door": {
       "speaker": "旁白",
-      "text": "男主抬起紙箱右側；箱角卡住正在回彈的防火門。",
+      "text": "我抬起紙箱右側；箱角卡住正在回彈的防火門。",
       "chapter": 0,
       "visual": {
         "mode": "composite",
@@ -178,7 +178,7 @@
     },
     "common_elevator_restart_enter": {
       "speaker": "旁白",
-      "text": "一樓電梯門將關時，許棠伸手擋住感應區進來。她看見男主，點了一下頭。",
+      "text": "一樓電梯門將關時，許棠伸手擋住感應區進來。她看見我，點了一下頭。",
       "chapter": 1,
       "visual": {
         "mode": "composite",
@@ -275,7 +275,7 @@
     },
     "common_elevator_restart_wait": {
       "speaker": "旁白",
-      "text": "男主往旁邊讓半步。兩人一起看著樓層面板。",
+      "text": "我往旁邊讓半步。兩人一起看著樓層面板。",
       "chapter": 1,
       "visual": {
         "mode": "cg",
@@ -315,7 +315,7 @@
     },
     "common_elevator_restart_exit": {
       "speaker": "旁白",
-      "text": "許棠按住開門鍵。男主先提著手上的袋子走出電梯。",
+      "text": "許棠按住開門鍵。我先提著袋子走出電梯。",
       "chapter": 1,
       "visual": {
         "mode": "cg",
@@ -348,7 +348,7 @@
     },
     "common_acg_first_meet_observation": {
       "speaker": "旁白",
-      "text": "她翻到其中一本索引，再對照另一本跨頁。男主停在書架另一側，不靠近她手邊。",
+      "text": "她翻到其中一本索引，再對照另一本跨頁。我停在書架另一側，不靠近她手邊。",
       "chapter": 2,
       "moment": "她的眼睛先離開書頁，頭才微微轉過來。",
       "visual": {
@@ -473,7 +473,7 @@
     },
     "common_acg_first_meet_exit": {
       "speaker": "旁白",
-      "text": "有人從兩人中間的走道經過。雨澄往結帳方向退半步，男主讓開書架。",
+      "text": "有人從兩人中間的走道經過。雨澄往結帳方向退半步，我讓開書架。",
       "chapter": 2,
       "visual": {
         "mode": "cg",
@@ -700,7 +700,7 @@
     },
     "common_bookstore_bridge_rejoin": {
       "speaker": "旁白",
-      "text": "許棠沿著原來的方向走遠。男主剛才道謝時笑得明亮，等她離開，笑意才慢慢收下來。",
+      "text": "許棠沿著原來的方向走遠。剛才道謝時，我笑得很明亮；等她離開，笑意才慢慢收下來。",
       "chapter": 1,
       "visual": {
         "mode": "cg",
@@ -774,7 +774,7 @@
     },
     "common_convenience_xu_recognize": {
       "speaker": "旁白",
-      "text": "男主轉身。",
+      "text": "我轉身。",
       "chapter": 3,
       "visual": {
         "mode": "composite",
@@ -840,7 +840,7 @@
     },
     "common_convenience_xu_recognize_07": {
       "speaker": "旁白",
-      "text": "她低頭看了一眼男主手上的餐盒，又看看自己那盒。",
+      "text": "她低頭看了一眼我手上的餐盒，又看看自己那盒。",
       "chapter": 3,
       "visual": {
         "mode": "composite",
@@ -851,7 +851,7 @@
     },
     "common_convenience_xu_recognize_08": {
       "speaker": "旁白",
-      "text": "男主也看了她手上的餐盒。",
+      "text": "我也看了她手上的餐盒。",
       "chapter": 3,
       "visual": {
         "mode": "composite",
@@ -928,7 +928,7 @@
     },
     "common_convenience_xu_ask_food_03": {
       "speaker": "旁白",
-      "text": "她往玻璃門外看了一眼，又看回男主手裡的餐盒。",
+      "text": "她往玻璃門外看了一眼，又看回我手裡的餐盒。",
       "chapter": 3,
       "visual": {
         "mode": "composite",
@@ -1192,7 +1192,7 @@
     },
     "common_convenience_xu_tell_eat_better_07": {
       "speaker": "旁白",
-      "text": "男主把餐盒拿穩，沒有再接這句。",
+      "text": "我把餐盒拿穩，沒有再接這句。",
       "chapter": 3,
       "visual": {
         "mode": "composite",
@@ -1203,7 +1203,7 @@
     },
     "common_convenience_xu_work": {
       "speaker": "旁白",
-      "text": "櫃檯前的人拿走加熱好的晚餐，店員問下一盒是誰的。男主應了一聲，把餐盒遞過去。許棠跟著往前挪，等另一台微波爐空出來。男主的手機亮了一下；他看過通知，按暗螢幕。",
+      "text": "櫃檯前的人拿走加熱好的晚餐，店員問下一盒是誰的。我應了一聲，把餐盒遞過去。許棠跟著往前挪，等另一台微波爐空出來。我的手機亮了一下；我看過通知，按暗螢幕。",
       "chapter": 3,
       "visual": {
         "mode": "composite",
@@ -1291,7 +1291,7 @@
     },
     "common_convenience_xu_work_09": {
       "speaker": "旁白",
-      "text": "微波爐轉了一圈。男主往計時器看了一眼。",
+      "text": "微波爐轉了一圈。我往計時器看了一眼。",
       "chapter": 3,
       "visual": {
         "mode": "composite",
@@ -1401,7 +1401,7 @@
     },
     "common_convenience_xu_checkout_02": {
       "speaker": "旁白",
-      "text": "男主的那盒晚一步加熱好；",
+      "text": "我的餐盒晚一步加熱好；",
       "chapter": 3,
       "visual": {
         "mode": "composite",
@@ -1412,7 +1412,7 @@
     },
     "common_convenience_xu_checkout_03": {
       "speaker": "旁白",
-      "text": "等他結完帳走出店門，她正站在騎樓邊把收據塞進袋子。",
+      "text": "等我結完帳走出店門，她正站在騎樓邊把收據塞進袋子。",
       "chapter": 3,
       "visual": {
         "mode": "composite",
@@ -1533,7 +1533,7 @@
     },
     "common_convenience_xu_checkout_14": {
       "speaker": "旁白",
-      "text": "許棠提著袋子，走到公寓前才稍微慢下來，讓男主先推開玻璃門。",
+      "text": "許棠提著袋子，走到公寓前才稍微慢下來，讓我先推開玻璃門。",
       "chapter": 3,
       "visual": {
         "mode": "composite",
@@ -1621,7 +1621,7 @@
     },
     "common_convenience_xu_exit_08": {
       "speaker": "旁白",
-      "text": "她進 1702。男主繼續往 1703 走。",
+      "text": "她進 1702。我繼續往 1703 走。",
       "chapter": 3,
       "visual": {
         "mode": "composite",
@@ -1773,7 +1773,7 @@
         "asset": "cg.opening.com00.s04_r01_polite_smile"
       },
       "speaker": "旁白",
-      "text": "男主把箱子推離門線。",
+      "text": "我把箱子推離門線。",
       "next": "common_movein_rain_formal_locked_03"
     },
     "common_movein_rain_formal_locked_03": {
@@ -1823,7 +1823,7 @@
         "asset": "cg.opening.com00.s04_r01_polite_smile"
       },
       "speaker": "旁白",
-      "text": "男主把箱子推離門線。",
+      "text": "我把箱子推離門線。",
       "next": "common_movein_rain_names"
     },
     "common_movein_rain_practical_locked_00": {
@@ -1833,7 +1833,7 @@
         "asset": "cg.opening.com00.s04_base_neutral"
       },
       "speaker": "旁白",
-      "text": "男主把箱子挪離門線；她確認門線淨空。",
+      "text": "我把箱子挪離門線；她確認門線淨空。",
       "next": "common_movein_rain_practical_locked_01"
     },
     "common_movein_rain_practical_locked_01": {
@@ -1894,7 +1894,7 @@
         "sprites": []
       },
       "speaker": "旁白",
-      "text": "她刷卡進 1702，沒有回頭停留。男主把最後一箱拖進 1703。門口騰出空間後，他回頭把椅子側過來，椅背斜進門框，椅腳也跟著進了 1703。",
+      "text": "她刷卡進 1702，沒有回頭停留。我把最後一箱拖進 1703。門口騰出空間後，我回頭把椅子側過來，椅背斜進門框，椅腳也跟著進了 1703。",
       "next": "common_movein_rain_goodnight_locked_01"
     },
     "common_movein_rain_goodnight_locked_01": {
@@ -1936,7 +1936,7 @@
         "asset": "cg.opening.com01x.base_normal"
       },
       "speaker": "旁白",
-      "text": "男主伸手要按 17 樓，發現按鍵已亮，又把手收回來。兩人各站一側，電梯往上走。",
+      "text": "我伸手要按 17 樓，發現按鍵已亮，又把手收回來。兩人各站一側，電梯往上走。",
       "next": "common_elevator_restart_enter_locked_02"
     },
     "common_elevator_restart_enter_locked_02": {
@@ -1976,7 +1976,7 @@
         "asset": "cg.opening.com01x.base_normal"
       },
       "speaker": "旁白",
-      "text": "電梯繼續往上。兩人安靜了一會兒；許棠看見男主手上的袋子。",
+      "text": "電梯繼續往上。兩人安靜了一會兒；許棠看見我手上的袋子。",
       "next": "common_elevator_restart_enter_locked_06"
     },
     "common_elevator_restart_enter_locked_06": {
@@ -2016,7 +2016,7 @@
         "asset": "cg.opening.com01x.r01_restart"
       },
       "speaker": "旁白",
-      "text": "許棠看了他一眼，嘴角動了一下。",
+      "text": "許棠看了我一眼，嘴角動了一下。",
       "next": "common_elevator_restart_match_dry_locked_01"
     },
     "common_elevator_restart_match_dry_locked_01": {
@@ -2227,7 +2227,7 @@
         "asset": "cg.opening-ch1.com01b.04"
       },
       "speaker": "旁白",
-      "text": "男主走進台北地下街，來到那家以設定集與周邊為主的 ACG 店。他要查《逆光航路》新版究竟增補了什麼。此刻尚未與江雨澄相遇。",
+      "text": "我走進台北地下街，來到那家以設定集與周邊為主的 ACG 店。我想查《逆光航路》新版究竟增補了什麼。此刻我還沒遇見江雨澄。",
       "next": "common_acg_first_meet_enter"
     },
     "common_acg_first_meet_enter_locked_00": {
@@ -2238,7 +2238,7 @@
         "sprites": []
       },
       "speaker": "旁白",
-      "text": "男主走到設定集區。江雨澄已站在書架前，手上各翻著一本書。",
+      "text": "我走到設定集區。江雨澄已站在書架前，手上各翻著一本書。",
       "next": "common_acg_first_meet_observation"
     },
     "common_acg_first_meet_observation_locked_00": {
@@ -2351,7 +2351,7 @@
         "asset": "cg.opening.com01j.r01_interested"
       },
       "speaker": "旁白",
-      "text": "她這次立刻抬眼看了男主一下，又低頭看書頁。",
+      "text": "她這次立刻抬眼看了我一下，又低頭看書頁。",
       "next": "common_acg_first_meet_visual_design_locked_01"
     },
     "common_acg_first_meet_visual_design_locked_01": {
@@ -2371,7 +2371,7 @@
         "asset": "cg.opening.com01j.r01_interested"
       },
       "speaker": "旁白",
-      "text": "她把書頁偏離頂燈，示意反光位置；沒有把書遞給男主。",
+      "text": "她把書頁偏離頂燈，示意反光位置；沒有把書遞給我。",
       "next": "common_acg_first_meet_visual_design_locked_03"
     },
     "common_acg_first_meet_visual_design_locked_03": {
@@ -2561,7 +2561,7 @@
         "asset": "cg.opening.com01j.r01_interested"
       },
       "speaker": "旁白",
-      "text": "她拿著選定的書走向結帳。男主退回書架另一側，翻開展示本。",
+      "text": "她拿著選定的書走向結帳。我退回書架另一側，翻開展示本。",
       "next": "common_acg_first_meet_exit_locked_03"
     },
     "common_acg_first_meet_exit_locked_03": {
@@ -2595,7 +2595,7 @@
         "sprites": []
       },
       "speaker": "旁白",
-      "text": "她嘴角動了一下。男主低頭把自己的餐盒轉了半圈，還是看不出裡面有什麼菜。",
+      "text": "她嘴角動了一下。我低頭把手上的餐盒轉了半圈，還是看不出裡面有什麼菜。",
       "next": "common_convenience_xu_work"
     }
   }

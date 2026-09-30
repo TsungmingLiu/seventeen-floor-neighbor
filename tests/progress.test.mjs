@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
 import { ProgressStore } from '../src/progress.js';
 
 class MemoryStorage {
@@ -293,4 +294,49 @@ test('connect deduplicates edges and storage failures remain non-blocking', () =
   const failingStore = new ProgressStore(chapter, memories, failingStorage);
   assert.doesNotThrow(() => failingStore.capture('start', state(), []));
   assert.equal(failingStore.persisted, false);
+});
+
+
+test('genuine pre-COM02X v2 shape normalizes only approved additive stats and retains frontier/checkpoints', () => {
+  const route = JSON.parse(fs.readFileSync(new URL('../content/routes/opening-demo/route.json', import.meta.url)));
+  const source = JSON.parse(fs.readFileSync(new URL('../content/routes/opening-demo/chapter-01.json', import.meta.url)));
+  const current = { ...route.story, nodes: source.nodes };
+  const original = structuredClone(current);
+  for (const key of ['T_XT', 'K_XT', 'xt_advice_tendency']) delete original.initialState[key];
+  const storage = new MemoryStorage();
+  const oldStore = new ProgressStore(original, storage);
+  oldStore.capture('common_elevator_restart_greeting', { ...original.initialState, F_XT: 2, flags: new Set(['test-flag']) }, []);
+  const migrated = new ProgressStore(current, storage);
+  assert.equal(migrated.data.cursor.nodeId, 'common_elevator_restart_greeting');
+  assert.equal(migrated.data.frontier.nodeId, 'common_elevator_restart_greeting');
+  assert.equal(Object.keys(migrated.data.checkpoints).length, 1);
+  assert.equal(migrated.data.cursor.stats.F_XT, 2);
+  assert.deepEqual(migrated.data.cursor.flags, ['test-flag']);
+  for (const key of ['T_XT', 'K_XT', 'xt_advice_tendency']) assert.equal(migrated.data.cursor.stats[key], current.initialState[key]);
+
+  const malformed = structuredClone(oldStore.data.cursor);
+  malformed.stats.T_XT = null;
+  assert.equal(migrated.clone(malformed), null, 'present invalid new stat is rejected');
+  malformed.stats.T_XT = Infinity;
+  assert.equal(migrated.clone(malformed), null);
+  delete malformed.stats.T_XT;
+  delete malformed.stats.F_XT;
+  assert.equal(migrated.clone(malformed), null, 'missing historical stat is rejected');
+  const otherChapter = { ...current, id: 'unrelated-chapter' };
+  assert.equal(new ProgressStore(otherChapter, new MemoryStorage()).clone(oldStore.data.cursor), null);
+});
+
+test('saved player name is validated independently without discarding valid old progress', () => {
+  const storage = new MemoryStorage();
+  const store = new ProgressStore(chapter, memories, storage);
+  store.capture('deep', state({ warmth: 8 }), []);
+  assert.equal(store.setPlayerName('  小雨  '), true);
+  assert.equal(new ProgressStore(chapter, memories, storage).data.playerDisplayName, '小雨');
+  assert.equal(store.setPlayerName('[PLAYER_NAME]'), false);
+  const saved = JSON.parse(storage.getItem(store.key));
+  saved.playerDisplayName = '[bad]';
+  storage.setItem(store.key, JSON.stringify(saved));
+  const reloaded = new ProgressStore(chapter, memories, storage);
+  assert.equal(reloaded.data.playerDisplayName, null);
+  assert.equal(reloaded.data.cursor.nodeId, 'deep');
 });

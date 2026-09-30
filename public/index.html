@@ -111,6 +111,20 @@
       </div>
     </section>
 
+    <dialog class="player-name-dialog" id="player-name-dialog" aria-labelledby="player-name-title">
+      <form id="player-name-form" novalidate>
+        <h2 id="player-name-title">你的名字</h2>
+        <p id="player-name-hint">故事中的你，想讓鄰居怎麼稱呼？</p>
+        <label for="player-name-input">名字</label>
+        <input id="player-name-input" name="playerName" type="text" autocomplete="nickname" required aria-describedby="player-name-hint player-name-error">
+        <p id="player-name-error" role="alert"></p>
+        <div class="player-name-actions">
+          <button class="primary-button" type="submit">進入故事</button>
+          <button class="text-button" id="player-name-cancel" type="button">返回</button>
+        </div>
+      </form>
+    </dialog>
+
     <dialog class="cg-viewer" id="cg-viewer" aria-labelledby="cg-viewer-title">
       <div class="cg-viewer-shell">
         <header class="cg-viewer-header">

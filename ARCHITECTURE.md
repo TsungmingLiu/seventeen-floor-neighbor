@@ -48,6 +48,8 @@
 - Replay 從 event 的 snapshot 恢復 stats、flags、return stack，可探索新選擇；只有進入更高 `progressRank` 的 Memory Event 才推進 frontier。同 rank 的其他分支可解鎖，但不覆蓋既有 frontier。
 - 抵達 terminal ending 後主按鈕顯示 Start；明確開始新一輪後，Continue 使用該輪 cursor，歷史 frontier 仍保留。
 - v1 save migration 保留可用的 checkpoint、CG/ending unlock；無效或已刪除 node 的 snapshot 有安全 fallback。修改 progress、node IDs 或 Memory mapping 時，必須加/更新 migration regression tests。
+- `[PLAYER_NAME]` 使用玩家首次進入故事時輸入的名字，統一驗證後存於 v2 journey 的 `playerDisplayName`；Continue 與 Memory replay 共用同一值。舊 save 缺名字時先顯示輸入視窗，取消不改進度。未知 token 保留原樣，不靜默刪除。
+- Opening COM-02X 新增的 `T_XT`、`K_XT`、`xt_advice_tendency` 可在舊 snapshot 缺值時補 initialState default；既有必填 stat 缺值或任何已提供的新 stat 非有限數字仍拒絕，不改 node ID。
 - Save 是本機便利功能，不是永久資料保證。未來非 terminal 的 relationship ending / After Story 需由 content 和 runtime contract 明確實作；不得從既有 demo terminal ending 推斷已支援。
 
 ## 4. Asset storage 與 build

@@ -5,7 +5,7 @@
   "source_ref": "13e4d71d1a0590d19b690d2ac292a7e081d8d539",
   "human_request": {
     "summary": "Owner passes existing dialogue and requests 男主→我 narration correction plus final review and merge.",
-    "gate_status": "conditional_narrative_acceptance"
+    "gate_status": "Owner accepts existing dialogue and authorizes merge after POV correction and verified fixes; custom name entry explicitly approved."
   },
   "status": "ACTIVE",
   "tasks": [
@@ -106,8 +106,422 @@
         }
       ],
       "human_gate": "none"
+    },
+    {
+      "task_id": "NQA-COM00-POV-001",
+      "task_type": "narrative_review",
+      "scene_id": "COM-00",
+      "source_ref": "872ec471458641c49444705c3eae15dee75b82a9",
+      "depends_on": [
+        "CW-POV-001"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "tools/context.mjs:narrative_review",
+        "sha256": "922b99e922ce777d3b991887d76e4a83b7874c42f197031a8b91d2a132f2b936"
+      },
+      "decision_receipt": "content/production/runs/pr33-first-person-20260929/NQA-COM00-POV-001.decision.json",
+      "input_versions": [
+        {
+          "id": "file:content/production/narrative/opening-ch1/COM-00.json",
+          "version": "8c06b6872300ac75808326dfc60179a0e82f76a5",
+          "location": "content/production/narrative/opening-ch1/COM-00.json"
+        },
+        {
+          "id": "file:docs/narrative/scenes/vertical-slice/COM-00.md",
+          "version": "a6c518a8fb5a4297045672096a0c72de3631321a",
+          "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+        },
+        {
+          "id": "file:docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md",
+          "version": "a45247d93c2a1736e54aa13aca2110ee08a5b8c8",
+          "location": "docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md"
+        },
+        {
+          "id": "file:docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md",
+          "version": "fa68288637f8d1cddc0857b64b5d84b66469f173",
+          "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md"
+        }
+      ],
+      "output_versions": [
+        {
+          "id": "approved_locked_scene:COM-00",
+          "version": "a6c518a8fb5a4297045672096a0c72de3631321a",
+          "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+        }
+      ],
+      "human_gate": "none"
+    },
+    {
+      "task_id": "NQA-COM01X-POV-001",
+      "task_type": "narrative_review",
+      "scene_id": "COM-01X",
+      "source_ref": "872ec471458641c49444705c3eae15dee75b82a9",
+      "depends_on": [
+        "CW-POV-001"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "tools/context.mjs:narrative_review",
+        "sha256": "5ddd456492be4da8f5171a9f245d07bfb7a949b9bcef8ecabf448b40639a507e"
+      },
+      "decision_receipt": "content/production/runs/pr33-first-person-20260929/NQA-COM01X-POV-001.decision.json",
+      "input_versions": [
+        {
+          "id": "file:content/production/narrative/opening-ch1/COM-01X.json",
+          "version": "8165567565b295e051abaf3bc0abb760eb60670d",
+          "location": "content/production/narrative/opening-ch1/COM-01X.json"
+        },
+        {
+          "id": "file:docs/narrative/scenes/vertical-slice/COM-01X.md",
+          "version": "4dc02231b706015c6e6dfc633763f40ae51ddec0",
+          "location": "docs/narrative/scenes/vertical-slice/COM-01X.md"
+        },
+        {
+          "id": "file:docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md",
+          "version": "a45247d93c2a1736e54aa13aca2110ee08a5b8c8",
+          "location": "docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md"
+        },
+        {
+          "id": "file:docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md",
+          "version": "fa68288637f8d1cddc0857b64b5d84b66469f173",
+          "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md"
+        },
+        {
+          "id": "file:docs/narrative/scenes/vertical-slice/COM-00.md",
+          "version": "a6c518a8fb5a4297045672096a0c72de3631321a",
+          "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+        }
+      ],
+      "output_versions": [
+        {
+          "id": "approved_locked_scene:COM-01X",
+          "version": "4dc02231b706015c6e6dfc633763f40ae51ddec0",
+          "location": "docs/narrative/scenes/vertical-slice/COM-01X.md"
+        }
+      ],
+      "human_gate": "none"
+    },
+    {
+      "task_id": "NQA-COM01B-POV-001",
+      "task_type": "narrative_review",
+      "scene_id": "COM-01B",
+      "source_ref": "872ec471458641c49444705c3eae15dee75b82a9",
+      "depends_on": [
+        "CW-POV-001"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "tools/context.mjs:narrative_review",
+        "sha256": "b32307185e3f092be0452377cab527e5a066b1fb47ffa49b30a3c71c9a05b7ff"
+      },
+      "decision_receipt": "content/production/runs/pr33-first-person-20260929/NQA-COM01B-POV-001.decision.json",
+      "input_versions": [
+        {
+          "id": "file:content/production/narrative/opening-ch1/COM-01B.json",
+          "version": "d02125cf9395eb81d7e2818fcab632caeaa69e3e",
+          "location": "content/production/narrative/opening-ch1/COM-01B.json"
+        },
+        {
+          "id": "file:docs/narrative/scenes/vertical-slice/COM-01B.md",
+          "version": "65015a8f9f2a24f2fe119b828671765ddfe5310c",
+          "location": "docs/narrative/scenes/vertical-slice/COM-01B.md"
+        },
+        {
+          "id": "file:docs/narrative/scenes/vertical-slice/COM-01X.md",
+          "version": "4dc02231b706015c6e6dfc633763f40ae51ddec0",
+          "location": "docs/narrative/scenes/vertical-slice/COM-01X.md"
+        },
+        {
+          "id": "file:docs/narrative/scenes/vertical-slice/COM-01J.md",
+          "version": "485974388d1dd1fb1a8eb46fd2c4645841cf4b1e",
+          "location": "docs/narrative/scenes/vertical-slice/COM-01J.md"
+        }
+      ],
+      "output_versions": [
+        {
+          "id": "approved_locked_scene:COM-01B",
+          "version": "65015a8f9f2a24f2fe119b828671765ddfe5310c",
+          "location": "docs/narrative/scenes/vertical-slice/COM-01B.md"
+        }
+      ],
+      "human_gate": "none"
+    },
+    {
+      "task_id": "NQA-COM01J-POV-001",
+      "task_type": "narrative_review",
+      "scene_id": "COM-01J",
+      "source_ref": "872ec471458641c49444705c3eae15dee75b82a9",
+      "depends_on": [
+        "CW-POV-001"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "tools/context.mjs:narrative_review",
+        "sha256": "6b6d976c134c6f471593dc274f0853ca28654cf016ac6baaedd27a25e6773055"
+      },
+      "decision_receipt": "content/production/runs/pr33-first-person-20260929/NQA-COM01J-POV-001.decision.json",
+      "input_versions": [
+        {
+          "id": "file:content/production/narrative/opening-ch1/COM-01J.json",
+          "version": "faf7e36eb017124e43f511d3cea9c00884d4cb86",
+          "location": "content/production/narrative/opening-ch1/COM-01J.json"
+        },
+        {
+          "id": "file:docs/narrative/scenes/vertical-slice/COM-01J.md",
+          "version": "485974388d1dd1fb1a8eb46fd2c4645841cf4b1e",
+          "location": "docs/narrative/scenes/vertical-slice/COM-01J.md"
+        },
+        {
+          "id": "file:docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md",
+          "version": "a45247d93c2a1736e54aa13aca2110ee08a5b8c8",
+          "location": "docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md"
+        },
+        {
+          "id": "file:docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md",
+          "version": "fa68288637f8d1cddc0857b64b5d84b66469f173",
+          "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md"
+        },
+        {
+          "id": "file:docs/narrative/scenes/vertical-slice/COM-00.md",
+          "version": "a6c518a8fb5a4297045672096a0c72de3631321a",
+          "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+        },
+        {
+          "id": "file:docs/narrative/scenes/vertical-slice/COM-01X.md",
+          "version": "4dc02231b706015c6e6dfc633763f40ae51ddec0",
+          "location": "docs/narrative/scenes/vertical-slice/COM-01X.md"
+        }
+      ],
+      "output_versions": [
+        {
+          "id": "approved_locked_scene:COM-01J",
+          "version": "485974388d1dd1fb1a8eb46fd2c4645841cf4b1e",
+          "location": "docs/narrative/scenes/vertical-slice/COM-01J.md"
+        }
+      ],
+      "human_gate": "none"
+    },
+    {
+      "task_id": "NQA-COM02X-POV-001",
+      "task_type": "narrative_review",
+      "scene_id": "COM-02X",
+      "source_ref": "872ec471458641c49444705c3eae15dee75b82a9",
+      "depends_on": [
+        "CW-POV-001"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "tools/context.mjs:narrative_review",
+        "sha256": "fc17be85251bc043b7837f924de3b6d6fd5b4c782f3239551318b27a9e5112ad"
+      },
+      "decision_receipt": "content/production/runs/pr33-first-person-20260929/NQA-COM02X-POV-001.decision.json",
+      "input_versions": [
+        {
+          "id": "file:content/production/narrative/opening-ch1/COM-02X.json",
+          "version": "5f85482b7c420a5f7726035e369679360f83cfd5",
+          "location": "content/production/narrative/opening-ch1/COM-02X.json"
+        },
+        {
+          "id": "file:docs/narrative/scenes/vertical-slice/COM-02X.md",
+          "version": "938edf40f2f34a9faee054971f72747e213c73ee",
+          "location": "docs/narrative/scenes/vertical-slice/COM-02X.md"
+        },
+        {
+          "id": "file:docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md",
+          "version": "a45247d93c2a1736e54aa13aca2110ee08a5b8c8",
+          "location": "docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md"
+        },
+        {
+          "id": "file:docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md",
+          "version": "fa68288637f8d1cddc0857b64b5d84b66469f173",
+          "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md"
+        },
+        {
+          "id": "file:docs/narrative/scenes/vertical-slice/COM-00.md",
+          "version": "a6c518a8fb5a4297045672096a0c72de3631321a",
+          "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+        },
+        {
+          "id": "file:docs/narrative/scenes/vertical-slice/COM-01X.md",
+          "version": "4dc02231b706015c6e6dfc633763f40ae51ddec0",
+          "location": "docs/narrative/scenes/vertical-slice/COM-01X.md"
+        }
+      ],
+      "output_versions": [
+        {
+          "id": "approved_locked_scene:COM-02X",
+          "version": "938edf40f2f34a9faee054971f72747e213c73ee",
+          "location": "docs/narrative/scenes/vertical-slice/COM-02X.md"
+        }
+      ],
+      "human_gate": "none"
+    },
+    {
+      "task_id": "INT-POV-001",
+      "task_type": "integrate",
+      "depends_on": [
+        "NQA-COM00-POV-001",
+        "NQA-COM01X-POV-001",
+        "NQA-COM01B-POV-001",
+        "NQA-COM01J-POV-001",
+        "NQA-COM02X-POV-001"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "accepted-scene integration packet",
+        "sha256": "7cb3f57e1fbccd4bcc6dbed7d5ee42dff7206d9ecc7658848cf818e3b6a50963"
+      },
+      "decision_receipt": "content/production/runs/pr33-first-person-20260929/INT-POV-001.decision.json",
+      "input_versions": [
+        {
+          "id": "docs/narrative/scenes/vertical-slice/COM-00.md",
+          "location": "docs/narrative/scenes/vertical-slice/COM-00.md",
+          "version": "a6c518a8fb5a4297045672096a0c72de3631321a"
+        },
+        {
+          "id": "docs/narrative/scenes/vertical-slice/COM-01X.md",
+          "location": "docs/narrative/scenes/vertical-slice/COM-01X.md",
+          "version": "4dc02231b706015c6e6dfc633763f40ae51ddec0"
+        },
+        {
+          "id": "docs/narrative/scenes/vertical-slice/COM-01B.md",
+          "location": "docs/narrative/scenes/vertical-slice/COM-01B.md",
+          "version": "65015a8f9f2a24f2fe119b828671765ddfe5310c"
+        },
+        {
+          "id": "docs/narrative/scenes/vertical-slice/COM-01J.md",
+          "location": "docs/narrative/scenes/vertical-slice/COM-01J.md",
+          "version": "485974388d1dd1fb1a8eb46fd2c4645841cf4b1e"
+        },
+        {
+          "id": "docs/narrative/scenes/vertical-slice/COM-02X.md",
+          "location": "docs/narrative/scenes/vertical-slice/COM-02X.md",
+          "version": "938edf40f2f34a9faee054971f72747e213c73ee"
+        },
+        {
+          "id": "content/production/narrative/opening-ch1/COM-00.json",
+          "location": "content/production/narrative/opening-ch1/COM-00.json",
+          "version": "8c06b6872300ac75808326dfc60179a0e82f76a5"
+        },
+        {
+          "id": "content/production/narrative/opening-ch1/COM-01X.json",
+          "location": "content/production/narrative/opening-ch1/COM-01X.json",
+          "version": "8165567565b295e051abaf3bc0abb760eb60670d"
+        },
+        {
+          "id": "content/production/narrative/opening-ch1/COM-01B.json",
+          "location": "content/production/narrative/opening-ch1/COM-01B.json",
+          "version": "d02125cf9395eb81d7e2818fcab632caeaa69e3e"
+        },
+        {
+          "id": "content/production/narrative/opening-ch1/COM-01J.json",
+          "location": "content/production/narrative/opening-ch1/COM-01J.json",
+          "version": "faf7e36eb017124e43f511d3cea9c00884d4cb86"
+        },
+        {
+          "id": "content/production/narrative/opening-ch1/COM-02X.json",
+          "location": "content/production/narrative/opening-ch1/COM-02X.json",
+          "version": "5f85482b7c420a5f7726035e369679360f83cfd5"
+        },
+        {
+          "id": "content/routes/opening-demo/chapter-01.json",
+          "location": "content/routes/opening-demo/chapter-01.json",
+          "version": "891e6e5e6935a57f826cc365ee31c226eaf5f739"
+        },
+        {
+          "id": "content/routes/opening-demo/route.json",
+          "location": "content/routes/opening-demo/route.json",
+          "version": "74b405d2fc4c8d4ad813e515cb6d9ed02805af29"
+        },
+        {
+          "id": "content/routes/opening-demo/memories.json",
+          "location": "content/routes/opening-demo/memories.json",
+          "version": "89ecdf0d7b7bb2b0b3dc0fe2e71133b28749f2b9"
+        },
+        {
+          "id": "tests/opening-locked-scenes.test.mjs",
+          "location": "tests/opening-locked-scenes.test.mjs",
+          "version": "7409d9181b5dd09036cd2b0486ef545adeeda63a"
+        },
+        {
+          "id": "tests/com02x-preview.test.mjs",
+          "location": "tests/com02x-preview.test.mjs",
+          "version": "b78fe492343d1998a4ee9b5dffd5e62c0b01cf56"
+        },
+        {
+          "id": "tools/content-lib.mjs",
+          "location": "tools/content-lib.mjs",
+          "version": "996d332b9b2da9b9377bbe84f1f63d81d861cb57"
+        },
+        {
+          "id": "tools/preview-server.mjs",
+          "location": "tools/preview-server.mjs",
+          "version": "530d234c54b556775267506f6a3204098ce0c1bf"
+        }
+      ],
+      "output_versions": [
+        {
+          "id": "playable_content:opening-demo-chapter-01",
+          "location": "content/routes/opening-demo/chapter-01.json",
+          "version": "36a1e0c0e1518caff665bf703967be0a274ea240"
+        }
+      ],
+      "human_gate": "narrative_preview_review"
     }
   ],
-  "invalidation_events": [],
-  "preview": null
+  "invalidation_events": [
+    {
+      "changed_artifact_id": "approved_locked_scene:COM-00",
+      "old_version": "79002c7249660352c40e5415939a7becf5abe2eac7e593d16cbe87c5fdcba31a",
+      "new_version": "a97fef35cb68e8319b1a235e3c2b6b96535be39724e330d6f4024611127ed91a",
+      "affected_task_ids": [
+        "NQA-COM00-POV-001"
+      ],
+      "decision": "no_visual_impact",
+      "evidence": "content/production/runs/pr33-first-person-20260929/NQA-COM00-POV-001.decision.json"
+    },
+    {
+      "changed_artifact_id": "approved_locked_scene:COM-01X",
+      "old_version": "a74a79fd4bbccbab586464d133798c15b9b113013d084d8b8493f82dfa6e0bc6",
+      "new_version": "6850cacd5a99872d7fad054f815bc666a291f3f137defbd9e4f28269ef299533",
+      "affected_task_ids": [
+        "NQA-COM01X-POV-001"
+      ],
+      "decision": "no_visual_impact",
+      "evidence": "content/production/runs/pr33-first-person-20260929/NQA-COM01X-POV-001.decision.json"
+    },
+    {
+      "changed_artifact_id": "approved_locked_scene:COM-01B",
+      "old_version": "12c012fa750dc91a04ecd391e3644bc6bd977e6d0fd71e17673ebf314df3b757",
+      "new_version": "1841069b01418627616765ca957b8155f31096a02f68437159fc00e5bfaa62dc",
+      "affected_task_ids": [
+        "NQA-COM01B-POV-001"
+      ],
+      "decision": "no_visual_impact",
+      "evidence": "content/production/runs/pr33-first-person-20260929/NQA-COM01B-POV-001.decision.json"
+    },
+    {
+      "changed_artifact_id": "approved_locked_scene:COM-01J",
+      "old_version": "66ceae128b1e17eb35edd96383fce75f62d799e44334a9c626ef69c1feb37bc3",
+      "new_version": "8a24114c116a67d75c8385920d8b3c880efe263f9d113b811dc9002de3feadb5",
+      "affected_task_ids": [
+        "NQA-COM01J-POV-001"
+      ],
+      "decision": "no_visual_impact",
+      "evidence": "content/production/runs/pr33-first-person-20260929/NQA-COM01J-POV-001.decision.json"
+    },
+    {
+      "changed_artifact_id": "approved_locked_scene:COM-02X",
+      "old_version": "eb8fddf013fb7150d10e12813a1e9edb0438319bc1898c2c002dece5f847edcf",
+      "new_version": "46d1566ec766adbefbfc2fc93964ee84cf70eca81078f6d35f589e65ddf579c6",
+      "affected_task_ids": [
+        "NQA-COM02X-POV-001"
+      ],
+      "decision": "no_visual_impact",
+      "evidence": "content/production/runs/pr33-first-person-20260929/NQA-COM02X-POV-001.decision.json"
+    }
+  ],
+  "preview": null,
+  "engineering_evidence": "content/production/runs/pr33-first-person-20260929/RUNTIME-FIX-001.decision.json"
 }
