@@ -158,7 +158,7 @@ test('expanded boxes keep the existing Memory and visual boundaries', () => {
       assert.notEqual(nodes[id].visual?.background, 'bg.narrative_preview.placeholder');
     }
   }
-  assert.equal(nodes.common_movein_rain_move.text, '欸，等一下。');
+  assert.equal(nodes.common_movein_rain_move.text, '欸，等一下。右邊先抬高一點，我扶門。');
   assert.equal(nodes.common_movein_rain_move.visual.mode, 'composite');
   assert.equal(nodes.common_movein_rain_door_locked_00.visual.asset,
     'cg.opening.com00.s02_door_assist');

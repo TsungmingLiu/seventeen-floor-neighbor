@@ -60,7 +60,11 @@
         "common_movein_rain_goodnight_locked_00",
         "common_movein_rain_goodnight_locked_01",
         "common_movein_rain_goodnight_locked_02",
-        "common_movein_rain_coda"
+        "common_movein_rain_coda",
+        "common_movein_rain_formal_locked_04",
+        "common_movein_rain_formal_locked_05",
+        "common_movein_rain_names_locked_03",
+        "common_movein_rain_goodnight_locked_03"
       ],
       "kind": "scene",
       "highlight": true,
