@@ -1,0 +1,45 @@
+{
+  "run_id": "pr37-review-fixes-20260930",
+  "task_id": "NAME-QA-JIANG-001",
+  "status": "PASS",
+  "harness": {
+    "id": "content_qa",
+    "pass": "narrative_review"
+  },
+  "packet_sha256": "85b629f4a680ff0cc8d2cd4be75ea40b85af81320d0b0a5a6beaeec14aabc4d7",
+  "handoff_sha256": "adc364928e95d548efb59da26b5ca4cfb9833b246db44ce7866431cf7283b0f6",
+  "source_ref": "2dc4940082234a78e1379f6f9e73ee0541ee6de7",
+  "qa_codes": [
+    "PRE_KNOWLEDGE_PERSPECTIVE",
+    "NAME_EXCHANGE_UNCHANGED",
+    "OTHER_BYTES_UNCHANGED",
+    "NQA-NO-VISUAL-IMPACT"
+  ],
+  "outputs": [
+    {
+      "id": "locked_scene:COM-01B",
+      "version": "758b9d5c10b5767a9dcde11f0dab9d148d65858d0a4ea3215d2d0cc882a7aa64",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01B.md"
+    },
+    {
+      "id": "locked_scene:COM-01J",
+      "version": "43904ea16b228752f82546cf6329f8aa3234a9601641b3602aa7c9f8fadfbc12",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01J.md"
+    }
+  ],
+  "invalidation_decisions": [
+    {
+      "decision": "no_visual_impact",
+      "scene_id": "COM-01B",
+      "old_scene_sha256": "1841069b01418627616765ca957b8155f31096a02f68437159fc00e5bfaa62dc",
+      "new_scene_sha256": "758b9d5c10b5767a9dcde11f0dab9d148d65858d0a4ea3215d2d0cc882a7aa64"
+    },
+    {
+      "decision": "no_visual_impact",
+      "scene_id": "COM-01J",
+      "old_scene_sha256": "8a24114c116a67d75c8385920d8b3c880efe263f9d113b811dc9002de3feadb5",
+      "new_scene_sha256": "43904ea16b228752f82546cf6329f8aa3234a9601641b3602aa7c9f8fadfbc12"
+    }
+  ],
+  "human_gate": "none"
+}

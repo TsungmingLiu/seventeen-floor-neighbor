@@ -218,8 +218,10 @@ test('captioned choice nodes finish the caption before switching to exclusive ch
 
 test('Start name form gates entry and the saved name survives Continue and Memory replay', () => {
   const story = chapter({
-    start: { speaker: '我', text: '我叫[PLAYER_NAME]。', next: 'narration' },
-    narration: { speaker: '旁白', text: '[PLAYER_NAME]站在門口。', next: 'end' },
+    start: { speaker: '我', text: '我叫[PLAYER_NAME]。', next: 'continueLine' },
+    continueLine: { speaker: '你', text: '[PLAYER_NAME]又想起這件事。', next: 'narration' },
+    narration: { speaker: '旁白', text: '[PLAYER_NAME]站在門口。', next: 'thought' },
+    thought: { speaker: '內心', text: '我還有話沒說。', presentation: 'thought', next: 'end' },
     end: { type: 'route' }
   });
   const engine = engineFor(story);
@@ -237,22 +239,49 @@ test('Start name form gates entry and the saved name survives Continue and Memor
   engine.els.nameInput.value = '  小雨  ';
   submit({ preventDefault() {} });
   assert.equal(engine.els.nameDialog.open, false);
+  assert.equal(engine.els.speaker.textContent, '小雨');
   engine.revealText();
   assert.equal(engine.els.text.textContent, '我叫小雨。');
   engine.advance();
+  assert.equal(engine.els.speaker.textContent, '小雨');
   engine.revealText();
-  assert.equal(engine.els.text.textContent, '小雨站在門口。');
+  assert.equal(engine.els.text.textContent, '小雨又想起這件事。');
+  engine.advance();
+  assert.equal(engine.els.stage.dataset.presentation, 'narration');
 
   const reloaded = new GameEngine({ chapter: story, assetManifest: { assets: {} }, sceneLibrary: {}, memoryLibrary });
   reloaded.startFromTitle();
   reloaded.revealText();
   assert.equal(reloaded.nodeId, 'narration');
   assert.equal(reloaded.els.text.textContent, '小雨站在門口。');
+  assert.equal(reloaded.els.stage.dataset.presentation, 'narration');
   assert.equal(reloaded.els.nameDialog.open, false);
   reloaded.replayMemory({ replayNode: 'start' });
+  assert.equal(reloaded.els.speaker.textContent, '小雨');
   reloaded.revealText();
   assert.equal(reloaded.els.text.textContent, '我叫小雨。');
+  reloaded.advance();
+  assert.equal(reloaded.els.speaker.textContent, '小雨');
+  reloaded.revealText();
+  reloaded.advance();
+  assert.equal(reloaded.els.stage.dataset.presentation, 'narration');
+  reloaded.revealText();
+  reloaded.advance();
+  assert.equal(reloaded.els.stage.dataset.presentation, 'thought');
+  assert.equal(reloaded.els.dialoguePanel.dataset.mode, 'thought');
+  assert.equal(story.nodes.narration.speaker, '旁白');
+  assert.equal(story.nodes.thought.speaker, '內心');
   assert.equal(reloaded.progress.data.playerDisplayName, '小雨');
+});
+
+test('protagonist name tag falls back safely when a stored name is invalid', () => {
+  const story = chapter({ start: { speaker: '你', text: '我有話要說。' } });
+  const engine = engineFor(story);
+  engine.progress.data.playerDisplayName = '   ';
+  engine.render();
+
+  assert.equal(engine.els.speaker.textContent, '你');
+  assert.equal(engine.els.speaker.classList.contains('is-protagonist'), true);
 });
 
 test('unnamed old save keeps its checkpoint while Continue and replay wait for the name form', () => {

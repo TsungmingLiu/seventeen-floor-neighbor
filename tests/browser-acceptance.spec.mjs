@@ -211,11 +211,13 @@ test('entered name persists through Continue and Memory replay without replacing
     else await page.locator('#advance-zone').click();
   }
   await expect(page.locator('#dialogue-text')).toContainText('小雨');
+  await expect(page.locator('#speaker')).toHaveText('小雨');
   await page.reload();
   await page.locator('#start-button').click();
   await expect(page.locator('#player-name-dialog')).not.toBeVisible();
   await waitForDialogueReady(page);
   await expect(page.locator('#dialogue-text')).toContainText('小雨');
+  await expect(page.locator('#speaker')).toHaveText('小雨');
 
   await page.locator('#game-home-button').click();
   await page.locator('#memories-button').click();
@@ -229,7 +231,29 @@ test('entered name persists through Continue and Memory replay without replacing
     else await page.locator('#advance-zone').click();
   }
   await expect(page.locator('#dialogue-text')).toContainText('小雨');
+  await expect(page.locator('#speaker')).toHaveText('小雨');
   expect(errors).toEqual([]);
+});
+
+test('narration and thought use matching upright text typography', async ({ page }) => {
+  await page.goto('/');
+  const typography = async (mode) => page.locator('#dialogue-panel').evaluate((panel, nextMode) => {
+    panel.dataset.mode = nextMode;
+    const style = getComputedStyle(panel.querySelector('#dialogue-text'));
+    return {
+      fontFamily: style.fontFamily,
+      fontSize: style.fontSize,
+      fontStyle: style.fontStyle,
+      letterSpacing: style.letterSpacing,
+      color: style.color
+    };
+  }, mode);
+
+  const narration = await typography('narration');
+  const thought = await typography('thought');
+  expect(narration.fontStyle).toBe('normal');
+  expect(thought.fontStyle).toBe('normal');
+  expect(thought).toEqual(narration);
 });
 
 test('pre-COM02X save keeps progress and asks for a name before Continue or replay', async ({ page }) => {

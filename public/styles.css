@@ -176,18 +176,16 @@ h1 b{font:inherit}
   border-color:rgba(255,255,255,.12);
   background:linear-gradient(180deg,rgba(12,13,19,.7),rgba(9,10,15,.82));
 }
-.dialogue-panel[data-mode="narration"] .dialogue-text{
+.dialogue-panel[data-mode="narration"] .dialogue-text,
+.dialogue-panel[data-mode="thought"] .dialogue-text{
   color:rgba(255,255,255,.92);
+  font-style:normal;
   letter-spacing:.01em;
 }
 .dialogue-panel[data-mode="thought"]{
   width:min(42%,32rem);
   border-color:rgba(255,173,192,.2);
   background:linear-gradient(180deg,rgba(16,13,20,.64),rgba(9,9,15,.8));
-}
-.dialogue-panel[data-mode="thought"] .dialogue-text{
-  color:rgba(255,244,248,.9);
-  font-style:italic;
 }
 .dialogue-panel[data-mode="protagonist"]{
   border-color:rgba(255,255,255,.13);
