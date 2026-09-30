@@ -105,12 +105,12 @@
       "depends_on": [
         "NQA-COM00-CALIBRATION-001"
       ],
-      "status": "READY",
+      "status": "PASS",
       "packet": {
         "generator": "manually-pinned canonical old/new supplemental comparison",
         "sha256": "d6a56e2cef389e8cc9db0b4671758dab1bf633de8a7d41c5f1eb365e0d75a1b0"
       },
-      "decision_receipt": null,
+      "decision_receipt": "content/production/runs/dialogue-calibration-com00-20260930/NQA-COM00-VISUAL-DELTA-001.decision.json",
       "input_versions": [
         {
           "id": "file:content/production/runs/dialogue-calibration-com00-20260930/accepted-baseline-COM00.md",
@@ -152,11 +152,26 @@
           "acquisition_path": "docs/narrative/scenes/vertical-slice/COM-00.md"
         }
       ],
-      "output_versions": [],
+      "output_versions": [
+        {
+          "id": "approved_locked_scene:COM-00",
+          "version": "59520478b9c3132cc3ccb1b6105f091b244131dc",
+          "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+        }
+      ],
       "human_gate": "none",
-      "reason": "Exact canonical pins manually checked; fresh semantic delta review required; no generated verifier or no_visual_impact claim."
+      "reason": "Fresh independent same-domain delta QA PASS; explicit whole-scene no_visual_impact, affected beat IDs empty. Not image acceptance."
     }
   ],
-  "invalidation_events": [],
+  "invalidation_events": [
+    {
+      "changed_artifact_id": "locked_scene:COM-00",
+      "old_version": "a97fef35cb68e8319b1a235e3c2b6b96535be39724e330d6f4024611127ed91a",
+      "new_version": "a6bbc3821f3376f74ab871d256f5edd5760b05f25b06aea38bf766b5226817f2",
+      "affected_task_ids": [],
+      "decision": "no_visual_impact",
+      "evidence": "content/production/runs/dialogue-calibration-com00-20260930/NQA-COM00-VISUAL-DELTA-001.decision.json"
+    }
+  ],
   "preview": null
 }
