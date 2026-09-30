@@ -95,6 +95,7 @@ test('opening-demo title, Memories, Gallery, and game controls fit a 320px viewp
 });
 
 test('opening preview plays COM-00 → COM-01X → COM-01J → COM-02X and saves its shared exit', async ({ page }) => {
+  test.setTimeout(120_000); // Full-story traversal includes the real typewriter animation.
   const errors = collectBlockingErrors(page);
   await page.goto('/');
   await expect(page.locator('#title-screen')).toBeVisible();
