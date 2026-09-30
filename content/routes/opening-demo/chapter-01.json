@@ -2230,7 +2230,7 @@
         "asset": "cg.opening-ch1.com01b.04"
       },
       "speaker": "旁白",
-      "text": "我走進台北地下街，來到那家以設定集與周邊為主的 ACG 店。我想查《逆光航路》新版究竟增補了什麼。此刻我還沒遇見江雨澄。",
+      "text": "我走進台北地下街，來到那家以設定集與周邊為主的 ACG 店。我想查《逆光航路》新版究竟增補了什麼。",
       "next": "common_acg_first_meet_enter"
     },
     "common_acg_first_meet_enter_locked_00": {
@@ -2241,7 +2241,7 @@
         "sprites": []
       },
       "speaker": "旁白",
-      "text": "我走到設定集區。江雨澄已站在書架前，手上各翻著一本書。",
+      "text": "我走到設定集區。一位女生已站在書架前，手上各翻著一本書。",
       "next": "common_acg_first_meet_observation"
     },
     "common_acg_first_meet_observation_locked_00": {

@@ -7,7 +7,7 @@
     "summary": "Fix premature Jiang narration names, consistent upright prose and player speech badge; trim unneeded deliberation.",
     "gate_status": "none"
   },
-  "status": "ACTIVE",
+  "status": "NARRATIVE_PREVIEW_READY",
   "tasks": [
     {
       "task_id": "NAME-FIX-JIANG-001",
@@ -15,7 +15,7 @@
       "depends_on": [],
       "status": "PASS",
       "packet": {
-        "generator": "bounded_review_fix_packet",
+        "generator": "control-plane:manual-bounded-packet",
         "sha256": "45fe6a0795481f022d1b16f7fe3b302265f4863c3ea2fc2bb39e0c9daa609fa6"
       },
       "decision_receipt": "content/production/runs/pr37-review-fixes-20260930/NAME-FIX-JIANG-001.decision.json",
@@ -42,7 +42,7 @@
       ],
       "status": "PASS",
       "packet": {
-        "generator": "bounded_review_fix_packet",
+        "generator": "control-plane:manual-bounded-packet",
         "sha256": "85b629f4a680ff0cc8d2cd4be75ea40b85af81320d0b0a5a6beaeec14aabc4d7"
       },
       "decision_receipt": "content/production/runs/pr37-review-fixes-20260930/NAME-QA-JIANG-001.decision.json",
@@ -78,7 +78,7 @@
       "depends_on": [],
       "status": "PASS",
       "packet": {
-        "generator": "bounded_review_fix_packet",
+        "generator": "control-plane:manual-bounded-packet",
         "sha256": "f67478c3400174bcc6674cdb7e312ee71bd0481ef36ed245ef3f8f8af44f5fd9"
       },
       "decision_receipt": "content/production/runs/pr37-review-fixes-20260930/UI-PRESENTATION-FIX-001.decision.json",
@@ -106,6 +106,60 @@
         }
       ],
       "human_gate": "none"
+    },
+    {
+      "task_id": "REVIEW-FIX-INTEGRATION-001",
+      "task_type": "integrate",
+      "depends_on": [
+        "NAME-QA-JIANG-001",
+        "UI-PRESENTATION-FIX-001"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "control-plane:manual-bounded-packet",
+        "sha256": "cd8ea7ac7970599e4380e3bd49cd9587c2cb5a653dd5387954998cc2040e8a43"
+      },
+      "decision_receipt": "content/production/runs/pr37-review-fixes-20260930/REVIEW-FIX-INTEGRATION-001.decision.json",
+      "input_versions": [
+        {
+          "id": "locked_scene:COM-01B",
+          "version": "758b9d5c10b5767a9dcde11f0dab9d148d65858d0a4ea3215d2d0cc882a7aa64",
+          "location": "docs/narrative/scenes/vertical-slice/COM-01B.md"
+        },
+        {
+          "id": "locked_scene:COM-01J",
+          "version": "43904ea16b228752f82546cf6329f8aa3234a9601641b3602aa7c9f8fadfbc12",
+          "location": "docs/narrative/scenes/vertical-slice/COM-01J.md"
+        },
+        {
+          "id": "src/engine.js",
+          "location": "src/engine.js",
+          "version": "4836f795aba56d520593cf50aab90c0fd11a25f9bce8bc02474e7b08e6b15874"
+        },
+        {
+          "id": "public/styles.css",
+          "location": "public/styles.css",
+          "version": "8e60383fd2f88f87aead4ebd9a5649d4a812eb1710961c9d0e4f930a9e1b6e0e"
+        },
+        {
+          "id": "tests/engine-progress.test.mjs",
+          "location": "tests/engine-progress.test.mjs",
+          "version": "d1a625a83add625d478c208d4bd927a6000408a5f16061b36eb4fa37856d7c86"
+        },
+        {
+          "id": "tests/browser-acceptance.spec.mjs",
+          "location": "tests/browser-acceptance.spec.mjs",
+          "version": "cb6aa0a8b53cdd36418596e13af3485a1b32b066488c1ce8a91b87f7ce61de8a"
+        }
+      ],
+      "output_versions": [
+        {
+          "id": "runtime_chapter:opening.ch1",
+          "location": "content/routes/opening-demo/chapter-01.json",
+          "version": "91bf628924dabf39320bd1b159a3db56dd6453d8f1fee8e5516a4ac19eb75ab4"
+        }
+      ],
+      "human_gate": "narrative_preview_review"
     }
   ],
   "invalidation_events": [
@@ -126,5 +180,13 @@
       "evidence": "content/production/runs/pr37-review-fixes-20260930/NAME-QA-JIANG-001.decision.json"
     }
   ],
-  "preview": null
+  "preview": {
+    "profile": "narrative_preview",
+    "build": "PASS",
+    "validation": "PASS",
+    "tests": "83 unit and 7 Chrome browser tests PASS",
+    "smoke": "PASS",
+    "public_deployment": "PENDING",
+    "human_review": "PENDING"
+  }
 }
