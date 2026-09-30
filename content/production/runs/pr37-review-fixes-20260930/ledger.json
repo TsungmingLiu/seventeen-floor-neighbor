@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.3.0",
+  "run_id": "pr37-review-fixes-20260930",
+  "workflow_version": "1.3.0",
+  "source_ref": "6cdad11f48b7164ac0229d981e170362a722840a",
+  "human_request": {
+    "summary": "Fix premature Jiang narration names, consistent upright prose and player speech badge; trim unneeded deliberation.",
+    "gate_status": "none"
+  },
+  "status": "ACTIVE",
+  "tasks": [
+    {
+      "task_id": "NAME-FIX-JIANG-001",
+      "task_type": "scene_dialogue",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "bounded_review_fix_packet",
+        "sha256": "45fe6a0795481f022d1b16f7fe3b302265f4863c3ea2fc2bb39e0c9daa609fa6"
+      },
+      "decision_receipt": "content/production/runs/pr37-review-fixes-20260930/NAME-FIX-JIANG-001.decision.json",
+      "input_versions": [],
+      "output_versions": [
+        {
+          "id": "locked_scene:COM-01B",
+          "version": "758b9d5c10b5767a9dcde11f0dab9d148d65858d0a4ea3215d2d0cc882a7aa64",
+          "location": "docs/narrative/scenes/vertical-slice/COM-01B.md"
+        },
+        {
+          "id": "locked_scene:COM-01J",
+          "version": "43904ea16b228752f82546cf6329f8aa3234a9601641b3602aa7c9f8fadfbc12",
+          "location": "docs/narrative/scenes/vertical-slice/COM-01J.md"
+        }
+      ],
+      "human_gate": "none"
+    }
+  ],
+  "invalidation_events": [],
+  "preview": null
+}

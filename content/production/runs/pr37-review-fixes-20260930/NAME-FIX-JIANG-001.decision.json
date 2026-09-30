@@ -1,0 +1,32 @@
+{
+  "run_id": "pr37-review-fixes-20260930",
+  "task_id": "NAME-FIX-JIANG-001",
+  "status": "PASS",
+  "harness": {
+    "id": "content_writer",
+    "pass": "scene_dialogue"
+  },
+  "packet_sha256": "45fe6a0795481f022d1b16f7fe3b302265f4863c3ea2fc2bb39e0c9daa609fa6",
+  "input_digest": "a3ba25f0b464ce9950d0342416842a0ee52c6a538ae56cc82e0a5ec1390420f9",
+  "handoff_sha256": "abcf5f4826c449a7bb7e67ee13a921cd1124f536eadb4762135a1418b12935dd",
+  "outputs": [
+    {
+      "id": "locked_scene:COM-01B",
+      "version": "758b9d5c10b5767a9dcde11f0dab9d148d65858d0a4ea3215d2d0cc882a7aa64",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01B.md"
+    },
+    {
+      "id": "locked_scene:COM-01J",
+      "version": "43904ea16b228752f82546cf6329f8aa3234a9601641b3602aa7c9f8fadfbc12",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01J.md"
+    }
+  ],
+  "qa_codes": [
+    "TWO_TARGET_REPLACEMENTS_ONLY",
+    "OTHER_BYTES_UNCHANGED"
+  ],
+  "human_gate": "none",
+  "known_issues": [
+    "Independent narrative QA and runtime integration pending."
+  ]
+}

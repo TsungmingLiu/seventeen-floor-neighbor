@@ -119,7 +119,7 @@ Choice design notes：
 
 **Protagonist (thought)**：網路上都說印得漂亮。我想看的倒是雨港篇究竟補了什麼。
 
-**Action**：我走到設定集區。江雨澄已站在書架前，手上各翻著一本書。
+**Action**：我走到設定集區。一位女生已站在書架前，手上各翻著一本書。
 
 **Visual**：`JYC-SPR-CAMPUS.thinking_before_reply`，3/4 側面，不看男主。
 
