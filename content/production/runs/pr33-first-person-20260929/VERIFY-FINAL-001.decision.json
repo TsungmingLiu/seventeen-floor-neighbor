@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "pr33-first-person-20260929",
+  "task_id": "VERIFY-FINAL-001",
+  "task_type": "engineering_verification",
+  "status": "PASS",
+  "source_ref": "792e4a0a0c4381b1768678daee90f4f032a59739",
+  "input_versions": [
+    {
+      "id": "content/routes/opening-demo/chapter-01.json",
+      "location": "content/routes/opening-demo/chapter-01.json",
+      "version": "36a1e0c0e1518caff665bf703967be0a274ea240"
+    },
+    {
+      "id": "src/player-name.js",
+      "location": "src/player-name.js",
+      "version": "6f8bb81336e4bd716ad0b76f03772650ab7e61a4"
+    },
+    {
+      "id": "src/engine.js",
+      "location": "src/engine.js",
+      "version": "127c10c072f2e8fca536eaf24ce8d4a37908379a"
+    },
+    {
+      "id": "src/progress.js",
+      "location": "src/progress.js",
+      "version": "7f7ed6b539264e3b963da45a7c24eba07622e0ab"
+    },
+    {
+      "id": "public/index.html",
+      "location": "public/index.html",
+      "version": "7868e35529a394e91307117b1ff979d510b6bbe1"
+    },
+    {
+      "id": "public/styles.css",
+      "location": "public/styles.css",
+      "version": "9fba0d46c04f4e4343ef2561dbb6f00351cf95a0"
+    },
+    {
+      "id": "tests/player-name.test.mjs",
+      "location": "tests/player-name.test.mjs",
+      "version": "09a3fc626ed38d2d7059bd2dfc7c8363cf7441e8"
+    },
+    {
+      "id": "tests/progress.test.mjs",
+      "location": "tests/progress.test.mjs",
+      "version": "4af46260929b5886f3e4851688481b22045e4861"
+    },
+    {
+      "id": "tests/engine-progress.test.mjs",
+      "location": "tests/engine-progress.test.mjs",
+      "version": "0bb9b9fefb263785dad3be0a014eb47eaf9af2aa"
+    },
+    {
+      "id": "tests/browser-acceptance.spec.mjs",
+      "location": "tests/browser-acceptance.spec.mjs",
+      "version": "4b6baba32f54c99c3bdacc461f0c62ba135f2f51"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "full_node_tests",
+      "result": "PASS",
+      "detail": "82/82; includes eleven pinned historical suites"
+    },
+    {
+      "name": "final_integrated_chromium",
+      "result": "PASS",
+      "detail": "5/5: cursor reload;320px layout;complete opening story/shared exit;entered name Continue/Memory;pre-PR save/name gate"
+    },
+    {
+      "name": "build",
+      "result": "PASS",
+      "detail": "one route;26 runtime assets"
+    },
+    {
+      "name": "validate",
+      "result": "PASS",
+      "detail": "234 story nodes;5 Narrative Continuity Contracts;12 CG Manifest Entries"
+    },
+    {
+      "name": "preview_smoke",
+      "result": "PASS"
+    },
+    {
+      "name": "git_diff_check",
+      "result": "PASS"
+    }
+  ],
+  "test_log_sha256": "90f9087f3001ee2aeb98694780cf783cebc9a764937b4136c2215396f1e987fc",
+  "runtime": {
+    "local_node": "24.19.0",
+    "ci_node": "22",
+    "browser": "Chromium1187"
+  },
+  "known_issues": [
+    "Final visual/CG acceptance is outside this owner-approved narrative preview PR."
+  ],
+  "human_acceptance": {
+    "existing_dialogue": "Owner accepted",
+    "requested_pov": "Applied and independently checked",
+    "name_entry": "Owner explicitly approved",
+    "merge": "Owner authorized when necessary fixes and checks pass"
+  }
+}

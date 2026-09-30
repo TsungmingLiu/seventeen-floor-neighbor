@@ -7,7 +7,7 @@
     "summary": "Owner passes existing dialogue and requests 男主→我 narration correction plus final review and merge.",
     "gate_status": "Owner accepts existing dialogue and authorizes merge after POV correction and verified fixes; custom name entry explicitly approved."
   },
-  "status": "ACTIVE",
+  "status": "NARRATIVE_PREVIEW_READY",
   "tasks": [
     {
       "task_id": "CW-POV-001",
@@ -522,6 +522,19 @@
       "evidence": "content/production/runs/pr33-first-person-20260929/NQA-COM02X-POV-001.decision.json"
     }
   ],
-  "preview": null,
-  "engineering_evidence": "content/production/runs/pr33-first-person-20260929/RUNTIME-FIX-001.decision.json"
+  "preview": {
+    "commit": "792e4a0a0c4381b1768678daee90f4f032a59739",
+    "profile": "narrative_preview",
+    "url_or_access_path": "http://127.0.0.1:4175",
+    "visibility": "local",
+    "build": "PASS",
+    "validation": "PASS",
+    "tests": "82/82 PASS",
+    "smoke": "PASS",
+    "browser": "5/5 PASS",
+    "remote_preview": "https://pr-33.seventeen-floor-neighbor.pages.dev/playable-review/",
+    "remote_status": "Pending deployment of these verified source versions"
+  },
+  "engineering_evidence": "content/production/runs/pr33-first-person-20260929/RUNTIME-FIX-001.decision.json",
+  "final_verification": "content/production/runs/pr33-first-person-20260929/VERIFY-FINAL-001.decision.json"
 }
