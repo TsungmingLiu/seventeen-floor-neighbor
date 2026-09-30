@@ -415,7 +415,16 @@
       ],
       "output_versions": [],
       "human_gate": "narrative_preview_review",
-      "reason": "Fresh attempt2 worker dispatched; append-only COM00 Memory unlock coverage permitted. No completion or retained output claimed. Resume must reconcile this RUNNING task against a durable handoff before asserting PASS."
+      "reason": "Fresh attempt2 worker dispatched; append-only COM00 Memory unlock coverage permitted. No completion or retained output claimed. Resume must reconcile this RUNNING task against a durable handoff before asserting PASS.",
+      "supplemental_directives": [
+        {
+          "id": "INT-COM00-CALIBRATION-002.test-oracle-addendum",
+          "sha256": "b5a1e08d52c1c1fdd633bb14441d8ed9de3218acc0a1369485909e3b6fae455f",
+          "scope": "tests/opening-locked-scenes.test.mjs:161 expected literal only",
+          "reason": "Existing oracle references an old partial turn; synchronize expected literal to approved canonical exact turn. Preserve every other test byte/assertion; no weakening.",
+          "original_packet_unchanged": true
+        }
+      ]
     }
   ],
   "invalidation_events": [
