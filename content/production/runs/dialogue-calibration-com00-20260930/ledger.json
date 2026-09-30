@@ -171,11 +171,59 @@
         "NQA-COM00-CALIBRATION-001",
         "NQA-COM00-VISUAL-DELTA-001"
       ],
-      "status": "READY",
+      "status": "BLOCKED",
       "source_ref": "d3bc470207f745cefbc24a082d07654334551f6b",
       "packet": {
         "generator": "manual exact accepted-scene integration packet",
         "sha256": "1acf897c0de14869ccfd6bac4b0313ff5139de431676a399e3082b97993a2259"
+      },
+      "decision_receipt": "content/production/runs/dialogue-calibration-com00-20260930/INT-COM00-CALIBRATION-001.decision.json",
+      "input_versions": [
+        {
+          "id": "approved_locked_scene:COM-00",
+          "version": "59520478b9c3132cc3ccb1b6105f091b244131dc",
+          "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+        },
+        {
+          "id": "runtime_chapter_baseline",
+          "version": "36a1e0c0e1518caff665bf703967be0a274ea240",
+          "location": "content/routes/opening-demo/chapter-01.json"
+        },
+        {
+          "id": "runtime_memory_contract",
+          "version": "89ecdf0d7b7bb2b0b3dc0fe2e71133b28749f2b9",
+          "location": "content/routes/opening-demo/memories.json"
+        },
+        {
+          "id": "human_game_integration_decision:COM-00",
+          "version": "1d997fc0b4e0ef2730d0af6f1f17243f262c174d",
+          "location": "content/production/runs/dialogue-calibration-com00-20260930/human-long-trial.json"
+        }
+      ],
+      "output_versions": [],
+      "human_gate": "narrative_preview_review",
+      "reason": "Faithful extra turns require new stable IDs with Memory unlockNodes coverage; original packet forbade Memory edits. Tentative runtime was reverted. Tests/preview blockers recorded, no integrated output."
+    },
+    {
+      "task_id": "INT-COM00-CALIBRATION-002",
+      "task_type": "integrate",
+      "scene_id": "COM-00",
+      "integration_mode": "narrative_preview",
+      "depends_on": [
+        "NQA-COM00-CALIBRATION-001",
+        "NQA-COM00-VISUAL-DELTA-001"
+      ],
+      "status": "READY",
+      "source_ref": "d3bc470207f745cefbc24a082d07654334551f6b",
+      "execution_policy": {
+        "model_tier": "economical",
+        "routing_reason": "default_bounded",
+        "attempt": 2,
+        "correction_of": "INT-COM00-CALIBRATION-001"
+      },
+      "packet": {
+        "generator": "manual exact corrective accepted-scene integration packet",
+        "sha256": "ef550cee50d4fe8afcbf1d7fac55cefd6b4b739f8ad94d7a95b1334c8ec14c18"
       },
       "decision_receipt": null,
       "input_versions": [
@@ -367,7 +415,7 @@
       ],
       "output_versions": [],
       "human_gate": "narrative_preview_review",
-      "reason": "Actual formal Narrative QA and fresh old/new no_visual_impact PASS; accepted scene text differs from runtime. Fresh integrator required; remote Cloudflare PR access pending."
+      "reason": "One focused corrective redispatch authorizes append-only COM00 Memory unlockNodes coverage for new stable IDs. Same economical tier/attempt2; fresh integrator executing separately, no completion or retained output claimed."
     }
   ],
   "invalidation_events": [
