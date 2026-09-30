@@ -181,12 +181,17 @@
     }
   ],
   "preview": {
+    "commit": "df191051fc7f89fc61d9accba6d8d704537b1c26",
     "profile": "narrative_preview",
+    "url_or_access_path": "https://pr-37.seventeen-floor-neighbor.pages.dev",
+    "visibility": "public",
+    "deployment_url": "https://ba25ae4c.seventeen-floor-neighbor.pages.dev",
     "build": "PASS",
     "validation": "PASS",
-    "tests": "83 unit and 7 Chrome browser tests PASS",
+    "tests": "GitHub Node 22: 83/83; public Chrome browser: 7/7 PASS",
     "smoke": "PASS",
-    "public_deployment": "PENDING",
+    "public_deployment": "PASS",
+    "verify_run": "https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/36781169880",
     "human_review": "PENDING"
   }
 }
