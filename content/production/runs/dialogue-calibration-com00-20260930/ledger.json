@@ -2,7 +2,7 @@
   "schema_version": "1.3.0",
   "run_id": "dialogue-calibration-com00-20260930",
   "workflow_version": "1.3.0",
-  "source_ref": "d031d71462a5fb10a4da1a1f8f23420752af78b3",
+  "source_ref": "65ae8abebd3b2dcf969d893f880fc0a61b566f3c",
   "human_request": {
     "summary": "Human approves exact displayed COM00 formal-thanks longer interaction for game integration; preserve other branches/IDs/state/semantic visual beats.",
     "gate_status": "APPROVED_EXACT_DISPLAYED_PATH; formal whole-scene QA and runtime verification pending",
@@ -60,13 +60,37 @@
       "depends_on": [
         "CW-COM00-APPROVED-ASSEMBLY-001"
       ],
-      "status": "PENDING",
-      "packet": null,
+      "status": "READY",
+      "packet": {
+        "generator": "tools/context.mjs:narrative_review",
+        "sha256": "125c73021f8bc2819b85b835480348f09a9c2df2c3cc38d80ae1eb28cbb2e473"
+      },
       "decision_receipt": null,
-      "input_versions": [],
+      "input_versions": [
+        {
+          "id": "file:content/production/narrative/opening-ch1/COM-00.json",
+          "version": "8c06b6872300ac75808326dfc60179a0e82f76a5",
+          "location": "content/production/narrative/opening-ch1/COM-00.json"
+        },
+        {
+          "id": "file:docs/narrative/scenes/vertical-slice/COM-00.md",
+          "version": "59520478b9c3132cc3ccb1b6105f091b244131dc",
+          "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+        },
+        {
+          "id": "file:docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md",
+          "version": "a45247d93c2a1736e54aa13aca2110ee08a5b8c8",
+          "location": "docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md"
+        },
+        {
+          "id": "file:docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md",
+          "version": "fa68288637f8d1cddc0857b64b5d84b66469f173",
+          "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md"
+        }
+      ],
       "output_versions": [],
       "human_gate": "none",
-      "reason": "Wait for committed assembly and official generated/verified packet; fresh QA must decide visual impact."
+      "reason": "Official generated packet verification and machine QA PASS on Node25.9.0; target Node22 checks still required for changed branch. Fresh formal QA not yet performed."
     }
   ],
   "invalidation_events": [],
