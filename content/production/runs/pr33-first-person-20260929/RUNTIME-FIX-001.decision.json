@@ -1,0 +1,111 @@
+{
+  "run_id": "pr33-first-person-20260929",
+  "task_id": "RUNTIME-FIX-001",
+  "status": "PASS",
+  "task_scope_source": "Coordinator original engineering dispatch, base13e4d71; Owner approved custom name input on game start. No creative prose changes authorized or made.",
+  "input_base": "13e4d71",
+  "output_versions": [
+    {
+      "id": "src/player-name.js",
+      "version": "50b9755733aba39057c19c297771dc80d3077604898c91be2fe7ec34230cdd7f",
+      "location": "src/player-name.js"
+    },
+    {
+      "id": "src/progress.js",
+      "version": "353ad9aa7a54dc61c31f987f4650895cdce1ba017e5256ebe5c0ce48d6afa87e",
+      "location": "src/progress.js"
+    },
+    {
+      "id": "src/engine.js",
+      "version": "58c85d77d38bffe9474b94338b1e40d251a084568939478e7516768cafe98016",
+      "location": "src/engine.js"
+    },
+    {
+      "id": "public/index.html",
+      "version": "b5a6d51bbb5d81ed2663a02d66d684903a52f0bef13ea662c16e170be4f9e5d1",
+      "location": "public/index.html"
+    },
+    {
+      "id": "public/styles.css",
+      "version": "93d4ebeab72b71c499c65c72a8aa94cd44e52a99cd5fee45f47fc9cf637f2c98",
+      "location": "public/styles.css"
+    },
+    {
+      "id": "tests/player-name.test.mjs",
+      "version": "19a2fa00ee6ac6e8b2e0f9afae2304b2c232331974d790981258e6dbd59e273c",
+      "location": "tests/player-name.test.mjs"
+    },
+    {
+      "id": "tests/progress.test.mjs",
+      "version": "a1c45f32fe4c3f304cd321f421cb29d7b9052640676bd7f2948a5482cd283e8b",
+      "location": "tests/progress.test.mjs"
+    },
+    {
+      "id": "tests/engine-progress.test.mjs",
+      "version": "c2f25b78c4d06ed6c86042544d00b6f279f9b7b8b3809d81a325648dfc1cef76",
+      "location": "tests/engine-progress.test.mjs"
+    },
+    {
+      "id": "tests/browser-acceptance.spec.mjs",
+      "version": "f870dad78770f361eda3f1d9e04b9e59080022b18075b5ab94687dd389b99227",
+      "location": "tests/browser-acceptance.spec.mjs"
+    },
+    {
+      "id": "ARCHITECTURE.md",
+      "version": "d10f1ea3f789b6133ce0aaddd4a3d2f86287af0f6e6ad8bf092e873e5849d66a",
+      "location": "ARCHITECTURE.md"
+    }
+  ],
+  "changes": [
+    "Native name form gates first Start and unnamed legacy Continue/Memory replay. Cancel retains progress; keyboard game controls are gated while form is open.",
+    "One central trim/Unicode-length/invalid-character validator persists playerDisplayName in v2 journey. Render resolves tokens before async typing; reveal reuses resolved text. Unknown tokens remain visible; dollar replacement metacharacters stay literal.",
+    "Only missing T_XT/K_XT/xt_advice_tendency on opening-demo-chapter-01 normalize to initial defaults. Historical required fields and present invalid/nonfinite new stats remain rejected; node IDs remain unchanged.",
+    "Removed test-only chapter.playerDisplayName browser injection; actual UI production route/name, Continue/replay, and old-save gates are exercised.",
+    "Corrected existing narrow portrait game text-button min-height40 to44 to satisfy existing real-browser touch-target regression."
+  ],
+  "qa": {
+    "checks": [
+      {
+        "name": "Node24 scoped engine-progress/progress/player-name tests",
+        "result": "PASS",
+        "detail": "26/26; includes old pre-COM02X save shape, invalid stat rejection, name persistence, missing-name no-skip, dollar literals"
+      },
+      {
+        "name": "Clean build after final runtime change",
+        "result": "PASS",
+        "detail": "26/26 media assets;1 route package"
+      },
+      {
+        "name": "Content validation",
+        "result": "PASS",
+        "detail": "1 route;234 nodes"
+      },
+      {
+        "name": "Production contract validation",
+        "result": "PASS",
+        "detail": "5 Narrative Continuity Contracts;12 CG Manifest Entries"
+      },
+      {
+        "name": "git diff --check",
+        "result": "PASS"
+      },
+      {
+        "name": "Real Chromium production story/name/Continue/Memory/legacy browser checks",
+        "result": "PASS",
+        "detail": "4/4 non-mobile tests passed against the pre-POV-integration chapter, with real name UI and no story injection. Initial5-test run mobile-only failure corrected; final320px dialog-fit/mobile rerun1/1PASS. Full5-test final merged chapter run remains coordinator verification task."
+      }
+    ],
+    "failure_reason": null
+  },
+  "known_issues": [
+    "Full npm test/authoritative Node22 CI deferred to coordinator final verification per instruction. Final integrated chapter browser test must rerun after POV integration; no final merged browser claim is made."
+  ],
+  "schema_version": "1.0.0",
+  "task_type": "engineering",
+  "handoff_sha256": "8248df3201c205a0152e26851fb24a3351e244e2eee1a3b7bbaa52a1b312209c",
+  "review": {
+    "status": "PASS",
+    "focused_tests": "26/26",
+    "notes": "Independent engineering reviewer verified name entry, literal replacement, save/replay persistence, and genuine pre-PR save migration."
+  }
+}

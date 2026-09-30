@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "opening-ch1-voice-20260929",
+  "task_id": "NQA-COM01X-001",
+  "scene_id": "COM-01X",
+  "task_type": "narrative_review",
+  "status": "NEEDS_REVIEW",
+  "workflow_version": "1.3.0",
+  "harness": {
+    "id": "content_qa",
+    "pass": "narrative_review"
+  },
+  "packet_sha256": "8068ff17c53093242d46cda37b67ace6cda8dccd906fa0bd884e7f6ebf8eb352",
+  "handoff_sha256": "80c845b9c71034325b55f8c5c020a680891715440ad4a026e460ea60c4cb8432",
+  "output_versions": [
+    {
+      "id": "reviewed_locked_scene:COM-01X",
+      "version": "ead0fb104ca60647373125ca978559c3c0ab2898",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01X.md"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "NQA-SCENE-FUNCTION-EXIT",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-VOICE-AND-PACING",
+      "result": "FAIL"
+    },
+    {
+      "name": "NQA-DIALOGUE-NATURALISM",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-KNOWLEDGE-RELATIONSHIP",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-CHOICE-REJOIN-STATE",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-MUST-NOT-VISUAL-SEMANTICS",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-PROVENANCE",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "Eight spoken turns and pause after 9–12F restart before 17F strain timing."
+  ],
+  "human_gate": "none"
+}

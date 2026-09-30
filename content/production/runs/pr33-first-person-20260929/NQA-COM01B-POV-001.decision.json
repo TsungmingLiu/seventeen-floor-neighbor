@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "pr33-first-person-20260929",
+  "task_id": "NQA-COM01B-POV-001",
+  "task_type": "narrative_review",
+  "scene_id": "COM-01B",
+  "status": "PASS",
+  "workflow_version": "1.3.0",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.1.0",
+    "pass": "narrative_review"
+  },
+  "source_ref": "872ec471458641c49444705c3eae15dee75b82a9",
+  "packet_sha256": "b32307185e3f092be0452377cab527e5a066b1fb47ffa49b30a3c71c9a05b7ff",
+  "handoff_sha256": "b201a88159f139e5f58d78bfac198d79b5f88cdd5322eb713101286c4a122853",
+  "input_versions": [
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-01B.json",
+      "version": "d02125cf9395eb81d7e2818fcab632caeaa69e3e",
+      "location": "content/production/narrative/opening-ch1/COM-01B.json"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-01B.md",
+      "version": "65015a8f9f2a24f2fe119b828671765ddfe5310c",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01B.md"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-01X.md",
+      "version": "4dc02231b706015c6e6dfc633763f40ae51ddec0",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01X.md"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-01J.md",
+      "version": "485974388d1dd1fb1a8eb46fd2c4645841cf4b1e",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01J.md"
+    },
+    {
+      "id": "approved_scene:COM-01B",
+      "version": "081bef01e36323c11fdeb3262ebd110ac63ed641",
+      "location": "13e4d71d1a0590d19b690d2ac292a7e081d8d539:docs/narrative/scenes/vertical-slice/COM-01B.md"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "approved_locked_scene:COM-01B",
+      "version": "65015a8f9f2a24f2fe119b828671765ddfe5310c",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01B.md"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "pov-only-change-and-grammar",
+      "result": "PASS",
+      "evidence": "All scene diffs are confined to protagonist Action lines; first-person references remain coherent."
+    },
+    {
+      "name": "playable-prose-first-person",
+      "result": "PASS",
+      "evidence": "Playable Action, Narration, and protagonist-thought lines contain no third-person 男主 reference; remaining occurrences are metadata/Visual text."
+    },
+    {
+      "name": "dialogue-preservation",
+      "result": "PASS",
+      "evidence": "No dialogue, choice text, choice target, or rejoin was changed from the approved scene."
+    },
+    {
+      "name": "knowledge-choice-and-state-invariance",
+      "result": "PASS",
+      "evidence": "Contract and state blocks are unchanged; POV substitutions introduce no new knowledge, choice, flag, or relationship meaning."
+    },
+    {
+      "name": "visual-staging-meaning",
+      "result": "PASS",
+      "evidence": "Action substitutions preserve actor, movement, props, spatial relationship, and scene timing."
+    },
+    {
+      "name": "no_visual_impact",
+      "code": "NQA-NO-VISUAL-IMPACT",
+      "result": "PASS",
+      "evidence": "Compared complete approved and reviewed scene bytes; POV wording changes do not alter visual content. This is not visual acceptance."
+    }
+  ],
+  "invalidation_decision": {
+    "decision": "no_visual_impact",
+    "scene_id": "COM-01B",
+    "old_scene_sha256": "12c012fa750dc91a04ecd391e3644bc6bd977e6d0fd71e17673ebf314df3b757",
+    "new_scene_sha256": "1841069b01418627616765ca957b8155f31096a02f68437159fc00e5bfaa62dc"
+  },
+  "known_issues": [],
+  "human_gate": "none"
+}

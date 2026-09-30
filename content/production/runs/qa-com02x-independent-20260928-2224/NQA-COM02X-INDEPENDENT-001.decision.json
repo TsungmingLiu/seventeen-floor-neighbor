@@ -1,0 +1,115 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "qa-com02x-independent-20260928-2224",
+  "task_id": "NQA-COM02X-INDEPENDENT-001",
+  "scene_id": "COM-02X",
+  "status": "FAIL",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.1.0",
+    "pass": "narrative_review"
+  },
+  "worker_model": "gpt-5.6-sol",
+  "packet_sha256": "f1dd634e4bb434b9d4f97498a283772df7e1cb4815c4278cbf94146bb881f2d5",
+  "input_digest_sha256": "7e77cbc116ed329a73dfeb999bd719c4b135715b063ba5f00774011c792b7565",
+  "input_versions": [
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-02X.json",
+      "version": "5f85482b7c420a5f7726035e369679360f83cfd5",
+      "location": "content/production/narrative/opening-ch1/COM-02X.json"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-02X.md",
+      "version": "c4d6b983671d956d80b961c9cdb5da600f0ba641",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02X.md"
+    },
+    {
+      "id": "file:docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md",
+      "version": "a45247d93c2a1736e54aa13aca2110ee08a5b8c8",
+      "location": "docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md"
+    },
+    {
+      "id": "file:docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md",
+      "version": "fa68288637f8d1cddc0857b64b5d84b66469f173",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-00.md",
+      "version": "4c8b9396fdf43556b474f9cbf7a90813ef533309",
+      "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-01X.md",
+      "version": "f9be677e0c589bab2c7c49560e1fe882b553ec2e",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01X.md"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "reviewed_locked_scene:COM-02X",
+      "version": "c4d6b983671d956d80b961c9cdb5da600f0ba641",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02X.md"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "scene_function_entry_exit",
+      "code": "NQA-SCENE-FUNCTION-CONTINUITY",
+      "result": "PASS"
+    },
+    {
+      "name": "voice_knowledge_relationship_pace",
+      "code": "NQA-VOICE-KNOWLEDGE-PACING",
+      "result": "PASS"
+    },
+    {
+      "name": "dialogue_naturalism",
+      "code": "NQA-DIALOGUE-NATURALISM",
+      "result": "PASS"
+    },
+    {
+      "name": "choice_ids_intent_state_effects",
+      "code": "NQA-CHOICE-ID-STATE",
+      "result": "PASS"
+    },
+    {
+      "name": "locked_scene_anchor_consistency",
+      "code": "NQA-LOCKED-SCENE-ANCHOR-CONSISTENCY",
+      "result": "FAIL"
+    },
+    {
+      "name": "semantic_visual_beat_consistency",
+      "code": "NQA-SEMANTIC-VISUAL-BEAT-CONSISTENCY",
+      "result": "FAIL"
+    },
+    {
+      "name": "must_not_relationship_knowledge_memory",
+      "code": "NQA-MUST-NOT-RELATIONSHIP-MEMORY",
+      "result": "PASS"
+    },
+    {
+      "name": "source_provenance",
+      "code": "NQA-SOURCE-PROVENANCE",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    {
+      "scene_location": "COM-02X.md L77-L86 (Player choice / local branch), especially L79",
+      "evidence": "Choice 出現在許棠說「看來不是只有我」之後。",
+      "type": "stale_dialogue_anchor",
+      "why": "The current locked playable script contains no 「看來不是只有我」 line; the actual pre-choice exchange ends with 「喔。那差不多。」 at L128 before the choice node. Canonical choice placement therefore points to a nonexistent dialogue anchor.",
+      "required_change": "Align the non-dialogue choice-placement annotation with the current locked script. Do not change choice IDs, intent, effects, or rewrite dialogue as part of QA."
+    },
+    {
+      "scene_location": "COM-02X.md L386-L397 (Shot B — CG-COM-03), especially L397",
+      "evidence": "Hold / exit：保留至「看來不是只有我」；choice 前切回 sprite composite。",
+      "type": "stale_semantic_visual_beat_anchor",
+      "why": "The hold/exit timing is keyed to dialogue removed from the current locked script, so the locked semantic timing cannot be followed deterministically from the approved scene text.",
+      "required_change": "Retarget the semantic hold/exit boundary to an existing current-script beat without changing narrative meaning; render-ready implementation remains outside Narrative QA."
+    }
+  ],
+  "human_gate_required": "none",
+  "invalidates": [],
+  "worker_handoff_sha256": "fbfb023e5badc3c1f67596d92d17b4a42a7b8beb42044f63d5142c2a4faa5a59"
+}

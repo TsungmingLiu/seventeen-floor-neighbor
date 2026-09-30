@@ -2,6 +2,7 @@ import { ProgressStore } from './progress.js';
 import { paintPreview, paintSprites, resolveVisual, setImage } from './visuals.js';
 import { memoryEventById, memoryEventForNode, memoryStats, renderMemories, titleBackdropVisual } from './memories.js';
 import { hasRenderableText, presentationModeForNode, speakerLabelForNode } from './presentation.js';
+import { interpolatePlayerName, normalizePlayerName } from './player-name.js';
 
 export class GameEngine {
   constructor({ chapter, assetManifest, sceneLibrary, memoryLibrary }) {
@@ -20,6 +21,8 @@ export class GameEngine {
     this.currentSpriteSignature = '';
     this.returnNodes = [];
     this.progress = new ProgressStore(chapter, this.memoryLibrary);
+    this.requiresPlayerName = Object.values(chapter.nodes).some(node => node.text?.includes('[PLAYER_NAME]'));
+    this.pendingNamedAction = null;
     this.previousNode = null;
     this.cgStorageKey = `${chapter.id}:cgUnlocks`;
     this.galleryEntries = Object.entries(this.assets)
@@ -67,6 +70,11 @@ export class GameEngine {
       endingText: $('#ending-text'),
       endingCount: $('#ending-count'),
       startButton: $('#start-button'),
+      nameDialog: $('#player-name-dialog'),
+      nameForm: $('#player-name-form'),
+      nameInput: $('#player-name-input'),
+      nameError: $('#player-name-error'),
+      nameCancel: $('#player-name-cancel'),
       titleMute: $('#title-mute'),
       muteButton: $('#mute-button'),
       cinematicSkip: $('#cinematic-skip'),
@@ -129,6 +137,20 @@ export class GameEngine {
 
   bindEvents() {
     this.els.startButton.addEventListener('click', () => this.startFromTitle());
+    this.els.nameForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (!this.progress.setPlayerName(this.els.nameInput.value)) {
+        this.els.nameError.textContent = '請輸入 1–20 個字的名字，使用一般文字即可。';
+        this.els.nameInput.focus();
+        return;
+      }
+      const action = this.pendingNamedAction;
+      this.pendingNamedAction = null;
+      this.els.nameDialog.close();
+      action?.();
+    });
+    this.els.nameCancel.addEventListener('click', () => this.els.nameDialog.close());
+    this.els.nameDialog.addEventListener('close', () => { this.pendingNamedAction = null; });
     document.querySelector('#replay-button').addEventListener('click', () => this.openMemories());
     document.querySelector('#home-button').addEventListener('click', () => this.showOnly(this.els.title));
     document.querySelector('#game-home-button').addEventListener('click', () => this.showOnly(this.els.title));
@@ -176,6 +198,7 @@ export class GameEngine {
       });
     });
     window.addEventListener('keydown', (event) => {
+      if (this.els.nameDialog.open) return;
       if (this.els.viewer.open) {
         if (event.key === 'ArrowLeft') this.moveViewer(-1);
         if (event.key === 'ArrowRight') this.moveViewer(1);
@@ -613,7 +636,7 @@ export class GameEngine {
     this.typingToken += 1;
     this.isTyping = false;
     const node = this.chapter.nodes[this.nodeId];
-    this.els.text.textContent = node.text || '';
+    this.els.text.textContent = this.renderedText;
     if (node.choices) {
       this.awaitingChoiceReveal = true;
       this.els.hint.textContent = '點擊選擇';
@@ -659,6 +682,26 @@ export class GameEngine {
   render() {
     const node = this.chapter.nodes[this.nodeId];
     if (!node) throw new Error(`Unknown story node: ${this.nodeId}`);
+    if (node.text?.includes('[PLAYER_NAME]') && !normalizePlayerName(this.progress.data.playerDisplayName)) {
+      this.typingToken += 1;
+      this.isTyping = false;
+      this.els.text.textContent = '';
+      this.textBlocked = true;
+      this.requirePlayerName(() => this.render());
+      return;
+    }
+    this.textBlocked = false;
+    this.renderedText = interpolatePlayerName(node.text, this.progress.data.playerDisplayName);
+    if (node.entryEffects || node.entryFlags) {
+      const appliedFlag = `entry-effect:${this.nodeId}`;
+      if (!this.state.flags.has(appliedFlag)) {
+        Object.entries(node.entryEffects || {}).forEach(([key, value]) => {
+          this.state[key] = (this.state[key] || 0) + value;
+        });
+        (node.entryFlags || []).forEach((flag) => this.state.flags.add(flag));
+        this.state.flags.add(appliedFlag);
+      }
+    }
     this.progress.connect(this.previousNode, this.nodeId);
     this.previousNode = this.nodeId;
     if (node.type === 'random') {
@@ -711,12 +754,12 @@ export class GameEngine {
       this.enterChoiceMode(node.choices);
       return;
     }
-    this.typeText(node.text);
+    this.typeText(this.renderedText);
   }
 
   advance() {
     const node = this.chapter.nodes[this.nodeId];
-    if (!node || this.isCinematic) return;
+    if (!node || this.isCinematic || this.pendingNamedAction || this.textBlocked) return;
     if (this.revealText()) return;
     if (node.choices) {
       if (this.awaitingChoiceReveal) this.enterChoiceMode(node.choices);
@@ -770,7 +813,18 @@ export class GameEngine {
     this.tone('message');
   }
 
+  requirePlayerName(action) {
+    if (!this.requiresPlayerName || normalizePlayerName(this.progress.data.playerDisplayName)) return true;
+    this.pendingNamedAction = action;
+    this.els.nameError.textContent = '';
+    this.els.nameInput.value = '';
+    if (!this.els.nameDialog.open) this.els.nameDialog.showModal();
+    this.els.nameInput.focus();
+    return false;
+  }
+
   startGame({ replay = false, freshRun = false } = {}) {
+    if (!this.requirePlayerName(() => this.startGame({ replay, freshRun }))) return;
     if (freshRun) this.progress.beginFreshRun();
     else if (replay) this.progress.beginReplay();
     else this.progress.endReplay();
@@ -784,6 +838,7 @@ export class GameEngine {
   }
 
   resumeGame(snapshot = this.progress.data.frontier || this.progress.data.cursor, { replay = false } = {}) {
+    if (!this.requirePlayerName(() => this.resumeGame(snapshot, { replay }))) return;
     const restored = this.progress.restore(snapshot);
     if (!restored) return this.startGame({ replay });
     if (replay) this.progress.beginReplay(snapshot);

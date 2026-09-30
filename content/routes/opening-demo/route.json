@@ -4,9 +4,9 @@
   "titlePrefix": "17樓的",
   "titleMain": "新鄰居",
   "eyebrow": "Opening Chapter 1・CG-first Demo",
-  "premise": "雨夜搬家、電梯重啟、地下街初遇：三段城市日常，兩個剛開始被記住的人。",
+  "premise": "雨夜搬家、電梯重啟、地下街初遇，接著在深夜便利店看見鄰居日常。",
   "startLabel": "開始第一章",
-  "hint": "三個選擇點只決定你回應事情的方式，不存在明顯正解。",
+  "hint": "四段日常中的選擇只決定你回應事情的方式，不存在明顯正解。",
   "titleAlt": "雨夜公寓走廊中的 Opening Chapter 1 demo",
   "endingAlt": "第一章 demo 完成畫面",
   "accent": "#d79b72",
@@ -30,18 +30,20 @@
     "cg.opening-ch1.com01b.01",
     "cg.opening-ch1.com01b.02",
     "cg.opening-ch1.com01b.03",
-    "cg.opening-ch1.com01b.04"
+    "cg.opening-ch1.com01b.04",
+    "bg.narrative_preview.placeholder"
   ],
   "story": {
     "id": "opening-demo-chapter-01",
     "title": "Opening Chapter 1",
     "startNode": "common_movein_rain_open",
     "titleArt": "cg.opening.com00.s02_door_assist",
-    "endingArt": "cg.opening.com01j.r01_interested",
+    "endingArt": "bg.narrative_preview.placeholder",
     "chapterLabels": [
       "雨夜搬家",
       "電梯重啟",
-      "地下街初遇"
+      "地下街初遇",
+      "深夜便利店"
     ],
     "initialState": {
       "mc_tone_formal": 0,
@@ -61,7 +63,10 @@
       "xu_shared_building_tip": 0,
       "met_jiang_yucheng": 0,
       "heard_station_cafe_from_jyc": 0,
-      "jyc_first_topic": 0
+      "jyc_first_topic": 0,
+      "T_XT": 0,
+      "K_XT": 0,
+      "xt_advice_tendency": 0
     },
     "endingRules": [
       {
@@ -72,10 +77,11 @@
     "endings": {
       "demo_complete": {
         "title": "第一章 Demo 完成",
-        "art": "cg.opening.com01j.r01_interested",
-        "text": "Opening Chapter 1 到此結束。\n\n你記住了隔壁鄰居許棠，也記住了地下街那個對《逆光航路》有自己判斷的陌生女孩。\n\n這是 demo 的 runtime 邊界，不是任何關係結局。"
+        "art": "bg.narrative_preview.placeholder",
+        "text": "Opening Chapter 1 敘事預覽到此結束。\n\n這是故事與互動的審閱邊界。"
       }
-    }
+    },
+    "allowPreviewArt": true
   },
   "memoryFile": "content/routes/opening-demo/memories.json"
 }

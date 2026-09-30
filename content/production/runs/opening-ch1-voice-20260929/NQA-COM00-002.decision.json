@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "opening-ch1-voice-20260929",
+  "task_id": "NQA-COM00-002",
+  "scene_id": "COM-00",
+  "task_type": "narrative_review",
+  "status": "NEEDS_REVIEW",
+  "workflow_version": "1.3.0",
+  "harness": {
+    "id": "content_qa",
+    "pass": "narrative_review"
+  },
+  "packet_sha256": "b7a84df9112ce3b7e06c3f79de0ca04484ddf8fd7f5f78f105b39ef78c776aad",
+  "handoff_sha256": "a9ea04314400bd94f1514c0a0aa162333fb4ae9f9f438894aeaa3d11c60c6186",
+  "source_ref": "aa851ccafaf34f90d758586d5892887889d0d1cc",
+  "output_versions": [
+    {
+      "id": "reviewed_locked_scene:COM-00",
+      "version": "2245e7a72b9d866059d8f073ecd01d77138e1e02",
+      "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "NQA-SCENE-FUNCTION-AND-PAYOFF",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-VOICE-AND-PACING",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-DIALOGUE-NATURALISM",
+      "result": "FAIL"
+    },
+    {
+      "name": "NQA-CHOICE-REJOIN",
+      "result": "FAIL"
+    },
+    {
+      "name": "NQA-KNOWLEDGE-AND-RELATIONSHIP",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-CHOICE-STATE",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-SEMANTIC-VISUAL-BEATS",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "Shared rejoin repeats already resolved door action and asks about move-in already revealed in formal and humorous choices."
+  ],
+  "human_gate": "none"
+}

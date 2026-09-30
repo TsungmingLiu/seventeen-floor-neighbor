@@ -42,6 +42,16 @@ async function committedJson(relative, sources) {
   return JSON.parse(await committedSource(relative, sources));
 }
 
+// Classify runs from HEAD so an unrelated in-progress ledger does not contaminate
+// the review. Only the selected evidence is read from (and checked against) disk.
+function headJson(relative) {
+  return JSON.parse(git('show', `HEAD:${relative}`));
+}
+
+function staleReviewInputs(error, kind) {
+  return error.message === `reviewed ${kind} inputs differ from current committed content`;
+}
+
 async function jsonPaths(relative) {
   const entries = await readdir(path.join(projectRoot, relative), { withFileTypes: true });
   const paths = await Promise.all(entries.map(async (entry) => {
@@ -62,31 +72,45 @@ async function narrativeQaEvidence(sceneId, sources) {
     const runId = directory.name;
     const ledgerPath = `${root}/${runId}/ledger.json`;
     let ledger;
-    try { ledger = JSON.parse(await committedSource(ledgerPath, sources)); }
+    try { ledger = headJson(ledgerPath); }
     catch (error) { throw new Error(`cannot classify production run ${runId}: ${error.message}`); }
     requireCondition(Array.isArray(ledger.tasks), `cannot classify production run ${runId}: missing tasks`);
-    if (ledger.tasks.some((task) => task?.scene_id === sceneId && task?.task_type === 'narrative_review')) {
-      relevant.push({ runId, ledger, ledgerPath });
+    // The run verifier supports one bounded task. Multi-stage ledgers cannot be
+    // promoted to QA evidence until their individual tasks are independently verified.
+    if (ledger.tasks.length === 1 && ledger.tasks[0]?.scene_id === sceneId &&
+      ledger.tasks[0]?.task_type === 'narrative_review') {
+      relevant.push({ runId, ledgerPath });
     }
   }
-  requireCondition(relevant.length <= 1, `ambiguous Narrative QA evidence for ${sceneId}: ${relevant.map((run) => run.runId).join(', ')}`);
   if (!relevant.length) return null;
-  const { runId, ledger } = relevant[0];
-  const verified = await verifyProductionRun(runId);
-  const task = ledger.tasks.find((item) => item.scene_id === sceneId && item.task_type === 'narrative_review');
+  const current = [];
+  const stale = [];
+  for (const { runId, ledgerPath } of relevant) {
+    const ledger = await committedJson(ledgerPath, sources);
+    let verified;
+    try { verified = await verifyProductionRun(runId); }
+    catch (error) {
+      if (staleReviewInputs(error, 'narrative')) { stale.push(runId); continue; }
+      throw error; // A malformed or forged decision must block, not disappear.
+    }
+    if (verified.task_status === 'CURRENT_PASS') current.push({ runId, task: ledger.tasks[0], verified });
+    else stale.push(runId);
+  }
+  requireCondition(current.length <= 1,
+    `ambiguous current Narrative QA evidence for ${sceneId}: ${current.map(({ runId }) => runId).join(', ')}`);
+  if (!current.length) return stale.length ? { status: 'REVIEW_REQUIRED' } : null;
+  const { runId, task, verified } = current[0];
   const result = {
-    status: verified.task_status === 'CURRENT_PASS' ? 'PASS_CURRENT' : 'REVIEW_REQUIRED',
+    status: 'PASS_CURRENT',
     runId, taskId: task.task_id, sourceRef: verified.source_ref,
     packetSha256: verified.packet_sha256,
     inputVersions: task.input_versions.map(({ id, version }) => ({ id, version })),
     outputVersions: task.output_versions.map(({ id, version }) => ({ id, version })),
     qaCodes: verified.qa_codes || [], receiptPath: task.decision_receipt
   };
-  if (verified.task_status === 'CURRENT_PASS') {
-    const receipt = await committedJson(task.decision_receipt, sources);
-    result.receiptSha256 = sources.get(task.decision_receipt).sha256;
-    result.inputDigestSha256 = receipt.input_digest_sha256;
-  }
+  const receipt = await committedJson(task.decision_receipt, sources);
+  result.receiptSha256 = sources.get(task.decision_receipt).sha256;
+  result.inputDigestSha256 = receipt.input_digest_sha256;
   return result;
 }
 
@@ -99,14 +123,25 @@ async function candidateVisualQaEvidence(sceneId, visuals, sources) {
   const seenEntries = new Set();
   for (const directory of directories.filter((entry) => entry.isDirectory())) {
     const runId = directory.name;
-    const ledger = await committedJson(`${root}/${runId}/ledger.json`, sources);
+    const ledgerPath = `${root}/${runId}/ledger.json`;
+    const ledger = headJson(ledgerPath);
     requireCondition(Array.isArray(ledger.tasks), `cannot classify production run ${runId}: missing tasks`);
     const matching = ledger.tasks.filter((task) => task?.scene_id === sceneId &&
       task?.task_type === 'visual_review' && task?.review_scope === 'candidate');
     for (const task of matching) {
+      // A multi-task ledger has no task-level verification by this verifier.
+      if (ledger.tasks.length !== 1) continue;
+      await committedJson(ledgerPath, sources);
       requireCondition(!seenEntries.has(task.entry_id), `ambiguous candidate Visual QA for ${task.entry_id}`);
+      let verified;
+      try { verified = await verifyProductionRun(runId); }
+      catch (error) {
+        // Candidate packets include upstream narrative QA; either input drift
+        // invalidates the candidate decision for the current scene.
+        if (staleReviewInputs(error, 'candidate') || staleReviewInputs(error, 'narrative')) continue;
+        throw error;
+      }
       seenEntries.add(task.entry_id);
-      const verified = await verifyProductionRun(runId);
       requireCondition(verified.task_status === 'CURRENT_FAIL',
         `${runId}: candidate Visual QA does not have a current verified failure`);
       const visual = visuals.find((item) => item.entryId === task.entry_id);

@@ -131,8 +131,16 @@ test('all COM-01B questions rejoin after goodnight and reach the existing COM-01
   const content = await loadContent();
   const route = content.routes.find((item) => item.config.id === 'opening-demo');
   const nodes = route.chapter.nodes;
-  assert.equal(nodes.common_elevator_restart_exit.next, 'common_bookstore_bridge_enter');
-  assert.equal(nodes.common_bookstore_bridge_weekend_transition.next, 'common_acg_first_meet_enter');
+  let elevatorExit = 'common_elevator_restart_exit';
+  while (nodes[elevatorExit].next !== 'common_bookstore_bridge_enter') {
+    elevatorExit = nodes[elevatorExit].next;
+    assert.match(elevatorExit, /^common_elevator_restart_exit_locked_/);
+  }
+  let weekend = 'common_bookstore_bridge_weekend_transition';
+  while (nodes[weekend].next !== 'common_acg_first_meet_enter') {
+    weekend = nodes[weekend].next;
+    assert.match(weekend, /^common_bookstore_bridge_weekend_transition_locked_/);
+  }
   assert.equal(nodes.common_bookstore_bridge_choice.choices.length, 3);
   for (const choice of nodes.common_bookstore_bridge_choice.choices) {
     assert.equal(choice.effects, undefined);

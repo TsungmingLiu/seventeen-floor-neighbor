@@ -18,6 +18,13 @@ async function waitForDialogueReady(page) {
   }, { timeout: 5000 }).toBe(true);
 }
 
+async function enterPlayerName(page, name = '測試姓名') {
+  if (!await page.locator('#player-name-dialog').isVisible()) return;
+  await page.locator('#player-name-input').fill(name);
+  await page.locator('#player-name-form button[type="submit"]').click();
+  await expect(page.locator('#player-name-dialog')).not.toBeVisible();
+}
+
 async function galleryEntryCount(page) {
   const response = await page.request.get('/content/routes/opening-demo/assets.json');
   expect(response.ok()).toBe(true);
@@ -31,11 +38,12 @@ test('opening-demo saves its real cursor and resumes after reload', async ({ pag
   await page.goto('/');
   await expect(page.locator('#title-screen')).toBeVisible();
   await page.locator('#start-button').click();
+  await enterPlayerName(page);
   await waitForDialogueReady(page);
 
   await page.locator('#advance-zone').click();
   await waitForDialogueReady(page);
-  await expect(page.locator('#dialogue-text')).toContainText('椅子可以留給明天的自己後悔');
+  await expect(page.locator('#dialogue-text')).toContainText('走廊上還剩三箱');
   const savedNode = await page.evaluate(() =>
     JSON.parse(localStorage.getItem('opening-demo-chapter-01:journey:v2')).cursor.nodeId
   );
@@ -46,8 +54,9 @@ test('opening-demo saves its real cursor and resumes after reload', async ({ pag
   await page.reload();
   await expect(page.locator('#start-button')).toHaveText('繼續遊戲');
   await page.locator('#start-button').click();
+  await enterPlayerName(page);
   await waitForDialogueReady(page);
-  await expect(page.locator('#dialogue-text')).toContainText('椅子可以留給明天的自己後悔');
+  await expect(page.locator('#dialogue-text')).toContainText('走廊上還剩三箱');
 });
 
 test('opening-demo title, Memories, Gallery, and game controls fit a 320px viewport', async ({ page }) => {
@@ -72,6 +81,12 @@ test('opening-demo title, Memories, Gallery, and game controls fit a 320px viewp
   await page.locator('#gallery-back').click();
 
   await page.locator('#start-button').click();
+  await expect(page.locator('#player-name-dialog')).toBeVisible();
+  const nameBox = await page.locator('#player-name-dialog').boundingBox();
+  expect(nameBox.x).toBeGreaterThanOrEqual(0);
+  expect(nameBox.x + nameBox.width).toBeLessThanOrEqual(320);
+  expect(await fitsViewport()).toBe(true);
+  await enterPlayerName(page);
   await waitForDialogueReady(page);
   expect(await fitsViewport()).toBe(true);
   for (const selector of ['#game-memories-button', '#game-home-button']) {
@@ -79,17 +94,19 @@ test('opening-demo title, Memories, Gallery, and game controls fit a 320px viewp
   }
 });
 
-test('default opening-demo plays COM-00 → COM-01X → COM-01J and ends at demo boundary', async ({ page }) => {
+test('opening preview plays COM-00 → COM-01X → COM-01J → COM-02X and saves its shared exit', async ({ page }) => {
   const errors = collectBlockingErrors(page);
   await page.goto('/');
   await expect(page.locator('#title-screen')).toBeVisible();
   await expect(page.locator('#title-main')).toHaveText('新鄰居');
   await expect(page.locator('#start-button')).toBeEnabled();
   await page.locator('#start-button').click();
+  await enterPlayerName(page);
 
   const seen = new Set();
   let usedKeyboardChoice = false;
-  for (let step = 0; step < 120; step += 1) {
+  let sawPlayerName = false;
+  for (let step = 0; step < 240; step += 1) {
     if (await page.locator('#ending-screen').isVisible().catch(() => false)) break;
     await expect(page.locator('#game-shell')).toBeVisible();
     await waitForDialogueReady(page);
@@ -110,12 +127,17 @@ test('default opening-demo plays COM-00 → COM-01X → COM-01J and ends at demo
     } else {
       const state = await page.evaluate(() => JSON.parse(localStorage.getItem('opening-demo-chapter-01:journey:v2') || 'null'));
       if (state?.cursor?.nodeId) seen.add(state.cursor.nodeId);
+      if (state?.cursor?.nodeId === 'common_movein_rain_name_reply') {
+        await expect(page.locator('#dialogue-text')).toContainText('測試姓名');
+        sawPlayerName = true;
+      }
       await page.locator('#advance-zone').click();
     }
   }
 
   await expect(page.locator('#ending-screen')).toBeVisible({ timeout: 5000 });
   expect(usedKeyboardChoice).toBe(true);
+  expect(sawPlayerName).toBe(true);
   await expect(page.locator('#ending-title')).toHaveText('第一章 Demo 完成');
   expect(await page.evaluate(() => localStorage.getItem('opening-demo-chapter-01:completed'))).toBe('1');
 
@@ -124,6 +146,7 @@ test('default opening-demo plays COM-00 → COM-01X → COM-01J and ends at demo
   await expect(page.locator('[data-memory-id="mem.opening.ch1.movein"]')).toBeEnabled();
   await expect(page.locator('[data-memory-id="mem.opening.ch1.elevator-restart"]')).toBeEnabled();
   await expect(page.locator('[data-memory-id="mem.opening.ch1.acg-first-meet"]')).toBeEnabled();
+  await expect(page.locator('[data-memory-id="mem.opening.ch1.convenience-xu"]')).toBeEnabled();
 
   await page.locator('#memories-back').click();
   await page.locator('#gallery-button').click();
@@ -131,7 +154,80 @@ test('default opening-demo plays COM-00 → COM-01X → COM-01J and ends at demo
   await expect(page.locator('#cg-grid button:not(:disabled)')).toHaveCount(await galleryEntryCount(page));
 
   const finalJourney = await page.evaluate(() => JSON.parse(localStorage.getItem('opening-demo-chapter-01:journey:v2')));
-  expect(finalJourney.frontierMemoryEventId).toBe('mem.opening.ch1.acg-first-meet');
-  expect(finalJourney.frontierRank).toBe(140);
+  expect(finalJourney.playerDisplayName).toBe('測試姓名');
+  expect(finalJourney.frontierMemoryEventId).toBe('mem.opening.ch1.convenience-xu');
+  expect(finalJourney.frontierRank).toBe(160);
+  expect(finalJourney.cursor.stats.F_XT).toBeGreaterThanOrEqual(2);
+  expect(finalJourney.cursor.flags).toContain('player_knows_xu_freelance_creative_work');
+  expect(seen.has('common_convenience_xu_work')).toBe(true);
   expect(errors).toEqual([]);
+});
+
+
+test('entered name persists through Continue and Memory replay without replacing story data', async ({ page }) => {
+  const errors = collectBlockingErrors(page);
+  await page.goto('/');
+  await page.locator('#start-button').click();
+  await expect(page.locator('#player-name-dialog')).toBeVisible();
+  await page.locator('#player-name-input').fill('   ');
+  await page.locator('#player-name-form button[type="submit"]').click();
+  await expect(page.locator('#player-name-error')).not.toBeEmpty();
+  await expect(page.locator('#game-shell')).not.toBeVisible();
+  await enterPlayerName(page, '小雨');
+
+  for (let step = 0; step < 80; step += 1) {
+    await waitForDialogueReady(page);
+    const node = await page.evaluate(() => JSON.parse(localStorage.getItem('opening-demo-chapter-01:journey:v2')).cursor.nodeId);
+    if (node === 'common_movein_rain_name_reply') break;
+    const choices = page.locator('#choice-list .choice-button');
+    if (await page.locator('#choice-list').isVisible()) await choices.first().click();
+    else await page.locator('#advance-zone').click();
+  }
+  await expect(page.locator('#dialogue-text')).toContainText('小雨');
+  await page.reload();
+  await page.locator('#start-button').click();
+  await expect(page.locator('#player-name-dialog')).not.toBeVisible();
+  await waitForDialogueReady(page);
+  await expect(page.locator('#dialogue-text')).toContainText('小雨');
+
+  await page.locator('#game-home-button').click();
+  await page.locator('#memories-button').click();
+  await page.locator('[data-memory-id="mem.opening.ch1.movein"]').click();
+  await expect(page.locator('#player-name-dialog')).not.toBeVisible();
+  for (let step = 0; step < 80; step += 1) {
+    await waitForDialogueReady(page);
+    const node = await page.evaluate(() => JSON.parse(localStorage.getItem('opening-demo-chapter-01:journey:v2')).cursor.nodeId);
+    if (node === 'common_movein_rain_name_reply') break;
+    if (await page.locator('#choice-list').isVisible()) await page.locator('#choice-list .choice-button').first().click();
+    else await page.locator('#advance-zone').click();
+  }
+  await expect(page.locator('#dialogue-text')).toContainText('小雨');
+  expect(errors).toEqual([]);
+});
+
+test('pre-COM02X save keeps progress and asks for a name before Continue or replay', async ({ page }) => {
+  await page.goto('/');
+  await page.evaluate(async () => {
+    const chapter = await (await fetch('/content/routes/opening-demo/chapter.json')).json();
+    const stats = { ...chapter.initialState, F_XT: 2 };
+    for (const key of ['T_XT', 'K_XT', 'xt_advice_tendency']) delete stats[key];
+    const snapshot = { nodeId: 'common_elevator_restart_greeting', stats, flags: ['test-flag'], returnNodes: [] };
+    localStorage.setItem('opening-demo-chapter-01:journey:v2', JSON.stringify({ version: 2, cursor: snapshot, frontier: snapshot, checkpoints: { [snapshot.nodeId]: snapshot }, edges: [] }));
+  });
+  await page.reload();
+  await expect(page.locator('#start-button')).toHaveText('繼續遊戲');
+  await page.locator('#start-button').click();
+  await expect(page.locator('#player-name-dialog')).toBeVisible();
+  await page.locator('#player-name-cancel').click();
+  await page.locator('#memories-button').click();
+  await page.locator('[data-memory-id="mem.opening.ch1.elevator-restart"]').click();
+  await expect(page.locator('#player-name-dialog')).toBeVisible();
+  await enterPlayerName(page, '新名字');
+  await waitForDialogueReady(page);
+  const saved = await page.evaluate(() => JSON.parse(localStorage.getItem('opening-demo-chapter-01:journey:v2')));
+  expect(saved.cursor.nodeId).toBe('common_elevator_restart_greeting');
+  expect(saved.cursor.stats.F_XT).toBe(2);
+  expect(saved.cursor.stats.T_XT).toBe(0);
+  expect(saved.cursor.flags).toContain('test-flag');
+  expect(saved.playerDisplayName).toBe('新名字');
 });

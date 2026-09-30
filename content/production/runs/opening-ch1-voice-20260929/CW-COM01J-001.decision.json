@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "opening-ch1-voice-20260929",
+  "task_id": "CW-COM01J-001",
+  "scene_id": "COM-01J",
+  "task_type": "scene_dialogue",
+  "status": "PASS",
+  "workflow_version": "1.3.0",
+  "harness": {
+    "id": "content_writer",
+    "pass": "scene_dialogue"
+  },
+  "packet_sha256": "b9b084eeb133b77e5c0b7357666250c31d624cbc8c2c496c84f34779f1acdfe7",
+  "input_versions": [
+    {
+      "id": "file:.ai/harnesses/content-writer.md",
+      "version": "22fd6954f8bb3133a2526ff3e850d2f8e711485a",
+      "location": ".ai/harnesses/content-writer.md"
+    },
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-01J.json",
+      "version": "faf7e36eb017124e43f511d3cea9c00884d4cb86",
+      "location": "content/production/narrative/opening-ch1/COM-01J.json"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-01J.md",
+      "version": "fddb070a57e2847ecd4165b1efd52e646a6c74f5",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01J.md"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-01B.md",
+      "version": "ef71fc8bc9fa1c14e001c8b0ef0ebd1a7a17a459",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01B.md"
+    },
+    {
+      "id": "file:docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_JIANG_YUCHENG.md",
+      "version": "0baa4c850c1b3688b90694c4599f1675d88b99a0",
+      "location": "docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_JIANG_YUCHENG.md"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "locked_scene:COM-01J",
+      "version": "bae8d7a53f46ccc05d299913d9c5bb976a3684d5",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01J.md"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "naturalization_and_branch_readthrough",
+      "result": "PASS"
+    },
+    {
+      "name": "stable_node_state_visual_beats",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [],
+  "human_gate": "none"
+}

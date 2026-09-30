@@ -12,6 +12,7 @@ class FakeClassList {
   constructor() { this.values = new Set(); }
   add(...names) { names.forEach((name) => this.values.add(name)); }
   remove(...names) { names.forEach((name) => this.values.delete(name)); }
+  contains(name) { return this.values.has(name); }
   toggle(name, force) {
     const next = force === undefined ? !this.values.has(name) : force;
     if (next) this.values.add(name); else this.values.delete(name);
@@ -48,6 +49,7 @@ class FakeElement {
     return selector === 'button' ? this.children.filter((child) => child.tagName === 'button') : this.children;
   }
   querySelector(selector) {
+    if (selector === '.cg-viewer-canvas') return new FakeElement();
     return this.querySelectorAll(selector)[0];
   }
   click() { this.listeners.get('click')?.({ stopPropagation() {} }); }
@@ -64,6 +66,7 @@ function installBrowserMocks() {
     createElement(tagName) { return new FakeElement(tagName); }
   };
   globalThis.window = {
+    addEventListener() {},
     matchMedia() { return { matches: false }; }
   };
   return elements;
@@ -109,6 +112,22 @@ test('resuming a choice-entry checkpoint does not apply its effects a second tim
   assert.equal(engine.nodeId, 'choice');
   assert.equal(engine.state.warmth, 0);
   assert.deepEqual(engine.state.flags, new Set());
+});
+
+test('shared scene exit applies base state once and preserves it across Continue', () => {
+  const story = chapter({
+    start: { next: 'exit' },
+    exit: { text: '晚安。', entryEffects: { warmth: 1 }, entryFlags: ['work-known'], next: 'finish' },
+    finish: { type: 'route' }
+  });
+  const engine = engineFor(story);
+  engine.nodeId = 'exit';
+  engine.render();
+  assert.equal(engine.state.warmth, 1);
+  assert.equal(engine.progress.data.cursor.stats.warmth, 1);
+  engine.resumeGame(engine.progress.data.cursor);
+  assert.equal(engine.state.warmth, 1);
+  assert.ok(engine.state.flags.has('work-known'));
 });
 
 test('random entries restore at the selected scene with their return destination intact', () => {
@@ -194,4 +213,82 @@ test('captioned choice nodes finish the caption before switching to exclusive ch
   assert.equal(engine.els.dialoguePanel.classList.values.has('is-hidden'), true);
   assert.equal(engine.els.choices.classList.values.has('is-hidden'), false);
   assert.equal(engine.els.stage.dataset.presentation, 'choice');
+});
+
+
+test('Start name form gates entry and the saved name survives Continue and Memory replay', () => {
+  const story = chapter({
+    start: { speaker: '我', text: '我叫[PLAYER_NAME]。', next: 'narration' },
+    narration: { speaker: '旁白', text: '[PLAYER_NAME]站在門口。', next: 'end' },
+    end: { type: 'route' }
+  });
+  const engine = engineFor(story);
+  const memoryLibrary = { events: [{ id: 'opening', replayNode: 'start', unlockNodes: ['start'], progressRank: 0 }, { id: 'later', replayNode: 'narration', unlockNodes: ['narration'], progressRank: 1 }] };
+  engine.progress.memories = memoryLibrary;
+  engine.bindEvents();
+  engine.els.startButton.click();
+  assert.equal(engine.els.nameDialog.open, true);
+  assert.equal(engine.progress.data.cursor, null, 'opening is not captured before name entry');
+  const submit = engine.els.nameForm.listeners.get('submit');
+  engine.els.nameInput.value = '   ';
+  submit({ preventDefault() {} });
+  assert.equal(engine.els.nameDialog.open, true);
+  assert.equal(engine.progress.data.cursor, null);
+  engine.els.nameInput.value = '  小雨  ';
+  submit({ preventDefault() {} });
+  assert.equal(engine.els.nameDialog.open, false);
+  engine.revealText();
+  assert.equal(engine.els.text.textContent, '我叫小雨。');
+  engine.advance();
+  engine.revealText();
+  assert.equal(engine.els.text.textContent, '小雨站在門口。');
+
+  const reloaded = new GameEngine({ chapter: story, assetManifest: { assets: {} }, sceneLibrary: {}, memoryLibrary });
+  reloaded.startFromTitle();
+  reloaded.revealText();
+  assert.equal(reloaded.nodeId, 'narration');
+  assert.equal(reloaded.els.text.textContent, '小雨站在門口。');
+  assert.equal(reloaded.els.nameDialog.open, false);
+  reloaded.replayMemory({ replayNode: 'start' });
+  reloaded.revealText();
+  assert.equal(reloaded.els.text.textContent, '我叫小雨。');
+  assert.equal(reloaded.progress.data.playerDisplayName, '小雨');
+});
+
+test('unnamed old save keeps its checkpoint while Continue and replay wait for the name form', () => {
+  const story = chapter({ start: { text: '[PLAYER_NAME]。' }, old: { text: '舊進度。' } });
+  const engine = engineFor(story);
+  engine.progress.capture('old', { warmth: 4, trust: 2, flags: new Set(['known']) }, []);
+  engine.bindEvents();
+  const before = structuredClone(engine.progress.data);
+  engine.startFromTitle();
+  assert.equal(engine.els.nameDialog.open, true);
+  assert.deepEqual(engine.progress.data, before);
+  engine.els.nameCancel.click();
+  engine.replayMemory({ replayNode: 'old' });
+  assert.equal(engine.els.nameDialog.open, true);
+  assert.deepEqual(engine.progress.data, before);
+  engine.els.nameInput.value = '阿明';
+  engine.els.nameForm.listeners.get('submit')({ preventDefault() {} });
+  assert.equal(engine.nodeId, 'old');
+  assert.equal(engine.state.warmth, 4);
+  assert.deepEqual(engine.state.flags, new Set(['known']));
+});
+
+
+test('missing name at a rendered token clears stale text and cannot silently advance past the line', () => {
+  const story = chapter({ start: { text: '我叫[PLAYER_NAME]。', next: 'after' }, after: { text: '下一句。' } });
+  const engine = engineFor(story);
+  engine.bindEvents();
+  engine.els.text.textContent = '上一句。';
+  engine.render();
+  assert.equal(engine.els.text.textContent, '');
+  assert.equal(engine.isTyping, false);
+  assert.equal(engine.els.nameDialog.open, true);
+  engine.advance();
+  assert.equal(engine.nodeId, 'start');
+  engine.els.nameCancel.click();
+  engine.advance();
+  assert.equal(engine.nodeId, 'start');
+  assert.equal(engine.progress.data.cursor, null);
 });

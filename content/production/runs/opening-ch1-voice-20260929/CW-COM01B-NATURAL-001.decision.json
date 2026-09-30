@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "opening-ch1-voice-20260929",
+  "task_id": "CW-COM01B-NATURAL-001",
+  "scene_id": "COM-01B",
+  "task_type": "scene_dialogue",
+  "status": "PASS",
+  "workflow_version": "1.3.0",
+  "harness": {
+    "id": "content_writer",
+    "pass": "scene_dialogue"
+  },
+  "packet_sha256": "2047c8cc1a02fb9f426cb36a88e18801329fe2e80d7e77eaad05d028be82acca",
+  "handoff_sha256": "477a3367acbc13926307f9abc2d01719248cf0059e04ee3bd804831c0ad9eac6",
+  "source_ref": "79f712259bb4dcb84f74c7a0ef274058f686aa48",
+  "input_versions": [
+    {
+      "id": "file:.ai/harnesses/content-writer.md",
+      "version": "22fd6954f8bb3133a2526ff3e850d2f8e711485a",
+      "location": ".ai/harnesses/content-writer.md"
+    },
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-01B.json",
+      "version": "d02125cf9395eb81d7e2818fcab632caeaa69e3e",
+      "location": "content/production/narrative/opening-ch1/COM-01B.json"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-01B.md",
+      "version": "ef71fc8bc9fa1c14e001c8b0ef0ebd1a7a17a459",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01B.md"
+    },
+    {
+      "id": "file:docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_COMMON.md",
+      "version": "bd1d1cb374d6dca8673d63319f30e67904b5e22d",
+      "location": "docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_COMMON.md"
+    },
+    {
+      "id": "qa_handoff:NQA-COM01B-FINAL-001",
+      "version": "cc678a5105c51f832902d5e33a80a5617bcf4ddcb44cee79af3b2458eb111063",
+      "location": "generated/session-cache/opening-ch1-voice-20260929/NQA-COM01B-FINAL-001.handoff.json"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "locked_scene:COM-01B",
+      "version": "081bef01e36323c11fdeb3262ebd110ac63ed641",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01B.md"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "SOURCE-ACQUISITION",
+      "result": "PASS"
+    },
+    {
+      "name": "DIALOGUE-NATURALIZATION-SWEEP",
+      "result": "PASS"
+    },
+    {
+      "name": "CHOICE-AND-CONTINUITY",
+      "result": "PASS"
+    },
+    {
+      "name": "BOUNDED-DIFF",
+      "result": "PASS"
+    },
+    {
+      "name": "DIFF-CHECK",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [],
+  "human_gate": "none"
+}

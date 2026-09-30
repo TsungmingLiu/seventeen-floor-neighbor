@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "opening-ch1-voice-20260929",
+  "task_id": "NQA-COM01X-002",
+  "scene_id": "COM-01X",
+  "task_type": "narrative_review",
+  "status": "PASS",
+  "workflow_version": "1.3.0",
+  "harness": {
+    "id": "content_qa",
+    "pass": "narrative_review"
+  },
+  "packet_sha256": "e1facfd9eb9fb369f3f062c6139954fc47c17365c70f1a3fba3363c328237c79",
+  "handoff_sha256": "a8f02bb9dee81a17e99e50b0a46a4f285b89d2d206c5d0dd423daf67fabcf1b6",
+  "source_ref": "3d29ec7a41f6d616b32c238c095da8f0aa85b537",
+  "input_versions": [
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-01X.json",
+      "version": "8165567565b295e051abaf3bc0abb760eb60670d",
+      "location": "content/production/narrative/opening-ch1/COM-01X.json"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-01X.md",
+      "version": "1e75a77e0972f19855bb91f0ca1cb85abc4c8975",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01X.md"
+    },
+    {
+      "id": "file:docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md",
+      "version": "a45247d93c2a1736e54aa13aca2110ee08a5b8c8",
+      "location": "docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md"
+    },
+    {
+      "id": "file:docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md",
+      "version": "fa68288637f8d1cddc0857b64b5d84b66469f173",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-00.md",
+      "version": "d2377fdc090e2c48fc3fd295b72d95681a4598bb",
+      "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "approved_locked_scene:COM-01X",
+      "version": "1e75a77e0972f19855bb91f0ca1cb85abc4c8975",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01X.md"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "NQA-SCENE-FUNCTION-EXIT",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-VOICE-AND-PACING",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-DIALOGUE-NATURALISM",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-CHOICE-REJOIN-STATE",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-KNOWLEDGE-MUST-NOT",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-SEMANTIC-VISUAL",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-PROVENANCE",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [],
+  "visual_impact": "UNKNOWN; old version not in packet",
+  "human_gate": "none"
+}

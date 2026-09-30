@@ -1,0 +1,159 @@
+{
+  "schema_version": "1.0.0",
+  "scene_id": "COM-02X",
+  "lifecycle": "CANONICAL",
+  "source_scene": "docs/narrative/scenes/vertical-slice/COM-02X.md",
+  "entry_state": {
+    "relationships": [
+      {
+        "subject": "xu_tang",
+        "toward": "protagonist",
+        "label": "familiar_neighbors_with_boundaries",
+        "constraints": [
+          "已知道姓名與住處，能自然聊幾句；沒有聯絡方式，也還不知道對方精確工作。"
+        ]
+      },
+      {
+        "subject": "protagonist",
+        "toward": "xu_tang",
+        "label": "familiar_neighbors_with_boundaries",
+        "constraints": [
+          "知道她住 1702，兩人已有日常寒暄；不能把深夜偶遇讀成約會或照顧義務。"
+        ]
+      }
+    ],
+    "knowledge": [
+      {
+        "holder": "xu_tang",
+        "knows": [
+          "男主姓名。",
+          "男主住 1703，搬來不久。"
+        ],
+        "does_not_know": [
+          "男主精確職業。",
+          "男主公司、收入或感情狀態。"
+        ]
+      },
+      {
+        "holder": "protagonist",
+        "knows": [
+          "許棠姓名。",
+          "許棠住 1702。"
+        ],
+        "does_not_know": [
+          "許棠精確工作型態與客戶。",
+          "許棠聯絡方式。"
+        ]
+      }
+    ],
+    "constraints": [
+      "Week 2 平日約 23:00；兩人因各自工作拖晚而在公寓步行範圍的便利店偶遇。",
+      "許棠可以疲憊，但仍保有決定自己晚餐與回家時間的主導權。"
+    ]
+  },
+  "scene_function": [
+    "把許棠從外表完整、帶距離感的鄰居狀態拉回普通深夜生活，建立生活質地。",
+    "讓雙方交換有限工作輪廓與附近生活資訊，但不升級為邀約或照顧事件。",
+    "用四個 choice 區分好奇、分享、輕鬆玩笑與規訓式關心，讓界線差異可感知但可修復。"
+  ],
+  "character_intent": [
+    {
+      "character_id": "protagonist",
+      "intent": "買一份不需要烹調的宵夜；在不佔據照顧高位的前提下維持剛形成的鄰居熟悉感。"
+    },
+    {
+      "character_id": "xu_tang",
+      "intent": "買晚餐回去完成工作；可以聊幾分鐘並交換生活資訊，但保留自己決定作息與晚餐的主導權。"
+    }
+  ],
+  "player_information_gain": [
+    "許棠的工作輪廓是自由接案／視覺設計，今晚在趕印刷前版本。",
+    "男主的工作輪廓是可遠端處理的 tech／deployment 類工作。",
+    "附近深夜仍有可吃的店，但許棠今晚寧願直接回家。"
+  ],
+  "emotional_arc": [
+    "彼此撞見不精緻的深夜狀態。",
+    "從「你也一樣」的平等感進入有限的工作與食物資訊交換。",
+    "choice 顯示關心方式差異；必要時許棠用事實把界線放回來。",
+    "兩人仍願意同路走回公寓的一小段，熟悉度增加但不成為戀愛事件。"
+  ],
+  "required_payoffs": [
+    "許棠先自然叫出男主名字，其來源只能是 COM-00 的互相介紹。",
+    "所有四個 choice 都 rejoin 到共同工作／附近資訊段，沒有互斥 canon。",
+    "所有路徑都建立雙方工作輪廓 knowledge；男主不取得許棠公司、收入、完整客戶背景。",
+    "兩人前後結帳並一起走回公寓的一小段，最後自然分開。",
+    "base familiarity +1；ask_food 路徑額外 familiarity +1；tell_eat_better 只增加 xt_advice_tendency 並降低 compatibility，不增加 xt_boundary_strikes。"
+  ],
+  "exit_state": {
+    "relationships": [
+      {
+        "subject": "xu_tang",
+        "toward": "protagonist",
+        "label": "familiar_neighbors_with_boundaries",
+        "constraints": [
+          "他更像生活裡常碰到、能交換有限私人資訊的鄰居；仍沒有聯絡方式、邀約或 romantic commitment。"
+        ]
+      },
+      {
+        "subject": "protagonist",
+        "toward": "xu_tang",
+        "label": "familiar_neighbors_with_boundaries",
+        "constraints": [
+          "他看見許棠疲憊／居家的一面，也知道她的工作輪廓；這不給他管理她作息的權利。"
+        ]
+      }
+    ],
+    "knowledge": [
+      {
+        "holder": "xu_tang",
+        "knows": [
+          "男主多數時間可在家工作。",
+          "男主今晚剛處理上線／review 類工作到晚。"
+        ],
+        "does_not_know": [
+          "男主公司、收入或完整職涯背景。",
+          "男主感情狀態。"
+        ]
+      },
+      {
+        "holder": "protagonist",
+        "knows": [
+          "許棠做自由接案／視覺設計類工作。",
+          "她今晚在趕印刷前最後版本。",
+          "附近深夜食物的一項具體資訊。"
+        ],
+        "does_not_know": [
+          "許棠完整客戶、收入或職涯背景。",
+          "許棠聯絡方式。"
+        ]
+      }
+    ],
+    "constraints": [
+      "contact_xu 仍未建立。",
+      "一次規訓式關心不構成 control_pattern；xt_boundary_strikes 不增加。",
+      "relationship.xu.romanticSignal 維持 false。"
+    ]
+  },
+  "must_not": [
+    "不得把深夜便利店偶遇升級成約會、英雄救美或性感事件。",
+    "不得讓男主替許棠付錢、替她決定晚餐、搶走餐盒、要求回報平安或主動解決 client 工作。",
+    "不得讓許棠為 23:00 吃飯道歉或交代完整工作／人生背景。",
+    "不得把一次 unsolicited advice 升級為重大衝突、terminal route 或 xt_boundary_strikes。",
+    "不得交換聯絡方式；contact_xu 必須留給後續 COM-03X。",
+    "不得讓任一角色憑空知道另一人的公司、收入、感情狀態或未在 scene 中取得的資訊。"
+  ],
+  "implementation_mapping": {
+    "runtime_only": true,
+    "flags": {
+      "requires_met_xu_tang": true,
+      "F_XT_base": "increment:1",
+      "F_XT_ask_food_bonus": "increment:1",
+      "T_XT_share_work": "increment:1",
+      "C_XT_tease_same": "increment:1",
+      "K_XT_tell_eat_better": "increment:-1",
+      "xt_advice_tendency": "increment:1 when com02x_tell_eat_better",
+      "player_knows_xu_freelance_creative_work": true,
+      "xu_knows_player_remote_tech_work": true
+    }
+  }
+}

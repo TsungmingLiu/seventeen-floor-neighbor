@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "opening-ch1-voice-20260929",
+  "task_id": "NQA-COM00-VISUAL-003",
+  "scene_id": "COM-00",
+  "task_type": "narrative_review",
+  "status": "PASS",
+  "workflow_version": "1.3.0",
+  "harness": {
+    "id": "content_qa",
+    "pass": "narrative_review"
+  },
+  "packet_sha256": "cd113540284a338ff8ccc64109be10f833a1c02c323287ce69d37c2802389e31",
+  "handoff_sha256": "099740c98e24ba522e5b1cbc6a7ac83b6412aebb411e611926f564a60e38cd0d",
+  "input_versions": [
+    {
+      "id": "locked_scene_old:COM-00",
+      "version": "4c8b9396fdf43556b474f9cbf7a90813ef533309",
+      "location": "bfe5058a46ac9eab0d860b921fc8cf7a20f6abe2:docs/narrative/scenes/vertical-slice/COM-00.md"
+    },
+    {
+      "id": "locked_scene_new:COM-00",
+      "version": "7e53cf510bc670aca3fa14fb756c28d23366cdfe",
+      "location": "d19cda31e50c1be8ee639cd39e81b7907ddb1769:docs/narrative/scenes/vertical-slice/COM-00.md"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "approved_locked_scene:COM-00",
+      "version": "7e53cf510bc670aca3fa14fb756c28d23366cdfe",
+      "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "NQA-DIALOGUE-NATURALISM",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-CHOICE-REJOIN",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-NO-VISUAL-IMPACT",
+      "code": "NQA-NO-VISUAL-IMPACT",
+      "result": "PASS"
+    }
+  ],
+  "invalidation_decision": {
+    "decision": "no_visual_impact",
+    "scene_id": "COM-00",
+    "old_scene_sha256": "e9ca32ec609e60405116f33d520f8ca274ed4818c397b7b6ea00c1a554949859",
+    "new_scene_sha256": "b9f975958656a85e93c6ab7cd8c74643c40bff7a720d4ff7ff364d1483e16ea5"
+  },
+  "known_issues": [],
+  "human_gate": "none"
+}

@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "opening-ch1-voice-20260929",
+  "task_id": "CW-COM00-001",
+  "scene_id": "COM-00",
+  "task_type": "scene_dialogue",
+  "status": "PASS",
+  "workflow_version": "1.3.0",
+  "harness": {
+    "id": "content_writer",
+    "pass": "scene_dialogue",
+    "version": "1.3.0"
+  },
+  "packet_sha256": "9d41ad39099e4039bbb62d9982863de5b7581ab06915df5b780061dcf9d0bd8a",
+  "input_digest_sha256": "ae6fd6f1c370565ace3cd1de5fc5df2cb862f0ca75c69c27c585e3127fee24b9",
+  "input_versions": [
+    {
+      "id": "file:.ai/harnesses/content-writer.md",
+      "version": "22fd6954f8bb3133a2526ff3e850d2f8e711485a",
+      "location": ".ai/harnesses/content-writer.md"
+    },
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-00.json",
+      "version": "8c06b6872300ac75808326dfc60179a0e82f76a5",
+      "location": "content/production/narrative/opening-ch1/COM-00.json"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-00.md",
+      "version": "4c8b9396fdf43556b474f9cbf7a90813ef533309",
+      "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+    },
+    {
+      "id": "file:docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_COMMON.md",
+      "version": "bd1d1cb374d6dca8673d63319f30e67904b5e22d",
+      "location": "docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_COMMON.md"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "locked_scene:COM-00",
+      "version": "3c747846134b2b801e654499481c4830e7e52257",
+      "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "bounded_naturalization_sweep",
+      "result": "PASS"
+    },
+    {
+      "name": "stable_node_and_story_state",
+      "result": "PASS"
+    },
+    {
+      "name": "speaker_attribution",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [],
+  "invalidation": {
+    "locked_scene:COM-00": "STALE downstream narrative review and integration pending fresh QA"
+  },
+  "human_gate": "none"
+}
