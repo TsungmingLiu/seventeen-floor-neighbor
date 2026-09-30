@@ -106,31 +106,29 @@ Branch guardrails：
 
 **Audio**：隔窗雨聲、膠帶被扯開、電梯下行。
 
-**Narration**：搬家公司走了十來分鐘。電梯下去後，走廊又聽得見窗外的雨。
+**Narration**：搬家公司走了十來分鐘。電梯下去後，十七樓的走廊又聽得見窗外的雨。
 
-**Narration**：走廊上還剩三箱，和一張怎麼都過不了門框的椅子。
-
-**Narration**：先把箱子搬進去。椅子……等走廊空了再說。
+**Narration**：還有三只紙箱，一張過不了門框的椅子。先把箱子搬進去，門口空了，再來想椅子的事。
 
 ### `common_movein_rain_door`
 
-**Action**：我抬起紙箱右側；箱角卡住正在回彈的防火門。
+**Action**：我抬起紙箱右側，箱角卻卡住正在回彈的防火門。我用肩膀頂著門，箱子又往外歪了一點。
 
-**Narration**：我用肩膀頂住門，箱子偏偏往外歪。
-
-**Xu Tang（off-screen）**：欸，等一下。
+**Xu Tang（off-screen）**：欸，等一下。右邊先抬高一點，我扶門。
 
 **Visual**：切入 `CG-COM-01`。
 
-**Xu Tang**：右邊先抬高一點。我扶門。
+**Protagonist**：喔，好。等我一下……這樣嗎？
 
-**Protagonist**：喔，好。等我一下。
+**Xu Tang**：嗯，再高一點。你先轉。
 
-**Action**：箱子向內轉過門線。許棠只在箱角仍卡住時推了一下。
+**Action**：我把箱子往裡轉。箱角還卡著，她推了一下，門邊終於空出一點餘地。
 
-**Xu Tang**：嗯，再一點點。
+**Xu Tang**：再一點點。
 
-**Protagonist**：好了，過了。
+**Protagonist**：好……好了，過了。
+
+**Action**：箱子落地，她鬆開門。我這才不用再拿肩膀頂著。
 
 ### `common_movein_rain_choice`
 
@@ -144,15 +142,17 @@ Branch guardrails：
 
 **Visual**：回 `BG-APT-17F-RAIN` + `XT-SPR-WEEKDAY.polite_smile`。
 
-**Xu Tang**：沒事，我剛好要過來。
+**Xu Tang**：沒事，我剛好要過來。這箱再往裡一點好嗎？門等一下會碰到。
 
-**Xu Tang**：這箱再往裡一點好嗎？門等一下會碰到。
+**Protagonist**：啊，對。我以為過了就好了。
 
-**Protagonist**：啊，對。這樣呢？
+**Action**：我把箱子往裡推，讓開門線。
 
-**Action**：我把箱子推離門線。
+**Protagonist**：這樣呢？
 
 **Xu Tang**：可以了。
+
+**Protagonist**：好，謝謝。這下門能關了。
 
 → Rejoin `common_movein_rain_names`
 
@@ -188,25 +188,29 @@ Branch guardrails：
 
 ### `common_movein_rain_names`
 
-**Xu Tang**：你是 1703 的吧？
+**Xu Tang**：嗯，現在就沒事了。你是 1703 的吧？
 
-**Protagonist**：嗯。我叫 [PLAYER_NAME]。
+**Protagonist**：對，1703。我叫 [PLAYER_NAME]，剛才都忘了介紹自己。
 
 **Action**：她朝隔壁那扇門抬了抬下巴。
 
 **Xu Tang**：我叫許棠，住 1702，就隔壁。
 
-**Protagonist**：喔。謝謝妳，許棠。
+**Protagonist**：喔，原來我們就住隔壁。你好。
+
+**Xu Tang**：你好。
 
 **Visual**：`XT-SPR-WEEKDAY.polite_smile`。
 
 ### `common_movein_rain_goodnight`
 
-**Xu Tang**：那你慢慢搬。晚安。
+**Protagonist**：那我先把剩下的搬進去。
 
-**Protagonist**：晚安。
+**Xu Tang**：好，那你慢慢搬。晚安。
 
-**Action**：她刷卡進 1702，沒有回頭停留。我把最後一箱拖進 1703。門口騰出空間後，我回頭把椅子側過來，椅背斜進門框，椅腳也跟著進了 1703。
+**Protagonist**：好，晚安。
+
+**Action**：許棠刷卡進了 1702。我把最後一箱拖進 1703，門口總算騰出空間。把椅子側過來，椅背斜進門框，椅腳也跟著進去了。
 
 **Visual**：無人物；走廊恢復空景。
 

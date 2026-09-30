@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.3.0",
+  "run_id": "dialogue-calibration-com00-20260930",
+  "workflow_version": "1.3.0",
+  "source_ref": "d031d71462a5fb10a4da1a1f8f23420752af78b3",
+  "human_request": {
+    "summary": "Human approves exact displayed COM00 formal-thanks longer interaction for game integration; preserve other branches/IDs/state/semantic visual beats.",
+    "gate_status": "APPROVED_EXACT_DISPLAYED_PATH; formal whole-scene QA and runtime verification pending",
+    "decision_receipt": "content/production/runs/dialogue-calibration-com00-20260930/human-long-trial.json"
+  },
+  "status": "ACTIVE",
+  "tasks": [
+    {
+      "task_id": "CW-COM00-APPROVED-ASSEMBLY-001",
+      "task_type": "scene_dialogue",
+      "scene_id": "COM-00",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "human-approved bounded assembly packet",
+        "sha256": "1d56530c59bc40ea4b8adb08121a3d2b180a7e534a61b25f3f9b61b09b8f6f87"
+      },
+      "decision_receipt": "content/production/runs/dialogue-calibration-com00-20260930/CW-COM00-APPROVED-ASSEMBLY-001.decision.json",
+      "input_versions": [
+        {
+          "id": "file:docs/narrative/scenes/vertical-slice/COM-00.md",
+          "version": "a6c518a8fb5a4297045672096a0c72de3631321a",
+          "location": "9b0066ff7240c918c87cb8d5ab38affef44cddb4:docs/narrative/scenes/vertical-slice/COM-00.md"
+        },
+        {
+          "id": "file:.ai/harnesses/content-writer.md",
+          "version": "48d0dc5bd87570ea6125322c85a2e023b5fd9220",
+          "location": ".ai/harnesses/content-writer.md"
+        },
+        {
+          "id": "human-approved-path:COM-00",
+          "version": "cb357b4c4ba019622e70de9d0c175706c693441657abb6880ea00aa75d220506",
+          "location": "content/production/runs/dialogue-calibration-com00-20260930/accepted-long-excerpt.md"
+        },
+        {
+          "id": "human-decision:COM-00",
+          "version": "02095ff93fb78aace84d2f4c2da9cbb5fd1ff7bcda1dd14b0e5b7fec0555bb46",
+          "location": "content/production/runs/dialogue-calibration-com00-20260930/human-long-trial.json"
+        }
+      ],
+      "output_versions": [
+        {
+          "id": "locked_scene:COM-00",
+          "version": "59520478b9c3132cc3ccb1b6105f091b244131dc",
+          "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+        }
+      ],
+      "human_gate": "none",
+      "reason": "Fresh writer canonical output/handoff identities verified; production QA remains pending."
+    },
+    {
+      "task_id": "NQA-COM00-CALIBRATION-001",
+      "task_type": "narrative_review",
+      "scene_id": "COM-00",
+      "depends_on": [
+        "CW-COM00-APPROVED-ASSEMBLY-001"
+      ],
+      "status": "PENDING",
+      "packet": null,
+      "decision_receipt": null,
+      "input_versions": [],
+      "output_versions": [],
+      "human_gate": "none",
+      "reason": "Wait for committed assembly and official generated/verified packet; fresh QA must decide visual impact."
+    }
+  ],
+  "invalidation_events": [],
+  "preview": null
+}
