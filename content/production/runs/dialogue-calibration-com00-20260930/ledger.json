@@ -5,7 +5,7 @@
   "source_ref": "65ae8abebd3b2dcf969d893f880fc0a61b566f3c",
   "human_request": {
     "summary": "Human approves exact displayed COM00 formal-thanks longer interaction for game integration; preserve other branches/IDs/state/semantic visual beats.",
-    "gate_status": "APPROVED_EXACT_DISPLAYED_PATH; formal whole-scene QA and runtime verification pending",
+    "gate_status": "APPROVED_EXACT_DISPLAYED_PROSE_FOR_GAME_INTEGRATION; formal Narrative QA and delta comparison PASS; playable/runtime acceptance still pending",
     "decision_receipt": "content/production/runs/dialogue-calibration-com00-20260930/human-long-trial.json"
   },
   "status": "ACTIVE",
@@ -213,7 +213,7 @@
         "NQA-COM00-CALIBRATION-001",
         "NQA-COM00-VISUAL-DELTA-001"
       ],
-      "status": "READY",
+      "status": "RUNNING",
       "source_ref": "d3bc470207f745cefbc24a082d07654334551f6b",
       "execution_policy": {
         "model_tier": "economical",
@@ -415,7 +415,7 @@
       ],
       "output_versions": [],
       "human_gate": "narrative_preview_review",
-      "reason": "One focused corrective redispatch authorizes append-only COM00 Memory unlockNodes coverage for new stable IDs. Same economical tier/attempt2; fresh integrator executing separately, no completion or retained output claimed."
+      "reason": "Fresh attempt2 worker dispatched; append-only COM00 Memory unlock coverage permitted. No completion or retained output claimed. Resume must reconcile this RUNNING task against a durable handoff before asserting PASS."
     }
   ],
   "invalidation_events": [
