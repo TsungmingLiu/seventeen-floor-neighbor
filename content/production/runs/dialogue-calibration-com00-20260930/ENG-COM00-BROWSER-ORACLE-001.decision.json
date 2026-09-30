@@ -1,0 +1,20 @@
+{
+  "task_id": "ENG-COM00-BROWSER-ORACLE-001",
+  "kind": "bounded_engineering_test_expectation_sync",
+  "status": "PASS_EXPECTATION_AND_STATIC_CHECKS",
+  "source_ref": "eaaf6e4c540236120c38bdd0978314cd55d8ada8",
+  "packet_sha256": "f6bee6ac68b80cc6bebde724f7b7564e1de2eb1513c74a6a72618ecc96d47a5b",
+  "handoff_sha256": "3640b83bb93af8c3daa801e482661b6f5fb43661a8d273dbce14b86822e71189",
+  "output": {
+    "path": "tests/browser-acceptance.spec.mjs",
+    "sha256": "93799eae5aad5d9fcda41a87b8fc1532b2c37c090e8e54d64eaa827fbaad23c6"
+  },
+  "scope": "Exactly two expected text literals synchronized to already accepted common_movein_rain_open_chair text; all other bytes/assertions and save/name/Continue/reload flow preserved. No runtime changes.",
+  "checks": {
+    "source_match": "PASS",
+    "node_syntax": "PASS",
+    "diff_check": "PASS"
+  },
+  "remote_failure_evidence": "https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/36766035126",
+  "browser_execution": "Pending actual rerun; expectation/static PASS is not browser PASS."
+}

@@ -1,0 +1,33 @@
+{
+  "task_id": "ENG-TITLE-LOAD-GUARD-001",
+  "kind": "bounded_engineering_runtime_ui",
+  "status": "PASS_LOCAL_ENGINEERING",
+  "source_ref": "5dc21dbc15f1f818e8e41a90a2f577a093abcada",
+  "packet_sha256": "4868765c12e7bf28211b438791dd3e7770ef95853641e9b3c77fdf7dc03ab5f1",
+  "handoff_sha256": "b7d771ff0a1d1f34e555b23bef0dc6884fad609273895b109d12969234b1b676",
+  "scope": "Title Memory and CG controls disabled before initialization; enabled after event binding. Preserves all story, state, visuals and existing test bodies. Adds one deterministic delayed-resource browser regression.",
+  "outputs": [
+    {
+      "path": "public/index.html",
+      "sha256": "62d3e020dd527c49715e7f6602e689c2afcd304673064cdc052b95f6d5ebbc29"
+    },
+    {
+      "path": "src/engine.js",
+      "sha256": "4477982249fe27654009e759698fbcad8371402fb696accde8223d992933a398"
+    },
+    {
+      "path": "tests/browser-acceptance.spec.mjs",
+      "sha256": "4a1f5345c0feaf07560be693bf0bc43914acb3850ae43b7271bc937e2a23e497"
+    }
+  ],
+  "checks": {
+    "build": "PASS",
+    "validate": "PASS",
+    "npm_test": "PASS_82_OF_82",
+    "diff_check": "PASS",
+    "local_browser": "PASS_6_OF_6"
+  },
+  "remote_node22_latest_guard": "PENDING",
+  "human_playable_acceptance": "PENDING",
+  "final_visual_acceptance": false
+}

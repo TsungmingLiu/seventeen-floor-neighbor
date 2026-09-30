@@ -1,0 +1,136 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "dialogue-calibration-com00-20260930",
+  "task_id": "NQA-COM00-VISUAL-DELTA-001",
+  "task_type": "narrative_review",
+  "scene_id": "COM-00",
+  "status": "PASS",
+  "workflow_version": "1.3.0",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.4.0",
+    "pass": "narrative_review"
+  },
+  "source_ref": "19291dad2cb4cbcd0184df61b10174319a9a40b9",
+  "packet_sha256": "d6a56e2cef389e8cc9db0b4671758dab1bf633de8a7d41c5f1eb365e0d75a1b0",
+  "worker_handoff_sha256": "948fb479c406b75fd8bf0608514ec1c26cda08db574a0b32d6e307457e3f90de",
+  "input_versions": [
+    {
+      "id": "file:content/production/runs/dialogue-calibration-com00-20260930/accepted-baseline-COM00.md",
+      "version": "a6c518a8fb5a4297045672096a0c72de3631321a",
+      "location": "15f8383220d13a4530cfa4141bbda01cfeac08af:content/production/runs/dialogue-calibration-com00-20260930/accepted-baseline-COM00.md",
+      "storage_binding": {
+        "git_blob_sha": "a6c518a8fb5a4297045672096a0c72de3631321a",
+        "sha256": "a97fef35cb68e8319b1a235e3c2b6b96535be39724e330d6f4024611127ed91a"
+      }
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-00.md",
+      "version": "59520478b9c3132cc3ccb1b6105f091b244131dc",
+      "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+    },
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-00.json",
+      "version": "8c06b6872300ac75808326dfc60179a0e82f76a5",
+      "location": "content/production/narrative/opening-ch1/COM-00.json"
+    },
+    {
+      "id": "file:.ai/harnesses/content-qa.md",
+      "version": "47b6ac47a8541c82fe29f58abcaa129bc7fc8468",
+      "location": ".ai/harnesses/content-qa.md"
+    }
+  ],
+  "comparison_inputs": [
+    {
+      "role": "accepted_baseline",
+      "repository_path": "docs/narrative/scenes/vertical-slice/COM-00.md",
+      "ref": "0b6915220ce6f62a60af224f592c23f0ae1130ef",
+      "git_blob_sha": "a6c518a8fb5a4297045672096a0c72de3631321a",
+      "sha256": "a97fef35cb68e8319b1a235e3c2b6b96535be39724e330d6f4024611127ed91a",
+      "acquisition_path": "15f8383220d13a4530cfa4141bbda01cfeac08af:content/production/runs/dialogue-calibration-com00-20260930/accepted-baseline-COM00.md",
+      "snapshot_is_new_canon": false
+    },
+    {
+      "role": "changed_locked_scene",
+      "repository_path": "docs/narrative/scenes/vertical-slice/COM-00.md",
+      "ref": "65ae8abebd3b2dcf969d893f880fc0a61b566f3c",
+      "git_blob_sha": "59520478b9c3132cc3ccb1b6105f091b244131dc",
+      "sha256": "a6bbc3821f3376f74ab871d256f5edd5760b05f25b06aea38bf766b5226817f2",
+      "acquisition_path": "docs/narrative/scenes/vertical-slice/COM-00.md"
+    }
+  ],
+  "input_digest_sha256": "648fc5c74791cf37ad770db83799509b74207356dad8709ee679a2e2720cb15f",
+  "output_versions": [
+    {
+      "id": "approved_locked_scene:COM-00",
+      "version": "59520478b9c3132cc3ccb1b6105f091b244131dc",
+      "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "Exact pinned whole-source acquisition",
+      "code": "NQA-SOURCE-PROVENANCE",
+      "result": "PASS"
+    },
+    {
+      "name": "Movement, physical contact and door-assist timing",
+      "code": "NQA-SEMANTIC-VISUAL-DOOR-ASSIST",
+      "result": "PASS"
+    },
+    {
+      "name": "Props, counts, location and order",
+      "code": "NQA-PROPS-COUNT-ORDER",
+      "result": "PASS"
+    },
+    {
+      "name": "Names, neighbor distance and reaction meaning",
+      "code": "NQA-SEMANTIC-VISUAL-NAMES-REACTION",
+      "result": "PASS"
+    },
+    {
+      "name": "Departure and coda",
+      "code": "NQA-DEPARTURE-CODA",
+      "result": "PASS"
+    },
+    {
+      "name": "Choice/rejoin and narrative state",
+      "code": "NQA-STATE-CHOICE-REJOIN",
+      "result": "PASS"
+    },
+    {
+      "name": "Conversational naturalism in changed exchanges",
+      "code": "NQA-DIALOGUE-NATURALISM",
+      "result": "PASS"
+    },
+    {
+      "name": "no_visual_impact",
+      "code": "NQA-NO-VISUAL-IMPACT",
+      "result": "PASS"
+    }
+  ],
+  "invalidation_decision": {
+    "decision": "no_visual_impact",
+    "scene_id": "COM-00",
+    "old_scene_sha256": "a97fef35cb68e8319b1a235e3c2b6b96535be39724e330d6f4024611127ed91a",
+    "new_scene_sha256": "a6bbc3821f3376f74ab871d256f5edd5760b05f25b06aea38bf766b5226817f2",
+    "affected_beat_ids": [],
+    "compared_beat_ids": [
+      "COM00-S02-DOOR-ASSIST",
+      "COM00-S04-BASE-NEUTRAL",
+      "COM00-S04-R01-POLITE-SMILE"
+    ],
+    "scope": "Existing declared semantic visual beats remain valid; this decision grants no candidate/Human visual acceptance."
+  },
+  "known_issues": [],
+  "invalidates": [],
+  "human_gate_required": "none",
+  "acquisition_mode": "manually pinned canonical comparison; not generated verifier-certified",
+  "storage_resolution": {
+    "ref": "15f8383220d13a4530cfa4141bbda01cfeac08af",
+    "path": "content/production/runs/dialogue-calibration-com00-20260930/accepted-baseline-COM00.md",
+    "git_blob_sha": "a6c518a8fb5a4297045672096a0c72de3631321a",
+    "sha256": "a97fef35cb68e8319b1a235e3c2b6b96535be39724e330d6f4024611127ed91a",
+    "purpose": "immutable acquisition binding for removed snapshot; original decision/status fields retained"
+  }
+}

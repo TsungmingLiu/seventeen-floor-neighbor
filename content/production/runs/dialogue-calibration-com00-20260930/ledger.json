@@ -1,0 +1,333 @@
+{
+  "schema_version": "1.3.0",
+  "run_id": "dialogue-calibration-com00-20260930",
+  "workflow_version": "1.3.0",
+  "source_ref": "65ae8abebd3b2dcf969d893f880fc0a61b566f3c",
+  "human_request": {
+    "summary": "Human approves exact displayed COM00 formal-thanks longer interaction for game integration; preserve other branches/IDs/state/semantic visual beats.",
+    "gate_status": "EXACT_PROSE_APPROVED; formal/delta QA PASS; local integration PASS; remote/Human playable acceptance pending",
+    "decision_receipt": "content/production/runs/dialogue-calibration-com00-20260930/human-long-trial.json"
+  },
+  "status": "NARRATIVE_PREVIEW_READY",
+  "tasks": [
+    {
+      "task_id": "CW-COM00-APPROVED-ASSEMBLY-001",
+      "task_type": "scene_dialogue",
+      "scene_id": "COM-00",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "human-approved bounded assembly packet",
+        "sha256": "1d56530c59bc40ea4b8adb08121a3d2b180a7e534a61b25f3f9b61b09b8f6f87"
+      },
+      "decision_receipt": "content/production/runs/dialogue-calibration-com00-20260930/CW-COM00-APPROVED-ASSEMBLY-001.decision.json",
+      "input_versions": [
+        {
+          "id": "file:docs/narrative/scenes/vertical-slice/COM-00.md",
+          "version": "a6c518a8fb5a4297045672096a0c72de3631321a",
+          "location": "9b0066ff7240c918c87cb8d5ab38affef44cddb4:docs/narrative/scenes/vertical-slice/COM-00.md"
+        },
+        {
+          "id": "file:.ai/harnesses/content-writer.md",
+          "version": "48d0dc5bd87570ea6125322c85a2e023b5fd9220",
+          "location": ".ai/harnesses/content-writer.md"
+        },
+        {
+          "id": "human-approved-path:COM-00",
+          "version": "cb357b4c4ba019622e70de9d0c175706c693441657abb6880ea00aa75d220506",
+          "location": "15f8383220d13a4530cfa4141bbda01cfeac08af:content/production/runs/dialogue-calibration-com00-20260930/accepted-long-excerpt.md"
+        },
+        {
+          "id": "human-decision:COM-00",
+          "version": "02095ff93fb78aace84d2f4c2da9cbb5fd1ff7bcda1dd14b0e5b7fec0555bb46",
+          "location": "content/production/runs/dialogue-calibration-com00-20260930/human-long-trial.json"
+        }
+      ],
+      "output_versions": [
+        {
+          "id": "locked_scene:COM-00",
+          "version": "59520478b9c3132cc3ccb1b6105f091b244131dc",
+          "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+        }
+      ],
+      "human_gate": "none",
+      "reason": "Fresh writer canonical output/handoff identities verified; production QA remains pending."
+    },
+    {
+      "task_id": "NQA-COM00-CALIBRATION-001",
+      "task_type": "narrative_review",
+      "scene_id": "COM-00",
+      "depends_on": [
+        "CW-COM00-APPROVED-ASSEMBLY-001"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "tools/context.mjs:narrative_review",
+        "sha256": "125c73021f8bc2819b85b835480348f09a9c2df2c3cc38d80ae1eb28cbb2e473"
+      },
+      "decision_receipt": "content/production/runs/dialogue-calibration-com00-20260930/NQA-COM00-CALIBRATION-001.decision.json",
+      "input_versions": [
+        {
+          "id": "file:content/production/narrative/opening-ch1/COM-00.json",
+          "version": "8c06b6872300ac75808326dfc60179a0e82f76a5",
+          "location": "content/production/narrative/opening-ch1/COM-00.json"
+        },
+        {
+          "id": "file:docs/narrative/scenes/vertical-slice/COM-00.md",
+          "version": "59520478b9c3132cc3ccb1b6105f091b244131dc",
+          "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+        },
+        {
+          "id": "file:docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md",
+          "version": "a45247d93c2a1736e54aa13aca2110ee08a5b8c8",
+          "location": "docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md"
+        },
+        {
+          "id": "file:docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md",
+          "version": "fa68288637f8d1cddc0857b64b5d84b66469f173",
+          "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md"
+        }
+      ],
+      "output_versions": [
+        {
+          "id": "approved_locked_scene:COM-00",
+          "version": "59520478b9c3132cc3ccb1b6105f091b244131dc",
+          "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+        }
+      ],
+      "human_gate": "none",
+      "reason": "Fresh official whole-scene QA PASS; old/new visual-impact comparison still pending, no automatic artifact preservation."
+    },
+    {
+      "task_id": "NQA-COM00-VISUAL-DELTA-001",
+      "task_type": "narrative_review",
+      "scene_id": "COM-00",
+      "depends_on": [
+        "NQA-COM00-CALIBRATION-001"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "manually-pinned canonical old/new supplemental comparison",
+        "sha256": "d6a56e2cef389e8cc9db0b4671758dab1bf633de8a7d41c5f1eb365e0d75a1b0"
+      },
+      "decision_receipt": "content/production/runs/dialogue-calibration-com00-20260930/NQA-COM00-VISUAL-DELTA-001.decision.json",
+      "input_versions": [
+        {
+          "id": "file:content/production/runs/dialogue-calibration-com00-20260930/accepted-baseline-COM00.md",
+          "version": "a6c518a8fb5a4297045672096a0c72de3631321a",
+          "location": "15f8383220d13a4530cfa4141bbda01cfeac08af:content/production/runs/dialogue-calibration-com00-20260930/accepted-baseline-COM00.md"
+        },
+        {
+          "id": "file:docs/narrative/scenes/vertical-slice/COM-00.md",
+          "version": "59520478b9c3132cc3ccb1b6105f091b244131dc",
+          "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+        },
+        {
+          "id": "file:content/production/narrative/opening-ch1/COM-00.json",
+          "version": "8c06b6872300ac75808326dfc60179a0e82f76a5",
+          "location": "content/production/narrative/opening-ch1/COM-00.json"
+        },
+        {
+          "id": "file:.ai/harnesses/content-qa.md",
+          "version": "47b6ac47a8541c82fe29f58abcaa129bc7fc8468",
+          "location": ".ai/harnesses/content-qa.md"
+        }
+      ],
+      "comparison_inputs": [
+        {
+          "role": "accepted_baseline",
+          "repository_path": "docs/narrative/scenes/vertical-slice/COM-00.md",
+          "ref": "0b6915220ce6f62a60af224f592c23f0ae1130ef",
+          "git_blob_sha": "a6c518a8fb5a4297045672096a0c72de3631321a",
+          "sha256": "a97fef35cb68e8319b1a235e3c2b6b96535be39724e330d6f4024611127ed91a",
+          "acquisition_path": "15f8383220d13a4530cfa4141bbda01cfeac08af:content/production/runs/dialogue-calibration-com00-20260930/accepted-baseline-COM00.md",
+          "snapshot_is_new_canon": false
+        },
+        {
+          "role": "changed_locked_scene",
+          "repository_path": "docs/narrative/scenes/vertical-slice/COM-00.md",
+          "ref": "65ae8abebd3b2dcf969d893f880fc0a61b566f3c",
+          "git_blob_sha": "59520478b9c3132cc3ccb1b6105f091b244131dc",
+          "sha256": "a6bbc3821f3376f74ab871d256f5edd5760b05f25b06aea38bf766b5226817f2",
+          "acquisition_path": "docs/narrative/scenes/vertical-slice/COM-00.md"
+        }
+      ],
+      "output_versions": [
+        {
+          "id": "approved_locked_scene:COM-00",
+          "version": "59520478b9c3132cc3ccb1b6105f091b244131dc",
+          "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+        }
+      ],
+      "human_gate": "none",
+      "reason": "Fresh independent same-domain delta QA PASS; explicit whole-scene no_visual_impact, affected beat IDs empty. Not image acceptance."
+    },
+    {
+      "task_id": "INT-COM00-CALIBRATION-001",
+      "task_type": "integrate",
+      "scene_id": "COM-00",
+      "integration_mode": "narrative_preview",
+      "depends_on": [
+        "NQA-COM00-CALIBRATION-001",
+        "NQA-COM00-VISUAL-DELTA-001"
+      ],
+      "status": "BLOCKED",
+      "source_ref": "d3bc470207f745cefbc24a082d07654334551f6b",
+      "packet": {
+        "generator": "manual exact accepted-scene integration packet",
+        "sha256": "1acf897c0de14869ccfd6bac4b0313ff5139de431676a399e3082b97993a2259"
+      },
+      "decision_receipt": "content/production/runs/dialogue-calibration-com00-20260930/INT-COM00-CALIBRATION-001.decision.json",
+      "input_versions": [
+        {
+          "id": "approved_locked_scene:COM-00",
+          "version": "59520478b9c3132cc3ccb1b6105f091b244131dc",
+          "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+        },
+        {
+          "id": "runtime_chapter_baseline",
+          "version": "36a1e0c0e1518caff665bf703967be0a274ea240",
+          "location": "content/routes/opening-demo/chapter-01.json"
+        },
+        {
+          "id": "runtime_memory_contract",
+          "version": "89ecdf0d7b7bb2b0b3dc0fe2e71133b28749f2b9",
+          "location": "content/routes/opening-demo/memories.json"
+        },
+        {
+          "id": "human_game_integration_decision:COM-00",
+          "version": "1d997fc0b4e0ef2730d0af6f1f17243f262c174d",
+          "location": "content/production/runs/dialogue-calibration-com00-20260930/human-long-trial.json"
+        }
+      ],
+      "output_versions": [],
+      "human_gate": "narrative_preview_review",
+      "reason": "Faithful extra turns require new stable IDs with Memory unlockNodes coverage; original packet forbade Memory edits. Tentative runtime was reverted. Tests/preview blockers recorded, no integrated output."
+    },
+    {
+      "task_id": "INT-COM00-CALIBRATION-002",
+      "task_type": "integrate",
+      "scene_id": "COM-00",
+      "integration_mode": "narrative_preview",
+      "depends_on": [
+        "NQA-COM00-CALIBRATION-001",
+        "NQA-COM00-VISUAL-DELTA-001"
+      ],
+      "status": "PASS",
+      "source_ref": "d3bc470207f745cefbc24a082d07654334551f6b",
+      "execution_policy": {
+        "model_tier": "economical",
+        "routing_reason": "default_bounded",
+        "attempt": 2,
+        "correction_of": "INT-COM00-CALIBRATION-001"
+      },
+      "packet": {
+        "generator": "manual exact corrective accepted-scene integration packet",
+        "sha256": "ef550cee50d4fe8afcbf1d7fac55cefd6b4b739f8ad94d7a95b1334c8ec14c18"
+      },
+      "decision_receipt": "content/production/runs/dialogue-calibration-com00-20260930/INT-COM00-CALIBRATION-002.decision.json",
+      "input_versions": [
+        {
+          "id": "file:docs/narrative/scenes/vertical-slice/COM-00.md",
+          "version": "59520478b9c3132cc3ccb1b6105f091b244131dc",
+          "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+        },
+        {
+          "id": "file:content/production/narrative/opening-ch1/COM-00.json",
+          "version": "8c06b6872300ac75808326dfc60179a0e82f76a5",
+          "location": "content/production/narrative/opening-ch1/COM-00.json"
+        },
+        {
+          "id": "file:content/production/runs/dialogue-calibration-com00-20260930/NQA-COM00-CALIBRATION-001.decision.json",
+          "version": "9192c166139f1a616bbad7570fdfb957d80c35be",
+          "location": "content/production/runs/dialogue-calibration-com00-20260930/NQA-COM00-CALIBRATION-001.decision.json"
+        },
+        {
+          "id": "file:content/production/runs/dialogue-calibration-com00-20260930/NQA-COM00-VISUAL-DELTA-001.decision.json",
+          "version": "434b1c996773306468c2104beabd48513b6ea5a2",
+          "location": "content/production/runs/dialogue-calibration-com00-20260930/NQA-COM00-VISUAL-DELTA-001.decision.json"
+        },
+        {
+          "id": "file:content/routes/opening-demo/chapter-01.json",
+          "version": "36a1e0c0e1518caff665bf703967be0a274ea240",
+          "location": "content/routes/opening-demo/chapter-01.json"
+        },
+        {
+          "id": "file:content/routes/opening-demo/memories.json",
+          "version": "89ecdf0d7b7bb2b0b3dc0fe2e71133b28749f2b9",
+          "location": "content/routes/opening-demo/memories.json"
+        },
+        {
+          "id": "file:tests/opening-locked-scenes.test.mjs",
+          "version": "7409d9181b5dd09036cd2b0486ef545adeeda63a",
+          "location": "tests/opening-locked-scenes.test.mjs"
+        }
+      ],
+      "output_versions": [
+        {
+          "id": "COM00-runtime-chapter",
+          "version": "4f5cfcbd7c36a32a3c2fc01fbe09776262615aba91a7a6c088e8ff490607cd6c",
+          "location": "content/routes/opening-demo/chapter-01.json"
+        },
+        {
+          "id": "COM00-memory-node-coverage",
+          "version": "486ac672eda8900e30c6bc462cd467013d10f9db861062256480899f4c0a3649",
+          "location": "content/routes/opening-demo/memories.json"
+        },
+        {
+          "id": "test-oracle-synchronization",
+          "version": "67b04f26a0fb4ea001cf388a7de8aa682c97e9894fd319d1082ee24abf25109a",
+          "location": "tests/opening-locked-scenes.test.mjs"
+        }
+      ],
+      "human_gate": "narrative_preview_review",
+      "reason": "Fresh corrective integration actual local PASS: build/validate/exact-source/82 tests/preview smoke/diff checks. Four stable IDs with append-only Memory coverage. Remote Node22/Cloudflare and Human playable acceptance pending.",
+      "supplemental_directives": [
+        {
+          "id": "INT-COM00-CALIBRATION-002.test-oracle-addendum",
+          "sha256": "b5a1e08d52c1c1fdd633bb14441d8ed9de3218acc0a1369485909e3b6fae455f",
+          "scope": "tests/opening-locked-scenes.test.mjs:161 expected literal only",
+          "reason": "Existing oracle references an old partial turn; synchronize expected literal to approved canonical exact turn. Preserve every other test byte/assertion; no weakening.",
+          "original_packet_unchanged": true
+        }
+      ]
+    }
+  ],
+  "invalidation_events": [
+    {
+      "changed_artifact_id": "locked_scene:COM-00",
+      "old_version": "a97fef35cb68e8319b1a235e3c2b6b96535be39724e330d6f4024611127ed91a",
+      "new_version": "a6bbc3821f3376f74ab871d256f5edd5760b05f25b06aea38bf766b5226817f2",
+      "affected_task_ids": [],
+      "decision": "no_visual_impact",
+      "evidence": "content/production/runs/dialogue-calibration-com00-20260930/NQA-COM00-VISUAL-DELTA-001.decision.json"
+    }
+  ],
+  "preview": {
+    "status": "NARRATIVE_PREVIEW_READY",
+    "verified_code_ref": "ade6333452f97be86b2038a3d6ae530e0d40033a",
+    "url": "https://pr-37.seventeen-floor-neighbor.pages.dev",
+    "pull_request": "https://github.com/TsungmingLiu/seventeen-floor-neighbor/pull/37",
+    "decision_receipt": "content/production/runs/dialogue-calibration-com00-20260930/PUBLIC-COM00-PREVIEW-001.decision.json",
+    "human_gate": "narrative_preview_review",
+    "human_playable_acceptance": "PENDING",
+    "final_visual_acceptance": false
+  },
+  "storage_resolution": {
+    "source_ref": "15f8383220d13a4530cfa4141bbda01cfeac08af",
+    "bindings": [
+      {
+        "path": "content/production/runs/dialogue-calibration-com00-20260930/accepted-long-excerpt.md",
+        "ref": "15f8383220d13a4530cfa4141bbda01cfeac08af",
+        "git_blob_sha": "3d4e3594bb24c843c2bc23300ac2d0dc24798b04",
+        "sha256": "cb357b4c4ba019622e70de9d0c175706c693441657abb6880ea00aa75d220506"
+      },
+      {
+        "path": "content/production/runs/dialogue-calibration-com00-20260930/accepted-baseline-COM00.md",
+        "ref": "15f8383220d13a4530cfa4141bbda01cfeac08af",
+        "git_blob_sha": "a6c518a8fb5a4297045672096a0c72de3631321a",
+        "sha256": "a97fef35cb68e8319b1a235e3c2b6b96535be39724e330d6f4024611127ed91a"
+      }
+    ]
+  }
+}

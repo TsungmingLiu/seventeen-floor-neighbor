@@ -129,10 +129,12 @@ export class GameEngine {
     this.migrateCGUnlocks();
     this.updateGalleryProgress();
     this.updateMemoryProgress();
-    this.els.startButton.disabled = false;
     this.refreshTitle();
     this.bindEvents();
     this.updateMute();
+    this.els.startButton.disabled = false;
+    this.els.memoriesButton.disabled = false;
+    this.els.galleryButton.disabled = false;
   }
 
   bindEvents() {
@@ -595,7 +597,9 @@ export class GameEngine {
   applyPresentationMode(node, mode = presentationModeForNode(node)) {
     this.els.stage.dataset.presentation = mode;
     this.els.dialoguePanel.dataset.mode = mode;
-    const speaker = speakerLabelForNode(node, mode);
+    const speaker = mode === 'protagonist'
+      ? normalizePlayerName(this.progress.data.playerDisplayName) || '你'
+      : speakerLabelForNode(node, mode);
     this.els.speaker.textContent = speaker;
     this.els.speaker.classList.toggle('is-hidden', !speaker);
     this.els.speaker.classList.toggle('is-protagonist', mode === 'protagonist');

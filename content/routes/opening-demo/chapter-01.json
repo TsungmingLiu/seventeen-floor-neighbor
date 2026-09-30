@@ -4,7 +4,7 @@
   "nodes": {
     "common_movein_rain_open": {
       "speaker": "旁白",
-      "text": "搬家公司走了十來分鐘。電梯下去後，走廊又聽得見窗外的雨。",
+      "text": "搬家公司走了十來分鐘。電梯下去後，十七樓的走廊又聽得見窗外的雨。",
       "chapter": 0,
       "visual": {
         "mode": "composite",
@@ -15,7 +15,7 @@
     },
     "common_movein_rain_open_chair": {
       "speaker": "旁白",
-      "text": "走廊上還剩三箱，和一張怎麼都過不了門框的椅子。",
+      "text": "還有三只紙箱，一張過不了門框的椅子。",
       "chapter": 0,
       "visual": {
         "mode": "composite",
@@ -26,20 +26,8 @@
     },
     "common_movein_rain_door": {
       "speaker": "旁白",
-      "text": "我抬起紙箱右側；箱角卡住正在回彈的防火門。",
+      "text": "我抬起紙箱右側，箱角卻卡住正在回彈的防火門。我用肩膀頂著門，箱子又往外歪了一點。",
       "chapter": 0,
-      "visual": {
-        "mode": "composite",
-        "background": "bg.opening.ch1.apt_17f_rain",
-        "sprites": []
-      },
-      "next": "common_movein_rain_assist"
-    },
-    "common_movein_rain_assist": {
-      "speaker": "旁白",
-      "text": "我用肩膀頂住門，箱子偏偏往外歪。",
-      "chapter": 0,
-      "moment": "一隻手先把門穩穩撐住。",
       "visual": {
         "mode": "composite",
         "background": "bg.opening.ch1.apt_17f_rain",
@@ -47,16 +35,28 @@
       },
       "next": "common_movein_rain_move"
     },
-    "common_movein_rain_move": {
-      "speaker": "許棠",
-      "text": "欸，等一下。",
+    "common_movein_rain_assist": {
+      "speaker": "你",
+      "text": "喔，好。等我一下……這樣嗎？",
       "chapter": 0,
+      "moment": "一隻手先把門穩穩撐住。",
       "visual": {
         "mode": "composite",
         "background": "bg.opening.ch1.apt_17f_rain",
         "sprites": []
       },
       "next": "common_movein_rain_door_locked_00"
+    },
+    "common_movein_rain_move": {
+      "speaker": "許棠",
+      "text": "欸，等一下。右邊先抬高一點，我扶門。",
+      "chapter": 0,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.opening.ch1.apt_17f_rain",
+        "sprites": []
+      },
+      "next": "common_movein_rain_assist"
     },
     "common_movein_rain_choice": {
       "speaker": "旁白",
@@ -108,7 +108,7 @@
     },
     "common_movein_rain_formal": {
       "speaker": "許棠",
-      "text": "沒事，我剛好要過來。",
+      "text": "沒事，我剛好要過來。這箱再往裡一點好嗎？門等一下會碰到。",
       "chapter": 0,
       "visual": {
         "mode": "cg",
@@ -138,7 +138,7 @@
     },
     "common_movein_rain_names": {
       "speaker": "許棠",
-      "text": "你是 1703 的吧？",
+      "text": "嗯，現在就沒事了。你是 1703 的吧？",
       "chapter": 0,
       "visual": {
         "mode": "cg",
@@ -148,7 +148,7 @@
     },
     "common_movein_rain_name_reply": {
       "speaker": "你",
-      "text": "嗯。我叫 [PLAYER_NAME]。",
+      "text": "對，1703。我叫 [PLAYER_NAME]，剛才都忘了介紹自己。",
       "chapter": 0,
       "visual": {
         "mode": "cg",
@@ -157,18 +157,18 @@
       "next": "common_movein_rain_names_locked_00"
     },
     "common_movein_rain_goodnight": {
-      "speaker": "許棠",
-      "text": "那你慢慢搬。晚安。",
+      "speaker": "你",
+      "text": "那我先把剩下的搬進去。",
       "chapter": 0,
       "visual": {
         "mode": "cg",
         "asset": "cg.opening.com00.s04_r01_polite_smile"
       },
-      "next": "common_movein_rain_coda"
+      "next": "common_movein_rain_goodnight_locked_03"
     },
     "common_movein_rain_coda": {
       "speaker": "你",
-      "text": "晚安。",
+      "text": "好，晚安。",
       "chapter": 0,
       "visual": {
         "mode": "cg",
@@ -1690,7 +1690,7 @@
         "sprites": []
       },
       "speaker": "旁白",
-      "text": "先把箱子搬進去。椅子……等走廊空了再說。",
+      "text": "先把箱子搬進去，門口空了，再來想椅子的事。",
       "next": "common_movein_rain_door"
     },
     "common_movein_rain_door_locked_00": {
@@ -1703,7 +1703,7 @@
         }
       },
       "speaker": "許棠",
-      "text": "右邊先抬高一點。我扶門。",
+      "text": "嗯，再高一點。你先轉。",
       "next": "common_movein_rain_door_locked_01"
     },
     "common_movein_rain_door_locked_01": {
@@ -1712,8 +1712,8 @@
         "mode": "cg",
         "asset": "cg.opening.com00.s02_door_assist"
       },
-      "speaker": "你",
-      "text": "喔，好。等我一下。",
+      "speaker": "旁白",
+      "text": "我把箱子往裡轉。箱角還卡著，她推了一下，門邊終於空出一點餘地。",
       "next": "common_movein_rain_door_locked_02"
     },
     "common_movein_rain_door_locked_02": {
@@ -1722,8 +1722,8 @@
         "mode": "cg",
         "asset": "cg.opening.com00.s02_door_assist"
       },
-      "speaker": "旁白",
-      "text": "箱子向內轉過門線。許棠只在箱角仍卡住時推了一下。",
+      "speaker": "許棠",
+      "text": "再一點點。",
       "next": "common_movein_rain_door_locked_03"
     },
     "common_movein_rain_door_locked_03": {
@@ -1732,8 +1732,8 @@
         "mode": "cg",
         "asset": "cg.opening.com00.s02_door_assist"
       },
-      "speaker": "許棠",
-      "text": "嗯，再一點點。",
+      "speaker": "你",
+      "text": "好……好了，過了。",
       "next": "common_movein_rain_door_locked_04"
     },
     "common_movein_rain_door_locked_04": {
@@ -1742,8 +1742,8 @@
         "mode": "cg",
         "asset": "cg.opening.com00.s02_door_assist"
       },
-      "speaker": "你",
-      "text": "好了，過了。",
+      "speaker": "旁白",
+      "text": "箱子落地，她鬆開門。我這才不用再拿肩膀頂著。",
       "next": "common_movein_rain_choice"
     },
     "common_movein_rain_formal_locked_00": {
@@ -1752,9 +1752,12 @@
         "mode": "cg",
         "asset": "cg.opening.com00.s04_r01_polite_smile"
       },
-      "speaker": "許棠",
-      "text": "這箱再往裡一點好嗎？門等一下會碰到。",
-      "next": "common_movein_rain_formal_locked_01"
+      "speaker": "旁白",
+      "text": "",
+      "next": "common_movein_rain_formal_locked_01",
+      "type": "branch",
+      "cases": [],
+      "default": "common_movein_rain_formal_locked_01"
     },
     "common_movein_rain_formal_locked_01": {
       "chapter": 0,
@@ -1763,7 +1766,7 @@
         "asset": "cg.opening.com00.s04_r01_polite_smile"
       },
       "speaker": "你",
-      "text": "啊，對。這樣呢？",
+      "text": "啊，對。我以為過了就好了。",
       "next": "common_movein_rain_formal_locked_02"
     },
     "common_movein_rain_formal_locked_02": {
@@ -1773,7 +1776,7 @@
         "asset": "cg.opening.com00.s04_r01_polite_smile"
       },
       "speaker": "旁白",
-      "text": "我把箱子推離門線。",
+      "text": "我把箱子往裡推，讓開門線。",
       "next": "common_movein_rain_formal_locked_03"
     },
     "common_movein_rain_formal_locked_03": {
@@ -1782,9 +1785,9 @@
         "mode": "cg",
         "asset": "cg.opening.com00.s04_r01_polite_smile"
       },
-      "speaker": "許棠",
-      "text": "可以了。",
-      "next": "common_movein_rain_names"
+      "speaker": "你",
+      "text": "這樣呢？",
+      "next": "common_movein_rain_formal_locked_04"
     },
     "common_movein_rain_joke_locked_00": {
       "chapter": 0,
@@ -1883,8 +1886,8 @@
         "asset": "cg.opening.com00.s04_r01_polite_smile"
       },
       "speaker": "你",
-      "text": "喔。謝謝妳，許棠。",
-      "next": "common_movein_rain_goodnight"
+      "text": "喔，原來我們就住隔壁。你好。",
+      "next": "common_movein_rain_names_locked_03"
     },
     "common_movein_rain_goodnight_locked_00": {
       "chapter": 0,
@@ -1894,7 +1897,7 @@
         "sprites": []
       },
       "speaker": "旁白",
-      "text": "她刷卡進 1702，沒有回頭停留。我把最後一箱拖進 1703。門口騰出空間後，我回頭把椅子側過來，椅背斜進門框，椅腳也跟著進了 1703。",
+      "text": "許棠刷卡進了 1702。我把最後一箱拖進 1703，門口總算騰出空間。把椅子側過來，椅背斜進門框，椅腳也跟著進去了。",
       "next": "common_movein_rain_goodnight_locked_01"
     },
     "common_movein_rain_goodnight_locked_01": {
@@ -2227,7 +2230,7 @@
         "asset": "cg.opening-ch1.com01b.04"
       },
       "speaker": "旁白",
-      "text": "我走進台北地下街，來到那家以設定集與周邊為主的 ACG 店。我想查《逆光航路》新版究竟增補了什麼。此刻我還沒遇見江雨澄。",
+      "text": "我走進台北地下街，來到那家以設定集與周邊為主的 ACG 店。我想查《逆光航路》新版究竟增補了什麼。",
       "next": "common_acg_first_meet_enter"
     },
     "common_acg_first_meet_enter_locked_00": {
@@ -2238,7 +2241,7 @@
         "sprites": []
       },
       "speaker": "旁白",
-      "text": "我走到設定集區。江雨澄已站在書架前，手上各翻著一本書。",
+      "text": "我走到設定集區。一位女生已站在書架前，手上各翻著一本書。",
       "next": "common_acg_first_meet_observation"
     },
     "common_acg_first_meet_observation_locked_00": {
@@ -2597,6 +2600,46 @@
       "speaker": "旁白",
       "text": "她嘴角動了一下。我低頭把手上的餐盒轉了半圈，還是看不出裡面有什麼菜。",
       "next": "common_convenience_xu_work"
+    },
+    "common_movein_rain_formal_locked_04": {
+      "chapter": 0,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening.com00.s04_r01_polite_smile"
+      },
+      "speaker": "許棠",
+      "text": "可以了。",
+      "next": "common_movein_rain_formal_locked_05"
+    },
+    "common_movein_rain_formal_locked_05": {
+      "chapter": 0,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening.com00.s04_r01_polite_smile"
+      },
+      "speaker": "你",
+      "text": "好，謝謝。這下門能關了。",
+      "next": "common_movein_rain_names"
+    },
+    "common_movein_rain_names_locked_03": {
+      "chapter": 0,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening.com00.s04_r01_polite_smile"
+      },
+      "speaker": "許棠",
+      "text": "你好。",
+      "next": "common_movein_rain_goodnight"
+    },
+    "common_movein_rain_goodnight_locked_03": {
+      "chapter": 0,
+      "visual": {
+        "mode": "cg",
+        "asset": "cg.opening.com00.s04_r01_polite_smile"
+      },
+      "speaker": "許棠",
+      "text": "好，那你慢慢搬。晚安。",
+      "next": "common_movein_rain_coda"
     }
   }
 }

@@ -1,0 +1,104 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "dialogue-calibration-com00-20260930",
+  "task_id": "CW-COM00-APPROVED-ASSEMBLY-001",
+  "task_type": "scene_dialogue",
+  "scene_id": "COM-00",
+  "status": "PASS",
+  "workflow_version": "1.3.0",
+  "harness": {
+    "id": "content_writer",
+    "version": "1.4.0",
+    "pass": "scene_dialogue"
+  },
+  "source_ref": "9b0066ff7240c918c87cb8d5ab38affef44cddb4",
+  "packet_sha256": "1d56530c59bc40ea4b8adb08121a3d2b180a7e534a61b25f3f9b61b09b8f6f87",
+  "handoff_sha256": "dac8eef1ec2af21969a0fb0e1fd1469b9371edd0297917696a613cc5da3521be",
+  "input_versions": [
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-00.md",
+      "version": "a6c518a8fb5a4297045672096a0c72de3631321a",
+      "location": "9b0066ff7240c918c87cb8d5ab38affef44cddb4:docs/narrative/scenes/vertical-slice/COM-00.md"
+    },
+    {
+      "id": "file:.ai/harnesses/content-writer.md",
+      "version": "48d0dc5bd87570ea6125322c85a2e023b5fd9220",
+      "location": ".ai/harnesses/content-writer.md"
+    },
+    {
+      "id": "human-approved-path:COM-00",
+      "version": "cb357b4c4ba019622e70de9d0c175706c693441657abb6880ea00aa75d220506",
+      "location": "15f8383220d13a4530cfa4141bbda01cfeac08af:content/production/runs/dialogue-calibration-com00-20260930/accepted-long-excerpt.md",
+      "storage_binding": {
+        "git_blob_sha": "3d4e3594bb24c843c2bc23300ac2d0dc24798b04",
+        "sha256": "cb357b4c4ba019622e70de9d0c175706c693441657abb6880ea00aa75d220506"
+      }
+    },
+    {
+      "id": "human-decision:COM-00",
+      "version": "02095ff93fb78aace84d2f4c2da9cbb5fd1ff7bcda1dd14b0e5b7fec0555bb46",
+      "location": "content/production/runs/dialogue-calibration-com00-20260930/human-long-trial.json"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "locked_scene:COM-00",
+      "version": "59520478b9c3132cc3ccb1b6105f091b244131dc",
+      "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+    }
+  ],
+  "output_sha256": "a6bbc3821f3376f74ab871d256f5edd5760b05f25b06aea38bf766b5226817f2",
+  "qa_codes": [
+    {
+      "name": "exact_accepted_prose_recovered",
+      "result": "PASS"
+    },
+    {
+      "name": "five_target_bodies_only",
+      "result": "PASS"
+    },
+    {
+      "name": "original_metadata_preserved",
+      "result": "PASS"
+    },
+    {
+      "name": "untouched_branch_rejoins_compatible",
+      "result": "PASS"
+    },
+    {
+      "name": "bounded_continuous_read_completed",
+      "result": "PASS"
+    },
+    {
+      "name": "naturalization_rewrites",
+      "result": "PASS"
+    },
+    {
+      "name": "outside_target_bodies_byte_identical",
+      "result": "PASS"
+    },
+    {
+      "name": "unchanged_branches_byte_identical",
+      "result": "PASS"
+    },
+    {
+      "name": "original_metadata_sequence_identical",
+      "result": "PASS"
+    },
+    {
+      "name": "pinned_source_bytes_matched_before_publish",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [],
+  "human_gate": "none",
+  "formal_qa_pass": false,
+  "visual_impact_status": "AWAIT_FRESH_INDEPENDENT_NARRATIVE_QA",
+  "storage_resolution": {
+    "ref": "15f8383220d13a4530cfa4141bbda01cfeac08af",
+    "path": "content/production/runs/dialogue-calibration-com00-20260930/accepted-long-excerpt.md",
+    "git_blob_sha": "3d4e3594bb24c843c2bc23300ac2d0dc24798b04",
+    "sha256": "cb357b4c4ba019622e70de9d0c175706c693441657abb6880ea00aa75d220506",
+    "purpose": "immutable acquisition binding for removed snapshot; original decision/status fields retained"
+  }
+}

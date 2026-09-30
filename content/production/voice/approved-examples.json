@@ -1,0 +1,1038 @@
+{
+  "schema_version": "1.2.0",
+  "policy_path": "docs/narrative/DIALOGUE_CALIBRATION.md",
+  "examples": [
+    {
+      "id": "voice.xu_tang.early.com02x.human.01",
+      "version": 1,
+      "status": "human_approved",
+      "context": {
+        "characters": [
+          {
+            "value": {
+              "character_id": "xu_tang",
+              "role": "neighbor and dialogue speaker"
+            },
+            "certainty": "confirmed"
+          },
+          {
+            "value": {
+              "character_id": "protagonist",
+              "role": "player first-person narrator and dialogue speaker"
+            },
+            "certainty": "confirmed"
+          }
+        ],
+        "prior_events": {
+          "value": [
+            "They have already introduced names; Xu calling [PLAYER_NAME] comes from that prior introduction.",
+            "Both know the other’s residence and have earlier everyday greetings.",
+            "Week 2 weekday about 23:00; encounter is in the convenience store within walking distance of the apartment."
+          ],
+          "certainty": "confirmed"
+        },
+        "knowledge": [
+          {
+            "value": {
+              "holder": "xu_tang",
+              "before_excerpt": {
+                "knows": [
+                  "Other’s name and residence"
+                ],
+                "does_not_know": [
+                  "Other’s precise occupation",
+                  "Other’s company, income, relationship status or complete career background"
+                ]
+              },
+              "during_excerpt": "Meal-box and not-yet-eaten information is exchanged only as spoken; no work disclosure.",
+              "after_excerpt": "No occupation or contact-information disclosure in this passage."
+            },
+            "certainty": "confirmed"
+          },
+          {
+            "value": {
+              "holder": "protagonist",
+              "before_excerpt": {
+                "knows": [
+                  "Other’s name and residence"
+                ],
+                "does_not_know": [
+                  "Other’s precise occupation",
+                  "Other’s company, income, relationship status or complete career background"
+                ]
+              },
+              "during_excerpt": "Meal-box and not-yet-eaten information is exchanged only as spoken; no work disclosure.",
+              "after_excerpt": "No occupation or contact-information disclosure in this passage."
+            },
+            "certainty": "confirmed"
+          }
+        ],
+        "familiarity": [
+          {
+            "subject": "xu_tang",
+            "toward": "protagonist",
+            "label": {
+              "value": "familiar_neighbors_with_boundaries",
+              "certainty": "confirmed"
+            }
+          },
+          {
+            "subject": "protagonist",
+            "toward": "xu_tang",
+            "label": {
+              "value": "familiar_neighbors_with_boundaries",
+              "certainty": "confirmed"
+            }
+          }
+        ],
+        "trust": [
+          {
+            "subject": "xu_tang",
+            "toward": "protagonist",
+            "label": {
+              "value": null,
+              "certainty": "unknown"
+            }
+          },
+          {
+            "subject": "protagonist",
+            "toward": "xu_tang",
+            "label": {
+              "value": null,
+              "certainty": "unknown"
+            }
+          }
+        ],
+        "attraction": [
+          {
+            "subject": "xu_tang",
+            "toward": "protagonist",
+            "label": {
+              "value": null,
+              "certainty": "unknown"
+            }
+          },
+          {
+            "subject": "protagonist",
+            "toward": "xu_tang",
+            "label": {
+              "value": null,
+              "certainty": "unknown"
+            }
+          }
+        ],
+        "energy": [
+          {
+            "holder": "xu_tang",
+            "label": {
+              "value": null,
+              "certainty": "unknown"
+            }
+          },
+          {
+            "holder": "protagonist",
+            "label": {
+              "value": null,
+              "certainty": "unknown"
+            }
+          }
+        ],
+        "place": {
+          "value": {
+            "scene_id": "COM-02X",
+            "location": "Unbranded convenience store within walking distance of the apartment",
+            "time": "Week 2 weekday, about 23:00",
+            "position": "refrigerated meal aisle",
+            "host_guest": "Neither hosts; shared public everyday space"
+          },
+          "certainty": "confirmed"
+        },
+        "topic": {
+          "value": {
+            "topic": "Recognition, late meal and microwave meal choice",
+            "activity": "Holding meal boxes and considering heating",
+            "first_person_observation": "Immediate visible actions only; no assertion of Xu’s private motives"
+          },
+          "certainty": "confirmed"
+        }
+      },
+      "interaction": [
+        {
+          "turn_id": "voice.xu_tang.early.com02x.human.01.t01",
+          "kind": "dialogue",
+          "speaker_id": "xu_tang",
+          "text": "[PLAYER_NAME]？",
+          "source_line": 9
+        },
+        {
+          "turn_id": "voice.xu_tang.early.com02x.human.01.t02",
+          "kind": "action",
+          "speaker_id": null,
+          "text": "我轉過身，看到許棠一手拿黑咖啡，另一手拿著餐盒。",
+          "source_line": 11
+        },
+        {
+          "turn_id": "voice.xu_tang.early.com02x.human.01.t03",
+          "kind": "dialogue",
+          "speaker_id": "protagonist",
+          "text": "欸，許棠，晚上好。這麼晚，妳也出來買吃的喔？",
+          "source_line": 13
+        },
+        {
+          "turn_id": "voice.xu_tang.early.com02x.human.01.t04",
+          "kind": "dialogue",
+          "speaker_id": "xu_tang",
+          "text": "嗯。你還沒吃？",
+          "source_line": 15
+        },
+        {
+          "turn_id": "voice.xu_tang.early.com02x.human.01.t05",
+          "kind": "dialogue",
+          "speaker_id": "protagonist",
+          "text": "還沒。冰箱開了又關，不知道要吃什麼，想想還是下樓好了。",
+          "source_line": 17
+        },
+        {
+          "turn_id": "voice.xu_tang.early.com02x.human.01.t06",
+          "kind": "dialogue",
+          "speaker_id": "xu_tang",
+          "text": "嗯……我懂。",
+          "source_line": 19
+        },
+        {
+          "turn_id": "voice.xu_tang.early.com02x.human.01.t07",
+          "kind": "action",
+          "speaker_id": null,
+          "text": "她看看我的餐盒，又看看自己那盒。我也低頭看了一眼。我們停了半秒，冷藏櫃的壓縮機又響起來。",
+          "source_line": 21
+        },
+        {
+          "turn_id": "voice.xu_tang.early.com02x.human.01.t08",
+          "kind": "dialogue",
+          "speaker_id": "xu_tang",
+          "text": "你拿的也是要微波的嗎？",
+          "source_line": 23
+        },
+        {
+          "turn_id": "voice.xu_tang.early.com02x.human.01.t09",
+          "kind": "dialogue",
+          "speaker_id": "protagonist",
+          "text": "對。其實就看哪個熱得快，挑了老半天。",
+          "source_line": 25
+        },
+        {
+          "turn_id": "voice.xu_tang.early.com02x.human.01.t10",
+          "kind": "dialogue",
+          "speaker_id": "xu_tang",
+          "text": "嗯。我也差不多。",
+          "source_line": 27
+        }
+      ],
+      "source_revision": {
+        "source_type": "human_authored_revision",
+        "source_identity": "Direct current-chat human replacement passage; no retrievable original message ID",
+        "source_snapshot": {
+          "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
+          "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
+          "normalization": "Markdown formatting only; dialogue, actions and explanations unedited",
+          "message_id": null
+        },
+        "line_start": 9,
+        "line_end": 27,
+        "turn_range": {
+          "first": "voice.xu_tang.early.com02x.human.01.t01",
+          "last": "voice.xu_tang.early.com02x.human.01.t10",
+          "count": 10
+        },
+        "text_sha256": "183cfa7e3771e70f317d9a8db480650955cbd9f23d9dcfb8f1f58d765a884053",
+        "text_hash_format": "ordered interaction.text joined with LF and one final LF, UTF-8",
+        "passage_markdown_sha256": "8ba6dad2e86037e661d9f2dbd2857196f60720be97907d6f02adb9f6ec407c92",
+        "branch_binding": {
+          "position": "before_player_choice",
+          "choice_in_excerpt": false,
+          "selected_branch": null,
+          "rejoin": null,
+          "later_choice_node": "common_convenience_xu_choice"
+        },
+        "canonical_context_binding": {
+          "scene": {
+            "repository": "TsungmingLiu/seventeen-floor-neighbor",
+            "path": "docs/narrative/scenes/vertical-slice/COM-02X.md",
+            "commit": "9b0066ff7240c918c87cb8d5ab38affef44cddb4",
+            "git_blob_sha": "938edf40f2f34a9faee054971f72747e213c73ee",
+            "sha256": "46d1566ec766adbefbfc2fc93964ee84cf70eca81078f6d35f589e65ddf579c6"
+          },
+          "contract": {
+            "repository": "TsungmingLiu/seventeen-floor-neighbor",
+            "path": "content/production/narrative/opening-ch1/COM-02X.json",
+            "commit": "9b0066ff7240c918c87cb8d5ab38affef44cddb4",
+            "git_blob_sha": "5f85482b7c420a5f7726035e369679360f83cfd5",
+            "sha256": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952"
+          },
+          "source_nodes": [
+            "common_convenience_xu_enter",
+            "common_convenience_xu_recognize"
+          ],
+          "context_only": true,
+          "not_authorship_source": true
+        }
+      },
+      "human_feedback": {
+        "comparison_id": "dialogue-calibration-pilot-20260930.case01",
+        "candidate_versions": {
+          "A": {
+            "candidate_id": "dialogue-calibration-pilot-20260930.case01.A",
+            "version": 1,
+            "version_basis": "Frozen originally displayed candidate; source has no standalone version field. Version 1 binds this immutable snapshot only.",
+            "variant": "A",
+            "sha256": "ab5044624e0b487d9777b08652949d82186f7012a55947a94d9457bdbb831675",
+            "hash_format": "UTF-8 canonical JSON: ensure_ascii=false, sort_keys=true, compact separators",
+            "container": {
+              "path": ".ai/experiments/dialogue-calibration/evidence/candidates-20260930.json",
+              "sha256": "5bd47afa159ab3f6fd9043f2926fb25eaec56fae9fd388f2d560a400b142fd46",
+              "json_pointer": "/cases/0/A"
+            }
+          },
+          "B": {
+            "candidate_id": "dialogue-calibration-pilot-20260930.case01.B",
+            "version": 1,
+            "version_basis": "Frozen originally displayed candidate; source has no standalone version field. Version 1 binds this immutable snapshot only.",
+            "variant": "B",
+            "sha256": "93f9cf8eca18380a9e4b467cfbbba1b2b0e81a4a59044d47bf4df71d3e6781b9",
+            "hash_format": "UTF-8 canonical JSON: ensure_ascii=false, sort_keys=true, compact separators",
+            "container": {
+              "path": ".ai/experiments/dialogue-calibration/evidence/candidates-20260930.json",
+              "sha256": "5bd47afa159ab3f6fd9043f2926fb25eaec56fae9fd388f2d560a400b142fd46",
+              "json_pointer": "/cases/0/B"
+            }
+          }
+        },
+        "outcome": "human_revision",
+        "choice": null,
+        "selected_candidate": null,
+        "reviewer": {
+          "identity_type": "current_chat_user",
+          "name": null
+        },
+        "recorded_at": "2026-09-30T13:36:26Z",
+        "message_timestamp": null,
+        "message_timestamp_status": "unavailable",
+        "original_response": {
+          "source_type": "normalized_human_message_snapshot",
+          "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
+          "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
+          "line_start": 5,
+          "line_end": 59
+        },
+        "reason": [
+          {
+            "text": "1. 旁白的部分，稍微加強一下以第一視角的帶入感\n2. 前期熟悉度不夠，兩邊說話都比較禮貌，並且稍微會有思考對話的延遲與隔閡。",
+            "source": {
+              "source_type": "normalized_human_message_snapshot",
+              "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
+              "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
+              "line_start": 31,
+              "line_end": 32
+            }
+          },
+          {
+            "text": "4. 你給的A跟B都有可取之處，也都還有可以稍微修改的地方。",
+            "source": {
+              "source_type": "normalized_human_message_snapshot",
+              "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
+              "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
+              "line_start": 34,
+              "line_end": 34
+            }
+          }
+        ],
+        "revision_binding": {
+          "id": "voice.xu_tang.early.com02x.human.01",
+          "version": 1,
+          "sha256": "183cfa7e3771e70f317d9a8db480650955cbd9f23d9dcfb8f1f58d765a884053",
+          "hash_target": "ordered interaction.text joined with LF and one final LF, UTF-8",
+          "passage_sha256": "8ba6dad2e86037e661d9f2dbd2857196f60720be97907d6f02adb9f6ec407c92"
+        },
+        "preference_is_not_candidate_selection": true
+      },
+      "approved_scope": {
+        "character_ids": [
+          "xu_tang",
+          "protagonist"
+        ],
+        "passes": [
+          "scene_dialogue",
+          "narrative_review"
+        ],
+        "formal_narrative_review_packet_injection": false,
+        "reference_scene_id": "COM-02X",
+        "relationship_boundary": "Early familiar neighbors with boundaries; mutual politeness, conversational distance and room for hesitation; no contact exchange, invitation, caretaking obligation or romantic escalation.",
+        "permitted_analogy": "Equivalent early-neighbor everyday interaction for register, response rhythm and first-person immediate observation, only where the current approved relationship and knowledge boundaries match.",
+        "knowledge_boundary": "Only each speaker’s canonically established knowledge may be used; never copy this excerpt’s facts, discovery, misunderstanding or disclosures into another scene.",
+        "energy_condition": "Personal energy is unknown and is not an eligibility condition. Do not infer exhaustion from polite or short replies.",
+        "place_topic_condition": "COM-02X everyday convenience-store food/waiting conversation; limited style analogy requires an equivalent ordinary early-neighbor context, not transplantation of refrigerator/printing events.",
+        "unknown_labels_not_selection_conditions": [
+          "trust",
+          "attraction",
+          "energy"
+        ],
+        "excluded_scope": [
+          "late relationship",
+          "other heroine voice or facts",
+          "global character canon",
+          "word bans",
+          "filler quotas",
+          "longer-is-better rules",
+          "event/fact/choice transfer"
+        ],
+        "human_scope_evidence": [
+          {
+            "source_type": "normalized_human_message_snapshot",
+            "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
+            "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
+            "line_start": 5,
+            "line_end": 5
+          },
+          {
+            "source_type": "normalized_human_message_snapshot",
+            "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
+            "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
+            "line_start": 31,
+            "line_end": 32
+          },
+          {
+            "source_type": "normalized_human_message_snapshot",
+            "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
+            "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
+            "line_start": 57,
+            "line_end": 57
+          }
+        ],
+        "scene_approval": false,
+        "occupational_clarification_condition": "Not applicable to this reference; no occupation disclosure in the excerpt."
+      },
+      "approval": {
+        "identity": {
+          "identity_type": "current_chat_user",
+          "name": null
+        },
+        "recorded_at": "2026-09-30T13:36:26Z",
+        "human_message_timestamp": null,
+        "human_message_timestamp_status": "unavailable",
+        "quote": "我來改個我覺得比較合適的：",
+        "quote_source": {
+          "source_type": "normalized_human_message_snapshot",
+          "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
+          "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
+          "line_start": 5,
+          "line_end": 5
+        },
+        "basis": "Human directly supplied a replacement full passage in the displayed COM-02X comparison context and expressed adoption intent; policy 1.1.0 section 1 accepts this one reply as approval of the exact narrow reference without a second confirmation.",
+        "approved_entry": {
+          "id": "voice.xu_tang.early.com02x.human.01",
+          "version": 1,
+          "sha256": "183cfa7e3771e70f317d9a8db480650955cbd9f23d9dcfb8f1f58d765a884053",
+          "hash_target": "ordered interaction.text joined with LF and one final LF, UTF-8",
+          "passage_sha256": "8ba6dad2e86037e661d9f2dbd2857196f60720be97907d6f02adb9f6ec407c92"
+        },
+        "decision_receipt": {
+          "path": "content/production/voice/receipts/human-reference-001.json",
+          "receipt_id": "HUMAN-REFERENCE-COM02X-001",
+          "version": 1,
+          "decision_index": 0,
+          "decision_sha256": "a19550a5eea09410e25af7097712a326cb08601d0f8c02a0405bc23583da3cf8",
+          "hash_target": "corresponding decisions item, UTF-8 canonical JSON (sorted keys, compact separators)"
+        },
+        "scene_approval": false,
+        "second_confirmation_required": false,
+        "approved_scope_ref": "/examples/0/approved_scope"
+      },
+      "provenance": {
+        "proposal_run_id": "dialogue-calibration-pilot-20260930",
+        "proposal_task_id": "CW-COM02X-CALIBRATION-001",
+        "recording_task_id": "RECORD-HUMAN-COM02X-001",
+        "generation_method": "Verbatim deterministic extraction of Human-authored replacement passage; no creative revision or polishing",
+        "generation_version": "human-reference-recording-1",
+        "curator": "Codex bounded engineering/data-recording worker",
+        "approval_binding": {
+          "path": "content/production/voice/receipts/human-reference-001.json",
+          "receipt_id": "HUMAN-REFERENCE-COM02X-001",
+          "version": 1,
+          "decision_index": 0,
+          "decision_sha256": "a19550a5eea09410e25af7097712a326cb08601d0f8c02a0405bc23583da3cf8",
+          "hash_target": "corresponding decisions item, UTF-8 canonical JSON (sorted keys, compact separators)"
+        },
+        "previous_approved_version_id": null,
+        "source_revalidation": "Before use, verify source snapshot hash, exact passage range/text hash, entry ID/version, decision hash, scope, and current scene/contract compatibility. On change stop using this version and recheck; content/scope changes require a new version and Human approval. Do not follow candidate pointers as production input.",
+        "policy_binding": {
+          "path": "docs/narrative/DIALOGUE_CALIBRATION.md",
+          "version": "1.1.0",
+          "sha256": "850d0bf6a476a110350817e2de12c5f6a5d01b50be7ee5960fca01195711259c"
+        },
+        "recorded_at": "2026-09-30T13:36:26Z"
+      },
+      "storage_projection": {
+        "source": {
+          "ref": "15f8383220d13a4530cfa4141bbda01cfeac08af",
+          "path": "content/production/voice/approved-examples.json",
+          "git_blob_sha": "d152d72c15ba1160bcdec625d36539739f58dee1",
+          "sha256": "f63005e9aa8d1ae9c7b3726b2337d9a0a8b75508f9ad4cb11e0abb65ad14b4d1"
+        },
+        "entry_pointer": "/examples/0",
+        "projection": "storage-only; reconstructable complete entry at the pinned source",
+        "schema_version": "1.2.0"
+      }
+    },
+    {
+      "id": "voice.xu_tang.early.com02x.human.02",
+      "version": 1,
+      "status": "human_approved",
+      "context": {
+        "characters": [
+          {
+            "value": {
+              "character_id": "xu_tang",
+              "role": "neighbor and dialogue speaker"
+            },
+            "certainty": "confirmed"
+          },
+          {
+            "value": {
+              "character_id": "protagonist",
+              "role": "player first-person narrator and dialogue speaker"
+            },
+            "certainty": "confirmed"
+          }
+        ],
+        "prior_events": {
+          "value": [
+            "They have already introduced names; Xu calling [PLAYER_NAME] comes from that prior introduction.",
+            "Both know the other’s residence and have earlier everyday greetings.",
+            "Week 2 weekday about 23:00; encounter is in the convenience store within walking distance of the apartment."
+          ],
+          "certainty": "confirmed"
+        },
+        "knowledge": [
+          {
+            "value": {
+              "holder": "xu_tang",
+              "before_excerpt": {
+                "knows": [
+                  "Player name and residence",
+                  "Player works in software, mostly at home, and finished deployment/review work tonight in preceding shared rejoin dialogue"
+                ],
+                "does_not_know": [
+                  "Player company, income, complete career background or relationship status"
+                ]
+              },
+              "during_excerpt": "Xu speaks about her own deadline and work; her account is the disclosure source, not player foreknowledge.",
+              "after_excerpt": "No additional player biography established by this passage."
+            },
+            "certainty": "confirmed"
+          },
+          {
+            "value": {
+              "holder": "protagonist",
+              "before_excerpt": {
+                "knows": [
+                  "Xu name and residence",
+                  "Xu said her work was unfinished in immediately preceding shared dialogue"
+                ],
+                "does_not_know": [
+                  "Xu precise occupation and client background",
+                  "Xu contact information, income or complete career background"
+                ]
+              },
+              "during_excerpt": [
+                "Xu says client sees last round tomorrow morning and printing follows approval",
+                "Player asks whether this means printing work",
+                "Only then Xu clarifies visual design and independent client work"
+              ],
+              "after_excerpt": {
+                "knows": [
+                  "Xu visual-design/freelance work outline and tonight’s printing-related deadline"
+                ],
+                "does_not_know": [
+                  "Xu client identity, income, full career background or contact information"
+                ]
+              }
+            },
+            "certainty": "confirmed"
+          }
+        ],
+        "familiarity": [
+          {
+            "subject": "xu_tang",
+            "toward": "protagonist",
+            "label": {
+              "value": "familiar_neighbors_with_boundaries",
+              "certainty": "confirmed"
+            }
+          },
+          {
+            "subject": "protagonist",
+            "toward": "xu_tang",
+            "label": {
+              "value": "familiar_neighbors_with_boundaries",
+              "certainty": "confirmed"
+            }
+          }
+        ],
+        "trust": [
+          {
+            "subject": "xu_tang",
+            "toward": "protagonist",
+            "label": {
+              "value": null,
+              "certainty": "unknown"
+            }
+          },
+          {
+            "subject": "protagonist",
+            "toward": "xu_tang",
+            "label": {
+              "value": null,
+              "certainty": "unknown"
+            }
+          }
+        ],
+        "attraction": [
+          {
+            "subject": "xu_tang",
+            "toward": "protagonist",
+            "label": {
+              "value": null,
+              "certainty": "unknown"
+            }
+          },
+          {
+            "subject": "protagonist",
+            "toward": "xu_tang",
+            "label": {
+              "value": null,
+              "certainty": "unknown"
+            }
+          }
+        ],
+        "energy": [
+          {
+            "holder": "xu_tang",
+            "label": {
+              "value": null,
+              "certainty": "unknown"
+            }
+          },
+          {
+            "holder": "protagonist",
+            "label": {
+              "value": null,
+              "certainty": "unknown"
+            }
+          }
+        ],
+        "place": {
+          "value": {
+            "scene_id": "COM-02X",
+            "location": "Unbranded convenience store within walking distance of the apartment",
+            "time": "Week 2 weekday, about 23:00",
+            "position": "microwave waiting area",
+            "host_guest": "Neither hosts; shared public everyday space"
+          },
+          "certainty": "confirmed"
+        },
+        "topic": {
+          "value": {
+            "topic": "Work urgency, printing misconception and occupational clarification",
+            "activity": "Waiting for microwaves; Xu meal finishes",
+            "first_person_observation": "Immediate visible actions only; no assertion of Xu’s private motives"
+          },
+          "certainty": "confirmed"
+        }
+      },
+      "interaction": [
+        {
+          "turn_id": "voice.xu_tang.early.com02x.human.02.t01",
+          "kind": "action",
+          "speaker_id": null,
+          "text": "我看了一眼微波爐的計時器。",
+          "source_line": 38
+        },
+        {
+          "turn_id": "voice.xu_tang.early.com02x.human.02.t02",
+          "kind": "dialogue",
+          "speaker_id": "protagonist",
+          "text": "妳那個，工作上的東西，很趕嗎？",
+          "source_line": 40
+        },
+        {
+          "turn_id": "voice.xu_tang.early.com02x.human.02.t03",
+          "kind": "dialogue",
+          "speaker_id": "xu_tang",
+          "text": "明早客戶要看最後一輪。過了就送印，所以今天得改完。",
+          "source_line": 42
+        },
+        {
+          "turn_id": "voice.xu_tang.early.com02x.human.02.t04",
+          "kind": "dialogue",
+          "speaker_id": "protagonist",
+          "text": "送印……妳是做印刷的嗎？",
+          "source_line": 44
+        },
+        {
+          "turn_id": "voice.xu_tang.early.com02x.human.02.t05",
+          "kind": "dialogue",
+          "speaker_id": "xu_tang",
+          "text": "不是，我做視覺設計的，自己接案，這次剛好是要印出來的東西。",
+          "source_line": 46
+        },
+        {
+          "turn_id": "voice.xu_tang.early.com02x.human.02.t06",
+          "kind": "dialogue",
+          "speaker_id": "protagonist",
+          "text": "喔，不好意思我搞錯了。聽到送印就想到印刷。",
+          "source_line": 48
+        },
+        {
+          "turn_id": "voice.xu_tang.early.com02x.human.02.t07",
+          "kind": "dialogue",
+          "speaker_id": "xu_tang",
+          "text": "嗯，沒關係，很正常，常有人這樣說。",
+          "source_line": 50
+        },
+        {
+          "turn_id": "voice.xu_tang.early.com02x.human.02.t08",
+          "kind": "action",
+          "speaker_id": null,
+          "text": "微波爐提示音響了。我看見許棠抬起頭，店員從另一台取出她的餐盒。",
+          "source_line": 52
+        },
+        {
+          "turn_id": "voice.xu_tang.early.com02x.human.02.t09",
+          "kind": "dialogue",
+          "speaker_id": "xu_tang",
+          "text": "我的好了。",
+          "source_line": 54
+        }
+      ],
+      "source_revision": {
+        "source_type": "human_authored_revision",
+        "source_identity": "Direct current-chat human replacement passage; no retrievable original message ID",
+        "source_snapshot": {
+          "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
+          "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
+          "normalization": "Markdown formatting only; dialogue, actions and explanations unedited",
+          "message_id": null
+        },
+        "line_start": 38,
+        "line_end": 54,
+        "turn_range": {
+          "first": "voice.xu_tang.early.com02x.human.02.t01",
+          "last": "voice.xu_tang.early.com02x.human.02.t09",
+          "count": 9
+        },
+        "text_sha256": "67f3b65fc667a4e0fd28084a6a26175cd8c64a4234e0935d49667ec74a32f42b",
+        "text_hash_format": "ordered interaction.text joined with LF and one final LF, UTF-8",
+        "passage_markdown_sha256": "b35cb101b409968375c4cf834aea31311556630b381459918f413e6593b6a88d",
+        "branch_binding": {
+          "position": "shared_work_rejoin",
+          "choice_in_excerpt": false,
+          "selected_branch": null,
+          "reachable_from": [
+            "com02x_ask_food",
+            "com02x_share_work",
+            "com02x_tease_same",
+            "com02x_tell_eat_better"
+          ],
+          "rejoin": "common_convenience_xu_work",
+          "branch_effects_outside_reference": true
+        },
+        "canonical_context_binding": {
+          "scene": {
+            "repository": "TsungmingLiu/seventeen-floor-neighbor",
+            "path": "docs/narrative/scenes/vertical-slice/COM-02X.md",
+            "commit": "9b0066ff7240c918c87cb8d5ab38affef44cddb4",
+            "git_blob_sha": "938edf40f2f34a9faee054971f72747e213c73ee",
+            "sha256": "46d1566ec766adbefbfc2fc93964ee84cf70eca81078f6d35f589e65ddf579c6"
+          },
+          "contract": {
+            "repository": "TsungmingLiu/seventeen-floor-neighbor",
+            "path": "content/production/narrative/opening-ch1/COM-02X.json",
+            "commit": "9b0066ff7240c918c87cb8d5ab38affef44cddb4",
+            "git_blob_sha": "5f85482b7c420a5f7726035e369679360f83cfd5",
+            "sha256": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952"
+          },
+          "source_nodes": [
+            "common_convenience_xu_work"
+          ],
+          "context_only": true,
+          "not_authorship_source": true
+        }
+      },
+      "human_feedback": {
+        "comparison_id": "dialogue-calibration-pilot-20260930.case02",
+        "candidate_versions": {
+          "A": {
+            "candidate_id": "dialogue-calibration-pilot-20260930.case02.A",
+            "version": 1,
+            "version_basis": "Frozen originally displayed candidate; source has no standalone version field. Version 1 binds this immutable snapshot only.",
+            "variant": "A",
+            "sha256": "dc050a53071b106b4b26afee1f6d0a6c3dfa92e55efc186a6b7be9d5c98255cc",
+            "hash_format": "UTF-8 canonical JSON: ensure_ascii=false, sort_keys=true, compact separators",
+            "container": {
+              "path": ".ai/experiments/dialogue-calibration/evidence/candidates-20260930.json",
+              "sha256": "5bd47afa159ab3f6fd9043f2926fb25eaec56fae9fd388f2d560a400b142fd46",
+              "json_pointer": "/cases/1/A"
+            }
+          },
+          "B": {
+            "candidate_id": "dialogue-calibration-pilot-20260930.case02.B",
+            "version": 1,
+            "version_basis": "Frozen originally displayed candidate; source has no standalone version field. Version 1 binds this immutable snapshot only.",
+            "variant": "B",
+            "sha256": "4a84711167eba6d2735a72de6c109b767b9958c6f0135cbaee0670ebe6fe3f54",
+            "hash_format": "UTF-8 canonical JSON: ensure_ascii=false, sort_keys=true, compact separators",
+            "container": {
+              "path": ".ai/experiments/dialogue-calibration/evidence/candidates-20260930.json",
+              "sha256": "5bd47afa159ab3f6fd9043f2926fb25eaec56fae9fd388f2d560a400b142fd46",
+              "json_pointer": "/cases/1/B"
+            }
+          }
+        },
+        "outcome": "human_revision",
+        "choice": null,
+        "selected_candidate": null,
+        "reviewer": {
+          "identity_type": "current_chat_user",
+          "name": null
+        },
+        "recorded_at": "2026-09-30T13:36:26Z",
+        "message_timestamp": null,
+        "message_timestamp_status": "unavailable",
+        "original_response": {
+          "source_type": "normalized_human_message_snapshot",
+          "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
+          "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
+          "line_start": 5,
+          "line_end": 59
+        },
+        "reason": [
+          {
+            "text": "1. 這一段我覺得B偏口語比較好，靠近遊戲的日常對話氛圍。\n2. 但是我還是把許棠的對白調整成比較正式比較有距離感一點（“不是”VS“沒有啦”），理由同前。",
+            "source": {
+              "source_type": "normalized_human_message_snapshot",
+              "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
+              "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
+              "line_start": 56,
+              "line_end": 57
+            }
+          }
+        ],
+        "revision_binding": {
+          "id": "voice.xu_tang.early.com02x.human.02",
+          "version": 1,
+          "sha256": "67f3b65fc667a4e0fd28084a6a26175cd8c64a4234e0935d49667ec74a32f42b",
+          "hash_target": "ordered interaction.text joined with LF and one final LF, UTF-8",
+          "passage_sha256": "b35cb101b409968375c4cf834aea31311556630b381459918f413e6593b6a88d"
+        },
+        "preference_is_not_candidate_selection": true
+      },
+      "approved_scope": {
+        "character_ids": [
+          "xu_tang",
+          "protagonist"
+        ],
+        "passes": [
+          "scene_dialogue",
+          "narrative_review"
+        ],
+        "formal_narrative_review_packet_injection": false,
+        "reference_scene_id": "COM-02X",
+        "relationship_boundary": "Early familiar neighbors with boundaries; mutual politeness, conversational distance and room for hesitation; no contact exchange, invitation, caretaking obligation or romantic escalation.",
+        "permitted_analogy": "Equivalent early-neighbor everyday interaction for register, response rhythm and first-person immediate observation, only where the current approved relationship and knowledge boundaries match.",
+        "knowledge_boundary": "Only each speaker’s canonically established knowledge may be used; never copy this excerpt’s facts, discovery, misunderstanding or disclosures into another scene.",
+        "energy_condition": "Personal energy is unknown and is not an eligibility condition. Do not infer exhaustion from polite or short replies.",
+        "place_topic_condition": "COM-02X everyday convenience-store food/waiting conversation; limited style analogy requires an equivalent ordinary early-neighbor context, not transplantation of refrigerator/printing events.",
+        "unknown_labels_not_selection_conditions": [
+          "trust",
+          "attraction",
+          "energy"
+        ],
+        "excluded_scope": [
+          "late relationship",
+          "other heroine voice or facts",
+          "global character canon",
+          "word bans",
+          "filler quotas",
+          "longer-is-better rules",
+          "event/fact/choice transfer"
+        ],
+        "human_scope_evidence": [
+          {
+            "source_type": "normalized_human_message_snapshot",
+            "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
+            "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
+            "line_start": 5,
+            "line_end": 5
+          },
+          {
+            "source_type": "normalized_human_message_snapshot",
+            "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
+            "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
+            "line_start": 31,
+            "line_end": 32
+          },
+          {
+            "source_type": "normalized_human_message_snapshot",
+            "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
+            "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
+            "line_start": 57,
+            "line_end": 57
+          }
+        ],
+        "scene_approval": false,
+        "occupational_clarification_condition": "For occupational disclosure behavior, the current contract must permit the player not to know Xu’s precise work before the exchange; show client deadline/printing context before ordinary misconception and her own clarification. If the profession is already known, do not reenact the discovery or misunderstanding; only separately eligible early-neighbor register/rhythm may inform the task."
+      },
+      "approval": {
+        "identity": {
+          "identity_type": "current_chat_user",
+          "name": null
+        },
+        "recorded_at": "2026-09-30T13:36:26Z",
+        "human_message_timestamp": null,
+        "human_message_timestamp_status": "unavailable",
+        "quote": "我來改個我覺得比較合適的：",
+        "quote_source": {
+          "source_type": "normalized_human_message_snapshot",
+          "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
+          "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
+          "line_start": 5,
+          "line_end": 5
+        },
+        "basis": "Human directly supplied a replacement full passage in the displayed COM-02X comparison context and expressed adoption intent; policy 1.1.0 section 1 accepts this one reply as approval of the exact narrow reference without a second confirmation.",
+        "approved_entry": {
+          "id": "voice.xu_tang.early.com02x.human.02",
+          "version": 1,
+          "sha256": "67f3b65fc667a4e0fd28084a6a26175cd8c64a4234e0935d49667ec74a32f42b",
+          "hash_target": "ordered interaction.text joined with LF and one final LF, UTF-8",
+          "passage_sha256": "b35cb101b409968375c4cf834aea31311556630b381459918f413e6593b6a88d"
+        },
+        "decision_receipt": {
+          "path": "content/production/voice/receipts/human-reference-001.json",
+          "receipt_id": "HUMAN-REFERENCE-COM02X-001",
+          "version": 1,
+          "decision_index": 1,
+          "decision_sha256": "39b03d88008dabfb028b93f36ac59b1bde3f046dd9ee45558dde36a305e5aa79",
+          "hash_target": "corresponding decisions item, UTF-8 canonical JSON (sorted keys, compact separators)"
+        },
+        "scene_approval": false,
+        "second_confirmation_required": false,
+        "approved_scope_ref": "/examples/1/approved_scope"
+      },
+      "provenance": {
+        "proposal_run_id": "dialogue-calibration-pilot-20260930",
+        "proposal_task_id": "CW-COM02X-CALIBRATION-001",
+        "recording_task_id": "RECORD-HUMAN-COM02X-001",
+        "generation_method": "Verbatim deterministic extraction of Human-authored replacement passage; no creative revision or polishing",
+        "generation_version": "human-reference-recording-1",
+        "curator": "Codex bounded engineering/data-recording worker",
+        "approval_binding": {
+          "path": "content/production/voice/receipts/human-reference-001.json",
+          "receipt_id": "HUMAN-REFERENCE-COM02X-001",
+          "version": 1,
+          "decision_index": 1,
+          "decision_sha256": "39b03d88008dabfb028b93f36ac59b1bde3f046dd9ee45558dde36a305e5aa79",
+          "hash_target": "corresponding decisions item, UTF-8 canonical JSON (sorted keys, compact separators)"
+        },
+        "previous_approved_version_id": null,
+        "source_revalidation": "Before use, verify source snapshot hash, exact passage range/text hash, entry ID/version, decision hash, scope, and current scene/contract compatibility. On change stop using this version and recheck; content/scope changes require a new version and Human approval. Do not follow candidate pointers as production input.",
+        "policy_binding": {
+          "path": "docs/narrative/DIALOGUE_CALIBRATION.md",
+          "version": "1.1.0",
+          "sha256": "850d0bf6a476a110350817e2de12c5f6a5d01b50be7ee5960fca01195711259c"
+        },
+        "recorded_at": "2026-09-30T13:36:26Z"
+      },
+      "storage_projection": {
+        "source": {
+          "ref": "15f8383220d13a4530cfa4141bbda01cfeac08af",
+          "path": "content/production/voice/approved-examples.json",
+          "git_blob_sha": "d152d72c15ba1160bcdec625d36539739f58dee1",
+          "sha256": "f63005e9aa8d1ae9c7b3726b2337d9a0a8b75508f9ad4cb11e0abb65ad14b4d1"
+        },
+        "entry_pointer": "/examples/1",
+        "projection": "storage-only; reconstructable complete entry at the pinned source",
+        "schema_version": "1.2.0"
+      }
+    }
+  ],
+  "storage_resolution": {
+    "source_ref": "15f8383220d13a4530cfa4141bbda01cfeac08af",
+    "source_ref_semantics": "immutable Git commit retained in merge history",
+    "historical_artifacts": [
+      {
+        "path": ".ai/experiments/dialogue-calibration/feedback-template.md",
+        "git_blob_sha": "3a4f39ea2948ca73c8b227244a91df6a815f2a25",
+        "sha256": "0b1b0666624dd23fa2d0114e6f356a07e026c7e5c811dad6c94f9cad100cc646",
+        "bytes": 2859,
+        "lines": 41
+      },
+      {
+        "path": ".ai/experiments/dialogue-calibration/evidence/candidates-20260930.json",
+        "git_blob_sha": "f5020d014f29c5ffdd125eb74464e8fd7a721019",
+        "sha256": "5bd47afa159ab3f6fd9043f2926fb25eaec56fae9fd388f2d560a400b142fd46",
+        "bytes": 21816,
+        "lines": 656
+      },
+      {
+        "path": ".ai/experiments/dialogue-calibration/evidence/approved-reference-excerpts-001.md",
+        "git_blob_sha": "3a206feb0c22e53142b10d11ee428fa97112eda1",
+        "sha256": "0437be2ef26bfd7ee3310144edc1cc22d2f441349747e73fc00325b09aa28caf",
+        "bytes": 2341,
+        "lines": 55
+      },
+      {
+        "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-001.md",
+        "git_blob_sha": "8ee6ed9c370bc49f845ff0f81b9fa4bd0b02b835",
+        "sha256": "dcbcc7dc9d6358222ff4f1e14ceb5510ef28eb02548f89df25ece39051239611",
+        "bytes": 2864,
+        "lines": 65
+      },
+      {
+        "path": ".ai/experiments/dialogue-calibration/evidence/human-feedback-003.json",
+        "git_blob_sha": "b118f0cab6bbc5992338d4ee4b1dedb46af54807",
+        "sha256": "4938411a41f35d590beaa3321963667a0d9bda45bdb0b8ca29e7e1f2f564e8a2",
+        "bytes": 1098,
+        "lines": 26
+      },
+      {
+        "path": ".ai/experiments/dialogue-calibration/evidence/com00-short-positive-20260930.md",
+        "git_blob_sha": "9aeaedad0f21c86c536bc706df5f876e13f084e5",
+        "sha256": "0f1e70979ec234043dc53343c0511f7d9592fa549344f21ada50e461325a2ef0",
+        "bytes": 614,
+        "lines": 19
+      },
+      {
+        "path": "content/production/runs/dialogue-calibration-com00-20260930/accepted-baseline-COM00.md",
+        "git_blob_sha": "a6c518a8fb5a4297045672096a0c72de3631321a",
+        "sha256": "a97fef35cb68e8319b1a235e3c2b6b96535be39724e330d6f4024611127ed91a",
+        "bytes": 14411,
+        "lines": 315
+      },
+      {
+        "path": "content/production/runs/dialogue-calibration-com00-20260930/accepted-long-excerpt.md",
+        "git_blob_sha": "3d4e3594bb24c843c2bc23300ac2d0dc24798b04",
+        "sha256": "cb357b4c4ba019622e70de9d0c175706c693441657abb6880ea00aa75d220506",
+        "bytes": 1791,
+        "lines": 59
+      }
+    ],
+    "original_approved_bank": {
+      "path": "content/production/voice/approved-examples.json",
+      "git_blob_sha": "d152d72c15ba1160bcdec625d36539739f58dee1",
+      "sha256": "f63005e9aa8d1ae9c7b3726b2337d9a0a8b75508f9ad4cb11e0abb65ad14b4d1"
+    },
+    "resolution_rule": "Legacy repository-relative evidence paths in this artifact resolve only to the exact path and hash listed here; resolution is provenance only and does not authorize production input.",
+    "projection_schema_version": "1.2.0",
+    "original_bank_schema_version": "1.1.0"
+  }
+}

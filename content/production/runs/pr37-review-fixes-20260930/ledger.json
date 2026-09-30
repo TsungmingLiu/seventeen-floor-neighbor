@@ -1,0 +1,199 @@
+{
+  "schema_version": "1.3.0",
+  "run_id": "pr37-review-fixes-20260930",
+  "workflow_version": "1.3.0",
+  "source_ref": "6cdad11f48b7164ac0229d981e170362a722840a",
+  "human_request": {
+    "summary": "Fix premature Jiang narration names, consistent upright prose and player speech badge; trim unneeded deliberation.",
+    "gate_status": "none"
+  },
+  "status": "NARRATIVE_PREVIEW_READY",
+  "tasks": [
+    {
+      "task_id": "NAME-FIX-JIANG-001",
+      "task_type": "scene_dialogue",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "control-plane:manual-bounded-packet",
+        "sha256": "45fe6a0795481f022d1b16f7fe3b302265f4863c3ea2fc2bb39e0c9daa609fa6"
+      },
+      "decision_receipt": "content/production/runs/pr37-review-fixes-20260930/NAME-FIX-JIANG-001.decision.json",
+      "input_versions": [],
+      "output_versions": [
+        {
+          "id": "locked_scene:COM-01B",
+          "version": "758b9d5c10b5767a9dcde11f0dab9d148d65858d0a4ea3215d2d0cc882a7aa64",
+          "location": "docs/narrative/scenes/vertical-slice/COM-01B.md"
+        },
+        {
+          "id": "locked_scene:COM-01J",
+          "version": "43904ea16b228752f82546cf6329f8aa3234a9601641b3602aa7c9f8fadfbc12",
+          "location": "docs/narrative/scenes/vertical-slice/COM-01J.md"
+        }
+      ],
+      "human_gate": "none"
+    },
+    {
+      "task_id": "NAME-QA-JIANG-001",
+      "task_type": "narrative_review",
+      "depends_on": [
+        "NAME-FIX-JIANG-001"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "control-plane:manual-bounded-packet",
+        "sha256": "85b629f4a680ff0cc8d2cd4be75ea40b85af81320d0b0a5a6beaeec14aabc4d7"
+      },
+      "decision_receipt": "content/production/runs/pr37-review-fixes-20260930/NAME-QA-JIANG-001.decision.json",
+      "input_versions": [
+        {
+          "id": "locked_scene:COM-01B",
+          "version": "758b9d5c10b5767a9dcde11f0dab9d148d65858d0a4ea3215d2d0cc882a7aa64",
+          "location": "docs/narrative/scenes/vertical-slice/COM-01B.md"
+        },
+        {
+          "id": "locked_scene:COM-01J",
+          "version": "43904ea16b228752f82546cf6329f8aa3234a9601641b3602aa7c9f8fadfbc12",
+          "location": "docs/narrative/scenes/vertical-slice/COM-01J.md"
+        }
+      ],
+      "output_versions": [
+        {
+          "id": "locked_scene:COM-01B",
+          "version": "758b9d5c10b5767a9dcde11f0dab9d148d65858d0a4ea3215d2d0cc882a7aa64",
+          "location": "docs/narrative/scenes/vertical-slice/COM-01B.md"
+        },
+        {
+          "id": "locked_scene:COM-01J",
+          "version": "43904ea16b228752f82546cf6329f8aa3234a9601641b3602aa7c9f8fadfbc12",
+          "location": "docs/narrative/scenes/vertical-slice/COM-01J.md"
+        }
+      ],
+      "human_gate": "none"
+    },
+    {
+      "task_id": "UI-PRESENTATION-FIX-001",
+      "task_type": "integrate",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "control-plane:manual-bounded-packet",
+        "sha256": "f67478c3400174bcc6674cdb7e312ee71bd0481ef36ed245ef3f8f8af44f5fd9"
+      },
+      "decision_receipt": "content/production/runs/pr37-review-fixes-20260930/UI-PRESENTATION-FIX-001.decision.json",
+      "input_versions": [],
+      "output_versions": [
+        {
+          "id": "src/engine.js",
+          "location": "src/engine.js",
+          "version": "4836f795aba56d520593cf50aab90c0fd11a25f9bce8bc02474e7b08e6b15874"
+        },
+        {
+          "id": "public/styles.css",
+          "location": "public/styles.css",
+          "version": "8e60383fd2f88f87aead4ebd9a5649d4a812eb1710961c9d0e4f930a9e1b6e0e"
+        },
+        {
+          "id": "tests/engine-progress.test.mjs",
+          "location": "tests/engine-progress.test.mjs",
+          "version": "d1a625a83add625d478c208d4bd927a6000408a5f16061b36eb4fa37856d7c86"
+        },
+        {
+          "id": "tests/browser-acceptance.spec.mjs",
+          "location": "tests/browser-acceptance.spec.mjs",
+          "version": "cb6aa0a8b53cdd36418596e13af3485a1b32b066488c1ce8a91b87f7ce61de8a"
+        }
+      ],
+      "human_gate": "none"
+    },
+    {
+      "task_id": "REVIEW-FIX-INTEGRATION-001",
+      "task_type": "integrate",
+      "depends_on": [
+        "NAME-QA-JIANG-001",
+        "UI-PRESENTATION-FIX-001"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "control-plane:manual-bounded-packet",
+        "sha256": "cd8ea7ac7970599e4380e3bd49cd9587c2cb5a653dd5387954998cc2040e8a43"
+      },
+      "decision_receipt": "content/production/runs/pr37-review-fixes-20260930/REVIEW-FIX-INTEGRATION-001.decision.json",
+      "input_versions": [
+        {
+          "id": "locked_scene:COM-01B",
+          "version": "758b9d5c10b5767a9dcde11f0dab9d148d65858d0a4ea3215d2d0cc882a7aa64",
+          "location": "docs/narrative/scenes/vertical-slice/COM-01B.md"
+        },
+        {
+          "id": "locked_scene:COM-01J",
+          "version": "43904ea16b228752f82546cf6329f8aa3234a9601641b3602aa7c9f8fadfbc12",
+          "location": "docs/narrative/scenes/vertical-slice/COM-01J.md"
+        },
+        {
+          "id": "src/engine.js",
+          "location": "src/engine.js",
+          "version": "4836f795aba56d520593cf50aab90c0fd11a25f9bce8bc02474e7b08e6b15874"
+        },
+        {
+          "id": "public/styles.css",
+          "location": "public/styles.css",
+          "version": "8e60383fd2f88f87aead4ebd9a5649d4a812eb1710961c9d0e4f930a9e1b6e0e"
+        },
+        {
+          "id": "tests/engine-progress.test.mjs",
+          "location": "tests/engine-progress.test.mjs",
+          "version": "d1a625a83add625d478c208d4bd927a6000408a5f16061b36eb4fa37856d7c86"
+        },
+        {
+          "id": "tests/browser-acceptance.spec.mjs",
+          "location": "tests/browser-acceptance.spec.mjs",
+          "version": "cb6aa0a8b53cdd36418596e13af3485a1b32b066488c1ce8a91b87f7ce61de8a"
+        }
+      ],
+      "output_versions": [
+        {
+          "id": "runtime_chapter:opening.ch1",
+          "location": "content/routes/opening-demo/chapter-01.json",
+          "version": "91bf628924dabf39320bd1b159a3db56dd6453d8f1fee8e5516a4ac19eb75ab4"
+        }
+      ],
+      "human_gate": "narrative_preview_review"
+    }
+  ],
+  "invalidation_events": [
+    {
+      "changed_artifact_id": "COM-01B",
+      "old_version": "1841069b01418627616765ca957b8155f31096a02f68437159fc00e5bfaa62dc",
+      "new_version": "758b9d5c10b5767a9dcde11f0dab9d148d65858d0a4ea3215d2d0cc882a7aa64",
+      "affected_task_ids": [],
+      "decision": "no_visual_impact",
+      "evidence": "content/production/runs/pr37-review-fixes-20260930/NAME-QA-JIANG-001.decision.json"
+    },
+    {
+      "changed_artifact_id": "COM-01J",
+      "old_version": "8a24114c116a67d75c8385920d8b3c880efe263f9d113b811dc9002de3feadb5",
+      "new_version": "43904ea16b228752f82546cf6329f8aa3234a9601641b3602aa7c9f8fadfbc12",
+      "affected_task_ids": [],
+      "decision": "no_visual_impact",
+      "evidence": "content/production/runs/pr37-review-fixes-20260930/NAME-QA-JIANG-001.decision.json"
+    }
+  ],
+  "preview": {
+    "commit": "df191051fc7f89fc61d9accba6d8d704537b1c26",
+    "profile": "narrative_preview",
+    "url_or_access_path": "https://pr-37.seventeen-floor-neighbor.pages.dev",
+    "visibility": "public",
+    "deployment_url": "https://ba25ae4c.seventeen-floor-neighbor.pages.dev",
+    "build": "PASS",
+    "validation": "PASS",
+    "tests": "GitHub Node 22: 83/83; public Chrome browser: 7/7 PASS",
+    "smoke": "PASS",
+    "public_deployment": "PASS",
+    "verify_run": "https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/36781169880",
+    "human_review": "PASS",
+    "human_review_scope": "narrative_preview_quality",
+    "human_review_statement": "質量過關，我可以給pass"
+  }
+}

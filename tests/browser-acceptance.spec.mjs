@@ -43,7 +43,7 @@ test('opening-demo saves its real cursor and resumes after reload', async ({ pag
 
   await page.locator('#advance-zone').click();
   await waitForDialogueReady(page);
-  await expect(page.locator('#dialogue-text')).toContainText('走廊上還剩三箱');
+  await expect(page.locator('#dialogue-text')).toContainText('還有三只紙箱，一張過不了門框的椅子。');
   const savedNode = await page.evaluate(() =>
     JSON.parse(localStorage.getItem('opening-demo-chapter-01:journey:v2')).cursor.nodeId
   );
@@ -56,7 +56,7 @@ test('opening-demo saves its real cursor and resumes after reload', async ({ pag
   await page.locator('#start-button').click();
   await enterPlayerName(page);
   await waitForDialogueReady(page);
-  await expect(page.locator('#dialogue-text')).toContainText('走廊上還剩三箱');
+  await expect(page.locator('#dialogue-text')).toContainText('還有三只紙箱，一張過不了門框的椅子。');
 });
 
 test('opening-demo title, Memories, Gallery, and game controls fit a 320px viewport', async ({ page }) => {
@@ -92,6 +92,32 @@ test('opening-demo title, Memories, Gallery, and game controls fit a 320px viewp
   for (const selector of ['#game-memories-button', '#game-home-button']) {
     expect((await page.locator(selector).boundingBox()).height).toBeGreaterThanOrEqual(44);
   }
+});
+
+test('title Memories and Gallery stay disabled until delayed route data mounts', async ({ page }) => {
+  let releaseIndexResponse;
+  let signalIndexRequest;
+  const indexResponseGate = new Promise(resolve => { releaseIndexResponse = resolve; });
+  const indexRequestSeen = new Promise(resolve => { signalIndexRequest = resolve; });
+  await page.route('**/content/routes/index.json', async route => {
+    signalIndexRequest();
+    await indexResponseGate;
+    await route.continue();
+  });
+
+  await page.goto('/');
+  await indexRequestSeen;
+  await expect(page.locator('#memories-button')).toBeDisabled();
+  await expect(page.locator('#gallery-button')).toBeDisabled();
+
+  releaseIndexResponse();
+  await expect(page.locator('#memories-button')).toBeEnabled();
+  await expect(page.locator('#gallery-button')).toBeEnabled();
+  await page.locator('#memories-button').click();
+  await expect(page.locator('#memories-screen')).toBeVisible();
+  await page.locator('#memories-back').click();
+  await page.locator('#gallery-button').click();
+  await expect(page.locator('#gallery-screen')).toBeVisible();
 });
 
 test('opening preview plays COM-00 → COM-01X → COM-01J → COM-02X and saves its shared exit', async ({ page }) => {
@@ -185,11 +211,13 @@ test('entered name persists through Continue and Memory replay without replacing
     else await page.locator('#advance-zone').click();
   }
   await expect(page.locator('#dialogue-text')).toContainText('小雨');
+  await expect(page.locator('#speaker')).toHaveText('小雨');
   await page.reload();
   await page.locator('#start-button').click();
   await expect(page.locator('#player-name-dialog')).not.toBeVisible();
   await waitForDialogueReady(page);
   await expect(page.locator('#dialogue-text')).toContainText('小雨');
+  await expect(page.locator('#speaker')).toHaveText('小雨');
 
   await page.locator('#game-home-button').click();
   await page.locator('#memories-button').click();
@@ -203,7 +231,29 @@ test('entered name persists through Continue and Memory replay without replacing
     else await page.locator('#advance-zone').click();
   }
   await expect(page.locator('#dialogue-text')).toContainText('小雨');
+  await expect(page.locator('#speaker')).toHaveText('小雨');
   expect(errors).toEqual([]);
+});
+
+test('narration and thought use matching upright text typography', async ({ page }) => {
+  await page.goto('/');
+  const typography = async (mode) => page.locator('#dialogue-panel').evaluate((panel, nextMode) => {
+    panel.dataset.mode = nextMode;
+    const style = getComputedStyle(panel.querySelector('#dialogue-text'));
+    return {
+      fontFamily: style.fontFamily,
+      fontSize: style.fontSize,
+      fontStyle: style.fontStyle,
+      letterSpacing: style.letterSpacing,
+      color: style.color
+    };
+  }, mode);
+
+  const narration = await typography('narration');
+  const thought = await typography('thought');
+  expect(narration.fontStyle).toBe('normal');
+  expect(thought.fontStyle).toBe('normal');
+  expect(thought).toEqual(narration);
 });
 
 test('pre-COM02X save keeps progress and asks for a name before Continue or replay', async ({ page }) => {

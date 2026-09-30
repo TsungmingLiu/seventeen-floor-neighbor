@@ -2,7 +2,7 @@
 
 Harness ID: `content_qa`
 
-Version: 1.1.0
+Version: 1.4.0
 
 ## Responsibility
 
@@ -11,6 +11,12 @@ Version: 1.1.0
 ## `narrative_review`
 
 Inputs：one Narrative Continuity Contract、one scene、only the canon excerpts used to author them。
+
+另做校準 preflight 時，只有 exact allowlist packet 明列 `docs/narrative/DIALOGUE_CALIBRATION.md` 才讀該政策，僅使用明列 ID/version/hash、Human 已批准且 context／scope 適用的完整互動節錄；不讀整個 bank、候選、退稿或 writer conversation。獨立核對適用邊界，區分 `hard_error` 與 `advisory`，不把 tentative 推論或樣本相似度當 hard rule。此 preflight 只回 advisory evidence，不滿足本 pass／Human scene gate。現有 generated `narrative_review` packet 不帶政策／樣本，verifier 不接受手動增加；正式 pass 保持原 packet 與機器／獨立 semantic QA。A/B/tie/neither 與樣本批准不批准 scene；兩幕 held-out 試跑最多一次 focused correction 後仍未過則人工診斷，成本／時間不豁免 hard checks。校準不適用 `visual_review`，不自動批准或替換 baseline。
+
+同一有界 preflight 也可核對 `human_revision` 的精確版本／scope，不強迫把 Human 替代／混合稿歸為 A/B。明列 directive 適用時，分開評口語自然度與 informality，容許自然的禮貌／距離；觀察 narration 不冒充他人動機。AI tags 保持 provisional，未示範的未來語域方向不變成 hard rule；修訂參考批准仍不等於 scene acceptance。
+
+明列本輪許棠初識 Human directive 時，檢查 initiative／話題深度／自我揭露，不以短答代表距離；區分 concise 與 socially incomplete。搬家提問是否有共享前事橋接、回應是否接住對方並容許普通鼓勵，都要按當地互動判斷，不自行推定 trust／romance。知道全名是否足以當面叫全名，與 narrator／speaker label 分開核對；不建立普遍稱呼禁令。語氣詞不按 quota 驗收。Human inline 修正後，原 v1 review 不涵蓋 v2；已作修正材料的 scene 不再算新的 held-out test。
 
 Pre-dispatch：對 generated `narrative_review` Task Packet 先跑 `npm run context -- --verify-packet <path>`；runtime graph、state writes、Memory、asset IDs、contract／CG manifest bindings 和 source hashes 由 machine QA 阻擋，FAIL 不進此 semantic pass。Worker 專注以下敘事判斷，不以機器 PASS 代替 QA。
 
@@ -42,6 +48,8 @@ Checks：
 - 中文出現明顯翻譯腔、書面摘要腔、過度工整對偶，與角色當時的口語情境不符。
 
 反過來，**不要把 filler 數量當成自然度指標**。沒有語助詞不代表錯；短句也不代表錯。QA 要判斷的是：角色與關係階段是否允許這種 conversational efficiency，以及整幕是否有自然的節奏變化。
+
+對具體提問或誤解作完整澄清，不因單一回合較長、用詞較正式或包含數項必要資訊就算履歷／摘要腔。先判斷這些資訊是否由當地問題自然引出、是否符合關係距離，再看整幕的反覆 pattern；不得為了降低資訊密度把合理回答機械拆短。
 
 尤其注意：
 

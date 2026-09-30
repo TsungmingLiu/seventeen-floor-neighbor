@@ -1,0 +1,41 @@
+{
+  "run_id": "pr37-review-fixes-20260930",
+  "task_id": "UI-PRESENTATION-FIX-001",
+  "status": "PASS",
+  "harness": {
+    "id": "integrator",
+    "pass": null
+  },
+  "packet_sha256": "f67478c3400174bcc6674cdb7e312ee71bd0481ef36ed245ef3f8f8af44f5fd9",
+  "handoff_sha256": "e365625491ba9b74004b9a4345ab1b6a767eadc8cb78fb1b01845ea0945b4450",
+  "outputs": [
+    {
+      "id": "src/engine.js",
+      "location": "src/engine.js",
+      "version": "4836f795aba56d520593cf50aab90c0fd11a25f9bce8bc02474e7b08e6b15874"
+    },
+    {
+      "id": "public/styles.css",
+      "location": "public/styles.css",
+      "version": "8e60383fd2f88f87aead4ebd9a5649d4a812eb1710961c9d0e4f930a9e1b6e0e"
+    },
+    {
+      "id": "tests/engine-progress.test.mjs",
+      "location": "tests/engine-progress.test.mjs",
+      "version": "d1a625a83add625d478c208d4bd927a6000408a5f16061b36eb4fa37856d7c86"
+    },
+    {
+      "id": "tests/browser-acceptance.spec.mjs",
+      "location": "tests/browser-acceptance.spec.mjs",
+      "version": "cb6aa0a8b53cdd36418596e13af3485a1b32b066488c1ce8a91b87f7ce61de8a"
+    }
+  ],
+  "qa_codes": [
+    "FOCUSED_ENGINE_9_PASS",
+    "DIFF_CHECK_PASS"
+  ],
+  "known_issues": [
+    "Combined build/validation/unit/browser acceptance deferred to integration."
+  ],
+  "human_gate": "none"
+}

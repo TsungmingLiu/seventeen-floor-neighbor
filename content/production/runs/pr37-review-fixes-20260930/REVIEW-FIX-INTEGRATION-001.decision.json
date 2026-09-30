@@ -1,0 +1,31 @@
+{
+  "run_id": "pr37-review-fixes-20260930",
+  "task_id": "REVIEW-FIX-INTEGRATION-001",
+  "status": "PASS",
+  "harness": {
+    "id": "integrator",
+    "version": "1.2.0",
+    "pass": null
+  },
+  "integration_mode": "narrative_preview",
+  "packet_sha256": "cd8ea7ac7970599e4380e3bd49cd9587c2cb5a653dd5387954998cc2040e8a43",
+  "handoff_sha256": "aafc6ecaeaeac783aef0ea8ccf439f81be4abb9b69f43df8ab06caf57c5f7450",
+  "source_ref": "cc22d4d0baa574a6589628e2b3cc18571ed01649",
+  "outputs": [
+    {
+      "id": "runtime_chapter:opening.ch1",
+      "location": "content/routes/opening-demo/chapter-01.json",
+      "version": "91bf628924dabf39320bd1b159a3db56dd6453d8f1fee8e5516a4ac19eb75ab4"
+    }
+  ],
+  "qa_codes": [
+    "TWO_TEXT_VALUES_ONLY",
+    "BUILD_PASS",
+    "CONTENT_AND_PRODUCTION_VALIDATION_PASS",
+    "PREVIEW_SMOKE_PASS",
+    "UNIT_83_OF_83_PASS",
+    "CHROME_BROWSER_7_OF_7_PASS",
+    "BROWSER_BODIES_UNCHANGED"
+  ],
+  "human_gate": "narrative_preview_review"
+}

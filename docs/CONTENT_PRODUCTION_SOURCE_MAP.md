@@ -2,9 +2,9 @@
 
 > Lifecycle: **CANONICAL**
 >
-> Version: 1.2.0
+> Version: 1.4.0
 >
-> Updated: 2026-09-26
+> Updated: 2026-09-30
 
 這份文件只做 **source inventory / routing index**：告訴 fresh worker 某個 domain 的 canonical source 在哪裡，以及該 source 擁有什麼。
 
@@ -30,6 +30,8 @@
 | Locked scene | `docs/narrative/scenes/vertical-slice/*.md` | scene-local narrative facts、dialogue、semantic visual beats | image-generation prompt syntax |
 | Narrative contract values | `content/production/narrative/<chapter>/<scene>.json` | approved scene-local continuity values | dialogue prose、camera |
 | Creative backlog | `docs/narrative/CONTENT_PRODUCTION_TODO.md` | production progress、gates、known blockers | duplicated prompt/spec |
+| Dialogue calibration policy | `docs/narrative/DIALOGUE_CALIBRATION.md` | bounded Human comparison／approval、context/scope/provenance contract、held-out pilot／停止條件 | new character canon、auto-learning、scene approval、milestone priority |
+| Approved dialogue references | `content/production/voice/approved-examples.json` | Human 明示批准的 immutable interaction versions 及限定用途；僅 Task Packet allowlist 的適用 entry 節錄可作參考 | whole-bank context、raw candidates/rejections、跨情境硬規則、canon／scene approval |
 | Visual direction | `docs/art/PRODUCTION_VISUAL_DIRECTION.md` | global visual contract、shot economy、responsive composition | scene-specific narrative choice |
 | Character identity | `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md` | identity/wardrobe/reference authority | scene purpose、camera |
 | CG production | `docs/art/CG_PRODUCTION_SPEC.md` + `.ai/schemas/CG_MANIFEST.md` | render-ready manifest contract、projection boundary | narrative rewrite |
@@ -52,6 +54,10 @@ Machine validation shapes：`.ai/schemas/narrative-continuity.schema.json`、`.a
 | `docs/archive/` | `ARCHIVED` | historical specs/prompts/recipes/proposals/content only；not Task Packet input |
 
 A provenance receipt may point into these roots as historical evidence. That pointer does not make the target executable guidance. A bounded research/migration task may inspect them only under the exception rules in `.ai/policies/SOURCE_AUTHORITY.md`.
+
+候選／退稿／原始回饋與空白範本是非 production 歷史材料；current bank 以精簡儲存投影呈現，storage_projection 與 storage_resolution 將省略欄位及歷史 evidence 路徑綁定到不可變 Git ref/path/blob/SHA。這些 locator 只供 provenance 核對，不授權 writer／QA 讀取原始候選，也不改變 Human approval、scope 或 entry 版本。Approved bank 的互動與 scope 仍以 current bank 及對應 Human 決定為準；新增／改版／縮限需本政策的 Human 明示決定。
+
+Human 參考決定保存在 content/production/voice/receipts/。刪除的回饋、候選、比較快照及完整原始 bank 由 bank／receipt 的 storage map 綁定到不可變 Git ref/path/blob/SHA；current bank 的互動、完整 scope 及非 evidence context 值維持原樣。Evidence locator 只供來源核對，不授權 production worker 沿指標讀取原始材料；正式 authoring input 仍限已批准 bank 的 task-local 節錄。參考決定 receipt 不代替 scene QA 或 Human playable acceptance。
 
 ## 3. Runtime fixture note
 
