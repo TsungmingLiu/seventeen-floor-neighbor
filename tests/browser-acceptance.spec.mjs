@@ -94,6 +94,32 @@ test('opening-demo title, Memories, Gallery, and game controls fit a 320px viewp
   }
 });
 
+test('title Memories and Gallery stay disabled until delayed route data mounts', async ({ page }) => {
+  let releaseIndexResponse;
+  let signalIndexRequest;
+  const indexResponseGate = new Promise(resolve => { releaseIndexResponse = resolve; });
+  const indexRequestSeen = new Promise(resolve => { signalIndexRequest = resolve; });
+  await page.route('**/content/routes/index.json', async route => {
+    signalIndexRequest();
+    await indexResponseGate;
+    await route.continue();
+  });
+
+  await page.goto('/');
+  await indexRequestSeen;
+  await expect(page.locator('#memories-button')).toBeDisabled();
+  await expect(page.locator('#gallery-button')).toBeDisabled();
+
+  releaseIndexResponse();
+  await expect(page.locator('#memories-button')).toBeEnabled();
+  await expect(page.locator('#gallery-button')).toBeEnabled();
+  await page.locator('#memories-button').click();
+  await expect(page.locator('#memories-screen')).toBeVisible();
+  await page.locator('#memories-back').click();
+  await page.locator('#gallery-button').click();
+  await expect(page.locator('#gallery-screen')).toBeVisible();
+});
+
 test('opening preview plays COM-00 → COM-01X → COM-01J → COM-02X and saves its shared exit', async ({ page }) => {
   test.setTimeout(120_000); // Full-story traversal includes the real typewriter animation.
   const errors = collectBlockingErrors(page);

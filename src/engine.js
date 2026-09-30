@@ -129,10 +129,12 @@ export class GameEngine {
     this.migrateCGUnlocks();
     this.updateGalleryProgress();
     this.updateMemoryProgress();
-    this.els.startButton.disabled = false;
     this.refreshTitle();
     this.bindEvents();
     this.updateMute();
+    this.els.startButton.disabled = false;
+    this.els.memoriesButton.disabled = false;
+    this.els.galleryButton.disabled = false;
   }
 
   bindEvents() {
