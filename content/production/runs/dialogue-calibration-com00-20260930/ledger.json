@@ -161,6 +161,213 @@
       ],
       "human_gate": "none",
       "reason": "Fresh independent same-domain delta QA PASS; explicit whole-scene no_visual_impact, affected beat IDs empty. Not image acceptance."
+    },
+    {
+      "task_id": "INT-COM00-CALIBRATION-001",
+      "task_type": "integrate",
+      "scene_id": "COM-00",
+      "integration_mode": "narrative_preview",
+      "depends_on": [
+        "NQA-COM00-CALIBRATION-001",
+        "NQA-COM00-VISUAL-DELTA-001"
+      ],
+      "status": "READY",
+      "source_ref": "d3bc470207f745cefbc24a082d07654334551f6b",
+      "packet": {
+        "generator": "manual exact accepted-scene integration packet",
+        "sha256": "1acf897c0de14869ccfd6bac4b0313ff5139de431676a399e3082b97993a2259"
+      },
+      "decision_receipt": null,
+      "input_versions": [
+        {
+          "id": "file:AGENTS.md",
+          "version": "11738676782ee873ca638175e129ee5628c94121",
+          "location": "AGENTS.md"
+        },
+        {
+          "id": "file:.ai/WORKFLOW_MANIFEST.yaml",
+          "version": "596250fd6848fcd1597b95f4e2136eca4b93ef8b",
+          "location": ".ai/WORKFLOW_MANIFEST.yaml"
+        },
+        {
+          "id": "file:.ai/harnesses/bootstrap.md",
+          "version": "895bab07e209c506b3b971ba7f35398ac4899ac9",
+          "location": ".ai/harnesses/bootstrap.md"
+        },
+        {
+          "id": "file:.ai/policies/SOURCE_AUTHORITY.md",
+          "version": "ce4cd2a1e96223eef7e474af51440f6089025f3f",
+          "location": ".ai/policies/SOURCE_AUTHORITY.md"
+        },
+        {
+          "id": "file:.ai/policies/CONTEXT_ISOLATION.md",
+          "version": "41d64227fc95501882525620bcf1de8fe396dc94",
+          "location": ".ai/policies/CONTEXT_ISOLATION.md"
+        },
+        {
+          "id": "file:docs/CONTENT_PRODUCTION_SOURCE_MAP.md",
+          "version": "aa2e557745535ed0527bfdef03687bfb45603d4b",
+          "location": "docs/CONTENT_PRODUCTION_SOURCE_MAP.md"
+        },
+        {
+          "id": "file:.ai/harnesses/integrator.md",
+          "version": "1c87e85f277ae5f71805aa8f14be5ea94f94c9c3",
+          "location": ".ai/harnesses/integrator.md"
+        },
+        {
+          "id": "file:.ai/schemas/TASK_PACKET.md",
+          "version": "46cfb18e376da3474daf3eb3def2aee790b0790b",
+          "location": ".ai/schemas/TASK_PACKET.md"
+        },
+        {
+          "id": "file:.ai/schemas/HANDOFF.md",
+          "version": "537cf1fffa3b59f8a57ab829a238a4a551ed9ddf",
+          "location": ".ai/schemas/HANDOFF.md"
+        },
+        {
+          "id": "file:ARCHITECTURE.md",
+          "version": "70c9d1ec5dc9de5708e06453b49d8df76242470f",
+          "location": "ARCHITECTURE.md"
+        },
+        {
+          "id": "file:package.json",
+          "version": "81a42bfd5ba38e58beec792be8a0c7faac92a0f8",
+          "location": "package.json"
+        },
+        {
+          "id": "file:docs/narrative/scenes/vertical-slice/COM-00.md",
+          "version": "59520478b9c3132cc3ccb1b6105f091b244131dc",
+          "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+        },
+        {
+          "id": "file:content/production/narrative/opening-ch1/COM-00.json",
+          "version": "8c06b6872300ac75808326dfc60179a0e82f76a5",
+          "location": "content/production/narrative/opening-ch1/COM-00.json"
+        },
+        {
+          "id": "file:content/production/runs/dialogue-calibration-com00-20260930/NQA-COM00-CALIBRATION-001.decision.json",
+          "version": "9192c166139f1a616bbad7570fdfb957d80c35be",
+          "location": "content/production/runs/dialogue-calibration-com00-20260930/NQA-COM00-CALIBRATION-001.decision.json"
+        },
+        {
+          "id": "file:content/production/runs/dialogue-calibration-com00-20260930/NQA-COM00-VISUAL-DELTA-001.decision.json",
+          "version": "434b1c996773306468c2104beabd48513b6ea5a2",
+          "location": "content/production/runs/dialogue-calibration-com00-20260930/NQA-COM00-VISUAL-DELTA-001.decision.json"
+        },
+        {
+          "id": "file:content/production/runs/dialogue-calibration-com00-20260930/human-long-trial.json",
+          "version": "1d997fc0b4e0ef2730d0af6f1f17243f262c174d",
+          "location": "content/production/runs/dialogue-calibration-com00-20260930/human-long-trial.json"
+        },
+        {
+          "id": "file:content/routes/opening-demo/chapter-01.json",
+          "version": "36a1e0c0e1518caff665bf703967be0a274ea240",
+          "location": "content/routes/opening-demo/chapter-01.json"
+        },
+        {
+          "id": "file:content/routes/opening-demo/route.json",
+          "version": "74b405d2fc4c8d4ad813e515cb6d9ed02805af29",
+          "location": "content/routes/opening-demo/route.json"
+        },
+        {
+          "id": "file:content/routes/opening-demo/memories.json",
+          "version": "89ecdf0d7b7bb2b0b3dc0fe2e71133b28749f2b9",
+          "location": "content/routes/opening-demo/memories.json"
+        },
+        {
+          "id": "file:content/assets/manifest.json",
+          "version": "ee0b5ddf71f1226625caa37aded4c9e5e6aa9054",
+          "location": "content/assets/manifest.json"
+        },
+        {
+          "id": "file:tools/build.mjs",
+          "version": "ef2ff71ab62dfd615bebdfaa38d8c51aa3950777",
+          "location": "tools/build.mjs"
+        },
+        {
+          "id": "file:tools/validate-content.mjs",
+          "version": "3a069ea1610ec45096492e87474817d1c27ee3d8",
+          "location": "tools/validate-content.mjs"
+        },
+        {
+          "id": "file:tools/validate-production-contracts.mjs",
+          "version": "7f0225a9c3cccbedc6ba4fb7776c812e9e1f7949",
+          "location": "tools/validate-production-contracts.mjs"
+        },
+        {
+          "id": "file:tools/content-lib.mjs",
+          "version": "996d332b9b2da9b9377bbe84f1f63d81d861cb57",
+          "location": "tools/content-lib.mjs"
+        },
+        {
+          "id": "file:tools/preview-server.mjs",
+          "version": "530d234c54b556775267506f6a3204098ce0c1bf",
+          "location": "tools/preview-server.mjs"
+        },
+        {
+          "id": "file:tests/opening-locked-scenes.test.mjs",
+          "version": "7409d9181b5dd09036cd2b0486ef545adeeda63a",
+          "location": "tests/opening-locked-scenes.test.mjs"
+        },
+        {
+          "id": "file:tests/branches.test.mjs",
+          "version": "79a0c8a7b4a97e6c2bb9f2a9e257ba4ca9f3b5fd",
+          "location": "tests/branches.test.mjs"
+        },
+        {
+          "id": "file:tests/progress.test.mjs",
+          "version": "4af46260929b5886f3e4851688481b22045e4861",
+          "location": "tests/progress.test.mjs"
+        },
+        {
+          "id": "file:tests/engine-progress.test.mjs",
+          "version": "0bb9b9fefb263785dad3be0a014eb47eaf9af2aa",
+          "location": "tests/engine-progress.test.mjs"
+        },
+        {
+          "id": "file:tests/memories.test.mjs",
+          "version": "a3c3d91d826d07b136d96b2a52cfbd001a8510da",
+          "location": "tests/memories.test.mjs"
+        },
+        {
+          "id": "file:tests/player-name.test.mjs",
+          "version": "09a3fc626ed38d2d7059bd2dfc7c8363cf7441e8",
+          "location": "tests/player-name.test.mjs"
+        },
+        {
+          "id": "file:tests/browser-acceptance.spec.mjs",
+          "version": "8aabd0fa944bf1d3aa17cd3deaba9810af222c8f",
+          "location": "tests/browser-acceptance.spec.mjs"
+        },
+        {
+          "id": "file:src/engine.js",
+          "version": "127c10c072f2e8fca536eaf24ce8d4a37908379a",
+          "location": "src/engine.js"
+        },
+        {
+          "id": "file:src/progress.js",
+          "version": "7f7ed6b539264e3b963da45a7c24eba07622e0ab",
+          "location": "src/progress.js"
+        },
+        {
+          "id": "file:src/memories.js",
+          "version": "b6c4457ea68301ddaec6d4eb3638d5c239287320",
+          "location": "src/memories.js"
+        },
+        {
+          "id": "file:src/branches.js",
+          "version": "d9744881f07d1b12ef9ebf8ca34f3b9bb93714a7",
+          "location": "src/branches.js"
+        },
+        {
+          "id": "file:src/player-name.js",
+          "version": "6f8bb81336e4bd716ad0b76f03772650ab7e61a4",
+          "location": "src/player-name.js"
+        }
+      ],
+      "output_versions": [],
+      "human_gate": "narrative_preview_review",
+      "reason": "Actual formal Narrative QA and fresh old/new no_visual_impact PASS; accepted scene text differs from runtime. Fresh integrator required; remote Cloudflare PR access pending."
     }
   ],
   "invalidation_events": [
