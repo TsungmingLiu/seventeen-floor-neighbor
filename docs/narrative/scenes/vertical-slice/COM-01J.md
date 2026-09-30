@@ -119,13 +119,13 @@ Choice design notes：
 
 **Protagonist (thought)**：網路上都說印得漂亮。我想看的倒是雨港篇究竟補了什麼。
 
-**Action**：男主走到設定集區。江雨澄已站在書架前，手上各翻著一本書。
+**Action**：我走到設定集區。江雨澄已站在書架前，手上各翻著一本書。
 
 **Visual**：`JYC-SPR-CAMPUS.thinking_before_reply`，3/4 側面，不看男主。
 
 ### `common_acg_first_meet_observation`
 
-**Action**：她翻到其中一本索引，再對照另一本跨頁。男主停在書架另一側，不靠近她手邊。
+**Action**：她翻到其中一本索引，再對照另一本跨頁。我停在書架另一側，不靠近她手邊。
 
 **Protagonist**：雨港篇的話，那本新版少了舊版兩張色彩稿。
 
@@ -171,11 +171,11 @@ Choice design notes：
 
 **Protagonist**：我想看實體印刷。電子版夜景暗的地方都糊在一起。
 
-**Action**：她這次立刻抬眼看了男主一下，又低頭看書頁。
+**Action**：她這次立刻抬眼看了我一下，又低頭看書頁。
 
 **Jiang Yucheng**：對，暗部幾乎黏在一起。實體這本分得開，可是紙又太亮；你看，燈正好照在這裡。
 
-**Action**：她把書頁偏離頂燈，示意反光位置；沒有把書遞給男主。
+**Action**：她把書頁偏離頂燈，示意反光位置；沒有把書遞給我。
 
 **Protagonist**：喔，真的。要一直避著燈翻？
 
@@ -235,7 +235,7 @@ Choice design notes：
 
 ### `common_acg_first_meet_exit`
 
-**Action**：有人從兩人中間的走道經過。雨澄往結帳方向退半步，男主讓開書架。
+**Action**：有人從兩人中間的走道經過。雨澄往結帳方向退半步，我讓開書架。
 
 **Jiang Yucheng**：如果主要看雨港篇，舊版還是比較值得。
 
@@ -243,7 +243,7 @@ Choice design notes：
 
 **Jiang Yucheng**：嗯。
 
-**Action**：她拿著選定的書走向結帳。男主退回書架另一側，翻開展示本。
+**Action**：她拿著選定的書走向結帳。我退回書架另一側，翻開展示本。
 
 **Protagonist (thought)**：這兩本還得再翻一下。北邊出口那間咖啡店，等一下也可以去看看。
 

@@ -103,7 +103,7 @@ Base scene exit 另有 `F_XT +1`；`com02x_ask_food` 的 bonus 保持鎖定，�
 
 **Visual**：切入 `CG-COM-03`。
 
-**Action**：男主轉身。許棠一手拿黑咖啡，另一手提著簡單餐盒。
+**Action**：我轉身。許棠一手拿黑咖啡，另一手提著簡單餐盒。
 
 **Protagonist**：欸，許棠。妳也下來買東西？
 
@@ -113,9 +113,9 @@ Base scene exit 另有 `F_XT +1`；`com02x_ask_food` 的 bonus 保持鎖定，�
 
 **Xu Tang**：喔，我懂。
 
-**Action**：她低頭看了一眼男主手上的餐盒，又看看自己那盒。
+**Action**：她低頭看了一眼我手上的餐盒，又看看自己那盒。
 
-**Action**：男主也看了她手上的餐盒。兩人停了半秒，冷藏櫃壓縮機重新響起來。
+**Action**：我也看了她手上的餐盒。兩人停了半秒，冷藏櫃壓縮機重新響起來。
 
 **Xu Tang**：你那盒也要加熱？
 
@@ -138,7 +138,7 @@ Base scene exit 另有 `F_XT +1`；`com02x_ask_food` 的 bonus 保持鎖定，�
 
 **Xu Tang**：有啊，過了前面那個路口還有一間。等出去比較好指。
 
-**Action**：她往玻璃門外看了一眼，又看回男主手裡的餐盒。
+**Action**：她往玻璃門外看了一眼，又看回我手裡的餐盒。
 
 **Xu Tang**：不過你已經拿了。是想現在去吃嗎？
 
@@ -182,7 +182,7 @@ Base scene exit 另有 `F_XT +1`；`com02x_ask_food` 的 bonus 保持鎖定，�
 
 **Xu Tang**：嗯。也算有一點綠色啦。
 
-**Action**：她嘴角動了一下。男主低頭把自己的餐盒轉了半圈，還是看不出裡面有什麼菜。
+**Action**：她嘴角動了一下。我低頭把手上的餐盒轉了半圈，還是看不出裡面有什麼菜。
 
 → Rejoin `common_convenience_xu_work`
 
@@ -200,7 +200,7 @@ Base scene exit 另有 `F_XT +1`；`com02x_ask_food` 的 bonus 保持鎖定，�
 
 **Xu Tang**：嗯。
 
-**Action**：兩人各自看了幾秒架上的東西。男主把餐盒拿穩，沒有再接這句。
+**Action**：兩人各自看了幾秒架上的東西。我把餐盒拿穩，沒有再接這句。
 
 → Rejoin `common_convenience_xu_work`
 
@@ -208,7 +208,7 @@ Base scene exit 另有 `F_XT +1`；`com02x_ask_food` 的 bonus 保持鎖定，�
 
 **Visual**：`XT-SPR-LATE-CASUAL.sleepy_annoyed`。
 
-**Action**：櫃檯前的人拿走加熱好的晚餐，店員問下一盒是誰的。男主應了一聲，把餐盒遞過去。許棠跟著往前挪，等另一台微波爐空出來。男主的手機亮了一下；他看過通知，按暗螢幕。
+**Action**：櫃檯前的人拿走加熱好的晚餐，店員問下一盒是誰的。我應了一聲，把餐盒遞過去。許棠跟著往前挪，等另一台微波爐空出來。我的手機亮了一下；我看過通知，按暗螢幕。
 
 **Xu Tang**：你還得回去忙喔？
 
@@ -224,7 +224,7 @@ Base scene exit 另有 `F_XT +1`；`com02x_ask_food` 的 bonus 保持鎖定，�
 
 **Xu Tang**：沒有啦。我也差不多。我那個還沒做完，做到一半才發現家裡沒東西吃。
 
-**Action**：微波爐轉了一圈。男主往計時器看了一眼。
+**Action**：微波爐轉了一圈。我往計時器看了一眼。
 
 **Protagonist**：妳那個很趕嗎？
 
@@ -244,7 +244,7 @@ Base scene exit 另有 `F_XT +1`；`com02x_ask_food` 的 bonus 保持鎖定，�
 
 ### `common_convenience_xu_checkout`
 
-**Action**：許棠先拿回自己的餐盒，和咖啡一起結帳。男主的那盒晚一步加熱好；等他結完帳走出店門，她正站在騎樓邊把收據塞進袋子。
+**Action**：許棠先拿回自己的餐盒，和咖啡一起結帳。我的餐盒晚一步加熱好；等我結完帳走出店門，她正站在騎樓邊把收據塞進袋子。
 
 **Action**：兩人往同一個方向走。路口還有剛下過雨的水光，前半段誰也沒有特地找話。
 
@@ -260,7 +260,7 @@ Base scene exit 另有 `F_XT +1`；`com02x_ask_food` 的 bonus 保持鎖定，�
 
 **Xu Tang**：嗯。所以今天我不繞了，這盒都買了。
 
-**Action**：過了路口後，兩人又安靜了一小段。許棠提著袋子，走到公寓前才稍微慢下來，讓男主先推開玻璃門。
+**Action**：過了路口後，兩人又安靜了一小段。許棠提著袋子，走到公寓前才稍微慢下來，讓我先推開玻璃門。
 
 ### `common_convenience_xu_exit`
 
@@ -276,7 +276,7 @@ Base scene exit 另有 `F_XT +1`；`com02x_ask_food` 的 bonus 保持鎖定，�
 
 **Xu Tang**：嗯，晚安。
 
-**Action**：她進 1702。男主繼續往 1703 走。
+**Action**：她進 1702。我繼續往 1703 走。
 
 **End actions**：套用 choice stats；`relationship.xu.familiarity +=1`；設定雙方工作輪廓 knowledge；前往 common sequence next target。
 

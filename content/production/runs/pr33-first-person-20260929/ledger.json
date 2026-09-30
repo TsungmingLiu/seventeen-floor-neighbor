@@ -1,0 +1,113 @@
+{
+  "schema_version": "1.3.0",
+  "run_id": "pr33-first-person-20260929",
+  "workflow_version": "1.3.0",
+  "source_ref": "13e4d71d1a0590d19b690d2ac292a7e081d8d539",
+  "human_request": {
+    "summary": "Owner passes existing dialogue and requests 男主→我 narration correction plus final review and merge.",
+    "gate_status": "conditional_narrative_acceptance"
+  },
+  "status": "ACTIVE",
+  "tasks": [
+    {
+      "task_id": "CW-POV-001",
+      "task_type": "scene_dialogue",
+      "scene_ids": [
+        "COM-00",
+        "COM-01X",
+        "COM-01B",
+        "COM-01J",
+        "COM-02X"
+      ],
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "owner-directed mechanical packet",
+        "sha256": "63db20f19046a44ed718d0a7a90aca04467fe779d362279c4a43478a71d3756f"
+      },
+      "decision_receipt": "content/production/runs/pr33-first-person-20260929/CW-POV-001.decision.json",
+      "input_versions": [
+        {
+          "id": "docs/narrative/scenes/vertical-slice/COM-00.md",
+          "location": "docs/narrative/scenes/vertical-slice/COM-00.md",
+          "version": "665fdd021d27b0e2ee8bd26c462fadbd00d1a1a8"
+        },
+        {
+          "id": "docs/narrative/scenes/vertical-slice/COM-01X.md",
+          "location": "docs/narrative/scenes/vertical-slice/COM-01X.md",
+          "version": "8196a1182f25276255aecea74d7b41026a9aaf32"
+        },
+        {
+          "id": "docs/narrative/scenes/vertical-slice/COM-01B.md",
+          "location": "docs/narrative/scenes/vertical-slice/COM-01B.md",
+          "version": "081bef01e36323c11fdeb3262ebd110ac63ed641"
+        },
+        {
+          "id": "docs/narrative/scenes/vertical-slice/COM-01J.md",
+          "location": "docs/narrative/scenes/vertical-slice/COM-01J.md",
+          "version": "3f305bda05e504ab7e8a0722337ee4c7cac6ff8b"
+        },
+        {
+          "id": "docs/narrative/scenes/vertical-slice/COM-02X.md",
+          "location": "docs/narrative/scenes/vertical-slice/COM-02X.md",
+          "version": "0858e051caf47c8cd4c50826a70cdd3d1b8b0f5a"
+        },
+        {
+          "id": "content/production/narrative/opening-ch1/COM-00.json",
+          "location": "content/production/narrative/opening-ch1/COM-00.json",
+          "version": "8c06b6872300ac75808326dfc60179a0e82f76a5"
+        },
+        {
+          "id": "content/production/narrative/opening-ch1/COM-01X.json",
+          "location": "content/production/narrative/opening-ch1/COM-01X.json",
+          "version": "8165567565b295e051abaf3bc0abb760eb60670d"
+        },
+        {
+          "id": "content/production/narrative/opening-ch1/COM-01B.json",
+          "location": "content/production/narrative/opening-ch1/COM-01B.json",
+          "version": "d02125cf9395eb81d7e2818fcab632caeaa69e3e"
+        },
+        {
+          "id": "content/production/narrative/opening-ch1/COM-01J.json",
+          "location": "content/production/narrative/opening-ch1/COM-01J.json",
+          "version": "faf7e36eb017124e43f511d3cea9c00884d4cb86"
+        },
+        {
+          "id": "content/production/narrative/opening-ch1/COM-02X.json",
+          "location": "content/production/narrative/opening-ch1/COM-02X.json",
+          "version": "5f85482b7c420a5f7726035e369679360f83cfd5"
+        }
+      ],
+      "output_versions": [
+        {
+          "id": "COM-00",
+          "location": "docs/narrative/scenes/vertical-slice/COM-00.md",
+          "version": "a6c518a8fb5a4297045672096a0c72de3631321a"
+        },
+        {
+          "id": "COM-01X",
+          "location": "docs/narrative/scenes/vertical-slice/COM-01X.md",
+          "version": "4dc02231b706015c6e6dfc633763f40ae51ddec0"
+        },
+        {
+          "id": "COM-01B",
+          "location": "docs/narrative/scenes/vertical-slice/COM-01B.md",
+          "version": "65015a8f9f2a24f2fe119b828671765ddfe5310c"
+        },
+        {
+          "id": "COM-01J",
+          "location": "docs/narrative/scenes/vertical-slice/COM-01J.md",
+          "version": "485974388d1dd1fb1a8eb46fd2c4645841cf4b1e"
+        },
+        {
+          "id": "COM-02X",
+          "location": "docs/narrative/scenes/vertical-slice/COM-02X.md",
+          "version": "938edf40f2f34a9faee054971f72747e213c73ee"
+        }
+      ],
+      "human_gate": "none"
+    }
+  ],
+  "invalidation_events": [],
+  "preview": null
+}

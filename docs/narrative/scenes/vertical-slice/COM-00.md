@@ -114,7 +114,7 @@ Branch guardrails：
 
 ### `common_movein_rain_door`
 
-**Action**：男主抬起紙箱右側；箱角卡住正在回彈的防火門。
+**Action**：我抬起紙箱右側；箱角卡住正在回彈的防火門。
 
 **Narration**：我用肩膀頂住門，箱子偏偏往外歪。
 
@@ -150,7 +150,7 @@ Branch guardrails：
 
 **Protagonist**：啊，對。這樣呢？
 
-**Action**：男主把箱子推離門線。
+**Action**：我把箱子推離門線。
 
 **Xu Tang**：可以了。
 
@@ -168,7 +168,7 @@ Branch guardrails：
 
 **Protagonist**：喔，對。我以為過線就好了。
 
-**Action**：男主把箱子推離門線。
+**Action**：我把箱子推離門線。
 
 → Rejoin `common_movein_rain_names`
 
@@ -178,7 +178,7 @@ Branch guardrails：
 
 **Xu Tang**：好。再一點點。
 
-**Action**：男主把箱子挪離門線；她確認門線淨空。
+**Action**：我把箱子挪離門線；她確認門線淨空。
 
 **Protagonist**：這樣可以嗎？
 
@@ -206,7 +206,7 @@ Branch guardrails：
 
 **Protagonist**：晚安。
 
-**Action**：她刷卡進 1702，沒有回頭停留。男主把最後一箱拖進 1703。門口騰出空間後，他回頭把椅子側過來，椅背斜進門框，椅腳也跟著進了 1703。
+**Action**：她刷卡進 1702，沒有回頭停留。我把最後一箱拖進 1703。門口騰出空間後，我回頭把椅子側過來，椅背斜進門框，椅腳也跟著進了 1703。
 
 **Visual**：無人物；走廊恢復空景。
 

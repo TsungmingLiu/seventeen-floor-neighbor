@@ -103,13 +103,13 @@ Branch guardrails：
 
 **Visual**：`BG-APT-ELEVATOR.normal`。許棠位於畫面右側，`XT-SPR-WEEKDAY.neutral_observant`。
 
-**Action**：一樓電梯門將關時，許棠伸手擋住感應區進來。她看見男主，點了一下頭。
+**Action**：一樓電梯門將關時，許棠伸手擋住感應區進來。她看見我，點了一下頭。
 
 **Xu Tang**：晚上好。
 
 **Protagonist**：晚上好。
 
-**Action**：男主伸手要按 17 樓，發現按鍵已亮，又把手收回來。兩人各站一側，電梯往上走。
+**Action**：我伸手要按 17 樓，發現按鍵已亮，又把手收回來。兩人各站一側，電梯往上走。
 
 **Xu Tang**：箱子都清完了？
 
@@ -117,7 +117,7 @@ Branch guardrails：
 
 **Xu Tang**：嗯，第三天差不多都這樣。
 
-**Action**：電梯繼續往上。兩人安靜了一會兒；許棠看見男主手上的袋子。
+**Action**：電梯繼續往上。兩人安靜了一會兒；許棠看見我手上的袋子。
 
 **Xu Tang**：住得還習慣嗎？
 
@@ -147,7 +147,7 @@ Branch guardrails：
 
 **Protagonist**：可能還在讀取住戶資料。
 
-**Action**：許棠看了他一眼，嘴角動了一下。
+**Action**：許棠看了我一眼，嘴角動了一下。
 
 **Xu Tang**：那你可能還在新手教學。
 
@@ -165,7 +165,7 @@ Branch guardrails：
 
 #### Branch `com01x_wait_quietly`
 
-**Action**：男主往旁邊讓半步。兩人一起看著樓層面板。
+**Action**：我往旁邊讓半步。兩人一起看著樓層面板。
 
 **Narration**：那幾秒，只有通風聲。誰也沒開口。
 
@@ -197,7 +197,7 @@ Branch guardrails：
 
 **Visual**：電梯門打開，露出 17 樓走廊。
 
-**Action**：許棠按住開門鍵。男主先提著手上的袋子走出電梯。
+**Action**：許棠按住開門鍵。我先提著袋子走出電梯。
 
 **Protagonist**：喔，剛剛那個，謝啦。
 
