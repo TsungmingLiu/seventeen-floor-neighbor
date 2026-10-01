@@ -87,11 +87,14 @@ test('Codex exec command is ephemeral, schema-constrained and uses permission pr
   assert.ok(args.includes('--output-schema'));
   assert.ok(args.includes('--output-last-message'));
   assert.ok(!args.includes('--sandbox'));
+  assert.ok(args.includes('forced_login_method="chatgpt"'));
+  assert.ok(args.includes('history.persistence="none"'));
   assert.ok(args.includes('default_permissions="poc-worker"'));
   assert.ok(args.some((value) => value.includes('":root"="deny"')));
   assert.ok(args.some((value) => value.includes('":workspace_roots"={"."="read"}')));
   assert.ok(args.includes('permissions.poc-worker.network={enabled=false}'));
   assert.ok(args.includes('web_search="disabled"'));
+  assert.ok(args.includes('tools.web_search=false'));
   assert.ok(args.includes('features.multi_agent=false'));
   assert.equal(args.at(-1), '-');
 });
