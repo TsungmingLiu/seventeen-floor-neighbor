@@ -1,9 +1,14 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { createHash } from 'node:crypto';
+import { spawnSync } from 'node:child_process';
+import { rm } from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { sliceExcerpt, validateNarrativeHandoff } from '../tools/agents-api-producer-poc.mjs';
 
 const digest = (value) => createHash('sha256').update(value).digest('hex');
+const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 test('sliceExcerpt enforces the exact Task Packet excerpt bytes', () => {
   const text = ['zero', 'one', 'two', 'three'].join('\n');
@@ -79,4 +84,43 @@ test('validateNarrativeHandoff rejects stale or broadened worker output', () => 
   const canonChange = structuredClone(handoff);
   canonChange.canon_changes.none = false;
   assert.throws(() => validateNarrativeHandoff(packet, canonChange), /must not report canon changes/);
+});
+
+test('dry-run uses the real narrative packet generator and exposes only a bounded offline bundle', async () => {
+  const runId = `agents-poc-dry-${process.pid}-${Date.now()}`;
+  const taskId = 'NQA-COM00-AGENTS-POC-DRY';
+  const cache = path.join(projectRoot, 'generated/session-cache', runId);
+  try {
+    const result = spawnSync(process.execPath, [
+      'tools/agents-api-producer-poc.mjs',
+      '--scene', 'COM-00',
+      '--run-id', runId,
+      '--task-id', taskId,
+      '--dry-run'
+    ], {
+      cwd: projectRoot,
+      encoding: 'utf8',
+      timeout: 180_000
+    });
+    assert.equal(result.status, 0, result.stderr || result.stdout);
+    const summary = JSON.parse(result.stdout);
+    assert.equal(summary.mode, 'dry-run');
+    assert.equal(summary.scene_id, 'COM-00');
+    assert.equal(summary.task_id, taskId);
+    assert.equal(summary.network_access, 'disabled');
+    assert.equal(summary.repo_write_access, false);
+    assert.ok(summary.source_count > 0);
+    assert.equal(summary.source_count, summary.source_index.length);
+    assert.ok(summary.source_index.every((source) =>
+      source.workspace_path.startsWith('/workspace/sources/') &&
+      !source.canonical_path.startsWith('.ai/archive/') &&
+      !source.canonical_path.startsWith('.ai/experiments/') &&
+      !source.canonical_path.startsWith('docs/archive/')));
+    assert.ok(summary.source_index.some((source) =>
+      source.canonical_path === 'docs/narrative/scenes/vertical-slice/COM-00.md'));
+    assert.ok(summary.source_index.some((source) =>
+      source.canonical_path === 'content/production/narrative/opening-ch1/COM-00.json'));
+  } finally {
+    await rm(cache, { recursive: true, force: true });
+  }
 });
