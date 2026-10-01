@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "com02x-cg-20260930",
+  "task_id": "VQA-ENV-COM02X-001",
+  "scene_id": "COM-02X",
+  "task_type": "visual_review",
+  "status": "FAIL",
+  "workflow_version": "1.3.0",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.4.0",
+    "pass": "visual_review"
+  },
+  "source_ref": "bdca7796b8e28cc9047f7ef972b4f49084fc2682",
+  "packet_sha256": "604f462f5ac2a9a02812ffd98ebcaf02d98f4e2643ab747051463fbc1a88a126",
+  "handoff_sha256": "c5772abe874c1c417ceb8749919ebec01807185e104ae543d9db77388d7f053e",
+  "input_versions": [
+    {
+      "id": "manifest:COM02X-environment",
+      "version": "34cea38d744962f5ee821f7001e8b4b700b5f5b8810015c1b0d3fc387853b782",
+      "location": "content/production/cg-manifests/opening-ch1-com02x-environment.json"
+    },
+    {
+      "id": "candidate:COM02X-environment-001",
+      "version": "44b21d81cfac0dcbbd97ecd203c87553ca549651bb4b45aa7a96614102164bb3",
+      "location": "candidate:COM02X-ENV-CANDIDATE-001"
+    },
+    {
+      "id": "render-decision:COM02X-environment",
+      "version": "10114fa509aa400d62702bf5dcca4f21ddc4077180c4ceaa18689897034c02b8",
+      "location": "content/production/runs/com02x-cg-20260930/RENDER-ENV-COM02X-001.decision.json"
+    },
+    {
+      "id": "render-provenance:COM02X-environment",
+      "version": "d54a0bb0bb62c4edaa30031d2bffb7cd93fca22893968d74c3f63fb7b257d9b6",
+      "location": "generated/session-cache/com02x-cg-20260930/COM02X-environment.api.jsonl"
+    }
+  ],
+  "output_versions": [],
+  "qa_codes": [
+    {
+      "name": "candidate_identity_mime_hash_and_pixels",
+      "result": "PASS",
+      "observation": "Exact packet filename and SHA-256 verified; file is PNG 1672x941 and candidate pixels were inspected directly."
+    },
+    {
+      "name": "resolution_and_aspect_ratio",
+      "result": "FAIL",
+      "observation": "1672x941 is approximately 16:9 but below the manifest minimum accepted master size of 1920x1080 (target 2560x1440)."
+    },
+    {
+      "name": "environment_content_and_no_people",
+      "result": "PASS",
+      "observation": "Visible refrigerated meal trays and adjacent bottled dark coffee, open aisle, glass storefront, wet pavement reflections, checkout and two microwaves appear in one coherent store. No people, body parts, human silhouettes or human reflections are visible."
+    },
+    {
+      "name": "lighting_materials_and_physical_plausibility",
+      "result": "PASS",
+      "observation": "Practical cool-white ceiling and refrigerator lights, restrained cool night exterior, plausible glass/metal/plastic surfaces and coherent perspective. No evident impossible topology or reflection artifact."
+    },
+    {
+      "name": "composition_crop_and_dialogue_safe_zone",
+      "result": "PASS",
+      "observation": "The central open aisle and storefront remain readable; meal and wet-night cues sit within the central band and above the bottom dialogue region. Lower frame is predominantly low-information floor/cabinet base, with food displays at the far left edge."
+    },
+    {
+      "name": "style_branding_and_text",
+      "result": "PASS",
+      "observation": "Photographic environment treatment; no identifiable real branding, prominent legible pseudo-text, embedded captions, UI or watermark observed."
+    },
+    {
+      "name": "environment_reference_usefulness",
+      "result": "PASS",
+      "observation": "Useful pixels for environment continuity: store layout, chilled food, coffee placement, wet-night storefront, lighting and materials are clearly legible. This does not satisfy accepted-master resolution or establish Human runtime-master acceptance."
+    }
+  ],
+  "known_issues": [
+    "Resolution criterion fails: 1672x941 versus required minimum 1920x1080. Route to CG Planner to clarify reference-only scope; do not treat as accepted runtime master."
+  ],
+  "human_gate": "none",
+  "review_scope": "candidate"
+}

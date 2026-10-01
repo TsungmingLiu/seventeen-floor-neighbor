@@ -389,6 +389,46 @@
       ],
       "human_gate": "none",
       "reason": null
+    },
+    {
+      "task_id": "VQA-ENV-COM02X-001",
+      "task_type": "visual_review",
+      "review_scope": "candidate",
+      "scene_id": "COM-02X",
+      "depends_on": [
+        "RENDER-ENV-COM02X-001"
+      ],
+      "status": "FAIL",
+      "packet": {
+        "generator": "manual exact bounded packet; source identities recorded",
+        "sha256": "604f462f5ac2a9a02812ffd98ebcaf02d98f4e2643ab747051463fbc1a88a126"
+      },
+      "decision_receipt": "content/production/runs/com02x-cg-20260930/VQA-ENV-COM02X-001.decision.json",
+      "input_versions": [
+        {
+          "id": "manifest:COM02X-environment",
+          "version": "34cea38d744962f5ee821f7001e8b4b700b5f5b8810015c1b0d3fc387853b782",
+          "location": "content/production/cg-manifests/opening-ch1-com02x-environment.json"
+        },
+        {
+          "id": "candidate:COM02X-environment-001",
+          "version": "44b21d81cfac0dcbbd97ecd203c87553ca549651bb4b45aa7a96614102164bb3",
+          "location": "candidate:COM02X-ENV-CANDIDATE-001"
+        },
+        {
+          "id": "render-decision:COM02X-environment",
+          "version": "10114fa509aa400d62702bf5dcca4f21ddc4077180c4ceaa18689897034c02b8",
+          "location": "content/production/runs/com02x-cg-20260930/RENDER-ENV-COM02X-001.decision.json"
+        },
+        {
+          "id": "render-provenance:COM02X-environment",
+          "version": "d54a0bb0bb62c4edaa30031d2bffb7cd93fca22893968d74c3f63fb7b257d9b6",
+          "location": "generated/session-cache/com02x-cg-20260930/COM02X-environment.api.jsonl"
+        }
+      ],
+      "output_versions": [],
+      "human_gate": "none",
+      "reason": "The manifest acceptance criterion requires at least 1920x1080. The candidate is 1672x941, so candidate acceptance cannot pass despite its usefulness as environment-reference pixels. Clarify with the CG Planner whether reference-only scope is intended; QA cannot waive or change the resolution requirement."
     }
   ],
   "invalidation_events": [],
