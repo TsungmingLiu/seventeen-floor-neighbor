@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "com02x-cg-20260930",
+  "task_id": "PLAN-ENV-COM02X-001",
+  "scene_id": "COM-02X",
+  "task_type": "cg_plan",
+  "status": "PASS",
+  "workflow_version": "1.3.0",
+  "harness": {
+    "id": "cg_planner",
+    "version": "1.0.0",
+    "pass": null
+  },
+  "source_ref": "fb21d1a7ffb959aac49dcc264f07805c7a8372e7",
+  "packet_sha256": "451e3dedcc64251234771408a922eb0ba0b4e754c5fe9e7584cc03c3ccbcca6e",
+  "handoff_sha256": "704c77cf7955ee003d2d2d11c54e6762907fc89dc81ca214f806038bed49c27d",
+  "input_versions": [
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-02X.md",
+      "version": "938edf40f2f34a9faee054971f72747e213c73ee",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02X.md"
+    },
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-02X.json",
+      "version": "5f85482b7c420a5f7726035e369679360f83cfd5",
+      "location": "content/production/narrative/opening-ch1/COM-02X.json"
+    },
+    {
+      "id": "file:docs/art/PRODUCTION_VISUAL_DIRECTION.md",
+      "version": "4abc2e8957cdcd9c96c2329f17a1238bd6b42df1",
+      "location": "docs/art/PRODUCTION_VISUAL_DIRECTION.md"
+    },
+    {
+      "id": "file:docs/art/CG_PRODUCTION_SPEC.md",
+      "version": "43af519d5229744f8dd225dc05036e37d4e3f4d1",
+      "location": "docs/art/CG_PRODUCTION_SPEC.md"
+    },
+    {
+      "id": "file:.ai/schemas/CG_MANIFEST.md",
+      "version": "3fe4dbddf92f4bee9d84109672a9c0d912bd0c07",
+      "location": ".ai/schemas/CG_MANIFEST.md"
+    },
+    {
+      "id": "file:.ai/schemas/cg-manifest.schema.json",
+      "version": "a0ca0559ef62191546dbf75c92f04911a8d7a42e",
+      "location": ".ai/schemas/cg-manifest.schema.json"
+    },
+    {
+      "id": "file:.ai/schemas/VISUAL_CONTINUITY.md",
+      "version": "b2014095dc48df8dd4a03a705340e76b20f6376c",
+      "location": ".ai/schemas/VISUAL_CONTINUITY.md"
+    },
+    {
+      "id": "file:content/assets/source-catalog.json",
+      "version": "df8db5de75cdcd16131141433f43b9eabf717769",
+      "location": "content/assets/source-catalog.json"
+    },
+    {
+      "id": "file:content/assets/manifest.json",
+      "version": "ee0b5ddf71f1226625caa37aded4c9e5e6aa9054",
+      "location": "content/assets/manifest.json"
+    },
+    {
+      "id": "file:content/production/runs/pr33-first-person-20260929/NQA-COM02X-POV-001.decision.json",
+      "version": "f38fd7364156f90663af67aaec4cbcc7134379ad",
+      "location": "content/production/runs/pr33-first-person-20260929/NQA-COM02X-POV-001.decision.json"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "COM02X-environment-reference-manifest",
+      "version": "34cea38d744962f5ee821f7001e8b4b700b5f5b8810015c1b0d3fc387853b782",
+      "location": "content/production/cg-manifests/opening-ch1-com02x-environment.json"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "exact-ref-and-all-required-acquisitions",
+      "result": "PASS"
+    },
+    {
+      "name": "inherited-narrative-approval-current-scene-contract-blobs",
+      "result": "PASS"
+    },
+    {
+      "name": "one-no-people-environment-origin-authorized-existing-schema",
+      "result": "PASS"
+    },
+    {
+      "name": "production-schema-and-cross-file-validator",
+      "result": "PASS",
+      "evidence": "npm run production:validate: Validated 5 Narrative Continuity Contracts and 13 CG Manifest Entries."
+    },
+    {
+      "name": "diff-whitespace",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [],
+  "human_gate": "none"
+}
