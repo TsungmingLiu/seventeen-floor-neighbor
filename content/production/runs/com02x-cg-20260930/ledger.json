@@ -277,6 +277,81 @@
       ],
       "output_versions": [],
       "human_gate": "none"
+    },
+    {
+      "task_id": "MUA-ENV-COM02X-002",
+      "task_type": "visual_review",
+      "review_scope": "manifest_usability",
+      "scene_id": "COM-02X",
+      "depends_on": [
+        "PLAN-ENV-COM02X-001"
+      ],
+      "status": "RUNNING",
+      "packet": {
+        "generator": "manual exact bounded packet; source identities recorded",
+        "sha256": "bf9307d962b9e6d4ddd6ae1a8c97ca6443aa4fc600129d8b1eb070255c755fb0"
+      },
+      "decision_receipt": null,
+      "input_versions": [
+        {
+          "id": "file:docs/narrative/scenes/vertical-slice/COM-02X.md",
+          "version": "938edf40f2f34a9faee054971f72747e213c73ee",
+          "location": "docs/narrative/scenes/vertical-slice/COM-02X.md"
+        },
+        {
+          "id": "file:content/production/narrative/opening-ch1/COM-02X.json",
+          "version": "5f85482b7c420a5f7726035e369679360f83cfd5",
+          "location": "content/production/narrative/opening-ch1/COM-02X.json"
+        },
+        {
+          "id": "file:docs/art/PRODUCTION_VISUAL_DIRECTION.md",
+          "version": "4abc2e8957cdcd9c96c2329f17a1238bd6b42df1",
+          "location": "docs/art/PRODUCTION_VISUAL_DIRECTION.md"
+        },
+        {
+          "id": "file:docs/art/CG_PRODUCTION_SPEC.md",
+          "version": "43af519d5229744f8dd225dc05036e37d4e3f4d1",
+          "location": "docs/art/CG_PRODUCTION_SPEC.md"
+        },
+        {
+          "id": "file:.ai/schemas/CG_MANIFEST.md",
+          "version": "3fe4dbddf92f4bee9d84109672a9c0d912bd0c07",
+          "location": ".ai/schemas/CG_MANIFEST.md"
+        },
+        {
+          "id": "file:.ai/schemas/cg-manifest.schema.json",
+          "version": "a0ca0559ef62191546dbf75c92f04911a8d7a42e",
+          "location": ".ai/schemas/cg-manifest.schema.json"
+        },
+        {
+          "id": "file:.ai/schemas/VISUAL_CONTINUITY.md",
+          "version": "b2014095dc48df8dd4a03a705340e76b20f6376c",
+          "location": ".ai/schemas/VISUAL_CONTINUITY.md"
+        },
+        {
+          "id": "file:content/assets/source-catalog.json",
+          "version": "df8db5de75cdcd16131141433f43b9eabf717769",
+          "location": "content/assets/source-catalog.json"
+        },
+        {
+          "id": "file:content/assets/manifest.json",
+          "version": "ee0b5ddf71f1226625caa37aded4c9e5e6aa9054",
+          "location": "content/assets/manifest.json"
+        },
+        {
+          "id": "file:content/production/runs/pr33-first-person-20260929/NQA-COM02X-POV-001.decision.json",
+          "version": "f38fd7364156f90663af67aaec4cbcc7134379ad",
+          "location": "content/production/runs/pr33-first-person-20260929/NQA-COM02X-POV-001.decision.json"
+        },
+        {
+          "id": "manifest:COM02X-environment",
+          "version": "34cea38d744962f5ee821f7001e8b4b700b5f5b8810015c1b0d3fc387853b782",
+          "location": "content/production/cg-manifests/opening-ch1-com02x-environment.json"
+        }
+      ],
+      "output_versions": [],
+      "human_gate": "none",
+      "reason": "Focused corrective redispatch for COM-00-only verifier misuse and source-ref binding; no creative change"
     }
   ],
   "invalidation_events": [],
