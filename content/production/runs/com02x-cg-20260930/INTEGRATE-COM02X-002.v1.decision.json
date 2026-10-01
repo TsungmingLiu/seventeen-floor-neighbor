@@ -11,13 +11,13 @@
     "version": "1.2.0",
     "pass": null
   },
-  "source_ref": "47e5a8e8ee871e0794bf02bf5d6994678a7c5af1",
-  "packet_sha256": "5133a716bce91b980ee9571e4d8a2fae1028e047595ab136ac90cc9e02df5f3e",
-  "handoff_sha256": "82e49a8a5256c59c59b1fe152c55129c379a02fe45d32957b4fd1f6720c3552c",
+  "source_ref": "1f96a4841a8acb753c45119385ef62ebaec47fcc",
+  "packet_sha256": "69a6c68ad182a32e2affaef4136805ceb9a7064423971868f03c1149bf3d7ce7",
+  "handoff_sha256": "d3e0fdb8bf56f647caeb5402d81b03c8bbd4a91b38a9e628a2f6ff463dc25f31",
   "input_versions": [
     {
       "id": "tests/browser-acceptance.spec.mjs",
-      "version": "f9f9f5e7595c3d2810a7ea4b60566ccfb7a70d81761894b15150847d8c63bd05",
+      "version": "d1354f8894953b49d3ea7884fbb6c05193eae11924ef781ad1d84d3eb455d2d3",
       "location": "tests/browser-acceptance.spec.mjs"
     },
     {
@@ -39,17 +39,17 @@
   "output_versions": [
     {
       "id": "COM02X-browser-asset-path-normalization",
-      "version": "be8c1724a8d17d79d55fdd6a1818e168b4caef5023bf60b81d69720dc3a11c70",
+      "version": "f9f9f5e7595c3d2810a7ea4b60566ccfb7a70d81761894b15150847d8c63bd05",
       "location": "tests/browser-acceptance.spec.mjs"
     }
   ],
   "qa_codes": [
     {
-      "name": "Amended packet revision 2 and required input hashes verified",
+      "name": "Packet failure, test location, and all four source hashes verified",
       "result": "PASS"
     },
     {
-      "name": "Relative and absolute URLs for both COM02X assets normalize to exact expected pathnames; wrong path rejected",
+      "name": "Relative and absolute URL path normalization preserves exact COM02X pathname",
       "result": "PASS"
     },
     {
@@ -62,11 +62,9 @@
     }
   ],
   "known_issues": [
-    "Corrected source revision 2 requires its own remote browser CI run; no browser PASS is claimed."
+    "Corrected remote browser CI has not run; pending and not claimed as PASS."
   ],
   "human_gate": "none",
-  "artifact_revision": 2,
-  "prior_revision_receipt": "content/production/runs/com02x-cg-20260930/INTEGRATE-COM02X-002.v1.decision.json",
   "integration_mode": "final",
   "pending_remote_verification": true
 }

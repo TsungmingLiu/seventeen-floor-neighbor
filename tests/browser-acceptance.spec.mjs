@@ -148,7 +148,7 @@ test('opening preview plays COM-00 → COM-01X → COM-01J → COM-02X and saves
       sawCom02xRecognitionCg = true;
     }
     if (activeNode === 'common_convenience_xu_choice') {
-      expect(currentSceneSrc).toContain('/assets/opening-ch1-demo/com02x-bg-01-v1.webp');
+      expect(new URL(currentSceneSrc, page.url()).pathname).toBe('/assets/opening-ch1-demo/com02x-bg-01-v1.webp');
       sawCom02xChoiceBackground = true;
     }
     const choiceButtons = page.locator('#choice-list .choice-button');
