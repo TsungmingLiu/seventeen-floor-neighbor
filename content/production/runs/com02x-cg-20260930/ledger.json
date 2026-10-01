@@ -349,6 +349,46 @@
       ],
       "human_gate": "none",
       "reason": null
+    },
+    {
+      "task_id": "RENDER-ENV-COM02X-001",
+      "task_type": "cg_render",
+      "scene_id": "COM-02X",
+      "depends_on": [
+        "PACKET-ENV-COM02X-001"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual exact bounded packet; source identities recorded",
+        "sha256": "a68e7c2deb7f786732f488f58a7262c81155c775a8aa9c14a69d9356ad9a8d27"
+      },
+      "decision_receipt": "content/production/runs/com02x-cg-20260930/RENDER-ENV-COM02X-001.decision.json",
+      "input_versions": [
+        {
+          "id": "manifest:COM02X-environment",
+          "version": "34cea38d744962f5ee821f7001e8b4b700b5f5b8810015c1b0d3fc387853b782",
+          "location": "content/production/cg-manifests/opening-ch1-com02x-environment.json"
+        },
+        {
+          "id": "render-packet:COM02X-environment",
+          "version": "d54a0bb0bb62c4edaa30031d2bffb7cd93fca22893968d74c3f63fb7b257d9b6",
+          "location": "derived:COM02X-ENV-CONVENIENCE-NIGHT-REFERENCE"
+        },
+        {
+          "id": "deterministic-projection-decision:COM02X-environment",
+          "version": "8a9704d99fa6748355d71d3916b227652267afaa42b4b41e1cbc4605656fc388",
+          "location": "content/production/runs/com02x-cg-20260930/PACKET-ENV-COM02X-001.decision.json"
+        }
+      ],
+      "output_versions": [
+        {
+          "id": "COM02X-ENV-CANDIDATE-001",
+          "version": "sha256:44b21d81cfac0dcbbd97ecd203c87553ca549651bb4b45aa7a96614102164bb3",
+          "location": "candidate:COM02X-ENV-CANDIDATE-001"
+        }
+      ],
+      "human_gate": "none",
+      "reason": null
     }
   ],
   "invalidation_events": [],
