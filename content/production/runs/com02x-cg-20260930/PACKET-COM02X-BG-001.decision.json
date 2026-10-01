@@ -82,9 +82,10 @@
   "known_issues": [],
   "human_gate": "none",
   "projection_provenance": {
+    "manifest_id": "opening-ch1-com02x-minimum-formal-cg",
+    "manifest_version": "1.0.0",
     "manifest_sha256": "3c23bc9d74bb38401ae51da3c170caa143cf5fab06ba0b1230a44379485c8ec0",
     "render_spec_sha256": "87b91160441d4071ebacdb7d4bb53f8184f48aa226fafaf654771a7049dc943b",
-    "shared_prompt_sha256": "2ed058fa3fdb8f4dd3cabac7378ee261fdfd1987cad0e897b6ef6f46a3e24ec7",
-    "raw_packet_sha256": "c5841fdba25254ec69a86344d1e910548a0c8c9fccdf28cc68896c3ef797e1c7"
+    "shared_prompt_sha256": "2ed058fa3fdb8f4dd3cabac7378ee261fdfd1987cad0e897b6ef6f46a3e24ec7"
   }
 }

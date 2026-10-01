@@ -23,7 +23,9 @@
     {
       "id": "entry-excerpt:COM02X-DLG-01",
       "version": "e1caa87d34cf8b67466f54f755a3c63c44f9faae59cb39139c2127c5d9eef372",
-      "location": "generated/session-cache/com02x-cg-20260930/COM02X-DLG-01.entry.json"
+      "location": "entry:COM02X-DLG-01",
+      "derived_from": "content/production/cg-manifests/opening-ch1-com02x.json",
+      "entry_id": "COM02X-DLG-01"
     },
     {
       "id": "manifest-usability:COM02X",
@@ -45,7 +47,14 @@
     {
       "id": "COM02X-DLG-01-render-packet",
       "version": "8ff85aa0a3ec9f1a84a7dd587bf0dfff56e739edf414fae3432fb2bd6cfc5942",
-      "location": "generated/session-cache/com02x-cg-20260930/COM02X-DLG-01.api.jsonl"
+      "location": "derived:COM02X-DLG-01",
+      "rebuild": {
+        "tool": "tools/render-cg-packets.mjs",
+        "manifest": "content/production/cg-manifests/opening-ch1-com02x.json",
+        "entry": "COM02X-DLG-01",
+        "adapter": "api",
+        "source_ref": "ea2a27ef9eaaa4a2f120ff2311eef12c04843883"
+      }
     }
   ],
   "qa_codes": [
@@ -63,5 +72,12 @@
     }
   ],
   "known_issues": [],
-  "human_gate": "accepted_master_image_selection"
+  "human_gate": "accepted_master_image_selection",
+  "projection_provenance": {
+    "manifest_id": "opening-ch1-com02x-minimum-formal-cg",
+    "manifest_version": "1.0.0",
+    "manifest_sha256": "3c23bc9d74bb38401ae51da3c170caa143cf5fab06ba0b1230a44379485c8ec0",
+    "render_spec_sha256": "18ee43f0a6d2916ada45c6cfe56b719213b9a76ea412fd805b938bf947a5046c",
+    "shared_prompt_sha256": "c9d5d1cd72b7f87ad2f781784ab62e6c5849cd83ea65cc079a6a20bf369166fd"
+  }
 }
