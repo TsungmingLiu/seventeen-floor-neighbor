@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "com02x-cg-20260930",
+  "task_id": "RENDER-COM02X-WALK-003",
+  "scene_id": "COM-02X",
+  "task_type": "cg_render",
+  "status": "BLOCKED",
+  "workflow_version": "1.3.0",
+  "harness": {
+    "id": "cg_renderer",
+    "version": "1.0.0",
+    "pass": null
+  },
+  "source_ref": "5d86f612601236292d20d653335be8da7d0892cc",
+  "packet_sha256": "c8e7b190e84bec157fc5cb38139997f39c5b479318e09627b3b4f964e2e65c20",
+  "handoff_sha256": "f270a5634d0070de6778bd5d4bb93ee47bbafc28b45112ad6edf8a6f7314822f",
+  "input_versions": [
+    {
+      "id": "entry-excerpt:COM02X-WALK-01",
+      "version": "b820a949d53d6ea7a979812e84cd0e7646a39529a9ee47bab2866be6ca38bec0",
+      "location": "generated/session-cache/com02x-cg-20260930/COM02X-WALK-01.v3.entry.json"
+    },
+    {
+      "id": "render-packet:COM02X-WALK-01",
+      "version": "c8dcb1a8f40d855e048558d263302088a787391929057b6f0751979d4ba1f88d",
+      "location": "generated/session-cache/com02x-cg-20260930/COM02X-WALK-01.v3.api.jsonl"
+    },
+    {
+      "id": "shared-prompt:COM02X-WALK-01",
+      "version": "3d29ff1fed959d1cfb21f2937c44d100f89c28a6ed2624d47fff3f862f45407d",
+      "location": "jobs[0].input.prompt of pinned projection"
+    }
+  ],
+  "output_versions": [],
+  "qa_codes": [
+    {
+      "name": "entry_and_projection_hashes",
+      "result": "PASS"
+    },
+    {
+      "name": "shared_prompt_hash_matches_projection",
+      "result": "PASS"
+    },
+    {
+      "name": "five_declared_references_hash_format_dimensions_and_visible_pixels",
+      "result": "PASS"
+    },
+    {
+      "name": "exactly_one_builtin_imagegen_call",
+      "result": "PASS"
+    },
+    {
+      "name": "original_tool_saved_path_result_identifier_and_output_bytes_preserved",
+      "result": "FAIL"
+    }
+  ],
+  "known_issues": [
+    "No visual QA or accepted-master claim. Generated output dimensions are unavailable."
+  ],
+  "human_gate": "none"
+}

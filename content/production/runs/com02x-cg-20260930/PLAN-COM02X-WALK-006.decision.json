@@ -1,0 +1,238 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "com02x-cg-20260930",
+  "task_id": "PLAN-COM02X-WALK-006",
+  "scene_id": "COM-02X",
+  "task_type": "cg_plan",
+  "status": "PASS",
+  "workflow_version": "1.3.0",
+  "harness": {
+    "id": "cg_planner",
+    "version": "1.1.0",
+    "pass": null
+  },
+  "source_ref": "5d86f612601236292d20d653335be8da7d0892cc",
+  "packet_sha256": "63ecd857c2046d41df75a22087f7a6ae633fc916941e4f570ff64e592fc6a4a6",
+  "handoff_sha256": "450fa3f7f58ab6077af0855deab5f400c79ed897e1b89c5b0cc344beb6194a8c",
+  "input_versions": [
+    {
+      "id": "docs/narrative/scenes/vertical-slice/COM-02X.md",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02X.md",
+      "version": "46d1566ec766adbefbfc2fc93964ee84cf70eca81078f6d35f589e65ddf579c6"
+    },
+    {
+      "id": "content/production/narrative/opening-ch1/COM-02X.json",
+      "location": "content/production/narrative/opening-ch1/COM-02X.json",
+      "version": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952"
+    },
+    {
+      "id": "docs/art/PRODUCTION_VISUAL_DIRECTION.md",
+      "location": "docs/art/PRODUCTION_VISUAL_DIRECTION.md",
+      "version": "8937497d234d70bf26169c12fb238890c63f1dfa7fe8087c76e16738ffe74fa3"
+    },
+    {
+      "id": "docs/art/CG_PRODUCTION_SPEC.md",
+      "location": "docs/art/CG_PRODUCTION_SPEC.md",
+      "version": "962e6a8afd7769b71a806b5d3039cb6a2af3d8f4332f6f1457354976dac32647"
+    },
+    {
+      "id": ".ai/schemas/CG_MANIFEST.md",
+      "location": ".ai/schemas/CG_MANIFEST.md",
+      "version": "348e5b59990e0777a01da015ec15e878153655d5a0581f7beee346cf2b23d9fb"
+    },
+    {
+      "id": ".ai/schemas/cg-manifest.schema.json",
+      "location": ".ai/schemas/cg-manifest.schema.json",
+      "version": "e4640d4c18a869aab7fcd4db89b3245a1adb9f7133e27a18256e8cc9b60d69bb"
+    },
+    {
+      "id": ".ai/schemas/VISUAL_CONTINUITY.md",
+      "location": ".ai/schemas/VISUAL_CONTINUITY.md",
+      "version": "fee700c8aa5bca246fb8d7688f660a15ff389ba933806a22d01cdcdb41e2dad2"
+    },
+    {
+      "id": "content/assets/source-catalog.json",
+      "location": "content/assets/source-catalog.json",
+      "version": "30162b891891395ae89e8ba8e868b34067aa08304dc4fb9a42e58438ff1612c9"
+    },
+    {
+      "id": "content/assets/manifest.json",
+      "location": "content/assets/manifest.json",
+      "version": "216a16e6aef1f5296e5a8b7be126dca1d4226463c96fbfe61f58b20d41125469"
+    },
+    {
+      "id": "content/production/runs/pr33-first-person-20260929/NQA-COM02X-POV-001.decision.json",
+      "location": "content/production/runs/pr33-first-person-20260929/NQA-COM02X-POV-001.decision.json",
+      "version": "9b72821aff57650d64aada364bebd0aa72b8926f83f91e74d58a07e74c04ea03"
+    },
+    {
+      "id": "content/production/cg-manifests/opening-ch1-com02x.json",
+      "location": "content/production/cg-manifests/opening-ch1-com02x.json",
+      "version": "1c7b06d0f9680cfac27beb60d008b4123101de83acb70b2699f635e9adc6c7de"
+    },
+    {
+      "id": "content/production/runs/com02x-cg-20260930/HUMAN-COM02X-MASTER-001.decision.json",
+      "location": "content/production/runs/com02x-cg-20260930/HUMAN-COM02X-MASTER-001.decision.json",
+      "version": "a6d125cd39bbf92b9efe7edd93a05a284abda61162ad80a84a4519b6ae58cea8"
+    },
+    {
+      "id": "content/assets/ingest-receipts/com02x-accepted-masters-v1.json",
+      "location": "content/assets/ingest-receipts/com02x-accepted-masters-v1.json",
+      "version": "19f27385a62aa6260d0bac9ddf69e4feea0fbf9f3c3c40ca45fa78804923ddae"
+    },
+    {
+      "id": "content/production/runs/com02x-cg-20260930/HUMAN-COM02X-MASTER-002.decision.json",
+      "location": "content/production/runs/com02x-cg-20260930/HUMAN-COM02X-MASTER-002.decision.json",
+      "version": "9c8446f774943802bb86bdb81fb04e00a306d1ffb4d316b23b6c682eac840ec7"
+    },
+    {
+      "id": "content/production/runs/com02x-cg-20260930/HUMAN-COM02X-WALK-SUBJECT-001.decision.json",
+      "location": "content/production/runs/com02x-cg-20260930/HUMAN-COM02X-WALK-SUBJECT-001.decision.json",
+      "version": "fdc9b94d85ec51adc6ce50e86ac3d8436ee8df998894ac29bd54ca10bb4e358e"
+    },
+    {
+      "id": "content/assets/ingest-receipts/com02x-walk-character-continuity-v1.json",
+      "location": "content/assets/ingest-receipts/com02x-walk-character-continuity-v1.json",
+      "version": "02c7b8f7f96e784476f35bdf9eca612dc53b4d09768ed7da9591213c37038986"
+    },
+    {
+      "id": "content/assets/ingest-receipts/character-reference-packs-20260930.json",
+      "location": "content/assets/ingest-receipts/character-reference-packs-20260930.json",
+      "version": "c9b494905c42a258c3066ca1154755f7bfc41bf166aeece642b16ddd1a0b9a06"
+    },
+    {
+      "id": "content/assets/character-reference-packs.json",
+      "location": "content/assets/character-reference-packs.json",
+      "version": "ee620a256c300cd559f88ea456d640ee142398142b484ad2a91bd3d111a6a9f7"
+    },
+    {
+      "id": "tools/character-references.mjs",
+      "location": "tools/character-references.mjs",
+      "version": "1a6396b86e18644223c7285b588593cc3fcab7643c2eed6b6444b4d08099e456"
+    },
+    {
+      "id": "content/production/cg-manifests/opening-ch1-com02x-walk.json",
+      "location": "content/production/cg-manifests/opening-ch1-com02x-walk.json",
+      "version": "61e885349336a554ddea3352949675ca90cbcb036ee16ababd80c3b3a7245d0d"
+    },
+    {
+      "id": "generated/session-cache/com02x-cg-20260930/xu-reference-pack-v2.md",
+      "location": "generated/session-cache/com02x-cg-20260930/xu-reference-pack-v2.md",
+      "version": "3db80bef16b2f6514f87202413159bbc2f1511931df1b45600e755b7700f0d98"
+    },
+    {
+      "id": "assets-src/references/xu-tang/xt-ref-01-face.png",
+      "location": "assets-src/references/xu-tang/xt-ref-01-face.png",
+      "version": "2fd137f796d0e7667a5913748158f75705b1a538b346b9e7f76aacb3c79acfd0"
+    },
+    {
+      "id": "assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png",
+      "location": "assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png",
+      "version": "aaf33f06f3e39fc476deee03ab261a43e0911b8393366ae7399c633abfadc716"
+    },
+    {
+      "id": "assets-src/references/xu-tang/xt-ref-04-production.png",
+      "location": "assets-src/references/xu-tang/xt-ref-04-production.png",
+      "version": "915cbbd529b252ba465b03872f6f8b3132a846b81e0bc8fa87405b7db19ed692"
+    },
+    {
+      "id": "assets-src/opening-ch1-demo/opening-ch1-com01b-03.webp",
+      "location": "assets-src/opening-ch1-demo/opening-ch1-com01b-03.webp",
+      "version": "aa6a236bceca59882edd5f3e1eded77b99347ca62fe5ed81ff74ee4d84bdcbc0"
+    },
+    {
+      "id": "assets-src/references/xu-tang/com02x-walk-character-continuity-v1.png",
+      "location": "assets-src/references/xu-tang/com02x-walk-character-continuity-v1.png",
+      "version": "3b09951d2abaf3362bcbccc015462b1d4885cb226618f688d6ef99703fc4366d"
+    },
+    {
+      "id": "content/production/runs/com02x-cg-20260930/HUMAN-COM02X-WALK-ANGLE-002.decision.json",
+      "location": "content/production/runs/com02x-cg-20260930/HUMAN-COM02X-WALK-ANGLE-002.decision.json",
+      "version": "e0cc8196419d55cc31b21d684d7c0319a08bea2af03180559a7487c34d3c6bbb"
+    },
+    {
+      "id": "content/production/runs/com02x-cg-20260930/CANDIDATE-COM02X-WALK-002.provenance.json",
+      "location": "content/production/runs/com02x-cg-20260930/CANDIDATE-COM02X-WALK-002.provenance.json",
+      "version": "e3e5dbb95b26752613da9bac4305110108fb2bfa797683af252d4ab799a6f9c7"
+    },
+    {
+      "id": "content/production/runs/com02x-cg-20260930/RENDER-COM02X-WALK-002.decision.json",
+      "location": "content/production/runs/com02x-cg-20260930/RENDER-COM02X-WALK-002.decision.json",
+      "version": "b8801b25d0e60bba1c1a4ce0843889f033b4f2bd5d33008b9dcb13d047f4531b"
+    },
+    {
+      "id": "content/production/runs/com02x-cg-20260930/VQA-COM02X-WALK-002.decision.json",
+      "location": "content/production/runs/com02x-cg-20260930/VQA-COM02X-WALK-002.decision.json",
+      "version": "9aa3e39fdbd06b83c61fa97e9148898ebc4bd5e1ee8d1324664444664213519d"
+    },
+    {
+      "id": "/Users/tsungmingliu/Documents/Codex/2026-09-30/com02x-cg-production/outputs/com02x-walk-candidate-v2.png",
+      "location": "/Users/tsungmingliu/Documents/Codex/2026-09-30/com02x-cg-production/outputs/com02x-walk-candidate-v2.png",
+      "version": "e1a5e0fafc9e98bedaa4e8fb22a4d85bce54a315617317fcff7831da3748b1d3"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "COM02X-walk-perpendicular-street-manifest",
+      "version": "e082a691e4f7cf0436610d955662b4e4ee57d2b505299b5195cd4fec521f8df3",
+      "location": "content/production/cg-manifests/opening-ch1-com02x-walk.json"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "exact_repository_ref_and_bounded_acquisition",
+      "result": "PASS"
+    },
+    {
+      "name": "31_raw_file_input_sha256_verified_before_edit",
+      "result": "PASS"
+    },
+    {
+      "name": "five_registered_references_and_comparison_pixels_viewed",
+      "result": "PASS"
+    },
+    {
+      "name": "canonical_wardrobe_reference_selection",
+      "result": "PASS"
+    },
+    {
+      "name": "perpendicular_geometry_specification_complete",
+      "result": "PASS"
+    },
+    {
+      "name": "protected_woman_fields_and_five_bindings_unchanged",
+      "result": "PASS"
+    },
+    {
+      "name": "stable_entry_asset_ids_and_single_manifest_v3",
+      "result": "PASS"
+    },
+    {
+      "name": "production_validator_5_contracts_17_entries",
+      "result": "PASS"
+    },
+    {
+      "name": "exact_manifest_cg_packet_check_1_entry",
+      "result": "PASS"
+    },
+    {
+      "name": "git_diff_check",
+      "result": "PASS"
+    },
+    {
+      "name": "all_non_manifest_input_hashes_unchanged",
+      "result": "PASS"
+    },
+    {
+      "name": "no_generation_runtime_assets_ledger_or_commit_changes_by_worker",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "Prior v2 candidate measured 1672x941; new master minimum remains 1920x1080 without inherited exception.",
+    "Frozen hand/bag/tote/shorts crop overlaps lower-quarter dialogue region; independent VQA must retain this residual without subject correction.",
+    "Prior v2 pavement sheen failed VQA; unchanged restrained-sheen requirement remains.",
+    "Independent manifest-usability review, fresh renderer, independent VQA and final Human selection remain pending."
+  ],
+  "human_gate": "none"
+}

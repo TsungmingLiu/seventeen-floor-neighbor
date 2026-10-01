@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "com02x-cg-20260930",
+  "decision_id": "HUMAN-COM02X-WALK-ANGLE-002",
+  "status": "NEEDS_REVIEW",
+  "decision_type": "environment_orientation_correction",
+  "human_quote": "再微調一下街景轉向-既然兩個人是沿著人行道走，視角應該是跟街道的方向垂直的。",
+  "candidate_sha256": "e1a5e0fafc9e98bedaa4e8fb22a4d85bce54a315617317fcff7831da3748b1d3",
+  "candidate_identity": "COM02X-WALK-01 v2",
+  "scope": "Street orientation only; view perpendicular to street direction while walking along sidewalk. Approved woman component retained.",
+  "accepts_whole_candidate": false,
+  "authorizes_one_new_environment_orientation_render": true,
+  "approved_woman_reference_receipt": "content/production/runs/com02x-cg-20260930/HUMAN-COM02X-WALK-SUBJECT-001.decision.json"
+}
