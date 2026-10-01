@@ -4,7 +4,7 @@
 >
 > 詳細技術工作見 `TODO.md`；內容生產進度見 `docs/narrative/CONTENT_PRODUCTION_TODO.md`；AI production 執行方式見 `.ai/WORKFLOW_MANIFEST.yaml`。
 >
-> 目前版本與有效／歷史證據見 [目前可玩版本驗收證據索引](docs/migration/CURRENT_PLAYABLE_ACCEPTANCE.md)（2026-09-30 main `9b0066f…`）；本次對齊不代表 M0 完成。
+> 最新可玩基線：2026-09-30 main `f5e650b…`（PR #37）。審閱範圍見 [PR #37 ledger](content/production/runs/pr37-review-fixes-20260930/ledger.json)；[舊驗收證據索引](docs/migration/CURRENT_PLAYABLE_ACCEPTANCE.md)保留 `9b0066f…` 的歷史結果與限制。本次更新不代表 M0 完成。
 >
 > Roadmap 不追蹤每一個 task。它只回答三個問題：
 >
@@ -45,10 +45,11 @@
 
 ## 已驗證的基線
 
-- W1–W4 的 source/output、嚴格 asset check/build、Codespaces 開發與驗收，以及 Player UI、Memories、CG Gallery、journey v2 / v1 save migration 已實作；實際契約見 [`ARCHITECTURE.md`](ARCHITECTURE.md) 與 code/tests。
+- W1–W4 的 source/output、嚴格 asset check/build、Player UI、Memories、CG Gallery、journey v2 / v1 save migration 已實作；實際契約見 [`ARCHITECTURE.md`](ARCHITECTURE.md) 與 code/tests。現行試玩使用 Cloudflare PR 自動 build／部署，Codespaces 不再是必要驗收環境。
 - PR #21 已將 active runtime 圖片遷至 repo，退役舊 `xu-tang` playable route；目前只有 `opening-demo` 註冊為 playable route。資產逐項 hash 與歷史對照見 `docs/migration/GATE2_REPO_RUNTIME_ASSETS.md`，現行檔案與使用範圍以 asset registry、route 與 build 為準。
 - PR #33 已將 COM-02X 接入 Opening 可玩流程，使用已登記的 preview-only WebP；Memory 可重播，預覽圖不進 Gallery，既有敘事／POV／姓名輸入批准沿用。其餘 scene progress 由 `docs/narrative/CONTENT_PRODUCTION_TODO.md` 維護。
-- main `9b0066f…` 的 Node 22 Verify（82/82）與 Cloudflare deployment／部署時 smoke 已查證；同一 runtime 的本地 Chromium 5/5 receipt 可沿用。遠端 Browser Acceptance 在 shallow checkout 缺歷史 commit 的前置測試失敗、Chromium skipped；目前 alias 可達性與 fresh Codespace 尚未查證。來源與限制見驗收證據索引。
+- PR #37 已接入批准的 COM-00 長段對白，修正江雨澄介紹前的姓名洩漏、統一旁白／自白正體，並以玩家設定姓名顯示男主 nametag。Human 已給敘事預覽品質 PASS；這不是正式美術接受。校準原始候選／重複快照已移至可追溯 Git 歷史，保留兩份限定用途的批准示例。
+- main `f5e650b…` 的 [Node 22 Verify](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/36788149966)、Cloudflare 部署／部署後 smoke，以及 [遠端 Chromium acceptance](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/36788149811) 均成功；Browser Acceptance 已使用完整 checkout history。PR #37 公開試玩版本另有 83/83 unit、7/7 browser 與 built-file bytes 核對，見 ledger。舊索引中的 checkout failure／alias 403 不作當前 blocker。
 - 定點 read-only impact／provenance 已實作，有 pinned 歷史受控檢查；目前 scene 的 material-change／實際整合阻擋證據與 preview → final CG 替換實證仍待補齊。既有工具契約見 `ARCHITECTURE.md`、`.ai/WORKFLOW_MANIFEST.yaml` 與對應工具；此基線不代表 M0 Exit Gate 已完成。
 
 ## Outcome
@@ -357,7 +358,7 @@ Roadmap 只維護工作所在的 horizon，不維護完整 task list。
 
 - COM-02X 已證明真實 Locked Scene 可使用 placeholder 遊玩；尚需正式 CG 替換與 stable node/save/Memory/Gallery 驗證；
 - 沿用已實作的定點 impact／provenance，補目前 scene 受控 material change 與實際整合阻擋的證據；
-- 修正 Browser Acceptance 的 checkout history 並取得 Node 22 Chromium 結果；另補 fresh Codespace 與 alias 可達性證據。現有 main Verify／部署 smoke 與人工敘事批准直接引用，不重跑已驗證的敘事 QA。
+- 補 release-oriented placeholder／provisional／accepted coverage 判定，完成當前版本的 M0 Exit Gate review；沿用最新 main Verify、遠端 Chromium、Cloudflare 部署 smoke 與人工敘事批准。Codespaces 不列入必要 gate。
 
 Repo-native asset migration 與 active source-authority cleanup 已由 PR #21 完成；跨階段自動失效與恢復另列未來工作。
 
@@ -426,7 +427,7 @@ M0 — Foundation Stable
 ```text
 COM-02X placeholder integration proved; final CG replacement proof pending
 → current material-change / stale integration evidence
-→ Node 22 remote Chromium / fresh Codespace evidence
+→ placeholder / provisional / accepted coverage validation
 → M0 Exit Gate review
 ```
 

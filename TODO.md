@@ -20,7 +20,7 @@
 
 詳細產品定義與 Exit Gate 見 `ROADMAP.md`。
 
-2026-09-30 main `9b0066f…` 的結果與限制見 [目前可玩版本驗收證據索引](docs/migration/CURRENT_PLAYABLE_ACCEPTANCE.md)。下列勾選只代表指定項目有證據，不代表全部 M0 Exit Gate 通過；既有 PR #33 人工敘事批准直接沿用。
+2026-09-30 最新 main 基線為 `f5e650b…`（PR #37）；最新敘事／UI／Human 品質 PASS 見 [PR #37 ledger](content/production/runs/pr37-review-fixes-20260930/ledger.json)。[舊驗收證據索引](docs/migration/CURRENT_PLAYABLE_ACCEPTANCE.md)僅記 `9b0066f…` 的歷史結果。下列勾選只代表指定項目有證據，不代表全部 M0 Exit Gate 通過；已批准的敘事直接沿用。
 
 ---
 
@@ -63,13 +63,14 @@ M0 先以一個真實 scene 的受控修改，證明定點影響報告可供整�
 
 - [x] `npm run build`（main Node 22 Verify）
 - [x] `npm run validate`（main Node 22 Verify；不是 `validate:final`）
-- [x] `npm test`（main Node 22 Verify 82/82；含 pinned historical suites wrapper）
+- [x] `npm test`（PR #37 83/83；最新 main Node 22 Verify 成功，含 pinned historical suites wrapper）
 - [x] `git diff --check`（main Verify；本次文件 diff 另查）
 - [x] 必要 asset validation（main Verify 26/26）
-- [x] Opening 現有 CG 與 COM-02X placeholder 同一流程可玩（main tests＋同 runtime 本地 Chromium 5/5；不推定 final visual acceptance）
-- [ ] 修正 Browser Acceptance shallow checkout 缺 pinned refs 的問題，取得 main Node 22 遠端 Chromium acceptance（目前前置測試 80/82，Chromium skipped）。
-- [ ] fresh Codespace acceptance（目前僅 command dry-run；尚未查證實際當前版本結果）
-- [ ] main／PR Cloudflare alias 目前可達性／內容對應（本次 HTTP 403；部署當時 smoke 已通過）
+- [x] Opening 現有 CG 與 COM-02X placeholder 同一流程可玩（最新 main 遠端 Chromium acceptance；不推定 final visual acceptance）
+- [x] 修正 Browser Acceptance checkout history，取得 [main Node 22 遠端 Chromium acceptance](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/36788149811)。
+- [x] Cloudflare PR 自動 build／部署與公開試玩驗收；依 Owner 決定取代必要的 fresh Codespace acceptance。
+- [x] 最新 main [Cloudflare 部署後 smoke](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/36788149966)成功；PR #37 公開 alias 的內容 bytes 與 7/7 browser 已核對，見 ledger。舊 HTTP 403 不作當前 blocker。
+- [x] PR #37：江雨澄介紹前姓名、旁白／自白正體、玩家姓名 nametag，以及 title-screen Memory／CG 啟動時序修正。
 - [ ] COM-02X accepted final CG 替換後的 stable nodes／save／Memory／Gallery／`validate:final` 證據
 - [ ] 當前 scene material-change 與實際 stale integration blocking case
 
@@ -205,7 +206,7 @@ Roadmap milestone 到達相應階段後再重新確認 scope，不因為列在�
 - `dist/`、`generated/` 不作 source of truth。
 - 不提交 secrets。
 - 不 hardcode ephemeral Codespaces forwarded URL。
-- Canonical engineering environment 以現行 architecture contract 為準。
+- Canonical engineering environment 以現行 architecture contract 為準；Human 試玩使用 Cloudflare PR preview，Codespaces 為可選工具。
 - code/content integration 至少執行相應 build / validate / diff check。
 - runtime/save 變更必須執行相應 regression tests。
 - stable node / asset IDs 不應因 storage 或 presentation 改動任意重命名。
