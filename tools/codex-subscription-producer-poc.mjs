@@ -130,6 +130,19 @@ function versionKey(value) {
   return JSON.stringify({ id: value?.id, version: value?.version, location: value?.location });
 }
 
+export function producerReport(sceneId, handoff) {
+  return {
+    scene_id: sceneId,
+    status: handoff.status,
+    non_pass_checks: (handoff.qa?.checks || []).filter((check) => check.result !== 'PASS'),
+    known_issues: handoff.known_issues || [],
+    failure_reason: handoff.qa?.failure_reason ?? null,
+    canonical_state_modified: false,
+    next_recommended_stage: handoff.next_recommended_stage || null,
+    human_gate_required: handoff.human_gate_required || 'none'
+  };
+}
+
 export function validateNarrativeHandoff(packet, handoff) {
   insist(handoff && typeof handoff === 'object' && !Array.isArray(handoff), 'handoff must be a JSON object');
   insist(handoff.run_id === packet.run_id, 'handoff run_id mismatch');
@@ -449,7 +462,8 @@ async function main() {
       handoff_sha256: sha256(persisted.body),
       handoff_path: path.relative(projectRoot, persisted.destination),
       persisted_repo_state: false,
-      next_step: 'Coordinator comparison only; this POC does not mutate a Production Run Ledger or create a decision receipt.'
+      producer_report: producerReport(sceneId, handoff),
+      next_step: 'Return producer_report to the Human in the same conversation; do not expose worker internals unless asked.'
     }, null, 2));
   } finally {
     if (!flag('keep-workspace')) await rm(materialized.workspace, { recursive: true, force: true });
