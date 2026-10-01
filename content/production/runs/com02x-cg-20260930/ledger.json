@@ -97,10 +97,25 @@
       "task_type": "visual_review",
       "scene_id": "COM-02X",
       "depends_on": [
-        "PLAN-COM02X-001"
+        "PLAN-COM02X-002"
       ],
-      "status": "PENDING",
-      "review_scope": "manifest_usability"
+      "status": "PASS",
+      "review_scope": "manifest_usability",
+      "packet": {
+        "generator": "manual exact bounded packet; source identities recorded",
+        "sha256": "58a34f9a5397d1477597c8a08b73fa07c494cdf0244ab11c8b9b2e224a484f50"
+      },
+      "decision_receipt": "content/production/runs/com02x-cg-20260930/MUA-COM02X-001.decision.json",
+      "input_versions": [
+        {
+          "id": "MUA-COM02X-001.packet",
+          "version": "sha256:58a34f9a5397d1477597c8a08b73fa07c494cdf0244ab11c8b9b2e224a484f50",
+          "location": "generated/session-cache/com02x-cg-20260930/MUA-COM02X-001.packet.json"
+        }
+      ],
+      "output_versions": [],
+      "human_gate": "none",
+      "reason": null
     },
     {
       "task_id": "PACKET-COM02X-001",
