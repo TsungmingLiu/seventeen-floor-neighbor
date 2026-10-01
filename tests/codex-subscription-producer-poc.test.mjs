@@ -8,6 +8,7 @@ import { fileURLToPath } from 'node:url';
 import {
   codexExecArgs,
   handoffOutputSchema,
+  producerReport,
   sliceExcerpt,
   validateNarrativeHandoff
 } from '../tools/codex-subscription-producer-poc.mjs';
@@ -64,6 +65,19 @@ function fixture() {
   return { packet, handoff };
 }
 
+test('producer report is concise and conversation-safe', () => {
+  const { handoff } = fixture();
+  handoff.qa.checks.push({ name: 'NQA-VOICE-AND-PACING', result: 'NEEDS_REVIEW' });
+  handoff.known_issues.push('Shared exchange lands too formally.');
+  const report = producerReport('COM-00', handoff);
+  assert.deepEqual(report.non_pass_checks,
+    [{ name: 'NQA-VOICE-AND-PACING', result: 'NEEDS_REVIEW' }]);
+  assert.deepEqual(report.known_issues, ['Shared exchange lands too formally.']);
+  assert.equal(report.canonical_state_modified, false);
+  assert.equal(report.scene_id, 'COM-00');
+  assert.equal(report.status, 'PASS');
+});
+
 test('handoff validator accepts exact reviewed bytes and rejects stale output', () => {
   const { packet, handoff } = fixture();
   assert.equal(validateNarrativeHandoff(packet, handoff), true);
@@ -105,6 +119,15 @@ test('handoff output schema forbids extra top-level fields', () => {
   assert.ok(schema.required.includes('input_versions'));
   assert.ok(schema.required.includes('qa'));
   assert.equal(schema.properties.attachments_used.maxItems, 0);
+});
+
+test('repo-scoped producer skill keeps the Human on the conversational surface', async () => {
+  const skill = await import('node:fs/promises').then(({ readFile }) =>
+    readFile(path.join(projectRoot, '.codex/skills/game-producer-poc/SKILL.md'), 'utf8'));
+  assert.match(skill, /name: game-producer-poc/);
+  assert.match(skill, /Do not ask the Human to run shell commands/);
+  assert.match(skill, /npm run subscription:poc -- --scene <SCENE_ID>/);
+  assert.match(skill, /current POC only automates Narrative QA/);
 });
 
 test('dry-run exercises real Task Packet generation and bounded subscription command planning', async () => {
