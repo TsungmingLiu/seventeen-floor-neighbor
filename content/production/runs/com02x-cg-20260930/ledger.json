@@ -5,11 +5,10 @@
   "source_ref": "fb21d1a7ffb959aac49dcc264f07805c7a8372e7",
   "human_request": {
     "summary": "COM-02X minimum formal CG candidates, independent QA, Human accepted-master selection, then stable playable integration and Cloudflare PR preview",
-    "gate_status": "candidate_review_required_after_visual_qa_failure",
-    "environment_reference_directive": "Human confirms no convenience-store background exists and requests generating one.",
-    "block_reason": "Both formal candidates below 1920x1080; dialogue candidate also fails pose/emotion/style/safe-zone/framing. No accepted master or automatic redraw."
+    "gate_status": "accepted_master_image_selection_pass",
+    "environment_reference_directive": "Human confirms no convenience-store background exists and requests generating one."
   },
-  "status": "BLOCKED",
+  "status": "ACTIVE",
   "tasks": [
     {
       "task_id": "PLAN-COM02X-001",
@@ -1032,7 +1031,8 @@
       ],
       "human_gate": "none",
       "reason": null,
-      "candidate_acceptance": "REJECTED_BY_VISUAL_QA"
+      "candidate_acceptance": "HUMAN_ACCEPTED_AS_IS",
+      "human_override_receipt": "content/production/runs/com02x-cg-20260930/HUMAN-COM02X-MASTER-001.decision.json"
     },
     {
       "task_id": "RENDER-COM02X-DLG-001",
@@ -1098,7 +1098,8 @@
       ],
       "human_gate": "none",
       "reason": null,
-      "candidate_acceptance": "REJECTED_BY_VISUAL_QA"
+      "candidate_acceptance": "HUMAN_ACCEPTED_AS_IS",
+      "human_override_receipt": "content/production/runs/com02x-cg-20260930/HUMAN-COM02X-MASTER-001.decision.json"
     },
     {
       "task_id": "VQA-COM02X-BG-001",
@@ -1142,7 +1143,8 @@
       "output_versions": [],
       "human_gate": "accepted_master_image_selection",
       "reason": "The candidate fails the formal production-master minimum at 1672x941. The lower-left dialogue-safe area also merits review because detailed case contents intrude into the lower-quarter band.",
-      "candidate_acceptance": "REJECTED_BY_VISUAL_QA"
+      "candidate_acceptance": "HUMAN_ACCEPTED_AS_IS",
+      "human_override_receipt": "content/production/runs/com02x-cg-20260930/HUMAN-COM02X-MASTER-001.decision.json"
     },
     {
       "task_id": "VQA-COM02X-DLG-001",
@@ -1196,7 +1198,8 @@
       "output_versions": [],
       "human_gate": "accepted_master_image_selection",
       "reason": "The actual candidate is 1672x941, below the required 1920x1080 master minimum. It also turns the candid recognition beat into a camera-facing beauty pose; the expression is polished and subtly sultry rather than visibly tired and matter-of-fact, with a frontal torso and near-lens gaze. The lower quarter contains detailed shorts and drawstring, so it does not provide the specified low-detail dialogue zone; framing extends to upper thighs instead of staying waist-up. Skin and facial finish are conspicuously smoothed and beauty-lit relative to the requested natural photographic rendering.",
-      "candidate_acceptance": "REJECTED_BY_VISUAL_QA"
+      "candidate_acceptance": "HUMAN_ACCEPTED_AS_IS",
+      "human_override_receipt": "content/production/runs/com02x-cg-20260930/HUMAN-COM02X-MASTER-001.decision.json"
     }
   ],
   "invalidation_events": [
@@ -1212,5 +1215,8 @@
       "evidence": "PLAN-ENV-COM02X-002.decision.json: reference-only acceptance corrected; original generation identities and historical QA remain unchanged; candidate requires fresh current-scope review."
     }
   ],
-  "preview": null
+  "preview": null,
+  "human_decisions": [
+    "content/production/runs/com02x-cg-20260930/HUMAN-COM02X-MASTER-001.decision.json"
+  ]
 }

@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "com02x-cg-20260930",
+  "decision_id": "HUMAN-COM02X-MASTER-001",
+  "scene_id": "COM-02X",
+  "decision": "PASS",
+  "gate": "accepted_master_image_selection",
+  "human_directive": "我給PASS，繼續推進。",
+  "scope": "Both displayed COM02X-BG-01 and COM02X-DLG-01 candidates, with their disclosed QA issues and actual 1672x941 dimensions, accepted as-is for integration.",
+  "accepted_assets": [
+    {
+      "entry_id": "COM02X-BG-01",
+      "candidate_id": "COM02X-BG-01-CANDIDATE-001",
+      "filename": "com02x-bg-01-candidate-v1.png",
+      "sha256": "88cc22c254fbbd5149cda25e34db0637cb5938b44f882ad04c14036f723363bf",
+      "width": 1672,
+      "height": 941,
+      "render_receipt": "content/production/runs/com02x-cg-20260930/RENDER-COM02X-BG-001.decision.json",
+      "visual_qa_receipt": "content/production/runs/com02x-cg-20260930/VQA-COM02X-BG-001.decision.json",
+      "visual_qa_status": "FAIL",
+      "human_disposition": "ACCEPTED_AS_IS",
+      "accepted_known_issues": [
+        "Formal master minimum fails: candidate is 1672x941, below 1920x1080.",
+        "Lower-left dialogue-safe band contains detailed meal/drink cases across roughly 40 percent of image width, limiting full-width dialogue placement."
+      ]
+    },
+    {
+      "entry_id": "COM02X-DLG-01",
+      "candidate_id": "COM02X-DLG-01-CANDIDATE-001",
+      "filename": "com02x-dlg-01-candidate-v1.png",
+      "sha256": "c3b980c003dd2bcfb4dcabb769438fe67d85751f75f5fed20ceedf4ad0c3ea65",
+      "width": 1672,
+      "height": 941,
+      "render_receipt": "content/production/runs/com02x-cg-20260930/RENDER-COM02X-DLG-001.decision.json",
+      "visual_qa_receipt": "content/production/runs/com02x-cg-20260930/VQA-COM02X-DLG-001.decision.json",
+      "visual_qa_status": "FAIL",
+      "human_disposition": "ACCEPTED_AS_IS",
+      "accepted_known_issues": [
+        {
+          "code": "VQA-COM02X-DLG-POSE-EMOTION",
+          "detail": "Near-lens gaze, frontal posed presentation, and polished/sultry expression miss the quiet tired-neighbor recognition beat."
+        },
+        {
+          "code": "VQA-COM02X-DLG-SAFE-ZONE-FRAMING",
+          "detail": "Detailed shorts and drawstring occupy the lower dialogue zone; image extends to upper thighs rather than the specified waist-up composition."
+        },
+        {
+          "code": "VQA-COM02X-DLG-STYLE",
+          "detail": "Facial skin appears heavily smoothed and beauty-lit, weakening the natural skin and candid photographic realism requirement."
+        },
+        {
+          "code": "formal_master_below_minimum",
+          "detail": "Verified PNG dimensions are 1672x941; required formal master minimum is 1920x1080."
+        }
+      ]
+    }
+  ],
+  "qa_history_preserved": true,
+  "exception_scope": "Only these two immutable candidate hashes; global future production requirements remain unchanged. No regeneration or upscaling.",
+  "authorizes": "Asset ingestion, COM-02X runtime integration, verification, PR Cloudflare playable preview; final playable acceptance remains pending."
+}
