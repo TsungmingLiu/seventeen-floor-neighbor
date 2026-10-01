@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "com02x-cg-20260930",
+  "entry_id": "COM02X-WALK-01",
+  "candidate_path": "/Users/tsungmingliu/Documents/Codex/2026-09-30/com02x-cg-production/outputs/com02x-walk-candidate-v2.png",
+  "sha256": "e1a5e0fafc9e98bedaa4e8fb22a4d85bce54a315617317fcff7831da3748b1d3",
+  "mime_type": "image/png",
+  "width": 1672,
+  "height": 941,
+  "bytes": 2468695,
+  "renderer_packet_sha256": "65a641b547e77c97441805973ca9a3039590cebebab7edea11946c0d10354fa5",
+  "generation_call_count": 1,
+  "tool_result_id": "exec-74adca80-b318-4d77-9417-c4c267655b3a",
+  "tool_output_hint": "Generated images are saved to /Users/tsungmingliu/.codex/generated_images/01a0f796-f7ad-7d41-b1a6-f7f32fdda8b5 as /Users/tsungmingliu/.codex/generated_images/01a0f796-f7ad-7d41-b1a6-f7f32fdda8b5/exec-74adca80-b318-4d77-9417-c4c267655b3a.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+  "original_saved_path": "/Users/tsungmingliu/.codex/generated_images/01a0f796-f7ad-7d41-b1a6-f7f32fdda8b5/exec-74adca80-b318-4d77-9417-c4c267655b3a.png",
+  "original_bytes_verified": true,
+  "manifest_identity": {
+    "path": "content/production/cg-manifests/opening-ch1-com02x-walk.json",
+    "sha256": "61e885349336a554ddea3352949675ca90cbcb036ee16ababd80c3b3a7245d0d"
+  },
+  "projection_hashes": {
+    "entry_excerpt_sha256": "7fff5d04c95f80735e04163787b21b2b22d423560b8be9b29042b4280fd9ea74",
+    "render_packet_sha256": "5b30982e063f9a8a6519be0a982df6b12c8b35e4a61939b8ad0b5113060bceca",
+    "shared_prompt_sha256": "65475a8317f0b1cf49f9841d98cc1e34f06d18767f5d73fca2732616ff21d6c6",
+    "references_sha256": [
+      "2fd137f796d0e7667a5913748158f75705b1a538b346b9e7f76aacb3c79acfd0",
+      "915cbbd529b252ba465b03872f6f8b3132a846b81e0bc8fa87405b7db19ed692",
+      "aaf33f06f3e39fc476deee03ab261a43e0911b8393366ae7399c633abfadc716",
+      "3b09951d2abaf3362bcbccc015462b1d4885cb226618f688d6ef99703fc4366d",
+      "aa6a236bceca59882edd5f3e1eded77b99347ca62fe5ed81ff74ee4d84bdcbc0"
+    ],
+    "candidate_sha256": "e1a5e0fafc9e98bedaa4e8fb22a4d85bce54a315617317fcff7831da3748b1d3"
+  },
+  "references": [
+    {
+      "source_id": "ref.xu_tang.face.01",
+      "role": "primary_face_identity",
+      "sha256": "2fd137f796d0e7667a5913748158f75705b1a538b346b9e7f76aacb3c79acfd0"
+    },
+    {
+      "source_id": "ref.xu_tang.production.04",
+      "role": "production_consistency",
+      "sha256": "915cbbd529b252ba465b03872f6f8b3132a846b81e0bc8fa87405b7db19ed692"
+    },
+    {
+      "source_id": "ref.xu_tang.wardrobe.a",
+      "role": "wardrobe",
+      "sha256": "aaf33f06f3e39fc476deee03ab261a43e0911b8393366ae7399c633abfadc716"
+    },
+    {
+      "source_id": "ref.com02x.walk.character_continuity_v1",
+      "role": "accepted_character_continuity",
+      "sha256": "3b09951d2abaf3362bcbccc015462b1d4885cb226618f688d6ef99703fc4366d"
+    },
+    {
+      "source_id": "source.opening.ch1.com01b.03",
+      "role": "existing_street_environment",
+      "sha256": "aa6a236bceca59882edd5f3e1eded77b99347ca62fe5ed81ff74ee4d84bdcbc0"
+    }
+  ],
+  "renderer_receipt": "content/production/runs/com02x-cg-20260930/RENDER-COM02X-WALK-002.decision.json",
+  "supersedes_candidate_background_only": "3b09951d2abaf3362bcbccc015462b1d4885cb226618f688d6ef99703fc4366d",
+  "human_accepted_master": false,
+  "runtime_integrated": false,
+  "visual_qa": "FAIL",
+  "visual_qa_receipt": "content/production/runs/com02x-cg-20260930/VQA-COM02X-WALK-002.decision.json",
+  "known_issues": [
+    "1672x941 candidate is below the 1920x1080 formal master minimum.",
+    "Frozen approved lower subject details (tote, bag hand, shorts/drawstring) remain in/cut by the lower safe-zone.",
+    "Broad mirror-like pavement reflections exceed restrained residual sheen."
+  ]
+}
