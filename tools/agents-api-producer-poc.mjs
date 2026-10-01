@@ -57,6 +57,19 @@ function inlineFile(pathname, text) {
   };
 }
 
+function validateHostedInlineFiles(files) {
+  insist(files.length <= 50, `Agents API hosted environment accepts at most 50 input files; got ${files.length}`);
+  let total = 0;
+  for (const file of files) {
+    const bytes = Buffer.from(file.data, 'base64').length;
+    insist(bytes <= 5 * 1024 * 1024, `inline hosted file exceeds 5 MiB: ${file.path}`);
+    total += bytes;
+  }
+  insist(total <= 10 * 1024 * 1024,
+    `inline hosted files exceed 10 MiB creation limit: ${total} bytes`);
+  return total;
+}
+
 export async function buildSandboxBundle(packet, { root = projectRoot } = {}) {
   insist(packet?.task_type === 'narrative_review', 'POC currently supports narrative_review only');
   insist(packet?.harness === 'content_qa' && packet?.pass === 'narrative_review',
@@ -118,16 +131,19 @@ export async function buildSandboxBundle(packet, { root = projectRoot } = {}) {
     allowed_sources: sourceIndex
   }, null, 2)}\n`;
 
+  const files = [
+    inlineFile('/workspace/control/task.packet.json', packetText),
+    inlineFile('/workspace/control/harness.md', harness),
+    inlineFile('/workspace/control/handoff-schema.md', handoffSchema),
+    inlineFile('/workspace/sources/index.json', indexText),
+    ...sourceFiles
+  ];
+  const inlineBytes = validateHostedInlineFiles(files);
   return {
-    files: [
-      inlineFile('/workspace/control/task.packet.json', packetText),
-      inlineFile('/workspace/control/harness.md', harness),
-      inlineFile('/workspace/control/handoff-schema.md', handoffSchema),
-      inlineFile('/workspace/sources/index.json', indexText),
-      ...sourceFiles
-    ],
+    files,
     sourceIndex,
-    packetSha256: sha256(packetText)
+    packetSha256: sha256(packetText),
+    inlineBytes
   };
 }
 
@@ -325,6 +341,8 @@ async function main() {
       packet_sha256: bundle.packetSha256,
       source_count: bundle.sourceIndex.length,
       source_index: bundle.sourceIndex,
+      inline_file_count: bundle.files.length,
+      inline_bytes: bundle.inlineBytes,
       network_access: 'disabled',
       repo_write_access: false
     }, null, 2));
@@ -342,7 +360,8 @@ async function main() {
         type: 'openai_hosted',
         container_size: 'small',
         network: { access: 'disabled' },
-        files: bundle.files
+        files: bundle.files,
+        setup_commands: [{ command: 'mkdir -p /workspace/outputs' }]
       },
       input: `Execute Task Packet ${taskId} for ${sceneId}. Produce only /workspace/outputs/handoff.json.`
     }, { verbose: flag('verbose') });
