@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "manifest_id": "opening-ch1-com02x-environment",
-  "manifest_version": "1.0.0",
+  "manifest_version": "1.0.1",
   "lifecycle": "CANONICAL",
   "source_scene_ids": ["COM-02X"],
   "style_contract": {
@@ -10,7 +10,7 @@
       "Realistic high-end game-cinematic environment rendering with photographic PBR materials and physically plausible indoor lighting.",
       "Believable glass reflections, brushed metal refrigerator trim, plastic meal containers and ordinary store surfaces; natural material texture without illustrative simplification.",
       "Photographic perspective, believable exposure and restrained cool color; enough depth of field to read the environment layout.",
-      "One independent 16:9 landscape environment image for responsive full-viewport use; target 2560x1440, minimum accepted master 1920x1080."
+      "One independent 16:9 landscape environment-continuity reference image for later CG planning; native pixels must make the store layout, materials and lighting legible. Supporting reference only: this output must not be used as an accepted runtime production master. Future runtime masters retain the canonical 1920x1080 minimum and 2560x1440 preferred size."
     ],
     "negative": [
       "Anime, manga, cartoon, animation-film, cel-shaded, painterly or ink-line environment treatment.",
@@ -32,7 +32,7 @@
       "sequence_id": null,
       "beat_range": "02X.1 Late aisle: refrigerated-food environment establish before the recognition beat",
       "narrative": {
-        "purpose": "Create the single missing convenience-store environment reference for approved COM-02X. Its intended downstream role is environment_continuity: establish the unbranded refrigerated-food aisle, wet-night storefront, materials and lighting for a later fresh COM-02X CG Planner. This is a no-people origin image authorized by Human; it supplies no character identity or wardrobe authority and does not replace CG-COM-03 or approve runtime integration.",
+        "purpose": "Create the single missing convenience-store environment reference for approved COM-02X. Its intended downstream role is environment_continuity: establish the unbranded refrigerated-food aisle, wet-night storefront, materials and lighting for a later fresh COM-02X CG Planner. This is a no-people origin image authorized by Human; it supplies no character identity or wardrobe authority and does not replace CG-COM-03 or approve runtime integration. Supporting reference acceptance evaluates readable native pixels, not runtime-master resolution. This output is forbidden as an accepted runtime master; later runtime delivery requires a separately compliant master and its own Visual QA and Human selection.",
         "must_show": [
           "An ordinary unbranded convenience store within walking distance of the apartment in Taipei, at approximately 23:00 on a Week 2 weekday.",
           "A refrigerated-food cabinet close to the viewer forming lateral aisle perspective, with ordinary simple microwaveable dinner boxes visible on its shelves.",
@@ -101,7 +101,7 @@
           "Refrigerated meal shelves, adjacent coffee beverages, open aisle, storefront wet-night view and rear checkout/heating area within one coherent room.",
           "Practical cold-white fluorescent lighting, natural glass/metal/plastic response and restrained wet-pavement reflection outside.",
           "Landscape responsive composition with central crop tolerance and the lower 25% dialogue-safe area.",
-          "Use this output as the missing production environment_continuity reference after independent Visual QA and exact-byte reference acquisition/registration; any runtime integration remains subject to Human selected-master approval."
+          "Use this output only as the missing production environment_continuity reference after independent Visual QA and exact-byte reference acquisition/registration. It is forbidden as an accepted runtime master; a future runtime master must independently satisfy canonical resolution, Visual QA and Human selected-master approval."
         ],
         "exclude": [
           "All visible people, staff, customers, faces, limbs, hands, protagonist-held meal boxes, human silhouettes and human reflections, including figures printed on packaging/posters.",
@@ -126,12 +126,12 @@
         "quantity": 1
       },
       "acceptance": [
-        "Exactly one independent 16:9 image, target 2560x1440 and at least 1920x1080, with no visible people or anatomy anywhere, including reflections and printed imagery.",
+        "Exactly one independent landscape image approximately 16:9 at native tool resolution, with sufficiently legible environment-continuity pixels and no visible people or anatomy anywhere, including reflections and printed imagery. This supporting reference has no runtime-master resolution acceptance; it must not be used as an accepted runtime master.",
         "The same coherent unbranded store shows readable refrigerated simple meals, coffee beverages, an open aisle, modest rear checkout/heating fixtures and wet-night storefront glass.",
         "Cold-white practical interior light, cool-blue approximately 23:00 exterior and recently wet pavement match approved COM-02X; realistic PBR materials and photographic perspective pass the global environment realism standard.",
         "Essential food and wet-night cues survive moderate horizontal cropping; lower 25% stays usable for dialogue without hiding a required cue.",
         "No real branding, prominent gibberish, embedded UI/captions/watermark, illustration treatment, implausible room topology or reflection artifacts.",
-        "After independent Visual QA, reference acquisition must verify the exact filename, MIME, hash and visible pixels before registering production environment_continuity use for a new COM-02X CG Planner. Reference registration is not Human accepted runtime-master status; Human selected-master approval applies before runtime integration."
+        "After new independent Visual QA against manifest version 1.0.1, reference acquisition must verify the exact filename, MIME, hash and visible pixels before registering only production environment_continuity use for a new COM-02X CG Planner. Preserve original generation-manifest, render-spec and render-packet provenance; this scope correction does not retroactively alter generation or the original failed QA. Reference registration must not register this output as an accepted runtime master or authorize runtime integration. Future runtime masters retain at least 1920x1080, preferred 2560x1440, independent Visual QA and Human selected-master approval."
       ]
     }
   ]

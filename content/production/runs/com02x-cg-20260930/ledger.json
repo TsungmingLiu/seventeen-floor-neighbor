@@ -237,7 +237,7 @@
       "depends_on": [
         "PLAN-ENV-COM02X-001"
       ],
-      "status": "PASS",
+      "status": "STALE",
       "packet": {
         "generator": "manual exact bounded packet; source identities recorded",
         "sha256": "fd431815657d247d1136d21ba04e8f4a7b2d0fc684c0721a94a331392c01c007"
@@ -307,7 +307,7 @@
       ],
       "output_versions": [],
       "human_gate": "none",
-      "reason": null
+      "reason": "Historical successful decision for origin manifest1.0.0; current reference-use scope requires new independent review, no redraw."
     },
     {
       "task_id": "PACKET-ENV-COM02X-001",
@@ -316,7 +316,7 @@
       "depends_on": [
         "MUA-ENV-COM02X-002"
       ],
-      "status": "PASS",
+      "status": "STALE",
       "packet": {
         "generator": "manual exact bounded packet; source identities recorded",
         "sha256": "0df3a9a447cf618a4c2f5f1ccee6013bb0a5ea50428695eb8432c03b8dc9d536"
@@ -348,7 +348,7 @@
         }
       ],
       "human_gate": "none",
-      "reason": null
+      "reason": "Historical successful decision for origin manifest1.0.0; current reference-use scope requires new independent review, no redraw."
     },
     {
       "task_id": "RENDER-ENV-COM02X-001",
@@ -429,8 +429,116 @@
       "output_versions": [],
       "human_gate": "none",
       "reason": "The manifest acceptance criterion requires at least 1920x1080. The candidate is 1672x941, so candidate acceptance cannot pass despite its usefulness as environment-reference pixels. Clarify with the CG Planner whether reference-only scope is intended; QA cannot waive or change the resolution requirement."
+    },
+    {
+      "task_id": "PLAN-ENV-COM02X-002",
+      "task_type": "cg_plan",
+      "scene_id": "COM-02X",
+      "depends_on": [
+        "PLAN-ENV-COM02X-001",
+        "RENDER-ENV-COM02X-001"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual exact bounded packet; source identities recorded",
+        "sha256": "a6c115ee2e9ba6230bcf8504e2b85670aad3d76f7a6725d7416667dbb770b8cd"
+      },
+      "decision_receipt": "content/production/runs/com02x-cg-20260930/PLAN-ENV-COM02X-002.decision.json",
+      "input_versions": [
+        {
+          "id": "file:docs/narrative/scenes/vertical-slice/COM-02X.md",
+          "version": "938edf40f2f34a9faee054971f72747e213c73ee",
+          "location": "docs/narrative/scenes/vertical-slice/COM-02X.md"
+        },
+        {
+          "id": "file:content/production/narrative/opening-ch1/COM-02X.json",
+          "version": "5f85482b7c420a5f7726035e369679360f83cfd5",
+          "location": "content/production/narrative/opening-ch1/COM-02X.json"
+        },
+        {
+          "id": "file:docs/art/PRODUCTION_VISUAL_DIRECTION.md",
+          "version": "4abc2e8957cdcd9c96c2329f17a1238bd6b42df1",
+          "location": "docs/art/PRODUCTION_VISUAL_DIRECTION.md"
+        },
+        {
+          "id": "file:docs/art/CG_PRODUCTION_SPEC.md",
+          "version": "43af519d5229744f8dd225dc05036e37d4e3f4d1",
+          "location": "docs/art/CG_PRODUCTION_SPEC.md"
+        },
+        {
+          "id": "file:.ai/schemas/CG_MANIFEST.md",
+          "version": "3fe4dbddf92f4bee9d84109672a9c0d912bd0c07",
+          "location": ".ai/schemas/CG_MANIFEST.md"
+        },
+        {
+          "id": "file:.ai/schemas/cg-manifest.schema.json",
+          "version": "a0ca0559ef62191546dbf75c92f04911a8d7a42e",
+          "location": ".ai/schemas/cg-manifest.schema.json"
+        },
+        {
+          "id": "file:.ai/schemas/VISUAL_CONTINUITY.md",
+          "version": "b2014095dc48df8dd4a03a705340e76b20f6376c",
+          "location": ".ai/schemas/VISUAL_CONTINUITY.md"
+        },
+        {
+          "id": "file:content/assets/source-catalog.json",
+          "version": "df8db5de75cdcd16131141433f43b9eabf717769",
+          "location": "content/assets/source-catalog.json"
+        },
+        {
+          "id": "file:content/assets/manifest.json",
+          "version": "ee0b5ddf71f1226625caa37aded4c9e5e6aa9054",
+          "location": "content/assets/manifest.json"
+        },
+        {
+          "id": "file:content/production/runs/pr33-first-person-20260929/NQA-COM02X-POV-001.decision.json",
+          "version": "f38fd7364156f90663af67aaec4cbcc7134379ad",
+          "location": "content/production/runs/pr33-first-person-20260929/NQA-COM02X-POV-001.decision.json"
+        },
+        {
+          "id": "original-environment-manifest",
+          "version": "34cea38d744962f5ee821f7001e8b4b700b5f5b8810015c1b0d3fc387853b782",
+          "location": "content/production/cg-manifests/opening-ch1-com02x-environment.json"
+        },
+        {
+          "id": "independent-environment-qa-failure",
+          "version": "5203f2afd944e90f75589d507bc983dd7cd09e35a3fbc122273be1ead4d7f418",
+          "location": "content/production/runs/com02x-cg-20260930/VQA-ENV-COM02X-001.decision.json"
+        },
+        {
+          "id": "completed-environment-render",
+          "version": "10114fa509aa400d62702bf5dcca4f21ddc4077180c4ceaa18689897034c02b8",
+          "location": "content/production/runs/com02x-cg-20260930/RENDER-ENV-COM02X-001.decision.json"
+        },
+        {
+          "id": "environment-candidate-001",
+          "version": "44b21d81cfac0dcbbd97ecd203c87553ca549651bb4b45aa7a96614102164bb3",
+          "location": "candidate:COM02X-ENV-CANDIDATE-001"
+        }
+      ],
+      "output_versions": [
+        {
+          "id": "COM02X-environment-reference-manifest-scope-reconciliation",
+          "version": "d0ccf52bc9762f6af60296955a5700d9717e3ff92e84a6fcb8d73ffb398800e2",
+          "location": "content/production/cg-manifests/opening-ch1-com02x-environment.json"
+        }
+      ],
+      "human_gate": "none",
+      "reason": null
     }
   ],
-  "invalidation_events": [],
+  "invalidation_events": [
+    {
+      "changed_artifact_id": "COM02X-environment-reference-manifest",
+      "old_version": "34cea38d744962f5ee821f7001e8b4b700b5f5b8810015c1b0d3fc387853b782",
+      "new_version": "d0ccf52bc9762f6af60296955a5700d9717e3ff92e84a6fcb8d73ffb398800e2",
+      "affected_task_ids": [
+        "MUA-ENV-COM02X-002",
+        "PACKET-ENV-COM02X-001"
+      ],
+      "decision": "STALE",
+      "evidence": "PLAN-ENV-COM02X-002.decision.json: reference-only acceptance corrected; original generation identities and historical QA remain unchanged; candidate requires fresh current-scope review."
+    }
+  ],
   "preview": null
 }
