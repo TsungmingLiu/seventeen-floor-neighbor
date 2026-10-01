@@ -308,6 +308,35 @@
       "output_versions": [],
       "human_gate": "none",
       "reason": null
+    },
+    {
+      "task_id": "PACKET-ENV-COM02X-001",
+      "task_type": "cg_render",
+      "scene_id": "COM-02X",
+      "depends_on": [
+        "MUA-ENV-COM02X-002"
+      ],
+      "status": "RUNNING",
+      "packet": {
+        "generator": "manual exact bounded packet; source identities recorded",
+        "sha256": "982539343c230cfb75dacab571e32eb800a2d7011c7077a8d1ee7887cbd26bc9"
+      },
+      "decision_receipt": null,
+      "input_versions": [
+        {
+          "id": "manifest:COM02X-environment",
+          "version": "34cea38d744962f5ee821f7001e8b4b700b5f5b8810015c1b0d3fc387853b782",
+          "location": "content/production/cg-manifests/opening-ch1-com02x-environment.json"
+        },
+        {
+          "id": "manifest-usability:COM02X-environment",
+          "version": "e8dd509286aad0104ccc1408f1fc06237b90b735f7dd2e59393b33f8db4b7032",
+          "location": "content/production/runs/com02x-cg-20260930/MUA-ENV-COM02X-002.decision.json"
+        }
+      ],
+      "output_versions": [],
+      "human_gate": "none",
+      "reason": "Deterministic compilation only; separate renderer follows"
     }
   ],
   "invalidation_events": [],

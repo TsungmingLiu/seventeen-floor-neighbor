@@ -106,16 +106,12 @@
       "name": "Style, 16:9 responsive framing, safe area, crop tolerance, and constraints",
       "result": "PASS",
       "evidence": "Single 16:9 output; realistic photographic PBR environment style; essential food and wet-night cues remain central and above the lower 25% dialogue zone with moderate side-crop tolerance; exclusions prevent people, brands, text/UI, romance, horror, and invented locations/story facts."
-    },
-    {
-      "name": "Candidate image pixel QA",
-      "result": "PASS",
-      "evidence": "Not applicable: no candidate image exists; this task reports manifest usability only."
     }
   ],
   "known_issues": [
     "No candidate pixels reviewed; this PASS applies only to manifest usability and deterministic projection readiness."
   ],
   "human_gate": "none",
-  "review_scope": "manifest_usability"
+  "review_scope": "manifest_usability",
+  "candidate_pixel_qa": "NOT_APPLICABLE_NO_CANDIDATE"
 }
