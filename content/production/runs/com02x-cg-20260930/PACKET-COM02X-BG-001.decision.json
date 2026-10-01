@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "com02x-cg-20260930",
+  "task_id": "PACKET-COM02X-BG-001",
+  "scene_id": "COM-02X",
+  "task_type": "cg_render",
+  "status": "PASS",
+  "workflow_version": "1.3.0",
+  "harness": {
+    "id": "cg_renderer",
+    "version": "1.0.0",
+    "pass": null
+  },
+  "source_ref": "ea2a27ef9eaaa4a2f120ff2311eef12c04843883",
+  "packet_sha256": "8899e2aa433bfd1ff2390a739305fc8f67febb1b6dd72ff1bd64a7375347c180",
+  "handoff_sha256": "f01a29817ed9182aa07908078bba73932cdbe485a1cdda252cfa032bcc72059f",
+  "input_versions": [
+    {
+      "id": "task-packet:PACKET-COM02X-BG-001",
+      "version": "sha256:8899e2aa433bfd1ff2390a739305fc8f67febb1b6dd72ff1bd64a7375347c180",
+      "location": "generated/session-cache/com02x-cg-20260930/PACKET-COM02X-BG-001.packet.json"
+    },
+    {
+      "id": "manifest:COM02X-minimum-formal",
+      "version": "sha256:023e359c738ca1ae1ab83f4a6ea0add08c403372b629ed1f2dbd72d90e4036a1",
+      "location": "content/production/cg-manifests/opening-ch1-com02x.json"
+    },
+    {
+      "id": "entry-excerpt:COM02X-BG-01",
+      "version": "sha256:acd6b0729cdcba725c9f21c470079bad22a91ee0028a76057d068c8a3466a747",
+      "location": "entry:COM02X-BG-01",
+      "derived_from": "content/production/cg-manifests/opening-ch1-com02x.json",
+      "entry_id": "COM02X-BG-01"
+    },
+    {
+      "id": "manifest-usability:COM02X",
+      "version": "sha256:616dd1b04d759017f1d21105c92b9a4fabbee64c4063a590de1bdd472a3801f3",
+      "location": "content/production/runs/com02x-cg-20260930/MUA-COM02X-001.decision.json"
+    },
+    {
+      "id": "projection-tool:render-cg-packets",
+      "version": "sha256:3a7ab0ea65ac4afe011147fdb347f9a0df441f17b07a429790110efc68c1c3f8",
+      "location": "tools/render-cg-packets.mjs"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "COM02X-BG-01-render-packet",
+      "version": "sha256:c5841fdba25254ec69a86344d1e910548a0c8c9fccdf28cc68896c3ef797e1c7",
+      "location": "derived:COM02X-BG-01",
+      "rebuild": {
+        "tool": "tools/render-cg-packets.mjs",
+        "manifest": "content/production/cg-manifests/opening-ch1-com02x.json",
+        "entry": "COM02X-BG-01",
+        "adapter": "api",
+        "source_ref": "ea2a27ef9eaaa4a2f120ff2311eef12c04843883"
+      }
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "task-packet-and-allowlisted-excerpt-hashes",
+      "result": "PASS"
+    },
+    {
+      "name": "canonical-manifest-identity",
+      "result": "PASS"
+    },
+    {
+      "name": "renderer-manifest-check",
+      "result": "PASS"
+    },
+    {
+      "name": "single-entry-api-projection",
+      "result": "PASS"
+    },
+    {
+      "name": "projection-provenance-hashes-recorded",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [],
+  "human_gate": "none",
+  "projection_provenance": {
+    "manifest_sha256": "3c23bc9d74bb38401ae51da3c170caa143cf5fab06ba0b1230a44379485c8ec0",
+    "render_spec_sha256": "87b91160441d4071ebacdb7d4bb53f8184f48aa226fafaf654771a7049dc943b",
+    "shared_prompt_sha256": "2ed058fa3fdb8f4dd3cabac7378ee261fdfd1987cad0e897b6ef6f46a3e24ec7",
+    "raw_packet_sha256": "c5841fdba25254ec69a86344d1e910548a0c8c9fccdf28cc68896c3ef797e1c7"
+  }
+}

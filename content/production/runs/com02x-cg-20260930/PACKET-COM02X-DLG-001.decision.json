@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "com02x-cg-20260930",
+  "task_id": "PACKET-COM02X-DLG-001",
+  "scene_id": "COM-02X",
+  "task_type": "cg_render",
+  "status": "PASS",
+  "workflow_version": "1.3.0",
+  "harness": {
+    "id": "cg_renderer",
+    "version": "1.0.0",
+    "pass": null
+  },
+  "source_ref": "ea2a27ef9eaaa4a2f120ff2311eef12c04843883",
+  "packet_sha256": "438c223855bd995f4cbde5956e5b6237b82a3965ae8c89b16435bb4176fb03cf",
+  "handoff_sha256": "3f5e2b4ac957c5cc974318f10103241226748187f814a2f1d4483ca7d693d5ea",
+  "input_versions": [
+    {
+      "id": "manifest:COM02X-minimum-formal",
+      "version": "023e359c738ca1ae1ab83f4a6ea0add08c403372b629ed1f2dbd72d90e4036a1",
+      "location": "content/production/cg-manifests/opening-ch1-com02x.json"
+    },
+    {
+      "id": "entry-excerpt:COM02X-DLG-01",
+      "version": "e1caa87d34cf8b67466f54f755a3c63c44f9faae59cb39139c2127c5d9eef372",
+      "location": "generated/session-cache/com02x-cg-20260930/COM02X-DLG-01.entry.json"
+    },
+    {
+      "id": "manifest-usability:COM02X",
+      "version": "616dd1b04d759017f1d21105c92b9a4fabbee64c4063a590de1bdd472a3801f3",
+      "location": "content/production/runs/com02x-cg-20260930/MUA-COM02X-001.decision.json"
+    },
+    {
+      "id": "task-packet-raw",
+      "version": "438c223855bd995f4cbde5956e5b6237b82a3965ae8c89b16435bb4176fb03cf",
+      "location": "generated/session-cache/com02x-cg-20260930/PACKET-COM02X-DLG-001.packet.json"
+    },
+    {
+      "id": "manifest-raw-bytes",
+      "version": "023e359c738ca1ae1ab83f4a6ea0add08c403372b629ed1f2dbd72d90e4036a1",
+      "location": "content/production/cg-manifests/opening-ch1-com02x.json"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "COM02X-DLG-01-render-packet",
+      "version": "8ff85aa0a3ec9f1a84a7dd587bf0dfff56e739edf414fae3432fb2bd6cfc5942",
+      "location": "generated/session-cache/com02x-cg-20260930/COM02X-DLG-01.api.jsonl"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "manifest_check_two_entries",
+      "result": "PASS"
+    },
+    {
+      "name": "allowlisted_excerpt_and_metadata_hashes",
+      "result": "PASS"
+    },
+    {
+      "name": "api_projection_hashes_recorded",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [],
+  "human_gate": "accepted_master_image_selection"
+}
