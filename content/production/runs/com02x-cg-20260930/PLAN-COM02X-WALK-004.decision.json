@@ -1,0 +1,142 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "com02x-cg-20260930",
+  "task_id": "PLAN-COM02X-WALK-004",
+  "scene_id": "COM-02X",
+  "task_type": "cg_plan",
+  "status": "PASS",
+  "workflow_version": "1.3.0",
+  "harness": {
+    "id": "cg_planner",
+    "version": "1.0.0",
+    "pass": null
+  },
+  "source_ref": "33529bf46da86c0c776b06b318864fefb9208da5",
+  "packet_sha256": "e55af85a03a008b1121bf4a3fd807e5990b58f3acab1ebbd64ded4b5bce07f59",
+  "handoff_sha256": "7f0604c3a85cd99b2a10e0633d22d8cf8d0523fbed1a5ba88fa0f23cf3e58278",
+  "input_versions": [
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-02X.md",
+      "version": "46d1566ec766adbefbfc2fc93964ee84cf70eca81078f6d35f589e65ddf579c6",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02X.md"
+    },
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-02X.json",
+      "version": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952",
+      "location": "content/production/narrative/opening-ch1/COM-02X.json"
+    },
+    {
+      "id": "file:docs/art/PRODUCTION_VISUAL_DIRECTION.md",
+      "version": "8937497d234d70bf26169c12fb238890c63f1dfa7fe8087c76e16738ffe74fa3",
+      "location": "docs/art/PRODUCTION_VISUAL_DIRECTION.md"
+    },
+    {
+      "id": "file:docs/art/CG_PRODUCTION_SPEC.md",
+      "version": "962e6a8afd7769b71a806b5d3039cb6a2af3d8f4332f6f1457354976dac32647",
+      "location": "docs/art/CG_PRODUCTION_SPEC.md"
+    },
+    {
+      "id": "file:.ai/schemas/CG_MANIFEST.md",
+      "version": "5ea25f87ccb368b6deb7f56e416ccda09275fb092d50e47579d118990db2c7c7",
+      "location": ".ai/schemas/CG_MANIFEST.md"
+    },
+    {
+      "id": "file:.ai/schemas/cg-manifest.schema.json",
+      "version": "7746c8b1b662578dae0e0dfb8582891a13f957a0b53a296ffa3ff57bc5926614",
+      "location": ".ai/schemas/cg-manifest.schema.json"
+    },
+    {
+      "id": "file:.ai/schemas/VISUAL_CONTINUITY.md",
+      "version": "fee700c8aa5bca246fb8d7688f660a15ff389ba933806a22d01cdcdb41e2dad2",
+      "location": ".ai/schemas/VISUAL_CONTINUITY.md"
+    },
+    {
+      "id": "file:content/assets/source-catalog.json",
+      "version": "63bf0cd4e828890de829a8977a81f0884c555601b0abdf975784faeb53874ee2",
+      "location": "content/assets/source-catalog.json"
+    },
+    {
+      "id": "file:content/assets/manifest.json",
+      "version": "e51fee4e4cc0ba094eef6ba63c6c4f53b0768e73cc1af13128ba7e09bce326ac",
+      "location": "content/assets/manifest.json"
+    },
+    {
+      "id": "file:content/production/runs/pr33-first-person-20260929/NQA-COM02X-POV-001.decision.json",
+      "version": "9b72821aff57650d64aada364bebd0aa72b8926f83f91e74d58a07e74c04ea03",
+      "location": "content/production/runs/pr33-first-person-20260929/NQA-COM02X-POV-001.decision.json"
+    },
+    {
+      "id": "excerpt:xu-reference-pack",
+      "version": "8c0b323eb461e4b6b3d8a28bdb89d91930c0af982fc4738189fd1579da71e3ac",
+      "location": "generated/session-cache/com02x-cg-20260930/xu-reference-pack.md"
+    },
+    {
+      "id": "content/production/cg-manifests/opening-ch1-com02x.json",
+      "version": "1c7b06d0f9680cfac27beb60d008b4123101de83acb70b2699f635e9adc6c7de",
+      "location": "content/production/cg-manifests/opening-ch1-com02x.json"
+    },
+    {
+      "id": "content/production/runs/com02x-cg-20260930/HUMAN-COM02X-MASTER-001.decision.json",
+      "version": "a6d125cd39bbf92b9efe7edd93a05a284abda61162ad80a84a4519b6ae58cea8",
+      "location": "content/production/runs/com02x-cg-20260930/HUMAN-COM02X-MASTER-001.decision.json"
+    },
+    {
+      "id": "content/assets/ingest-receipts/com02x-accepted-masters-v1.json",
+      "version": "19f27385a62aa6260d0bac9ddf69e4feea0fbf9f3c3c40ca45fa78804923ddae",
+      "location": "content/assets/ingest-receipts/com02x-accepted-masters-v1.json"
+    },
+    {
+      "id": "assets-src/opening-ch1-demo/com02x-dlg-01-candidate-v1.png",
+      "version": "c3b980c003dd2bcfb4dcabb769438fe67d85751f75f5fed20ceedf4ad0c3ea65",
+      "location": "assets-src/opening-ch1-demo/com02x-dlg-01-candidate-v1.png"
+    },
+    {
+      "id": "source.opening.ch1.com01b.03",
+      "version": "aa6a236bceca59882edd5f3e1eded77b99347ca62fe5ed81ff74ee4d84bdcbc0",
+      "location": "assets-src/opening-ch1-demo/opening-ch1-com01b-03.webp"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "COM02X-walking-additional-cg-manifest",
+      "version": "50b6996cbecb3d5964824307ad38290f04bdb6fee8f70a74d24b7a3fd194e848",
+      "location": "content/production/cg-manifests/opening-ch1-com02x-walk.json"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "packet_revision_2_exact_source_ref_and_input_hashes",
+      "result": "PASS"
+    },
+    {
+      "name": "required_image_filename_mime_hash_and_visible_pixels",
+      "result": "PASS"
+    },
+    {
+      "name": "one_walk_only_entry_reference_and_coverage_completeness",
+      "result": "PASS"
+    },
+    {
+      "name": "production_validate_5_contracts_17_entries",
+      "result": "PASS"
+    },
+    {
+      "name": "cg_packet_walk_manifest_check_1_entry",
+      "result": "PASS"
+    },
+    {
+      "name": "git_diff_check",
+      "result": "PASS"
+    },
+    {
+      "name": "existing_two_entries_masters_receipts_and_narrative_hashes_unchanged",
+      "result": "PASS"
+    },
+    {
+      "name": "planning_only_no_generation_runtime_ledger_commit_or_push",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [],
+  "human_gate": "none"
+}

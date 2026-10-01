@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "com02x-cg-20260930",
+  "task_id": "RENDER-COM02X-WALK-001",
+  "scene_id": "COM-02X",
+  "task_type": "cg_render",
+  "status": "PASS",
+  "workflow_version": "1.3.0",
+  "harness": {
+    "id": "cg_renderer",
+    "version": "1.0.0",
+    "pass": null
+  },
+  "source_ref": "eee8658e8d9b02a6defbe5a24313447f2f4d49cf",
+  "packet_sha256": "fdf2e754e6ec87425d2da67672b465ea5705a4627633ec89eabeb7081e28a9f7",
+  "handoff_sha256": "88327efddc40c084a7a4a21a2325262bb74d6aec565ed1e499af1d34bc2b2858",
+  "input_versions": [
+    {
+      "id": "RENDER-COM02X-WALK-001",
+      "version": "fdf2e754e6ec87425d2da67672b465ea5705a4627633ec89eabeb7081e28a9f7",
+      "location": "generated/session-cache/com02x-cg-20260930/RENDER-COM02X-WALK-001.packet.json"
+    },
+    {
+      "id": "entry-excerpt:COM02X-WALK-01",
+      "version": "f216e86a9bde3c26699888db4b4826e3c8d59591b1554a1715a77a41088c77ca",
+      "location": "generated/session-cache/com02x-cg-20260930/COM02X-WALK-01.entry.json"
+    },
+    {
+      "id": "render-packet:COM02X-WALK-01",
+      "version": "6d9f71a9b1d871a86aa4f8f0ecf7069022b1da3269c1fff966b6ec1bc8f296c0",
+      "location": "generated/session-cache/com02x-cg-20260930/COM02X-WALK-01.api.jsonl"
+    },
+    {
+      "id": "deterministic-projection-decision:COM02X-WALK-01",
+      "version": "99d98fd377bcdda8d064c2681f775feb3c7425eac4f676e0ba3f2bcfb5fc0d99",
+      "location": "content/production/runs/com02x-cg-20260930/PACKET-COM02X-WALK-001.decision.json"
+    },
+    {
+      "id": "ref.xu_tang.face.01",
+      "version": "2fd137f796d0e7667a5913748158f75705b1a538b346b9e7f76aacb3c79acfd0",
+      "location": "assets-src/references/xu-tang/xt-ref-01-face.png"
+    },
+    {
+      "id": "ref.xu_tang.wardrobe.a",
+      "version": "aaf33f06f3e39fc476deee03ab261a43e0911b8393366ae7399c633abfadc716",
+      "location": "assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png"
+    },
+    {
+      "id": "source.com02x.dlg-01",
+      "version": "c3b980c003dd2bcfb4dcabb769438fe67d85751f75f5fed20ceedf4ad0c3ea65",
+      "location": "assets-src/opening-ch1-demo/com02x-dlg-01-candidate-v1.png"
+    },
+    {
+      "id": "source.opening.ch1.com01b.03",
+      "version": "aa6a236bceca59882edd5f3e1eded77b99347ca62fe5ed81ff74ee4d84bdcbc0",
+      "location": "assets-src/opening-ch1-demo/opening-ch1-com01b-03.webp"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "COM02X-WALK-01-CANDIDATE-001",
+      "version": "3b09951d2abaf3362bcbccc015462b1d4885cb226618f688d6ef99703fc4366d",
+      "location": "/Users/tsungmingliu/Documents/Codex/2026-09-30/com02x-cg-production/outputs/com02x-walk-candidate-v1.png"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "entry_and_api_raw_sha256",
+      "result": "PASS"
+    },
+    {
+      "name": "decision_projection_digest",
+      "result": "PASS"
+    },
+    {
+      "name": "all_four_declared_reference_hashes_mime_dimensions_and_visible_pixels",
+      "result": "PASS"
+    },
+    {
+      "name": "unchanged_shared_prompt_hash",
+      "result": "PASS"
+    },
+    {
+      "name": "single_generation_call",
+      "result": "PASS"
+    },
+    {
+      "name": "original_output_bytes_copied_byte_identically",
+      "result": "PASS"
+    },
+    {
+      "name": "actual_output_dimensions_recorded",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "Actual dimensions 1672x941 are below the 1920x1080 formal master minimum; independent visual QA must assess this defect.",
+    "No visual QA, self-acceptance, or Human accepted-master selection was performed."
+  ],
+  "human_gate": "none"
+}

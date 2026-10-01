@@ -225,12 +225,39 @@ test('opening preview plays COM-00 → COM-01X → COM-01J → COM-02X and saves
     JSON.parse(localStorage.getItem('opening-demo-chapter-01:journey:v2')).cursor.nodeId
   );
   expect(replayNode).toBe('common_convenience_xu_ask_food');
+  const replayJourney = await page.evaluate(() => JSON.parse(localStorage.getItem('opening-demo-chapter-01:journey:v2')));
+  expect(replayJourney.frontier).toEqual(finalJourney.frontier);
+  expect(replayJourney.runComplete).toBe(true);
+  expect(replayJourney.restartActive).toBe(false);
   await page.reload();
+  await expect(page.locator('#start-button')).toBeEnabled();
+  await expect(page.locator('#start-button')).toHaveText('開始遊戲');
+  await expect.poll(() => page.evaluate(() =>
+    JSON.parse(localStorage.getItem('opening-demo-chapter-01:journey:v2')).cursor.nodeId
+  )).toBe(replayNode);
+
+  // The completed story offers Start; only an explicit new run resumes its cursor.
   await page.locator('#start-button').click();
   await waitForDialogueReady(page);
   await expect.poll(() => page.evaluate(() =>
     JSON.parse(localStorage.getItem('opening-demo-chapter-01:journey:v2')).cursor.nodeId
-  )).toBe(replayNode);
+  )).toBe('common_movein_rain_open');
+  const restartedJourney = await page.evaluate(() => JSON.parse(localStorage.getItem('opening-demo-chapter-01:journey:v2')));
+  expect(restartedJourney.frontier).toEqual(finalJourney.frontier);
+  expect(restartedJourney.restartActive).toBe(true);
+  expect(restartedJourney.runComplete).toBe(false);
+  await page.locator('#advance-zone').click();
+  await waitForDialogueReady(page);
+  await expect.poll(() => page.evaluate(() =>
+    JSON.parse(localStorage.getItem('opening-demo-chapter-01:journey:v2')).cursor.nodeId
+  )).toBe('common_movein_rain_open_chair');
+  await page.reload();
+  await expect(page.locator('#start-button')).toHaveText('繼續遊戲');
+  await page.locator('#start-button').click();
+  await waitForDialogueReady(page);
+  await expect.poll(() => page.evaluate(() =>
+    JSON.parse(localStorage.getItem('opening-demo-chapter-01:journey:v2')).cursor.nodeId
+  )).toBe('common_movein_rain_open_chair');
 
   expect(finalJourney.playerDisplayName).toBe('測試姓名');
   expect(finalJourney.frontierMemoryEventId).toBe('mem.opening.ch1.convenience-xu');

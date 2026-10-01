@@ -1,0 +1,186 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "com02x-cg-20260930",
+  "task_id": "PLAN-COM02X-MICROWAVE-003",
+  "scene_id": "COM-02X",
+  "task_type": "cg_plan",
+  "status": "PASS",
+  "workflow_version": "1.3.0",
+  "harness": {
+    "id": "cg_planner",
+    "version": "1.0.0",
+    "pass": null
+  },
+  "source_ref": "33529bf46da86c0c776b06b318864fefb9208da5",
+  "packet_sha256": "43455580acdeb958f361d8bbdeb423c410e8d449bb3a843f78418fa20d2d2526",
+  "handoff_sha256": "6574b48d721f0e4a161006ea1ac380109cf810cac8d20a9ff352e62dfc2ece8c",
+  "input_versions": [
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-02X.md",
+      "version": "46d1566ec766adbefbfc2fc93964ee84cf70eca81078f6d35f589e65ddf579c6",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02X.md"
+    },
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-02X.json",
+      "version": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952",
+      "location": "content/production/narrative/opening-ch1/COM-02X.json"
+    },
+    {
+      "id": "file:docs/art/PRODUCTION_VISUAL_DIRECTION.md",
+      "version": "8937497d234d70bf26169c12fb238890c63f1dfa7fe8087c76e16738ffe74fa3",
+      "location": "docs/art/PRODUCTION_VISUAL_DIRECTION.md"
+    },
+    {
+      "id": "file:docs/art/CG_PRODUCTION_SPEC.md",
+      "version": "962e6a8afd7769b71a806b5d3039cb6a2af3d8f4332f6f1457354976dac32647",
+      "location": "docs/art/CG_PRODUCTION_SPEC.md"
+    },
+    {
+      "id": "file:.ai/schemas/CG_MANIFEST.md",
+      "version": "5ea25f87ccb368b6deb7f56e416ccda09275fb092d50e47579d118990db2c7c7",
+      "location": ".ai/schemas/CG_MANIFEST.md"
+    },
+    {
+      "id": "file:.ai/schemas/cg-manifest.schema.json",
+      "version": "7746c8b1b662578dae0e0dfb8582891a13f957a0b53a296ffa3ff57bc5926614",
+      "location": ".ai/schemas/cg-manifest.schema.json"
+    },
+    {
+      "id": "file:.ai/schemas/VISUAL_CONTINUITY.md",
+      "version": "fee700c8aa5bca246fb8d7688f660a15ff389ba933806a22d01cdcdb41e2dad2",
+      "location": ".ai/schemas/VISUAL_CONTINUITY.md"
+    },
+    {
+      "id": "file:content/assets/source-catalog.json",
+      "version": "63bf0cd4e828890de829a8977a81f0884c555601b0abdf975784faeb53874ee2",
+      "location": "content/assets/source-catalog.json"
+    },
+    {
+      "id": "file:content/assets/manifest.json",
+      "version": "e51fee4e4cc0ba094eef6ba63c6c4f53b0768e73cc1af13128ba7e09bce326ac",
+      "location": "content/assets/manifest.json"
+    },
+    {
+      "id": "file:content/production/runs/pr33-first-person-20260929/NQA-COM02X-POV-001.decision.json",
+      "version": "9b72821aff57650d64aada364bebd0aa72b8926f83f91e74d58a07e74c04ea03",
+      "location": "content/production/runs/pr33-first-person-20260929/NQA-COM02X-POV-001.decision.json"
+    },
+    {
+      "id": "excerpt:xu-reference-pack",
+      "version": "8c0b323eb461e4b6b3d8a28bdb89d91930c0af982fc4738189fd1579da71e3ac",
+      "location": "generated/session-cache/com02x-cg-20260930/xu-reference-pack.md"
+    },
+    {
+      "id": "ref.com02x.environment.convenience_night",
+      "version": "44b21d81cfac0dcbbd97ecd203c87553ca549651bb4b45aa7a96614102164bb3",
+      "location": "assets-src/references/environments/com02x-convenience-night-reference-v1.png"
+    },
+    {
+      "id": "registered-environment-reference",
+      "version": "c33e925764d24b9ce93abd2c1f79d2f224ec1ea90292f3bd076002767daa475b",
+      "location": "content/production/runs/com02x-cg-20260930/REF-INGEST-COM02X-001.decision.json"
+    },
+    {
+      "id": "environment-reference-source-receipt",
+      "version": "01b6e9a032ff5c75a6c30e9031c6c67c4907eac67162a040de39984d18fd768c",
+      "location": "content/assets/ingest-receipts/com02x-environment-reference-v1.json"
+    },
+    {
+      "id": "environment-reference-qa",
+      "version": "1bf4fabdfdf47bfa90e4443a42824e44dd7094d03c376faa44540b8ebaba7184",
+      "location": "content/production/runs/com02x-cg-20260930/VQA-ENV-COM02X-002.decision.json"
+    },
+    {
+      "id": "content/production/cg-manifests/opening-ch1-com02x.json",
+      "version": "1c7b06d0f9680cfac27beb60d008b4123101de83acb70b2699f635e9adc6c7de",
+      "location": "content/production/cg-manifests/opening-ch1-com02x.json"
+    },
+    {
+      "id": "content/production/runs/com02x-cg-20260930/HUMAN-COM02X-MASTER-001.decision.json",
+      "version": "a6d125cd39bbf92b9efe7edd93a05a284abda61162ad80a84a4519b6ae58cea8",
+      "location": "content/production/runs/com02x-cg-20260930/HUMAN-COM02X-MASTER-001.decision.json"
+    },
+    {
+      "id": "content/assets/ingest-receipts/com02x-accepted-masters-v1.json",
+      "version": "19f27385a62aa6260d0bac9ddf69e4feea0fbf9f3c3c40ca45fa78804923ddae",
+      "location": "content/assets/ingest-receipts/com02x-accepted-masters-v1.json"
+    },
+    {
+      "id": "assets-src/opening-ch1-demo/com02x-dlg-01-candidate-v1.png",
+      "version": "c3b980c003dd2bcfb4dcabb769438fe67d85751f75f5fed20ceedf4ad0c3ea65",
+      "location": "assets-src/opening-ch1-demo/com02x-dlg-01-candidate-v1.png"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "COM02X-microwave-additional-cg-manifest",
+      "version": "7255a23aa119570b7130888f92c6a4f53629ec3ca420e7270d0bdbf340b41e02",
+      "location": "content/production/cg-manifests/opening-ch1-com02x-microwave.json"
+    },
+    {
+      "id": "COM02X-MICROWAVE-003-api-projection",
+      "version": "68005152b44f9ca6f0c0dc4fd27c2c4ef67bb61a89134858c39424f2f5232b82",
+      "location": "generated/session-cache/com02x-cg-20260930/COM02X-MICROWAVE-003.api.jsonl"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "exact_repository_ref_and_source_binding",
+      "result": "PASS"
+    },
+    {
+      "name": "required_text_hashes_nonempty_and_catalog_resolution",
+      "result": "PASS"
+    },
+    {
+      "name": "all_four_exact_images_fully_decoded_and_actual_pixels_viewed",
+      "result": "PASS"
+    },
+    {
+      "name": "one_new_independent_character_CG_precise_later_wait_anchor",
+      "result": "PASS"
+    },
+    {
+      "name": "canonical_identity_wardrobe_authority_accepted_reference_scope",
+      "result": "PASS"
+    },
+    {
+      "name": "coffee_meal_ownership_heating_state_beep_cutaway",
+      "result": "PASS"
+    },
+    {
+      "name": "camera_gaze_continuity_crop_safe_zone_minimum_1920x1080",
+      "result": "PASS"
+    },
+    {
+      "name": "existing_two_entries_masters_receipts_and_approved_narrative_hashes_unchanged",
+      "result": "PASS"
+    },
+    {
+      "name": "npm_run_production_validate_5_contracts_16_entries",
+      "result": "PASS"
+    },
+    {
+      "name": "new_manifest_cg_packet_check_one_entry",
+      "result": "PASS"
+    },
+    {
+      "name": "deterministic_api_projection_no_generation",
+      "result": "PASS"
+    },
+    {
+      "name": "git_diff_check",
+      "result": "PASS"
+    },
+    {
+      "name": "no_runtime_commit_push_ledger_edits_by_this_worker",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "PASS is cg_plan plus machine checks only; fresh manifest-usability review is next. No new candidate or candidate Visual QA exists.",
+    "Later subsection only: initial handover/phone/first work exchange and final beep/retrieval use existing background. Walking excluded.",
+    "Historical Human as-is approval applies only to the original two exact hashes; new candidate still needs >=1920x1080, independent Visual QA and Human master selection."
+  ],
+  "human_gate": "none"
+}

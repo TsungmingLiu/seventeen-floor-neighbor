@@ -1,0 +1,208 @@
+{
+  "schema_version": "1.0.0",
+  "manifest_id": "opening-ch1-com02x-walk-home-cg",
+  "manifest_version": "1.0.0",
+  "lifecycle": "CANONICAL",
+  "source_scene_ids": [
+    "COM-02X"
+  ],
+  "style_contract": {
+    "style_id": "production-realistic-pbr-cinematic-v1",
+    "positive": [
+      "Realistic high-end game-cinematic / photographic PBR rendering; physically plausible adult anatomy, materials, exposure and photographic perspective.",
+      "Natural skin pores, fine tonal variation, realistic eyelids and eye proportions, physically plausible hair strands and cloth; Xu face realism at least equal to the primary face reference.",
+      "Believable late-night residential-street lighting from warm entrance, planter and street lamps with cool ambient night; realistic material response and restrained exposure, no advertising glamour.",
+      "One newly rendered independent 16:9 landscape image per entry, one generation call once only; no automatic redraw, retry, alternative grid or selection.",
+      "Final production master minimum 1920x1080, preferred 2560x1440 when generation quality supports it; genuine resolved facial/material detail and crop tolerance. Supporting reference resolution does not lower this final-master requirement."
+    ],
+    "negative": [
+      "Anime/manga proportions, oversized eyes, simplified anatomy, chibi, animation-film facial design, doll/figurine/game-avatar face.",
+      "Plastic airbrushed skin, painterly/cartoon illustration, ink lines, screentone, cel shading or studio character-sheet posing.",
+      "Embedded dialogue, captions, UI, watermarks, logos, real brands, dominant pseudo-text, collage, contact sheet or multiple frames."
+    ],
+    "aspect_ratio": "16:9",
+    "output_count": 1
+  },
+  "entries": [
+    {
+      "entry_id": "COM02X-WALK-01",
+      "scene_id": "COM-02X",
+      "source_scene": "docs/narrative/scenes/vertical-slice/COM-02X.md",
+      "status": "render_ready",
+      "cg_class": "dialogue_cg",
+      "sequence_id": null,
+      "beat_range": "02X.7 walking-home portion only. Approved script anchor common_convenience_xu_checkout: from the action beginning 兩人往同一個方向走 through the post-intersection quiet stretch, ending before the action at the apartment glass door. Reuse for the shared porridge-shop recommendation with its sign and chin gesture offscreen; not for store checkout or 02X.8 lobby/elevator/doorway.",
+      "narrative": {
+        "purpose": "Supply the one additional Human-requested walking-home character view: the protagonist walks beside Xu, sees her side profile, and shares an ordinary quiet stretch after their separate purchases. This visual coverage supplement leaves the approved dialogue, actions, choices, knowledge, relationship boundaries and Memory rank 160 unchanged. The existing two accepted COM02X images remain exact and unchanged.",
+        "must_show": [
+          "Only Xu visible in a candid companion-level side profile, continuing along the residential sidewalk with relaxed shoulders and an ordinary personal-space gap to the unseen protagonist.",
+          "Human-selected opening-ch1-com01b-03.webp street environment remains unmistakable: stone-clad residential facade and recessed warm glass entrance at frame left, low stone planters/hedges and small garden lamps, paved sidewalk with tactile strip, street trees and street lamps toward frame right, quiet road on the right and perspective receding along the same sidewalk.",
+          "Canonical grey Late-night Convenience Store Look 02 sweater, gold hoops, long dark hair/fringe and accepted cream shoulder tote; her own checkout bag carried naturally after the coffee and meal were purchased.",
+          "Week 2 weekday around 23:00 after recent rain, restrained warm residential lamps against cool night and a light residual pavement sheen; neither active heavy rain nor umbrella use."
+        ],
+        "must_not_imply": [
+          "A date, invitation, flirtation, romantic eye contact, touch, shared umbrella, exchanged bags, protagonist paying for her or escorting a dependent person.",
+          "New dialogue/action/state facts, new shop details, route knowledge beyond the approved shared recommendation, or exchanged contact information.",
+          "The reference street belongs to a different narrative moment; this uses its environment pixels only, without any COM01B story or character inheritance.",
+          "The fixed still literally depicts every narrated movement: the recommendation chin lift, crossing the intersection, slowing at the entrance and door opening remain narrated/offscreen. No fixed pointing pose or new restaurant sign is added.",
+          "The old accepted DLG face expression, beauty smoothing, posed near-lens gaze, unsafe lower-zone detail or below-minimum master dimensions are approved for this new image."
+        ]
+      },
+      "characters": [
+        {
+          "character_id": "xu_tang",
+          "screen_side": "center",
+          "body_orientation": "Profile_right: torso and face point toward frame-right along the onward sidewalk; the camera sees a clear natural side profile while walking beside her, not a frontal portrait or rear-following view.",
+          "pose": "Relaxed mid-walk waist-to-upper-hip view, shoulders level, no fashion contrapposto. Anatomical right arm hangs naturally carrying her small unbranded checkout bag near the hip; free left arm relaxed, cream tote remains on the left shoulder. No reaching, pointing, hand swap, door-opening or bag transfer frozen into this still.",
+          "gaze": "Ahead along the shared sidewalk, away from the lens; eyes follow the route rather than holding model gaze or romantic eye contact with the protagonist.",
+          "expression": "Ordinary tired calm with relaxed neutral mouth and natural eyelids; no sultry half-open-mouth posing, conspicuous grin, blush, anger, tearful vulnerability or flirtation.",
+          "wardrobe_key": "XT-WARDROBE-A-LOOK-02-LATE-CASUAL",
+          "held_objects": [
+            "xu_own_small_unbranded_checkout_bag_containing_purchased_black_coffee_and_simple_meal: anatomical right hand; contents not separately duplicated"
+          ],
+          "reference_bindings": [
+            {
+              "role": "primary_face_identity",
+              "source_id": "ref.xu_tang.face.01",
+              "expected_filename": "xt-ref-01-face.png"
+            },
+            {
+              "role": "wardrobe",
+              "source_id": "ref.xu_tang.wardrobe.a",
+              "expected_filename": "xt-ref-05-wardrobe-a.png"
+            },
+            {
+              "role": "accepted_character_continuity",
+              "source_id": "source.com02x.dlg-01",
+              "expected_filename": "com02x-dlg-01-candidate-v1.png"
+            }
+          ]
+        }
+      ],
+      "environment": {
+        "location_id": "residential_sidewalk_near_apartment_com02x_walk_home",
+        "time_of_day": "Week 2 weekday approximately 23:00, same uninterrupted night as the convenience-store visit.",
+        "weather": "Recently rained with modest residual pavement sheen; no falling heavy rain. Preserve the Human-selected reference street geography rather than inventing another street.",
+        "lighting": "Preserve reference positions and warm colors of recessed entrance downlight, garden/planter lights and street lamps; cool ambient night between them. Natural warm/cool mixed exposure on Xu, realistic skin and cloth, no beauty key light, artificial rim glow or golden-hour sun.",
+        "persistent_props": [
+          "Reference stone residential facade/recessed glass entrance at left; low stone planter walls, hedges, planted trees and warm small garden lights.",
+          "Reference paved sidewalk, tactile strip running along it, row of street trees and lamps, quiet roadway on the right, residential facades receding into depth.",
+          "Light recent-rain sheen consistent with the approved COM02X walk; no white restaurant sign is invented inside the selected environment. The approved sign/recommendation remains outside the right edge."
+        ],
+        "reference_binding": {
+          "role": "existing_street_environment",
+          "source_id": "source.opening.ch1.com01b.03",
+          "expected_filename": "opening-ch1-com01b-03.webp"
+        }
+      },
+      "camera": {
+        "shot_size": "medium",
+        "angle": "Standing eye level with level horizon, moving alongside at normal conversational walking distance and looking diagonally toward Xu without exaggerated low/high angle.",
+        "pov": "protagonist",
+        "axis_id": "COM02X-walk-home-sidewalk-axis",
+        "camera_side": "Companion on Xu anatomical right, toward the road side of the sidewalk. View her side profile at center-left as she travels toward frame-right; keep the reference residential facade/planters left and road/tree/sidewalk-depth geography right without mirroring.",
+        "lens_intent": "Natural approximately 40-50mm photographic perspective, face/ear/hair sharp with moderate background depth so the selected street remains identifiable; no fisheye, telephoto glamour flattening or full-background blur."
+      },
+      "continuity": {
+        "previous_entry_id": null,
+        "locked_fields": [
+          "/characters/0/character_id",
+          "/characters/0/wardrobe_key",
+          "/characters/0/reference_bindings",
+          "/environment/location_id",
+          "/environment/time_of_day",
+          "/environment/weather",
+          "/environment/lighting",
+          "/environment/reference_binding",
+          "/camera/axis_id",
+          "/camera/camera_side"
+        ],
+        "allowed_changes": []
+      },
+      "composition": {
+        "focus": {
+          "x": 46,
+          "y": 33
+        },
+        "dialogue_safe_zone": "Lower y=75..100 percent is low-detail dark pavement and unobtrusive clothing only. Keep Xu face near x=40..52,y=20..42 and the carrying hand/bag read near x=42..64,y=55..70, above the lower-quarter UI zone and inside x=15..85 crop-safe band.",
+        "framing_notes": [
+          "Xu occupies center-left with forward looking room toward frame right, a readable side-profile silhouette, ear/hoop, fringe and grey sweater. Frame waist to upper hips; crop out full legs and shorts drawstring detail, retaining complete canonical wardrobe without lower-body redesign. No body JPEG required.",
+          "Use the exact reference street as environment authority while adapting the camera to beside-Xu perspective; preserve its left facade/right roadway organization, planters, trees, lamps and receding sidewalk rather than pasting a frontal portrait onto an unrelated background.",
+          "The accepted store DLG is immediate identity/outfit/accessory continuity only. Separate checkout moves the meal and coffee into her own carried bag; retain its cream shoulder tote and grey outfit, but do not carry its store location, frontal pose, hand-held exposed food or accepted QA defects into this walk.",
+          "The approved scene moves from store to street: this justifies the new location, walking axis, profile gaze, bag and warm/cool exterior lighting. It is an independent new dialogue CG with references, not a reaction edit, accepted-base edit or linked sequence.",
+          "Runtime coverage intent stays within approved common_convenience_xu_checkout walk text: start after she puts the receipt in her bag and both head the same way; hold through the shared recommendation and quiet post-intersection stretch; stop before the apartment-door slowdown/opening and common_convenience_xu_exit. Store/microwave, lobby, elevator and 1702 goodbye have no new planning here.",
+          "Human instruction adds this one walk image over older shot-economy/no-new-walk annotations; no approved narrative rewrite, asset replacement, Memory cover change, sprite requirement or runtime alteration is authorized by this manifest.",
+          "Immediate accepted DLG continuity is carried by the explicit source.com02x.dlg-01 attachment; previous_entry_id is null because this separate manifest is independently executable and no linked sequence/edit dependency exists."
+        ]
+      },
+      "render_constraints": {
+        "include": [
+          "Immutable primary_face_identity binding: ref.xu_tang.face.01; repository path assets-src/references/xu-tang/xt-ref-01-face.png; filename xt-ref-01-face.png; MIME image/png; 1055x1491; raw-file SHA-256 2fd137f796d0e7667a5913748158f75705b1a538b346b9e7f76aacb3c79acfd0. Verify exact bytes, complete decode, visible pixels and assigned role before the generation call; mismatch is BLOCKED.",
+          "Immutable wardrobe binding: ref.xu_tang.wardrobe.a; repository path assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png; filename xt-ref-05-wardrobe-a.png; MIME image/png; 1055x1491; raw-file SHA-256 aaf33f06f3e39fc476deee03ab261a43e0911b8393366ae7399c633abfadc716. Verify exact bytes, complete decode, visible pixels and assigned role before the generation call; mismatch is BLOCKED.",
+          "Immutable accepted_character_continuity binding: source.com02x.dlg-01; repository path assets-src/opening-ch1-demo/com02x-dlg-01-candidate-v1.png; filename com02x-dlg-01-candidate-v1.png; MIME image/png; 1672x941; raw-file SHA-256 c3b980c003dd2bcfb4dcabb769438fe67d85751f75f5fed20ceedf4ad0c3ea65. Verify exact bytes, complete decode, visible pixels and assigned role before the generation call; mismatch is BLOCKED.",
+          "Immutable existing_street_environment binding: source.opening.ch1.com01b.03; repository path assets-src/opening-ch1-demo/opening-ch1-com01b-03.webp; filename opening-ch1-com01b-03.webp; MIME image/webp; 1672x940; raw-file SHA-256 aa6a236bceca59882edd5f3e1eded77b99347ca62fe5ed81ff74ee4d84bdcbc0. Verify exact bytes, complete decode, visible pixels and assigned role before the generation call; mismatch is BLOCKED.",
+          "Primary face PNG owns facial identity and realism. Wardrobe A column 2 owns Look 02 outfit; accepted DLG supplies only immediate grey-outfit/hair/gold-hoop/cream-tote continuity, never expression, store background or lower resolution authority.",
+          "Human-selected street WebP owns environment geography, material character and lamp arrangement; adapt only viewpoint and the approved 23:00/recent-rain condition as stated, without adding another street or using COM01B narrative.",
+          "Only Xu visible, naturally walking with a clear profile and own checkout bag; protagonist viewpoint supplies beside-her companionship without showing the protagonist.",
+          "Realistic adult anatomy, facial pores, physically plausible hair, sweater/stone/glass/foliage and mixed night lighting, at least the primary face realism floor.",
+          "New production master minimum 1920x1080, one output from one fresh generation call; no silent relaxation based on old accepted-image exceptions."
+        ],
+        "exclude": [
+          "Other heroine references, COM01B narrative, archived prompts, unavailable expression/production sheets, optional body JPEG, unrelated images or extra generation variations.",
+          "Front-facing model presentation, direct near-lens gaze, behind-head sheet pose, pin-up, arched back, revealing neckline, eroticized legs, exaggerated body proportions, heels/tights or wardrobe columns other than Look 02.",
+          "Protagonist face/body/hands, other visible people, shared umbrella, handholding, bag exchange, payment, duplicated exposed coffee/meal, fixed chin-pointing pose or entry/door/key action.",
+          "Replacement street, mirrored road/facade layout, invented prominent porridge shop/sign, active downpour, daylight, dramatic romantic glow, heavy beauty smoothing or copying the store DLG expression.",
+          "Contact sheet, collage, multiple frames, embedded UI/captions, watermark/logo/brand, prominent pseudo-text or reference-sheet labels."
+        ],
+        "text_policy": "No embedded dialogue, captions, UI, watermark, logo or reference-sheet labels. Any incidental packaging stays unbranded and non-focal/unreadable. Do not invent a readable restaurant sign; the approved shop information remains in runtime text."
+      },
+      "reference_transport": {
+        "mode": "references_required",
+        "fresh_session_required": true,
+        "no_unrelated_images_allowed": true,
+        "accepted_base_asset_id": null,
+        "attachments": [
+          {
+            "role": "primary_face_identity",
+            "source_id": "ref.xu_tang.face.01",
+            "expected_filename": "xt-ref-01-face.png",
+            "pixels_must_be_visible": true
+          },
+          {
+            "role": "wardrobe",
+            "source_id": "ref.xu_tang.wardrobe.a",
+            "expected_filename": "xt-ref-05-wardrobe-a.png",
+            "pixels_must_be_visible": true
+          },
+          {
+            "role": "accepted_character_continuity",
+            "source_id": "source.com02x.dlg-01",
+            "expected_filename": "com02x-dlg-01-candidate-v1.png",
+            "pixels_must_be_visible": true
+          },
+          {
+            "role": "existing_street_environment",
+            "source_id": "source.opening.ch1.com01b.03",
+            "expected_filename": "opening-ch1-com01b-03.webp",
+            "pixels_must_be_visible": true
+          }
+        ]
+      },
+      "output": {
+        "canonical_asset_id": "CG-COM02X-WALK-01",
+        "logical_asset_id": "cg.opening.com02x.walk_home",
+        "master_filename": "com02x-walk-01-master.png",
+        "quantity": 1
+      },
+      "acceptance": [
+        "One newly generated independent 16:9 master with fully decoded dimensions at least 1920x1080; preferred 2560x1440 if supported. The two old Human exceptions apply only to their exact hashes and never lower this requirement. Do not substitute, rename or upscale a supporting reference as the new master.",
+        "Clearly beside-Xu protagonist viewpoint and side profile, ordinary walking-home fatigue/calm, forward gaze and comfortable neighbor distance; no frontal glamour pose or romantic escalation.",
+        "Face anatomy, skin texture, hair and eye proportions match primary identity and its realism floor; correct grey Look 02 sweater/gold hoops/cream tote, believable hands and one owned checkout bag without coffee/meal duplication.",
+        "Selected COM01B03 street is recognizably retained with facade/planters left and sidewalk/tree/road progression right; lamp placement/color and recent-rain night remain coherent. No substitute street, invented restaurant sign or indoor-store leakage.",
+        "Face and bag/hand cues stay inside x=15..85 and above lower y=75; lower quarter remains low-information under dialogue, and moderate horizontal crop retains the companion walk and selected environment.",
+        "Reference files/roles/hashes verified and pixels supplied in one fresh bounded generation task using exactly these four attachments. Once-only generation; report failure rather than automatically retrying.",
+        "Manifest usability/projection PASS is planning evidence only. Independent Visual QA and Human accepted-master selection are required after candidate generation; existing BG01/DLG01 accepted masters and receipts remain exact."
+      ]
+    }
+  ]
+}

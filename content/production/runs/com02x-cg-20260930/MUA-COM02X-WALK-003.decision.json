@@ -1,0 +1,142 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "com02x-cg-20260930",
+  "task_id": "MUA-COM02X-WALK-003",
+  "scene_id": "COM-02X",
+  "task_type": "visual_review",
+  "status": "PASS",
+  "workflow_version": "1.3.0",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.4.0",
+    "pass": "visual_review"
+  },
+  "source_ref": "eee8658e8d9b02a6defbe5a24313447f2f4d49cf",
+  "packet_sha256": "a6a49cd2c1664a129f39925b9c3476ed014da5c64d36eb07c1ce089f240def3c",
+  "handoff_sha256": "2d2f7284eebbb2ff5f61b7bafa47db1293429b44870986221ebd6c66fbdc5b4b",
+  "input_versions": [
+    {
+      "id": "task_packet:MUA-COM02X-WALK-003",
+      "version": "a6a49cd2c1664a129f39925b9c3476ed014da5c64d36eb07c1ce089f240def3c",
+      "location": "generated/session-cache/com02x-cg-20260930/MUA-COM02X-WALK-003.packet.json"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-02X.md",
+      "version": "46d1566ec766adbefbfc2fc93964ee84cf70eca81078f6d35f589e65ddf579c6",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02X.md"
+    },
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-02X.json",
+      "version": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952",
+      "location": "content/production/narrative/opening-ch1/COM-02X.json"
+    },
+    {
+      "id": "file:docs/art/PRODUCTION_VISUAL_DIRECTION.md",
+      "version": "8937497d234d70bf26169c12fb238890c63f1dfa7fe8087c76e16738ffe74fa3",
+      "location": "docs/art/PRODUCTION_VISUAL_DIRECTION.md"
+    },
+    {
+      "id": "file:docs/art/CG_PRODUCTION_SPEC.md",
+      "version": "962e6a8afd7769b71a806b5d3039cb6a2af3d8f4332f6f1457354976dac32647",
+      "location": "docs/art/CG_PRODUCTION_SPEC.md"
+    },
+    {
+      "id": "file:.ai/schemas/CG_MANIFEST.md",
+      "version": "5ea25f87ccb368b6deb7f56e416ccda09275fb092d50e47579d118990db2c7c7",
+      "location": ".ai/schemas/CG_MANIFEST.md"
+    },
+    {
+      "id": "file:.ai/schemas/cg-manifest.schema.json",
+      "version": "7746c8b1b662578dae0e0dfb8582891a13f957a0b53a296ffa3ff57bc5926614",
+      "location": ".ai/schemas/cg-manifest.schema.json"
+    },
+    {
+      "id": "file:.ai/schemas/VISUAL_CONTINUITY.md",
+      "version": "fee700c8aa5bca246fb8d7688f660a15ff389ba933806a22d01cdcdb41e2dad2",
+      "location": ".ai/schemas/VISUAL_CONTINUITY.md"
+    },
+    {
+      "id": "file:content/assets/source-catalog.json",
+      "version": "63bf0cd4e828890de829a8977a81f0884c555601b0abdf975784faeb53874ee2",
+      "location": "content/assets/source-catalog.json"
+    },
+    {
+      "id": "file:content/production/runs/com02x-cg-20260930/HUMAN-COM02X-MASTER-001.decision.json",
+      "version": "a6d125cd39bbf92b9efe7edd93a05a284abda61162ad80a84a4519b6ae58cea8",
+      "location": "content/production/runs/com02x-cg-20260930/HUMAN-COM02X-MASTER-001.decision.json"
+    },
+    {
+      "id": "file:content/assets/ingest-receipts/com02x-accepted-masters-v1.json",
+      "version": "19f27385a62aa6260d0bac9ddf69e4feea0fbf9f3c3c40ca45fa78804923ddae",
+      "location": "content/assets/ingest-receipts/com02x-accepted-masters-v1.json"
+    },
+    {
+      "id": "file:content/production/cg-manifests/opening-ch1-com02x-walk.json",
+      "version": "50b6996cbecb3d5964824307ad38290f04bdb6fee8f70a74d24b7a3fd194e848",
+      "location": "content/production/cg-manifests/opening-ch1-com02x-walk.json"
+    },
+    {
+      "id": "file:content/production/runs/com02x-cg-20260930/PLAN-COM02X-WALK-004.decision.json",
+      "version": "9ad8c8e03ac0c9b1a27cbc039e4f4edfe69fe2f5fb2f89196e5f5586e60bccd2",
+      "location": "content/production/runs/com02x-cg-20260930/PLAN-COM02X-WALK-004.decision.json"
+    },
+    {
+      "id": "file:assets-src/references/xu-tang/xt-ref-01-face.png",
+      "version": "2fd137f796d0e7667a5913748158f75705b1a538b346b9e7f76aacb3c79acfd0",
+      "location": "assets-src/references/xu-tang/xt-ref-01-face.png"
+    },
+    {
+      "id": "file:assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png",
+      "version": "aaf33f06f3e39fc476deee03ab261a43e0911b8393366ae7399c633abfadc716",
+      "location": "assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png"
+    },
+    {
+      "id": "file:assets-src/opening-ch1-demo/com02x-dlg-01-candidate-v1.png",
+      "version": "c3b980c003dd2bcfb4dcabb769438fe67d85751f75f5fed20ceedf4ad0c3ea65",
+      "location": "assets-src/opening-ch1-demo/com02x-dlg-01-candidate-v1.png"
+    },
+    {
+      "id": "file:assets-src/opening-ch1-demo/opening-ch1-com01b-03.webp",
+      "version": "aa6a236bceca59882edd5f3e1eded77b99347ca62fe5ed81ff74ee4d84bdcbc0",
+      "location": "assets-src/opening-ch1-demo/opening-ch1-com01b-03.webp"
+    }
+  ],
+  "output_versions": [],
+  "qa_codes": [
+    {
+      "name": "packet_repo_ref_and_declared_input_versions",
+      "result": "PASS"
+    },
+    {
+      "name": "Xu_profile_companion_view_wardrobe_and_continuity",
+      "result": "PASS"
+    },
+    {
+      "name": "Human_selected_COM01B03_environment_identity_and_geography",
+      "result": "PASS"
+    },
+    {
+      "name": "camera_gaze_props_safe_zone_and_responsive_composition",
+      "result": "PASS"
+    },
+    {
+      "name": "photographic_PBR_style_and_new_master_1920x1080_minimum",
+      "result": "PASS"
+    },
+    {
+      "name": "cg_manifest_schema_and_projection_check_one_entry",
+      "result": "PASS"
+    },
+    {
+      "name": "production_contract_validation_5_narrative_contracts_17_CG_entries",
+      "result": "PASS"
+    },
+    {
+      "name": "manifest_only_scope_no_candidate_QA_or_acceptance_claimed",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [],
+  "human_gate": "none",
+  "review_scope": "manifest_usability"
+}

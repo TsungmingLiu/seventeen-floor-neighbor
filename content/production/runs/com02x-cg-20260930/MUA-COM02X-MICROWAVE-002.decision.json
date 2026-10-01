@@ -1,0 +1,141 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "com02x-cg-20260930",
+  "task_id": "MUA-COM02X-MICROWAVE-002",
+  "scene_id": "COM-02X",
+  "task_type": "visual_review",
+  "status": "PASS",
+  "workflow_version": "1.3.0",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.4.0",
+    "pass": "visual_review"
+  },
+  "source_ref": "33529bf46da86c0c776b06b318864fefb9208da5",
+  "packet_sha256": "96e4fb869b30fd4e4bed561c12989fff51a264a1cdbcdcf3eb5de2cb0eaa6f1f",
+  "handoff_sha256": "e66b1662c98589d1b9493198860e07ef451ca6996882e62f7c49a10bcfeb974f",
+  "input_versions": [
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-02X.md",
+      "version": "46d1566ec766adbefbfc2fc93964ee84cf70eca81078f6d35f589e65ddf579c6",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02X.md"
+    },
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-02X.json",
+      "version": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952",
+      "location": "content/production/narrative/opening-ch1/COM-02X.json"
+    },
+    {
+      "id": "file:docs/art/PRODUCTION_VISUAL_DIRECTION.md",
+      "version": "8937497d234d70bf26169c12fb238890c63f1dfa7fe8087c76e16738ffe74fa3",
+      "location": "docs/art/PRODUCTION_VISUAL_DIRECTION.md"
+    },
+    {
+      "id": "file:docs/art/CG_PRODUCTION_SPEC.md",
+      "version": "962e6a8afd7769b71a806b5d3039cb6a2af3d8f4332f6f1457354976dac32647",
+      "location": "docs/art/CG_PRODUCTION_SPEC.md"
+    },
+    {
+      "id": "file:.ai/schemas/CG_MANIFEST.md",
+      "version": "5ea25f87ccb368b6deb7f56e416ccda09275fb092d50e47579d118990db2c7c7",
+      "location": ".ai/schemas/CG_MANIFEST.md"
+    },
+    {
+      "id": "file:.ai/schemas/cg-manifest.schema.json",
+      "version": "7746c8b1b662578dae0e0dfb8582891a13f957a0b53a296ffa3ff57bc5926614",
+      "location": ".ai/schemas/cg-manifest.schema.json"
+    },
+    {
+      "id": "file:.ai/schemas/VISUAL_CONTINUITY.md",
+      "version": "fee700c8aa5bca246fb8d7688f660a15ff389ba933806a22d01cdcdb41e2dad2",
+      "location": ".ai/schemas/VISUAL_CONTINUITY.md"
+    },
+    {
+      "id": "file:content/assets/source-catalog.json",
+      "version": "63bf0cd4e828890de829a8977a81f0884c555601b0abdf975784faeb53874ee2",
+      "location": "content/assets/source-catalog.json"
+    },
+    {
+      "id": "file:content/assets/manifest.json",
+      "version": "e51fee4e4cc0ba094eef6ba63c6c4f53b0768e73cc1af13128ba7e09bce326ac",
+      "location": "content/assets/manifest.json"
+    },
+    {
+      "id": "file:content/production/runs/pr33-first-person-20260929/NQA-COM02X-POV-001.decision.json",
+      "version": "9b72821aff57650d64aada364bebd0aa72b8926f83f91e74d58a07e74c04ea03",
+      "location": "content/production/runs/pr33-first-person-20260929/NQA-COM02X-POV-001.decision.json"
+    },
+    {
+      "id": "registered-environment-reference",
+      "version": "c33e925764d24b9ce93abd2c1f79d2f224ec1ea90292f3bd076002767daa475b",
+      "location": "content/production/runs/com02x-cg-20260930/REF-INGEST-COM02X-001.decision.json"
+    },
+    {
+      "id": "environment-reference-source-receipt",
+      "version": "01b6e9a032ff5c75a6c30e9031c6c67c4907eac67162a040de39984d18fd768c",
+      "location": "content/assets/ingest-receipts/com02x-environment-reference-v1.json"
+    },
+    {
+      "id": "environment-reference-qa",
+      "version": "1bf4fabdfdf47bfa90e4443a42824e44dd7094d03c376faa44540b8ebaba7184",
+      "location": "content/production/runs/com02x-cg-20260930/VQA-ENV-COM02X-002.decision.json"
+    },
+    {
+      "id": "content/production/runs/com02x-cg-20260930/HUMAN-COM02X-MASTER-001.decision.json",
+      "version": "a6d125cd39bbf92b9efe7edd93a05a284abda61162ad80a84a4519b6ae58cea8",
+      "location": "content/production/runs/com02x-cg-20260930/HUMAN-COM02X-MASTER-001.decision.json"
+    },
+    {
+      "id": "content/assets/ingest-receipts/com02x-accepted-masters-v1.json",
+      "version": "19f27385a62aa6260d0bac9ddf69e4feea0fbf9f3c3c40ca45fa78804923ddae",
+      "location": "content/assets/ingest-receipts/com02x-accepted-masters-v1.json"
+    },
+    {
+      "id": "content/production/cg-manifests/opening-ch1-com02x-microwave.json",
+      "version": "7255a23aa119570b7130888f92c6a4f53629ec3ca420e7270d0bdbf340b41e02",
+      "location": "content/production/cg-manifests/opening-ch1-com02x-microwave.json"
+    },
+    {
+      "id": "content/production/runs/com02x-cg-20260930/PLAN-COM02X-MICROWAVE-003.decision.json",
+      "version": "ef7abdef57b53aa00db65ea457ea99e96c4ad9b6c88b08259f7a34f8de524fb6",
+      "location": "content/production/runs/com02x-cg-20260930/PLAN-COM02X-MICROWAVE-003.decision.json"
+    }
+  ],
+  "output_versions": [],
+  "qa_codes": [
+    {
+      "name": "packet_required_text_source_sha256s",
+      "result": "PASS"
+    },
+    {
+      "name": "manifest_schema_and_single_entry_render_projection_check",
+      "result": "PASS"
+    },
+    {
+      "name": "exact_reference_binding_catalog_metadata_and_sha256",
+      "result": "PASS"
+    },
+    {
+      "name": "approved_later_microwave_wait_beat_scope_and_boundaries",
+      "result": "PASS"
+    },
+    {
+      "name": "continuity_camera_angle_gaze_expression_props_and_safe_zone",
+      "result": "PASS"
+    },
+    {
+      "name": "photographic_style_and_new_master_1920x1080_minimum",
+      "result": "PASS"
+    },
+    {
+      "name": "candidate_pixel_visual_qa_or_human_acceptance",
+      "result": "NOT_APPLICABLE"
+    }
+  ],
+  "known_issues": [
+    "No candidate image exists in this task scope; this PASS covers manifest usability only and does not claim candidate Visual QA or Human acceptance.",
+    "context.mjs --verify-packet reports manifest usability supports COM-00 only; the direct one-entry render-cg-packets --check passed."
+  ],
+  "human_gate": "none",
+  "review_scope": "manifest_usability"
+}

@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "com02x-cg-20260930",
+  "task_id": "VERIFY-COM02X-004",
+  "scene_id": "COM-02X",
+  "task_type": "integrate",
+  "status": "FAIL",
+  "workflow_version": "1.3.0",
+  "harness": {
+    "id": "integrator",
+    "version": "1.2.0",
+    "pass": null
+  },
+  "source_ref": "eee8658e8d9b02a6defbe5a24313447f2f4d49cf",
+  "packet_sha256": "676ebd426876fae2431b0ac46c2d74dab07fcf8dee200d6a58ad507b025e7b41",
+  "handoff_sha256": "eaac6c91590a04fec392d96e7ac1e4848ec98733f667ff38580647bf58572f7d",
+  "input_versions": [
+    {
+      "id": "content/production/runs/com02x-cg-20260930/INTEGRATE-COM02X-003.decision.json",
+      "version": "2b7ad1792a803b2c28a8b9b73254cc20fbc3304e715f639d0c341f291fa9bf3d",
+      "location": "eee8658e8d9b02a6defbe5a24313447f2f4d49cf:content/production/runs/com02x-cg-20260930/INTEGRATE-COM02X-003.decision.json"
+    },
+    {
+      "id": "content/production/runs/com02x-cg-20260930/VERIFY-COM02X-001.decision.json",
+      "version": "bee287293f3d033087d41d0985a341d7d22dfcdfa8126ce8c97c0343390de188",
+      "location": "eee8658e8d9b02a6defbe5a24313447f2f4d49cf:content/production/runs/com02x-cg-20260930/VERIFY-COM02X-001.decision.json"
+    },
+    {
+      "id": "content/production/runs/com02x-cg-20260930/HUMAN-COM02X-MASTER-001.decision.json",
+      "version": "a6d125cd39bbf92b9efe7edd93a05a284abda61162ad80a84a4519b6ae58cea8",
+      "location": "eee8658e8d9b02a6defbe5a24313447f2f4d49cf:content/production/runs/com02x-cg-20260930/HUMAN-COM02X-MASTER-001.decision.json"
+    },
+    {
+      "id": "PR #39 / Verify run 36810993840",
+      "version": "eee8658e8d9b02a6defbe5a24313447f2f4d49cf; success; 83/83 tests",
+      "location": "https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/36810993840"
+    },
+    {
+      "id": "Browser Acceptance run 36811027238",
+      "version": "eee8658e8d9b02a6defbe5a24313447f2f4d49cf; failure; 6/7 cases",
+      "location": "https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/36811027238"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "COM02X-remote-verification-evidence",
+      "version": "28f0518c64a886bdfb897c063264c68b5ab429c7c0730781b2af2927038246dd",
+      "location": "generated/session-cache/com02x-cg-20260930/VERIFY-COM02X-004.evidence.json"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "pinned source hashes and target commit",
+      "result": "PASS"
+    },
+    {
+      "name": "Verify run 36810993840 exact HEAD, build, validate, preview smoke, and Node test total",
+      "result": "PASS"
+    },
+    {
+      "name": "Browser Acceptance run 36811027238 exact HEAD, complete 7/7",
+      "result": "FAIL"
+    },
+    {
+      "name": "Cloudflare deployment URL and PR alias from successful job metadata",
+      "result": "PASS"
+    },
+    {
+      "name": "public served code/route/assets match target build",
+      "result": "PASS"
+    },
+    {
+      "name": "COM02X asset hashes, gallery metadata, rank-160 Memory, visual binding and four-choice mapping",
+      "result": "PASS"
+    },
+    {
+      "name": "original accepted PNG hashes unchanged",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "Initial two-CG baseline has full Node suite PASS and exact public served-file proof, but named Browser Acceptance run failed 1 of 7 cases at COM02X shared-exit replay cursor assertion.",
+    "Microwave and walking coverage remains separate and pending; this handoff does not establish overall READY or final Human playable acceptance."
+  ],
+  "human_gate": "none"
+}

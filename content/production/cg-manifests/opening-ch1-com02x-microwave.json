@@ -1,0 +1,209 @@
+{
+  "schema_version": "1.0.0",
+  "manifest_id": "opening-ch1-com02x-microwave-additional-cg",
+  "manifest_version": "1.0.0",
+  "lifecycle": "CANONICAL",
+  "source_scene_ids": [
+    "COM-02X"
+  ],
+  "style_contract": {
+    "style_id": "production-realistic-pbr-cinematic-v1",
+    "positive": [
+      "Realistic high-end game-cinematic / photographic PBR rendering; physically plausible adult anatomy, materials, exposure and photographic perspective.",
+      "Natural skin pores, fine tonal variation, realistic eyelids and eye proportions, physically plausible hair strands and cloth; Xu face realism at least equal to the primary face reference.",
+      "Believable ordinary convenience-store fluorescent light and cool wet-night exterior; no advertising glamour.",
+      "One newly rendered independent 16:9 landscape image per entry, one generation call once only; no automatic redraw, retry, alternative grid or selection.",
+      "Final production master minimum 1920x1080, preferred 2560x1440 when generation quality supports it; genuine resolved facial/material detail and crop tolerance. Supporting reference resolution does not lower this final-master requirement."
+    ],
+    "negative": [
+      "Anime/manga proportions, oversized eyes, simplified anatomy, chibi, animation-film facial design, doll/figurine/game-avatar face.",
+      "Plastic airbrushed skin, painterly/cartoon illustration, ink lines, screentone, cel shading or studio character-sheet posing.",
+      "Embedded dialogue, captions, UI, watermarks, logos, real brands, dominant pseudo-text, collage, contact sheet or multiple frames."
+    ],
+    "aspect_ratio": "16:9",
+    "output_count": 1
+  },
+  "entries": [
+    {
+      "entry_id": "COM02X-DLG-02-MICROWAVE",
+      "scene_id": "COM-02X",
+      "source_scene": "docs/narrative/scenes/vertical-slice/COM-02X.md",
+      "status": "render_ready",
+      "cg_class": "dialogue_cg",
+      "sequence_id": null,
+      "beat_range": "02X.5, later microwave-wait subsection of common_convenience_xu_work: cut in immediately after the Action 「微波爐轉了一圈。我往計時器看了一眼。」; hold from 「妳那個很趕嗎？」 through Xu 「嗯，常有人這樣以為。」; cut away before the following microwave-beep / staff meal-retrieval Action. No choice, checkout, walk or goodbye coverage.",
+      "narrative": {
+        "purpose": "Add the minimum one character frame for the later shared work conversation beside the microwaves: Xu is an ordinary tired neighbor explaining the print deadline and correcting a mundane misunderstanding. Use a candid three-quarter side angle in the checkout waiting area, visibly different from the earlier aisle recognition. The unchanged scene text owns all dialogue, work knowledge, meal loading/retrieval and relationship meaning.",
+        "must_show": [
+          "Xu Tang alone, adult age 27, canonical face anatomy, long dark-brown hair with fringe, large gold hoops and Wardrobe A Look 02 grey home sweater; tired, attentive, matter-of-fact rather than posed.",
+          "Standing in the customer waiting area beside the same modest checkout and two vertically stacked microwaves; torso angled toward the appliances while her head is partly turned to the neighboring offscreen protagonist.",
+          "Xu holds only her own unbranded bottled black coffee, in her anatomical right hand, low at mid-torso. Her anatomical left hand is empty and relaxed. Both meals are being heated offscreen behind the dark microwave doors during this selected subsection, not duplicated in either person’s hands.",
+          "A legible stack of two microwaves and counter behind/left of Xu, with subdued refrigerated-case edge and cool wet-night storefront continuity in the remaining background; candid daily-life waiting, no staged appliance interaction."
+        ],
+        "must_not_imply": [
+          "A date, flirtation, sultry model gaze, heroic care, major conflict, helplessness or annoyance aimed at the protagonist. Deadline weariness is ordinary self-directed fatigue.",
+          "The protagonist pays for Xu, carries or takes her coffee/meal, helps her client work, manages her food/schedule, exchanges contacts or receives private company/client/income information.",
+          "Xu is simultaneously holding her meal while it heats, has already received the heated meal or paid, is opening an appliance, or is carrying a receipt/shopping bag during this waiting subsection.",
+          "This still covers the earlier food comparison or choice gestures, first handover/phone-notification action, the final beep/upward glance/retrieval, checkout, street, apartment, elevator or farewell.",
+          "The accepted recognition image’s beauty pose, near-lens gaze, smooth skin, low-resolution exception or upper-thigh framing becomes authority for this new frame."
+        ]
+      },
+      "characters": [
+        {
+          "character_id": "xu_tang",
+          "screen_side": "right",
+          "body_orientation": "Three-quarter left toward the frame-left microwave stack, shoulders relaxed; head partially turned toward the offscreen protagonist on camera-left. A definite side angle, with the near cheek and hoop visible; do not square shoulders/face to the lens.",
+          "pose": "Natural standing waist-up waiting, weight settled without hip thrust or arched back. Anatomical right hand loosely grips her own black-coffee bottle at lower mid-torso above y=70; anatomical left arm/empty hand hangs relaxed beside her waist, also above y=70. No appliance reaching, transfer, phone handling or head-touching pose.",
+          "gaze": "At the offscreen protagonist standing to camera-left, at least about 20 degrees away from the lens; a conversational sideward glance with realistic slightly tired eyelids, not a direct lens/model gaze or final microwave-beep look.",
+          "expression": "Quiet tired-neutral attention with faint dry resignation at her deadline; relaxed closed mouth without pout, sultry parting, broad smile, blush or angry brow. A listening/explaining tableau, not a frozen big speech gesture.",
+          "wardrobe_key": "XT-WARDROBE-A-LOOK-02-LATE-CASUAL",
+          "held_objects": [
+            "xu_own_unbranded_bottled_black_coffee: anatomical right hand; anatomical left hand empty; no meal box held"
+          ],
+          "reference_bindings": [
+            {
+              "role": "primary_face_identity",
+              "source_id": "ref.xu_tang.face.01",
+              "expected_filename": "xt-ref-01-face.png"
+            },
+            {
+              "role": "wardrobe",
+              "source_id": "ref.xu_tang.wardrobe.a",
+              "expected_filename": "xt-ref-05-wardrobe-a.png"
+            },
+            {
+              "role": "accepted_character_continuity",
+              "source_id": "source.com02x.dlg-01",
+              "expected_filename": "com02x-dlg-01-candidate-v1.png"
+            }
+          ]
+        }
+      ],
+      "environment": {
+        "location_id": "convenience_store_near_apartment",
+        "time_of_day": "Week 2 weekday approximately 23:00, same uninterrupted late-night store visit as COM02X-BG-01 and COM02X-DLG-01.",
+        "weather": "Recently rained; cool blue wet-pavement reflections through the same glass storefront. No new downpour asserted.",
+        "lighting": "Ordinary cool-white ceiling fluorescents with weak refrigerator spill and cool blue exterior, plausible neutral skin exposure, natural skin pores/fine tonal variation; no beauty rim light, glamour softness or romantic warmth.",
+        "persistent_props": [
+          "Same reference store: refrigerated meals/drinks along aisle, glass storefront, tiled customer floor, modest checkout and two microwave ovens vertically stacked at its original right-side station.",
+          "Reframe nearer to the checkout waiting zone. Appliance stack appears frame-left/center behind Xu because the camera has turned toward the original right-side station; it is not a relocated fixture or new store.",
+          "Dark closed microwave doors; meals remain with heating/staff operation and are not visibly duplicated. No readable timer, brand, label or specific programmed countdown is asserted.",
+          "Xu’s single unbranded dark bottled coffee remains hers. No visible baskets, shopping/checkout bags, receipts, phones, extra food, payment objects or utensils in her hands."
+        ],
+        "reference_binding": {
+          "role": "environment_reference",
+          "source_id": "ref.com02x.environment.convenience_night",
+          "expected_filename": "com02x-convenience-night-reference-v1.png"
+        }
+      },
+      "camera": {
+        "shot_size": "medium",
+        "angle": "Level standing eye-height waist-up view, natural three-quarter side angle on Xu, no low angle/leg emphasis.",
+        "pov": "protagonist",
+        "axis_id": "COM02X-checkout-microwave-wait-axis",
+        "camera_side": "Customer/aisle side of the same right-side checkout station, looking diagonally toward its microwave stack. Protagonist camera remains beside Xu with conversational target off lens to camera-left; retain Xu screen-right. This is an explicit cut after aisle-to-checkout movement, not an accidental reversal or edit of the recognition camera.",
+        "lens_intent": "Natural photographic normal-lens perspective, roughly 45–55 mm equivalent; face and coffee/empty hand resolved, moderate depth of field preserving recognisable two-microwave geometry and checkout context, no studio portrait blur or wide-angle facial distortion."
+      },
+      "continuity": {
+        "previous_entry_id": null,
+        "locked_fields": [
+          "/characters/0/character_id",
+          "/characters/0/screen_side",
+          "/characters/0/wardrobe_key",
+          "/characters/0/reference_bindings",
+          "/environment/location_id",
+          "/environment/time_of_day",
+          "/environment/weather",
+          "/environment/lighting",
+          "/environment/reference_binding"
+        ],
+        "allowed_changes": []
+      },
+      "composition": {
+        "focus": {
+          "x": 63,
+          "y": 36
+        },
+        "dialogue_safe_zone": "Lower y=75..100 percent is low-detail floor/checkout cabinet base or plain clothing, without shorts/drawstring details, fingers, bottle, labels or appliance controls. Face at x=55..70,y=20..42; coffee/empty hand x=48..73,y=48..68; critical microwave geometry x=25..48,y=30..60. Keep all critical face/hands/objects inside x=15..85 and above y=72 for moderate horizontal crop.",
+        "framing_notes": [
+          "Xu central-right at a candid side angle, microwave stack left/center; leave breathing room toward her conversational gaze and keep waist/shorts/legs below the picture or nonessential lower UI band. Do not copy the reference-sheet pose or the earlier accepted frame’s frontal polished presentation.",
+          "A discrete camera cut is justified by the approved movement from refrigerated aisle to checkout. New axis captures the waiting area while preserving store identity, right screen side, sweater, hair, hoops, time/weather and light; it is a fresh independent dialogue CG, not a reaction edit or linked sequence.",
+          "Within the approved common_convenience_xu_work anchor, keep the existing background cutaway for the initial meal handover, waiting for the other appliance, phone notice and first work exchange. Cut to this CG only after the narrated timer glance, when the selected later work subsection permits coffee-only hands and meals heating out of view. Cut back to the existing background before the beep and staff retrieval; do not show this still behind her recovered meal or payment.",
+          "Do not reuse COM02X-DLG-01 here: its visible unheated meal in hand and aisle-recognition camera contradict this later heating subsection. Its unchanged accepted pixels supply immediate hair/wardrobe/coffee continuity only; face identity and new rendering quality remain governed by dedicated face/wardrobe references.",
+          "No runtime files are edited by this plan. Downstream integration must preserve every node ID, choice/text/state/save target and common Memory ownership/rank 160; existing CG-COM-03 recognition remains the Memory cover. This added art must not add a Gallery/Memory unlock, relationship effect or new narrative action.",
+          "Only the exact selected later microwave-wait dialogue is covered. Walking, checkout retrieval, elevator and goodbye remain outside this entry and need their own approved visual decision if requested."
+        ]
+      },
+      "render_constraints": {
+        "include": [
+          "Immutable primary_face_identity binding: ref.xu_tang.face.01; resolve only through source_catalog.files[sourceId].sourcePath = assets-src/references/xu-tang/xt-ref-01-face.png; expected filename xt-ref-01-face.png; MIME image/png; 1055x1491; raw-file SHA-256 2fd137f796d0e7667a5913748158f75705b1a538b346b9e7f76aacb3c79acfd0. Verify exact bytes, complete decode, visible pixels and assigned role before generation; mismatch/missing input is BLOCKED.",
+          "Immutable wardrobe binding: ref.xu_tang.wardrobe.a; resolve only through source_catalog.files[sourceId].sourcePath = assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png; expected filename xt-ref-05-wardrobe-a.png; MIME image/png; 1055x1491; raw-file SHA-256 aaf33f06f3e39fc476deee03ab261a43e0911b8393366ae7399c633abfadc716. Verify exact bytes, complete decode, visible pixels and assigned role before generation; mismatch/missing input is BLOCKED.",
+          "Immutable environment_reference binding: ref.com02x.environment.convenience_night; resolve only through source_catalog.files[sourceId].sourcePath = assets-src/references/environments/com02x-convenience-night-reference-v1.png; expected filename com02x-convenience-night-reference-v1.png; MIME image/png; 1672x941; raw-file SHA-256 44b21d81cfac0dcbbd97ecd203c87553ca549651bb4b45aa7a96614102164bb3. Verify exact bytes, complete decode, visible pixels and assigned role before generation; mismatch/missing input is BLOCKED.",
+          "Immutable accepted_character_continuity binding: source.com02x.dlg-01; resolve only through source_catalog.files[sourceId].sourcePath = assets-src/opening-ch1-demo/com02x-dlg-01-candidate-v1.png; expected filename com02x-dlg-01-candidate-v1.png; MIME image/png; 1672x941; raw-file SHA-256 c3b980c003dd2bcfb4dcabb769438fe67d85751f75f5fed20ceedf4ad0c3ea65. Verify exact bytes, complete decode, visible pixels and assigned role before generation; mismatch/missing input is BLOCKED.",
+          "Dedicated primary face owns identity and realism floor; Wardrobe A owns column 2 outfit only. Source COM02X-DLG-01 is Human-accepted immediate continuity for hair/hoops/grey sweater/cream tote/dark coffee, not authority for posed gaze, beauty skin/light, crop or dimensions.",
+          "One fresh new render, no accepted-base editing: microwave-wait location/camera/meal state differ materially from the earlier recognition. Preserve natural skin detail and candid posture while carrying canonical identity.",
+          "Complete Look 02 continuity is grey home sweater, grey drawstring shorts with white piping, casual white sneakers and cream shoulder tote. Frame waist-up so no scale/leg focus or optional body reference is needed; include tote strap only if naturally in the crop.",
+          "Both meal boxes are out of her hands behind closed dark microwave doors in this precise later heating subsection. Keep coffee ownership with Xu and left hand empty. Protagonist and appliance operators remain offscreen.",
+          "New production master minimum 1920x1080, preferably 2560x1440; no automatic retries or inherited Human as-is exceptions. Preserve crop/dialogue-safe composition."
+        ],
+        "exclude": [
+          "Other people or human body parts/reflections, including protagonist hands/face, visible staff/customers or another heroine; all staff operations remain offscreen.",
+          "Meal box in Xu’s hand or visibly duplicated on the waiting counter; shared food, bag exchange, opened bottle, drinking gesture, eating, payment/receipt/shopping bag, readable phone or appliance opening/reaching.",
+          "Direct lens gaze, frontal beauty portrait, pouting/sultry expression, glamour light, waxy skin, anime/cartoon anatomy, large grin, blush, overt conflict or romantic intimacy.",
+          "Grey sweater redesign, revealing neckline, another Wardrobe A column, heels/tights, full thighs/legs, shorts/drawstring as a focal detail, sheet pose or hand behind head.",
+          "A new store layout, more/fewer than two microwaves, unrelated street/lobby/elevator backdrop, porridge-shop sign, extra plot props, panels/collage or narrative text.",
+          "Assuming the old two-master Human ACCEPTED_AS_IS exception authorizes a below-1920x1080 new candidate or style/pose/safe-zone defects."
+        ],
+        "text_policy": "No embedded dialogue/captions/UI/watermark/logo. Store and bottle packaging is unbranded, blank or non-focal/unreadable; no copied sheet headings/panels, readable countdown or prominent pseudo-text."
+      },
+      "reference_transport": {
+        "mode": "references_required",
+        "fresh_session_required": true,
+        "no_unrelated_images_allowed": true,
+        "accepted_base_asset_id": null,
+        "attachments": [
+          {
+            "role": "primary_face_identity",
+            "source_id": "ref.xu_tang.face.01",
+            "expected_filename": "xt-ref-01-face.png",
+            "pixels_must_be_visible": true
+          },
+          {
+            "role": "wardrobe",
+            "source_id": "ref.xu_tang.wardrobe.a",
+            "expected_filename": "xt-ref-05-wardrobe-a.png",
+            "pixels_must_be_visible": true
+          },
+          {
+            "role": "environment_reference",
+            "source_id": "ref.com02x.environment.convenience_night",
+            "expected_filename": "com02x-convenience-night-reference-v1.png",
+            "pixels_must_be_visible": true
+          },
+          {
+            "role": "accepted_character_continuity",
+            "source_id": "source.com02x.dlg-01",
+            "expected_filename": "com02x-dlg-01-candidate-v1.png",
+            "pixels_must_be_visible": true
+          }
+        ]
+      },
+      "output": {
+        "canonical_asset_id": "CG-COM02X-MICROWAVE-WAIT",
+        "logical_asset_id": "cg.opening.com02x.microwave_wait",
+        "master_filename": "com02x-03-microwave-wait-master.png",
+        "quantity": 1
+      },
+      "acceptance": [
+        "One coherent independent 16:9 landscape candidate, fully decoded at minimum 1920x1080; prefer 2560x1440 when available. Supporting/accepted reference dimensions do not lower this minimum. Report a below-minimum image as FAIL; no renaming/upscaling of an old reference, automatic repeat call or threshold waiver.",
+        "Xu unmistakably matches the exact primary face PNG at its photographic realism floor: realistic eyelids/eyes, adult proportions, visible pores/fine tonal variation, natural hair strands, gold hoops and correct grey Wardrobe A Look 02 sweater/tote continuity.",
+        "Candid three-quarter side stance and clearly off-lens conversational gaze, tired-neutral/dry attention, ordinary fluorescent light; visibly distinct from earlier frontal recognition without beauty posing, flirtation or protagonist-directed anger.",
+        "Coffee alone in anatomical right hand; anatomical left hand empty, natural fingers/grip. Neither meal is held or duplicated during the selected heating subsection. No receipt/bag/phone/payment or visible staff/customer/protagonist.",
+        "The two vertically stacked microwaves and checkout waiting zone are recognisable within the same reference store; appliance geometry, skin/cloth/glass/metal materials and light remain physically plausible.",
+        "Critical face, both hands/coffee and microwave cues above the lower 25 percent and within central x=15..85 crop band. Lower quarter low-detail; moderate crop preserves conversational and waiting read.",
+        "Exactly the four declared immutable references acquired, completely decoded, visibly inspected and supplied with their assigned roles in one fresh bounded rendering task. Prior accepted DLG is continuity only, never an edit base or identity/style override. No unavailable expression/production/body sheet is required.",
+        "Manifest pre-render usability review, independent candidate Visual QA and Human accepted-master selection remain separate gates. This plan does not claim candidate approval, extend historical exceptions, change approved narrative/runtime, replace Memory cover or alter the existing two accepted manifest entries/assets."
+      ]
+    }
+  ]
+}

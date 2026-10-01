@@ -1,0 +1,113 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "com02x-cg-20260930",
+  "task_id": "VQA-COM02X-WALK-001",
+  "scene_id": "COM-02X",
+  "task_type": "visual_review",
+  "status": "FAIL",
+  "workflow_version": "1.3.0",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.4.0",
+    "pass": "visual_review"
+  },
+  "source_ref": "eee8658e8d9b02a6defbe5a24313447f2f4d49cf",
+  "packet_sha256": "1a4062ad9696c446a54224f70072c982fb543e98b5fe51feb30c1b6f0cbfb1b5",
+  "handoff_sha256": "549956e9b258ee970d64d6c235bcf52706840a15a59e625f6e7de550f97d591a",
+  "input_versions": [
+    {
+      "id": "VQA-COM02X-WALK-001.packet",
+      "version": "1a4062ad9696c446a54224f70072c982fb543e98b5fe51feb30c1b6f0cbfb1b5",
+      "location": "generated/session-cache/com02x-cg-20260930/VQA-COM02X-WALK-001.packet.json"
+    },
+    {
+      "id": "entry-excerpt:COM02X-WALK-01",
+      "version": "f216e86a9bde3c26699888db4b4826e3c8d59591b1554a1715a77a41088c77ca",
+      "location": "generated/session-cache/com02x-cg-20260930/COM02X-WALK-01.entry.json"
+    },
+    {
+      "id": "render-decision:COM02X-WALK-01",
+      "version": "b039e5d6a714acaaebf0976e5d74e2120bb6b3b0182827bd8c789bee08867a0f",
+      "location": "content/production/runs/com02x-cg-20260930/RENDER-COM02X-WALK-001.decision.json"
+    },
+    {
+      "id": "candidate:COM02X-WALK-01-001",
+      "version": "3b09951d2abaf3362bcbccc015462b1d4885cb226618f688d6ef99703fc4366d",
+      "location": "/Users/tsungmingliu/Documents/Codex/2026-09-30/com02x-cg-production/outputs/com02x-walk-candidate-v1.png"
+    },
+    {
+      "id": "ref.xu_tang.face.01",
+      "version": "2fd137f796d0e7667a5913748158f75705b1a538b346b9e7f76aacb3c79acfd0",
+      "location": "assets-src/references/xu-tang/xt-ref-01-face.png"
+    },
+    {
+      "id": "ref.xu_tang.wardrobe.a",
+      "version": "aaf33f06f3e39fc476deee03ab261a43e0911b8393366ae7399c633abfadc716",
+      "location": "assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png"
+    },
+    {
+      "id": "source.com02x.dlg-01",
+      "version": "c3b980c003dd2bcfb4dcabb769438fe67d85751f75f5fed20ceedf4ad0c3ea65",
+      "location": "assets-src/opening-ch1-demo/com02x-dlg-01-candidate-v1.png"
+    },
+    {
+      "id": "source.opening.ch1.com01b.03",
+      "version": "aa6a236bceca59882edd5f3e1eded77b99347ca62fe5ed81ff74ee4d84bdcbc0",
+      "location": "assets-src/opening-ch1-demo/opening-ch1-com01b-03.webp"
+    }
+  ],
+  "output_versions": [],
+  "qa_codes": [
+    {
+      "name": "candidate_and_all_four_declared_reference_identity_mime_dimensions_and_visible_pixels",
+      "result": "PASS"
+    },
+    {
+      "name": "Xu_identity_adult_age_hair_hoops_grey_look_02_and_cream_tote",
+      "result": "PASS"
+    },
+    {
+      "name": "companion_level_side_profile_forward_gaze_and_nonromantic_read",
+      "result": "PASS"
+    },
+    {
+      "name": "visible_anatomy_and_checkout_bag_contents",
+      "result": "PASS"
+    },
+    {
+      "name": "requested_arm_pose_and_candid_walking_read",
+      "result": "FAIL",
+      "issue": "The checkout-bag arm is bent and lifted in front of Xu's abdomen; the packet calls for a naturally hanging anatomical-right arm near the hip. The still reads as a held fashion pose more than an ordinary relaxed stride. A single transparent checkout bag contains a visible dark drink; no separate duplicated drink/meal is present."
+    },
+    {
+      "name": "selected_COM01B03_street_geography_and_night_lighting",
+      "result": "PASS"
+    },
+    {
+      "name": "recent_rain_sheen_continuity",
+      "result": "FAIL",
+      "issue": "The sidewalk and road are mirror-bright with extensive reflected lamp and vehicle light; this exceeds the requested modest residual sheen after recent rain."
+    },
+    {
+      "name": "dialogue_safe_zone_and_crop_safe_composition",
+      "result": "FAIL",
+      "issue": "Checkout bag/hand cross into the lower-quarter y=75..100 safe zone; the shorts waistband and drawstring remain prominent near the bottom edge. The candidate also clips the checkout bag at the frame bottom. Face and hand remain within the horizontal x=15..85 crop band."
+    },
+    {
+      "name": "16_9_aspect_ratio_and_formal_master_dimensions",
+      "result": "FAIL",
+      "issue": "The image is 1672x941, approximately 16:9, but both dimensions are below the required 1920x1080 minimum."
+    },
+    {
+      "name": "photographic_PBR_style_and_identity_realism",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "Formal master minimum fails at 1672x941; the old Human exceptions do not apply to this candidate.",
+    "Bent, elevated checkout-bag arm and visible shorts drawstring conflict with the specified relaxed carry pose and low-detail lower dialogue zone.",
+    "Wet roadway/sidewalk reflections are markedly stronger than the specified modest residual sheen."
+  ],
+  "human_gate": "accepted_master_image_selection",
+  "review_scope": "candidate"
+}

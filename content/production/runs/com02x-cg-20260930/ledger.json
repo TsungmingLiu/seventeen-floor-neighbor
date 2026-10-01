@@ -2175,12 +2175,12 @@
       "task_type": "cg_plan",
       "scene_id": "COM-02X",
       "depends_on": [],
-      "status": "RUNNING",
+      "status": "PASS",
       "packet": {
         "generator": "manual exact approvedscene microwave-subbeat Planner; Humanvisualfollowup",
         "sha256": "43455580acdeb958f361d8bbdeb423c410e8d449bb3a843f78418fa20d2d2526"
       },
-      "decision_receipt": null,
+      "decision_receipt": "content/production/runs/com02x-cg-20260930/PLAN-COM02X-MICROWAVE-003.decision.json",
       "input_versions": [
         {
           "id": "file:docs/narrative/scenes/vertical-slice/COM-02X.md",
@@ -2235,7 +2235,7 @@
         {
           "id": "excerpt:xu-reference-pack",
           "version": "8c0b323eb461e4b6b3d8a28bdb89d91930c0af982fc4738189fd1579da71e3ac",
-          "location": "derived:xu-reference-pack.md"
+          "location": "generated/session-cache/com02x-cg-20260930/xu-reference-pack.md"
         },
         {
           "id": "ref.com02x.environment.convenience_night",
@@ -2278,9 +2278,20 @@
           "location": "assets-src/opening-ch1-demo/com02x-dlg-01-candidate-v1.png"
         }
       ],
-      "output_versions": [],
+      "output_versions": [
+        {
+          "id": "COM02X-microwave-additional-cg-manifest",
+          "version": "7255a23aa119570b7130888f92c6a4f53629ec3ca420e7270d0bdbf340b41e02",
+          "location": "content/production/cg-manifests/opening-ch1-com02x-microwave.json"
+        },
+        {
+          "id": "COM02X-MICROWAVE-003-api-projection",
+          "version": "68005152b44f9ca6f0c0dc4fd27c2c4ef67bb61a89134858c39424f2f5232b82",
+          "location": "generated/session-cache/com02x-cg-20260930/COM02X-MICROWAVE-003.api.jsonl"
+        }
+      ],
       "human_gate": "none",
-      "reason": "Humanasksnewcharactercoverage latechat; preservesfirst2acceptedassets."
+      "reason": null
     },
     {
       "task_id": "INTEGRATE-COM02X-003",
@@ -2370,13 +2381,13 @@
       "task_type": "cg_plan",
       "scene_id": "COM-02X",
       "depends_on": [],
-      "status": "RUNNING",
+      "status": "PASS",
       "packet": {
         "generator": "manual bounded walking plan with exact Humanidentified street reference",
         "sha256": "e55af85a03a008b1121bf4a3fd807e5990b58f3acab1ebbd64ded4b5bce07f59",
         "artifact_revision": 2
       },
-      "decision_receipt": null,
+      "decision_receipt": "content/production/runs/com02x-cg-20260930/PLAN-COM02X-WALK-004.decision.json",
       "input_versions": [
         {
           "id": "file:docs/narrative/scenes/vertical-slice/COM-02X.md",
@@ -2459,9 +2470,741 @@
           "location": "assets-src/opening-ch1-demo/opening-ch1-com01b-03.webp"
         }
       ],
+      "output_versions": [
+        {
+          "id": "COM02X-walking-additional-cg-manifest",
+          "version": "50b6996cbecb3d5964824307ad38290f04bdb6fee8f70a74d24b7a3fd194e848",
+          "location": "content/production/cg-manifests/opening-ch1-com02x-walk.json"
+        }
+      ],
+      "human_gate": "none",
+      "reason": null
+    },
+    {
+      "task_id": "VERIFY-COM02X-004",
+      "task_type": "integrate",
+      "integration_mode": "final",
+      "verification_of": "INTEGRATE-COM02X-001",
+      "scene_id": "COM-02X",
+      "depends_on": [
+        "MUA-COM02X-001",
+        "RENDER-COM02X-BG-001",
+        "RENDER-COM02X-DLG-001",
+        "INTEGRATE-COM02X-003"
+      ],
+      "status": "FAIL",
+      "packet": {
+        "generator": "manual exact newcommit CI/preview baseline verification only",
+        "sha256": "676ebd426876fae2431b0ac46c2d74dab07fcf8dee200d6a58ad507b025e7b41"
+      },
+      "decision_receipt": "content/production/runs/com02x-cg-20260930/VERIFY-COM02X-004.decision.json",
+      "input_versions": [
+        {
+          "id": "content/production/runs/com02x-cg-20260930/INTEGRATE-COM02X-003.decision.json",
+          "version": "2b7ad1792a803b2c28a8b9b73254cc20fbc3304e715f639d0c341f291fa9bf3d",
+          "location": "eee8658e8d9b02a6defbe5a24313447f2f4d49cf:content/production/runs/com02x-cg-20260930/INTEGRATE-COM02X-003.decision.json"
+        },
+        {
+          "id": "content/production/runs/com02x-cg-20260930/VERIFY-COM02X-001.decision.json",
+          "version": "bee287293f3d033087d41d0985a341d7d22dfcdfa8126ce8c97c0343390de188",
+          "location": "eee8658e8d9b02a6defbe5a24313447f2f4d49cf:content/production/runs/com02x-cg-20260930/VERIFY-COM02X-001.decision.json"
+        },
+        {
+          "id": "content/production/runs/com02x-cg-20260930/HUMAN-COM02X-MASTER-001.decision.json",
+          "version": "a6d125cd39bbf92b9efe7edd93a05a284abda61162ad80a84a4519b6ae58cea8",
+          "location": "eee8658e8d9b02a6defbe5a24313447f2f4d49cf:content/production/runs/com02x-cg-20260930/HUMAN-COM02X-MASTER-001.decision.json"
+        },
+        {
+          "id": "PR #39 / Verify run 36810993840",
+          "version": "eee8658e8d9b02a6defbe5a24313447f2f4d49cf; success; 83/83 tests",
+          "location": "https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/36810993840"
+        },
+        {
+          "id": "Browser Acceptance run 36811027238",
+          "version": "eee8658e8d9b02a6defbe5a24313447f2f4d49cf; failure; 6/7 cases",
+          "location": "https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/36811027238"
+        }
+      ],
+      "output_versions": [
+        {
+          "id": "COM02X-remote-verification-evidence",
+          "version": "28f0518c64a886bdfb897c063264c68b5ab429c7c0730781b2af2927038246dd",
+          "location": "generated/session-cache/com02x-cg-20260930/VERIFY-COM02X-004.evidence.json"
+        }
+      ],
+      "human_gate": "none",
+      "reason": "Browser test tests/browser-acceptance.spec.mjs:123 failed at line 231: expected cursor common_convenience_xu_ask_food; received common_movein_rain_open (5s poll timeout)."
+    },
+    {
+      "task_id": "MUA-COM02X-MICROWAVE-002",
+      "task_type": "visual_review",
+      "review_scope": "manifest_usability",
+      "scene_id": "COM-02X",
+      "depends_on": [
+        "PLAN-COM02X-MICROWAVE-003"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual bounded newentry manifest usability",
+        "sha256": "96e4fb869b30fd4e4bed561c12989fff51a264a1cdbcdcf3eb5de2cb0eaa6f1f"
+      },
+      "decision_receipt": "content/production/runs/com02x-cg-20260930/MUA-COM02X-MICROWAVE-002.decision.json",
+      "input_versions": [
+        {
+          "id": "file:docs/narrative/scenes/vertical-slice/COM-02X.md",
+          "version": "46d1566ec766adbefbfc2fc93964ee84cf70eca81078f6d35f589e65ddf579c6",
+          "location": "docs/narrative/scenes/vertical-slice/COM-02X.md"
+        },
+        {
+          "id": "file:content/production/narrative/opening-ch1/COM-02X.json",
+          "version": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952",
+          "location": "content/production/narrative/opening-ch1/COM-02X.json"
+        },
+        {
+          "id": "file:docs/art/PRODUCTION_VISUAL_DIRECTION.md",
+          "version": "8937497d234d70bf26169c12fb238890c63f1dfa7fe8087c76e16738ffe74fa3",
+          "location": "docs/art/PRODUCTION_VISUAL_DIRECTION.md"
+        },
+        {
+          "id": "file:docs/art/CG_PRODUCTION_SPEC.md",
+          "version": "962e6a8afd7769b71a806b5d3039cb6a2af3d8f4332f6f1457354976dac32647",
+          "location": "docs/art/CG_PRODUCTION_SPEC.md"
+        },
+        {
+          "id": "file:.ai/schemas/CG_MANIFEST.md",
+          "version": "5ea25f87ccb368b6deb7f56e416ccda09275fb092d50e47579d118990db2c7c7",
+          "location": ".ai/schemas/CG_MANIFEST.md"
+        },
+        {
+          "id": "file:.ai/schemas/cg-manifest.schema.json",
+          "version": "7746c8b1b662578dae0e0dfb8582891a13f957a0b53a296ffa3ff57bc5926614",
+          "location": ".ai/schemas/cg-manifest.schema.json"
+        },
+        {
+          "id": "file:.ai/schemas/VISUAL_CONTINUITY.md",
+          "version": "fee700c8aa5bca246fb8d7688f660a15ff389ba933806a22d01cdcdb41e2dad2",
+          "location": ".ai/schemas/VISUAL_CONTINUITY.md"
+        },
+        {
+          "id": "file:content/assets/source-catalog.json",
+          "version": "63bf0cd4e828890de829a8977a81f0884c555601b0abdf975784faeb53874ee2",
+          "location": "content/assets/source-catalog.json"
+        },
+        {
+          "id": "file:content/assets/manifest.json",
+          "version": "e51fee4e4cc0ba094eef6ba63c6c4f53b0768e73cc1af13128ba7e09bce326ac",
+          "location": "content/assets/manifest.json"
+        },
+        {
+          "id": "file:content/production/runs/pr33-first-person-20260929/NQA-COM02X-POV-001.decision.json",
+          "version": "9b72821aff57650d64aada364bebd0aa72b8926f83f91e74d58a07e74c04ea03",
+          "location": "content/production/runs/pr33-first-person-20260929/NQA-COM02X-POV-001.decision.json"
+        },
+        {
+          "id": "registered-environment-reference",
+          "version": "c33e925764d24b9ce93abd2c1f79d2f224ec1ea90292f3bd076002767daa475b",
+          "location": "content/production/runs/com02x-cg-20260930/REF-INGEST-COM02X-001.decision.json"
+        },
+        {
+          "id": "environment-reference-source-receipt",
+          "version": "01b6e9a032ff5c75a6c30e9031c6c67c4907eac67162a040de39984d18fd768c",
+          "location": "content/assets/ingest-receipts/com02x-environment-reference-v1.json"
+        },
+        {
+          "id": "environment-reference-qa",
+          "version": "1bf4fabdfdf47bfa90e4443a42824e44dd7094d03c376faa44540b8ebaba7184",
+          "location": "content/production/runs/com02x-cg-20260930/VQA-ENV-COM02X-002.decision.json"
+        },
+        {
+          "id": "content/production/runs/com02x-cg-20260930/HUMAN-COM02X-MASTER-001.decision.json",
+          "version": "a6d125cd39bbf92b9efe7edd93a05a284abda61162ad80a84a4519b6ae58cea8",
+          "location": "content/production/runs/com02x-cg-20260930/HUMAN-COM02X-MASTER-001.decision.json"
+        },
+        {
+          "id": "content/assets/ingest-receipts/com02x-accepted-masters-v1.json",
+          "version": "19f27385a62aa6260d0bac9ddf69e4feea0fbf9f3c3c40ca45fa78804923ddae",
+          "location": "content/assets/ingest-receipts/com02x-accepted-masters-v1.json"
+        },
+        {
+          "id": "content/production/cg-manifests/opening-ch1-com02x-microwave.json",
+          "version": "7255a23aa119570b7130888f92c6a4f53629ec3ca420e7270d0bdbf340b41e02",
+          "location": "content/production/cg-manifests/opening-ch1-com02x-microwave.json"
+        },
+        {
+          "id": "content/production/runs/com02x-cg-20260930/PLAN-COM02X-MICROWAVE-003.decision.json",
+          "version": "ef7abdef57b53aa00db65ea457ea99e96c4ad9b6c88b08259f7a34f8de524fb6",
+          "location": "content/production/runs/com02x-cg-20260930/PLAN-COM02X-MICROWAVE-003.decision.json"
+        }
+      ],
       "output_versions": [],
       "human_gate": "none",
-      "reason": "Copied scope/reference metadata corrected before Handoff; objective, exact pixel allowlist and output unchanged"
+      "reason": null
+    },
+    {
+      "task_id": "MUA-COM02X-WALK-003",
+      "task_type": "visual_review",
+      "scene_id": "COM-02X",
+      "depends_on": [
+        "PLAN-COM02X-WALK-004"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual bounded followup stage mua exactimmutable inputs",
+        "sha256": "a6a49cd2c1664a129f39925b9c3476ed014da5c64d36eb07c1ce089f240def3c"
+      },
+      "decision_receipt": "content/production/runs/com02x-cg-20260930/MUA-COM02X-WALK-003.decision.json",
+      "input_versions": [
+        {
+          "id": "task_packet:MUA-COM02X-WALK-003",
+          "version": "a6a49cd2c1664a129f39925b9c3476ed014da5c64d36eb07c1ce089f240def3c",
+          "location": "generated/session-cache/com02x-cg-20260930/MUA-COM02X-WALK-003.packet.json"
+        },
+        {
+          "id": "file:docs/narrative/scenes/vertical-slice/COM-02X.md",
+          "version": "46d1566ec766adbefbfc2fc93964ee84cf70eca81078f6d35f589e65ddf579c6",
+          "location": "docs/narrative/scenes/vertical-slice/COM-02X.md"
+        },
+        {
+          "id": "file:content/production/narrative/opening-ch1/COM-02X.json",
+          "version": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952",
+          "location": "content/production/narrative/opening-ch1/COM-02X.json"
+        },
+        {
+          "id": "file:docs/art/PRODUCTION_VISUAL_DIRECTION.md",
+          "version": "8937497d234d70bf26169c12fb238890c63f1dfa7fe8087c76e16738ffe74fa3",
+          "location": "docs/art/PRODUCTION_VISUAL_DIRECTION.md"
+        },
+        {
+          "id": "file:docs/art/CG_PRODUCTION_SPEC.md",
+          "version": "962e6a8afd7769b71a806b5d3039cb6a2af3d8f4332f6f1457354976dac32647",
+          "location": "docs/art/CG_PRODUCTION_SPEC.md"
+        },
+        {
+          "id": "file:.ai/schemas/CG_MANIFEST.md",
+          "version": "5ea25f87ccb368b6deb7f56e416ccda09275fb092d50e47579d118990db2c7c7",
+          "location": ".ai/schemas/CG_MANIFEST.md"
+        },
+        {
+          "id": "file:.ai/schemas/cg-manifest.schema.json",
+          "version": "7746c8b1b662578dae0e0dfb8582891a13f957a0b53a296ffa3ff57bc5926614",
+          "location": ".ai/schemas/cg-manifest.schema.json"
+        },
+        {
+          "id": "file:.ai/schemas/VISUAL_CONTINUITY.md",
+          "version": "fee700c8aa5bca246fb8d7688f660a15ff389ba933806a22d01cdcdb41e2dad2",
+          "location": ".ai/schemas/VISUAL_CONTINUITY.md"
+        },
+        {
+          "id": "file:content/assets/source-catalog.json",
+          "version": "63bf0cd4e828890de829a8977a81f0884c555601b0abdf975784faeb53874ee2",
+          "location": "content/assets/source-catalog.json"
+        },
+        {
+          "id": "file:content/production/runs/com02x-cg-20260930/HUMAN-COM02X-MASTER-001.decision.json",
+          "version": "a6d125cd39bbf92b9efe7edd93a05a284abda61162ad80a84a4519b6ae58cea8",
+          "location": "content/production/runs/com02x-cg-20260930/HUMAN-COM02X-MASTER-001.decision.json"
+        },
+        {
+          "id": "file:content/assets/ingest-receipts/com02x-accepted-masters-v1.json",
+          "version": "19f27385a62aa6260d0bac9ddf69e4feea0fbf9f3c3c40ca45fa78804923ddae",
+          "location": "content/assets/ingest-receipts/com02x-accepted-masters-v1.json"
+        },
+        {
+          "id": "file:content/production/cg-manifests/opening-ch1-com02x-walk.json",
+          "version": "50b6996cbecb3d5964824307ad38290f04bdb6fee8f70a74d24b7a3fd194e848",
+          "location": "content/production/cg-manifests/opening-ch1-com02x-walk.json"
+        },
+        {
+          "id": "file:content/production/runs/com02x-cg-20260930/PLAN-COM02X-WALK-004.decision.json",
+          "version": "9ad8c8e03ac0c9b1a27cbc039e4f4edfe69fe2f5fb2f89196e5f5586e60bccd2",
+          "location": "content/production/runs/com02x-cg-20260930/PLAN-COM02X-WALK-004.decision.json"
+        },
+        {
+          "id": "file:assets-src/references/xu-tang/xt-ref-01-face.png",
+          "version": "2fd137f796d0e7667a5913748158f75705b1a538b346b9e7f76aacb3c79acfd0",
+          "location": "assets-src/references/xu-tang/xt-ref-01-face.png"
+        },
+        {
+          "id": "file:assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png",
+          "version": "aaf33f06f3e39fc476deee03ab261a43e0911b8393366ae7399c633abfadc716",
+          "location": "assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png"
+        },
+        {
+          "id": "file:assets-src/opening-ch1-demo/com02x-dlg-01-candidate-v1.png",
+          "version": "c3b980c003dd2bcfb4dcabb769438fe67d85751f75f5fed20ceedf4ad0c3ea65",
+          "location": "assets-src/opening-ch1-demo/com02x-dlg-01-candidate-v1.png"
+        },
+        {
+          "id": "file:assets-src/opening-ch1-demo/opening-ch1-com01b-03.webp",
+          "version": "aa6a236bceca59882edd5f3e1eded77b99347ca62fe5ed81ff74ee4d84bdcbc0",
+          "location": "assets-src/opening-ch1-demo/opening-ch1-com01b-03.webp"
+        }
+      ],
+      "output_versions": [],
+      "human_gate": "none",
+      "reason": null
+    },
+    {
+      "task_id": "PACKET-COM02X-MICROWAVE-001",
+      "task_type": "cg_render",
+      "scene_id": "COM-02X",
+      "depends_on": [
+        "MUA-COM02X-MICROWAVE-002"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual bounded followup stage compile exactimmutable inputs",
+        "sha256": "167c832fe920c89f51fa6708701709139c1756b64574f15e946df2d4728f9fcf"
+      },
+      "decision_receipt": "content/production/runs/com02x-cg-20260930/PACKET-COM02X-MICROWAVE-001.decision.json",
+      "input_versions": [
+        {
+          "id": "task-packet-raw",
+          "version": "167c832fe920c89f51fa6708701709139c1756b64574f15e946df2d4728f9fcf",
+          "location": "generated/session-cache/com02x-cg-20260930/PACKET-COM02X-MICROWAVE-001.packet.json"
+        },
+        {
+          "id": "entry-excerpt:COM02X-DLG-02-MICROWAVE",
+          "version": "7ef19498c10798640b474148da4f764cfcbb09035fb1ae6166421092a50d6f9c",
+          "location": "generated/session-cache/com02x-cg-20260930/COM02X-DLG-02-MICROWAVE.entry.json"
+        },
+        {
+          "id": "manifest-usability:COM02X-DLG-02-MICROWAVE",
+          "version": "abffd1465deb9f32a5e848a62493bb9f72050c1b3258f5359a92db848b7bded5",
+          "location": "content/production/runs/com02x-cg-20260930/MUA-COM02X-MICROWAVE-002.decision.json"
+        },
+        {
+          "id": "manifest:COM02X-DLG-02-MICROWAVE",
+          "version": "7255a23aa119570b7130888f92c6a4f53629ec3ca420e7270d0bdbf340b41e02",
+          "location": "content/production/cg-manifests/opening-ch1-com02x-microwave.json"
+        },
+        {
+          "id": "manifest-file-bytes",
+          "version": "7255a23aa119570b7130888f92c6a4f53629ec3ca420e7270d0bdbf340b41e02",
+          "location": "content/production/cg-manifests/opening-ch1-com02x-microwave.json"
+        },
+        {
+          "id": "render-cg-packets.mjs",
+          "version": "3a7ab0ea65ac4afe011147fdb347f9a0df441f17b07a429790110efc68c1c3f8",
+          "location": "tools/render-cg-packets.mjs"
+        },
+        {
+          "id": "CG_EXECUTION_ADAPTERS.md",
+          "version": "4036cd3c4d35cf7591d2a38cc619556bf0d58e02369abbd2f88fe8c9eaa3ee09",
+          "location": "docs/art/CG_EXECUTION_ADAPTERS.md"
+        }
+      ],
+      "output_versions": [
+        {
+          "id": "COM02X-DLG-02-MICROWAVE-render-packet",
+          "version": "68005152b44f9ca6f0c0dc4fd27c2c4ef67bb61a89134858c39424f2f5232b82",
+          "location": "generated/session-cache/com02x-cg-20260930/COM02X-DLG-02-MICROWAVE.api.jsonl"
+        }
+      ],
+      "human_gate": "none",
+      "reason": null
+    },
+    {
+      "task_id": "PACKET-COM02X-WALK-001",
+      "task_type": "cg_render",
+      "scene_id": "COM-02X",
+      "depends_on": [
+        "MUA-COM02X-WALK-003"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual bounded followup stage compile exactimmutable inputs",
+        "sha256": "c144edc725ab0754132e8a94bc34e10cfd255dd32658c987703b5bd565692026"
+      },
+      "decision_receipt": "content/production/runs/com02x-cg-20260930/PACKET-COM02X-WALK-001.decision.json",
+      "input_versions": [
+        {
+          "id": "manifest:COM02X-WALK-01",
+          "version": "50b6996cbecb3d5964824307ad38290f04bdb6fee8f70a74d24b7a3fd194e848",
+          "location": "content/production/cg-manifests/opening-ch1-com02x-walk.json"
+        },
+        {
+          "id": "entry-excerpt:COM02X-WALK-01",
+          "version": "f216e86a9bde3c26699888db4b4826e3c8d59591b1554a1715a77a41088c77ca",
+          "location": "generated/session-cache/com02x-cg-20260930/COM02X-WALK-01.entry.json"
+        },
+        {
+          "id": "manifest-usability:COM02X-WALK-01",
+          "version": "425e6a7e27fbe715f329e864b74b05fdd51a46bd9556cd689cb94363464f07bd",
+          "location": "content/production/runs/com02x-cg-20260930/MUA-COM02X-WALK-003.decision.json"
+        }
+      ],
+      "output_versions": [
+        {
+          "id": "COM02X-WALK-01-render-packet",
+          "version": "6d9f71a9b1d871a86aa4f8f0ecf7069022b1da3269c1fff966b6ec1bc8f296c0",
+          "location": "generated/session-cache/com02x-cg-20260930/COM02X-WALK-01.api.jsonl"
+        }
+      ],
+      "human_gate": "none",
+      "reason": null
+    },
+    {
+      "task_id": "RENDER-COM02X-MICROWAVE-001",
+      "task_type": "cg_render",
+      "scene_id": "COM-02X",
+      "depends_on": [
+        "PACKET-COM02X-MICROWAVE-001"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual bounded followup stage render exactimmutable inputs",
+        "sha256": "4133a52631c0c8951a2fc4f8844ae64acb60410a9bb5510c629d21bf02be0b4e"
+      },
+      "decision_receipt": "content/production/runs/com02x-cg-20260930/RENDER-COM02X-MICROWAVE-001.decision.json",
+      "input_versions": [
+        {
+          "id": "entry-excerpt:COM02X-DLG-02-MICROWAVE",
+          "version": "7ef19498c10798640b474148da4f764cfcbb09035fb1ae6166421092a50d6f9c",
+          "location": "generated/session-cache/com02x-cg-20260930/COM02X-DLG-02-MICROWAVE.entry.json"
+        },
+        {
+          "id": "render-packet:COM02X-DLG-02-MICROWAVE",
+          "version": "68005152b44f9ca6f0c0dc4fd27c2c4ef67bb61a89134858c39424f2f5232b82",
+          "location": "generated/session-cache/com02x-cg-20260930/COM02X-DLG-02-MICROWAVE.api.jsonl"
+        },
+        {
+          "id": "deterministic-projection-decision:COM02X-DLG-02-MICROWAVE",
+          "version": "cb17afba873b1c020adddcbf868cf61e6ee592c34b20c42481e64037450078d2",
+          "location": "content/production/runs/com02x-cg-20260930/PACKET-COM02X-MICROWAVE-001.decision.json"
+        },
+        {
+          "id": "ref.xu_tang.face.01",
+          "version": "2fd137f796d0e7667a5913748158f75705b1a538b346b9e7f76aacb3c79acfd0",
+          "location": "assets-src/references/xu-tang/xt-ref-01-face.png"
+        },
+        {
+          "id": "ref.xu_tang.wardrobe.a",
+          "version": "aaf33f06f3e39fc476deee03ab261a43e0911b8393366ae7399c633abfadc716",
+          "location": "assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png"
+        },
+        {
+          "id": "ref.com02x.environment.convenience_night",
+          "version": "44b21d81cfac0dcbbd97ecd203c87553ca549651bb4b45aa7a96614102164bb3",
+          "location": "assets-src/references/environments/com02x-convenience-night-reference-v1.png"
+        },
+        {
+          "id": "source.com02x.dlg-01",
+          "version": "c3b980c003dd2bcfb4dcabb769438fe67d85751f75f5fed20ceedf4ad0c3ea65",
+          "location": "assets-src/opening-ch1-demo/com02x-dlg-01-candidate-v1.png"
+        }
+      ],
+      "output_versions": [
+        {
+          "id": "COM02X-DLG-02-MICROWAVE-CANDIDATE-001",
+          "version": "7b8a6f5eb9dd8bfc102229e42aaf1e82a1182f20b807d3dc134df79f5e95a392",
+          "location": "/Users/tsungmingliu/Documents/Codex/2026-09-30/com02x-cg-production/outputs/com02x-microwave-candidate-v1.png"
+        }
+      ],
+      "human_gate": "none",
+      "reason": null
+    },
+    {
+      "task_id": "RENDER-COM02X-WALK-001",
+      "task_type": "cg_render",
+      "scene_id": "COM-02X",
+      "depends_on": [
+        "PACKET-COM02X-WALK-001"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual bounded followup stage render exactimmutable inputs",
+        "sha256": "fdf2e754e6ec87425d2da67672b465ea5705a4627633ec89eabeb7081e28a9f7"
+      },
+      "decision_receipt": "content/production/runs/com02x-cg-20260930/RENDER-COM02X-WALK-001.decision.json",
+      "input_versions": [
+        {
+          "id": "RENDER-COM02X-WALK-001",
+          "version": "fdf2e754e6ec87425d2da67672b465ea5705a4627633ec89eabeb7081e28a9f7",
+          "location": "generated/session-cache/com02x-cg-20260930/RENDER-COM02X-WALK-001.packet.json"
+        },
+        {
+          "id": "entry-excerpt:COM02X-WALK-01",
+          "version": "f216e86a9bde3c26699888db4b4826e3c8d59591b1554a1715a77a41088c77ca",
+          "location": "generated/session-cache/com02x-cg-20260930/COM02X-WALK-01.entry.json"
+        },
+        {
+          "id": "render-packet:COM02X-WALK-01",
+          "version": "6d9f71a9b1d871a86aa4f8f0ecf7069022b1da3269c1fff966b6ec1bc8f296c0",
+          "location": "generated/session-cache/com02x-cg-20260930/COM02X-WALK-01.api.jsonl"
+        },
+        {
+          "id": "deterministic-projection-decision:COM02X-WALK-01",
+          "version": "99d98fd377bcdda8d064c2681f775feb3c7425eac4f676e0ba3f2bcfb5fc0d99",
+          "location": "content/production/runs/com02x-cg-20260930/PACKET-COM02X-WALK-001.decision.json"
+        },
+        {
+          "id": "ref.xu_tang.face.01",
+          "version": "2fd137f796d0e7667a5913748158f75705b1a538b346b9e7f76aacb3c79acfd0",
+          "location": "assets-src/references/xu-tang/xt-ref-01-face.png"
+        },
+        {
+          "id": "ref.xu_tang.wardrobe.a",
+          "version": "aaf33f06f3e39fc476deee03ab261a43e0911b8393366ae7399c633abfadc716",
+          "location": "assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png"
+        },
+        {
+          "id": "source.com02x.dlg-01",
+          "version": "c3b980c003dd2bcfb4dcabb769438fe67d85751f75f5fed20ceedf4ad0c3ea65",
+          "location": "assets-src/opening-ch1-demo/com02x-dlg-01-candidate-v1.png"
+        },
+        {
+          "id": "source.opening.ch1.com01b.03",
+          "version": "aa6a236bceca59882edd5f3e1eded77b99347ca62fe5ed81ff74ee4d84bdcbc0",
+          "location": "assets-src/opening-ch1-demo/opening-ch1-com01b-03.webp"
+        }
+      ],
+      "output_versions": [
+        {
+          "id": "COM02X-WALK-01-CANDIDATE-001",
+          "version": "3b09951d2abaf3362bcbccc015462b1d4885cb226618f688d6ef99703fc4366d",
+          "location": "/Users/tsungmingliu/Documents/Codex/2026-09-30/com02x-cg-production/outputs/com02x-walk-candidate-v1.png"
+        }
+      ],
+      "human_gate": "none",
+      "reason": null
+    },
+    {
+      "task_id": "INTEGRATE-COM02X-004",
+      "task_type": "integrate",
+      "integration_mode": "final",
+      "scene_id": "COM-02X",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual exact scoped replaycursor failure diagnostic/correction",
+        "sha256": "4506e7fddeaeeb056e4b9717c1347e1731016278bd1403849d7ed3100aeb3347"
+      },
+      "decision_receipt": "content/production/runs/com02x-cg-20260930/INTEGRATE-COM02X-004.decision.json",
+      "input_versions": [
+        {
+          "id": "tests/browser-acceptance.spec.mjs",
+          "version": "190e505f2cf973dab17a962625a0013b7b7ed390417ce1a99387bcc6d064b198",
+          "location": "tests/browser-acceptance.spec.mjs"
+        },
+        {
+          "id": "tests/memories.test.mjs",
+          "version": "eab8ed2b911e06a91dc8e286ac753aafe3c29fccf4416019052048318ae879f6",
+          "location": "tests/memories.test.mjs"
+        },
+        {
+          "id": "tests/engine-progress.test.mjs",
+          "version": "d1a625a83add625d478c208d4bd927a6000408a5f16061b36eb4fa37856d7c86",
+          "location": "tests/engine-progress.test.mjs"
+        },
+        {
+          "id": "tests/progress.test.mjs",
+          "version": "a1c45f32fe4c3f304cd321f421cb29d7b9052640676bd7f2948a5482cd283e8b",
+          "location": "tests/progress.test.mjs"
+        },
+        {
+          "id": "tests/com02x-preview.test.mjs",
+          "version": "9eb661fa88e5586d76c3f6f4f720ce8d20a7e23529dcb0514ec61988f71ecfed",
+          "location": "tests/com02x-preview.test.mjs"
+        },
+        {
+          "id": "src/app.js",
+          "version": "6436897bff6bc585ac21104561fe91735d03e0b55b83ec69cd86ee71e8ae9881",
+          "location": "src/app.js"
+        },
+        {
+          "id": "src/engine.js",
+          "version": "4836f795aba56d520593cf50aab90c0fd11a25f9bce8bc02474e7b08e6b15874",
+          "location": "src/engine.js"
+        },
+        {
+          "id": "src/memories.js",
+          "version": "7d623b55e90fe5568cfdde803f0877e67ce70de3e2e8457f9249ad07f4e8e346",
+          "location": "src/memories.js"
+        },
+        {
+          "id": "src/progress.js",
+          "version": "353ad9aa7a54dc61c31f987f4650895cdce1ba017e5256ebe5c0ce48d6afa87e",
+          "location": "src/progress.js"
+        },
+        {
+          "id": "src/presentation.js",
+          "version": "932f5fe7312b5a4a055b92fee15447131a0f92d669afd0bf25700bda3dc9a65e",
+          "location": "src/presentation.js"
+        },
+        {
+          "id": "package.json",
+          "version": "36485f98cb2344cd34d96524ad035acb9347ebf4fc28efa188112ef8adc02069",
+          "location": "package.json"
+        },
+        {
+          "id": "ARCHITECTURE.md",
+          "version": "d10f1ea3f789b6133ce0aaddd4a3d2f86287af0f6e6ad8bf092e873e5849d66a",
+          "location": "ARCHITECTURE.md"
+        },
+        {
+          "id": ".github/workflows/browser-acceptance.yml",
+          "version": "f66f8b6cd8dca760084f0d5b78837b03fb8c9fc942e8d5d32252cb756caaf4f2",
+          "location": ".github/workflows/browser-acceptance.yml"
+        },
+        {
+          "id": "tools/content-lib.mjs",
+          "version": "3b6e4ed9bb487a2b2a7b73ee7af5d30c91b94285b504bc9654368f02891f386c",
+          "location": "tools/content-lib.mjs"
+        },
+        {
+          "id": "tools/build.mjs",
+          "version": "b903b272d89482df4ec9d78ee025687a98a8b6060c204d0b913b82a377f8ed7d",
+          "location": "tools/build.mjs"
+        },
+        {
+          "id": "content/routes/opening-demo/route.json",
+          "version": "df234f72db0df91d08053c55ca293c22cfff91bfadfcf3296026bf71a1f8d59b",
+          "location": "content/routes/opening-demo/route.json"
+        },
+        {
+          "id": "content/production/runs/com02x-cg-20260930/VERIFY-COM02X-004.decision.json",
+          "version": "9cecc56f87f4f4c33d53fab7065eceec7b6334a96797f0c699bbf1144f6e2896",
+          "location": "content/production/runs/com02x-cg-20260930/VERIFY-COM02X-004.decision.json"
+        }
+      ],
+      "output_versions": [
+        {
+          "id": "tests/browser-acceptance.spec.mjs",
+          "version": "e250a1b7a07c992293d8426165b7ff4b3b2539e11594324a6faa4132fa538c16",
+          "location": "tests/browser-acceptance.spec.mjs"
+        },
+        {
+          "id": "tests/engine-progress.test.mjs",
+          "version": "aad45948f41a5d3d133898333b1967569adde81c5b0a06b7c59b59c39f762ee0",
+          "location": "tests/engine-progress.test.mjs"
+        },
+        {
+          "id": "INTEGRATE-COM02X-004-evidence",
+          "version": "c346207181b8feb248024a9e7a24ebe7498a59574f43a1d280683ce2335cf2f7",
+          "location": "generated/session-cache/com02x-cg-20260930/INTEGRATE-COM02X-004.evidence.json"
+        },
+        {
+          "id": "INTEGRATE-COM02X-004-failure-excerpt",
+          "version": "62c20980cc7215a2f16d9f970eada5eeb381ac4af70230869453e9f5d15f1815",
+          "location": "generated/session-cache/com02x-cg-20260930/INTEGRATE-COM02X-004.failure-excerpt.txt"
+        }
+      ],
+      "human_gate": "none",
+      "reason": null
+    },
+    {
+      "task_id": "VQA-COM02X-MICROWAVE-001",
+      "task_type": "visual_review",
+      "scene_id": "COM-02X",
+      "depends_on": [
+        "RENDER-COM02X-MICROWAVE-001"
+      ],
+      "status": "FAIL",
+      "packet": {
+        "generator": "manual bounded followup stage qa exactimmutable inputs",
+        "sha256": "adcf52dc4cc85051065d86d5a64a6f4e1a26274e0e69b10ff10c63b046cbbacd"
+      },
+      "decision_receipt": "content/production/runs/com02x-cg-20260930/VQA-COM02X-MICROWAVE-001.decision.json",
+      "input_versions": [
+        {
+          "id": "entry-excerpt:COM02X-DLG-02-MICROWAVE",
+          "version": "sha256:7ef19498c10798640b474148da4f764cfcbb09035fb1ae6166421092a50d6f9c",
+          "location": "generated/session-cache/com02x-cg-20260930/COM02X-DLG-02-MICROWAVE.entry.json"
+        },
+        {
+          "id": "candidate:COM02X-DLG-02-MICROWAVE-001",
+          "version": "sha256:7b8a6f5eb9dd8bfc102229e42aaf1e82a1182f20b807d3dc134df79f5e95a392",
+          "location": "/Users/tsungmingliu/Documents/Codex/2026-09-30/com02x-cg-production/outputs/com02x-microwave-candidate-v1.png"
+        },
+        {
+          "id": "render-decision:COM02X-DLG-02-MICROWAVE",
+          "version": "sha256:b1d876871a4a680e5fb246716b76761620130f2e0d76b23af3b5f3317cf00e4b",
+          "location": "content/production/runs/com02x-cg-20260930/RENDER-COM02X-MICROWAVE-001.decision.json"
+        },
+        {
+          "id": "ref.xu_tang.face.01",
+          "version": "sha256:2fd137f796d0e7667a5913748158f75705b1a538b346b9e7f76aacb3c79acfd0",
+          "location": "assets-src/references/xu-tang/xt-ref-01-face.png"
+        },
+        {
+          "id": "ref.xu_tang.wardrobe.a",
+          "version": "sha256:aaf33f06f3e39fc476deee03ab261a43e0911b8393366ae7399c633abfadc716",
+          "location": "assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png"
+        },
+        {
+          "id": "ref.com02x.environment.convenience_night",
+          "version": "sha256:44b21d81cfac0dcbbd97ecd203c87553ca549651bb4b45aa7a96614102164bb3",
+          "location": "assets-src/references/environments/com02x-convenience-night-reference-v1.png"
+        },
+        {
+          "id": "source.com02x.dlg-01",
+          "version": "sha256:c3b980c003dd2bcfb4dcabb769438fe67d85751f75f5fed20ceedf4ad0c3ea65",
+          "location": "assets-src/opening-ch1-demo/com02x-dlg-01-candidate-v1.png"
+        }
+      ],
+      "output_versions": [],
+      "human_gate": "accepted_master_image_selection",
+      "reason": "The verified PNG is 1672x941, below the required 1920x1080 master minimum. The coffee bottle and gripping hand fall into the lower quarter, a drawstring is visible at the bottom edge, and Xu's other hand is cropped out, so the specified low-detail dialogue zone and visible empty-hand check fail. Her gaze is off lens, but her torso remains nearly camera-facing instead of turning toward the microwave stack. The head tilt, slightly parted lips, smooth beauty-lit face and polished presentation weaken the requested candid, tired, matter-of-fact waiting read. Identity, age, hair, hoops, sweater/tote, coffee ownership, absence of meals/other people, two closed microwaves, wet-night store continuity and 16:9 proportion pass."
+    },
+    {
+      "task_id": "VQA-COM02X-WALK-001",
+      "task_type": "visual_review",
+      "scene_id": "COM-02X",
+      "depends_on": [
+        "RENDER-COM02X-WALK-001"
+      ],
+      "status": "FAIL",
+      "packet": {
+        "generator": "manual bounded followup stage qa exactimmutable inputs",
+        "sha256": "1a4062ad9696c446a54224f70072c982fb543e98b5fe51feb30c1b6f0cbfb1b5"
+      },
+      "decision_receipt": "content/production/runs/com02x-cg-20260930/VQA-COM02X-WALK-001.decision.json",
+      "input_versions": [
+        {
+          "id": "VQA-COM02X-WALK-001.packet",
+          "version": "1a4062ad9696c446a54224f70072c982fb543e98b5fe51feb30c1b6f0cbfb1b5",
+          "location": "generated/session-cache/com02x-cg-20260930/VQA-COM02X-WALK-001.packet.json"
+        },
+        {
+          "id": "entry-excerpt:COM02X-WALK-01",
+          "version": "f216e86a9bde3c26699888db4b4826e3c8d59591b1554a1715a77a41088c77ca",
+          "location": "generated/session-cache/com02x-cg-20260930/COM02X-WALK-01.entry.json"
+        },
+        {
+          "id": "render-decision:COM02X-WALK-01",
+          "version": "b039e5d6a714acaaebf0976e5d74e2120bb6b3b0182827bd8c789bee08867a0f",
+          "location": "content/production/runs/com02x-cg-20260930/RENDER-COM02X-WALK-001.decision.json"
+        },
+        {
+          "id": "candidate:COM02X-WALK-01-001",
+          "version": "3b09951d2abaf3362bcbccc015462b1d4885cb226618f688d6ef99703fc4366d",
+          "location": "/Users/tsungmingliu/Documents/Codex/2026-09-30/com02x-cg-production/outputs/com02x-walk-candidate-v1.png"
+        },
+        {
+          "id": "ref.xu_tang.face.01",
+          "version": "2fd137f796d0e7667a5913748158f75705b1a538b346b9e7f76aacb3c79acfd0",
+          "location": "assets-src/references/xu-tang/xt-ref-01-face.png"
+        },
+        {
+          "id": "ref.xu_tang.wardrobe.a",
+          "version": "aaf33f06f3e39fc476deee03ab261a43e0911b8393366ae7399c633abfadc716",
+          "location": "assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png"
+        },
+        {
+          "id": "source.com02x.dlg-01",
+          "version": "c3b980c003dd2bcfb4dcabb769438fe67d85751f75f5fed20ceedf4ad0c3ea65",
+          "location": "assets-src/opening-ch1-demo/com02x-dlg-01-candidate-v1.png"
+        },
+        {
+          "id": "source.opening.ch1.com01b.03",
+          "version": "aa6a236bceca59882edd5f3e1eded77b99347ca62fe5ed81ff74ee4d84bdcbc0",
+          "location": "assets-src/opening-ch1-demo/opening-ch1-com01b-03.webp"
+        }
+      ],
+      "output_versions": [],
+      "human_gate": "accepted_master_image_selection",
+      "reason": "Formal master dimensions fail. The walking-arm pose and lower dialogue-safe zone also miss the entry requirements; recent-rain reflections are substantially stronger than requested."
     }
   ],
   "invalidation_events": [
@@ -2488,17 +3231,18 @@
     }
   ],
   "preview": {
-    "commit": "c9940dc86c8776956ebe3e65419c0ff7ebfd9280",
-    "profile": "Cloudflare PR39",
+    "commit": "eee8658e8d9b02a6defbe5a24313447f2f4d49cf",
+    "profile": "Cloudflare PR39, initial two-CG baseline only",
     "url_or_access_path": "https://pr-39.seventeen-floor-neighbor.pages.dev",
-    "commit_url": "https://5ba828d4.seventeen-floor-neighbor.pages.dev",
+    "commit_url": "https://a674c706.seventeen-floor-neighbor.pages.dev",
     "visibility": "public",
     "build": "PASS",
     "validation": "PASS",
-    "tests": "83/83 PASS; Chromium6/7 FAIL",
-    "smoke": "PASS actualdeployedsite/asset/hashproof"
+    "tests": "83/83 PASS; Chromium6/7 FAIL at completed Memory replay title Start expectation; scoped correction locally PASS, newremote checks pending",
+    "smoke": "PASS exactpublic servedsite/modules/routes/assetshashes"
   },
   "human_decisions": [
-    "content/production/runs/com02x-cg-20260930/HUMAN-COM02X-MASTER-001.decision.json"
+    "content/production/runs/com02x-cg-20260930/HUMAN-COM02X-MASTER-001.decision.json",
+    "content/production/runs/com02x-cg-20260930/HUMAN-COM02X-STREET-REFERENCE-001.decision.json"
   ]
 }
