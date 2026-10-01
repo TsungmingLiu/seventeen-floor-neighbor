@@ -1,7 +1,7 @@
 {
   "sourceCatalogVersion": 2,
   "provider": "repo",
-  "note": "Opening accepted CG/background WebP and character reference PNG/JPEG resolve to tracked repo files. Old provider metadata is historical-only in repo-source-gate3-historical.json.",
+  "note": "Accepted Opening CG/background WebP and both complete six-sheet character PNG packs resolve to tracked repo files. Reference restoration receipt records exact uploaded bytes and the superseded Xu Tang JPEG.",
   "files": {
     "source.opening.ch1.bg.apt_17f_rain": {
       "name": "bg-apt-17f-rain-16x9-v1.webp",
@@ -249,18 +249,18 @@
       "provenance": "Previously approved original PNG sheet copied byte-for-byte"
     },
     "ref.xu_tang.body.03": {
-      "name": "xt-ref-03-body.jpeg",
-      "mimeType": "image/jpeg",
-      "sourcePath": "assets-src/references/xu-tang/xt-ref-03-body.jpeg",
-      "bytes": 441517,
+      "name": "xt-ref-03-body.png",
+      "mimeType": "image/png",
+      "sourcePath": "assets-src/references/xu-tang/xt-ref-03-body.png",
+      "bytes": 1975620,
       "width": 1055,
       "height": 1491,
-      "sha256": "d436d6ceeda95a2cd8115087d6b49e39baa72ec2f7552909da2b9a2eb933cdd4",
+      "sha256": "cccde0bbd7d04b9cb66615ce3948a77529d77298dea806a3582a9d69723d8eb0",
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "characterId": "xu_tang",
       "role": "body_proportions",
-      "provenance": "User-provided 2026-09-26 JPEG replacement; not byte-identical to historical PNG"
+      "provenance": "Owner supplied xt-body-3.png on 2026-09-30; copied byte-for-byte"
     },
     "ref.xu_tang.wardrobe.a": {
       "name": "xt-ref-05-wardrobe-a.png",
@@ -303,6 +303,104 @@
       "characterId": "jiang_yucheng",
       "role": "wardrobe",
       "provenance": "Previously approved original PNG sheet copied byte-for-byte"
+    },
+    "ref.xu_tang.expression.02": {
+      "name": "xt-ref-02-expression.png",
+      "mimeType": "image/png",
+      "sourcePath": "assets-src/references/xu-tang/xt-ref-02-expression.png",
+      "bytes": 2333430,
+      "width": 1055,
+      "height": 1491,
+      "sha256": "093665abff2715b6edab1ff0670677a764e374f9854cc082a93bd995ca9f71fa",
+      "verifiedDecode": true,
+      "status": "active-production",
+      "characterId": "xu_tang",
+      "role": "expression",
+      "provenance": "Owner supplied xt-expression-2.png on 2026-09-30; copied byte-for-byte"
+    },
+    "ref.xu_tang.production.04": {
+      "name": "xt-ref-04-production.png",
+      "mimeType": "image/png",
+      "sourcePath": "assets-src/references/xu-tang/xt-ref-04-production.png",
+      "bytes": 2320597,
+      "width": 1055,
+      "height": 1491,
+      "sha256": "915cbbd529b252ba465b03872f6f8b3132a846b81e0bc8fa87405b7db19ed692",
+      "verifiedDecode": true,
+      "status": "active-production",
+      "characterId": "xu_tang",
+      "role": "production_consistency",
+      "provenance": "Owner supplied xt-setup-4.png on 2026-09-30; copied byte-for-byte"
+    },
+    "ref.xu_tang.wardrobe.b": {
+      "name": "xt-ref-06-wardrobe-b.png",
+      "mimeType": "image/png",
+      "sourcePath": "assets-src/references/xu-tang/xt-ref-06-wardrobe-b.png",
+      "bytes": 2208195,
+      "width": 1055,
+      "height": 1491,
+      "sha256": "19faffc0d4352e663907425b2f6d14d6f4c778c3eac714381a779239082b7b9c",
+      "verifiedDecode": true,
+      "status": "active-production",
+      "characterId": "xu_tang",
+      "role": "wardrobe",
+      "provenance": "Owner supplied xt-wardrobe-6.png on 2026-09-30; copied byte-for-byte"
+    },
+    "ref.jiang_yucheng.expression.02": {
+      "name": "jyc-ref-02-expression.png",
+      "mimeType": "image/png",
+      "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-02-expression.png",
+      "bytes": 2357612,
+      "width": 1491,
+      "height": 1055,
+      "sha256": "393578d2c3317f1dcc62be1ff94e0c25e5ae49defec23e25d8b48e442465142c",
+      "verifiedDecode": true,
+      "status": "active-production",
+      "characterId": "jiang_yucheng",
+      "role": "expression",
+      "provenance": "Owner supplied jyc-expression-2.png on 2026-09-30; copied byte-for-byte"
+    },
+    "ref.jiang_yucheng.body.03": {
+      "name": "jyc-ref-03-body.png",
+      "mimeType": "image/png",
+      "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-03-body.png",
+      "bytes": 2029068,
+      "width": 1491,
+      "height": 1055,
+      "sha256": "aea154ce1c5b5eb3e147dba39a3ec98090d179e778b1126e85a750c8d3b8b9f6",
+      "verifiedDecode": true,
+      "status": "active-production",
+      "characterId": "jiang_yucheng",
+      "role": "body_proportions",
+      "provenance": "Owner supplied jyc-body-3.png on 2026-09-30; copied byte-for-byte"
+    },
+    "ref.jiang_yucheng.production.04": {
+      "name": "jyc-ref-04-production.png",
+      "mimeType": "image/png",
+      "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-04-production.png",
+      "bytes": 2358205,
+      "width": 1491,
+      "height": 1055,
+      "sha256": "39aab1d50067f8e8ef073aa7dcea5b69d268d0cccbe4bd3efbf36cd4c50a73c9",
+      "verifiedDecode": true,
+      "status": "active-production",
+      "characterId": "jiang_yucheng",
+      "role": "production_consistency",
+      "provenance": "Owner supplied jyc-setup-4.png on 2026-09-30; copied byte-for-byte"
+    },
+    "ref.jiang_yucheng.wardrobe.b": {
+      "name": "jyc-ref-06-wardrobe-b.png",
+      "mimeType": "image/png",
+      "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-06-wardrobe-b.png",
+      "bytes": 2167237,
+      "width": 1491,
+      "height": 1055,
+      "sha256": "f4459c2cce637a393c5a181827113e9d9c06656ef5b7a7b2d28d1a2ded7e1b99",
+      "verifiedDecode": true,
+      "status": "active-production",
+      "characterId": "jiang_yucheng",
+      "role": "wardrobe",
+      "provenance": "Owner supplied jyc-wardrobe-6.png on 2026-09-30; copied byte-for-byte"
     }
   }
 }

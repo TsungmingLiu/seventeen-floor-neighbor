@@ -3,15 +3,6 @@
   "migrationState": "repo-runtime-gate2",
   "note": "All runtime assets resolve to tracked assets-src/ files. Source-catalog master/reference transport migration is tracked separately.",
   "files": {
-    "assets/cg-ch02-cafe-morning.jpg": "assets-src/cg/cg-ch02-cafe-morning.jpg",
-    "assets/cg-ch02-laundry-room.jpg": "assets-src/cg/cg-ch02-laundry-room.jpg",
-    "assets/cg-ch02-rooftop-night.jpg": "assets-src/cg/cg-ch02-rooftop-night.jpg",
-    "assets/cg-elevator-blush.jpg": "assets-src/cg/cg-elevator-blush.jpg",
-    "assets/cg-elevator-close.jpg": "assets-src/cg/cg-elevator-close.jpg",
-    "assets/cg-lin-cheng-rooftop-recording-v1.png": "assets-src/cg/cg-lin-cheng-rooftop-recording-v1.png",
-    "assets/cg-lin-cheng-shared-headphones-v1.png": "assets-src/cg/cg-lin-cheng-shared-headphones-v1.png",
-    "assets/cg-phone-ending.jpg": "assets-src/cg/cg-phone-ending.jpg",
-    "assets/sprite-lin-cheng-night-v1.png": "assets-src/characters/sprite-lin-cheng-night-v1.png",
     "assets/unavailable.svg": "assets-src/ui/unavailable.svg",
     "assets/opening-ch1-demo/bg-apt-17f-rain-16x9-v1.webp": {
       "source": "assets-src/opening-ch1-demo/bg-apt-17f-rain-16x9-v1.webp",

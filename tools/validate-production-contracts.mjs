@@ -1,3 +1,4 @@
+import { validateCharacterReferencePacks } from './character-references.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -341,11 +342,24 @@ function validateGate3RepositorySources(catalog) {
     invariant(source.sha256 === item.sha256 && source.bytes === item.bytes, `accepted receipt fingerprint mismatch: ${item.sourceId}`);
     invariant(JSON.stringify(source.knownIssues ?? []) === JSON.stringify(item.knownIssues), `accepted receipt knownIssues mismatch: ${item.sourceId}`);
   }
+  const restoration = readJson('content/assets/ingest-receipts/character-reference-packs-20260930.json');
+  invariant(restoration.receiptVersion === 1 && restoration.gate === 'complete-character-reference-packs' && restoration.sourceCatalog === SOURCE_CATALOG, 'invalid character pack restoration receipt');
+  invariant(restoration.references.length === 12, 'restoration receipt requires 12 PNG sheets');
+  const restoredIds = new Set();
+  for (const item of restoration.references) {
+    invariant(!restoredIds.has(item.sourceId), `duplicate restored source ID: ${item.sourceId}`);
+    restoredIds.add(item.sourceId);
+    const source = catalog.files[item.sourceId];
+    for (const key of ['name', 'sourcePath', 'sha256', 'bytes', 'width', 'height', 'mimeType', 'status', 'characterId', 'role']) invariant(source?.[key] === item[key], `restored reference ${key} mismatch: ${item.sourceId}`);
+  }
+  validateCharacterReferencePacks(catalog);
   const referenceIds = new Set();
   for (const item of receipt.references) {
     invariant(!referenceIds.has(item.sourceId), `duplicate reference sourceId: ${item.sourceId}`);
     referenceIds.add(item.sourceId);
-    const source = catalog.files[item.sourceId];
+    const superseded = restoration.supersededReferences.find((record) => record.sourceId === item.sourceId);
+    if (superseded) invariant(catalog.files[item.sourceId]?.sha256 === superseded.replacementSha256, `superseded replacement mismatch: ${item.sourceId}`);
+    const source = superseded?.previous ?? catalog.files[item.sourceId];
     invariant(source && item.sourceId.startsWith('ref.'), `reference receipt source is missing or invalid: ${item.sourceId}`);
     for (const [receiptKey, catalogKey] of [['repoPath', 'sourcePath'], ['sha256', 'sha256'], ['bytes', 'bytes'], ['width', 'width'], ['height', 'height'], ['mimeType', 'mimeType'], ['status', 'status'], ['characterId', 'characterId'], ['role', 'role']]) {
       invariant(source[catalogKey] === item[receiptKey], `reference receipt ${receiptKey} mismatch: ${item.sourceId}`);
@@ -354,7 +368,7 @@ function validateGate3RepositorySources(catalog) {
   invariant([...referenceIds].some((id) => id === 'ref.xu_tang.body.03'), 'Gate 3 receipt must include the user-provided Xu Tang body JPEG');
   invariant(receipt.references.filter((item) => item.mimeType === 'image/png').length === 4 && receipt.references.filter((item) => item.mimeType === 'image/jpeg').length === 1, 'Gate 3 references must be four PNGs plus one JPEG');
   invariant(acceptedIds.size === 15 && referenceIds.size === 5, 'Gate 3 accepted source IDs must be unique');
-  invariant(Object.keys(catalog.files).length === acceptedIds.size + referenceIds.size, 'source catalog contains an unexpected active source set');
+  invariant(Object.keys(catalog.files).length === acceptedIds.size + restoredIds.size, 'source catalog contains an unexpected active source set');
   return receipt;
 }
 

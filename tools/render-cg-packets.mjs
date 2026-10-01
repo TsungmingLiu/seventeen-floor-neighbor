@@ -1,3 +1,4 @@
+import { validateCharacterReferenceSelection } from './character-references.mjs';
 import crypto from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
@@ -244,6 +245,7 @@ function validateEntry(entry, manifest, entryIds, outputIds) {
     invariant(transport.accepted_base_asset_id === null, `${context} base render cannot declare accepted_base_asset_id`);
     const declared = new Set(declaredReferences.map(referenceKey));
     const attached = new Set(transport.attachments.map(referenceKey));
+    invariant(attached.size === transport.attachments.length, `${context} contains duplicate reference attachments`);
     invariant(declared.size === attached.size && [...declared].every((key) => attached.has(key)), `${context} attachments must exactly match character/environment reference bindings`);
   } else if (transport.mode === 'edit_from_accepted_base') {
     invariant(entry.cg_class === 'reaction_cg' || entry.cg_class === 'cg_sequence_keyframe', `${context} edit mode is only valid for reaction/sequence entries`);
@@ -257,6 +259,11 @@ function validateEntry(entry, manifest, entryIds, outputIds) {
     invariant(transport.attachments.length === 0, `${context} mode none cannot declare attachments`);
     invariant(transport.accepted_base_asset_id === null, `${context} mode none cannot declare accepted base`);
   }
+
+  for (const binding of transport.attachments.filter((item) => item.source_id.startsWith('ref.'))) {
+    invariant(declaredReferences.some((declared) => referenceKey(declared) === referenceKey(binding)), `${context} attaches an undeclared character reference`);
+  }
+  validateCharacterReferenceSelection(entry);
 
   requireKeys(entry.output, ['canonical_asset_id', 'logical_asset_id', 'master_filename', 'quantity'], `${context}.output`);
   for (const key of ['canonical_asset_id', 'logical_asset_id', 'master_filename']) {
@@ -396,6 +403,7 @@ export function projectEntry(manifest, entry) {
       characterLines.push(`- expression: ${character.expression}`);
       characterLines.push(`- wardrobe_key: ${character.wardrobe_key}`);
       characterLines.push(`- held_objects: ${character.held_objects.length ? character.held_objects.join(' | ') : 'none'}`);
+      if (character.reference_requirements) characterLines.push(`- reference_requirements: ${stableStringify(character.reference_requirements)}`);
       characterLines.push('- Reference Bindings:');
       character.reference_bindings.forEach((binding) => characterLines.push(`  - ${binding.role}: ${binding.source_id} (${binding.expected_filename})`));
     });

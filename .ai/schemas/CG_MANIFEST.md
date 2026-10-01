@@ -53,3 +53,7 @@ Projection normally selects `render_ready`; migration validation may project `ac
 - Render Packet and adapter envelopes are `GENERATED` and must never be hand-edited into authority。
 - Candidate image does not change manifest facts。
 - Accepted asset receipt records outcome/provenance, not new creative instructions。
+
+## Character reference selection
+
+`characters[].reference_requirements` optionally records boolean `production_consistency`, `expression`, and `body_proportions`; all three keys are required when the object is present. A false production flag requires `production_omission_reason`. New base entries without the object default to face + production consistency + relevant wardrobe. Full-body/long-shot camera values require body proportions. Use `content/assets/character-reference-packs.json` and `tools/character-references.mjs` to select exact source IDs/filenames; validation checks the character, role, wardrobe A/B and exact required subset before any adapter can project the entry. Accepted entries retain historical bindings; edit tasks acquire accepted base plus explicitly declared supplementary images.

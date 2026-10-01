@@ -25,7 +25,7 @@
       "entry_id": "COM-01B-CG-01",
       "scene_id": "COM-01B",
       "source_scene": "docs/narrative/scenes/vertical-slice/COM-01B.md",
-      "status": "render_ready",
+      "status": "accepted",
       "cg_class": "dialogue_cg",
       "beat_range": "01B.1–01B.4; common_bookstore_bridge_enter through the common recommendation across all three choice wordings",
       "narrative": {
@@ -150,7 +150,7 @@
       "entry_id": "COM-01B-CG-02",
       "scene_id": "COM-01B",
       "source_scene": "docs/narrative/scenes/vertical-slice/COM-01B.md",
-      "status": "render_ready",
+      "status": "accepted",
       "cg_class": "event_cg",
       "beat_range": "01B.5; Xu Tang's goodnight and departure after the shared recommendation",
       "narrative": {
@@ -281,7 +281,7 @@
       "entry_id": "COM-01B-CG-03",
       "scene_id": "COM-01B",
       "source_scene": "docs/narrative/scenes/vertical-slice/COM-01B.md",
-      "status": "render_ready",
+      "status": "accepted",
       "cg_class": "background_cg",
       "beat_range": "01B.5 rejoin; after Xu Tang has left, before the weekend transition",
       "narrative": {
@@ -373,7 +373,7 @@
       "entry_id": "COM-01B-CG-04",
       "scene_id": "COM-01B",
       "source_scene": "docs/narrative/scenes/vertical-slice/COM-01B.md",
-      "status": "render_ready",
+      "status": "accepted",
       "cg_class": "background_cg",
       "beat_range": "01B.6; common_bookstore_bridge_weekend_transition ending at the ACG setting-book and merchandise store entrance",
       "narrative": {
