@@ -19,6 +19,12 @@ For any new AI production or development session:
 
 For engineering work, the specialist may additionally use `TODO.md`, `ARCHITECTURE.md`, and task-specific implementation files.
 
+## Conversational Producer POC
+
+If `.codex/skills/game-producer-poc/SKILL.md` exists and the Human conversationally asks to run independent Narrative QA for one explicit existing Locked Scene, the parent Codex conversation should use that skill and invoke the POC itself. **Do not ask the Human to run npm or Codex CLI commands manually.**
+
+This experiment does not authorize the parent to perform Narrative QA itself or to widen the POC into writing, integration, CG, or automatic retries.
+
 ## Current visual-production decision
 
 New production art is **CG-first, 16:9 landscape-first, responsive full viewport**. The canonical contract is `docs/art/PRODUCTION_VISUAL_DIRECTION.md`.
