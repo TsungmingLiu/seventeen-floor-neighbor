@@ -18,12 +18,21 @@
     {
       "id": "entry-excerpt:COM02X-BG-01",
       "version": "sha256:acd6b0729cdcba725c9f21c470079bad22a91ee0028a76057d068c8a3466a747",
-      "location": "generated/session-cache/com02x-cg-20260930/COM02X-BG-01.entry.json"
+      "location": "entry:COM02X-BG-01",
+      "derived_from": "content/production/cg-manifests/opening-ch1-com02x.json",
+      "entry_id": "COM02X-BG-01"
     },
     {
       "id": "render-packet:COM02X-BG-01",
       "version": "sha256:c5841fdba25254ec69a86344d1e910548a0c8c9fccdf28cc68896c3ef797e1c7",
-      "location": "generated/session-cache/com02x-cg-20260930/COM02X-BG-01.api.jsonl"
+      "location": "derived:COM02X-BG-01",
+      "rebuild": {
+        "tool": "tools/render-cg-packets.mjs",
+        "manifest": "content/production/cg-manifests/opening-ch1-com02x.json",
+        "entry": "COM02X-BG-01",
+        "adapter": "api",
+        "source_ref": "47a62461a70cf137abc20ad314cb19314464fb0d"
+      }
     },
     {
       "id": "deterministic-projection-decision:COM02X-BG-01",
@@ -72,5 +81,28 @@
   "known_issues": [
     "Generated candidate is 1672x941, below the formal 1920x1080 minimum; it is a recorded candidate and is not acceptable as the formal master. No retry or upscale was performed."
   ],
-  "human_gate": "none"
+  "human_gate": "none",
+  "generation_provenance": {
+    "canonical_manifest_file": {
+      "version": "sha256:023e359c738ca1ae1ab83f4a6ea0add08c403372b629ed1f2dbd72d90e4036a1",
+      "location": "content/production/cg-manifests/opening-ch1-com02x.json"
+    },
+    "projection_manifest_digest": "sha256:3c23bc9d74bb38401ae51da3c170caa143cf5fab06ba0b1230a44379485c8ec0",
+    "render_spec_sha256": "87b91160441d4071ebacdb7d4bb53f8184f48aa226fafaf654771a7049dc943b",
+    "shared_prompt_sha256": "2ed058fa3fdb8f4dd3cabac7378ee261fdfd1987cad0e897b6ef6f46a3e24ec7"
+  },
+  "attachment_bindings": [
+    {
+      "role": "environment_reference",
+      "observed_filename": "com02x-convenience-night-reference-v1.png",
+      "canonical_source": "assets-src/references/environments/com02x-convenience-night-reference-v1.png",
+      "pixels_verified": true,
+      "mime": "image/png",
+      "dimensions": "1672x941",
+      "bytes": 2632483,
+      "sha256": "44b21d81cfac0dcbbd97ecd203c87553ca549651bb4b45aa7a96614102164bb3"
+    }
+  ],
+  "generation_output_identity": "image_gen.generation exec-bc044f5d-f096-4609-94a2-8be5f258943f; session 01a0f52d-da3a-74f0-85a1-e64c6f8f3b60; 2026-10-01T01:59:02.951Z",
+  "generation_call_count": 1
 }

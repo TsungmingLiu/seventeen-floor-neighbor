@@ -990,12 +990,21 @@
         {
           "id": "entry-excerpt:COM02X-BG-01",
           "version": "sha256:acd6b0729cdcba725c9f21c470079bad22a91ee0028a76057d068c8a3466a747",
-          "location": "generated/session-cache/com02x-cg-20260930/COM02X-BG-01.entry.json"
+          "location": "entry:COM02X-BG-01",
+          "derived_from": "content/production/cg-manifests/opening-ch1-com02x.json",
+          "entry_id": "COM02X-BG-01"
         },
         {
           "id": "render-packet:COM02X-BG-01",
           "version": "sha256:c5841fdba25254ec69a86344d1e910548a0c8c9fccdf28cc68896c3ef797e1c7",
-          "location": "generated/session-cache/com02x-cg-20260930/COM02X-BG-01.api.jsonl"
+          "location": "derived:COM02X-BG-01",
+          "rebuild": {
+            "tool": "tools/render-cg-packets.mjs",
+            "manifest": "content/production/cg-manifests/opening-ch1-com02x.json",
+            "entry": "COM02X-BG-01",
+            "adapter": "api",
+            "source_ref": "47a62461a70cf137abc20ad314cb19314464fb0d"
+          }
         },
         {
           "id": "deterministic-projection-decision:COM02X-BG-01",
@@ -1020,7 +1029,8 @@
         }
       ],
       "human_gate": "none",
-      "reason": null
+      "reason": null,
+      "candidate_acceptance": "UNREVIEWED"
     },
     {
       "task_id": "RENDER-COM02X-DLG-001",
