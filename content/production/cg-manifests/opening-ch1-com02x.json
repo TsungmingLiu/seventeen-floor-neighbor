@@ -1,0 +1,312 @@
+{
+  "schema_version": "1.0.0",
+  "manifest_id": "opening-ch1-com02x-minimum-formal-cg",
+  "manifest_version": "1.0.0",
+  "lifecycle": "CANONICAL",
+  "source_scene_ids": [
+    "COM-02X"
+  ],
+  "style_contract": {
+    "style_id": "production-realistic-pbr-cinematic-v1",
+    "positive": [
+      "Realistic high-end game-cinematic / photographic PBR rendering; physically plausible adult anatomy, materials, exposure and photographic perspective.",
+      "Natural skin pores, fine tonal variation, realistic eyelids and eye proportions, physically plausible hair strands and cloth; Xu face realism at least equal to the primary face reference.",
+      "Believable ordinary convenience-store fluorescent light and cool wet-night exterior; no advertising glamour.",
+      "One newly rendered independent 16:9 landscape image per entry, one generation call once only; no automatic redraw, retry, alternative grid or selection.",
+      "Final production master minimum 1920x1080, preferred 2560x1440 when generation quality supports it; genuine resolved facial/material detail and crop tolerance. Supporting reference resolution does not lower this final-master requirement."
+    ],
+    "negative": [
+      "Anime/manga proportions, oversized eyes, simplified anatomy, chibi, animation-film facial design, doll/figurine/game-avatar face.",
+      "Plastic airbrushed skin, painterly/cartoon illustration, ink lines, screentone, cel shading or studio character-sheet posing.",
+      "Embedded dialogue, captions, UI, watermarks, logos, real brands, dominant pseudo-text, collage, contact sheet or multiple frames."
+    ],
+    "aspect_ratio": "16:9",
+    "output_count": 1
+  },
+  "entries": [
+    {
+      "entry_id": "COM02X-BG-01",
+      "scene_id": "COM-02X",
+      "source_scene": "docs/narrative/scenes/vertical-slice/COM-02X.md",
+      "status": "render_ready",
+      "cg_class": "background_cg",
+      "sequence_id": null,
+      "beat_range": "02X.1; environment reuse at 02X.4 (all four choices), 02X.5, and the store-bound portions of 02X.6-02X.7; brief departure transition only thereafter.",
+      "narrative": {
+        "purpose": "Establish the ordinary late-night food purchase before Xu appears, and provide the one reusable environment picture for branches and microwave/checkout dialogue. Together with COM02X-DLG-01 this is the minimum two-picture set: the approved no-person establishment and visible recognition are materially different states; no branch-specific, checkout-specific, walk-back or lobby artwork is necessary.",
+        "must_show": [
+          "No visible people: refrigerated prepared meals and adjacent drinks, ordinary aisle and modest checkout/two microwaves in one connected store.",
+          "Cool white store light contrasted with recently wet night through the storefront; readable daily-life geography rather than atmospheric extra art.",
+          "An aisle-to-checkout sightline that allows reuse while both speakers, staff and passing customers remain outside the picture."
+        ],
+        "must_not_imply": [
+          "Xu is absent from the narrative during reuse; a no-person environment cutaway leaves the speakers and narrated actions offscreen.",
+          "The store image depicts the alley, porridge shop, apartment lobby, elevator or 17th-floor doorway.",
+          "A romantic event, dinner invitation, payment for Xu, transferred coffee/meal ownership, exchanged contacts or work assistance."
+        ]
+      },
+      "characters": [],
+      "environment": {
+        "location_id": "convenience_store_near_apartment",
+        "time_of_day": "Week 2 weekday, approximately 23:00; same uninterrupted late-night visit.",
+        "weather": "Recently rained; wet pavement and cool blue reflections visible through the glass storefront. No current heavy rain asserted.",
+        "lighting": "Cool white ceiling fluorescents and refrigerated-case lighting; cool blue night through the storefront; plausible neutral skin exposure, no beauty rim light.",
+        "persistent_props": [
+          "Unbranded refrigerated prepared-meal cases at frame left, adjoining bottled black-coffee/drink case.",
+          "Clear ordinary tiled aisle, modest rear-right checkout with two microwaves, glass entrance/storefront toward the rear center.",
+          "Realistic transparent meal-box lids, blank or visually insignificant price strips and packaging; wet pavement outside."
+        ],
+        "reference_binding": {
+          "role": "environment_reference",
+          "source_id": "ref.com02x.environment.convenience_night",
+          "expected_filename": "com02x-convenience-night-reference-v1.png"
+        }
+      },
+      "camera": {
+        "shot_size": "wide",
+        "angle": "Natural standing eye level, level horizon; lateral case perspective with rear checkout and glass storefront visible.",
+        "pov": "protagonist",
+        "axis_id": "COM02X-aisle-storefront-axis",
+        "camera_side": "Right side of refrigerated aisle, looking along left-side cases toward rear-center storefront and rear-right checkout.",
+        "lens_intent": "Natural moderately wide photographic perspective; enough depth for food/coffee, microwaves and wet-night cues; no fisheye distortion."
+      },
+      "continuity": {
+        "previous_entry_id": null,
+        "locked_fields": [
+          "/environment/location_id",
+          "/environment/time_of_day",
+          "/environment/weather",
+          "/environment/lighting",
+          "/environment/persistent_props",
+          "/environment/reference_binding",
+          "/camera/axis_id",
+          "/camera/camera_side"
+        ],
+        "allowed_changes": []
+      },
+      "composition": {
+        "focus": {
+          "x": 48,
+          "y": 43
+        },
+        "dialogue_safe_zone": "Lower y=75..100 percent predominantly unobstructed low-detail aisle floor/cabinet bases; essential meals, microwave geometry and storefront wet-night cues above y=75 and within x=15..85.",
+        "framing_notes": [
+          "Faithfully reframe the registered environment geography for a fresh production master; keep refrigerated meals/drinks left, rear-center glass storefront and rear-right modest checkout with two microwaves.",
+          "Use this picture at common_convenience_xu_enter before the offscreen name call, then cut to COM02X-DLG-01 at common_convenience_xu_recognize. Do not show Xu early.",
+          "Return to this person-free store cutaway before common_convenience_xu_choice; reuse it for all four branches and common_convenience_xu_work, without facial/hand/held-object variants. All branch-specific gestures, the brief boundary correction/silence, phone notice, microwave handover and staff actions remain in the unchanged text and sound timing.",
+          "During common_convenience_xu_checkout, store-bound actions may use the same cutaway and a subtle pan/focus toward the rear-right checkout or rear-center storefront. Do not crop so far that false extra environment detail must be invented.",
+          "At leaving the store, use a brief storefront/wet-night departure transition, then fade the store picture out. The shared walk, porridge-shop recommendation, return, uneventful elevator ride and 1702 goodbye use the unchanged narrative with a neutral text transition. Do not carry an identifiable convenience-store image behind apartment/alley staging; no dedicated walk-back/lobby/elevator/goodbye CG is commissioned.",
+          "Do not generate extra atmosphere art or four choice pictures. Removing this background would violate the approved empty establishment; adding separate checkout art is unnecessary because this shared cutaway already contains its geography."
+        ]
+      },
+      "render_constraints": {
+        "include": [
+          "Immutable environment_reference binding: ref.com02x.environment.convenience_night; repository path assets-src/references/environments/com02x-convenience-night-reference-v1.png; filename com02x-convenience-night-reference-v1.png; MIME image/png; 1672x941; raw-file SHA-256 44b21d81cfac0dcbbd97ecd203c87553ca549651bb4b45aa7a96614102164bb3. Verify exact bytes, complete decode, visible pixels and assigned role before the generation call; any mismatch is BLOCKED.",
+          "The environment PNG is independently QA-approved supporting continuity reference only, not accepted runtime art; produce a new minimum-1920x1080 16:9 master.",
+          "Keep all people, human body parts, silhouettes and human reflections outside this background picture.",
+          "Prepared food, dark bottled coffee, two microwaves, coherent checkout/storefront placement and wet pavement cues; no additional plot props."
+        ],
+        "exclude": [
+          "Xu or any other visible person, protagonist hands/face/body, staff or passing-customer reflections.",
+          "Real branding, legible packaging/price text, porridge-shop sign, apartment identifiers, romance props, umbrellas or new outdoor establishing pictures.",
+          "Direct reuse of the supporting PNG as the final CG master."
+        ],
+        "text_policy": "No embedded narrative/dialogue, UI, captions or watermark. Packaging and price strips blank or visually insignificant, unbranded and not legible focal content."
+      },
+      "reference_transport": {
+        "mode": "references_required",
+        "fresh_session_required": true,
+        "no_unrelated_images_allowed": true,
+        "accepted_base_asset_id": null,
+        "attachments": [
+          {
+            "role": "environment_reference",
+            "source_id": "ref.com02x.environment.convenience_night",
+            "expected_filename": "com02x-convenience-night-reference-v1.png",
+            "pixels_must_be_visible": true
+          }
+        ]
+      },
+      "output": {
+        "canonical_asset_id": "BG-COM02X-CONVENIENCE-NIGHT",
+        "logical_asset_id": "bg.opening.com02x.convenience_night",
+        "master_filename": "com02x-01-convenience-night-master.png",
+        "quantity": 1
+      },
+      "acceptance": [
+        "New candidate is one coherent 16:9 image with decoded dimensions at least 1920x1080; prefer 2560x1440 if available. The 1672x941 supporting PNG cannot be submitted or merely renamed as this master. A below-minimum result fails final-master acceptance and must be reported; no automatic repeat call or unapproved quality-threshold reduction.",
+        "Photographic PBR lighting, believable store perspective/glass/metal/food packaging; no cartoon, illustration, collage, embedded text/UI/watermark/brand or prominent pseudo-text.",
+        "Lower 25 percent is low-information dialogue space; essential subject cues remain above it and inside x=15..85 percent. Moderate horizontal crop retains the defined focal read.",
+        "Generation is once only in a fresh bounded task using precisely the attachments declared here. This manifest and reference QA grant neither candidate acceptance nor runtime-master selection; independent Visual QA and Human accepted-master selection follow generation.",
+        "No people/body parts/human reflections anywhere; food and coffee cases, two microwaves and storefront/wet-night cues visible together.",
+        "Review establishes background composition and environment continuity only; branch gestures and later locations are intentionally not separately pictured."
+      ]
+    },
+    {
+      "entry_id": "COM02X-DLG-01",
+      "scene_id": "COM-02X",
+      "source_scene": "docs/narrative/scenes/vertical-slice/COM-02X.md",
+      "status": "render_ready",
+      "cg_class": "dialogue_cg",
+      "sequence_id": null,
+      "beat_range": "02X.2-02X.3 / common_convenience_xu_recognize, through the mutual meal-box comparison; cut away before 02X.4 / common_convenience_xu_choice.",
+      "narrative": {
+        "purpose": "The one formal CG-COM-03 recognition/Memory picture shows Xu as a tired ordinary neighbor with her own late dinner. Hold this encounter tableau through the short food comparison; the text carries transient downward glances. Its tired, minimally relaxed expression requires no separate reaction image and no accepted-base gate.",
+        "must_show": [
+          "Xu Tang, age 27, mature restrained adult identity from the exact face PNG; realistic dark brown eyes, long dark-brown hair with fringe and large gold hoop earrings.",
+          "Canonical Wardrobe A column 2 Late-night Convenience Store: grey home sweater top, grey drawstring shorts with white piping, casual white sneakers; cream shoulder tote if its strap enters the crop. Only upper/waist region is pictured; no leg/scale-focused body framing.",
+          "Xu has a small unbranded bottled black coffee in her anatomical right hand and her own simple clear-lidded meal box in her anatomical left hand; both held naturally at mid-torso, without a shopping basket or checkout bag yet.",
+          "Xu on center-right beside adjoining beverage/meal cases; torso remains angled toward store movement while her head has turned back to acknowledge the protagonist just off-camera. Recognition is quiet and matter-of-fact.",
+          "Refrigerated prepared meals/drinks and a glass-storefront wet-night read remain visible; this is an ordinary spontaneous encounter, not a posed portrait."
+        ],
+        "must_not_imply": [
+          "A date, surprise reunion, secret identity exposure, flirtation, blush, grateful care recipient, glamorous pin-up or major conflict.",
+          "Xu learned the protagonist name from parcel/address/management records or omniscient recall; name recognition belongs to the earlier mutual introduction only.",
+          "Protagonist appearance or another heroine; visible staff/customers; shared food, exchanged bags, paying for Xu, health management, contact exchange or helping her client work.",
+          "This still depicts branch-specific hand swapping, active microwave waiting, payment, walking, elevator travel or the goodbye; it ends before choice."
+        ]
+      },
+      "characters": [
+        {
+          "character_id": "xu_tang",
+          "screen_side": "right",
+          "body_orientation": "Three-quarter torso angled toward frame-left/rear store movement; shoulders relaxed, head turned back toward protagonist camera-left.",
+          "pose": "Natural standing waist-up encounter, not contrapposto or arched-back posing; elbows low and relaxed, right hand holding bottled coffee, left hand supporting meal box at mid-torso above dialogue zone. No reaching, transfer or active hand swap.",
+          "gaze": "Toward the protagonist just left of the lens, slightly lifted from the nearby food; a neighbor acknowledgment rather than model gaze.",
+          "expression": "Tired eyelids and restrained neutral mouth with only slight recognition warmth; no conspicuous smile, flirtation or anger. Transient glances during the meal comparison are narrated rather than rendered as extra frames.",
+          "wardrobe_key": "XT-WARDROBE-A-LOOK-02-LATE-CASUAL",
+          "held_objects": [
+            "xu_own_unbranded_bottled_black_coffee: anatomical right hand",
+            "xu_own_simple_clear_lidded_meal_box: anatomical left hand"
+          ],
+          "reference_bindings": [
+            {
+              "role": "primary_face_identity",
+              "source_id": "ref.xu_tang.face.01",
+              "expected_filename": "xt-ref-01-face.png"
+            },
+            {
+              "role": "wardrobe",
+              "source_id": "ref.xu_tang.wardrobe.a",
+              "expected_filename": "xt-ref-05-wardrobe-a.png"
+            }
+          ]
+        }
+      ],
+      "environment": {
+        "location_id": "convenience_store_near_apartment",
+        "time_of_day": "Week 2 weekday, approximately 23:00; same uninterrupted late-night visit.",
+        "weather": "Recently rained; wet pavement and cool blue reflections visible through the glass storefront. No current heavy rain asserted.",
+        "lighting": "Cool white ceiling fluorescents and refrigerated-case lighting; cool blue night through the storefront; plausible neutral skin exposure, no beauty rim light.",
+        "persistent_props": [
+          "Unbranded refrigerated prepared-meal cases at frame left, adjoining bottled black-coffee/drink case.",
+          "Clear ordinary tiled aisle, modest rear-right checkout with two microwaves, glass entrance/storefront toward the rear center.",
+          "Realistic transparent meal-box lids, blank or visually insignificant price strips and packaging; wet pavement outside."
+        ],
+        "reference_binding": {
+          "role": "environment_reference",
+          "source_id": "ref.com02x.environment.convenience_night",
+          "expected_filename": "com02x-convenience-night-reference-v1.png"
+        }
+      },
+      "camera": {
+        "shot_size": "medium",
+        "angle": "Eye level; waist-up landscape reframe of the approved encounter, no low angle or leg emphasis.",
+        "pov": "protagonist",
+        "axis_id": "COM02X-aisle-storefront-axis",
+        "camera_side": "Same right side of refrigerated aisle as COM02X-BG-01; turned toward Xu by adjoining cases, retaining case/storefront orientation, no axis reversal.",
+        "lens_intent": "Natural photographic normal perspective; Xu face and both prop-holding hands resolved, moderately soft environment still legible; no portrait-studio blur or wide-angle facial distortion."
+      },
+      "continuity": {
+        "previous_entry_id": "COM02X-BG-01",
+        "locked_fields": [
+          "/environment/location_id",
+          "/environment/time_of_day",
+          "/environment/weather",
+          "/environment/lighting",
+          "/environment/persistent_props",
+          "/environment/reference_binding",
+          "/camera/axis_id",
+          "/camera/camera_side"
+        ],
+        "allowed_changes": []
+      },
+      "composition": {
+        "focus": {
+          "x": 61,
+          "y": 38
+        },
+        "dialogue_safe_zone": "Lower y=75..100 percent low-detail floor/case base/clothing; Xu face around x=58..68,y=20..40 and coffee/meal hands around x=45..70,y=45..65, all within x=15..85 crop-safe band.",
+        "framing_notes": [
+          "Xu occupies central-right, meals/drinks frame-left and wet-night glass storefront in the remaining background; keep essential face and both hands comfortably away from edges.",
+          "Waist-up framing carries the grey sweater and food props; no visible full legs or height-sensitive pose, therefore no optional body JPEG is required. Preserve complete Look 02 clothing in continuity without inventing a lower-body redesign.",
+          "Reframe to 16:9 under the current production visual direction; retain the approved candid fatigue, middle-area props and lower-quarter safe zone.",
+          "COM02X-BG-01 is geography/continuity metadata only, not a candidate attachment or accepted base. This entry can be generated independently with its own three immutable references before any candidate is selected.",
+          "Hold only for common_convenience_xu_recognize / 02X.2-02X.3, including the meal-box comparison. Cut to the person-free COM02X-BG-01 before every choice so a fixed warm face cannot override the boundary branch or imply its hand-transfer action.",
+          "Candidate may serve as the scene Memory cover only after separate QA/Human acceptance. No sprite/composite generation, new reaction frames, walk-back picture or repeated elevator scene."
+        ]
+      },
+      "render_constraints": {
+        "include": [
+          "Immutable primary_face_identity binding: ref.xu_tang.face.01; repository path assets-src/references/xu-tang/xt-ref-01-face.png; filename xt-ref-01-face.png; MIME image/png; 1055x1491; raw-file SHA-256 2fd137f796d0e7667a5913748158f75705b1a538b346b9e7f76aacb3c79acfd0. Verify exact bytes, complete decode, visible pixels and assigned role before the generation call; any mismatch is BLOCKED.",
+          "Immutable wardrobe binding: ref.xu_tang.wardrobe.a; repository path assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png; filename xt-ref-05-wardrobe-a.png; MIME image/png; 1055x1491; raw-file SHA-256 aaf33f06f3e39fc476deee03ab261a43e0911b8393366ae7399c633abfadc716. Verify exact bytes, complete decode, visible pixels and assigned role before the generation call; any mismatch is BLOCKED.",
+          "Immutable environment_reference binding: ref.com02x.environment.convenience_night; repository path assets-src/references/environments/com02x-convenience-night-reference-v1.png; filename com02x-convenience-night-reference-v1.png; MIME image/png; 1672x941; raw-file SHA-256 44b21d81cfac0dcbbd97ecd203c87553ca549651bb4b45aa7a96614102164bb3. Verify exact bytes, complete decode, visible pixels and assigned role before the generation call; any mismatch is BLOCKED.",
+          "Face PNG owns identity and minimum facial realism; use only column 2 of the Wardrobe A PNG for outfit, never its other outfits or sheet-model pose.",
+          "Grey home sweater with reference neckline/fabric and large gold hoop earrings; preserve face anatomy, fringe/long dark hair, skin pores and realistic eye proportions.",
+          "One person only: Xu. The protagonist is behind the camera and neither face nor hands appear; Xu holds her own two separate props with anatomically correct hands.",
+          "Same store geography, time, wet-weather aftermath and cool-white light as the background; precise coherent shadows/materials.",
+          "New production-master image at least 1920x1080; the environment input remains supporting reference only."
+        ],
+        "exclude": [
+          "Other heroine references, unrelated images, unacquired expression/production sheets, optional body JPEG, prior generated candidates or a presumed accepted base.",
+          "Studio sheet pose, hand behind head, pin-up, open/low revealing neckline, eroticized shorts/legs, exaggerated breast/waist, heels, tights or another wardrobe column.",
+          "Large grin, blush, anger/conflict face, teary vulnerability, romantic rim light, beauty-ad exposure or more stylized face than the primary identity PNG.",
+          "Extra hands/fingers, fused meal/coffee objects, payment/receipt/checkout shopping bag, basket, readable phone screen, shared umbrella, handholding or bag exchange."
+        ],
+        "text_policy": "No text/captions/UI/watermark/logo in the output. Unbranded coffee/meal packaging and store labels remain blank or non-focal and unreadable; never reproduce reference-sheet labels or panels."
+      },
+      "reference_transport": {
+        "mode": "references_required",
+        "fresh_session_required": true,
+        "no_unrelated_images_allowed": true,
+        "accepted_base_asset_id": null,
+        "attachments": [
+          {
+            "role": "primary_face_identity",
+            "source_id": "ref.xu_tang.face.01",
+            "expected_filename": "xt-ref-01-face.png",
+            "pixels_must_be_visible": true
+          },
+          {
+            "role": "wardrobe",
+            "source_id": "ref.xu_tang.wardrobe.a",
+            "expected_filename": "xt-ref-05-wardrobe-a.png",
+            "pixels_must_be_visible": true
+          },
+          {
+            "role": "environment_reference",
+            "source_id": "ref.com02x.environment.convenience_night",
+            "expected_filename": "com02x-convenience-night-reference-v1.png",
+            "pixels_must_be_visible": true
+          }
+        ]
+      },
+      "output": {
+        "canonical_asset_id": "CG-COM-03",
+        "logical_asset_id": "cg.opening.com02x.recognition",
+        "master_filename": "com02x-02-recognition-master.png",
+        "quantity": 1
+      },
+      "acceptance": [
+        "New candidate is one coherent 16:9 image with decoded dimensions at least 1920x1080; prefer 2560x1440 if available. The 1672x941 supporting PNG cannot be submitted or merely renamed as this master. A below-minimum result fails final-master acceptance and must be reported; no automatic repeat call or unapproved quality-threshold reduction.",
+        "Photographic PBR lighting, believable store perspective/glass/metal/food packaging; no cartoon, illustration, collage, embedded text/UI/watermark/brand or prominent pseudo-text.",
+        "Lower 25 percent is low-information dialogue space; essential subject cues remain above it and inside x=15..85 percent. Moderate horizontal crop retains the defined focal read.",
+        "Generation is once only in a fresh bounded task using precisely the attachments declared here. This manifest and reference QA grant neither candidate acceptance nor runtime-master selection; independent Visual QA and Human accepted-master selection follow generation.",
+        "Xu face unmistakably matches primary identity and its realism floor; correct grey Look 02 sweater, realistic adult anatomy, signature gold hoops and hair; no sheet-pose leakage.",
+        "Correct right-hand bottled black coffee and left-hand meal box above the dialogue zone, believable fingers/grips; only Xu visible.",
+        "Tired neighbor recognition without flirtation/conflict, restrained gaze just off-axis; ordinary store meal/drink/night context survives moderate crop.",
+        "Only environment continuity is shared with COM02X-BG-01. No accepted-base dependency, no linked-sequence shared session and no separate reaction generation; both independent candidates may be shown together before Human selection."
+      ]
+    }
+  ]
+}
