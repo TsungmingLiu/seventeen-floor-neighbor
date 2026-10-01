@@ -1,0 +1,121 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "com02x-cg-20260930",
+  "task_id": "MUA-ENV-COM02X-002",
+  "scene_id": "COM-02X",
+  "task_type": "visual_review",
+  "status": "PASS",
+  "workflow_version": "1.3.0",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.4.0",
+    "pass": "visual_review"
+  },
+  "source_ref": "82e01b3b817d6ac368cc1e006fca731ca79e88b2",
+  "packet_sha256": "fd431815657d247d1136d21ba04e8f4a7b2d0fc684c0721a94a331392c01c007",
+  "handoff_sha256": "e1ed082e370b73a8eddd491f127a39528f8a3bf12351d361dac8ca4a03471f32",
+  "input_versions": [
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-02X.md",
+      "version": "938edf40f2f34a9faee054971f72747e213c73ee",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02X.md"
+    },
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-02X.json",
+      "version": "5f85482b7c420a5f7726035e369679360f83cfd5",
+      "location": "content/production/narrative/opening-ch1/COM-02X.json"
+    },
+    {
+      "id": "file:docs/art/PRODUCTION_VISUAL_DIRECTION.md",
+      "version": "4abc2e8957cdcd9c96c2329f17a1238bd6b42df1",
+      "location": "docs/art/PRODUCTION_VISUAL_DIRECTION.md"
+    },
+    {
+      "id": "file:docs/art/CG_PRODUCTION_SPEC.md",
+      "version": "43af519d5229744f8dd225dc05036e37d4e3f4d1",
+      "location": "docs/art/CG_PRODUCTION_SPEC.md"
+    },
+    {
+      "id": "file:.ai/schemas/CG_MANIFEST.md",
+      "version": "3fe4dbddf92f4bee9d84109672a9c0d912bd0c07",
+      "location": ".ai/schemas/CG_MANIFEST.md"
+    },
+    {
+      "id": "file:.ai/schemas/cg-manifest.schema.json",
+      "version": "a0ca0559ef62191546dbf75c92f04911a8d7a42e",
+      "location": ".ai/schemas/cg-manifest.schema.json"
+    },
+    {
+      "id": "file:.ai/schemas/VISUAL_CONTINUITY.md",
+      "version": "b2014095dc48df8dd4a03a705340e76b20f6376c",
+      "location": ".ai/schemas/VISUAL_CONTINUITY.md"
+    },
+    {
+      "id": "file:content/assets/source-catalog.json",
+      "version": "df8db5de75cdcd16131141433f43b9eabf717769",
+      "location": "content/assets/source-catalog.json"
+    },
+    {
+      "id": "file:content/assets/manifest.json",
+      "version": "ee0b5ddf71f1226625caa37aded4c9e5e6aa9054",
+      "location": "content/assets/manifest.json"
+    },
+    {
+      "id": "file:content/production/runs/pr33-first-person-20260929/NQA-COM02X-POV-001.decision.json",
+      "version": "f38fd7364156f90663af67aaec4cbcc7134379ad",
+      "location": "content/production/runs/pr33-first-person-20260929/NQA-COM02X-POV-001.decision.json"
+    },
+    {
+      "id": "manifest:COM02X-environment",
+      "version": "34cea38d744962f5ee821f7001e8b4b700b5f5b8810015c1b0d3fc387853b782",
+      "location": "content/production/cg-manifests/opening-ch1-com02x-environment.json"
+    },
+    {
+      "id": "correction-evidence:env-usability-001",
+      "version": "5288e02e748f6afe5ea5376f13cbd451dc119563613e0d89a467d8a8c25bb47e",
+      "location": "content/production/runs/com02x-cg-20260930/MUA-ENV-COM02X-001.decision.json"
+    }
+  ],
+  "output_versions": [],
+  "qa_codes": [
+    {
+      "name": "Pinned source acquisition and current Git bindings",
+      "result": "PASS"
+    },
+    {
+      "name": "Production manifest/reference binding validator",
+      "result": "PASS",
+      "evidence": "Validated 5 Narrative Continuity Contracts and 13 CG Manifest Entries."
+    },
+    {
+      "name": "Manifest schema and deterministic projection readiness",
+      "result": "PASS",
+      "evidence": "render-cg-packets --check passed; exact entry projection succeeded. manifest_sha256=f2308b716003541e2c44f8269094ee43e6e9811cfcbbd2e492d1e755c03b8813; render_spec_sha256=b474e2a377da69c7155fb09d47762e0e04a322ae015b21a7411f15d773c6197a; shared_prompt_sha256=9fe740816b7bd9a61d7cdb1f7787bc1104b3c985320f6c6f3ecdca2f8a23011f."
+    },
+    {
+      "name": "Approved COM-02X setting and store staging",
+      "result": "PASS",
+      "evidence": "Matches the approved Week 2 weekday around 23:00, ordinary unbranded convenience store, refrigerated meals and adjacent coffee, open customer aisle, modest rear checkout/heating, and recent-rain wet Taipei night."
+    },
+    {
+      "name": "Human-authorized no-people environment-reference origin and transport none",
+      "result": "PASS",
+      "evidence": "One background_cg entry; characters=[]; no environment reference binding or attachments; transport mode none is valid for background_cg. Scope creates only the missing environment reference and carries no character identity or wardrobe authority."
+    },
+    {
+      "name": "Style, 16:9 responsive framing, safe area, crop tolerance, and constraints",
+      "result": "PASS",
+      "evidence": "Single 16:9 output; realistic photographic PBR environment style; essential food and wet-night cues remain central and above the lower 25% dialogue zone with moderate side-crop tolerance; exclusions prevent people, brands, text/UI, romance, horror, and invented locations/story facts."
+    },
+    {
+      "name": "Candidate image pixel QA",
+      "result": "PASS",
+      "evidence": "Not applicable: no candidate image exists; this task reports manifest usability only."
+    }
+  ],
+  "known_issues": [
+    "No candidate pixels reviewed; this PASS applies only to manifest usability and deterministic projection readiness."
+  ],
+  "human_gate": "none",
+  "review_scope": "manifest_usability"
+}

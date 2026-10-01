@@ -237,12 +237,12 @@
       "depends_on": [
         "PLAN-ENV-COM02X-001"
       ],
-      "status": "RUNNING",
+      "status": "PASS",
       "packet": {
         "generator": "manual exact bounded packet; source identities recorded",
-        "sha256": "bf9307d962b9e6d4ddd6ae1a8c97ca6443aa4fc600129d8b1eb070255c755fb0"
+        "sha256": "fd431815657d247d1136d21ba04e8f4a7b2d0fc684c0721a94a331392c01c007"
       },
-      "decision_receipt": null,
+      "decision_receipt": "content/production/runs/com02x-cg-20260930/MUA-ENV-COM02X-002.decision.json",
       "input_versions": [
         {
           "id": "file:docs/narrative/scenes/vertical-slice/COM-02X.md",
@@ -298,11 +298,16 @@
           "id": "manifest:COM02X-environment",
           "version": "34cea38d744962f5ee821f7001e8b4b700b5f5b8810015c1b0d3fc387853b782",
           "location": "content/production/cg-manifests/opening-ch1-com02x-environment.json"
+        },
+        {
+          "id": "correction-evidence:env-usability-001",
+          "version": "5288e02e748f6afe5ea5376f13cbd451dc119563613e0d89a467d8a8c25bb47e",
+          "location": "content/production/runs/com02x-cg-20260930/MUA-ENV-COM02X-001.decision.json"
         }
       ],
       "output_versions": [],
       "human_gate": "none",
-      "reason": "Focused corrective redispatch for COM-00-only verifier misuse and source-ref binding; no creative change"
+      "reason": null
     }
   ],
   "invalidation_events": [],
