@@ -980,36 +980,47 @@
       "depends_on": [
         "PACKET-COM02X-BG-001"
       ],
-      "status": "RUNNING",
+      "status": "PASS",
       "packet": {
         "generator": "manual exact bounded packet; source identities recorded",
-        "sha256": "307992e00df43c4030dd8668919feadbef5996154664ddce6f5b4a2f408dea6d"
+        "sha256": "29150aae61e434c1ed03e8059e2a1339e91d6d8c755c72563c66ab8e33c1f678"
       },
-      "decision_receipt": null,
+      "decision_receipt": "content/production/runs/com02x-cg-20260930/RENDER-COM02X-BG-001.decision.json",
       "input_versions": [
         {
           "id": "entry-excerpt:COM02X-BG-01",
-          "version": "acd6b0729cdcba725c9f21c470079bad22a91ee0028a76057d068c8a3466a747",
-          "location": "entry:COM02X-BG-01"
+          "version": "sha256:acd6b0729cdcba725c9f21c470079bad22a91ee0028a76057d068c8a3466a747",
+          "location": "generated/session-cache/com02x-cg-20260930/COM02X-BG-01.entry.json"
         },
         {
           "id": "render-packet:COM02X-BG-01",
-          "version": "c5841fdba25254ec69a86344d1e910548a0c8c9fccdf28cc68896c3ef797e1c7",
-          "location": "derived:COM02X-BG-01"
+          "version": "sha256:c5841fdba25254ec69a86344d1e910548a0c8c9fccdf28cc68896c3ef797e1c7",
+          "location": "generated/session-cache/com02x-cg-20260930/COM02X-BG-01.api.jsonl"
         },
         {
           "id": "deterministic-projection-decision:COM02X-BG-01",
-          "version": "a410f2a2f8f2e9adb250c2f2ba07c9e4ffe8a9877391871315571ed0e760d087",
+          "version": "sha256:1564636d63800d104a7146e9608ad491d2c819babdf56b9497603926d08d0879",
           "location": "content/production/runs/com02x-cg-20260930/PACKET-COM02X-BG-001.decision.json"
         },
         {
           "id": "ref.com02x.environment.convenience_night",
-          "version": "44b21d81cfac0dcbbd97ecd203c87553ca549651bb4b45aa7a96614102164bb3",
+          "version": "sha256:44b21d81cfac0dcbbd97ecd203c87553ca549651bb4b45aa7a96614102164bb3",
           "location": "assets-src/references/environments/com02x-convenience-night-reference-v1.png"
         }
       ],
-      "output_versions": [],
-      "human_gate": "none"
+      "output_versions": [
+        {
+          "id": "COM02X-BG-01-CANDIDATE-001",
+          "version": "sha256:88cc22c254fbbd5149cda25e34db0637cb5938b44f882ad04c14036f723363bf",
+          "location": "/Users/tsungmingliu/Documents/Codex/2026-09-30/com02x-cg-production/outputs/com02x-bg-01-candidate-v1.png",
+          "mime_type": "image/png",
+          "width": 1672,
+          "height": 941,
+          "bytes": 2556635
+        }
+      ],
+      "human_gate": "none",
+      "reason": null
     },
     {
       "task_id": "RENDER-COM02X-DLG-001",
@@ -1021,7 +1032,7 @@
       "status": "RUNNING",
       "packet": {
         "generator": "manual exact bounded packet; source identities recorded",
-        "sha256": "9b41a0f1167d5e8116a613977d91609723d33916f8a447f700153fb6d0637c52"
+        "sha256": "e018364cf6434afabbd50744691bdf324726c6ee53e8751fc7a3321fc86adcd2"
       },
       "decision_receipt": null,
       "input_versions": [
@@ -1037,7 +1048,7 @@
         },
         {
           "id": "deterministic-projection-decision:COM02X-DLG-01",
-          "version": "86ac36c6216bb7cad8e196cc55436dcde8b4ce85ec24c61ada7690e20198538f",
+          "version": "a57ca2a704f0a8a4f5cd67d77d8eb4ca3ba802377e2b81b04cd95aff61c809c7",
           "location": "content/production/runs/com02x-cg-20260930/PACKET-COM02X-DLG-001.decision.json"
         },
         {
