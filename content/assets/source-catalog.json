@@ -316,6 +316,28 @@
       "status": "optional-reference",
       "role": "environment_reference",
       "provenance": "QA-approved supporting environment reference only; see content/assets/ingest-receipts/com02x-environment-reference-v1.json"
+    },
+    "source.com02x.bg-01": {
+      "name": "com02x-bg-01-candidate-v1.png",
+      "mimeType": "image/png",
+      "sourcePath": "assets-src/opening-ch1-demo/com02x-bg-01-candidate-v1.png",
+      "bytes": 2556635,
+      "width": 1672,
+      "height": 941,
+      "sha256": "88cc22c254fbbd5149cda25e34db0637cb5938b44f882ad04c14036f723363bf",
+      "verifiedDecode": true,
+      "status": "human-accepted-as-is"
+    },
+    "source.com02x.dlg-01": {
+      "name": "com02x-dlg-01-candidate-v1.png",
+      "mimeType": "image/png",
+      "sourcePath": "assets-src/opening-ch1-demo/com02x-dlg-01-candidate-v1.png",
+      "bytes": 2521234,
+      "width": 1672,
+      "height": 941,
+      "sha256": "c3b980c003dd2bcfb4dcabb769438fe67d85751f75f5fed20ceedf4ad0c3ea65",
+      "verifiedDecode": true,
+      "status": "human-accepted-as-is"
     }
   }
 }

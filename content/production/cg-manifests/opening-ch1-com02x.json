@@ -28,7 +28,7 @@
       "entry_id": "COM02X-BG-01",
       "scene_id": "COM-02X",
       "source_scene": "docs/narrative/scenes/vertical-slice/COM-02X.md",
-      "status": "render_ready",
+      "status": "accepted",
       "cg_class": "background_cg",
       "sequence_id": null,
       "beat_range": "02X.1; environment reuse at 02X.4 (all four choices), 02X.5, and the store-bound portions of 02X.6-02X.7; brief departure transition only thereafter.",
@@ -140,13 +140,16 @@
         "Generation is once only in a fresh bounded task using precisely the attachments declared here. This manifest and reference QA grant neither candidate acceptance nor runtime-master selection; independent Visual QA and Human accepted-master selection follow generation.",
         "No people/body parts/human reflections anywhere; food and coffee cases, two microwaves and storefront/wet-night cues visible together.",
         "Review establishes background composition and environment continuity only; branch gestures and later locations are intentionally not separately pictured."
+      ],
+      "known_issues": [
+        "Human accepted exact candidate hash as-is; see content/assets/ingest-receipts/com02x-accepted-masters-v1.json. Historical VQA remains FAIL."
       ]
     },
     {
       "entry_id": "COM02X-DLG-01",
       "scene_id": "COM-02X",
       "source_scene": "docs/narrative/scenes/vertical-slice/COM-02X.md",
-      "status": "render_ready",
+      "status": "accepted",
       "cg_class": "dialogue_cg",
       "sequence_id": null,
       "beat_range": "02X.2-02X.3 / common_convenience_xu_recognize, through the mutual meal-box comparison; cut away before 02X.4 / common_convenience_xu_choice.",
@@ -306,6 +309,9 @@
         "Correct right-hand bottled black coffee and left-hand meal box above the dialogue zone, believable fingers/grips; only Xu visible.",
         "Tired neighbor recognition without flirtation/conflict, restrained gaze just off-axis; ordinary store meal/drink/night context survives moderate crop.",
         "Only environment continuity is shared with COM02X-BG-01. No accepted-base dependency, no linked-sequence shared session and no separate reaction generation; both independent candidates may be shown together before Human selection."
+      ],
+      "known_issues": [
+        "Human accepted exact candidate hash as-is; see content/assets/ingest-receipts/com02x-accepted-masters-v1.json. Historical VQA remains FAIL."
       ]
     }
   ]

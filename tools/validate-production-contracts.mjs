@@ -20,6 +20,7 @@ const OPENING_ROUTE = 'content/routes/opening-demo/route.json';
 const SOURCE_CATALOG = 'content/assets/source-catalog.json';
 const GATE3_RECEIPT = 'content/assets/ingest-receipts/repo-source-gate3-v1.json';
 const COM02X_REFERENCE_RECEIPT = 'content/assets/ingest-receipts/com02x-environment-reference-v1.json';
+const COM02X_ACCEPTED_MASTERS_RECEIPT = 'content/assets/ingest-receipts/com02x-accepted-masters-v1.json';
 const ORCHESTRATION = '.ai/PRODUCTION_ORCHESTRATION.md';
 const SOURCE_MAP = 'docs/CONTENT_PRODUCTION_SOURCE_MAP.md';
 const DRY_RUN = 'tests/fixtures/production-orchestration-dry-run.json';
@@ -365,7 +366,24 @@ function validateGate3RepositorySources(catalog) {
   invariant(currentSource && currentSource.role === currentReference.role && currentSource.sourcePath === currentReference.sourcePath && currentSource.name === currentReference.filename, 'COM-02X reference catalog identity mismatch');
   for (const key of ['mimeType', 'sha256', 'bytes', 'width', 'height']) invariant(currentSource[key] === currentReference[key], `COM-02X reference catalog ${key} mismatch`);
   invariant(currentSource.status === 'optional-reference' && currentSource.verifiedDecode === true, 'COM-02X source must remain a decoded optional reference');
-  invariant(Object.keys(catalog.files).length === acceptedIds.size + referenceIds.size + 1, 'source catalog contains an unknown or unreceipted source');
+  const acceptedBatch = readJson(COM02X_ACCEPTED_MASTERS_RECEIPT);
+  invariant(acceptedBatch.receiptVersion === 1 && acceptedBatch.receiptType === 'human-accepted-master-batch', 'COM-02X accepted-master receipt identity is invalid');
+  invariant(acceptedBatch.sceneId === 'COM-02X' && acceptedBatch.taskId === 'INTEGRATE-COM02X-001', 'COM-02X accepted-master receipt scope is invalid');
+  invariant(acceptedBatch.humanDecision?.decision === 'PASS' && acceptedBatch.humanDecision?.disposition === 'ACCEPTED_AS_IS', 'COM-02X accepted-master receipt lacks the explicit Human override');
+  invariant(Array.isArray(acceptedBatch.assets) && acceptedBatch.assets.length === 2, 'COM-02X accepted-master receipt must contain exactly two assets');
+  const batchIds = new Set();
+  for (const item of acceptedBatch.assets) {
+    invariant(!batchIds.has(item.sourceId) && item.sourceId.startsWith('source.com02x.'), `duplicate or invalid COM-02X accepted source: ${item.sourceId}`);
+    batchIds.add(item.sourceId);
+    const source = catalog.files[item.sourceId];
+    invariant(source && source.name === item.filename && source.sourcePath === item.masterPath, `COM-02X accepted source path/name mismatch: ${item.sourceId}`);
+    for (const key of ['sha256', 'bytes', 'width', 'height', 'mimeType']) invariant(source[key] === item[key], `COM-02X accepted source ${key} mismatch: ${item.sourceId}`);
+    invariant(source.verifiedDecode === true && source.status === 'human-accepted-as-is', `COM-02X accepted source status/decode mismatch: ${item.sourceId}`);
+    invariant(item.sha256 === item.humanDecisionSha256 && item.width === 1672 && item.height === 941 && item.mimeType === 'image/png', `COM-02X source exceeds scoped acceptance: ${item.sourceId}`);
+    invariant(item.visualQaStatus === 'FAIL' && item.humanDisposition === 'ACCEPTED_AS_IS', `COM-02X QA history/override mismatch: ${item.sourceId}`);
+  }
+  invariant(batchIds.size === 2 && batchIds.has('source.com02x.bg-01') && batchIds.has('source.com02x.dlg-01'), 'COM-02X accepted source set changed');
+  invariant(Object.keys(catalog.files).length === acceptedIds.size + referenceIds.size + 1 + batchIds.size, 'source catalog contains an unknown or unreceipted source');
   return receipt;
 }
 

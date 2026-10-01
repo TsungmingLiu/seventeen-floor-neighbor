@@ -1200,6 +1200,425 @@
       "reason": "The actual candidate is 1672x941, below the required 1920x1080 master minimum. It also turns the candid recognition beat into a camera-facing beauty pose; the expression is polished and subtly sultry rather than visibly tired and matter-of-fact, with a frontal torso and near-lens gaze. The lower quarter contains detailed shorts and drawstring, so it does not provide the specified low-detail dialogue zone; framing extends to upper thighs instead of staying waist-up. Skin and facial finish are conspicuously smoothed and beauty-lit relative to the requested natural photographic rendering.",
       "candidate_acceptance": "HUMAN_ACCEPTED_AS_IS",
       "human_override_receipt": "content/production/runs/com02x-cg-20260930/HUMAN-COM02X-MASTER-001.decision.json"
+    },
+    {
+      "task_id": "INTEGRATE-COM02X-001",
+      "task_type": "integrate",
+      "integration_mode": "final",
+      "scene_id": "COM-02X",
+      "depends_on": [
+        "MUA-COM02X-001",
+        "RENDER-COM02X-BG-001",
+        "RENDER-COM02X-DLG-001"
+      ],
+      "status": "NEEDS_REVIEW",
+      "packet": {
+        "generator": "manual exact bounded packet; pinned source identities and Human acceptance receipt",
+        "sha256": "e8b5c6589b1b07d768f518d0f95992c54e49d11088df7f6a5808a629c372a880"
+      },
+      "decision_receipt": "content/production/runs/com02x-cg-20260930/INTEGRATE-COM02X-001.decision.json",
+      "input_versions": [
+        {
+          "id": "docs/narrative/scenes/vertical-slice/COM-02X.md",
+          "version": "46d1566ec766adbefbfc2fc93964ee84cf70eca81078f6d35f589e65ddf579c6",
+          "location": "docs/narrative/scenes/vertical-slice/COM-02X.md"
+        },
+        {
+          "id": "content/production/narrative/opening-ch1/COM-02X.json",
+          "version": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952",
+          "location": "content/production/narrative/opening-ch1/COM-02X.json"
+        },
+        {
+          "id": "content/production/cg-manifests/opening-ch1-com02x.json",
+          "version": "023e359c738ca1ae1ab83f4a6ea0add08c403372b629ed1f2dbd72d90e4036a1",
+          "location": "content/production/cg-manifests/opening-ch1-com02x.json"
+        },
+        {
+          "id": "content/production/runs/com02x-cg-20260930/HUMAN-COM02X-MASTER-001.decision.json",
+          "version": "a6d125cd39bbf92b9efe7edd93a05a284abda61162ad80a84a4519b6ae58cea8",
+          "location": "content/production/runs/com02x-cg-20260930/HUMAN-COM02X-MASTER-001.decision.json"
+        },
+        {
+          "id": "content/production/runs/pr33-first-person-20260929/NQA-COM02X-POV-001.decision.json",
+          "version": "9b72821aff57650d64aada364bebd0aa72b8926f83f91e74d58a07e74c04ea03",
+          "location": "content/production/runs/pr33-first-person-20260929/NQA-COM02X-POV-001.decision.json"
+        },
+        {
+          "id": "content/production/runs/com02x-cg-20260930/PLAN-COM02X-002.decision.json",
+          "version": "106ee3762cf9cc454ca5e2e72556b5356318e2cfcd0be2376ee19546a2eb96d4",
+          "location": "content/production/runs/com02x-cg-20260930/PLAN-COM02X-002.decision.json"
+        },
+        {
+          "id": "content/production/runs/com02x-cg-20260930/MUA-COM02X-001.decision.json",
+          "version": "616dd1b04d759017f1d21105c92b9a4fabbee64c4063a590de1bdd472a3801f3",
+          "location": "content/production/runs/com02x-cg-20260930/MUA-COM02X-001.decision.json"
+        },
+        {
+          "id": "content/production/runs/com02x-cg-20260930/RENDER-COM02X-BG-001.decision.json",
+          "version": "8c98dff824cb82e4f97c59af074578ba6bd6b3971a404f86a3754d677e98e8fd",
+          "location": "content/production/runs/com02x-cg-20260930/RENDER-COM02X-BG-001.decision.json"
+        },
+        {
+          "id": "content/production/runs/com02x-cg-20260930/VQA-COM02X-BG-001.decision.json",
+          "version": "6649bb5e37ce09d79849955bfc0e3b9a89c9479ca18a3655d33353682d1a661a",
+          "location": "content/production/runs/com02x-cg-20260930/VQA-COM02X-BG-001.decision.json"
+        },
+        {
+          "id": "content/production/runs/com02x-cg-20260930/RENDER-COM02X-DLG-001.decision.json",
+          "version": "76bf607a8d4f58b56c1ea1acc3ca4845bcd639027508ccc959975865cf5288e8",
+          "location": "content/production/runs/com02x-cg-20260930/RENDER-COM02X-DLG-001.decision.json"
+        },
+        {
+          "id": "content/production/runs/com02x-cg-20260930/VQA-COM02X-DLG-001.decision.json",
+          "version": "ee5f55d3c2dd3eb7545c3e1a8f369136bc62d8f61cb345ab98d8d0fd11d8f316",
+          "location": "content/production/runs/com02x-cg-20260930/VQA-COM02X-DLG-001.decision.json"
+        },
+        {
+          "id": "content/assets/manifest.json",
+          "version": "9edd6f4805ad561c8d7f8a57e24e55c669bd027bd98c011079a0455689ab43f4",
+          "location": "content/assets/manifest.json"
+        },
+        {
+          "id": "content/assets/source-map.json",
+          "version": "b3fd8954fc2347f91b30fbaf6cfcd1634d5ac8504388f7999d13b3254282e42c",
+          "location": "content/assets/source-map.json"
+        },
+        {
+          "id": "content/assets/source-catalog.json",
+          "version": "1fca212babbb037444caa69a1b3c28ba2508565711accd0a91bdcba9a4e55bef",
+          "location": "content/assets/source-catalog.json"
+        },
+        {
+          "id": "content/recipes/assets.json",
+          "version": "bf1bed42db576ff41b027443cfb329ebb51d851aa22b79eba6c81e977e7ef1a4",
+          "location": "content/recipes/assets.json"
+        },
+        {
+          "id": "content/assets/ingest-receipts/repo-source-gate3-v1.json",
+          "version": "1e480ddc7fa8133b3c4db23e4ca66778ebd56cdc591911246120671a996cb6a1",
+          "location": "content/assets/ingest-receipts/repo-source-gate3-v1.json"
+        },
+        {
+          "id": "content/assets/ingest-receipts/com02x-environment-reference-v1.json",
+          "version": "01b6e9a032ff5c75a6c30e9031c6c67c4907eac67162a040de39984d18fd768c",
+          "location": "content/assets/ingest-receipts/com02x-environment-reference-v1.json"
+        },
+        {
+          "id": "content/routes/opening-demo/route.json",
+          "version": "bd6630c15e2d49020a33165ec333136230ec7e6aa03475879967b27acf2ec61c",
+          "location": "content/routes/opening-demo/route.json"
+        },
+        {
+          "id": "ARCHITECTURE.md",
+          "version": "d10f1ea3f789b6133ce0aaddd4a3d2f86287af0f6e6ad8bf092e873e5849d66a",
+          "location": "ARCHITECTURE.md"
+        },
+        {
+          "id": "package.json",
+          "version": "36485f98cb2344cd34d96524ad035acb9347ebf4fc28efa188112ef8adc02069",
+          "location": "package.json"
+        },
+        {
+          "id": "tools/asset-ingest.mjs",
+          "version": "ccc44394050dd85be0418fdbf8d82845c44a38b4852489a4adc0e60c7892a5e4",
+          "location": "tools/asset-ingest.mjs"
+        },
+        {
+          "id": "tools/validate-production-contracts.mjs",
+          "version": "77f195570fc26bea3f843cc4b85b5eb9e37a83cd67a5016cc45c7e4d5102871e",
+          "location": "tools/validate-production-contracts.mjs"
+        },
+        {
+          "id": "tools/render-cg-packets.mjs",
+          "version": "3a7ab0ea65ac4afe011147fdb347f9a0df441f17b07a429790110efc68c1c3f8",
+          "location": "tools/render-cg-packets.mjs"
+        },
+        {
+          "id": "tools/check-assets.mjs",
+          "version": "5b132b21449e7b81246a06beb56c98a665f387b3a2d9ac83afe0a23d23c99a6c",
+          "location": "tools/check-assets.mjs"
+        },
+        {
+          "id": "tools/build-assets.mjs",
+          "version": "ac8f17d8a668ff65e47cddcc3bb20fd71c337c2f3d87a53e6053a7fb90e65a07",
+          "location": "tools/build-assets.mjs"
+        },
+        {
+          "id": "tools/build.mjs",
+          "version": "b903b272d89482df4ec9d78ee025687a98a8b6060c204d0b913b82a377f8ed7d",
+          "location": "tools/build.mjs"
+        },
+        {
+          "id": "tools/content-lib.mjs",
+          "version": "3b6e4ed9bb487a2b2a7b73ee7af5d30c91b94285b504bc9654368f02891f386c",
+          "location": "tools/content-lib.mjs"
+        },
+        {
+          "id": "tools/media-lib.mjs",
+          "version": "6c5cf67f9ae911ed28eb713cfc02e293a7092479ad94e741e77f652e869a69a3",
+          "location": "tools/media-lib.mjs"
+        },
+        {
+          "id": "tools/validate-content.mjs",
+          "version": "b06707309a570605355a79f6f3542a2ff29345ac05a95cc1014f00e0369acf91",
+          "location": "tools/validate-content.mjs"
+        },
+        {
+          "id": "tools/preview-server.mjs",
+          "version": "a35dda52b5bb3e12b6e9255f6993de038ffbf1576477c69ac35a0b6b1f30c91b",
+          "location": "tools/preview-server.mjs"
+        },
+        {
+          "id": "src/engine.js",
+          "version": "4836f795aba56d520593cf50aab90c0fd11a25f9bce8bc02474e7b08e6b15874",
+          "location": "src/engine.js"
+        },
+        {
+          "id": "src/progress.js",
+          "version": "353ad9aa7a54dc61c31f987f4650895cdce1ba017e5256ebe5c0ce48d6afa87e",
+          "location": "src/progress.js"
+        },
+        {
+          "id": "src/memories.js",
+          "version": "7d623b55e90fe5568cfdde803f0877e67ce70de3e2e8457f9249ad07f4e8e346",
+          "location": "src/memories.js"
+        },
+        {
+          "id": "src/presentation.js",
+          "version": "932f5fe7312b5a4a055b92fee15447131a0f92d669afd0bf25700bda3dc9a65e",
+          "location": "src/presentation.js"
+        },
+        {
+          "id": "src/visuals.js",
+          "version": "cee296a76e0872eba816771de8aaa977d8fda5bf38692495c4326e92c2abdfd2",
+          "location": "src/visuals.js"
+        },
+        {
+          "id": "src/branches.js",
+          "version": "34a65128e065b23bb20157d3aaf1d29c1c3327d266e4134e77453e69c8cfa384",
+          "location": "src/branches.js"
+        },
+        {
+          "id": "src/app.js",
+          "version": "6436897bff6bc585ac21104561fe91735d03e0b55b83ec69cd86ee71e8ae9881",
+          "location": "src/app.js"
+        },
+        {
+          "id": "public/styles.css",
+          "version": "8e60383fd2f88f87aead4ebd9a5649d4a812eb1710961c9d0e4f930a9e1b6e0e",
+          "location": "public/styles.css"
+        },
+        {
+          "id": "tests/com02x-preview.test.mjs",
+          "version": "f8d16dd9c69320f186b35151b1ac3c275b6e08d43af36832cecaa06139c4b185",
+          "location": "tests/com02x-preview.test.mjs"
+        },
+        {
+          "id": "tests/opening-locked-scenes.test.mjs",
+          "version": "67b04f26a0fb4ea001cf388a7de8aa682c97e9894fd319d1082ee24abf25109a",
+          "location": "tests/opening-locked-scenes.test.mjs"
+        },
+        {
+          "id": "tests/memories.test.mjs",
+          "version": "eab8ed2b911e06a91dc8e286ac753aafe3c29fccf4416019052048318ae879f6",
+          "location": "tests/memories.test.mjs"
+        },
+        {
+          "id": "tests/engine-progress.test.mjs",
+          "version": "d1a625a83add625d478c208d4bd927a6000408a5f16061b36eb4fa37856d7c86",
+          "location": "tests/engine-progress.test.mjs"
+        },
+        {
+          "id": "tests/browser-acceptance.spec.mjs",
+          "version": "cb6aa0a8b53cdd36418596e13af3485a1b32b066488c1ce8a91b87f7ce61de8a",
+          "location": "tests/browser-acceptance.spec.mjs"
+        },
+        {
+          "id": "ROADMAP.md",
+          "version": "07a6bf187346bca9aaaf08c87a9a447f71b914084f66b4d2e8392c01e4f3b854",
+          "location": "ROADMAP.md"
+        },
+        {
+          "id": "TODO.md",
+          "version": "2fd050246a268ab31a2cae936befd3f95c9a29a0539d22cebe0f65048c7ec537",
+          "location": "TODO.md"
+        },
+        {
+          "id": "docs/narrative/CONTENT_PRODUCTION_TODO.md",
+          "version": "b5813f1456b9dbd426edee7ba38cda284c1abab81853bd2b23a476d3cc050a72",
+          "location": "docs/narrative/CONTENT_PRODUCTION_TODO.md"
+        },
+        {
+          "id": "derived:COM02X-runtime-before",
+          "version": "f1aa749555f013d40e8180e54f29ba494d2634ed719d3f778ea6063b9e76d44c",
+          "location": "derived:COM02X-runtime-before",
+          "source_ref": "efa64784236267b411f2686bb93c33435fa741dc",
+          "rebuild_scope": "common_convenience_xu nodes / COM02X memory event from pinned chapter and memories"
+        },
+        {
+          "id": "derived:COM02X-memory-before",
+          "version": "84cd440a9c8c6415004ed91564d7ba58f7316f8fb4ef533f1625a19bdb5e1dc0",
+          "location": "derived:COM02X-memory-before",
+          "source_ref": "efa64784236267b411f2686bb93c33435fa741dc",
+          "rebuild_scope": "common_convenience_xu nodes / COM02X memory event from pinned chapter and memories"
+        },
+        {
+          "id": ".github/workflows/browser-acceptance.yml",
+          "version": "f66f8b6cd8dca760084f0d5b78837b03fb8c9fc942e8d5d32252cb756caaf4f2",
+          "location": ".github/workflows/browser-acceptance.yml"
+        },
+        {
+          "id": ".ai/WORKFLOW_MANIFEST.yaml",
+          "version": "596250fd6848fcd1597b95f4e2136eca4b93ef8b",
+          "location": ".ai/WORKFLOW_MANIFEST.yaml"
+        },
+        {
+          "id": ".ai/harnesses/bootstrap.md",
+          "version": "895bab07e209c506b3b971ba7f35398ac4899ac9",
+          "location": ".ai/harnesses/bootstrap.md"
+        },
+        {
+          "id": ".ai/harnesses/integrator.md",
+          "version": "1c87e85f277ae5f71805aa8f14be5ea94f94c9c3",
+          "location": ".ai/harnesses/integrator.md"
+        },
+        {
+          "id": ".ai/policies/SOURCE_AUTHORITY.md",
+          "version": "ce4cd2a1e96223eef7e474af51440f6089025f3f",
+          "location": ".ai/policies/SOURCE_AUTHORITY.md"
+        },
+        {
+          "id": ".ai/policies/CONTEXT_ISOLATION.md",
+          "version": "41d64227fc95501882525620bcf1de8fe396dc94",
+          "location": ".ai/policies/CONTEXT_ISOLATION.md"
+        },
+        {
+          "id": "docs/CONTENT_PRODUCTION_SOURCE_MAP.md",
+          "version": "c2f1918c5d726a1bb6022f184fbb804ca1844364",
+          "location": "docs/CONTENT_PRODUCTION_SOURCE_MAP.md"
+        },
+        {
+          "id": "candidate:com02x-bg-01-candidate-v1.png",
+          "version": "88cc22c254fbbd5149cda25e34db0637cb5938b44f882ad04c14036f723363bf",
+          "location": "candidate:com02x-bg-01-candidate-v1.png"
+        },
+        {
+          "id": "candidate:com02x-dlg-01-candidate-v1.png",
+          "version": "c3b980c003dd2bcfb4dcabb769438fe67d85751f75f5fed20ceedf4ad0c3ea65",
+          "location": "candidate:com02x-dlg-01-candidate-v1.png"
+        },
+        {
+          "id": "derived:INTEGRATE-COM02X-001.packet",
+          "version": "e8b5c6589b1b07d768f518d0f95992c54e49d11088df7f6a5808a629c372a880",
+          "location": "derived:INTEGRATE-COM02X-001.packet",
+          "source_ref": "efa64784236267b411f2686bb93c33435fa741dc",
+          "rebuild_scope": "common_convenience_xu nodes / COM02X memory event from pinned chapter and memories"
+        }
+      ],
+      "output_versions": [
+        {
+          "id": "ROADMAP.md",
+          "version": "65628f2ab4d874aad4524bb6dabea55b338790d559bf58c8387dc5b413ad7462",
+          "location": "ROADMAP.md"
+        },
+        {
+          "id": "TODO.md",
+          "version": "72d2a8d19213125f23353ec95470a733c5ffd1fe52e982e2aadfa6c8d5862658",
+          "location": "TODO.md"
+        },
+        {
+          "id": "content/assets/manifest.json",
+          "version": "e51fee4e4cc0ba094eef6ba63c6c4f53b0768e73cc1af13128ba7e09bce326ac",
+          "location": "content/assets/manifest.json"
+        },
+        {
+          "id": "content/assets/source-catalog.json",
+          "version": "63bf0cd4e828890de829a8977a81f0884c555601b0abdf975784faeb53874ee2",
+          "location": "content/assets/source-catalog.json"
+        },
+        {
+          "id": "content/assets/source-map.json",
+          "version": "f7f2963963945bd0aa5ef5f205994920570401fd9d24cc9f1844f1b1e8d99b5a",
+          "location": "content/assets/source-map.json"
+        },
+        {
+          "id": "content/production/cg-manifests/opening-ch1-com02x.json",
+          "version": "1c7b06d0f9680cfac27beb60d008b4123101de83acb70b2699f635e9adc6c7de",
+          "location": "content/production/cg-manifests/opening-ch1-com02x.json"
+        },
+        {
+          "id": "content/recipes/assets.json",
+          "version": "2256655ff769d1baa88f02ef6ab39ea8651e0e1ce0d06ca70a34e008aa9b3634",
+          "location": "content/recipes/assets.json"
+        },
+        {
+          "id": "content/routes/opening-demo/chapter-01.json",
+          "version": "3a4dd3262b2bf40dd9a2dab6bd1170c4ff0c50a12ae760d6da7b6ca8dccd764d",
+          "location": "content/routes/opening-demo/chapter-01.json"
+        },
+        {
+          "id": "content/routes/opening-demo/memories.json",
+          "version": "215dc597e1cc9483c06fdf9422c0833498056af299d5837bb74c399cbe6bd46c",
+          "location": "content/routes/opening-demo/memories.json"
+        },
+        {
+          "id": "content/routes/opening-demo/route.json",
+          "version": "df234f72db0df91d08053c55ca293c22cfff91bfadfcf3296026bf71a1f8d59b",
+          "location": "content/routes/opening-demo/route.json"
+        },
+        {
+          "id": "docs/narrative/CONTENT_PRODUCTION_TODO.md",
+          "version": "3fcd5bfdd0aa1c6db2416a040f324e1c67281d6cb0cbc100eada19d9077ad66c",
+          "location": "docs/narrative/CONTENT_PRODUCTION_TODO.md"
+        },
+        {
+          "id": "tests/browser-acceptance.spec.mjs",
+          "version": "d1354f8894953b49d3ea7884fbb6c05193eae11924ef781ad1d84d3eb455d2d3",
+          "location": "tests/browser-acceptance.spec.mjs"
+        },
+        {
+          "id": "tests/com02x-preview.test.mjs",
+          "version": "9eb661fa88e5586d76c3f6f4f720ce8d20a7e23529dcb0514ec61988f71ecfed",
+          "location": "tests/com02x-preview.test.mjs"
+        },
+        {
+          "id": "tests/opening-locked-scenes.test.mjs",
+          "version": "92d39e684f91f520450c438662383dbcc60559ae6f219be1d36e184f4bd9fb5e",
+          "location": "tests/opening-locked-scenes.test.mjs"
+        },
+        {
+          "id": "tools/validate-production-contracts.mjs",
+          "version": "8b5169ce8b5d6a271cd20f2276d5a8c3640ff2752529633ed5e328e0a50750cf",
+          "location": "tools/validate-production-contracts.mjs"
+        },
+        {
+          "id": "assets-src/opening-ch1-demo/com02x-bg-01-candidate-v1.png",
+          "version": "88cc22c254fbbd5149cda25e34db0637cb5938b44f882ad04c14036f723363bf",
+          "location": "assets-src/opening-ch1-demo/com02x-bg-01-candidate-v1.png"
+        },
+        {
+          "id": "assets-src/opening-ch1-demo/com02x-bg-01-v1.webp",
+          "version": "5bff68c7d038f32283bba5a1c56c652b4fc11019c4c68c892aee9517fd749112",
+          "location": "assets-src/opening-ch1-demo/com02x-bg-01-v1.webp"
+        },
+        {
+          "id": "assets-src/opening-ch1-demo/com02x-dlg-01-candidate-v1.png",
+          "version": "c3b980c003dd2bcfb4dcabb769438fe67d85751f75f5fed20ceedf4ad0c3ea65",
+          "location": "assets-src/opening-ch1-demo/com02x-dlg-01-candidate-v1.png"
+        },
+        {
+          "id": "assets-src/opening-ch1-demo/com02x-dlg-01-v1.webp",
+          "version": "dde697e3460ed77d3d102c28ff1e25970e0e1f6912b718c764c0073704078d4d",
+          "location": "assets-src/opening-ch1-demo/com02x-dlg-01-v1.webp"
+        },
+        {
+          "id": "content/assets/ingest-receipts/com02x-accepted-masters-v1.json",
+          "version": "19f27385a62aa6260d0bac9ddf69e4feea0fbf9f3c3c40ca45fa78804923ddae",
+          "location": "content/assets/ingest-receipts/com02x-accepted-masters-v1.json"
+        }
+      ],
+      "human_gate": "final_playable_acceptance",
+      "reason": "Reviewable accepted-batch integration complete; full suite, browser CI and remote demo verification pending."
     }
   ],
   "invalidation_events": [

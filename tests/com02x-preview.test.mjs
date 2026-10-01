@@ -53,16 +53,36 @@ test('all four COM-02X paths preserve ordered locked turns and converge', () => 
   assert.equal(nodes.common_convenience_xu_exit_08.next, 'opening_demo_complete');
 });
 
-test('preview uses the one registered background and excludes it from Gallery', () => {
-  assert.equal(route.story.allowPreviewArt, true);
-  assert.ok(route.assetIds.includes('bg.narrative_preview.placeholder'));
+test('formal COM-02X integration binds accepted CG and scene art without preview dependencies', () => {
+  const assets = json('../content/assets/manifest.json').assets;
+  const catalog = json('../content/assets/source-catalog.json').files;
+  const receipt = json('../content/assets/ingest-receipts/com02x-accepted-masters-v1.json');
+  assert.equal(route.story.allowPreviewArt, undefined);
+  assert.ok(!route.assetIds.includes('bg.narrative_preview.placeholder'));
+  assert.ok(route.assetIds.includes('bg.opening.com02x.convenience_night'));
+  assert.ok(route.assetIds.includes('cg.opening.com02x.recognition'));
   for (const [id, node] of Object.entries(nodes)) {
     if (!id.startsWith('common_convenience_xu_')) continue;
-    assert.deepEqual(node.visual, { mode: 'composite', background: 'bg.narrative_preview.placeholder', sprites: [] });
+    if (id === 'common_convenience_xu_recognize' || id.startsWith('common_convenience_xu_recognize_')) {
+      assert.deepEqual(node.visual, { mode: 'cg', asset: 'cg.opening.com02x.recognition' });
+    } else if (id === 'common_convenience_xu_checkout_14' || id.startsWith('common_convenience_xu_exit')) {
+      assert.deepEqual(node.visual, { mode: 'composite', background: 'bg.opening.ch1.apt_elevator', sprites: [] });
+    } else {
+      assert.deepEqual(node.visual, { mode: 'composite', background: 'bg.opening.com02x.convenience_night', sprites: [] });
+    }
   }
+  assert.equal(assets['bg.opening.com02x.convenience_night'].kind, 'background');
+  assert.equal(assets['cg.opening.com02x.recognition'].kind, 'cg');
+  assert.equal(assets['cg.opening.com02x.recognition'].gallery.title, '深夜便利店');
+  assert.equal(catalog['source.com02x.bg-01'].sha256, '88cc22c254fbbd5149cda25e34db0637cb5938b44f882ad04c14036f723363bf');
+  assert.equal(catalog['source.com02x.dlg-01'].sha256, 'c3b980c003dd2bcfb4dcabb769438fe67d85751f75f5fed20ceedf4ad0c3ea65');
+  assert.equal(receipt.humanDecision.decision, 'PASS');
+  assert.equal(receipt.assets.length, 2);
+  assert.ok(receipt.assets.every(asset => asset.visualQaStatus === 'FAIL' && asset.humanDisposition === 'ACCEPTED_AS_IS'));
   const event = memory.events.find(e => e.id === 'mem.opening.ch1.convenience-xu');
   assert.equal(event.progressRank, 160);
-  assert.deepEqual(event.galleryAssets, []);
+  assert.deepEqual(event.galleryAssets, ['cg.opening.com02x.recognition']);
+  assert.equal(event.cover.asset, 'bg.opening.com02x.convenience_night');
   assert.deepEqual(nodes.common_convenience_xu_exit_08.entryEffects, { F_XT: 1 });
   assert.deepEqual(nodes.common_convenience_xu_exit_08.entryFlags,
     ['player_knows_xu_freelance_creative_work', 'xu_knows_player_remote_tech_work']);

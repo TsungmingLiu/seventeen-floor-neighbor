@@ -123,6 +123,20 @@
       "transform": "copy",
       "sha256": "9dc448840d09cf38718710881991c9f251e01eefd44eb94980d7dd9743778145",
       "bytes": 17610
+    },
+    "assets/opening-ch1-demo/com02x-bg-01-v1.webp": {
+      "source": "assets-src/opening-ch1-demo/com02x-bg-01-v1.webp",
+      "transform": "copy",
+      "sha256": "5bff68c7d038f32283bba5a1c56c652b4fc11019c4c68c892aee9517fd749112",
+      "bytes": 331098,
+      "masterSourceId": "source.com02x.bg-01"
+    },
+    "assets/opening-ch1-demo/com02x-dlg-01-v1.webp": {
+      "source": "assets-src/opening-ch1-demo/com02x-dlg-01-v1.webp",
+      "transform": "copy",
+      "sha256": "dde697e3460ed77d3d102c28ff1e25970e0e1f6912b718c764c0073704078d4d",
+      "bytes": 287068,
+      "masterSourceId": "source.com02x.dlg-01"
     }
   }
 }

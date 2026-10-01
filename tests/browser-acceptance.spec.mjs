@@ -133,10 +133,24 @@ test('opening preview plays COM-00 → COM-01X → COM-01J → COM-02X and saves
   const seen = new Set();
   let usedKeyboardChoice = false;
   let sawPlayerName = false;
+  let sawCom02xRecognitionCg = false;
+  let sawCom02xChoiceBackground = false;
   for (let step = 0; step < 240; step += 1) {
     if (await page.locator('#ending-screen').isVisible().catch(() => false)) break;
     await expect(page.locator('#game-shell')).toBeVisible();
     await waitForDialogueReady(page);
+    const activeNode = await page.evaluate(() =>
+      JSON.parse(localStorage.getItem('opening-demo-chapter-01:journey:v2')).cursor.nodeId
+    );
+    const currentSceneSrc = await page.locator('#scene-image').getAttribute('src');
+    if (activeNode === 'common_convenience_xu_recognize') {
+      expect(currentSceneSrc).toContain('/assets/opening-ch1-demo/com02x-dlg-01-v1.webp');
+      sawCom02xRecognitionCg = true;
+    }
+    if (activeNode === 'common_convenience_xu_choice') {
+      expect(currentSceneSrc).toContain('/assets/opening-ch1-demo/com02x-bg-01-v1.webp');
+      sawCom02xChoiceBackground = true;
+    }
     const choiceButtons = page.locator('#choice-list .choice-button');
     const count = await choiceButtons.count();
     if (count > 0 && !(await page.locator('#choice-list').getAttribute('class') || '').includes('is-hidden')) {
@@ -165,8 +179,11 @@ test('opening preview plays COM-00 → COM-01X → COM-01J → COM-02X and saves
   await expect(page.locator('#ending-screen')).toBeVisible({ timeout: 5000 });
   expect(usedKeyboardChoice).toBe(true);
   expect(sawPlayerName).toBe(true);
+  expect(sawCom02xRecognitionCg).toBe(true);
+  expect(sawCom02xChoiceBackground).toBe(true);
   await expect(page.locator('#ending-title')).toHaveText('第一章 Demo 完成');
   expect(await page.evaluate(() => localStorage.getItem('opening-demo-chapter-01:completed'))).toBe('1');
+  const finalJourney = await page.evaluate(() => JSON.parse(localStorage.getItem('opening-demo-chapter-01:journey:v2')));
 
   await page.locator('#home-button').click();
   await page.locator('#memories-button').click();
@@ -179,8 +196,42 @@ test('opening preview plays COM-00 → COM-01X → COM-01J → COM-02X and saves
   await page.locator('#gallery-button').click();
   await expect(page.locator('#cg-grid button')).toHaveCount(await galleryEntryCount(page));
   await expect(page.locator('#cg-grid button:not(:disabled)')).toHaveCount(await galleryEntryCount(page));
+  const galleryManifest = await (await page.request.get('/content/routes/opening-demo/assets.json')).json();
+  expect(galleryManifest.assets['cg.opening.com02x.recognition'].gallery).toBeTruthy();
+  expect(galleryManifest.assets['bg.opening.com02x.convenience_night'].gallery).toBeUndefined();
 
-  const finalJourney = await page.evaluate(() => JSON.parse(localStorage.getItem('opening-demo-chapter-01:journey:v2')));
+  await page.locator('#gallery-back').click();
+  await page.locator('#memories-button').click();
+  await page.locator('[data-memory-id="mem.opening.ch1.convenience-xu"]').click();
+  await expect(page.locator('#game-shell')).toBeVisible();
+  await waitForDialogueReady(page);
+  for (let step = 0; step < 20; step += 1) {
+    const nodeId = await page.evaluate(() =>
+      JSON.parse(localStorage.getItem('opening-demo-chapter-01:journey:v2')).cursor.nodeId
+    );
+    const imageSrc = await page.locator('#scene-image').getAttribute('src');
+    if (nodeId === 'common_convenience_xu_recognize') {
+      expect(imageSrc).toContain('/assets/opening-ch1-demo/com02x-dlg-01-v1.webp');
+    }
+    if (nodeId === 'common_convenience_xu_choice') {
+      expect(imageSrc).toContain('/assets/opening-ch1-demo/com02x-bg-01-v1.webp');
+      await page.locator('#choice-list .choice-button').first().click();
+      break;
+    }
+    await page.locator('#advance-zone').click();
+    await waitForDialogueReady(page);
+  }
+  const replayNode = await page.evaluate(() =>
+    JSON.parse(localStorage.getItem('opening-demo-chapter-01:journey:v2')).cursor.nodeId
+  );
+  expect(replayNode).toBe('common_convenience_xu_ask_food');
+  await page.reload();
+  await page.locator('#start-button').click();
+  await waitForDialogueReady(page);
+  await expect.poll(() => page.evaluate(() =>
+    JSON.parse(localStorage.getItem('opening-demo-chapter-01:journey:v2')).cursor.nodeId
+  )).toBe(replayNode);
+
   expect(finalJourney.playerDisplayName).toBe('測試姓名');
   expect(finalJourney.frontierMemoryEventId).toBe('mem.opening.ch1.convenience-xu');
   expect(finalJourney.frontierRank).toBe(160);

@@ -152,8 +152,13 @@ test('expanded boxes keep the existing Memory and visual boundaries', () => {
     if (id === 'opening_demo_complete') continue;
     assert.ok(membership.has(id), `unmapped Memory node ${id}`);
     if (id.startsWith('common_convenience_xu_')) {
-      assert.deepEqual(nodes[id].visual,
-        { mode: 'composite', background: 'bg.narrative_preview.placeholder', sprites: [] });
+      assert.notEqual(nodes[id].visual?.background, 'bg.narrative_preview.placeholder');
+      if (id === 'common_convenience_xu_recognize' || id.startsWith('common_convenience_xu_recognize_')) {
+        assert.deepEqual(nodes[id].visual, { mode: 'cg', asset: 'cg.opening.com02x.recognition' });
+      } else {
+        assert.ok(['bg.opening.com02x.convenience_night', 'bg.opening.ch1.apt_elevator']
+          .includes(nodes[id].visual?.background), `COM-02X node ${id} uses registered scene coverage`);
+      }
     } else {
       assert.notEqual(nodes[id].visual?.background, 'bg.narrative_preview.placeholder');
     }

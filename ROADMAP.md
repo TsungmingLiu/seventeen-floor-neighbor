@@ -356,7 +356,7 @@ Roadmap 只維護工作所在的 horizon，不維護完整 task list。
 
 目前尚需：
 
-- COM-02X 已證明真實 Locked Scene 可使用 placeholder 遊玩；尚需正式 CG 替換與 stable node/save/Memory/Gallery 驗證；
+- COM-02X 兩張 Human accepted-as-is masters 已在本地整合為正式 BG／Gallery CG，`validate:final`、node／Memory rank／choice／state invariant checks 已通過；待 PR Cloudflare preview 的 save/reload、Gallery 與遠端 browser smoke 證據；
 - 沿用已實作的定點 impact／provenance，補目前 scene 受控 material change 與實際整合阻擋的證據；
 - 補 release-oriented placeholder／provisional／accepted coverage 判定，完成當前版本的 M0 Exit Gate review；沿用最新 main Verify、遠端 Chromium、Cloudflare 部署 smoke 與人工敘事批准。Codespaces 不列入必要 gate。
 
@@ -425,7 +425,7 @@ M0 — Foundation Stable
 **Current Critical Path**
 
 ```text
-COM-02X placeholder integration proved; final CG replacement proof pending
+COM-02X final visual integration locally verified; PR Cloudflare preview/save/Gallery smoke pending
 → current material-change / stale integration evidence
 → placeholder / provisional / accepted coverage validation
 → M0 Exit Gate review

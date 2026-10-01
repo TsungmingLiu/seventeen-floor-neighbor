@@ -37,7 +37,7 @@
 
 - [x] 登記唯一的 preview-only WebP，並由現有 asset registry / validator 驗證其身分。
 - [x] COM-02X 已以真實 Locked Scene／continuity contract 接入 Opening `narrative_preview`；四分支、Memory replay、Gallery 排除與 main Node 22 驗證有證據。
-- [ ] final CG 補上後，不需要修改 narrative node structure。
+- [x] COM-02X accepted-as-is BG／CG 已替換 preview bindings，不需修改 narrative node structure；本地 `validate:final` 通過。
 - [x] placeholder 狀態 machine-visible；現有 `validate:final` 不接受仍啟用 preview art 的 route。
 - [ ] release-oriented validation 能區分 placeholder / provisional / accepted coverage。
 
@@ -71,7 +71,7 @@ M0 先以一個真實 scene 的受控修改，證明定點影響報告可供整�
 - [x] Cloudflare PR 自動 build／部署與公開試玩驗收；依 Owner 決定取代必要的 fresh Codespace acceptance。
 - [x] 最新 main [Cloudflare 部署後 smoke](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/36788149966)成功；PR #37 公開 alias 的內容 bytes 與 7/7 browser 已核對，見 ledger。舊 HTTP 403 不作當前 blocker。
 - [x] PR #37：江雨澄介紹前姓名、旁白／自白正體、玩家姓名 nametag，以及 title-screen Memory／CG 啟動時序修正。
-- [ ] COM-02X accepted final CG 替換後的 stable nodes／save／Memory／Gallery／`validate:final` 證據
+- [x] COM-02X local accepted-as-is CG 替換、stable node/state/Memory rank 160、Gallery binding 與 `validate:final`；PR Cloudflare save/reload/Gallery browser smoke 待部署確認
 - [ ] 當前 scene material-change 與實際 stale integration blocking case
 
 全部通過後，依 `ROADMAP.md` 判定 M0 是否可以結束。
