@@ -1828,6 +1828,54 @@
       ],
       "human_gate": "final_playable_acceptance",
       "reason": "83/83 Node22 and actual deployed bytes pass; Chromium6/7 with one path normalization assertion failure."
+    },
+    {
+      "task_id": "INTEGRATE-COM02X-002",
+      "task_type": "integrate",
+      "integration_mode": "final",
+      "scene_id": "COM-02X",
+      "depends_on": [
+        "MUA-COM02X-001",
+        "RENDER-COM02X-BG-001",
+        "RENDER-COM02X-DLG-001"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual focusedcorrection fromexactChromiumfailuremetadata",
+        "sha256": "69a6c68ad182a32e2affaef4136805ceb9a7064423971868f03c1149bf3d7ce7"
+      },
+      "decision_receipt": "content/production/runs/com02x-cg-20260930/INTEGRATE-COM02X-002.decision.json",
+      "input_versions": [
+        {
+          "id": "tests/browser-acceptance.spec.mjs",
+          "version": "d1354f8894953b49d3ea7884fbb6c05193eae11924ef781ad1d84d3eb455d2d3",
+          "location": "tests/browser-acceptance.spec.mjs"
+        },
+        {
+          "id": "package.json",
+          "version": "36485f98cb2344cd34d96524ad035acb9347ebf4fc28efa188112ef8adc02069",
+          "location": "package.json"
+        },
+        {
+          "id": ".github/workflows/browser-acceptance.yml",
+          "version": "f66f8b6cd8dca760084f0d5b78837b03fb8c9fc942e8d5d32252cb756caaf4f2",
+          "location": ".github/workflows/browser-acceptance.yml"
+        },
+        {
+          "id": "content/production/runs/com02x-cg-20260930/VERIFY-COM02X-001.decision.json",
+          "version": "bee287293f3d033087d41d0985a341d7d22dfcdfa8126ce8c97c0343390de188",
+          "location": "content/production/runs/com02x-cg-20260930/VERIFY-COM02X-001.decision.json"
+        }
+      ],
+      "output_versions": [
+        {
+          "id": "COM02X-browser-asset-path-normalization",
+          "version": "f9f9f5e7595c3d2810a7ea4b60566ccfb7a70d81761894b15150847d8c63bd05",
+          "location": "tests/browser-acceptance.spec.mjs"
+        }
+      ],
+      "human_gate": "none",
+      "reason": null
     }
   ],
   "invalidation_events": [

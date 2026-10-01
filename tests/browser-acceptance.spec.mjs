@@ -144,7 +144,7 @@ test('opening preview plays COM-00 → COM-01X → COM-01J → COM-02X and saves
     );
     const currentSceneSrc = await page.locator('#scene-image').getAttribute('src');
     if (activeNode === 'common_convenience_xu_recognize') {
-      expect(currentSceneSrc).toContain('/assets/opening-ch1-demo/com02x-dlg-01-v1.webp');
+      expect(new URL(currentSceneSrc, page.url()).pathname).toBe('/assets/opening-ch1-demo/com02x-dlg-01-v1.webp');
       sawCom02xRecognitionCg = true;
     }
     if (activeNode === 'common_convenience_xu_choice') {

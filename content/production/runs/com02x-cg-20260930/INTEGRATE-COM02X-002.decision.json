@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "com02x-cg-20260930",
+  "task_id": "INTEGRATE-COM02X-002",
+  "scene_id": "COM-02X",
+  "task_type": "integrate",
+  "status": "PASS",
+  "workflow_version": "1.3.0",
+  "harness": {
+    "id": "integrator",
+    "version": "1.2.0",
+    "pass": null
+  },
+  "source_ref": "1f96a4841a8acb753c45119385ef62ebaec47fcc",
+  "packet_sha256": "69a6c68ad182a32e2affaef4136805ceb9a7064423971868f03c1149bf3d7ce7",
+  "handoff_sha256": "d3e0fdb8bf56f647caeb5402d81b03c8bbd4a91b38a9e628a2f6ff463dc25f31",
+  "input_versions": [
+    {
+      "id": "tests/browser-acceptance.spec.mjs",
+      "version": "d1354f8894953b49d3ea7884fbb6c05193eae11924ef781ad1d84d3eb455d2d3",
+      "location": "tests/browser-acceptance.spec.mjs"
+    },
+    {
+      "id": "package.json",
+      "version": "36485f98cb2344cd34d96524ad035acb9347ebf4fc28efa188112ef8adc02069",
+      "location": "package.json"
+    },
+    {
+      "id": ".github/workflows/browser-acceptance.yml",
+      "version": "f66f8b6cd8dca760084f0d5b78837b03fb8c9fc942e8d5d32252cb756caaf4f2",
+      "location": ".github/workflows/browser-acceptance.yml"
+    },
+    {
+      "id": "content/production/runs/com02x-cg-20260930/VERIFY-COM02X-001.decision.json",
+      "version": "bee287293f3d033087d41d0985a341d7d22dfcdfa8126ce8c97c0343390de188",
+      "location": "content/production/runs/com02x-cg-20260930/VERIFY-COM02X-001.decision.json"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "COM02X-browser-asset-path-normalization",
+      "version": "f9f9f5e7595c3d2810a7ea4b60566ccfb7a70d81761894b15150847d8c63bd05",
+      "location": "tests/browser-acceptance.spec.mjs"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "Packet failure, test location, and all four source hashes verified",
+      "result": "PASS"
+    },
+    {
+      "name": "Relative and absolute URL path normalization preserves exact COM02X pathname",
+      "result": "PASS"
+    },
+    {
+      "name": "node --check tests/browser-acceptance.spec.mjs",
+      "result": "PASS"
+    },
+    {
+      "name": "git diff --check",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "Corrected remote browser CI has not run; pending and not claimed as PASS."
+  ],
+  "human_gate": "none",
+  "integration_mode": "final",
+  "pending_remote_verification": true
+}
