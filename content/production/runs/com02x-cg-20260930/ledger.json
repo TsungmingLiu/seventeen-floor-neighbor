@@ -316,12 +316,12 @@
       "depends_on": [
         "MUA-ENV-COM02X-002"
       ],
-      "status": "RUNNING",
+      "status": "PASS",
       "packet": {
         "generator": "manual exact bounded packet; source identities recorded",
-        "sha256": "982539343c230cfb75dacab571e32eb800a2d7011c7077a8d1ee7887cbd26bc9"
+        "sha256": "0df3a9a447cf618a4c2f5f1ccee6013bb0a5ea50428695eb8432c03b8dc9d536"
       },
-      "decision_receipt": null,
+      "decision_receipt": "content/production/runs/com02x-cg-20260930/PACKET-ENV-COM02X-001.decision.json",
       "input_versions": [
         {
           "id": "manifest:COM02X-environment",
@@ -334,9 +334,21 @@
           "location": "content/production/runs/com02x-cg-20260930/MUA-ENV-COM02X-002.decision.json"
         }
       ],
-      "output_versions": [],
+      "output_versions": [
+        {
+          "id": "COM02X-environment-render-packet",
+          "version": "d54a0bb0bb62c4edaa30031d2bffb7cd93fca22893968d74c3f63fb7b257d9b6",
+          "location": "derived:COM02X-ENV-CONVENIENCE-NIGHT-REFERENCE",
+          "rebuild": {
+            "tool": "tools/render-cg-packets.mjs",
+            "manifest": "content/production/cg-manifests/opening-ch1-com02x-environment.json",
+            "entry": "COM02X-ENV-CONVENIENCE-NIGHT-REFERENCE",
+            "adapter": "api"
+          }
+        }
+      ],
       "human_gate": "none",
-      "reason": "Deterministic compilation only; separate renderer follows"
+      "reason": null
     }
   ],
   "invalidation_events": [],
