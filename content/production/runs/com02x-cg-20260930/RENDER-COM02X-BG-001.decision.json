@@ -49,11 +49,12 @@
     {
       "id": "COM02X-BG-01-CANDIDATE-001",
       "version": "sha256:88cc22c254fbbd5149cda25e34db0637cb5938b44f882ad04c14036f723363bf",
-      "location": "/Users/tsungmingliu/Documents/Codex/2026-09-30/com02x-cg-production/outputs/com02x-bg-01-candidate-v1.png",
+      "location": "candidate:com02x-bg-01-candidate-v1.png",
       "mime_type": "image/png",
       "width": 1672,
       "height": 941,
-      "bytes": 2556635
+      "bytes": 2556635,
+      "artifact_filename": "com02x-bg-01-candidate-v1.png"
     }
   ],
   "qa_codes": [

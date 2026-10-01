@@ -1,0 +1,127 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "com02x-cg-20260930",
+  "task_id": "VQA-COM02X-DLG-001",
+  "scene_id": "COM-02X",
+  "task_type": "visual_review",
+  "status": "FAIL",
+  "workflow_version": "1.3.0",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.4.0",
+    "pass": "visual_review"
+  },
+  "source_ref": "46a25010f9239e16962341574ef071e878361c8e",
+  "packet_sha256": "eeb54b58cf2044d43d5b6787647907af35474afbba718255cfeafe6cbf7b296d",
+  "handoff_sha256": "584f3fb5654085b0a0cafd0353f4e4a147513f8fcca7a3386e85d25dd1da29ec",
+  "input_versions": [
+    {
+      "id": "entry-excerpt:COM02X-DLG-01",
+      "version": "sha256:e1caa87d34cf8b67466f54f755a3c63c44f9faae59cb39139c2127c5d9eef372",
+      "location": "entry:COM02X-DLG-01",
+      "derived_from": "content/production/cg-manifests/opening-ch1-com02x.json",
+      "entry_id": "COM02X-DLG-01"
+    },
+    {
+      "id": "candidate:COM02X-DLG-01-001",
+      "version": "sha256:c3b980c003dd2bcfb4dcabb769438fe67d85751f75f5fed20ceedf4ad0c3ea65",
+      "location": "candidate:com02x-dlg-01-candidate-v1.png",
+      "artifact_filename": "com02x-dlg-01-candidate-v1.png"
+    },
+    {
+      "id": "render-decision:COM02X-DLG-01",
+      "version": "sha256:c2c0a42625bdcc81c9ae78a63b2fd11060c6f1450ed13a4957a840afd6de81c9",
+      "location": "content/production/runs/com02x-cg-20260930/RENDER-COM02X-DLG-001.decision.json"
+    },
+    {
+      "id": "ref.xu_tang.face.01",
+      "version": "sha256:2fd137f796d0e7667a5913748158f75705b1a538b346b9e7f76aacb3c79acfd0",
+      "location": "assets-src/references/xu-tang/xt-ref-01-face.png"
+    },
+    {
+      "id": "ref.xu_tang.wardrobe.a",
+      "version": "sha256:aaf33f06f3e39fc476deee03ab261a43e0911b8393366ae7399c633abfadc716",
+      "location": "assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png"
+    },
+    {
+      "id": "ref.com02x.environment.convenience_night",
+      "version": "sha256:44b21d81cfac0dcbbd97ecd203c87553ca549651bb4b45aa7a96614102164bb3",
+      "location": "assets-src/references/environments/com02x-convenience-night-reference-v1.png"
+    }
+  ],
+  "output_versions": [],
+  "qa_codes": [
+    {
+      "name": "packet_entry_decision_hashes_and_all_image_mime_dimensions",
+      "result": "PASS"
+    },
+    {
+      "name": "candidate_and_all_three_exact_references_pixels_viewed",
+      "result": "PASS"
+    },
+    {
+      "name": "xu_identity_age_hair_hoops_and_adult_anatomy",
+      "result": "PASS"
+    },
+    {
+      "name": "wardrobe_a_grey_top_tote_and_owned_props",
+      "result": "PASS"
+    },
+    {
+      "name": "hands_fingers_prop_grips_and_ownership",
+      "result": "PASS"
+    },
+    {
+      "name": "required_two_hand_meal_comparison_beat_and_no_extra_person",
+      "result": "PASS"
+    },
+    {
+      "name": "gaze_pose_and_spontaneous_encounter_read",
+      "result": "FAIL"
+    },
+    {
+      "name": "restrained_tired_neighbor_emotion_without_glamour",
+      "result": "FAIL"
+    },
+    {
+      "name": "store_location_weather_light_and_environment_continuity",
+      "result": "PASS"
+    },
+    {
+      "name": "photographic_style_realism_and_physical_coherence",
+      "result": "FAIL"
+    },
+    {
+      "name": "dialogue_safe_zone_and_requested_waist_up_framing",
+      "result": "FAIL"
+    },
+    {
+      "name": "16_9_full_viewport_crop_safe_composition",
+      "result": "PASS"
+    },
+    {
+      "name": "formal_master_minimum_1920x1080",
+      "result": "FAIL"
+    }
+  ],
+  "known_issues": [
+    {
+      "code": "VQA-COM02X-DLG-POSE-EMOTION",
+      "detail": "Near-lens gaze, frontal posed presentation, and polished/sultry expression miss the quiet tired-neighbor recognition beat."
+    },
+    {
+      "code": "VQA-COM02X-DLG-SAFE-ZONE-FRAMING",
+      "detail": "Detailed shorts and drawstring occupy the lower dialogue zone; image extends to upper thighs rather than the specified waist-up composition."
+    },
+    {
+      "code": "VQA-COM02X-DLG-STYLE",
+      "detail": "Facial skin appears heavily smoothed and beauty-lit, weakening the natural skin and candid photographic realism requirement."
+    },
+    {
+      "code": "formal_master_below_minimum",
+      "detail": "Verified PNG dimensions are 1672x941; required formal master minimum is 1920x1080."
+    }
+  ],
+  "human_gate": "accepted_master_image_selection",
+  "review_scope": "candidate"
+}

@@ -59,7 +59,8 @@
     {
       "id": "COM02X-DLG-01-CANDIDATE-001",
       "version": "c3b980c003dd2bcfb4dcabb769438fe67d85751f75f5fed20ceedf4ad0c3ea65",
-      "location": "/Users/tsungmingliu/Documents/Codex/2026-09-30/com02x-cg-production/outputs/com02x-dlg-01-candidate-v1.png"
+      "location": "candidate:com02x-dlg-01-candidate-v1.png",
+      "artifact_filename": "com02x-dlg-01-candidate-v1.png"
     }
   ],
   "qa_codes": [
