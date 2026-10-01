@@ -525,6 +525,52 @@
       ],
       "human_gate": "none",
       "reason": null
+    },
+    {
+      "task_id": "VQA-ENV-COM02X-002",
+      "task_type": "visual_review",
+      "review_scope": "candidate",
+      "scene_id": "COM-02X",
+      "depends_on": [
+        "PLAN-ENV-COM02X-002",
+        "RENDER-ENV-COM02X-001"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual exact bounded packet; source identities recorded",
+        "sha256": "bbe4a033dbe228bd6127f354d984f2ac44bd40dbcfca1c1f70a0a35d0d6d15d3"
+      },
+      "decision_receipt": "content/production/runs/com02x-cg-20260930/VQA-ENV-COM02X-002.decision.json",
+      "input_versions": [
+        {
+          "id": "manifest:COM02X-environment-reference-1.0.1",
+          "version": "d0ccf52bc9762f6af60296955a5700d9717e3ff92e84a6fcb8d73ffb398800e2",
+          "location": "content/production/cg-manifests/opening-ch1-com02x-environment.json"
+        },
+        {
+          "id": "candidate:COM02X-ENV-CANDIDATE-001",
+          "version": "44b21d81cfac0dcbbd97ecd203c87553ca549651bb4b45aa7a96614102164bb3",
+          "location": "candidate:COM02X-ENV-CANDIDATE-001"
+        },
+        {
+          "id": "render-decision:COM02X-environment-original-generation",
+          "version": "10114fa509aa400d62702bf5dcca4f21ddc4077180c4ceaa18689897034c02b8",
+          "location": "content/production/runs/com02x-cg-20260930/RENDER-ENV-COM02X-001.decision.json"
+        },
+        {
+          "id": "reference-scope-correction:PLAN-ENV-COM02X-002",
+          "version": "7094b1b6dde7b942f5533f4ecb71f6cc4bf5c3a456e67960518341a68f0543dd",
+          "location": "content/production/runs/com02x-cg-20260930/PLAN-ENV-COM02X-002.decision.json"
+        },
+        {
+          "id": "original-render-packet:COM02X-environment-manifest-1.0.0",
+          "version": "d54a0bb0bb62c4edaa30031d2bffb7cd93fca22893968d74c3f63fb7b257d9b6",
+          "location": "generated/session-cache/com02x-cg-20260930/COM02X-environment.api.jsonl"
+        }
+      ],
+      "output_versions": [],
+      "human_gate": "none",
+      "reason": null
     }
   ],
   "invalidation_events": [
