@@ -71,7 +71,7 @@ M0 先以一個真實 scene 的受控修改，證明定點影響報告可供整�
 - [x] Cloudflare PR 自動 build／部署與公開試玩驗收；依 Owner 決定取代必要的 fresh Codespace acceptance。
 - [x] 最新 main [Cloudflare 部署後 smoke](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/36788149966)成功；PR #37 公開 alias 的內容 bytes 與 7/7 browser 已核對，見 ledger。舊 HTTP 403 不作當前 blocker。
 - [x] PR #37：江雨澄介紹前姓名、旁白／自白正體、玩家姓名 nametag，以及 title-screen Memory／CG 啟動時序修正。
-- [x] COM-02X local accepted-as-is CG 替換、stable node/state/Memory rank 160、Gallery binding 與 `validate:final`；PR Cloudflare save/reload/Gallery browser smoke 待部署確認
+- [x] COM-02X local accepted-as-is BG／recognition／microwave CG、83 nodes／四 choices／文本/state／Memory rank 160 與 Gallery binding 保持；完整角色參考包清理已合併。Walk character-only reference 已登記，walking manifest 新 reference policy／街景角度修訂已由 fresh Planner 完成，render／獨立 Visual QA／Human full master 選擇尚待 fresh stages；本批 production validation／validate:final、build/assets、preview smoke 通過；host Node 25 full tests 87/91，temporary checkout symlink／mmap 限制保留；fresh Node 22 與 PR Cloudflare save/reload/Gallery browser smoke 待推送
 - [ ] 當前 scene material-change 與實際 stale integration blocking case
 
 全部通過後，依 `ROADMAP.md` 判定 M0 是否可以結束。

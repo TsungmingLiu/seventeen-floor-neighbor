@@ -1,0 +1,78 @@
+{
+  "receiptVersion": 1,
+  "receiptType": "human-accepted-master-batch",
+  "runId": "com02x-cg-20260930",
+  "taskId": "INTEGRATE-COM02X-CLEANUP-005",
+  "sceneId": "COM-02X",
+  "integrationMode": "final",
+  "humanDecision": {
+    "id": "HUMAN-COM02X-MASTER-002",
+    "path": "content/production/runs/com02x-cg-20260930/HUMAN-COM02X-MASTER-002.decision.json",
+    "sha256": "9c8446f774943802bb86bdb81fb04e00a306d1ffb4d316b23b6c682eac840ec7",
+    "decision": "PASS",
+    "disposition": "ACCEPTED_AS_IS",
+    "qaHistoryPreserved": true,
+    "scope": "Only exact microwave candidate hash; historical independent Visual QA remains FAIL."
+  },
+  "assets": [
+    {
+      "sourceId": "source.com02x.microwave",
+      "entryId": "COM02X-DLG-02-MICROWAVE",
+      "logicalId": "cg.opening.com02x.microwave_wait",
+      "canonicalId": "CG-COM02X-MICROWAVE-WAIT",
+      "filename": "com02x-microwave-candidate-v1.png",
+      "masterPath": "assets-src/opening-ch1-demo/com02x-microwave-candidate-v1.png",
+      "runtimePath": "assets/opening-ch1-demo/com02x-microwave-v1.webp",
+      "derivativePath": "assets-src/opening-ch1-demo/com02x-microwave-v1.webp",
+      "width": 1672,
+      "height": 941,
+      "mimeType": "image/png",
+      "sha256": "7b8a6f5eb9dd8bfc102229e42aaf1e82a1182f20b807d3dc134df79f5e95a392",
+      "bytes": 2178799,
+      "derivativeSha256": "d3006f2e29f26af80d812c1afc92de5a0807eef42fe822c80502338942cb2f24",
+      "derivativeBytes": 198288,
+      "humanDecisionSha256": "7b8a6f5eb9dd8bfc102229e42aaf1e82a1182f20b807d3dc134df79f5e95a392",
+      "humanDisposition": "ACCEPTED_AS_IS",
+      "visualQaStatus": "FAIL",
+      "visualQaReceipt": "content/production/runs/com02x-cg-20260930/VQA-COM02X-MICROWAVE-001.decision.json",
+      "acceptedKnownIssues": [
+        {
+          "code": "VQA-COM02X-MICROWAVE-DIMENSIONS",
+          "detail": "Verified original PNG is 1672x941; the formal master minimum is 1920x1080."
+        },
+        {
+          "code": "VQA-COM02X-MICROWAVE-SAFE-ZONE-HANDS",
+          "detail": "Coffee and the gripping hand occupy the lower quarter, a drawstring is visible on the bottom edge, and the relaxed empty left hand is outside the crop."
+        },
+        {
+          "code": "VQA-COM02X-MICROWAVE-POSE-EMOTION-STYLE",
+          "detail": "Although her gaze is off lens, the torso remains near-frontal; the tilted, parted-lip presentation and smooth beauty lighting read polished rather than candid tired-neighbor attention."
+        }
+      ],
+      "derivativeTransform": "Pillow 12.3.0: WEBP quality=88, method=6, lossless=false; exact dimensions preserved"
+    }
+  ],
+  "runtimeCoverage": {
+    "firstNodeId": "common_convenience_xu_work_10",
+    "lastNodeId": "common_convenience_xu_work_15",
+    "nodeIds": [
+      "common_convenience_xu_work_10",
+      "common_convenience_xu_work_11",
+      "common_convenience_xu_work_12",
+      "common_convenience_xu_work_13",
+      "common_convenience_xu_work_14",
+      "common_convenience_xu_work_15"
+    ],
+    "cutawayBeforeNodeId": "common_convenience_xu_work_16",
+    "memoryEventId": "mem.opening.ch1.convenience-xu",
+    "memoryUnchanged": true
+  },
+  "derivativeBuild": {
+    "tool": "Pillow",
+    "version": "12.3.0",
+    "quality": 88,
+    "method": 6,
+    "lossless": false,
+    "dimensionPolicy": "exactly preserve input dimensions"
+  }
+}

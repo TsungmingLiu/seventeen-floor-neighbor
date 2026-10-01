@@ -41,7 +41,8 @@ function baseEntry() {
         held_objects: [],
         reference_bindings: [
           { role: 'primary_face_identity', source_id: 'ref.xu_tang.face.01', expected_filename: 'xt-ref-01-face.png' },
-          { role: 'wardrobe', source_id: 'ref.xu_tang.wardrobe.a', expected_filename: 'xt-ref-05-wardrobe-a.png' }
+          { role: 'wardrobe', source_id: 'ref.xu_tang.wardrobe.a', expected_filename: 'xt-ref-05-wardrobe-a.png' },
+          { role: 'production_consistency', source_id: 'ref.xu_tang.production.04', expected_filename: 'xt-ref-04-production.png' }
         ]
       }
     ],
@@ -84,6 +85,7 @@ function baseEntry() {
       attachments: [
         { role: 'primary_face_identity', source_id: 'ref.xu_tang.face.01', expected_filename: 'xt-ref-01-face.png', pixels_must_be_visible: true },
         { role: 'wardrobe', source_id: 'ref.xu_tang.wardrobe.a', expected_filename: 'xt-ref-05-wardrobe-a.png', pixels_must_be_visible: true },
+        { role: 'production_consistency', source_id: 'ref.xu_tang.production.04', expected_filename: 'xt-ref-04-production.png', pixels_must_be_visible: true },
         { role: 'environment', source_id: 'source.opening.ch1.bg.apt_17f_rain', expected_filename: 'bg-apt-17f-rain-16x9-v1.webp', pixels_must_be_visible: true }
       ]
     },
@@ -163,7 +165,7 @@ test('Chat manual, Work batch and API adapters share one prompt', () => {
   assert.equal(work.shared_prompt, expected);
   assert.equal(work.reference_acquisition.method, 'repo_file');
   assert.deepEqual(work.reference_acquisition.required_bindings, packets[0].reference_transport.attachments);
-  assert.deepEqual(work.reference_acquisition.resolved_files.map((file) => file.source_id), ['ref.xu_tang.face.01', 'ref.xu_tang.wardrobe.a', 'source.opening.ch1.bg.apt_17f_rain']);
+  assert.deepEqual(work.reference_acquisition.resolved_files.map((file) => file.source_id), ['ref.xu_tang.face.01', 'ref.xu_tang.wardrobe.a', 'ref.xu_tang.production.04', 'source.opening.ch1.bg.apt_17f_rain']);
   assert.equal(work.reference_acquisition.resolved_files.length, packets[0].reference_transport.attachments.length);
   assert.ok(work.reference_acquisition.resolved_files.every((file) => file.sourcePath.startsWith('assets-src/')));
   assert.match(chat, /Attachment checklist/);
@@ -300,7 +302,7 @@ test('linked sequence requires explicit benefit and consecutive matching entries
   second.output.master_filename = 'test-s01-next-v1.png';
   manifest.entries.push(second);
   assert.doesNotThrow(() => validateManifest(manifest));
-  second.characters[0].wardrobe_key = 'DIFFERENT-WARDROBE';
+  second.characters[0].wardrobe_key = 'XT-WARDROBE-A-LATE-NIGHT-CONVENIENCE-STORE';
   assert.throws(() => validateManifest(manifest), /must keep scene, characters, wardrobe and environment/);
   second.characters[0].wardrobe_key = first.characters[0].wardrobe_key;
   second.continuity.previous_entry_id = null;

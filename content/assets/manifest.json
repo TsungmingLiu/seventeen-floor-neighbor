@@ -1,5 +1,5 @@
 {
-  "manifestVersion": 10,
+  "manifestVersion": 11,
   "assets": {
     "bg.opening.ch1.apt_17f_rain": {
       "canonicalAssetId": "BG-APT-17F-RAIN-16X9",
@@ -404,6 +404,34 @@
       "canonicalCgEntry": "COM02X-DLG-01",
       "knownIssues": [
         "Human-accepted as-is under content/assets/ingest-receipts/com02x-accepted-masters-v1.json; independent visual QA remains FAIL."
+      ]
+    },
+    "cg.opening.com02x.microwave_wait": {
+      "canonicalAssetId": "CG-COM02X-MICROWAVE-WAIT",
+      "kind": "cg",
+      "src": "assets/opening-ch1-demo/com02x-microwave-v1.webp",
+      "width": 1672,
+      "height": 941,
+      "masterSourceId": "source.com02x.microwave",
+      "focus": {
+        "x": 63,
+        "y": 36
+      },
+      "gallery": {
+        "title": "深夜便利店・微波等待",
+        "chapter": "第一章・深夜便利店",
+        "order": 91
+      },
+      "participants": [
+        {
+          "character": "xu_tang",
+          "designVersion": 2
+        }
+      ],
+      "canonicalCgManifest": "content/production/cg-manifests/opening-ch1-com02x-microwave.json",
+      "canonicalCgEntry": "COM02X-DLG-02-MICROWAVE",
+      "knownIssues": [
+        "Human-accepted as-is under content/assets/ingest-receipts/com02x-microwave-accepted-master-v1.json; independent visual QA remains FAIL."
       ]
     }
   }

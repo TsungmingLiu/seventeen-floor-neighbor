@@ -28,7 +28,7 @@
       "entry_id": "COM02X-DLG-02-MICROWAVE",
       "scene_id": "COM-02X",
       "source_scene": "docs/narrative/scenes/vertical-slice/COM-02X.md",
-      "status": "render_ready",
+      "status": "accepted",
       "cg_class": "dialogue_cg",
       "sequence_id": null,
       "beat_range": "02X.5, later microwave-wait subsection of common_convenience_xu_work: cut in immediately after the Action 「微波爐轉了一圈。我往計時器看了一眼。」; hold from 「妳那個很趕嗎？」 through Xu 「嗯，常有人這樣以為。」; cut away before the following microwave-beep / staff meal-retrieval Action. No choice, checkout, walk or goodbye coverage.",
@@ -203,6 +203,11 @@
         "Critical face, both hands/coffee and microwave cues above the lower 25 percent and within central x=15..85 crop band. Lower quarter low-detail; moderate crop preserves conversational and waiting read.",
         "Exactly the four declared immutable references acquired, completely decoded, visibly inspected and supplied with their assigned roles in one fresh bounded rendering task. Prior accepted DLG is continuity only, never an edit base or identity/style override. No unavailable expression/production/body sheet is required.",
         "Manifest pre-render usability review, independent candidate Visual QA and Human accepted-master selection remain separate gates. This plan does not claim candidate approval, extend historical exceptions, change approved narrative/runtime, replace Memory cover or alter the existing two accepted manifest entries/assets."
+      ],
+      "known_issues": [
+        "VQA-COM02X-MICROWAVE-DIMENSIONS: Verified original PNG is 1672x941; the formal master minimum is 1920x1080.",
+        "VQA-COM02X-MICROWAVE-SAFE-ZONE-HANDS: Coffee and the gripping hand occupy the lower quarter, a drawstring is visible on the bottom edge, and the relaxed empty left hand is outside the crop.",
+        "VQA-COM02X-MICROWAVE-POSE-EMOTION-STYLE: Although her gaze is off lens, the torso remains near-frontal; the tilted, parted-lip presentation and smooth beauty lighting read polished rather than candid tired-neighbor attention."
       ]
     }
   ]

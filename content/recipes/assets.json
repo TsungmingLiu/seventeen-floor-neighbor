@@ -1,5 +1,5 @@
 {
-  "recipeVersion": 10,
+  "recipeVersion": 11,
   "defaults": {
     "style": "寫實電影感、自然皮膚紋理、可信的都市生活攝影、無UI、無文字、無水印",
     "quality": "production",
@@ -419,6 +419,33 @@
         "humanReceipt": "content/assets/ingest-receipts/com02x-accepted-masters-v1.json",
         "masterSha256": "c3b980c003dd2bcfb4dcabb769438fe67d85751f75f5fed20ceedf4ad0c3ea65",
         "derivativeSha256": "dde697e3460ed77d3d102c28ff1e25970e0e1f6912b718c764c0073704078d4d",
+        "derivativeTransform": "Pillow 12.3.0: WEBP quality=88, method=6, lossless=false; exact dimensions preserved; runtime build copies this derivative"
+      }
+    },
+    {
+      "id": "recipe.cg.opening.com02x.microwave_wait",
+      "outputAsset": "cg.opening.com02x.microwave_wait",
+      "type": "cg",
+      "dependencies": [
+        {
+          "character": "xu_tang",
+          "designVersion": 2
+        }
+      ],
+      "prompt": {
+        "scene": "Accepted immutable COM02X master; no generation is performed by this source-only recipe.",
+        "headPose": "Not applicable to source-only accepted-master ingestion.",
+        "constraints": [
+          "Runtime build copies the registered same-dimension WebP derivative."
+        ]
+      },
+      "canonicalCgManifest": "content/production/cg-manifests/opening-ch1-com02x-microwave.json",
+      "canonicalCgEntry": "COM02X-DLG-02-MICROWAVE",
+      "provenance": {
+        "acceptedMasterSourceId": "source.com02x.microwave",
+        "humanReceipt": "content/assets/ingest-receipts/com02x-microwave-accepted-master-v1.json",
+        "masterSha256": "7b8a6f5eb9dd8bfc102229e42aaf1e82a1182f20b807d3dc134df79f5e95a392",
+        "derivativeSha256": "d3006f2e29f26af80d812c1afc92de5a0807eef42fe822c80502338942cb2f24",
         "derivativeTransform": "Pillow 12.3.0: WEBP quality=88, method=6, lossless=false; exact dimensions preserved; runtime build copies this derivative"
       }
     }

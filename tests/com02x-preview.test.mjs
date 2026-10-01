@@ -61,10 +61,13 @@ test('formal COM-02X integration binds accepted CG and scene art without preview
   assert.ok(!route.assetIds.includes('bg.narrative_preview.placeholder'));
   assert.ok(route.assetIds.includes('bg.opening.com02x.convenience_night'));
   assert.ok(route.assetIds.includes('cg.opening.com02x.recognition'));
+  assert.ok(route.assetIds.includes('cg.opening.com02x.microwave_wait'));
   for (const [id, node] of Object.entries(nodes)) {
     if (!id.startsWith('common_convenience_xu_')) continue;
     if (id === 'common_convenience_xu_recognize' || id.startsWith('common_convenience_xu_recognize_')) {
       assert.deepEqual(node.visual, { mode: 'cg', asset: 'cg.opening.com02x.recognition' });
+    } else if (/^common_convenience_xu_work_(10|11|12|13|14|15)$/.test(id)) {
+      assert.deepEqual(node.visual, { mode: 'cg', asset: 'cg.opening.com02x.microwave_wait' });
     } else if (id === 'common_convenience_xu_checkout_14' || id.startsWith('common_convenience_xu_exit')) {
       assert.deepEqual(node.visual, { mode: 'composite', background: 'bg.opening.ch1.apt_elevator', sprites: [] });
     } else {
@@ -78,6 +81,12 @@ test('formal COM-02X integration binds accepted CG and scene art without preview
   assert.equal(catalog['source.com02x.dlg-01'].sha256, 'c3b980c003dd2bcfb4dcabb769438fe67d85751f75f5fed20ceedf4ad0c3ea65');
   assert.equal(receipt.humanDecision.decision, 'PASS');
   assert.equal(receipt.assets.length, 2);
+  const microwave = json('../content/assets/ingest-receipts/com02x-microwave-accepted-master-v1.json');
+  assert.equal(assets['cg.opening.com02x.microwave_wait'].kind, 'cg');
+  assert.ok(assets['cg.opening.com02x.microwave_wait'].gallery);
+  assert.equal(catalog['source.com02x.microwave'].sha256, '7b8a6f5eb9dd8bfc102229e42aaf1e82a1182f20b807d3dc134df79f5e95a392');
+  assert.equal(microwave.assets[0].visualQaStatus, 'FAIL');
+  assert.equal(microwave.assets[0].humanDisposition, 'ACCEPTED_AS_IS');
   assert.ok(receipt.assets.every(asset => asset.visualQaStatus === 'FAIL' && asset.humanDisposition === 'ACCEPTED_AS_IS'));
   const event = memory.events.find(e => e.id === 'mem.opening.ch1.convenience-xu');
   assert.equal(event.progressRank, 160);

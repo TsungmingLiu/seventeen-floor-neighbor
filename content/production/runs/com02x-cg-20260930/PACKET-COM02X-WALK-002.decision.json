@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "com02x-cg-20260930",
+  "task_id": "PACKET-COM02X-WALK-002",
+  "scene_id": "COM-02X",
+  "task_type": "cg_render",
+  "status": "PASS",
+  "workflow_version": "1.3.0",
+  "harness": {
+    "id": "cg_renderer",
+    "version": "1.0.0",
+    "pass": null
+  },
+  "source_ref": "a5be9711efa731a2b6fd4965bb7d46632ff8dd2a",
+  "packet_sha256": "3e4ce3c6013c0ff253c3fe79421467a2b1f82421deba3bedc34535fedaa6cf86",
+  "handoff_sha256": "c6116f5e35373f2b7933d8211aa937d82d4c0d934daacf35e3ba054efd52b6be",
+  "input_versions": [
+    {
+      "id": "PACKET-COM02X-WALK-002.packet.json",
+      "version": "sha256:3e4ce3c6013c0ff253c3fe79421467a2b1f82421deba3bedc34535fedaa6cf86",
+      "location": "generated/session-cache/com02x-cg-20260930/PACKET-COM02X-WALK-002.packet.json"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "COM02X-WALK-01-render-packet",
+      "version": "sha256:5b30982e063f9a8a6519be0a982df6b12c8b35e4a61939b8ad0b5113060bceca",
+      "location": "generated/session-cache/com02x-cg-20260930/COM02X-WALK-01.v2.api.jsonl"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "packet-and-dependency-identities",
+      "result": "PASS",
+      "detail": "Task packet SHA-256 and the specified v2 entry excerpt and MUA PASS decision raw SHA-256 values match the task packet."
+    },
+    {
+      "name": "manifest-check-one-entry",
+      "result": "PASS",
+      "detail": "cg:packet --check validated the machine-only manifest and reported exactly one entry."
+    },
+    {
+      "name": "single-entry-api-projection",
+      "result": "PASS",
+      "detail": "Output contains exactly one API job for COM02X-WALK-01; exact manifest, render-spec, and shared-prompt hashes are recorded in source_identity."
+    },
+    {
+      "name": "generation-and-source-change-scope",
+      "result": "PASS",
+      "detail": "Projection only; no generation, prompt edits, or canonical source edits performed."
+    }
+  ],
+  "known_issues": [],
+  "human_gate": "none"
+}

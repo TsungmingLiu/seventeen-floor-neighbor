@@ -33,7 +33,7 @@
 | Dialogue calibration policy | `docs/narrative/DIALOGUE_CALIBRATION.md` | bounded Human comparison／approval、context/scope/provenance contract、held-out pilot／停止條件 | new character canon、auto-learning、scene approval、milestone priority |
 | Approved dialogue references | `content/production/voice/approved-examples.json` | Human 明示批准的 immutable interaction versions 及限定用途；僅 Task Packet allowlist 的適用 entry 節錄可作參考 | whole-bank context、raw candidates/rejections、跨情境硬規則、canon／scene approval |
 | Visual direction | `docs/art/PRODUCTION_VISUAL_DIRECTION.md` | global visual contract、shot economy、responsive composition | scene-specific narrative choice |
-| Character identity | `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md` | identity/wardrobe/reference authority | scene purpose、camera |
+| Character identity | `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md` + `content/assets/character-reference-packs.json` | identity/wardrobe/reference authority | scene purpose、camera |
 | CG production | `docs/art/CG_PRODUCTION_SPEC.md` + `.ai/schemas/CG_MANIFEST.md` | render-ready manifest contract、projection boundary | narrative rewrite |
 | CG manifest values | `content/production/cg-manifests/<chapter>.json` | approved render-ready entries、reference bindings | global policy、renderer transport |
 | CG execution | `docs/art/CG_EXECUTION_ADAPTERS.md` + `tools/render-cg-packets.mjs` | deterministic render-packet projection / transport envelopes | creative decisions |

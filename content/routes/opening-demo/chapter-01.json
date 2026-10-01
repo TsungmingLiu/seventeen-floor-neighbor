@@ -1293,9 +1293,8 @@
       "text": "妳那個很趕嗎？",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.microwave_wait"
       },
       "next": "common_convenience_xu_work_11"
     },
@@ -1304,9 +1303,8 @@
       "text": "明早客戶要看最後一輪，過了就要送印。所以今晚得改完。",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.microwave_wait"
       },
       "next": "common_convenience_xu_work_12"
     },
@@ -1315,9 +1313,8 @@
       "text": "妳做印刷的？",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.microwave_wait"
       },
       "next": "common_convenience_xu_work_13"
     },
@@ -1326,9 +1323,8 @@
       "text": "不是啦，我做視覺設計，自己接案。只是這次做的東西剛好要印出來。",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.microwave_wait"
       },
       "next": "common_convenience_xu_work_14"
     },
@@ -1337,9 +1333,8 @@
       "text": "啊，我一聽到送印就猜那邊去了。",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.microwave_wait"
       },
       "next": "common_convenience_xu_work_15"
     },
@@ -1348,9 +1343,8 @@
       "text": "嗯，常有人這樣以為。",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.microwave_wait"
       },
       "next": "common_convenience_xu_work_16"
     },

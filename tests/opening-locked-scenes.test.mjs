@@ -155,6 +155,8 @@ test('expanded boxes keep the existing Memory and visual boundaries', () => {
       assert.notEqual(nodes[id].visual?.background, 'bg.narrative_preview.placeholder');
       if (id === 'common_convenience_xu_recognize' || id.startsWith('common_convenience_xu_recognize_')) {
         assert.deepEqual(nodes[id].visual, { mode: 'cg', asset: 'cg.opening.com02x.recognition' });
+      } else if (/^common_convenience_xu_work_(10|11|12|13|14|15)$/.test(id)) {
+        assert.deepEqual(nodes[id].visual, { mode: 'cg', asset: 'cg.opening.com02x.microwave_wait' });
       } else {
         assert.ok(['bg.opening.com02x.convenience_night', 'bg.opening.ch1.apt_elevator']
           .includes(nodes[id].visual?.background), `COM-02X node ${id} uses registered scene coverage`);

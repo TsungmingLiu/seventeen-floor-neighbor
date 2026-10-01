@@ -7,8 +7,9 @@
     "summary": "27歲東亞女性，身高約170公分，橢圓臉、偏狹長杏眼與深棕瞳孔，淡玫瑰色嘴唇；深棕長髮可依場景整理為不同造型。整體氣質清冷、安靜而鬆弛。",
     "face": "精緻自然的橢圓臉與柔和下頜線，偏狹長杏眼，深棕瞳孔，纖細鼻樑，淡玫瑰色嘴唇；自然淡妝，白皙肌膚保留真實紋理與淡淡地色陰影。",
     "hair": "深棕色長髮，髮量與長度固定；造型由 hairstyles 模組依場景指定，額前和臉側保留自然不對稱碎髮。",
-    "accessories": "極細銀色素圈戒指與微小珍珠或銀色耳釘，不佩戴醒目項鍊。",
-    "body": "成年女性，約170公分，修長清瘦但比例自然，肩頸線條放鬆，不誇張強調身材。"
+    "accessories": "固定大型金色 hoop earrings；其他細項飾品按 production consistency 與對應 wardrobe sheet。",
+    "body": "成年女性，約170公分，修長清瘦但比例自然，肩頸線條放鬆，不誇張強調身材。",
+    "visualAuthority": "docs/art/CHARACTER_REFERENCE_PACK_SPEC.md"
   },
   "behavior": {
     "hook": "很會替別人化解尷尬，但一定會順手補一刀；關心總包裝成順便或住戶義務。",
@@ -37,27 +38,40 @@
     "保持同一橢圓臉型和五官比例",
     "保持偏狹長杏眼、深棕瞳孔與自然淡妝",
     "保持深棕長髮、固定髮量與自然臉側碎髮；允許依 hairstyles 模組更換造型",
-    "保持小型銀色耳釘與極細銀色素圈戒指",
+    "保持大型金色 hoop earrings；其他飾品依 production consistency sheet",
     "所有畫面明確呈現為27歲成年人",
     "避免幼態化、動漫化、過度磨皮或誇張身材"
   ],
   "references": [
     {
-      "role": "primary_identity",
+      "role": "primary_face_identity",
       "name": "xt-ref-01-face.png",
       "sourceId": "ref.xu_tang.face.01"
     },
     {
-      "role": "body_proportions_optional",
-      "name": "xt-ref-03-body.jpeg",
-      "sourceId": "ref.xu_tang.body.03",
-      "sha256": "d436d6ceeda95a2cd8115087d6b49e39baa72ec2f7552909da2b9a2eb933cdd4",
-      "usage": "Optional body/proportion reference. User-supplied JPEG replaces an unavailable former Drive PNG as a new byte sequence; it is not claimed byte-identical or pixel-equivalent to that PNG."
+      "role": "expression",
+      "name": "xt-ref-02-expression.png",
+      "sourceId": "ref.xu_tang.expression.02"
     },
     {
-      "role": "wardrobe_a",
+      "role": "body_proportions",
+      "name": "xt-ref-03-body.png",
+      "sourceId": "ref.xu_tang.body.03"
+    },
+    {
+      "role": "production_consistency",
+      "name": "xt-ref-04-production.png",
+      "sourceId": "ref.xu_tang.production.04"
+    },
+    {
+      "role": "wardrobe",
       "name": "xt-ref-05-wardrobe-a.png",
       "sourceId": "ref.xu_tang.wardrobe.a"
+    },
+    {
+      "role": "wardrobe",
+      "name": "xt-ref-06-wardrobe-b.png",
+      "sourceId": "ref.xu_tang.wardrobe.b"
     }
   ],
   "hairstyles": {
@@ -138,7 +152,7 @@
     },
     "evening_private": {
       "version": 1,
-      "description": "深海軍藍方領緞面中長裙，回到室內後脫下黑色西裝外套，保留簡潔銀色耳釘與戒指。",
+      "description": "深海軍藍方領緞面中長裙，回到室內後脫下黑色西裝外套，保留固定大型金色 hoop earrings；其他飾品依 production consistency sheet。",
       "invariants": [
         "緞面裙保持深海軍藍、方領、中長裙長與克制光澤",
         "室內造型不穿西裝外套，呈現正式活動結束後的放鬆狀態",

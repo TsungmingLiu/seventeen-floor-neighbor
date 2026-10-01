@@ -356,7 +356,7 @@ Roadmap 只維護工作所在的 horizon，不維護完整 task list。
 
 目前尚需：
 
-- COM-02X 兩張 Human accepted-as-is masters 已在本地整合為正式 BG／Gallery CG，`validate:final`、node／Memory rank／choice／state invariant checks 已通過；待 PR Cloudflare preview 的 save/reload、Gallery 與遠端 browser smoke 證據；
+- COM-02X 原兩張與新增 microwave Human accepted-as-is masters 已在本地整合為正式 BG／Gallery CG，83 nodes／四 choices／文本與 state／Memory rank 160 保持；已合併完整角色參考包清理。Walk 僅人物 component reference 獲批准，背景角度修訂 manifest 已由 fresh Planner 完成，render／獨立 Visual QA／完整 master 選擇尚待 fresh stages；本批 build/assets、production validation／validate:final、preview smoke 通過；host Node 25 full tests 87/91，四項受 temporary checkout symlink／mmap 限制，fresh Node 22 verification 尚待 PR 推送，PR Cloudflare preview 的 save/reload、Gallery 與遠端 browser smoke 待推送；
 - 沿用已實作的定點 impact／provenance，補目前 scene 受控 material change 與實際整合阻擋的證據；
 - 補 release-oriented placeholder／provisional／accepted coverage 判定，完成當前版本的 M0 Exit Gate review；沿用最新 main Verify、遠端 Chromium、Cloudflare 部署 smoke 與人工敘事批准。Codespaces 不列入必要 gate。
 
@@ -425,7 +425,7 @@ M0 — Foundation Stable
 **Current Critical Path**
 
 ```text
-COM-02X final visual integration locally verified; PR Cloudflare preview/save/Gallery smoke pending
+COM-02X accepted BG/recognition/microwave integrated; walk angle revision and PR Cloudflare preview/save/Gallery smoke pending
 → current material-change / stale integration evidence
 → placeholder / provisional / accepted coverage validation
 → M0 Exit Gate review
