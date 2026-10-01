@@ -19,6 +19,7 @@ const OPENING_RECEIPT = 'content/assets/ingest-receipts/opening-ch1-demo-v0.1.js
 const OPENING_ROUTE = 'content/routes/opening-demo/route.json';
 const SOURCE_CATALOG = 'content/assets/source-catalog.json';
 const GATE3_RECEIPT = 'content/assets/ingest-receipts/repo-source-gate3-v1.json';
+const COM02X_REFERENCE_RECEIPT = 'content/assets/ingest-receipts/com02x-environment-reference-v1.json';
 const ORCHESTRATION = '.ai/PRODUCTION_ORCHESTRATION.md';
 const SOURCE_MAP = 'docs/CONTENT_PRODUCTION_SOURCE_MAP.md';
 const DRY_RUN = 'tests/fixtures/production-orchestration-dry-run.json';
@@ -354,7 +355,17 @@ function validateGate3RepositorySources(catalog) {
   invariant([...referenceIds].some((id) => id === 'ref.xu_tang.body.03'), 'Gate 3 receipt must include the user-provided Xu Tang body JPEG');
   invariant(receipt.references.filter((item) => item.mimeType === 'image/png').length === 4 && receipt.references.filter((item) => item.mimeType === 'image/jpeg').length === 1, 'Gate 3 references must be four PNGs plus one JPEG');
   invariant(acceptedIds.size === 15 && referenceIds.size === 5, 'Gate 3 accepted source IDs must be unique');
-  invariant(Object.keys(catalog.files).length === acceptedIds.size + referenceIds.size, 'source catalog contains an unexpected active source set');
+  const currentReference = readJson(COM02X_REFERENCE_RECEIPT);
+  const currentId = 'ref.com02x.environment.convenience_night';
+  const currentSource = catalog.files[currentId];
+  invariant(currentReference.receiptVersion === 1 && currentReference.receiptType === 'supporting-environment-reference-source', 'COM-02X reference receipt identity is invalid');
+  invariant(currentReference.sourceId === currentId && currentReference.role === 'environment_reference', 'COM-02X reference receipt source identity is invalid');
+  invariant(currentReference.acceptanceScope === 'supporting_environment_reference_only' && currentReference.runtimeMasterAcceptance === 'NOT_ACCEPTED', 'COM-02X reference receipt exceeds supporting-reference scope');
+  invariant(currentReference.currentReferenceQa?.taskId === 'VQA-ENV-COM02X-002' && currentReference.currentReferenceQa?.result === 'PASS', 'COM-02X reference receipt lacks the current QA decision');
+  invariant(currentSource && currentSource.role === currentReference.role && currentSource.sourcePath === currentReference.sourcePath && currentSource.name === currentReference.filename, 'COM-02X reference catalog identity mismatch');
+  for (const key of ['mimeType', 'sha256', 'bytes', 'width', 'height']) invariant(currentSource[key] === currentReference[key], `COM-02X reference catalog ${key} mismatch`);
+  invariant(currentSource.status === 'optional-reference' && currentSource.verifiedDecode === true, 'COM-02X source must remain a decoded optional reference');
+  invariant(Object.keys(catalog.files).length === acceptedIds.size + referenceIds.size + 1, 'source catalog contains an unknown or unreceipted source');
   return receipt;
 }
 

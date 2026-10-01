@@ -303,6 +303,19 @@
       "characterId": "jiang_yucheng",
       "role": "wardrobe",
       "provenance": "Previously approved original PNG sheet copied byte-for-byte"
+    },
+    "ref.com02x.environment.convenience_night": {
+      "name": "com02x-convenience-night-reference-v1.png",
+      "mimeType": "image/png",
+      "sourcePath": "assets-src/references/environments/com02x-convenience-night-reference-v1.png",
+      "bytes": 2632483,
+      "width": 1672,
+      "height": 941,
+      "sha256": "44b21d81cfac0dcbbd97ecd203c87553ca549651bb4b45aa7a96614102164bb3",
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "role": "environment_reference",
+      "provenance": "QA-approved supporting environment reference only; see content/assets/ingest-receipts/com02x-environment-reference-v1.json"
     }
   }
 }

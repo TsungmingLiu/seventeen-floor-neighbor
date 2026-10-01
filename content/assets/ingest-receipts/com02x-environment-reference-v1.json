@@ -1,0 +1,32 @@
+{
+  "receiptVersion": 1,
+  "receiptType": "supporting-environment-reference-source",
+  "sourceId": "ref.com02x.environment.convenience_night",
+  "role": "environment_reference",
+  "sourcePath": "assets-src/references/environments/com02x-convenience-night-reference-v1.png",
+  "filename": "com02x-convenience-night-reference-v1.png",
+  "mimeType": "image/png",
+  "sha256": "44b21d81cfac0dcbbd97ecd203c87553ca549651bb4b45aa7a96614102164bb3",
+  "bytes": 2632483,
+  "width": 1672,
+  "height": 941,
+  "acceptanceScope": "supporting_environment_reference_only",
+  "runtimeMasterAcceptance": "NOT_ACCEPTED",
+  "generation": {
+    "artifactId": "COM02X-ENV-CANDIDATE-001",
+    "manifestVersion": "1.0.0",
+    "renderDecisionSha256": "10114fa509aa400d62702bf5dcca4f21ddc4077180c4ceaa18689897034c02b8"
+  },
+  "currentReferenceQa": {
+    "taskId": "VQA-ENV-COM02X-002",
+    "decisionPath": "content/production/runs/com02x-cg-20260930/VQA-ENV-COM02X-002.decision.json",
+    "decisionBlobSha": "0be6d47549f56c34ea1a6c3c57a36e00d707adcb",
+    "reviewedManifestVersion": "1.0.1",
+    "scope": "supporting_environment_reference_only",
+    "result": "PASS"
+  },
+  "notes": [
+    "Original generation manifest 1.0.0 and prior FAIL remain unchanged.",
+    "This registration grants no runtime asset, route, Gallery, accepted-master or Human selected-master status."
+  ]
+}
