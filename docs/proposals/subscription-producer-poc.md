@@ -79,6 +79,8 @@ It intentionally does **not** use legacy `--sandbox workspace-write`, because th
 
 ## Conversational entrypoint
 
+The target surface is a **repo-scoped Codex conversation**, including Codex Remote controlled from the ChatGPT mobile app. An arbitrary ordinary ChatGPT conversation with no development host/repo execution context is not considered a successful execution surface for this POC.
+
 The repo-scoped skill lives at:
 
 ```text
@@ -98,6 +100,22 @@ A follow-up such as:
 should be answered from the already-returned QA result in the same conversation. It must not cause the parent to open the creative source and redo the specialist judgment itself.
 
 The POC remains deliberately narrow: a request to rewrite, integrate, render CG, or run a full production loop must not silently widen this experiment.
+
+### Two-turn acceptance benchmark
+
+Start a fresh repo-scoped Codex/Remote conversation on this branch and send only:
+
+> 幫我對 COM-00 跑一次獨立 Narrative QA，不要改內容。
+
+Pass only if the parent invokes the backend itself and returns the compact review result without asking the Human to open a terminal.
+
+Then send:
+
+> 把剛才沒有 PASS 的項目用白話解釋一下；先不要改任何東西。
+
+Pass only if the same parent conversation explains the already-returned findings without opening creative source to perform a second shadow review and without dispatching an unauthorized retry.
+
+This two-turn benchmark tests the actual product UX: natural-language start plus conversational steering, not merely backend executability.
 
 ## Dry run
 
