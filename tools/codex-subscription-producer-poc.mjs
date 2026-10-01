@@ -280,13 +280,17 @@ export function codexExecArgs({ workspace, schemaPath, outputPath, model } = {})
     '--output-schema', schemaPath,
     '--output-last-message', outputPath,
     '-c', 'approval_policy="never"',
+    '-c', 'forced_login_method="chatgpt"',
+    '-c', 'history.persistence="none"',
     '-c', 'default_permissions="poc-worker"',
     '-c', permissionTable,
     '-c', 'permissions.poc-worker.network={enabled=false}',
     '-c', 'web_search="disabled"',
+    '-c', 'tools.web_search=false',
     '-c', 'features.apps=false',
     '-c', 'features.multi_agent=false',
     '-c', 'features.memories=false',
+    '-c', 'features.skill_mcp_dependency_install=false',
     '-c', 'shell_environment_policy.include_only=["PATH"]'
   ];
   if (model) args.push('--model', model);
