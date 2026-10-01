@@ -1,0 +1,127 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "com02x-cg-20260930",
+  "task_id": "RENDER-COM02X-DLG-001",
+  "scene_id": "COM-02X",
+  "task_type": "cg_render",
+  "status": "PASS",
+  "workflow_version": "1.3.0",
+  "harness": {
+    "id": "cg_renderer",
+    "version": "1.0.0",
+    "pass": null
+  },
+  "source_ref": "47a62461a70cf137abc20ad314cb19314464fb0d",
+  "packet_sha256": "e018364cf6434afabbd50744691bdf324726c6ee53e8751fc7a3321fc86adcd2",
+  "handoff_sha256": "a0421e55dcd9baa2ecb91cce55d13492b7df59ef7beba74901433e038108fd59",
+  "input_versions": [
+    {
+      "id": "entry-excerpt:COM02X-DLG-01",
+      "version": "e1caa87d34cf8b67466f54f755a3c63c44f9faae59cb39139c2127c5d9eef372",
+      "location": "entry:COM02X-DLG-01",
+      "derived_from": "content/production/cg-manifests/opening-ch1-com02x.json",
+      "entry_id": "COM02X-DLG-01"
+    },
+    {
+      "id": "render-packet:COM02X-DLG-01",
+      "version": "8ff85aa0a3ec9f1a84a7dd587bf0dfff56e739edf414fae3432fb2bd6cfc5942",
+      "location": "derived:COM02X-DLG-01",
+      "rebuild": {
+        "tool": "tools/render-cg-packets.mjs",
+        "manifest": "content/production/cg-manifests/opening-ch1-com02x.json",
+        "entry": "COM02X-DLG-01",
+        "adapter": "api",
+        "source_ref": "47a62461a70cf137abc20ad314cb19314464fb0d"
+      }
+    },
+    {
+      "id": "deterministic-projection-decision:COM02X-DLG-01",
+      "version": "a57ca2a704f0a8a4f5cd67d77d8eb4ca3ba802377e2b81b04cd95aff61c809c7",
+      "location": "content/production/runs/com02x-cg-20260930/PACKET-COM02X-DLG-001.decision.json"
+    },
+    {
+      "id": "ref.xu_tang.face.01",
+      "version": "2fd137f796d0e7667a5913748158f75705b1a538b346b9e7f76aacb3c79acfd0",
+      "location": "assets-src/references/xu-tang/xt-ref-01-face.png"
+    },
+    {
+      "id": "ref.xu_tang.wardrobe.a",
+      "version": "aaf33f06f3e39fc476deee03ab261a43e0911b8393366ae7399c633abfadc716",
+      "location": "assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png"
+    },
+    {
+      "id": "ref.com02x.environment.convenience_night",
+      "version": "44b21d81cfac0dcbbd97ecd203c87553ca549651bb4b45aa7a96614102164bb3",
+      "location": "assets-src/references/environments/com02x-convenience-night-reference-v1.png"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "COM02X-DLG-01-CANDIDATE-001",
+      "version": "c3b980c003dd2bcfb4dcabb769438fe67d85751f75f5fed20ceedf4ad0c3ea65",
+      "location": "/Users/tsungmingliu/Documents/Codex/2026-09-30/com02x-cg-production/outputs/com02x-dlg-01-candidate-v1.png"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "unchanged_shared_prompt_hash",
+      "result": "PASS"
+    },
+    {
+      "name": "all_declared_reference_pixels_verified_and_viewed",
+      "result": "PASS"
+    },
+    {
+      "name": "exactly_one_builtin_generation_call",
+      "result": "PASS"
+    },
+    {
+      "name": "original_tool_output_copied_byte_identically",
+      "result": "PASS"
+    },
+    {
+      "name": "formal_master_minimum_1920x1080",
+      "result": "FAIL"
+    }
+  ],
+  "known_issues": [
+    {
+      "code": "formal_master_below_minimum",
+      "detail": "Actual output is 1672x941; required formal master minimum is 1920x1080. Renderer orchestration passed; visual QA remains pending."
+    }
+  ],
+  "human_gate": "accepted_master_image_selection",
+  "generation_provenance": {
+    "task_packet_raw_sha256": "e018364cf6434afabbd50744691bdf324726c6ee53e8751fc7a3321fc86adcd2",
+    "render_packet_raw_sha256": "8ff85aa0a3ec9f1a84a7dd587bf0dfff56e739edf414fae3432fb2bd6cfc5942",
+    "manifest_raw_sha256": "023e359c738ca1ae1ab83f4a6ea0add08c403372b629ed1f2dbd72d90e4036a1",
+    "manifest_projection_sha256": "3c23bc9d74bb38401ae51da3c170caa143cf5fab06ba0b1230a44379485c8ec0",
+    "render_spec_sha256": "18ee43f0a6d2916ada45c6cfe56b719213b9a76ea412fd805b938bf947a5046c",
+    "shared_prompt_sha256": "c9d5d1cd72b7f87ad2f781784ab62e6c5849cd83ea65cc079a6a20bf369166fd"
+  },
+  "attachment_bindings": [
+    {
+      "role": "primary_face_identity",
+      "observed_filename": "xt-ref-01-face.png",
+      "canonical_source": "assets-src/references/xu-tang/xt-ref-01-face.png",
+      "pixels_verified": true,
+      "version": "2fd137f796d0e7667a5913748158f75705b1a538b346b9e7f76aacb3c79acfd0"
+    },
+    {
+      "role": "wardrobe",
+      "observed_filename": "xt-ref-05-wardrobe-a.png",
+      "canonical_source": "assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png",
+      "pixels_verified": true,
+      "version": "aaf33f06f3e39fc476deee03ab261a43e0911b8393366ae7399c633abfadc716"
+    },
+    {
+      "role": "environment_reference",
+      "observed_filename": "com02x-convenience-night-reference-v1.png",
+      "canonical_source": "assets-src/references/environments/com02x-convenience-night-reference-v1.png",
+      "pixels_verified": true,
+      "version": "44b21d81cfac0dcbbd97ecd203c87553ca549651bb4b45aa7a96614102164bb3"
+    }
+  ],
+  "generation_output_identity": "opening-ch1-com02x-minimum-formal-cg@1.0.0 / 3c23bc9d74bb38401ae51da3c170caa143cf5fab06ba0b1230a44379485c8ec0",
+  "generation_call_count": 1
+}
