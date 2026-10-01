@@ -211,10 +211,10 @@ test('opening preview plays COM-00 → COM-01X → COM-01J → COM-02X and saves
     );
     const imageSrc = await page.locator('#scene-image').getAttribute('src');
     if (nodeId === 'common_convenience_xu_recognize') {
-      expect(imageSrc).toContain('/assets/opening-ch1-demo/com02x-dlg-01-v1.webp');
+      expect(new URL(imageSrc, page.url()).pathname).toBe('/assets/opening-ch1-demo/com02x-dlg-01-v1.webp');
     }
     if (nodeId === 'common_convenience_xu_choice') {
-      expect(imageSrc).toContain('/assets/opening-ch1-demo/com02x-bg-01-v1.webp');
+      expect(new URL(imageSrc, page.url()).pathname).toBe('/assets/opening-ch1-demo/com02x-bg-01-v1.webp');
       await page.locator('#choice-list .choice-button').first().click();
       break;
     }
