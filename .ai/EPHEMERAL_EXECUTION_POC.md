@@ -81,8 +81,9 @@ Metrics count those shared reads in **both** baselines and the compiled input:
   the worker; feeding them too would increase context.
 
 UTF-8 byte counts measure input volume, **not tokens, model inference overhead or
-billed quota**. No model usage telemetry or repeated fresh-worker A/B trial is
-available here. File-read consolidation alone does not prove quota savings, and
+billed quota**. This initial compiler comparison has no model usage telemetry;
+the separate Phase 2 trial below collects it. File-read consolidation alone does
+not prove quota savings, and
 the existing excerpt resolver's benefits must not be attributed to new tooling.
 The initial results and validation evidence belong in the PR description rather
 than tracked per-run measurement files.
@@ -173,3 +174,20 @@ Report cumulative and per-case tokens, cached/reasoning counts, elapsed time,
 misses and control findings. Subscription quota reduction remains unmeasured.
 Keep all raw outputs and blind label keys ignored. Record only reusable tooling,
 regeneration instructions and a concise outcome in the PR.
+
+## Versioned comparisons after updating main
+
+Keep each prepared run's source, base, resolver, compiler and instruction hashes
+fixed. Integrating main creates a new measurement snapshot; do not combine tokens
+from different snapshots or assume a prior semantic pilot reviewed new sources.
+Historical preparation/review requires a separate checkout at the corresponding
+tooling checkpoint with matching canonical bytes. The pilot at `2473e20` uses
+source `fb21d1a7ffb959aac49dcc264f07805c7a8372e7` and base
+`13e4d71d1a0590d19b690d2ac292a7e081d8d539`. Its generated artifacts stay ignored.
+
+The latest-main snapshot at `86bf16c` uses that commit as source and `fb21d1a7`
+as base. Prepare it separately; it contains main's production storage rules and
+source-map changes, while narrative writer/QA harnesses and target prose are
+unchanged. A deterministic comparison is not a second measured model trial.
+Reusing the latest `production:storage:check` complements the narrower session
+cache guard; neither check creates or advances a production run.
