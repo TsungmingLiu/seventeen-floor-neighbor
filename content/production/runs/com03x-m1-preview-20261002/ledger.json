@@ -1,0 +1,42 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_checkpoint",
+  "run_id": "com03x-m1-preview-20261002",
+  "workflow_version": "1.3.0",
+  "source_ref": "bbc771dc9c3452400b81f28efd1430813331fdea",
+  "human_request": {
+    "summary": "Start M1 with COM-03X design, dialogue, independent QA and playable narrative preview; update PR44.",
+    "gate_status": "M1 work authorized; later Human narrative preview review pending"
+  },
+  "status": "ACTIVE",
+  "tasks": [
+    {
+      "task_id": "NQA-COM03X-001",
+      "task_type": "narrative_review",
+      "scene_id": "COM-03X",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual:task-packet-schema-v1.3.0",
+        "sha256": "4a8d697eece918c9180463d68061b8d84b6d24ae56dc29b7b7fb226cb7f65bc6"
+      },
+      "decision_receipt": "content/production/runs/com03x-m1-preview-20261002/NQA-COM03X-001.decision.json",
+      "human_gate": "none",
+      "reason": "Compact resume boundary at exact committed scene/contract; verified writer attempts stay in ignored job state. Fresh independent QA completed."
+    },
+    {
+      "task_id": "INT-COM03X-PREVIEW-001",
+      "task_type": "integrate",
+      "scene_id": "COM-03X",
+      "depends_on": [
+        "NQA-COM03X-001"
+      ],
+      "status": "READY",
+      "decision_receipt": null,
+      "human_gate": "narrative_preview_review",
+      "reason": null
+    }
+  ],
+  "invalidation_events": [],
+  "preview": null
+}
