@@ -3,7 +3,7 @@ import { execFileSync } from 'node:child_process';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { buildBenchmark, resultSchema, selectHeadings } from './benchmark-review-context.mjs';
+import { buildBenchmark, parseWorkerEvents, resultSchema, selectHeadings } from './benchmark-review-context.mjs';
 import { writeScratchFiles } from './compile-review-context.mjs';
 import { configuredTrial, readonlyWorker } from './readonly-quota-worker.mjs';
 
@@ -192,16 +192,22 @@ export function scoreDelta(records, key) {
     const full = get(`full-${item.id}`), delta = get(`delta-${item.id}`);
     const detects = (row) => item.gold.kind !== 'hard' ? null : row.result.findings.some((finding) => finding.category === item.gold.category && finding.severity === 'hard' && finding.node.includes(item.gold.node));
     const escalated = requiresFull(delta.result);
-    return { case_id: item.id, full_tokens: full.total_tokens, delta_tokens: delta.total_tokens,
+    return { case_id: item.id, required_base_review: item.base_review, full_tokens: full.total_tokens, delta_tokens: delta.total_tokens,
       fallback_required: escalated, delta_flow_tokens: delta.total_tokens + (escalated ? full.total_tokens : 0),
       full_hard_detected: detects(full), delta_hard_detected: detects(delta),
       control_hard_findings: item.gold.kind === 'control' ? { full: full.result.findings.filter((finding) => finding.severity === 'hard'), delta: delta.result.findings.filter((finding) => finding.severity === 'hard') } : null };
   });
   const fixed = get('foundation').total_tokens + get('final').total_tokens;
   const budget = (subset) => {
-    const full = fixed + subset.reduce((sum, row) => sum + row.full_tokens, 0);
-    const delta = fixed + subset.reduce((sum, row) => sum + row.delta_flow_tokens, 0);
-    return { full_tokens: full, delta_tokens: delta, reduction_percent: Number((100 * (full - delta) / full).toFixed(2)), includes_foundation_and_final_full: true };
+    // D02 dispatch requires full-D01, even if delta-D01 passed. Account for
+    // that real prerequisite in BOTH workflows; deduplicate any fallback role.
+    const bases = [...new Set(subset.map((row) => row.required_base_review).filter((name) => name !== 'foundation'))];
+    const fullCalls = new Set([...bases, ...subset.map((row) => `full-${row.case_id}`)]);
+    const deltaFullCalls = new Set([...bases, ...subset.filter((row) => row.fallback_required).map((row) => `full-${row.case_id}`)]);
+    const full = fixed + [...fullCalls].reduce((sum, name) => sum + get(name).total_tokens, 0);
+    const delta = fixed + subset.reduce((sum, row) => sum + row.delta_tokens, 0) + [...deltaFullCalls].reduce((sum, name) => sum + get(name).total_tokens, 0);
+    return { full_tokens: full, delta_tokens: delta, reduction_percent: Number((100 * (full - delta) / full).toFixed(2)),
+      required_intermediate_full_reviews: bases, includes_foundation_and_final_full: true };
   };
   const mixed = budget(pairs), controls = budget(pairs.filter((row) => row.control_hard_findings !== null));
   const hardPassed = pairs.filter((row) => row.full_hard_detected !== null).every((row) => row.full_hard_detected && row.delta_hard_detected && row.fallback_required);
@@ -210,7 +216,7 @@ export function scoreDelta(records, key) {
     actual_unique_trial_tokens: records.reduce((sum, row) => sum + row.total_tokens, 0),
     mechanical_threshold_met: hardPassed && mixed.reduction_percent >= 20 && get('final').result.status === 'PASS' && get('final').result.naturalism === 'PASS',
     human_blind_review: 'PENDING', adoption: 'NOT_APPROVED', quota_reduction: 'NOT_MEASURED',
-    note: 'Measured paired inputs, modeled workflow budgets. D03 paired full is also fallback evidence; its tokens count once in actual consumption. No semantic safety proof from Markdown topology. Final full is mandatory even when delta says PASS.' };
+    note: 'Measured paired inputs, modeled workflow budgets. Charge full-reviewed intermediate bases as well as foundation/fallback/final. Shared base/fallback roles are deduplicated. D03 paired full is also fallback evidence; its tokens count once in actual consumption. No semantic safety proof from Markdown topology. Final full is mandatory even when delta says PASS.' };
 }
 
 export async function runDelta({ root = rootDefault, runId } = {}) {
@@ -265,17 +271,50 @@ export async function reviewDelta({ root = rootDefault, runId } = {}) {
   return `${relative}/blind-review.html`;
 }
 
+export async function rescoreDelta({ root = rootDefault, runId } = {}) {
+  if (!/^[a-zA-Z0-9_-]+$/.test(runId || '')) throw new Error('invalid run ID');
+  const relative = `generated/session-cache/quota-delta/${runId}`, directory = path.join(root, relative);
+  const manifestBody = await readFile(path.join(directory, 'manifest.json'), 'utf8');
+  const manifest = JSON.parse(manifestBody);
+  const rebuilt = await buildDelta({ root, ref: manifest.source_ref, base: manifest.base_ref });
+  // Accounting-only updates may change this tool's hash, never prepared inputs,
+  // fixture/gold expectations, schedule, thresholds, instructions or other tools.
+  const comparable = structuredClone(rebuilt.manifest);
+  comparable.tool_bindings['delta-review-poc.mjs'] = manifest.tool_bindings['delta-review-poc.mjs'];
+  if (encode(comparable) !== manifestBody) throw new Error('non-accounting manifest drift');
+  for (const [name, value] of rebuilt.files) if (name !== 'manifest.json' && await readFile(path.join(directory, name), 'utf8') !== value) throw new Error(`prepared input drift: ${name}`);
+  const records = [], bindings = [];
+  const instructions = await readFile(path.join(directory, 'instructions.md'), 'utf8');
+  for (const name of manifest.trial_schedule) {
+    const raw = await readFile(path.join(directory, `${name}.result.json`), 'utf8');
+    const record = JSON.parse(raw);
+    const events = await readFile(path.join(directory, `${name}.events.jsonl`), 'utf8');
+    const parsed = parseWorkerEvents(events);
+    if (record.name !== name || record.input_sha256 !== hash(await readFile(path.join(directory, `${name}.input.md`))) || record.instructions_sha256 !== hash(instructions) ||
+        record.total_tokens !== parsed.total_tokens || JSON.stringify(record.usage) !== JSON.stringify(parsed.usage) || JSON.stringify(record.result) !== JSON.stringify(parsed.result)) throw new Error(`raw result drift: ${name}`);
+    records.push(record);
+    bindings.push({ name, result_sha256: hash(raw), events_sha256: hash(events) });
+  }
+  const key = JSON.parse(await readFile(path.join(directory, 'scoring-key.json'), 'utf8'));
+  const corrected = { ...scoreDelta(records, key), accounting_correction: 'Include mandatory full-D01 as D02 base; inputs/schedule/gold/threshold unchanged. No repeated model calls.',
+    original_manifest_sha256: hash(manifestBody), original_summary_sha256: hash(await readFile(path.join(directory, 'trial-summary.json'))),
+    accounting_tool_sha256: rebuilt.manifest.tool_bindings['delta-review-poc.mjs'], raw_record_bindings: bindings };
+  await writeScratchFiles(relative, [['trial-summary-corrected.json', encode(corrected)]], { root });
+  return corrected;
+}
+
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   try {
     const args = process.argv.slice(2), options = {};
     for (let i = 0; i < args.length; i++) {
-      if (['--prepare', '--run', '--review'].includes(args[i])) { if (options.mode) throw new Error('choose one mode'); options.mode = args[i]; }
+      if (['--prepare', '--run', '--review', '--rescore'].includes(args[i])) { if (options.mode) throw new Error('choose one mode'); options.mode = args[i]; }
       else if (['--run-id', '--ref', '--base'].includes(args[i])) { const name = args[i].slice(2); if (!args[++i] || args[i].startsWith('--')) throw new Error('missing value'); options[name] = args[i]; }
       else throw new Error('unknown option');
     }
-    if (!options.mode || !/^[a-zA-Z0-9_-]+$/.test(options['run-id'] || '')) throw new Error('usage: --prepare|--run|--review --run-id <id> [--ref <ref> --base <ref>]');
+    if (!options.mode || !/^[a-zA-Z0-9_-]+$/.test(options['run-id'] || '')) throw new Error('usage: --prepare|--run|--review|--rescore --run-id <id> [--ref <ref> --base <ref>]');
     if (options.mode === '--run') console.log(encode(await runDelta({ runId: options['run-id'] })));
     else if (options.mode === '--review') console.log(await reviewDelta({ runId: options['run-id'] }));
+    else if (options.mode === '--rescore') console.log(encode(await rescoreDelta({ runId: options['run-id'] })));
     else {
       const { loadAndValidate } = await import('./content-lib.mjs');
       const { validateProductionContracts } = await import('./validate-production-contracts.mjs');

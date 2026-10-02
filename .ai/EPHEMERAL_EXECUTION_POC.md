@@ -98,7 +98,8 @@ baseline and collect real model usage plus review-quality results first. Git hun
 ranges alone cannot prove unaffected continuity or preserved QA quality.
 
 No narrative content, runtime, CG, harness refactor, production gate changes,
-new validator framework or delta QA is part of this prototype.
+new validator framework or delta QA is part of the initial compiler prototype.
+The separate experimental Phase 3 below tests a delta QA hypothesis.
 
 
 ## Phase 2: paired reduction benchmark
@@ -243,9 +244,22 @@ measurement serves as fallback evidence when escalated. No previous answers/gold
 are fed to workers; this shared reference role is explicit, not extra claimed calls.
 
 Report each pair and both low-risk/mixed-probe **modeled workflow budgets**, charging
-foundation, fallback and final full; also report actual unique tokens separately.
+foundation, intermediate full-reviewed bases, fallback and final full; also report
+actual unique tokens separately. D02's required `full-D01` base is charged even
+when delta-D01 passes. A full record serving both base/fallback roles counts once.
 Three probes are not an estimate of production edit frequency. The preset gate
 requires both arms to detect the hard probe, delta to escalate, final full to PASS,
 and at least 20% inclusive mixed-probe token reduction. Human blind comparison
 remains separate and adoption stays NOT_APPROVED. A failed economics hypothesis
 is a valid result; do not reduce required context after seeing it merely to pass.
+
+The first actual delta snapshot is pinned at `c24ad3d`. A later accounting fix
+adds the previously omitted intermediate full-base cost without changing its
+inputs, schedule, findings or thresholds. Retain its raw pre-fix summary and
+write corrected analysis as a separate ignored artifact with raw-record/tool
+hash bindings; report corrected budgets. Historical blind-page reconstruction
+uses the original checkpoint. No model calls are repeated for an arithmetic fix.
+The reusable `--rescore --run-id delta-01` command verifies every prepared file
+and manifest field except this tool's version hash, matches results to raw usage
+events and input hashes, and exclusively creates `trial-summary-corrected.json`.
+It refuses any change to the experiment; raw summaries/results remain untouched.

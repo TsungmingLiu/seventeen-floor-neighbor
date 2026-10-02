@@ -70,10 +70,10 @@ test('inclusive budget charges fallback and final full, reports regressions and 
     result: { status: name.endsWith('D03') ? 'FAIL' : 'PASS', naturalism: 'PASS', findings: name.endsWith('D03')
       ? [{ category: 'knowledge', severity: 'hard', node: 'common_convenience_xu_work', evidence: 'office', reason: 'contradiction' }] : [] } }));
   const score = scoreDelta(records, key);
-  assert.deepEqual(score.low_risk_iteration_budget, { full_tokens: 400, delta_tokens: 320, reduction_percent: 20, includes_foundation_and_final_full: true });
+  assert.deepEqual(score.low_risk_iteration_budget, { full_tokens: 400, delta_tokens: 420, reduction_percent: -5, required_intermediate_full_reviews: ['full-D01'], includes_foundation_and_final_full: true });
   assert.equal(score.mixed_probe_budget.full_tokens, 500);
-  assert.equal(score.mixed_probe_budget.delta_tokens, 480);
-  assert.equal(score.mixed_probe_budget.reduction_percent, 4);
+  assert.equal(score.mixed_probe_budget.delta_tokens, 580);
+  assert.equal(score.mixed_probe_budget.reduction_percent, -16);
   assert.equal(score.actual_unique_trial_tokens, 680);
   assert.equal(score.mechanical_threshold_met, false);
   assert.equal(score.adoption, 'NOT_APPROVED');
@@ -84,4 +84,8 @@ test('inclusive budget charges fallback and final full, reports regressions and 
   missed.find((row) => row.name === 'delta-D03').result.findings = [];
   missed.find((row) => row.name === 'delta-D03').result.status = 'PASS';
   assert.equal(scoreDelta(missed, key).mechanical_threshold_met, false);
+  const fallbackBase = structuredClone(records);
+  fallbackBase.find((row) => row.name === 'delta-D01').result.status = 'NEEDS_REVIEW';
+  // full-D01 is already mandatory as D02's base; do not charge it twice.
+  assert.equal(scoreDelta(fallbackBase, key).low_risk_iteration_budget.delta_tokens, 420);
 });
