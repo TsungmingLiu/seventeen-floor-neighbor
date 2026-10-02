@@ -324,3 +324,48 @@ rebuild byte-identically. These are coverage/byte measurements, not token/quota
 savings or permission to remove independent semantic review. Keep this small
 engineering entry point optional until dispatch orchestration is separately wired
 and evaluated on real failure frequency; the experiment does not modify harnesses.
+
+## Real-scene dispatch observation
+
+`context:observe` performs a small retrospective observation of unchanged canonical
+COM-00, COM-01X and COM-02X. Each scene gets one fresh read-only diagnostic review
+only after both the existing mandatory packet-verifier CLI and the new preflight
+allow dispatch. This engineering loop is not live production integration; it does
+not update QA decisions, scenes, Handoffs, run ledgers or Human acceptance.
+
+```sh
+npm run context:observe -- --prepare --run-id real-scenes-01 --ref <main-commit>
+# Three real fresh sessions at most; uses the current configured model/reasoning.
+npm run context:observe -- --run --run-id real-scenes-01
+npm run context:observe -- --review --run-id real-scenes-01
+```
+
+Both paths use exactly the same semantic payload hashes, full target scene,
+allowlisted canonical excerpts and all eight mandatory instruction files. Raw
+machine logs never enter the semantic worker context. The observation runs both
+mechanical paths for comparison; production should not run redundant checks merely
+to reproduce this experiment. There is no fictional extra mechanical-agent call
+in the baseline: the current orchestration/harness already require machine QA
+before semantic dispatch. Only one review per scene is paid for; alternative
+baseline readiness is directly checked, but baseline model tokens are unmeasured.
+Identical payload bytes do not provide a paired token/quality reduction estimate.
+
+Inputs/schema/tooling/canon are rebuilt and verified before each dispatch. An
+exclusive execution record prevents rerunning an interrupted paid trial. No
+automatic retry occurs. Re-review verifies raw CLI events, result/input identities
+and accounting against the stored summary before writing an ignored report. A
+failed semantic review is preserved without rewriting or retrying. Unknown tool
+acquisitions invalidate the isolated observation.
+
+Measure real reported input/output/cached/reasoning tokens, planned/actual dispatch
+counts, machine timings, coordinator log/digest bytes, and exact repeated inline
+source deliveries. Deliveries are not observed file reads or automatically
+removable context: fresh-worker mandatory instructions remain mandatory. Cached
+input and reasoning output are subsets and are not added again. The CLI event
+capture follows [OpenAI Docs: non-interactive mode](https://learn.chatgpt.com/docs/non-interactive-mode).
+
+All prepared inputs, settings hashes, dispatch logs, raw events/results, usage,
+summary, evidence and readable report stay under ignored
+`generated/session-cache/quota-observation/`. Three selected real scenes cannot
+estimate everyday production failure frequency or prove quota savings. Adoption
+requires separate dispatch integration and comparable observed production data.
