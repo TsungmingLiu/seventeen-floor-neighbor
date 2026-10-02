@@ -7,6 +7,8 @@
 generated/runtime-assets/
 generated/render-packets/
 generated/asset-check-cache/
+# Ephemeral execution layer: packets, handoffs, QA scratch and POC outputs.
+# Rebuild from canon; never force-add. Enforced by npm run scratch:check.
 generated/session-cache/
 generated/reviews/
 
