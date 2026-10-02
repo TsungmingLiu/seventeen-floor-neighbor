@@ -8,7 +8,7 @@
     "summary": "Owner approved COM03X story/dialogue and authorized next M1 COM02J locked-script gates and narrative preview.",
     "gate_status": "COM02J work authorized; new Human narrative preview pending"
   },
-  "status": "ACTIVE",
+  "status": "BLOCKED",
   "tasks": [
     {
       "task_id": "NQA-COM02J-003",
@@ -36,6 +36,22 @@
       },
       "decision_receipt": "content/production/runs/com02j-m1-preview-20261002/NQA-COM02J-005.decision.json",
       "human_gate": "none",
+      "reason": "Exact packet and fresh worker Handoff verified at execution; output identities pinned in compact receipt."
+    },
+    {
+      "task_id": "INT-COM02J-PREVIEW-006",
+      "task_type": "integrate",
+      "scene_id": "COM-02J",
+      "depends_on": [
+        "NQA-COM02J-005"
+      ],
+      "status": "BLOCKED",
+      "packet": {
+        "generator": "manual:task-packet-schema-v1.3.0",
+        "sha256": "1ca7340cae06ef791b7b9510971f7a75ae84e87d4fdd51ad4ad902c84d741048"
+      },
+      "decision_receipt": "content/production/runs/com02j-m1-preview-20261002/INT-COM02J-PREVIEW-006.decision.json",
+      "human_gate": "narrative_preview_review",
       "reason": "Exact packet and fresh worker Handoff verified at execution; output identities pinned in compact receipt."
     }
   ],
