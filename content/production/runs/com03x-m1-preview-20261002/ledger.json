@@ -31,10 +31,22 @@
       "depends_on": [
         "NQA-COM03X-001"
       ],
+      "status": "BLOCKED",
+      "decision_receipt": "content/production/runs/com03x-m1-preview-20261002/INT-COM03X-PREVIEW-001.decision.json",
+      "human_gate": "narrative_preview_review",
+      "reason": "JSON-only capability gap: completed-save continuation resets state. No runtime outputs."
+    },
+    {
+      "task_id": "INT-COM03X-PREVIEW-002",
+      "task_type": "integrate",
+      "scene_id": "COM-03X",
+      "depends_on": [
+        "NQA-COM03X-001"
+      ],
       "status": "READY",
       "decision_receipt": null,
       "human_gate": "narrative_preview_review",
-      "reason": null
+      "reason": "One focused corrective same-objective attempt; minimum completed-save capability fix allowed."
     }
   ],
   "invalidation_events": [],

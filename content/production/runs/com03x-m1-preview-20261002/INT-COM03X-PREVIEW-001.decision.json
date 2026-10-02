@@ -1,0 +1,285 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "resume_checkpoint",
+  "run_id": "com03x-m1-preview-20261002",
+  "task_id": "INT-COM03X-PREVIEW-001",
+  "scene_id": "COM-03X",
+  "task_type": "integrate",
+  "status": "BLOCKED",
+  "harness": {
+    "id": "integrator",
+    "version": "1.4.0",
+    "pass": null
+  },
+  "source_ref": "6ab1e80590ea39caf51285a9659ff2370af52217",
+  "packet_sha256": "b2bf75580a077d9c993c43cd18cba3107b06f155b77698c471fd576b2603df9d",
+  "input_digest_sha256": "599e950e1930e80e8cbe72503a6d16ee2dd9d49eb3d2be214335001c994a86fd",
+  "input_versions": [
+    {
+      "id": "AGENTS.md",
+      "version": "3a9437e9c33c455ece1177a5b4ffa5752ca67687f6fdf4633d966ab1f6f0488e",
+      "location": "AGENTS.md"
+    },
+    {
+      "id": ".ai/WORKFLOW_MANIFEST.yaml",
+      "version": "4e42799b5c23421af5ef3688f92e21f9eb666f05d2047134e54286d5bd71b239",
+      "location": ".ai/WORKFLOW_MANIFEST.yaml"
+    },
+    {
+      "id": ".ai/harnesses/bootstrap.md",
+      "version": "b347e41e1669ec92fdf4885ba4e97f09e97978e1bc5b04e17ece72f8aba8b131",
+      "location": ".ai/harnesses/bootstrap.md"
+    },
+    {
+      "id": ".ai/policies/SOURCE_AUTHORITY.md",
+      "version": "9db10a7925386836415fd000470cb535915b0e0e58eb7bee794f6a8ae445971c",
+      "location": ".ai/policies/SOURCE_AUTHORITY.md"
+    },
+    {
+      "id": ".ai/policies/CONTEXT_ISOLATION.md",
+      "version": "27c3fca1c65f513b9b3752dcd88b033a68fda600cef009c9a67a161ef06b96e1",
+      "location": ".ai/policies/CONTEXT_ISOLATION.md"
+    },
+    {
+      "id": "docs/CONTENT_PRODUCTION_SOURCE_MAP.md",
+      "version": "c0ae2c825ef2c47afe78c14dc768758115d5a750e7b1afe9ebd6ead8a9b0804c",
+      "location": "docs/CONTENT_PRODUCTION_SOURCE_MAP.md"
+    },
+    {
+      "id": ".ai/PRODUCTION_ORCHESTRATION.md",
+      "version": "076322d3b22cae413603ddd2c576f924a6d5ad937f85f39c7e49dc8c1db61308",
+      "location": ".ai/PRODUCTION_ORCHESTRATION.md"
+    },
+    {
+      "id": ".ai/harnesses/integrator.md",
+      "version": "ada6a1b83512d234236dcbd04d99ac1b5c5e43a8f265a8929fff7514694060b3",
+      "location": ".ai/harnesses/integrator.md"
+    },
+    {
+      "id": ".ai/schemas/TASK_PACKET.md",
+      "version": "0473fe9229c64d45ad1696adab632b66da760e0efe8c50a6478d05ff86500d58",
+      "location": ".ai/schemas/TASK_PACKET.md"
+    },
+    {
+      "id": ".ai/schemas/HANDOFF.md",
+      "version": "362659d079492d73cd190a9f32dbf035ac84869b61c42152adf7f1220018b37f",
+      "location": ".ai/schemas/HANDOFF.md"
+    },
+    {
+      "id": ".ai/schemas/PRODUCTION_RUN_LEDGER.md",
+      "version": "aac924528a3ea74c11a27b09d10a3dd649168508a587b7e4167b8de60bd652c9",
+      "location": ".ai/schemas/PRODUCTION_RUN_LEDGER.md"
+    },
+    {
+      "id": "ARCHITECTURE.md",
+      "version": "f2465b84d0ed9c65907925a01fbe5951f2bb7cd0e9a5ee143fe804e5d137af77",
+      "location": "ARCHITECTURE.md"
+    },
+    {
+      "id": "package.json",
+      "version": "6a13720c43193679d154fbaee34acc67b82db684fe67beda582d2b21d81987b6",
+      "location": "package.json"
+    },
+    {
+      "id": ".github/workflows/verify.yml",
+      "version": "f47beba4f5949e3a926042f1a0f2d5e430bf13da65f6a6b115e21d3ab2178af2",
+      "location": ".github/workflows/verify.yml"
+    },
+    {
+      "id": "docs/narrative/scenes/vertical-slice/COM-03X.md",
+      "version": "e837b0b365dcf2157e841bce67614e6f41ca758717c4cf20e93c6a01ac54142a",
+      "location": "docs/narrative/scenes/vertical-slice/COM-03X.md"
+    },
+    {
+      "id": "content/production/narrative/opening-ch1/COM-03X.json",
+      "version": "81b6c71fedb43b4d32c025a2d190dea9c1138905680a99562efa417b522d507c",
+      "location": "content/production/narrative/opening-ch1/COM-03X.json"
+    },
+    {
+      "id": "content/production/narrative/opening-ch1/COM-02X.json",
+      "version": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952",
+      "location": "content/production/narrative/opening-ch1/COM-02X.json"
+    },
+    {
+      "id": "content/production/runs/com03x-m1-preview-20261002/NQA-COM03X-001.decision.json",
+      "version": "423be238d59f3bf56f2a91839227f3377e74b893cb0adf631783ca8adb9f239e",
+      "location": "content/production/runs/com03x-m1-preview-20261002/NQA-COM03X-001.decision.json"
+    },
+    {
+      "id": "content/production/runs/com03x-m1-preview-20261002/ledger.json",
+      "version": "61bd6660fcf2271bdfc6beb75877c19312ff245df369c0c79297f7051eaa5517",
+      "location": "content/production/runs/com03x-m1-preview-20261002/ledger.json"
+    },
+    {
+      "id": "content/routes/opening-demo/chapter-01.json",
+      "version": "897e52bc5ff1a2452d1775e097c25e5b1d9eab23612738666b2e362b470b7f30",
+      "location": "content/routes/opening-demo/chapter-01.json"
+    },
+    {
+      "id": "content/routes/opening-demo/route.json",
+      "version": "37884aa8f0f6d6102a32a74469b579b302047f897538e5a2fed818b37026e855",
+      "location": "content/routes/opening-demo/route.json"
+    },
+    {
+      "id": "content/routes/opening-demo/memories.json",
+      "version": "620aa45974e0292d9184b8cebdb8c51f621b3edad65b4035e3efa9ba2dcea48e",
+      "location": "content/routes/opening-demo/memories.json"
+    },
+    {
+      "id": "content/assets/manifest.json",
+      "version": "b82e13d83ff5be6ca11c3d68b5ad358258820bfc908242d5e8b3bf63542c771e",
+      "location": "content/assets/manifest.json"
+    },
+    {
+      "id": "content/assets/source-map.json",
+      "version": "9202a5fbab7599ed6da29e61a071479100cd9d84ed1accd4e8d71ab7c0d26a0c",
+      "location": "content/assets/source-map.json"
+    },
+    {
+      "id": "content/recipes/assets.json",
+      "version": "46c6b1d19bdfaade7112ec95086ee2cc11f9371cc5de2d6e42d050a5c38d0fba",
+      "location": "content/recipes/assets.json"
+    },
+    {
+      "id": "src/engine.js",
+      "version": "0e4123ddc2e2fde50039dcb7a8c9b03fcb6c849df26bee2798b1c098dfddec8e",
+      "location": "src/engine.js"
+    },
+    {
+      "id": "src/progress.js",
+      "version": "353ad9aa7a54dc61c31f987f4650895cdce1ba017e5256ebe5c0ce48d6afa87e",
+      "location": "src/progress.js"
+    },
+    {
+      "id": "src/memories.js",
+      "version": "7d623b55e90fe5568cfdde803f0877e67ce70de3e2e8457f9249ad07f4e8e346",
+      "location": "src/memories.js"
+    },
+    {
+      "id": "src/branches.js",
+      "version": "34a65128e065b23bb20157d3aaf1d29c1c3327d266e4134e77453e69c8cfa384",
+      "location": "src/branches.js"
+    },
+    {
+      "id": "src/presentation.js",
+      "version": "932f5fe7312b5a4a055b92fee15447131a0f92d669afd0bf25700bda3dc9a65e",
+      "location": "src/presentation.js"
+    },
+    {
+      "id": "src/visuals.js",
+      "version": "cee296a76e0872eba816771de8aaa977d8fda5bf38692495c4326e92c2abdfd2",
+      "location": "src/visuals.js"
+    },
+    {
+      "id": "src/app.js",
+      "version": "6436897bff6bc585ac21104561fe91735d03e0b55b83ec69cd86ee71e8ae9881",
+      "location": "src/app.js"
+    },
+    {
+      "id": "tools/build.mjs",
+      "version": "b903b272d89482df4ec9d78ee025687a98a8b6060c204d0b913b82a377f8ed7d",
+      "location": "tools/build.mjs"
+    },
+    {
+      "id": "tools/build-assets.mjs",
+      "version": "ac8f17d8a668ff65e47cddcc3bb20fd71c337c2f3d87a53e6053a7fb90e65a07",
+      "location": "tools/build-assets.mjs"
+    },
+    {
+      "id": "tools/content-lib.mjs",
+      "version": "09fcae608afc5d865c99d204d125c939f7e77c3d2460df608f0b1b5b68c0957d",
+      "location": "tools/content-lib.mjs"
+    },
+    {
+      "id": "tools/validate-content.mjs",
+      "version": "f75119a43320dff8042616c11c3a58f17a351ab530454efd4bafbb170437b349",
+      "location": "tools/validate-content.mjs"
+    },
+    {
+      "id": "tools/validate-production-contracts.mjs",
+      "version": "77de4d2506ce77140e50cd3d815ad7031ef85c5cab90ac6a17c0fcb03924e8fa",
+      "location": "tools/validate-production-contracts.mjs"
+    },
+    {
+      "id": "tools/production-integration-check.mjs",
+      "version": "0b108ace54f1ad1b174ca3d21186886ab8bdfcddf09be5715597a157f74cbee5",
+      "location": "tools/production-integration-check.mjs"
+    },
+    {
+      "id": "tools/production-impact.mjs",
+      "version": "33c180f98a8c18993d4e736926be37858136d0424afbe8a05f4135951e79bb81",
+      "location": "tools/production-impact.mjs"
+    },
+    {
+      "id": "tools/production-storage.mjs",
+      "version": "06f1b13d8c9276128ff2b49347ccc7a820ddfd7290a7f0c8ee7fb2a20c52c865",
+      "location": "tools/production-storage.mjs"
+    },
+    {
+      "id": "tools/preview-server.mjs",
+      "version": "a35dda52b5bb3e12b6e9255f6993de038ffbf1576477c69ac35a0b6b1f30c91b",
+      "location": "tools/preview-server.mjs"
+    },
+    {
+      "id": "tests/content-validation.test.mjs",
+      "version": "4ca3197b6a00f7938dd003add63e1fa6e75633ea1f12d53086e41c4e9361d20f",
+      "location": "tests/content-validation.test.mjs"
+    },
+    {
+      "id": "tests/engine-progress.test.mjs",
+      "version": "ce6a96a5ec21f4437793374f0c869613de3d5c955ed86fb0d3c7c9e4a5bccc5f",
+      "location": "tests/engine-progress.test.mjs"
+    },
+    {
+      "id": "tests/progress.test.mjs",
+      "version": "a1c45f32fe4c3f304cd321f421cb29d7b9052640676bd7f2948a5482cd283e8b",
+      "location": "tests/progress.test.mjs"
+    },
+    {
+      "id": "tests/browser-acceptance.spec.mjs",
+      "version": "6fc805b4a70f285b2aa74c4753e470e3de36d2669eeef3764343f5c17eec0a97",
+      "location": "tests/browser-acceptance.spec.mjs"
+    },
+    {
+      "id": "TODO.md",
+      "version": "54f26e4c2a89d8fd561fd707d3557cf7826f1e6d288e83d5437d1bbfeb7ecf72",
+      "location": "TODO.md"
+    },
+    {
+      "id": "docs/narrative/CONTENT_PRODUCTION_TODO.md",
+      "version": "3338610490dfd912bc924d04e010b9f0304a4cfc783707437b396e2541d36470",
+      "location": "docs/narrative/CONTENT_PRODUCTION_TODO.md"
+    },
+    {
+      "id": "runtime-background:bg.narrative_preview.placeholder",
+      "version": "9dc448840d09cf38718710881991c9f251e01eefd44eb94980d7dd9743778145",
+      "location": "assets-src/ui/narrative-preview-v1.webp"
+    }
+  ],
+  "output_versions": [],
+  "qa_codes": [
+    {
+      "name": "source-acquisition",
+      "code": "IQA-EXACT-SOURCES",
+      "result": "PASS"
+    },
+    {
+      "name": "accepted-scene-preflight",
+      "code": "IQA-NO-STALE-DIFF",
+      "result": "PASS"
+    },
+    {
+      "name": "old-completed-save-continue-capability",
+      "code": "IQA-COMPLETED-SAVE-RESUME",
+      "result": "BLOCKED"
+    }
+  ],
+  "known_issues": [
+    "No tracked outputs/wiring/build/tests executed. src/progress.js:127 retains saved runComplete:true; src/engine.js:887-890 then fresh-starts and resets state at866. JSON-only write allowlist cannot meet old-completed-save Continue acceptance.",
+    "Root authorized focused same-objective corrective dispatch with minimal engine/progress changes and regression coverage; no independent plot/system expansion.",
+    "Verified fresh blocked Handoff SHA256 44aafeeb16c6937e006e8860a5d6d2a9fed7ace3feb0ec0962f5d2e861b311f7; full transient details ignored."
+  ],
+  "human_gate_required": "narrative_preview_review",
+  "invalidates": []
+}
