@@ -2,7 +2,7 @@
 
 > Lifecycle: **CANONICAL**
 >
-> Version: 1.2.1
+> Version: 1.3.0
 
 本文件是 end-to-end content request 的唯一 orchestration authority。它不是第六個 harness 或 creative role；五個 active production harness 仍由 `.ai/WORKFLOW_MANIFEST.yaml` 登記。
 
@@ -29,7 +29,8 @@ Human request → narrative_design → scene_dialogue → narrative_review
   → approved Locked Scene → cg_plan → manifest usability review
   → CG Manifest Entry → deterministic Render Packet → cg_render → visual_review
   → accepted asset(s) + accepted narrative → integrate → build/validate/tests
-  → preview/smoke → READY_FOR_HUMAN_ACCEPTANCE → Human final acceptance
+  → preview/smoke + independent final derivative/display visual_review
+  → READY_FOR_HUMAN_ACCEPTANCE → Human final acceptance
 ```
 
 **Optional narrative-preview branch:** approved Locked Scene / Narrative QA 後，可另派同一個 `integrator` harness 的 `integration_mode: narrative_preview` task。它只依賴已批准的故事、明列的現有 repo 背景或唯一 `previewOnly` background；scene node 用既有 `composite` visual 與穩定 node ID。需要共用佔位圖時，route 的 `assetIds` 必須列入該 logical ID，chapter 明示 `allowPreviewArt: true`。沒有 CG 時仍可驗證 choices、state、save/reload、Continue 和文本節奏；不得創建假的 CG ID、Gallery entry、accepted-master receipt 或假裝完成 Visual QA。此 task 通過 build/validate/tests/preview smoke 後可記 `NARRATIVE_PREVIEW_READY`，供 Human 審閱劇情，並允許下一個獨立 narrative scene 繼續。CG plan/render/Visual QA/Asset Ingest 仍從 approved Locked Scene 走原有視覺分支；最終 integration/`READY_FOR_HUMAN_ACCEPTANCE` 仍須所有必要的 accepted assets。這是同一 DAG 的可選早期預覽，不建立第二套 authoring pipeline。
@@ -113,6 +114,8 @@ Coordinator 比對 Task Packet/Handoff/ledger 的 versions。上游改變時先�
 
 ## 5. Rejection routing and Human gates
 
+For prospective native/quality Visual QA, raw-image clarity/artifact defects return to the same entry's renderer when its approved spec is sufficient; deficient composition/quality requirements return to planner. Runtime derivative compression or crop/focus/UI implementation defects return to integrator, preserving adopted original bytes. Missing profiles/pixels/provenance return `BLOCKED`/`NEEDS_REVIEW` to their producing stage; evidenced quality failure returns `FAIL`/`NEEDS_REVIEW` with affected file/hash/region/profile. Corrected bytes or display inputs need a fresh bounded review of affected checks. No automatic redraw/retry; historical QA/Human outcomes are not relabeled as new quality PASS.
+
 Narrative QA `FAIL`：scene execution defect 回 `scene_dialogue`；contract/relationship direction 問題回 `narrative_design`。Manifest usability/QA `FAIL` 回 `cg_plan`。Visual QA 若 image expression、screen side、identity 等執行 defect，回同 entry 的 fresh `cg_render`，沿用 approved manifest；若 manifest 本身錯，回 `cg_plan` 並 invalidate 該 entry 的 packet/candidate。Integration 缺 creative decision 時回對應 upstream worker，不由 integrator 補寫。每次重派需新 Task Packet/task attempt、記 failure reason、依賴版本與 `execution_policy`；遵守 §2.1 的一次 focused corrective redispatch + bounded escalation，不 automatic infinite retry 或 automatic image scoring。CG renderer 仍不得自行 retry。Retry/Human gate 次數按現有 policy。
 
 Human gates：major story direction、canonical character design、需要 Human 選擇的 accepted master image、narrative-preview story review、final playable acceptance。Narrative-preview review 只批准故事與互動方向，不接受佔位圖為 CG。Coordinator 可停在 gate，記 `NEEDS_REVIEW`/`BLOCKED` 和明確問題。Scene splitting、dialogue detail、filename/asset ID、既有 canon wardrobe、continuity inheritance、camera implementation、build wiring 由 canonical workflow 解決，無需反覆詢問 Human。
@@ -120,6 +123,16 @@ Human gates：major story direction、canonical character design、需要 Human 
 向 Human 回報選圖問題時，附上候選圖本身（可直接顯示或提供可開啟的連結）及具體 QA 問題；若爭議在鏡頭／人物連貫性，並附同一條 continuity chain 的前後已核對圖片供比較。圖的 asset ID、repo path 與 hash 要與 receipt 對應；展示圖片不構成新的 QA PASS 或 Human accepted-master 決定。
 
 ## 6. Playable Definition of Done
+
+### Prospective final derivative/display gate
+
+Future planner/renderer packets must carry the full requirements through existing manifest `render_constraints.include[]`, `composition.framing_notes[]`/focus/safe zone and `acceptance[]`, and Task Packet `constraints.locked`/`acceptance`: largest supported native 16:9/highest available quality, integer-pixel rounding, approved aspect/reference/edit compatibility, exposed supported controls or `not exposed`, no fixed pixel floor or artificial upscale labeled native, actual returned dimensions and preserved original bytes/hash. Explicit approved desktop, mobile landscape and portrait CSS viewport/DPR/display-area/crop/focus/UI profiles are required; do not invent universal values or guarantee dimensions from prompt text. Incomplete projection blocks manifest usability/render dispatch.
+
+Original-image QA and Human master selection cannot establish final WebP/compression/display PASS. Once final integration produces actual derivative pixels and runtime screenshots/render evidence, Coordinator dispatches another fresh bounded **`content_qa / visual_review` task using existing `review_scope: candidate`**, not a new harness/pass/creative pipeline. Its packet names exact accepted-original/derivative/screenshot identities and hashes via existing `inputs.accepted_outputs`, `required_acquisition`, `allowed_sources`, `input_versions`, `constraints.locked` and `acceptance`, plus runtime ref/build and approved CSS viewport/DPR/crop/focus/UI profiles. Existing context generators retain their documented limits; prepare a bounded packet under the existing schema where no generator supports these inputs, rather than claiming new automated support.
+
+Integrator's implementation Handoff is a dependency for this review, not permission to self-award QA. Before `READY_FOR_HUMAN_ACCEPTANCE`, verify required source checks and independent `VQA-COMPRESSION-ARTIFACTS`, `VQA-DESKTOP-DISPLAY` and `VQA-MOBILE-PORTRAIT-DISPLAY` PASS against the exact derivative/profile/build being demonstrated. Already matching independent evidence may be verified for unchanged inputs; new derivative bytes or crop/focus/UI/profile changes invalidate affected final checks and require fresh review. Missing pixels/profiles/provenance remain `BLOCKED`/`NEEDS_REVIEW`; uncompressed-original inspection, build/validator/smoke PASS and absent derivatives cannot yield final-quality PASS or 4K/retina claims.
+
+This policy is prospective: preserve existing adopted pixels, accepted manifests and recorded QA/Human outcomes, without declaring old assets newly re-reviewed or forcing redraw. Narrative preview and governance maintenance do not claim final visual acceptance.
 
 `NARRATIVE_PREVIEW_READY` 是部分進度：preview asset 必須是已登記、可解碼的 repo WebP `background`，其 `previewOnly` 身分與 route opt-in 可受機器檢查；`npm run build`、`npm run validate`、相關 tests、`npm run preview:smoke` 通過，並記明可供 Human 審閱的 ref/access path。它不算 CG/Visual QA、Gallery 解鎖或 final playable acceptance。`npm run validate:final` 在最終視覺驗收前必須通過，會拒絕仍啟用 `allowPreviewArt` 的 route。
 

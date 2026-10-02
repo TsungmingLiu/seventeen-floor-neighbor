@@ -2,7 +2,7 @@
 
 > Status: **CANONICAL visual-production contract**
 >
-> Version: 1.2
+> Version: 1.3
 >
 > Updated: 2026-10-02
 >
@@ -26,10 +26,15 @@ New production scenes do **not** require reusable character sprites. Existing sp
 Canonical production master is **16:9 landscape**, allowing normal integer-pixel rounding.
 
 Master resolution follows the generation tool's native output:
-- accept native dimensions such as the observed ChatGPT output **1672×941**; this observation is not a permanent or universal provider limit;
-- no fixed 1920×1080 minimum and no artificial upscaling requirement;
-- larger native resolutions are optional when available and generation quality supports them;
-- preserve the original native master bytes and record the actual pixel dimensions in asset provenance.
+- prefer the **largest supported native 16:9 output and highest available quality**, compatible with the approved reference/edit and aspect constraints; use exposed supported size/quality controls when available;
+- native dimensions such as the observed ChatGPT output **1672×941** are observations, not a permanent or universal provider limit; neither 1672×941 nor 1920×1080 is a fixed pixel floor;
+- if controls are not exposed, record that limitation and the prompt preference; do not invent API arguments or treat prompt wording as a guarantee of dimensions;
+- verify actual returned width/height and preserve original returned bytes, byte count and SHA-256; record requested settings separately from observed output;
+- never manually upscale and call the result native/high-definition. Runtime scaling or a derivative must remain identifiable separately from the original.
+
+Visual QA must inspect the original at native pixel size for clarity and artifacts, then inspect the actual runtime derivative and render/crop evidence at explicit target desktop and mobile/portrait display profiles. Each profile records CSS viewport width/height, orientation, DPR, image display area, crop/fit, focus and dialogue/UI occlusion; use task-approved profiles, not universal viewport/DPR defaults. Inspect blur/detail loss, compression artifacts and critical face/hand/object readability. Original-image PASS does not establish final WebP/compression/display PASS. Missing pixels, profiles or provenance block the applicable gate; unverified 4K/retina claims cannot pass. Failed source quality returns to renderer/planner as appropriate; derivative compression or runtime crop defects return to integrator, with evidence and no automatic redraw.
+
+These requirements apply prospectively. Preserve adopted original pixels, accepted manifests and recorded QA/Human decisions; this policy revision does not re-review old assets or authorize generation/retry.
 
 Target play surfaces:
 - desktop browser: responsive full viewport;
