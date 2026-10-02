@@ -8,6 +8,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { validateProductionStorage, hydrateProductionLedger, readArchivedRecords,
   assertArtifactOutputPath, LEGACY_STORAGE_REF } from '../tools/production-storage.mjs';
+import { validateManifest } from '../tools/render-cg-packets.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const git = (cwd, ...args) => execFileSync('git', ['-C', cwd, ...args], { encoding: 'utf8' }).trim();
@@ -76,6 +77,31 @@ test('storage guard rejects source packets, full handoffs, payloads, rejected ca
     try {
       f.put(relative, JSON.stringify(payload), true);
       assert.throws(() => validateProductionStorage({ root: f.directory }), /production storage:/, relative);
+    } finally { f.close(); }
+  }
+});
+
+test('formal CG source rejects nested API transport metadata while preserving real manifest coverage', () => {
+  const manifestRoot = path.join(root, 'content/production/cg-manifests');
+  const manifests = fs.readdirSync(manifestRoot).filter((name) => name.endsWith('.json')).sort();
+  assert.equal(manifests.length, 6);
+  for (const name of manifests) {
+    const original = JSON.parse(fs.readFileSync(path.join(manifestRoot, name), 'utf8'));
+    assert.doesNotThrow(() => validateManifest(original), name);
+    const f = fixture();
+    try {
+      const relative = `content/production/cg-manifests/${name}`;
+      f.put(relative, JSON.stringify(original));
+      assert.doesNotThrow(() => validateProductionStorage({ root: f.directory }), name);
+      const injected = structuredClone(original);
+      injected.entries[0].execution_metadata = {
+        api_payload: { model: 'fixture', input: { prompt: 'fixture transport payload' } }
+      };
+      // Formal CG schema validation permits unknown metadata; the source-storage guard owns this boundary.
+      assert.doesNotThrow(() => validateManifest(injected), name);
+      f.put(relative, JSON.stringify(injected));
+      assert.throws(() => validateProductionStorage({ root: f.directory }),
+        /nested task\/transport field: api_payload/, name);
     } finally { f.close(); }
   }
 });

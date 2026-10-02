@@ -227,6 +227,7 @@ export function validateProductionStorage({ root = ROOT } = {}) {
     for (const bytes of versions) {
       if (relative.endsWith('.json')) {
         const source = JSON.parse(bytes);
+        if (relative.startsWith('content/production/cg-manifests/')) rejectTransportMetadata(source);
         ensure(!(source.allowed_sources && source.deliverables) &&
           !(source.outputs && source.qa && source.harness) &&
           !Object.hasOwn(source, 'shared_prompt') && !Object.hasOwn(source, 'api_payload') &&
