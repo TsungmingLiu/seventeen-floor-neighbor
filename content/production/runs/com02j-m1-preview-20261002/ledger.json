@@ -8,7 +8,7 @@
     "summary": "Owner approved COM03X story/dialogue and authorized next M1 COM02J locked-script gates and narrative preview.",
     "gate_status": "COM02J work authorized; new Human narrative preview pending"
   },
-  "status": "ACTIVE",
+  "status": "NARRATIVE_PREVIEW_READY",
   "tasks": [
     {
       "task_id": "NQA-COM02J-003",
@@ -98,13 +98,13 @@
     }
   ],
   "preview": {
-    "status": "PUBLIC_DELIVERY_PENDING",
+    "status": "NARRATIVE_PREVIEW_READY",
     "integration_task_id": "INT-COM02J-PREVIEW-009",
     "integration_receipt": "content/production/runs/com02j-m1-preview-20261002/INT-COM02J-PREVIEW-009.decision.json",
     "scene_sha256": "a217f826a9e0b0379a763518b63d1a2d985f7930a0ec1691f01327662228ffb1",
     "contract_sha256": "70ed29091bdf9267287e06aa3d56abc4d1df83e7ef3f21aff0eaf64d004acf7e",
-    "public_url": null,
-    "ci_status": "PENDING",
+    "public_url": "https://070823e2.seventeen-floor-neighbor.pages.dev/",
+    "ci_status": "PASS",
     "human_story_review": "PENDING",
     "final_art": "PENDING",
     "final_visual_gate": "Expected FAIL: unchanged validator rejects allowPreviewArt and preview-only asset. No final visual acceptance.",
@@ -117,6 +117,24 @@
     "resolved_full_failures": "coverage16/16, unchangedquota3/3, titleimpact3/3 allPASS with captured standalone exit0",
     "browser_verification": "35 unique PASS via preserved27+4+4; original8+4FAIL retained; corrected/final terminal sessions unavailable but completed reports retained",
     "sparse_save_verification": "11/11 PASS; final cleanCI includes2 added sparse regressions",
-    "preservation": "321 existing nodes exact, only historical terminal redirect changes; all4 prior Memory events exact"
+    "preservation": "321 existing nodes exact, only historical terminal redirect changes; all4 prior Memory events exact",
+    "source_ref": "cb11e81271269e7dc9ceeef6c81d6544a3a33b0c",
+    "ci_merge_ref": "d2070d8b70624c88ec28dedb1cad84a0b7ca1ea5",
+    "profile": "narrative_preview",
+    "visibility": "public",
+    "pull_request_url": "https://github.com/TsungmingLiu/seventeen-floor-neighbor/pull/47",
+    "stable_url": "https://pr-47.seventeen-floor-neighbor.pages.dev/",
+    "ci_run_id": 37078425847,
+    "ci_run_number": 668,
+    "ci_url": "https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/37078425847",
+    "verify_job_id": 111073400296,
+    "deploy_job_id": 111075661647,
+    "full_ci_tests": 201,
+    "full_ci_pass": 201,
+    "full_ci_fail": 0,
+    "deployed_bytes_smoke": "PASS: downloaded public program, route, chapter, scenes, memories, assets and fallback bytes match CI artifact; root/deep-link base checked",
+    "ci_artifact_sha256": "f4588b79b44863f9849a5d927cf39f49646e5b2cf1ea77d9b97c468bf5c707ff",
+    "verified_at_utc": "2026-10-02T23:47:11Z",
+    "proof_scope": "CI/deployment bind immutable code commit and PR merge ref. This follow-up changes only compact checkpoint and progress documentation; all12 integration output identities remain exact. No new pixel QA or Human approval."
   }
 }
