@@ -2,7 +2,7 @@
 
 > Lifecycle: **CANONICAL** creative-production backlog
 >
-> Version: 1.3.3
+> Version: 1.3.4
 >
 > Updated: 2026-10-02
 
@@ -16,7 +16,9 @@
 
 ## Opening Vertical Slice
 
-最新 main 為 `c5251cd…`（PR #43）；Node 22 main Verify 132/132、Cloudflare deployment／smoke PASS。COM-02X 的八個 runtime outputs 與原 `ba5f832…` checkpoint 相同，[HUMAN-COM02X-PLAYABLE-009](../../content/production/runs/com02x-visual-bindings-20261001/HUMAN-COM02X-PLAYABLE-009.decision.json) 記錄 Owner「我測了可玩性，沒有可見問題」，existing checkpoint 現為 `ACCEPTED`。原 PR #33／#37 敘事與 UI 批准沿用；provisional／獨立 Visual QA FAIL／safe-zone NEEDS_REVIEW 保持，未記錄的 final visual scope 另行追蹤。
+最新 main 為 `e28e45d…`（PR #45），包含 title CG／預填姓名與 prospective final derivative/display QA policy。已核對的是 exact PR head `43db3a2…` 的 [Node 22 Verify run 37034831902](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/37034831902)：Verify job `110930333722`、deploy／smoke job `110933137975` success；不推定 post-merge main CI 或新的 pixel QA。title 的 Human master／focus 選擇與原 VQA `NEEDS_REVIEW` 並存，checkpoint 仍為 `READY_FOR_HUMAN_ACCEPTANCE`，final Human playable acceptance pending。新 policy 不回寫既有 QA／Human scope。
+
+M0 關閉證據仍綁定 PR #43 main `c5251cd…` Node 22 Verify 132/132、Cloudflare deployment／smoke PASS；該 acceptance 快照的 COM-02X 八個 runtime outputs 與原 `ba5f832…` checkpoint 相同，[HUMAN-COM02X-PLAYABLE-009](../../content/production/runs/com02x-visual-bindings-20261001/HUMAN-COM02X-PLAYABLE-009.decision.json) 記錄 Owner「我測了可玩性，沒有可見問題」，existing checkpoint 現為 `ACCEPTED`。原 PR #33／#37 敘事與 UI 批准沿用；provisional／獨立 Visual QA FAIL／safe-zone NEEDS_REVIEW 保持，未記錄的 final visual scope 另行追蹤。
 
 | Scene | Script/state | Playable demo | Canonical art completeness | Next review |
 | --- | --- | --- | --- | --- |

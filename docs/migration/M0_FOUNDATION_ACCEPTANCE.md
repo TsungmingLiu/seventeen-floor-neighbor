@@ -36,14 +36,33 @@ All eight runtime outputs match the original verified `ba5f832…` checkpoint.
 | One active source/build path and consistent documentation | Repo-native baseline plus merged scripts, architecture/source-map/CI and [coverage audit](M0_ASSET_COVERAGE.md) |
 | Build/validation/tests/fresh playable acceptance | PR132/132 and actual Human report above; main result recorded separately |
 
-The strict release coverage result remains **blocked for seven known runtime
+The historical PR #43 strict release coverage snapshot was **blocked for seven known runtime
 assets**: two provisional COM01J entries, accepted COM01B accessory drift, and
 four COM02X accepted-as-is entries with original Visual QA failures. Release
 readiness is not recorded. These are tracked art-quality scopes rather than
 missing M0 engineering mechanisms; no image was regenerated or QA outcome
 changed to close the playable gate.
 
-The next milestone is **M1 Gameplay Validation**: select and produce a measured
+## Latest-main metadata sync
+
+PR #45 merged as main `e28e45de188d1d788e63217d467a0a1448e4d24b`,
+adding title CG/default-name behavior and a prospective final derivative/display
+QA policy. The verified [PR #45 Verify run 37034831902](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/37034831902)
+binds exact PR head `43db3a2d186d71dcdc3db8dc4e6d74de90dc1127`:
+Verify job `110930333722` and deploy/deployed-smoke job `110933137975`
+succeeded. This is PR-head evidence; post-merge main CI and new pixel QA
+are not asserted here. The PR #43 M0 verification and `ba5f832…` COM02X
+acceptance scopes above remain historical and unchanged.
+
+The [title checkpoint](../../content/production/runs/title-key-visual-20261002/ledger.json)
+retains `READY_FOR_HUMAN_ACCEPTANCE`: Human selected the actual native master
+and focus, while original VQA `NEEDS_REVIEW` and pending final Human playable
+acceptance remain. The title adds a known art-quality issue beyond the historical
+seven-asset coverage snapshot; current strict coverage counts were not rechecked
+by this metadata task. The prospective policy does not widen or rewrite existing
+QA/Human decisions, or imply release readiness.
+
+The current milestone is **M1 Gameplay Validation**: select and produce a measured
 30–60 minute slice, then use several players unfamiliar with the specification
 to test choices, attention trade-offs, character appeal, friction and repair.
 The Owner's M0 playable acceptance does not satisfy M1 external playtesting.

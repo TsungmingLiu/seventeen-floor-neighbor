@@ -14,7 +14,7 @@
 
 ## M1 — Gameplay Validation
 
-目前唯一 active technical milestone。M0 已於 2026-10-02 通過；已合併 main `c5251cd…` 的 132/132 Verify、Cloudflare deployment／smoke 與實際 Human playable acceptance 見 [收尾證據](docs/migration/M0_FOUNDATION_ACCEPTANCE.md)。已知 art release coverage constraints 不改寫成 QA PASS。
+目前唯一 active technical milestone。最新 main 為 PR #45 `e28e45d…`，包含 title CG／預填姓名與 prospective final derivative/display QA policy；已核對的是 exact PR head `43db3a2…` 的 [Verify run 37034831902](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/37034831902)，Verify job `110930333722`、deploy／smoke job `110933137975` success，不推定 post-merge main CI 或新的 pixel QA。M0 已於 2026-10-02 由 PR #43 main `c5251cd…` 的 132/132 Verify、deployment／smoke 與既有 Human playable acceptance 關閉，見 [收尾證據](docs/migration/M0_FOUNDATION_ACCEPTANCE.md)。title 原 VQA NEEDS_REVIEW／final Human playable acceptance pending 與既有 art release constraints 保持。
 
 目標是將選定的 30–60 分鐘 slice 接成真正可玩的流程，驗證注意力 trade-off、人物互動與可見 consequence；不擴張成通用 model-checking 或新 production engine。詳細產品 gate 由 `ROADMAP.md` 定義。
 
@@ -100,7 +100,7 @@ M0 先以一個真實 scene 的受控修改，證明定點影響報告可供整�
 - [x] COM-02X 當前 material-change／stale preflight → build 阻擋，以及 master／derivative／reference／Human decision 篡改與舊 report 清除 case（同上當前 gate 證據）。
 - [x] PR #43 head `720843e…` 的 [Node 22 Verify run 624](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/36966607788)：117/117 tests、build／validation、preview smoke、tracked-source integrity 及 Cloudflare deployment／deployed smoke PASS；該 head 當時尚未合併，不代表新 main 或 Human acceptance。
 
-M0 已通過；main `c5251cd…` Node 22 Verify 132/132、deployment／smoke PASS。詳見 [M0 foundation acceptance](docs/migration/M0_FOUNDATION_ACCEPTANCE.md)。
+M0 已通過；歷史 PR #43 main `c5251cd…` Node 22 Verify 132/132、deployment／smoke PASS。詳見 [M0 foundation acceptance](docs/migration/M0_FOUNDATION_ACCEPTANCE.md)。
 
 ---
 

@@ -4,7 +4,7 @@
 >
 > 詳細技術工作見 `TODO.md`；內容生產進度見 `docs/narrative/CONTENT_PRODUCTION_TODO.md`；AI production 執行方式見 `.ai/WORKFLOW_MANIFEST.yaml`。
 >
-> 最新可玩基線：2026-10-02 main `c5251cd…`（PR #43）。Node 22 main Verify 132/132、Cloudflare 部署／smoke PASS；Human 已回報「我測了可玩性，沒有可見問題」，見 [M0 acceptance](docs/migration/M0_FOUNDATION_ACCEPTANCE.md)。M0 Exit Gates 已通過，當前進入 M1 Gameplay Validation；既有 provisional／accepted-as-is 美術問題另行追蹤。
+> 最新 main：2026-10-02 `e28e45d…`（PR #45），包含 title CG／預填姓名與 prospective final derivative/display QA policy。已核對的是 PR #45 exact head `43db3a2…` 的 Node 22 [Verify run 37034831902](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/37034831902) 與部署／smoke success，不推定 post-merge main CI 或新的 pixel QA。M0 已由 PR #43 main `c5251cd…` 132/132 Verify 與既有 Human playable acceptance 關閉，見 [M0 acceptance](docs/migration/M0_FOUNDATION_ACCEPTANCE.md)。當前為 M1 Gameplay Validation；title 原 VQA NEEDS_REVIEW／final Human playable acceptance pending 與既有 art caveats 保持。
 >
 > Roadmap 不追蹤每一個 task。它只回答三個問題：
 >
@@ -53,7 +53,9 @@
 - PR #39 已將 COM-02X 正式 BG／recognition／microwave／walk v3 接入便利店後半與回家流程；83 nodes、四 choices、文本／state、stable save IDs 與 Memory rank 160 保持。已記錄 Node 22 104/104、Chromium 11/11，以及固定 Cloudflare preview 的 bytes／forward flow／reload／Gallery PASS，見 [VERIFY-COM02X-VISUAL-BINDINGS-008](content/production/runs/com02x-visual-bindings-20261001/VERIFY-COM02X-VISUAL-BINDINGS-008.decision.json)。證據屬於 `ba5f832…` 的整合快照，不冒充本次新 main 的 CI；原 pixel QA FAIL／safe-zone NEEDS_REVIEW 與 Human accepted-as-is 範圍保持；該驗證快照當時尚未記錄 final Human playable acceptance，現已由後續 receipt 關閉。
 - 2026-10-02 工程收尾已對目前 COM-02X 四張 runtime accepted-as-is 圖驗證受控 material-change／單張 visual-spec change 的失效範圍；新的定點 integration preflight 以非零 exit code 阻擋實際串接 build，來源失敗也移除舊 report。Node 22 focused 13/13；詳見 [當前 gate 證據](docs/migration/M0_CURRENT_SCENE_STALE_GATE.md)。PR #43 head `720843e…` 的 [Verify run 624](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/36966607788) 已通過 117/117 tests、build／validation 與 Cloudflare deployment／smoke；該 head 當時尚未合併，不當作新 main 驗收，不取代 QA／Human gates，也不包含 Issue #27 的 DAG 自動失效／恢復。preview → accepted-as-is CG 替換沿用 PR #39 證據；該受控驗證當時不代表所有 M0 Exit Gate 已完成。
 
-- 2026-10-02 PR #43 已合併為 `c5251cd…`；main [Verify run 629](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/37008118459) 132/132、Cloudflare deployment／smoke PASS。Human final playable acceptance 已記錄於 [HUMAN-COM02X-PLAYABLE-009](content/production/runs/com02x-visual-bindings-20261001/HUMAN-COM02X-PLAYABLE-009.decision.json)，原 runtime／art bytes 與 QA 不改寫。M0 completed；release coverage 的七項 known constraints 不當作 release-ready。
+- 2026-10-02 PR #43 已合併為 `c5251cd…`；main [Verify run 629](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/37008118459) 132/132、Cloudflare deployment／smoke PASS。Human final playable acceptance 已記錄於 [HUMAN-COM02X-PLAYABLE-009](content/production/runs/com02x-visual-bindings-20261001/HUMAN-COM02X-PLAYABLE-009.decision.json)，原 runtime／art bytes 與 QA 不改寫。M0 completed；該 PR #43 coverage 快照的七項 known constraints 不當作 release-ready。
+
+- 2026-10-02 PR #45 已合併為 main `e28e45de188d1d788e63217d467a0a1448e4d24b`；已核對的 [Verify run 37034831902](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/37034831902) 綁定 exact PR head `43db3a2d186d71dcdc3db8dc4e6d74de90dc1127`，Verify job `110930333722` 與 deploy／smoke job `110933137975` success。title master／focus 的 Human 選擇不等於 title final playable acceptance；原 VQA `NEEDS_REVIEW` 與 checkpoint `READY_FOR_HUMAN_ACCEPTANCE` 保持。新 final derivative/display QA policy 為 prospective gate，不回寫既有 QA／Human records；此處未重新計算當前 strict release coverage。
 
 ## Outcome
 
