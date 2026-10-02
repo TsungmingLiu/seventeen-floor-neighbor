@@ -43,12 +43,23 @@
       "depends_on": [
         "NQA-COM03X-001"
       ],
-      "status": "READY",
-      "decision_receipt": null,
+      "status": "BLOCKED",
+      "decision_receipt": "content/production/runs/com03x-m1-preview-20261002/INT-COM03X-PREVIEW-002.decision.json",
       "human_gate": "narrative_preview_review",
-      "reason": "One focused corrective same-objective attempt; minimum completed-save capability fix allowed."
+      "reason": "Prepared preview candidate; changed shared story route binding needs explicit technical revalidation before publishing."
     }
   ],
-  "invalidation_events": [],
+  "invalidation_events": [
+    {
+      "changed_artifact_id": "route_binding:COM-02X",
+      "old_version": "3b2941a4f4ceee19c968d6ab8f0e96d15ddd951c062d5763271827bf1ccce241",
+      "new_version": "6b384da0f28c939297e70c429f2616c25d025ee0f51d5c2e3600b1cc18d4a931",
+      "reason": "COM03X append changes shared chapter labels, preview opt-in and terminal presentation",
+      "would_invalidate": [
+        "integration:COM-02X",
+        "playable_review:COM-02X"
+      ]
+    }
+  ],
   "preview": null
 }

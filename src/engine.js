@@ -743,6 +743,14 @@ export class GameEngine {
       return;
     }
     if (node.type === 'branch') {
+      // A historical Opening Memory stops at its original review boundary.
+      // An explicit fresh run continues through this stable terminal alias.
+      if (this.chapter.id === 'opening-demo-chapter-01' && this.nodeId === 'opening_demo_complete'
+        && this.progress.replaying && !this.progress.data.restartActive) {
+        this.refreshTitle();
+        this.showOnly(this.els.title);
+        return;
+      }
       const branchId = this.nodeId;
       const branch = (node.cases || []).find((candidate) =>
         (candidate.conditions || []).every((condition) => this.matchesCondition(condition))

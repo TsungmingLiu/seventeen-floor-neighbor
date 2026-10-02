@@ -25,7 +25,8 @@
 M0 已完成；本輪只處理 [M1 slice scope](docs/narrative/M1_GAMEPLAY_VALIDATION_SLICE.md) 需要的工程與驗證。
 
 - [x] 準備 scene/dependency／production gap／playtest scope proposal；這不是已實作 playable slice。
-- [ ] 完成 COM-03X 的 Narrative Design；批准後接 Scene/Dialogue → 獨立 Narrative QA → preview。
+- [x] COM-03X Narrative Design／Script Lock／獨立 Narrative QA PASS。
+- [ ] COM-03X narrative preview：三分支原文／state、舊完成存檔 Continue 與既有 Memory isolation 的 runtime wiring 已備；focused 40/40 PASS。accepted COM-02X preflight 將必要 preview chapter config 判為 stale route_binding，integration verification BLOCKED；full checks、Human story review 與 final art pending。
 
 ## Gameplay Validation Slice integration
 

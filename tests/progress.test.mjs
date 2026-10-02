@@ -340,3 +340,39 @@ test('saved player name is validated independently without discarding valid old 
   assert.equal(reloaded.data.playerDisplayName, null);
   assert.equal(reloaded.data.cursor.nodeId, 'deep');
 });
+
+test('only a valid historical Opening terminal continuation reopens completion and retains the exact snapshot', () => {
+  const base = { ...structuredClone(chapter), id: 'opening-demo-chapter-01' };
+  base.nodes.opening_demo_complete = { type: 'branch', default: 'deep' };
+  base.nodes.current_complete = { type: 'route' };
+  base.nodes.common_convenience_xu_exit_08 = {};
+  const library = structuredClone(memories);
+  library.events.find(event => event.id === 'mem.deep').unlockNodes.push('opening_demo_complete', 'common_convenience_xu_exit_08', 'current_complete');
+  const snapshot = { ...snap('opening_demo_complete', 8), flags: ['known'], returnNodes: ['returnPoint'] };
+  const saved = { version: 2, playerDisplayName: '小雨', runComplete: true, cursor: snapshot, frontier: snap('common_convenience_xu_exit_08', 2),
+    checkpoints: { opening_demo_complete: snapshot, shallow: snap('shallow', 2) }, edges: [['shallow', 'opening_demo_complete']] };
+  const storageFor = value => new MemoryStorage({ [`${base.id}:journey:v2`]: JSON.stringify(value) });
+  const store = new ProgressStore(base, library, storageFor(saved));
+  assert.equal(store.data.runComplete, false);
+  assert.deepEqual(store.data.cursor, snapshot);
+  assert.deepEqual(store.data.frontier, snapshot);
+  assert.deepEqual(store.data.checkpoints, saved.checkpoints);
+  assert.deepEqual(store.data.edges, saved.edges);
+  assert.equal(store.data.playerDisplayName, '小雨');
+  assert.equal(store.data.version, 2);
+
+  for (const kind of ['missing-target', 'still-terminal', 'deleted-cursor', 'ordinary-replay', 'current-terminal', 'completed-world-replay', 'restart']) {
+    const story = structuredClone(base);
+    const value = structuredClone(saved);
+    if (kind === 'missing-target') story.nodes.opening_demo_complete.default = 'deleted';
+    if (kind === 'still-terminal') story.nodes.opening_demo_complete = { type: 'route' };
+    if (kind === 'deleted-cursor') delete story.nodes.opening_demo_complete;
+    if (kind === 'ordinary-replay') value.cursor.nodeId = 'shallow';
+    if (kind === 'current-terminal') value.cursor.nodeId = 'current_complete';
+    if (kind === 'completed-world-replay') value.frontier = snap('current_complete', 99);
+    if (kind === 'restart') value.restartActive = true;
+    const negative = new ProgressStore(story, library, storageFor(value));
+    assert.equal(negative.data.runComplete, true, kind);
+    assert.deepEqual(negative.data.frontier, value.frontier, kind);
+  }
+});

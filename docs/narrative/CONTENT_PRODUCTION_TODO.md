@@ -2,7 +2,7 @@
 
 > Lifecycle: **CANONICAL** creative-production backlog
 >
-> Version: 1.3.4
+> Version: 1.3.5
 >
 > Updated: 2026-10-02
 
@@ -28,7 +28,7 @@ M0 關閉證據仍綁定 PR #43 main `c5251cd…` Node 22 Verify 132/132、Cloud
 | `COM-01J` | locked + continuity contract; PR #33 accepted; PR #37 first-sight naming corrected | integrated | provisional wardrobe drift recorded in manifest | repair art only in later scoped task |
 | `COM-02X` | locked + continuity contract; PR #33 narrative/POV accepted | PR #39 integrated BG／recognition／microwave／walk v3; forward flow／reload／Gallery verified; Memory rank 160、可 replay | exact Human accepted-as-is masters registered; original per-image VQA FAIL／safe-zone NEEDS_REVIEW preserved | Human playable acceptance recorded; original art/QA caveats remain |
 | `COM-02J` | locked | not in Chapter 1 demo | partial | future production batch |
-| `COM-03X` | S1 candidate | not integrated | not art-locked | Human narrative review before art |
+| `COM-03X` | approved contract + Script Lock；NQA-COM03X-001 PASS（exact hashes） | runtime wiring 已備；focused 40/40 PASS；COM-02X route_binding preflight BLOCKED，完整 preview verification pending；不建立 standalone Memory card | 唯一 registered preview-only background；final art pending | Human narrative_preview_review pending；未授予 Visual QA／final playable acceptance |
 
 ## Production gates
 
@@ -55,7 +55,9 @@ Narrative Preview 與視覺分支都依賴 Narrative QA；任一分支不可自�
 - [x] M0 工程 coverage 分類已區分 placeholder／provisional／accepted 與 release readiness；COM01J provisional 和 COM02X accepted-as-is／VQA FAIL 保持，嚴格 release coverage 尚未通過。見 [coverage review](../migration/M0_ASSET_COVERAGE.md)。
 - [x] M0：COM-02X 最終 Human playable acceptance 已記錄；checkpoint `ACCEPTED`，Visual QA 歷史 FAIL／safe-zone NEEDS_REVIEW 不改寫。
 - [x] M1：建立 [30–60 分鐘 slice scope proposal](M1_GAMEPLAY_VALIDATION_SLICE.md) 與 playtest／branch coverage；所列新 scenes 尚未通過 production gates。
-- [ ] M1：依 scope 的第一個場景與批次順序，完成 Narrative Design → Dialogue → QA → preview integration。
+- [x] M1 首批 COM-03X：Narrative Design → Dialogue → independent QA PASS。
+- [ ] COM-03X preview integration verification：runtime wiring 已備，保留 COM-02X accepted narrative／media 與既有 Memory display/replay/rank/Gallery scope；必要 preview chapter config 被 accepted COM-02X baseline preflight 判為 stale route_binding，BLOCKED。完整 preview checks、final art 與 Human story review pending。
+- [ ] M1 後續 scenes／完整 30–60 分鐘 slice 尚未完成；COM-03J 是結構 successor，未在本批新增其劇情。
 - [ ] 校準另案：預先固定兩幕未參與選樣／修正的許棠情境，依 calibration policy 驗證品質／工時／修正次數；不取代 M1 external playtest。
 - [ ] 僅對尚未記錄的 Opening migration schema/usability scope 補 review（machine migration/validation complete）；不重新要求 PR #33 已批准的 dialogue／POV／姓名輸入接受。
 - [ ] 依 `docs/narrative/route-blueprints/` 從剩餘 common scenes 開始批量推進 `Narrative Design → Scene/Dialogue → Narrative QA`；**不要等待 CG 完成才寫下一個 scene**。
