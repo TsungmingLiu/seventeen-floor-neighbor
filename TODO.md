@@ -26,7 +26,7 @@ M0 已完成；本輪只處理 [M1 slice scope](docs/narrative/M1_GAMEPLAY_VALID
 
 - [x] 準備 scene/dependency／production gap／playtest scope proposal；這不是已實作 playable slice。
 - [x] COM-03X Narrative Design／Script Lock／獨立 Narrative QA PASS。
-- [ ] COM-03X 首批 narrative preview：prepared runtime `f89e3a9` 的 shared route binding 已技術再審；237 個既有 nonterminal nodes、COM-02X scene／contract／Memory slice／accepted media 保持。Node 22 build／validate／storage／local smoke PASS；Chromium 原 23 cases + 修正 sparse-save fixture 後三分支 3/3 PASS，覆蓋舊完成存檔 Continue、姓名／state、reload／Memory isolation。full npm test 169/172，三個 scope-obsolete fixtures 另派修正；本 task unit gate BLOCKED，historical COM-02X gate 仍 BLOCKED_STALE_INTEGRATION。公開部署／Human story review 與 final art pending；`validate:final` 依 preview art 預期拒絕。
+- [x] COM-03X 首批 narrative preview：三分支、舊完成存檔 Continue、姓名／state、reload／Memory isolation 已驗證；[公開試玩](https://7410c7f4.seventeen-floor-neighbor.pages.dev/) 綁定 PR #44 `d4ab4bd…`。[乾淨 Verify 656](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/37056543566) 172/172、deploy／deployed smoke PASS；Chromium 26 個案例已有原 23 + corrected 3/3 的通過證據。237 個既有 nonterminal nodes 與 COM-02X accepted media／canon 保持；歷史 shared route-binding stale 判定保留，本輪另做技術再審。原本地 169/172 失敗與 fixture 修正 10/10 紀錄不改寫。Human story review、final art 與完整 30–60 分鐘 M1 slice pending；`validate:final` 仍依 preview art 拒絕。
 
 ## Gameplay Validation Slice integration
 
