@@ -67,6 +67,22 @@
       "decision_receipt": "content/production/runs/com02j-m1-preview-20261002/NQA-COM02J-008.decision.json",
       "human_gate": "none",
       "reason": "Exact packet and fresh worker Handoff verified at execution; output identities pinned in compact receipt."
+    },
+    {
+      "task_id": "INT-COM02J-PREVIEW-009",
+      "task_type": "integrate",
+      "scene_id": "COM-02J",
+      "depends_on": [
+        "NQA-COM02J-008"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual:task-packet-schema-v1.3.0",
+        "sha256": "f80a9c839c1264f990a4f6db63f0e8b2d1f7fe29346179befbc36a7569ff7b50"
+      },
+      "decision_receipt": "content/production/runs/com02j-m1-preview-20261002/INT-COM02J-PREVIEW-009.decision.json",
+      "human_gate": "narrative_preview_review",
+      "reason": "Exact packet and fresh worker Handoff verified at execution; output identities pinned in compact receipt."
     }
   ],
   "invalidation_events": [
@@ -81,5 +97,26 @@
       "evidence": "Exact missing-neutral branch completed under immutable contract by fresh CW-COM02J-007. Prior QA receipt remains historical; new full scene requires new independent semantic review; no CG produced."
     }
   ],
-  "preview": null
+  "preview": {
+    "status": "PUBLIC_DELIVERY_PENDING",
+    "integration_task_id": "INT-COM02J-PREVIEW-009",
+    "integration_receipt": "content/production/runs/com02j-m1-preview-20261002/INT-COM02J-PREVIEW-009.decision.json",
+    "scene_sha256": "a217f826a9e0b0379a763518b63d1a2d985f7930a0ec1691f01327662228ffb1",
+    "contract_sha256": "70ed29091bdf9267287e06aa3d56abc4d1df83e7ef3f21aff0eaf64d004acf7e",
+    "public_url": null,
+    "ci_status": "PENDING",
+    "human_story_review": "PENDING",
+    "final_art": "PENDING",
+    "final_visual_gate": "Expected FAIL: unchanged validator rejects allowPreviewArt and preview-only asset. No final visual acceptance.",
+    "build": "PASS",
+    "validate": "PASS",
+    "storage": "PASS",
+    "diff": "PASS",
+    "preview_smoke": "PASS: equivalent implementation on free port4193; original fixed4173 attempt failed due to port collision",
+    "initial_full_unit": "195/199 PASS,4FAIL; recovered completed TAP report, terminal session unavailable",
+    "resolved_full_failures": "coverage16/16, unchangedquota3/3, titleimpact3/3 allPASS with captured standalone exit0",
+    "browser_verification": "35 unique PASS via preserved27+4+4; original8+4FAIL retained; corrected/final terminal sessions unavailable but completed reports retained",
+    "sparse_save_verification": "11/11 PASS; final cleanCI includes2 added sparse regressions",
+    "preservation": "321 existing nodes exact, only historical terminal redirect changes; all4 prior Memory events exact"
+  }
 }

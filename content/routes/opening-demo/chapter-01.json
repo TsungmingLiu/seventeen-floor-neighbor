@@ -493,7 +493,7 @@
     },
     "opening_demo_complete": {
       "type": "branch",
-      "default": "common_package_xu_arrive"
+      "default": "common_station_cafe_jyc_enter"
     },
     "common_bookstore_bridge_enter": {
       "speaker": "旁白",
@@ -3527,6 +3527,936 @@
     },
     "com03x_preview_complete": {
       "type": "route"
+    },
+    "common_station_cafe_jyc_enter": {
+      "speaker": "旁白",
+      "text": "下一個會議還有一個多小時。我需要插座、桌子，最好再少一點車站廣播。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_station_cafe_jyc_enter_02"
+    },
+    "common_station_cafe_jyc_enter_02": {
+      "speaker": "旁白",
+      "text": "地下街那個女生提過北邊出口的咖啡店。至少「不太趕人」這一點是真的。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_station_cafe_jyc_enter_03"
+    },
+    "common_station_cafe_jyc_enter_03": {
+      "speaker": "旁白",
+      "text": "男主拿著 laptop bag 找座位，在窗邊看見熟悉的短髮側影。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_station_cafe_jyc_drawing"
+    },
+    "common_station_cafe_jyc_drawing": {
+      "speaker": "旁白",
+      "text": "她在畫圖。不是隨手記幾筆；幾個相似輪廓排在一起，旁邊還有反覆調整過的色塊。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_station_cafe_jyc_drawing_02"
+    },
+    "common_station_cafe_jyc_drawing_02": {
+      "speaker": "旁白",
+      "text": "她停筆喝水，抬眼看見男主。兩人視線碰上。她停了兩秒。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_station_cafe_jyc_drawing_03"
+    },
+    "common_station_cafe_jyc_drawing_03": {
+      "speaker": "女生",
+      "text": "那本……後來有買嗎？",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_station_cafe_jyc_drawing_04"
+    },
+    "common_station_cafe_jyc_drawing_04": {
+      "speaker": "你",
+      "text": "買了舊版。暫時只買一本。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_station_cafe_jyc_drawing_05"
+    },
+    "common_station_cafe_jyc_drawing_05": {
+      "speaker": "女生",
+      "text": "暫時。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_station_cafe_jyc_drawing_06"
+    },
+    "common_station_cafe_jyc_drawing_06": {
+      "speaker": "你",
+      "text": "妳上次說得很準。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_station_cafe_jyc_names"
+    },
+    "common_station_cafe_jyc_names": {
+      "speaker": "你",
+      "text": "上次忘了問。我叫 [PLAYER_NAME]。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_station_cafe_jyc_names_02"
+    },
+    "common_station_cafe_jyc_names_02": {
+      "speaker": "江雨澄",
+      "text": "江雨澄。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_station_cafe_jyc_names_03"
+    },
+    "common_station_cafe_jyc_names_03": {
+      "speaker": "旁白",
+      "text": "沒有握手。男主指向她旁邊的空位。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_station_cafe_jyc_names_04"
+    },
+    "common_station_cafe_jyc_names_04": {
+      "speaker": "你",
+      "text": "這裡有人嗎？如果妳要專心，我坐別邊。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_station_cafe_jyc_names_05"
+    },
+    "common_station_cafe_jyc_names_05": {
+      "speaker": "江雨澄",
+      "text": "沒有人。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_station_cafe_jyc_names_06"
+    },
+    "common_station_cafe_jyc_names_06": {
+      "speaker": "江雨澄",
+      "text": "我等一下還要畫，可能不太說話。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_station_cafe_jyc_names_07"
+    },
+    "common_station_cafe_jyc_names_07": {
+      "speaker": "你",
+      "text": "正好。我也要工作。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_station_cafe_jyc_names_08"
+    },
+    "common_station_cafe_jyc_names_08": {
+      "speaker": "旁白",
+      "text": "男主坐在斜對角，不直接面向她的 tablet。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_station_cafe_jyc_choice"
+    },
+    "common_station_cafe_jyc_parallel": {
+      "speaker": "旁白",
+      "text": "接下來十幾分鐘，我們各自看著自己的螢幕。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_station_cafe_jyc_parallel_02"
+    },
+    "common_station_cafe_jyc_parallel_02": {
+      "speaker": "旁白",
+      "text": "她改了幾次線。我回完兩封訊息。沒有人負責把沉默變成話題。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_station_cafe_jyc_parallel_03",
+      "audioCue": "咖啡機、遠處人流、stylus 輕觸聲。"
+    },
+    "common_station_cafe_jyc_parallel_03": {
+      "speaker": "旁白",
+      "text": "男主闔上 laptop 準備離開；雨澄先抬頭。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_station_cafe_jyc_reciprocity"
+    },
+    "common_station_cafe_jyc_reciprocity": {
+      "speaker": "江雨澄",
+      "text": "你的工作都可以這樣帶著走？",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_station_cafe_jyc_reciprocity_02"
+    },
+    "common_station_cafe_jyc_reciprocity_02": {
+      "speaker": "你",
+      "text": "大部分。我在科技公司工作，像剛剛那些就能在外面處理。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_station_cafe_jyc_reciprocity_03"
+    },
+    "common_station_cafe_jyc_reciprocity_03": {
+      "speaker": "江雨澄",
+      "text": "那你回家是不是也在做？",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_station_cafe_jyc_reciprocity_04"
+    },
+    "common_station_cafe_jyc_reciprocity_04": {
+      "speaker": "你",
+      "text": "嗯，有時候回家還是會打開電腦。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_station_cafe_jyc_reciprocity_05"
+    },
+    "common_station_cafe_jyc_reciprocity_05": {
+      "speaker": "江雨澄",
+      "text": "那好像也沒比較輕鬆。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_station_cafe_jyc_exit"
+    },
+    "common_station_cafe_jyc_exit": {
+      "speaker": "你",
+      "text": "我得去開會了。今天謝謝妳讓我坐這裡。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_station_cafe_jyc_exit_02"
+    },
+    "common_station_cafe_jyc_exit_02": {
+      "speaker": "江雨澄",
+      "text": "不會，反正有空位。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_station_cafe_jyc_exit_03"
+    },
+    "common_station_cafe_jyc_exit_03": {
+      "speaker": "你",
+      "text": "嗯。那妳慢慢畫，我先走了。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_station_cafe_jyc_exit_04"
+    },
+    "common_station_cafe_jyc_exit_04": {
+      "speaker": "江雨澄",
+      "text": "好。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_station_cafe_jyc_exit_05"
+    },
+    "common_station_cafe_jyc_exit_05": {
+      "speaker": "旁白",
+      "text": "男主背起 laptop bag。雨澄把 stylus 放回筆槽。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_station_cafe_jyc_exit_06"
+    },
+    "common_station_cafe_jyc_exit_06": {
+      "speaker": "你",
+      "text": "下次見，江雨澄。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_station_cafe_jyc_exit_07"
+    },
+    "common_station_cafe_jyc_exit_07": {
+      "speaker": "江雨澄",
+      "text": "……下次見。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_station_cafe_jyc_exit_08"
+    },
+    "common_station_cafe_jyc_exit_08": {
+      "speaker": "旁白",
+      "text": "這次我們有了名字。還沒有非得交換其他東西的理由。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_station_cafe_jyc_complete"
+    },
+    "com02j_ask_drawing": {
+      "speaker": "你",
+      "text": "這幾張是在抓同一個角色的動作嗎？",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "com02j_ask_drawing_02"
+    },
+    "com02j_ask_drawing_02": {
+      "speaker": "江雨澄",
+      "text": "嗯。要讓她換衣服、換姿勢，還是看得出來是同一個人。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "com02j_ask_drawing_03"
+    },
+    "com02j_ask_drawing_03": {
+      "speaker": "你",
+      "text": "所以先找不會變的地方。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "com02j_ask_drawing_04"
+    },
+    "com02j_ask_drawing_04": {
+      "speaker": "江雨澄",
+      "text": "輪廓、重心，還有她站著的習慣。臉反而不是第一個。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "com02j_ask_drawing_05"
+    },
+    "com02j_ask_drawing_05": {
+      "speaker": "江雨澄",
+      "text": "你怎麼看出來是同一個角色？",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "com02j_ask_drawing_06"
+    },
+    "com02j_ask_drawing_06": {
+      "speaker": "你",
+      "text": "肩膀和手的位置很像。也可能我猜錯。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "com02j_ask_drawing_07"
+    },
+    "com02j_ask_drawing_07": {
+      "speaker": "江雨澄",
+      "text": "沒有，猜對了。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_station_cafe_jyc_parallel"
+    },
+    "com02j_simple_praise": {
+      "speaker": "你",
+      "text": "看起來很厲害。線很乾淨。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "com02j_simple_praise_02"
+    },
+    "com02j_simple_praise_02": {
+      "speaker": "江雨澄",
+      "text": "還沒畫完。現在看起來乾淨，是因為我把亂的圖層關掉了。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "com02j_simple_praise_03"
+    },
+    "com02j_simple_praise_03": {
+      "speaker": "你",
+      "text": "我剛剛還以為快畫完了。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "com02j_simple_praise_04"
+    },
+    "com02j_simple_praise_04": {
+      "speaker": "江雨澄",
+      "text": "沒有，還早。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "com02j_simple_praise_05"
+    },
+    "com02j_simple_praise_05": {
+      "speaker": "旁白",
+      "text": "她重新打開參考圖層，畫面變得複雜；她沒有急著證明自己。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_station_cafe_jyc_parallel"
+    },
+    "com02j_continue_topic_visual_design": {
+      "speaker": "你",
+      "text": "妳這張夜景，也是在處理上次說的暗部嗎？",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "com02j_continue_topic_visual_design_02"
+    },
+    "com02j_continue_topic_visual_design_02": {
+      "speaker": "江雨澄",
+      "text": "有一點。但我不想把東西藏在黑色裡，所以亮的地方要更少。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "com02j_continue_topic_visual_design_03"
+    },
+    "com02j_continue_topic_visual_design_03": {
+      "speaker": "你",
+      "text": "讓視線自己走過去。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "com02j_continue_topic_visual_design_04"
+    },
+    "com02j_continue_topic_visual_design_04": {
+      "speaker": "江雨澄",
+      "text": "對。不是把整張圖拉亮。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_station_cafe_jyc_parallel"
+    },
+    "com02j_continue_topic_worldbuilding": {
+      "speaker": "你",
+      "text": "這個角色的環境，看起來也有雨港那種分區。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "com02j_continue_topic_worldbuilding_02"
+    },
+    "com02j_continue_topic_worldbuilding_02": {
+      "speaker": "江雨澄",
+      "text": "氣氛有參考，設定不是。她住的地方更乾，而且更窄。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "com02j_continue_topic_worldbuilding_03"
+    },
+    "com02j_continue_topic_worldbuilding_03": {
+      "speaker": "你",
+      "text": "所以不是 fan art。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "com02j_continue_topic_worldbuilding_04"
+    },
+    "com02j_continue_topic_worldbuilding_04": {
+      "speaker": "江雨澄",
+      "text": "不是。是我自己的。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_station_cafe_jyc_parallel"
+    },
+    "com02j_continue_topic_edition_value": {
+      "speaker": "你",
+      "text": "妳自己的圖，註釋會放到看得清楚嗎？",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "com02j_continue_topic_edition_value_02"
+    },
+    "com02j_continue_topic_edition_value_02": {
+      "speaker": "江雨澄",
+      "text": "會。被那本機械稿氣過之後一定會。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "com02j_continue_topic_edition_value_03"
+    },
+    "com02j_continue_topic_edition_value_03": {
+      "speaker": "你",
+      "text": "看來買錯版本也有用途。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "com02j_continue_topic_edition_value_04"
+    },
+    "com02j_continue_topic_edition_value_04": {
+      "speaker": "江雨澄",
+      "text": "教材反面。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_station_cafe_jyc_parallel"
+    },
+    "com02j_continue_topic_neutral": {
+      "speaker": "你",
+      "text": "上次那套設定集，妳畫自己的圖時也會拿來參考嗎？",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "com02j_continue_topic_neutral_02"
+    },
+    "com02j_continue_topic_neutral_02": {
+      "speaker": "江雨澄",
+      "text": "會啊，像構圖、色塊怎麼放，我會翻一下。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "com02j_continue_topic_neutral_03"
+    },
+    "com02j_continue_topic_neutral_03": {
+      "speaker": "你",
+      "text": "這個角色也是裡面的？",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "com02j_continue_topic_neutral_04"
+    },
+    "com02j_continue_topic_neutral_04": {
+      "speaker": "江雨澄",
+      "text": "不是，角色是我自己的。只是參考畫面怎麼安排。",
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_station_cafe_jyc_parallel"
+    },
+    "com02j_continue_topic": {
+      "type": "branch",
+      "cases": [
+        {
+          "conditions": [
+            {
+              "stat": "jyc_first_topic",
+              "operator": "==",
+              "value": 2
+            }
+          ],
+          "next": "com02j_continue_topic_visual_design"
+        },
+        {
+          "conditions": [
+            {
+              "stat": "jyc_first_topic",
+              "operator": "==",
+              "value": 1
+            }
+          ],
+          "next": "com02j_continue_topic_worldbuilding"
+        },
+        {
+          "conditions": [
+            {
+              "stat": "jyc_first_topic",
+              "operator": "==",
+              "value": 3
+            }
+          ],
+          "next": "com02j_continue_topic_edition_value"
+        }
+      ],
+      "default": "com02j_continue_topic_neutral"
+    },
+    "common_station_cafe_jyc_choice_visual_design": {
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "choices": [
+        {
+          "id": "com02j_ask_drawing",
+          "text": "這幾張是在抓同一個角色的動作嗎？",
+          "next": "com02j_ask_drawing",
+          "effects": {
+            "T_JYC": 1
+          },
+          "addFlags": [
+            "jyc_second_topic:her_art"
+          ]
+        },
+        {
+          "id": "com02j_continue_topic",
+          "text": "妳這張夜景，也是在處理上次說的暗部嗎？",
+          "next": "com02j_continue_topic",
+          "effects": {
+            "F_JYC": 1
+          },
+          "addFlags": [
+            "jyc_second_topic:shared_work"
+          ]
+        },
+        {
+          "id": "com02j_simple_praise",
+          "text": "看起來很厲害。線很乾淨。",
+          "next": "com02j_simple_praise",
+          "effects": {
+            "C_JYC": 1
+          },
+          "addFlags": [
+            "jyc_second_topic:general_praise"
+          ]
+        }
+      ]
+    },
+    "common_station_cafe_jyc_choice_worldbuilding": {
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "choices": [
+        {
+          "id": "com02j_ask_drawing",
+          "text": "這幾張是在抓同一個角色的動作嗎？",
+          "next": "com02j_ask_drawing",
+          "effects": {
+            "T_JYC": 1
+          },
+          "addFlags": [
+            "jyc_second_topic:her_art"
+          ]
+        },
+        {
+          "id": "com02j_continue_topic",
+          "text": "這個角色的環境，看起來也有雨港那種分區。",
+          "next": "com02j_continue_topic",
+          "effects": {
+            "F_JYC": 1
+          },
+          "addFlags": [
+            "jyc_second_topic:shared_work"
+          ]
+        },
+        {
+          "id": "com02j_simple_praise",
+          "text": "看起來很厲害。線很乾淨。",
+          "next": "com02j_simple_praise",
+          "effects": {
+            "C_JYC": 1
+          },
+          "addFlags": [
+            "jyc_second_topic:general_praise"
+          ]
+        }
+      ]
+    },
+    "common_station_cafe_jyc_choice_edition_value": {
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "choices": [
+        {
+          "id": "com02j_ask_drawing",
+          "text": "這幾張是在抓同一個角色的動作嗎？",
+          "next": "com02j_ask_drawing",
+          "effects": {
+            "T_JYC": 1
+          },
+          "addFlags": [
+            "jyc_second_topic:her_art"
+          ]
+        },
+        {
+          "id": "com02j_continue_topic",
+          "text": "妳自己的圖，註釋會放到看得清楚嗎？",
+          "next": "com02j_continue_topic",
+          "effects": {
+            "F_JYC": 1
+          },
+          "addFlags": [
+            "jyc_second_topic:shared_work"
+          ]
+        },
+        {
+          "id": "com02j_simple_praise",
+          "text": "看起來很厲害。線很乾淨。",
+          "next": "com02j_simple_praise",
+          "effects": {
+            "C_JYC": 1
+          },
+          "addFlags": [
+            "jyc_second_topic:general_praise"
+          ]
+        }
+      ]
+    },
+    "common_station_cafe_jyc_choice_neutral": {
+      "chapter": 5,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "choices": [
+        {
+          "id": "com02j_ask_drawing",
+          "text": "這幾張是在抓同一個角色的動作嗎？",
+          "next": "com02j_ask_drawing",
+          "effects": {
+            "T_JYC": 1
+          },
+          "addFlags": [
+            "jyc_second_topic:her_art"
+          ]
+        },
+        {
+          "id": "com02j_continue_topic",
+          "text": "上次那套設定集，妳畫自己的圖時也會拿來參考嗎？",
+          "next": "com02j_continue_topic",
+          "effects": {
+            "F_JYC": 1
+          },
+          "addFlags": [
+            "jyc_second_topic:shared_work"
+          ]
+        },
+        {
+          "id": "com02j_simple_praise",
+          "text": "看起來很厲害。線很乾淨。",
+          "next": "com02j_simple_praise",
+          "effects": {
+            "C_JYC": 1
+          },
+          "addFlags": [
+            "jyc_second_topic:general_praise"
+          ]
+        }
+      ]
+    },
+    "common_station_cafe_jyc_choice": {
+      "type": "branch",
+      "cases": [
+        {
+          "conditions": [
+            {
+              "stat": "jyc_first_topic",
+              "operator": "==",
+              "value": 2
+            }
+          ],
+          "next": "common_station_cafe_jyc_choice_visual_design"
+        },
+        {
+          "conditions": [
+            {
+              "stat": "jyc_first_topic",
+              "operator": "==",
+              "value": 1
+            }
+          ],
+          "next": "common_station_cafe_jyc_choice_worldbuilding"
+        },
+        {
+          "conditions": [
+            {
+              "stat": "jyc_first_topic",
+              "operator": "==",
+              "value": 3
+            }
+          ],
+          "next": "common_station_cafe_jyc_choice_edition_value"
+        }
+      ],
+      "default": "common_station_cafe_jyc_choice_neutral"
+    },
+    "common_station_cafe_jyc_complete": {
+      "type": "branch",
+      "default": "common_package_xu_arrive",
+      "entryEffects": {
+        "F_JYC": 1
+      },
+      "entryFlags": [
+        "player_knows_jyc_name",
+        "jyc_knows_player_name",
+        "jyc_creator_work_seen",
+        "jyc_initiated_second_contact",
+        "preview:com02j-complete"
+      ]
     }
   }
 }

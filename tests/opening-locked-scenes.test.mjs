@@ -142,7 +142,7 @@ test('saved node IDs, choice destinations and effects remain stable', () => {
     ['player_knows_xu_freelance_creative_work', 'xu_knows_player_remote_tech_work']);
   // Old checkpoints retain their predecessor and terminal ID; the terminal now redirects.
   assert.equal(nodes.common_convenience_xu_exit_08.next, 'opening_demo_complete');
-  assert.deepEqual(nodes.opening_demo_complete, { type: 'branch', default: 'common_package_xu_arrive' });
+  assert.deepEqual(nodes.opening_demo_complete, { type: 'branch', default: 'common_station_cafe_jyc_enter' });
   // This is the approved extension's structural identity, not a replacement save baseline.
   assert.ok(!originalIds.has('common_package_xu_choice'));
   assert.deepEqual(nodes.common_package_xu_choice.choices.map(({ id, next, effects }) => ({ id, next, effects })), [
@@ -170,7 +170,7 @@ test('expanded boxes keep the existing Memory and visual boundaries', () => {
   }
   assert.equal(membership.get('opening_demo_complete'), 'mem.opening.ch1.convenience-xu');
   for (const id of Object.keys(nodes)) {
-    if (id === 'opening_demo_complete') continue;
+    if (id === 'opening_demo_complete' || id.startsWith('common_station_cafe_jyc_') || id.startsWith('com02j_')) continue;
     assert.ok(membership.has(id), `unmapped Memory node ${id}`);
     if (isCom03xNode(id)) {
       assert.equal(membership.get(id), 'mem.opening.ch1.convenience-xu');

@@ -1,0 +1,197 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "resume_checkpoint",
+  "run_id": "com02j-m1-preview-20261002",
+  "task_id": "INT-COM02J-PREVIEW-009",
+  "scene_id": "COM-02J",
+  "task_type": "integrate",
+  "status": "PASS",
+  "harness": {
+    "id": "integrator",
+    "version": "1.4.0",
+    "pass": null
+  },
+  "source_ref": "9bb0b66f8768093a163b65b4c2ff1f0495560777",
+  "packet_sha256": "f80a9c839c1264f990a4f6db63f0e8b2d1f7fe29346179befbc36a7569ff7b50",
+  "input_digest_sha256": "e97c1b15208168cb5451a15a9adcf9f732485372c74f79d9319450c1e39ff056",
+  "input_versions": [
+    {
+      "id": "docs/narrative/scenes/vertical-slice/COM-02J.md#L1-L360",
+      "version": "fc219cb9ebdde97349287d663552e118f645552f68614035422bbbcc1b031100",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02J.md"
+    },
+    {
+      "id": "docs/narrative/scenes/vertical-slice/COM-02J.md#L409-L456",
+      "version": "64d29877dc38e622754d69787f4252b6e7c9062d0ba69e8e7ae5ab0c79dd38a4",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02J.md"
+    },
+    {
+      "id": "content/production/narrative/opening-ch1/COM-02J.json",
+      "version": "70ed29091bdf9267287e06aa3d56abc4d1df83e7ef3f21aff0eaf64d004acf7e",
+      "location": "content/production/narrative/opening-ch1/COM-02J.json"
+    },
+    {
+      "id": "content/production/narrative/opening-ch1/COM-01J.json",
+      "version": "abf683d6523b962d41f795cedc8f8c830921c58d739792774d3f26c569f51ddc",
+      "location": "content/production/narrative/opening-ch1/COM-01J.json"
+    },
+    {
+      "id": "content/production/runs/com02j-m1-preview-20261002/NQA-COM02J-008.decision.json",
+      "version": "0fc0c0cc0a0c47129d8a51b5a2eb3c4f69b50bf639b5eeead6e59bc1f33d1131",
+      "location": "content/production/runs/com02j-m1-preview-20261002/NQA-COM02J-008.decision.json"
+    },
+    {
+      "id": "content/production/runs/com02j-m1-preview-20261002/ledger.json",
+      "version": "9f0a248da56a5d08cf5dcce551680eb5c0f50382dbe20e7ff8ee0ca0cf9efef8",
+      "location": "content/production/runs/com02j-m1-preview-20261002/ledger.json"
+    },
+    {
+      "id": "content/production/runs/com03x-m1-preview-20261002/HUMAN-COM03X-STORY-005.decision.json",
+      "version": "0941432b57bf5ef32882427f985aee4d55da7ac8488112c8b155f3a7b42fa6fd",
+      "location": "content/production/runs/com03x-m1-preview-20261002/HUMAN-COM03X-STORY-005.decision.json"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "content/routes/opening-demo/chapter-01.json",
+      "version": "10af2d63c075d9e12ff6645de89670af619ecf747708878dcbbd233db491777d",
+      "location": "content/routes/opening-demo/chapter-01.json"
+    },
+    {
+      "id": "content/routes/opening-demo/memories.json",
+      "version": "5292e211db43d6118d974f965f3f6210883edc6d9615531cff5a503648147cca",
+      "location": "content/routes/opening-demo/memories.json"
+    },
+    {
+      "id": "content/routes/opening-demo/route.json",
+      "version": "0367fb672b54581cf0e93f649af90cf68fa04a174ec77f5e7fbabd8a188a3458",
+      "location": "content/routes/opening-demo/route.json"
+    },
+    {
+      "id": "src/engine.js",
+      "version": "9fe5f1a902cb7b28f34ee591d9fa0bb12e85a3b7ba2a1baa3bcbabf6abff3b26",
+      "location": "src/engine.js"
+    },
+    {
+      "id": "src/progress.js",
+      "version": "eba83c33b239d8fb582bba5371a8117b281b0335580717473b05a059f9e6c99a",
+      "location": "src/progress.js"
+    },
+    {
+      "id": "tests/asset-coverage.test.mjs",
+      "version": "aa2b25c4232ab25d54615e785c5c2c0293b58396202d834bd570796f1b11d9dc",
+      "location": "tests/asset-coverage.test.mjs"
+    },
+    {
+      "id": "tests/browser-acceptance.spec.mjs",
+      "version": "cf0b58ca825f4c2da31ee0289ddd28f07f6805e34814f9577ab342bf42371f56",
+      "location": "tests/browser-acceptance.spec.mjs"
+    },
+    {
+      "id": "tests/com03x-preview.test.mjs",
+      "version": "b2fa36b29b83f8fe9d30a4cf50b962951c71bc0888dd187ee409b69b0cabc870",
+      "location": "tests/com03x-preview.test.mjs"
+    },
+    {
+      "id": "tests/engine-progress.test.mjs",
+      "version": "f76f2fa743d305ca5249a068c50bee2a2c81b698152897f96ae3a93cacdec0cf",
+      "location": "tests/engine-progress.test.mjs"
+    },
+    {
+      "id": "tests/opening-locked-scenes.test.mjs",
+      "version": "feacf1e1ee67dad3ee48fab8cb23ee3057f31c4357f57c6fd0a3bd4da09dd03c",
+      "location": "tests/opening-locked-scenes.test.mjs"
+    },
+    {
+      "id": "tests/title-art-impact.test.mjs",
+      "version": "5bdb4d7cc92f1fc4f18a22993049a7e1b65ecb66cd1becc895187ffd622376c4",
+      "location": "tests/title-art-impact.test.mjs"
+    },
+    {
+      "id": "tests/com02j-preview.test.mjs",
+      "version": "3438bdac3351df290072cfa7248dd43379a1b1c71a9ae7c7d3b6439a6121da07",
+      "location": "tests/com02j-preview.test.mjs"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "build",
+      "code": "build",
+      "result": "PASS"
+    },
+    {
+      "name": "validate",
+      "code": "validate",
+      "result": "PASS"
+    },
+    {
+      "name": "storage",
+      "code": "storage",
+      "result": "PASS"
+    },
+    {
+      "name": "diff",
+      "code": "diff",
+      "result": "PASS"
+    },
+    {
+      "name": "preview_smoke_initial_port_collision",
+      "code": "preview_smoke_initial_port_collision",
+      "result": "FAIL"
+    },
+    {
+      "name": "preview_smoke_equivalent_free_port",
+      "code": "preview_smoke_equivalent_free_port",
+      "result": "PASS"
+    },
+    {
+      "name": "final_visual_gate_expected_rejection",
+      "code": "final_visual_gate_expected_rejection",
+      "result": "FAIL"
+    },
+    {
+      "name": "initial_full_npm_test",
+      "code": "initial_full_npm_test",
+      "result": "FAIL"
+    },
+    {
+      "name": "asset_coverage_corrected",
+      "code": "asset_coverage_corrected",
+      "result": "PASS"
+    },
+    {
+      "name": "quota_preflight_isolated_unchanged",
+      "code": "quota_preflight_isolated_unchanged",
+      "result": "PASS"
+    },
+    {
+      "name": "title_art_impact_corrected",
+      "code": "title_art_impact_corrected",
+      "result": "PASS"
+    },
+    {
+      "name": "focused_corrected",
+      "code": "focused_corrected",
+      "result": "PASS"
+    },
+    {
+      "name": "new_engine_cases",
+      "code": "new_engine_cases",
+      "result": "PASS"
+    },
+    {
+      "name": "sparse_final_cases",
+      "code": "sparse_final_cases",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "Final art and new Human narrative-preview review remain pending; registered placeholder is not accepted CG/Gallery/final visual QA.",
+    "Original full npm completed report195/199PASS with4 initial failures is retained; all failing cases pass affected suites. Final clean exact-head CI full-suite exit proof remains parent-owned and pending; two later sparse regressions mean expected201 top-level cases until CI supplies actual count.",
+    "Public Cloudflare URL and deployment smoke verification remain parent-owned and pending; old recovered terminal tool sessions are explicitly unavailable.",
+    "Full packet/input snapshot and Handoff are ignored execution artifacts; verified Handoff SHA256 2959b2ae09538d7ffc24482a31524b5f7aa516f5e81afb88fc81f525f3a057e6. No automatic current-PASS claim from legacy schema2-unsupported verifier."
+  ],
+  "human_gate_required": "narrative_preview_review",
+  "invalidates": []
+}

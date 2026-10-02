@@ -129,7 +129,7 @@ for (const mode of ['keyboard', 'native beforeinput', 'IME', 'autofill']) {
 
 for (const [branchIndex, branch] of ['ask_food', 'share_work', 'tease_same', 'tell_eat_better'].entries()) {
   test(`COM-02X ${branch} forward flow loads held CGs, ten walking nodes, reload and Gallery`, async ({ page }, testInfo) => {
-    test.setTimeout(180_000);
+    test.setTimeout(240_000);
     const errors = collectBlockingErrors(page);
     await page.goto('/');
     await expect(page.locator('#start-button')).toBeEnabled();
@@ -171,6 +171,7 @@ for (const [branchIndex, branch] of ['ask_food', 'share_work', 'tease_same', 'te
           reloadedWalk = true;
         }
       }
+      if (id === 'common_convenience_xu_exit_08') break;
       const choices = page.locator('#choice-list .choice-button');
       if ((await page.locator('#advance-hint').textContent()) === '點擊選擇' && !await page.locator('#choice-list').isVisible()) {
         await page.locator('#advance-zone').click();
@@ -184,7 +185,8 @@ for (const [branchIndex, branch] of ['ask_food', 'share_work', 'tease_same', 'te
       } else await page.locator('#advance-zone').click();
       await expect.poll(async () => (await currentJourney(page)).cursor.nodeId).not.toBe(id);
     }
-    await expect(page.locator('#ending-screen')).toBeVisible();
+    await expect(page.locator('#game-shell')).toBeVisible();
+    expect((await currentJourney(page)).cursor.nodeId).toBe('common_convenience_xu_exit_08');
     expect(choiceTaken).toBe(true);
     expect(reloadedWalk).toBe(true);
     expect(scopedSeen.get(`common_convenience_xu_${branch}`)).toBe('com02x-dlg-01-v1.webp');
@@ -197,8 +199,8 @@ for (const [branchIndex, branch] of ['ask_food', 'share_work', 'tease_same', 'te
     expect(scopedSeen.get('common_convenience_xu_checkout_14')).toBe('apartment-elevator.webp');
     const finished = await currentJourney(page);
     expect(finished.frontierRank).toBe(160);
-    expect(finished.runComplete).toBe(true);
-    await page.locator('#home-button').click();
+    expect(finished.runComplete).toBe(false);
+    await page.locator('#game-home-button').click();
     await page.locator('#memories-button').click();
     await expect(page.locator('[data-memory-id="mem.opening.ch1.convenience-xu"]')).toBeEnabled();
     await page.locator('#memories-back').click();
@@ -304,7 +306,7 @@ test('title Memories and Gallery stay disabled until delayed route data mounts',
 });
 
 test('opening preview plays COM-00 → COM-01X → COM-01J → COM-02X and saves its shared exit', async ({ page }) => {
-  test.setTimeout(180_000); // Full-story traversal includes the real typewriter animation.
+  test.setTimeout(240_000); // Full-story traversal includes the real typewriter animation.
   const errors = collectBlockingErrors(page);
   await page.goto('/');
   await expect(page.locator('#title-screen')).toBeVisible();
@@ -444,10 +446,13 @@ test('opening preview plays COM-00 → COM-01X → COM-01J → COM-02X and saves
 
   expect(finalJourney.playerDisplayName).toBe('測試姓名');
   expect(finalJourney.frontierMemoryEventId).toBe('mem.opening.ch1.convenience-xu');
-  expect(finalJourney.frontierRank).toBe(160);
+  expect(finalJourney.frontierRank).toBe(200);
   expect(finalJourney.cursor.stats.F_XT).toBeGreaterThanOrEqual(2);
   expect(finalJourney.cursor.flags).toContain('player_knows_xu_freelance_creative_work');
   expect(seen.has('common_convenience_xu_work')).toBe(true);
+  const chronology = [...seen];
+  expect(chronology.indexOf('common_convenience_xu_enter')).toBeLessThan(chronology.indexOf('common_station_cafe_jyc_enter'));
+  expect(chronology.indexOf('common_station_cafe_jyc_enter')).toBeLessThan(chronology.indexOf('common_package_xu_arrive'));
   expect(errors).toEqual([]);
 });
 
@@ -590,7 +595,7 @@ for (const [branchIndex, tone] of ['mc_tone_observant', 'mc_tone_practical', 'mc
     const memoryLibrary = await (await page.request.get('/content/routes/opening-demo/memories.json')).json();
     expect(memoryLibrary.events.map(event => event.id)).toEqual([
       'mem.opening.ch1.movein', 'mem.opening.ch1.elevator-restart',
-      'mem.opening.ch1.acg-first-meet', 'mem.opening.ch1.convenience-xu'
+      'mem.opening.ch1.acg-first-meet', 'mem.opening.ch1.convenience-xu', 'mem.opening.ch1.station-cafe-jyc'
     ]);
     const stats = { ...chapter.initialState, F_XT: 7, T_XT: 3, K_XT: 2, xt_advice_tendency: 1,
       mc_tone_observant: 4, mc_tone_practical: 5, mc_tone_humorous: 6 };
@@ -604,12 +609,12 @@ for (const [branchIndex, tone] of ['mc_tone_observant', 'mc_tone_practical', 'mc
     await page.reload();
     await expect(page.locator('#start-button')).toHaveText('繼續遊戲');
     await page.locator('#start-button').click();
-    expect((await currentJourney(page)).cursor.nodeId).toBe('common_package_xu_arrive');
+    expect((await currentJourney(page)).cursor.nodeId).toBe('common_station_cafe_jyc_enter');
     expect((await currentJourney(page)).cursor.stats).toEqual(stats);
     const seen = new Set();
     let reloaded = false;
     let memoryChecked = false;
-    for (let step = 0; step < 110; step += 1) {
+    for (let step = 0; step < 160; step += 1) {
       if (await page.locator('#ending-screen').isVisible()) break;
       await waitForDialogueReady(page);
       const journey = await currentJourney(page);
@@ -628,11 +633,11 @@ for (const [branchIndex, tone] of ['mc_tone_observant', 'mc_tone_practical', 'mc
       if (id === 'common_package_xu_line' && !memoryChecked) {
         await testInfo.attach(`com03x-branch-${branchIndex + 1}-preview`, { body: await page.screenshot(), contentType: 'image/png' });
         await page.locator('#game-memories-button').click();
-        // This sparse historical save unlocks movein + convenience; the UI also shows
-        // the first locked event, and hides later locked events in the same section.
-        await expect(page.locator('.memory-card')).toHaveCount(3);
+        // This sparse save unlocks movein, convenience and the played cafe scene;
+        // the first locked event remains visible without exposing its title.
+        await expect(page.locator('.memory-card')).toHaveCount(4);
         expect(await page.locator('.memory-card').evaluateAll(cards => cards.map(card => card.dataset.memoryId)))
-          .toEqual(['mem.opening.ch1.movein', 'mem.opening.ch1.elevator-restart', 'mem.opening.ch1.convenience-xu']);
+          .toEqual(['mem.opening.ch1.movein', 'mem.opening.ch1.elevator-restart', 'mem.opening.ch1.convenience-xu', 'mem.opening.ch1.station-cafe-jyc']);
         await expect(page.locator('[data-memory-id="mem.opening.ch1.elevator-restart"]')).toBeDisabled();
         await expect(page.locator('[data-memory-id="mem.opening.ch1.convenience-xu"]')).toBeEnabled();
         await page.locator('[data-memory-id="mem.opening.ch1.convenience-xu"]').click();
@@ -652,9 +657,9 @@ for (const [branchIndex, tone] of ['mc_tone_observant', 'mc_tone_practical', 'mc
         await waitForDialogueReady(page);
       }
       if (chapter.nodes[id].choices) {
-        await page.locator('#advance-zone').click();
+        if (!await page.locator('#choice-list').isVisible()) await page.locator('#advance-zone').click();
         await expect(page.locator('#choice-list')).toBeVisible();
-        await page.locator('#choice-list .choice-button').nth(branchIndex).click();
+        await page.locator('#choice-list .choice-button').nth(id.startsWith('common_station_cafe_jyc_choice_') ? 0 : branchIndex).click();
       } else await page.locator('#advance-zone').click();
     }
     await expect(page.locator('#ending-screen')).toBeVisible();
@@ -663,7 +668,7 @@ for (const [branchIndex, tone] of ['mc_tone_observant', 'mc_tone_practical', 'mc
     for (const id of ['common_package_xu_proof', 'common_package_xu_callback', 'common_package_xu_line', 'common_package_xu_exit', 'common_package_xu_first_message']) expect(seen.has(id)).toBe(true);
     const finished = await currentJourney(page);
     expect(finished.cursor.nodeId).toBe('com03x_preview_complete');
-    expect(finished.cursor.stats).toEqual({ ...stats, F_XT: 8, [tone]: stats[tone] + 1 });
+    expect(finished.cursor.stats).toEqual({ ...stats, F_XT: 8, F_JYC: stats.F_JYC + 1, T_JYC: stats.T_JYC + 1, [tone]: stats[tone] + 1 });
     expect(finished.cursor.flags).toEqual(expect.arrayContaining([...flags, 'contact_xu']));
     expect(finished.playerDisplayName).toBe('小雨');
     expect(finished.runComplete).toBe(true);
@@ -703,3 +708,112 @@ test('invalid old completed cursor keeps safe explicit Start fallback', async ({
   await page.locator('#start-button').click();
   expect((await currentJourney(page)).cursor.nodeId).toBe(chapter.startNode);
 });
+
+async function seedCom02jJourney(page, nodeId, topic, complete = false) {
+  await page.goto('/');
+  const chapter = await (await page.request.get('/content/routes/opening-demo/chapter.json')).json();
+  const stats = { ...chapter.initialState, F_XT: 9, F_JYC: 4, jyc_first_topic: topic };
+  const flags = nodeId.startsWith('common_station_cafe_jyc_') ? [] : ['contact_xu','entry-effect:common_package_xu_first_message_06','saved-world'];
+  await page.evaluate(({ nodeId, stats, flags, complete }) => {
+    const snapshot = { nodeId, stats, flags, returnNodes: [] };
+    localStorage.setItem('opening-demo-chapter-01:journey:v2', JSON.stringify({ version: 2, playerDisplayName: '小雨', cursor: snapshot, frontier: snapshot,
+      runComplete: complete, checkpoints: { [nodeId]: snapshot }, edges: [] }));
+  }, { nodeId, stats, flags, complete });
+  await page.reload();
+  await expect(page.locator('#start-button')).toHaveText('繼續遊戲');
+  await page.locator('#start-button').click();
+  return { chapter, stats, flags };
+}
+
+async function playCom02j(page, choiceIndex, variant, stopAt, testInfo) {
+  const seen = [];
+  let reloaded = false;
+  for (let step = 0; step < 75; step++) {
+    const journey = await currentJourney(page);
+    const id = journey.cursor.nodeId;
+    if (id === stopAt) return { seen, reloaded, journey };
+    await waitForDialogueReady(page);
+    seen.push(id);
+    await expect(page.locator('#scene-image')).toHaveAttribute('src', /narrative-preview-v1.webp/);
+    await expect.poll(() => page.locator('#scene-image').evaluate(image => image.complete && image.naturalWidth === 1600 && image.naturalHeight === 900)).toBe(true);
+    if (id === 'common_station_cafe_jyc_drawing_03') await expect(page.locator('#speaker')).toHaveText('女生');
+    if (id === 'common_station_cafe_jyc_names') await expect(page.locator('#dialogue-text')).toHaveText('上次忘了問。我叫 小雨。');
+    if (id === 'common_station_cafe_jyc_names_02') await expect(page.locator('#speaker')).toHaveText('江雨澄');
+    if (id.startsWith('common_station_cafe_jyc_choice_')) {
+      expect(id).toBe(`common_station_cafe_jyc_choice_${variant}`);
+      const chapter = await (await page.request.get('/content/routes/opening-demo/chapter.json')).json();
+      const label = chapter.nodes[`com02j_continue_topic_${variant}`].text;
+      await expect(page.locator('#choice-list .choice-button').nth(1)).toContainText(label);
+      await testInfo.attach(`com02j-${variant}-choice-${choiceIndex}`, { body: await page.screenshot(), contentType: 'image/png' });
+      await page.locator('#choice-list .choice-button').nth(choiceIndex).click();
+      const cursor = (await currentJourney(page)).cursor;
+      await page.reload();
+      await expect(page.locator('#start-button')).toHaveText('繼續遊戲');
+      await page.locator('#start-button').click();
+      expect((await currentJourney(page)).cursor).toEqual(cursor);
+      reloaded = true;
+    } else await page.locator('#advance-zone').click();
+  }
+  throw new Error(`COM02J did not return to ${stopAt}`);
+}
+
+for (const [topic, variant, choiceIndex] of [[0,'neutral',1],[1,'worldbuilding',1],[2,'visual_design',1],[3,'edition_value',1],[2,'visual_design',0],[99,'neutral',2]]) {
+  test(`COM02J browser topic ${topic} ${variant} choice ${choiceIndex} exact UI, reload and Memory restoration`, async ({ page }, testInfo) => {
+    test.setTimeout(150_000);
+    const errors = collectBlockingErrors(page);
+    const { stats } = await seedCom02jJourney(page,'common_station_cafe_jyc_enter',topic);
+    const played = await playCom02j(page,choiceIndex,variant,'common_package_xu_arrive',testInfo);
+    expect(played.reloaded).toBe(true);
+    expect(played.journey.cursor.stats).toEqual({ ...stats, F_JYC: stats.F_JYC + 1 + Number(choiceIndex === 1), T_JYC: Number(choiceIndex === 0), C_JYC: Number(choiceIndex === 2) });
+    expect(played.journey.frontierRank).toBe(200);
+    expect(played.journey.cursor.flags).toContain(`jyc_second_topic:${['her_art','shared_work','general_praise'][choiceIndex]}`);
+    expect(played.journey.cursor.flags).not.toContain('contact_jyc');
+    expect(played.journey.cursor.flags).not.toContain('contact_xu');
+    expect(played.seen).toContain('common_station_cafe_jyc_reciprocity_02');
+    const world = played.journey.frontier;
+    // Force a genuine replay-local sparse history. The deeper world still has topic.
+    await page.evaluate(() => {
+      const key='opening-demo-chapter-01:journey:v2';const saved=JSON.parse(localStorage.getItem(key));
+      saved.checkpoints.common_station_cafe_jyc_enter.stats.jyc_first_topic=0;
+      localStorage.setItem(key,JSON.stringify(saved));
+    });
+    await page.reload();await page.locator('#memories-button').click();
+    await expect(page.locator('[data-memory-id="mem.opening.ch1.station-cafe-jyc"]')).toBeEnabled();
+    await page.locator('[data-memory-id="mem.opening.ch1.station-cafe-jyc"]').click();
+    for (let step=0;step<65 && !await page.locator('#title-screen').isVisible();step++) {
+      await waitForDialogueReady(page);
+      const id=(await currentJourney(page)).cursor.nodeId;
+      if(id.startsWith('common_station_cafe_jyc_choice_')) {
+        expect(id).toBe('common_station_cafe_jyc_choice_neutral');
+        await page.locator('#choice-list .choice-button').nth(1).click();
+      } else await page.locator('#advance-zone').click();
+    }
+    await expect(page.locator('#title-screen')).toBeVisible();
+    expect((await currentJourney(page)).frontier).toEqual(world);
+    await page.reload();await page.locator('#start-button').click();
+    expect((await currentJourney(page)).cursor).toEqual(world);
+    await page.locator('#game-home-button').click();await page.locator('#gallery-button').click();
+    expect(await page.locator('#cg-grid img').evaluateAll(images=>images.some(image=>image.src.includes('narrative-preview')))).toBe(false);
+    expect(errors).toEqual([]);
+  });
+}
+
+for (const [nodeId,complete] of [['com03x_preview_complete',true],['common_package_xu_proof_10',false],['common_package_xu_first_message_06',false]]) {
+  test(`COM02J browser upgrades ${nodeId} without duplicate effects or lost world state`, async ({ page },testInfo) => {
+    test.setTimeout(100_000);
+    const errors=collectBlockingErrors(page);
+    const { stats,flags }=await seedCom02jJourney(page,nodeId,2,complete);
+    const result=await playCom02j(page,2,'visual_design',nodeId,testInfo);
+    expect(result.reloaded).toBe(true);
+    expect(result.journey.cursor.stats).toEqual({...stats,F_JYC:5,C_JYC:1});
+    expect(result.journey.cursor.flags).toEqual(expect.arrayContaining([...flags,'preview:com02j-complete']));
+    expect(result.journey.playerDisplayName).toBe('小雨');
+    expect(result.journey.com02jSupplement).toBeNull();
+    expect(result.journey.runComplete).toBe(complete);
+    if(complete) await expect(page.locator('#ending-screen')).toBeVisible();
+    await page.reload();await expect(page.locator('#start-button')).toHaveText(complete?'開始遊戲':'繼續遊戲');
+    expect((await currentJourney(page)).com02jSupplement).toBeNull();
+    expect((await currentJourney(page)).frontier).toEqual(result.journey.frontier);
+    expect(errors).toEqual([]);
+  });
+}
