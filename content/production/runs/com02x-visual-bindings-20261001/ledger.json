@@ -6,10 +6,10 @@
   "source_ref": "45f62c381e194bc8b9bc9b3c7629a9a1e2ff8379",
   "human_request": {
     "summary": "Correct actual convenience latter-chat and walk-home CG application in PR39 with unchanged story/save contracts.",
-    "gate_status": "final_ci_and_public_verification_pending",
+    "gate_status": "final_playable_acceptance",
     "human_directive": "你可能要再檢查一次便利店後半跟回家的圖，過劇情的時候沒有正確的套用。"
   },
-  "status": "ACTIVE",
+  "status": "READY_FOR_HUMAN_ACCEPTANCE",
   "tasks": [
     {
       "task_id": "HUMAN-COM02X-WALK-ADOPTION-003",
@@ -51,14 +51,23 @@
       "depends_on": [
         "INTEGRATE-COM02X-VISUAL-BINDINGS-006"
       ],
-      "status": "READY",
-      "decision_receipt": null,
+      "status": "PASS",
+      "decision_receipt": "content/production/runs/com02x-visual-bindings-20261001/VERIFY-COM02X-VISUAL-BINDINGS-008.decision.json",
       "human_gate": "final_playable_acceptance",
-      "reason": "Fresh independent exact-commit review, CI and public preview proof required."
+      "reason": "Exact integration snapshot, complete CI and immutable public flow verified."
     }
   ],
   "invalidation_events": [],
-  "preview": null,
+  "preview": {
+    "commit": "ba5f8322d607f6e0cb1a65dc373aed6926ef9af2",
+    "profile": "verified-cg-integration",
+    "url_or_access_path": "https://b410d7e8.seventeen-floor-neighbor.pages.dev/",
+    "visibility": "public",
+    "build": "PASS",
+    "validation": "PASS",
+    "tests": "Node22 104/104; Chromium 11/11",
+    "smoke": "PASS; public route and CG bytes match; forward flow/reload/Gallery pass"
+  },
   "human_decisions": [
     "content/production/runs/com02x-visual-bindings-20261001/HUMAN-COM02X-WALK-ADOPTION-003.decision.json"
   ]
