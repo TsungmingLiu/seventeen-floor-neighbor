@@ -166,6 +166,75 @@ async function isSupportingEnvironmentReference(reader, candidate, manifest, con
     !containsIdentity(nodes, identities) && !containsIdentity(memory, identities);
 }
 
+// This exact independent title artwork never participates in playable scene invalidation.
+// The exclusion is fail-closed for every story, Memory, Gallery and accepted-base binding.
+export async function isIndependentTitleArtwork(reader, candidate, manifest, config, nodes, memory, allEntries) {
+  const { file, entry } = candidate;
+  if (file !== 'content/production/cg-manifests/title-screen.json' ||
+      entry.entry_id !== 'TITLE-17F-DOORLIGHT-01' || entry.scene_id !== 'COM-00' ||
+      entry.cg_class !== 'background_cg' ||
+      entry.output?.logical_asset_id !== 'bg.opening.title.17f_doorlight' ||
+      entry.output?.canonical_asset_id !== 'BG-TITLE-17F-DOORLIGHT-01' ||
+      !['render_ready', 'accepted'].includes(entry.status)) return false;
+  const id = entry.output.logical_asset_id;
+  const identities = new Set([id, entry.output.canonical_asset_id, entry.entry_id, 'source.opening.title.17f_doorlight.master']);
+  requireCondition(!allEntries.some(({ entry: other }) =>
+    identities.has(other.reference_transport?.accepted_base_asset_id) ||
+    other.reference_transport?.attachments?.some((binding) => binding.role === 'accepted_base' && identities.has(binding.source_id))),
+  'independent title artwork cannot be an accepted base');
+  const index = await reader.json('content/routes/index.json');
+  for (const route of index.routes) {
+    const routeConfig = await reader.json(route.config);
+    const { assetIds, story, ...rest } = routeConfig;
+    const { initialTitleArt, ...chapter } = story || {};
+    requireCondition(!containsIdentity(rest, identities) && !containsIdentity(chapter, identities),
+      'independent title artwork cannot bind chapter cards or endings');
+    requireCondition(!identities.has(initialTitleArt) || initialTitleArt === id, 'initial title binding must use logical asset ID');
+    if (initialTitleArt === id) requireCondition(assetIds?.includes(id), 'initial title artwork is not allowlisted');
+    for (const location of [...(routeConfig.storyFiles || []), ...(routeConfig.sceneFiles || []), ...(routeConfig.memoryFile ? [routeConfig.memoryFile] : [])]) {
+      requireCondition(!containsIdentity(await reader.json(location), identities), 'independent title artwork cannot bind story or Memory/Gallery');
+    }
+  }
+  const asset = manifest.assets?.[id];
+  if (entry.status === 'render_ready') {
+    requireCondition(!asset, 'unadopted title artwork has runtime registration');
+    return true;
+  }
+  requireCondition(asset?.kind === 'background' && !asset.gallery && !asset.previewOnly,
+    'independent title artwork must remain a production background without Gallery');
+  const receipt = await reader.json('content/assets/ingest-receipts/title-master-native-v1.json');
+  const item = receipt.assets?.[0];
+  requireCondition(receipt.receiptVersion === 1 && receipt.receiptType === 'human-adopted-title-master' &&
+    receipt.assets.length === 1 && receipt.sceneId === 'COM-00' &&
+    receipt.humanDecision?.path === 'content/production/runs/title-key-visual-20261002/HUMAN-TITLE-MASTER-001.decision.json' &&
+    receipt.humanDecision.disposition === 'ACCEPTED_AS_IS' && receipt.humanDecision.qaHistoryPreserved === true,
+  'invalid title adoption receipt');
+  const humanBytes = await reader.readBytes(receipt.humanDecision.path);
+  const human = JSON.parse(humanBytes.toString('utf8'));
+  requireCondition(sha256(humanBytes) === receipt.humanDecision.sha256 &&
+    human.status === 'HUMAN_ACCEPTED_AS_IS' && human.task_id === receipt.humanDecision.id &&
+    human.run_id === receipt.runId && human.scene_id === receipt.sceneId &&
+    human.output_versions?.some((v) => v.id === 'TITLE-17F-DOORLIGHT-01-selected-master' && v.version === item?.sha256 && v.location === item.masterPath),
+  'title Human master identity mismatch');
+  const qaBytes = await reader.readBytes(receipt.visualQa.path);
+  requireCondition(receipt.visualQa.path === 'content/production/runs/title-key-visual-20261002/VQA-TITLE-17F-001.decision.json' &&
+    sha256(qaBytes) === receipt.visualQa.sha256 && JSON.parse(qaBytes.toString('utf8')).status === 'NEEDS_REVIEW' &&
+    receipt.visualQa.status === 'NEEDS_REVIEW' && item.visualQaStatus === 'NEEDS_REVIEW', 'title QA history mismatch');
+  const binding = assetBinding({ manifest, sourceMap: await reader.json('content/assets/source-map.json'),
+    catalog: await reader.json('content/assets/source-catalog.json'), acceptedAssets: [{ ...item,
+      canonicalAssetId: item.canonicalId, logicalAssetId: item.logicalId, repoPath: item.masterPath }] }, entry);
+  for (const [location, hash, bytes] of [[binding.master.sourcePath, item.sha256, item.bytes],
+    [binding.mapped.source, item.derivativeSha256, item.derivativeBytes]]) {
+    const actual = await reader.readBytes(location);
+    requireCondition(actual.length === bytes && sha256(actual) === hash, 'title master/derivative bytes mismatch');
+  }
+  requireCondition(asset.focus?.x === 50 && asset.focus?.y === 40 &&
+    receipt.renderProvenance?.originalGenerationRef === 'a4e6e1b6e89c3d6dc180755842343230398e3403' &&
+    receipt.renderProvenance.originalGenerationManifestSha256 === '3ac8f4d3e48a9a6b8c0a32b2c1c66dabb16323ce59c4accd2517396a965ce196',
+  'title framing/generation provenance mismatch');
+  return true;
+}
+
 function acceptedIdentity(binding) {
   if (!binding) return null;
   const { logicalId, asset, mapped, master, accepted, bytesSha256 } = binding;
@@ -225,7 +294,8 @@ export async function snapshotScene(reader, sceneId) {
   const entries = [];
   const excludedReferenceEntries = [];
   for (const candidate of sceneEntries) {
-    if (await isSupportingEnvironmentReference(reader, candidate, manifest, config, nodes, memory, allEntries)) {
+    if (await isSupportingEnvironmentReference(reader, candidate, manifest, config, nodes, memory, allEntries) ||
+        await isIndependentTitleArtwork(reader, candidate, manifest, config, nodes, memory, allEntries)) {
       excludedReferenceEntries.push(candidate.entry.entry_id);
     } else {
       requireCondition(candidate.entry.status === 'accepted',
@@ -278,6 +348,12 @@ export async function snapshotScene(reader, sceneId) {
   }
   const ids = new Set(nodeIds);
   const logicalIds = new Set(entries.map(({ entry }) => entry.output.logical_asset_id));
+  const sceneRouteStory = { ...config.story };
+  if (sceneRouteStory.initialTitleArt === 'bg.opening.title.17f_doorlight') {
+    const title = allEntries.find((candidate) => candidate.file === 'content/production/cg-manifests/title-screen.json' && candidate.entry.entry_id === 'TITLE-17F-DOORLIGHT-01');
+    requireCondition(title && await isIndependentTitleArtwork(reader, title, manifest, config, nodes, memory, allEntries), 'invalid independent initial title binding');
+    delete sceneRouteStory.initialTitleArt;
+  }
   return {
     sceneId,
     excludedReferenceEntries,
@@ -297,7 +373,7 @@ export async function snapshotScene(reader, sceneId) {
       galleryAssets: memory.galleryAssets.filter((id) => logicalIds.has(id))
     },
     route: {
-      id: config.id, story: config.story, allowPreviewArt: config.allowPreviewArt,
+      id: config.id, story: sceneRouteStory, allowPreviewArt: config.allowPreviewArt,
       assetIds: config.assetIds.filter((id) => logicalIds.has(id))
     },
     images

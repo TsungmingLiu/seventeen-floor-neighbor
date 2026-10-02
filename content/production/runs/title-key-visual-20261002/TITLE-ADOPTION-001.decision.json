@@ -1,0 +1,67 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "adopted_asset",
+  "run_id": "title-key-visual-20261002",
+  "task_id": "TITLE-ADOPTION-001",
+  "scene_id": "COM-00",
+  "task_type": "integrate",
+  "status": "PASS",
+  "harness": {
+    "id": "integrator",
+    "version": "1.3.1",
+    "pass": null
+  },
+  "source_ref": "87086683361ed8f55492055e8f5776ff4229e36e",
+  "input_versions": [
+    {
+      "id": "integration-task-packet",
+      "version": "1ab1df8e570fcc8b0183ecd9a1a66f1ceb4ed53ddefab76be5eaeaaced9eac92",
+      "location": "external:integrator-task-packet"
+    },
+    {
+      "id": "human-native-master-selection",
+      "version": "1f0e92e7bbf4b5053031d72842f5537de4719484d518905e33143adb7c8cdc97",
+      "location": "content/production/runs/title-key-visual-20261002/HUMAN-TITLE-MASTER-001.decision.json"
+    },
+    {
+      "id": "reconciled-title-specification",
+      "version": "b0fb422062bd29ba188eb141ca341e9dd27f1344fa6a3643a0c97f21a5714f59",
+      "location": "content/production/cg-manifests/title-screen.json"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "native-title-master",
+      "version": "8434d7ae1f0857245abc99062a67b6c81d384de489a2854b65348da73edf0c81",
+      "location": "assets-src/opening-title/title-17f-doorlight-v1.png"
+    },
+    {
+      "id": "native-title-runtime-derivative",
+      "version": "5028f66458aff84a1f4b5d9a55dc467b9c5cadd96fc119f55e452180e40633c3",
+      "location": "assets-src/opening-title/title-17f-doorlight-v1.webp"
+    },
+    {
+      "id": "native-title-ingest-receipt",
+      "version": "a09755386d2a0e2e091376d90dba4aaa68f47a7f72831a04723288877633098e",
+      "location": "content/assets/ingest-receipts/title-master-native-v1.json"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "exact-native-master-ingestion",
+      "code": "EXACT_NATIVE_BYTES",
+      "result": "PASS"
+    },
+    {
+      "name": "focused-runtime-validation-tests",
+      "code": "47_FOCUSED_TESTS",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "Original independent Visual QA remains NEEDS_REVIEW; Human selection as-is authorizes adoption and 50% 40% framing."
+  ],
+  "human_gate_required": "none",
+  "invalidates": []
+}

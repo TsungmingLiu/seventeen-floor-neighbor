@@ -42,10 +42,10 @@ test('current deterministic inventory distinguishes unused preview and adopted c
   const result = report();
   assert.equal(JSON.stringify(result), JSON.stringify(report()));
   assert.deepEqual(result.summary, {
-    inventory: 20, runtimeBound: 19, declared: 19, referenced: 19, unused: 1,
-    inventoryStatuses: { placeholder: 1, provisional: 2, accepted: 17, unverified: 0 },
-    runtimeStatuses: { placeholder: 0, provisional: 2, accepted: 17, unverified: 0 },
-    blockedRuntimeAssets: 7, bindingErrors: 0, coverageClear: false
+    inventory: 21, runtimeBound: 20, declared: 20, referenced: 20, unused: 1,
+    inventoryStatuses: { placeholder: 1, provisional: 2, accepted: 18, unverified: 0 },
+    runtimeStatuses: { placeholder: 0, provisional: 2, accepted: 18, unverified: 0 },
+    blockedRuntimeAssets: 8, bindingErrors: 0, coverageClear: false
   });
   assert.equal(asset(result, preview).status, 'placeholder');
   assert.equal(asset(result, preview).runtimeBound, false);
@@ -229,6 +229,25 @@ test('CLI JSON is deterministic and strict mode returns expected failure', () =>
   assert.equal(second.stdout, first.stdout);
   assert.equal(strict.status, 1, strict.stderr);
   assert.equal(strict.stdout, first.stdout);
-  assert.equal(JSON.parse(first.stdout).summary.runtimeBound, 19);
+  assert.equal(JSON.parse(first.stdout).summary.runtimeBound, 20);
 });
 function fileURL() { return new URL('../tools/asset-coverage.mjs', import.meta.url).pathname; }
+
+
+test('initial title background preserves as-is QA and fails closed for corrupt provenance or story use', () => {
+  const id = 'bg.opening.title.17f_doorlight';
+  const path = 'content/assets/ingest-receipts/title-master-native-v1.json';
+  const title = asset(report(), id);
+  assert.equal(title.status, 'accepted'); assert.equal(title.visualQaStatus, 'NEEDS_REVIEW');
+  assert.deepEqual(title.references.map((r) => r.binding), ['initialTitleArt']);
+  for (const mutate of [
+    (input) => { document(input, path).assets[0].sha256 = '0'.repeat(64); },
+    (input) => { document(input, path).visualQa.status = 'PASS'; },
+    (input) => { document(input, path).humanDecision.sha256 = '0'.repeat(64); },
+    (input) => { document(input, storyPath).nodes.fixture = { visual: { mode: 'composite', background: id } }; }
+  ]) {
+    const input = clone(); mutate(input); assert.equal(asset(report(input), id).status, 'unverified');
+  }
+  const missing = clone(); document(missing, routePath).assetIds = document(missing, routePath).assetIds.filter((v) => v !== id);
+  assert.ok(report(missing).bindingErrors.some((e) => e.code === 'ASSET_NOT_ALLOWLISTED' && e.binding === 'initialTitleArt'));
+});

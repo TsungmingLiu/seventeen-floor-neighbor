@@ -205,3 +205,18 @@ test('narrative preview uses one local background without claiming CG or Gallery
   disguised.manifest.assets[id].previewOnly = false;
   assert.ok((await validateContent(disguised, { finalVisuals: true })).some((error) => error.includes(`asset ${id}: previewOnly must remain true`)));
 });
+
+
+test('initialTitleArt is optional and validates allowed asset kind and route membership', async () => {
+  const base = await loadContent();
+  const route = base.routes.find((r) => r.config.id === 'opening-demo');
+  assert.equal(route.chapter.initialTitleArt, 'bg.opening.title.17f_doorlight');
+  assert.deepEqual(await validateContent(base), []);
+  delete route.chapter.initialTitleArt;
+  assert.deepEqual(await validateContent(base), []);
+  const missing = clone(base); missing.routes[0].chapter.initialTitleArt = 'not.allowlisted';
+  assert.ok((await validateContent(missing)).some((e) => e.includes('initialTitleArt: undeclared or unknown asset')));
+  const invalid = clone(base); const id = 'bg.opening.title.17f_doorlight';
+  invalid.routes[0].chapter.initialTitleArt = id; invalid.routes[0].assetManifest.assets[id].kind = 'sprite';
+  assert.ok((await validateContent(invalid)).some((e) => e.includes('initialTitleArt: must be background or cg')));
+});

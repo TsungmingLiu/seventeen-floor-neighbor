@@ -1,6 +1,6 @@
 # Canonical CG Manifest
 
-Version: 1.0.0
+Version: 1.1.0
 
 Machine schema：`.ai/schemas/cg-manifest.schema.json`。
 
@@ -33,6 +33,16 @@ Required groups：
 - output and acceptance。
 
 `background_cg` may have an empty `characters[]`; other classes require visible character constraints at planning/validation time。
+
+### Prospective native-size and quality semantics
+
+Use existing fields; do not add JSON schema/transport fields or rewrite accepted entries:
+
+- `render_constraints.include[]` states prefer largest supported native 16:9 output and highest available quality, integer-pixel rounding, approved aspect/reference/edit compatibility, exposed supported size/quality controls or explicit `not exposed`, no fixed 1672×941/1920×1080 floor, no invented arguments/universal tool cap and no upscale represented as native/high-definition. Actual dimensions must be verified, not inferred from preference.
+- `composition.framing_notes[]`, `focus` and `dialogue_safe_zone` state approved target desktop, mobile landscape and portrait CSS viewport width/height, orientation, DPR, image display area, fit/crop/focus, critical regions and UI occlusion constraints. Missing approved profile values block future planning; there are no universal viewport/DPR defaults.
+- `acceptance[]` contains the acceptance checks: preserve untouched returned bytes/location, verify width/height/MIME/byte count/SHA-256, inspect native-size source clarity/artifacts, and separately inspect hash-bound runtime derivative compression plus actual render/crop/focus/UI evidence at all profiles. Spell out `VQA-NATIVE-PROVENANCE`, `VQA-SOURCE-CLARITY`, `VQA-COMPRESSION-ARTIFACTS`, `VQA-DESKTOP-DISPLAY` and `VQA-MOBILE-PORTRAIT-DISPLAY` and their evidence, with bounded routing: raw defects to renderer/planner; derivative/runtime defects to integrator. Missing required evidence is `BLOCKED`/`NEEDS_REVIEW`, evidenced quality failure is `FAIL`/`NEEDS_REVIEW`; no automatic redraw/retry, missing-evidence PASS or unverified 4K/retina claims. Final derivative/display QA requires an independent fresh review after integration if the evidence did not yet exist.
+
+These strings already enter deterministic packets. They are not a new `acceptance_checks` field, generated-packet edit or permission for renderer to read global prose. Future Task Packets retain the requirements in existing `constraints.locked`/`acceptance` and hash-bound acquisitions. Manifest-usability review blocks incomplete projection before execution; this documentation revision does not add machine enforcement or invalidate historical acceptance by itself.
 
 `reference_transport.attachments[]` 列出 image-generation call 必須得到的精確 image inputs，並不指定由誰上傳。`chat_manual` 由 Human 提供；`work_batch` 依 source ID 從 repo source catalog 指向的檔案取得。兩者均須做 hash、完整解碼、pixel/role preflight；缺件則 `BLOCKED`。
 

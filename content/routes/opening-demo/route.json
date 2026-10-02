@@ -34,7 +34,8 @@
     "bg.opening.com02x.convenience_night",
     "cg.opening.com02x.recognition",
     "cg.opening.com02x.microwave_wait",
-    "cg.opening.com02x.walk_home"
+    "cg.opening.com02x.walk_home",
+    "bg.opening.title.17f_doorlight"
   ],
   "story": {
     "id": "opening-demo-chapter-01",
@@ -83,7 +84,8 @@
         "art": "cg.opening.com02x.recognition",
         "text": "Opening Chapter 1 敘事預覽到此結束。\n\n這是故事與互動的審閱邊界。"
       }
-    }
+    },
+    "initialTitleArt": "bg.opening.title.17f_doorlight"
   },
   "memoryFile": "content/routes/opening-demo/memories.json"
 }

@@ -1,0 +1,105 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_checkpoint",
+  "run_id": "title-key-visual-20261002",
+  "workflow_version": "1.3.0",
+  "source_ref": "87086683361ed8f55492055e8f5776ff4229e36e",
+  "human_request": {
+    "summary": "Prefill 劉樂 for quick start; adopt the selected native title background at 50% 40% focus; remove the fixed 1920×1080 minimum.",
+    "gate_status": "actual_master_and_focus_explicitly_accepted",
+    "native_master_sha256": "8434d7ae1f0857245abc99062a67b6c81d384de489a2854b65348da73edf0c81",
+    "reconciled_manifest_sha256": "b0fb422062bd29ba188eb141ca341e9dd27f1344fa6a3643a0c97f21a5714f59",
+    "generation_ref": "a4e6e1b6e89c3d6dc180755842343230398e3403",
+    "generation_manifest_sha256": "3ac8f4d3e48a9a6b8c0a32b2c1c66dabb16323ce59c4accd2517396a965ce196",
+    "history_checkpoint_ref": "552aea8ec4fa08a806d8f3fc5f48c91deae79496",
+    "history_checkpoint_path": "content/production/runs/title-key-visual-20261002/ledger.json",
+    "history_checkpoint_sha256": "654436374c85f7eec7d19e54fd09d967a6ae4668f3ee31f4861bf94aeb564aa0"
+  },
+  "status": "READY_FOR_HUMAN_ACCEPTANCE",
+  "tasks": [
+    {
+      "task_id": "MUA-TITLE-17F-001",
+      "task_type": "visual_review",
+      "review_scope": "manifest_usability",
+      "scene_id": "COM-00",
+      "depends_on": [],
+      "status": "PASS",
+      "decision_receipt": "content/production/runs/title-key-visual-20261002/MUA-TITLE-17F-001.decision.json",
+      "human_gate": "none",
+      "reason": "Historical review of the original generation specification; no claim of a review of the reconciled specification."
+    },
+    {
+      "task_id": "VQA-TITLE-17F-001",
+      "task_type": "visual_review",
+      "review_scope": "candidate",
+      "scene_id": "COM-00",
+      "depends_on": [],
+      "status": "NEEDS_REVIEW",
+      "decision_receipt": "content/production/runs/title-key-visual-20261002/VQA-TITLE-17F-001.decision.json",
+      "human_gate": "actual_master_selection",
+      "reason": "Original NEEDS_REVIEW is preserved. Human later accepted the same native pixels with the tested 50% 40% focus."
+    },
+    {
+      "task_id": "HUMAN-TITLE-MASTER-001",
+      "task_type": "human_decision",
+      "scene_id": "COM-00",
+      "depends_on": [],
+      "status": "PASS",
+      "decision_receipt": "content/production/runs/title-key-visual-20261002/HUMAN-TITLE-MASTER-001.decision.json",
+      "human_gate": "none",
+      "reason": "Explicit Human selection of the actual unchanged native master and portrait focus; native-output policy relaxed by Human instruction."
+    },
+    {
+      "task_id": "INTEGRATE-TITLE-MASTER-001",
+      "task_type": "integrate",
+      "scene_id": "COM-00",
+      "depends_on": [
+        "HUMAN-TITLE-MASTER-001"
+      ],
+      "status": "PASS",
+      "decision_receipt": "content/production/runs/title-key-visual-20261002/INTEGRATE-TITLE-MASTER-001.decision.json",
+      "human_gate": "none",
+      "reason": "Verified fresh integrator Handoff and exact adopted runtime/source identities. Reconciled formal output is preserved in source; original planner/render graph remains at history_checkpoint_ref."
+    },
+    {
+      "task_id": "TITLE-REVIEW-TOOL-CORRECTION-001",
+      "task_type": "integrate",
+      "scene_id": "COM-00",
+      "depends_on": [
+        "INTEGRATE-TITLE-MASTER-001"
+      ],
+      "status": "PASS",
+      "decision_receipt": "content/production/runs/title-key-visual-20261002/TITLE-REVIEW-TOOL-CORRECTION-001.decision.json",
+      "human_gate": "none",
+      "reason": "Verified independent-title classification correction; current regressions and pinned historical QA passed without changing runtime or accepted pixels."
+    }
+  ],
+  "invalidation_events": [
+    {
+      "changed_artifact_id": "title-native-output-and-focal-spec",
+      "old_version": "3ac8f4d3e48a9a6b8c0a32b2c1c66dabb16323ce59c4accd2517396a965ce196",
+      "new_version": "b0fb422062bd29ba188eb141ca341e9dd27f1344fa6a3643a0c97f21a5714f59",
+      "decision": "Human_selected_reconciliation_without_redraw",
+      "evidence": "Explicit native-output policy and actual master/focus selection; original pixels and historical QA remain unchanged."
+    }
+  ],
+  "preview": {
+    "commit": "34153887934437710a55cb86af697b6f96b38362",
+    "merge_commit": "5e3232070368cf338bcd071e687f4008dce7639b",
+    "git_tree": "0db1c3c878b7c8c551e67c5a5130a5023220f3a2",
+    "profile": "cloudflare-pages-pr-45",
+    "url_or_access_path": "https://d6bf1a01.seventeen-floor-neighbor.pages.dev",
+    "alias_url": "https://pr-45.seventeen-floor-neighbor.pages.dev",
+    "visibility": "public",
+    "build": "PASS",
+    "validation": "PASS: content, production, final and storage",
+    "tests": "PASS: 163/163 complete CI; 12 focused Chromium cases",
+    "smoke": "PASS: CI local-preview and deployed Pages index/deep-link/runtime-file checks",
+    "ci_run_id": 37024587254,
+    "verify_job_id": 110895858416,
+    "deploy_job_id": 110899912272,
+    "ci_url": "https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/37024587254",
+    "human_acceptance": "pending",
+    "additional_local_fetch": "Blocked by execution-environment outbound proxy; no additional remote image-byte check claimed."
+  }
+}

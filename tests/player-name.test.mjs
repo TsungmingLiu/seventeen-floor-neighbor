@@ -1,6 +1,16 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { normalizePlayerName, interpolatePlayerName } from '../src/player-name.js';
+import { DEFAULT_PLAYER_NAME, normalizePlayerName, interpolatePlayerName, submittedPlayerName } from '../src/player-name.js';
+
+test('quick-start submission defaults only blank strings and preserves strict saved-name validation', () => {
+  assert.equal(DEFAULT_PLAYER_NAME, '劉樂');
+  for (const value of ['', '   ', '\t\n', '\u3000']) assert.equal(submittedPlayerName(value), '劉樂');
+  assert.equal(submittedPlayerName('  小雨  '), '小雨');
+  for (const value of [null, undefined, 0, '[bad]', '小\n雨', '雨'.repeat(21)]) {
+    assert.equal(submittedPlayerName(value), null);
+  }
+  assert.equal(normalizePlayerName(''), null, 'missing save names still need explicit confirmation');
+});
 
 test('name validation trims, counts Unicode characters, and rejects empty/oversize/control/token names', () => {
   assert.equal(normalizePlayerName('  小雨  '), '小雨');

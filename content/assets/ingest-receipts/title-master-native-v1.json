@@ -1,0 +1,112 @@
+{
+  "receiptVersion": 1,
+  "createdAt": "2026-10-02T14:23:06.395Z",
+  "specVersion": 1,
+  "toolVersions": {
+    "ffmpeg": "ffmpeg version 7.1.5-0+deb13u1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "ffprobe": "ffprobe version 7.1.5-0+deb13u1 Copyright (c) 2007-2026 the FFmpeg developers"
+  },
+  "assets": [
+    {
+      "sourceId": "source.opening.title.17f_doorlight.master",
+      "entryId": "TITLE-17F-DOORLIGHT-01",
+      "logicalId": "bg.opening.title.17f_doorlight",
+      "canonicalId": "BG-TITLE-17F-DOORLIGHT-01",
+      "filename": "title-17f-doorlight-v1.png",
+      "masterPath": "assets-src/opening-title/title-17f-doorlight-v1.png",
+      "runtimePath": "assets/opening-title/title-17f-doorlight-v1.webp",
+      "derivativePath": "assets-src/opening-title/title-17f-doorlight-v1.webp",
+      "sha256": "8434d7ae1f0857245abc99062a67b6c81d384de489a2854b65348da73edf0c81",
+      "bytes": 1858079,
+      "width": 1672,
+      "height": 941,
+      "mimeType": "image/png",
+      "derivativeSha256": "5028f66458aff84a1f4b5d9a55dc467b9c5cadd96fc119f55e452180e40633c3",
+      "derivativeBytes": 141078,
+      "humanDecisionSha256": "8434d7ae1f0857245abc99062a67b6c81d384de489a2854b65348da73edf0c81",
+      "humanDisposition": "ACCEPTED_AS_IS",
+      "visualQaStatus": "NEEDS_REVIEW",
+      "visualQaReceipt": "content/production/runs/title-key-visual-20261002/VQA-TITLE-17F-001.decision.json",
+      "acceptedKnownIssues": [
+        "Original review against original 1920x1080/focal-band specification is NEEDS_REVIEW; independent environment/materials/title-only/desktop checks pass.",
+        "Native1672x941 was below original minimum. Human later cancelled fixed minimum; preserve historical QA outcome.",
+        "Original portrait focus64% lost doorway at320x700; same-pixel focus50% passed screenshot advisory at320x568 and320x700. Human later explicitly selected native candidate with50% focus."
+      ],
+      "ingest": {
+        "logicalId": "bg.opening.title.17f_doorlight",
+        "sourcePath": "title-17f-doorlight-v1.png",
+        "sourceMimeType": "image/png",
+        "sourceSha256": "8434d7ae1f0857245abc99062a67b6c81d384de489a2854b65348da73edf0c81",
+        "sourceBytes": 1858079,
+        "sourceWidth": 1672,
+        "sourceHeight": 941,
+        "sourceAlpha": false,
+        "runtimePath": "assets/opening-title/title-17f-doorlight-v1.webp",
+        "outputPath": "assets-src/opening-title/title-17f-doorlight-v1.webp",
+        "mode": "webp",
+        "quality": 88,
+        "outputSha256": "5028f66458aff84a1f4b5d9a55dc467b9c5cadd96fc119f55e452180e40633c3",
+        "outputBytes": 141078,
+        "outputWidth": 1672,
+        "outputHeight": 941,
+        "outputAlpha": false,
+        "masterSourceId": "source.opening.title.17f_doorlight.master",
+        "approvalReceipt": "source.opening.title.17f_doorlight.master"
+      }
+    }
+  ],
+  "receiptType": "human-adopted-title-master",
+  "runId": "title-key-visual-20261002",
+  "taskId": "INTEGRATE-TITLE-MASTER-001",
+  "sceneId": "COM-00",
+  "integrationMode": "final",
+  "humanDecision": {
+    "id": "HUMAN-TITLE-MASTER-001",
+    "path": "content/production/runs/title-key-visual-20261002/HUMAN-TITLE-MASTER-001.decision.json",
+    "sha256": "1f0e92e7bbf4b5053031d72842f5537de4719484d518905e33143adb7c8cdc97",
+    "status": "HUMAN_ACCEPTED_AS_IS",
+    "disposition": "ACCEPTED_AS_IS",
+    "qaHistoryPreserved": true
+  },
+  "visualQa": {
+    "path": "content/production/runs/title-key-visual-20261002/VQA-TITLE-17F-001.decision.json",
+    "sha256": "80fca77cfa170c16c67d22c392368411299ce2805c0ec94a3dbcf01cb9ae99e6",
+    "status": "NEEDS_REVIEW"
+  },
+  "renderProvenance": {
+    "originalGenerationRef": "a4e6e1b6e89c3d6dc180755842343230398e3403",
+    "originalGenerationManifestPath": "content/production/cg-manifests/title-screen.json",
+    "originalGenerationManifestSha256": "3ac8f4d3e48a9a6b8c0a32b2c1c66dabb16323ce59c4accd2517396a965ce196",
+    "originalRenderPacketSha256": "eec7d64265347a8961e9d3cf3db42ed1b52306f3460f4e02ef8433d84428bff9",
+    "originalGenerationIdentity": {
+      "ref": "a4e6e1b6e89c3d6dc180755842343230398e3403",
+      "manifest_path": "content/production/cg-manifests/title-screen.json",
+      "manifest_version": "1.0.0",
+      "manifest_file_sha256": "3ac8f4d3e48a9a6b8c0a32b2c1c66dabb16323ce59c4accd2517396a965ce196",
+      "manifest_sha256": "403a2c13c0b9e5e665dec1da4c7cd28664820f85104c54b74d41a6cf9f465f85",
+      "render_spec_sha256": "a856b2cb9655d4bf1dfcd44d30775c8db8b16faaaf5a235634a5aea40b91ef10",
+      "shared_prompt_sha256": "a8821d804668a2b79ed149f3cf604e0083b4b7a03b23fe4dd4fd4243e467a3ad",
+      "packet_path": "generated/session-cache/title-name-quick-start/plan/render.packet.json",
+      "packet_file_sha256": "eec7d64265347a8961e9d3cf3db42ed1b52306f3460f4e02ef8433d84428bff9"
+    },
+    "reconciledIdentity": {
+      "manifest_path": "content/production/cg-manifests/title-screen.json",
+      "manifest_version": "1.1.0",
+      "manifest_file_sha256": "b0fb422062bd29ba188eb141ca341e9dd27f1344fa6a3643a0c97f21a5714f59",
+      "manifest_sha256": "f44660217387c2e46e3db0064e9765608ed4786b3a165165860ca1743c16b5bb",
+      "render_spec_sha256": "83b478ea32788e4567b7dec7fbdeeebe947467a22770d8f5edbed06743c825e7",
+      "shared_prompt_sha256": "a8a89ee28f85a28fd3197c27283287d5051e0962bc252140cd31fff094aad199",
+      "packet_path": "generated/session-cache/title-name-quick-start/reconcile/render.packet.json",
+      "packet_file_sha256": "8924a5998ff8e08f7d68be41b0974edc979a89b1642861c62e8143f818e6c17e"
+    }
+  },
+  "runtimeCoverage": {
+    "routeId": "opening-demo",
+    "binding": "initialTitleArt",
+    "zeroProgressOnly": true,
+    "focus": {
+      "x": 50,
+      "y": 40
+    }
+  }
+}

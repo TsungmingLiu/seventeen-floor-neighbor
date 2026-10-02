@@ -1,0 +1,260 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "resume_checkpoint",
+  "run_id": "title-key-visual-20261002",
+  "task_id": "INTEGRATE-TITLE-MASTER-001",
+  "scene_id": "COM-00",
+  "task_type": "integrate",
+  "status": "PASS",
+  "harness": {
+    "id": "integrator",
+    "version": "1.3.1",
+    "pass": null
+  },
+  "source_ref": "87086683361ed8f55492055e8f5776ff4229e36e",
+  "packet_sha256": "1ab1df8e570fcc8b0183ecd9a1a66f1ceb4ed53ddefab76be5eaeaaced9eac92",
+  "input_versions": [
+    {
+      "id": "verified-integration-handoff",
+      "version": "0bd820155fe322eb2f6d69db286d4038bfff9d06e0017415bddb58e62f5acf27",
+      "location": "external:verified-integrator-handoff-fingerprint"
+    },
+    {
+      "id": "human-native-master-selection",
+      "version": "1f0e92e7bbf4b5053031d72842f5537de4719484d518905e33143adb7c8cdc97",
+      "location": "content/production/runs/title-key-visual-20261002/HUMAN-TITLE-MASTER-001.decision.json"
+    },
+    {
+      "id": "complete-ci-functional-tree",
+      "version": "0db1c3c878b7c8c551e67c5a5130a5023220f3a2",
+      "location": "git:34153887934437710a55cb86af697b6f96b38362"
+    },
+    {
+      "id": "successful-ci-verification",
+      "version": "run:37024587254;verify_job:110895858416;deploy_job:110899912272",
+      "location": "https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/37024587254"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "assets-src/opening-title/title-17f-doorlight-v1.png",
+      "version": "8434d7ae1f0857245abc99062a67b6c81d384de489a2854b65348da73edf0c81",
+      "location": "assets-src/opening-title/title-17f-doorlight-v1.png"
+    },
+    {
+      "id": "content/assets/source-catalog.json",
+      "version": "1f50374956678d680933afbe919f7f1a94c5881044defaa6374a917836dd439d",
+      "location": "content/assets/source-catalog.json"
+    },
+    {
+      "id": "content/assets/source-map.json",
+      "version": "9202a5fbab7599ed6da29e61a071479100cd9d84ed1accd4e8d71ab7c0d26a0c",
+      "location": "content/assets/source-map.json"
+    },
+    {
+      "id": "content/assets/manifest.json",
+      "version": "b82e13d83ff5be6ca11c3d68b5ad358258820bfc908242d5e8b3bf63542c771e",
+      "location": "content/assets/manifest.json"
+    },
+    {
+      "id": "content/recipes/assets.json",
+      "version": "46c6b1d19bdfaade7112ec95086ee2cc11f9371cc5de2d6e42d050a5c38d0fba",
+      "location": "content/recipes/assets.json"
+    },
+    {
+      "id": "content/routes/opening-demo/route.json",
+      "version": "37884aa8f0f6d6102a32a74469b579b302047f897538e5a2fed818b37026e855",
+      "location": "content/routes/opening-demo/route.json"
+    },
+    {
+      "id": "content/production/cg-manifests/title-screen.json",
+      "version": "ecece364e17246cbee13fcec471d9b281a707ed8cfb5dc8ef2800390392e37b8",
+      "location": "content/production/cg-manifests/title-screen.json"
+    },
+    {
+      "id": "content/assets/ingest-receipts/title-master-native-v1.json",
+      "version": "a09755386d2a0e2e091376d90dba4aaa68f47a7f72831a04723288877633098e",
+      "location": "content/assets/ingest-receipts/title-master-native-v1.json"
+    },
+    {
+      "id": "content/production/runs/title-key-visual-20261002/TITLE-ADOPTION-001.decision.json",
+      "version": "a1b5949577288242a9c41b5a189787509dc45df15eb013eac20d465b39cd0333",
+      "location": "content/production/runs/title-key-visual-20261002/TITLE-ADOPTION-001.decision.json"
+    },
+    {
+      "id": "src/engine.js",
+      "version": "0e4123ddc2e2fde50039dcb7a8c9b03fcb6c849df26bee2798b1c098dfddec8e",
+      "location": "src/engine.js"
+    },
+    {
+      "id": "public/styles.css",
+      "version": "d00f5dcce8233f7bbb8d07d556b39769a59103ef4dcb2ec131b0c3b1744f9c04",
+      "location": "public/styles.css"
+    },
+    {
+      "id": "tools/asset-coverage.mjs",
+      "version": "08e2b816083bf1ab13bda859d3cec4658835bf9d237b5323244c72ef0755c4b3",
+      "location": "tools/asset-coverage.mjs"
+    },
+    {
+      "id": "tools/validate-production-contracts.mjs",
+      "version": "77de4d2506ce77140e50cd3d815ad7031ef85c5cab90ac6a17c0fcb03924e8fa",
+      "location": "tools/validate-production-contracts.mjs"
+    },
+    {
+      "id": "tests/engine-progress.test.mjs",
+      "version": "ce6a96a5ec21f4437793374f0c869613de3d5c955ed86fb0d3c7c9e4a5bccc5f",
+      "location": "tests/engine-progress.test.mjs"
+    },
+    {
+      "id": "tests/content-validation.test.mjs",
+      "version": "4ca3197b6a00f7938dd003add63e1fa6e75633ea1f12d53086e41c4e9361d20f",
+      "location": "tests/content-validation.test.mjs"
+    },
+    {
+      "id": "tests/asset-coverage.test.mjs",
+      "version": "d1c7dc76957e7a48466d13ea97af5bcda0569b7adf8f249d475cf9ffdeba05db",
+      "location": "tests/asset-coverage.test.mjs"
+    },
+    {
+      "id": "tests/browser-acceptance.spec.mjs",
+      "version": "6fc805b4a70f285b2aa74c4753e470e3de36d2669eeef3764343f5c17eec0a97",
+      "location": "tests/browser-acceptance.spec.mjs"
+    },
+    {
+      "id": "assets-src/opening-title/title-17f-doorlight-v1.webp",
+      "version": "5028f66458aff84a1f4b5d9a55dc467b9c5cadd96fc119f55e452180e40633c3",
+      "location": "assets-src/opening-title/title-17f-doorlight-v1.webp"
+    },
+    {
+      "id": "tools/content-lib.mjs",
+      "version": "09fcae608afc5d865c99d204d125c939f7e77c3d2460df608f0b1b5b68c0957d",
+      "location": "tools/content-lib.mjs"
+    },
+    {
+      "id": "tools/production-impact.mjs",
+      "version": "33c180f98a8c18993d4e736926be37858136d0424afbe8a05f4135951e79bb81",
+      "location": "tools/production-impact.mjs"
+    },
+    {
+      "id": "tests/title-art-impact.test.mjs",
+      "version": "caedea9c06309556100a427d38a8053d023c9089c4923c249718cee4b74659b1",
+      "location": "tests/title-art-impact.test.mjs"
+    },
+    {
+      "id": "src/player-name.js",
+      "version": "e0c662d40aeb48ed97771e6386dc6c531515f8731b10e8545f8903b59b0302b3",
+      "location": "src/player-name.js"
+    },
+    {
+      "id": "public/index.html",
+      "version": "7a3d3ad089c5359c67996406d3acfb769e8f37b16af65b8cd0baf61fec6ade76",
+      "location": "public/index.html"
+    },
+    {
+      "id": "tests/player-name.test.mjs",
+      "version": "32bee01f21379ac3b02bfe5b125a8ff48bff5e275ced16dcbc84000d7b5678f4",
+      "location": "tests/player-name.test.mjs"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "packet-required-source-acquisition",
+      "code": "PACKET_REQUIRED_SOURCE_ACQUISITION",
+      "result": "PASS"
+    },
+    {
+      "name": "exact-native-PNG-copy",
+      "code": "EXACT_NATIVE_PNG_COPY",
+      "result": "PASS"
+    },
+    {
+      "name": "existing-asset-ingest-deterministic-WebP",
+      "code": "EXISTING_ASSET_INGEST_DETERMINISTIC_WEBP",
+      "result": "PASS"
+    },
+    {
+      "name": "47-focused-unit-tests",
+      "code": "47_FOCUSED_UNIT_TESTS",
+      "result": "PASS"
+    },
+    {
+      "name": "12-focused-Chromium-tests",
+      "code": "12_FOCUSED_CHROMIUM_TESTS",
+      "result": "PASS"
+    },
+    {
+      "name": "build-22-of-22-media",
+      "code": "BUILD_22_OF_22_MEDIA",
+      "result": "PASS"
+    },
+    {
+      "name": "content-validation",
+      "code": "CONTENT_VALIDATION",
+      "result": "PASS"
+    },
+    {
+      "name": "final-visual-content-validation",
+      "code": "FINAL_VISUAL_CONTENT_VALIDATION",
+      "result": "PASS"
+    },
+    {
+      "name": "production-contracts-and-storage-validation",
+      "code": "PRODUCTION_CONTRACTS_AND_STORAGE_VALIDATION",
+      "result": "PASS"
+    },
+    {
+      "name": "session-cache-boundary",
+      "code": "SESSION_CACHE_BOUNDARY",
+      "result": "PASS"
+    },
+    {
+      "name": "non-strict-asset-coverage",
+      "code": "NON_STRICT_ASSET_COVERAGE",
+      "result": "PASS"
+    },
+    {
+      "name": "local-preview-smoke",
+      "code": "LOCAL_PREVIEW_SMOKE",
+      "result": "PASS"
+    },
+    {
+      "name": "11-byte-and-structure-preservation-checks",
+      "code": "11_BYTE_AND_STRUCTURE_PRESERVATION_CHECKS",
+      "result": "PASS"
+    },
+    {
+      "name": "five-explicit-baseline-scene-preflights",
+      "code": "FIVE_EXPLICIT_BASELINE_SCENE_PREFLIGHTS",
+      "result": "PASS"
+    },
+    {
+      "name": "git-diff-check",
+      "code": "GIT_DIFF_CHECK",
+      "result": "PASS"
+    },
+    {
+      "name": "complete-CI-tests",
+      "code": "163_TESTS_163_PASS_0_FAIL_0_SKIP",
+      "result": "PASS"
+    },
+    {
+      "name": "CI-deployed-Pages-smoke",
+      "code": "DEPLOY_JOB_110899912272_SMOKE_PASS",
+      "result": "PASS"
+    },
+    {
+      "name": "deployment-merge-tree-identity",
+      "code": "DEPLOYED_TREE_EQUALS_VERIFIED_FUNCTIONAL_HEAD",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "Bounded integration Handoff and parent machine verification are recorded. Human-accessible CI deployment is READY_FOR_HUMAN_ACCEPTANCE; final playable acceptance remains pending.",
+    "Historical Visual QA remains NEEDS_REVIEW; explicit Human selection as-is authorizes the unchanged native master and 50% 40% focus.",
+    "Strict release asset coverage retains 8 authentic historical QA/provisional caveats."
+  ],
+  "human_gate_required": "final_playable_acceptance",
+  "invalidates": []
+}

@@ -2,9 +2,9 @@
 
 > Lifecycle: **CANONICAL**
 >
-> Version: 1.1.0
+> Version: 1.2.0
 >
-> Updated: 2026-09-25
+> Updated: 2026-10-02
 
 本文件定義 `Locked Scene → Canonical CG Manifest → Render Packet → Candidate → Accepted Asset`。Machine-valid shape 以 `.ai/schemas/cg-manifest.schema.json` 為準；欄位語意見 `.ai/schemas/CG_MANIFEST.md`。Execution adapter contract and CLI 見 `docs/art/CG_EXECUTION_ADAPTERS.md`、`tools/render-cg-packets.mjs`。
 
@@ -33,6 +33,8 @@
 - output identity and acceptance checks。
 
 缺一項不得讓 renderer 讀 scene 補完；回 `incomplete_cg_spec`。
+
+For future entries, render-ready also requires the complete native-size/quality contract in existing projected fields: `render_constraints.include[]` prefers the largest supported native 16:9 output and highest available quality, allows integer-pixel rounding and approved aspect/reference/edit compatibility, uses exposed supported controls or records `not exposed`, and rejects fixed 1672×941/1920×1080 floors and upscales labeled native. `composition.framing_notes[]` plus focus/safe-zone fields carry explicit task-approved desktop, mobile landscape and portrait CSS viewport/DPR/display-area/crop/UI profiles; missing approved values block planning rather than invent universal numbers. `acceptance[]` carries actual returned dimensions/MIME, untouched original bytes/byte count/SHA-256, native-size clarity/artifact inspection, separate derivative compression and runtime display/crop/focus/UI checks, evidence limits and renderer/planner/integrator rejection routing. These are acceptance-check strings, not new JSON fields. Renderer cannot repair missing requirements by loading global policy.
 
 ## 3. Deterministic projection
 
@@ -83,6 +85,10 @@ Renderer/QA handoff 至少記錄：
 - references actually used；
 - accepted base identity when applicable；
 - candidate/accepted asset ID。
+
+Future rendering additionally records exposed-control capability evidence, requested size/quality or `not exposed`, actual returned width/height/MIME, original byte count/SHA-256 and immutable untouched-byte location. Prompt preference does not prove actual dimensions; no invented API arguments or universal cap claim. Every derivative has a separate identity/dimensions/MIME/byte count/hash and conversion settings when available. Native original quality and final runtime WebP/compression/display quality are distinct: source-only QA cannot establish the latter. Final derivative/runtime screenshot evidence produced in integration goes to fresh bounded `content_qa / visual_review` using existing candidate scope and explicit packet constraints/acquisitions; its independent PASS is required before `READY_FOR_HUMAN_ACCEPTANCE`. Missing evidence cannot become PASS or a 4K/retina claim. Do not alter original pixels or force redraw to correct derivative/runtime defects.
+
+This prospective policy revision preserves accepted manifests, adopted originals and recorded QA/Human outcomes; historical QA is not newly reviewed evidence under these checks.
 
 Accepted asset receipt 可以指向 archived operator provenance，但 active rendering 不可沿該 link 取得 prompt。
 
