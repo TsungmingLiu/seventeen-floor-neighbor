@@ -313,3 +313,14 @@ enforceable dispatch boundary and bounded logs, not a production failure rate or
 new LLM cost result. Valid reports are reproducible from the same inputs; benchmark
 raw logs can include temporary paths and the semantic fixture's local commit, so
 compare repeated case outcomes rather than claiming byte-identical fault logs.
+
+The first recorded preflight trial pins `289d46f`: 10 cases, 8 mechanical blocks,
+2 simulated handoffs and **0 model calls**. The standalone existing verifier also
+blocks 7 of those faults; mandatory-harness drift is the additional block here.
+The broken-edges case returns 24,907 bytes from the existing CLI versus a 504-byte
+digest payload (before its report locator); short errors grow with structured
+metadata. Two canonical COM-02X compiler outputs and valid preflight reports
+rebuild byte-identically. These are coverage/byte measurements, not token/quota
+savings or permission to remove independent semantic review. Keep this small
+engineering entry point optional until dispatch orchestration is separately wired
+and evaluated on real failure frequency; the experiment does not modify harnesses.
