@@ -50,6 +50,7 @@ Narrative Preview 與視覺分支都依賴 Narrative QA；任一分支不可自�
 - [x] COM-02X 已接入 Opening Chapter 1 敘事預覽，四分支匯流、Memory／Gallery 契約與 build/tests 有有效證據；敘事接受沿用 PR #33。
 - [x] PR #37 已接入批准的 COM-00 長段對白及姓名／UI 修正；Human 已給敘事預覽品質 PASS。限定用途的兩份批准示例保留，原始候選／回饋／重複快照由 Git 歷史追溯。
 - [x] PR #39：COM-02X BG／recognition／microwave／walk v3 accepted-as-is masters 接入正式 runtime；83 nodes／四 choices／文本/state／stable save IDs／Memory rank 160 保持。Node 22 104/104、Chromium 11/11 與固定 Cloudflare preview bytes／forward flow／reload／Gallery PASS，見 [驗證決策](../../content/production/runs/com02x-visual-bindings-20261001/VERIFY-COM02X-VISUAL-BINDINGS-008.decision.json)。
+- [x] M0 工程 coverage 分類已區分 placeholder／provisional／accepted 與 release readiness；COM01J provisional 和 COM02X accepted-as-is／VQA FAIL 保持，嚴格 release coverage 尚未通過。見 [coverage review](../migration/M0_ASSET_COVERAGE.md)。
 - [ ] M0：完成 COM-02X 最終 Human playable acceptance；checkpoint 已為 `READY_FOR_HUMAN_ACCEPTANCE`，Visual QA 歷史 FAIL／safe-zone NEEDS_REVIEW 不改寫，不重新要求既有故事接受。
 - [ ] M1 準備：圈定 30–60 分鐘 validation slice 與 playtest 問題；預先選定兩幕未參與校準的許棠情境，正式執行時依 calibration policy 驗證品質／工時／修正次數。
 - [ ] 僅對尚未記錄的 Opening migration schema/usability scope 補 review（machine migration/validation complete）；不重新要求 PR #33 已批准的 dialogue／POV／姓名輸入接受。

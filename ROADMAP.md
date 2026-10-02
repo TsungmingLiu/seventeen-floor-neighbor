@@ -51,7 +51,7 @@
 - PR #37 已接入批准的 COM-00 長段對白，修正江雨澄介紹前的姓名洩漏、統一旁白／自白正體，並以玩家設定姓名顯示男主 nametag。Human 已給敘事預覽品質 PASS；這不是正式美術接受。校準原始候選／重複快照已移至可追溯 Git 歷史，保留兩份限定用途的批准示例。
 - main `f5e650b…` 的 [Node 22 Verify](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/36788149966)、Cloudflare 部署／部署後 smoke，以及 [遠端 Chromium acceptance](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/36788149811) 均成功；Browser Acceptance 已使用完整 checkout history。PR #37 公開試玩版本另有 83/83 unit、7/7 browser 與 built-file bytes 核對，見 ledger。舊索引中的 checkout failure／alias 403 不作當前 blocker。
 - PR #39 已將 COM-02X 正式 BG／recognition／microwave／walk v3 接入便利店後半與回家流程；83 nodes、四 choices、文本／state、stable save IDs 與 Memory rank 160 保持。已記錄 Node 22 104/104、Chromium 11/11，以及固定 Cloudflare preview 的 bytes／forward flow／reload／Gallery PASS，見 [VERIFY-COM02X-VISUAL-BINDINGS-008](content/production/runs/com02x-visual-bindings-20261001/VERIFY-COM02X-VISUAL-BINDINGS-008.decision.json)。證據屬於 `ba5f832…` 的整合快照，不冒充本次新 main 的 CI；原 pixel QA FAIL／safe-zone NEEDS_REVIEW 與 Human accepted-as-is 範圍保持，最終 Human playable acceptance 未記錄。
-- 2026-10-02 工程收尾已對目前 COM-02X 四張 runtime accepted-as-is 圖驗證受控 material-change／單張 visual-spec change 的失效範圍；新的定點 integration preflight 以非零 exit code 阻擋實際串接 build，來源失敗也移除舊 report。Node 22 focused 13/13；詳見 [當前 gate 證據](docs/migration/M0_CURRENT_SCENE_STALE_GATE.md)。這是工程分支的受控證據，尚未作新 main 遠端驗收，不取代 QA／Human gates，也不包含 Issue #27 的 DAG 自動失效／恢復。preview → accepted-as-is CG 替換沿用 PR #39 證據；M0 Exit Gate 尚未全部完成。
+- 2026-10-02 工程收尾已對目前 COM-02X 四張 runtime accepted-as-is 圖驗證受控 material-change／單張 visual-spec change 的失效範圍；新的定點 integration preflight 以非零 exit code 阻擋實際串接 build，來源失敗也移除舊 report。Node 22 focused 13/13；詳見 [當前 gate 證據](docs/migration/M0_CURRENT_SCENE_STALE_GATE.md)。PR #43 head `720843e…` 的 [Verify run 624](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/36966607788) 已通過 117/117 tests、build／validation 與 Cloudflare deployment／smoke；PR 尚未合併，不當作新 main 驗收，不取代 QA／Human gates，也不包含 Issue #27 的 DAG 自動失效／恢復。preview → accepted-as-is CG 替換沿用 PR #39 證據；M0 Exit Gate 尚未全部完成。
 
 ## Outcome
 
@@ -359,7 +359,7 @@ Roadmap 只維護工作所在的 horizon，不維護完整 task list。
 
 - COM-02X 四張 accepted-as-is runtime 圖已由 PR #39 合併，便利店後半／回家 binding、save/reload／Gallery 與公開預覽已有上述同版本驗證；尚需最終 Human playable acceptance，沿用原敘事批准與精確 master adoption，不重做已完成的 render／整合；
 - 合併並驗證本輪 COM-02X material-change／定點 stale integration gate；受控工程證據已完成，見上方 gate 紀錄；
-- 補 release-oriented placeholder／provisional／accepted coverage 判定，完成當前版本的 M0 Exit Gate review；沿用最新 main Verify、遠端 Chromium、Cloudflare 部署 smoke 與人工敘事批准。Codespaces 不列入必要 gate。
+- 合併並驗證 PR #43 的 coverage 分類／release coverage 檢查；工程機制與 [M0 Exit Gate review](docs/migration/M0_ASSET_COVERAGE.md) 已完成。provisional／accepted-as-is 問題如實列出，release readiness 不由採用狀態推定。Codespaces 不列入必要 gate。
 
 Repo-native asset migration 與 active source-authority cleanup 已由 PR #21 完成；跨階段自動失效與恢復另列未來工作。
 
@@ -427,9 +427,9 @@ M0 — Foundation Stable
 
 ```text
 COM-02X accepted-as-is BG/recognition/microwave/walk integrated and verified; final Human playable acceptance open
-→ current material-change / stale integration gate verified on engineering branch; merge/CI pending
-→ placeholder / provisional / accepted coverage validation
-→ M0 Exit Gate review
+→ current material-change / stale integration gate verified; PR #43 head 720843e CI passed
+→ placeholder / provisional / accepted coverage mechanism + M0 Exit Gate review completed; extension CI/merge pending
+→ merged-main verification + recorded final Human playable acceptance
 ```
 
 **Next Milestone**

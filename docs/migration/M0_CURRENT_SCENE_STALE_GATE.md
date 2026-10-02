@@ -93,6 +93,15 @@ pinned historical suites and the new current-scene controls, passed in the full
 run; they were not rerun after this metadata checkpoint. This is local engineering
 evidence, not a fresh main CI or Human playable acceptance.
 
+PR #43's clean Node 22 Verify subsequently passed **117/117 tests, 0 failed**
+on the merge-test ref for head `720843ec9cc6914ede5ef45d5515a9cf705d4d1e`
+and base `e0c3a86d9c395f3db7ec667a45b0301d26667d0b`:
+[Verify run 624](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/36966607788).
+Build, asset/source checks, preview smoke, validation, tracked-source integrity,
+Cloudflare deployment and deployed-site smoke all succeeded. This closes the
+local dirty-manifest test caveat for that PR head; it is PR CI evidence, not a
+merged-main or Human acceptance decision.
+
 For actual integration, invoke the check before wiring/build work and continue
 only on exit 0. For an already prepared integration checkout, the conditional
 build sequence is:

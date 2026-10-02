@@ -12,7 +12,7 @@ try {
   console.log(
     `Validated ${routes.length} route(s), ${Object.keys(characters).length} character(s), ` +
     `${Object.keys(manifest.assets).length} asset(s), ${recipes.recipes.length} recipe(s), ` +
-    `and ${nodeCount} story node(s)${process.argv[2] === '--final-visuals' ? ' for final visual acceptance' : ''}.`
+    `and ${nodeCount} story node(s)${process.argv[2] === '--final-visuals' ? ' without preview art' : ''}.`
   );
 } catch (error) {
   console.error(error.message);

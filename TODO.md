@@ -39,7 +39,7 @@
 - [x] COM-02X 已以真實 Locked Scene／continuity contract 接入 Opening `narrative_preview`；四分支、Memory replay、Gallery 排除與 main Node 22 驗證有證據。
 - [x] PR #39：COM-02X accepted-as-is BG／recognition／microwave／walk 已替換 preview bindings，不需修改 narrative node structure；同版本 `validate:final` 與公開 flow／reload／Gallery 有證據。
 - [x] placeholder 狀態 machine-visible；現有 `validate:final` 不接受仍啟用 preview art 的 route。
-- [ ] release-oriented validation 能區分 placeholder / provisional / accepted coverage。
+- [x] `assets:coverage`／`validate:release` 區分 placeholder／provisional／accepted／unverified；release readiness 與 coverage clear 分開。既有 known issues 會阻擋嚴格 release coverage，不假造 QA 或 Human acceptance，見 [M0 coverage 與 Exit Gate review](docs/migration/M0_ASSET_COVERAGE.md)。
 
 ### 3. Narrative → visual stale dependency
 
@@ -74,6 +74,7 @@ M0 先以一個真實 scene 的受控修改，證明定點影響報告可供整�
 - [x] PR #39：COM-02X BG／recognition／microwave／walk v3 accepted-as-is 整合；83 nodes／四 choices／文本/state／stable save IDs／Memory rank 160 保持；Node 22 104/104、Chromium 11/11 與固定 Cloudflare preview 的 bytes／forward flow／reload／Gallery PASS，見 [驗證決策](content/production/runs/com02x-visual-bindings-20261001/VERIFY-COM02X-VISUAL-BINDINGS-008.decision.json)。原 Visual QA FAIL／safe-zone NEEDS_REVIEW 不改寫。
 - [ ] COM-02X 最終 Human playable acceptance（checkpoint 為 `READY_FOR_HUMAN_ACCEPTANCE`，不重問已批准的故事）。
 - [x] COM-02X 當前 material-change／stale preflight → build 阻擋，以及 master／derivative／reference／Human decision 篡改與舊 report 清除 case（同上當前 gate 證據）。
+- [x] PR #43 head `720843e…` 的 [Node 22 Verify run 624](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/36966607788)：117/117 tests、build／validation、preview smoke、tracked-source integrity 及 Cloudflare deployment／deployed smoke PASS；尚未合併，不代表新 main 或 Human acceptance。
 
 全部通過後，依 `ROADMAP.md` 判定 M0 是否可以結束。
 

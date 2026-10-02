@@ -2,7 +2,7 @@
 
 > Lifecycle: **CANONICAL**
 >
-> Version: 1.4.1
+> Version: 1.4.2
 >
 > Updated: 2026-10-02
 
@@ -42,6 +42,7 @@
 | Continuity schemas | `.ai/schemas/NARRATIVE_CONTINUITY.md` + `.ai/schemas/VISUAL_CONTINUITY.md` | semantic/visual continuity fields | scene-specific values |
 | Runtime | `ARCHITECTURE.md` + current code/JSON/tests | implementation、data、save、build constraints | creative canon |
 | Integration preflight | `tools/production-integration-check.mjs` + `tools/production-impact.mjs` | explicit-baseline source/hash comparison、scene-local stale integration rejection | QA/Human acceptance、automatic baseline selection、multi-task orchestration |
+| Asset coverage | `tools/asset-coverage.mjs` + existing asset/adoption metadata | placeholder／provisional／accepted inventory、runtime binding coverage、strict release coverage constraints | independent Visual QA、release-ready or Human playable decisions |
 
 Machine validation shapes：`.ai/schemas/narrative-continuity.schema.json`、`.ai/schemas/cg-manifest.schema.json`。Cross-file validation：`tools/validate-production-contracts.mjs` recursively discovers every JSON manifest under `content/production/cg-manifests/`, checks its scene/contract and repo reference bindings, and rejects duplicate IDs across manifest files before a production Task Packet is released. The Opening acceptance receipt remains scoped to its original manifest.
 

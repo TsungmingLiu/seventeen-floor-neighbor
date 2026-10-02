@@ -26,6 +26,8 @@
     "cg:packet": "node tools/render-cg-packets.mjs",
     "context": "node tools/context.mjs",
     "cg:references": "node tools/character-references.mjs",
-    "production:integration:check": "node tools/production-integration-check.mjs"
+    "production:integration:check": "node tools/production-integration-check.mjs",
+    "assets:coverage": "node tools/asset-coverage.mjs",
+    "validate:release": "npm run validate:final && node tools/asset-coverage.mjs --strict"
   }
 }
