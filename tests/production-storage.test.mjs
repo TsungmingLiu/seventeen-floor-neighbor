@@ -92,3 +92,19 @@ test('render writer permits artifact output and rejects source destinations', ()
   assert.throws(() => assertArtifactOutputPath(path.join(root, 'content/production/runs/fixture/render.json')),
     /temporary output must use/);
 });
+
+
+test('exact legacy attempt blobs cannot be reintroduced after storage cleanup', () => {
+  const f = fixture();
+  try {
+    const ledgerPath = 'content/production/runs/com02x-cg-20260930/ledger.json';
+    const bytes = fs.readFileSync(path.join(root, ledgerPath));
+    const ledger = JSON.parse(bytes);
+    f.put(ledgerPath, bytes);
+    assert.doesNotThrow(() => validateProductionStorage({ root: f.directory }));
+    const archived = ledger.storage_resolution.archived_records.find((item) => item.path.endsWith('.decision.json'));
+    const raw = execFileSync('git', ['-C', root, 'show', `${archived.ref}:${archived.path}`]);
+    f.put(archived.path, raw);
+    assert.throws(() => validateProductionStorage({ root: f.directory }), /archived attempt record must not be restored/);
+  } finally { f.close(); }
+});

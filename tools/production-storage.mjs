@@ -121,11 +121,20 @@ export function validateProductionStorage({ root = ROOT } = {}) {
   const listed = git(root, 'ls-files', '-z', '--cached', '--others', '--exclude-standard')
     .toString().split('\0').filter(Boolean);
   const files = [...new Set(listed)];
+  const archivedPaths = new Set();
+  for (const relative of files.filter((item) => item.startsWith('content/production/runs/') && item.endsWith('/ledger.json'))) {
+    if (!fs.existsSync(path.join(root, relative))) continue;
+    const ledger = JSON.parse(fs.readFileSync(path.join(root, relative)));
+    if (ledger.storage_resolution?.format === projectionFormat) {
+      for (const locator of ledger.storage_resolution.archived_records) archivedPaths.add(locator.path);
+    }
+  }
   let legacy;
   const baseline = () => legacy ??= tree(root, LEGACY_STORAGE_REF);
   for (const relative of files) {
     ensure(!relative.startsWith('generated/'), `versioned transient artifact: ${relative}`);
     if (!fs.existsSync(path.join(root, relative))) continue; // an authorized deletion in the worktree
+    ensure(!archivedPaths.has(relative), `archived attempt record must not be restored into source: ${relative}`);
     if (!relative.startsWith('content/')) continue;
     ensure(!/(?:^|\/)(?:prompts?|api-payloads?|candidates|rejected|logs|attempts)(?:\/|\.)|\.(?:packet|handoff|prompt|api-payload|log|ndjson|jsonl)(?:\.|$)/i.test(relative),
       `transient artifact in source: ${relative}`);
