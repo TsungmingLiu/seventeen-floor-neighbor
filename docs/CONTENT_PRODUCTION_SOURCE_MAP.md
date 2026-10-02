@@ -2,9 +2,9 @@
 
 > Lifecycle: **CANONICAL**
 >
-> Version: 1.4.0
+> Version: 1.4.1
 >
-> Updated: 2026-09-30
+> Updated: 2026-10-02
 
 這份文件只做 **source inventory / routing index**：告訴 fresh worker 某個 domain 的 canonical source 在哪裡，以及該 source 擁有什麼。
 
@@ -41,6 +41,7 @@
 | Asset metadata / provenance | `content/assets/manifest.json` + `content/assets/source-map.json` + `content/assets/source-catalog.json` + `content/assets/ingest-receipts/` + `content/recipes/assets.json` | logical asset IDs、runtime source/provider metadata、accepted-master provenance、ingest evidence、rebuild dependencies | creative canon、visual policy |
 | Continuity schemas | `.ai/schemas/NARRATIVE_CONTINUITY.md` + `.ai/schemas/VISUAL_CONTINUITY.md` | semantic/visual continuity fields | scene-specific values |
 | Runtime | `ARCHITECTURE.md` + current code/JSON/tests | implementation、data、save、build constraints | creative canon |
+| Integration preflight | `tools/production-integration-check.mjs` + `tools/production-impact.mjs` | explicit-baseline source/hash comparison、scene-local stale integration rejection | QA/Human acceptance、automatic baseline selection、multi-task orchestration |
 
 Machine validation shapes：`.ai/schemas/narrative-continuity.schema.json`、`.ai/schemas/cg-manifest.schema.json`。Cross-file validation：`tools/validate-production-contracts.mjs` recursively discovers every JSON manifest under `content/production/cg-manifests/`, checks its scene/contract and repo reference bindings, and rejects duplicate IDs across manifest files before a production Task Packet is released. The Opening acceptance receipt remains scoped to its original manifest.
 

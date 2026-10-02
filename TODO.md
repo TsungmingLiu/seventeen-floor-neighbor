@@ -20,7 +20,7 @@
 
 詳細產品定義與 Exit Gate 見 `ROADMAP.md`。
 
-2026-09-30 最新 main 基線為 `f5e650b…`（PR #37）；最新敘事／UI／Human 品質 PASS 見 [PR #37 ledger](content/production/runs/pr37-review-fixes-20260930/ledger.json)。[舊驗收證據索引](docs/migration/CURRENT_PLAYABLE_ACCEPTANCE.md)僅記 `9b0066f…` 的歷史結果。下列勾選只代表指定項目有證據，不代表全部 M0 Exit Gate 通過；已批准的敘事直接沿用。
+2026-10-02 最新 main 基線為 `e0c3a86…`（PR #39）；[COM-02X checkpoint](content/production/runs/com02x-visual-bindings-20261001/ledger.json)綁定 `ba5f832…` 的 CG 整合、Node 22 104/104／Chromium 11/11 與公開預覽驗證。相關八個 runtime／asset outputs 與目前 main SHA-256 相符，沿用其驗證範圍，不推定新 main CI。敘事／UI／Human 品質批准沿用 [PR #37 ledger](content/production/runs/pr37-review-fixes-20260930/ledger.json)；最終 Human playable acceptance 未記錄。下列勾選不代表全部 M0 Exit Gate 通過。
 
 ---
 
@@ -37,7 +37,7 @@
 
 - [x] 登記唯一的 preview-only WebP，並由現有 asset registry / validator 驗證其身分。
 - [x] COM-02X 已以真實 Locked Scene／continuity contract 接入 Opening `narrative_preview`；四分支、Memory replay、Gallery 排除與 main Node 22 驗證有證據。
-- [x] COM-02X accepted-as-is BG／CG 已替換 preview bindings，不需修改 narrative node structure；本地 `validate:final` 通過。
+- [x] PR #39：COM-02X accepted-as-is BG／recognition／microwave／walk 已替換 preview bindings，不需修改 narrative node structure；同版本 `validate:final` 與公開 flow／reload／Gallery 有證據。
 - [x] placeholder 狀態 machine-visible；現有 `validate:final` 不接受仍啟用 preview art 的 route。
 - [ ] release-oriented validation 能區分 placeholder / provisional / accepted coverage。
 
@@ -47,8 +47,8 @@ M0 先以一個真實 scene 的受控修改，證明定點影響報告可供整�
 
 - [x] 已在 `.ai/PRODUCTION_ORCHESTRATION.md` 定義 upstream narrative／visual 變更的失效範圍與 `no_visual_impact` 證據要求。
 - [x] source scene/revision、entry spec/reference/output hashes 與 read-only impact／run reconciliation 已實作；證據範圍見索引及 `docs/migration/ISSUE16_INVALIDATION_GATE.md`。
-- [ ] 補目前 scene 的受控 material-change 驗證：舊 visual artifact 不可被當作 current。既有受控 gate／11 個 pinned historical suites 僅作歷史回歸證據。
-- [ ] 補該輪整合前的 machine-readable stale report 與停止使用失效 visual artifact 的實證；read-only report 不等於自動 integration blocking。
+- [x] COM-02X 當前 accepted-as-is 四張 runtime 圖的受控 material-change 驗證：contract 關係狀態變更使 scene visual descendants 失效，單張 CG 規格變更僅影響該 entry 下游。Node 22 focused 13/13，見 [當前 gate 證據](docs/migration/M0_CURRENT_SCENE_STALE_GATE.md)；11 個 pinned historical suites 仍僅作歷史回歸。
+- [x] `production:integration:check` 重新取得來源／計算 machine-readable impact，以非零 exit code 拒絕 stale integration；實際串接的 build 未執行且無 `dist/` 產出。來源失敗移除舊 report；普通 build 不自動選擇 accepted baseline，Integrator 必須在 wiring/build 前呼叫。這不包含 Issue #27 的 DAG 自動失效／恢復。
 
 ### 4. Active source-authority cleanup
 
@@ -59,20 +59,21 @@ M0 先以一個真實 scene 的受控修改，證明定點影響報告可供整�
 
 ### 5. M0 baseline verification
 
-目前 main 的已驗證快照（詳細版本／環境／job links 見索引）；後續 material change 再補跑受影響項目：
+下列紀錄各自綁定 PR #37 或 PR #39 的驗證快照（版本／環境／job links 見相關 ledger），不推定每個新 main commit 已重跑全部檢查；後續 material change 再補跑受影響項目：
 
-- [x] `npm run build`（main Node 22 Verify）
-- [x] `npm run validate`（main Node 22 Verify；不是 `validate:final`）
-- [x] `npm test`（PR #37 83/83；最新 main Node 22 Verify 成功，含 pinned historical suites wrapper）
-- [x] `git diff --check`（main Verify；本次文件 diff 另查）
-- [x] 必要 asset validation（main Verify 26/26）
-- [x] Opening 現有 CG 與 COM-02X placeholder 同一流程可玩（最新 main 遠端 Chromium acceptance；不推定 final visual acceptance）
-- [x] 修正 Browser Acceptance checkout history，取得 [main Node 22 遠端 Chromium acceptance](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/36788149811)。
+- [x] `npm run build`（PR #37 main Node 22 Verify）
+- [x] `npm run validate`（PR #37 main Node 22 Verify；不是 `validate:final`）
+- [x] `npm test`（PR #37 83/83；該 main Node 22 Verify 成功，含 pinned historical suites wrapper）
+- [x] `git diff --check`（PR #37 main Verify；本次文件 diff 另查）
+- [x] 必要 asset validation（PR #37 main Verify 26/26）
+- [x] Opening 現有 CG 與 COM-02X placeholder 同一流程可玩（PR #37 main 遠端 Chromium acceptance；記錄 preview 階段，不推定 final visual acceptance）
+- [x] 修正 Browser Acceptance checkout history，取得 [PR #37 main Node 22 遠端 Chromium acceptance](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/36788149811)。
 - [x] Cloudflare PR 自動 build／部署與公開試玩驗收；依 Owner 決定取代必要的 fresh Codespace acceptance。
-- [x] 最新 main [Cloudflare 部署後 smoke](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/36788149966)成功；PR #37 公開 alias 的內容 bytes 與 7/7 browser 已核對，見 ledger。舊 HTTP 403 不作當前 blocker。
+- [x] PR #37 main [Cloudflare 部署後 smoke](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/36788149966)成功；該 PR 公開 alias 的內容 bytes 與 7/7 browser 已核對，見 ledger。舊 HTTP 403 不作當前 blocker。
 - [x] PR #37：江雨澄介紹前姓名、旁白／自白正體、玩家姓名 nametag，以及 title-screen Memory／CG 啟動時序修正。
-- [x] COM-02X local accepted-as-is BG／recognition／microwave CG、83 nodes／四 choices／文本/state／Memory rank 160 與 Gallery binding 保持；完整角色參考包清理已合併。Walk character-only reference 已登記，walking manifest 新 reference policy／街景角度修訂已由 fresh Planner 完成，render／獨立 Visual QA／Human full master 選擇尚待 fresh stages；本批 production validation／validate:final、build/assets、preview smoke 通過；host Node 25 full tests 87/91，temporary checkout symlink／mmap 限制保留；fresh Node 22 與 PR Cloudflare save/reload/Gallery browser smoke 待推送
-- [ ] 當前 scene material-change 與實際 stale integration blocking case
+- [x] PR #39：COM-02X BG／recognition／microwave／walk v3 accepted-as-is 整合；83 nodes／四 choices／文本/state／stable save IDs／Memory rank 160 保持；Node 22 104/104、Chromium 11/11 與固定 Cloudflare preview 的 bytes／forward flow／reload／Gallery PASS，見 [驗證決策](content/production/runs/com02x-visual-bindings-20261001/VERIFY-COM02X-VISUAL-BINDINGS-008.decision.json)。原 Visual QA FAIL／safe-zone NEEDS_REVIEW 不改寫。
+- [ ] COM-02X 最終 Human playable acceptance（checkpoint 為 `READY_FOR_HUMAN_ACCEPTANCE`，不重問已批准的故事）。
+- [x] COM-02X 當前 material-change／stale preflight → build 阻擋，以及 master／derivative／reference／Human decision 篡改與舊 report 清除 case（同上當前 gate 證據）。
 
 全部通過後，依 `ROADMAP.md` 判定 M0 是否可以結束。
 

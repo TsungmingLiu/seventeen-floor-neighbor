@@ -1,7 +1,7 @@
 workflow:
   id: seventeen-floor-production
   version: 1.3.0
-  updated: 2026-09-26
+  updated: 2026-10-02
   entrypoint: .ai/harnesses/bootstrap.md
   repository:
     full_name: TsungmingLiu/seventeen-floor-neighbor
@@ -130,6 +130,7 @@ production_artifacts:
   cg_manifests: content/production/cg-manifests/
   validation: tools/validate-production-contracts.mjs
   read_only_impact: tools/production-impact.mjs
+  integration_preflight: tools/production-integration-check.mjs
   transient_jobs: generated/job-artifacts/
   storage_boundary: tools/production-storage.mjs
 
