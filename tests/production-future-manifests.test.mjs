@@ -52,6 +52,26 @@ function withUniqueIdentities(manifest) {
   return rewrite(manifest);
 }
 
+test('walking as-is exception rejects invented QA PASS and unknown catalog sources', async (t) => {
+  const root = await isolatedRepository(t);
+  const receiptPath = path.join(root, 'content/assets/ingest-receipts/com02x-walk-adopted-master-v3.json');
+  const originalReceipt = await readFile(receiptPath, 'utf8');
+  const forgedReceipt = JSON.parse(originalReceipt);
+  forgedReceipt.assets[0].visualQaStatus = 'PASS';
+  await writeFile(receiptPath, `${JSON.stringify(forgedReceipt, null, 2)}\n`);
+  const inventedPass = validate(root);
+  assert.notEqual(inventedPass.status, 0, `${inventedPass.stdout}\n${inventedPass.stderr}`);
+  assert.match(inventedPass.stderr, /walking acceptance exceeds its exact as-is scope/);
+  await writeFile(receiptPath, originalReceipt);
+  const catalogPath = path.join(root, 'content/assets/source-catalog.json');
+  const catalog = JSON.parse(await readFile(catalogPath, 'utf8'));
+  catalog.files['source.unreceipted.walk-copy'] = structuredClone(catalog.files['source.com02x.walk-v3']);
+  await writeFile(catalogPath, `${JSON.stringify(catalog, null, 2)}\n`);
+  const unknownSource = validate(root);
+  assert.notEqual(unknownSource.status, 0, `${unknownSource.stdout}\n${unknownSource.stderr}`);
+  assert.match(unknownSource.stderr, /source catalog contains an unknown or unreceipted source/);
+});
+
 test('production validation discovers nested future manifests and rejects a mismatched scene source', async (t) => {
   const root = await isolatedRepository(t);
   const manifest = withUniqueIdentities(await baseManifest(root));

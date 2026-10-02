@@ -433,6 +433,34 @@
       "knownIssues": [
         "Human-accepted as-is under content/assets/ingest-receipts/com02x-microwave-accepted-master-v1.json; independent visual QA remains FAIL."
       ]
+    },
+    "cg.opening.com02x.walk_home": {
+      "canonicalAssetId": "CG-COM02X-WALK-01",
+      "kind": "cg",
+      "src": "assets/opening-ch1-demo/com02x-walk-v3.webp",
+      "width": 1672,
+      "height": 941,
+      "masterSourceId": "source.com02x.walk-v3",
+      "focus": {
+        "x": 46,
+        "y": 33
+      },
+      "gallery": {
+        "title": "深夜便利店・一起回家",
+        "chapter": "第一章・深夜便利店",
+        "order": 92
+      },
+      "participants": [
+        {
+          "character": "xu_tang",
+          "designVersion": 2
+        }
+      ],
+      "canonicalCgManifest": "content/production/cg-manifests/opening-ch1-com02x-walk.json",
+      "canonicalCgEntry": "COM02X-WALK-01",
+      "knownIssues": [
+        "Human-adopted as-is under content/assets/ingest-receipts/com02x-walk-adopted-master-v3.json; independent visual QA remains FAIL; minimum resolution and lower dialogue-safe-zone/crop findings remain."
+      ]
     }
   }
 }

@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "manifest_id": "opening-ch1-com02x-microwave-additional-cg",
-  "manifest_version": "1.0.0",
+  "manifest_version": "1.0.1",
   "lifecycle": "CANONICAL",
   "source_scene_ids": [
     "COM-02X"
@@ -31,7 +31,7 @@
       "status": "accepted",
       "cg_class": "dialogue_cg",
       "sequence_id": null,
-      "beat_range": "02X.5, later microwave-wait subsection of common_convenience_xu_work: cut in immediately after the Action 「微波爐轉了一圈。我往計時器看了一眼。」; hold from 「妳那個很趕嗎？」 through Xu 「嗯，常有人這樣以為。」; cut away before the following microwave-beep / staff meal-retrieval Action. No choice, checkout, walk or goodbye coverage.",
+      "beat_range": "Rendered moment remains the original later 02X.5 microwave-wait subsection after 「微波爐轉了一圈。我往計時器看了一眼。」. Accepted-pixel display reuse cuts in at common_convenience_xu_work_02 / 「你還得回去忙喔？」 after the initial meal handover/movement/phone Action; hold through common_convenience_xu_work_15 / 「嗯，常有人這樣以為。」, including work_09 timer glance. Cut away before work_16 microwave beep/staff meal retrieval. No choice, initial handover, checkout, walk or goodbye coverage.",
       "narrative": {
         "purpose": "Add the minimum one character frame for the later shared work conversation beside the microwaves: Xu is an ordinary tired neighbor explaining the print deadline and correcting a mundane misunderstanding. Use a candid three-quarter side angle in the checkout waiting area, visibly different from the earlier aisle recognition. The unchanged scene text owns all dialogue, work knowledge, meal loading/retrieval and relationship meaning.",
         "must_show": [
@@ -44,7 +44,7 @@
           "A date, flirtation, sultry model gaze, heroic care, major conflict, helplessness or annoyance aimed at the protagonist. Deadline weariness is ordinary self-directed fatigue.",
           "The protagonist pays for Xu, carries or takes her coffee/meal, helps her client work, manages her food/schedule, exchanges contacts or receives private company/client/income information.",
           "Xu is simultaneously holding her meal while it heats, has already received the heated meal or paid, is opening an appliance, or is carrying a receipt/shopping bag during this waiting subsection.",
-          "This still covers the earlier food comparison or choice gestures, first handover/phone-notification action, the final beep/upward glance/retrieval, checkout, street, apartment, elevator or farewell.",
+          "This still literally depicts earlier food comparison/choice gestures, first handover/phone-notification action, exact appliance occupancy at each dialogue line, final beep/upward glance/retrieval, checkout, street, apartment, elevator or farewell. Earlier work_02..09 reuse is a held waiting tableau; the unchanged text owns the meal-loading chronology and transient timer glance.",
           "The accepted recognition image’s beauty pose, near-lens gaze, smooth skin, low-resolution exception or upper-thigh framing becomes authority for this new frame."
         ]
       },
@@ -128,10 +128,11 @@
         "framing_notes": [
           "Xu central-right at a candid side angle, microwave stack left/center; leave breathing room toward her conversational gaze and keep waist/shorts/legs below the picture or nonessential lower UI band. Do not copy the reference-sheet pose or the earlier accepted frame’s frontal polished presentation.",
           "A discrete camera cut is justified by the approved movement from refrigerated aisle to checkout. New axis captures the waiting area while preserving store identity, right screen side, sweater, hair, hoops, time/weather and light; it is a fresh independent dialogue CG, not a reaction edit or linked sequence.",
-          "Within the approved common_convenience_xu_work anchor, keep the existing background cutaway for the initial meal handover, waiting for the other appliance, phone notice and first work exchange. Cut to this CG only after the narrated timer glance, when the selected later work subsection permits coffee-only hands and meals heating out of view. Cut back to the existing background before the beep and staff retrieval; do not show this still behind her recovered meal or payment.",
+          "Use COM02X-BG-01 at common_convenience_xu_work for the initial meal handover, waiting for the other appliance, phone notification and physical movement. Cut to this accepted microwave CG at work_02, the first shared waiting dialogue; hold through work_15, including work_09 timer glance. Its unchanged rendered moment is the later coffee-only heating subsection, while earlier work_02..08 display is a nonliteral held waiting tableau: no exact loading/occupancy timestamp is asserted, no new transfer action is added, and food may remain offscreen. Do not imply the narrative explicitly loaded Xu’s meal before work_02. Cut back to BG before work_16 beep and staff retrieval, continuing through work_17 and checkout..checkout_03; do not show this coffee-only still behind recovered food/payment.",
           "Do not reuse COM02X-DLG-01 here: its visible unheated meal in hand and aisle-recognition camera contradict this later heating subsection. Its unchanged accepted pixels supply immediate hair/wardrobe/coffee continuity only; face identity and new rendering quality remain governed by dedicated face/wardrobe references.",
           "No runtime files are edited by this plan. Downstream integration must preserve every node ID, choice/text/state/save target and common Memory ownership/rank 160; existing CG-COM-03 recognition remains the Memory cover. This added art must not add a Gallery/Memory unlock, relationship effect or new narrative action.",
-          "Only the exact selected later microwave-wait dialogue is covered. Walking, checkout retrieval, elevator and goodbye remain outside this entry and need their own approved visual decision if requested."
+          "The precise display span is common_convenience_xu_work_02 through work_15; earlier recognition/branches, initial work action, meal retrieval, checkout, walking, elevator and goodbye remain outside this entry. This current specific display span supersedes the older generic BG reuse instruction in COM02X-BG-01 and the historical work_10..15 ingest coverage; the historical receipt remains immutable evidence of its original integration.",
+          "Display-coverage reconciliation PLAN-COM02X-DISPLAY-COVERAGE-007 changes hold timing only. Preserve accepted PNG/hash, all visible character/prop/camera/composition/reference fields and historical Human ACCEPTED_AS_IS / Visual QA FAIL evidence. Original generation identity remains bound to the original render packet/receipt; changed render-spec/shared-prompt hashes identify this coverage revision only. No generation, redraw, quality waiver or inferred QA PASS."
         ]
       },
       "render_constraints": {

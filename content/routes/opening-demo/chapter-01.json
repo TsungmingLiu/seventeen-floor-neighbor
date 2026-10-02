@@ -897,9 +897,8 @@
       "text": "附近這個時間，還有別的店開著嗎？我每次下來都只看到這間。",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.recognition"
       },
       "next": "common_convenience_xu_ask_food_02"
     },
@@ -908,9 +907,8 @@
       "text": "有啊，過了前面那個路口還有一間。等出去比較好指。",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.recognition"
       },
       "next": "common_convenience_xu_ask_food_03"
     },
@@ -919,9 +917,8 @@
       "text": "她往玻璃門外看了一眼，又看回我手裡的餐盒。",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.recognition"
       },
       "next": "common_convenience_xu_ask_food_04"
     },
@@ -930,9 +927,8 @@
       "text": "不過你已經拿了。是想現在去吃嗎？",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.recognition"
       },
       "next": "common_convenience_xu_ask_food_05"
     },
@@ -941,9 +937,8 @@
       "text": "沒有，今天就這盒了。我是想下次別又站在這裡挑半天。",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.recognition"
       },
       "next": "common_convenience_xu_ask_food_06"
     },
@@ -952,9 +947,8 @@
       "text": "喔。這附近白天看不太出來，晚上還有幾家沒收。",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.recognition"
       },
       "next": "common_convenience_xu_ask_food_07"
     },
@@ -963,9 +957,8 @@
       "text": "我搬來之後，晚上真的沒走過別條路。",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.recognition"
       },
       "next": "common_convenience_xu_work"
     },
@@ -974,9 +967,8 @@
       "text": "我也剛收工。現在能微波就算有煮了。",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.recognition"
       },
       "next": "common_convenience_xu_share_work_02"
     },
@@ -985,9 +977,8 @@
       "text": "你也是忙到現在？",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.recognition"
       },
       "next": "common_convenience_xu_share_work_03"
     },
@@ -996,9 +987,8 @@
       "text": "剛才才關電腦。原本想叫外送，又覺得下樓可能快一點。",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.recognition"
       },
       "next": "common_convenience_xu_share_work_04"
     },
@@ -1007,9 +997,8 @@
       "text": "嗯。我剛剛也在想要不要出來，坐著想了好一會兒。",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.recognition"
       },
       "next": "common_convenience_xu_share_work_05"
     },
@@ -1018,9 +1007,8 @@
       "text": "結果還是都來了。",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.recognition"
       },
       "next": "common_convenience_xu_share_work_06"
     },
@@ -1029,9 +1017,8 @@
       "text": "許棠點點頭，把餐盒往自己手裡攏了攏。",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.recognition"
       },
       "next": "common_convenience_xu_work"
     },
@@ -1040,9 +1027,8 @@
       "text": "妳那盒至少比我這個像一餐。",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.recognition"
       },
       "next": "common_convenience_xu_tease_same_02"
     },
@@ -1051,9 +1037,8 @@
       "text": "是嗎？我拿的時候還嫌它小盒。",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.recognition"
       },
       "next": "common_convenience_xu_tease_same_03"
     },
@@ -1062,9 +1047,8 @@
       "text": "至少有點綠色的。我這盒從外面看只有飯。",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.recognition"
       },
       "next": "common_convenience_xu_tease_same_04"
     },
@@ -1073,9 +1057,8 @@
       "text": "許棠低頭看了一眼透明盒蓋。",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.recognition"
       },
       "next": "common_convenience_xu_tease_same_05"
     },
@@ -1084,9 +1067,8 @@
       "text": "那是蔥。只有蔥。",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.recognition"
       },
       "next": "common_convenience_xu_tease_same_06"
     },
@@ -1095,9 +1077,8 @@
       "text": "喔，我沒看清。",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.recognition"
       },
       "next": "common_convenience_xu_tease_same_07"
     },
@@ -1106,9 +1087,8 @@
       "text": "嗯。也算有一點綠色啦。",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.recognition"
       },
       "next": "common_convenience_xu_tease_same_locked_00"
     },
@@ -1117,9 +1097,8 @@
       "text": "妳如果常常都拖到這麼晚才吃，還是要注意一下吧。",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.recognition"
       },
       "next": "common_convenience_xu_tell_eat_better_02"
     },
@@ -1128,9 +1107,8 @@
       "text": "沒有常常。今天有事趕，才弄到現在。",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.recognition"
       },
       "next": "common_convenience_xu_tell_eat_better_03"
     },
@@ -1139,9 +1117,8 @@
       "text": "喔。是我亂猜了。",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.recognition"
       },
       "next": "common_convenience_xu_tell_eat_better_04"
     },
@@ -1205,9 +1182,8 @@
       "text": "你還得回去忙喔？",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.microwave_wait"
       },
       "next": "common_convenience_xu_work_03"
     },
@@ -1216,9 +1192,8 @@
       "text": "不用，這個明天再看。我做軟體的，今晚有東西要上線，review 來回了幾次，剛剛才算弄完。",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.microwave_wait"
       },
       "next": "common_convenience_xu_work_04"
     },
@@ -1227,9 +1202,8 @@
       "text": "喔。至少今天結束了。",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.microwave_wait"
       },
       "next": "common_convenience_xu_work_05"
     },
@@ -1238,9 +1212,8 @@
       "text": "對。我大部分時間在家工作，忙起來就一直坐在那邊，連下樓都拖到現在。",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.microwave_wait"
       },
       "next": "common_convenience_xu_work_06"
     },
@@ -1249,9 +1222,8 @@
       "text": "難怪。我還想說你看起來像剛從電腦前面站起來。",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.microwave_wait"
       },
       "next": "common_convenience_xu_work_07"
     },
@@ -1260,9 +1232,8 @@
       "text": "這麼明顯？",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.microwave_wait"
       },
       "next": "common_convenience_xu_work_08"
     },
@@ -1271,9 +1242,8 @@
       "text": "沒有啦。我也差不多。我那個還沒做完，做到一半才發現家裡沒東西吃。",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.microwave_wait"
       },
       "next": "common_convenience_xu_work_09"
     },
@@ -1282,9 +1252,8 @@
       "text": "微波爐轉了一圈。我往計時器看了一眼。",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.microwave_wait"
       },
       "next": "common_convenience_xu_work_10"
     },
@@ -1408,9 +1377,8 @@
       "text": "兩人往同一個方向走。",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.walk_home"
       },
       "next": "common_convenience_xu_checkout_05"
     },
@@ -1419,9 +1387,8 @@
       "text": "路口還有剛下過雨的水光，前半段誰也沒有特地找話。",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.walk_home"
       },
       "next": "common_convenience_xu_checkout_06"
     },
@@ -1430,9 +1397,8 @@
       "text": "走到巷口，右邊一塊白色招牌還亮著。",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.walk_home"
       },
       "next": "common_convenience_xu_checkout_07"
     },
@@ -1441,9 +1407,8 @@
       "text": "許棠朝那邊抬了抬下巴。",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.walk_home"
       },
       "next": "common_convenience_xu_checkout_08"
     },
@@ -1452,9 +1417,8 @@
       "text": "喏，那間是粥店，開到十二點。你下次要是又這個時間下來，可以走過去看看。",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.walk_home"
       },
       "next": "common_convenience_xu_checkout_09"
     },
@@ -1463,9 +1427,8 @@
       "text": "喔，那間。我一直以為它九點就收了。",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.walk_home"
       },
       "next": "common_convenience_xu_checkout_10"
     },
@@ -1474,9 +1437,8 @@
       "text": "週三休就是了。我上次週三走過去，看到門關著才記住。",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.walk_home"
       },
       "next": "common_convenience_xu_checkout_11"
     },
@@ -1485,9 +1447,8 @@
       "text": "白跑一趟啊。",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.walk_home"
       },
       "next": "common_convenience_xu_checkout_12"
     },
@@ -1496,9 +1457,8 @@
       "text": "嗯。所以今天我不繞了，這盒都買了。",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.walk_home"
       },
       "next": "common_convenience_xu_checkout_13"
     },
@@ -1507,9 +1467,8 @@
       "text": "過了路口後，兩人又安靜了一小段。",
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.walk_home"
       },
       "next": "common_convenience_xu_checkout_14"
     },
@@ -1622,9 +1581,8 @@
     "common_convenience_xu_choice": {
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.recognition"
       },
       "choices": [
         {
@@ -2575,9 +2533,8 @@
     "common_convenience_xu_tease_same_locked_00": {
       "chapter": 3,
       "visual": {
-        "mode": "composite",
-        "background": "bg.opening.com02x.convenience_night",
-        "sprites": []
+        "mode": "cg",
+        "asset": "cg.opening.com02x.recognition"
       },
       "speaker": "旁白",
       "text": "她嘴角動了一下。我低頭把手上的餐盒轉了半圈，還是看不出裡面有什麼菜。",

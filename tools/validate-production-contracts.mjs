@@ -425,7 +425,26 @@ function validateGate3RepositorySources(catalog) {
   const microwaveManifest = readJson('content/production/cg-manifests/opening-ch1-com02x-microwave.json');
   invariant(microwaveManifest.entries.length === 1 && microwaveManifest.entries[0].entry_id === microwaveAsset.entryId && microwaveManifest.entries[0].status === 'accepted', 'COM-02X microwave manifest accepted status mismatch');
   invariant(JSON.stringify(microwaveManifest.entries[0].known_issues) === JSON.stringify(microwaveAsset.acceptedKnownIssues.map((issue) => issue.code + ': ' + issue.detail)), 'COM-02X microwave manifest accepted issues mismatch');
-  invariant(Object.keys(catalog.files).length === acceptedIds.size + restoredIds.size + 1 + batchIds.size + 1 + 1, 'source catalog contains an unknown or unreceipted source');
+  const walk = readJson('content/assets/ingest-receipts/com02x-walk-adopted-master-v3.json');
+  invariant(walk.receiptVersion === 1 && walk.receiptType === 'human-adopted-master-batch' && walk.sceneId === 'COM-02X' && walk.taskId === 'INTEGRATE-COM02X-VISUAL-BINDINGS-006' && walk.assets.length === 1, 'COM-02X walking adoption receipt scope is invalid');
+  const walkHuman = readJson(walk.humanDecision.path);
+  const walkAsset = walk.assets[0];
+  const walkSource = catalog.files[walkAsset.sourceId];
+  const walkSha = 'a1aa0d08023cc19a42b3c9260bca732059e77eb5dd37c8578afb82bd7dd82400';
+  invariant(sha256(fs.readFileSync(walk.humanDecision.path)) === walk.humanDecision.sha256 && walkHuman.task_id === 'HUMAN-COM02X-WALK-ADOPTION-003' && walkHuman.status === 'HUMAN_ACCEPTED_AS_IS' && walkHuman.output_versions.some(item => item.id === 'accepted-master:COM02X-WALK-01:v3' && item.version === walkSha), 'COM-02X exact walking Human adoption mismatch');
+  invariant(walk.humanDecision.status === walkHuman.status && !Object.hasOwn(walk.humanDecision, 'decision') && walk.humanDecision.qaHistoryPreserved === true, 'COM-02X walking adoption must not invent a literal Human PASS');
+  invariant(walkAsset.sourceId === 'source.com02x.walk-v3' && walkAsset.entryId === 'COM02X-WALK-01' && walkAsset.logicalId === 'cg.opening.com02x.walk_home' && walkAsset.canonicalId === 'CG-COM02X-WALK-01', 'COM-02X walking identity mismatch');
+  invariant(walkAsset.sha256 === walkSha && walkAsset.humanDecisionSha256 === walkSha && walkAsset.width === 1672 && walkAsset.height === 941 && walkAsset.mimeType === 'image/png' && walkAsset.visualQaStatus === 'FAIL' && walkAsset.humanDisposition === 'ACCEPTED_AS_IS', 'COM-02X walking acceptance exceeds its exact as-is scope');
+  invariant(walkSource?.name === walkAsset.filename && walkSource?.sourcePath === walkAsset.masterPath && walkSource?.status === 'human-accepted-as-is' && walkSource?.verifiedDecode === true, 'COM-02X walking catalog identity/status mismatch');
+  for (const key of ['mimeType', 'sha256', 'bytes', 'width', 'height']) invariant(walkSource[key] === walkAsset[key], 'COM-02X walking catalog ' + key + ' mismatch');
+  const walkQa = readJson(walk.visualQa.path);
+  invariant(sha256(fs.readFileSync(walk.visualQa.path)) === walk.visualQa.sha256 && walkQa.task_id === 'VQA-COM02X-WALK-003' && walkQa.status === 'FAIL' && walk.visualQa.status === 'FAIL' && walkAsset.visualQaReceipt === walk.visualQa.path, 'COM-02X original walking Visual QA must remain FAIL');
+  invariant(JSON.stringify(walkAsset.acceptedKnownIssues) === JSON.stringify(walkQa.known_issues), 'COM-02X walking known issues changed');
+  invariant(sha256(fs.readFileSync(walkAsset.masterPath)) === walkSha && fs.statSync(walkAsset.masterPath).size === walkAsset.bytes, 'COM-02X walking original PNG fingerprint mismatch');
+  invariant(sha256(fs.readFileSync(walkAsset.derivativePath)) === walkAsset.derivativeSha256 && fs.statSync(walkAsset.derivativePath).size === walkAsset.derivativeBytes, 'COM-02X walking derivative fingerprint mismatch');
+  const walkManifest = readJson('content/production/cg-manifests/opening-ch1-com02x-walk.json');
+  invariant(walkManifest.entries.length === 1 && walkManifest.entries[0].entry_id === walkAsset.entryId && walkManifest.entries[0].status === 'accepted' && JSON.stringify(walkManifest.entries[0].known_issues) === JSON.stringify(walkQa.known_issues), 'COM-02X walking manifest adoption/issues mismatch');
+  invariant(Object.keys(catalog.files).length === acceptedIds.size + restoredIds.size + 1 + batchIds.size + 1 + 1 + 1, 'source catalog contains an unknown or unreceipted source');
   return receipt;
 }
 

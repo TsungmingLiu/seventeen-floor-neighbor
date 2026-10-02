@@ -462,6 +462,17 @@
       "sha256": "7b8a6f5eb9dd8bfc102229e42aaf1e82a1182f20b807d3dc134df79f5e95a392",
       "verifiedDecode": true,
       "status": "human-accepted-as-is"
+    },
+    "source.com02x.walk-v3": {
+      "name": "com02x-walk-candidate-v3.png",
+      "mimeType": "image/png",
+      "sourcePath": "assets-src/opening-ch1-demo/com02x-walk-candidate-v3.png",
+      "bytes": 2482226,
+      "width": 1672,
+      "height": 941,
+      "sha256": "a1aa0d08023cc19a42b3c9260bca732059e77eb5dd37c8578afb82bd7dd82400",
+      "verifiedDecode": true,
+      "status": "human-accepted-as-is"
     }
   }
 }

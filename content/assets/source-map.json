@@ -135,6 +135,13 @@
       "sha256": "d3006f2e29f26af80d812c1afc92de5a0807eef42fe822c80502338942cb2f24",
       "bytes": 198288,
       "masterSourceId": "source.com02x.microwave"
+    },
+    "assets/opening-ch1-demo/com02x-walk-v3.webp": {
+      "source": "assets-src/opening-ch1-demo/com02x-walk-v3.webp",
+      "transform": "copy",
+      "sha256": "5e575a70762c09fdc958333f51ea8b1f12b20109d90ca22e224e66be38accbfd",
+      "bytes": 307308,
+      "masterSourceId": "source.com02x.walk-v3"
     }
   }
 }

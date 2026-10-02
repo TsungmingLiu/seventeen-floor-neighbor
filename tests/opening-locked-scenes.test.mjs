@@ -153,10 +153,14 @@ test('expanded boxes keep the existing Memory and visual boundaries', () => {
     assert.ok(membership.has(id), `unmapped Memory node ${id}`);
     if (id.startsWith('common_convenience_xu_')) {
       assert.notEqual(nodes[id].visual?.background, 'bg.narrative_preview.placeholder');
-      if (id === 'common_convenience_xu_recognize' || id.startsWith('common_convenience_xu_recognize_')) {
+      if (id === 'common_convenience_xu_choice' || id === 'common_convenience_xu_recognize' || id.startsWith('common_convenience_xu_recognize_')
+      || /^common_convenience_xu_(ask_food|share_work|tease_same)(_|$)/.test(id)
+      || /^common_convenience_xu_tell_eat_better(?:_0[23])?$/.test(id)) {
         assert.deepEqual(nodes[id].visual, { mode: 'cg', asset: 'cg.opening.com02x.recognition' });
-      } else if (/^common_convenience_xu_work_(10|11|12|13|14|15)$/.test(id)) {
+      } else if (/^common_convenience_xu_work_(0[2-9]|1[0-5])$/.test(id)) {
         assert.deepEqual(nodes[id].visual, { mode: 'cg', asset: 'cg.opening.com02x.microwave_wait' });
+      } else if (/^common_convenience_xu_checkout_(0[4-9]|1[0-3])$/.test(id)) {
+        assert.deepEqual(nodes[id].visual, { mode: 'cg', asset: 'cg.opening.com02x.walk_home' });
       } else {
         assert.ok(['bg.opening.com02x.convenience_night', 'bg.opening.ch1.apt_elevator']
           .includes(nodes[id].visual?.background), `COM-02X node ${id} uses registered scene coverage`);

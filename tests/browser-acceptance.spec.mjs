@@ -34,6 +34,111 @@ async function galleryEntryCount(page) {
   ).length;
 }
 
+function com02xImageForNode(id) {
+  if (!id?.startsWith('common_convenience_xu_')) return null;
+  if (id === 'common_convenience_xu_choice' || /^common_convenience_xu_recognize(?:_|$)/.test(id)
+    || /^common_convenience_xu_(ask_food|share_work|tease_same)(?:_|$)/.test(id)
+    || /^common_convenience_xu_tell_eat_better(?:_0[23])?$/.test(id)) return 'com02x-dlg-01-v1.webp';
+  if (/^common_convenience_xu_work_(0[2-9]|1[0-5])$/.test(id)) return 'com02x-microwave-v1.webp';
+  if (/^common_convenience_xu_checkout_(0[4-9]|1[0-3])$/.test(id)) return 'com02x-walk-v3.webp';
+  if (id === 'common_convenience_xu_checkout_14' || /^common_convenience_xu_exit(?:_|$)/.test(id)) return 'apartment-elevator.webp';
+  return 'com02x-bg-01-v1.webp';
+}
+
+async function currentJourney(page) {
+  return page.evaluate(() => JSON.parse(localStorage.getItem('opening-demo-chapter-01:journey:v2')));
+}
+
+for (const [branchIndex, branch] of ['ask_food', 'share_work', 'tease_same', 'tell_eat_better'].entries()) {
+  test(`COM-02X ${branch} forward flow loads held CGs, ten walking nodes, reload and Gallery`, async ({ page }, testInfo) => {
+    test.setTimeout(180_000);
+    const errors = collectBlockingErrors(page);
+    await page.goto('/');
+    await expect(page.locator('#start-button')).toBeEnabled();
+    await page.locator('#start-button').click();
+    await enterPlayerName(page);
+    const scopedSeen = new Map();
+    let reloadedWalk = false;
+    let choiceTaken = false;
+    let previousScopedSrc = null;
+    const switches = [];
+    const runtimeAssets = await (await page.request.get('/content/routes/opening-demo/assets.json')).json();
+    const apartmentPath = `/${runtimeAssets.assets['bg.opening.ch1.apt_elevator'].src}`;
+    for (let step = 0; step < 260; step += 1) {
+      if (await page.locator('#ending-screen').isVisible()) break;
+      await waitForDialogueReady(page);
+      const journey = await currentJourney(page);
+      const id = journey.cursor.nodeId;
+      const expected = com02xImageForNode(id);
+      if (expected) {
+        const expectedPath = expected === 'apartment-elevator.webp' ? apartmentPath : `/assets/opening-ch1-demo/${expected}`;
+        const scene = page.locator('#scene-image');
+        await expect.poll(async () => new URL(await scene.getAttribute('src'), page.url()).pathname).toBe(expectedPath);
+        await expect.poll(() => scene.evaluate(image => image.complete && image.naturalWidth > 0 && image.naturalHeight > 0)).toBe(true);
+        scopedSeen.set(id, expected);
+        if (previousScopedSrc !== expected) switches.push({ node: id, image: expected });
+        previousScopedSrc = expected;
+        if (id === 'common_convenience_xu_checkout_08' && !reloadedWalk) {
+          await testInfo.attach(`${branch}-walk`, { body: await page.screenshot(), contentType: 'image/png' });
+          await page.reload();
+          await expect(page.locator('#start-button')).toHaveText('繼續遊戲');
+          await page.locator('#start-button').click();
+          await waitForDialogueReady(page);
+          const restored = await currentJourney(page);
+          expect(restored.cursor).toEqual(journey.cursor);
+          expect(restored.frontier).toEqual(journey.frontier);
+          expect(restored.frontierRank).toBe(160);
+          await expect.poll(() => page.locator('#scene-image').evaluate(image => image.complete && image.naturalWidth === 1672 && image.naturalHeight === 941)).toBe(true);
+          expect(new URL(await page.locator('#scene-image').getAttribute('src'), page.url()).pathname).toBe('/assets/opening-ch1-demo/com02x-walk-v3.webp');
+          reloadedWalk = true;
+        }
+      }
+      const choices = page.locator('#choice-list .choice-button');
+      if ((await page.locator('#advance-hint').textContent()) === '點擊選擇' && !await page.locator('#choice-list').isVisible()) {
+        await page.locator('#advance-zone').click();
+        await expect(page.locator('#choice-list')).toBeVisible();
+      }
+      if (await choices.count() && await page.locator('#choice-list').isVisible()) {
+        if (id === 'common_convenience_xu_choice') {
+          await choices.nth(branchIndex).click();
+          choiceTaken = true;
+        } else await choices.first().click();
+      } else await page.locator('#advance-zone').click();
+      await expect.poll(async () => (await currentJourney(page)).cursor.nodeId).not.toBe(id);
+    }
+    await expect(page.locator('#ending-screen')).toBeVisible();
+    expect(choiceTaken).toBe(true);
+    expect(reloadedWalk).toBe(true);
+    expect(scopedSeen.get(`common_convenience_xu_${branch}`)).toBe('com02x-dlg-01-v1.webp');
+    for (let n = 2; n <= 15; n += 1) expect(scopedSeen.get(`common_convenience_xu_work_${String(n).padStart(2, '0')}`)).toBe('com02x-microwave-v1.webp');
+    for (let n = 4; n <= 13; n += 1) expect(scopedSeen.get(`common_convenience_xu_checkout_${String(n).padStart(2, '0')}`)).toBe('com02x-walk-v3.webp');
+    for (const id of ['common_convenience_xu_work', 'common_convenience_xu_work_16', 'common_convenience_xu_work_17', 'common_convenience_xu_checkout_03']) expect(scopedSeen.get(id)).toBe('com02x-bg-01-v1.webp');
+    if (branch === 'tell_eat_better') {
+      for (let n = 4; n <= 7; n += 1) expect(scopedSeen.get(`common_convenience_xu_tell_eat_better_0${n}`)).toBe('com02x-bg-01-v1.webp');
+    }
+    expect(scopedSeen.get('common_convenience_xu_checkout_14')).toBe('apartment-elevator.webp');
+    const finished = await currentJourney(page);
+    expect(finished.frontierRank).toBe(160);
+    expect(finished.runComplete).toBe(true);
+    await page.locator('#home-button').click();
+    await page.locator('#memories-button').click();
+    await expect(page.locator('[data-memory-id="mem.opening.ch1.convenience-xu"]')).toBeEnabled();
+    await page.locator('#memories-back').click();
+    await page.locator('#gallery-button').click();
+    for (const [assetId, title] of [['cg.opening.com02x.recognition', '深夜便利店'], ['cg.opening.com02x.microwave_wait', '深夜便利店・微波等待'], ['cg.opening.com02x.walk_home', '深夜便利店・一起回家']]) {
+      const card = page.locator(`#cg-grid button[aria-label="查看 ${title}"]`);
+      await expect(card).toBeEnabled();
+      await card.click();
+      await expect(page.locator('#cg-viewer')).toBeVisible();
+      await expect.poll(async () => new URL(await page.locator('#cg-viewer-image').getAttribute('src'), page.url()).pathname).toBe(`/${runtimeAssets.assets[assetId].src}`);
+      await expect.poll(() => page.locator('#cg-viewer-image').evaluate(image => image.complete && image.naturalWidth > 0)).toBe(true);
+      await page.locator('#cg-viewer-close').click();
+    }
+    await testInfo.attach(`${branch}-runtime-flow`, { body: Buffer.from(JSON.stringify({ branch, scopedSeen: Object.fromEntries(scopedSeen), switches, reloadedWalk, frontierRank: finished.frontierRank, galleryVerified: 3, errors }, null, 2)), contentType: 'application/json' });
+    expect(errors).toEqual([]);
+  });
+}
+
 test('opening-demo saves its real cursor and resumes after reload', async ({ page }) => {
   await page.goto('/');
   await expect(page.locator('#title-screen')).toBeVisible();
@@ -134,7 +239,7 @@ test('opening preview plays COM-00 → COM-01X → COM-01J → COM-02X and saves
   let usedKeyboardChoice = false;
   let sawPlayerName = false;
   let sawCom02xRecognitionCg = false;
-  let sawCom02xChoiceBackground = false;
+  let sawCom02xChoiceCg = false;
   for (let step = 0; step < 240; step += 1) {
     if (await page.locator('#ending-screen').isVisible().catch(() => false)) break;
     await expect(page.locator('#game-shell')).toBeVisible();
@@ -148,8 +253,8 @@ test('opening preview plays COM-00 → COM-01X → COM-01J → COM-02X and saves
       sawCom02xRecognitionCg = true;
     }
     if (activeNode === 'common_convenience_xu_choice') {
-      expect(new URL(currentSceneSrc, page.url()).pathname).toBe('/assets/opening-ch1-demo/com02x-bg-01-v1.webp');
-      sawCom02xChoiceBackground = true;
+      expect(new URL(currentSceneSrc, page.url()).pathname).toBe('/assets/opening-ch1-demo/com02x-dlg-01-v1.webp');
+      sawCom02xChoiceCg = true;
     }
     const choiceButtons = page.locator('#choice-list .choice-button');
     const count = await choiceButtons.count();
@@ -180,7 +285,7 @@ test('opening preview plays COM-00 → COM-01X → COM-01J → COM-02X and saves
   expect(usedKeyboardChoice).toBe(true);
   expect(sawPlayerName).toBe(true);
   expect(sawCom02xRecognitionCg).toBe(true);
-  expect(sawCom02xChoiceBackground).toBe(true);
+  expect(sawCom02xChoiceCg).toBe(true);
   await expect(page.locator('#ending-title')).toHaveText('第一章 Demo 完成');
   expect(await page.evaluate(() => localStorage.getItem('opening-demo-chapter-01:completed'))).toBe('1');
   const finalJourney = await page.evaluate(() => JSON.parse(localStorage.getItem('opening-demo-chapter-01:journey:v2')));
@@ -214,7 +319,7 @@ test('opening preview plays COM-00 → COM-01X → COM-01J → COM-02X and saves
       expect(new URL(imageSrc, page.url()).pathname).toBe('/assets/opening-ch1-demo/com02x-dlg-01-v1.webp');
     }
     if (nodeId === 'common_convenience_xu_choice') {
-      expect(new URL(imageSrc, page.url()).pathname).toBe('/assets/opening-ch1-demo/com02x-bg-01-v1.webp');
+      expect(new URL(imageSrc, page.url()).pathname).toBe('/assets/opening-ch1-demo/com02x-dlg-01-v1.webp');
       await page.locator('#choice-list .choice-button').first().click();
       break;
     }

@@ -28,7 +28,7 @@
       "entry_id": "COM02X-WALK-01",
       "scene_id": "COM-02X",
       "source_scene": "docs/narrative/scenes/vertical-slice/COM-02X.md",
-      "status": "render_ready",
+      "status": "accepted",
       "cg_class": "dialogue_cg",
       "sequence_id": null,
       "beat_range": "02X.7 walking-home portion only. Approved script anchor common_convenience_xu_checkout: from the action beginning 兩人往同一個方向走 through the post-intersection quiet stretch, ending before the action at the apartment glass door. Reuse for the shared porridge-shop recommendation with its sign and chin gesture offscreen; not for store checkout or 02X.8 lobby/elevator/doorway.",
@@ -229,6 +229,10 @@
         "Keep the root realism floor, central crop tolerance and lower-quarter dialogue-safe intent; available lower background remains low-information. Any residual subject safe-zone conflict must be explicitly reported by VQA, with no unauthorized subject change and no claim that whole-walk quality was Humanaccepted.",
         "Exactly five declared reference files/roles/raw hashes acquired, decoded and visibly verified in fresh task, actually supplied to the one call; do not claim planning pixel inspection was generation attachment evidence.",
         "Independent manifest-usability review and deterministic projection must pass before the fresh renderer. Independent Visual QA and final Human master selection follow; existing three accepted masters and their provenance remain unchanged."
+      ],
+      "known_issues": [
+        "FAIL: candidate is 1672x941, below the required 1920x1080 master minimum.",
+        "NEEDS_REVIEW: lower crop and dialogue-safe region remain occupied by the inherited shorts/tote/checkout-bag crop; no subject adjustment is authorized here."
       ]
     }
   ]

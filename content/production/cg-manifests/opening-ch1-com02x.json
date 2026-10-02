@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "manifest_id": "opening-ch1-com02x-minimum-formal-cg",
-  "manifest_version": "1.0.0",
+  "manifest_version": "1.0.1",
   "lifecycle": "CANONICAL",
   "source_scene_ids": [
     "COM-02X"
@@ -152,7 +152,7 @@
       "status": "accepted",
       "cg_class": "dialogue_cg",
       "sequence_id": null,
-      "beat_range": "02X.2-02X.3 / common_convenience_xu_recognize, through the mutual meal-box comparison; cut away before 02X.4 / common_convenience_xu_choice.",
+      "beat_range": "Rendered moment remains 02X.2-02X.3 / common_convenience_xu_recognize. Accepted-pixel display reuse extends through common_convenience_xu_choice and all four 02X.4 branches; hold recognition and three conversational branches completely, and tell_eat_better through _03. Cut to COM02X-BG-01 at tell_eat_better_04..07 and at common_convenience_xu_work. No microwave-wait, checkout, walk or goodbye coverage.",
       "narrative": {
         "purpose": "The one formal CG-COM-03 recognition/Memory picture shows Xu as a tired ordinary neighbor with her own late dinner. Hold this encounter tableau through the short food comparison; the text carries transient downward glances. Its tired, minimally relaxed expression requires no separate reaction image and no accepted-base gate.",
         "must_show": [
@@ -166,7 +166,7 @@
           "A date, surprise reunion, secret identity exposure, flirtation, blush, grateful care recipient, glamorous pin-up or major conflict.",
           "Xu learned the protagonist name from parcel/address/management records or omniscient recall; name recognition belongs to the earlier mutual introduction only.",
           "Protagonist appearance or another heroine; visible staff/customers; shared food, exchanged bags, paying for Xu, health management, contact exchange or helping her client work.",
-          "This still depicts branch-specific hand swapping, active microwave waiting, payment, walking, elevator travel or the goodbye; it ends before choice."
+          "This still literally depicts branch-specific gaze/hand gestures or emotional variants, active microwave waiting, payment, walking, elevator travel or goodbye. Accepted-pixel reuse is a held encounter tableau: dialogue and choices own branch meaning. Do not display it at tell_eat_better_04..07 after the persistent coffee hand swap, or at the first microwave handover."
         ]
       },
       "characters": [
@@ -245,8 +245,9 @@
           "Waist-up framing carries the grey sweater and food props; no visible full legs or height-sensitive pose, therefore no optional body JPEG is required. Preserve complete Look 02 clothing in continuity without inventing a lower-body redesign.",
           "Reframe to 16:9 under the current production visual direction; retain the approved candid fatigue, middle-area props and lower-quarter safe zone.",
           "COM02X-BG-01 is geography/continuity metadata only, not a candidate attachment or accepted base. This entry can be generated independently with its own three immutable references before any candidate is selected.",
-          "Hold only for common_convenience_xu_recognize / 02X.2-02X.3, including the meal-box comparison. Cut to the person-free COM02X-BG-01 before every choice so a fixed warm face cannot override the boundary branch or imply its hand-transfer action.",
-          "Candidate may serve as the scene Memory cover only after separate QA/Human acceptance. No sprite/composite generation, new reaction frames, walk-back picture or repeated elevator scene."
+          "Display-only reuse authorized for common_convenience_xu_recognize through _12, common_convenience_xu_choice, ask_food through _07, share_work through _06, tease_same through _07 plus tease_same_locked_00, and tell_eat_better through _03. This held recognition tableau does not claim literal branch gestures or a newly approved expression: text owns glances, nods, the minor meal adjustment and the factual boundary correction. Keep COM02X-BG-01 only at tell_eat_better_04..07 because the coffee hand swap persists into the brief restrained silence, then at common_convenience_xu_work for meal handover/movement/phone. This specific current display rule supersedes the earlier generic all-branch BG reuse instruction in COM02X-BG-01; its unchanged render specification/pixels remain valid for establishment and action cutaways.",
+          "Candidate may serve as the scene Memory cover only after separate QA/Human acceptance. No sprite/composite generation, new reaction frames, walk-back picture or repeated elevator scene.",
+          "Display-coverage reconciliation PLAN-COM02X-DISPLAY-COVERAGE-007 changes hold timing only. Preserve original accepted PNG/hash, reference bindings, character/prop/camera/composition values and historical Human ACCEPTED_AS_IS / Visual QA FAIL evidence. The recomputed render-spec/shared-prompt hashes identify this coverage revision, never the prompt that generated the existing pixels; do not regenerate, relabel original generation provenance or infer a new QA PASS."
         ]
       },
       "render_constraints": {
