@@ -1,41 +1,55 @@
-# Future Heroine Character Settings
+# 未來女主候選與人設提案
 
-> Lifecycle: **CANONICAL**
+> Lifecycle: **EXPERIMENTAL**
 >
-> Status: **text-only character design authority; no accepted image reference pack**
+> Status: **future candidates; Owner review pending; not production input**
 >
 > Updated: 2026-10-02
 
-本目錄保存尚未進入目前雙女主 prototype 的 future heroine 文字設定，以及由設定投影出的 reference-pack generation prompt。
+本目錄只保存未來女主的長期設計資料，不代表她們已加入目前許棠／江雨澄的雙女主 prototype。已確認的 Owner 反饋與本輪新增提案分開記錄；不能因為文字寫得完整，就把整份人設宣告為已批准的 production canon。
 
-目前收錄：
+## 1. 候選名單與文件分工
 
-- `lin-ruoqing.md` — 林若晴的人物、視覺與造型權威設定。
-- `shen-zhixia.md` — 沈知夏的人物、視覺與造型權威設定。
-- `prompts/lin-ruoqing-face-identity.md` — 林若晴 Sheet 01 Face Identity Turnaround prompt。
-- `prompts/shen-zhixia-face-identity.md` — 沈知夏 Sheet 01 Face Identity Turnaround prompt。
+目前只保留以下兩位未來候選；不保留第三位候補槽或其替身。
 
-## Authority boundary
-
-1. 角色事實以各自的 character spec 為準；prompt 只是可執行投影，不擁有新的角色事實。
-2. 本目錄不表示角色已加入 runtime、route 或 `content/characters/`。
-3. 在 6-sheet reference pack 經 Human review、入庫並登記到 `content/assets/source-catalog.json` 前，角色沒有可供正式 CG manifest 綁定的 accepted image reference。
-4. 本次對話中曾生成的任何候選圖均未入庫、未驗收，也不是 production authority。
-5. 若 prompt 與 character spec 衝突，必須停止生成並以 character spec 修正 prompt，不得自行折衷。
-
-## Character-isolation contract
-
-- 一個 generation task 只可讀取一位角色的 spec 與對應 prompt。
-- 禁止同時載入林若晴與沈知夏的資料作為「風格參考」。
-- 禁止載入許棠或江雨澄的 reference pixels 來塑造新角色；既有角色只能出現在文字 collision guard 中。
-- 禁止以剛生成的候選圖取代文字 identity contract，或把未驗收候選圖當下一張圖的唯一來源。
-- 每次只生成一張 candidate；Human 明示接受前不得繼續下一張 sheet。
-
-## Current character separation
-
-| Character | Signature silhouette | Core energy | Must not collapse into |
+| 暫用名 | 人設文件 | 第一眼吸引力 | 相處後的喜愛理由 |
 | --- | --- | --- | --- |
-| 林若晴 | 鎖骨長髮綁中高馬尾；健康輕運動型 | 年輕、明亮、直接、一直在行動 | 江雨澄的短髮小骨架 ACG 女大生感 |
-| 沈知夏 | 墨黑直髮、俐落低馬尾；垂直結構輪廓 | 精準、清醒、克制、有主見 | 許棠的柔和長波浪與鬆弛鄰家輕熟女感 |
+| 林若晴 | [人物提案](lin-ruoqing.md) | 明亮、主動、有行動力的成年小學老師 | 願意陪你把普通的一天玩得有趣；有小勝負心，也能笑著承認自己出糗 |
+| 沈知夏 | [人物提案](shen-zhixia.md) | 清醒、有主見、會明確表達興趣的成熟女性 | 不讓你一直猜自己是否被喜歡；有自己的品味，也真心好奇你的世界 |
 
-Active reference-pack 的通用格式與入庫規則仍以 `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md` 為準。
+每位角色只保留一份人物／視覺設計文件，以及一份 [若晴](prompts/lin-ruoqing-face-identity.md)／[知夏](prompts/shen-zhixia-face-identity.md) Sheet 01 候選圖提示。Prompt 不得新增人物事實，也不載入人物關係或劇情提案。沒有額外 handover、平行人物卡或臨時候選資料庫。
+
+## 2. 本次更新的確定事項
+
+Owner 已要求：
+
+- 林若晴大部分時候使用中高馬尾，保留年輕、有活力但明確成年的感覺；臉部觀感乾淨，不用刻意增加瑕疵表現寫實。
+- 林若晴的工作裝必須符合老師身份，不能做成商務秘書、西裝套裙或學生制服。
+- 沈知夏改為**墨黑長直髮自然放下**；取消原先馬尾設定，相關人物描述、服裝、Sheet 01 prompt 與驗收條件一併同步。
+- 未來候選只保留上述兩人；本 PR 同步清除舊提案中的撤回角色章節、名單、場景／活動條目與目錄示意。
+- 本輪只改文件，不生成圖片、不新增 source ID，不修改現有兩位女主、runtime、route、存檔或資產登記。
+
+年齡／職業等延續原有提案，並不表示 Owner 已逐項批准本輪新增的細節。
+
+## 3. 新增設計與待審決策
+
+兩份人物文件中的個性擴寫、示範互動、戀愛發展及人物連結，均為 **PROPOSED / OWNER_REVIEW_PENDING**。這些示範不是 Locked Scene、approved voice-bank reference、Narrative QA PASS 或既成故事事件。
+
+| 項目 | 本輪建議 | 尚未鎖定的邊界 |
+| --- | --- | --- |
+| 名字 | 暫留林若晴、沈知夏；名字可改，先把人物成立 | 不因新名字擅自更改 file path 或預留 character ID |
+| 若晴與雨澄 | 可考慮有來往的成年表姊妹；若晴較年長，但不是監護人或人生導師 | 親屬關係尚未成立；不得寫入雨澄現行人設、家庭史或劇本 |
+| 知夏與許棠 | 可考慮曾在已結案的品牌專案合作，互相尊重專業 | 尚未成立；不預設僱傭關係、收入控制、閨蜜程度或共享私生活 |
+
+連結應增加日常互動，不是把所有人硬湊成一個圈子。兩位新角色都必須有獨立邂逅入口；刪掉任何連結提案，她們的路線仍能成立。不得自動推定新角色知道雨澄筆名、既有戀情、路線選擇或玩家與別人的親密程度。
+
+## 4. 生產與圖像邊界
+
+1. 本目錄為非 production 候選區，不加入現行 production Task Packet allowlist，也不取代任何 current domain canon。未來升格需要 Owner 明示批准及現行 workflow 所需的獨立流程。
+2. 只有 Owner 明示要求進行候選設計時，才可使用對應的單角色 Sheet 01 prompt；這仍不是正式 CG production。
+3. 一次候選生成只讀該角色文件的視覺段落、參考狀態和對應 prompt，不讀完整人物擴寫、關係表、其他女主文件或其他角色圖片。
+4. 尚無已入庫、已驗收的六張設定圖包或 repository source IDs。聊天中的喜歡／修正意見不等於圖片已入庫；反過來，未入庫也不等於使用者否定了那張圖。
+5. 不得以剛生成的候選圖自動鎖定 identity。指定既有圖片的修改，必須先取得使用者實際提供的可用圖片；不能只靠檔名、聊天摘要或不透明 ID。
+6. 每次只生成一張 candidate，Owner 明示接受前不繼續下一張 sheet。正式圖包格式與入庫規則仍見 `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md`。
+
+目前不合併本 PR、不宣告人物或美術驗收完成；先由 Owner 審閱這一版內容。

@@ -1,57 +1,35 @@
-# Shen Zhixia — Sheet 01 Face Identity Prompt
+# Shen Zhixia — Sheet 01 Face Identity Candidate
 
-> Lifecycle: **CANONICAL**
+> Lifecycle: **EXPERIMENTAL**
 >
-> Prompt role: executable projection of `docs/art/characters/shen-zhixia.md`
+> Source: `docs/art/characters/shen-zhixia.md` §§7–9 only
 >
-> Output status: candidate only; Human acceptance required
+> Status: candidate-design prompt; explicit Owner generation request required; not production CG input
 
 ## Isolation precondition
 
-- Read only `docs/art/characters/shen-zhixia.md` and this prompt.
-- Do not load any other heroine specification, reference image, prompt or generated candidate.
-- Do not use Xu Tang as a visual reference; the collision guard below is textual exclusion only.
-- Generate exactly one candidate image.
+Read only the source's visual design, acting guardrails and reference status, plus this prompt. Do not load personality prose, dialogue examples, relationship proposals, other characters or their pixels. Generate exactly one candidate, not a batch. Editing a specific existing face requires the actual usable image to be supplied; text does not establish pixel identity.
 
 ## Copy-ready prompt
 
 ```text
-Create one production-grade, photorealistic cinematic game-character reference sheet for Shen Zhixia, a 30-year-old adult East Asian woman working in international consulting / financial strategy. She is precise, self-possessed, intelligent and high-functioning, but not cold, domineering, seductive or emotionally blank.
+Create one photorealistic cinematic character reference sheet for Shen Zhixia, a clearly adult 30-year-old East Asian woman with a poised, attentive and human presence, not a cold or domineering executive.
 
-IDENTITY:
-- slightly long soft-diamond adult face with visible but not gaunt cheekbones and a clean natural jaw;
-- medium-sized, relatively horizontal almond eyes with direct attentive gaze, no exaggerated upward tilt;
-- straight well-groomed eyebrows with a restrained arch;
-- natural straight nose, proportionate lips in muted cool rose / bean-paste tone;
-- neutral-cool skin with realistic pores and natural under-eye, nose-wing and lip-area shading;
-- near-black straight hair reaching the upper shoulder blades when loose, gathered into her primary public signature: a neat low ponytail close to the back of the head;
-- center or very slight side part with minimal controlled face-framing strands;
-- small geometric stud earrings;
-- calm neutral evaluative expression with visible human warmth;
-- simple unbranded cool-gray crew-neck top, shoulders visible.
+Use one consistent slightly long soft-diamond face, defined but not gaunt cheekbones, a natural clear jaw, medium horizontal almond eyes, direct attentive gaze, neat relatively straight brows, natural straight nose and proportionate muted cool-rose lips. Clean neutral-cool skin with subtle pores and natural shading; no doll skin or exaggerated cosmetic-surgery features.
 
-SHEET LAYOUT:
-Show the exact same woman with the exact same hairstyle, makeup, lighting and neutral expression in: front view, left 30 degrees, left 45 degrees, left profile, right 30 degrees, right 45 degrees, right profile, and back view of the low ponytail. Add clean close-up crops of both eyes, nose, lips, ear and hair texture. Keep head scale consistent across views.
+Her signature is near-black long straight hair worn naturally DOWN, reaching approximately the upper shoulder blades. Center or slight side part, believable hair volume, clean vertical fall; a discreet ear tuck may expose the ear. No ponytail, bun, half-up hairstyle or braid. Keep the same loose hairstyle in every view, including the back view showing its full length.
 
-STYLE AND CAMERA:
-Photorealistic cinematic game-character reference photography; truthful East Asian adult anatomy; 85mm-equivalent lens; eye-level camera; neutral cool-gray studio background; soft even frontal studio light; sharp detail in every panel; natural pores, under-eye shading, fine hair and lip texture; no shallow-focus blur; clean grid with no text.
+Small geometric stud earrings, plain unbranded cool-gray crew-neck top, shoulders visible. Neutral attentive expression with human warmth. Show front, left 30°, left 45°, left profile, right 30°, right 45°, right profile and back; add small detail crops of eyes, nose, lips, ear and hair. Keep identity, head scale, makeup and lighting consistent.
 
-HARD EXCLUSIONS:
-No warm dark-brown waves, no loose romantic curls, no half-up waves, no side braid, no abundant wispy face strands, no large gold hoop earrings, no soft neighbor-girl styling, no oversized anime eyes, no fox eyes, no extreme winged eyeliner, no pointed V-line chin, no filler-like lips, no influencer cosmetic-surgery template, no femme-fatale gaze, no domineering boss pose, no biting lips, no illustration or anime linework, no poster typography, no skyline or luxury-office background.
+Eye-level camera, 85mm-equivalent perspective, soft even studio light, neutral cool-gray background, every panel sharply detailed. Clean arrangement, no labels or scenery.
 
-The result must read as a mature, clear-minded adult woman whose soft-diamond face, near-black straight low ponytail, horizontal attentive eyes and controlled presence remain distinct without clothing context.
+No warm brown waves, romantic curls, abundant wispy strands or large gold hoops. No fox eyes, extreme eyeliner, pointed V chin, filler-like lips, seductive villain gaze, boss pose, anime, illustration, poster typography, luxury-office background or skyline.
 ```
 
-## Acceptance gate
+## Review checklist
 
-Reject the candidate if any item fails:
+Reject a candidate whose hair is tied, pinned into a bun, braided or half-up; near-black long straight hair worn naturally down must be consistent across the whole sheet, especially the back view. A simple ear tuck is allowed. Face, jaw, eye spacing, nose, hairline and ears must remain the same adult identity.
 
-- The default hairstyle is not a neat low ponytail made from near-black straight hair.
-- She resembles Xu Tang with a different expression or business styling.
-- The face is a generic pointed-chin, fox-eye or cosmetic-surgery beauty template.
-- She reads as a cold villain, seductive executive, domineering boss or emotionally blank mannequin.
-- The face, jaw, nose, eye spacing, hairline or ear structure changes across angles.
-- Large hoop earrings, warm brown waves or abundant loose face strands appear.
-- The sheet contains generated labels, slogans, city scenery or luxury props.
+Reject a generic cold executive, cosmetic-surgery beauty template, warm-brown wavy identity, oversized hoop earrings, blank mannequin expression, labels or decorative scenery. Composure must not erase human warmth.
 
-Passing this prompt produces only a Sheet 01 candidate. It does not create an accepted source ID or authorize later sheets.
+This face-only sheet does not approve wardrobe or a full pack. Only explicit Human acceptance followed by repository ingestion can create an accepted reference source. No automatic next sheet, no production source ID and no hairstyle-based intimacy unlock.
