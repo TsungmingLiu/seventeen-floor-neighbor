@@ -81,7 +81,7 @@
     }
   ],
   "known_issues": [
-    " Affected: ",
+    "Locked continue_topic script supplies only visual_design/worldbuilding/edition_value four-turn sequences. Neutral/no-history is required by packet and contract, but its sole approved scene note names a neutral phrase without a complete neutral playable conversation. Integrator cannot invent a fourth sequence, choose a false history, or omit the branch conversation. Affected: docs/narrative/scenes/vertical-slice/COM-02J.md 185-213",
     "Full packet/input snapshot and Handoff are ignored execution artifacts; verified Handoff SHA256 641195ebe1a3a83fa291b5814dd997fdede9c0f29941f1167654c7933013bbb2. No automatic current-PASS claim from legacy schema2-unsupported verifier."
   ],
   "human_gate_required": "narrative_preview_review",
