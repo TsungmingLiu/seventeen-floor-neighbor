@@ -1,0 +1,30 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_checkpoint",
+  "run_id": "com02j-m1-preview-20261002",
+  "workflow_version": "1.3.0",
+  "source_ref": "da7c043c65f78b6618952d9c77db29374a3f50e6",
+  "human_request": {
+    "summary": "Owner approved COM03X story/dialogue and authorized next M1 COM02J locked-script gates and narrative preview.",
+    "gate_status": "COM02J work authorized; new Human narrative preview pending"
+  },
+  "status": "BLOCKED",
+  "tasks": [
+    {
+      "task_id": "NQA-COM02J-003",
+      "task_type": "narrative_review",
+      "scene_id": "COM-02J",
+      "depends_on": [],
+      "status": "FAIL",
+      "packet": {
+        "generator": "manual:task-packet-schema-v1.3.0",
+        "sha256": "59921fc3b785df6dbe12460006e86b6755922d3ba296f45536d7c05debfb3f67"
+      },
+      "decision_receipt": "content/production/runs/com02j-m1-preview-20261002/NQA-COM02J-003.decision.json",
+      "human_gate": "none",
+      "reason": "Exact packet and fresh worker Handoff verified at execution; output identities pinned in compact receipt."
+    }
+  ],
+  "invalidation_events": [],
+  "preview": null
+}
