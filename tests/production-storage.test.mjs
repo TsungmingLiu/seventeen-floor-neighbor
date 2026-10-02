@@ -28,6 +28,19 @@ function fixture() {
   return { directory, put, close: () => fs.rmSync(directory, { recursive: true, force: true }) };
 }
 
+function durableDecision(overrides = {}) {
+  return {
+    schema_version: '2.0.0', storage_class: 'durable_decision', evidence_purpose: 'qa_decision',
+    run_id: 'test', task_id: 'QA-001', task_type: 'visual_review', status: 'NEEDS_REVIEW',
+    harness: { id: 'content_qa', version: '1.3.0', pass: 'visual_review' },
+    input_versions: [{ id: 'fixture-spec', version: 'a'.repeat(64), location: 'external:fixture-spec' }],
+    output_versions: [{ id: 'fixture-candidate', version: 'b'.repeat(64), location: 'external:fixture' }],
+    qa_codes: [{ name: 'fixture-only', result: 'FAIL', code: 'FIXTURE' }],
+    known_issues: ['fixture issue'], human_gate_required: 'accepted_master_image_selection', invalidates: [],
+    ...overrides
+  };
+}
+
 test('storage boundary accepts formal specs and compact adoption evidence, rejects forced job artifacts', () => {
   const f = fixture();
   try {
@@ -106,5 +119,98 @@ test('exact legacy attempt blobs cannot be reintroduced after storage cleanup', 
     const raw = execFileSync('git', ['-C', root, 'show', `${archived.ref}:${archived.path}`]);
     f.put(archived.path, raw);
     assert.throws(() => validateProductionStorage({ root: f.directory }), /archived attempt record must not be restored/);
+  } finally { f.close(); }
+});
+
+test('removing an archive locator cannot authorize exact archived decision restoration', () => {
+  const f = fixture();
+  try {
+    const ledgerPath = 'content/production/runs/com02x-cg-20260930/ledger.json';
+    const ledger = JSON.parse(fs.readFileSync(path.join(root, ledgerPath)));
+    const archived = ledger.storage_resolution.archived_records.find((item) => item.path.endsWith('.decision.json'));
+    ledger.storage_resolution.archived_records = ledger.storage_resolution.archived_records.filter((item) => item.path !== archived.path);
+    f.put(ledgerPath, JSON.stringify(ledger));
+    f.put(archived.path, execFileSync('git', ['-C', root, 'show', `${archived.ref}:${archived.path}`]));
+    assert.throws(() => validateProductionStorage({ root: f.directory }),
+      /changed immutable archived record set|archived attempt record must not be restored/);
+    // Removing the entire mutable map/ledger still cannot remove the historical deny list.
+    git(f.directory, 'rm', '-f', ledgerPath);
+    assert.throws(() => validateProductionStorage({ root: f.directory }), /archived attempt record must not be restored/);
+  } finally { f.close(); }
+});
+
+test('staged archived decision is rejected after its worktree file is unlinked', () => {
+  const f = fixture();
+  try {
+    const ledgerPath = 'content/production/runs/com02x-cg-20260930/ledger.json';
+    const ledger = JSON.parse(fs.readFileSync(path.join(root, ledgerPath)));
+    f.put(ledgerPath, JSON.stringify(ledger));
+    const archived = ledger.storage_resolution.archived_records.find((item) => item.path.endsWith('.decision.json'));
+    f.put(archived.path, execFileSync('git', ['-C', root, 'show', `${archived.ref}:${archived.path}`]));
+    fs.unlinkSync(path.join(f.directory, archived.path));
+    assert.throws(() => validateProductionStorage({ root: f.directory }), /archived attempt record must not be restored/);
+  } finally { f.close(); }
+});
+
+test('schema2 QA codes reject a nested full API payload while typed Human and QA decisions pass', () => {
+  const f = fixture();
+  try {
+    const relative = 'content/production/runs/test/QA-001.decision.json';
+    f.put(relative, JSON.stringify(durableDecision()));
+    f.put('content/production/runs/test/HUMAN-001.decision.json', JSON.stringify(durableDecision({
+      task_id: 'HUMAN-001', task_type: 'human_decision', evidence_purpose: 'human_decision',
+      status: 'HUMAN_ACCEPTED_AS_IS', harness: { id: 'human', version: '1', pass: null },
+      qa_codes: [], known_issues: [{ human_directive: 'fixture selection', gate: 'accepted_master_image_selection',
+        decision: 'accepted', sha256: 'b'.repeat(64) }], human_gate_required: 'none'
+    })));
+    assert.doesNotThrow(() => validateProductionStorage({ root: f.directory }));
+    const payload = durableDecision({ qa_codes: [{ name: 'fixture-only', result: 'FAIL', code: 'FIXTURE',
+      api_payload: { model: 'fixture', input: { prompt: 'fixture transport prompt' } } }] });
+    f.put(relative, JSON.stringify(payload));
+    assert.throws(() => validateProductionStorage({ root: f.directory }), /nested task\/transport field|typed compact metadata/);
+    // A clean disk copy must not hide the unsafe staged blob.
+    fs.writeFileSync(path.join(f.directory, relative), JSON.stringify(durableDecision()));
+    assert.throws(() => validateProductionStorage({ root: f.directory }), /nested task\/transport field|typed compact metadata/);
+    fs.unlinkSync(path.join(f.directory, relative));
+    assert.throws(() => validateProductionStorage({ root: f.directory }), /nested task\/transport field|typed compact metadata/);
+  } finally { f.close(); }
+});
+
+test('schema2 checkpoint accepts scalar Human metadata and rejects nested transport in each container', () => {
+  const f = fixture();
+  try {
+    const relative = 'content/production/runs/test/ledger.json';
+    const checkpoint = {
+      schema_version: '2.0.0', storage_class: 'durable_checkpoint', run_id: 'test', workflow_version: '1.3.0',
+      source_ref: LEGACY_STORAGE_REF, status: 'ACTIVE', human_request: { summary: 'fixture', gate_status: 'resolved' },
+      tasks: [{ task_id: 'HUMAN-001', task_type: 'human_decision', status: 'PASS', depends_on: [],
+        packet: { generator: 'fixture', sha256: 'a'.repeat(64) }, decision_receipt: 'fixture.decision.json', human_gate: 'none' }],
+      invalidation_events: [{ changed_artifact_id: 'fixture', affected_task_ids: ['fixture-task'],
+        old_version: 'a'.repeat(64), new_version: 'b'.repeat(64), decision: 'STALE', evidence: 'fixture' }],
+      preview: null,
+      human_decisions: [{ task_id: 'HUMAN-001', human_directive: 'fixture selection', gate: 'accepted_master_image_selection',
+        decision: 'accepted', asset_id: 'fixture-candidate', sha256: 'b'.repeat(64) }]
+    };
+    f.put(relative, JSON.stringify(checkpoint));
+    assert.doesNotThrow(() => validateProductionStorage({ root: f.directory }));
+    for (const field of ['human_request', 'human_decisions', 'invalidation_events', 'preview', 'tasks']) {
+      const unsafe = structuredClone(checkpoint);
+      const payload = { api_payload: { input: { prompt: 'fixture' } } };
+      unsafe[field] = Array.isArray(unsafe[field]) ? [payload] : payload;
+      f.put(relative, JSON.stringify(unsafe));
+      assert.throws(() => validateProductionStorage({ root: f.directory }), /nested task\/transport field/, field);
+    }
+  } finally { f.close(); }
+});
+
+test('indexed-only source JSON and staged payload overwritten on disk still undergo content checks', () => {
+  const f = fixture();
+  try {
+    const relative = 'content/production/narrative/hidden.json';
+    f.put(relative, JSON.stringify({ allowed_sources: [], deliverables: [] }));
+    fs.writeFileSync(path.join(f.directory, relative), '{}');
+    assert.throws(() => validateProductionStorage({ root: f.directory }), /full task\/transport artifact in source/);
+    fs.unlinkSync(path.join(f.directory, relative));
+    assert.throws(() => validateProductionStorage({ root: f.directory }), /full task\/transport artifact in source/);
   } finally { f.close(); }
 });
