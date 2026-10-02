@@ -75,7 +75,23 @@ The controlled-edit harness creates a temporary detached checkout at current
 HEAD, copies the current engineering implementation into it, performs only
 isolated material edits, invokes the real CLI, restores sources, and removes the
 checkout. The focused result is **13 tests passed, 0 failed**. Full runtime/build
-validation belongs to the parent maintenance verification.
+validation is recorded below.
+
+## Parent maintenance verification
+
+Node **22.23.3** completed build (21/21 media checks), `validate`,
+`validate:final`, `production:storage:check`, and staged `git diff --check`.
+The legacy current COM-01X impact comparison also completed with zero changes.
+
+The full suite executed **117 tests: 115 passed, 2 failed** while the workflow
+manifest registration was uncommitted. Both failures were the existing COM-00
+packet integrity guard, `source differs from committed ref: .ai/WORKFLOW_MANIFEST.yaml`;
+the guard was preserved. After saving implementation checkpoint
+`268fe252e07d1badddcb6948e8ad5dc5e26d8914`, its four context-packet tests passed
+**4/4**, including both failed cases. The other 115 tests, including the eleven
+pinned historical suites and the new current-scene controls, passed in the full
+run; they were not rerun after this metadata checkpoint. This is local engineering
+evidence, not a fresh main CI or Human playable acceptance.
 
 For actual integration, invoke the check before wiring/build work and continue
 only on exit 0. For an already prepared integration checkout, the conditional
