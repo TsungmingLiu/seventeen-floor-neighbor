@@ -1,0 +1,81 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "title-key-visual-20261002",
+  "task_id": "MUA-TITLE-17F-001",
+  "task_type": "visual_review",
+  "scene_id": "COM-00",
+  "status": "PASS",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.4.0",
+    "pass": "visual_review"
+  },
+  "source_ref": "c5251cd2ac58e8daca0d034a0799b60c456dd7d7",
+  "packet_sha256": "d383f8a5490c5283121d44c1e3001ecdf1d87017dee58efd3360977af9900742",
+  "input_versions": [
+    {
+      "id": "generation-cg-manifest",
+      "version": "3ac8f4d3e48a9a6b8c0a32b2c1c66dabb16323ce59c4accd2517396a965ce196",
+      "location": "content/production/cg-manifests/title-screen.json"
+    },
+    {
+      "id": "environment-reference",
+      "version": "386c9003df0a6658a343907b646e912aa1e6a68254a01c2dfb89bdc838b33077",
+      "location": "assets-src/opening-ch1-demo/bg-apt-17f-rain-16x9-v1.webp"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "TITLE-17F-DOORLIGHT-01",
+      "version": "a856b2cb9655d4bf1dfcd44d30775c8db8b16faaaf5a235634a5aea40b91ef10",
+      "location": "content/production/cg-manifests/title-screen.json"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "VQA-MANIFEST-SOURCE-ACQUISITION",
+      "code": "VQA-MANIFEST-SOURCE-ACQUISITION",
+      "result": "PASS"
+    },
+    {
+      "name": "VQA-TITLE-ONLY-NARRATIVE-BOUNDARY",
+      "code": "VQA-TITLE-ONLY-NARRATIVE-BOUNDARY",
+      "result": "PASS"
+    },
+    {
+      "name": "VQA-NO-PEOPLE-OR-TEXT",
+      "code": "VQA-NO-PEOPLE-OR-TEXT",
+      "result": "PASS"
+    },
+    {
+      "name": "VQA-ENVIRONMENT-STYLE-AND-PHYSICS",
+      "code": "VQA-ENVIRONMENT-STYLE-AND-PHYSICS",
+      "result": "PASS"
+    },
+    {
+      "name": "VQA-DESKTOP-TITLE-UI-SPACE",
+      "code": "VQA-DESKTOP-TITLE-UI-SPACE",
+      "result": "PASS"
+    },
+    {
+      "name": "VQA-PORTRAIT-FRAMING-USABILITY",
+      "code": "VQA-PORTRAIT-FRAMING-USABILITY",
+      "result": "PASS"
+    },
+    {
+      "name": "VQA-DETERMINISTIC-PROJECTION",
+      "code": "VQA-DETERMINISTIC-PROJECTION",
+      "result": "PASS"
+    },
+    {
+      "name": "VQA-ACCEPTANCE-BOUNDARY",
+      "code": "VQA-ACCEPTANCE-BOUNDARY",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [],
+  "human_gate_required": "none",
+  "invalidates": []
+}

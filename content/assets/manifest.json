@@ -461,6 +461,21 @@
       "knownIssues": [
         "Human-adopted as-is under content/assets/ingest-receipts/com02x-walk-adopted-master-v3.json; independent visual QA remains FAIL; minimum resolution and lower dialogue-safe-zone/crop findings remain."
       ]
+    },
+    "bg.opening.title.17f_doorlight": {
+      "canonicalAssetId": "BG-TITLE-17F-DOORLIGHT-01",
+      "kind": "background",
+      "src": "assets/opening-title/title-17f-doorlight-v1.webp",
+      "width": 1672,
+      "height": 941,
+      "masterSourceId": "source.opening.title.17f_doorlight.master",
+      "focus": {
+        "x": 50,
+        "y": 40
+      },
+      "knownIssues": [
+        "Historical Visual QA remains NEEDS_REVIEW; Human selected this exact native master as-is with 50% 40% focus."
+      ]
     }
   }
 }

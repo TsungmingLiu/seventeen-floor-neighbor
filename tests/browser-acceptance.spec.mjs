@@ -49,6 +49,84 @@ async function currentJourney(page) {
   return page.evaluate(() => JSON.parse(localStorage.getItem('opening-demo-chapter-01:journey:v2')));
 }
 
+for (const mode of ['confirm', 'Enter', 'cleared', 'whitespace']) {
+  test(`player name quick-start uses the prefilled default with ${mode}`, async ({ page }) => {
+    await page.goto('/');
+    await page.locator('#start-button').click();
+    const input = page.locator('#player-name-input');
+    await expect(input).toBeFocused();
+    await expect(input).toHaveValue('劉樂');
+    if (mode === 'cleared') {
+      await input.click();
+      await expect(input).toHaveValue('');
+      await expect(input).toBeFocused();
+    }
+    if (mode === 'whitespace') await input.fill('   ');
+    if (mode === 'Enter') await page.keyboard.press('Enter');
+    else await page.locator('#player-name-form button[type="submit"]').click();
+    await expect(page.locator('#player-name-dialog')).not.toBeVisible();
+    await expect(page.locator('#game-shell')).toBeVisible();
+    expect((await currentJourney(page)).playerDisplayName).toBe('劉樂');
+    await page.reload();
+    await page.locator('#start-button').click();
+    await expect(page.locator('#player-name-dialog')).not.toBeVisible();
+    expect((await currentJourney(page)).playerDisplayName).toBe('劉樂');
+  });
+}
+
+test('player name first click clears with a cursor and later clicks or cancel/reopen preserve the custom draft', async ({ page }) => {
+  await page.goto('/');
+  await page.locator('#start-button').click();
+  const input = page.locator('#player-name-input');
+  await input.click();
+  await expect(input).toHaveValue('');
+  await expect(input).toBeFocused();
+  expect(await input.evaluate(el => [el.selectionStart, el.selectionEnd])).toEqual([0, 0]);
+  await page.keyboard.insertText('小雨');
+  await input.click();
+  await expect(input).toHaveValue('小雨');
+  await page.locator('#player-name-cancel').click();
+  expect(await currentJourney(page)).toBeNull();
+  await page.locator('#start-button').click();
+  await expect(input).toHaveValue('小雨');
+  await input.click();
+  await expect(input).toHaveValue('小雨');
+  await page.locator('#player-name-form button[type="submit"]').click();
+  expect((await currentJourney(page)).playerDisplayName).toBe('小雨');
+});
+
+for (const mode of ['keyboard', 'native beforeinput', 'IME', 'autofill']) {
+  test(`player name ${mode} edits preserve custom text`, async ({ page }) => {
+    await page.goto('/');
+    await page.locator('#start-button').click();
+    const input = page.locator('#player-name-input');
+    await expect(input).toHaveValue('劉樂');
+    await expect(input).toBeFocused();
+    if (mode === 'keyboard') await page.keyboard.type('Amy');
+    if (mode === 'native beforeinput') await page.keyboard.insertText('小雨');
+    if (mode === 'IME') {
+      // Browser-native composition events model an IME edit; no physical IME is available in CI.
+      await input.dispatchEvent('compositionstart', { data: '' });
+      await expect(input).toHaveValue('');
+      await input.evaluate(el => {
+        el.value = '小';
+        el.dispatchEvent(new InputEvent('input', { bubbles: true, data: '小', inputType: 'insertCompositionText', isComposing: true }));
+        el.dispatchEvent(new InputEvent('beforeinput', { bubbles: true, data: '小雨', inputType: 'insertCompositionText', isComposing: true }));
+        el.value = '小雨';
+        el.dispatchEvent(new InputEvent('input', { bubbles: true, data: '小雨', inputType: 'insertCompositionText', isComposing: true }));
+        el.dispatchEvent(new CompositionEvent('compositionend', { bubbles: true, data: '小雨' }));
+      });
+    }
+    if (mode === 'autofill') await input.evaluate(el => { el.value = '小雨'; });
+    const customName = mode === 'keyboard' ? 'Amy' : '小雨';
+    await expect(input).toHaveValue(customName);
+    await input.click();
+    await expect(input).toHaveValue(customName);
+    await page.locator('#player-name-form button[type="submit"]').click();
+    expect((await currentJourney(page)).playerDisplayName).toBe(customName);
+  });
+}
+
 for (const [branchIndex, branch] of ['ask_food', 'share_work', 'tease_same', 'tell_eat_better'].entries()) {
   test(`COM-02X ${branch} forward flow loads held CGs, ten walking nodes, reload and Gallery`, async ({ page }, testInfo) => {
     test.setTimeout(180_000);
@@ -379,7 +457,7 @@ test('entered name persists through Continue and Memory replay without replacing
   await page.goto('/');
   await page.locator('#start-button').click();
   await expect(page.locator('#player-name-dialog')).toBeVisible();
-  await page.locator('#player-name-input').fill('   ');
+  await page.locator('#player-name-input').fill('[bad]');
   await page.locator('#player-name-form button[type="submit"]').click();
   await expect(page.locator('#player-name-error')).not.toBeEmpty();
   await expect(page.locator('#game-shell')).not.toBeVisible();
@@ -465,3 +543,40 @@ test('pre-COM02X save keeps progress and asks for a name before Continue or repl
   expect(saved.cursor.flags).toContain('test-flag');
   expect(saved.playerDisplayName).toBe('新名字');
 });
+
+
+for (const width of [320, 1440]) {
+  test(`dedicated initial title artwork preserves framing and saved backdrop at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: width === 320 ? 700 : 900 });
+    const errors = collectBlockingErrors(page);
+    await page.goto('/');
+    const art = page.locator('#title-art');
+    await expect(art).toHaveAttribute('src', 'assets/opening-title/title-17f-doorlight-v1.webp');
+    await expect(art).toHaveClass(/is-initial-title-art/);
+    await expect.poll(() => art.evaluate((el) => getComputedStyle(el).objectPosition)).toBe('50% 40%');
+    expect(await art.evaluate((el) => el.complete && el.naturalWidth === 1672)).toBe(true);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    await page.locator('#start-button').click();
+    await expect(page.locator('#player-name-input')).toHaveValue('劉樂');
+    await page.locator('#player-name-cancel').click();
+    await expect(art).toHaveAttribute('src', 'assets/opening-title/title-17f-doorlight-v1.webp');
+    await page.evaluate(async () => {
+      const chapter = await (await fetch('/content/routes/opening-demo/chapter.json')).json();
+      const snapshot = { nodeId: 'common_elevator_restart_greeting', stats: chapter.initialState, flags: [], returnNodes: [] };
+      localStorage.setItem('opening-demo-chapter-01:journey:v2', JSON.stringify({ version: 2, playerDisplayName: '劉樂', cursor: snapshot, frontier: snapshot,
+        frontierMemoryEventId: 'mem.opening.ch1.elevator-restart', frontierRank: 40, checkpoints: { [snapshot.nodeId]: snapshot }, edges: [] }));
+    });
+    await page.reload();
+    await expect(page.locator('#start-button')).toHaveText('繼續遊戲');
+    await expect(art).not.toHaveClass(/is-initial-title-art/);
+    await expect(art).not.toHaveAttribute('src', 'assets/opening-title/title-17f-doorlight-v1.webp');
+    const memories = await (await page.request.get('/content/routes/opening-demo/memories.json')).json();
+    const assets = await (await page.request.get('/content/routes/opening-demo/assets.json')).json();
+    const event = memories.events.find((event) => event.id === 'mem.opening.ch1.elevator-restart');
+    await expect(art).toHaveAttribute('src', assets.assets[event.titleBackdropAsset || event.cover.asset].src);
+    await page.locator('#start-button').click();
+    await expect(page.locator('#player-name-dialog')).not.toBeVisible();
+    expect((await currentJourney(page)).playerDisplayName).toBe('劉樂');
+    expect(errors).toEqual([]);
+  });
+}

@@ -142,6 +142,13 @@
       "sha256": "5e575a70762c09fdc958333f51ea8b1f12b20109d90ca22e224e66be38accbfd",
       "bytes": 307308,
       "masterSourceId": "source.com02x.walk-v3"
+    },
+    "assets/opening-title/title-17f-doorlight-v1.webp": {
+      "source": "assets-src/opening-title/title-17f-doorlight-v1.webp",
+      "transform": "copy",
+      "sha256": "5028f66458aff84a1f4b5d9a55dc467b9c5cadd96fc119f55e452180e40633c3",
+      "bytes": 141078,
+      "masterSourceId": "source.opening.title.17f_doorlight.master"
     }
   }
 }

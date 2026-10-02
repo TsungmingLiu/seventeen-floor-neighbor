@@ -2,7 +2,7 @@
 
 Harness ID: `integrator`
 
-Version: 1.3.1
+Version: 1.4.0
 
 ## Responsibility
 
@@ -31,7 +31,15 @@ Archive/experiment、rejected candidate、raw operator prompt 不是 integration
 - start playable preview、run `npm run preview:smoke -- --skip-build` and browser story-flow smoke；
 - obtain Codespaces forwarded port 4173 browse URL or exact Human access path, recording commit/ref、profile、visibility and smoke evidence；
 - narrative preview 通過後只交付 `NARRATIVE_PREVIEW_READY` 和可審閱的 ref/access path，Human 只審故事與互動；不得宣稱 CG/Visual QA 或 final playable acceptance。
-- final integration 需 `npm run validate:final` 通過；只在完整 accepted assets 與 Human-accessible demo 齊備後交付 `READY_FOR_HUMAN_ACCEPTANCE`。If platform cannot expose it, return `BLOCKED` with fallback/access limitation。
+- final integration 需 `npm run validate:final` 通過；只在完整 accepted assets、下方 independent final derivative/display QA 與 Human-accessible demo 齊備後交付 `READY_FOR_HUMAN_ACCEPTANCE`。If platform cannot expose it, return `BLOCKED` with fallback/access limitation。
+
+## Final derivative/display QA handoff
+
+For prospective final integration, preserve the adopted original bytes/hash and source QA/Human outcome. Identify the actual runtime derivative separately: exact path/asset ID, width/height/MIME, byte count/SHA-256, original linkage and conversion settings when available. Record the actual runtime ref/build and render/crop screenshots with hashes, explicit approved desktop, mobile landscape and portrait CSS viewport width/height, orientation, DPR, image display area, fit/crop, focus and dialogue/UI state. Use approved profiles, not invented universal dimensions. Build/validator/smoke PASS and an uncompressed original do not prove final compression/display quality.
+
+If derivatives or display screenshots become available during integration, hand these exact identities/evidence to Coordinator for a **fresh bounded `content_qa / visual_review` task** using existing `review_scope: candidate` and explicit packet acquisitions, `input_versions`, `constraints.locked` and `acceptance`. Integrator may return its implementation Handoff while that gate is pending, but must not self-award independent QA or advance `READY_FOR_HUMAN_ACCEPTANCE` before hash/profile/build-matching PASS of `VQA-COMPRESSION-ARTIFACTS`, `VQA-DESKTOP-DISPLAY` and `VQA-MOBILE-PORTRAIT-DISPLAY`, alongside required source-quality provenance/checks. If matching independent evidence already covers unchanged derivative/profile/build inputs, Coordinator may verify it instead of repeating unaffected checks. Missing pixels, profiles or provenance are `BLOCKED`/`NEEDS_REVIEW`, never inferred PASS or 4K/retina claims.
+
+Compression/crop/focus/UI implementation failure returns to integrator with affected bytes/profile evidence; retain the original master. Raw-image defects route to renderer/planner as appropriate. Corrected derivative or runtime presentation requires a fresh bounded review of affected checks. No automatic redraw/retry; do not reinterpret accepted-as-is or historical QA as a new quality PASS. This prospective gate does not rewrite existing assets, accepted manifests or QA/Human records, or apply final-visual claims to narrative preview/governance maintenance.
 
 ## Text-preserving compilation
 

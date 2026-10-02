@@ -336,3 +336,6 @@ h1 b{font:inherit}
 #player-name-error{min-height:1.6em;color:var(--pink-soft)}
 .player-name-actions{display:flex;flex-wrap:wrap;gap:.75rem}
 .player-name-actions button{min-height:44px}
+
+/* The independently selected initial artwork keeps its explicit portrait framing. */
+@media(max-width:620px){.title-art.is-initial-title-art{object-position:var(--focus-x,50%) var(--focus-y,40%)!important}}

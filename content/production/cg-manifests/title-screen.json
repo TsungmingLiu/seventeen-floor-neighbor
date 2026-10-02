@@ -1,0 +1,163 @@
+{
+  "schema_version": "1.0.0",
+  "manifest_id": "title-screen-cg-manifest",
+  "manifest_version": "1.1.0",
+  "lifecycle": "CANONICAL",
+  "source_scene_ids": [
+    "COM-00"
+  ],
+  "style_contract": {
+    "style_id": "realistic-game-cinematic-v1",
+    "positive": [
+      "realistic high-end game-cinematic environment rendering with photographic PBR materials",
+      "physically plausible stone, dark wood, brushed metal, cardboard and tape material response",
+      "believable warm practical lighting, cool rainy ambient spill, cinematic exposure and photographic lens logic"
+    ],
+    "negative": [
+      "anime, manga, cartoon, chibi, cel-shaded or animation-film rendering",
+      "painterly concept art, comic panels or stylized illustration",
+      "embedded captions, title lettering, UI, watermarks or logos"
+    ],
+    "aspect_ratio": "16:9",
+    "output_count": 1
+  },
+  "entries": [
+    {
+      "entry_id": "TITLE-17F-DOORLIGHT-01",
+      "scene_id": "COM-00",
+      "source_scene": "docs/narrative/scenes/vertical-slice/COM-00.md",
+      "status": "accepted",
+      "cg_class": "background_cg",
+      "sequence_id": null,
+      "beat_range": "title_only; COM-00 00.1 rain-night move-in environment motif; no playable beat or state advancement",
+      "narrative": {
+        "purpose": "User-approved title concept: 17 樓，門後的燈. A quiet rain-night apartment corridor, foreground moving boxes and warm light from a residential doorway suggest a new arrival and a story about to begin. COM-00 supplies only the opening environment/move-in authority; this is independent title artwork before gameplay, not a new locked story event or a literal illustration of completed encounter beats.",
+        "must_show": [
+          "An unoccupied seventeenth-floor apartment corridor consistent with the declared environment reference",
+          "Three ordinary moving cartons in the foreground beside the newly occupied apartment entrance, with a clear public passage",
+          "A narrow, physically plausible warm glow through a slightly ajar residential door, with the interior largely unseen",
+          "Cool rainy Taipei night beyond the existing corridor-end glazing, balanced against warm practical light",
+          "Calm dark bottom-left negative space for separately rendered title and buttons"
+        ],
+        "must_not_imply": [
+          "Any character reveal, human presence, encounter, relationship development or knowledge gained before gameplay",
+          "A new scene, dialogue, choice, progress state or canonical door-opening event; the ajar doorway is the approved title composition only",
+          "Romantic invitation, an identifiable resident waiting behind the door, or a completed COM-00 encounter",
+          "Blocked escape routes, danger, flooding inside the corridor or an abandoned/horror setting",
+          "Accepted-master selection, runtime asset registration or Gallery/progress unlock"
+        ]
+      },
+      "characters": [],
+      "environment": {
+        "location_id": "BG-APT-17F-RAIN",
+        "time_of_day": "rainy weeknight around 21:10; opening-environment authority only",
+        "weather": "steady rain outside the glazing; dry sheltered corridor with polished floor reflections, no puddles or indoor rain",
+        "lighting": "Reference-consistent warm wall sconces and recessed ceiling practicals with cool blue rainy-city ambient spill; a restrained warmer light leaks from the slightly ajar newly moved-in apartment doorway in the central portrait-safe band. Keep the left foreground dim and low-contrast; preserve believable shadow direction and exposure.",
+        "persistent_props": [
+          "three plain taped moving cartons beside the apartment doorway, arranged to leave the public passage clear",
+          "reference dark wood residential doors, peepholes, metal handles/keycard fittings and vertical wood trim",
+          "reference beige stone walls, polished dark stone floor, soffit/recessed ceiling lighting and rectangular warm wall sconces",
+          "reference corridor-end glazed rainy city view with metal guardrail",
+          "existing 1702/1703 adjacent-door geography remains unchanged; no legible door-number text"
+        ],
+        "reference_binding": {
+          "role": "environment_reference",
+          "source_id": "source.opening.ch1.bg.apt_17f_rain",
+          "expected_filename": "bg-apt-17f-rain-16x9-v1.webp"
+        }
+      },
+      "camera": {
+        "shot_size": "wide",
+        "angle": "level camera at approximately chest height, looking along the existing corridor toward its rainy window; restrained reference-consistent reframing to bring a residential doorway into the central portrait-safe band",
+        "pov": "unoccupied environmental title view; no protagonist body, hands, over-shoulder figure or first-person limbs",
+        "axis_id": "apt_17f_corridor_longitudinal_title",
+        "camera_side": "inside the dry corridor, looking toward the same corridor-end glazing as the reference; no mirrored or reversed door geography",
+        "lens_intent": "approximately 32-40 mm full-frame equivalent, believable interior perspective and straight architectural verticals; moderate depth of field keeps doorway, carton silhouettes and corridor legible"
+      },
+      "continuity": {
+        "previous_entry_id": null,
+        "locked_fields": [
+          "/characters",
+          "/environment/location_id",
+          "/environment/reference_binding",
+          "/environment/weather",
+          "/reference_transport",
+          "/output"
+        ],
+        "allowed_changes": [
+          "Reference-consistent camera reframing and restrained light/exposure balance for the approved independent title composition",
+          "Place the three approved moving cartons beside the existing apartment entrance without obstructing circulation",
+          "Slightly ajar doorway and narrow warm light spill solely for the user-approved title motif; no story/state change"
+        ]
+      },
+      "composition": {
+        "focus": {
+          "x": 50,
+          "y": 40
+        },
+        "dialogue_safe_zone": "Title UI safe region: normalized x=0..42%, y=42..100% keeps the quiet left foreground for separately rendered bottom-left title and buttons; primary doorway glow and cartons sit outside this desktop UI region. Preserve readability with the existing separately rendered title vignette and controls. Portrait cover crop at object-position 50% 40% retains the warm doorway and recognizable upper carton silhouette with the tested 320x568 and 320x700 stacked title/control layouts; the lower retained floor supports their existing dark overlay. No dialogue panel or UI is painted into the image.",
+        "framing_notes": [
+          "Landscape 16:9 master allowing normal integer-pixel rounding, at the generation tool's native output dimensions; no fixed minimum or artificial upscaling requirement. Larger native resolutions are optional when available and generation quality supports them. Preserve original native master bytes and record actual dimensions; exactly one full-frame image without borders.",
+          "Use dark reference-consistent wall/door/floor surfaces as quiet left foreground; retain the Human-selected master's warm doorway and cartons in the central portrait-safe band instead of the far edge",
+          "Retain the actual selected master framing: the narrow doorway light is around x=44%, spanning roughly y=24..76%; the three cartons occupy roughly x=46..58%, y=55..76%, with the upper carton silhouette around x=49..56%, y=55..64%. Keep readable doorway glow and recognizable carton edges in this central band; peripheral architecture can crop",
+          "Desktop title layout covers the bottom-left. Portrait object-fit:cover at object-position 50% 40% retains approximately x=34..66% at 320x568 and x=37..63% at 320x700 of the actual 1672x941 native master. Doorway light and a recognizable upper carton silhouette survive the recorded stacked title/control layouts at both tested sizes; preserve those pixels and this focus without redraw",
+          "Retain the corridor-end rainy glazing, perspective rhythm, materials and practical lamp design from the sole reference; reframing may not invent a new corridor layout or move the end window to a side wall",
+          "Make doorway light the first focal read and the cartons the second. Keep the city subordinate; avoid bright dramatic beams, extreme bokeh, central clutter or heavy baked vignette"
+        ]
+      },
+      "render_constraints": {
+        "include": [
+          "Exactly one unoccupied background CG; no visible people anywhere, including interior, reflections and exterior silhouettes",
+          "Use the exact supplied environment reference as architecture/material/lighting authority; visibly acquire and attach its pixels before rendering",
+          "Preserve the reference residential-corridor character: dark wood doors/trim, stone walls and floor, warm rectangular sconces, ceiling soffit and distant glazed rainy city view",
+          "Three unbranded taped moving cartons staged beside the slightly ajar apartment door, with clear circulation and physically plausible scale/contact shadows",
+          "Warm interior doorway light and restrained cool rain-night ambience, with dry indoor surfaces",
+          "Clean dark bottom-left title/button safe space with separately overlaid UI, and crop-tolerant central doorway/carton motifs at the selected 50% 40% portrait focus as specified",
+          "16:9 landscape master allowing normal integer-pixel rounding at native generation dimensions; no fixed minimum or artificial upscaling. Larger native output is optional when available and quality supports it; preserve native bytes and record actual dimensions; exactly one candidate, no collage"
+        ],
+        "exclude": [
+          "People, faces, bodies, hands, character silhouettes, portrait photos or human reflections",
+          "Character references, character sheets or any unrelated image inputs",
+          "Anime/cartoon/painterly illustration, plastic material response or exaggerated wide-angle distortion",
+          "Arbitrary new architecture, mirrored adjacent-door geography or displaced corridor-end window",
+          "Indoor rain, flooding, unsafe carton obstruction, threatening/horror cues or romantic staging",
+          "Embedded title, buttons, captions, readable door numbers, carton labels, signage, logos or watermarks",
+          "Critical doorway light or carton silhouette at extreme frame edges, busy bright bottom-left or baked letterboxing"
+        ],
+        "text_policy": "No legible text, numerals, captions, lettering, logos or UI anywhere in the pixels. Render title and controls separately in the application; retain door/keycard hardware without readable markings."
+      },
+      "reference_transport": {
+        "mode": "references_required",
+        "fresh_session_required": true,
+        "no_unrelated_images_allowed": true,
+        "accepted_base_asset_id": null,
+        "attachments": [
+          {
+            "role": "environment_reference",
+            "source_id": "source.opening.ch1.bg.apt_17f_rain",
+            "expected_filename": "bg-apt-17f-rain-16x9-v1.webp",
+            "pixels_must_be_visible": true
+          }
+        ]
+      },
+      "output": {
+        "canonical_asset_id": "BG-TITLE-17F-DOORLIGHT-01",
+        "logical_asset_id": "bg.opening.title.17f_doorlight",
+        "master_filename": "bg-title-17f-doorlight-16x9-v1.png",
+        "quantity": 1
+      },
+      "acceptance": [
+        "One render_ready background entry projects to exactly one candidate; title output IDs are proposed only, not registered or accepted",
+        "Landscape 16:9 allowing normal integer-pixel rounding at native generation dimensions, with no fixed minimum or artificial upscaling requirement; larger native resolutions are optional when available and quality supports them. Preserve native bytes and record actual dimensions, with realistic materials and physically plausible warm/cool lighting",
+        "Sole required reference is source.opening.ch1.bg.apt_17f_rain, exact filename/MIME/SHA-256/catalog path verified and its actual pixels attached by a fresh renderer",
+        "No visible human, face, limb, reflection, silhouette or character illustration anywhere",
+        "Reference apartment architecture, adjacent-door geography and rainy end-window setting remain recognizable and plausible",
+        "Warm doorway glow and three moving cartons convey quiet new arrival without implying interaction, invitation or gameplay progress",
+        "Bottom-left title/control area stays dim and uncluttered at desktop; separately overlaid UI remains readable",
+        "Independent usability/pixel QA inspects desktop and portrait cover crops: the selected native master at 50% 40% retains doorway glow plus a recognizable upper carton silhouette in the central band at the tested 320x568 and 320x700 layouts; no essential object depends on an extreme edge",
+        "No embedded lettering, numbers, UI, logos, watermark or frame border",
+        "One candidate without automatic retry; independent usability/pixel QA and Human accepted-master selection govern adoption. For this reconciliation, explicit Human selection of the unchanged native master with tested 50% 40% portrait focus is already recorded; no redraw or renewed master selection is required. Preserve the original NEEDS_REVIEW result against the original specification"
+      ]
+    }
+  ]
+}
