@@ -26,7 +26,7 @@ M0 已完成；本輪只處理 [M1 slice scope](docs/narrative/M1_GAMEPLAY_VALID
 
 - [x] 準備 scene/dependency／production gap／playtest scope proposal；這不是已實作 playable slice。
 - [x] COM-03X Narrative Design／Script Lock／獨立 Narrative QA PASS。
-- [ ] COM-03X narrative preview：三分支原文／state、舊完成存檔 Continue 與既有 Memory isolation 的 runtime wiring 已備；focused 40/40 PASS。accepted COM-02X preflight 將必要 preview chapter config 判為 stale route_binding，integration verification BLOCKED；full checks、Human story review 與 final art pending。
+- [ ] COM-03X 首批 narrative preview：prepared runtime `f89e3a9` 的 shared route binding 已技術再審；237 個既有 nonterminal nodes、COM-02X scene／contract／Memory slice／accepted media 保持。Node 22 build／validate／storage／local smoke PASS；Chromium 原 23 cases + 修正 sparse-save fixture 後三分支 3/3 PASS，覆蓋舊完成存檔 Continue、姓名／state、reload／Memory isolation。full npm test 169/172，三個 scope-obsolete fixtures 另派修正；本 task unit gate BLOCKED，historical COM-02X gate 仍 BLOCKED_STALE_INTEGRATION。公開部署／Human story review 與 final art pending；`validate:final` 依 preview art 預期拒絕。
 
 ## Gameplay Validation Slice integration
 

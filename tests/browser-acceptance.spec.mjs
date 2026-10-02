@@ -587,6 +587,11 @@ for (const [branchIndex, tone] of ['mc_tone_observant', 'mc_tone_practical', 'mc
     const errors = collectBlockingErrors(page);
     await page.goto('/');
     const chapter = await (await page.request.get('/content/routes/opening-demo/chapter.json')).json();
+    const memoryLibrary = await (await page.request.get('/content/routes/opening-demo/memories.json')).json();
+    expect(memoryLibrary.events.map(event => event.id)).toEqual([
+      'mem.opening.ch1.movein', 'mem.opening.ch1.elevator-restart',
+      'mem.opening.ch1.acg-first-meet', 'mem.opening.ch1.convenience-xu'
+    ]);
     const stats = { ...chapter.initialState, F_XT: 7, T_XT: 3, K_XT: 2, xt_advice_tendency: 1,
       mc_tone_observant: 4, mc_tone_practical: 5, mc_tone_humorous: 6 };
     const flags = ['player_knows_xu_freelance_creative_work', 'xu_knows_player_remote_tech_work', 'prior-boundary-history', 'entry-effect:common_convenience_xu_exit_08'];
@@ -623,7 +628,13 @@ for (const [branchIndex, tone] of ['mc_tone_observant', 'mc_tone_practical', 'mc
       if (id === 'common_package_xu_line' && !memoryChecked) {
         await testInfo.attach(`com03x-branch-${branchIndex + 1}-preview`, { body: await page.screenshot(), contentType: 'image/png' });
         await page.locator('#game-memories-button').click();
-        await expect(page.locator('.memory-card')).toHaveCount(4);
+        // This sparse historical save unlocks movein + convenience; the UI also shows
+        // the first locked event, and hides later locked events in the same section.
+        await expect(page.locator('.memory-card')).toHaveCount(3);
+        expect(await page.locator('.memory-card').evaluateAll(cards => cards.map(card => card.dataset.memoryId)))
+          .toEqual(['mem.opening.ch1.movein', 'mem.opening.ch1.elevator-restart', 'mem.opening.ch1.convenience-xu']);
+        await expect(page.locator('[data-memory-id="mem.opening.ch1.elevator-restart"]')).toBeDisabled();
+        await expect(page.locator('[data-memory-id="mem.opening.ch1.convenience-xu"]')).toBeEnabled();
         await page.locator('[data-memory-id="mem.opening.ch1.convenience-xu"]').click();
         await waitForDialogueReady(page);
         expect((await currentJourney(page)).cursor.nodeId).toBe('common_convenience_xu_exit_08');

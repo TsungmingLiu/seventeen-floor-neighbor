@@ -1,0 +1,167 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "resume_checkpoint",
+  "run_id": "com03x-m1-preview-20261002",
+  "task_id": "INT-COM03X-FIXTURES-004",
+  "scene_id": "COM-03X",
+  "task_type": "integrate",
+  "status": "PASS",
+  "harness": {
+    "id": "integrator",
+    "version": "1.4.0",
+    "pass": null
+  },
+  "source_ref": "f89e3a9c9b35c0d354c70fd8dd252d5b6107544e",
+  "packet_sha256": "40a6860de52ee818adbaaf8f618762dd875b9af1d8ea93e55e648e6e3da02760",
+  "input_digest_sha256": "2ad2adf50c621f6a2968cca1dac2b696bffbfc95f26771be1174188dd56e100c",
+  "input_versions": [
+    {
+      "id": "AGENTS.md",
+      "version": "3a9437e9c33c455ece1177a5b4ffa5752ca67687f6fdf4633d966ab1f6f0488e",
+      "location": "AGENTS.md"
+    },
+    {
+      "id": ".ai/WORKFLOW_MANIFEST.yaml",
+      "version": "4e42799b5c23421af5ef3688f92e21f9eb666f05d2047134e54286d5bd71b239",
+      "location": ".ai/WORKFLOW_MANIFEST.yaml"
+    },
+    {
+      "id": ".ai/harnesses/bootstrap.md",
+      "version": "b347e41e1669ec92fdf4885ba4e97f09e97978e1bc5b04e17ece72f8aba8b131",
+      "location": ".ai/harnesses/bootstrap.md"
+    },
+    {
+      "id": ".ai/policies/SOURCE_AUTHORITY.md",
+      "version": "9db10a7925386836415fd000470cb535915b0e0e58eb7bee794f6a8ae445971c",
+      "location": ".ai/policies/SOURCE_AUTHORITY.md"
+    },
+    {
+      "id": ".ai/policies/CONTEXT_ISOLATION.md",
+      "version": "27c3fca1c65f513b9b3752dcd88b033a68fda600cef009c9a67a161ef06b96e1",
+      "location": ".ai/policies/CONTEXT_ISOLATION.md"
+    },
+    {
+      "id": "docs/CONTENT_PRODUCTION_SOURCE_MAP.md",
+      "version": "c0ae2c825ef2c47afe78c14dc768758115d5a750e7b1afe9ebd6ead8a9b0804c",
+      "location": "docs/CONTENT_PRODUCTION_SOURCE_MAP.md"
+    },
+    {
+      "id": ".ai/PRODUCTION_ORCHESTRATION.md",
+      "version": "076322d3b22cae413603ddd2c576f924a6d5ad937f85f39c7e49dc8c1db61308",
+      "location": ".ai/PRODUCTION_ORCHESTRATION.md"
+    },
+    {
+      "id": ".ai/harnesses/integrator.md",
+      "version": "ada6a1b83512d234236dcbd04d99ac1b5c5e43a8f265a8929fff7514694060b3",
+      "location": ".ai/harnesses/integrator.md"
+    },
+    {
+      "id": ".ai/schemas/TASK_PACKET.md",
+      "version": "0473fe9229c64d45ad1696adab632b66da760e0efe8c50a6478d05ff86500d58",
+      "location": ".ai/schemas/TASK_PACKET.md"
+    },
+    {
+      "id": ".ai/schemas/HANDOFF.md",
+      "version": "362659d079492d73cd190a9f32dbf035ac84869b61c42152adf7f1220018b37f",
+      "location": ".ai/schemas/HANDOFF.md"
+    },
+    {
+      "id": ".ai/schemas/PRODUCTION_RUN_LEDGER.md",
+      "version": "aac924528a3ea74c11a27b09d10a3dd649168508a587b7e4167b8de60bd652c9",
+      "location": ".ai/schemas/PRODUCTION_RUN_LEDGER.md"
+    },
+    {
+      "id": "package.json",
+      "version": "6a13720c43193679d154fbaee34acc67b82db684fe67beda582d2b21d81987b6",
+      "location": "package.json"
+    },
+    {
+      "id": "tests/opening-locked-scenes.test.mjs",
+      "version": "7c47275234fc8ac2d3e942e8b32d49c54b123bdb5fbe30a5d00ab62875150dab",
+      "location": "tests/opening-locked-scenes.test.mjs"
+    },
+    {
+      "id": "tests/title-art-impact.test.mjs",
+      "version": "caedea9c06309556100a427d38a8053d023c9089c4923c249718cee4b74659b1",
+      "location": "tests/title-art-impact.test.mjs"
+    },
+    {
+      "id": "tools/production-impact.mjs",
+      "version": "33c180f98a8c18993d4e736926be37858136d0424afbe8a05f4135951e79bb81",
+      "location": "tools/production-impact.mjs"
+    },
+    {
+      "id": "tools/production-integration-check.mjs",
+      "version": "0b108ace54f1ad1b174ca3d21186886ab8bdfcddf09be5715597a157f74cbee5",
+      "location": "tools/production-integration-check.mjs"
+    },
+    {
+      "id": "tools/content-lib.mjs",
+      "version": "09fcae608afc5d865c99d204d125c939f7e77c3d2460df608f0b1b5b68c0957d",
+      "location": "tools/content-lib.mjs"
+    },
+    {
+      "id": "content/routes/opening-demo/chapter-01.json",
+      "version": "dfdeef9510c35006f922cb1675706652efb16fa56e649d08a062f0995d1e6b3e",
+      "location": "content/routes/opening-demo/chapter-01.json"
+    },
+    {
+      "id": "content/routes/opening-demo/route.json",
+      "version": "cff959d3497a85ed504a7e857c0b5bfde5355705e5b6dfd5f135411133cc27d9",
+      "location": "content/routes/opening-demo/route.json"
+    },
+    {
+      "id": "content/routes/opening-demo/memories.json",
+      "version": "a23f0435b6e1cd614f5f243b7cf1413f5bea1a65255a70d2ab31a6906f358f1b",
+      "location": "content/routes/opening-demo/memories.json"
+    },
+    {
+      "id": "content/production/runs/com03x-m1-preview-20261002/NQA-COM03X-001.decision.json",
+      "version": "423be238d59f3bf56f2a91839227f3377e74b893cb0adf631783ca8adb9f239e",
+      "location": "content/production/runs/com03x-m1-preview-20261002/NQA-COM03X-001.decision.json"
+    },
+    {
+      "id": "content/production/runs/com03x-m1-preview-20261002/INT-COM03X-PREVIEW-002.decision.json",
+      "version": "d38891b6b4d729403630cd60a6f51bf5329dbc5c2610534f65dfa18eac816188",
+      "location": "content/production/runs/com03x-m1-preview-20261002/INT-COM03X-PREVIEW-002.decision.json"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "tests/opening-locked-scenes.test.mjs",
+      "version": "793a520655978be594f87af988a3794005ba5e6f0a7f1a244f1f4226a8bf8f6e",
+      "location": "tests/opening-locked-scenes.test.mjs"
+    },
+    {
+      "id": "tests/title-art-impact.test.mjs",
+      "version": "433a3a0e184a047eef481c63778b6018febf4db11ce0f7e748c2a98b7ec8fb7a",
+      "location": "tests/title-art-impact.test.mjs"
+    }
+  ],
+  "qa_codes": [
+    {
+      "code": "INT-FIXTURE-SOURCE",
+      "name": "23 exact acquisitions including one transient unit log",
+      "result": "PASS"
+    },
+    {
+      "code": "INT-FIXTURE-TESTS",
+      "name": "Two affected suites10/10PASS Node22",
+      "result": "PASS"
+    },
+    {
+      "code": "INT-FIXTURE-INVARIANTS",
+      "name": "Original144IDs/choice digest, scopedart/Memory and historical stale comparison retained",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "Only two scoped regression test fixtures changed; runtime/creative/assets/gates unchanged. Prior full172 invocation retains169PASS3FAIL; no new full-suite invocation until CI.",
+    "Durable input identity projection contains22canonical inputs; transient completed-unit-log input omitted from resumable dependencies. Log SHA2567124eaa22ad6951ec4d688d4d78b1d145c672ace0439fc5a94a1f796ca800d78 records full attempt.",
+    "Earlier sandbox invocation and9/10intermediate attempt retained in ignored full Handoff; final focused10/10PASS independently verified. Engineering evidence does not grant Narrative/Visual/Human acceptance.",
+    "Verified full Handoff SHA25681cb1c660ac3c1d85968e06474dbf35065fba38d02c4a744c0ecfcb36f7b6e59."
+  ],
+  "human_gate_required": "narrative_preview_review",
+  "invalidates": []
+}

@@ -48,12 +48,20 @@ test('title exclusion rejects story, Memory, Gallery, chapter card and accepted-
   }
 });
 
-test('accepted scene CGs still compare against the explicit verified baseline', async () => {
+test('accepted scene CGs retain the historical shared-route impact and exact title exclusion', async () => {
   const report = await buildProductionImpact({ root: projectRoot, sceneId: 'COM-00',
     from: 'c5251cd2ac58e8daca0d034a0799b60c456dd7d7', to: 'WORKTREE' });
-  assert.deepEqual(report.changes, []);
-  assert.ok(!report.would_invalidate.includes('integration:COM-00'));
-  assert.ok(report.excluded_reference_entry_ids.includes('TITLE-17F-DOORLIGHT-01'));
+  // COM-03X changes shared ending/config; the title exemption must not hide that change.
+  // These digests are computed from the historical/current scene route projections.
+  assert.deepEqual(report.changes, [{
+    changed_artifact_id: 'route_binding:COM-00',
+    old_version: '7067bd963e0ee4ce38550c2d10c09ac27f51ed369370f7f93e92d6c14fad4240',
+    new_version: '3b6468b600d0c9a301ff98cad735f3338f7b919fd47b74dfca362de02511cbcc',
+    reason: 'route_allowlist_or_config_changed',
+    would_invalidate: ['integration:COM-00', 'playable_review:COM-00']
+  }]);
+  assert.deepEqual(report.would_invalidate, ['integration:COM-00', 'playable_review:COM-00']);
+  assert.deepEqual(report.excluded_reference_entry_ids, ['TITLE-17F-DOORLIGHT-01']);
   assert.ok(!report.compared_entry_ids.includes('TITLE-17F-DOORLIGHT-01'));
   assert.ok(report.compared_entry_ids.length > 0);
 });

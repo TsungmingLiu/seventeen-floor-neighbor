@@ -1,0 +1,361 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "resume_checkpoint",
+  "run_id": "com03x-m1-preview-20261002",
+  "task_id": "INT-COM03X-REVALIDATE-003",
+  "scene_id": "COM-03X",
+  "task_type": "integrate",
+  "status": "BLOCKED",
+  "harness": {
+    "id": "integrator",
+    "version": "1.4.0",
+    "pass": null
+  },
+  "source_ref": "f89e3a9c9b35c0d354c70fd8dd252d5b6107544e",
+  "packet_sha256": "0127405a92d0b881f3240979e6b01a2d5421e90909ef047928f0382f09325078",
+  "input_digest_sha256": "a9780e6aa3ac6e477ea5c1d284c25cc23305e26e580260318a9742b4b2196b9c",
+  "input_versions": [
+    {
+      "id": "AGENTS.md",
+      "version": "3a9437e9c33c455ece1177a5b4ffa5752ca67687f6fdf4633d966ab1f6f0488e",
+      "location": "AGENTS.md"
+    },
+    {
+      "id": ".ai/WORKFLOW_MANIFEST.yaml",
+      "version": "4e42799b5c23421af5ef3688f92e21f9eb666f05d2047134e54286d5bd71b239",
+      "location": ".ai/WORKFLOW_MANIFEST.yaml"
+    },
+    {
+      "id": ".ai/harnesses/bootstrap.md",
+      "version": "b347e41e1669ec92fdf4885ba4e97f09e97978e1bc5b04e17ece72f8aba8b131",
+      "location": ".ai/harnesses/bootstrap.md"
+    },
+    {
+      "id": ".ai/policies/SOURCE_AUTHORITY.md",
+      "version": "9db10a7925386836415fd000470cb535915b0e0e58eb7bee794f6a8ae445971c",
+      "location": ".ai/policies/SOURCE_AUTHORITY.md"
+    },
+    {
+      "id": ".ai/policies/CONTEXT_ISOLATION.md",
+      "version": "27c3fca1c65f513b9b3752dcd88b033a68fda600cef009c9a67a161ef06b96e1",
+      "location": ".ai/policies/CONTEXT_ISOLATION.md"
+    },
+    {
+      "id": "docs/CONTENT_PRODUCTION_SOURCE_MAP.md",
+      "version": "c0ae2c825ef2c47afe78c14dc768758115d5a750e7b1afe9ebd6ead8a9b0804c",
+      "location": "docs/CONTENT_PRODUCTION_SOURCE_MAP.md"
+    },
+    {
+      "id": ".ai/PRODUCTION_ORCHESTRATION.md",
+      "version": "076322d3b22cae413603ddd2c576f924a6d5ad937f85f39c7e49dc8c1db61308",
+      "location": ".ai/PRODUCTION_ORCHESTRATION.md"
+    },
+    {
+      "id": ".ai/harnesses/integrator.md",
+      "version": "ada6a1b83512d234236dcbd04d99ac1b5c5e43a8f265a8929fff7514694060b3",
+      "location": ".ai/harnesses/integrator.md"
+    },
+    {
+      "id": ".ai/schemas/TASK_PACKET.md",
+      "version": "0473fe9229c64d45ad1696adab632b66da760e0efe8c50a6478d05ff86500d58",
+      "location": ".ai/schemas/TASK_PACKET.md"
+    },
+    {
+      "id": ".ai/schemas/HANDOFF.md",
+      "version": "362659d079492d73cd190a9f32dbf035ac84869b61c42152adf7f1220018b37f",
+      "location": ".ai/schemas/HANDOFF.md"
+    },
+    {
+      "id": ".ai/schemas/PRODUCTION_RUN_LEDGER.md",
+      "version": "aac924528a3ea74c11a27b09d10a3dd649168508a587b7e4167b8de60bd652c9",
+      "location": ".ai/schemas/PRODUCTION_RUN_LEDGER.md"
+    },
+    {
+      "id": "ARCHITECTURE.md",
+      "version": "f2465b84d0ed9c65907925a01fbe5951f2bb7cd0e9a5ee143fe804e5d137af77",
+      "location": "ARCHITECTURE.md"
+    },
+    {
+      "id": "package.json",
+      "version": "6a13720c43193679d154fbaee34acc67b82db684fe67beda582d2b21d81987b6",
+      "location": "package.json"
+    },
+    {
+      "id": ".github/workflows/verify.yml",
+      "version": "f47beba4f5949e3a926042f1a0f2d5e430bf13da65f6a6b115e21d3ab2178af2",
+      "location": ".github/workflows/verify.yml"
+    },
+    {
+      "id": "docs/narrative/scenes/vertical-slice/COM-03X.md",
+      "version": "e837b0b365dcf2157e841bce67614e6f41ca758717c4cf20e93c6a01ac54142a",
+      "location": "docs/narrative/scenes/vertical-slice/COM-03X.md"
+    },
+    {
+      "id": "content/production/narrative/opening-ch1/COM-03X.json",
+      "version": "81b6c71fedb43b4d32c025a2d190dea9c1138905680a99562efa417b522d507c",
+      "location": "content/production/narrative/opening-ch1/COM-03X.json"
+    },
+    {
+      "id": "content/production/narrative/opening-ch1/COM-02X.json",
+      "version": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952",
+      "location": "content/production/narrative/opening-ch1/COM-02X.json"
+    },
+    {
+      "id": "content/production/runs/com03x-m1-preview-20261002/NQA-COM03X-001.decision.json",
+      "version": "423be238d59f3bf56f2a91839227f3377e74b893cb0adf631783ca8adb9f239e",
+      "location": "content/production/runs/com03x-m1-preview-20261002/NQA-COM03X-001.decision.json"
+    },
+    {
+      "id": "content/production/runs/com03x-m1-preview-20261002/ledger.json",
+      "version": "4807c6001f3a54dd47c59ce30b430dd8528a38c78a26822c9510e3aedde6b9d1",
+      "location": "content/production/runs/com03x-m1-preview-20261002/ledger.json"
+    },
+    {
+      "id": "content/routes/opening-demo/chapter-01.json",
+      "version": "dfdeef9510c35006f922cb1675706652efb16fa56e649d08a062f0995d1e6b3e",
+      "location": "content/routes/opening-demo/chapter-01.json"
+    },
+    {
+      "id": "content/routes/opening-demo/route.json",
+      "version": "cff959d3497a85ed504a7e857c0b5bfde5355705e5b6dfd5f135411133cc27d9",
+      "location": "content/routes/opening-demo/route.json"
+    },
+    {
+      "id": "content/routes/opening-demo/memories.json",
+      "version": "a23f0435b6e1cd614f5f243b7cf1413f5bea1a65255a70d2ab31a6906f358f1b",
+      "location": "content/routes/opening-demo/memories.json"
+    },
+    {
+      "id": "content/assets/manifest.json",
+      "version": "b82e13d83ff5be6ca11c3d68b5ad358258820bfc908242d5e8b3bf63542c771e",
+      "location": "content/assets/manifest.json"
+    },
+    {
+      "id": "content/assets/source-map.json",
+      "version": "9202a5fbab7599ed6da29e61a071479100cd9d84ed1accd4e8d71ab7c0d26a0c",
+      "location": "content/assets/source-map.json"
+    },
+    {
+      "id": "content/recipes/assets.json",
+      "version": "46c6b1d19bdfaade7112ec95086ee2cc11f9371cc5de2d6e42d050a5c38d0fba",
+      "location": "content/recipes/assets.json"
+    },
+    {
+      "id": "src/engine.js",
+      "version": "8873e0eb00d812f9bbcce090c098ce6aa5d50461fda82e918422898017b0fcde",
+      "location": "src/engine.js"
+    },
+    {
+      "id": "src/progress.js",
+      "version": "96ce36801641b9b03c6e29f2b7065b6a6afdf71ca0c9dbbde58fb8b0b13a2c02",
+      "location": "src/progress.js"
+    },
+    {
+      "id": "src/memories.js",
+      "version": "7d623b55e90fe5568cfdde803f0877e67ce70de3e2e8457f9249ad07f4e8e346",
+      "location": "src/memories.js"
+    },
+    {
+      "id": "src/branches.js",
+      "version": "34a65128e065b23bb20157d3aaf1d29c1c3327d266e4134e77453e69c8cfa384",
+      "location": "src/branches.js"
+    },
+    {
+      "id": "src/presentation.js",
+      "version": "932f5fe7312b5a4a055b92fee15447131a0f92d669afd0bf25700bda3dc9a65e",
+      "location": "src/presentation.js"
+    },
+    {
+      "id": "src/visuals.js",
+      "version": "cee296a76e0872eba816771de8aaa977d8fda5bf38692495c4326e92c2abdfd2",
+      "location": "src/visuals.js"
+    },
+    {
+      "id": "src/app.js",
+      "version": "6436897bff6bc585ac21104561fe91735d03e0b55b83ec69cd86ee71e8ae9881",
+      "location": "src/app.js"
+    },
+    {
+      "id": "tools/build.mjs",
+      "version": "b903b272d89482df4ec9d78ee025687a98a8b6060c204d0b913b82a377f8ed7d",
+      "location": "tools/build.mjs"
+    },
+    {
+      "id": "tools/build-assets.mjs",
+      "version": "ac8f17d8a668ff65e47cddcc3bb20fd71c337c2f3d87a53e6053a7fb90e65a07",
+      "location": "tools/build-assets.mjs"
+    },
+    {
+      "id": "tools/content-lib.mjs",
+      "version": "09fcae608afc5d865c99d204d125c939f7e77c3d2460df608f0b1b5b68c0957d",
+      "location": "tools/content-lib.mjs"
+    },
+    {
+      "id": "tools/validate-content.mjs",
+      "version": "f75119a43320dff8042616c11c3a58f17a351ab530454efd4bafbb170437b349",
+      "location": "tools/validate-content.mjs"
+    },
+    {
+      "id": "tools/validate-production-contracts.mjs",
+      "version": "77de4d2506ce77140e50cd3d815ad7031ef85c5cab90ac6a17c0fcb03924e8fa",
+      "location": "tools/validate-production-contracts.mjs"
+    },
+    {
+      "id": "tools/production-integration-check.mjs",
+      "version": "0b108ace54f1ad1b174ca3d21186886ab8bdfcddf09be5715597a157f74cbee5",
+      "location": "tools/production-integration-check.mjs"
+    },
+    {
+      "id": "tools/production-impact.mjs",
+      "version": "33c180f98a8c18993d4e736926be37858136d0424afbe8a05f4135951e79bb81",
+      "location": "tools/production-impact.mjs"
+    },
+    {
+      "id": "tools/production-storage.mjs",
+      "version": "06f1b13d8c9276128ff2b49347ccc7a820ddfd7290a7f0c8ee7fb2a20c52c865",
+      "location": "tools/production-storage.mjs"
+    },
+    {
+      "id": "tools/preview-server.mjs",
+      "version": "a35dda52b5bb3e12b6e9255f6993de038ffbf1576477c69ac35a0b6b1f30c91b",
+      "location": "tools/preview-server.mjs"
+    },
+    {
+      "id": "tests/content-validation.test.mjs",
+      "version": "354e50000f161d521ed94e63407cc3ee28858f91f78ff6823a95a8a50cf258f8",
+      "location": "tests/content-validation.test.mjs"
+    },
+    {
+      "id": "tests/engine-progress.test.mjs",
+      "version": "45b85ba9242d312c42c844b565de45136fa6fec5e8eae1e442d6f209766f6cdc",
+      "location": "tests/engine-progress.test.mjs"
+    },
+    {
+      "id": "tests/progress.test.mjs",
+      "version": "048682bfd3ca07d184367205cbfa93789e90fcbcccd152b8d0c4d154db09803d",
+      "location": "tests/progress.test.mjs"
+    },
+    {
+      "id": "tests/browser-acceptance.spec.mjs",
+      "version": "36c72cb446c533ff7504563baada16b794598df232cb36afb4b595543a6ee766",
+      "location": "tests/browser-acceptance.spec.mjs"
+    },
+    {
+      "id": "TODO.md",
+      "version": "b8d4754db9ce9ff1e87e2b4ae5dc1759f3fd2b9303a417d525a556c971e480f0",
+      "location": "TODO.md"
+    },
+    {
+      "id": "docs/narrative/CONTENT_PRODUCTION_TODO.md",
+      "version": "e4f1a753ccae335c839261297124f959e3aed14bc165824f84978dc45ce80000",
+      "location": "docs/narrative/CONTENT_PRODUCTION_TODO.md"
+    },
+    {
+      "id": "content/production/runs/com03x-m1-preview-20261002/INT-COM03X-PREVIEW-001.decision.json",
+      "version": "02dff0ba2ad602f5e3be2cd67d68fb9fefb5ccf6d3b36e34acd122565cc412e1",
+      "location": "content/production/runs/com03x-m1-preview-20261002/INT-COM03X-PREVIEW-001.decision.json"
+    },
+    {
+      "id": "tests/asset-coverage.test.mjs",
+      "version": "d1c7dc76957e7a48466d13ea97af5bcda0569b7adf8f249d475cf9ffdeba05db",
+      "location": "tests/asset-coverage.test.mjs"
+    },
+    {
+      "id": "tests/com02x-preview.test.mjs",
+      "version": "2e370873f094d56e1e44e8fd9735fd029a7f17c90f2f751db60c2225d5bc9e9f",
+      "location": "tests/com02x-preview.test.mjs"
+    },
+    {
+      "id": "tools/asset-coverage.mjs",
+      "version": "08e2b816083bf1ab13bda859d3cec4658835bf9d237b5323244c72ef0755c4b3",
+      "location": "tools/asset-coverage.mjs"
+    },
+    {
+      "id": "content/production/runs/com03x-m1-preview-20261002/INT-COM03X-PREVIEW-002.decision.json",
+      "version": "d38891b6b4d729403630cd60a6f51bf5329dbc5c2610534f65dfa18eac816188",
+      "location": "content/production/runs/com03x-m1-preview-20261002/INT-COM03X-PREVIEW-002.decision.json"
+    },
+    {
+      "id": "docs/migration/M0_CURRENT_SCENE_STALE_GATE.md",
+      "version": "211fef886b039525514a949c258bfe8a9570ed53218c5737c0cf44add457a29f",
+      "location": "docs/migration/M0_CURRENT_SCENE_STALE_GATE.md"
+    },
+    {
+      "id": "runtime-background:bg.narrative_preview.placeholder",
+      "version": "9dc448840d09cf38718710881991c9f251e01eefd44eb94980d7dd9743778145",
+      "location": "assets-src/ui/narrative-preview-v1.webp"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "tests/asset-coverage.test.mjs",
+      "version": "4722de6f5a271fdcbbd576804294b4b368f8beb9f12ff6dc5fff2715e9c73754",
+      "location": "tests/asset-coverage.test.mjs"
+    },
+    {
+      "id": "tests/com02x-preview.test.mjs",
+      "version": "f1d5b1433c948fde9d17d39dc68e6d9f22fa86e59baf1b5bfad803eb9e6badf5",
+      "location": "tests/com02x-preview.test.mjs"
+    },
+    {
+      "id": "tests/browser-acceptance.spec.mjs",
+      "version": "5c54d19283626e420507f6df1b388ddd451455c4d7ba23793192e23abd232774",
+      "location": "tests/browser-acceptance.spec.mjs"
+    },
+    {
+      "id": "TODO.md",
+      "version": "9c95e7ddb4355afee4af979a0c9f18012d8c42b16d27330d316799a17ebe3f2f",
+      "location": "TODO.md"
+    },
+    {
+      "id": "docs/narrative/CONTENT_PRODUCTION_TODO.md",
+      "version": "ae60a6a83ae68f9cafeac5a293835b15bc2fecf36c73f3915094fc9365701a24",
+      "location": "docs/narrative/CONTENT_PRODUCTION_TODO.md"
+    }
+  ],
+  "qa_codes": [
+    {
+      "code": "INT-SOURCE",
+      "name": "Exact immutable acquisition and route reconciliation",
+      "result": "PASS"
+    },
+    {
+      "code": "INT-RUNTIME",
+      "name": "Fresh build/validate/storage/HTTP byte checks",
+      "result": "PASS"
+    },
+    {
+      "code": "INT-BROWSER",
+      "name": "26 unique Chromium cases covered by23original+3corrected",
+      "result": "PASS"
+    },
+    {
+      "code": "INT-SMOKE",
+      "name": "Exact smoke tool on available4188",
+      "result": "PASS"
+    },
+    {
+      "code": "INT-UNIT",
+      "name": "Full172 invocation retained169PASS3FAIL; later fixture correction separate",
+      "result": "FAIL"
+    },
+    {
+      "code": "INT-FINAL-ART",
+      "name": "Expected final visual refusal; no final-art acceptance",
+      "result": "BLOCKED"
+    }
+  ],
+  "known_issues": [
+    "Prepared runtime ref f89e3a9c9b35c0d354c70fd8dd252d5b6107544e; build tree SHA25687f0785a19cea894611d839c1e762bd845e070a0c008ee0da33ddaf6b1b3a10a. HTTP8/8; smoke6checks.",
+    "Shared COM02X binding reviewed:6b384da0f28c939297e70c429f2616c25d025ee0f51d5c2e3600b1cc18d4a931. Historical ba5 gate staysBLOCKED_STALE_INTEGRATION;237old nonterminal nodes and scene-local canon/Memory/media unchanged. Title addition independently verified by existing exception, global inventories differ since historical baseline.",
+    "Unit169/172FAIL and Chromium23/26FAIL remain historical execution outcomes; exact corrected browser3/3PASS yields26unique cases covered. Setup/selection errors and wrapper4173collision retained in ignored attempt evidence; no failed result waived.",
+    "Public preview requires later verified CI deployment. Final art, Human narrative review and full30–60minute slice remain pending. Schema2 bounded automated run verifier unsupported; no automaticCURRENT_PASS claim.",
+    "Verified full Handoff SHA2569b9347d332b05e0d8aa7e8c7d2d244bdcf17776f6c55d63c44abae50be324ad4."
+  ],
+  "human_gate_required": "narrative_preview_review",
+  "invalidates": [
+    "integration:COM-02X",
+    "playable_review:COM-02X"
+  ]
+}

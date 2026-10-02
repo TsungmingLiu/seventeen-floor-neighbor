@@ -3,7 +3,7 @@
   "storage_class": "durable_checkpoint",
   "run_id": "com03x-m1-preview-20261002",
   "workflow_version": "1.3.0",
-  "source_ref": "bbc771dc9c3452400b81f28efd1430813331fdea",
+  "source_ref": "f89e3a9c9b35c0d354c70fd8dd252d5b6107544e",
   "human_request": {
     "summary": "Start M1 with COM-03X design, dialogue, independent QA and playable narrative preview; update PR44.",
     "gate_status": "M1 work authorized; later Human narrative preview review pending"
@@ -47,6 +47,38 @@
       "decision_receipt": "content/production/runs/com03x-m1-preview-20261002/INT-COM03X-PREVIEW-002.decision.json",
       "human_gate": "narrative_preview_review",
       "reason": "Prepared preview candidate; changed shared story route binding needs explicit technical revalidation before publishing."
+    },
+    {
+      "task_id": "INT-COM03X-REVALIDATE-003",
+      "task_type": "integrate",
+      "scene_id": "COM-03X",
+      "depends_on": [
+        "NQA-COM03X-001"
+      ],
+      "status": "BLOCKED",
+      "packet": {
+        "generator": "manual:task-packet-schema-v1.3.0",
+        "sha256": "0127405a92d0b881f3240979e6b01a2d5421e90909ef047928f0382f09325078"
+      },
+      "decision_receipt": "content/production/runs/com03x-m1-preview-20261002/INT-COM03X-REVALIDATE-003.decision.json",
+      "human_gate": "narrative_preview_review",
+      "reason": "Re-reviewed shared binding; all required technical evidence acquired except three old unit assumptions, now separately corrected."
+    },
+    {
+      "task_id": "INT-COM03X-FIXTURES-004",
+      "task_type": "integrate",
+      "scene_id": "COM-03X",
+      "depends_on": [
+        "NQA-COM03X-001"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual:task-packet-schema-v1.3.0",
+        "sha256": "40a6860de52ee818adbaaf8f618762dd875b9af1d8ea93e55e648e6e3da02760"
+      },
+      "decision_receipt": "content/production/runs/com03x-m1-preview-20261002/INT-COM03X-FIXTURES-004.decision.json",
+      "human_gate": "narrative_preview_review",
+      "reason": "Focused fixture correctionPASS; clean fullCI and public deployment pending."
     }
   ],
   "invalidation_events": [
@@ -54,12 +86,35 @@
       "changed_artifact_id": "route_binding:COM-02X",
       "old_version": "3b2941a4f4ceee19c968d6ab8f0e96d15ddd951c062d5763271827bf1ccce241",
       "new_version": "6b384da0f28c939297e70c429f2616c25d025ee0f51d5c2e3600b1cc18d4a931",
-      "reason": "COM03X append changes shared chapter labels, preview opt-in and terminal presentation",
-      "would_invalidate": [
+      "affected_task_ids": [
         "integration:COM-02X",
         "playable_review:COM-02X"
-      ]
+      ],
+      "decision": "STALE",
+      "evidence": "Intentional COM03X story extension changes shared chapter labels/ending/preview opt-in. Original historical gate preserved; new runtime technical review and Human story gate recorded separately. No visual descendants invalidated."
+    },
+    {
+      "changed_artifact_id": "route_binding:COM-00",
+      "old_version": "7067bd963e0ee4ce38550c2d10c09ac27f51ed369370f7f93e92d6c14fad4240",
+      "new_version": "3b6468b600d0c9a301ff98cad735f3338f7b919fd47b74dfca362de02511cbcc",
+      "affected_task_ids": [
+        "integration:COM-00",
+        "playable_review:COM-00"
+      ],
+      "decision": "STALE",
+      "evidence": "Intentional COM03X story extension changes shared chapter labels/ending/preview opt-in. Original historical gate preserved; new runtime technical review and Human story gate recorded separately. No visual descendants invalidated."
     }
   ],
-  "preview": null
+  "preview": {
+    "commit": "f89e3a9c9b35c0d354c70fd8dd252d5b6107544e",
+    "profile": "narrative_preview; Chromium1280x720/DPR1; existing320px and1440px controls/title cases",
+    "visibility": "local; public deployment pending",
+    "build": "PASS22/22media; treeSHA25687f0785a19cea894611d839c1e762bd845e070a0c008ee0da33ddaf6b1b3a10a",
+    "validation": "PASS322nodes/6contracts/18entries",
+    "tests": "Full172:169PASS3FAIL; corrected affected suites10/10PASS; clean fullCI pending",
+    "browser": "26 unique casesPASS across original23and corrected3; exact runtime unchanged",
+    "smoke": "PASS6checks on available4188; local HTTP8/8bytes match",
+    "human_story_review": "PENDING",
+    "final_art": "PENDING"
+  }
 }
