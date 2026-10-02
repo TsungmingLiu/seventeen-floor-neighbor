@@ -29,6 +29,8 @@
     "scratch:check": "node tools/check-session-cache.mjs",
     "context:poc": "node tools/compile-review-context.mjs",
     "context:benchmark": "node tools/benchmark-review-context.mjs",
-    "context:delta:poc": "node tools/delta-review-poc.mjs"
+    "context:delta:poc": "node tools/delta-review-poc.mjs",
+    "context:preflight": "node tools/preflight-review.mjs",
+    "context:preflight:benchmark": "node tools/benchmark-preflight.mjs"
   }
 }

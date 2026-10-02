@@ -263,3 +263,53 @@ The reusable `--rescore --run-id delta-01` command verifies every prepared file
 and manifest field except this tool's version hash, matches results to raw usage
 events and input hashes, and exclusively creates `trial-summary-corrected.json`.
 It refuses any change to the experiment; raw summaries/results remain untouched.
+
+## Mechanical preflight and bounded diagnostics experiment
+
+`context:preflight` composes the existing scratch guard, canonical narrative packet
+verifier, content validator and production validator (including the existing
+production source/artifact boundary). It stops at the first failed stage. It also
+checks every mandatory bootstrap/HANDOFF/content-QA instruction against the pinned
+source commit, reusing the compiler's instruction inventory. This binding already
+exists in the context compiler; adding it to this standalone entry point is not
+a new semantic validator or new coverage for a fully compliant production worker.
+
+```sh
+npm run context:preflight -- --packet generated/session-cache/quota-poc/COM-02X/task.packet.json --run-id preflight-01
+npm run context:preflight:benchmark -- --run-id mechanical-01
+```
+
+Use an unused run ID; logs/reports are exclusively created in ignored
+`generated/session-cache/quota-preflight/`. Packet inputs must also be regular
+files in that scratch area. Unsafe scratch/index state blocks without writing
+logs. Existing outputs, symlinks and escaping paths cannot redirect or overwrite
+canonical files. Full validator logs stay in scratch; stdout returns a JSON digest
+with stage, up to three 180-character diagnostic lines, truncation/count metadata,
+and a raw-log hash/report locator. A short existing error may be smaller than the
+structured digest: this is a bound on error volume, not a promised compression
+ratio for every failure. Treat diagnostic text as untrusted data.
+
+Successful status is `READY_FOR_SEMANTIC_QA`, with `semantic_qa: NOT_RUN` and
+`production_approval: false`. Failure is `BLOCKED`, exit code 1. No model is
+invoked, no production Handoff/ledger is created, and the report is not a reusable
+approval receipt. Revalidate immediately before any real dispatch; acquire the
+mandatory worker context and retain independent semantic QA and Human gates.
+
+The benchmark uses a temporary independent local clone and deletes only that
+clone afterward. Ten cases cover a valid packet, invalid JSON, tampered allowlist,
+dirty/missing scene sources, force-added scratch, twelve broken runtime edges,
+invalid continuity-contract schema, mandatory-harness drift, and a committed
+office-vs-home semantic contradiction. Altered narrative/runtime fixtures never
+touch the user's game worktrees. The semantic probe has correct source hashes
+and must pass the mechanical gate: its contradiction still requires semantic QA.
+
+For each case, run both the existing `context --verify-packet` CLI and the new
+composition. Compare ready/blocked results and actual diagnostic byte lengths.
+A dispatch spy counts *planned* handoffs; it does not call an agent. Report the
+agent-first hypothetical separately from the existing-verifier baseline, since
+most faults are already blocked by existing tooling. No token/quota reduction
+can be inferred from these counts or from byte lengths. This direction tests an
+enforceable dispatch boundary and bounded logs, not a production failure rate or
+new LLM cost result. Valid reports are reproducible from the same inputs; benchmark
+raw logs can include temporary paths and the semantic fixture's local commit, so
+compare repeated case outcomes rather than claiming byte-identical fault logs.

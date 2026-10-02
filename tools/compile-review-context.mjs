@@ -7,7 +7,7 @@ import { buildNarrativeReviewPacket, verifyNarrativeReviewPacket } from './conte
 import { checkSessionCache, scratchRoot } from './check-session-cache.mjs';
 
 const defaultRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const bootstrapSources = ['AGENTS.md', '.ai/WORKFLOW_MANIFEST.yaml', '.ai/harnesses/bootstrap.md',
+export const bootstrapSources = ['AGENTS.md', '.ai/WORKFLOW_MANIFEST.yaml', '.ai/harnesses/bootstrap.md',
   '.ai/policies/SOURCE_AUTHORITY.md', '.ai/policies/CONTEXT_ISOLATION.md',
   'docs/CONTENT_PRODUCTION_SOURCE_MAP.md', '.ai/harnesses/content-qa.md', '.ai/schemas/HANDOFF.md'];
 const sha256 = (text) => createHash('sha256').update(text).digest('hex');
