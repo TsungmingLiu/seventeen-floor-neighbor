@@ -134,12 +134,16 @@ npm run preview:smoke -- --skip-build
 ```bash
 npm run assets:check
 npm run assets:build
+npm run assets:coverage
+npm run validate:release
 npm run context -- --route <id> --node <id>
 npm run cg:packet -- --manifest <path> --check
 npm run codespace:accept
 ```
 
 實際可用命令與 script contract 以 `package.json` 為準。
+
+`assets:coverage` 輸出資產採用與 runtime 引用的 JSON 報告；`validate:release` 另以嚴格 coverage 檢查拒絕 placeholder、provisional、未核對採用與已知問題。目前 demo 保留已記錄的 provisional／accepted-as-is 圖，因此 release coverage 尚未通過；通過此命令也不取代 Visual QA 或 Human playable acceptance。
 
 ---
 

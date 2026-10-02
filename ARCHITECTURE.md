@@ -70,6 +70,12 @@ Renderer 只讀一個 CG entry、其 packet、declared references；Visual QA �
 
 Narrative QA 通過後，Integrator 可先接 `narrative_preview`：用已登記背景或 preview-only WebP 與 `composite` node visual 讓對白、選項、狀態及保存可試玩。章節封面/結尾只在明示 `allowPreviewArt` 時接受該 background；Gallery 不登記它。後續正式 CG 接入仍使用穩定 node/asset IDs，完成前執行 `npm run validate:final`，其會拒絕仍允許 preview art 的 route。
 
+資產 coverage 與 playable acceptance 分開判斷。`npm run assets:coverage` 由目前 registry、runtime bindings 與精確採用 receipts 重建機器可讀報告，區分 `placeholder`、`provisional`、`accepted` 與無法核對的 `unverified`；catalog 的 production status 本身不是採用證據。報告分開列出登記、route allowlist 與實際 title／ending／node／Memory 引用，未使用的 preview placeholder 不計入實際 coverage 缺口。既有 COM01J provisional wardrobe drift 與 COM02X accepted-as-is／QA FAIL 記錄保持。
+
+`npm run validate:release` 在既有 final 結構／production validation 後執行嚴格 coverage 檢查，拒絕 runtime 中的 placeholder、provisional、未核對採用或已記錄的 known issues。這是 release coverage 的必要檢查；通過只表示 coverage clear，不會建立獨立 Visual QA PASS、release-ready 決定或 Human playable acceptance。沒有正式 release 決定的資產仍顯示 readiness 未記錄。M0 只要求這些狀態可辨識並受到檢查，不要求本輪重畫所有已知 provisional 圖。
+
+對已有 accepted runtime 圖的 scene，整合前執行 `npm run production:integration:check -- --scene <id> --from <已核對的整合基線 commit> --to <commit|WORKTREE>`。每次重新取得來源、核對 accepted master／runtime derivative／reference bytes 與 receipt，再用既有 impact logic 判斷；影響 `integration:<scene>` 時以非零 exit code 拒絕整合。JSON 位於 ignored `generated/session-cache/integration-check/<scene>/check.json`；來源失敗時移除前次報告。`NO_STALE_DIFF` 只表示指定版本之間未發現 stale 差異，不能代替 QA／Human acceptance，也不能把任意 `HEAD` 當成已驗收基線。這是必須由 Integrator 在 wiring/build 前執行的定點檢查，普通 `npm run build` 不自動選擇 production baseline；不實作多 task DAG 或自動重審。COM-02X 的當前受控驗證見 `docs/migration/M0_CURRENT_SCENE_STALE_GATE.md`。
+
 ## 6. 開發、驗證與未來變更
 
 Canonical engineering environment 是 GitHub Codespaces（Node 22、ffmpeg/ffprobe、port 4173）。`npm run dev` watch/rebuild；`npm run preview` clean build 後 serve；`npm run preview:smoke -- --skip-build` 驗 HTTP/Range 等 preview contract。`npm run codespace:accept` 建立並刪除一次性 Codespace 作 fresh engineering acceptance；`codespace:review` 提供短暫 browser review surface。Local clone 可作 fallback，但不替代 fresh acceptance。

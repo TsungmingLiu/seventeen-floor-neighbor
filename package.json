@@ -32,6 +32,9 @@
     "context:delta:poc": "node tools/delta-review-poc.mjs",
     "context:preflight": "node tools/preflight-review.mjs",
     "context:preflight:benchmark": "node tools/benchmark-preflight.mjs",
-    "context:observe": "node tools/observe-review-dispatch.mjs"
+    "context:observe": "node tools/observe-review-dispatch.mjs",
+    "production:integration:check": "node tools/production-integration-check.mjs",
+    "assets:coverage": "node tools/asset-coverage.mjs",
+    "validate:release": "npm run validate:final && node tools/asset-coverage.mjs --strict"
   }
 }

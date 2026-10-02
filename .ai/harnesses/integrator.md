@@ -2,7 +2,7 @@
 
 Harness ID: `integrator`
 
-Version: 1.3.0
+Version: 1.3.1
 
 ## Responsibility
 
@@ -20,6 +20,7 @@ Archive/experiment、rejected candidate、raw operator prompt 不是 integration
 
 ## Work
 
+- 對已有 accepted runtime 圖的 scene，在 final wiring/build 前執行 `npm run production:integration:check -- --scene <id> --from <packet 明列的已核對整合基線 commit> --to <commit|WORKTREE>`；基線須來自 accepted-output/checkpoint identity，不得任意改成當前 HEAD 以消除差異。非零 exit／來源取得失敗／`BLOCKED_STALE_INTEGRATION` 即停止，不繼續使用失效圖。`NO_STALE_DIFF` 只檢查版本差異，不取代獨立 QA 或 Human gates；對無 accepted CG 的 narrative preview，仍依 preview contract，不套用此 accepted-asset 檢查。
 - preserve/create stable logical asset and node IDs；
 - update source/catalog/recipe metadata；
 - map accepted CG/background/cinematic assets；

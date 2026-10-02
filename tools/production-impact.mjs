@@ -78,19 +78,92 @@ function dialogue(value) {
   return { text: value.text, choices: value.choices?.map((choice) => choice.text) || [] };
 }
 
-function assetBinding({ manifest, sourceMap, catalog, receipt }, entry) {
+function assetBinding({ manifest, sourceMap, catalog, acceptedAssets }, entry) {
   const logicalId = entry.output.logical_asset_id;
   const asset = manifest.assets[logicalId];
   const mapped = asset?.src && sourceMap.files[asset.src];
   const master = mapped?.masterSourceId && catalog.files[mapped.masterSourceId];
-  const accepted = receipt.acceptedAssets.find((item) => item.canonicalAssetId === entry.output.canonical_asset_id);
-  requireCondition(asset && mapped && master && accepted && accepted.logicalAssetId === logicalId &&
-    accepted.sourceId === mapped.masterSourceId && mapped.source === master.sourcePath &&
-    mapped.bytes === master.bytes && mapped.sha256 === master.sha256 &&
-    accepted.repoPath === master.sourcePath &&
-    accepted.bytes === master.bytes && accepted.sha256 === master.sha256,
+  const matches = acceptedAssets.filter((item) => item.canonicalAssetId === entry.output.canonical_asset_id);
+  const accepted = matches[0];
+  requireCondition(matches.length === 1 && asset && mapped && master && accepted &&
+    asset.canonicalAssetId === entry.output.canonical_asset_id && accepted.logicalAssetId === logicalId &&
+    accepted.sourceId === mapped.masterSourceId && accepted.repoPath === master.sourcePath &&
+    accepted.bytes === master.bytes && accepted.sha256 === master.sha256 &&
+    mapped.source === (accepted.derivativePath || master.sourcePath) &&
+    mapped.bytes === (accepted.derivativeBytes || master.bytes) &&
+    mapped.sha256 === (accepted.derivativeSha256 || master.sha256) &&
+    (!accepted.runtimePath || asset.src === accepted.runtimePath),
   `asset binding mismatch: ${logicalId}`);
   return { logicalId, asset, mapped, master, accepted };
+}
+
+// Read the existing receipt formats without inventing a QA PASS or a new ledger.
+async function acceptedAssetReceipts(reader, sceneId) {
+  const legacy = await reader.json(receiptPath);
+  const acceptedAssets = [...legacy.acceptedAssets];
+  for (const file of await reader.jsonFiles('content/assets/ingest-receipts')) {
+    if (file === receiptPath) continue;
+    const receipt = await reader.json(file);
+    if (receipt.sceneId !== sceneId || !['human-accepted-master-batch', 'human-adopted-master-batch'].includes(receipt.receiptType)) continue;
+    requireCondition(receipt.receiptVersion === 1 && receipt.humanDecision?.disposition === 'ACCEPTED_AS_IS' &&
+      (receipt.humanDecision.decision === 'PASS' || receipt.humanDecision.status === 'HUMAN_ACCEPTED_AS_IS') &&
+      Array.isArray(receipt.assets), `invalid accepted-master receipt: ${file}`);
+    const decisionPath = receipt.humanDecision.path;
+    requireCondition([
+      'content/production/runs/com02x-cg-20260930/HUMAN-COM02X-MASTER-001.decision.json',
+      'content/production/runs/com02x-cg-20260930/HUMAN-COM02X-MASTER-002.decision.json',
+      'content/production/runs/com02x-visual-bindings-20261001/HUMAN-COM02X-WALK-ADOPTION-003.decision.json'
+    ].includes(decisionPath), `unsupported accepted-master decision binding: ${file}`);
+    const decisionBytes = await reader.readBytes(decisionPath);
+    requireCondition(sha256(decisionBytes) === receipt.humanDecision.sha256,
+      `accepted-master Human decision hash mismatch: ${file}`);
+    const decision = JSON.parse(decisionBytes.toString('utf8'));
+    requireCondition(decision.scene_id === sceneId &&
+      ((decision.decision === 'PASS' && decision.gate === 'accepted_master_image_selection' &&
+        decision.decision_id === receipt.humanDecision.id) ||
+       (decision.status === 'HUMAN_ACCEPTED_AS_IS' && decision.task_id === receipt.humanDecision.id)),
+      `accepted-master Human decision identity mismatch: ${file}`);
+    for (const item of receipt.assets) {
+      requireCondition(item.humanDisposition === 'ACCEPTED_AS_IS' && item.humanDecisionSha256 === item.sha256 &&
+        item.derivativePath && item.derivativeSha256 && item.derivativeBytes,
+      `incomplete accepted-master receipt: ${file}`);
+      const exactSelection = decision.accepted_assets?.find((selection) => selection.entry_id === item.entryId);
+      const adoptedOutput = decision.output_versions?.find((output) => output.id === `accepted-master:${item.entryId}:v3`);
+      requireCondition(exactSelection ? exactSelection.sha256 === item.sha256 &&
+        exactSelection.filename === item.filename && exactSelection.width === item.width &&
+        exactSelection.height === item.height && exactSelection.visual_qa_status === item.visualQaStatus &&
+        exactSelection.human_disposition === item.humanDisposition : adoptedOutput?.version === item.sha256,
+      `accepted-master exact Human selection mismatch: ${file}`);
+      acceptedAssets.push({ ...item, receiptPath: file, humanDecision: receipt.humanDecision, canonicalAssetId: item.canonicalId,
+        logicalAssetId: item.logicalId, repoPath: item.masterPath });
+    }
+  }
+  return acceptedAssets;
+}
+
+function containsIdentity(value, identities) {
+  if (typeof value === 'string') return identities.has(value);
+  if (!value || typeof value !== 'object') return false;
+  return Object.entries(value).some(([key, item]) => identities.has(key) || containsIdentity(item, identities));
+}
+
+// This exact supporting reference has no runtime acceptance. Never filter all render-ready entries.
+async function isSupportingEnvironmentReference(reader, candidate, manifest, config, nodes, memory, allEntries) {
+  const { file, entry } = candidate;
+  if (file !== 'content/production/cg-manifests/opening-ch1-com02x-environment.json' ||
+    entry.entry_id !== 'COM02X-ENV-CONVENIENCE-NIGHT-REFERENCE' || entry.scene_id !== 'COM-02X' ||
+    entry.status !== 'render_ready' || entry.output?.logical_asset_id !== 'ref.com02x.convenience-night.environment' ||
+    entry.output?.canonical_asset_id !== 'BG-CONVENIENCE-NIGHT-REFERENCE') return false;
+  const identities = new Set([entry.output.logical_asset_id, entry.output.canonical_asset_id, entry.entry_id]);
+  const receipt = await reader.json('content/assets/ingest-receipts/com02x-environment-reference-v1.json');
+  return receipt.receiptType === 'supporting-environment-reference-source' &&
+    receipt.sourceId === 'ref.com02x.environment.convenience_night' &&
+    receipt.acceptanceScope === 'supporting_environment_reference_only' &&
+    receipt.runtimeMasterAcceptance === 'NOT_ACCEPTED' &&
+    !allEntries.some(({ entry: other }) => other.reference_transport?.accepted_base_asset_id === entry.entry_id ||
+      other.reference_transport?.attachments?.some((binding) => binding.role === 'accepted_base' && identities.has(binding.source_id))) &&
+    !containsIdentity(manifest, identities) && !containsIdentity(config, identities) &&
+    !containsIdentity(nodes, identities) && !containsIdentity(memory, identities);
 }
 
 function acceptedIdentity(binding) {
@@ -120,12 +193,9 @@ export async function snapshotScene(reader, sceneId) {
   const nodeIds = lockedNodes(locked);
   const manifestFiles = await reader.jsonFiles(manifestRoot);
   const manifests = await Promise.all(manifestFiles.map(async (file) => ({ file, value: await reader.json(file) })));
-  const entries = manifests.flatMap(({ file, value }) => (value.entries || [])
-    .filter((entry) => entry.scene_id === sceneId)
+  const allEntries = manifests.flatMap(({ file, value }) => (value.entries || [])
     .map((entry) => ({ file, entry, manifest: value })));
-  requireCondition(entries.every(({ entry }) => entry.status === 'accepted'),
-    `${sceneId}: render-ready CG entries have no accepted asset binding; this gate compares accepted Opening entries`);
-  const entryById = new Map(entries.map(({ entry }) => [entry.entry_id, entry]));
+  const sceneEntries = allEntries.filter(({ entry }) => entry.scene_id === sceneId);
 
   const index = await reader.json('content/routes/index.json');
   const matches = [];
@@ -148,26 +218,42 @@ export async function snapshotScene(reader, sceneId) {
     }
   }
   requireCondition(Object.keys(nodes).length === nodeIds.length, `${sceneId}: Locked Scene runtime nodes missing`);
-  const [manifest, sourceMap, catalog, receipt] = await Promise.all([
+  const [manifest, sourceMap, catalog, acceptedAssets] = await Promise.all([
     reader.json('content/assets/manifest.json'), reader.json('content/assets/source-map.json'),
-    reader.json('content/assets/source-catalog.json'), reader.json(receiptPath)
+    reader.json('content/assets/source-catalog.json'), acceptedAssetReceipts(reader, sceneId)
   ]);
+  const entries = [];
+  const excludedReferenceEntries = [];
+  for (const candidate of sceneEntries) {
+    if (await isSupportingEnvironmentReference(reader, candidate, manifest, config, nodes, memory, allEntries)) {
+      excludedReferenceEntries.push(candidate.entry.entry_id);
+    } else {
+      requireCondition(candidate.entry.status === 'accepted',
+        `${sceneId}: runtime CG entry has no accepted asset binding: ${candidate.entry.entry_id}`);
+      entries.push(candidate);
+    }
+  }
+  requireCondition(entries.length > 0, `${sceneId}: no accepted runtime CG entries`);
+  const entryById = new Map(entries.map(({ entry }) => [entry.entry_id, entry]));
   requireCondition(catalog.provider === 'repo', 'active reference catalog is not repository backed');
   const projectionToolSha256 = sha256(await reader.readBytes('tools/render-cg-packets.mjs'));
   const images = {};
   for (const { entry, manifest: cgManifest } of entries) {
     requireCondition(!images[entry.entry_id], `duplicate CG entry: ${entry.entry_id}`);
-    const binding = assetBinding({ manifest, sourceMap, catalog, receipt }, entry);
+    const binding = assetBinding({ manifest, sourceMap, catalog, acceptedAssets }, entry);
     const bytes = await reader.readBytes(binding.master.sourcePath);
     requireCondition(bytes.length === binding.master.bytes && sha256(bytes) === binding.master.sha256,
       `accepted WebP bytes differ: ${binding.logicalId}`);
+    const derivativeBytes = await reader.readBytes(binding.mapped.source);
+    requireCondition(derivativeBytes.length === binding.mapped.bytes && sha256(derivativeBytes) === binding.mapped.sha256,
+      `runtime derivative bytes differ: ${binding.logicalId}`);
     const references = {};
     for (const attachment of entry.reference_transport.attachments || []) {
       const baseEntry = attachment.role === 'accepted_base' ? entryById.get(attachment.source_id) : null;
-      const baseBinding = baseEntry ? assetBinding({ manifest, sourceMap, catalog, receipt }, baseEntry) : null;
+      const baseBinding = baseEntry ? assetBinding({ manifest, sourceMap, catalog, acceptedAssets }, baseEntry) : null;
       const source = baseBinding?.master || catalog.files[attachment.source_id];
       requireCondition(source && source.sourcePath, `${entry.entry_id}: missing reference ${attachment.source_id}`);
-      requireCondition(!baseEntry || baseEntry.output.master_filename === attachment.expected_filename,
+      requireCondition(baseEntry ? baseEntry.output.master_filename === attachment.expected_filename : source.name === attachment.expected_filename,
         `${entry.entry_id}: accepted base filename mismatch`);
       const referenceBytes = await reader.readBytes(source.sourcePath);
       requireCondition(referenceBytes.length === source.bytes && sha256(referenceBytes) === source.sha256,
@@ -194,6 +280,7 @@ export async function snapshotScene(reader, sceneId) {
   const logicalIds = new Set(entries.map(({ entry }) => entry.output.logical_asset_id));
   return {
     sceneId,
+    excludedReferenceEntries,
     source: reader.label,
     projectionToolSha256,
     paths: { contract: found[0].file, locked: contract.source_scene },
@@ -351,6 +438,8 @@ export function compareSceneSnapshots(before, after, { noVisualImpactEvidence = 
     schema_version: '1.0.0',
     kind: 'READ_ONLY_VERSION_IMPACT',
     scene_id: id,
+    compared_entry_ids: Object.keys(after.images).sort(),
+    excluded_reference_entry_ids: after.excludedReferenceEntries || [],
     from: before.source,
     to: after.source,
     qa_status: 'UNKNOWN_NO_RUN_LEDGER',

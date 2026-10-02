@@ -4,6 +4,35 @@ Reusable tooling and scratch rules are tracked; compiler outputs are **GENERATED
 and disposable. This engineering prototype adds no creative authority and does not
 replace the existing bootstrap, harnesses, Task Packet schema, run ledger or gates.
 
+## Experiment conclusion and merge boundary
+
+The measured compaction pilot reduced median reported tokens by 15.17% across
+six paired narrative-review cases (45,339.5 to 38,460). Human accepted the overall
+blind comparison. The preset 20% adoption gate was not met; this is evidence for
+further bounded input optimization, not a workflow-wide/account-quota estimate.
+The initial compiler reduced bytes versus full-source reads by 39.44%, but added
+2.55% versus the existing bounded resolver. Bytes and tokens are separate metrics.
+
+The conservative delta experiment increased inclusive modeled workflow cost by
+23.09% for low-risk iterations and 38.20% with fallback. Do not adopt or expand
+that design. The three unchanged real-scene reviews found no additional preflight
+blocks or semantic payload reduction versus the existing verifier. Those reviews
+used 117,369 reported tokens, with no separately measured baseline model run;
+they are diagnostic observations, not production QA decisions or savings evidence.
+
+Merge scope is reusable tooling, tests, ignored-storage enforcement and this
+experimental documentation. Only the scratch guard joins default validation/CI.
+Compaction, delta, preflight and paid observation commands stay opt-in; no default
+production dispatcher, harness, acceptance gate or model routing is changed.
+The default build/validate/test/CI commands do not launch model reviews.
+Do not remove mandatory context or treat mechanical readiness as semantic PASS.
+
+All trial inputs, raw outputs, usage and receipts remain ignored. Immutable trial
+refs and detailed results are recorded in
+[PR #42](https://github.com/TsungmingLiu/seventeen-floor-neighbor/pull/42).
+Synchronizing newer main validates tooling compatibility without rerunning paid
+trials or transferring their quality evidence to newer source versions.
+
 ## Storage and commit rule
 
 Use the existing `generated/session-cache/` execution layer for Task Packets, full
@@ -58,9 +87,11 @@ Three files are created exclusively under
 There is no arbitrary output-path option. Existing files and output symlinks are
 refused; delete only this POC's ignored scene directory to rebuild. Compare all
 three files' hashes before/after an empty-cache regeneration with the same refs
-and compiler version. A new checkout at this POC branch can do the same because
-canonical source bytes remain unchanged; fetching the referenced commits may be
-needed in a shallow clone. Scratch state is never required for reconstruction.
+and compiler version. Use an independent checkout matching those pinned canonical
+sources. A later main update may change mandatory instructions; compiling an old
+trial in that newer checkout must block rather than mix versions. Fetching the
+referenced commits may be needed in a shallow clone. Scratch state is never
+required for reconstruction.
 
 ## Worker boundary and measurement
 
