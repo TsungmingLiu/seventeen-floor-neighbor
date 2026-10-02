@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "com02x-cg-20260930",
+  "decision_id": "HUMAN-COM02X-WALK-SUBJECT-001",
+  "scene_id": "COM-02X",
+  "decision": "PASS",
+  "gate": "accepted_character_component_reference",
+  "human_directive": "並肩走路回家-人沒有問題，街景應該轉個角度。",
+  "candidate_filename": "com02x-walk-candidate-v1.png",
+  "candidate_sha256": "3b09951d2abaf3362bcbccc015462b1d4885cb226618f688d6ef99703fc4366d",
+  "scope": "Character appearance/expression/pose approved as continuity reference. Background angle rejected. Complete image is NOT accepted as production master.",
+  "character_changes_authorized": false,
+  "environment_changes_authorized": "Change viewing angle of the same Humanidentified COM01B03 street for companion walk, preserve woman.",
+  "original_environment_source_id": "source.opening.ch1.com01b.03",
+  "original_environment_sha256": "aa6a236bceca59882edd5f3e1eded77b99347ca62fe5ed81ff74ee4d84bdcbc0",
+  "authorizes": "Fresh bounded walking environment-angle corrective planning/render/visualreview; final revisedimage Human selection stillrequired."
+}

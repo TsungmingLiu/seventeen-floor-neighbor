@@ -1,9 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { cp, mkdtemp, readFile, rm, mkdir, writeFile } from 'node:fs/promises';
+import { cp, mkdtemp, readFile, rm, mkdir, writeFile, realpath } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
-import { spawnSync } from 'node:child_process';
+import { spawnSync, execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 const repository = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -11,9 +11,15 @@ const sourceManifest = 'content/production/cg-manifests/opening-ch1-com01b.json'
 const injectedManifest = 'content/production/cg-manifests/future/chapter-two.json';
 
 async function isolatedRepository(t) {
-  const root = await mkdtemp(path.join(tmpdir(), 'production-future-manifest-'));
+  const root = await realpath(await mkdtemp(path.join(tmpdir(), 'production-future-manifest-')));
   t.after(() => rm(root, { recursive: true, force: true }));
-  await cp(repository, root, { recursive: true, filter: (source) => !source.includes(`${path.sep}.git`) && !source.includes(`${path.sep}node_modules`) });
+  await cp(repository, root, { recursive: true, filter: (source) => !source.split(path.sep).includes('.git') && !source.includes(`${path.sep}node_modules`) });
+  // The source boundary checks the index and immutable legacy Git objects.
+  execFileSync('git', ['-C', root, 'init', '-q']);
+  const common = execFileSync('git', ['-C', repository, 'rev-parse', '--git-common-dir'], { encoding: 'utf8' }).trim();
+  await mkdir(path.join(root, '.git/objects/info'), { recursive: true });
+  await writeFile(path.join(root, '.git/objects/info/alternates'),
+    `${path.resolve(repository, common)}/objects\n`);
   return root;
 }
 
@@ -45,6 +51,26 @@ function withUniqueIdentities(manifest) {
   };
   return rewrite(manifest);
 }
+
+test('walking as-is exception rejects invented QA PASS and unknown catalog sources', async (t) => {
+  const root = await isolatedRepository(t);
+  const receiptPath = path.join(root, 'content/assets/ingest-receipts/com02x-walk-adopted-master-v3.json');
+  const originalReceipt = await readFile(receiptPath, 'utf8');
+  const forgedReceipt = JSON.parse(originalReceipt);
+  forgedReceipt.assets[0].visualQaStatus = 'PASS';
+  await writeFile(receiptPath, `${JSON.stringify(forgedReceipt, null, 2)}\n`);
+  const inventedPass = validate(root);
+  assert.notEqual(inventedPass.status, 0, `${inventedPass.stdout}\n${inventedPass.stderr}`);
+  assert.match(inventedPass.stderr, /walking acceptance exceeds its exact as-is scope/);
+  await writeFile(receiptPath, originalReceipt);
+  const catalogPath = path.join(root, 'content/assets/source-catalog.json');
+  const catalog = JSON.parse(await readFile(catalogPath, 'utf8'));
+  catalog.files['source.unreceipted.walk-copy'] = structuredClone(catalog.files['source.com02x.walk-v3']);
+  await writeFile(catalogPath, `${JSON.stringify(catalog, null, 2)}\n`);
+  const unknownSource = validate(root);
+  assert.notEqual(unknownSource.status, 0, `${unknownSource.stdout}\n${unknownSource.stderr}`);
+  assert.match(unknownSource.stderr, /source catalog contains an unknown or unreceipted source/);
+});
 
 test('production validation discovers nested future manifests and rejects a mismatched scene source', async (t) => {
   const root = await isolatedRepository(t);

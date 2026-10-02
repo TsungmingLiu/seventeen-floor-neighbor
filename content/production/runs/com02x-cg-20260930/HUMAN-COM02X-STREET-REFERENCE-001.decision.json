@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "com02x-cg-20260930",
+  "decision_id": "HUMAN-COM02X-STREET-REFERENCE-001",
+  "status": "PASS",
+  "decision_type": "existing_environment_reference_selection",
+  "human_quote": "opening-ch1-com01b-03.webp",
+  "source_id": "source.opening.ch1.com01b.03",
+  "path": "assets-src/opening-ch1-demo/opening-ch1-com01b-03.webp",
+  "sha256": "aa6a236bceca59882edd5f3e1eded77b99347ca62fe5ed81ff74ee4d84bdcbc0",
+  "purpose": "Use existing COM01B03 street environment as reference for COM02X walking companion side-profile CG",
+  "accepts_new_candidate": false
+}

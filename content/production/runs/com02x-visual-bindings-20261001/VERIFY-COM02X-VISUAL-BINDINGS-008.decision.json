@@ -1,0 +1,116 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "com02x-visual-bindings-20261001",
+  "task_id": "VERIFY-COM02X-VISUAL-BINDINGS-008",
+  "scene_id": "COM-02X",
+  "task_type": "integrate",
+  "status": "PASS",
+  "harness": {
+    "id": "integrator",
+    "version": "1.3.0",
+    "pass": null
+  },
+  "source_ref": "ba5f8322d607f6e0cb1a65dc373aed6926ef9af2",
+  "packet_sha256": "d41590685561228f847ef49b80ce25f148351342a49ebaf03317ff0a3f55b038",
+  "input_digest_sha256": "92e522434116ac705424d7eb83fb54d7972cf985abcf5aee76dbb0e3ae94e5b4",
+  "input_versions": [
+    {
+      "id": "content/production/narrative/opening-ch1/COM-02X.json",
+      "version": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952",
+      "location": "content/production/narrative/opening-ch1/COM-02X.json"
+    },
+    {
+      "id": "content/production/runs/com02x-visual-bindings-20261001/HUMAN-COM02X-WALK-ADOPTION-003.decision.json",
+      "version": "bb85fc36688bef43097da0a147bf70f061c5eb9091f4def5b19176b0e8c1139e",
+      "location": "content/production/runs/com02x-visual-bindings-20261001/HUMAN-COM02X-WALK-ADOPTION-003.decision.json"
+    },
+    {
+      "id": "content/production/runs/com02x-visual-bindings-20261001/INTEGRATE-COM02X-VISUAL-BINDINGS-006.decision.json",
+      "version": "5630e268927baa9d9a0691f0317f3765f30e575eae93b3a3ff56df8316caf700",
+      "location": "content/production/runs/com02x-visual-bindings-20261001/INTEGRATE-COM02X-VISUAL-BINDINGS-006.decision.json"
+    },
+    {
+      "id": "content/production/runs/com02x-visual-bindings-20261001/MUA-COM02X-DISPLAY-COVERAGE-007.decision.json",
+      "version": "08fb46ea061365c33388c2753e194bc1923a4b5c72076304387c847f149f82bb",
+      "location": "content/production/runs/com02x-visual-bindings-20261001/MUA-COM02X-DISPLAY-COVERAGE-007.decision.json"
+    },
+    {
+      "id": "docs/narrative/scenes/vertical-slice/COM-02X.md",
+      "version": "46d1566ec766adbefbfc2fc93964ee84cf70eca81078f6d35f589e65ddf579c6",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02X.md"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "content/routes/opening-demo/chapter-01.json",
+      "version": "897e52bc5ff1a2452d1775e097c25e5b1d9eab23612738666b2e362b470b7f30",
+      "location": "content/routes/opening-demo/chapter-01.json"
+    },
+    {
+      "id": "content/routes/opening-demo/memories.json",
+      "version": "620aa45974e0292d9184b8cebdb8c51f621b3edad65b4035e3efa9ba2dcea48e",
+      "location": "content/routes/opening-demo/memories.json"
+    },
+    {
+      "id": "content/routes/opening-demo/route.json",
+      "version": "6094672d71d01dad0a3349456aa0ce5729a46160043a181b26c44667922e4afc",
+      "location": "content/routes/opening-demo/route.json"
+    },
+    {
+      "id": "content/assets/manifest.json",
+      "version": "4a7bcb1b6deb6a8e2f1a907412a0bff9fd417895df89bafd86212619e8a80ef6",
+      "location": "content/assets/manifest.json"
+    },
+    {
+      "id": "assets-src/opening-ch1-demo/com02x-bg-01-v1.webp",
+      "version": "5bff68c7d038f32283bba5a1c56c652b4fc11019c4c68c892aee9517fd749112",
+      "location": "assets-src/opening-ch1-demo/com02x-bg-01-v1.webp"
+    },
+    {
+      "id": "assets-src/opening-ch1-demo/com02x-dlg-01-v1.webp",
+      "version": "dde697e3460ed77d3d102c28ff1e25970e0e1f6912b718c764c0073704078d4d",
+      "location": "assets-src/opening-ch1-demo/com02x-dlg-01-v1.webp"
+    },
+    {
+      "id": "assets-src/opening-ch1-demo/com02x-microwave-v1.webp",
+      "version": "d3006f2e29f26af80d812c1afc92de5a0807eef42fe822c80502338942cb2f24",
+      "location": "assets-src/opening-ch1-demo/com02x-microwave-v1.webp"
+    },
+    {
+      "id": "assets-src/opening-ch1-demo/com02x-walk-v3.webp",
+      "version": "5e575a70762c09fdc958333f51ea8b1f12b20109d90ca22e224e66be38accbfd",
+      "location": "assets-src/opening-ch1-demo/com02x-walk-v3.webp"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "independent scope and unchanged story, save, Memory and protected assets",
+      "code": "SOURCE-INVARIANTS",
+      "result": "PASS"
+    },
+    {
+      "name": "PR and push Verify Node22 tests 104/104",
+      "code": "VERIFY-36956929205-36956923159",
+      "result": "PASS"
+    },
+    {
+      "name": "Chromium acceptance 11/11",
+      "code": "BROWSER-36956927676",
+      "result": "PASS"
+    },
+    {
+      "name": "immutable public bytes, convenience and walk flow, reload and Gallery",
+      "code": "PUBLIC-DEPLOYMENT-B410D7E8",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "Verification binds exact CG integration commit ba5f832. This final checkpoint changes only decision metadata; runtime, art, test and build inputs remain byte-identical.",
+    "Original walking pixel QA FAIL and lower dialogue-safe-zone NEEDS_REVIEW remain preserved under exact Human as-is adoption; this PASS is runtime and provenance verification.",
+    "Verified frozen Handoff SHA256 334b8fbd0f1d4ec9add08c4101a71464d9d37d4d13f42ff5a2f889a0e50de692. Final Human playable acceptance remains open."
+  ],
+  "human_gate_required": "final_playable_acceptance",
+  "invalidates": []
+}

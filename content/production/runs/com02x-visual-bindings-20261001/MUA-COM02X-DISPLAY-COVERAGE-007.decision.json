@@ -1,0 +1,92 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "com02x-visual-bindings-20261001",
+  "task_id": "MUA-COM02X-DISPLAY-COVERAGE-007",
+  "scene_id": "COM-02X",
+  "task_type": "visual_review",
+  "status": "PASS",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.4.0",
+    "pass": "visual_review"
+  },
+  "source_ref": "8cb74b6ead533a22b1b1049f6ccdf8ce2e97097a",
+  "packet_sha256": "c8451a1cb5edc283f35bc1b2bcb0f46b67e3711c5432564c9598494ea300fd5f",
+  "input_digest_sha256": "911b6f1ea75044ddc048751620c2e78805f4752e15e45b5b3bce86b0a76945f9",
+  "input_versions": [
+    {
+      "id": "docs/narrative/scenes/vertical-slice/COM-02X.md",
+      "version": "46d1566ec766adbefbfc2fc93964ee84cf70eca81078f6d35f589e65ddf579c6",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02X.md"
+    },
+    {
+      "id": "content/production/narrative/opening-ch1/COM-02X.json",
+      "version": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952",
+      "location": "content/production/narrative/opening-ch1/COM-02X.json"
+    },
+    {
+      "id": "content/production/cg-manifests/opening-ch1-com02x.json",
+      "version": "76ebcbee549c7c3adf27502594e2c2b26f218c8e3d5347386d25bbdb7f425057",
+      "location": "content/production/cg-manifests/opening-ch1-com02x.json"
+    },
+    {
+      "id": "content/production/cg-manifests/opening-ch1-com02x-microwave.json",
+      "version": "3f96a8ce9db6ddf4b45a9bb55c5ba6710f1233be9d0b4cec92d65270f03fb956",
+      "location": "content/production/cg-manifests/opening-ch1-com02x-microwave.json"
+    },
+    {
+      "id": "content/assets/ingest-receipts/com02x-accepted-masters-v1.json",
+      "version": "19f27385a62aa6260d0bac9ddf69e4feea0fbf9f3c3c40ca45fa78804923ddae",
+      "location": "content/assets/ingest-receipts/com02x-accepted-masters-v1.json"
+    },
+    {
+      "id": "content/assets/ingest-receipts/com02x-microwave-accepted-master-v1.json",
+      "version": "57f13263268a80774a36047db7a04fef935aef9697d9bf0cbc2cd39f3789c12e",
+      "location": "content/assets/ingest-receipts/com02x-microwave-accepted-master-v1.json"
+    },
+    {
+      "id": "assets-src/opening-ch1-demo/com02x-dlg-01-candidate-v1.png",
+      "version": "c3b980c003dd2bcfb4dcabb769438fe67d85751f75f5fed20ceedf4ad0c3ea65",
+      "location": "assets-src/opening-ch1-demo/com02x-dlg-01-candidate-v1.png"
+    },
+    {
+      "id": "assets-src/opening-ch1-demo/com02x-microwave-candidate-v1.png",
+      "version": "7b8a6f5eb9dd8bfc102229e42aaf1e82a1182f20b807d3dc134df79f5e95a392",
+      "location": "assets-src/opening-ch1-demo/com02x-microwave-candidate-v1.png"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "display-coverage:opening-ch1-com02x.json",
+      "version": "76ebcbee549c7c3adf27502594e2c2b26f218c8e3d5347386d25bbdb7f425057",
+      "location": "content/production/cg-manifests/opening-ch1-com02x.json"
+    },
+    {
+      "id": "display-coverage:opening-ch1-com02x-microwave.json",
+      "version": "3f96a8ce9db6ddf4b45a9bb55c5ba6710f1233be9d0b4cec92d65270f03fb956",
+      "location": "content/production/cg-manifests/opening-ch1-com02x-microwave.json"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "scoped display-coverage and original provenance",
+      "code": "MUA-DISPLAY-REUSE-33-CHECKS",
+      "result": "PASS"
+    },
+    {
+      "name": "historical original candidate pixel QA preserved",
+      "code": "HISTORICAL-VQA-NOT-CHANGED",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "PASS applies only to unchanged accepted recognition/microwave art reused in reviewed display intervals, not a new pixel-quality or Human acceptance decision.",
+    "Original generation hashes remain separate from current display-only manifest projection hashes. Historical pixel-QA FAIL and Human as-is exceptions remain unchanged.",
+    "Walking is an external adoption dependency excluded from this scoped review.",
+    "Prior MUA006 BLOCKED by incidental storage-guard hash change remains historical; this fresh review explicitly acquired allowed concurrent noncreative guard/validator changes."
+  ],
+  "human_gate_required": "none",
+  "invalidates": []
+}

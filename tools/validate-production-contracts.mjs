@@ -1,3 +1,5 @@
+import { validateProductionStorage } from './production-storage.mjs';
+import { validateCharacterReferencePacks } from './character-references.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -8,7 +10,8 @@ import {
   adaptWorkBatch,
   buildPackets,
   validateManifest,
-  validateRepoSourceCatalog
+  validateRepoSourceCatalog,
+  sha256
 } from './render-cg-packets.mjs';
 
 const NARRATIVE_ROOT = 'content/production/narrative';
@@ -19,6 +22,8 @@ const OPENING_RECEIPT = 'content/assets/ingest-receipts/opening-ch1-demo-v0.1.js
 const OPENING_ROUTE = 'content/routes/opening-demo/route.json';
 const SOURCE_CATALOG = 'content/assets/source-catalog.json';
 const GATE3_RECEIPT = 'content/assets/ingest-receipts/repo-source-gate3-v1.json';
+const COM02X_REFERENCE_RECEIPT = 'content/assets/ingest-receipts/com02x-environment-reference-v1.json';
+const COM02X_ACCEPTED_MASTERS_RECEIPT = 'content/assets/ingest-receipts/com02x-accepted-masters-v1.json';
 const ORCHESTRATION = '.ai/PRODUCTION_ORCHESTRATION.md';
 const SOURCE_MAP = 'docs/CONTENT_PRODUCTION_SOURCE_MAP.md';
 const DRY_RUN = 'tests/fixtures/production-orchestration-dry-run.json';
@@ -341,11 +346,24 @@ function validateGate3RepositorySources(catalog) {
     invariant(source.sha256 === item.sha256 && source.bytes === item.bytes, `accepted receipt fingerprint mismatch: ${item.sourceId}`);
     invariant(JSON.stringify(source.knownIssues ?? []) === JSON.stringify(item.knownIssues), `accepted receipt knownIssues mismatch: ${item.sourceId}`);
   }
+  const restoration = readJson('content/assets/ingest-receipts/character-reference-packs-20260930.json');
+  invariant(restoration.receiptVersion === 1 && restoration.gate === 'complete-character-reference-packs' && restoration.sourceCatalog === SOURCE_CATALOG, 'invalid character pack restoration receipt');
+  invariant(restoration.references.length === 12, 'restoration receipt requires 12 PNG sheets');
+  const restoredIds = new Set();
+  for (const item of restoration.references) {
+    invariant(!restoredIds.has(item.sourceId), `duplicate restored source ID: ${item.sourceId}`);
+    restoredIds.add(item.sourceId);
+    const source = catalog.files[item.sourceId];
+    for (const key of ['name', 'sourcePath', 'sha256', 'bytes', 'width', 'height', 'mimeType', 'status', 'characterId', 'role']) invariant(source?.[key] === item[key], `restored reference ${key} mismatch: ${item.sourceId}`);
+  }
+  validateCharacterReferencePacks(catalog);
   const referenceIds = new Set();
   for (const item of receipt.references) {
     invariant(!referenceIds.has(item.sourceId), `duplicate reference sourceId: ${item.sourceId}`);
     referenceIds.add(item.sourceId);
-    const source = catalog.files[item.sourceId];
+    const superseded = restoration.supersededReferences.find((record) => record.sourceId === item.sourceId);
+    if (superseded) invariant(catalog.files[item.sourceId]?.sha256 === superseded.replacementSha256, `superseded replacement mismatch: ${item.sourceId}`);
+    const source = superseded?.previous ?? catalog.files[item.sourceId];
     invariant(source && item.sourceId.startsWith('ref.'), `reference receipt source is missing or invalid: ${item.sourceId}`);
     for (const [receiptKey, catalogKey] of [['repoPath', 'sourcePath'], ['sha256', 'sha256'], ['bytes', 'bytes'], ['width', 'width'], ['height', 'height'], ['mimeType', 'mimeType'], ['status', 'status'], ['characterId', 'characterId'], ['role', 'role']]) {
       invariant(source[catalogKey] === item[receiptKey], `reference receipt ${receiptKey} mismatch: ${item.sourceId}`);
@@ -354,7 +372,79 @@ function validateGate3RepositorySources(catalog) {
   invariant([...referenceIds].some((id) => id === 'ref.xu_tang.body.03'), 'Gate 3 receipt must include the user-provided Xu Tang body JPEG');
   invariant(receipt.references.filter((item) => item.mimeType === 'image/png').length === 4 && receipt.references.filter((item) => item.mimeType === 'image/jpeg').length === 1, 'Gate 3 references must be four PNGs plus one JPEG');
   invariant(acceptedIds.size === 15 && referenceIds.size === 5, 'Gate 3 accepted source IDs must be unique');
-  invariant(Object.keys(catalog.files).length === acceptedIds.size + referenceIds.size, 'source catalog contains an unexpected active source set');
+  const currentReference = readJson(COM02X_REFERENCE_RECEIPT);
+  const currentId = 'ref.com02x.environment.convenience_night';
+  const currentSource = catalog.files[currentId];
+  invariant(currentReference.receiptVersion === 1 && currentReference.receiptType === 'supporting-environment-reference-source', 'COM-02X reference receipt identity is invalid');
+  invariant(currentReference.sourceId === currentId && currentReference.role === 'environment_reference', 'COM-02X reference receipt source identity is invalid');
+  invariant(currentReference.acceptanceScope === 'supporting_environment_reference_only' && currentReference.runtimeMasterAcceptance === 'NOT_ACCEPTED', 'COM-02X reference receipt exceeds supporting-reference scope');
+  invariant(currentReference.currentReferenceQa?.taskId === 'VQA-ENV-COM02X-002' && currentReference.currentReferenceQa?.result === 'PASS', 'COM-02X reference receipt lacks the current QA decision');
+  invariant(currentSource && currentSource.role === currentReference.role && currentSource.sourcePath === currentReference.sourcePath && currentSource.name === currentReference.filename, 'COM-02X reference catalog identity mismatch');
+  for (const key of ['mimeType', 'sha256', 'bytes', 'width', 'height']) invariant(currentSource[key] === currentReference[key], `COM-02X reference catalog ${key} mismatch`);
+  invariant(currentSource.status === 'optional-reference' && currentSource.verifiedDecode === true, 'COM-02X source must remain a decoded optional reference');
+  const acceptedBatch = readJson(COM02X_ACCEPTED_MASTERS_RECEIPT);
+  invariant(acceptedBatch.receiptVersion === 1 && acceptedBatch.receiptType === 'human-accepted-master-batch', 'COM-02X accepted-master receipt identity is invalid');
+  invariant(acceptedBatch.sceneId === 'COM-02X' && acceptedBatch.taskId === 'INTEGRATE-COM02X-001', 'COM-02X accepted-master receipt scope is invalid');
+  invariant(acceptedBatch.humanDecision?.decision === 'PASS' && acceptedBatch.humanDecision?.disposition === 'ACCEPTED_AS_IS', 'COM-02X accepted-master receipt lacks the explicit Human override');
+  invariant(Array.isArray(acceptedBatch.assets) && acceptedBatch.assets.length === 2, 'COM-02X accepted-master receipt must contain exactly two assets');
+  const batchIds = new Set();
+  for (const item of acceptedBatch.assets) {
+    invariant(!batchIds.has(item.sourceId) && item.sourceId.startsWith('source.com02x.'), `duplicate or invalid COM-02X accepted source: ${item.sourceId}`);
+    batchIds.add(item.sourceId);
+    const source = catalog.files[item.sourceId];
+    invariant(source && source.name === item.filename && source.sourcePath === item.masterPath, `COM-02X accepted source path/name mismatch: ${item.sourceId}`);
+    for (const key of ['sha256', 'bytes', 'width', 'height', 'mimeType']) invariant(source[key] === item[key], `COM-02X accepted source ${key} mismatch: ${item.sourceId}`);
+    invariant(source.verifiedDecode === true && source.status === 'human-accepted-as-is', `COM-02X accepted source status/decode mismatch: ${item.sourceId}`);
+    invariant(item.sha256 === item.humanDecisionSha256 && item.width === 1672 && item.height === 941 && item.mimeType === 'image/png', `COM-02X source exceeds scoped acceptance: ${item.sourceId}`);
+    invariant(item.visualQaStatus === 'FAIL' && item.humanDisposition === 'ACCEPTED_AS_IS', `COM-02X QA history/override mismatch: ${item.sourceId}`);
+  }
+  invariant(batchIds.size === 2 && batchIds.has('source.com02x.bg-01') && batchIds.has('source.com02x.dlg-01'), 'COM-02X accepted source set changed');
+  const component = readJson('content/assets/ingest-receipts/com02x-walk-character-continuity-v1.json');
+  const componentId = 'ref.com02x.walk.character_continuity_v1';
+  const componentSource = catalog.files[componentId];
+  invariant(component.receiptVersion === 1 && component.receiptType === 'human-approved-character-component-reference-source' && component.sourceId === componentId, 'COM-02X character component receipt identity is invalid');
+  invariant(component.acceptanceScope === 'character_appearance_expression_pose_only' && component.runtimeMasterAcceptance === 'NOT_ACCEPTED' && component.backgroundAcceptance === 'REJECTED' && component.runtimeAssetId === null && component.galleryAssetId === null, 'COM-02X character component receipt exceeds Human scope');
+  invariant(componentSource?.name === component.filename && componentSource?.sourcePath === component.sourcePath && componentSource?.status === 'optional-reference' && componentSource?.verifiedDecode === true && componentSource?.role === 'accepted_character_continuity' && componentSource?.characterId === 'xu_tang', 'COM-02X character component catalog identity mismatch');
+  for (const key of ['mimeType', 'sha256', 'bytes', 'width', 'height']) invariant(componentSource[key] === component[key], 'COM-02X character component catalog ' + key + ' mismatch');
+  const componentHuman = readJson(component.humanDecision.decisionPath);
+  invariant(sha256(fs.readFileSync(component.humanDecision.decisionPath)) === component.humanDecision.sha256 && componentHuman.gate === 'accepted_character_component_reference' && componentHuman.decision === 'PASS' && componentHuman.candidate_sha256 === component.sha256 && componentHuman.character_changes_authorized === false, 'COM-02X character component Human approval mismatch');
+  const microwave = readJson('content/assets/ingest-receipts/com02x-microwave-accepted-master-v1.json');
+  invariant(microwave.receiptVersion === 1 && microwave.receiptType === 'human-accepted-master-batch' && microwave.sceneId === 'COM-02X' && microwave.taskId === 'INTEGRATE-COM02X-CLEANUP-005' && microwave.assets.length === 1, 'COM-02X microwave receipt identity/scope is invalid');
+  const microwaveHuman = readJson(microwave.humanDecision.path);
+  invariant(sha256(fs.readFileSync(microwave.humanDecision.path)) === microwave.humanDecision.sha256 && microwaveHuman.decision === 'PASS' && microwaveHuman.qa_history_preserved === true, 'COM-02X microwave Human approval mismatch');
+  const microwaveAsset = microwave.assets[0];
+  const microwaveSelection = microwaveHuman.accepted_assets.find((asset) => asset.entry_id === microwaveAsset.entryId);
+  const microwaveSource = catalog.files[microwaveAsset.sourceId];
+  invariant(microwaveAsset.sourceId === 'source.com02x.microwave' && microwaveAsset.entryId === 'COM02X-DLG-02-MICROWAVE' && microwaveAsset.logicalId === 'cg.opening.com02x.microwave_wait' && microwaveAsset.canonicalId === 'CG-COM02X-MICROWAVE-WAIT', 'COM-02X microwave accepted source identity mismatch');
+  invariant(microwaveSelection?.sha256 === microwaveAsset.sha256 && microwaveAsset.humanDecisionSha256 === microwaveAsset.sha256 && microwaveSelection.human_disposition === microwaveAsset.humanDisposition && microwaveAsset.humanDisposition === 'ACCEPTED_AS_IS' && microwaveSelection.visual_qa_status === microwaveAsset.visualQaStatus && microwaveAsset.visualQaStatus === 'FAIL', 'COM-02X microwave QA history/override mismatch');
+  invariant(JSON.stringify(microwaveSelection.accepted_known_issues) === JSON.stringify(microwaveAsset.acceptedKnownIssues), 'COM-02X microwave known issue scope mismatch');
+  invariant(microwaveSource?.name === microwaveAsset.filename && microwaveSource?.sourcePath === microwaveAsset.masterPath && microwaveSource?.status === 'human-accepted-as-is' && microwaveSource?.verifiedDecode === true, 'COM-02X microwave catalog identity/status mismatch');
+  for (const key of ['mimeType', 'sha256', 'bytes', 'width', 'height']) invariant(microwaveSource[key] === microwaveAsset[key], 'COM-02X microwave catalog ' + key + ' mismatch');
+  invariant(microwaveAsset.width === microwaveSelection.width && microwaveAsset.height === microwaveSelection.height && microwaveAsset.mimeType === 'image/png', 'COM-02X microwave accepted dimensions/format mismatch');
+  invariant(sha256(fs.readFileSync(microwaveAsset.derivativePath)) === microwaveAsset.derivativeSha256 && fs.statSync(microwaveAsset.derivativePath).size === microwaveAsset.derivativeBytes, 'COM-02X microwave derivative fingerprint mismatch');
+  const microwaveManifest = readJson('content/production/cg-manifests/opening-ch1-com02x-microwave.json');
+  invariant(microwaveManifest.entries.length === 1 && microwaveManifest.entries[0].entry_id === microwaveAsset.entryId && microwaveManifest.entries[0].status === 'accepted', 'COM-02X microwave manifest accepted status mismatch');
+  invariant(JSON.stringify(microwaveManifest.entries[0].known_issues) === JSON.stringify(microwaveAsset.acceptedKnownIssues.map((issue) => issue.code + ': ' + issue.detail)), 'COM-02X microwave manifest accepted issues mismatch');
+  const walk = readJson('content/assets/ingest-receipts/com02x-walk-adopted-master-v3.json');
+  invariant(walk.receiptVersion === 1 && walk.receiptType === 'human-adopted-master-batch' && walk.sceneId === 'COM-02X' && walk.taskId === 'INTEGRATE-COM02X-VISUAL-BINDINGS-006' && walk.assets.length === 1, 'COM-02X walking adoption receipt scope is invalid');
+  const walkHuman = readJson(walk.humanDecision.path);
+  const walkAsset = walk.assets[0];
+  const walkSource = catalog.files[walkAsset.sourceId];
+  const walkSha = 'a1aa0d08023cc19a42b3c9260bca732059e77eb5dd37c8578afb82bd7dd82400';
+  invariant(sha256(fs.readFileSync(walk.humanDecision.path)) === walk.humanDecision.sha256 && walkHuman.task_id === 'HUMAN-COM02X-WALK-ADOPTION-003' && walkHuman.status === 'HUMAN_ACCEPTED_AS_IS' && walkHuman.output_versions.some(item => item.id === 'accepted-master:COM02X-WALK-01:v3' && item.version === walkSha), 'COM-02X exact walking Human adoption mismatch');
+  invariant(walk.humanDecision.status === walkHuman.status && !Object.hasOwn(walk.humanDecision, 'decision') && walk.humanDecision.qaHistoryPreserved === true, 'COM-02X walking adoption must not invent a literal Human PASS');
+  invariant(walkAsset.sourceId === 'source.com02x.walk-v3' && walkAsset.entryId === 'COM02X-WALK-01' && walkAsset.logicalId === 'cg.opening.com02x.walk_home' && walkAsset.canonicalId === 'CG-COM02X-WALK-01', 'COM-02X walking identity mismatch');
+  invariant(walkAsset.sha256 === walkSha && walkAsset.humanDecisionSha256 === walkSha && walkAsset.width === 1672 && walkAsset.height === 941 && walkAsset.mimeType === 'image/png' && walkAsset.visualQaStatus === 'FAIL' && walkAsset.humanDisposition === 'ACCEPTED_AS_IS', 'COM-02X walking acceptance exceeds its exact as-is scope');
+  invariant(walkSource?.name === walkAsset.filename && walkSource?.sourcePath === walkAsset.masterPath && walkSource?.status === 'human-accepted-as-is' && walkSource?.verifiedDecode === true, 'COM-02X walking catalog identity/status mismatch');
+  for (const key of ['mimeType', 'sha256', 'bytes', 'width', 'height']) invariant(walkSource[key] === walkAsset[key], 'COM-02X walking catalog ' + key + ' mismatch');
+  const walkQa = readJson(walk.visualQa.path);
+  invariant(sha256(fs.readFileSync(walk.visualQa.path)) === walk.visualQa.sha256 && walkQa.task_id === 'VQA-COM02X-WALK-003' && walkQa.status === 'FAIL' && walk.visualQa.status === 'FAIL' && walkAsset.visualQaReceipt === walk.visualQa.path, 'COM-02X original walking Visual QA must remain FAIL');
+  invariant(JSON.stringify(walkAsset.acceptedKnownIssues) === JSON.stringify(walkQa.known_issues), 'COM-02X walking known issues changed');
+  invariant(sha256(fs.readFileSync(walkAsset.masterPath)) === walkSha && fs.statSync(walkAsset.masterPath).size === walkAsset.bytes, 'COM-02X walking original PNG fingerprint mismatch');
+  invariant(sha256(fs.readFileSync(walkAsset.derivativePath)) === walkAsset.derivativeSha256 && fs.statSync(walkAsset.derivativePath).size === walkAsset.derivativeBytes, 'COM-02X walking derivative fingerprint mismatch');
+  const walkManifest = readJson('content/production/cg-manifests/opening-ch1-com02x-walk.json');
+  invariant(walkManifest.entries.length === 1 && walkManifest.entries[0].entry_id === walkAsset.entryId && walkManifest.entries[0].status === 'accepted' && JSON.stringify(walkManifest.entries[0].known_issues) === JSON.stringify(walkQa.known_issues), 'COM-02X walking manifest adoption/issues mismatch');
+  invariant(Object.keys(catalog.files).length === acceptedIds.size + restoredIds.size + 1 + batchIds.size + 1 + 1 + 1, 'source catalog contains an unknown or unreceipted source');
   return receipt;
 }
 
@@ -453,6 +543,7 @@ function validateOpeningMigration(manifest, catalog, gate3Receipt) {
 }
 
 export function validateProductionContracts() {
+  validateProductionStorage();
   validateActiveWorkflowBoundary();
   validateOrchestrationContract();
   const narrativeFiles = listJsonFiles(NARRATIVE_ROOT);

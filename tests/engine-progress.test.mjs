@@ -130,6 +130,61 @@ test('shared scene exit applies base state once and preserves it across Continue
   assert.ok(engine.state.flags.has('work-known'));
 });
 
+test('title navigation after Memory replay preserves frontier and distinguishes Continue from a completed Start', () => {
+  for (const completed of [false, true]) {
+    const story = chapter({
+      start: { text: 'Opening', next: 'replay' },
+      replay: { text: 'Memory', next: 'alternate' },
+      alternate: { text: 'Replay choice', next: 'deep' },
+      deep: { text: 'Current story', next: 'finish' },
+      finish: { type: 'route' }
+    });
+    const memoryLibrary = { events: [
+      { id: 'opening', replayNode: 'start', unlockNodes: ['start'], progressRank: 0 },
+      { id: 'deep', replayNode: 'replay', unlockNodes: ['replay', 'alternate', 'deep'], progressRank: 160 }
+    ] };
+    const engine = engineFor(story);
+    engine.memoryLibrary = engine.progress.memories = memoryLibrary;
+    engine.progress.capture('replay', { warmth: 1, trust: 0, flags: new Set(['earlier']) }, []);
+    engine.progress.capture('deep', { warmth: 8, trust: 4, flags: new Set(['known']) }, []);
+    const frontier = structuredClone(engine.progress.data.frontier);
+    if (completed) {
+      engine.progress.capture('finish', engine.progress.restore(frontier).state, []);
+      engine.progress.finishRun();
+    }
+    engine.replayMemory({ replayNode: 'replay' });
+    engine.state.warmth = 2;
+    engine.nodeId = 'alternate';
+    engine.render();
+    assert.equal(engine.progress.data.cursor.nodeId, 'alternate');
+    assert.deepEqual(engine.progress.data.frontier, frontier);
+
+    const reloaded = new GameEngine({ chapter: story, assetManifest: { assets: {} }, sceneLibrary: {}, memoryLibrary });
+    reloaded.refreshTitle();
+    assert.equal(reloaded.els.startButton.textContent, completed ? '開始遊戲' : '繼續遊戲');
+    assert.equal(reloaded.progress.data.cursor.nodeId, 'alternate', 'reload preserves the replay cursor before title entry');
+    reloaded.bindEvents();
+    reloaded.els.startButton.click();
+    assert.equal(reloaded.nodeId, completed ? 'start' : 'deep');
+    assert.equal(reloaded.state.warmth, completed ? 0 : 8);
+    assert.deepEqual(reloaded.state.flags, new Set(completed ? [] : ['known']));
+    assert.deepEqual(reloaded.progress.data.frontier, frontier);
+    assert.equal(reloaded.progress.data.restartActive, completed);
+    assert.equal(reloaded.progress.data.runComplete, false);
+
+    if (completed) {
+      reloaded.nodeId = 'replay';
+      reloaded.render();
+      const continued = new GameEngine({ chapter: story, assetManifest: { assets: {} }, sceneLibrary: {}, memoryLibrary });
+      continued.refreshTitle();
+      assert.equal(continued.els.startButton.textContent, '繼續遊戲');
+      continued.startFromTitle();
+      assert.equal(continued.nodeId, 'replay', 'an explicit fresh run resumes its own cursor after reload');
+      assert.deepEqual(continued.progress.data.frontier, frontier);
+    }
+  }
+});
+
 test('random entries restore at the selected scene with their return destination intact', () => {
   const story = chapter({
     start: { next: 'random' },

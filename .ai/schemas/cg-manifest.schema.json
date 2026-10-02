@@ -82,6 +82,17 @@
         "expression": { "$ref": "#/$defs/nonEmpty" },
         "wardrobe_key": { "$ref": "#/$defs/nonEmpty" },
         "held_objects": { "type": "array", "items": { "$ref": "#/$defs/nonEmpty" } },
+        "reference_requirements": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["production_consistency", "expression", "body_proportions"],
+          "properties": {
+            "production_consistency": { "type": "boolean" },
+            "expression": { "type": "boolean" },
+            "body_proportions": { "type": "boolean" },
+            "production_omission_reason": { "$ref": "#/$defs/nonEmpty" }
+          }
+        },
         "reference_bindings": {
           "type": "array",
           "minItems": 1,

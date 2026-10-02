@@ -219,9 +219,10 @@ export async function buildCgPlanPacket({ sceneId, runId, taskId, ref, upstreamR
   insist(Array.isArray(referenceIds) && new Set(referenceIds).size === referenceIds.length,
     'referenceIds must be a duplicate-free array');
   insist(referenceIds.includes('ref.xu_tang.face.01') && referenceIds.includes('ref.xu_tang.wardrobe.a') &&
-    referenceIds.includes('source.opening.ch1.bg.apt_17f_rain'), 'Xu Tang face, wardrobe and COM-00 environment references are required');
+    referenceIds.includes('ref.xu_tang.production.04') &&
+    referenceIds.includes('source.opening.ch1.bg.apt_17f_rain'), 'Xu Tang face, production, wardrobe and COM-00 environment references are required');
   insist(referenceIds.every((id) => ['ref.xu_tang.face.01', 'ref.xu_tang.wardrobe.a',
-    'ref.xu_tang.body.03', 'source.opening.ch1.bg.apt_17f_rain'].includes(id)),
+    'ref.xu_tang.body.03', 'ref.xu_tang.expression.02', 'ref.xu_tang.production.04', 'ref.xu_tang.wardrobe.b', 'source.opening.ch1.bg.apt_17f_rain'].includes(id)),
   'unsupported or unrelated reference ID');
   root = path.resolve(root);
   ref = ref || git(root, 'rev-parse', 'HEAD');
@@ -272,7 +273,10 @@ export async function buildCgPlanPacket({ sceneId, runId, taskId, ref, upstreamR
     insist(item, `unknown source-catalog ID: ${id}`);
     const roleById = { 'ref.xu_tang.face.01': ['primary_face_identity', 'active-production'],
       'ref.xu_tang.wardrobe.a': ['wardrobe', 'active-production'],
-      'ref.xu_tang.body.03': ['body_proportions', 'optional-reference'],
+      'ref.xu_tang.body.03': ['body_proportions', 'active-production'],
+      'ref.xu_tang.expression.02': ['expression', 'active-production'],
+      'ref.xu_tang.production.04': ['production_consistency', 'active-production'],
+      'ref.xu_tang.wardrobe.b': ['wardrobe', 'active-production'],
       'source.opening.ch1.bg.apt_17f_rain': ['environment_background', 'active-production'] };
     const [expectedRole, expectedStatus] = roleById[id] ?? [];
     if (id.startsWith('ref.')) insist(item.characterId === 'xu_tang' && item.role === expectedRole && item.status === expectedStatus,

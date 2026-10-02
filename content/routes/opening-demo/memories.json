@@ -360,15 +360,19 @@
       "kind": "scene",
       "highlight": true,
       "cover": {
-        "asset": "bg.narrative_preview.placeholder",
+        "asset": "bg.opening.com02x.convenience_night",
         "mode": "scene",
         "focus": {
-          "x": 50,
-          "y": 45
+          "x": 48,
+          "y": 43
         },
         "overlay": "dark-soft"
       },
-      "galleryAssets": []
+      "galleryAssets": [
+        "cg.opening.com02x.recognition",
+        "cg.opening.com02x.microwave_wait",
+        "cg.opening.com02x.walk_home"
+      ]
     }
   ]
 }

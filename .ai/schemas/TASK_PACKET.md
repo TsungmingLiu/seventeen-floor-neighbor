@@ -14,7 +14,7 @@ workflow_version: 1.3.0
 harness: content_writer | cg_planner | cg_renderer | content_qa | integrator
 pass: narrative_design | scene_dialogue | narrative_review | visual_review | null
 review_scope: manifest_usability | candidate  # visual_review only
-integration_mode: narrative_preview | final  # required only for integrator
+integration_mode: narrative_preview | final | governance_maintenance  # required only for integrator
 objective: one sentence describing exactly one deliverable
 
 execution_policy:
@@ -110,3 +110,5 @@ human_gate: none | major_story_direction | canonical_character_design | accepted
 - Base CG 使用 `references_required`；Reaction CG 優先 `edit_from_accepted_base`。Reference acquisition 由所選 execution adapter 從 repository-relative catalog binding 負責。
 - 第二個獨立 objective 必須拆成另一個 Task Packet。
 - `integration_mode: narrative_preview` 只依賴 approved Locked Scene 與已核對 repo bytes 的 background/preview-only WebP；Task Packet 必須列明 logical ID、route allowlist、預覽狀態與 review ref。`integration_mode: final` 要求所有必要 accepted CG 與 `npm run validate:final`，不得以 preview-only asset 滿足視覺驗收。
+
+Governance maintenance uses the integrator harness with explicit machine-only source boundaries and no creative authoring. Full packets remain ignored session artifacts. A storage-only task does not create a production run or advance art/QA/Human gates.

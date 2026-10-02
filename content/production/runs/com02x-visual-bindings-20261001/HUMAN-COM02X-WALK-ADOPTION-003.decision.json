@@ -1,0 +1,72 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "human_decision",
+  "run_id": "com02x-visual-bindings-20261001",
+  "task_id": "HUMAN-COM02X-WALK-ADOPTION-003",
+  "scene_id": "COM-02X",
+  "task_type": "human_decision",
+  "status": "HUMAN_ACCEPTED_AS_IS",
+  "harness": {
+    "id": "human",
+    "version": "1.0.0",
+    "pass": null
+  },
+  "source_ref": "b35e4910f85809a0b9ef97e972444f90f48d3c2f",
+  "packet_sha256": "2ac5f66ed17e2f8eeb7fbd6c06d2dd05c99ddb11bac19d5286beee92b562be13",
+  "input_digest_sha256": "b9a2c976eb660a25fecf40200ee945f26bda50bed0b58fa3189233119f6a1934",
+  "input_versions": [
+    {
+      "id": "content/production/cg-manifests/opening-ch1-com02x-walk.json",
+      "location": "content/production/cg-manifests/opening-ch1-com02x-walk.json",
+      "version": "e082a691e4f7cf0436610d955662b4e4ee57d2b505299b5195cd4fec521f8df3"
+    },
+    {
+      "id": "content/production/runs/com02x-cg-20260930/VQA-COM02X-WALK-003.decision.json",
+      "location": "content/production/runs/com02x-cg-20260930/VQA-COM02X-WALK-003.decision.json",
+      "version": "460d1ec15ba572db9ad63502c444677628479ef8b177ca57570edcffaa9f32c1"
+    },
+    {
+      "id": "content/production/runs/com02x-cg-20260930/RENDER-COM02X-WALK-003-RECOVERY.decision.json",
+      "location": "content/production/runs/com02x-cg-20260930/RENDER-COM02X-WALK-003-RECOVERY.decision.json",
+      "version": "7fa8a923b6c593a01e08e919a1c09e39cf779008ab0c1722649b6185fa184fb4"
+    },
+    {
+      "id": "content/production/runs/com02x-cg-20260930/HUMAN-COM02X-WALK-ANGLE-002.decision.json",
+      "location": "content/production/runs/com02x-cg-20260930/HUMAN-COM02X-WALK-ANGLE-002.decision.json",
+      "version": "e0cc8196419d55cc31b21d684d7c0319a08bea2af03180559a7487c34d3c6bbb"
+    },
+    {
+      "id": "COM02X-WALK-01-CANDIDATE-003",
+      "location": "candidate:COM02X-WALK-01:v3",
+      "version": "a1aa0d08023cc19a42b3c9260bca732059e77eb5dd37c8578afb82bd7dd82400"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "accepted-master:COM02X-WALK-01:v3",
+      "version": "a1aa0d08023cc19a42b3c9260bca732059e77eb5dd37c8578afb82bd7dd82400",
+      "location": "candidate:COM02X-WALK-01:v3"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "master adoption from latest application request",
+      "code": "HUMAN-APPLICATION-DIRECTIVE",
+      "result": "PASS"
+    },
+    {
+      "name": "original independent visual QA",
+      "code": "VQA-COM02X-WALK-003",
+      "result": "FAIL"
+    }
+  ],
+  "known_issues": [
+    "User directive: 你可能要再檢查一次便利店後半跟回家的圖，過劇情的時候沒有正確的套用。",
+    "Adoption records latest application request for the current displayed perpendicular-street v3; no new literal PASS quote.",
+    "Exact original 1672x941 master adopted as-is. Independent QA minimum1920 failure and inherited lower dialogue-safe-zone review are preserved; no redraw/upscale or global-standard waiver.",
+    "Earlier v1 woman-only approval and rejected v2 street orientation remain historical decisions. This adoption scope is exact v3 hash only."
+  ],
+  "human_gate_required": "none",
+  "invalidates": []
+}

@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "com02x-cg-20260930",
+  "task_id": "RENDER-COM02X-WALK-003-RECOVERY",
+  "scene_id": "COM-02X",
+  "task_type": "cg_render",
+  "status": "PASS",
+  "workflow_version": "1.3.0",
+  "harness": {
+    "id": "cg_renderer",
+    "version": "1.0.0",
+    "pass": null
+  },
+  "source_ref": "5d86f612601236292d20d653335be8da7d0892cc",
+  "packet_sha256": "99ade0ec24e9f7468514dd018f15c0155081a11f298839da0f4fc46c46bd1e51",
+  "handoff_sha256": "284e6db63595c314ab8946279d3e55a45b2e4881518453a1f489e41295ec5111",
+  "input_versions": [
+    {
+      "id": "renderer-session-evidence",
+      "version": "2dd2eed780af4487b88240cdd1a9e532cd91a37db65933e7ff990a91eba6f947",
+      "location": "generated/session-cache/com02x-cg-20260930/RENDER-COM02X-WALK-003.recovery-evidence.json"
+    },
+    {
+      "id": "prior-blocked-handoff",
+      "version": "f270a5634d0070de6778bd5d4bb93ee47bbafc28b45112ad6edf8a6f7314822f",
+      "location": "generated/session-cache/com02x-cg-20260930/RENDER-COM02X-WALK-003.blocked.handoff.json"
+    },
+    {
+      "id": "prior-blocked-decision",
+      "version": "9bfb9c9168c116eb3cd1c12b9848cd8c360e1e8f73438340a8ce0a06b82c110a",
+      "location": "content/production/runs/com02x-cg-20260930/RENDER-COM02X-WALK-003.decision.json"
+    },
+    {
+      "id": "original-renderer-png",
+      "version": "a1aa0d08023cc19a42b3c9260bca732059e77eb5dd37c8578afb82bd7dd82400",
+      "location": "/Users/tsungmingliu/.codex/generated_images/01a0f9b6-5d18-7390-824f-4859b309f40f/exec-e91d0692-d5e3-4dea-b6f7-5f54749e44fc.png"
+    },
+    {
+      "id": "session-metadata-audit",
+      "version": "a57beab9e0280de4f1a7f2777783051eb169e3ca8f61f73397f54efef2c50d93",
+      "location": "/Users/tsungmingliu/.codex/sessions/2026/10/01/rollout-2026-10-01T19-04-33-01a0f9b6-5d18-7390-824f-4859b309f40f.jsonl"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "COM02X-WALK-01-CANDIDATE-003",
+      "version": "a1aa0d08023cc19a42b3c9260bca732059e77eb5dd37c8578afb82bd7dd82400",
+      "location": "/Users/tsungmingliu/Documents/Codex/2026-09-30/com02x-cg-production/outputs/com02x-walk-candidate-v3.png"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "session_identity_and_agent_path_match_preserved_proof",
+      "result": "PASS"
+    },
+    {
+      "name": "single_bound_invocation_and_artifact_within_call_interval",
+      "result": "PASS"
+    },
+    {
+      "name": "exact_session_namespace_contains_only_one_png",
+      "result": "PASS"
+    },
+    {
+      "name": "original_hash_matches_packet_and_recovery_proof",
+      "result": "PASS"
+    },
+    {
+      "name": "destination_copy_is_byte_identical_to_original",
+      "result": "PASS"
+    },
+    {
+      "name": "png_format_and_actual_dimensions",
+      "result": "PASS"
+    },
+    {
+      "name": "initial_blocked_failure_evidence_unchanged",
+      "result": "PASS"
+    },
+    {
+      "name": "lost_raw_output_hint_honestly_recorded_as_unavailable",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "No visual QA performed; no accepted-master or Human acceptance claim. Initial BLOCKED handoff and decision remain unchanged."
+  ],
+  "human_gate": "none"
+}

@@ -9,6 +9,7 @@
     "test": "node --test tests/*.test.mjs",
     "validate": "node tools/check-session-cache.mjs && node tools/validate-content.mjs && node tools/validate-production-contracts.mjs",
     "validate:final": "node tools/validate-content.mjs --final-visuals && node tools/validate-production-contracts.mjs",
+    "production:storage:check": "node tools/production-storage.mjs",
     "production:validate": "node tools/validate-production-contracts.mjs",
     "production:review": "node tools/production-review.mjs",
     "production:impact": "node tools/production-impact.mjs",
@@ -24,6 +25,7 @@
     "assets:plan": "node tools/asset-plan.mjs",
     "cg:packet": "node tools/render-cg-packets.mjs",
     "context": "node tools/context.mjs",
+    "cg:references": "node tools/character-references.mjs",
     "scratch:check": "node tools/check-session-cache.mjs",
     "context:poc": "node tools/compile-review-context.mjs",
     "context:benchmark": "node tools/benchmark-review-context.mjs"

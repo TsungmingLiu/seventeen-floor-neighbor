@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "lifecycle": "CANONICAL",
+  "characters": {
+    "xu_tang": {
+      "sheets": {
+        "face.01": "ref.xu_tang.face.01",
+        "expression.02": "ref.xu_tang.expression.02",
+        "body.03": "ref.xu_tang.body.03",
+        "production.04": "ref.xu_tang.production.04",
+        "wardrobe.a": "ref.xu_tang.wardrobe.a",
+        "wardrobe.b": "ref.xu_tang.wardrobe.b"
+      },
+      "wardrobes": {
+        "XT-WARDROBE-A-WEEKDAY-NEIGHBOR": {
+          "sourceId": "ref.xu_tang.wardrobe.a",
+          "look": "Weekday Neighbor"
+        },
+        "XT-WARDROBE-A-LATE-NIGHT-CONVENIENCE-STORE": {
+          "sourceId": "ref.xu_tang.wardrobe.a",
+          "look": "Late-night Convenience Store"
+        },
+        "XT-WARDROBE-A-BOOKSTORE-CAFE-DATE": {
+          "sourceId": "ref.xu_tang.wardrobe.a",
+          "look": "Bookstore / Café Date"
+        },
+        "XT-WARDROBE-A-WEEKEND-NIGHT-OUT": {
+          "sourceId": "ref.xu_tang.wardrobe.a",
+          "look": "Weekend / Night Out"
+        },
+        "XT-WARDROBE-B-RIVERSIDE-RAINY-DATE": {
+          "sourceId": "ref.xu_tang.wardrobe.b",
+          "look": "Riverside / Rainy Date"
+        },
+        "XT-WARDROBE-B-WORK-DEADLINE-HOME": {
+          "sourceId": "ref.xu_tang.wardrobe.b",
+          "look": "Work / Deadline Home"
+        },
+        "XT-WARDROBE-B-REPAIR-ENDING-SERIOUS-DATE": {
+          "sourceId": "ref.xu_tang.wardrobe.b",
+          "look": "Repair / Ending / Serious Date"
+        },
+        "XT-WARDROBE-B-AFTER-STORY-WEEKEND-MORNING": {
+          "sourceId": "ref.xu_tang.wardrobe.b",
+          "look": "After Story / Weekend Morning"
+        },
+        "xu_tang_grey_home_sweater_casual_evening": {
+          "sourceId": "ref.xu_tang.wardrobe.a",
+          "look": "Late-night Convenience Store"
+        }
+      }
+    },
+    "jiang_yucheng": {
+      "sheets": {
+        "face.01": "ref.jiang_yucheng.face.01",
+        "expression.02": "ref.jiang_yucheng.expression.02",
+        "body.03": "ref.jiang_yucheng.body.03",
+        "production.04": "ref.jiang_yucheng.production.04",
+        "wardrobe.a": "ref.jiang_yucheng.wardrobe.a",
+        "wardrobe.b": "ref.jiang_yucheng.wardrobe.b"
+      },
+      "wardrobes": {
+        "JYC-WARDROBE-A-CAMPUS-GRADUATE-STUDENT": {
+          "sourceId": "ref.jiang_yucheng.wardrobe.a",
+          "look": "Campus / Graduate Student"
+        },
+        "JYC-WARDROBE-A-CAFE-CREATOR": {
+          "sourceId": "ref.jiang_yucheng.wardrobe.a",
+          "look": "Café / Creator"
+        },
+        "JYC-WARDROBE-A-ACG-OUTING": {
+          "sourceId": "ref.jiang_yucheng.wardrobe.a",
+          "look": "ACG Outing"
+        },
+        "JYC-WARDROBE-A-GAMING-HOME-CASUAL": {
+          "sourceId": "ref.jiang_yucheng.wardrobe.a",
+          "look": "Gaming / Home Casual"
+        },
+        "JYC-WARDROBE-B-CUTE-DATE": {
+          "sourceId": "ref.jiang_yucheng.wardrobe.b",
+          "look": "Cute Date"
+        },
+        "JYC-WARDROBE-B-CREATOR-EVENT": {
+          "sourceId": "ref.jiang_yucheng.wardrobe.b",
+          "look": "Creator Event"
+        },
+        "JYC-WARDROBE-B-SIGNATURE-CAMPUS": {
+          "sourceId": "ref.jiang_yucheng.wardrobe.b",
+          "look": "Signature Campus"
+        },
+        "JYC-WARDROBE-B-AFTER-STORY-WEEKEND-MORNING": {
+          "sourceId": "ref.jiang_yucheng.wardrobe.b",
+          "look": "After Story / Weekend Morning"
+        }
+      }
+    }
+  }
+}

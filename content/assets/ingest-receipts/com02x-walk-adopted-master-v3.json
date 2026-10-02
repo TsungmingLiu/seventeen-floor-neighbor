@@ -1,0 +1,128 @@
+{
+  "receiptVersion": 1,
+  "receiptType": "human-adopted-master-batch",
+  "runId": "com02x-visual-bindings-20261001",
+  "taskId": "INTEGRATE-COM02X-VISUAL-BINDINGS-006",
+  "sceneId": "COM-02X",
+  "integrationMode": "final",
+  "humanDecision": {
+    "id": "HUMAN-COM02X-WALK-ADOPTION-003",
+    "path": "content/production/runs/com02x-visual-bindings-20261001/HUMAN-COM02X-WALK-ADOPTION-003.decision.json",
+    "sha256": "bb85fc36688bef43097da0a147bf70f061c5eb9091f4def5b19176b0e8c1139e",
+    "status": "HUMAN_ACCEPTED_AS_IS",
+    "disposition": "ACCEPTED_AS_IS",
+    "qaHistoryPreserved": true,
+    "scope": "Latest application request adopts only exact current walking-v3 PNG; no new literal Human PASS quote or VQA PASS."
+  },
+  "assets": [
+    {
+      "sourceId": "source.com02x.walk-v3",
+      "entryId": "COM02X-WALK-01",
+      "logicalId": "cg.opening.com02x.walk_home",
+      "canonicalId": "CG-COM02X-WALK-01",
+      "filename": "com02x-walk-candidate-v3.png",
+      "masterPath": "assets-src/opening-ch1-demo/com02x-walk-candidate-v3.png",
+      "runtimePath": "assets/opening-ch1-demo/com02x-walk-v3.webp",
+      "derivativePath": "assets-src/opening-ch1-demo/com02x-walk-v3.webp",
+      "width": 1672,
+      "height": 941,
+      "mimeType": "image/png",
+      "sha256": "a1aa0d08023cc19a42b3c9260bca732059e77eb5dd37c8578afb82bd7dd82400",
+      "bytes": 2482226,
+      "derivativeSha256": "5e575a70762c09fdc958333f51ea8b1f12b20109d90ca22e224e66be38accbfd",
+      "derivativeBytes": 307308,
+      "humanDecisionSha256": "a1aa0d08023cc19a42b3c9260bca732059e77eb5dd37c8578afb82bd7dd82400",
+      "humanDisposition": "ACCEPTED_AS_IS",
+      "visualQaStatus": "FAIL",
+      "visualQaReceipt": "content/production/runs/com02x-cg-20260930/VQA-COM02X-WALK-003.decision.json",
+      "acceptedKnownIssues": [
+        "FAIL: candidate is 1672x941, below the required 1920x1080 master minimum.",
+        "NEEDS_REVIEW: lower crop and dialogue-safe region remain occupied by the inherited shorts/tote/checkout-bag crop; no subject adjustment is authorized here."
+      ],
+      "derivativeTransform": "Pillow 12.3.0: WEBP quality=88, method=6, lossless=false; exact dimensions preserved"
+    }
+  ],
+  "renderProvenance": {
+    "recoveryReceipt": {
+      "path": "content/production/runs/com02x-cg-20260930/RENDER-COM02X-WALK-003-RECOVERY.decision.json",
+      "sha256": "7fa8a923b6c593a01e08e919a1c09e39cf779008ab0c1722649b6185fa184fb4"
+    },
+    "candidateSha256": "a1aa0d08023cc19a42b3c9260bca732059e77eb5dd37c8578afb82bd7dd82400",
+    "preAdoptionManifestRawSha256": "e082a691e4f7cf0436610d955662b4e4ee57d2b505299b5195cd4fec521f8df3",
+    "originalGenerationHashes": "Unmodified in original recorded rendering evidence; adoption does not replace generation identities."
+  },
+  "visualQa": {
+    "path": "content/production/runs/com02x-cg-20260930/VQA-COM02X-WALK-003.decision.json",
+    "sha256": "460d1ec15ba572db9ad63502c444677628479ef8b177ca57570edcffaa9f32c1",
+    "status": "FAIL",
+    "checks": [
+      {
+        "name": "declared_source_identity_and_visible_pixels",
+        "result": "PASS"
+      },
+      {
+        "name": "street_orientation_perpendicular",
+        "result": "PASS"
+      },
+      {
+        "name": "woman_identity_expression_pose_placement_scale_framing_retained",
+        "result": "PASS"
+      },
+      {
+        "name": "wardrobe_hands_props_gaze_and_story_beat",
+        "result": "PASS"
+      },
+      {
+        "name": "street_location_time_lighting_material_and_physical_coherence",
+        "result": "PASS"
+      },
+      {
+        "name": "photographic_pbr_style_and_focus",
+        "result": "PASS"
+      },
+      {
+        "name": "aspect_ratio_16_9",
+        "result": "PASS"
+      },
+      {
+        "name": "candidate_master_minimum_1920x1080",
+        "result": "FAIL"
+      },
+      {
+        "name": "dialogue_safe_zone_and_full_viewport_crop",
+        "result": "NEEDS_REVIEW"
+      }
+    ]
+  },
+  "runtimeCoverage": {
+    "firstNodeId": "common_convenience_xu_checkout_04",
+    "lastNodeId": "common_convenience_xu_checkout_13",
+    "nodeIds": [
+      "common_convenience_xu_checkout_04",
+      "common_convenience_xu_checkout_05",
+      "common_convenience_xu_checkout_06",
+      "common_convenience_xu_checkout_07",
+      "common_convenience_xu_checkout_08",
+      "common_convenience_xu_checkout_09",
+      "common_convenience_xu_checkout_10",
+      "common_convenience_xu_checkout_11",
+      "common_convenience_xu_checkout_12",
+      "common_convenience_xu_checkout_13"
+    ],
+    "cutawayBeforeNodeId": "common_convenience_xu_checkout_03",
+    "cutawayAfterNodeId": "common_convenience_xu_checkout_14",
+    "memoryEventId": "mem.opening.ch1.convenience-xu",
+    "memoryCoreUnchanged": true
+  },
+  "derivativeBuild": {
+    "tool": "Pillow",
+    "version": "12.3.0",
+    "format": "WEBP",
+    "quality": 88,
+    "method": 6,
+    "lossless": false,
+    "dimensionPolicy": "exactly preserve input dimensions",
+    "runtimeBuild": "tools/build-assets.mjs copies registered derivative byte-for-byte",
+    "fallbackReason": "Host ffmpeg lacks libwebp encoder; asset-ingest failed before writing derivative or receipt."
+  }
+}
