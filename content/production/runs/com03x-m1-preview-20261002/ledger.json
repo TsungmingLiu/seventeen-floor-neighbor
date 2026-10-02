@@ -6,9 +6,9 @@
   "source_ref": "f89e3a9c9b35c0d354c70fd8dd252d5b6107544e",
   "human_request": {
     "summary": "Start M1 with COM-03X design, dialogue, independent QA and playable narrative preview; update PR44.",
-    "gate_status": "M1 work authorized; later Human narrative preview review pending"
+    "gate_status": "M1 work authorized; COM03X Human narrative preview story review pending"
   },
-  "status": "ACTIVE",
+  "status": "NARRATIVE_PREVIEW_READY",
   "tasks": [
     {
       "task_id": "NQA-COM03X-001",
@@ -78,7 +78,7 @@
       },
       "decision_receipt": "content/production/runs/com03x-m1-preview-20261002/INT-COM03X-FIXTURES-004.decision.json",
       "human_gate": "narrative_preview_review",
-      "reason": "Focused fixture correctionPASS; clean fullCI and public deployment pending."
+      "reason": "Focused fixture correction10/10PASS; subsequent clean Verify656 at d4ab4bd0ffc4bec97f81ad288a52194bc3a883bd completed172/172, resolving earlier unit gate. New runtime/creative bytes unchanged; publication evidence in preview."
     }
   ],
   "invalidation_events": [
@@ -106,15 +106,24 @@
     }
   ],
   "preview": {
-    "commit": "f89e3a9c9b35c0d354c70fd8dd252d5b6107544e",
+    "commit": "d4ab4bd0ffc4bec97f81ad288a52194bc3a883bd",
     "profile": "narrative_preview; Chromium1280x720/DPR1; existing320px and1440px controls/title cases",
-    "visibility": "local; public deployment pending",
+    "visibility": "public",
     "build": "PASS22/22media; treeSHA25687f0785a19cea894611d839c1e762bd845e070a0c008ee0da33ddaf6b1b3a10a",
     "validation": "PASS322nodes/6contracts/18entries",
-    "tests": "Full172:169PASS3FAIL; corrected affected suites10/10PASS; clean fullCI pending",
+    "tests": "Clean Node22 Verify656:172/172PASS,0FAIL; local historical169/172 plus focused10/10 recorded separately",
     "browser": "26 unique casesPASS across original23and corrected3; exact runtime unchanged",
     "smoke": "PASS6checks on available4188; local HTTP8/8bytes match",
     "human_story_review": "PENDING",
-    "final_art": "PENDING"
+    "final_art": "PENDING",
+    "runtime_source_ref": "f89e3a9c9b35c0d354c70fd8dd252d5b6107544e",
+    "url_or_access_path": "https://7410c7f4.seventeen-floor-neighbor.pages.dev/",
+    "stable_url": "https://pr-44.seventeen-floor-neighbor.pages.dev/",
+    "ci_run_id": 37056543566,
+    "ci_verify_job_id": 111002534155,
+    "ci_deploy_job_id": 111006224696,
+    "ci_url": "https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/37056543566",
+    "deployed_smoke": "PASS: homepage/deep-link and runtime files fetched, cmp against verified CI artifact",
+    "publication_result": "Verify and deployment jobs success at exact d4ab4bd head; current metadata rollup does not alter tested runtime"
   }
 }
