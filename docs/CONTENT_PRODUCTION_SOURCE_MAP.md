@@ -19,6 +19,7 @@
 | --- | --- | --- | --- |
 | Workflow entry | `.ai/WORKFLOW_MANIFEST.yaml` | pipeline routing、active harness/schema registry、execution defaults | story facts、shot content |
 | Production orchestration | `.ai/PRODUCTION_ORCHESTRATION.md` | parent control plane、DAG、invalidation、resume、playable DoD | creative production stage |
+| Temporary job artifacts | `generated/job-artifacts/<run_id>/<attempt_id>/` | ignored asynchronous job/attempt/candidate/transport/log state | canonical specification、durable acceptance |
 | Run ledger | `.ai/schemas/PRODUCTION_RUN_LEDGER.md` + `content/production/runs/<run_id>/` | GENERATED task/identity/status evidence | creative authority、worker memory |
 | Source policy | `.ai/policies/SOURCE_AUTHORITY.md` | lifecycle、precedence、conflict/read rules、fixture policy | task content |
 | Context policy | `.ai/policies/CONTEXT_ISOLATION.md` | bounded acquisition、character/scene isolation | creative decisions |
@@ -62,3 +63,5 @@ Human 參考決定保存在 content/production/voice/receipts/。刪除的回饋
 ## 3. Runtime fixture note
 
 Runtime fixtures are not production-authoring guidance. The former `content/routes/xu-tang/` package and its exclusive media have been retired; the active Opening route and CG identity references remain registered. Removing any other used fixture requires an explicit migration decision. The fixture rule lives in `.ai/policies/SOURCE_AUTHORITY.md`.
+
+Production storage boundary: `tools/production-storage.mjs` enforces compact durable source records vs ignored job artifacts. COM02X storage projection retains exact statuses/dependencies/Human gates and current walking-v3 receipts; omitted snapshots/attempt records bind to immutable Git commit/path/blob/SHA/bytes and hydrate in memory. Other bounded legacy QA records remain intact for existing context/review/run-check/impact tools. See `.ai/schemas/PRODUCTION_RUN_LEDGER.md` and `.ai/PRODUCTION_ORCHESTRATION.md` §7 for resume/retention requirements.

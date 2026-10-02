@@ -1,3 +1,4 @@
+import { validateProductionStorage } from './production-storage.mjs';
 import { validateCharacterReferencePacks } from './character-references.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -523,6 +524,7 @@ function validateOpeningMigration(manifest, catalog, gate3Receipt) {
 }
 
 export function validateProductionContracts() {
+  validateProductionStorage();
   validateActiveWorkflowBoundary();
   validateOrchestrationContract();
   const narrativeFiles = listJsonFiles(NARRATIVE_ROOT);

@@ -8,6 +8,7 @@ generated/runtime-assets/
 generated/render-packets/
 generated/asset-check-cache/
 generated/session-cache/
+generated/job-artifacts/
 generated/reviews/
 
 # OS/editor noise
@@ -20,3 +21,12 @@ generated/asset-report.json
 # Runtime output is rebuilt from tracked sources
 dist/
 .wrangler/
+
+# Temporary production records never belong in source
+content/production/**/*.packet.json
+content/production/**/*.handoff.json
+content/production/**/*.prompt.*
+content/production/**/*.api-payload.*
+content/production/**/*.log
+content/production/**/candidates/
+content/production/**/attempts/

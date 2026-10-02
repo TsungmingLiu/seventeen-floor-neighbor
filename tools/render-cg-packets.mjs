@@ -1,3 +1,4 @@
+import { assertArtifactOutputPath } from './production-storage.mjs';
 import { validateCharacterReferenceSelection } from './character-references.mjs';
 import crypto from 'node:crypto';
 import { execFileSync } from 'node:child_process';
@@ -607,6 +608,7 @@ async function main() {
   const packets = buildPackets(manifest, options);
   const output = adaptPackets(packets, options.adapter);
   if (options.outPath) {
+    assertArtifactOutputPath(options.outPath);
     fs.mkdirSync(path.dirname(options.outPath), { recursive: true });
     fs.writeFileSync(options.outPath, output);
   } else {

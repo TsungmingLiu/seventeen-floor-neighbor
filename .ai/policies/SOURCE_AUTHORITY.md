@@ -38,3 +38,7 @@ Documents use exactly these lifecycle labels：
 ## 4. Runtime fixtures
 
 Assets referenced by the manifest/source map, composite rendering, stable IDs, generic video support, and save/migration behavior remain available until intentionally migrated. The old `xu-tang` route and its exclusive assets were retired by an explicit Owner decision; its archived pointers are historical evidence, not production inputs. Removing obsolete guidance does not itself authorize deleting any other used capability or asset.
+
+## Production storage
+
+Formal CG/narrative specifications and adopted asset/QA/Human evidence remain source. Generated full job/attempt state is non-authoritative and belongs in ignored `generated/job-artifacts/`; only compact durable checkpoints/decisions may enter `content/production/runs/`. The Run Ledger schema defines legacy immutable storage projections and recovery. Hash-verified historical Git evidence is not permission to load creative history or infer a new PASS. Authorized engineering maintenance does not create a new art-production run.

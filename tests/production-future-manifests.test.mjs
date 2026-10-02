@@ -1,9 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { cp, mkdtemp, readFile, rm, mkdir, writeFile } from 'node:fs/promises';
+import { cp, mkdtemp, readFile, rm, mkdir, writeFile, realpath } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
-import { spawnSync } from 'node:child_process';
+import { spawnSync, execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 const repository = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -11,9 +11,15 @@ const sourceManifest = 'content/production/cg-manifests/opening-ch1-com01b.json'
 const injectedManifest = 'content/production/cg-manifests/future/chapter-two.json';
 
 async function isolatedRepository(t) {
-  const root = await mkdtemp(path.join(tmpdir(), 'production-future-manifest-'));
+  const root = await realpath(await mkdtemp(path.join(tmpdir(), 'production-future-manifest-')));
   t.after(() => rm(root, { recursive: true, force: true }));
-  await cp(repository, root, { recursive: true, filter: (source) => !source.includes(`${path.sep}.git`) && !source.includes(`${path.sep}node_modules`) });
+  await cp(repository, root, { recursive: true, filter: (source) => !source.split(path.sep).includes('.git') && !source.includes(`${path.sep}node_modules`) });
+  // The source boundary checks the index and immutable legacy Git objects.
+  execFileSync('git', ['-C', root, 'init', '-q']);
+  const common = execFileSync('git', ['-C', repository, 'rev-parse', '--git-common-dir'], { encoding: 'utf8' }).trim();
+  await mkdir(path.join(root, '.git/objects/info'), { recursive: true });
+  await writeFile(path.join(root, '.git/objects/info/alternates'),
+    `${path.resolve(repository, common)}/objects\n`);
   return root;
 }
 
