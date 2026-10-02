@@ -1,0 +1,158 @@
+{
+  "schema_version": "1.0.0",
+  "scene_id": "COM-02J",
+  "lifecycle": "CANONICAL",
+  "source_scene": "docs/narrative/scenes/vertical-slice/COM-02J.md",
+  "entry_state": {
+    "relationships": [
+      {
+        "subject": "jiang_yucheng",
+        "toward": "protagonist",
+        "label": "strangers_with_specific_shared_context",
+        "constraints": [
+          "只在地下街聊過一次，確認他有具體作品判斷；尚未交換姓名或聯絡方式。"
+        ]
+      },
+      {
+        "subject": "protagonist",
+        "toward": "jiang_yucheng",
+        "label": "strangers_with_specific_shared_context",
+        "constraints": [
+          "能以《逆光航路》與上次 topic 認出她；記得咖啡店推薦，但沒有相約或來找她。"
+        ]
+      }
+    ],
+    "knowledge": [
+      {
+        "holder": "jiang_yucheng",
+        "knows": [
+          "男主看過舊版，兩人有一次具體作品討論。"
+        ],
+        "does_not_know": [
+          "男主姓名、精確職業與住處。"
+        ]
+      },
+      {
+        "holder": "protagonist",
+        "knows": [
+          "她對作品或版本有具體判斷；北邊出口有適合安靜工作的咖啡店。"
+        ],
+        "does_not_know": [
+          "江雨澄姓名、職業、住處與匿名創作身份。"
+        ]
+      }
+    ],
+    "constraints": [
+      "COM-01J 已完成，met_jiang_yucheng 與 heard_station_cafe_from_jyc 為 true，contact_jyc 尚未成立。",
+      "Week 2 平日下午，男主因附近行程後、遠端會議前需要插座與安靜座位而進店；即使她不在，進店理由也成立。"
+    ]
+  },
+  "scene_function": [
+    "以 COM-01J 的實用推薦建立咖啡店重逢的因果，讓書架之外的共同題目延續。",
+    "讓雨澄先認出並主動招呼，正式交換姓名，呈現她談熟悉作品時的 craft、主見與小幅幽默。",
+    "以經同意的同桌各自工作與她主動回問，建立不需持續社交的第二次相處；留下 COM-03J 的作品推薦理由。"
+  ],
+  "character_intent": [
+    {
+      "character_id": "protagonist",
+      "intent": "找座位完成自己的工作；認出她後讓她決定是否開口，詢問座位與打擾與否，不把交流變成索取私人資訊。"
+    },
+    {
+      "character_id": "jiang_yucheng",
+      "intent": "完成手上的圖，也想承認記得上次能談作品的人；用共同題目主動開口，保留回到創作的節奏，並回問男主當下的工作。"
+    }
+  ],
+  "player_information_gain": [
+    "雙方本幕才正式知道姓名；她主動完成第二次接觸。",
+    "她在畫圖，對角色輪廓、重心、色彩或畫面閱讀有實際判斷；具體題目能讓她說得更多，普通稱讚也可接成小幅幽默。",
+    "她可以自在地與男主各自工作，不需要他持續填補沉默；她也會主動問他具體的事。"
+  ],
+  "emotional_arc": [
+    "實用推薦帶男主進店工作，意外認出她專注創作的狀態。",
+    "她猶豫後以共同作品打招呼，姓名交換讓彼此成為能記住的人。",
+    "經同意坐下，依 topic 進入具體討論或普通稱讚的小笑點，再回到各自工作。",
+    "她主動回問，男主因會議離開；以知道姓名、仍可各自退出的熟悉度收束。"
+  ],
+  "required_payoffs": [
+    "咖啡店因果、她先打招呼、姓名交換與座位同意在所有路徑成立。",
+    "保留既有 common_station_cafe_jyc_* node 與三個 com02j_* choice 身份；三項都能形成正常互動，差異是 connection texture。",
+    "com02j_ask_drawing 保留具體且可猜錯的問題與她回問；com02j_continue_topic 依 jyc_first_topic 只顯示相應 callback；com02j_simple_praise 保留她的圖層 self-edit humor，不變成懲罰。",
+    "三條分支回到 common_station_cafe_jyc_parallel，經十幾分鐘各自工作，再由她主動問男主可攜工作的具體問題。",
+    "姓名、看過創作與她主動接觸的 knowledge flags 在離場成立；COM-03J 的後續理由可由共同作品承接，本幕不交換聯絡方式。"
+  ],
+  "exit_state": {
+    "relationships": [
+      {
+        "subject": "jiang_yucheng",
+        "toward": "protagonist",
+        "label": "acquaintances_with_specific_shared_context",
+        "constraints": [
+          "知道姓名，主動打過招呼與回問，能同桌各自工作；尚非約會、親密或浪漫承諾。"
+        ]
+      },
+      {
+        "subject": "protagonist",
+        "toward": "jiang_yucheng",
+        "label": "acquaintances_with_specific_shared_context",
+        "constraints": [
+          "知道姓名與她畫圖的具體能力，見過她在熟悉題目中的 personality；仍尊重座位、作品與私人身份邊界。"
+        ]
+      }
+    ],
+    "knowledge": [
+      {
+        "holder": "jiang_yucheng",
+        "knows": [
+          "男主姓名。",
+          "依本幕 End state，男主在科技工作、能遠端處理事情；同桌時不強迫持續聊天。"
+        ],
+        "does_not_know": [
+          "男主精確職稱、住處與未在本幕披露的私人關係。"
+        ]
+      },
+      {
+        "holder": "protagonist",
+        "knows": [
+          "江雨澄姓名。",
+          "她在 tablet 畫图，對角色／視覺設計有實際能力；具體 topic 的資訊依所選分支成立。"
+        ],
+        "does_not_know": [
+          "她的匿名帳號、商業委託、完整繪師身份與住處。"
+        ]
+      }
+    ],
+    "constraints": [
+      "沒有聯絡方式或約會承諾，romanticSignal 不變；小幅 familiarity／trust／chemistry 只記錄當次互動差異。",
+      "COM-03J 可用作品推薦承接下一次接觸；本幕不讓任何人取得未在 scene 中披露的其他角色 knowledge。"
+    ]
+  },
+  "must_not": [
+    "不得把進店寫成追她或命運硬推；不得改成男主先叫住她。",
+    "不得站在她背後偷看、碰 tablet 或要求看完整作品；不得以鼓勵天分或治好社恐取代她的主見。",
+    "不得提前交換 Discord／Line 或揭露匿名身份；jyc_creator_work_seen 只表示看過畫圖，不代表知道匿名帳號、商業委託或完整繪師身份。",
+    "不得把同桌、名字交換或 choice 的小幅數值變動當成約會或 romanticSignal；不得設置保留給 JYC-05 的 jyc_seen_in_element。",
+    "不得把她對工作可攜性的吐槽變成對男主逃避／competence mask 的心理診斷。",
+    "不得把普通稱讚做成笨蛋選項或隱藏壞答案；不得在缺 callback history 時硬顯示具體 topic，replay 使用局部 snapshot，缺歷史時遵循既有中性作品回扣。",
+    "不得改寫既有 locked script、node／choice 身份或借舊 sprite／CG planning 決定 narrative semantics。"
+  ],
+  "implementation_mapping": {
+    "runtime_only": true,
+    "flags": {
+      "requires_met_jiang_yucheng": true,
+      "requires_heard_station_cafe_from_jyc": true,
+      "forbids_contact_jyc": true,
+      "player_knows_jyc_name": true,
+      "jyc_knows_player_name": true,
+      "jyc_creator_work_seen": true,
+      "jyc_initiated_second_contact": true,
+      "jyc_second_topic": "her_art|shared_work|general_praise",
+      "F_JYC": "increment:1;additional_increment:1_if_com02j_continue_topic",
+      "T_JYC": "increment:1_if_com02j_ask_drawing",
+      "C_JYC": "increment:1_if_com02j_simple_praise",
+      "contact_jyc": false,
+      "jyc_alias_private": false,
+      "jyc_alias_exposed": false,
+      "relationship.jyc.romanticSignal": false
+    }
+  }
+}
