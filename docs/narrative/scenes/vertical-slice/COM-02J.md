@@ -158,6 +158,23 @@ Choice design notes：
 2. `com02j_continue_topic` — **依 COM-01J choice 回扣上次談過的作品細節。**
 3. `com02j_simple_praise` — **「看起來很厲害。線很乾淨。」**
 
+#### Exact display mapping — `com02j_continue_topic`
+
+上方第 2 項是製作註記，不是 UI 文案；下表鎖定實際顯示文字。只顯示一個版本，選項 ID 皆為 `com02j_continue_topic`；標籤與該版本第一句 spoken line 完全相同。
+
+| Trustworthy COM-01J topic | Exact player-facing choice label | Spoken variant |
+| --- | --- | --- |
+| `visual_design` | 「妳這張夜景，也是在處理上次說的暗部嗎？」 | `visual_design` |
+| `worldbuilding` | 「這個角色的環境，看起來也有雨港那種分區。」 | `worldbuilding` |
+| `edition_value` | 「妳自己的圖，註釋會放到看得清楚嗎？」 | `edition_value` |
+| 缺少可用的前次 topic | 「上次那套設定集，妳畫自己的圖時也會拿來參考嗎？」 | `neutral` |
+
+Selector / continuity notes（製作註記，不顯示給玩家）：
+
+- 原有三個具體 callback 只在可信的 COM-01J history 對應該 topic 時使用；缺失、無法辨認或不可信的 topic 使用下方 `neutral`，保留第二項選擇。
+- Memory replay 只讀 replay-local COM-01J topic snapshot；缺少可用的局部 topic 時也使用 `neutral`，不借目前主線的 topic 補成過去選擇。
+- 中性版本只回扣已成立的共同設定集脈絡，不指定上次選過哪一個 topic。此次選擇仍照既有 state contract 設定 `jyc_second_topic=shared_work` 並套用原有 effects；本次對話可作後續作品 callback 的真實來源，不回填或捏造 `jyc_first_topic`，也不新增 COM-03J 事實。
+
 #### Branch `com02j_ask_drawing`
 
 **Protagonist**：這幾張是在抓同一個角色的動作嗎？
@@ -211,6 +228,16 @@ Choice design notes：
 **Protagonist**：看來買錯版本也有用途。
 
 **Jiang Yucheng**：教材反面。
+
+**Variant — neutral**
+
+**Protagonist**：上次那套設定集，妳畫自己的圖時也會拿來參考嗎？
+
+**Jiang Yucheng**：會啊，像構圖、色塊怎麼放，我會翻一下。
+
+**Protagonist**：這個角色也是裡面的？
+
+**Jiang Yucheng**：不是，角色是我自己的。只是參考畫面怎麼安排。
 
 → Rejoin `common_station_cafe_jyc_parallel`
 

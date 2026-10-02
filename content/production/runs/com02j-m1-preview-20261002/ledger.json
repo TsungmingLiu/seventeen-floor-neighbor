@@ -29,14 +29,14 @@
       "task_type": "narrative_review",
       "scene_id": "COM-02J",
       "depends_on": [],
-      "status": "PASS",
+      "status": "STALE",
       "packet": {
         "generator": "manual:task-packet-schema-v1.3.0",
         "sha256": "fdfc4ca348312ad3d614f541fea64b873bf5a0afbcbe2cd65dd10159f8eac3d4"
       },
       "decision_receipt": "content/production/runs/com02j-m1-preview-20261002/NQA-COM02J-005.decision.json",
       "human_gate": "none",
-      "reason": "Exact packet and fresh worker Handoff verified at execution; output identities pinned in compact receipt."
+      "reason": "Historical PASS remains in exact8a741569 receipt; newly completed neutral callback changes Locked Scene input and requires fresh independent QA."
     },
     {
       "task_id": "INT-COM02J-PREVIEW-006",
@@ -55,6 +55,17 @@
       "reason": "Exact packet and fresh worker Handoff verified at execution; output identities pinned in compact receipt."
     }
   ],
-  "invalidation_events": [],
+  "invalidation_events": [
+    {
+      "changed_artifact_id": "locked-scene:COM-02J",
+      "old_version": "8a741569c14a62296e0c2408c31ad6010a98cbae522c5ffc4c40632b8446900e",
+      "new_version": "a217f826a9e0b0379a763518b63d1a2d985f7930a0ec1691f01327662228ffb1",
+      "affected_task_ids": [
+        "NQA-COM02J-005"
+      ],
+      "decision": "STALE",
+      "evidence": "Exact missing-neutral branch completed under immutable contract by fresh CW-COM02J-007. Prior QA receipt remains historical; new full scene requires new independent semantic review; no CG produced."
+    }
+  ],
   "preview": null
 }
