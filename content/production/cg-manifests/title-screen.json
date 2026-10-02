@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "manifest_id": "title-screen-cg-manifest",
-  "manifest_version": "1.0.0",
+  "manifest_version": "1.1.0",
   "lifecycle": "CANONICAL",
   "source_scene_ids": [
     "COM-00"
@@ -52,7 +52,7 @@
         "location_id": "BG-APT-17F-RAIN",
         "time_of_day": "rainy weeknight around 21:10; opening-environment authority only",
         "weather": "steady rain outside the glazing; dry sheltered corridor with polished floor reflections, no puddles or indoor rain",
-        "lighting": "Reference-consistent warm wall sconces and recessed ceiling practicals with cool blue rainy-city ambient spill; a restrained warmer light leaks from the slightly ajar newly moved-in apartment doorway in center-right. Keep the left foreground dim and low-contrast; preserve believable shadow direction and exposure.",
+        "lighting": "Reference-consistent warm wall sconces and recessed ceiling practicals with cool blue rainy-city ambient spill; a restrained warmer light leaks from the slightly ajar newly moved-in apartment doorway in the central portrait-safe band. Keep the left foreground dim and low-contrast; preserve believable shadow direction and exposure.",
         "persistent_props": [
           "three plain taped moving cartons beside the apartment doorway, arranged to leave the public passage clear",
           "reference dark wood residential doors, peepholes, metal handles/keycard fittings and vertical wood trim",
@@ -68,7 +68,7 @@
       },
       "camera": {
         "shot_size": "wide",
-        "angle": "level camera at approximately chest height, looking along the existing corridor toward its rainy window; restrained reference-consistent reframing to bring a residential doorway into the central-right band",
+        "angle": "level camera at approximately chest height, looking along the existing corridor toward its rainy window; restrained reference-consistent reframing to bring a residential doorway into the central portrait-safe band",
         "pov": "unoccupied environmental title view; no protagonist body, hands, over-shoulder figure or first-person limbs",
         "axis_id": "apt_17f_corridor_longitudinal_title",
         "camera_side": "inside the dry corridor, looking toward the same corridor-end glazing as the reference; no mirrored or reversed door geography",
@@ -92,15 +92,15 @@
       },
       "composition": {
         "focus": {
-          "x": 64,
+          "x": 50,
           "y": 40
         },
-        "dialogue_safe_zone": "Title UI safe region: normalized x=0..42%, y=42..100% must be calm, dim and low-detail; no boxes, primary doorway glow, bright lamps or high-contrast reflections behind separately rendered bottom-left title and buttons. For portrait cover crop, keep the lower portion of the retained central-right band subdued for stacked controls. No dialogue panel or UI is painted into the image.",
+        "dialogue_safe_zone": "Title UI safe region: normalized x=0..42%, y=42..100% keeps the quiet left foreground for separately rendered bottom-left title and buttons; primary doorway glow and cartons sit outside this desktop UI region. Preserve readability with the existing separately rendered title vignette and controls. Portrait cover crop at object-position 50% 40% retains the warm doorway and recognizable upper carton silhouette with the tested 320x568 and 320x700 stacked title/control layouts; the lower retained floor supports their existing dark overlay. No dialogue panel or UI is painted into the image.",
         "framing_notes": [
-          "Landscape 16:9 master, preferred 2560x1440 and minimum 1920x1080; exactly one full-frame image without borders",
-          "Use dark reference-consistent wall/door/floor surfaces as quiet left foreground; concentrate the warm doorway and cartons in center-right instead of the far edge",
-          "Anchor the readable doorway/light around x=60..68%, y=28..48%; place the main upper carton silhouette around x=60..69%, y=45..60%, with carton bases lower in frame. Keep essential doorway/glow and recognizable carton edges inside x=52..73%; peripheral architecture can crop",
-          "Desktop title layout covers the bottom-left. Portrait 9:16 object-fit:cover at approximately object-position 64% 40% retains roughly x=44..75% of this master: doorway light and a recognizable carton silhouette must survive there above the dense lower title controls",
+          "Landscape 16:9 master allowing normal integer-pixel rounding, at the generation tool's native output dimensions; no fixed minimum or artificial upscaling requirement. Larger native resolutions are optional when available and generation quality supports them. Preserve original native master bytes and record actual dimensions; exactly one full-frame image without borders.",
+          "Use dark reference-consistent wall/door/floor surfaces as quiet left foreground; retain the Human-selected master's warm doorway and cartons in the central portrait-safe band instead of the far edge",
+          "Retain the actual selected master framing: the narrow doorway light is around x=44%, spanning roughly y=24..76%; the three cartons occupy roughly x=46..58%, y=55..76%, with the upper carton silhouette around x=49..56%, y=55..64%. Keep readable doorway glow and recognizable carton edges in this central band; peripheral architecture can crop",
+          "Desktop title layout covers the bottom-left. Portrait object-fit:cover at object-position 50% 40% retains approximately x=34..66% at 320x568 and x=37..63% at 320x700 of the actual 1672x941 native master. Doorway light and a recognizable upper carton silhouette survive the recorded stacked title/control layouts at both tested sizes; preserve those pixels and this focus without redraw",
           "Retain the corridor-end rainy glazing, perspective rhythm, materials and practical lamp design from the sole reference; reframing may not invent a new corridor layout or move the end window to a side wall",
           "Make doorway light the first focal read and the cartons the second. Keep the city subordinate; avoid bright dramatic beams, extreme bokeh, central clutter or heavy baked vignette"
         ]
@@ -112,8 +112,8 @@
           "Preserve the reference residential-corridor character: dark wood doors/trim, stone walls and floor, warm rectangular sconces, ceiling soffit and distant glazed rainy city view",
           "Three unbranded taped moving cartons staged beside the slightly ajar apartment door, with clear circulation and physically plausible scale/contact shadows",
           "Warm interior doorway light and restrained cool rain-night ambience, with dry indoor surfaces",
-          "Clean dark bottom-left title/button safe space and crop-tolerant center-right doorway/carton motifs as specified",
-          "16:9 landscape master preferred 2560x1440; minimum 1920x1080; exactly one candidate, no collage"
+          "Clean dark bottom-left title/button safe space with separately overlaid UI, and crop-tolerant central doorway/carton motifs at the selected 50% 40% portrait focus as specified",
+          "16:9 landscape master allowing normal integer-pixel rounding at native generation dimensions; no fixed minimum or artificial upscaling. Larger native output is optional when available and quality supports it; preserve native bytes and record actual dimensions; exactly one candidate, no collage"
         ],
         "exclude": [
           "People, faces, bodies, hands, character silhouettes, portrait photos or human reflections",
@@ -148,15 +148,15 @@
       },
       "acceptance": [
         "One render_ready background entry projects to exactly one candidate; title output IDs are proposed only, not registered or accepted",
-        "Landscape 16:9, preferred 2560x1440 and minimum 1920x1080, with realistic materials and physically plausible warm/cool lighting",
+        "Landscape 16:9 allowing normal integer-pixel rounding at native generation dimensions, with no fixed minimum or artificial upscaling requirement; larger native resolutions are optional when available and quality supports them. Preserve native bytes and record actual dimensions, with realistic materials and physically plausible warm/cool lighting",
         "Sole required reference is source.opening.ch1.bg.apt_17f_rain, exact filename/MIME/SHA-256/catalog path verified and its actual pixels attached by a fresh renderer",
         "No visible human, face, limb, reflection, silhouette or character illustration anywhere",
         "Reference apartment architecture, adjacent-door geography and rainy end-window setting remain recognizable and plausible",
         "Warm doorway glow and three moving cartons convey quiet new arrival without implying interaction, invitation or gameplay progress",
         "Bottom-left title/control area stays dim and uncluttered at desktop; separately overlaid UI remains readable",
-        "Independent usability/pixel QA must inspect desktop and portrait cover crops: doorway glow plus recognizable carton silhouette remain visible in the retained center-right band; no essential object depends on an extreme edge",
+        "Independent usability/pixel QA inspects desktop and portrait cover crops: the selected native master at 50% 40% retains doorway glow plus a recognizable upper carton silhouette in the central band at the tested 320x568 and 320x700 layouts; no essential object depends on an extreme edge",
         "No embedded lettering, numbers, UI, logos, watermark or frame border",
-        "Generate one candidate without automatic retry; independent pre-render usability QA and candidate pixel QA follow, and Human accepted-master selection is still required"
+        "One candidate without automatic retry; independent usability/pixel QA and Human accepted-master selection govern adoption. For this reconciliation, explicit Human selection of the unchanged native master with tested 50% 40% portrait focus is already recorded; no redraw or renewed master selection is required. Preserve the original NEEDS_REVIEW result against the original specification"
       ]
     }
   ]
