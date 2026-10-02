@@ -98,3 +98,78 @@ ranges alone cannot prove unaffected continuity or preserved QA quality.
 
 No narrative content, runtime, CG, harness refactor, production gate changes,
 new validator framework or delta QA is part of this prototype.
+
+
+## Phase 2: paired reduction benchmark
+
+The read-only engineering experiment uses `npm run context:benchmark`. It does
+not change production packets, verifier semantics, harnesses or dispatch gates.
+It prepares four arms from the **existing bounded baseline**, with the same full
+mandatory instructions and full COM-02X candidate in every arm:
+
+- `baseline`: exact packet and the existing allowed sources/excerpts.
+- `continuity`: COM-00/COM-01X use deterministic verbatim sections: scene summary,
+  state contract, voice notes, end state and exact name/late-conversation/exit nodes.
+  Missing or duplicate headings block preparation. Original line ranges and hashes
+  are retained; there is no AI summary or inferred character fact.
+- `digest`: routing/constraints remain, but duplicate acquisition, allowlist and
+  input-version metadata is removed from the experimental worker view. Each source
+  carries its original blob, excerpt ranges and supplied-content hash once. The
+  exact unchanged base packet remains in scratch for machine verification.
+- `combined`: both projections.
+
+Existing validator success output is already short. No additional validator-log
+saving is claimed in this experiment, and no synthetic verbose log is introduced
+as a convenient baseline. Full errors/events stay in scratch; the runner prints
+only completion/status/usage. Worker tools are forbidden in **both** arms so tool
+round-trip reduction is not tested here.
+
+```sh
+npm run context:benchmark -- --prepare --run-id trial-01 --base <base-commit> --ref <source-commit>
+# Explicitly runs 12 fresh model sessions and consumes account usage:
+npm run context:benchmark -- --run --run-id trial-01
+node tools/review-quota-trial.mjs --run-id trial-01
+```
+
+`--prepare` is deterministic and makes no model calls. Output is exclusive-created
+under `generated/session-cache/quota-benchmark/<run-id>/`. It contains 24 generated
+inputs, one common instruction file, an exact base packet, schema, source audit,
+measurement manifest and a hidden scoring key. Only fixture **recipes** are tracked.
+Preparation validates actual canonical content first. Experimental candidates do
+not pass themselves off as canon or production-verifier-approved rewrites.
+
+`--run` checks every prepared byte against a rebuild before spending quota, uses
+saved CLI authentication without reading/copying auth credentials, and preserves
+user-configured model/reasoning settings. It records these settings/CLI version,
+checks config drift, runs one isolated read-only ephemeral session per case/arm,
+interleaves order and stops on any failure, malformed answer, scope expansion or
+missing usage. No automatic retry and no continuation of a previous worker.
+The model's single-turn JSONL usage includes system/tool-schema overhead. Cached
+input is a subset of input tokens; reasoning output is recorded separately as
+reported, never added a second time to total input + output. Missing fields remain
+missing, not fabricated zeroes. One run ID cannot overwrite a prior trial.
+
+The six opaque cases are original, harmless local wording, contact-knowledge leak,
+premature romance, a branch bypassing shared required payoffs, and repeated unnatural
+formal dialogue. Workers never receive case labels, gold expectations, audit,
+comparison table, usage results or answers from other workers. Canonical scenes,
+continuity JSON, game/runtime and other worktrees are never mutated. Fixtures are
+semantic probes; production validators validate the base canon, not their injected
+prose. This is not delta QA or a new production validator.
+
+Three known hard errors are scored by category, severity and affected node/branch
+with nonempty evidence/reason; misses remain misses rather than relabeling the
+probe after seeing results. Original/harmless hard findings are **false-positive
+candidates**, requiring adjudication, not automatically declared false positives.
+The naturalism probe remains advisory/Human-scored. The threshold is all hard
+probes detected in both arms plus at least 20% median total-token reduction.
+Even meeting that mechanical threshold does not approve adoption: independent
+Human blind comparison must confirm quality and absence of new material false
+positives. The generated blind HTML shows candidate text and X/Y answers without
+arm identity, usage or gold. Record Human judgment separately; never invent it.
+
+A single pair per case is a pilot, not a statistical quality or quota guarantee.
+Report cumulative and per-case tokens, cached/reasoning counts, elapsed time,
+misses and control findings. Subscription quota reduction remains unmeasured.
+Keep all raw outputs and blind label keys ignored. Record only reusable tooling,
+regeneration instructions and a concise outcome in the PR.

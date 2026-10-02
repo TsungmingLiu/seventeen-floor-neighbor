@@ -106,26 +106,34 @@ export async function compileReviewContext({ root = defaultRoot, sceneId = 'COM-
   return { packetBody, worker, metrics };
 }
 
-export async function writeReviewContext(result, { root = defaultRoot } = {}) {
+export async function writeScratchFiles(relative, files, { root = defaultRoot } = {}) {
+  if (!relative.startsWith(`${scratchRoot}/`) || relative.split('/').some((part) => !/^[a-zA-Z0-9_-]+$/.test(part)) ||
+      files.some(([name]) => !/^[a-zA-Z0-9_.-]+$/.test(name) || name === '.' || name === '..')) {
+    throw new Error('invalid scratch destination');
+  }
   await checkSessionCache(root);
   // There is deliberately no arbitrary --out option. Reject every symlink in
   // the output path so an ignored directory cannot redirect writes into canon.
   root = path.resolve(root);
   if (await realpath(root) !== root) throw new Error('output root is a symlink');
-  const relative = `${scratchRoot}/quota-poc/${result.metrics.scene_id}`;
   let current = root;
   for (const component of relative.split('/')) {
     current = path.join(current, component);
     try { await mkdir(current); } catch (error) { if (error.code !== 'EEXIST') throw error; }
     if (!(await lstat(current)).isDirectory() || await realpath(current) !== current) throw new Error('scratch directory is a symlink or non-directory');
   }
-  for (const [name, content] of [['task.packet.json', result.packetBody], ['worker-input.md', result.worker],
-    ['metrics.json', `${JSON.stringify(result.metrics, null, 2)}\n`]]) {
+  for (const [name, content] of files) {
     // Exclusive creation refuses existing files, symlinks and hard links.
     // Rebuild into an empty cache rather than truncating any existing target.
     await writeFile(path.join(current, name), content, { flag: 'wx' });
   }
   return relative;
+}
+
+export async function writeReviewContext(result, options = {}) {
+  return writeScratchFiles(`${scratchRoot}/quota-poc/${result.metrics.scene_id}`,
+    [['task.packet.json', result.packetBody], ['worker-input.md', result.worker],
+      ['metrics.json', `${JSON.stringify(result.metrics, null, 2)}\n`]], options);
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
