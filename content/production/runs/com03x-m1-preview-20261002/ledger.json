@@ -6,7 +6,7 @@
   "source_ref": "f89e3a9c9b35c0d354c70fd8dd252d5b6107544e",
   "human_request": {
     "summary": "Start M1 with COM-03X design, dialogue, independent QA and playable narrative preview; update PR44.",
-    "gate_status": "M1 work authorized; COM03X Human narrative preview story review pending"
+    "gate_status": "COM03X Human narrative preview story/dialogue PASS; continue M1 COM02J work authorized"
   },
   "status": "NARRATIVE_PREVIEW_READY",
   "tasks": [
@@ -114,7 +114,7 @@
     "tests": "Clean Node22 Verify656:172/172PASS,0FAIL; local historical169/172 plus focused10/10 recorded separately",
     "browser": "26 unique casesPASS across original23and corrected3; exact runtime unchanged",
     "smoke": "PASS6checks on available4188; local HTTP8/8bytes match",
-    "human_story_review": "PENDING",
+    "human_story_review": "PASS: HUMAN-COM03X-STORY-005; original public preview d4ab4bd",
     "final_art": "PENDING",
     "runtime_source_ref": "f89e3a9c9b35c0d354c70fd8dd252d5b6107544e",
     "url_or_access_path": "https://7410c7f4.seventeen-floor-neighbor.pages.dev/",
@@ -125,5 +125,14 @@
     "ci_url": "https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/37056543566",
     "deployed_smoke": "PASS: homepage/deep-link and runtime files fetched, cmp against verified CI artifact",
     "publication_result": "Verify and deployment jobs success at exact d4ab4bd head; current metadata rollup does not alter tested runtime"
-  }
+  },
+  "human_decisions": [
+    {
+      "task_id": "HUMAN-COM03X-STORY-005",
+      "status": "PASS",
+      "scope": "narrative_preview_review only",
+      "decision_receipt": "content/production/runs/com03x-m1-preview-20261002/HUMAN-COM03X-STORY-005.decision.json",
+      "source_ref": "d4ab4bd0ffc4bec97f81ad288a52194bc3a883bd"
+    }
+  ]
 }
