@@ -222,9 +222,9 @@ Choice design notes：
 
 **Jiang Yucheng**：還沒畫完。現在看起來乾淨，是因為我把亂的圖層關掉了。
 
-**Protagonist**：那我剛好在正確的時間看到。
+**Protagonist**：我剛剛還以為快畫完了。
 
-**Jiang Yucheng**：大概三十秒後就不是了。
+**Jiang Yucheng**：沒有，還早。
 
 **Action**：她重新打開參考圖層，畫面變得複雜；她沒有急著證明自己。
 
@@ -246,25 +246,25 @@ Choice design notes：
 
 **Jiang Yucheng**：你的工作都可以這樣帶著走？
 
-**Protagonist**：大部分。好處是在哪裡都能做。
+**Protagonist**：大部分。我在科技公司工作，像剛剛那些就能在外面處理。
 
-**Jiang Yucheng**：壞處也是？
+**Jiang Yucheng**：那你回家是不是也在做？
 
-**Protagonist**：也會跟著回家。
+**Protagonist**：嗯，有時候回家還是會打開電腦。
 
-**Jiang Yucheng**：那確實不只一個好處。
+**Jiang Yucheng**：那好像也沒比較輕鬆。
 
 **Semantic Visual Beat**：雨澄抬頭回問工作能否帶著走，語氣帶一點輕吐槽。
 
 ### `common_station_cafe_jyc_exit`
 
-**Protagonist**：我得進會議了。今天謝謝妳分桌子。
+**Protagonist**：我得去開會了。今天謝謝妳讓我坐這裡。
 
-**Jiang Yucheng**：這本來也不是我的桌子。
+**Jiang Yucheng**：不會，反正有空位。
 
-**Protagonist**：那謝謝妳沒有趕人。
+**Protagonist**：嗯。那妳慢慢畫，我先走了。
 
-**Jiang Yucheng**：店員也沒有。
+**Jiang Yucheng**：好。
 
 **Action**：男主背起 laptop bag。雨澄把 stylus 放回筆槽。
 
