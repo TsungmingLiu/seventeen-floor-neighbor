@@ -191,3 +191,61 @@ source-map changes, while narrative writer/QA harnesses and target prose are
 unchanged. A deterministic comparison is not a second measured model trial.
 Reusing the latest `production:storage:check` complements the narrower session
 cache guard; neither check creates or advances a production run.
+
+## Phase 3: conservative delta QA experiment
+
+`context:delta:poc` reuses the Phase 2 combined projection as its full-review
+comparator, not the larger original baseline. Full mandatory instructions, contract,
+immediate continuity, state/voice/end-state evidence remain in both arms.
+It never edits canon, runtime, harnesses, production packets or decisions.
+
+The Markdown topology compiler records unique nodes/choices/rejoins and line/hash
+evidence. It only considers a maximum of two changed dialogue lines within one
+block provisionally eligible. Changes to sources/instructions/runtime dependencies,
+line shape, IDs/edges, non-dialogue narration/actions, speakers, state/metadata,
+explicit identity/number/contact/relationship/fact cues or wider scopes require
+full review. Unknown/malformed candidate topology also requires full review.
+The keyword/token gate catches some explicit risk; it does not prove meaning.
+
+The delta view includes the edited exchange, immediate graph neighbors, all sibling
+branches and their choice/pre-choice exchange, and every shared rejoin/downstream
+consumer through scene exit. Sections are verbatim, with line ranges and hashes.
+There is no AI summary, inferred knowledge dependency registry or production
+verifier exemption. A changed-office-vs-home dialogue probe deliberately passes
+shape eligibility: semantic QA must detect its conflict with required remote-work
+knowledge. Dependency coverage is conservative topology, not a semantic proof.
+
+Dispatch requires a fresh full-reviewed experimental base. Delta PASS is local
+and provisional; uncertainty/BLOCKED/hard findings trigger independent full review.
+Local advisory failures require correction, never approval; the final chosen
+candidate always receives another fresh full review. The local naturalism field
+does not certify whole-scene naturalism. Production Narrative QA is unchanged.
+
+```sh
+npm run context:delta:poc -- --prepare --run-id delta-01 --ref <checkpoint>
+# Eight fresh sessions, no retry; real account usage is consumed.
+npm run context:delta:poc -- --run --run-id delta-01
+npm run context:delta:poc -- --review --run-id delta-01
+```
+
+Preparation/review rebuilds every byte and binds tooling/source versions. Each
+worker checks config and prepared input/schema drift. All candidates, plans,
+inputs/results/raw logs, hidden keys, manifests and blind pages stay under ignored
+`generated/session-cache/quota-delta/`. Historical runs need their pinned tooling
+checkout; a raw scratch directory is not a future source dependency.
+
+Three paired cases: a local exit punctuation change, then a small branch wording
+change on that first candidate, and a held-out factual contradiction. The eight
+sessions are foundation full, three full/delta pairs, and separate final full on
+the cumulative harmless candidate. D02 requires the matched D01 full verdict as
+its bound base. D03 runs delta before its independent paired full; that same full
+measurement serves as fallback evidence when escalated. No previous answers/gold
+are fed to workers; this shared reference role is explicit, not extra claimed calls.
+
+Report each pair and both low-risk/mixed-probe **modeled workflow budgets**, charging
+foundation, fallback and final full; also report actual unique tokens separately.
+Three probes are not an estimate of production edit frequency. The preset gate
+requires both arms to detect the hard probe, delta to escalate, final full to PASS,
+and at least 20% inclusive mixed-probe token reduction. Human blind comparison
+remains separate and adoption stays NOT_APPROVED. A failed economics hypothesis
+is a valid result; do not reduce required context after seeing it merely to pass.

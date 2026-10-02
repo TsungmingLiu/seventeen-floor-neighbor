@@ -28,6 +28,7 @@
     "cg:references": "node tools/character-references.mjs",
     "scratch:check": "node tools/check-session-cache.mjs",
     "context:poc": "node tools/compile-review-context.mjs",
-    "context:benchmark": "node tools/benchmark-review-context.mjs"
+    "context:benchmark": "node tools/benchmark-review-context.mjs",
+    "context:delta:poc": "node tools/delta-review-poc.mjs"
   }
 }
