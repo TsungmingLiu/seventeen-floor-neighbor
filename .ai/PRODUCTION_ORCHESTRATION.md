@@ -2,7 +2,7 @@
 
 > Lifecycle: **CANONICAL**
 >
-> Version: 1.2.0
+> Version: 1.2.1
 
 本文件是 end-to-end content request 的唯一 orchestration authority。它不是第六個 harness 或 creative role；五個 active production harness 仍由 `.ai/WORKFLOW_MANIFEST.yaml` 登記。
 
@@ -100,6 +100,8 @@ Coordinator 比對 Task Packet/Handoff/ledger 的 versions。上游改變時先�
 對已接受的 Opening CG entries，可先執行 `npm run production:impact -- --scene COM-01X --from <baseline-commit> --to <target-commit|WORKTREE>`，取得 `generated/session-cache/impact/<scene>/impact.json` 的**唯讀版本差異與應失效範圍**。工具比較 scene 的 contract、Locked Scene、runtime dialogue/structure、route/Memory 的該 scene 切片、每個 CG entry 的 `render_spec_sha256`、reference pixels、accepted asset bytes 與 renderer tool hash；accepted base 的 Reaction 依賴會展開，其他 entry 或同一 Memory 中不屬於此 scene 的 node/gallery 不因整份檔案 hash 改變而被重畫。預設報告不寫 run ledger、不驗證歷史 QA PASS；沒有可核對的 run 記錄時 `qa_status` 一律為 `UNKNOWN_NO_RUN_LEDGER`，不得直接據此派工或宣稱既有 accepted master 仍經 QA 有效。新的 `render_ready` scene 在 accepted asset/receipt 尚未形成前會 `BLOCKED`；不得用這個受限入口跳過原有 production gate。細節與受控改動見 `docs/migration/ISSUE16_INVALIDATION_GATE.md`。
 
 已有單一 `narrative_review` task 與持久 decision receipt 的 run，可加 `--run-id <id>`，並以 ledger 的 `source_ref` 作 `--from`、目前 committed `HEAD` 作 `--to`。工具從固定來源版本重建 Task Packet，核對目前 Git 中 ledger/receipt 的身份，再把該 task 記錄的 input/output blob versions 與目標 commit 比較，於同一唯讀報告附上 `run_reconciliation`。只有全部一致才建議該 **Narrative QA task** `CURRENT_PASS`；任一已記錄版本改變則建議 `STALE_PROPOSED`，交由 Coordinator 辦理 review。CG、Visual QA、Human 決定與未記在該 task 的 runtime/asset 變更仍依原本 `would_invalidate` 範圍另行審查；不能由這項 Narrative QA receipt 推論它們已通過。來源 commit 缺失、receipt 不符、scene/ref/target 錯誤時 `BLOCKED`，不修改 ledger、不沿用先前報告。此 bounded 核對不替代未來其他 task 類型的 reconciliation。
+
+已有 accepted runtime CG 的 scene，在 final integration 前由 Integrator 執行 `npm run production:integration:check -- --scene <id> --from <已核對整合基線 commit> --to <commit|WORKTREE>`；Task Packet 必須明列該基線來源／版本，不能由 worker 任意選 HEAD。工具每次重新計算 impact，出現 `integration:<scene>` descendant 即以非零 exit code 阻擋後續 wiring/build；取得來源失敗時刪除前次 report。COM-02X 的四張 runtime accepted-as-is masters 透過原 ingest／Human adoption receipts 核對原 PNG 與 WebP derivative；唯一明示 reference-only、未被 runtime 或其他 entry 依賴的 environment production entry 不當成已接受 runtime 圖。其他未接受 entry 仍 `BLOCKED`。`NO_STALE_DIFF` 不判定 QA／Human acceptance、不修改 ledger；normal build 不自動選基線。這項定點 gate 不包含 Issue #27 的多 task DAG、跨階段自動 stale/recovery；當前驗證證據見 `docs/migration/M0_CURRENT_SCENE_STALE_GATE.md`。
 
 - Dialogue typo 若確實不改 semantic visual beat、timing、branch、narrative state：由 fresh Narrative QA 確認並記錄 `no_visual_impact` 判定、舊/新 scene hash、受影響 scope，才可保留 manifest；沒有此 evidence 則依一般 scene change invalidation。
 - Locked Scene semantic beat/meaning 改變：相關 `cg_plan`、manifest entries、Render Packets、unaccepted candidates、asset acceptance/integration 全部 `STALE`；其他 scene/entry 不受影響。
