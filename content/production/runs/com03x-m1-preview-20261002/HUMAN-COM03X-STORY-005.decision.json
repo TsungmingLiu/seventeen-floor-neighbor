@@ -9,12 +9,12 @@
   "status": "PASS",
   "harness": {
     "id": "integrator",
-    "version": "1.3.1",
+    "version": "1.4.0",
     "pass": null
   },
   "source_ref": "d4ab4bd0ffc4bec97f81ad288a52194bc3a883bd",
   "packet_sha256": "0127405a92d0b881f3240979e6b01a2d5421e90909ef047928f0382f09325078",
-  "input_digest_sha256": "fff327a6eb5ff17e67775fc1c3a21edc0f126caf6b9d3ab26a380e7bea00d704",
+  "input_digest_sha256": "58fc450d1458966e1705e593b498d33017e22ba4b66369389037b034589bd1bd",
   "input_versions": [
     {
       "id": "docs/narrative/scenes/vertical-slice/COM-03X.md",
@@ -35,6 +35,16 @@
       "id": "content/routes/opening-demo/chapter-01.json",
       "version": "dfdeef9510c35006f922cb1675706652efb16fa56e649d08a062f0995d1e6b3e",
       "location": "content/routes/opening-demo/chapter-01.json"
+    },
+    {
+      "id": "src/progress.js",
+      "version": "96ce36801641b9b03c6e29f2b7065b6a6afdf71ca0c9dbbde58fb8b0b13a2c02",
+      "location": "src/progress.js"
+    },
+    {
+      "id": "src/engine.js",
+      "version": "8873e0eb00d812f9bbcce090c098ce6aa5d50461fda82e918422898017b0fcde",
+      "location": "src/engine.js"
     }
   ],
   "output_versions": [
