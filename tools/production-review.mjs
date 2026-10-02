@@ -25,7 +25,7 @@ function sha256(bytes) {
 }
 
 // A review of a dirty source must not appear to describe the committed checkpoint.
-async function committedSource(relative, sources) {
+async function committedBytes(relative, sources) {
   requireCondition(typeof relative === 'string' && !relative.includes('\\') &&
     !relative.startsWith('/') && !relative.includes('://') &&
     relative.split('/').every((part) => part && part !== '.' && part !== '..'),
@@ -35,7 +35,11 @@ async function committedSource(relative, sources) {
   const expectedBlob = git('rev-parse', `HEAD:${relative}`);
   requireCondition(actualBlob === expectedBlob, `review source differs from committed HEAD: ${relative}`);
   if (!sources.has(relative)) sources.set(relative, { path: relative, sha256: sha256(bytes) });
-  return bytes.toString('utf8');
+  return bytes;
+}
+
+async function committedSource(relative, sources) {
+  return (await committedBytes(relative, sources)).toString('utf8');
 }
 
 async function committedJson(relative, sources) {
@@ -237,8 +241,27 @@ export async function buildProductionReviewModel(sceneId) {
 
   const manifests = await Promise.all((await jsonPaths(manifestRoot)).map(async (file) =>
     ({ file, value: await committedJson(file, sources) })));
-  const entries = manifests.flatMap(({ file, value }) =>
-    (value.entries || []).filter((entry) => entry.scene_id === sceneId).map((entry) => ({ file, entry })));
+  const allEntries = manifests.flatMap(({ file, value }) =>
+    (value.entries || []).map((entry) => ({ file, entry })));
+  let entries = allEntries.filter(({ entry }) => entry.scene_id === sceneId);
+  if (entries.some(({ file, entry }) => file === 'content/production/cg-manifests/title-screen.json' &&
+      entry.entry_id === 'TITLE-17F-DOORLIGHT-01')) {
+    // Historical review fixtures predate this helper. Load it only when the exact
+    // title entry exists, and verify independence before omitting any scene data.
+    const { isIndependentTitleArtwork } = await import('./production-impact.mjs');
+    const reader = {
+      json: (file) => committedJson(file, sources),
+      readBytes: (file) => committedBytes(file, sources)
+    };
+    const manifest = await committedJson('content/assets/manifest.json', sources);
+    const sceneEntries = [];
+    for (const candidate of entries) {
+      if (!await isIndependentTitleArtwork(reader, candidate, manifest, {}, {}, {}, allEntries)) {
+        sceneEntries.push(candidate);
+      }
+    }
+    entries = sceneEntries;
+  }
   const outputIds = entries.map(({ entry }) => entry.output.logical_asset_id);
   const bound = resolveMemory(content, nodeIds);
   const route = bound?.route;
