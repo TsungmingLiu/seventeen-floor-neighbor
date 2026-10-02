@@ -2,7 +2,7 @@
 
 > Lifecycle: **CANONICAL**
 >
-> Version: 1.4.2
+> Version: 1.4.3
 >
 > Updated: 2026-10-02
 
@@ -31,6 +31,7 @@
 | Locked scene | `docs/narrative/scenes/vertical-slice/*.md` | scene-local narrative facts、dialogue、semantic visual beats | image-generation prompt syntax |
 | Narrative contract values | `content/production/narrative/<chapter>/<scene>.json` | approved scene-local continuity values | dialogue prose、camera |
 | Creative backlog | `docs/narrative/CONTENT_PRODUCTION_TODO.md` | production progress、gates、known blockers | duplicated prompt/spec |
+| M1 slice scope | `docs/narrative/M1_GAMEPLAY_VALIDATION_SLICE.md` | bounded scene/dependency proposal、production gaps、branch/playtest coverage | new scene canon、Locked Scene/QA/Human approval、measured playtime |
 | Dialogue calibration policy | `docs/narrative/DIALOGUE_CALIBRATION.md` | bounded Human comparison／approval、context/scope/provenance contract、held-out pilot／停止條件 | new character canon、auto-learning、scene approval、milestone priority |
 | Approved dialogue references | `content/production/voice/approved-examples.json` | Human 明示批准的 immutable interaction versions 及限定用途；僅 Task Packet allowlist 的適用 entry 節錄可作參考 | whole-bank context、raw candidates/rejections、跨情境硬規則、canon／scene approval |
 | Visual direction | `docs/art/PRODUCTION_VISUAL_DIRECTION.md` | global visual contract、shot economy、responsive composition | scene-specific narrative choice |

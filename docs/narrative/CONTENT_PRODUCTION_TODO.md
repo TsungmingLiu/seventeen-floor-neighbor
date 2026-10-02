@@ -2,7 +2,7 @@
 
 > Lifecycle: **CANONICAL** creative-production backlog
 >
-> Version: 1.3.2
+> Version: 1.3.3
 >
 > Updated: 2026-10-02
 
@@ -12,11 +12,11 @@
 
 ## Current objective
 
-穩定 `Narrative Design → Scene/Dialogue → Visual Production → Runtime Integration` 單一路徑，同時允許 **narrative production 主動跑在 visual production 前面**。當前依 `ROADMAP.md` 收尾 M0：COM-02X accepted-as-is CG／替換驗證已由 PR #39 完成，優先補剩餘工程 gate 與最終 Human playable acceptance；可準備 M1 的 30–60 分鐘 validation slice 範圍。後續 narrative batch 不受缺少 CG 阻塞，按 milestone 分批推進。
+當前 milestone 為 **M1 Gameplay Validation**。M0 foundation 已由 merged-main checks 與實際 Human playable acceptance 完成，見 [M0 收尾](../migration/M0_FOUNDATION_ACCEPTANCE.md)。優先將 [M1 slice scope proposal](M1_GAMEPLAY_VALIDATION_SLICE.md) 的 scene/state dependencies 轉成有界 Narrative Design → Dialogue → QA → text-first playable integration；缺少 CG 不阻塞敘事，不能宣稱尚未製作的 slice 已可玩或已達 30–60 分鐘。
 
 ## Opening Vertical Slice
 
-最新 main 為 `e0c3a86…`（PR #39），[COM-02X checkpoint](../../content/production/runs/com02x-visual-bindings-20261001/ledger.json)記錄四張 accepted-as-is runtime 圖的整合與 `ba5f832…` 驗證（Node 22 104/104、Chromium 11/11、固定公開 preview bytes／forward flow／reload／Gallery PASS）；目前 main 的相關八個 output SHA-256 全部相符。checkpoint 仍為 `READY_FOR_HUMAN_ACCEPTANCE`，最終 Human playable acceptance 未記錄。[PR #37 ledger](../../content/production/runs/pr37-review-fixes-20260930/ledger.json)的 COM-00、姓名／UI 與 Human 敘事品質批准，以及 PR #33 敘事／POV／姓名輸入批准均沿用。未記錄的 migration schema/usability 與 final visual gate 仍獨立追蹤。工作優先順序以 M0 為準。
+最新 main 為 `c5251cd…`（PR #43）；Node 22 main Verify 132/132、Cloudflare deployment／smoke PASS。COM-02X 的八個 runtime outputs 與原 `ba5f832…` checkpoint 相同，[HUMAN-COM02X-PLAYABLE-009](../../content/production/runs/com02x-visual-bindings-20261001/HUMAN-COM02X-PLAYABLE-009.decision.json) 記錄 Owner「我測了可玩性，沒有可見問題」，existing checkpoint 現為 `ACCEPTED`。原 PR #33／#37 敘事與 UI 批准沿用；provisional／獨立 Visual QA FAIL／safe-zone NEEDS_REVIEW 保持，未記錄的 final visual scope 另行追蹤。
 
 | Scene | Script/state | Playable demo | Canonical art completeness | Next review |
 | --- | --- | --- | --- | --- |
@@ -24,7 +24,7 @@
 | `COM-01X` | locked + continuity contract; PR #33 narrative/POV accepted | integrated | base/reaction family manifest-bound | 未記錄的 schema/usability／visual scope 獨立追蹤 |
 | `COM-01B` | locked + continuity contract; PR #33 accepted; PR #37 removes premature Jiang name | integrated bridge; 同屬 elevator Memory | existing runtime CG; production manifest entries `render_ready` | 後續 production visual gate 獨立追蹤 |
 | `COM-01J` | locked + continuity contract; PR #33 accepted; PR #37 first-sight naming corrected | integrated | provisional wardrobe drift recorded in manifest | repair art only in later scoped task |
-| `COM-02X` | locked + continuity contract; PR #33 narrative/POV accepted | PR #39 integrated BG／recognition／microwave／walk v3; forward flow／reload／Gallery verified; Memory rank 160、可 replay | exact Human accepted-as-is masters registered; original per-image VQA FAIL／safe-zone NEEDS_REVIEW preserved | final Human playable acceptance remains; do not repeat approved story review or completed render/integration |
+| `COM-02X` | locked + continuity contract; PR #33 narrative/POV accepted | PR #39 integrated BG／recognition／microwave／walk v3; forward flow／reload／Gallery verified; Memory rank 160、可 replay | exact Human accepted-as-is masters registered; original per-image VQA FAIL／safe-zone NEEDS_REVIEW preserved | Human playable acceptance recorded; original art/QA caveats remain |
 | `COM-02J` | locked | not in Chapter 1 demo | partial | future production batch |
 | `COM-03X` | S1 candidate | not integrated | not art-locked | Human narrative review before art |
 
@@ -51,8 +51,10 @@ Narrative Preview 與視覺分支都依賴 Narrative QA；任一分支不可自�
 - [x] PR #37 已接入批准的 COM-00 長段對白及姓名／UI 修正；Human 已給敘事預覽品質 PASS。限定用途的兩份批准示例保留，原始候選／回饋／重複快照由 Git 歷史追溯。
 - [x] PR #39：COM-02X BG／recognition／microwave／walk v3 accepted-as-is masters 接入正式 runtime；83 nodes／四 choices／文本/state／stable save IDs／Memory rank 160 保持。Node 22 104/104、Chromium 11/11 與固定 Cloudflare preview bytes／forward flow／reload／Gallery PASS，見 [驗證決策](../../content/production/runs/com02x-visual-bindings-20261001/VERIFY-COM02X-VISUAL-BINDINGS-008.decision.json)。
 - [x] M0 工程 coverage 分類已區分 placeholder／provisional／accepted 與 release readiness；COM01J provisional 和 COM02X accepted-as-is／VQA FAIL 保持，嚴格 release coverage 尚未通過。見 [coverage review](../migration/M0_ASSET_COVERAGE.md)。
-- [ ] M0：完成 COM-02X 最終 Human playable acceptance；checkpoint 已為 `READY_FOR_HUMAN_ACCEPTANCE`，Visual QA 歷史 FAIL／safe-zone NEEDS_REVIEW 不改寫，不重新要求既有故事接受。
-- [ ] M1 準備：圈定 30–60 分鐘 validation slice 與 playtest 問題；預先選定兩幕未參與校準的許棠情境，正式執行時依 calibration policy 驗證品質／工時／修正次數。
+- [x] M0：COM-02X 最終 Human playable acceptance 已記錄；checkpoint `ACCEPTED`，Visual QA 歷史 FAIL／safe-zone NEEDS_REVIEW 不改寫。
+- [x] M1：建立 [30–60 分鐘 slice scope proposal](M1_GAMEPLAY_VALIDATION_SLICE.md) 與 playtest／branch coverage；所列新 scenes 尚未通過 production gates。
+- [ ] M1：依 scope 的第一個場景與批次順序，完成 Narrative Design → Dialogue → QA → preview integration。
+- [ ] 校準另案：預先固定兩幕未參與選樣／修正的許棠情境，依 calibration policy 驗證品質／工時／修正次數；不取代 M1 external playtest。
 - [ ] 僅對尚未記錄的 Opening migration schema/usability scope 補 review（machine migration/validation complete）；不重新要求 PR #33 已批准的 dialogue／POV／姓名輸入接受。
 - [ ] 依 `docs/narrative/route-blueprints/` 從剩餘 common scenes 開始批量推進 `Narrative Design → Scene/Dialogue → Narrative QA`；**不要等待 CG 完成才寫下一個 scene**。
 - [ ] 接著完成 Xu early/mid route（XT-04 → XT-12）與 JYC early/mid route（JYC-05 → JYC-12）的 Locked Scene / dialogue batch。

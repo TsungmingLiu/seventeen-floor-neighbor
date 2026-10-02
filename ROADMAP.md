@@ -4,7 +4,7 @@
 >
 > 詳細技術工作見 `TODO.md`；內容生產進度見 `docs/narrative/CONTENT_PRODUCTION_TODO.md`；AI production 執行方式見 `.ai/WORKFLOW_MANIFEST.yaml`。
 >
-> 最新可玩基線：2026-10-02 main `e0c3a86…`（PR #39）。COM-02X 驗證綁定 `ba5f832…`，其 route／Memory／asset registry 與四張 runtime WebP 在目前 main 的 SHA-256 全部相符，見 [PR #39 checkpoint](content/production/runs/com02x-visual-bindings-20261001/ledger.json)。最終 Human playable acceptance 仍待記錄；本次更新不代表 M0 完成。
+> 最新可玩基線：2026-10-02 main `c5251cd…`（PR #43）。Node 22 main Verify 132/132、Cloudflare 部署／smoke PASS；Human 已回報「我測了可玩性，沒有可見問題」，見 [M0 acceptance](docs/migration/M0_FOUNDATION_ACCEPTANCE.md)。M0 Exit Gates 已通過，當前進入 M1 Gameplay Validation；既有 provisional／accepted-as-is 美術問題另行追蹤。
 >
 > Roadmap 不追蹤每一個 task。它只回答三個問題：
 >
@@ -31,8 +31,8 @@
 
 | Milestone | 核心成果 | Exit Gate | 狀態 |
 | --- | --- | --- | --- |
-| **M0 — Foundation Stable** | 建立穩定、單一的 production / asset baseline | migration 完成，placeholder / stale dependency / build contract 穩定 | **NOW** |
-| **M1 — Gameplay Validation** | 完成 30–60 分鐘可驗證核心戀愛玩法的 playable slice | 外部 playtest 證明核心 loop 基本成立 | **NEXT** |
+| **M0 — Foundation Stable** | 建立穩定、單一的 production / asset baseline | migration 完成，placeholder / stale dependency / build contract 穩定 | **DONE** |
+| **M1 — Gameplay Validation** | 完成 30–60 分鐘可驗證核心戀愛玩法的 playable slice | 外部 playtest 證明核心 loop 基本成立 | **NOW** |
 | **M2 — Narrative Alpha** | 從遊戲開始到主要 endings 全部 playable | 主 narrative graph、state、save/replay 可 end-to-end 運作 | **LATER** |
 | **M3 — Content Complete** | 劇情基本 freeze，正式視覺與內容覆蓋接近完整 | 無必要 placeholder，主要內容通過完整 playtest | **LATER** |
 | **M4 — Release Candidate** | 得到可以公開發佈的候選版本 | release / device / performance / build QA 全部通過 | **LATER** |
@@ -41,7 +41,7 @@
 
 # 3. M0 — Foundation Stable
 
-**狀態：NOW**
+**狀態：DONE** — 2026-10-02，工程 gates、merged-main verification 與 final Human playable acceptance 見 [收尾證據](docs/migration/M0_FOUNDATION_ACCEPTANCE.md)。
 
 ## 已驗證的基線
 
@@ -50,8 +50,10 @@
 - PR #33 已將 COM-02X 接入 Opening 可玩流程，使用已登記的 preview-only WebP；Memory 可重播，預覽圖不進 Gallery，既有敘事／POV／姓名輸入批准沿用。其餘 scene progress 由 `docs/narrative/CONTENT_PRODUCTION_TODO.md` 維護。
 - PR #37 已接入批准的 COM-00 長段對白，修正江雨澄介紹前的姓名洩漏、統一旁白／自白正體，並以玩家設定姓名顯示男主 nametag。Human 已給敘事預覽品質 PASS；這不是正式美術接受。校準原始候選／重複快照已移至可追溯 Git 歷史，保留兩份限定用途的批准示例。
 - main `f5e650b…` 的 [Node 22 Verify](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/36788149966)、Cloudflare 部署／部署後 smoke，以及 [遠端 Chromium acceptance](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/36788149811) 均成功；Browser Acceptance 已使用完整 checkout history。PR #37 公開試玩版本另有 83/83 unit、7/7 browser 與 built-file bytes 核對，見 ledger。舊索引中的 checkout failure／alias 403 不作當前 blocker。
-- PR #39 已將 COM-02X 正式 BG／recognition／microwave／walk v3 接入便利店後半與回家流程；83 nodes、四 choices、文本／state、stable save IDs 與 Memory rank 160 保持。已記錄 Node 22 104/104、Chromium 11/11，以及固定 Cloudflare preview 的 bytes／forward flow／reload／Gallery PASS，見 [VERIFY-COM02X-VISUAL-BINDINGS-008](content/production/runs/com02x-visual-bindings-20261001/VERIFY-COM02X-VISUAL-BINDINGS-008.decision.json)。證據屬於 `ba5f832…` 的整合快照，不冒充本次新 main 的 CI；原 pixel QA FAIL／safe-zone NEEDS_REVIEW 與 Human accepted-as-is 範圍保持，最終 Human playable acceptance 未記錄。
-- 2026-10-02 工程收尾已對目前 COM-02X 四張 runtime accepted-as-is 圖驗證受控 material-change／單張 visual-spec change 的失效範圍；新的定點 integration preflight 以非零 exit code 阻擋實際串接 build，來源失敗也移除舊 report。Node 22 focused 13/13；詳見 [當前 gate 證據](docs/migration/M0_CURRENT_SCENE_STALE_GATE.md)。PR #43 head `720843e…` 的 [Verify run 624](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/36966607788) 已通過 117/117 tests、build／validation 與 Cloudflare deployment／smoke；PR 尚未合併，不當作新 main 驗收，不取代 QA／Human gates，也不包含 Issue #27 的 DAG 自動失效／恢復。preview → accepted-as-is CG 替換沿用 PR #39 證據；M0 Exit Gate 尚未全部完成。
+- PR #39 已將 COM-02X 正式 BG／recognition／microwave／walk v3 接入便利店後半與回家流程；83 nodes、四 choices、文本／state、stable save IDs 與 Memory rank 160 保持。已記錄 Node 22 104/104、Chromium 11/11，以及固定 Cloudflare preview 的 bytes／forward flow／reload／Gallery PASS，見 [VERIFY-COM02X-VISUAL-BINDINGS-008](content/production/runs/com02x-visual-bindings-20261001/VERIFY-COM02X-VISUAL-BINDINGS-008.decision.json)。證據屬於 `ba5f832…` 的整合快照，不冒充本次新 main 的 CI；原 pixel QA FAIL／safe-zone NEEDS_REVIEW 與 Human accepted-as-is 範圍保持；該驗證快照當時尚未記錄 final Human playable acceptance，現已由後續 receipt 關閉。
+- 2026-10-02 工程收尾已對目前 COM-02X 四張 runtime accepted-as-is 圖驗證受控 material-change／單張 visual-spec change 的失效範圍；新的定點 integration preflight 以非零 exit code 阻擋實際串接 build，來源失敗也移除舊 report。Node 22 focused 13/13；詳見 [當前 gate 證據](docs/migration/M0_CURRENT_SCENE_STALE_GATE.md)。PR #43 head `720843e…` 的 [Verify run 624](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/36966607788) 已通過 117/117 tests、build／validation 與 Cloudflare deployment／smoke；該 head 當時尚未合併，不當作新 main 驗收，不取代 QA／Human gates，也不包含 Issue #27 的 DAG 自動失效／恢復。preview → accepted-as-is CG 替換沿用 PR #39 證據；該受控驗證當時不代表所有 M0 Exit Gate 已完成。
+
+- 2026-10-02 PR #43 已合併為 `c5251cd…`；main [Verify run 629](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/37008118459) 132/132、Cloudflare deployment／smoke PASS。Human final playable acceptance 已記錄於 [HUMAN-COM02X-PLAYABLE-009](content/production/runs/com02x-visual-bindings-20261001/HUMAN-COM02X-PLAYABLE-009.decision.json)，原 runtime／art bytes 與 QA 不改寫。M0 completed；release coverage 的七項 known constraints 不當作 release-ready。
 
 ## Outcome
 
@@ -106,7 +108,7 @@ M0 不做：
 
 # 4. M1 — Gameplay Validation
 
-**狀態：NEXT**
+**狀態：NOW**
 
 ## Outcome
 
@@ -353,25 +355,18 @@ Roadmap 只維護工作所在的 horizon，不維護完整 task list。
 
 ## NOW
 
-只包含直接幫助 **M0 Exit Gate** 的工作。
+只包含直接幫助 **M1 Gameplay Validation** 的工作。
 
-目前尚需：
+- 按 [slice scope proposal](docs/narrative/M1_GAMEPLAY_VALIDATION_SLICE.md) 固定 30–60 分鐘目標與 scene/state dependencies；先處理一個 scene 的 Narrative Design，再由 fresh dialogue／QA／integrator workers 順序完成。
+- 用 canonical placeholder 支援缺 CG 的場景；accepted Opening baseline 不重寫。
+- 為注意力分配、shared awareness、friction／re-approach 設定可觀察的選擇結果與分支驗證；只補本 slice 必要的 graph/state 能力。
+- 準備數名未讀過 spec 的玩家、計時與回饋紀錄；先驗證玩法，再擴張內容。
 
-- COM-02X 四張 accepted-as-is runtime 圖已由 PR #39 合併，便利店後半／回家 binding、save/reload／Gallery 與公開預覽已有上述同版本驗證；尚需最終 Human playable acceptance，沿用原敘事批准與精確 master adoption，不重做已完成的 render／整合；
-- 合併並驗證本輪 COM-02X material-change／定點 stale integration gate；受控工程證據已完成，見上方 gate 紀錄；
-- 合併並驗證 PR #43 的 coverage 分類／release coverage 檢查；工程機制與 [M0 Exit Gate review](docs/migration/M0_ASSET_COVERAGE.md) 已完成。provisional／accepted-as-is 問題如實列出，release readiness 不由採用狀態推定。Codespaces 不列入必要 gate。
-
-Repo-native asset migration 與 active source-authority cleanup 已由 PR #21 完成；跨階段自動失效與恢復另列未來工作。
+M0 已完成；已知美術品質限制保持，Issue #27 orchestration、bulk CG、新 framework 不插入本輪。
 
 ## NEXT
 
-M1 Gameplay Validation Slice 所需工作。
-
-例如：
-
-- Validation Slice 的具體 scene 範圍；
-- 最低限度 state traversal；
-- playtest 設計與紀錄方式。
+完成 M1 external playtest 並依結果修正，再決定是否進入 M2 Narrative Alpha。
 
 ## LATER
 
@@ -417,23 +412,24 @@ M2–M4 已知但目前不應執行的工作。
 
 **Active Milestone**
 
-M0 — Foundation Stable
+M1 — Gameplay Validation
 
 **Current Goal**
 
-在已合併的 repo-native asset / workflow baseline 上，驗證 Narrative-first、Art-later 的 playable gate。
+將 [M1 slice scope proposal](docs/narrative/M1_GAMEPLAY_VALIDATION_SLICE.md) 轉成 30–60 分鐘可測量的 playable flow，驗證人物互動與 attention trade-off；時間與玩法品質尚未經外部 playtest 證明。
 
 **Current Critical Path**
 
 ```text
-COM-02X accepted-as-is BG/recognition/microwave/walk integrated and verified; final Human playable acceptance open
-→ current material-change / stale integration gate verified; PR #43 head 720843e CI passed
-→ placeholder / provisional / accepted coverage mechanism + M0 Exit Gate review completed; extension CI/merge pending
-→ merged-main verification + recorded final Human playable acceptance
+M0 complete: merged main checks + actual Human playable acceptance
+→ M1 slice scene/dependency scope
+→ one-scene Narrative Design → Dialogue → independent QA → text-first integration
+→ branch/state checks and several external playtests
+→ fix observed gameplay problems before M2
 ```
 
 **Next Milestone**
 
-M1 — Gameplay Validation
+M2 — Narrative Alpha（M1 Exit Gate 通過後）
 
-M0 通過後，優先製作並 playtest Gameplay Validation Slice，而不是立即全面擴張 narrative 或 CG production。
+本輪不做全面 narrative／CG 擴張或新增 production framework。
