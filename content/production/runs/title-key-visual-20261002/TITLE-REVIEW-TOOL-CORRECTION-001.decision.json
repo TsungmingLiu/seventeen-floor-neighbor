@@ -41,14 +41,12 @@
     {
       "id": "fixed-scene-review",
       "version": "d639d2eaf4c541c046fa39cc56b93953ce0969f572925bb592bba609f2877389",
-      "location": "tools/production-review.mjs",
-      "git_blob_sha": "b0592a9b6233f6ce1e6f5362ddd26d5a20e03a49"
+      "location": "tools/production-review.mjs"
     },
     {
       "id": "regression-tests",
       "version": "d4a870432b4e246e021465f364b0163ededb6be6a91d51a6a3ff7de50dee3bbe",
-      "location": "tests/production-review-current.test.mjs",
-      "git_blob_sha": "a75d8e3e51514b5986ecf1cfa50a683a182afb77"
+      "location": "tests/production-review-current.test.mjs"
     }
   ],
   "qa_codes": [
