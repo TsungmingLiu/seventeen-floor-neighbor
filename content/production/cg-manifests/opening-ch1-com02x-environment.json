@@ -1,0 +1,138 @@
+{
+  "schema_version": "1.0.0",
+  "manifest_id": "opening-ch1-com02x-environment",
+  "manifest_version": "1.0.1",
+  "lifecycle": "CANONICAL",
+  "source_scene_ids": ["COM-02X"],
+  "style_contract": {
+    "style_id": "production-realistic-pbr-v1",
+    "positive": [
+      "Realistic high-end game-cinematic environment rendering with photographic PBR materials and physically plausible indoor lighting.",
+      "Believable glass reflections, brushed metal refrigerator trim, plastic meal containers and ordinary store surfaces; natural material texture without illustrative simplification.",
+      "Photographic perspective, believable exposure and restrained cool color; enough depth of field to read the environment layout.",
+      "One independent 16:9 landscape environment-continuity reference image for later CG planning; native pixels must make the store layout, materials and lighting legible. Supporting reference only: this output must not be used as an accepted runtime production master. Future runtime masters retain the canonical 1920x1080 minimum and 2560x1440 preferred size."
+    ],
+    "negative": [
+      "Anime, manga, cartoon, animation-film, cel-shaded, painterly or ink-line environment treatment.",
+      "Plastic toy-like materials, exaggerated perspective, impossible fixtures or incoherent reflections.",
+      "People, body parts, human silhouettes or human reflections.",
+      "Embedded captions, UI, watermarks, logos, real brands or advertising portrait imagery.",
+      "Collage, contact sheet, split panels or multiple images in one canvas."
+    ],
+    "aspect_ratio": "16:9",
+    "output_count": 1
+  },
+  "entries": [
+    {
+      "entry_id": "COM02X-ENV-CONVENIENCE-NIGHT-REFERENCE",
+      "scene_id": "COM-02X",
+      "source_scene": "docs/narrative/scenes/vertical-slice/COM-02X.md",
+      "status": "render_ready",
+      "cg_class": "background_cg",
+      "sequence_id": null,
+      "beat_range": "02X.1 Late aisle: refrigerated-food environment establish before the recognition beat",
+      "narrative": {
+        "purpose": "Create the single missing convenience-store environment reference for approved COM-02X. Its intended downstream role is environment_continuity: establish the unbranded refrigerated-food aisle, wet-night storefront, materials and lighting for a later fresh COM-02X CG Planner. This is a no-people origin image authorized by Human; it supplies no character identity or wardrobe authority and does not replace CG-COM-03 or approve runtime integration. Supporting reference acceptance evaluates readable native pixels, not runtime-master resolution. This output is forbidden as an accepted runtime master; later runtime delivery requires a separately compliant master and its own Visual QA and Human selection.",
+        "must_show": [
+          "An ordinary unbranded convenience store within walking distance of the apartment in Taipei, at approximately 23:00 on a Week 2 weekday.",
+          "A refrigerated-food cabinet close to the viewer forming lateral aisle perspective, with ordinary simple microwaveable dinner boxes visible on its shelves.",
+          "A beverage section with unbranded bottled black coffee, visibly part of the same refrigerated aisle.",
+          "Cold-white fluorescent store illumination and a readable glass storefront/window showing a cool-blue wet Taipei night and pavement reflections after recent rain.",
+          "A modest checkout and meal-heating area visible at the far end of the same open aisle, subordinate to the chilled-food area."
+        ],
+        "must_not_imply": [
+          "A date, romantic meeting, rescue, luxury retail showcase, abandoned store or ominous event.",
+          "That the store is closed or that no staff/customers exist in the narrative; no people are shown solely because this deliverable is an environment reference.",
+          "A named chain, readable real product brand or invented legible store/location identity.",
+          "New story facts, an exterior walk-back location, apartment/lobby design, character design or a completed character CG."
+        ]
+      },
+      "characters": [],
+      "environment": {
+        "location_id": "COM02X-CONVENIENCE-STORE",
+        "time_of_day": "Week 2 weekday, approximately 23:00; late-night store interior.",
+        "weather": "Recent rain; wet exterior pavement visible through the storefront glass, cool-blue Taipei night. Do not imply a storm or heavy ongoing downpour.",
+        "lighting": "Practical cold-white overhead fluorescent fixtures and refrigerator illumination; cool-blue exterior darkness and wet-pavement reflections through glass. Believable exposure and restrained reflections; no warm sunset, beauty rim light or neon spectacle.",
+        "persistent_props": [
+          "Glass-front refrigerated-food cabinet with metal trim and simple microwaveable dinner boxes in transparent-lidded containers.",
+          "Adjacent refrigerated beverage shelves with generic unbranded black-coffee bottles.",
+          "Small unobtrusive blank or visually indistinct shelf/price labels and packaging panels.",
+          "Glass storefront/window with a view of the wet pavement outside.",
+          "Modest checkout counter and two practical microwave units at the rear meal-heating area."
+        ],
+        "reference_binding": null
+      },
+      "camera": {
+        "shot_size": "medium_wide",
+        "angle": "Standing eye level at the refrigerated-food aisle, looking obliquely along the cabinet; neutral verticals.",
+        "pov": "protagonist",
+        "axis_id": "COM02X-REFRIGERATED-AISLE-AXIS",
+        "camera_side": "Open customer-aisle side of the refrigerated-food cabinet; cabinet recedes along the left of frame toward the modest rear checkout, storefront glass reads toward the center-right.",
+        "lens_intent": "Natural approximately 35 mm full-frame perspective, no fisheye or ultra-wide distortion; restrained depth of field keeps meal shelves, storefront wet night and rear circulation legible. No protagonist anatomy enters the frame."
+      },
+      "continuity": {
+        "previous_entry_id": null,
+        "locked_fields": [
+          "/characters",
+          "/environment/location_id",
+          "/environment/time_of_day",
+          "/environment/weather",
+          "/environment/lighting",
+          "/environment/persistent_props",
+          "/camera",
+          "/composition"
+        ],
+        "allowed_changes": []
+      },
+      "composition": {
+        "focus": {"x": 43, "y": 44},
+        "dialogue_safe_zone": "Lower 25% is low-information floor/cabinet-base area with restrained contrast; no indispensable meal, fixture or exterior-weather cue is confined there.",
+        "framing_notes": [
+          "The primary read is chilled simple food in an ordinary late-night shop; the cabinet shelves are close enough to recognize meal boxes while retaining aisle depth.",
+          "Keep a clear open customer circulation area through the center and center-right, allowing future character staging without people in this reference.",
+          "Storefront glass and the wet cool-blue night remain visible in the upper/middle center-right; rear checkout/heating fixtures stay secondary and do not eclipse the food aisle.",
+          "Keep the essential chilled-food and wet-night cues inside the central 20–80% horizontal band and above the lower dialogue region; allow moderate side cropping with nonessential continuation at the extreme edges.",
+          "This one image records the same store's environment continuity for future independently planned shots. Later camera changes require a self-contained scene CG manifest; this reference does not grant a new location or additional reference-image set."
+        ]
+      },
+      "render_constraints": {
+        "include": [
+          "Exactly one empty-of-visible-people convenience-store environment frame; preserve the ordinary lived-in late-night food-shopping read.",
+          "Refrigerated meal shelves, adjacent coffee beverages, open aisle, storefront wet-night view and rear checkout/heating area within one coherent room.",
+          "Practical cold-white fluorescent lighting, natural glass/metal/plastic response and restrained wet-pavement reflection outside.",
+          "Landscape responsive composition with central crop tolerance and the lower 25% dialogue-safe area.",
+          "Use this output only as the missing production environment_continuity reference after independent Visual QA and exact-byte reference acquisition/registration. It is forbidden as an accepted runtime master; a future runtime master must independently satisfy canonical resolution, Visual QA and Human selected-master approval."
+        ],
+        "exclude": [
+          "All visible people, staff, customers, faces, limbs, hands, protagonist-held meal boxes, human silhouettes and human reflections, including figures printed on packaging/posters.",
+          "Real chain logos, distinctive chain branding, real trademarks and legible product/store names.",
+          "Prominent unreadable pseudo-text, advertising text, captions, UI, watermark, border, collage or contact-sheet panels.",
+          "Romantic lighting, pin-up staging, dramatic horror emptiness, abandoned fixtures, extravagant luxury finishes and neon-dominated exterior.",
+          "Exterior-only storefront, street-walk reference, apartment/lobby/elevator environment or a second independent camera view."
+        ],
+        "text_policy": "No readable signage or packaging text is required. Use plain unbranded packaging and unobtrusive blank or indistinct shelf labels; no real logos, focal gibberish, embedded captions or UI."
+      },
+      "reference_transport": {
+        "mode": "none",
+        "fresh_session_required": true,
+        "no_unrelated_images_allowed": true,
+        "accepted_base_asset_id": null,
+        "attachments": []
+      },
+      "output": {
+        "canonical_asset_id": "BG-CONVENIENCE-NIGHT-REFERENCE",
+        "logical_asset_id": "ref.com02x.convenience-night.environment",
+        "master_filename": "com02x-convenience-night-environment-reference-master.png",
+        "quantity": 1
+      },
+      "acceptance": [
+        "Exactly one independent landscape image approximately 16:9 at native tool resolution, with sufficiently legible environment-continuity pixels and no visible people or anatomy anywhere, including reflections and printed imagery. This supporting reference has no runtime-master resolution acceptance; it must not be used as an accepted runtime master.",
+        "The same coherent unbranded store shows readable refrigerated simple meals, coffee beverages, an open aisle, modest rear checkout/heating fixtures and wet-night storefront glass.",
+        "Cold-white practical interior light, cool-blue approximately 23:00 exterior and recently wet pavement match approved COM-02X; realistic PBR materials and photographic perspective pass the global environment realism standard.",
+        "Essential food and wet-night cues survive moderate horizontal cropping; lower 25% stays usable for dialogue without hiding a required cue.",
+        "No real branding, prominent gibberish, embedded UI/captions/watermark, illustration treatment, implausible room topology or reflection artifacts.",
+        "After new independent Visual QA against manifest version 1.0.1, reference acquisition must verify the exact filename, MIME, hash and visible pixels before registering only production environment_continuity use for a new COM-02X CG Planner. Preserve original generation-manifest, render-spec and render-packet provenance; this scope correction does not retroactively alter generation or the original failed QA. Reference registration must not register this output as an accepted runtime master or authorize runtime integration. Future runtime masters retain at least 1920x1080, preferred 2560x1440, independent Visual QA and Human selected-master approval."
+      ]
+    }
+  ]
+}

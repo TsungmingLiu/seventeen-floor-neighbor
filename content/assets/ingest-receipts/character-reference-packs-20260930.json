@@ -1,0 +1,263 @@
+{
+  "receiptVersion": 1,
+  "gate": "complete-character-reference-packs",
+  "date": "2026-09-30",
+  "decision": "Owner requested complete preservation and CG pipeline binding of the supplied two six-sheet packs, and removal of retired demo CGs and Lin Cheng sprite. Existing accepted CG render bindings remain historical evidence.",
+  "sourceCatalog": "content/assets/source-catalog.json",
+  "references": [
+    {
+      "sourceId": "ref.xu_tang.face.01",
+      "uploadedFilename": "xt-face-1.png",
+      "name": "xt-ref-01-face.png",
+      "mimeType": "image/png",
+      "sourcePath": "assets-src/references/xu-tang/xt-ref-01-face.png",
+      "bytes": 2317146,
+      "width": 1055,
+      "height": 1491,
+      "sha256": "2fd137f796d0e7667a5913748158f75705b1a538b346b9e7f76aacb3c79acfd0",
+      "verifiedDecode": true,
+      "status": "active-production",
+      "characterId": "xu_tang",
+      "role": "primary_face_identity",
+      "provenance": "Previously approved original PNG sheet copied byte-for-byte"
+    },
+    {
+      "sourceId": "ref.xu_tang.expression.02",
+      "uploadedFilename": "xt-expression-2.png",
+      "name": "xt-ref-02-expression.png",
+      "mimeType": "image/png",
+      "sourcePath": "assets-src/references/xu-tang/xt-ref-02-expression.png",
+      "bytes": 2333430,
+      "width": 1055,
+      "height": 1491,
+      "sha256": "093665abff2715b6edab1ff0670677a764e374f9854cc082a93bd995ca9f71fa",
+      "verifiedDecode": true,
+      "status": "active-production",
+      "characterId": "xu_tang",
+      "role": "expression",
+      "provenance": "Owner supplied xt-expression-2.png on 2026-09-30; copied byte-for-byte"
+    },
+    {
+      "sourceId": "ref.xu_tang.body.03",
+      "uploadedFilename": "xt-body-3.png",
+      "name": "xt-ref-03-body.png",
+      "mimeType": "image/png",
+      "sourcePath": "assets-src/references/xu-tang/xt-ref-03-body.png",
+      "bytes": 1975620,
+      "width": 1055,
+      "height": 1491,
+      "sha256": "cccde0bbd7d04b9cb66615ce3948a77529d77298dea806a3582a9d69723d8eb0",
+      "verifiedDecode": true,
+      "status": "active-production",
+      "characterId": "xu_tang",
+      "role": "body_proportions",
+      "provenance": "Owner supplied xt-body-3.png on 2026-09-30; copied byte-for-byte"
+    },
+    {
+      "sourceId": "ref.xu_tang.production.04",
+      "uploadedFilename": "xt-setup-4.png",
+      "name": "xt-ref-04-production.png",
+      "mimeType": "image/png",
+      "sourcePath": "assets-src/references/xu-tang/xt-ref-04-production.png",
+      "bytes": 2320597,
+      "width": 1055,
+      "height": 1491,
+      "sha256": "915cbbd529b252ba465b03872f6f8b3132a846b81e0bc8fa87405b7db19ed692",
+      "verifiedDecode": true,
+      "status": "active-production",
+      "characterId": "xu_tang",
+      "role": "production_consistency",
+      "provenance": "Owner supplied xt-setup-4.png on 2026-09-30; copied byte-for-byte"
+    },
+    {
+      "sourceId": "ref.xu_tang.wardrobe.a",
+      "uploadedFilename": "xt-wardrobe-5.png",
+      "name": "xt-ref-05-wardrobe-a.png",
+      "mimeType": "image/png",
+      "sourcePath": "assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png",
+      "bytes": 2168454,
+      "width": 1055,
+      "height": 1491,
+      "sha256": "aaf33f06f3e39fc476deee03ab261a43e0911b8393366ae7399c633abfadc716",
+      "verifiedDecode": true,
+      "status": "active-production",
+      "characterId": "xu_tang",
+      "role": "wardrobe",
+      "provenance": "Previously approved original PNG sheet copied byte-for-byte"
+    },
+    {
+      "sourceId": "ref.xu_tang.wardrobe.b",
+      "uploadedFilename": "xt-wardrobe-6.png",
+      "name": "xt-ref-06-wardrobe-b.png",
+      "mimeType": "image/png",
+      "sourcePath": "assets-src/references/xu-tang/xt-ref-06-wardrobe-b.png",
+      "bytes": 2208195,
+      "width": 1055,
+      "height": 1491,
+      "sha256": "19faffc0d4352e663907425b2f6d14d6f4c778c3eac714381a779239082b7b9c",
+      "verifiedDecode": true,
+      "status": "active-production",
+      "characterId": "xu_tang",
+      "role": "wardrobe",
+      "provenance": "Owner supplied xt-wardrobe-6.png on 2026-09-30; copied byte-for-byte"
+    },
+    {
+      "sourceId": "ref.jiang_yucheng.face.01",
+      "uploadedFilename": "jyc-face-1.png",
+      "name": "jyc-ref-01-face.png",
+      "mimeType": "image/png",
+      "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-01-face.png",
+      "bytes": 2308758,
+      "width": 1491,
+      "height": 1055,
+      "sha256": "9f16028a4f763779bc74b28c0524707cbcc77306f623674e8b8b49384a045d72",
+      "verifiedDecode": true,
+      "status": "active-production",
+      "characterId": "jiang_yucheng",
+      "role": "primary_face_identity",
+      "provenance": "Previously approved original PNG sheet copied byte-for-byte"
+    },
+    {
+      "sourceId": "ref.jiang_yucheng.expression.02",
+      "uploadedFilename": "jyc-expression-2.png",
+      "name": "jyc-ref-02-expression.png",
+      "mimeType": "image/png",
+      "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-02-expression.png",
+      "bytes": 2357612,
+      "width": 1491,
+      "height": 1055,
+      "sha256": "393578d2c3317f1dcc62be1ff94e0c25e5ae49defec23e25d8b48e442465142c",
+      "verifiedDecode": true,
+      "status": "active-production",
+      "characterId": "jiang_yucheng",
+      "role": "expression",
+      "provenance": "Owner supplied jyc-expression-2.png on 2026-09-30; copied byte-for-byte"
+    },
+    {
+      "sourceId": "ref.jiang_yucheng.body.03",
+      "uploadedFilename": "jyc-body-3.png",
+      "name": "jyc-ref-03-body.png",
+      "mimeType": "image/png",
+      "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-03-body.png",
+      "bytes": 2029068,
+      "width": 1491,
+      "height": 1055,
+      "sha256": "aea154ce1c5b5eb3e147dba39a3ec98090d179e778b1126e85a750c8d3b8b9f6",
+      "verifiedDecode": true,
+      "status": "active-production",
+      "characterId": "jiang_yucheng",
+      "role": "body_proportions",
+      "provenance": "Owner supplied jyc-body-3.png on 2026-09-30; copied byte-for-byte"
+    },
+    {
+      "sourceId": "ref.jiang_yucheng.production.04",
+      "uploadedFilename": "jyc-setup-4.png",
+      "name": "jyc-ref-04-production.png",
+      "mimeType": "image/png",
+      "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-04-production.png",
+      "bytes": 2358205,
+      "width": 1491,
+      "height": 1055,
+      "sha256": "39aab1d50067f8e8ef073aa7dcea5b69d268d0cccbe4bd3efbf36cd4c50a73c9",
+      "verifiedDecode": true,
+      "status": "active-production",
+      "characterId": "jiang_yucheng",
+      "role": "production_consistency",
+      "provenance": "Owner supplied jyc-setup-4.png on 2026-09-30; copied byte-for-byte"
+    },
+    {
+      "sourceId": "ref.jiang_yucheng.wardrobe.a",
+      "uploadedFilename": "jyc-wardrobe-5.png",
+      "name": "jyc-ref-05-wardrobe-a.png",
+      "mimeType": "image/png",
+      "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-05-wardrobe-a.png",
+      "bytes": 2223889,
+      "width": 1491,
+      "height": 1055,
+      "sha256": "87abb71fa21c2cf939da5fc16741d26d67add479a5185d2140220c449340e0af",
+      "verifiedDecode": true,
+      "status": "active-production",
+      "characterId": "jiang_yucheng",
+      "role": "wardrobe",
+      "provenance": "Previously approved original PNG sheet copied byte-for-byte"
+    },
+    {
+      "sourceId": "ref.jiang_yucheng.wardrobe.b",
+      "uploadedFilename": "jyc-wardrobe-6.png",
+      "name": "jyc-ref-06-wardrobe-b.png",
+      "mimeType": "image/png",
+      "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-06-wardrobe-b.png",
+      "bytes": 2167237,
+      "width": 1491,
+      "height": 1055,
+      "sha256": "f4459c2cce637a393c5a181827113e9d9c06656ef5b7a7b2d28d1a2ded7e1b99",
+      "verifiedDecode": true,
+      "status": "active-production",
+      "characterId": "jiang_yucheng",
+      "role": "wardrobe",
+      "provenance": "Owner supplied jyc-wardrobe-6.png on 2026-09-30; copied byte-for-byte"
+    }
+  ],
+  "supersededReferences": [
+    {
+      "sourceId": "ref.xu_tang.body.03",
+      "previous": {
+        "name": "xt-ref-03-body.jpeg",
+        "mimeType": "image/jpeg",
+        "sourcePath": "assets-src/references/xu-tang/xt-ref-03-body.jpeg",
+        "bytes": 441517,
+        "width": 1055,
+        "height": 1491,
+        "sha256": "d436d6ceeda95a2cd8115087d6b49e39baa72ec2f7552909da2b9a2eb933cdd4",
+        "verifiedDecode": true,
+        "status": "optional-reference",
+        "characterId": "xu_tang",
+        "role": "body_proportions",
+        "provenance": "User-provided 2026-09-26 JPEG replacement; not byte-identical to historical PNG"
+      },
+      "replacementSha256": "cccde0bbd7d04b9cb66615ce3948a77529d77298dea806a3582a9d69723d8eb0"
+    }
+  ],
+  "removedDeprecatedAssets": [
+    {
+      "path": "assets-src/cg/cg-ch02-cafe-morning.jpg",
+      "sha256": "6532f8e82c4434d69dc9b7db3a94edbd265cb682e5d80d9aeb1dc10be79b6d3f"
+    },
+    {
+      "path": "assets-src/cg/cg-ch02-laundry-room.jpg",
+      "sha256": "6c236d9954ae9de4127df7e1395b56955ef13d6bac568fba3433a842b3127fb3"
+    },
+    {
+      "path": "assets-src/cg/cg-ch02-rooftop-night.jpg",
+      "sha256": "18f198841ad5cdd7a010d8ff1e3023ca1b7f867a29251067558352442bcd1292"
+    },
+    {
+      "path": "assets-src/cg/cg-elevator-blush.jpg",
+      "sha256": "885a9004142b558bffdbede30cbe428e18cf3f2cf0c9e4a44938d06b31070cf9"
+    },
+    {
+      "path": "assets-src/cg/cg-elevator-close.jpg",
+      "sha256": "4f0aaf5cb635107b37d8a833d19b227a5a344bd1ca193f5020534e5f3e525c0a"
+    },
+    {
+      "path": "assets-src/cg/cg-lin-cheng-rooftop-recording-v1.png",
+      "sha256": "71a8c5006e658f74ff6c68c6746a403829b8fd00ded4b8ce0f9d2dbd8d7f0c24"
+    },
+    {
+      "path": "assets-src/cg/cg-lin-cheng-shared-headphones-v1.png",
+      "sha256": "19184e537d3e6bf4ba5f45226a40d3fc1018781a768aafecf4dfaa58083ab393"
+    },
+    {
+      "path": "assets-src/cg/cg-phone-ending.jpg",
+      "sha256": "a30f68eab652683f26b8bb870cd3ef2088f03fed9ffe0700eeef606b16907200"
+    },
+    {
+      "path": "assets-src/characters/sprite-lin-cheng-night-v1.png",
+      "sha256": "fbf624c1838ab7e9ac939ce70e2303d04fd007e1832d3650fa462a8a5d76cb6b"
+    }
+  ],
+  "metadataCorrections": [
+    "COM-01B CG-01..04 already exist in the Gate 3 accepted asset receipt and runtime registry. Correct stale render_ready flags to accepted; preserve every render field, reference binding and render-spec fingerprint.",
+    "Xu Tang active identity accessory metadata now follows supplied production sheet: large gold hoop earrings."
+  ]
+}

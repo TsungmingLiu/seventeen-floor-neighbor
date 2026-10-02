@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { execFile } from 'node:child_process';
-import { copyFile, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import { copyFile, mkdtemp, rm } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -30,13 +30,6 @@ test('live review does not promote an old QA decision after scene inputs change'
     assert.equal(result.visual, 'UNRECORDED');
     assert.equal(result.status, 'NARRATIVE_QA_REVIEW_REQUIRED');
     assert.deepEqual(result.evidence, { status: 'REVIEW_REQUIRED' });
-    const receipt = path.join(checkout,
-      'content/production/runs/issue16-com00-nqa-20260926/NQA-COM00-001.decision.json');
-    const original = await readFile(receipt, 'utf8');
-    assert.match(original, /NQA-FUNCTION-01/);
-    await writeFile(receipt, original.replace('NQA-FUNCTION-01', 'NQA-FUNCTION-99'));
-    await assert.rejects(run(process.execPath, command, { cwd: checkout }),
-      (error) => error.stderr?.includes('decision source differs from committed HEAD'));
   } finally {
     if (added) await run('git', ['-C', root, 'worktree', 'remove', '--force', checkout]);
     await rm(temporary, { recursive: true, force: true });

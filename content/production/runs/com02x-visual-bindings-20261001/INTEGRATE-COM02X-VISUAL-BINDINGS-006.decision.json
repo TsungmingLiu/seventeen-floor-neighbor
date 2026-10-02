@@ -1,0 +1,157 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "com02x-visual-bindings-20261001",
+  "task_id": "INTEGRATE-COM02X-VISUAL-BINDINGS-006",
+  "scene_id": "COM-02X",
+  "task_type": "integrate",
+  "status": "PASS",
+  "harness": {
+    "id": "integrator",
+    "version": "1.3.0",
+    "pass": null
+  },
+  "source_ref": "45f62c381e194bc8b9bc9b3c7629a9a1e2ff8379",
+  "packet_sha256": "7b429d94ba68d4844dd662fb29161b5ca05137098e6fd776d9b60548c0e5e60a",
+  "input_digest_sha256": "844884965091ed9abb59cc66fdb07e1061c348b4f5ccc0ea707dd94600b8cd6d",
+  "input_versions": [
+    {
+      "id": "docs/narrative/scenes/vertical-slice/COM-02X.md",
+      "version": "46d1566ec766adbefbfc2fc93964ee84cf70eca81078f6d35f589e65ddf579c6",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02X.md"
+    },
+    {
+      "id": "content/production/narrative/opening-ch1/COM-02X.json",
+      "version": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952",
+      "location": "content/production/narrative/opening-ch1/COM-02X.json"
+    },
+    {
+      "id": "content/production/runs/com02x-visual-bindings-20261001/HUMAN-COM02X-WALK-ADOPTION-003.decision.json",
+      "version": "bb85fc36688bef43097da0a147bf70f061c5eb9091f4def5b19176b0e8c1139e",
+      "location": "content/production/runs/com02x-visual-bindings-20261001/HUMAN-COM02X-WALK-ADOPTION-003.decision.json"
+    },
+    {
+      "id": "content/production/runs/com02x-visual-bindings-20261001/MUA-COM02X-DISPLAY-COVERAGE-007.decision.json",
+      "version": "08fb46ea061365c33388c2753e194bc1923a4b5c72076304387c847f149f82bb",
+      "location": "content/production/runs/com02x-visual-bindings-20261001/MUA-COM02X-DISPLAY-COVERAGE-007.decision.json"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "content/assets/manifest.json",
+      "version": "4a7bcb1b6deb6a8e2f1a907412a0bff9fd417895df89bafd86212619e8a80ef6",
+      "location": "content/assets/manifest.json"
+    },
+    {
+      "id": "content/assets/source-catalog.json",
+      "version": "91334b61b097f0e1a06153e5b545e29cb7d0f9e5e083971e841cb4d5b8413a49",
+      "location": "content/assets/source-catalog.json"
+    },
+    {
+      "id": "content/assets/source-map.json",
+      "version": "0cb376a61b26881264c00a679d4036b984e5911f2f38cf5a712471e534d96015",
+      "location": "content/assets/source-map.json"
+    },
+    {
+      "id": "content/assets/ingest-receipts/com02x-walk-adopted-master-v3.json",
+      "version": "6a5ac6f2538f7bf15d61be367031212bf3ec3e868ebb4e180f841cae1d6eee3a",
+      "location": "content/assets/ingest-receipts/com02x-walk-adopted-master-v3.json"
+    },
+    {
+      "id": "content/recipes/assets.json",
+      "version": "7887957b31c4ef78386d1a248971fb587670813eed56fd0242a5293e8acb6509",
+      "location": "content/recipes/assets.json"
+    },
+    {
+      "id": "content/routes/opening-demo/chapter-01.json",
+      "version": "897e52bc5ff1a2452d1775e097c25e5b1d9eab23612738666b2e362b470b7f30",
+      "location": "content/routes/opening-demo/chapter-01.json"
+    },
+    {
+      "id": "content/routes/opening-demo/memories.json",
+      "version": "620aa45974e0292d9184b8cebdb8c51f621b3edad65b4035e3efa9ba2dcea48e",
+      "location": "content/routes/opening-demo/memories.json"
+    },
+    {
+      "id": "content/routes/opening-demo/route.json",
+      "version": "6094672d71d01dad0a3349456aa0ce5729a46160043a181b26c44667922e4afc",
+      "location": "content/routes/opening-demo/route.json"
+    },
+    {
+      "id": "content/production/cg-manifests/opening-ch1-com02x.json",
+      "version": "76ebcbee549c7c3adf27502594e2c2b26f218c8e3d5347386d25bbdb7f425057",
+      "location": "content/production/cg-manifests/opening-ch1-com02x.json"
+    },
+    {
+      "id": "content/production/cg-manifests/opening-ch1-com02x-microwave.json",
+      "version": "3f96a8ce9db6ddf4b45a9bb55c5ba6710f1233be9d0b4cec92d65270f03fb956",
+      "location": "content/production/cg-manifests/opening-ch1-com02x-microwave.json"
+    },
+    {
+      "id": "content/production/cg-manifests/opening-ch1-com02x-walk.json",
+      "version": "85843b3ce76eb648202420d2748f6635d578ec831c1ce1e5fc8f1a83a0242baf",
+      "location": "content/production/cg-manifests/opening-ch1-com02x-walk.json"
+    },
+    {
+      "id": "tests/browser-acceptance.spec.mjs",
+      "version": "581426ba257114f928c07a6368e6379c9109471f74908f90bad361e85cfadb37",
+      "location": "tests/browser-acceptance.spec.mjs"
+    },
+    {
+      "id": "tests/com02x-preview.test.mjs",
+      "version": "2e370873f094d56e1e44e8fd9735fd029a7f17c90f2f751db60c2225d5bc9e9f",
+      "location": "tests/com02x-preview.test.mjs"
+    },
+    {
+      "id": "tests/opening-locked-scenes.test.mjs",
+      "version": "7c47275234fc8ac2d3e942e8b32d49c54b123bdb5fbe30a5d00ab62875150dab",
+      "location": "tests/opening-locked-scenes.test.mjs"
+    },
+    {
+      "id": "tests/production-future-manifests.test.mjs",
+      "version": "501700516014437a8ef2da30f0982995ad79823f5a818822b6fec28ddcba525e",
+      "location": "tests/production-future-manifests.test.mjs"
+    },
+    {
+      "id": "tools/validate-production-contracts.mjs",
+      "version": "04984000ea2b9465f35ea04deb10e3b1b7128fc082d336d7f682da871a81c37d",
+      "location": "tools/validate-production-contracts.mjs"
+    },
+    {
+      "id": "assets-src/opening-ch1-demo/com02x-walk-candidate-v3.png",
+      "version": "a1aa0d08023cc19a42b3c9260bca732059e77eb5dd37c8578afb82bd7dd82400",
+      "location": "assets-src/opening-ch1-demo/com02x-walk-candidate-v3.png"
+    },
+    {
+      "id": "assets-src/opening-ch1-demo/com02x-walk-v3.webp",
+      "version": "5e575a70762c09fdc958333f51ea8b1f12b20109d90ca22e224e66be38accbfd",
+      "location": "assets-src/opening-ch1-demo/com02x-walk-v3.webp"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "build, validators, assets and scoped content/save checks",
+      "code": "LOCAL-INTEGRATION-VALIDATION",
+      "result": "PASS"
+    },
+    {
+      "name": "four choices, ten walking nodes, reload and Gallery with two regression negative controls",
+      "code": "LOCAL-BROWSER-5-PASS-2-NEGATIVE-CONTROLS",
+      "result": "PASS"
+    },
+    {
+      "name": "238 nonvisual nodes, Memory core and eighteen protected binary files unchanged",
+      "code": "PRESERVATION-AUDIT",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "Local integration PASS only; exact-commit Node22 CI and public deployment verification pending. Host Node25 full suite 99/103, four historical temporary-worktree symlink failures retained.",
+    "Initial packet acquired 8cb74b6; current execution includes authorized incidental guard changes at 45f62c3 and separate fixture correction.",
+    "Exact Human-adopted walking v3 remains 1672x941; original pixel QA FAIL and lower dialogue-safe-zone NEEDS_REVIEW remain historical. No global quality waiver or redraw.",
+    "Verified final Handoff SHA256 12a7374cbd0b9bb6f1fc25e5e7c62300f9eadc7df7db564c682ad6edd7010e08"
+  ],
+  "human_gate_required": "final_playable_acceptance",
+  "invalidates": []
+}

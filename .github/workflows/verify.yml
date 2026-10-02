@@ -27,6 +27,8 @@ jobs:
           sudo apt-get install -y -qq ffmpeg
           ffmpeg -version | head -1
           ffprobe -version | head -1
+      - name: Production source/artifact boundary
+        run: npm run production:storage:check
       - name: Asset check
         run: npm run assets:check
       - name: Asset build

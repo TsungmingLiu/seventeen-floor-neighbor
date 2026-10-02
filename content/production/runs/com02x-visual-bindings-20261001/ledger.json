@@ -1,0 +1,74 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_checkpoint",
+  "run_id": "com02x-visual-bindings-20261001",
+  "workflow_version": "1.3.0",
+  "source_ref": "45f62c381e194bc8b9bc9b3c7629a9a1e2ff8379",
+  "human_request": {
+    "summary": "Correct actual convenience latter-chat and walk-home CG application in PR39 with unchanged story/save contracts.",
+    "gate_status": "final_playable_acceptance",
+    "human_directive": "你可能要再檢查一次便利店後半跟回家的圖，過劇情的時候沒有正確的套用。"
+  },
+  "status": "READY_FOR_HUMAN_ACCEPTANCE",
+  "tasks": [
+    {
+      "task_id": "HUMAN-COM02X-WALK-ADOPTION-003",
+      "task_type": "human_decision",
+      "scene_id": "COM-02X",
+      "depends_on": [],
+      "status": "PASS",
+      "decision_receipt": "content/production/runs/com02x-visual-bindings-20261001/HUMAN-COM02X-WALK-ADOPTION-003.decision.json",
+      "human_gate": "none",
+      "reason": null
+    },
+    {
+      "task_id": "MUA-COM02X-DISPLAY-COVERAGE-007",
+      "task_type": "visual_review",
+      "scene_id": "COM-02X",
+      "depends_on": [],
+      "status": "PASS",
+      "decision_receipt": "content/production/runs/com02x-visual-bindings-20261001/MUA-COM02X-DISPLAY-COVERAGE-007.decision.json",
+      "human_gate": "none",
+      "reason": null
+    },
+    {
+      "task_id": "INTEGRATE-COM02X-VISUAL-BINDINGS-006",
+      "task_type": "integrate",
+      "scene_id": "COM-02X",
+      "depends_on": [
+        "HUMAN-COM02X-WALK-ADOPTION-003",
+        "MUA-COM02X-DISPLAY-COVERAGE-007"
+      ],
+      "status": "PASS",
+      "decision_receipt": "content/production/runs/com02x-visual-bindings-20261001/INTEGRATE-COM02X-VISUAL-BINDINGS-006.decision.json",
+      "human_gate": "final_playable_acceptance",
+      "reason": "Local integration verified; final CI/public verification pending."
+    },
+    {
+      "task_id": "VERIFY-COM02X-VISUAL-BINDINGS-008",
+      "task_type": "integrate",
+      "scene_id": "COM-02X",
+      "depends_on": [
+        "INTEGRATE-COM02X-VISUAL-BINDINGS-006"
+      ],
+      "status": "PASS",
+      "decision_receipt": "content/production/runs/com02x-visual-bindings-20261001/VERIFY-COM02X-VISUAL-BINDINGS-008.decision.json",
+      "human_gate": "final_playable_acceptance",
+      "reason": "Exact integration snapshot, complete CI and immutable public flow verified."
+    }
+  ],
+  "invalidation_events": [],
+  "preview": {
+    "commit": "ba5f8322d607f6e0cb1a65dc373aed6926ef9af2",
+    "profile": "verified-cg-integration",
+    "url_or_access_path": "https://b410d7e8.seventeen-floor-neighbor.pages.dev/",
+    "visibility": "public",
+    "build": "PASS",
+    "validation": "PASS",
+    "tests": "Node22 104/104; Chromium 11/11",
+    "smoke": "PASS; public route and CG bytes match; forward flow/reload/Gallery pass"
+  },
+  "human_decisions": [
+    "content/production/runs/com02x-visual-bindings-20261001/HUMAN-COM02X-WALK-ADOPTION-003.decision.json"
+  ]
+}

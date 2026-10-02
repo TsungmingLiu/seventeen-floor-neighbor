@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "com02x-cg-20260930",
+  "decision_id": "HUMAN-COM02X-MASTER-002",
+  "scene_id": "COM-02X",
+  "decision": "PASS",
+  "gate": "accepted_master_image_selection",
+  "human_directive": [
+    "只調整其中一張（請填寫）",
+    "並肩走路回家-人沒有問題，街景應該轉個角度。"
+  ],
+  "scope": "Human selected adjustment of walking image only after both new images and their QA defects were displayed. Microwave candidate is accepted as-is; walking complete master is not accepted.",
+  "accepted_assets": [
+    {
+      "entry_id": "COM02X-DLG-02-MICROWAVE",
+      "candidate_id": "COM02X-DLG-02-MICROWAVE-CANDIDATE-001",
+      "filename": "com02x-microwave-candidate-v1.png",
+      "sha256": "7b8a6f5eb9dd8bfc102229e42aaf1e82a1182f20b807d3dc134df79f5e95a392",
+      "width": 1672,
+      "height": 941,
+      "render_receipt": "content/production/runs/com02x-cg-20260930/RENDER-COM02X-MICROWAVE-001.decision.json",
+      "visual_qa_receipt": "content/production/runs/com02x-cg-20260930/VQA-COM02X-MICROWAVE-001.decision.json",
+      "visual_qa_status": "FAIL",
+      "human_disposition": "ACCEPTED_AS_IS",
+      "accepted_known_issues": [
+        {
+          "code": "VQA-COM02X-MICROWAVE-DIMENSIONS",
+          "detail": "Verified original PNG is 1672x941; the formal master minimum is 1920x1080."
+        },
+        {
+          "code": "VQA-COM02X-MICROWAVE-SAFE-ZONE-HANDS",
+          "detail": "Coffee and the gripping hand occupy the lower quarter, a drawstring is visible on the bottom edge, and the relaxed empty left hand is outside the crop."
+        },
+        {
+          "code": "VQA-COM02X-MICROWAVE-POSE-EMOTION-STYLE",
+          "detail": "Although her gaze is off lens, the torso remains near-frontal; the tilted, parted-lip presentation and smooth beauty lighting read polished rather than candid tired-neighbor attention."
+        }
+      ]
+    }
+  ],
+  "qa_history_preserved": true,
+  "exception_scope": "Only the exact microwave candidate hash; future global requirements and walking master selection remain unchanged.",
+  "authorizes": "Ingest microwave master and integrate laterchat; combine usercleanup commit into existing PR39; walking environment-only corrective plan/render and independent review."
+}

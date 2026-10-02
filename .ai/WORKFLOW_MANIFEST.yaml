@@ -130,6 +130,8 @@ production_artifacts:
   cg_manifests: content/production/cg-manifests/
   validation: tools/validate-production-contracts.mjs
   read_only_impact: tools/production-impact.mjs
+  transient_jobs: generated/job-artifacts/
+  storage_boundary: tools/production-storage.mjs
 
 render_projection:
   tool: tools/render-cg-packets.mjs
@@ -184,6 +186,8 @@ execution:
     coordinator_corrective_redispatch_limit: 1
     renderer_automatic_retry: false
   run_ledger_root: content/production/runs/
+  job_artifact_root: generated/job-artifacts/
+  versioned_run_records: durable_checkpoints_and_decisions_only
   final_gate: READY_FOR_HUMAN_ACCEPTANCE
   human_gates:
     - major_story_direction

@@ -24,7 +24,7 @@
 | `COM-01X` | locked + continuity contract; PR #33 narrative/POV accepted | integrated | base/reaction family manifest-bound | 未記錄的 schema/usability／visual scope 獨立追蹤 |
 | `COM-01B` | locked + continuity contract; PR #33 accepted; PR #37 removes premature Jiang name | integrated bridge; 同屬 elevator Memory | existing runtime CG; production manifest entries `render_ready` | 後續 production visual gate 獨立追蹤 |
 | `COM-01J` | locked + continuity contract; PR #33 accepted; PR #37 first-sight naming corrected | integrated | provisional wardrobe drift recorded in manifest | repair art only in later scoped task |
-| `COM-02X` | locked + continuity contract; PR #33 narrative/POV accepted | integrated `narrative_preview`; Memory rank 160、可 replay | registered preview-only background; no accepted COM-02X CG; no Gallery entry | 正式 CG／Visual QA／替換驗證另立 scope；不重做已批准故事接受 |
+| `COM-02X` | locked + continuity contract; PR #33 narrative/POV accepted | locally integrated accepted-as-is BG, recognition and later microwave CG; Memory rank 160、可 replay | exact Human-selected masters registered; historical per-image VQA FAIL retained; recognition and microwave CG are in Gallery; walk has character-only approved reference | walking street-angle revision/full master selection and PR Cloudflare deployment smoke/final Human playable acceptance remain; do not repeat approved story review |
 | `COM-02J` | locked | not in Chapter 1 demo | partial | future production batch |
 | `COM-03X` | S1 candidate | not integrated | not art-locked | Human narrative review before art |
 
@@ -49,7 +49,8 @@ Narrative Preview 與視覺分支都依賴 Narrative QA；任一分支不可自�
 - [x] 將雙女主 macro outline 展開成 canonical detailed pre-script blueprints：common/shared、Xu、JYC、overlap/endings。
 - [x] COM-02X 已接入 Opening Chapter 1 敘事預覽，四分支匯流、Memory／Gallery 契約與 build/tests 有有效證據；敘事接受沿用 PR #33。
 - [x] PR #37 已接入批准的 COM-00 長段對白及姓名／UI 修正；Human 已給敘事預覽品質 PASS。限定用途的兩份批准示例保留，原始候選／回饋／重複快照由 Git 歷史追溯。
-- [ ] M0：完成 COM-02X 最小必要正式 CG、Visual QA／Human accepted-master 選擇及 preview → final runtime 替換驗證。
+- [x] COM-02X 原兩張與新增 microwave accepted-as-is masters 已接入正式 runtime；83 nodes／四 choices／文本/state／Memory rank 160 invariant checks 通過。完整角色參考包清理已合併，walk component 僅人物批准；本批 build/assets、production validation／validate:final、preview smoke 通過；host Node 25 full tests 87/91，四項受 temporary checkout symlink／mmap 限制，fresh Node 22 verification 尚待 PR 推送，remote Cloudflare preview smoke 待 PR 推送。
+- [ ] M0：沿用本地 COM-02X 整合結果，完成 PR Cloudflare preview 與最終 playable review；Visual QA 歷史 FAIL 不改寫。
 - [ ] M1 準備：圈定 30–60 分鐘 validation slice 與 playtest 問題；預先選定兩幕未參與校準的許棠情境，正式執行時依 calibration policy 驗證品質／工時／修正次數。
 - [ ] 僅對尚未記錄的 Opening migration schema/usability scope 補 review（machine migration/validation complete）；不重新要求 PR #33 已批准的 dialogue／POV／姓名輸入接受。
 - [ ] 依 `docs/narrative/route-blueprints/` 從剩餘 common scenes 開始批量推進 `Narrative Design → Scene/Dialogue → Narrative QA`；**不要等待 CG 完成才寫下一個 scene**。

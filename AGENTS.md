@@ -34,7 +34,7 @@ New production art is **CG-first, 16:9 landscape-first, responsive full viewport
 
 W1/W2/W3/W4 foundation is complete. Preserve runnable runtime fixtures while migrating production content. Check actual manifest/source-map/build references before deleting binary assets; an unreferenced local candidate is not a required runtime fixture.
 
-The old `xu-tang` playable story and its dedicated media have been retired. Xu Tang's PNG/JPEG identity references remain active inputs for Opening CG production.
+The old `xu-tang` playable story and its dedicated media have been retired. Both heroines' complete six-sheet PNG references remain active inputs for Opening CG production.
 
 ## Story and asset invariants
 

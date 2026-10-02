@@ -10,14 +10,34 @@
   },
   "references": [
     {
-      "role": "primary_identity",
+      "role": "primary_face_identity",
       "name": "jyc-ref-01-face.png",
       "sourceId": "ref.jiang_yucheng.face.01"
     },
     {
-      "role": "wardrobe_a",
+      "role": "expression",
+      "name": "jyc-ref-02-expression.png",
+      "sourceId": "ref.jiang_yucheng.expression.02"
+    },
+    {
+      "role": "body_proportions",
+      "name": "jyc-ref-03-body.png",
+      "sourceId": "ref.jiang_yucheng.body.03"
+    },
+    {
+      "role": "production_consistency",
+      "name": "jyc-ref-04-production.png",
+      "sourceId": "ref.jiang_yucheng.production.04"
+    },
+    {
+      "role": "wardrobe",
       "name": "jyc-ref-05-wardrobe-a.png",
       "sourceId": "ref.jiang_yucheng.wardrobe.a"
+    },
+    {
+      "role": "wardrobe",
+      "name": "jyc-ref-06-wardrobe-b.png",
+      "sourceId": "ref.jiang_yucheng.wardrobe.b"
     }
   ],
   "outfits": {

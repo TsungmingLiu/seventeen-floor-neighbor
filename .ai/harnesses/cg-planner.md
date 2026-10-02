@@ -2,7 +2,7 @@
 
 Harness ID: `cg_planner`
 
-Version: 1.0.0
+Version: 1.1.0
 
 ## Responsibility
 
@@ -33,6 +33,8 @@ Planner 決定「哪個 beat 值得一張圖、如何呈現、如何連貫」，
 - hard `include` / `exclude` constraints；
 - base/edit reference transport；
 - output identity and acceptance checks。
+
+Reference selection uses `content/assets/character-reference-packs.json` and `npm run cg:references -- --character <visible_id> --wardrobe <exact_key> [--expression] [--body]`. Include the returned `reference_requirements`, `reference_bindings`, and `attachments` in the entry. Select only the visible character's face, production consistency, and relevant A/B wardrobe; add acting/body sheets when the shot requires them. An omitted production sheet needs an explicit reason. Never attach every sheet indiscriminately. Validate before review; renderer adapters cannot repair missing bindings after approval.
 
 Renderer 不得再讀 scene 或 project policy，所以任何 execution-critical constraint 缺失都必須在 planning 階段 `BLOCKED`。
 

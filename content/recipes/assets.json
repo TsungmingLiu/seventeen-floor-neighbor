@@ -1,5 +1,5 @@
 {
-  "recipeVersion": 9,
+  "recipeVersion": 11,
   "defaults": {
     "style": "寫實電影感、自然皮膚紋理、可信的都市生活攝影、無UI、無文字、無水印",
     "quality": "production",
@@ -375,6 +375,232 @@
           "明示美術待補",
           "不可加入 Gallery 或作正式 CG"
         ]
+      }
+    },
+    {
+      "id": "recipe.bg.opening.com02x.convenience_night",
+      "outputAsset": "bg.opening.com02x.convenience_night",
+      "type": "background",
+      "prompt": {
+        "scene": "Accepted immutable COM02X master; no generation is performed by this source-only recipe.",
+        "constraints": [
+          "Runtime build copies the registered same-dimension WebP derivative."
+        ]
+      },
+      "provenance": {
+        "acceptedMasterSourceId": "source.com02x.bg-01",
+        "humanReceipt": "content/assets/ingest-receipts/com02x-accepted-masters-v1.json",
+        "masterSha256": "88cc22c254fbbd5149cda25e34db0637cb5938b44f882ad04c14036f723363bf",
+        "derivativeSha256": "5bff68c7d038f32283bba5a1c56c652b4fc11019c4c68c892aee9517fd749112",
+        "derivativeTransform": "Pillow 12.3.0: WEBP quality=88, method=6, lossless=false; exact dimensions preserved; runtime build copies this derivative"
+      }
+    },
+    {
+      "id": "recipe.cg.opening.com02x.recognition",
+      "outputAsset": "cg.opening.com02x.recognition",
+      "type": "cg",
+      "dependencies": [
+        {
+          "character": "xu_tang",
+          "designVersion": 2
+        }
+      ],
+      "prompt": {
+        "scene": "Accepted immutable COM02X master; no generation is performed by this source-only recipe.",
+        "headPose": "Not applicable to source-only accepted-master ingestion.",
+        "constraints": [
+          "Runtime build copies the registered same-dimension WebP derivative."
+        ]
+      },
+      "canonicalCgManifest": "content/production/cg-manifests/opening-ch1-com02x.json",
+      "canonicalCgEntry": "COM02X-DLG-01",
+      "provenance": {
+        "acceptedMasterSourceId": "source.com02x.dlg-01",
+        "humanReceipt": "content/assets/ingest-receipts/com02x-accepted-masters-v1.json",
+        "masterSha256": "c3b980c003dd2bcfb4dcabb769438fe67d85751f75f5fed20ceedf4ad0c3ea65",
+        "derivativeSha256": "dde697e3460ed77d3d102c28ff1e25970e0e1f6912b718c764c0073704078d4d",
+        "derivativeTransform": "Pillow 12.3.0: WEBP quality=88, method=6, lossless=false; exact dimensions preserved; runtime build copies this derivative"
+      },
+      "displayCoverage": {
+        "manifest": "content/production/cg-manifests/opening-ch1-com02x.json",
+        "manifestRawSha256": "76ebcbee549c7c3adf27502594e2c2b26f218c8e3d5347386d25bbdb7f425057",
+        "reviewReceipt": {
+          "path": "content/production/runs/com02x-visual-bindings-20261001/MUA-COM02X-DISPLAY-COVERAGE-007.decision.json",
+          "sha256": "08fb46ea061365c33388c2753e194bc1923a4b5c72076304387c847f149f82bb",
+          "status": "PASS",
+          "scope": "manifest_usability_display_reuse_only"
+        },
+        "nodeIds": [
+          "common_convenience_xu_recognize",
+          "common_convenience_xu_recognize_02",
+          "common_convenience_xu_recognize_03",
+          "common_convenience_xu_recognize_04",
+          "common_convenience_xu_recognize_05",
+          "common_convenience_xu_recognize_06",
+          "common_convenience_xu_recognize_07",
+          "common_convenience_xu_recognize_08",
+          "common_convenience_xu_recognize_09",
+          "common_convenience_xu_recognize_10",
+          "common_convenience_xu_recognize_11",
+          "common_convenience_xu_recognize_12",
+          "common_convenience_xu_ask_food",
+          "common_convenience_xu_ask_food_02",
+          "common_convenience_xu_ask_food_03",
+          "common_convenience_xu_ask_food_04",
+          "common_convenience_xu_ask_food_05",
+          "common_convenience_xu_ask_food_06",
+          "common_convenience_xu_ask_food_07",
+          "common_convenience_xu_share_work",
+          "common_convenience_xu_share_work_02",
+          "common_convenience_xu_share_work_03",
+          "common_convenience_xu_share_work_04",
+          "common_convenience_xu_share_work_05",
+          "common_convenience_xu_share_work_06",
+          "common_convenience_xu_tease_same",
+          "common_convenience_xu_tease_same_02",
+          "common_convenience_xu_tease_same_03",
+          "common_convenience_xu_tease_same_04",
+          "common_convenience_xu_tease_same_05",
+          "common_convenience_xu_tease_same_06",
+          "common_convenience_xu_tease_same_07",
+          "common_convenience_xu_tell_eat_better",
+          "common_convenience_xu_tell_eat_better_02",
+          "common_convenience_xu_tell_eat_better_03",
+          "common_convenience_xu_choice",
+          "common_convenience_xu_tease_same_locked_00"
+        ],
+        "coverageProjection": {
+          "manifest_sha256": "9d81abffc7aa92db08852c728a61467070a2a960c0cc6ace2ea0bb20a18d0531",
+          "render_spec_sha256": "f54e955122455f1682b464d290edec9e1ec715d2af7431b244cdd80724ca9f2a",
+          "shared_prompt_sha256": "7a3ad981753bdbd8b9df948cc2615aa31ffb7d5387e58c6230d05c1fdd5bb880"
+        }
+      },
+      "originalGenerationIdentity": {
+        "locator": {
+          "ref": "aebda00d92f8dc614a8bdc6e1671541fd4d660ce",
+          "path": "content/production/runs/com02x-cg-20260930/RENDER-COM02X-DLG-001.decision.json",
+          "git_blob_sha": "bc3940446f6cf67d86d6e1dc3f2c922efbc70e76",
+          "sha256": "76bf607a8d4f58b56c1ea1acc3ca4845bcd639027508ccc959975865cf5288e8",
+          "bytes": 5042
+        },
+        "hash_fields": {
+          "/packet_sha256": "e018364cf6434afabbd50744691bdf324726c6ee53e8751fc7a3321fc86adcd2",
+          "/handoff_sha256": "a0421e55dcd9baa2ecb91cce55d13492b7df59ef7beba74901433e038108fd59",
+          "/generation_provenance/task_packet_raw_sha256": "e018364cf6434afabbd50744691bdf324726c6ee53e8751fc7a3321fc86adcd2",
+          "/generation_provenance/render_packet_raw_sha256": "8ff85aa0a3ec9f1a84a7dd587bf0dfff56e739edf414fae3432fb2bd6cfc5942",
+          "/generation_provenance/manifest_raw_sha256": "023e359c738ca1ae1ab83f4a6ea0add08c403372b629ed1f2dbd72d90e4036a1",
+          "/generation_provenance/manifest_projection_sha256": "3c23bc9d74bb38401ae51da3c170caa143cf5fab06ba0b1230a44379485c8ec0",
+          "/generation_provenance/render_spec_sha256": "18ee43f0a6d2916ada45c6cfe56b719213b9a76ea412fd805b938bf947a5046c",
+          "/generation_provenance/shared_prompt_sha256": "c9d5d1cd72b7f87ad2f781784ab62e6c5849cd83ea65cc079a6a20bf369166fd"
+        }
+      }
+    },
+    {
+      "id": "recipe.cg.opening.com02x.microwave_wait",
+      "outputAsset": "cg.opening.com02x.microwave_wait",
+      "type": "cg",
+      "dependencies": [
+        {
+          "character": "xu_tang",
+          "designVersion": 2
+        }
+      ],
+      "prompt": {
+        "scene": "Accepted immutable COM02X master; no generation is performed by this source-only recipe.",
+        "headPose": "Not applicable to source-only accepted-master ingestion.",
+        "constraints": [
+          "Runtime build copies the registered same-dimension WebP derivative."
+        ]
+      },
+      "canonicalCgManifest": "content/production/cg-manifests/opening-ch1-com02x-microwave.json",
+      "canonicalCgEntry": "COM02X-DLG-02-MICROWAVE",
+      "provenance": {
+        "acceptedMasterSourceId": "source.com02x.microwave",
+        "humanReceipt": "content/assets/ingest-receipts/com02x-microwave-accepted-master-v1.json",
+        "masterSha256": "7b8a6f5eb9dd8bfc102229e42aaf1e82a1182f20b807d3dc134df79f5e95a392",
+        "derivativeSha256": "d3006f2e29f26af80d812c1afc92de5a0807eef42fe822c80502338942cb2f24",
+        "derivativeTransform": "Pillow 12.3.0: WEBP quality=88, method=6, lossless=false; exact dimensions preserved; runtime build copies this derivative"
+      },
+      "displayCoverage": {
+        "manifest": "content/production/cg-manifests/opening-ch1-com02x-microwave.json",
+        "manifestRawSha256": "3f96a8ce9db6ddf4b45a9bb55c5ba6710f1233be9d0b4cec92d65270f03fb956",
+        "reviewReceipt": {
+          "path": "content/production/runs/com02x-visual-bindings-20261001/MUA-COM02X-DISPLAY-COVERAGE-007.decision.json",
+          "sha256": "08fb46ea061365c33388c2753e194bc1923a4b5c72076304387c847f149f82bb",
+          "status": "PASS",
+          "scope": "manifest_usability_display_reuse_only"
+        },
+        "nodeIds": [
+          "common_convenience_xu_work_02",
+          "common_convenience_xu_work_03",
+          "common_convenience_xu_work_04",
+          "common_convenience_xu_work_05",
+          "common_convenience_xu_work_06",
+          "common_convenience_xu_work_07",
+          "common_convenience_xu_work_08",
+          "common_convenience_xu_work_09",
+          "common_convenience_xu_work_10",
+          "common_convenience_xu_work_11",
+          "common_convenience_xu_work_12",
+          "common_convenience_xu_work_13",
+          "common_convenience_xu_work_14",
+          "common_convenience_xu_work_15"
+        ],
+        "coverageProjection": {
+          "manifest_sha256": "5aab02a296764c82f75abe479149a09ea196714e8bde0d3fad3759614843293a",
+          "render_spec_sha256": "ca784198cc74c073d5547e82537f4e26ad5ecbf68cc339d78e6a15fe089317a9",
+          "shared_prompt_sha256": "f5b6bb65f7776c36ef92105903e3d8488740d5f78932fd6327d5f34a5d91c763"
+        }
+      },
+      "originalGenerationIdentity": {
+        "receipt": {
+          "locator": {
+            "ref": "aebda00d92f8dc614a8bdc6e1671541fd4d660ce",
+            "path": "content/production/runs/com02x-cg-20260930/RENDER-COM02X-MICROWAVE-001.decision.json",
+            "git_blob_sha": "e2905c8752426e7a12821a35caa7b6f970fcd715",
+            "sha256": "b1d876871a4a680e5fb246716b76761620130f2e0d76b23af3b5f3317cf00e4b",
+            "bytes": 3481
+          },
+          "hash_fields": {
+            "/packet_sha256": "4133a52631c0c8951a2fc4f8844ae64acb60410a9bb5510c629d21bf02be0b4e",
+            "/handoff_sha256": "ddfc058567e4ba444d53ff7551b559f3d34080235baa4553691c58d2e5a7a22a"
+          }
+        },
+        "exactPacketHashes": {
+          "manifest_raw_sha256": "7255a23aa119570b7130888f92c6a4f53629ec3ca420e7270d0bdbf340b41e02",
+          "render_spec_sha256": "e9b4977412ca225dc1c2826f2f70a56317fef66946bb788511dec66e83e16fda",
+          "shared_prompt_sha256": "e8f5a71189140fbb3d87fa3267319370f38036a413e972620dcc06637fa3816d",
+          "original_api_raw_sha256": "68005152b44f9ca6f0c0dc4fd27c2c4ef67bb61a89134858c39424f2f5232b82",
+          "reconstructed_api_raw_sha256": "68005152b44f9ca6f0c0dc4fd27c2c4ef67bb61a89134858c39424f2f5232b82",
+          "exact_original_packet_reproduced": true
+        }
+      }
+    },
+    {
+      "id": "recipe.cg.opening.com02x.walk_home",
+      "outputAsset": "cg.opening.com02x.walk_home",
+      "type": "cg",
+      "dependencies": [
+        {
+          "character": "xu_tang",
+          "designVersion": 2
+        }
+      ],
+      "prompt": {
+        "scene": "Human-adopted immutable COM02X walking v3 master; no generation is performed by this source-only recipe.",
+        "headPose": "Not applicable to source-only accepted-master ingestion.",
+        "constraints": [
+          "Runtime build copies the registered same-dimension WebP derivative."
+        ]
+      },
+      "canonicalCgManifest": "content/production/cg-manifests/opening-ch1-com02x-walk.json",
+      "canonicalCgEntry": "COM02X-WALK-01",
+      "provenance": {
+        "acceptedMasterSourceId": "source.com02x.walk-v3",
+        "humanReceipt": "content/assets/ingest-receipts/com02x-walk-adopted-master-v3.json",
+        "masterSha256": "a1aa0d08023cc19a42b3c9260bca732059e77eb5dd37c8578afb82bd7dd82400",
+        "derivativeSha256": "5e575a70762c09fdc958333f51ea8b1f12b20109d90ca22e224e66be38accbfd",
+        "derivativeTransform": "Pillow 12.3.0: WEBP quality=88, method=6, lossless=false; exact dimensions preserved; runtime build copies this derivative"
       }
     }
   ]

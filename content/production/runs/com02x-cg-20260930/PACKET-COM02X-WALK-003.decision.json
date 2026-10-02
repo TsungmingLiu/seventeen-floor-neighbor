@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "com02x-cg-20260930",
+  "task_id": "PACKET-COM02X-WALK-003",
+  "scene_id": "COM-02X",
+  "task_type": "cg_render",
+  "status": "PASS",
+  "workflow_version": "1.3.0",
+  "harness": {
+    "id": "cg_renderer",
+    "version": "1.0.0",
+    "pass": null
+  },
+  "source_ref": "5d86f612601236292d20d653335be8da7d0892cc",
+  "packet_sha256": "63fc515fd43f3d13d4bbbb4a784960c642f9576c1fc9b9ec2bb5c0265f384965",
+  "handoff_sha256": "4f58f5a93ea25fcca2534136c0819a855237f40101d35a3035f153c1f19035bc",
+  "input_versions": [
+    {
+      "id": "manifest:COM02X-WALK-01",
+      "version": "e082a691e4f7cf0436610d955662b4e4ee57d2b505299b5195cd4fec521f8df3",
+      "location": "content/production/cg-manifests/opening-ch1-com02x-walk.json"
+    },
+    {
+      "id": "entry-excerpt:COM02X-WALK-01",
+      "version": "b820a949d53d6ea7a979812e84cd0e7646a39529a9ee47bab2866be6ca38bec0",
+      "location": "generated/session-cache/com02x-cg-20260930/COM02X-WALK-01.v3.entry.json"
+    },
+    {
+      "id": "manifest-usability:COM02X-WALK-01",
+      "version": "7c81b2767d47619f1cab5586a4809981f02a07a57195782c8239aa5981fa6109",
+      "location": "content/production/runs/com02x-cg-20260930/MUA-COM02X-WALK-005.decision.json"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "COM02X-WALK-01-render-packet",
+      "version": "sha256:c8dcb1a8f40d855e048558d263302088a787391929057b6f0751979d4ba1f88d",
+      "location": "generated/session-cache/com02x-cg-20260930/COM02X-WALK-01.v3.api.jsonl"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "packet_raw_input_hashes",
+      "result": "PASS"
+    },
+    {
+      "name": "manifest_entry_check",
+      "result": "PASS"
+    },
+    {
+      "name": "exactly_one_api_job",
+      "result": "PASS"
+    },
+    {
+      "name": "shared_prompt_hash_matches_projected_prompt",
+      "result": "PASS"
+    },
+    {
+      "name": "declared_reference_role_source_filename_bindings",
+      "result": "PASS"
+    },
+    {
+      "name": "generation_performed",
+      "result": "PASS",
+      "detail": "No generation performed, as required."
+    }
+  ],
+  "known_issues": [],
+  "human_gate": "none"
+}

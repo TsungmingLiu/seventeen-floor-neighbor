@@ -8,9 +8,9 @@
 
 > 狀態：**Canonical character-image reference contract**
 >
-> 版本：1.2
+> 版本：1.3
 >
-> 更新：2026-09-26
+> 更新：2026-10-01
 >
 > 目的：定義所有可進 production 的戀愛角色，在大量生成 CG 前必須具備的 6-sheet reference pack；同時記錄目前已入庫、可供 generation 綁定的參考圖與缺失項目。
 >
@@ -35,14 +35,11 @@
 
 Production adapters resolve source IDs through `content/assets/source-catalog.json` to its `sourcePath` and verify the file, MIME, SHA-256, role, and visible pixels before generation. Historical provider metadata is not an active acquisition binding.
 
-Currently available in the repository:
+Both six-sheet packs are now available as original PNG files under `assets-src/references/xu-tang/` and `assets-src/references/jiang-yucheng/`. The Owner supplied all 12 files on 2026-09-30. Four already stored face/Wardrobe A sheets match the uploads byte-for-byte; seven missing sheets have been restored, and Xu Tang's temporary body JPEG has been superseded by the supplied PNG.
 
-- Xu Tang: face identity (`xt-ref-01-face.png`), optional body/proportions (`xt-ref-03-body.jpeg`), and Wardrobe A (`xt-ref-05-wardrobe-a.png`).
-- Jiang Yucheng: face identity (`jyc-ref-01-face.png`) and Wardrobe A (`jyc-ref-05-wardrobe-a.png`).
+Exact filenames, roles, character IDs, MIME, dimensions, byte counts and SHA-256 are recorded in `content/assets/source-catalog.json` and `content/assets/ingest-receipts/character-reference-packs-20260930.json`. The original Gate 3 receipt remains historical evidence; its JPEG fingerprint is verified through the explicit supersession record, not presented as the new PNG's fingerprint.
 
-The other seven reference sheets are unavailable in the repository. Any task that requires one of those missing images must be `BLOCKED` until that exact image is supplied and cataloged.
-
-Xu Tang's body JPEG is user supplied and replaces an unavailable former PNG reference as a distinct byte sequence. It is optional. Do not claim byte identity or pixel equivalence with the former PNG. Its SHA-256 is `d436d6ceeda95a2cd8115087d6b49e39baa72ec2f7552909da2b9a2eb933cdd4` (1055 × 1491).
+`content/assets/character-reference-packs.json` is the machine-readable six-sheet and wardrobe-look index. Character metadata lists all six sources. Reference images are production inputs and are not copied into the playable runtime asset bundle.
 
 ---
 
@@ -60,11 +57,11 @@ Canonical character facts：
 | Role | File | Repository status | Authority |
 |---|---|---|---|
 | Primary face identity | `xt-ref-01-face.png` | Available: `assets-src/references/xu-tang/xt-ref-01-face.png` | **Highest** |
-| Expression / acting | `xt-ref-02-expression.png` | Unavailable | Secondary |
-| Body / proportions | `xt-ref-03-body.jpeg` | Optional; available: `assets-src/references/xu-tang/xt-ref-03-body.jpeg` | Body authority |
-| Hair / hands / props / lighting | `xt-ref-04-production.png` | Unavailable | Production consistency |
+| Expression / acting | `xt-ref-02-expression.png` | Available: `assets-src/references/xu-tang/xt-ref-02-expression.png` | Secondary |
+| Body / proportions | `xt-ref-03-body.png` | Available: `assets-src/references/xu-tang/xt-ref-03-body.png` | Body authority |
+| Hair / hands / props / lighting | `xt-ref-04-production.png` | Available: `assets-src/references/xu-tang/xt-ref-04-production.png` | Production consistency |
 | Early/mid wardrobe | `xt-ref-05-wardrobe-a.png` | Available: `assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png` | Wardrobe A |
-| Late/after-story wardrobe | `xt-ref-06-wardrobe-b.png` | Unavailable | Wardrobe B |
+| Late/after-story wardrobe | `xt-ref-06-wardrobe-b.png` | Available: `assets-src/references/xu-tang/xt-ref-06-wardrobe-b.png` | Wardrobe B |
 
 ## 3.1 Xu wardrobe semantics
 
@@ -98,11 +95,11 @@ Canonical character facts：
 | Role | File | Repository status | Authority |
 |---|---|---|---|
 | Primary face identity | `jyc-ref-01-face.png` | Available: `assets-src/references/jiang-yucheng/jyc-ref-01-face.png` | **Highest** |
-| Expression / acting | `jyc-ref-02-expression.png` | Unavailable | Secondary |
-| Body / proportions | `jyc-ref-03-body.png` | Unavailable | Body authority |
-| Hair / hands / props / lighting | `jyc-ref-04-production.png` | Unavailable | Production consistency |
+| Expression / acting | `jyc-ref-02-expression.png` | Available: `assets-src/references/jiang-yucheng/jyc-ref-02-expression.png` | Secondary |
+| Body / proportions | `jyc-ref-03-body.png` | Available: `assets-src/references/jiang-yucheng/jyc-ref-03-body.png` | Body authority |
+| Hair / hands / props / lighting | `jyc-ref-04-production.png` | Available: `assets-src/references/jiang-yucheng/jyc-ref-04-production.png` | Production consistency |
 | Early/mid wardrobe | `jyc-ref-05-wardrobe-a.png` | Available: `assets-src/references/jiang-yucheng/jyc-ref-05-wardrobe-a.png` | Wardrobe A |
-| Late/after-story wardrobe | `jyc-ref-06-wardrobe-b.png` | Unavailable | Wardrobe B |
+| Late/after-story wardrobe | `jyc-ref-06-wardrobe-b.png` | Available: `assets-src/references/jiang-yucheng/jyc-ref-06-wardrobe-b.png` | Wardrobe B |
 
 ## 4.1 JYC wardrobe semantics
 
@@ -178,7 +175,22 @@ preferred 6:
 再加入 XT ref-04 + JYC ref-04
 ~~~
 
-## 5.2 Authority conflict
+## 5.2 Machine selection and enforcement
+
+Before releasing a new base render entry, select the visible character's references with:
+
+~~~sh
+npm run cg:references -- --character xu_tang --wardrobe XT-WARDROBE-A-WEEKDAY-NEIGHBOR
+npm run cg:references -- --character jiang_yucheng --wardrobe JYC-WARDROBE-B-CUTE-DATE --expression --body
+~~~
+
+The selector returns `reference_requirements`, `reference_bindings`, and transport `attachments`; copy them into the canonical entry before its review. It selects face + production consistency + exactly the wardrobe sheet owning the requested look, with expression/body only when requested. The registry records the exact look within each sheet; the planner projects outfit details into the entry's `wardrobe_key` and render constraints rather than treating all four looks as interchangeable.
+
+New base entries default to face + production + wardrobe. `reference_requirements.expression` and `body_proportions` declare additional shot needs. Full-body/long-shot camera values also require the body sheet. Omitting production consistency requires `production_consistency: false` and a non-empty `production_omission_reason`. Manifest validation blocks wrong character/role/filename, wrong A/B wardrobe, missing or unnecessary sheets and duplicate bindings. Render transport must match the declared images exactly; adapters do not silently add references after manifest approval.
+
+Accepted entries retain their original render bindings as provenance. COM-01B's stale `render_ready` metadata is corrected to `accepted` against its existing Gate 3 accepted receipt, without changing render fields. New reaction/sequence edits inherit the accepted base; additional identity/acting references must be explicitly declared and attached. This restoration does not imply that previously rendered CGs used the newly recovered sheets.
+
+## 5.3 Authority conflict
 
 若 references 彼此看起來略有差異：
 

@@ -2,11 +2,11 @@
 
 Harness ID: `integrator`
 
-Version: 1.2.0
+Version: 1.3.0
 
 ## Responsibility
 
-把已通過 QA 的 locked scene 接入 runtime contracts，不改變 creative meaning。Task Packet 必須明列 `integration_mode: narrative_preview | final`。
+把已通過 QA 的 locked scene 接入 runtime contracts，不改變 creative meaning。Task Packet 必須明列 `integration_mode: narrative_preview | final | governance_maintenance`。
 
 ## Inputs
 
@@ -69,3 +69,7 @@ Integrator 不得：
 Schema gap or conflict means `BLOCKED` with the smallest missing runtime capability。
 
 `npm test` PASS alone is not production completion。`npm run codespace:accept` verifies an ephemeral Codespace and deletes it on success；for a retained Human demo use `npm run codespace:review -- --branch <ref>` or a private forwarded preview with exact access instructions。Final playable acceptance belongs to Human。
+
+## Governance maintenance
+
+`integration_mode: governance_maintenance` is an explicitly authorized engineering/policy task. Audit dependencies using machine-only identities, preserve creative/runtime bytes and Human gates, and run build/validate/final plus relevant tool tests. Storage cleanup may project historical execution metadata into exact immutable Git locators; it must not change recorded QA outcomes or acceptance. Put its packet, audit, logs and full Handoff in ignored session cache; do not create an art-production run for repository maintenance. Playable/demo checks are required only when runtime behavior changes.

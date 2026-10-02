@@ -1,0 +1,122 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "com02x-cg-20260930",
+  "task_id": "VQA-COM02X-WALK-003",
+  "scene_id": "COM-02X",
+  "task_type": "visual_review",
+  "status": "FAIL",
+  "workflow_version": "1.3.0",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.4.0",
+    "pass": "visual_review"
+  },
+  "source_ref": "5d86f612601236292d20d653335be8da7d0892cc",
+  "packet_sha256": "75f629e864d2d8fd72f073f62e8d282364bf6400a3d0c62e4d55d39659b41f57",
+  "handoff_sha256": "3bf9f1050eeb7bf0e1d7e8fad3a94576c307603227c496280ad4658ef68b6d38",
+  "input_versions": [
+    {
+      "id": "entry-excerpt:COM02X-WALK-01",
+      "version": "b820a949d53d6ea7a979812e84cd0e7646a39529a9ee47bab2866be6ca38bec0",
+      "location": "generated/session-cache/com02x-cg-20260930/COM02X-WALK-01.v3.entry.json"
+    },
+    {
+      "id": "candidate:COM02X-WALK-01-003",
+      "version": "a1aa0d08023cc19a42b3c9260bca732059e77eb5dd37c8578afb82bd7dd82400",
+      "location": "/Users/tsungmingliu/Documents/Codex/2026-09-30/com02x-cg-production/outputs/com02x-walk-candidate-v3.png"
+    },
+    {
+      "id": "render-decision:COM02X-WALK-01",
+      "version": "7fa8a923b6c593a01e08e919a1c09e39cf779008ab0c1722649b6185fa184fb4",
+      "location": "content/production/runs/com02x-cg-20260930/RENDER-COM02X-WALK-003-RECOVERY.decision.json"
+    },
+    {
+      "id": "ref.xu_tang.face.01",
+      "version": "2fd137f796d0e7667a5913748158f75705b1a538b346b9e7f76aacb3c79acfd0",
+      "location": "assets-src/references/xu-tang/xt-ref-01-face.png"
+    },
+    {
+      "id": "ref.xu_tang.production.04",
+      "version": "915cbbd529b252ba465b03872f6f8b3132a846b81e0bc8fa87405b7db19ed692",
+      "location": "assets-src/references/xu-tang/xt-ref-04-production.png"
+    },
+    {
+      "id": "ref.xu_tang.wardrobe.a",
+      "version": "aaf33f06f3e39fc476deee03ab261a43e0911b8393366ae7399c633abfadc716",
+      "location": "assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png"
+    },
+    {
+      "id": "ref.com02x.walk.character_continuity_v1",
+      "version": "3b09951d2abaf3362bcbccc015462b1d4885cb226618f688d6ef99703fc4366d",
+      "location": "assets-src/references/xu-tang/com02x-walk-character-continuity-v1.png"
+    },
+    {
+      "id": "source.opening.ch1.com01b.03",
+      "version": "aa6a236bceca59882edd5f3e1eded77b99347ca62fe5ed81ff74ee4d84bdcbc0",
+      "location": "assets-src/opening-ch1-demo/opening-ch1-com01b-03.webp"
+    },
+    {
+      "id": "rejected-street-v2-comparison",
+      "version": "e1a5e0fafc9e98bedaa4e8fb22a4d85bce54a315617317fcff7831da3748b1d3",
+      "location": "/Users/tsungmingliu/Documents/Codex/2026-09-30/com02x-cg-production/outputs/com02x-walk-candidate-v2.png"
+    },
+    {
+      "id": "Human-perpendicular-street-directive",
+      "version": "e0cc8196419d55cc31b21d684d7c0319a08bea2af03180559a7487c34d3c6bbb",
+      "location": "content/production/runs/com02x-cg-20260930/HUMAN-COM02X-WALK-ANGLE-002.decision.json"
+    }
+  ],
+  "output_versions": [],
+  "qa_codes": [
+    {
+      "name": "declared_source_identity_and_visible_pixels",
+      "result": "PASS"
+    },
+    {
+      "name": "street_orientation_perpendicular",
+      "result": "PASS",
+      "finding": "Compared with v2's diagonal, receding tactile strip and street corridor, v3 presents the street-parallel facade/planter and sidewalk movement laterally across frame; the foreground tactile strip is transverse in the composition. The camera reads across the sidewalk toward the frontage, meeting the explicit perpendicular correction."
+    },
+    {
+      "name": "woman_identity_expression_pose_placement_scale_framing_retained",
+      "result": "PASS",
+      "finding": "V3 retains the v1-approved adult Xu appearance, long dark hair, hoop earrings, gray late-night look, neutral slightly parted-mouth expression, side-facing walking pose, tote and carried bag, and approximately the same screen placement and scale. No corrective woman repaint/repose/reframe is evident."
+    },
+    {
+      "name": "wardrobe_hands_props_gaze_and_story_beat",
+      "result": "PASS",
+      "finding": "Gray casual outfit, tote, and checkout bag remain; gaze is sideways toward the route/building. No additional person, text, or off-beat interaction is visible. Hands are partly occluded by bag handles but no obvious anatomical break is visible at presented scale."
+    },
+    {
+      "name": "street_location_time_lighting_material_and_physical_coherence",
+      "result": "PASS",
+      "finding": "Recognizable COM01B03 residential frontage, entrance, planter, foliage, paving, and warm lamps remain in late-night conditions. Wet sheen is localized and readable; no obvious cutout seam or impossible shadow is visible."
+    },
+    {
+      "name": "photographic_pbr_style_and_focus",
+      "result": "PASS",
+      "finding": "Photographic cinematic rendering with coherent skin, hair, cloth, stone, glass, and night exposure; no embedded UI, watermark, or prominent pseudo-text."
+    },
+    {
+      "name": "aspect_ratio_16_9",
+      "result": "PASS",
+      "finding": "1672x941 is approximately 16:9."
+    },
+    {
+      "name": "candidate_master_minimum_1920x1080",
+      "result": "FAIL",
+      "finding": "Actual candidate is 1672x941, below the formal 1920x1080 minimum. The reference-resolution exception does not apply."
+    },
+    {
+      "name": "dialogue_safe_zone_and_full_viewport_crop",
+      "result": "NEEDS_REVIEW",
+      "finding": "The inherited lower-edge crop remains: shorts and the lower portions of the tote/checkout bag are cut by the frame, with the bag occupying the lower dialogue-safe region. This is a residual from the approved component, not grounds to alter the woman in this correction. Whole-walk safe-zone/crop remains unresolved."
+    }
+  ],
+  "known_issues": [
+    "FAIL: candidate is 1672x941, below the required 1920x1080 master minimum.",
+    "NEEDS_REVIEW: lower crop and dialogue-safe region remain occupied by the inherited shorts/tote/checkout-bag crop; no subject adjustment is authorized here."
+  ],
+  "human_gate": "accepted_master_image_selection",
+  "review_scope": "candidate"
+}
