@@ -2,9 +2,9 @@
 
 > Status: **CANONICAL visual-production contract**
 >
-> Version: 1.1
+> Version: 1.2
 >
-> Updated: 2026-09-25
+> Updated: 2026-10-02
 >
 > This file supersedes older 9:16 mobile-first and sprite-first production instructions wherever they conflict.
 
@@ -23,11 +23,13 @@ New production scenes do **not** require reusable character sprites. Existing sp
 
 ## 2. Canvas and device strategy
 
-Canonical production master is **16:9 landscape**.
+Canonical production master is **16:9 landscape**, allowing normal integer-pixel rounding.
 
-Recommended masters:
-- 1920×1080 minimum;
-- 2560×1440 preferred when generation quality supports it.
+Master resolution follows the generation tool's native output:
+- accept native dimensions such as the observed ChatGPT output **1672×941**; this observation is not a permanent or universal provider limit;
+- no fixed 1920×1080 minimum and no artificial upscaling requirement;
+- larger native resolutions are optional when available and generation quality supports them;
+- preserve the original native master bytes and record the actual pixel dimensions in asset provenance.
 
 Target play surfaces:
 - desktop browser: responsive full viewport;

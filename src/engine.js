@@ -2,7 +2,7 @@ import { ProgressStore } from './progress.js';
 import { paintPreview, paintSprites, resolveVisual, setImage } from './visuals.js';
 import { memoryEventById, memoryEventForNode, memoryStats, renderMemories, titleBackdropVisual } from './memories.js';
 import { hasRenderableText, presentationModeForNode, speakerLabelForNode } from './presentation.js';
-import { interpolatePlayerName, normalizePlayerName } from './player-name.js';
+import { DEFAULT_PLAYER_NAME, interpolatePlayerName, normalizePlayerName, submittedPlayerName } from './player-name.js';
 
 export class GameEngine {
   constructor({ chapter, assetManifest, sceneLibrary, memoryLibrary }) {
@@ -23,6 +23,8 @@ export class GameEngine {
     this.progress = new ProgressStore(chapter, this.memoryLibrary);
     this.requiresPlayerName = Object.values(chapter.nodes).some(node => node.text?.includes('[PLAYER_NAME]'));
     this.pendingNamedAction = null;
+    this.nameDraftInitialized = false;
+    this.nameDefaultPending = false;
     this.previousNode = null;
     this.cgStorageKey = `${chapter.id}:cgUnlocks`;
     this.galleryEntries = Object.entries(this.assets)
@@ -139,9 +141,23 @@ export class GameEngine {
 
   bindEvents() {
     this.els.startButton.addEventListener('click', () => this.startFromTitle());
+    const clearDefaultName = () => this.clearDefaultPlayerName();
+    this.els.nameInput.addEventListener('pointerdown', clearDefaultName);
+    this.els.nameInput.addEventListener('click', clearDefaultName);
+    this.els.nameInput.addEventListener('keydown', (event) => {
+      if (!event.ctrlKey && !event.metaKey && !event.altKey
+        && (Array.from(event.key).length === 1 || ['Backspace', 'Delete'].includes(event.key))) {
+        clearDefaultName();
+      }
+    });
+    for (const type of ['beforeinput', 'compositionstart', 'paste', 'cut', 'drop']) {
+      this.els.nameInput.addEventListener(type, clearDefaultName);
+    }
+    // Autofill and edits that skip beforeinput become the user's draft immediately.
+    this.els.nameInput.addEventListener('input', () => { this.nameDefaultPending = false; });
     this.els.nameForm.addEventListener('submit', (event) => {
       event.preventDefault();
-      if (!this.progress.setPlayerName(this.els.nameInput.value)) {
+      if (!this.progress.setPlayerName(submittedPlayerName(this.els.nameInput.value))) {
         this.els.nameError.textContent = '請輸入 1–20 個字的名字，使用一般文字即可。';
         this.els.nameInput.focus();
         return;
@@ -821,10 +837,24 @@ export class GameEngine {
     if (!this.requiresPlayerName || normalizePlayerName(this.progress.data.playerDisplayName)) return true;
     this.pendingNamedAction = action;
     this.els.nameError.textContent = '';
-    this.els.nameInput.value = '';
+    if (!this.nameDraftInitialized) {
+      if (!this.els.nameInput.value) this.els.nameInput.value = DEFAULT_PLAYER_NAME;
+      this.nameDraftInitialized = true;
+      this.nameDefaultPending = this.els.nameInput.value === DEFAULT_PLAYER_NAME;
+    }
     if (!this.els.nameDialog.open) this.els.nameDialog.showModal();
     this.els.nameInput.focus();
     return false;
+  }
+
+  clearDefaultPlayerName() {
+    if (!this.nameDefaultPending) return;
+    this.nameDefaultPending = false;
+    // A browser/autofill value may arrive without an input event. Never erase it.
+    if (this.els.nameInput.value !== DEFAULT_PLAYER_NAME) return;
+    this.els.nameInput.value = '';
+    this.els.nameInput.focus();
+    this.els.nameInput.setSelectionRange(0, 0);
   }
 
   startGame({ replay = false, freshRun = false } = {}) {

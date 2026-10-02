@@ -39,7 +39,8 @@ class FakeElement {
   replaceChildren(...children) { this.children = children; }
   addEventListener(type, listener) { this.listeners.set(type, listener); }
   setAttribute() {}
-  focus() {}
+  focus() { this.focused = true; this.listeners.get('focus')?.(); }
+  setSelectionRange(start, end) { this.selectionStart = start; this.selectionEnd = end; }
   pause() {}
   play() { return Promise.resolve(); }
   load() {}
@@ -287,7 +288,7 @@ test('Start name form gates entry and the saved name survives Continue and Memor
   assert.equal(engine.els.nameDialog.open, true);
   assert.equal(engine.progress.data.cursor, null, 'opening is not captured before name entry');
   const submit = engine.els.nameForm.listeners.get('submit');
-  engine.els.nameInput.value = '   ';
+  engine.els.nameInput.value = '[bad]';
   submit({ preventDefault() {} });
   assert.equal(engine.els.nameDialog.open, true);
   assert.equal(engine.progress.data.cursor, null);
@@ -327,6 +328,128 @@ test('Start name form gates entry and the saved name survives Continue and Memor
   assert.equal(story.nodes.narration.speaker, '旁白');
   assert.equal(story.nodes.thought.speaker, '內心');
   assert.equal(reloaded.progress.data.playerDisplayName, '小雨');
+  reloaded.progress.finishRun();
+  reloaded.startFromTitle();
+  assert.equal(reloaded.progress.data.playerDisplayName, '小雨', 'explicit restart retains the saved name');
+  assert.equal(reloaded.els.nameDialog.open, false);
+});
+
+function namedEngine() {
+  const engine = engineFor(chapter({ start: { speaker: '我', text: '我叫[PLAYER_NAME]。' } }));
+  engine.bindEvents();
+  engine.startFromTitle();
+  return engine;
+}
+
+function nameEvent(engine, type, details = {}) {
+  engine.els.nameInput.listeners.get(type)?.(details);
+}
+
+function submitName(engine) {
+  engine.els.nameForm.listeners.get('submit')({ preventDefault() {} });
+}
+
+test('prefilled default survives autofocus and non-edit keys, then starts and persists without typing', () => {
+  const engine = namedEngine();
+  assert.equal(engine.els.nameInput.value, '劉樂');
+  assert.equal(engine.els.nameInput.focused, true);
+  engine.els.nameInput.focus();
+  for (const key of ['Tab', 'ArrowLeft', 'Enter', 'Shift']) nameEvent(engine, 'keydown', { key });
+  nameEvent(engine, 'keydown', { key: 'a', ctrlKey: true });
+  assert.equal(engine.els.nameInput.value, '劉樂');
+  assert.equal(engine.progress.data.playerDisplayName, null, 'no save mutation before confirmation');
+  submitName(engine);
+  engine.revealText();
+  assert.equal(engine.els.nameDialog.open, false);
+  assert.equal(engine.els.text.textContent, '我叫劉樂。');
+  assert.equal(JSON.parse(localStorage.getItem(engine.progress.key)).playerDisplayName, '劉樂');
+});
+
+test('first pointer interaction clears once with a cursor and subsequent interactions retain custom text', () => {
+  const engine = namedEngine();
+  nameEvent(engine, 'pointerdown');
+  nameEvent(engine, 'click');
+  assert.equal(engine.els.nameInput.value, '');
+  assert.equal(engine.els.nameInput.focused, true);
+  assert.equal(engine.els.nameInput.selectionStart, 0);
+  assert.equal(engine.els.nameInput.selectionEnd, 0);
+  engine.els.nameInput.value = '小雨';
+  for (const type of ['input', 'pointerdown', 'click', 'compositionstart', 'beforeinput']) nameEvent(engine, type);
+  engine.els.nameInput.focus();
+  assert.equal(engine.els.nameInput.value, '小雨');
+  engine.els.nameCancel.click();
+  assert.equal(engine.progress.data.cursor, null);
+  engine.startFromTitle();
+  assert.equal(engine.els.nameInput.value, '小雨', 'cancel/reopen retains the unsaved draft');
+  nameEvent(engine, 'click');
+  assert.equal(engine.els.nameInput.value, '小雨');
+  submitName(engine);
+  assert.equal(engine.progress.data.playerDisplayName, '小雨');
+});
+
+test('keyboard, IME, paste and native beforeinput clear default before editing without erasing later input', () => {
+  for (const [type, details] of [
+    ['keydown', { key: '雨' }], ['keydown', { key: 'Backspace' }], ['keydown', { key: 'Delete' }],
+    ['compositionstart', {}], ['beforeinput', { inputType: 'insertText' }],
+    ['paste', {}], ['cut', {}], ['drop', {}]
+  ]) {
+    const engine = namedEngine();
+    nameEvent(engine, type, details);
+    assert.equal(engine.els.nameInput.value, '', type);
+    engine.els.nameInput.value = '樂';
+    nameEvent(engine, 'beforeinput', { inputType: 'insertCompositionText' });
+    nameEvent(engine, 'input', { isComposing: true });
+    nameEvent(engine, 'compositionstart');
+    nameEvent(engine, 'click');
+    assert.equal(engine.els.nameInput.value, '樂', `${type} preserves ongoing edits`);
+    submitName(engine);
+    assert.equal(engine.progress.data.playerDisplayName, '樂');
+  }
+});
+
+test('autofill and native input retire default clearing even when they bypass beforeinput', () => {
+  const autofilled = engineFor(chapter({ start: { text: '[PLAYER_NAME]。' } }));
+  autofilled.bindEvents();
+  autofilled.els.nameInput.value = '開啟前填入';
+  autofilled.startFromTitle();
+  nameEvent(autofilled, 'click');
+  assert.equal(autofilled.els.nameInput.value, '開啟前填入', 'opening also preserves earlier browser autofill');
+  for (const signalInput of [false, true]) {
+    const engine = namedEngine();
+    engine.els.nameInput.value = '自訂名字';
+    if (signalInput) nameEvent(engine, 'input');
+    for (const type of ['pointerdown', 'click', 'beforeinput', 'compositionstart']) nameEvent(engine, type);
+    assert.equal(engine.els.nameInput.value, '自訂名字');
+    submitName(engine);
+    assert.equal(engine.progress.data.playerDisplayName, '自訂名字');
+  }
+  const engine = namedEngine();
+  nameEvent(engine, 'input');
+  nameEvent(engine, 'click');
+  assert.equal(engine.els.nameInput.value, '劉樂', 'an input event also preserves a custom value equal to the default');
+});
+
+test('cleared and whitespace names quick-start with the default, invalid nonblank remains editable', () => {
+  for (const value of ['', ' \t\u3000 ']) {
+    const engine = namedEngine();
+    nameEvent(engine, 'pointerdown');
+    engine.els.nameInput.value = value;
+    submitName(engine);
+    assert.equal(engine.els.nameDialog.open, false);
+    assert.equal(engine.progress.data.playerDisplayName, '劉樂');
+  }
+  const engine = namedEngine();
+  nameEvent(engine, 'pointerdown');
+  for (const value of ['[bad]', '雨'.repeat(21), '小\n雨']) {
+    engine.els.nameInput.value = value;
+    submitName(engine);
+    assert.equal(engine.els.nameDialog.open, true);
+    assert.equal(engine.progress.data.cursor, null);
+    assert.equal(engine.progress.data.playerDisplayName, null);
+    assert.ok(engine.els.nameError.textContent);
+    nameEvent(engine, 'click');
+    assert.equal(engine.els.nameInput.value, value, 'validation focus/click preserves custom input');
+  }
 });
 
 test('protagonist name tag falls back safely when a stored name is invalid', () => {

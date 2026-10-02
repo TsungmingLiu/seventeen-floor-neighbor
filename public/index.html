@@ -114,9 +114,9 @@
     <dialog class="player-name-dialog" id="player-name-dialog" aria-labelledby="player-name-title">
       <form id="player-name-form" novalidate>
         <h2 id="player-name-title">你的名字</h2>
-        <p id="player-name-hint">故事中的你，想讓鄰居怎麼稱呼？</p>
+        <p id="player-name-hint">故事中的你，想讓鄰居怎麼稱呼？不改名字可直接開始，點擊名字即可修改。</p>
         <label for="player-name-input">名字</label>
-        <input id="player-name-input" name="playerName" type="text" autocomplete="nickname" required aria-describedby="player-name-hint player-name-error">
+        <input id="player-name-input" name="playerName" type="text" value="劉樂" autocomplete="nickname" autofocus aria-describedby="player-name-hint player-name-error">
         <p id="player-name-error" role="alert"></p>
         <div class="player-name-actions">
           <button class="primary-button" type="submit">進入故事</button>
