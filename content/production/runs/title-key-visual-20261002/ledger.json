@@ -1,0 +1,97 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_checkpoint",
+  "run_id": "title-key-visual-20261002",
+  "workflow_version": "1.3.0",
+  "source_ref": "87086683361ed8f55492055e8f5776ff4229e36e",
+  "human_request": {
+    "summary": "Defaultname劉樂 + selectednativezero-progress17Ftitlebackground; removefixed1920minimum; adoptactualmasterwith50%40%focus",
+    "gate_status": "actual_master_and_focus_explicitly_accepted",
+    "native_master_sha256": "8434d7ae1f0857245abc99062a67b6c81d384de489a2854b65348da73edf0c81",
+    "reconciled_manifest_sha256": "b0fb422062bd29ba188eb141ca341e9dd27f1344fa6a3643a0c97f21a5714f59",
+    "generation_ref": "a4e6e1b6e89c3d6dc180755842343230398e3403",
+    "generation_manifest_sha256": "3ac8f4d3e48a9a6b8c0a32b2c1c66dabb16323ce59c4accd2517396a965ce196"
+  },
+  "status": "ACTIVE",
+  "tasks": [
+    {
+      "task_id": "MUA-TITLE-17F-001",
+      "task_type": "visual_review",
+      "review_scope": "manifest_usability",
+      "scene_id": "COM-00",
+      "depends_on": [],
+      "status": "PASS",
+      "decision_receipt": "content/production/runs/title-key-visual-20261002/MUA-TITLE-17F-001.decision.json",
+      "human_gate": "none",
+      "reason": "Historicaloriginalgenerationspecatimmutablegeneration_ref; no claimreviewofreconciledspec."
+    },
+    {
+      "task_id": "RENDER-TITLE-17F-001",
+      "task_type": "cg_render",
+      "scene_id": "COM-00",
+      "depends_on": [
+        "MUA-TITLE-17F-001"
+      ],
+      "status": "NEEDS_REVIEW",
+      "decision_receipt": null,
+      "human_gate": "actual_master_selection",
+      "reason": "One originalnativecandidateproduced; no redraw. Originalminimumunmet, laterHumanrelaxednativepolicyandselectedsamepixels."
+    },
+    {
+      "task_id": "VQA-TITLE-17F-001",
+      "task_type": "visual_review",
+      "review_scope": "candidate",
+      "scene_id": "COM-00",
+      "depends_on": [],
+      "status": "NEEDS_REVIEW",
+      "decision_receipt": "content/production/runs/title-key-visual-20261002/VQA-TITLE-17F-001.decision.json",
+      "human_gate": "actual_master_selection",
+      "reason": "Independentdiagnosticreviewagainsthistoricalspec; environment/desktoppass, native-size/originalfocusfail, same-pixel50%portraitadvisorypass. Historicalstatuspreserved."
+    },
+    {
+      "task_id": "HUMAN-TITLE-MASTER-001",
+      "task_type": "human_decision",
+      "scene_id": "COM-00",
+      "depends_on": [],
+      "status": "PASS",
+      "decision_receipt": "content/production/runs/title-key-visual-20261002/HUMAN-TITLE-MASTER-001.decision.json",
+      "human_gate": "none",
+      "reason": "Explicitactualmaster+50%focusaccepted-as-is; explicitnativepolicyinstructionoverridesoriginaltechnicalthreshold."
+    },
+    {
+      "task_id": "PLAN-TITLE-17F-RECONCILE-002",
+      "task_type": "cg_plan",
+      "scene_id": "COM-00",
+      "depends_on": [
+        "HUMAN-TITLE-MASTER-001"
+      ],
+      "status": "PASS",
+      "decision_receipt": null,
+      "human_gate": "none",
+      "reason": "Freshplannerreconciledonlynativeoutput/focusgeometry; formaloutputcommittedbec06bf, originalgenerationrecoverablea4e6e1b. CheckpointdoesnotclaimnewpixelQA orverifiedcross-sessiontaskreceipt."
+    },
+    {
+      "task_id": "INTEGRATE-TITLE-MASTER-001",
+      "task_type": "integrate",
+      "scene_id": "COM-00",
+      "depends_on": [
+        "HUMAN-TITLE-MASTER-001",
+        "PLAN-TITLE-17F-RECONCILE-002"
+      ],
+      "status": "RUNNING",
+      "decision_receipt": null,
+      "human_gate": "none",
+      "reason": "ExactPNG/WebPtitle-onlyingest,wiring,validation,testsandpreviewinprogress; resumeRUNNINGrequiresverifiedfinalreceipt."
+    }
+  ],
+  "invalidation_events": [
+    {
+      "changed_artifact_id": "title-native-output-and-focal-spec",
+      "old_version": "3ac8f4d3e48a9a6b8c0a32b2c1c66dabb16323ce59c4accd2517396a965ce196",
+      "new_version": "b0fb422062bd29ba188eb141ca341e9dd27f1344fa6a3643a0c97f21a5714f59",
+      "decision": "Human_selected_reconciliation_without_redraw",
+      "evidence": "Explicitnativepolicy+actualmasterand50%focusselection; originalpixelsandhistoricalQAunchanged."
+    }
+  ],
+  "preview": null
+}

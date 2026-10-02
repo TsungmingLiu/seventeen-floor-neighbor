@@ -499,3 +499,34 @@ test('missing name at a rendered token clears stale text and cannot silently adv
   assert.equal(engine.nodeId, 'start');
   assert.equal(engine.progress.data.cursor, null);
 });
+
+
+test('dedicated initial title artwork is limited to zero progress and preserves legacy fallback', () => {
+  const story = chapter({ start: { text: 'Start' }, deep: { text: 'Deep' }, finish: { type: 'route' } });
+  story.titleArt = 'old'; story.endingArt = 'ending'; story.initialTitleArt = 'initial';
+  story.endings = { done: { title: 'Done', art: 'ending' } };
+  const assets = { initial: { kind: 'background', src: 'initial.webp', focus: { x: 50, y: 40 } },
+    old: { kind: 'cg', src: 'old.webp' }, saved: { kind: 'cg', src: 'saved.webp' }, ending: { kind: 'cg', src: 'ending.webp' } };
+  const engine = engineFor(story); engine.assets = assets;
+  engine.refreshTitle();
+  assert.equal(engine.els.titleArt.src, 'initial.webp');
+  assert.equal(engine.els.titleArt.style.objectPosition, '50% 40%');
+  assert.equal(engine.els.titleArt.classList.contains('is-initial-title-art'), true);
+  delete story.initialTitleArt; engine.refreshTitle(); assert.equal(engine.els.titleArt.src, 'old.webp');
+  story.initialTitleArt = 'initial';
+  const library = { events: [{ id: 'deep', title: 'Deep', progressRank: 10, replayNode: 'deep', unlockNodes: ['deep'], titleBackdropAsset: 'saved' }] };
+  engine.memoryLibrary = engine.progress.memories = library;
+  engine.progress.capture('deep', engine.state, []);
+  engine.refreshTitle(); assert.equal(engine.els.titleArt.src, 'saved.webp');
+  assert.equal(engine.els.titleArt.classList.contains('is-initial-title-art'), false);
+  const snapshot = engine.progress.data.cursor;
+  engine.progress.data.frontier = null; engine.refreshTitle();
+  assert.equal(engine.els.titleArt.src, 'old.webp', 'cursor-only progress keeps legacy title selection');
+  engine.progress.data.frontier = snapshot;
+  engine.progress.data.restartActive = true; engine.refreshTitle();
+  assert.notEqual(engine.els.titleArt.src, 'initial.webp');
+  engine.progress.data.restartActive = false; engine.progress.data.runComplete = true;
+  engine.progress.data.cursor = { ...snapshot, nodeId: 'finish' };
+  engine.resolveEnding = () => 'done'; engine.refreshTitle();
+  assert.equal(engine.els.titleArt.src, 'ending.webp');
+});

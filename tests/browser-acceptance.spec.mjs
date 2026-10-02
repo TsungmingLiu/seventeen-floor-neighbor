@@ -543,3 +543,40 @@ test('pre-COM02X save keeps progress and asks for a name before Continue or repl
   expect(saved.cursor.flags).toContain('test-flag');
   expect(saved.playerDisplayName).toBe('新名字');
 });
+
+
+for (const width of [320, 1440]) {
+  test(`dedicated initial title artwork preserves framing and saved backdrop at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: width === 320 ? 700 : 900 });
+    const errors = collectBlockingErrors(page);
+    await page.goto('/');
+    const art = page.locator('#title-art');
+    await expect(art).toHaveAttribute('src', 'assets/opening-title/title-17f-doorlight-v1.webp');
+    await expect(art).toHaveClass(/is-initial-title-art/);
+    await expect.poll(() => art.evaluate((el) => getComputedStyle(el).objectPosition)).toBe('50% 40%');
+    expect(await art.evaluate((el) => el.complete && el.naturalWidth === 1672)).toBe(true);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    await page.locator('#start-button').click();
+    await expect(page.locator('#player-name-input')).toHaveValue('劉樂');
+    await page.locator('#player-name-cancel').click();
+    await expect(art).toHaveAttribute('src', 'assets/opening-title/title-17f-doorlight-v1.webp');
+    await page.evaluate(async () => {
+      const chapter = await (await fetch('/content/routes/opening-demo/chapter.json')).json();
+      const snapshot = { nodeId: 'common_elevator_restart_greeting', stats: chapter.initialState, flags: [], returnNodes: [] };
+      localStorage.setItem('opening-demo-chapter-01:journey:v2', JSON.stringify({ version: 2, playerDisplayName: '劉樂', cursor: snapshot, frontier: snapshot,
+        frontierMemoryEventId: 'mem.opening.ch1.elevator-restart', frontierRank: 40, checkpoints: { [snapshot.nodeId]: snapshot }, edges: [] }));
+    });
+    await page.reload();
+    await expect(page.locator('#start-button')).toHaveText('繼續遊戲');
+    await expect(art).not.toHaveClass(/is-initial-title-art/);
+    await expect(art).not.toHaveAttribute('src', 'assets/opening-title/title-17f-doorlight-v1.webp');
+    const memories = await (await page.request.get('/content/routes/opening-demo/memories.json')).json();
+    const assets = await (await page.request.get('/content/routes/opening-demo/assets.json')).json();
+    const event = memories.events.find((event) => event.id === 'mem.opening.ch1.elevator-restart');
+    await expect(art).toHaveAttribute('src', assets.assets[event.titleBackdropAsset || event.cover.asset].src);
+    await page.locator('#start-button').click();
+    await expect(page.locator('#player-name-dialog')).not.toBeVisible();
+    expect((await currentJourney(page)).playerDisplayName).toBe('劉樂');
+    expect(errors).toEqual([]);
+  });
+}

@@ -444,8 +444,47 @@ function validateGate3RepositorySources(catalog) {
   invariant(sha256(fs.readFileSync(walkAsset.derivativePath)) === walkAsset.derivativeSha256 && fs.statSync(walkAsset.derivativePath).size === walkAsset.derivativeBytes, 'COM-02X walking derivative fingerprint mismatch');
   const walkManifest = readJson('content/production/cg-manifests/opening-ch1-com02x-walk.json');
   invariant(walkManifest.entries.length === 1 && walkManifest.entries[0].entry_id === walkAsset.entryId && walkManifest.entries[0].status === 'accepted' && JSON.stringify(walkManifest.entries[0].known_issues) === JSON.stringify(walkQa.known_issues), 'COM-02X walking manifest adoption/issues mismatch');
-  invariant(Object.keys(catalog.files).length === acceptedIds.size + restoredIds.size + 1 + batchIds.size + 1 + 1 + 1, 'source catalog contains an unknown or unreceipted source');
+  const titleSourceCount = validateTitleMasterSource(catalog);
+  invariant(Object.keys(catalog.files).length === acceptedIds.size + restoredIds.size + 1 + batchIds.size + 1 + 1 + 1 + titleSourceCount, 'source catalog contains an unknown or unreceipted source');
   return receipt;
+}
+
+function validateTitleMasterSource(catalog) {
+  const receiptPath = 'content/assets/ingest-receipts/title-master-native-v1.json';
+  if (!fs.existsSync(receiptPath)) return 0;
+  const receipt = readJson(receiptPath);
+  const item = receipt.assets?.[0];
+  invariant(receipt.receiptVersion === 1 && receipt.receiptType === 'human-adopted-title-master' && receipt.assets.length === 1 &&
+    receipt.sceneId === 'COM-00' && receipt.runId === 'title-key-visual-20261002' && receipt.taskId === 'INTEGRATE-TITLE-MASTER-001', 'invalid title adoption scope');
+  invariant(item?.sourceId === 'source.opening.title.17f_doorlight.master' && item.entryId === 'TITLE-17F-DOORLIGHT-01' &&
+    item.logicalId === 'bg.opening.title.17f_doorlight' && item.canonicalId === 'BG-TITLE-17F-DOORLIGHT-01' &&
+    item.sha256 === '8434d7ae1f0857245abc99062a67b6c81d384de489a2854b65348da73edf0c81' &&
+    item.masterPath === 'assets-src/opening-title/title-17f-doorlight-v1.png' && item.width === 1672 && item.height === 941 && item.mimeType === 'image/png', 'title native master identity mismatch');
+  const source = catalog.files[item.sourceId];
+  invariant(source?.sourcePath === item.masterPath && source?.name === item.filename && source?.status === 'human-accepted-as-is' && source?.verifiedDecode === true, 'title catalog identity mismatch');
+  for (const key of ['sha256', 'bytes', 'width', 'height', 'mimeType']) invariant(source[key] === item[key], 'title catalog ' + key + ' mismatch');
+  invariant(receipt.humanDecision.path === 'content/production/runs/title-key-visual-20261002/HUMAN-TITLE-MASTER-001.decision.json' &&
+    sha256(fs.readFileSync(receipt.humanDecision.path)) === receipt.humanDecision.sha256, 'title Human decision hash mismatch');
+  const human = readJson(receipt.humanDecision.path);
+  invariant(human.task_id === receipt.humanDecision.id && human.status === 'HUMAN_ACCEPTED_AS_IS' && human.run_id === receipt.runId && human.scene_id === receipt.sceneId &&
+    receipt.humanDecision.status === human.status && receipt.humanDecision.disposition === 'ACCEPTED_AS_IS' && receipt.humanDecision.qaHistoryPreserved === true &&
+    human.output_versions.some((v) => v.id === 'TITLE-17F-DOORLIGHT-01-selected-master' && v.version === item.sha256 && v.location === item.masterPath), 'title exact Human selection mismatch');
+  invariant(receipt.visualQa.path === 'content/production/runs/title-key-visual-20261002/VQA-TITLE-17F-001.decision.json' &&
+    sha256(fs.readFileSync(receipt.visualQa.path)) === receipt.visualQa.sha256 && readJson(receipt.visualQa.path).status === 'NEEDS_REVIEW' &&
+    receipt.visualQa.status === 'NEEDS_REVIEW' && item.visualQaStatus === 'NEEDS_REVIEW' && item.visualQaReceipt === receipt.visualQa.path, 'title historical QA must remain NEEDS_REVIEW');
+  invariant(JSON.stringify(item.acceptedKnownIssues) === JSON.stringify(readJson(receipt.visualQa.path).known_issues), 'title QA issue history mismatch');
+  const asset = readJson('content/assets/manifest.json').assets[item.logicalId];
+  const mapped = readJson('content/assets/source-map.json').files[asset?.src];
+  invariant(asset?.kind === 'background' && !asset.gallery && !asset.previewOnly && asset.canonicalAssetId === item.canonicalId && asset.masterSourceId === item.sourceId &&
+    asset.focus?.x === 50 && asset.focus?.y === 40 && asset.src === item.runtimePath && mapped?.source === item.derivativePath && mapped.masterSourceId === item.sourceId &&
+    mapped.sha256 === item.derivativeSha256 && mapped.bytes === item.derivativeBytes, 'title runtime background binding mismatch');
+  invariant(sha256(fs.readFileSync(item.derivativePath)) === item.derivativeSha256 && fs.statSync(item.derivativePath).size === item.derivativeBytes, 'title derivative fingerprint mismatch');
+  const title = readJson('content/production/cg-manifests/title-screen.json');
+  invariant(title.entries.length === 1 && title.entries[0].status === 'accepted' && title.entries[0].entry_id === item.entryId, 'title adoption manifest mismatch');
+  invariant(receipt.renderProvenance.originalGenerationRef === 'a4e6e1b6e89c3d6dc180755842343230398e3403' &&
+    receipt.renderProvenance.originalGenerationManifestSha256 === '3ac8f4d3e48a9a6b8c0a32b2c1c66dabb16323ce59c4accd2517396a965ce196' &&
+    receipt.renderProvenance.originalRenderPacketSha256 === 'eec7d64265347a8961e9d3cf3db42ed1b52306f3460f4e02ef8433d84428bff9', 'title original generation provenance mismatch');
+  return 1;
 }
 
 function validateManifestRepositoryReferences(manifest, catalog, context) {

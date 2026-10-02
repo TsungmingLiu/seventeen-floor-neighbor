@@ -902,6 +902,7 @@ export class GameEngine {
     const activeEvent = restartActive
       ? memoryEventForNode(this.memoryLibrary, snapshot?.nodeId)
       : memoryEventById(this.memoryLibrary, this.progress.data.frontierMemoryEventId);
+    const initialTitle = !frontier && !cursor && this.chapter.initialTitleArt;
     let visual = snapshot && !restartActive ? titleBackdropVisual(this.memoryLibrary, this.progress, this.assets) : null;
     let label = activeEvent?.title
       || node?.mapLabel
@@ -910,7 +911,13 @@ export class GameEngine {
       || '故事節點';
 
     if (!snapshot) {
-      visual = this.chapterArtVisual(this.chapter.titleArt);
+      if (initialTitle) {
+        const art = this.asset(initialTitle);
+        if (!['background', 'cg'].includes(art.kind)) throw new Error('Initial title art must be a background or CG');
+        visual = art.kind === 'background'
+          ? { mode: 'composite', background: initialTitle, sprites: [] }
+          : { mode: 'cg', asset: initialTitle };
+      } else visual = this.chapterArtVisual(this.chapter.titleArt);
       label = '搬進 17 樓';
     } else if (node?.type === 'route') {
       const restored = this.progress.restore(snapshot);
@@ -924,6 +931,7 @@ export class GameEngine {
       }
     }
 
+    this.els.titleArt.classList.toggle('is-initial-title-art', !!initialTitle);
     paintPreview(this.els.titleArt, this.els.titleCharacters, visual || node?.visual, this.assets);
     this.els.titleArt.alt = snapshot ? '目前最深故事進度的回憶畫面' : '17樓故事開場畫面';
     this.els.startButton.textContent = snapshot && !finished ? '繼續遊戲' : '開始遊戲';

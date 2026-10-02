@@ -1,5 +1,5 @@
 {
-  "recipeVersion": 11,
+  "recipeVersion": 12,
   "defaults": {
     "style": "寫實電影感、自然皮膚紋理、可信的都市生活攝影、無UI、無文字、無水印",
     "quality": "production",
@@ -601,6 +601,27 @@
         "masterSha256": "a1aa0d08023cc19a42b3c9260bca732059e77eb5dd37c8578afb82bd7dd82400",
         "derivativeSha256": "5e575a70762c09fdc958333f51ea8b1f12b20109d90ca22e224e66be38accbfd",
         "derivativeTransform": "Pillow 12.3.0: WEBP quality=88, method=6, lossless=false; exact dimensions preserved; runtime build copies this derivative"
+      }
+    },
+    {
+      "id": "recipe.bg.opening.title.17f_doorlight",
+      "outputAsset": "bg.opening.title.17f_doorlight",
+      "type": "background",
+      "dependencies": [],
+      "provenance": {
+        "acceptedMasterSourceId": "source.opening.title.17f_doorlight.master",
+        "adoptionReceipt": "content/assets/ingest-receipts/title-master-native-v1.json",
+        "generationRef": "a4e6e1b6e89c3d6dc180755842343230398e3403",
+        "generationManifestSha256": "3ac8f4d3e48a9a6b8c0a32b2c1c66dabb16323ce59c4accd2517396a965ce196",
+        "reconciledManifestSha256": "b0fb422062bd29ba188eb141ca341e9dd27f1344fa6a3643a0c97f21a5714f59"
+      },
+      "runtimeTransform": {
+        "tool": "tools/asset-ingest.mjs",
+        "format": "webp",
+        "quality": 88,
+        "compressionLevel": 6,
+        "lossless": false,
+        "dimensions": "preserve-native"
       }
     }
   ]

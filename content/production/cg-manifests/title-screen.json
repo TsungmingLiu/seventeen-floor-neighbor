@@ -26,7 +26,7 @@
       "entry_id": "TITLE-17F-DOORLIGHT-01",
       "scene_id": "COM-00",
       "source_scene": "docs/narrative/scenes/vertical-slice/COM-00.md",
-      "status": "render_ready",
+      "status": "accepted",
       "cg_class": "background_cg",
       "sequence_id": null,
       "beat_range": "title_only; COM-00 00.1 rain-night move-in environment motif; no playable beat or state advancement",
