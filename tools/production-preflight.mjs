@@ -150,6 +150,17 @@ async function requireCoverage(required, evidence, context, label) {
   const identities = new Set(await Promise.all(evidence.map((version) => dependencyIdentity(version, context))));
   for (const version of required) insist(identities.has(await dependencyIdentity(version, context)), label);
 }
+function acquiredInput(version, binding) {
+  const relative = safePath(version.location, { fragment: true });
+  const acquisition = binding.sources.find((source) => source.path === relative);
+  insist(acquisition, `input outside acquired allowlist: ${version.location}`);
+  const fragment = version.location.split('#')[1];
+  if (fragment) {
+    const excerpt = acquisition.excerpts.find((part) => fragment === `L${part.start_line}-L${part.end_line}`);
+    insist(excerpt && version.version === excerpt.sha256, `unsupported/stale input excerpt: ${version.location}`);
+  } else insist(!acquisition.excerpts.length, `full-file input outside acquired excerpt boundary: ${version.location}`);
+  return acquisition;
+}
 async function manualRequirements(packet, { root, checkWorktree, binding }) {
   const requirements = packet.preflight_requirements;
   insist(requirements?.version === 1 && Array.isArray(requirements.dependencies), 'manual packet requires preflight_requirements v1/dependencies');
@@ -173,18 +184,16 @@ async function manualRequirements(packet, { root, checkWorktree, binding }) {
   }
   const locations = new Set();
   for (const input of packet.input_versions) {
-    const relative = safePath(input.location, { fragment: true });
     insist(!locations.has(input.id), 'duplicate input ID'); locations.add(input.id);
-    const acquisition = binding.sources.find((source) => source.path === relative);
-    insist(acquisition, `input outside acquired allowlist: ${input.location}`);
+    const acquisition = acquiredInput(input, binding);
     const bytes = await inputBytes(root, binding.source_ref, acquisition);
     if (acquisition.storage === 'transient') insist([acquisition.sha256, `sha256:${acquisition.sha256}`].includes(input.version), 'transient input version must be exact SHA-256');
-    if (input.location.includes('#')) {
-      const fragment = input.location.split('#')[1], excerpt = acquisition.excerpts.find((part) => fragment === `L${part.start_line}-L${part.end_line}`);
-      insist(excerpt && input.version === excerpt.sha256, `unsupported/stale input excerpt: ${input.location}`);
-    } else boundVersion(bytes, input.version, input.location);
+    if (!input.location.includes('#')) boundVersion(bytes, input.version, input.location);
   }
-  for (const source of binding.sources) insist(packet.input_versions.some((input) => input.location.split('#')[0] === source.path), `missing input version: ${source.path}`);
+  for (const source of binding.sources) {
+    const locations = source.excerpts.length ? source.excerpts.map((part) => `${source.path}#L${part.start_line}-L${part.end_line}`) : [source.path];
+    for (const location of locations) insist(packet.input_versions.some((input) => input.location === location), `missing input version: ${location}`);
+  }
   if (packet.inputs?.narrative_contract) {
     const relative = safePath(packet.inputs.narrative_contract);
     insist(binding.sources.some((source) => source.path === relative), 'contract not acquired');
@@ -261,7 +270,15 @@ async function manualRequirements(packet, { root, checkWorktree, binding }) {
     }
     insist(resolved, `unresolved upstream Human gate: ${gate}`);
   }
-  for (const accepted of packet.inputs?.accepted_outputs || []) insist(requirements.dependencies.some((dependency) => dependency.run_id === accepted.run_id && dependency.task_id === accepted.task_id && dependency.output_versions?.some((output) => output.id === accepted.id && output.version === accepted.version)), 'accepted output lacks exact dependency evidence');
+  for (const accepted of packet.inputs?.accepted_outputs || []) {
+    const outputs = verifiedDependencies.flatMap(({ dependency }) => dependency.run_id === accepted.run_id && dependency.task_id === accepted.task_id ?
+      (dependency.output_versions || []).filter((output) => output.id === accepted.id && output.version === accepted.version &&
+        (accepted.location === undefined || output.location === accepted.location)) : []);
+    insist(outputs.length && new Set(outputs.map((output) => output.location)).size === 1, 'accepted output lacks exact dependency evidence');
+    // Resolve only consumed outputs. Unconsumed historical receipt outputs are not new context.
+    acquiredInput(outputs[0], binding);
+    await dependencyIdentity(outputs[0], { root, binding });
+  }
   for (const gate of neededGates(packet)) insist(dependencyGates.has(gate), `missing required dependency approval: ${gate}`);
   for (const task of packet.depends_on || []) insist(requirements.dependencies.some((dependency) => dependency.run_id === packet.run_id && dependency.task_id === task), `unverified dependency: ${task}`);
   if (packet.harness === 'cg_renderer') {

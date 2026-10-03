@@ -339,4 +339,101 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
     } finally { await f.cleanup(); }
   });
 
+  test('consumed accepted outputs resolve acquired current bytes even without a Human gate', async () => {
+    const f = await narrativePrerequisiteFixture(); try {
+      const output = f.receipt.output_versions[0];
+      f.packet.inputs.accepted_outputs = [{ run_id: 'upstream', task_id: 'QA', id: output.id, version: output.version }];
+      assert.equal((await verifyTaskPacket(f.packet, { root: f.root })).kind, 'manual');
+      const declare = async (outputs) => {
+        f.packet.preflight_requirements.dependencies[0] = { ...await commitFixtureReceipt(f, { ...f.receipt, output_versions: outputs }),
+          gate: 'narrative_review', required_qa_codes: ['NQA-FIXTURE'] };
+        f.packet.inputs.accepted_outputs[0].version = outputs[0].version;
+      };
+      for (const [wrong, error] of [
+        [{ ...output, location: 'missing.json' }, /outside acquired allowlist/],
+        [{ ...output, location: 'capability.json', version: (await f.acquire('capability.json')).git_blob_sha }, /outside acquired allowlist/],
+        [{ ...output, version: '0'.repeat(64) }, /stale or unsupported version/],
+        [{ ...output, location: 'scene.md#metadata_selector' }, /unsupported\/stale input excerpt/],
+        [{ ...output, location: 'scene.md#L1-L1', version: hash('synthetic fixture only') }, /unsupported\/stale input excerpt/]
+      ]) {
+        await declare([wrong]); await assert.rejects(verifyTaskPacket(f.packet, { root: f.root }), error);
+      }
+      // Historical outputs absent from this task's context do not require hydration.
+      await declare([output, { id: 'unconsumed', location: 'missing-history.json', version: '0'.repeat(64) }]);
+      assert.equal((await verifyTaskPacket(f.packet, { root: f.root })).kind, 'manual');
+      const mismatched = clone(f.packet); mismatched.inputs.accepted_outputs[0].location = 'input.json';
+      await assert.rejects(verifyTaskPacket(mismatched, { root: f.root }), /lacks exact dependency evidence/);
+      await writeFile(path.join(f.root, 'scene.md'), 'tampered');
+      await assert.rejects(verifyTaskPacket(f.packet, { root: f.root }), /source differs from ref/);
+      await rm(path.join(f.root, 'scene.md'));
+      await assert.rejects(verifyTaskPacket(f.packet, { root: f.root }), /ENOENT/);
+    } finally { await f.cleanup(); }
+  });
+  test('excerpt-only manual inputs and accepted outputs retain exact selected-line boundaries', async () => {
+    const f = await narrativePrerequisiteFixture(); try {
+      const selected = { start_line: 1, end_line: 1, sha256: hash('synthetic fixture only') };
+      f.packet.required_acquisition.markdown[1].excerpts = [selected];
+      f.packet.allowed_sources[1] = 'scene.md#L1-L1';
+      f.packet.input_versions[1] = { id: 'scene', location: 'scene.md#L1-L1', version: selected.sha256 };
+      const output = { ...f.receipt.output_versions[0], location: 'scene.md#L1-L1', version: selected.sha256 };
+      f.packet.preflight_requirements.dependencies[0] = { ...await commitFixtureReceipt(f,
+        { ...f.receipt, input_versions: clone(f.packet.input_versions), output_versions: [output] }),
+        gate: 'narrative_review', required_qa_codes: ['NQA-FIXTURE'] };
+      f.packet.inputs.accepted_outputs = [{ run_id: 'upstream', task_id: 'QA', id: output.id, version: output.version }];
+      const binding = await verifyTaskPacket(f.packet, { root: f.root });
+      assert.equal(binding.kind, 'manual');
+      assert.equal(binding.sources[1].git_blob_sha, f.packet.required_acquisition.markdown[1].git_blob_sha);
+      for (const [location, version, error] of [
+        ['scene.md', f.packet.required_acquisition.markdown[1].git_blob_sha, /full-file input outside acquired excerpt boundary/],
+        ['scene.md#L2-L2', selected.sha256, /unsupported\/stale input excerpt/],
+        ['scene.md#L1-L1', '0'.repeat(64), /unsupported\/stale input excerpt/]
+      ]) {
+        const p = clone(f.packet); p.input_versions[1] = { id: 'scene', location, version };
+        await assert.rejects(verifyTaskPacket(p, { root: f.root }), error);
+      }
+      const staleAcquisition = clone(f.packet); staleAcquisition.required_acquisition.markdown[1].excerpts[0].sha256 = '0'.repeat(64);
+      await assert.rejects(verifyTaskPacket(staleAcquisition, { root: f.root }), /stale excerpt/);
+      const fullOutput = f.receipt.output_versions[0];
+      f.packet.preflight_requirements.dependencies[0] = { ...await commitFixtureReceipt(f,
+        { ...f.receipt, input_versions: clone(f.packet.input_versions), output_versions: [fullOutput] }),
+        gate: 'narrative_review', required_qa_codes: ['NQA-FIXTURE'] };
+      f.packet.inputs.accepted_outputs[0].version = fullOutput.version;
+      await assert.rejects(verifyTaskPacket(f.packet, { root: f.root }), /full-file input outside acquired excerpt boundary/);
+    } finally { await f.cleanup(); }
+  });
+  test('consumed transient accepted output uses actual SHA-only acquired material', async () => {
+    const f = await candidateFixture(); try {
+      const image = f.packet.required_acquisition.images[0];
+      const receipt = JSON.parse(await readFile(path.join(f.root, 'approval.json'), 'utf8'));
+      const output = { id: 'candidate', location: image.path, version: `sha256:${image.sha256}` };
+      const declare = async (version) => {
+        f.packet.preflight_requirements.dependencies[0] = { ...await commitFixtureReceipt(f,
+          { ...receipt, output_versions: [{ ...output, version }] }), gate: 'manifest_usability', required_qa_codes: ['MUA-FIXTURE'] };
+        f.packet.inputs.accepted_outputs = [{ run_id: 'upstream', task_id: 'QA', id: output.id, version }];
+      };
+      await declare(output.version); assert.equal((await verifyTaskPacket(f.packet, { root: f.root })).kind, 'manual');
+      await declare(f.git('hash-object', image.path));
+      await assert.rejects(verifyTaskPacket(f.packet, { root: f.root }), /stale dependency transient SHA-256/);
+      await declare(`sha256:${'0'.repeat(64)}`);
+      await assert.rejects(verifyTaskPacket(f.packet, { root: f.root }), /stale dependency transient SHA-256/);
+    } finally { await f.cleanup(); }
+  });
+  test('multiple acquired excerpts each require an exact selected input identity', async () => {
+    const f = await fixture(); try {
+      const source = await f.acquire('.ai/WORKFLOW_MANIFEST.yaml');
+      const lines = (await readFile(path.join(f.root, source.path), 'utf8')).split('\n');
+      source.excerpts = [[1, 2], [3, 4]].map(([start_line, end_line]) => ({ start_line, end_line,
+        sha256: hash(lines.slice(start_line - 1, end_line).join('\n')) }));
+      f.packet.required_acquisition.markdown = [source];
+      f.packet.allowed_sources = source.excerpts.map((part) => `${source.path}#L${part.start_line}-L${part.end_line}`);
+      f.packet.input_versions = source.excerpts.map((part, index) => ({ id: `excerpt-${index}`,
+        location: f.packet.allowed_sources[index], version: part.sha256 }));
+      assert.equal((await verifyTaskPacket(f.packet, { root: f.root })).kind, 'manual');
+      for (const index of [0, 1]) {
+        const p = clone(f.packet); p.input_versions.splice(index, 1);
+        await assert.rejects(verifyTaskPacket(p, { root: f.root }), /missing input version: .*#L/);
+      }
+    } finally { await f.cleanup(); }
+  });
+
 }
