@@ -2,7 +2,7 @@
 
 Harness ID: `content_qa`
 
-Version: 1.5.0
+Version: 1.5.1
 
 ## Responsibility
 
@@ -28,7 +28,11 @@ Checks：
 - `must_not`、forbidden shortcut、premature reveal；
 - semantic visual beats 未反向改寫 narrative；
 - runtime state mapping 不冒充 creative truth；
-- 中文 casual dialogue 的 conversational naturalism 成立。
+- 中文 casual dialogue 的 conversational naturalism 成立；
+- 玩家可見 narration 預設為男主第一人稱當下視角；可自然使用「我」時避免第三人稱「男主」自稱，且不越過 knowledge／reveal timing 或斷言他人動機；
+- narration 以中文為主，避免無必要的中英夾雜；咖啡廳 `Laptop` 優先「筆記本電腦」、`Stylus` 優先「畫筆」，`MacBook` 是 Human 明示接受的品牌名稱。
+
+以上按風格預設／用字偏好及當地情境審查，不作 ASCII 禁令或主詞 quota；自然或情境所需的精確產品／平台／專有名稱可保留，不翻譯無關專名。Narration 自稱與 scene／contract 技術 metadata 的「男主」標籤、其他具名角色分開核對；不把 narration 的替換偏好機械套用到 dialogue，保留既有口語自然度判斷。
 
 
 ### Conversational naturalism

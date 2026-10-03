@@ -2,7 +2,7 @@
 
 Harness ID: `content_writer`
 
-Version: 1.4.0
+Version: 1.4.1
 
 ## Responsibility
 
@@ -53,6 +53,13 @@ Version: 1.4.0
 ### `scene_dialogue`
 
 輸出 exactly one scene，並保留/更新其 Narrative Continuity Contract、dialogue/choice/state contract、branch rejoin、semantic visual beats。不得產生 camera/prompt/reference binding。
+
+## Narration POV and Chinese wording
+
+- 玩家可見 narration 預設採男主的第一人稱當下視角；可自然表達時用「我」，避免以第三人稱「男主」自稱，不機械地替每句補主詞。
+- 第一人稱仍受既有 knowledge／reveal timing 限制；觀察與推測不可冒充他人動機或未取得的事實。
+- Playable prose 以中文為主，尤其 narration 避免無必要的中英夾雜。咖啡廳物件用字優先 `Laptop` →「筆記本電腦」、`Stylus` →「畫筆」；Human 明示接受 `MacBook` 作品牌名稱。
+- 以上是敘事風格預設與用字偏好，不是 ASCII 禁令。自然或情境所需的精確產品／平台／專有名稱可保留；不翻譯無關專名，不將 narration 的替換偏好機械套用到 dialogue。Scene／contract 技術 metadata 中的「男主」角色標籤與其他具名角色不屬於 narration 自稱。
 
 ## Dialogue naturalism
 
@@ -115,7 +122,9 @@ Version: 1.4.0
 - 是否有 exposition disguised as dialogue；
 - 是否 branch rejoin 後突然進入共享 canon 資訊傾倒；
 - 是否角色幾乎從不誤解、回錯重點、補充、更正自己、或讓一句話自然落空；
-- 是否 narration 在解釋 state/guardrail，而不是讓 scene 自己證明。
+- 是否 narration 在解釋 state/guardrail，而不是讓 scene 自己證明；
+- 是否玩家可見 narration 可自然使用第一人稱「我」，卻以第三人稱「男主」自稱；
+- 是否 narration 有無必要的中英夾雜，並按中文用字偏好及自然專名例外檢查。
 
 若存在上述 pattern，修自然度；**不得**因此改 scene function、choice intent/effects、knowledge timing、relationship boundary、required payoff 或已批准的 semantic visual beat。
 
@@ -130,6 +139,7 @@ Version: 1.4.0
 - 中文 casual dialogue 有可信的 conversational rhythm，不以最大資訊密度為目標；
 - 不把角色 voice trait overfit 成固定短句／固定 punchline 模板；
 - 不用旁白替角色過早總結主題或直接朗讀 state/guardrail；
+- narration 的第一人稱與中文用字偏好成立，且保留 POV knowledge 限制、dialogue 自然度與自然專名例外；
 - 不為較容易生成的畫面改寫 story beat。
 
 完成後交給 `content_qa` 的 `narrative_review` pass。若 contract 缺失或互斥，回 `BLOCKED`，不要自行填補。
