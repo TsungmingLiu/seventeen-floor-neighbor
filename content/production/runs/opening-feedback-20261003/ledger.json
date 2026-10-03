@@ -79,5 +79,23 @@
       "evidence": "Verified PLAN-COM02X-ELEVATOR-TRANSPORT-011 Handoff d8fde7852761d4b98b9e99a5895391078661387bd83f77dad0f0d60a4220a17a; explicit max-five tool error, zero completed generations."
     }
   ],
-  "preview": null
+  "preview": {
+    "names_code_commit": "672d50b65e6820d076870ce6c7b754d1357699f1",
+    "names_pr": "https://github.com/TsungmingLiu/seventeen-floor-neighbor/pull/48",
+    "names_url_or_access_path": "https://a588ac25.seventeen-floor-neighbor.pages.dev/",
+    "names_alias": "https://pr-48.seventeen-floor-neighbor.pages.dev/",
+    "visibility": "public",
+    "names_ci_run": "37084992536",
+    "names_ci_merge": "0c4e8b3 (merge of672d50b intoecaae7f)",
+    "names_verify_job": "111093291467",
+    "names_deploy_job": "111095153944",
+    "build": "PASS verify672",
+    "validation": "PASS verify672",
+    "tests": "206/206 PASS,0FAIL verify672",
+    "smoke": "PASS verify672; localChromium twoflows PASS",
+    "public_deployment": "PASS actualworkflowdeployment URLs",
+    "workspace_public_http_probe": "BLOCKED CONNECT403 by session network policy; no public HTTP PASS inferred",
+    "com03j": "NQA-COM03J-010 PASS; local integration RUNNING",
+    "new_return_elevator": "original candidate1672x941 retained; sourceQA RUNNING, Human selection and derivative/display PENDING"
+  }
 }
