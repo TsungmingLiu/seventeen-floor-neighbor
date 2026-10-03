@@ -11,6 +11,7 @@ export class GameEngine {
     this.scenePools = sceneLibrary.pools || {};
     this.memoryLibrary = memoryLibrary || { schemaVersion: 1, sections: [], events: [] };
     this.memoryFilter = 'all';
+    this.expandedMemorySections = null;
     this.nodeId = chapter.startNode;
     this.state = this.createInitialState();
     this.isTyping = false;
@@ -66,6 +67,7 @@ export class GameEngine {
       memoryList: $('#memory-list'),
       memorySummary: $('#memory-summary'),
       memoryFilters: $('#memory-filters'),
+      memoryAnnouncement: $('#memory-announcement'),
       gameMemories: $('#game-memories-button'),
       endingArt: $('#ending-art'),
       endingTitle: $('#ending-title'),
@@ -319,7 +321,7 @@ export class GameEngine {
 
   updateMemoryProgress() {
     const stats = memoryStats(this.memoryLibrary, this.progress, this.chapter.startNode);
-    this.els.memoriesTitleCount.textContent = `${stats.unlocked} / ${stats.total}`;
+    this.els.memoriesTitleCount.textContent = `已探索 ${stats.unlocked}`;
   }
 
   openGallery() {
@@ -1021,11 +1023,18 @@ export class GameEngine {
       unlockedCGs: this.unlockedCGs(),
       container: this.els.memoryList,
       summary: this.els.memorySummary,
+      announcement: this.els.memoryAnnouncement,
       filters: this.els.memoryFilters,
       activeFilter: this.memoryFilter,
+      expandedSections: this.expandedMemorySections,
       onFilter: (filter) => {
         this.memoryFilter = filter;
         this.renderMemoryList();
+      },
+      onToggleSection: (sectionId, expanded, defaultSections) => {
+        this.expandedMemorySections ??= new Set(defaultSections);
+        if (expanded) this.expandedMemorySections.add(sectionId);
+        else this.expandedMemorySections.delete(sectionId);
       },
       onReplay: (event) => this.replayMemory(event)
     });
@@ -1046,14 +1055,28 @@ export class GameEngine {
   scrollToFrontier() {
     const id = this.progress.data.frontierMemoryEventId;
     if (!id) return;
-    if (this.memoryFilter !== 'all') {
-      this.memoryFilter = 'all';
-      this.renderMemoryList();
-    }
-    this.els.memoryList.querySelector(`[data-memory-id="${id}"]`)?.scrollIntoView({
-      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
-      block: 'center'
+    const event = memoryEventById(this.memoryLibrary, id);
+    if (!event) return;
+    this.memoryFilter = 'all';
+    const sections = this.expandedMemorySections || new Set([
+      memoryEventById(this.memoryLibrary, this.progress.data.frontierMemoryEventId)?.sectionId
+        || [...(this.memoryLibrary.sections || [])].sort((a, b) => a.order - b.order)[0]?.id
+    ].filter(Boolean));
+    sections.add(event.sectionId);
+    this.expandedMemorySections = sections;
+    this.renderMemoryList();
+    const card = [...this.els.memoryList.querySelectorAll('[data-memory-id]')]
+      .find((item) => item.dataset.memoryId === id);
+    if (!card) return;
+    card.focus({ preventScroll: true });
+    const list = this.els.memoryList;
+    const targetTop = list.scrollTop + card.getBoundingClientRect().top - list.getBoundingClientRect().top
+      - (list.clientHeight - card.clientHeight) / 2;
+    list.scrollTo({
+      top: Math.max(0, targetTop),
+      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
     });
+    this.els.memoryAnnouncement.textContent = `已返回目前進度：${event.title}`;
   }
 
   replayMemory(event) {

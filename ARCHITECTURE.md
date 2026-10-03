@@ -39,7 +39,7 @@
 - `progressRank` 表示敘事進度，不是 node count、DOM index 或最近播放時間。跨分支的 rank 由內容作者協調。
 - `cover.mode = character` 用角色 event 的淡化、face-focused CG；`scene` 用環境／共通事件。封面由 content metadata 指定，不由 speaker 推測。Cinematic cover 使用 poster，背景圖可作 scene cover。
 - 未探索 event 隱藏標題與分支細節；Memories 是單頁縱向 timeline，可 inline 表示分岔，不能洩漏未走路徑。封面 lazy-load，手機不得出現 page-level horizontal scroll。
-- Timeline 的 filter、回到目前進度及 cursor/frontier 標記以 Memory Events 為單位，而非 engine nodes。背景圖直接復用 runtime asset、用 focus/overlay 保持文字可讀；不得把 speaker 名稱作角色封面分類依據。
+- Memories 以 authored section disclosure 顯示可探索事件；目前 frontier 所在章節預設展開，角色 focus 不隱藏其他已探索角色的探索數摘要。回到目前進度會清除 filter、展開 frontier 章節、聚焦 exact frontier Memory 並只捲動 map 容器；cursor 閱讀位置在與 frontier 不同時以獨立標記顯示。這些瀏覽操作不改 gameplay cursor/frontier/snapshot。Timeline filter 與標記以 Memory Events 為單位，而非 engine nodes。背景圖直接復用 runtime asset、用 focus/overlay 保持文字可讀；不得把 speaker 名稱作角色封面分類依據。
 - CG Gallery 顯示已解鎖圖與影片 poster、未解鎖 placeholder；viewer 支援圖片 contain、影片播放、方向鍵／觸控切換。Gallery 不管理 replay 或 route graph。
 
 `src/progress.js` 使用 `localStorage` 的 `<chapter-id>:journey:v2`：

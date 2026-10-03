@@ -102,19 +102,28 @@ export function renderMemories({
   unlockedCGs,
   container,
   summary,
+  announcement,
   filters,
   activeFilter = 'all',
+  expandedSections,
   onFilter,
+  onToggleSection,
   onReplay
 }) {
   const sections = [...(library?.sections || [])].sort((a, b) => a.order - b.order);
   const events = orderedMemoryEvents(library);
   const unlocked = new Set(events.filter((event) => isMemoryUnlocked(event, progress, chapter.startNode)).map((event) => event.id));
   const stats = { unlocked: unlocked.size, total: events.length };
-  summary.textContent = `已解鎖 ${stats.unlocked} / ${stats.total} 段回憶`;
+  summary.textContent = `已探索 ${stats.unlocked} 段回憶`;
 
   const unlockedEvents = events.filter((event) => unlocked.has(event.id));
   const characterIds = [...new Set(unlockedEvents.flatMap((event) => event.characterIds || []))];
+  const readingEvent = memoryEventForNode(library, progress?.data?.cursor?.nodeId);
+  const frontierEvent = memoryEventById(library, progress?.data?.frontierMemoryEventId);
+  const readingMemoryId = readingEvent?.id !== frontierEvent?.id ? readingEvent?.id : null;
+  const defaultExpandedSections = expandedSections || new Set([
+    frontierEvent?.sectionId || sections[0]?.id
+  ].filter(Boolean));
 
   filters.replaceChildren();
   const filterOptions = [
@@ -130,6 +139,20 @@ export function renderMemories({
     button.setAttribute('aria-pressed', String(activeFilter === value));
     button.addEventListener('click', () => onFilter(value));
     filters.append(button);
+  }
+
+  // Keep the rest of the explored cast visible while one character is focused.
+  const characterContext = document.createElement('p');
+  characterContext.className = 'memory-character-context';
+  characterContext.setAttribute('aria-label', '已探索角色回憶數');
+  characterContext.textContent = characterIds.map((id) => {
+    const count = unlockedEvents.filter((event) => (event.characterIds || []).includes(id)).length;
+    return `${library.characterLabels?.[id] || id}：已探索 ${count} 段`;
+  }).join('　·　');
+  const contextHost = filters.parentElement;
+  if (contextHost) {
+    contextHost.querySelector('.memory-character-context')?.remove();
+    if (characterIds.length) contextHost.insertBefore(characterContext, contextHost.querySelector('.memory-current'));
   }
 
   container.replaceChildren();
@@ -148,26 +171,38 @@ export function renderMemories({
 
     const sectionEl = document.createElement('section');
     sectionEl.className = 'memory-section';
-    const heading = document.createElement('div');
+    const disclosure = document.createElement('details');
+    disclosure.className = 'memory-section-disclosure';
+    disclosure.open = defaultExpandedSections.has(section.id);
+    disclosure.addEventListener('toggle', () => onToggleSection?.(section.id, disclosure.open, defaultExpandedSections));
+    const heading = document.createElement('summary');
     heading.className = 'memory-section-heading';
     const eyebrow = document.createElement('p');
     eyebrow.className = 'eyebrow';
     eyebrow.textContent = section.kind === 'common' ? 'STORY' : section.kind === 'heroine' ? 'RELATIONSHIP' : 'SIDE MEMORY';
     const title = document.createElement('h3');
     title.textContent = section.title;
-    heading.append(eyebrow, title);
+    const sectionMeta = document.createElement('span');
+    sectionMeta.className = 'memory-section-meta';
+    sectionMeta.textContent = `已探索 ${sectionUnlocked.length} 段`;
+    const headingCopy = document.createElement('span');
+    headingCopy.className = 'memory-section-heading-copy';
+    headingCopy.append(eyebrow, title);
+    heading.append(headingCopy, sectionMeta);
 
     const cards = document.createElement('div');
     cards.className = 'memory-cards';
     for (const event of visibleEvents) {
       const isUnlocked = unlocked.has(event.id);
       const isFrontier = progress.data.frontierMemoryEventId === event.id;
+      const isReading = readingMemoryId === event.id && isUnlocked;
       const card = document.createElement('button');
       card.type = 'button';
-      card.className = `memory-card${isUnlocked ? '' : ' is-locked'}${isFrontier ? ' is-frontier' : ''}`;
+      card.className = `memory-card${isUnlocked ? '' : ' is-locked'}${isFrontier ? ' is-frontier' : ''}${isReading ? ' is-reading' : ''}`;
       card.dataset.memoryId = event.id;
       card.disabled = !isUnlocked;
-      card.setAttribute('aria-label', isUnlocked ? `重玩回憶：${event.title}` : '尚未發生的回憶');
+      if (isUnlocked) card.setAttribute('aria-label', `${isFrontier ? '目前最深進度' : isReading ? '目前閱讀位置' : '重玩回憶'}：${event.title}`);
+      else card.setAttribute('aria-label', '尚未發生的回憶');
 
       if (isUnlocked) {
         const image = document.createElement('img');
@@ -193,7 +228,7 @@ export function renderMemories({
       const meta = document.createElement('span');
       meta.className = 'memory-card-meta';
       meta.textContent = isUnlocked
-        ? [event.highlight ? '♥ 心動回憶' : '已解鎖', isFrontier ? '目前最深進度' : '可重玩']
+        ? [event.highlight ? '♥ 心動回憶' : '已解鎖', isFrontier ? '目前最深進度' : isReading ? '目前閱讀位置' : '可重玩']
             .filter(Boolean).join(' · ')
         : '◇ 尚未發生的回憶';
       const cardTitle = document.createElement('strong');
@@ -214,8 +249,10 @@ export function renderMemories({
       if (isUnlocked) card.addEventListener('click', () => onReplay(event));
       cards.append(card);
     }
-    sectionEl.append(heading, cards);
+    disclosure.append(heading, cards);
+    sectionEl.append(disclosure);
     container.append(sectionEl);
   }
+  if (announcement && !announcement.textContent) announcement.textContent = '';
   return stats;
 }
