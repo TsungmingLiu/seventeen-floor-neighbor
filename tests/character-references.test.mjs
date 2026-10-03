@@ -1,12 +1,74 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import { selectCharacterReferences, validateCharacterReferencePacks } from '../tools/character-references.mjs';
-import { buildPackets, adaptApi, adaptChatManual, adaptWorkBatch, validateManifest } from '../tools/render-cg-packets.mjs';
+import { selectCharacterReferences, validateCharacterReferencePacks, validateCharacterReferencePackReceipt, validateCharacterWardrobeReplacementReceipt } from '../tools/character-references.mjs';
+import { buildPackets, adaptApi, adaptChatManual, adaptWorkBatch, validateManifest, sha256 } from '../tools/render-cg-packets.mjs';
 
 const read = (name) => JSON.parse(fs.readFileSync(new URL(`../${name}`, import.meta.url), 'utf8'));
 const catalog = read('content/assets/source-catalog.json');
 const registry = read('content/assets/character-reference-packs.json');
+
+test('Shen Yingxue receipt requires the scoped Owner height-label override', () => {
+  const receipt = read('content/assets/ingest-receipts/shen-yingxue-reference-pack-20261003.json');
+  assert.equal(validateCharacterReferencePackReceipt(receipt, 'shen_yingxue').length, 6);
+  assert.equal(receipt.heightLabelOverride.humanDecision, '維持172，圖就不管了，直接啟用。');
+  assert.equal(receipt.heightLabelOverride.canonicalHeightCm, 172);
+  assert.equal(receipt.heightLabelOverride.embeddedHeightLabelCm, 175);
+  const registryWithoutOverride = structuredClone(registry);
+  delete registryWithoutOverride.characters.shen_yingxue.heightLabelPolicy;
+  assert.throws(() => validateCharacterReferencePackReceipt(receipt, 'shen_yingxue', catalog, registryWithoutOverride), /receipt/);
+  for (const problem of ['missing', 'height', 'scope', 'quote', 'sources', 'profile', 'runtime']) {
+    const forged = structuredClone(receipt);
+    if (problem === 'missing') delete forged.heightLabelOverride;
+    if (problem === 'height') forged.heightLabelOverride.canonicalHeightCm = 175;
+    if (problem === 'scope') forged.heightLabelOverride.scope = 'canonical_character_design';
+    if (problem === 'quote') forged.heightLabelOverride.humanDecision = '';
+    if (problem === 'sources') forged.heightLabelOverride.sourceIds[0] = forged.heightLabelOverride.sourceIds[1];
+    if (problem === 'profile') delete forged.canonicalProfileSha256;
+    if (problem === 'runtime') forged.runtimeMasterAcceptance = 'ACCEPTED';
+    assert.throws(() => validateCharacterReferencePackReceipt(forged, 'shen_yingxue'), /receipt/);
+  }
+});
+
+test('Shen Yingxue selection isolates exact public/private looks and shot needs', () => {
+  const pack = registry.characters.shen_yingxue;
+  assert.equal(Object.keys(pack.wardrobes).length, 8);
+  for (const [wardrobeKey, look] of Object.entries(pack.wardrobes)) {
+    const selection = selectCharacterReferences({ characterId: 'shen_yingxue', wardrobeKey });
+    assert.deepEqual(selection.map(item => item.source_id), ['ref.shen_yingxue.face.01', 'ref.shen_yingxue.production.04', look.sourceId]);
+  }
+  const extended = selectCharacterReferences({ characterId: 'shen_yingxue', wardrobeKey: 'SYX-WARDROBE-B-WORKOUT-GYM', expression: true, body: true });
+  assert.equal(extended.length, 5);
+  assert.ok(extended.every(item => item.source_id.startsWith('ref.shen_yingxue.')));
+  assert.ok(!extended.some(item => item.source_id === 'ref.shen_yingxue.wardrobe.a'));
+  assert.throws(() => selectCharacterReferences({ characterId: 'shen_yingxue', wardrobeKey: 'LRQ-WARDROBE-B-BADMINTON' }), /unknown wardrobe/);
+});
+
+test('Lin Ruoqing receipt rejects missing, duplicate, foreign and altered source evidence', () => {
+  const receipt = read('content/assets/ingest-receipts/lin-ruoqing-reference-pack-20261003.json');
+  assert.equal(validateCharacterReferencePackReceipt(receipt, 'lin_ruoqing').length, 6);
+  for (const problem of ['missing', 'duplicate', 'foreign', 'sha256', 'role', 'runtime']) {
+    const forged = structuredClone(receipt);
+    if (problem === 'missing') forged.references.pop();
+    if (problem === 'duplicate') forged.references[1] = structuredClone(forged.references[0]);
+    if (problem === 'foreign') forged.references[0].sourceId = 'ref.xu_tang.face.01';
+    if (problem === 'sha256') forged.references[0].sha256 = '0'.repeat(64);
+    if (problem === 'role') forged.references[0].role = 'wardrobe';
+    if (problem === 'runtime') forged.runtimeMasterAcceptance = 'ACCEPTED';
+    assert.throws(() => validateCharacterReferencePackReceipt(forged, 'lin_ruoqing'), /receipt/);
+  }
+});
+
+test('Lin Ruoqing selection resolves the actual A/B looks and optional shot needs', () => {
+  const a = selectCharacterReferences({ characterId: 'lin_ruoqing', wardrobeKey: 'LRQ-WARDROBE-A-TEACHER-TROUSERS' });
+  assert.deepEqual(a.map(item => item.source_id), ['ref.lin_ruoqing.face.01', 'ref.lin_ruoqing.production.04', 'ref.lin_ruoqing.wardrobe.a']);
+  const b = selectCharacterReferences({ characterId: 'lin_ruoqing', wardrobeKey: 'LRQ-WARDROBE-B-BADMINTON', expression: true, body: true });
+  assert.equal(b.length, 5);
+  assert.ok(b.every(item => item.source_id.startsWith('ref.lin_ruoqing.')));
+  assert.ok(b.some(item => item.source_id === 'ref.lin_ruoqing.wardrobe.b'));
+  assert.ok(!b.some(item => item.source_id === 'ref.lin_ruoqing.wardrobe.a'));
+  assert.throws(() => selectCharacterReferences({ characterId: 'lin_ruoqing', wardrobeKey: 'JYC-WARDROBE-B-CUTE-DATE' }), /unknown wardrobe/);
+});
 function manifestWithSelection(characterId, wardrobeKey, { expression = false, body = false } = {}) {
   const manifest = read('content/production/cg-manifests/opening-ch1.json');
   manifest.entries = [manifest.entries[0]];
@@ -27,9 +89,48 @@ test('both complete six-sheet packs are cataloged with uploaded byte fingerprint
   const receipt = read('content/assets/ingest-receipts/character-reference-packs-20260930.json');
   assert.equal(receipt.references.length, 12);
   assert.equal(new Set(receipt.references.map((record) => record.sourceId)).size, 12);
+  const replacement = read('content/assets/ingest-receipts/jiang-yucheng-wardrobe-replacement-20261003.json');
+  const previous = validateCharacterWardrobeReplacementReceipt(replacement, receipt,
+    sha256(fs.readFileSync(new URL('../content/assets/ingest-receipts/character-reference-packs-20260930.json', import.meta.url))));
   for (const record of receipt.references) {
-    assert.deepEqual(catalog.files[record.sourceId], Object.fromEntries(Object.entries(record).filter(([key]) => !['sourceId', 'uploadedFilename'].includes(key))));
+    assert.deepEqual(previous.get(record.sourceId) ?? catalog.files[record.sourceId], Object.fromEntries(Object.entries(record).filter(([key]) => !['sourceId', 'uploadedFilename'].includes(key))));
   }
+});
+
+test('Jiang Yucheng wardrobe replacement rejects forged supersession and scope evidence', () => {
+  const receipt = read('content/assets/ingest-receipts/jiang-yucheng-wardrobe-replacement-20261003.json');
+  const originalPath = new URL('../content/assets/ingest-receipts/character-reference-packs-20260930.json', import.meta.url);
+  const originalBytes = fs.readFileSync(originalPath);
+  const original = JSON.parse(originalBytes);
+  const hash = sha256(originalBytes);
+  const previous = validateCharacterWardrobeReplacementReceipt(receipt, original, hash);
+  assert.deepEqual([...previous.keys()], ['ref.jiang_yucheng.wardrobe.a', 'ref.jiang_yucheng.wardrobe.b']);
+  const gate3 = read('content/assets/ingest-receipts/repo-source-gate3-v1.json');
+  const gate3A = gate3.references.find(item => item.sourceId === 'ref.jiang_yucheng.wardrobe.a');
+  for (const key of ['sha256', 'bytes', 'width', 'height', 'mimeType', 'status', 'characterId', 'role']) assert.equal(previous.get(gate3A.sourceId)[key], gate3A[key]);
+  assert.equal(previous.get(gate3A.sourceId).sourcePath, gate3A.repoPath);
+  for (const problem of ['missing', 'duplicate', 'foreign', 'missing_supersession', 'duplicate_supersession', 'old_hash', 'new_hash', 'catalog_hash', 'path', 'role', 'scope', 'runtime', 'receipt_hash', 'receipt_path']) {
+    const forged = structuredClone(receipt);
+    if (problem === 'missing') forged.references.pop();
+    if (problem === 'duplicate') forged.references[1] = structuredClone(forged.references[0]);
+    if (problem === 'foreign') forged.references[0].sourceId = 'ref.jiang_yucheng.face.01';
+    if (problem === 'missing_supersession') forged.supersededReferences.pop();
+    if (problem === 'duplicate_supersession') forged.supersededReferences[1] = structuredClone(forged.supersededReferences[0]);
+    if (problem === 'old_hash') forged.supersededReferences[0].previous.sha256 = '0'.repeat(64);
+    if (problem === 'new_hash') forged.supersededReferences[0].replacementSha256 = '0'.repeat(64);
+    if (problem === 'catalog_hash') forged.references[0].sha256 = '0'.repeat(64);
+    if (problem === 'path') forged.references[0].sourcePath = 'assets-src/references/jiang-yucheng/other.png';
+    if (problem === 'role') forged.references[0].role = 'primary_face_identity';
+    if (problem === 'scope') forged.acceptanceScope = 'character_reference_pack_only';
+    if (problem === 'runtime') forged.runtimeMasterAcceptance = 'ACCEPTED';
+    if (problem === 'receipt_hash') forged.previousReceipt.sha256 = '0'.repeat(64);
+    if (problem === 'receipt_path') forged.previousReceipt.path = 'content/assets/ingest-receipts/repo-source-gate3-v1.json';
+    assert.throws(() => validateCharacterWardrobeReplacementReceipt(forged, original, hash), /replacement receipt/);
+  }
+  const tamperedCatalog = structuredClone(catalog);
+  tamperedCatalog.files[receipt.references[0].sourceId].bytes++;
+  assert.throws(() => validateCharacterWardrobeReplacementReceipt(receipt, original, hash, tamperedCatalog), /catalog mismatch/);
+  assert.throws(() => validateCharacterWardrobeReplacementReceipt(receipt, original, '0'.repeat(64)), /previous receipt binding/);
 });
 
 test('default and critical-shot stacks select one wardrobe and only the visible heroine', () => {

@@ -2,9 +2,9 @@
 
 > Lifecycle: **CANONICAL**
 >
-> Version: 1.4.3
+> Version: 1.4.7
 >
-> Updated: 2026-10-02
+> Updated: 2026-10-03
 
 這份文件只做 **source inventory / routing index**：告訴 fresh worker 某個 domain 的 canonical source 在哪裡，以及該 source 擁有什麼。
 
@@ -34,6 +34,7 @@
 | M1 slice scope | `docs/narrative/M1_GAMEPLAY_VALIDATION_SLICE.md` | bounded scene/dependency proposal、production gaps、branch/playtest coverage | new scene canon、Locked Scene/QA/Human approval、measured playtime |
 | Dialogue calibration policy | `docs/narrative/DIALOGUE_CALIBRATION.md` | bounded Human comparison／approval、context/scope/provenance contract、held-out pilot／停止條件 | new character canon、auto-learning、scene approval、milestone priority |
 | Approved dialogue references | `content/production/voice/approved-examples.json` | Human 明示批准的 immutable interaction versions 及限定用途；僅 Task Packet allowlist 的適用 entry 節錄可作參考 | whole-bank context、raw candidates/rejections、跨情境硬規則、canon／scene approval |
+| Character background / personality | `docs/art/characters/README.md` + `docs/art/characters/xu-tang.md` + `docs/art/characters/jiang-yucheng.md` + `docs/art/characters/lin-ruoqing.md` + `docs/art/characters/shen-yingxue.md` | current approved profile、個性、關係前提、成長差異與文字視覺識別；映雪與男主共同前史由 `shen-yingxue.md` §2 擁有 | locked scene／route ordering、runtime schema、accepted pixels、未寫入的人物事件 |
 | Visual direction | `docs/art/PRODUCTION_VISUAL_DIRECTION.md` | global visual contract、shot economy、responsive composition | scene-specific narrative choice |
 | Character identity | `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md` + `content/assets/character-reference-packs.json` | identity/wardrobe/reference authority | scene purpose、camera |
 | CG production | `docs/art/CG_PRODUCTION_SPEC.md` + `.ai/schemas/CG_MANIFEST.md` | render-ready manifest contract、projection boundary | narrative rewrite |
@@ -44,6 +45,8 @@
 | Runtime | `ARCHITECTURE.md` + current code/JSON/tests | implementation、data、save、build constraints | creative canon |
 | Integration preflight | `tools/production-integration-check.mjs` + `tools/production-impact.mjs` | explicit-baseline source/hash comparison、scene-local stale integration rejection | QA/Human acceptance、automatic baseline selection、multi-task orchestration |
 | Asset coverage | `tools/asset-coverage.mjs` + existing asset/adoption metadata | placeholder／provisional／accepted inventory、runtime binding coverage、strict release coverage constraints | independent Visual QA、release-ready or Human playable decisions |
+
+Character profiles：上述五份 `docs/art/characters/` 文件是可被 Task Packet 直接 allowlist 的 canonical 人物來源。單角色任務只載入對應 profile；跨角色 narrative design 只在任務確實需要時載入相關多份 profile。許棠／江雨澄的已入庫 pixels 保持既有圖片 authority；林若晴的六張圖片已登錄於 `content/assets/character-reference-packs.json` 的 `lin_ruoqing`，以 `ref.lin_ruoqing.*` source IDs 經 `content/assets/source-catalog.json` 解析；入庫證據為 `content/assets/ingest-receipts/lin-ruoqing-reference-pack-20261003.json`。她的人物背景／個性仍由 `docs/art/characters/lin-ruoqing.md` 擁有；該 profile 的 ingest 時態說明不取代 catalog 的即時可用性。沈映雪的六張圖片已登錄於同一 registry 的 `shen_yingxue`，以 `ref.shen_yingxue.*` 經 catalog 解析；入庫證據與 Owner 身高標示 override 為 `content/assets/ingest-receipts/shen-yingxue-reference-pack-20261003.json`。她的 canonical profile byte-for-byte 保持不變，身高仍為約 **172 cm**；Owner 已明確接受原圖內嵌的 **175 cm** 標示，這不覆蓋 canonical 身高。Profile 的 ingest 時態說明不取代 catalog 即時可用性。涉及男主初戀前史時，直接引用 `docs/art/characters/shen-yingxue.md` §2。
 
 Machine validation shapes：`.ai/schemas/narrative-continuity.schema.json`、`.ai/schemas/cg-manifest.schema.json`。Cross-file validation：`tools/validate-production-contracts.mjs` recursively discovers every JSON manifest under `content/production/cg-manifests/`, checks its scene/contract and repo reference bindings, and rejects duplicate IDs across manifest files before a production Task Packet is released. The Opening acceptance receipt remains scoped to its original manifest.
 
