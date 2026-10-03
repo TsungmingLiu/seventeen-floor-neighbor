@@ -550,6 +550,93 @@ function instantEngine(runtime) {
   return engine;
 }
 
+for (const choiceIndex of [0, 1, 2]) {
+  test(`Opening name labels follow the exchange on fresh branch ${choiceIndex + 1}`, () => {
+    installBrowserMocks();
+    const runtime = openingRuntime();
+    const engine = instantEngine(runtime);
+    engine.progress.setPlayerName('小雨');
+    engine.startGame();
+    let xuRevealed = false;
+    let anonymousXu = 0;
+    let anonymousJyc = 0;
+    for (let step = 0; step < 150 && engine.nodeId !== 'common_convenience_xu_enter'; step++) {
+      const node = runtime.chapter.nodes[engine.nodeId];
+      if (engine.nodeId === 'common_movein_rain_names') xuRevealed = true;
+      if (node.speaker === '許棠') {
+        assert.equal(engine.els.speaker.textContent, xuRevealed ? '許棠' : '女生', engine.nodeId);
+        if (!xuRevealed) anonymousXu++;
+      }
+      if (node.speaker === '江雨澄') {
+        assert.equal(engine.els.speaker.textContent, '女生', engine.nodeId);
+        anonymousJyc++;
+      }
+      if (node.choices) {
+        engine.enterChoiceMode(node.choices);
+        engine.els.choices.children[choiceIndex].click();
+      } else engine.advance();
+    }
+    assert.equal(engine.nodeId, 'common_convenience_xu_enter');
+    assert.ok(xuRevealed && anonymousXu > 0 && anonymousJyc > 0);
+    assert.equal(engine.state.player_knows_xu_name, 1, 'existing choice effects are preserved');
+    assert.equal(engine.progress.data.playerDisplayName, '小雨');
+  });
+}
+
+test('Opening reload keeps moment labels before and after both name exchanges', () => {
+  for (const [nodeId, label] of [
+    ['common_movein_rain_move', '女生'],
+    ['common_movein_rain_joke_locked_01', '女生'],
+    ['common_movein_rain_names', '許棠'],
+    ['common_movein_rain_names_locked_01', '許棠'],
+    ['common_acg_first_meet_observation_locked_01', '女生'],
+    ['common_station_cafe_jyc_drawing_03', '女生'],
+    ['common_station_cafe_jyc_names_02', '江雨澄'],
+    ['common_station_cafe_jyc_names_05', '江雨澄']
+  ]) {
+    installBrowserMocks();
+    const runtime = openingRuntime();
+    let engine = instantEngine(runtime);
+    engine.progress.setPlayerName('小雨');
+    // Choice-time knowledge and later flags cannot reveal an earlier label.
+    const stats = { ...runtime.chapter.initialState, player_knows_xu_name: 1, F_XT: 7 };
+    engine.resumeGame({ nodeId, stats, flags: ['player_knows_jyc_name', 'world-retained'], returnNodes: [] });
+    const before = structuredClone(engine.progress.data.cursor);
+    assert.equal(engine.els.speaker.textContent, label, nodeId);
+    engine = instantEngine(runtime);
+    engine.startFromTitle();
+    assert.equal(engine.els.speaker.textContent, label, nodeId);
+    assert.deepEqual(engine.progress.data.cursor, before);
+    assert.equal(engine.progress.data.playerDisplayName, '小雨');
+  }
+});
+
+test('Opening early Memory labels ignore later known-name frontier and survive replay reload', () => {
+  installBrowserMocks();
+  const runtime = openingRuntime();
+  let engine = instantEngine(runtime);
+  engine.progress.setPlayerName('小雨');
+  const knownState = { ...runtime.chapter.initialState, player_knows_xu_name: 1, F_XT: 7,
+    flags: new Set(['player_knows_jyc_name', 'world-retained']) };
+  engine.progress.capture('common_acg_first_meet_enter', knownState, []);
+  engine.progress.capture('common_station_cafe_jyc_names_05', knownState, []);
+  const frontier = structuredClone(engine.progress.data.frontier);
+  engine.replayMemory({ replayNode: runtime.chapter.startNode });
+  while (engine.nodeId !== 'common_movein_rain_move') engine.advance();
+  assert.equal(engine.els.speaker.textContent, '女生');
+  engine.replayMemory({ replayNode: 'common_acg_first_meet_enter' });
+  while (engine.nodeId !== 'common_acg_first_meet_observation_locked_01') engine.advance();
+  assert.equal(engine.els.speaker.textContent, '女生');
+  assert.ok(engine.state.flags.has('player_knows_jyc_name'));
+  const replayCursor = structuredClone(engine.progress.data.cursor);
+  engine = instantEngine(runtime);
+  engine.resumeGame(engine.progress.data.cursor, { replay: true });
+  assert.equal(engine.els.speaker.textContent, '女生');
+  assert.deepEqual(engine.progress.data.cursor, replayCursor);
+  assert.deepEqual(engine.progress.data.frontier, frontier);
+  assert.equal(engine.progress.data.playerDisplayName, '小雨');
+});
+
 function completedOpeningSave(runtime, nodeId = 'opening_demo_complete') {
   const stats = { ...runtime.chapter.initialState, F_XT: 7, T_XT: 3, K_XT: 2, xt_advice_tendency: 1,
     mc_tone_observant: 4, mc_tone_practical: 5, mc_tone_humorous: 6 };

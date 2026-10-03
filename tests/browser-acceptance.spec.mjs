@@ -49,6 +49,75 @@ async function currentJourney(page) {
   return page.evaluate(() => JSON.parse(localStorage.getItem('opening-demo-chapter-01:journey:v2')));
 }
 
+test('Opening names appear at exchange and early Memory stays anonymous after later knowledge', async ({ page }) => {
+  test.setTimeout(240_000);
+  const errors = collectBlockingErrors(page);
+  await page.goto('/');
+  await page.locator('#start-button').click();
+  await enterPlayerName(page, '小雨');
+  const chapter = await (await page.request.get('/content/routes/opening-demo/chapter.json')).json();
+  let xuRevealed = false;
+  const reloaded = new Set();
+  let anonymousXu = 0;
+  let anonymousJyc = 0;
+  for (let step = 0; step < 150; step++) {
+    await waitForDialogueReady(page);
+    const journey = await currentJourney(page);
+    const id = journey.cursor.nodeId;
+    if (id === 'common_convenience_xu_enter') break;
+    const node = chapter.nodes[id];
+    if (id === 'common_movein_rain_names') xuRevealed = true;
+    if (node.speaker === '許棠') {
+      await expect(page.locator('#speaker')).toHaveText(xuRevealed ? '許棠' : '女生');
+      if (!xuRevealed) anonymousXu++;
+    }
+    if (node.speaker === '江雨澄') {
+      await expect(page.locator('#speaker')).toHaveText('女生');
+      anonymousJyc++;
+    }
+    if (['common_movein_rain_joke_locked_01', 'common_movein_rain_names'].includes(id) && !reloaded.has(id)) {
+      reloaded.add(id);
+      await page.reload();
+      await page.locator('#start-button').click();
+      await waitForDialogueReady(page);
+      expect((await currentJourney(page)).cursor).toEqual(journey.cursor);
+      await expect(page.locator('#speaker')).toHaveText(xuRevealed ? '許棠' : '女生');
+    }
+    if (node.choices) {
+      if (!await page.locator('#choice-list').isVisible()) await page.locator('#advance-zone').click();
+      await page.locator('#choice-list .choice-button').nth(1).click();
+    } else await page.locator('#advance-zone').click();
+    await expect.poll(async () => (await currentJourney(page)).cursor.nodeId).not.toBe(id);
+  }
+  const journey = await currentJourney(page);
+  expect(journey.cursor.nodeId).toBe('common_convenience_xu_enter');
+  expect(anonymousXu).toBeGreaterThan(0);
+  expect(anonymousJyc).toBeGreaterThan(0);
+  expect(reloaded.size).toBe(2);
+  // A later known-name save must not determine an earlier moment's labels.
+  await page.evaluate(() => {
+    const key = 'opening-demo-chapter-01:journey:v2';
+    const saved = JSON.parse(localStorage.getItem(key));
+    saved.cursor.flags.push('player_knows_jyc_name');
+    saved.frontier.flags.push('player_knows_jyc_name');
+    localStorage.setItem(key, JSON.stringify(saved));
+  });
+  await page.reload();
+  await page.locator('#memories-button').click();
+  await page.locator('[data-memory-id="mem.opening.ch1.movein"]').click();
+  for (let step = 0; step < 10; step++) {
+    await waitForDialogueReady(page);
+    if ((await currentJourney(page)).cursor.nodeId === 'common_movein_rain_move') break;
+    await page.locator('#advance-zone').click();
+  }
+  await expect(page.locator('#speaker')).toHaveText('女生');
+  const replay = await currentJourney(page);
+  expect(replay.playerDisplayName).toBe('小雨');
+  expect(replay.frontier.stats).toEqual(journey.frontier.stats);
+  expect(replay.frontier.flags).toContain('player_knows_jyc_name');
+  expect(errors).toEqual([]);
+});
+
 for (const mode of ['confirm', 'Enter', 'cleared', 'whitespace']) {
   test(`player name quick-start uses the prefilled default with ${mode}`, async ({ page }) => {
     await page.goto('/');

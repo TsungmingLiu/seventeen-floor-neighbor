@@ -65,13 +65,32 @@ test('COM02J compiles all 61 approved turns, speaker timing, labels and rejoins 
   assert.equal(nodes[supplementEnd].default, 'common_package_xu_arrive');
 });
 
-test('all existing accepted runtime nodes, art, Memory IDs/order and COM03X 83 turns remain byte-equivalent to exact d4ab4bd baseline', () => {
+test('existing runtime preserves exact d4ab4bd fields and only the 25 approved anonymous label overrides', () => {
   const baseline = 'd4ab4bd0ffc4bec97f81ad288a52194bc3a883bd';
   const prior = file => JSON.parse(execFileSync('git', ['show', `${baseline}:content/routes/opening-demo/${file}`], { encoding: 'utf8' }));
   const old = prior('chapter-01.json').nodes;
+  const anonymousLabels = new Set([
+    'common_movein_rain_move', 'common_movein_rain_formal', 'common_movein_rain_joke',
+    'common_movein_rain_practical', 'common_movein_rain_door_locked_00',
+    'common_movein_rain_door_locked_02', 'common_movein_rain_joke_locked_01',
+    'common_movein_rain_practical_locked_02', 'common_movein_rain_formal_locked_04',
+    'common_acg_first_meet_rejoin', 'common_acg_first_meet_cafe_reply', 'common_acg_first_meet_coda',
+    'common_acg_first_meet_observation_locked_01',
+    'common_acg_first_meet_worldbuilding_locked_00', 'common_acg_first_meet_worldbuilding_locked_03',
+    'common_acg_first_meet_worldbuilding_locked_05', 'common_acg_first_meet_visual_design_locked_01',
+    'common_acg_first_meet_visual_design_locked_04', 'common_acg_first_meet_buying_practical_locked_00',
+    'common_acg_first_meet_buying_practical_locked_02', 'common_acg_first_meet_buying_practical_locked_04',
+    'common_acg_first_meet_rejoin_locked_01',
+    'common_acg_first_meet_cafe_seed_locked_00', 'common_acg_first_meet_cafe_seed_locked_02',
+    'common_acg_first_meet_exit_locked_01'
+  ]);
+  assert.equal(anonymousLabels.size, 25);
+  assert.deepEqual(Object.keys(nodes).filter(id => Object.hasOwn(nodes[id], 'speakerLabel')).sort(),
+    [...anonymousLabels].sort(), 'no anonymous label additions outside the exact pre-reveal set');
   for (const [id, node] of Object.entries(old)) {
     if (id === 'opening_demo_complete') continue;
-    assert.deepEqual(nodes[id], node, `accepted node changed: ${id}`);
+    assert.deepEqual(nodes[id], anonymousLabels.has(id) ? { ...node, speakerLabel: '女生' } : node,
+      `accepted node changed: ${id}`);
   }
   assert.equal(Object.entries(old).filter(([id,node]) => (id.startsWith('common_package_xu_') || id.startsWith('com03x_')) && node.text).length, 83);
   assert.deepEqual(memories.events.slice(0,4), prior('memories.json').events);

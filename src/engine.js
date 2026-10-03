@@ -613,9 +613,11 @@ export class GameEngine {
   applyPresentationMode(node, mode = presentationModeForNode(node)) {
     this.els.stage.dataset.presentation = mode;
     this.els.dialoguePanel.dataset.mode = mode;
-    const speaker = mode === 'protagonist'
+    let speaker = mode === 'protagonist'
       ? normalizePlayerName(this.progress.data.playerDisplayName) || '你'
       : speakerLabelForNode(node, mode);
+    // Display labels belong to this moment, even when a save already knows a name.
+    if (mode === 'speech' && typeof node.speakerLabel === 'string') speaker = node.speakerLabel;
     this.els.speaker.textContent = speaker;
     this.els.speaker.classList.toggle('is-hidden', !speaker);
     this.els.speaker.classList.toggle('is-protagonist', mode === 'protagonist');

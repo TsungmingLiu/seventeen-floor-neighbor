@@ -56,7 +56,8 @@
         "background": "bg.opening.ch1.apt_17f_rain",
         "sprites": []
       },
-      "next": "common_movein_rain_assist"
+      "next": "common_movein_rain_assist",
+      "speakerLabel": "女生"
     },
     "common_movein_rain_choice": {
       "speaker": "旁白",
@@ -114,7 +115,8 @@
         "mode": "cg",
         "asset": "cg.opening.com00.s04_r01_polite_smile"
       },
-      "next": "common_movein_rain_formal_locked_00"
+      "next": "common_movein_rain_formal_locked_00",
+      "speakerLabel": "女生"
     },
     "common_movein_rain_joke": {
       "speaker": "許棠",
@@ -124,7 +126,8 @@
         "mode": "cg",
         "asset": "cg.opening.com00.s04_r01_polite_smile"
       },
-      "next": "common_movein_rain_joke_locked_00"
+      "next": "common_movein_rain_joke_locked_00",
+      "speakerLabel": "女生"
     },
     "common_movein_rain_practical": {
       "speaker": "許棠",
@@ -134,7 +137,8 @@
         "mode": "cg",
         "asset": "cg.opening.com00.s04_base_neutral"
       },
-      "next": "common_movein_rain_practical_locked_00"
+      "next": "common_movein_rain_practical_locked_00",
+      "speakerLabel": "女生"
     },
     "common_movein_rain_names": {
       "speaker": "許棠",
@@ -449,7 +453,8 @@
         "mode": "cg",
         "asset": "cg.opening.com01j.r01_interested"
       },
-      "next": "common_acg_first_meet_rejoin_locked_00"
+      "next": "common_acg_first_meet_rejoin_locked_00",
+      "speakerLabel": "女生"
     },
     "common_acg_first_meet_cafe_seed": {
       "speaker": "你",
@@ -469,7 +474,8 @@
         "mode": "cg",
         "asset": "cg.opening.com01j.r01_interested"
       },
-      "next": "common_acg_first_meet_cafe_seed_locked_00"
+      "next": "common_acg_first_meet_cafe_seed_locked_00",
+      "speakerLabel": "女生"
     },
     "common_acg_first_meet_exit": {
       "speaker": "旁白",
@@ -489,7 +495,8 @@
         "mode": "cg",
         "asset": "cg.opening.com01j.r01_interested"
       },
-      "next": "common_acg_first_meet_exit_locked_00"
+      "next": "common_acg_first_meet_exit_locked_00",
+      "speakerLabel": "女生"
     },
     "opening_demo_complete": {
       "type": "branch",
@@ -1645,7 +1652,8 @@
       },
       "speaker": "許棠",
       "text": "嗯，再高一點。你先轉。",
-      "next": "common_movein_rain_door_locked_01"
+      "next": "common_movein_rain_door_locked_01",
+      "speakerLabel": "女生"
     },
     "common_movein_rain_door_locked_01": {
       "chapter": 0,
@@ -1665,7 +1673,8 @@
       },
       "speaker": "許棠",
       "text": "再一點點。",
-      "next": "common_movein_rain_door_locked_03"
+      "next": "common_movein_rain_door_locked_03",
+      "speakerLabel": "女生"
     },
     "common_movein_rain_door_locked_03": {
       "chapter": 0,
@@ -1748,7 +1757,8 @@
       },
       "speaker": "許棠",
       "text": "再往裡一點就沒事了。不然它還是會碰到。",
-      "next": "common_movein_rain_joke_locked_02"
+      "next": "common_movein_rain_joke_locked_02",
+      "speakerLabel": "女生"
     },
     "common_movein_rain_joke_locked_02": {
       "chapter": 0,
@@ -1798,7 +1808,8 @@
       },
       "speaker": "許棠",
       "text": "嗯，可以了。",
-      "next": "common_movein_rain_names"
+      "next": "common_movein_rain_names",
+      "speakerLabel": "女生"
     },
     "common_movein_rain_names_locked_00": {
       "chapter": 0,
@@ -2206,7 +2217,8 @@
       },
       "speaker": "江雨澄",
       "text": "你看過舊版？",
-      "next": "common_acg_first_meet_observation_locked_02"
+      "next": "common_acg_first_meet_observation_locked_02",
+      "speakerLabel": "女生"
     },
     "common_acg_first_meet_observation_locked_02": {
       "chapter": 2,
@@ -2226,7 +2238,8 @@
       },
       "speaker": "江雨澄",
       "text": "嗯……可是你看這張。雨港停電那段的色彩腳本，是新版才有的。",
-      "next": "common_acg_first_meet_worldbuilding_locked_01"
+      "next": "common_acg_first_meet_worldbuilding_locked_01",
+      "speakerLabel": "女生"
     },
     "common_acg_first_meet_worldbuilding_locked_01": {
       "chapter": 2,
@@ -2256,7 +2269,8 @@
       },
       "speaker": "江雨澄",
       "text": "對。前面兩章的光從哪裡來，看這張才講得通。殖民站是補得比較多啦，但雨港也不只是重印。",
-      "next": "common_acg_first_meet_worldbuilding_locked_04"
+      "next": "common_acg_first_meet_worldbuilding_locked_04",
+      "speakerLabel": "女生"
     },
     "common_acg_first_meet_worldbuilding_locked_04": {
       "chapter": 2,
@@ -2276,7 +2290,8 @@
       },
       "speaker": "江雨澄",
       "text": "也沒有。目錄真的看不出來。",
-      "next": "common_acg_first_meet_worldbuilding_locked_06"
+      "next": "common_acg_first_meet_worldbuilding_locked_06",
+      "speakerLabel": "女生"
     },
     "common_acg_first_meet_worldbuilding_locked_06": {
       "chapter": 2,
@@ -2306,7 +2321,8 @@
       },
       "speaker": "江雨澄",
       "text": "對，暗部幾乎黏在一起。實體這本分得開，可是紙又太亮；你看，燈正好照在這裡。",
-      "next": "common_acg_first_meet_visual_design_locked_02"
+      "next": "common_acg_first_meet_visual_design_locked_02",
+      "speakerLabel": "女生"
     },
     "common_acg_first_meet_visual_design_locked_02": {
       "chapter": 2,
@@ -2336,7 +2352,8 @@
       },
       "speaker": "江雨澄",
       "text": "在這裡可能要。我也是剛剛才發現，顏色印回來了，翻起來又有點累。",
-      "next": "common_acg_first_meet_visual_design_locked_05"
+      "next": "common_acg_first_meet_visual_design_locked_05",
+      "speakerLabel": "女生"
     },
     "common_acg_first_meet_visual_design_locked_05": {
       "chapter": 2,
@@ -2366,7 +2383,8 @@
       },
       "speaker": "江雨澄",
       "text": "嗯，機械稿的索引比較好。",
-      "next": "common_acg_first_meet_buying_practical_locked_01"
+      "next": "common_acg_first_meet_buying_practical_locked_01",
+      "speakerLabel": "女生"
     },
     "common_acg_first_meet_buying_practical_locked_01": {
       "chapter": 2,
@@ -2386,7 +2404,8 @@
       },
       "speaker": "江雨澄",
       "text": "可是註釋縮得太小了。朋友買的那本我翻過，查一個零件要湊很近，看到一半就先放回去。",
-      "next": "common_acg_first_meet_buying_practical_locked_03"
+      "next": "common_acg_first_meet_buying_practical_locked_03",
+      "speakerLabel": "女生"
     },
     "common_acg_first_meet_buying_practical_locked_03": {
       "chapter": 2,
@@ -2406,7 +2425,8 @@
       },
       "speaker": "江雨澄",
       "text": "圖還是有用啊。就是……買之前想再看一次。",
-      "next": "common_acg_first_meet_buying_practical_locked_05"
+      "next": "common_acg_first_meet_buying_practical_locked_05",
+      "speakerLabel": "女生"
     },
     "common_acg_first_meet_buying_practical_locked_05": {
       "chapter": 2,
@@ -2436,7 +2456,8 @@
       },
       "speaker": "江雨澄",
       "text": "嗯。我也是還沒決定。",
-      "next": "common_acg_first_meet_rejoin_locked_02"
+      "next": "common_acg_first_meet_rejoin_locked_02",
+      "speakerLabel": "女生"
     },
     "common_acg_first_meet_rejoin_locked_02": {
       "chapter": 2,
@@ -2456,7 +2477,8 @@
       },
       "speaker": "江雨澄",
       "text": "週末這時候我不太確定會不會吵。平日下午窗邊滿安靜的，插座也有。坐久一點，店員不太會趕。",
-      "next": "common_acg_first_meet_cafe_seed_locked_01"
+      "next": "common_acg_first_meet_cafe_seed_locked_01",
+      "speakerLabel": "女生"
     },
     "common_acg_first_meet_cafe_seed_locked_01": {
       "chapter": 2,
@@ -2476,7 +2498,8 @@
       },
       "speaker": "江雨澄",
       "text": "嗯。這裡人太多，翻一頁要讓一次路。",
-      "next": "common_acg_first_meet_exit"
+      "next": "common_acg_first_meet_exit",
+      "speakerLabel": "女生"
     },
     "common_acg_first_meet_exit_locked_00": {
       "chapter": 2,
@@ -2496,7 +2519,8 @@
       },
       "speaker": "江雨澄",
       "text": "嗯。",
-      "next": "common_acg_first_meet_exit_locked_02"
+      "next": "common_acg_first_meet_exit_locked_02",
+      "speakerLabel": "女生"
     },
     "common_acg_first_meet_exit_locked_02": {
       "chapter": 2,
@@ -2549,7 +2573,8 @@
       },
       "speaker": "許棠",
       "text": "可以了。",
-      "next": "common_movein_rain_formal_locked_05"
+      "next": "common_movein_rain_formal_locked_05",
+      "speakerLabel": "女生"
     },
     "common_movein_rain_formal_locked_05": {
       "chapter": 0,
