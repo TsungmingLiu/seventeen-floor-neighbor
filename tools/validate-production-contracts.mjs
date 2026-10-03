@@ -1,5 +1,5 @@
 import { validateProductionStorage } from './production-storage.mjs';
-import { validateCharacterReferencePacks } from './character-references.mjs';
+import { validateCharacterReferencePacks, validateCharacterReferencePackReceipt } from './character-references.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -357,6 +357,8 @@ function validateGate3RepositorySources(catalog) {
     for (const key of ['name', 'sourcePath', 'sha256', 'bytes', 'width', 'height', 'mimeType', 'status', 'characterId', 'role']) invariant(source?.[key] === item[key], `restored reference ${key} mismatch: ${item.sourceId}`);
   }
   validateCharacterReferencePacks(catalog);
+  const linRuoqingReceipt = readJson('content/assets/ingest-receipts/lin-ruoqing-reference-pack-20261003.json');
+  const linRuoqingIds = validateCharacterReferencePackReceipt(linRuoqingReceipt, 'lin_ruoqing', catalog);
   const referenceIds = new Set();
   for (const item of receipt.references) {
     invariant(!referenceIds.has(item.sourceId), `duplicate reference sourceId: ${item.sourceId}`);
@@ -444,7 +446,7 @@ function validateGate3RepositorySources(catalog) {
   invariant(sha256(fs.readFileSync(walkAsset.derivativePath)) === walkAsset.derivativeSha256 && fs.statSync(walkAsset.derivativePath).size === walkAsset.derivativeBytes, 'COM-02X walking derivative fingerprint mismatch');
   const walkManifest = readJson('content/production/cg-manifests/opening-ch1-com02x-walk.json');
   invariant(walkManifest.entries.length === 1 && walkManifest.entries[0].entry_id === walkAsset.entryId && walkManifest.entries[0].status === 'accepted' && JSON.stringify(walkManifest.entries[0].known_issues) === JSON.stringify(walkQa.known_issues), 'COM-02X walking manifest adoption/issues mismatch');
-  invariant(Object.keys(catalog.files).length === acceptedIds.size + restoredIds.size + 1 + batchIds.size + 1 + 1 + 1, 'source catalog contains an unknown or unreceipted source');
+  invariant(Object.keys(catalog.files).length === acceptedIds.size + restoredIds.size + linRuoqingIds.length + 1 + batchIds.size + 1 + 1 + 1, 'source catalog contains an unknown or unreceipted source');
   return receipt;
 }
 

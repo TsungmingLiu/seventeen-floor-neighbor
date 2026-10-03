@@ -24,6 +24,31 @@ export function validateCharacterReferencePacks(sourceCatalog = catalog, registr
   return registry;
 }
 
+/** A new pack receipt must attest exactly the six registered production sources. */
+export function validateCharacterReferencePackReceipt(receipt, characterId, sourceCatalog = catalog, registry = packs) {
+  const pack = registry.characters[characterId];
+  insist(pack && receipt.receiptVersion === 1 && receipt.gate === 'complete-character-reference-pack'
+    && receipt.characterId === characterId && receipt.canonicalProfile === pack.canonicalProfile
+    && receipt.sourceCatalog === 'content/assets/source-catalog.json'
+    && receipt.referencePackRegistry === 'content/assets/character-reference-packs.json'
+    && receipt.acceptanceScope === 'character_reference_pack_only'
+    && receipt.runtimeMasterAcceptance === 'NOT_ACCEPTED', `${characterId}: invalid reference pack receipt identity/scope`);
+  const expected = new Set(Object.values(pack.sheets));
+  insist(Array.isArray(receipt.references) && receipt.references.length === 6, `${characterId}: receipt requires six sheets`);
+  for (const item of receipt.references) {
+    insist(expected.delete(item.sourceId), `${characterId}: duplicate or unrelated receipt source: ${item.sourceId}`);
+    insist(typeof item.uploadedFilename === 'string' && item.uploadedFilename.trim(), `${characterId}: missing uploaded filename`);
+    const source = sourceCatalog.files[item.sourceId];
+    for (const key of ['name', 'sourcePath', 'sha256', 'bytes', 'width', 'height', 'mimeType', 'verifiedDecode', 'status', 'characterId', 'role', 'provenance']) {
+      insist(source?.[key] === item[key], `${characterId}: reference receipt ${key} mismatch: ${item.sourceId}`);
+    }
+    insist(source.verifiedDecode === true, `${characterId}: reference receipt requires verified decode`);
+  }
+  insist(expected.size === 0, `${characterId}: unreceipted reference sheet`);
+  validateCharacterReferencePacks(sourceCatalog, registry);
+  return receipt.references.map(item => item.sourceId);
+}
+
 /** Explicit, bounded selection; never attach all sheets or infer acting from scene prose. */
 export function selectCharacterReferences({ characterId, wardrobeKey, expression = false, body = false, production = true }, sourceCatalog = catalog, registry = packs) {
   const pack = registry.characters[characterId];

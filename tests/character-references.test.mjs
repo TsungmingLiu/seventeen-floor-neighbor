@@ -1,12 +1,38 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import { selectCharacterReferences, validateCharacterReferencePacks } from '../tools/character-references.mjs';
+import { selectCharacterReferences, validateCharacterReferencePacks, validateCharacterReferencePackReceipt } from '../tools/character-references.mjs';
 import { buildPackets, adaptApi, adaptChatManual, adaptWorkBatch, validateManifest } from '../tools/render-cg-packets.mjs';
 
 const read = (name) => JSON.parse(fs.readFileSync(new URL(`../${name}`, import.meta.url), 'utf8'));
 const catalog = read('content/assets/source-catalog.json');
 const registry = read('content/assets/character-reference-packs.json');
+
+test('Lin Ruoqing receipt rejects missing, duplicate, foreign and altered source evidence', () => {
+  const receipt = read('content/assets/ingest-receipts/lin-ruoqing-reference-pack-20261003.json');
+  assert.equal(validateCharacterReferencePackReceipt(receipt, 'lin_ruoqing').length, 6);
+  for (const problem of ['missing', 'duplicate', 'foreign', 'sha256', 'role', 'runtime']) {
+    const forged = structuredClone(receipt);
+    if (problem === 'missing') forged.references.pop();
+    if (problem === 'duplicate') forged.references[1] = structuredClone(forged.references[0]);
+    if (problem === 'foreign') forged.references[0].sourceId = 'ref.xu_tang.face.01';
+    if (problem === 'sha256') forged.references[0].sha256 = '0'.repeat(64);
+    if (problem === 'role') forged.references[0].role = 'wardrobe';
+    if (problem === 'runtime') forged.runtimeMasterAcceptance = 'ACCEPTED';
+    assert.throws(() => validateCharacterReferencePackReceipt(forged, 'lin_ruoqing'), /receipt/);
+  }
+});
+
+test('Lin Ruoqing selection resolves the actual A/B looks and optional shot needs', () => {
+  const a = selectCharacterReferences({ characterId: 'lin_ruoqing', wardrobeKey: 'LRQ-WARDROBE-A-TEACHER-TROUSERS' });
+  assert.deepEqual(a.map(item => item.source_id), ['ref.lin_ruoqing.face.01', 'ref.lin_ruoqing.production.04', 'ref.lin_ruoqing.wardrobe.a']);
+  const b = selectCharacterReferences({ characterId: 'lin_ruoqing', wardrobeKey: 'LRQ-WARDROBE-B-BADMINTON', expression: true, body: true });
+  assert.equal(b.length, 5);
+  assert.ok(b.every(item => item.source_id.startsWith('ref.lin_ruoqing.')));
+  assert.ok(b.some(item => item.source_id === 'ref.lin_ruoqing.wardrobe.b'));
+  assert.ok(!b.some(item => item.source_id === 'ref.lin_ruoqing.wardrobe.a'));
+  assert.throws(() => selectCharacterReferences({ characterId: 'lin_ruoqing', wardrobeKey: 'JYC-WARDROBE-B-CUTE-DATE' }), /unknown wardrobe/);
+});
 function manifestWithSelection(characterId, wardrobeKey, { expression = false, body = false } = {}) {
   const manifest = read('content/production/cg-manifests/opening-ch1.json');
   manifest.entries = [manifest.entries[0]];

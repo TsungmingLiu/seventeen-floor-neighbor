@@ -93,6 +93,60 @@
           "look": "After Story / Weekend Morning"
         }
       }
+    },
+    "lin_ruoqing": {
+      "canonicalProfile": "docs/art/characters/lin-ruoqing.md",
+      "ingestReceipt": "content/assets/ingest-receipts/lin-ruoqing-reference-pack-20261003.json",
+      "sheets": {
+        "face.01": "ref.lin_ruoqing.face.01",
+        "expression.02": "ref.lin_ruoqing.expression.02",
+        "body.03": "ref.lin_ruoqing.body.03",
+        "production.04": "ref.lin_ruoqing.production.04",
+        "wardrobe.a": "ref.lin_ruoqing.wardrobe.a",
+        "wardrobe.b": "ref.lin_ruoqing.wardrobe.b"
+      },
+      "wardrobes": {
+        "LRQ-WARDROBE-A-TEACHER-TROUSERS": {
+          "sourceId": "ref.lin_ruoqing.wardrobe.a",
+          "look": "Teacher / Trousers"
+        },
+        "LRQ-WARDROBE-A-CARDIGAN-EVERYDAY": {
+          "sourceId": "ref.lin_ruoqing.wardrobe.a",
+          "look": "Cardigan / Everyday"
+        },
+        "LRQ-WARDROBE-A-TEACHER-PRESENTATION": {
+          "sourceId": "ref.lin_ruoqing.wardrobe.a",
+          "look": "Teacher / Presentation"
+        },
+        "LRQ-WARDROBE-A-HOODIE-WEEKEND": {
+          "sourceId": "ref.lin_ruoqing.wardrobe.a",
+          "look": "Hoodie / Weekend"
+        },
+        "LRQ-WARDROBE-A-FLORAL-DATE": {
+          "sourceId": "ref.lin_ruoqing.wardrobe.a",
+          "look": "Floral / Date"
+        },
+        "LRQ-WARDROBE-A-AUTUMN-OUTING": {
+          "sourceId": "ref.lin_ruoqing.wardrobe.a",
+          "look": "Autumn / Outing"
+        },
+        "LRQ-WARDROBE-B-FITNESS-ACTIVE": {
+          "sourceId": "ref.lin_ruoqing.wardrobe.b",
+          "look": "Fitness / Active"
+        },
+        "LRQ-WARDROBE-B-BADMINTON": {
+          "sourceId": "ref.lin_ruoqing.wardrobe.b",
+          "look": "Badminton"
+        },
+        "LRQ-WARDROBE-B-HOME-REST": {
+          "sourceId": "ref.lin_ruoqing.wardrobe.b",
+          "look": "Home / Rest"
+        },
+        "LRQ-WARDROBE-B-POOL-SWIM": {
+          "sourceId": "ref.lin_ruoqing.wardrobe.b",
+          "look": "Pool / Swim"
+        }
+      }
     }
   }
 }

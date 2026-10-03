@@ -1,7 +1,7 @@
 {
   "sourceCatalogVersion": 2,
   "provider": "repo",
-  "note": "Accepted Opening CG/background WebP and both complete six-sheet character PNG packs resolve to tracked repo files. Reference restoration receipt records exact uploaded bytes and the superseded Xu Tang JPEG.",
+  "note": "Accepted Opening CG/background WebP and three complete six-sheet character PNG packs resolve to tracked repo files. Ingest receipts record exact uploaded bytes; the 2026-09-30 restoration receipt records the superseded Xu Tang JPEG.",
   "files": {
     "source.opening.ch1.bg.apt_17f_rain": {
       "name": "bg-apt-17f-rain-16x9-v1.webp",
@@ -473,6 +473,90 @@
       "sha256": "a1aa0d08023cc19a42b3c9260bca732059e77eb5dd37c8578afb82bd7dd82400",
       "verifiedDecode": true,
       "status": "human-accepted-as-is"
+    },
+    "ref.lin_ruoqing.face.01": {
+      "name": "lrq-ref-01-face.png",
+      "mimeType": "image/png",
+      "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-01-face.png",
+      "bytes": 2964880,
+      "width": 1672,
+      "height": 941,
+      "sha256": "ab47ef3e20be4b0ee4b36e6fab28f47dcac1c5d22f6b51d9daceba197b65ef09",
+      "verifiedDecode": true,
+      "status": "active-production",
+      "characterId": "lin_ruoqing",
+      "role": "primary_face_identity",
+      "provenance": "Owner supplied LRQ-1.png in conversation 6abff668-2a34-83e9-8188-7d50416a3234; registered byte-for-byte on 2026-10-03; see content/assets/ingest-receipts/lin-ruoqing-reference-pack-20261003.json"
+    },
+    "ref.lin_ruoqing.expression.02": {
+      "name": "lrq-ref-02-expression.png",
+      "mimeType": "image/png",
+      "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-02-expression.png",
+      "bytes": 2938177,
+      "width": 1672,
+      "height": 941,
+      "sha256": "d93862c7630775d2d7c2859f3b5c1b67dcdca856c4de50fdd56d6f19aac8bf7c",
+      "verifiedDecode": true,
+      "status": "active-production",
+      "characterId": "lin_ruoqing",
+      "role": "expression",
+      "provenance": "Owner supplied LRQ-2.png in conversation 6abff668-2a34-83e9-8188-7d50416a3234; registered byte-for-byte on 2026-10-03; see content/assets/ingest-receipts/lin-ruoqing-reference-pack-20261003.json"
+    },
+    "ref.lin_ruoqing.body.03": {
+      "name": "lrq-ref-03-body.png",
+      "mimeType": "image/png",
+      "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-03-body.png",
+      "bytes": 2551265,
+      "width": 1672,
+      "height": 941,
+      "sha256": "844fb859e15ee7dba6b41487c8c111fa8512fb000b6ea20d889b7a013bf089b5",
+      "verifiedDecode": true,
+      "status": "active-production",
+      "characterId": "lin_ruoqing",
+      "role": "body_proportions",
+      "provenance": "Owner supplied LRQ-3.png in conversation 6abff668-2a34-83e9-8188-7d50416a3234; registered byte-for-byte on 2026-10-03; see content/assets/ingest-receipts/lin-ruoqing-reference-pack-20261003.json"
+    },
+    "ref.lin_ruoqing.production.04": {
+      "name": "lrq-ref-04-production.png",
+      "mimeType": "image/png",
+      "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-04-production.png",
+      "bytes": 2883278,
+      "width": 1672,
+      "height": 941,
+      "sha256": "adec845d4277a000ab8e9ec33172502481fd69d4aedaaae0995c6a06af6fa18f",
+      "verifiedDecode": true,
+      "status": "active-production",
+      "characterId": "lin_ruoqing",
+      "role": "production_consistency",
+      "provenance": "Owner supplied LRQ-4.png in conversation 6abff668-2a34-83e9-8188-7d50416a3234; registered byte-for-byte on 2026-10-03; see content/assets/ingest-receipts/lin-ruoqing-reference-pack-20261003.json"
+    },
+    "ref.lin_ruoqing.wardrobe.a": {
+      "name": "lrq-ref-05-wardrobe-a.png",
+      "mimeType": "image/png",
+      "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-05-wardrobe-a.png",
+      "bytes": 2750171,
+      "width": 1672,
+      "height": 941,
+      "sha256": "c5fa70a70ae066981759aadfba03ffb7b7d2f2cfac0ce50473ded5b7162fc2fb",
+      "verifiedDecode": true,
+      "status": "active-production",
+      "characterId": "lin_ruoqing",
+      "role": "wardrobe",
+      "provenance": "Owner supplied LRQ-5.png in conversation 6abff668-2a34-83e9-8188-7d50416a3234; registered byte-for-byte on 2026-10-03; see content/assets/ingest-receipts/lin-ruoqing-reference-pack-20261003.json"
+    },
+    "ref.lin_ruoqing.wardrobe.b": {
+      "name": "lrq-ref-06-wardrobe-b.png",
+      "mimeType": "image/png",
+      "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-06-wardrobe-b.png",
+      "bytes": 2676615,
+      "width": 1672,
+      "height": 941,
+      "sha256": "525a13a197f7c928f50cf35c144a9e82ce636478cfe135ffacf656e2c8e24a93",
+      "verifiedDecode": true,
+      "status": "active-production",
+      "characterId": "lin_ruoqing",
+      "role": "wardrobe",
+      "provenance": "Owner supplied LRQ-6.png in conversation 6abff668-2a34-83e9-8188-7d50416a3234; registered byte-for-byte on 2026-10-03; see content/assets/ingest-receipts/lin-ruoqing-reference-pack-20261003.json"
     }
   }
 }
