@@ -150,7 +150,7 @@ Choice design notes：
 
 **Protagonist**：正好。我也要工作。
 
-**Action**：我坐在斜對角，不直接面向她的 tablet。
+**Action**：我坐在斜對角，不直接面向她的平板電腦。
 
 ### `common_station_cafe_jyc_choice`
 

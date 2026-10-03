@@ -8,7 +8,7 @@
     "summary": "First-person Chinese cafe narration and future writing/QA defaults; exact selected elevator original trial integration.",
     "gate_status": "Human trial-only original selected as-is; final quality/playable acceptance pending."
   },
-  "status": "ACTIVE",
+  "status": "NARRATIVE_PREVIEW_READY",
   "tasks": [
     {
       "task_id": "NQA-CAFE-NARRATION-005",
@@ -110,6 +110,24 @@
       "decision_receipt": "content/production/runs/cafe-narration-and-elevator-trial-20261003/NQA-CAFE-TABLET-FOLLOWUP-011.decision.json",
       "human_gate": "none",
       "reason": "Independent candidate-only review of one remaining narrated tablet→平板電腦 plus separator removal; no tracked source publication occurred at QA."
+    },
+    {
+      "task_id": "INT-CAFE-TABLET-FINAL-012",
+      "task_type": "integrate",
+      "scene_id": "COM-02J",
+      "depends_on": [
+        "NQA-CAFE-TABLET-FOLLOWUP-011",
+        "INT-ELEVATOR-LANDSCAPE-CORRECTIVE-008",
+        "VQA-ELEVATOR-LANDSCAPE-CORRECTIVE-009"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual:task-packet-schema-v1.3.0",
+        "sha256": "117da6424a61844923d0a39fda195e69b5c2d6c374f6c019b1861eea90ba32c7"
+      },
+      "decision_receipt": "content/production/runs/cafe-narration-and-elevator-trial-20261003/INT-CAFE-TABLET-FINAL-012.decision.json",
+      "human_gate": "none",
+      "reason": "Exact approved tablet wording compiled;36/36 focused tests and actual Chromium word/save/reload PASS; unchanged elevator render-input identity verified for QA009 reuse."
     }
   ],
   "invalidation_events": [
@@ -122,16 +140,28 @@
       ],
       "decision": "no_visual_impact",
       "evidence": "content/production/runs/cafe-narration-and-elevator-trial-20261003/NQA-CAFE-NARRATION-005.decision.json"
+    },
+    {
+      "changed_artifact_id": "locked_scene:COM-02J",
+      "old_version": "8db1871c13cfc6b9f44fe434f93738cbd9c12f08eb21cacf602df2b7c3533655",
+      "new_version": "745091840190f855cf9aa6cb8ade5e5c5a0921e9a3b1ebdf8bd7833010bc3ae3",
+      "affected_task_ids": [
+        "INT-CAFE-TABLET-FINAL-012"
+      ],
+      "decision": "no_visual_impact",
+      "evidence": "content/production/runs/cafe-narration-and-elevator-trial-20261003/NQA-CAFE-TABLET-FOLLOWUP-011.decision.json"
     }
   ],
   "preview": {
-    "state": "Corrected localtrial ready; final cafe lexical sync and publicCI pending.",
+    "state": "Local final lexical integration ready; published full Verify pending.",
     "source_freeze_sha256": "738686a8e9855517f16f71e63a7d349e231e90457ad0a1a02b76037b26ab4592",
     "initial_fulltests": "exit1:244total/241pass/3fail; owned nested cancellation failure preserved.",
     "display": "VQA007 landscape FAIL; original provenance/compression/desktop/portrait trial checks PASS.",
     "final_art": "validate:final expectedexit1; sourceQA017 FAIL; canonical return-elevator CG unadopted.",
     "corrective_tests": "actualexit0:244/244PASS,0FAIL;7/7Chromium+freshcafe/elevatorfullstoryPASS",
     "corrective_display": "VQA009 PASS trialpresentation only; sourceQA017 FAIL retained.",
-    "corrective_build_digest": "f3aedd940cdb8c7605c7f4db52c071f74ab883a7b9b55293fcfb2ee19b8a9ac6"
+    "corrective_build_digest": "f3aedd940cdb8c7605c7f4db52c071f74ab883a7b9b55293fcfb2ee19b8a9ac6",
+    "final_lexical_tests": "36/36 focused tests and Chromium word/save/reload actualexit0",
+    "final_lexical_build_digest": "42069a38e960720591d1c4c68f36ef6a3273f2409cc9d37086444e43283bf98b"
   }
 }

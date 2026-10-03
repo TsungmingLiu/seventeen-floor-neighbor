@@ -56,7 +56,7 @@ test('COM03J appends to pinned runtime preserving all old prose, labels, effects
     common_station_cafe_jyc_enter_03:'我拿著筆記本電腦包找座位，在窗邊看見熟悉的短髮側影。',
     common_station_cafe_jyc_drawing_02:'她停筆喝水，抬眼看見我。我們的視線碰上。她停了兩秒。',
     common_station_cafe_jyc_names_03:'我們沒有握手。我指向她旁邊的空位。',
-    common_station_cafe_jyc_names_08:'我坐在斜對角，不直接面向她的 tablet。',
+    common_station_cafe_jyc_names_08:'我坐在斜對角，不直接面向她的平板電腦。',
     common_station_cafe_jyc_parallel_03:'我闔上筆記本電腦準備離開；雨澄先抬頭。',
     common_station_cafe_jyc_exit_05:'我背起筆記本電腦包。雨澄把畫筆放回筆槽。'
   };
