@@ -145,6 +145,43 @@ function referenceKey(binding) {
   return `${binding.role}\u0000${binding.source_id}\u0000${binding.expected_filename}`;
 }
 
+// Explicit engineering POC; no inherited/default embodiment or creative repair.
+function validateSceneEmbodiment(entry, version) {
+  const context = `entry ${entry.entry_id}.scene_embodiment`;
+  if (version === '1.0.0') {
+    invariant(!Object.hasOwn(entry, 'scene_embodiment'), `${context} requires schema_version 1.1.0`);
+    return;
+  }
+  invariant(['background_cg', 'dialogue_cg', 'event_cg'].includes(entry.cg_class), `${context}: unsupported POC class`);
+  invariant(entry.sequence_id == null && entry.continuity.previous_entry_id === null && entry.reference_transport.mode !== 'edit_from_accepted_base', `${context}: inheritance/sequence unsupported in POC`);
+  invariant(['extreme_wide', 'wide', 'medium_wide', 'medium'].includes(entry.camera.shot_size), `${context}: unsupported shot_size in POC; close-up unsupported`);
+  const exact = (value, keys, label) => {
+    requireKeys(value, keys, label);
+    invariant(Object.keys(value).length === keys.length, `${label} contains unsupported fields`);
+  };
+  const textObject = (value, keys, label) => {
+    exact(value, keys, label);
+    keys.forEach(key => invariant(isNonEmpty(value[key]), `${label}.${key} must be non-empty`));
+  };
+  const embodiment = entry.scene_embodiment;
+  exact(embodiment, ['captured_moment', 'characters', 'depth_staging'], context);
+  textObject(embodiment.captured_moment, ['before', 'during', 'after'], `${context}.captured_moment`);
+  textObject(embodiment.depth_staging, ['foreground', 'midground', 'background', 'subject_separation'], `${context}.depth_staging`);
+  invariant(Array.isArray(embodiment.characters), `${context}.characters must be an array`);
+  const expected = entry.characters.map(character => character.character_id);
+  const actual = embodiment.characters.map(character => character?.character_id);
+  invariant(actual.length === expected.length && new Set(actual).size === actual.length && actual.every(id => expected.includes(id)), `${context}.characters must exactly cover visible characters`);
+  for (const [index, character] of embodiment.characters.entries()) {
+    const label = `${context}.characters[${index}]`;
+    exact(character, ['character_id', 'action_flow', 'environment_coupling', 'physical_cues'], label);
+    textObject(character.action_flow, ['before', 'during', 'after'], `${label}.action_flow`);
+    textObject(character.environment_coupling, ['mode', 'anchor', 'interaction'], `${label}.environment_coupling`);
+    invariant(['anchored', 'active_interaction'].includes(character.environment_coupling.mode), `${label}.environment_coupling.mode is invalid`);
+    textObject(character.physical_cues, ['support', 'contact', 'weight', 'material_response'], `${label}.physical_cues`);
+  }
+  if (entry.cg_class === 'event_cg') invariant(embodiment.characters.some(character => character.environment_coupling.mode === 'active_interaction'), `${context}: event requires active_interaction`);
+}
+
 function validateEntry(entry, manifest, entryIds, outputIds) {
   const context = `entry ${entry?.entry_id ?? '<missing>'}`;
   requireKeys(entry, [
@@ -274,6 +311,7 @@ function validateEntry(entry, manifest, entryIds, outputIds) {
   invariant(!outputIds.has(entry.output.logical_asset_id), `duplicate logical_asset_id: ${entry.output.logical_asset_id}`);
   outputIds.add(entry.output.logical_asset_id);
   requireNonEmptyStrings(entry.acceptance, `${context}.acceptance`);
+  validateSceneEmbodiment(entry, manifest.schema_version);
   if (entry.known_issues !== undefined) {
     invariant(Array.isArray(entry.known_issues), `${context}.known_issues must be an array`);
     entry.known_issues.forEach((issue, index) => invariant(isNonEmpty(issue), `${context}.known_issues[${index}] must be non-empty`));
@@ -283,7 +321,7 @@ function validateEntry(entry, manifest, entryIds, outputIds) {
 
 export function validateManifest(manifest) {
   requireKeys(manifest, ['schema_version', 'manifest_id', 'manifest_version', 'lifecycle', 'source_scene_ids', 'style_contract', 'entries'], 'manifest');
-  invariant(manifest.schema_version === '1.0.0', 'manifest.schema_version must be 1.0.0');
+  invariant(['1.0.0', '1.1.0'].includes(manifest.schema_version), 'manifest.schema_version must be 1.0.0 or opt-in 1.1.0');
   invariant(manifest.lifecycle === 'CANONICAL', 'manifest.lifecycle must be CANONICAL');
   invariant(isNonEmpty(manifest.manifest_id), 'manifest.manifest_id must be non-empty');
   invariant(isNonEmpty(manifest.manifest_version), 'manifest.manifest_version must be non-empty');
@@ -361,6 +399,7 @@ function section(title, lines) {
 export function projectEntry(manifest, entry) {
   validateManifest(manifest);
   invariant(manifest.entries.some((candidate) => candidate.entry_id === entry.entry_id), `entry is not part of manifest: ${entry.entry_id}`);
+  if (manifest.schema_version === '1.1.0') invariant(manifest.entries.some(candidate => stableStringify(candidate) === stableStringify(entry)), 'POC projection entry must match the validated manifest entry');
 
   const lines = [
     `# RENDER TASK ${entry.entry_id}`,
@@ -433,6 +472,10 @@ export function projectEntry(manifest, entry) {
     ...numbered(entry.composition.framing_notes)
   ]));
 
+  if (manifest.schema_version === '1.1.0') {
+    lines.push(...section('SCENE EMBODIMENT — OPT-IN POC 1.1.0', [stableStringify(entry.scene_embodiment)]));
+  }
+
   lines.push(...section('VISUAL CONTINUITY STATE', [
     `previous_entry_id: ${entry.continuity.previous_entry_id ?? 'none'}`,
     `locked_fields: ${entry.continuity.locked_fields.length ? entry.continuity.locked_fields.join(' | ') : 'none'}`,
@@ -467,7 +510,7 @@ export function projectEntry(manifest, entry) {
   const sharedPrompt = `${lines.join('\n').trimEnd()}\n`;
   const manifestSha256 = sha256(stableStringify(manifest));
   const { status: _status, ...renderSpecEntry } = entry;
-  const renderSpecSha256 = sha256(stableStringify({ style_contract: manifest.style_contract, entry: renderSpecEntry }));
+  const renderSpecSha256 = sha256(stableStringify({ ...(manifest.schema_version === '1.1.0' ? { schema_version: manifest.schema_version } : {}), style_contract: manifest.style_contract, entry: renderSpecEntry }));
   const sharedPromptSha256 = sha256(sharedPrompt);
   return {
     packet_version: PACKET_VERSION,

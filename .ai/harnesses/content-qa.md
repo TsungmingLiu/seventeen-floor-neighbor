@@ -115,3 +115,9 @@ These rules are prospective. Preserve existing accepted specifications, original
 Return exactly one：`PASS`、`NEEDS_REVIEW`、`FAIL`、`BLOCKED`。
 
 QA 列出 violation 與 affected field，但不重寫 scene、manifest 或 prompt 成為新的 creative authority。
+
+## Explicit Scene Embodiment POC review
+
+Only for schema `1.1.0`, separately report `MUA-CAPTURED-MOMENT`, `MUA-ACTION-FLOW`, `MUA-ENVIRONMENT-COUPLING`, `MUA-PHYSICAL-CUES`, `MUA-DEPTH-STAGING` during manifest usability. Inspect authored temporal coherence, exact visible-character coverage, observable environment-anchored ordinary dialogue, active event interaction, plausible support/contact/weight/material response and spatial depth/separation; non-empty prose alone does not establish semantic PASS. Reaction/sequence/close-up/inheritance/exception support is deferred and fails closed in this technical POC.
+
+Candidate review reports corresponding `VQA-CAPTURED-MOMENT`, `VQA-ACTION-FLOW`, `VQA-ENVIRONMENT-COUPLING`, `VQA-PHYSICAL-CUES`, `VQA-DEPTH-STAGING` using exact inspected candidate hashes and visible regions. Missing pixels returns `BLOCKED`/`NEEDS_REVIEW`, never pixel PASS. Usability, candidate QA and Human preference/adoption remain separate. Existing native/display/narrative/identity/wardrobe checks remain in force. Preserve historical accepted manifests/assets/receipts and recorded outcomes; rollout still awaits microwave and sidewalk pixel/QA evidence and Human direction.

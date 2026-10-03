@@ -14,7 +14,7 @@
     "entries"
   ],
   "properties": {
-    "schema_version": { "const": "1.0.0" },
+    "schema_version": { "enum": ["1.0.0", "1.1.0"] },
     "manifest_id": { "$ref": "#/$defs/nonEmpty" },
     "manifest_version": { "$ref": "#/$defs/nonEmpty" },
     "lifecycle": { "const": "CANONICAL" },
@@ -42,7 +42,276 @@
       "items": { "$ref": "#/$defs/entry" }
     }
   },
+  "allOf": [
+  {
+    "if": {
+      "properties": {
+        "schema_version": {
+          "const": "1.1.0"
+        }
+      }
+    },
+    "then": {
+      "properties": {
+        "entries": {
+          "items": {
+            "required": [
+              "scene_embodiment"
+            ],
+            "properties": {
+              "cg_class": {
+                "enum": [
+                  "background_cg",
+                  "dialogue_cg",
+                  "event_cg"
+                ]
+              },
+              "sequence_id": {
+                "type": "null"
+              },
+              "continuity": {
+                "properties": {
+                  "previous_entry_id": {
+                    "type": "null"
+                  }
+                }
+              },
+              "camera": {
+                "properties": {
+                  "shot_size": {
+                    "enum": [
+                      "extreme_wide",
+                      "wide",
+                      "medium_wide",
+                      "medium"
+                    ]
+                  }
+                }
+              }
+            },
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "cg_class": {
+                      "const": "background_cg"
+                    }
+                  }
+                },
+                "then": {
+                  "properties": {
+                    "scene_embodiment": {
+                      "properties": {
+                        "characters": {
+                          "maxItems": 0
+                        }
+                      }
+                    }
+                  }
+                },
+                "else": {
+                  "properties": {
+                    "scene_embodiment": {
+                      "properties": {
+                        "characters": {
+                          "minItems": 1
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "cg_class": {
+                      "const": "event_cg"
+                    }
+                  }
+                },
+                "then": {
+                  "properties": {
+                    "scene_embodiment": {
+                      "properties": {
+                        "characters": {
+                          "contains": {
+                            "properties": {
+                              "environment_coupling": {
+                                "properties": {
+                                  "mode": {
+                                    "const": "active_interaction"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "else": {
+      "properties": {
+        "entries": {
+          "items": {
+            "not": {
+              "required": [
+                "scene_embodiment"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+],
   "$defs": {
+    "sceneEmbodiment": {
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "captured_moment",
+    "characters",
+    "depth_staging"
+  ],
+  "properties": {
+    "captured_moment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "before",
+        "during",
+        "after"
+      ],
+      "properties": {
+        "before": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "during": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "after": {
+          "$ref": "#/$defs/nonEmpty"
+        }
+      }
+    },
+    "characters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "character_id",
+          "action_flow",
+          "environment_coupling",
+          "physical_cues"
+        ],
+        "properties": {
+          "character_id": {
+            "$ref": "#/$defs/nonEmpty"
+          },
+          "action_flow": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "before",
+              "during",
+              "after"
+            ],
+            "properties": {
+              "before": {
+                "$ref": "#/$defs/nonEmpty"
+              },
+              "during": {
+                "$ref": "#/$defs/nonEmpty"
+              },
+              "after": {
+                "$ref": "#/$defs/nonEmpty"
+              }
+            }
+          },
+          "environment_coupling": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "mode",
+              "anchor",
+              "interaction"
+            ],
+            "properties": {
+              "mode": {
+                "enum": [
+                  "anchored",
+                  "active_interaction"
+                ]
+              },
+              "anchor": {
+                "$ref": "#/$defs/nonEmpty"
+              },
+              "interaction": {
+                "$ref": "#/$defs/nonEmpty"
+              }
+            }
+          },
+          "physical_cues": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "support",
+              "contact",
+              "weight",
+              "material_response"
+            ],
+            "properties": {
+              "support": {
+                "$ref": "#/$defs/nonEmpty"
+              },
+              "contact": {
+                "$ref": "#/$defs/nonEmpty"
+              },
+              "weight": {
+                "$ref": "#/$defs/nonEmpty"
+              },
+              "material_response": {
+                "$ref": "#/$defs/nonEmpty"
+              }
+            }
+          }
+        }
+      }
+    },
+    "depth_staging": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "foreground",
+        "midground",
+        "background",
+        "subject_separation"
+      ],
+      "properties": {
+        "foreground": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "midground": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "background": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "subject_separation": {
+          "$ref": "#/$defs/nonEmpty"
+        }
+      }
+    }
+  }
+},
     "nonEmpty": { "type": "string", "minLength": 1 },
     "nonEmptyStringArray": {
       "type": "array",
@@ -219,6 +488,7 @@
         "acceptance"
       ],
       "properties": {
+        "scene_embodiment": { "$ref": "#/$defs/sceneEmbodiment" },
         "entry_id": { "$ref": "#/$defs/nonEmpty" },
         "scene_id": { "$ref": "#/$defs/nonEmpty" },
         "source_scene": { "$ref": "#/$defs/nonEmpty" },

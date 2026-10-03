@@ -95,3 +95,9 @@ Accepted asset receipt 可以指向 archived operator provenance，但 active re
 Manifest/entry version 改變時，相關 Render Packet、candidate、accepted asset/integration 由 Production Coordinator 依 `.ai/PRODUCTION_ORCHESTRATION.md` 標記 `STALE`；不影響的 independent entry 以 `render_spec_sha256` 與 reference/output identity 核對後保留，且保留原始 generation provenance。Continuity 由 manifest、Visual Continuity State 與明列 accepted base 維持，不由 renderer memory 維持。
 
 Migration-only accepted entries 可帶 `known_issues[]` 記錄已知 asset drift。這個欄位是 future render 的 negative constraint，不是對 defect 的 canonical endorsement；新 `render_ready` entry 不應用它取代完整的 `must_not_imply`、continuity 或 acceptance criteria。
+
+## 7. Explicit Scene Embodiment engineering POC
+
+Only a task explicitly opting into manifest schema `1.1.0` uses the bounded Scene Embodiment contract in `.ai/schemas/CG_MANIFEST.md`. It promotes captured moment, per-visible-character action flow, environment coupling, physical cues and depth staging to authored first-class fields and mechanically projects them without narrative repair. Independent background/dialogue/event entries with supported wider framing are the only POC classes; reaction, linked sequence, close-up, inheritance and unresolved exception contracts fail closed. Legacy `1.0.0` remains unchanged and cannot carry the new field.
+
+This capability does not make Scene Embodiment the global new-character default. Microwave and sidewalk pixel/independent QA evidence plus Human direction remain required for general rollout. Preserve accepted manifests/master bytes/known issues and recorded QA/Human dispositions. Usability checks and corresponding pixel checks are separate named gates as defined in the existing manifest contract; prior acceptance is not evidence under the new checks. Existing native/derivative/display, narrative, identity and wardrobe gates still apply.
