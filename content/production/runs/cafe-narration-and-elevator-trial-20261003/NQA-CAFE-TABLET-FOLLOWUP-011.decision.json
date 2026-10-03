@@ -1,0 +1,91 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "cafe-narration-and-elevator-trial-20261003",
+  "task_id": "NQA-CAFE-TABLET-FOLLOWUP-011",
+  "scene_id": "COM-02J",
+  "task_type": "narrative_review",
+  "status": "PASS",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.5.1",
+    "pass": "narrative_review"
+  },
+  "source_ref": "02fb10c8a7dbccb57fbbc4cead91b228fd42f1f6",
+  "packet_sha256": "47f624c6c91acf1d9341f1159f7c5afc9405fb69e65605d00f904338e9983de1",
+  "input_digest_sha256": "22033064af2dc5c1e41ff9993f441b7db1e9a287440ba8bc2ffbbb3c4b99f079",
+  "input_versions": [
+    {
+      "id": "content/production/narrative/opening-ch1/COM-02J.json",
+      "version": "70ed29091bdf9267287e06aa3d56abc4d1df83e7ef3f21aff0eaf64d004acf7e",
+      "location": "content/production/narrative/opening-ch1/COM-02J.json"
+    },
+    {
+      "id": "docs/narrative/scenes/vertical-slice/COM-02J.md",
+      "version": "8db1871c13cfc6b9f44fe434f93738cbd9c12f08eb21cacf602df2b7c3533655",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02J.md"
+    },
+    {
+      "id": "reviewed-candidate:COM-02J",
+      "version": "745091840190f855cf9aa6cb8ade5e5c5a0921e9a3b1ebdf8bd7833010bc3ae3",
+      "location": "external:exact-reviewed-COM02J-candidate"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "approved-candidate:COM-02J",
+      "version": "745091840190f855cf9aa6cb8ade5e5c5a0921e9a3b1ebdf8bd7833010bc3ae3",
+      "location": "external:exact-reviewed-COM02J-candidate"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "source_acquisition",
+      "code": "NQA-EXACT-SOURCE-IDENTITIES",
+      "result": "PASS"
+    },
+    {
+      "name": "authorized_lexical_delta",
+      "code": "NQA-BOUNDED-WORDING",
+      "result": "PASS"
+    },
+    {
+      "name": "Chinese_narration_preference",
+      "code": "NQA-CHINESE-NARRATION",
+      "result": "PASS"
+    },
+    {
+      "name": "first_person_present_POV",
+      "code": "NQA-FIRST-PERSON-POV",
+      "result": "PASS"
+    },
+    {
+      "name": "dialogue_naturalism",
+      "code": "NQA-DIALOGUE-NATURALISM",
+      "result": "PASS"
+    },
+    {
+      "name": "contract_choice_state_rejoin",
+      "code": "NQA-CONTRACT-AND-CONTINUITY",
+      "result": "PASS"
+    },
+    {
+      "name": "digital_tablet_identity",
+      "code": "NQA-PROP-IDENTITY",
+      "result": "PASS"
+    },
+    {
+      "name": "no_visual_impact",
+      "code": "NQA-NO-VISUAL-IMPACT",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "Independent candidate-only review of one remaining narrated tablet→平板電腦 plus separator removal; no tracked source publication occurred at QA.",
+    "Explicitno_visual_impact old8db1871c13cfc6b9f44fe434f93738cbd9c12f08eb21cacf602df2b7c3533655→new745091840190f855cf9aa6cb8ade5e5c5a0921e9a3b1ebdf8bd7833010bc3ae3; contract/dialogue/choices/state/semanticbeats/digitaltabletidentity unchanged.",
+    "Sourcecandidate passedNarrativeQA/naturalism; canonicaladoption/runtimecompilation pending. No verifier CURRENT_PASS claim."
+  ],
+  "human_gate_required": "none",
+  "invalidates": []
+}

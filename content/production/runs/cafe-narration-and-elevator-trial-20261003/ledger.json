@@ -68,6 +68,48 @@
       "decision_receipt": "content/production/runs/cafe-narration-and-elevator-trial-20261003/VQA-ELEVATOR-TRIAL-DISPLAY-007.decision.json",
       "human_gate": "none",
       "reason": "Independent landscape UI occlusion/crown clipping; original source FAIL retained."
+    },
+    {
+      "task_id": "INT-ELEVATOR-LANDSCAPE-CORRECTIVE-008",
+      "task_type": "integrate",
+      "scene_id": "COM-02J+COM-02X",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual:task-packet-schema-v1.3.0",
+        "sha256": "ac3a7860adbd86607badeae1a7edd3b1d969a00b2848ed5687b2771bbdb2e04b"
+      },
+      "decision_receipt": "content/production/runs/cafe-narration-and-elevator-trial-20261003/INT-ELEVATOR-LANDSCAPE-CORRECTIVE-008.decision.json",
+      "human_gate": "none",
+      "reason": "Local244/244 actualfullnpm exit0;7/7Chromium and fresh cafe/elevator fullstory smoke exit0. Exactasset compactlandscapeCSS only; sourcepixels/graph/state unchanged."
+    },
+    {
+      "task_id": "VQA-ELEVATOR-LANDSCAPE-CORRECTIVE-009",
+      "task_type": "visual_review",
+      "scene_id": "COM-02X",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual:task-packet-schema-v1.3.0",
+        "sha256": "851dc22cdafcd2caa96a3befd85bd1169d2b89792a268110355a744ca81b4748"
+      },
+      "decision_receipt": "content/production/runs/cafe-narration-and-elevator-trial-20261003/VQA-ELEVATOR-LANDSCAPE-CORRECTIVE-009.decision.json",
+      "human_gate": "none",
+      "reason": "Fresh independent trialpresentation PASS for BOTHnodes x1440x900,320x720,720x320 CSS,DPR1; realdialogue/HUD/controls retained. Landscape grip/bag/crown issues resolved."
+    },
+    {
+      "task_id": "NQA-CAFE-TABLET-FOLLOWUP-011",
+      "task_type": "narrative_review",
+      "scene_id": "COM-02J",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual:task-packet-schema-v1.3.0",
+        "sha256": "47f624c6c91acf1d9341f1159f7c5afc9405fb69e65605d00f904338e9983de1"
+      },
+      "decision_receipt": "content/production/runs/cafe-narration-and-elevator-trial-20261003/NQA-CAFE-TABLET-FOLLOWUP-011.decision.json",
+      "human_gate": "none",
+      "reason": "Independent candidate-only review of one remaining narrated tablet→平板電腦 plus separator removal; no tracked source publication occurred at QA."
     }
   ],
   "invalidation_events": [
@@ -83,10 +125,13 @@
     }
   ],
   "preview": {
-    "state": "Initial local checked build; landscape correction pending; not published.",
+    "state": "Corrected localtrial ready; final cafe lexical sync and publicCI pending.",
     "source_freeze_sha256": "738686a8e9855517f16f71e63a7d349e231e90457ad0a1a02b76037b26ab4592",
     "initial_fulltests": "exit1:244total/241pass/3fail; owned nested cancellation failure preserved.",
     "display": "VQA007 landscape FAIL; original provenance/compression/desktop/portrait trial checks PASS.",
-    "final_art": "validate:final expectedexit1; sourceQA017 FAIL; canonical return-elevator CG unadopted."
+    "final_art": "validate:final expectedexit1; sourceQA017 FAIL; canonical return-elevator CG unadopted.",
+    "corrective_tests": "actualexit0:244/244PASS,0FAIL;7/7Chromium+freshcafe/elevatorfullstoryPASS",
+    "corrective_display": "VQA009 PASS trialpresentation only; sourceQA017 FAIL retained.",
+    "corrective_build_digest": "f3aedd940cdb8c7605c7f4db52c071f74ab883a7b9b55293fcfb2ee19b8a9ac6"
   }
 }

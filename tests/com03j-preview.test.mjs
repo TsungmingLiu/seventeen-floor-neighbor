@@ -52,10 +52,22 @@ test('COM03J appends to pinned runtime preserving all old prose, labels, effects
   const base='2665e195410b96d6bc8b83db40ab72f7c8fc49e3';
   const prior=file=>JSON.parse(execFileSync('git',['show',`${base}:${file}`],{encoding:'utf8'}));
   const old=prior('content/routes/opening-demo/chapter-01.json').nodes;
+  const approvedCafeText = {
+    common_station_cafe_jyc_enter_03:'我拿著筆記本電腦包找座位，在窗邊看見熟悉的短髮側影。',
+    common_station_cafe_jyc_drawing_02:'她停筆喝水，抬眼看見我。我們的視線碰上。她停了兩秒。',
+    common_station_cafe_jyc_names_03:'我們沒有握手。我指向她旁邊的空位。',
+    common_station_cafe_jyc_names_08:'我坐在斜對角，不直接面向她的 tablet。',
+    common_station_cafe_jyc_parallel_03:'我闔上筆記本電腦準備離開；雨澄先抬頭。',
+    common_station_cafe_jyc_exit_05:'我背起筆記本電腦包。雨澄把畫筆放回筆槽。'
+  };
+  for(const [id,text] of Object.entries(approvedCafeText))old[id].text=text;
+  const trialAsset='bg.opening.com02x.return_elevator_trial';
+  for(const id of ['common_convenience_xu_exit','common_convenience_xu_exit_02'])old[id].visual.background=trialAsset;
   for(const [id,node] of Object.entries(old))assert.deepEqual(nodes[id],id==='com03x_preview_complete'?{type:'branch',default:prefix+'enter'}:node,id);
   assert.deepEqual(memories.events.slice(0,-1),prior('content/routes/opening-demo/memories.json').events);
   const oldRoute=prior('content/routes/opening-demo/route.json');
   const expected=structuredClone(oldRoute);expected.story.chapterLabels.push('推薦 / Discord');
+  expected.assetIds.push(trialAsset);
   assert.deepEqual(route,expected);
   const event=memories.events.at(-1);
   assert.equal(event.id,'mem.opening.ch1.recommend-discord-jyc');assert.equal(event.progressRank,220);assert.equal(event.sectionId,'opening-ch1');

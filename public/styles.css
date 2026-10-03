@@ -339,3 +339,16 @@ h1 b{font:inherit}
 
 /* The independently selected initial artwork keeps its explicit portrait framing. */
 @media(max-width:620px){.title-art.is-initial-title-art{object-position:var(--focus-x,50%) var(--focus-y,40%)!important}}
+
+/* This trial frame keeps the purchase bag clear of compact landscape narration. */
+@media(max-width:899px) and (max-height:480px) and (orientation:landscape){
+  .stage:has(.scene-image[data-asset-id="bg.opening.com02x.return_elevator_trial"]) .dialogue-panel{
+    left:auto;
+    right:max(.72rem,env(safe-area-inset-right));
+    width:46%;
+  }
+  .stage:has(.scene-image[data-asset-id="bg.opening.com02x.return_elevator_trial"]) .cinematic-bars::before,
+  .stage:has(.scene-image[data-asset-id="bg.opening.com02x.return_elevator_trial"]) .cinematic-bars::after{
+    height:0;
+  }
+}
