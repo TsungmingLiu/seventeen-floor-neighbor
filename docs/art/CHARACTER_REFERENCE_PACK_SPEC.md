@@ -39,6 +39,8 @@ Both six-sheet packs are now available as original PNG files under `assets-src/r
 
 Exact filenames, roles, character IDs, MIME, dimensions, byte counts and SHA-256 are recorded in `content/assets/source-catalog.json` and `content/assets/ingest-receipts/character-reference-packs-20260930.json`. The original Gate 3 receipt remains historical evidence; its JPEG fingerprint is verified through the explicit supersession record, not presented as the new PNG's fingerprint.
 
+江雨澄 Wardrobe A/B 已依 Owner 於 2026-10-03 提供的 `jyc-5.png`、`jyc-6.png` 原樣更新。兩張均為 `image/png`、1491 × 1055；current fingerprints 與原圖 supersession 證據記於 `content/assets/ingest-receipts/jiang-yucheng-wardrobe-replacement-20261003.json`。既有 `ref.jiang_yucheng.wardrobe.a/b`、八個 wardrobe keys 與 look semantics 保持不變。原 restoration／Gate 3 receipts 與已接受 CG 的 render bindings、Human／QA outcomes 保留其當時證據；本次更新不宣稱既有 CG 已按新圖重畫或修復衣著漂移。
+
 `content/assets/character-reference-packs.json` is the machine-readable six-sheet and wardrobe-look index. Runtime character metadata lists all six sources for integrated characters; future characters resolve through this registry without requiring runtime integration. Reference images are production inputs and are not copied into the playable runtime asset bundle.
 
 ---

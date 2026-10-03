@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import { selectCharacterReferences, validateCharacterReferencePacks, validateCharacterReferencePackReceipt } from '../tools/character-references.mjs';
-import { buildPackets, adaptApi, adaptChatManual, adaptWorkBatch, validateManifest } from '../tools/render-cg-packets.mjs';
+import { selectCharacterReferences, validateCharacterReferencePacks, validateCharacterReferencePackReceipt, validateCharacterWardrobeReplacementReceipt } from '../tools/character-references.mjs';
+import { buildPackets, adaptApi, adaptChatManual, adaptWorkBatch, validateManifest, sha256 } from '../tools/render-cg-packets.mjs';
 
 const read = (name) => JSON.parse(fs.readFileSync(new URL(`../${name}`, import.meta.url), 'utf8'));
 const catalog = read('content/assets/source-catalog.json');
@@ -89,9 +89,48 @@ test('both complete six-sheet packs are cataloged with uploaded byte fingerprint
   const receipt = read('content/assets/ingest-receipts/character-reference-packs-20260930.json');
   assert.equal(receipt.references.length, 12);
   assert.equal(new Set(receipt.references.map((record) => record.sourceId)).size, 12);
+  const replacement = read('content/assets/ingest-receipts/jiang-yucheng-wardrobe-replacement-20261003.json');
+  const previous = validateCharacterWardrobeReplacementReceipt(replacement, receipt,
+    sha256(fs.readFileSync(new URL('../content/assets/ingest-receipts/character-reference-packs-20260930.json', import.meta.url))));
   for (const record of receipt.references) {
-    assert.deepEqual(catalog.files[record.sourceId], Object.fromEntries(Object.entries(record).filter(([key]) => !['sourceId', 'uploadedFilename'].includes(key))));
+    assert.deepEqual(previous.get(record.sourceId) ?? catalog.files[record.sourceId], Object.fromEntries(Object.entries(record).filter(([key]) => !['sourceId', 'uploadedFilename'].includes(key))));
   }
+});
+
+test('Jiang Yucheng wardrobe replacement rejects forged supersession and scope evidence', () => {
+  const receipt = read('content/assets/ingest-receipts/jiang-yucheng-wardrobe-replacement-20261003.json');
+  const originalPath = new URL('../content/assets/ingest-receipts/character-reference-packs-20260930.json', import.meta.url);
+  const originalBytes = fs.readFileSync(originalPath);
+  const original = JSON.parse(originalBytes);
+  const hash = sha256(originalBytes);
+  const previous = validateCharacterWardrobeReplacementReceipt(receipt, original, hash);
+  assert.deepEqual([...previous.keys()], ['ref.jiang_yucheng.wardrobe.a', 'ref.jiang_yucheng.wardrobe.b']);
+  const gate3 = read('content/assets/ingest-receipts/repo-source-gate3-v1.json');
+  const gate3A = gate3.references.find(item => item.sourceId === 'ref.jiang_yucheng.wardrobe.a');
+  for (const key of ['sha256', 'bytes', 'width', 'height', 'mimeType', 'status', 'characterId', 'role']) assert.equal(previous.get(gate3A.sourceId)[key], gate3A[key]);
+  assert.equal(previous.get(gate3A.sourceId).sourcePath, gate3A.repoPath);
+  for (const problem of ['missing', 'duplicate', 'foreign', 'missing_supersession', 'duplicate_supersession', 'old_hash', 'new_hash', 'catalog_hash', 'path', 'role', 'scope', 'runtime', 'receipt_hash', 'receipt_path']) {
+    const forged = structuredClone(receipt);
+    if (problem === 'missing') forged.references.pop();
+    if (problem === 'duplicate') forged.references[1] = structuredClone(forged.references[0]);
+    if (problem === 'foreign') forged.references[0].sourceId = 'ref.jiang_yucheng.face.01';
+    if (problem === 'missing_supersession') forged.supersededReferences.pop();
+    if (problem === 'duplicate_supersession') forged.supersededReferences[1] = structuredClone(forged.supersededReferences[0]);
+    if (problem === 'old_hash') forged.supersededReferences[0].previous.sha256 = '0'.repeat(64);
+    if (problem === 'new_hash') forged.supersededReferences[0].replacementSha256 = '0'.repeat(64);
+    if (problem === 'catalog_hash') forged.references[0].sha256 = '0'.repeat(64);
+    if (problem === 'path') forged.references[0].sourcePath = 'assets-src/references/jiang-yucheng/other.png';
+    if (problem === 'role') forged.references[0].role = 'primary_face_identity';
+    if (problem === 'scope') forged.acceptanceScope = 'character_reference_pack_only';
+    if (problem === 'runtime') forged.runtimeMasterAcceptance = 'ACCEPTED';
+    if (problem === 'receipt_hash') forged.previousReceipt.sha256 = '0'.repeat(64);
+    if (problem === 'receipt_path') forged.previousReceipt.path = 'content/assets/ingest-receipts/repo-source-gate3-v1.json';
+    assert.throws(() => validateCharacterWardrobeReplacementReceipt(forged, original, hash), /replacement receipt/);
+  }
+  const tamperedCatalog = structuredClone(catalog);
+  tamperedCatalog.files[receipt.references[0].sourceId].bytes++;
+  assert.throws(() => validateCharacterWardrobeReplacementReceipt(receipt, original, hash, tamperedCatalog), /catalog mismatch/);
+  assert.throws(() => validateCharacterWardrobeReplacementReceipt(receipt, original, '0'.repeat(64)), /previous receipt binding/);
 });
 
 test('default and critical-shot stacks select one wardrobe and only the visible heroine', () => {

@@ -1,5 +1,5 @@
 import { validateProductionStorage } from './production-storage.mjs';
-import { validateCharacterReferencePacks, validateCharacterReferencePackReceipt } from './character-references.mjs';
+import { validateCharacterReferencePacks, validateCharacterReferencePackReceipt, validateCharacterWardrobeReplacementReceipt } from './character-references.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -349,11 +349,14 @@ function validateGate3RepositorySources(catalog) {
   const restoration = readJson('content/assets/ingest-receipts/character-reference-packs-20260930.json');
   invariant(restoration.receiptVersion === 1 && restoration.gate === 'complete-character-reference-packs' && restoration.sourceCatalog === SOURCE_CATALOG, 'invalid character pack restoration receipt');
   invariant(restoration.references.length === 12, 'restoration receipt requires 12 PNG sheets');
+  const wardrobeReplacement = readJson('content/assets/ingest-receipts/jiang-yucheng-wardrobe-replacement-20261003.json');
+  const previousWardrobes = validateCharacterWardrobeReplacementReceipt(wardrobeReplacement, restoration,
+    sha256(fs.readFileSync('content/assets/ingest-receipts/character-reference-packs-20260930.json')), catalog);
   const restoredIds = new Set();
   for (const item of restoration.references) {
     invariant(!restoredIds.has(item.sourceId), `duplicate restored source ID: ${item.sourceId}`);
     restoredIds.add(item.sourceId);
-    const source = catalog.files[item.sourceId];
+    const source = previousWardrobes.get(item.sourceId) ?? catalog.files[item.sourceId];
     for (const key of ['name', 'sourcePath', 'sha256', 'bytes', 'width', 'height', 'mimeType', 'status', 'characterId', 'role']) invariant(source?.[key] === item[key], `restored reference ${key} mismatch: ${item.sourceId}`);
   }
   validateCharacterReferencePacks(catalog);
@@ -369,7 +372,7 @@ function validateGate3RepositorySources(catalog) {
     referenceIds.add(item.sourceId);
     const superseded = restoration.supersededReferences.find((record) => record.sourceId === item.sourceId);
     if (superseded) invariant(catalog.files[item.sourceId]?.sha256 === superseded.replacementSha256, `superseded replacement mismatch: ${item.sourceId}`);
-    const source = superseded?.previous ?? catalog.files[item.sourceId];
+    const source = superseded?.previous ?? previousWardrobes.get(item.sourceId) ?? catalog.files[item.sourceId];
     invariant(source && item.sourceId.startsWith('ref.'), `reference receipt source is missing or invalid: ${item.sourceId}`);
     for (const [receiptKey, catalogKey] of [['repoPath', 'sourcePath'], ['sha256', 'sha256'], ['bytes', 'bytes'], ['width', 'width'], ['height', 'height'], ['mimeType', 'mimeType'], ['status', 'status'], ['characterId', 'characterId'], ['role', 'role']]) {
       invariant(source[catalogKey] === item[receiptKey], `reference receipt ${receiptKey} mismatch: ${item.sourceId}`);
