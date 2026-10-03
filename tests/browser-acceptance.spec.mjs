@@ -50,6 +50,56 @@ async function currentJourney(page) {
   return page.evaluate(() => JSON.parse(localStorage.getItem('opening-demo-chapter-01:journey:v2')));
 }
 
+test('Memories disclosure, character focus, cursor marker and frontier jump stay view-only', async ({ page }) => {
+  await page.goto('/');
+  const [chapter, library] = await Promise.all([
+    page.request.get('/content/routes/opening-demo/chapter.json').then(response => response.json()),
+    page.request.get('/content/routes/opening-demo/memories.json').then(response => response.json())
+  ]);
+  const snapshots = Object.fromEntries(library.events.map(event => {
+    const snapshot = { nodeId: event.replayNode, stats: chapter.initialState, flags: [], returnNodes: [] };
+    return [event.replayNode, snapshot];
+  }));
+  const frontier = snapshots[library.events[1].replayNode];
+  const cursor = snapshots[library.events[3].replayNode];
+  const saved = { version: 2, playerDisplayName: '小雨', cursor, frontier, runComplete: false,
+    checkpoints: snapshots, edges: [] };
+  await page.addInitScript(journey => localStorage.setItem('opening-demo-chapter-01:journey:v2', JSON.stringify(journey)), saved);
+  await page.goto('/');
+  await page.locator('#memories-button').click();
+
+  const section = page.locator('#memory-list details');
+  await expect(section).toHaveAttribute('open', '');
+  await expect(page.locator('[data-memory-id="mem.opening.ch1.recommend-discord-jyc"]')).toBeVisible();
+  await expect(page.locator('[data-memory-id="mem.opening.ch1.convenience-xu"]')).toHaveClass(/is-reading/);
+  await expect(page.locator('[data-memory-id="mem.opening.ch1.elevator-restart"]')).toHaveClass(/is-frontier/);
+
+  await page.locator('#memory-filters button').filter({ hasText: '許棠' }).click();
+  await expect(page.locator('.memory-character-context')).toContainText('江雨澄：已探索 3 段');
+  await expect(page.locator('[data-memory-id="mem.opening.ch1.recommend-discord-jyc"]')).toHaveCount(0);
+
+  await section.locator('summary').click();
+  await expect(section).not.toHaveAttribute('open', '');
+  await expect(page.locator('[data-memory-id="mem.opening.ch1.movein"]')).not.toBeVisible();
+
+  const journeyBefore = await currentJourney(page);
+  await page.locator('#memories-current').click();
+  await expect(page.locator('#memory-filters button').filter({ hasText: '全部' })).toHaveAttribute('aria-pressed', 'true');
+  await expect(section).toHaveAttribute('open', '');
+  const frontierCard = page.locator('[data-memory-id="mem.opening.ch1.elevator-restart"]');
+  await expect(frontierCard).toBeFocused();
+  await expect(page.locator('#memory-announcement')).toHaveText('已返回目前進度：電梯重啟');
+  expect(await currentJourney(page)).toEqual(journeyBefore);
+  const scrollState = await page.locator('#memory-list').evaluate(list => ({
+    left: list.scrollLeft,
+    pageLeft: window.scrollX,
+    visible: list.scrollTop > 0
+  }));
+  expect(scrollState.left).toBe(0);
+  expect(scrollState.pageLeft).toBe(0);
+  expect(scrollState.visible).toBe(true);
+});
+
 test('Opening names appear at exchange and early Memory stays anonymous after later knowledge', async ({ page }) => {
   test.setTimeout(240_000);
   const errors = collectBlockingErrors(page);
