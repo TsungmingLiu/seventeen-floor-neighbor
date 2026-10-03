@@ -472,7 +472,9 @@
       "height": 941,
       "sha256": "a1aa0d08023cc19a42b3c9260bca732059e77eb5dd37c8578afb82bd7dd82400",
       "verifiedDecode": true,
-      "status": "human-accepted-as-is"
+      "status": "human-accepted-as-is",
+      "characterId": "xu_tang",
+      "role": "accepted_character_continuity"
     },
     "source.opening.title.17f_doorlight.master": {
       "name": "title-17f-doorlight-v1.png",
