@@ -6,7 +6,7 @@
 
 ## Status and boundary
 
-- Production stage: `content_writer / scene_dialogue`；一幕 Locked Scene，等待 `content_qa / narrative_review` 採用。
+- Production stage: `content_writer / scene_dialogue`；一幕 Script Lock（Locked Scene），等待 `content_qa / narrative_review` 採用。
 - Upstream Narrative Design: `ND-COM03J-004`；approved contract 與 beat／choice intent 不變。
 - Memory ownership intent: `common`。以下確立本幕 authoring node／choice IDs，尚未寫入 runtime／save／Memory contract。
 - 本幕不綁 CG、cover 或 visual asset；只有 Semantic Visual Beat。敘事預覽 integration、Human narrative-preview review、後續 visual gates 皆 pending。
