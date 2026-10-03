@@ -2,7 +2,7 @@
 
 > Lifecycle: **CANONICAL**
 >
-> Version: 1.4.3
+> Version: 1.4.4
 >
 > Updated: 2026-10-02
 
@@ -33,7 +33,7 @@
 | Creative backlog | `docs/narrative/CONTENT_PRODUCTION_TODO.md` | production progress、gates、known blockers | duplicated prompt/spec |
 | Dialogue calibration policy | `docs/narrative/DIALOGUE_CALIBRATION.md` | bounded Human comparison／approval、context/scope/provenance contract、held-out pilot／停止條件 | new character canon、auto-learning、scene approval、milestone priority |
 | Approved dialogue references | `content/production/voice/approved-examples.json` | Human 明示批准的 immutable interaction versions 及限定用途；僅 Task Packet allowlist 的適用 entry 節錄可作參考 | whole-bank context、raw candidates/rejections、跨情境硬規則、canon／scene approval |
-| Character background / personality | `docs/art/characters/README.md` + `xu-tang.md` / `jiang-yucheng.md` / `lin-ruoqing.md` / `shen-yingxue.md` in that directory | approved profile、個性／吸引力／成長差異、未來角色背景与視覺文字基線；映雪與男主前史僅在其 §2 維護 | existing locked scene／knowledge、route integration、runtime schema、accepted pixels、未決時間線 |
+| Character background / personality | `docs/art/characters/README.md` + `docs/art/characters/xu-tang.md` + `docs/art/characters/jiang-yucheng.md` + `docs/art/characters/lin-ruoqing.md` + `docs/art/characters/shen-yingxue.md` | current approved profile、個性、關係前提、成長差異與文字視覺識別；映雪與男主共同前史由 `shen-yingxue.md` §2 擁有 | locked scene／route ordering、runtime schema、accepted pixels、未寫入的人物事件 |
 | Visual direction | `docs/art/PRODUCTION_VISUAL_DIRECTION.md` | global visual contract、shot economy、responsive composition | scene-specific narrative choice |
 | Character identity | `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md` + `content/assets/character-reference-packs.json` | identity/wardrobe/reference authority | scene purpose、camera |
 | CG production | `docs/art/CG_PRODUCTION_SPEC.md` + `.ai/schemas/CG_MANIFEST.md` | render-ready manifest contract、projection boundary | narrative rewrite |
@@ -45,7 +45,7 @@
 | Integration preflight | `tools/production-integration-check.mjs` + `tools/production-impact.mjs` | explicit-baseline source/hash comparison、scene-local stale integration rejection | QA/Human acceptance、automatic baseline selection、multi-task orchestration |
 | Asset coverage | `tools/asset-coverage.mjs` + existing asset/adoption metadata | placeholder／provisional／accepted inventory、runtime binding coverage、strict release coverage constraints | independent Visual QA、release-ready or Human playable decisions |
 
-Character profiles：Owner-approved 人設與形象文字基線不等於已整合的新路線或已驗收圖包。許棠／江雨澄的 current locked artifacts 和已入庫 pixels 保持既有權威；林若晴／沈映雪仍未加入 runtime。未來任務只取指定單角的所需段落，不因人物總表而讀全部女主；涉及男主初戀前史時，只取 `shen-yingxue.md` §2，不能據此讓其他角色獲得知識。未決的接入時間／分手細節不由 worker 自填。`docs/art/characters/prompts/` 是 `EXPERIMENTAL` 候選形象提示，不是正式 CG Task Packet input。
+Character profiles：上述五份 `docs/art/characters/` 文件是可被 Task Packet 直接 allowlist 的 canonical 人物來源。單角色任務只載入對應 profile；跨角色 narrative design 只在任務確實需要時載入相關多份 profile。許棠／江雨澄的已入庫 pixels 保持既有圖片 authority；林若晴／沈映雪的圖片已由 Owner 完成但尚未建立 repository source IDs，正式 ingest 前不得把文字描述當作像素替代。涉及男主初戀前史時，直接引用 `docs/art/characters/shen-yingxue.md` §2。
 
 Machine validation shapes：`.ai/schemas/narrative-continuity.schema.json`、`.ai/schemas/cg-manifest.schema.json`。Cross-file validation：`tools/validate-production-contracts.mjs` recursively discovers every JSON manifest under `content/production/cg-manifests/`, checks its scene/contract and repo reference bindings, and rejects duplicate IDs across manifest files before a production Task Packet is released. The Opening acceptance receipt remains scoped to its original manifest.
 
@@ -58,7 +58,6 @@ Machine validation shapes：`.ai/schemas/narrative-continuity.schema.json`、`.a
 | `.ai/archive/` | `ARCHIVED` | historical operators/harnesses only；not Task Packet input |
 | `.ai/experiments/` | `EXPERIMENTAL` | pilots/capability evidence only；not Task Packet input |
 | `docs/archive/` | `ARCHIVED` | historical specs/prompts/recipes/proposals/content only；not Task Packet input |
-| `docs/art/characters/prompts/` | `EXPERIMENTAL` | Owner 明示要求的單角色形象候選提示；not production Task Packet input，not image acceptance |
 
 A provenance receipt may point into these roots as historical evidence. That pointer does not make the target executable guidance. A bounded research/migration task may inspect them only under the exception rules in `.ai/policies/SOURCE_AUTHORITY.md`.
 
