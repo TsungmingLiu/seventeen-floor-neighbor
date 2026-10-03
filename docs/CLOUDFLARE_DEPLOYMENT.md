@@ -4,14 +4,14 @@
 
 ## Deployment flow
 
-The `Verify` GitHub Actions workflow runs on pushes and pull requests. It checks assets, builds `dist/`, runs the preview smoke test, validates content, runs tests, and checks for source changes. Only after those steps pass does it upload `dist/` as a short-lived workflow artifact. The separate deploy job downloads that artifact without checking out or executing PR code, then sends it to Cloudflare Pages with the official Wrangler action. A failed upload or failed live-site smoke test fails the deploy job in GitHub Actions. The deployed output is never committed.
+The `Verify` GitHub Actions workflow runs on pushes to `main` and pull requests. Feature-branch commits are verified through the pull request when it is opened, reopened, or updated, avoiding a duplicate push run for the same change. It checks assets, builds `dist/`, runs the preview smoke test, validates content, runs tests, and checks for source changes. Only after those steps pass does it upload `dist/` as a short-lived workflow artifact. The separate deploy job downloads that artifact without checking out or executing PR code, then sends it to Cloudflare Pages with the official Wrangler action. A failed upload or failed live-site smoke test fails the deploy job in GitHub Actions. The deployed output is never committed.
 
 | Event | Pages branch | Result |
 | --- | --- | --- |
 | PR from this repository, opened/reopened/updated | `pr-<PR number>` | Preview; the branch alias moves to the latest successful deployment |
 | PR from this repository, merged | `pr-<PR number>` | Cleanup; keep the deployment currently owning the stable PR branch alias and delete superseded previews for that PR |
 | Push to `main` | `main` | Production, after the same Verify checks pass |
-| Push to another branch | none | Verify only; PR opening triggers the preview |
+| Push to another branch | none | No push workflow; an open PR update triggers Verify and, for same-repository PRs, the preview |
 | PR from a fork | none | Secret-free Verify only; no automatic preview |
 
 The default `pull_request` checkout builds GitHub's proposed merge commit, so a preview represents the PR combined with its current base. On a new commit, the newest workflow run supersedes the previous run. The Cloudflare branch alias `pr-<number>.<project>.pages.dev` stays stable while its target updates. Find the actual URL in the PR's **Deploy Cloudflare Pages** check summary or GitHub Deployment. Each run also records its immutable deployment URL. Do not record a temporary deployment URL in source files.

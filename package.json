@@ -35,6 +35,8 @@
     "context:observe": "node tools/observe-review-dispatch.mjs",
     "production:integration:check": "node tools/production-integration-check.mjs",
     "assets:coverage": "node tools/asset-coverage.mjs",
-    "validate:release": "npm run validate:final && node tools/asset-coverage.mjs --strict"
+    "validate:release": "npm run validate:final && node tools/asset-coverage.mjs --strict",
+    "production:preflight": "node tools/production-preflight.mjs",
+    "production:handoff": "node tools/production-handoff.mjs"
   }
 }
