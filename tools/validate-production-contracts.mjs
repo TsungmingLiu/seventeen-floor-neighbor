@@ -24,6 +24,8 @@ const SOURCE_CATALOG = 'content/assets/source-catalog.json';
 const GATE3_RECEIPT = 'content/assets/ingest-receipts/repo-source-gate3-v1.json';
 const COM02X_REFERENCE_RECEIPT = 'content/assets/ingest-receipts/com02x-environment-reference-v1.json';
 const COM02X_ACCEPTED_MASTERS_RECEIPT = 'content/assets/ingest-receipts/com02x-accepted-masters-v1.json';
+const CHARACTER_CONCEPT_INDEX = 'content/assets/character-concept-references.json';
+const CHARACTER_CONCEPT_RECEIPT = 'content/assets/ingest-receipts/heroine-concept-overviews-20261003.json';
 const ORCHESTRATION = '.ai/PRODUCTION_ORCHESTRATION.md';
 const SOURCE_MAP = 'docs/CONTENT_PRODUCTION_SOURCE_MAP.md';
 const DRY_RUN = 'tests/fixtures/production-orchestration-dry-run.json';
@@ -366,6 +368,7 @@ function validateGate3RepositorySources(catalog) {
   const shenYingxueIds = validateCharacterReferencePackReceipt(shenYingxueReceipt, 'shen_yingxue', catalog);
   invariant(shenYingxueReceipt.heightLabelOverride?.canonicalHeightCm === 172 && shenYingxueReceipt.heightLabelOverride?.embeddedHeightLabelCm === 175, 'Shen Yingxue requires the explicit 172 cm canonical / 175 cm embedded-label override');
   invariant(sha256(fs.readFileSync(shenYingxueReceipt.canonicalProfile)) === shenYingxueReceipt.canonicalProfileSha256, 'Shen Yingxue canonical profile changed after the scoped height-label override');
+  const conceptSourceCount = validateCharacterConceptReferences(catalog);
   const referenceIds = new Set();
   for (const item of receipt.references) {
     invariant(!referenceIds.has(item.sourceId), `duplicate reference sourceId: ${item.sourceId}`);
@@ -454,8 +457,46 @@ function validateGate3RepositorySources(catalog) {
   const walkManifest = readJson('content/production/cg-manifests/opening-ch1-com02x-walk.json');
   invariant(walkManifest.entries.length === 1 && walkManifest.entries[0].entry_id === walkAsset.entryId && walkManifest.entries[0].status === 'accepted' && JSON.stringify(walkManifest.entries[0].known_issues) === JSON.stringify(walkQa.known_issues), 'COM-02X walking manifest adoption/issues mismatch');
   const titleSourceCount = validateTitleMasterSource(catalog);
-  invariant(Object.keys(catalog.files).length === acceptedIds.size + restoredIds.size + linRuoqingIds.length + shenYingxueIds.length + 1 + batchIds.size + 1 + 1 + 1 + titleSourceCount, 'source catalog contains an unknown or unreceipted source');
+  invariant(Object.keys(catalog.files).length === acceptedIds.size + restoredIds.size + linRuoqingIds.length + shenYingxueIds.length + conceptSourceCount + 1 + batchIds.size + 1 + 1 + 1 + titleSourceCount, 'source catalog contains an unknown or unreceipted source');
   return receipt;
+}
+
+function validateCharacterConceptReferences(catalog) {
+  const index = readJson(CHARACTER_CONCEPT_INDEX);
+  const receipt = readJson(CHARACTER_CONCEPT_RECEIPT);
+  const expectedCharacters = new Set(['xu_tang', 'jiang_yucheng', 'lin_ruoqing', 'shen_yingxue']);
+
+  invariant(index.schemaVersion === 1 && index.lifecycle === 'CANONICAL' && index.classification === 'design-reference-only', 'character concept reference index identity is invalid');
+  invariant(index.policy?.embeddedTextAuthority === 'NONE' && index.policy?.cgAutoSelection === false && index.policy?.rendererBindingAllowed === false, 'character concept references must remain non-production design references');
+  invariant(index.policy?.productionIdentity === 'content/assets/character-reference-packs.json' && index.policy?.sourceResolution === SOURCE_CATALOG, 'character concept reference authority boundary is invalid');
+  invariant(receipt.receiptVersion === 1 && receipt.gate === 'supplementary-character-concept-reference-ingest' && receipt.acceptanceScope === 'design_reference_only', 'character concept reference receipt identity/scope is invalid');
+  invariant(receipt.productionReferenceBinding === 'FORBIDDEN' && receipt.runtimeMasterAcceptance === 'NOT_ACCEPTED' && receipt.embeddedTextAuthority === 'NONE', 'character concept receipt exceeds design-reference scope');
+  invariant(receipt.conceptReferenceIndex === CHARACTER_CONCEPT_INDEX && receipt.sourceCatalog === SOURCE_CATALOG && receipt.productionIdentity === 'content/assets/character-reference-packs.json', 'character concept receipt authority binding is invalid');
+  invariant(Array.isArray(receipt.references) && receipt.references.length === expectedCharacters.size, 'character concept receipt must contain exactly four overview images');
+  invariant(Object.keys(index.characters ?? {}).length === expectedCharacters.size && [...expectedCharacters].every((id) => index.characters[id]), 'character concept index must map exactly the four canonical heroines');
+
+  const packRegistry = readJson('content/assets/character-reference-packs.json');
+  const productionPackSources = new Set(Object.values(packRegistry.characters).flatMap((pack) => Object.values(pack.sheets)));
+  const sourceIds = new Set();
+  for (const characterId of expectedCharacters) {
+    const indexed = index.characters[characterId];
+    const item = receipt.references.find((candidate) => candidate.characterId === characterId);
+    invariant(item && indexed.sourceId === item.sourceId && indexed.sourcePath === item.sourcePath, `character concept index/receipt mismatch: ${characterId}`);
+    invariant(!sourceIds.has(item.sourceId) && item.sourceId === `ref.${characterId}.concept.overview`, `duplicate or invalid character concept source: ${item.sourceId}`);
+    sourceIds.add(item.sourceId);
+    invariant(!productionPackSources.has(item.sourceId), `character concept source cannot be part of the six-sheet production pack: ${item.sourceId}`);
+    const source = catalog.files[item.sourceId];
+    invariant(source && source.status === 'design-reference-only' && source.role === 'character_concept_overview' && source.characterId === characterId && source.mimeType === 'image/jpeg' && source.verifiedDecode === true, `character concept catalog classification mismatch: ${item.sourceId}`);
+    for (const key of ['name', 'mimeType', 'sourcePath', 'bytes', 'width', 'height', 'sha256', 'verifiedDecode', 'status', 'characterId', 'role']) {
+      invariant(source[key] === item[key], `character concept receipt ${key} mismatch: ${item.sourceId}`);
+    }
+    invariant(source.sourcePath.startsWith(`assets-src/references/character-concepts/${characterId.replaceAll('_', '-')}/`), `character concept source is misclassified by path: ${item.sourceId}`);
+    invariant(source.provenance?.includes(CHARACTER_CONCEPT_RECEIPT), `character concept source lacks receipt provenance: ${item.sourceId}`);
+  }
+
+  const shen = index.characters.shen_yingxue;
+  invariant(typeof shen.embeddedLabelNote === 'string' && shen.embeddedLabelNote.includes('沈知夏 / Shen Zhixia') && shen.embeddedLabelNote.includes('non-authoritative'), 'Shen Yingxue pre-canonical embedded label must remain explicitly non-authoritative');
+  return sourceIds.size;
 }
 
 function validateTitleMasterSource(catalog) {
@@ -506,6 +547,7 @@ function validateManifestRepositoryReferences(manifest, catalog, context) {
       } else {
         invariant(binding.source_id.startsWith('source.') || binding.source_id.startsWith('ref.'), `${context} ${entry.entry_id} has unsupported repository reference: ${binding.source_id}`);
         const source = catalog.files[binding.source_id];
+        invariant(source?.status !== 'design-reference-only', `${context} ${entry.entry_id} cannot bind a design-reference-only source: ${binding.source_id}`);
         invariant(source?.name === binding.expected_filename, `${context} ${entry.entry_id} repository reference cannot be resolved exactly: ${binding.source_id}`);
       }
     }
