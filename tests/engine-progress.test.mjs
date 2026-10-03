@@ -570,11 +570,11 @@ for (const [index, tone] of ['mc_tone_observant', 'mc_tone_practical', 'mc_tone_
     engine.refreshTitle();
     assert.equal(engine.els.startButton.textContent, '繼續遊戲');
     engine.startFromTitle();
-    assert.equal(engine.nodeId, 'common_package_xu_arrive');
+    assert.equal(engine.nodeId, 'common_station_cafe_jyc_enter');
     assert.deepEqual(engine.state, { ...saved.cursor.stats, flags: new Set(saved.cursor.flags) });
     const seen = new Set();
     let reloaded = false;
-    for (let step = 0; step < 100 && engine.nodeId !== 'com03x_preview_complete'; step += 1) {
+    for (let step = 0; step < 150 && engine.nodeId !== 'com03x_preview_complete'; step += 1) {
       seen.add(engine.nodeId);
       if (engine.nodeId === 'common_package_xu_proof_10' && !reloaded) {
         const before = structuredClone(engine.progress.data.cursor);
@@ -586,13 +586,13 @@ for (const [index, tone] of ['mc_tone_observant', 'mc_tone_practical', 'mc_tone_
       const node = runtime.chapter.nodes[engine.nodeId];
       if (node.choices) {
         engine.enterChoiceMode(node.choices);
-        engine.els.choices.children[index].click();
+        engine.els.choices.children[engine.nodeId.startsWith('common_station_cafe_jyc_choice_') ? 0 : index].click();
       } else engine.advance();
     }
     assert.equal(reloaded, true);
     assert.equal(engine.nodeId, 'com03x_preview_complete');
     for (const id of ['common_package_xu_proof', 'common_package_xu_callback', 'common_package_xu_line', 'common_package_xu_exit', 'common_package_xu_first_message']) assert.ok(seen.has(id));
-    const expected = { ...saved.cursor.stats, F_XT: 8, [tone]: saved.cursor.stats[tone] + 1 };
+    const expected = { ...saved.cursor.stats, F_XT: 8, F_JYC: saved.cursor.stats.F_JYC + 1, T_JYC: saved.cursor.stats.T_JYC + 1, [tone]: saved.cursor.stats[tone] + 1 };
     assert.deepEqual(engine.progress.data.cursor.stats, expected);
     assert.ok(saved.cursor.flags.every(flag => engine.state.flags.has(flag)));
     assert.ok(engine.state.flags.has('contact_xu'));
@@ -677,3 +677,105 @@ test('a historical terminal Memory cursor cannot reopen or regress a completed a
   assert.equal(engine.nodeId, runtime.chapter.startNode);
   assert.deepEqual(engine.progress.data.frontier, saved.frontier);
 });
+
+for (const topic of [0, 1, 2, 3, 99]) {
+  for (const choiceIndex of [0, 1, 2]) {
+    test(`COM02J actual engine topic ${topic} choice ${choiceIndex} preserves reveal, callbacks, effects and reload`, () => {
+      installBrowserMocks();
+      const runtime = openingRuntime();
+      let engine = instantEngine(runtime);
+      engine.progress.setPlayerName('小雨');
+      const stats = { ...runtime.chapter.initialState, jyc_first_topic: topic, F_JYC: 10 };
+      engine.resumeGame({ nodeId: 'common_station_cafe_jyc_enter', stats, flags: [], returnNodes: [] });
+      const variant = ({ 1: 'worldbuilding', 2: 'visual_design', 3: 'edition_value' })[topic] || 'neutral';
+      const seen = [];
+      let reloaded = false;
+      for (let step = 0; step < 70 && engine.nodeId !== 'common_package_xu_arrive'; step++) {
+        seen.push(engine.nodeId);
+        const node = runtime.chapter.nodes[engine.nodeId];
+        if (engine.nodeId === 'common_station_cafe_jyc_drawing_03') assert.equal(engine.els.speaker.textContent, '女生');
+        if (engine.nodeId === 'common_station_cafe_jyc_names') assert.equal(engine.els.text.textContent, '上次忘了問。我叫 小雨。');
+        if (engine.nodeId === 'common_station_cafe_jyc_names_02') assert.equal(engine.els.speaker.textContent, '江雨澄');
+        if (node.choices) {
+          assert.equal(engine.nodeId, `common_station_cafe_jyc_choice_${variant}`);
+          engine.enterChoiceMode(node.choices);
+          engine.els.choices.children[choiceIndex].click();
+          const before = structuredClone(engine.progress.data.cursor);
+          engine = instantEngine(runtime);
+          engine.startFromTitle();
+          assert.deepEqual(engine.progress.data.cursor, before);
+          reloaded = true;
+        } else engine.advance();
+      }
+      assert.equal(reloaded, true);
+      assert.equal(engine.nodeId, 'common_package_xu_arrive');
+      assert.equal(engine.state.F_JYC, 11 + Number(choiceIndex === 1));
+      assert.equal(engine.state.T_JYC, Number(choiceIndex === 0));
+      assert.equal(engine.state.C_JYC, Number(choiceIndex === 2));
+      assert.equal(engine.state.jyc_first_topic, topic, 'neutral never invents first history');
+      assert.ok(engine.state.flags.has(`jyc_second_topic:${['her_art','shared_work','general_praise'][choiceIndex]}`));
+      for (const flag of ['player_knows_jyc_name','jyc_knows_player_name','jyc_creator_work_seen','jyc_initiated_second_contact']) assert.ok(engine.state.flags.has(flag));
+      for (const forbidden of ['contact_jyc','jyc_alias_private','jyc_alias_exposed','jyc_seen_in_element','relationship.jyc.romanticSignal','contact_xu']) assert.equal(engine.state.flags.has(forbidden), false);
+      assert.ok(seen.includes('common_station_cafe_jyc_reciprocity_02'));
+      if (choiceIndex === 1) {
+        assert.ok(seen.includes(`com02j_continue_topic_${variant}`));
+        assert.equal(seen.filter(id => /^com02j_continue_topic_(visual_design|worldbuilding|edition_value|neutral)$/.test(id)).length, 1);
+      }
+      assert.equal(engine.progress.data.frontierRank, 200);
+      const frontier = structuredClone(engine.progress.data.frontier);
+      const entry = engine.progress.data.checkpoints.common_station_cafe_jyc_enter;
+      entry.stats.jyc_first_topic = 0;
+      engine.state.jyc_first_topic = 3;
+      engine.replayMemory({ replayNode: 'common_station_cafe_jyc_enter' });
+      for (let step = 0; step < 70 && !engine.els.game.classList.contains('is-hidden'); step++) {
+        const node = runtime.chapter.nodes[engine.nodeId];
+        if (node.choices) {
+          assert.equal(engine.nodeId, 'common_station_cafe_jyc_choice_neutral');
+          engine.enterChoiceMode(node.choices);engine.els.choices.children[1].click();
+        } else engine.advance();
+      }
+      assert.equal(engine.nodeId, 'common_station_cafe_jyc_complete');
+      assert.equal(engine.els.title.classList.contains('is-hidden'), false);
+      assert.deepEqual(engine.progress.data.frontier, frontier);
+      engine = instantEngine(runtime);engine.startFromTitle();
+      assert.equal(engine.nodeId, frontier.nodeId);
+      assert.deepEqual(engine.progress.data.frontier, frontier);
+    });
+  }
+}
+
+for (const nodeId of ['com03x_preview_complete','common_package_xu_proof_10','common_package_xu_first_message_06']) {
+  test(`COM02J actual engine supplements old ${nodeId}, retains name/return point and never doubles COM03X payoff`, () => {
+    installBrowserMocks();
+    const runtime = openingRuntime();
+    const stats = { ...runtime.chapter.initialState, F_XT: 9, F_JYC: 4, jyc_first_topic: 1 };
+    const flags = ['contact_xu','entry-effect:common_package_xu_first_message_06','world-retained'];
+    const snapshot = { nodeId, stats, flags, returnNodes: [] };
+    localStorage.setItem(`${runtime.chapter.id}:journey:v2`, JSON.stringify({ version: 2, playerDisplayName: '小雨', cursor: snapshot, frontier: snapshot,
+      runComplete: nodeId === 'com03x_preview_complete', checkpoints: { [nodeId]: snapshot }, edges: [] }));
+    let engine = instantEngine(runtime);engine.startFromTitle();
+    assert.equal(engine.nodeId, 'common_station_cafe_jyc_enter');
+    let reloaded = false;
+    for (let step = 0; step < 70 && engine.nodeId !== nodeId; step++) {
+      const node = runtime.chapter.nodes[engine.nodeId];
+      if (node.choices) {
+        engine.enterChoiceMode(node.choices);engine.els.choices.children[2].click();
+        const cursor = structuredClone(engine.progress.data.cursor);
+        engine = instantEngine(runtime);engine.startFromTitle();
+        assert.deepEqual(engine.progress.data.cursor,cursor);
+        reloaded = true;
+      } else engine.advance();
+    }
+    assert.equal(reloaded,true);
+    assert.equal(engine.nodeId,nodeId);
+    assert.equal(engine.state.F_XT,9);
+    assert.equal(engine.state.F_JYC,5);
+    assert.equal(engine.state.C_JYC,1);
+    assert.equal(engine.progress.data.playerDisplayName,'小雨');
+    assert.ok(flags.every(flag => engine.state.flags.has(flag)));
+    assert.equal(engine.progress.data.com02jSupplement,null);
+    const reload = instantEngine(runtime);reload.refreshTitle();
+    assert.equal(reload.els.startButton.textContent,nodeId === 'com03x_preview_complete' ? '開始遊戲' : '繼續遊戲');
+    assert.equal(reload.progress.data.com02jSupplement,null);
+  });
+}

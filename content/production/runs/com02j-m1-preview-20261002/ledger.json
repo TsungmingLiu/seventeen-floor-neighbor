@@ -1,0 +1,140 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_checkpoint",
+  "run_id": "com02j-m1-preview-20261002",
+  "workflow_version": "1.3.0",
+  "source_ref": "da7c043c65f78b6618952d9c77db29374a3f50e6",
+  "human_request": {
+    "summary": "Owner approved COM03X story/dialogue and authorized next M1 COM02J locked-script gates and narrative preview.",
+    "gate_status": "COM02J work authorized; new Human narrative preview pending"
+  },
+  "status": "NARRATIVE_PREVIEW_READY",
+  "tasks": [
+    {
+      "task_id": "NQA-COM02J-003",
+      "task_type": "narrative_review",
+      "scene_id": "COM-02J",
+      "depends_on": [],
+      "status": "FAIL",
+      "packet": {
+        "generator": "manual:task-packet-schema-v1.3.0",
+        "sha256": "59921fc3b785df6dbe12460006e86b6755922d3ba296f45536d7c05debfb3f67"
+      },
+      "decision_receipt": "content/production/runs/com02j-m1-preview-20261002/NQA-COM02J-003.decision.json",
+      "human_gate": "none",
+      "reason": "Exact packet and fresh worker Handoff verified at execution; output identities pinned in compact receipt."
+    },
+    {
+      "task_id": "NQA-COM02J-005",
+      "task_type": "narrative_review",
+      "scene_id": "COM-02J",
+      "depends_on": [],
+      "status": "STALE",
+      "packet": {
+        "generator": "manual:task-packet-schema-v1.3.0",
+        "sha256": "fdfc4ca348312ad3d614f541fea64b873bf5a0afbcbe2cd65dd10159f8eac3d4"
+      },
+      "decision_receipt": "content/production/runs/com02j-m1-preview-20261002/NQA-COM02J-005.decision.json",
+      "human_gate": "none",
+      "reason": "Historical PASS remains in exact8a741569 receipt; newly completed neutral callback changes Locked Scene input and requires fresh independent QA."
+    },
+    {
+      "task_id": "INT-COM02J-PREVIEW-006",
+      "task_type": "integrate",
+      "scene_id": "COM-02J",
+      "depends_on": [
+        "NQA-COM02J-005"
+      ],
+      "status": "BLOCKED",
+      "packet": {
+        "generator": "manual:task-packet-schema-v1.3.0",
+        "sha256": "1ca7340cae06ef791b7b9510971f7a75ae84e87d4fdd51ad4ad902c84d741048"
+      },
+      "decision_receipt": "content/production/runs/com02j-m1-preview-20261002/INT-COM02J-PREVIEW-006.decision.json",
+      "human_gate": "narrative_preview_review",
+      "reason": "Exact packet and fresh worker Handoff verified at execution; output identities pinned in compact receipt."
+    },
+    {
+      "task_id": "NQA-COM02J-008",
+      "task_type": "narrative_review",
+      "scene_id": "COM-02J",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual:task-packet-schema-v1.3.0",
+        "sha256": "4a9bda5514b1f785d1d7662f5176f164b555b6cfc2d30077fe3a5d2ff76d1f70"
+      },
+      "decision_receipt": "content/production/runs/com02j-m1-preview-20261002/NQA-COM02J-008.decision.json",
+      "human_gate": "none",
+      "reason": "Exact packet and fresh worker Handoff verified at execution; output identities pinned in compact receipt."
+    },
+    {
+      "task_id": "INT-COM02J-PREVIEW-009",
+      "task_type": "integrate",
+      "scene_id": "COM-02J",
+      "depends_on": [
+        "NQA-COM02J-008"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual:task-packet-schema-v1.3.0",
+        "sha256": "f80a9c839c1264f990a4f6db63f0e8b2d1f7fe29346179befbc36a7569ff7b50"
+      },
+      "decision_receipt": "content/production/runs/com02j-m1-preview-20261002/INT-COM02J-PREVIEW-009.decision.json",
+      "human_gate": "narrative_preview_review",
+      "reason": "Exact packet and fresh worker Handoff verified at execution; output identities pinned in compact receipt."
+    }
+  ],
+  "invalidation_events": [
+    {
+      "changed_artifact_id": "locked-scene:COM-02J",
+      "old_version": "8a741569c14a62296e0c2408c31ad6010a98cbae522c5ffc4c40632b8446900e",
+      "new_version": "a217f826a9e0b0379a763518b63d1a2d985f7930a0ec1691f01327662228ffb1",
+      "affected_task_ids": [
+        "NQA-COM02J-005"
+      ],
+      "decision": "STALE",
+      "evidence": "Exact missing-neutral branch completed under immutable contract by fresh CW-COM02J-007. Prior QA receipt remains historical; new full scene requires new independent semantic review; no CG produced."
+    }
+  ],
+  "preview": {
+    "status": "NARRATIVE_PREVIEW_READY",
+    "integration_task_id": "INT-COM02J-PREVIEW-009",
+    "integration_receipt": "content/production/runs/com02j-m1-preview-20261002/INT-COM02J-PREVIEW-009.decision.json",
+    "scene_sha256": "a217f826a9e0b0379a763518b63d1a2d985f7930a0ec1691f01327662228ffb1",
+    "contract_sha256": "70ed29091bdf9267287e06aa3d56abc4d1df83e7ef3f21aff0eaf64d004acf7e",
+    "public_url": "https://070823e2.seventeen-floor-neighbor.pages.dev/",
+    "ci_status": "PASS",
+    "human_story_review": "PENDING",
+    "final_art": "PENDING",
+    "final_visual_gate": "Expected FAIL: unchanged validator rejects allowPreviewArt and preview-only asset. No final visual acceptance.",
+    "build": "PASS",
+    "validate": "PASS",
+    "storage": "PASS",
+    "diff": "PASS",
+    "preview_smoke": "PASS: equivalent implementation on free port4193; original fixed4173 attempt failed due to port collision",
+    "initial_full_unit": "195/199 PASS,4FAIL; recovered completed TAP report, terminal session unavailable",
+    "resolved_full_failures": "coverage16/16, unchangedquota3/3, titleimpact3/3 allPASS with captured standalone exit0",
+    "browser_verification": "35 unique PASS via preserved27+4+4; original8+4FAIL retained; corrected/final terminal sessions unavailable but completed reports retained",
+    "sparse_save_verification": "11/11 PASS; final cleanCI includes2 added sparse regressions",
+    "preservation": "321 existing nodes exact, only historical terminal redirect changes; all4 prior Memory events exact",
+    "source_ref": "cb11e81271269e7dc9ceeef6c81d6544a3a33b0c",
+    "ci_merge_ref": "d2070d8b70624c88ec28dedb1cad84a0b7ca1ea5",
+    "profile": "narrative_preview",
+    "visibility": "public",
+    "pull_request_url": "https://github.com/TsungmingLiu/seventeen-floor-neighbor/pull/47",
+    "stable_url": "https://pr-47.seventeen-floor-neighbor.pages.dev/",
+    "ci_run_id": 37078425847,
+    "ci_run_number": 668,
+    "ci_url": "https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/37078425847",
+    "verify_job_id": 111073400296,
+    "deploy_job_id": 111075661647,
+    "full_ci_tests": 201,
+    "full_ci_pass": 201,
+    "full_ci_fail": 0,
+    "deployed_bytes_smoke": "PASS: downloaded public program, route, chapter, scenes, memories, assets and fallback bytes match CI artifact; root/deep-link base checked",
+    "ci_artifact_sha256": "f4588b79b44863f9849a5d927cf39f49646e5b2cf1ea77d9b97c468bf5c707ff",
+    "verified_at_utc": "2026-10-02T23:47:11Z",
+    "proof_scope": "CI/deployment bind immutable code commit and PR merge ref. This follow-up changes only compact checkpoint and progress documentation; all12 integration output identities remain exact. No new pixel QA or Human approval."
+  }
+}

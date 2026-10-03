@@ -1,0 +1,89 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "resume_checkpoint",
+  "run_id": "com02j-m1-preview-20261002",
+  "task_id": "INT-COM02J-PREVIEW-006",
+  "scene_id": "COM-02J",
+  "task_type": "integrate",
+  "status": "BLOCKED",
+  "harness": {
+    "id": "integrator",
+    "version": "1.4.0",
+    "pass": null
+  },
+  "source_ref": "a5aa517c34444b8985c5910e30eb79f31d42bed2",
+  "packet_sha256": "1ca7340cae06ef791b7b9510971f7a75ae84e87d4fdd51ad4ad902c84d741048",
+  "input_digest_sha256": "828fe9d255c87987402a378ea416c675c9b3f07039af89b8710e1839bc2b6ae1",
+  "input_versions": [
+    {
+      "id": "docs/narrative/scenes/vertical-slice/COM-02J.md#L1-L333",
+      "version": "5aeeebbdb371da31d72e23eb5ac344fad4d5a8235a4a79cc880d1232b8e2d97d",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02J.md"
+    },
+    {
+      "id": "docs/narrative/scenes/vertical-slice/COM-02J.md#L382-L429",
+      "version": "64d29877dc38e622754d69787f4252b6e7c9062d0ba69e8e7ae5ab0c79dd38a4",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02J.md"
+    },
+    {
+      "id": "content/production/narrative/opening-ch1/COM-02J.json",
+      "version": "70ed29091bdf9267287e06aa3d56abc4d1df83e7ef3f21aff0eaf64d004acf7e",
+      "location": "content/production/narrative/opening-ch1/COM-02J.json"
+    },
+    {
+      "id": "content/production/narrative/opening-ch1/COM-01J.json",
+      "version": "abf683d6523b962d41f795cedc8f8c830921c58d739792774d3f26c569f51ddc",
+      "location": "content/production/narrative/opening-ch1/COM-01J.json"
+    },
+    {
+      "id": "content/production/runs/com02j-m1-preview-20261002/NQA-COM02J-005.decision.json",
+      "version": "c452b49876cd9fa849db0edf1b7e0453f3cb5740e1201c29a09b23fd8ec39e8b",
+      "location": "content/production/runs/com02j-m1-preview-20261002/NQA-COM02J-005.decision.json"
+    },
+    {
+      "id": "content/production/runs/com02j-m1-preview-20261002/ledger.json",
+      "version": "cdc4098c886b90c31618bccb33d60f2d2baab256c9d366a6341b7b9bae44617c",
+      "location": "content/production/runs/com02j-m1-preview-20261002/ledger.json"
+    },
+    {
+      "id": "content/production/runs/com03x-m1-preview-20261002/HUMAN-COM03X-STORY-005.decision.json",
+      "version": "0941432b57bf5ef32882427f985aee4d55da7ac8488112c8b155f3a7b42fa6fd",
+      "location": "content/production/runs/com03x-m1-preview-20261002/HUMAN-COM03X-STORY-005.decision.json"
+    }
+  ],
+  "output_versions": [],
+  "qa_codes": [
+    {
+      "name": "SOURCE_EXACT_GIT_BLOB_ACQUISITION",
+      "code": "SOURCE_EXACT_GIT_BLOB_ACQUISITION",
+      "result": "PASS"
+    },
+    {
+      "name": "CURRENT_NARRATIVE_QA_BINDING",
+      "code": "CURRENT_NARRATIVE_QA_BINDING",
+      "result": "PASS"
+    },
+    {
+      "name": "PUBLISHED_RUNTIME_BASELINE_MECHANICAL_COMPARISON",
+      "code": "PUBLISHED_RUNTIME_BASELINE_MECHANICAL_COMPARISON",
+      "result": "PASS"
+    },
+    {
+      "name": "FAITHFUL_NEUTRAL_CALLBACK_MAPPING",
+      "code": "BLOCKED_MISSING_APPROVED_NEUTRAL_CALLBACK",
+      "result": "FAIL"
+    },
+    {
+      "name": "NO_TRACKED_SOURCE_MUTATIONS",
+      "code": "NO_TRACKED_SOURCE_MUTATIONS",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "Locked continue_topic script supplies only visual_design/worldbuilding/edition_value four-turn sequences. Neutral/no-history is required by packet and contract, but its sole approved scene note names a neutral phrase without a complete neutral playable conversation. Integrator cannot invent a fourth sequence, choose a false history, or omit the branch conversation. Affected: docs/narrative/scenes/vertical-slice/COM-02J.md 185-213",
+    "Full packet/input snapshot and Handoff are ignored execution artifacts; verified Handoff SHA256 641195ebe1a3a83fa291b5814dd997fdede9c0f29941f1167654c7933013bbb2. No automatic current-PASS claim from legacy schema2-unsupported verifier."
+  ],
+  "human_gate_required": "narrative_preview_review",
+  "invalidates": []
+}

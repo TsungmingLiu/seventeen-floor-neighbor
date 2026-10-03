@@ -51,11 +51,11 @@ test('current deterministic inventory distinguishes scene-local preview and adop
   assert.equal(asset(result, preview).runtimeBound, true);
   assert.deepEqual(result.bindingErrors, [{ code: 'PREVIEW_ROUTE_OPT_IN', routeId: 'opening-demo' }]);
   const previewBindings = asset(result, preview).references.map(ref => ref.binding);
-  assert.equal(previewBindings.length, 85);
-  assert.equal(previewBindings.filter(binding => binding.startsWith('node:')).length, 83);
-  assert.deepEqual(previewBindings.filter(binding => !binding.startsWith('node:')), ['ending:demo_complete', 'endingArt']);
+  assert.equal(previewBindings.length, 151);
+  assert.equal(previewBindings.filter(binding => binding.startsWith('node:')).length, 148);
+  assert.deepEqual(previewBindings.filter(binding => !binding.startsWith('node:')), ['ending:demo_complete', 'endingArt', 'memory:mem.opening.ch1.station-cafe-jyc:cover']);
   assert.ok(previewBindings.filter(binding => binding.startsWith('node:')).every(binding =>
-    /^node:(common_package_xu_|com03x_)/.test(binding)));
+    /^node:(common_package_xu_|com03x_|common_station_cafe_jyc_|com02j_)/.test(binding)));
   assert.ok(result.assets.filter(item => item.references.some(ref => /^node:common_convenience_xu_/.test(ref.binding)))
     .every(item => item.status === 'accepted' && item.assetId !== preview));
   assert.equal(coverageExitCode(result), 0);

@@ -51,12 +51,12 @@ test('title exclusion rejects story, Memory, Gallery, chapter card and accepted-
 test('accepted scene CGs retain the historical shared-route impact and exact title exclusion', async () => {
   const report = await buildProductionImpact({ root: projectRoot, sceneId: 'COM-00',
     from: 'c5251cd2ac58e8daca0d034a0799b60c456dd7d7', to: 'WORKTREE' });
-  // COM-03X changes shared ending/config; the title exemption must not hide that change.
+  // COM-03X and COM-02J change shared ending/config; the title exemption must not hide that change.
   // These digests are computed from the historical/current scene route projections.
   assert.deepEqual(report.changes, [{
     changed_artifact_id: 'route_binding:COM-00',
     old_version: '7067bd963e0ee4ce38550c2d10c09ac27f51ed369370f7f93e92d6c14fad4240',
-    new_version: '3b6468b600d0c9a301ff98cad735f3338f7b919fd47b74dfca362de02511cbcc',
+    new_version: 'e7ba984d84832154253f5dcf9e47918fb160b8f3e929e19657400566902c5d01',
     reason: 'route_allowlist_or_config_changed',
     would_invalidate: ['integration:COM-00', 'playable_review:COM-00']
   }]);

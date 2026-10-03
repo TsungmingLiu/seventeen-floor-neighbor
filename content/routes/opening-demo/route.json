@@ -49,7 +49,8 @@
       "電梯重啟",
       "地下街初遇",
       "深夜便利店",
-      "包裹 / Line"
+      "包裹 / Line",
+      "咖啡店重逢"
     ],
     "initialState": {
       "mc_tone_formal": 0,
@@ -72,7 +73,9 @@
       "jyc_first_topic": 0,
       "T_XT": 0,
       "K_XT": 0,
-      "xt_advice_tendency": 0
+      "xt_advice_tendency": 0,
+      "T_JYC": 0,
+      "C_JYC": 0
     },
     "endingRules": [
       {

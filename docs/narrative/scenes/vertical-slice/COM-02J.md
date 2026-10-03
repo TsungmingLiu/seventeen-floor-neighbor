@@ -20,6 +20,13 @@
 - `docs/art/CHARACTER_REFERENCE_PACK_SPEC.md`
 - `docs/narrative/scenes/vertical-slice/COM-01J.md`
 
+## Narrative Continuity Contract
+
+- Canonical contract: `content/production/narrative/opening-ch1/COM-02J.json`。
+- Verified contract SHA-256: `70ed29091bdf9267287e06aa3d56abc4d1df83e7ef3f21aff0eaf64d004acf7e`。
+- Binding scope：保留既有 Locked Scene 的 playable wording、node／choice IDs、branch rejoin 與 state mapping；取得姓名、看過創作與主動接觸的 timing 依 canonical contract。
+- Independent Narrative QA：pending；下一階段為 `content_qa / narrative_review`。Human narrative-preview review 尚未完成，本次 binding 不構成 QA 或 Human approval。
+
 ## Scene summary
 
 Week 2 平日下午，男主在台北車站附近辦完事，還有一段遠端會議前的空檔，需要可靠的插座與安靜座位。他想起地下街那位陌生女生提過的咖啡店，便進店工作。江雨澄坐在窗邊用 tablet 畫圖；男主先認出她投入創作的側影，她抬頭後也認出他，猶豫兩秒才用上次作品作為招呼。兩人正式交換姓名。一般寒暄仍短，一談到圖像設計與作品，她的句子又變長，讓男主第一次看見她在熟悉主場並不是「安靜的人」。兩人各自回到工作，留下第三次聯絡的可能，不急著拿聯絡方式。
@@ -48,18 +55,18 @@ requires:
 
 ## Beat sheet
 
-| Beat | Runtime intent | Action / dialogue intent | Visual / expression | State |
+| Beat | Runtime intent | Action / dialogue intent | Semantic Visual Beat | State |
 | --- | --- | --- | --- | --- |
-| 02J.1 Causal arrival | establishing | 男主進店前以一個短 callback 想起「平日下午比較安靜」；店內確實有空位與插座。他沒有期待遇見雨澄。 | `BG-CAFE-STATION` wide；交通人流在遠景、角落安靜。 | none |
-| 02J.2 Creator focus | visual introduction | 男主找座位時先看到一個熟悉側影；她正放大線稿、調整構圖，不是隨便塗鴉。旁白只確認「上次書架前的人」，不評價天分。 | **CG-COM-04 trigger**；`focused_drawing`。 | none |
-| 02J.3 She sees him | agency beat | 她在停筆／喝水時抬頭，視線碰到男主。她有 1–2 秒可假裝沒看到，最後主動問：「那本後來有買嗎？」 | CG expression transition `focused → surprised recognition`，後切 sprite `hesitant`。 | none |
-| 02J.4 Names | formal introduction | 男主回答上次的書，再補「我叫——」。她停半拍說「江雨澄」。名字交換短，不寫成正式握手。 | `polite`, `small_smile`。 | name flags |
-| 02J.5 Seat boundary | blocking | 男主先問旁邊座位是否有人／是否會打擾；她明確說可以，但自己等一下還要畫。這同時給兩人退路。 | 兩人共享窗邊桌或鄰桌，不坐成正面約會 framing。 | none |
-| 02J.6 Player topic choice | local branch | 玩家問她畫的具體內容、延續上次作品觀點，或給一個普通稱讚。三條都可接受，但連結深度不同。 | expressions vary。 | stats / callback |
-| 02J.7 Her field becomes visible | payoff | 在具體分支，她會說到角色 silhouette、色彩腳本或畫面閱讀方向，並反問男主為何注意那一點；普通稱讚分支則只謝謝，靠她稍後自己補一句救回談話。 | `talking_about_art`, `tiny_laugh`, `interested`。 | `jyc_creator_work_seen=true` |
-| 02J.8 Parallel work preview | intimacy texture | 對話停下後兩人各自工作 10–20 分鐘；玩家用 1–2 nodes 感受她不是需要一直被問話才舒服。她偶爾把 tablet 轉一點確認光線，不是展示給男主求肯定。 | wide table composite；screen/tablet light subtle。 | none |
-| 02J.9 Small return | reciprocity | 她在男主收電腦前主動問一句上次選的設定集內容／他的工作是不是都能在外面做。她也在觀察他，不是只被訪問。 | `curious`, `asking_real_question` 等效。 | none |
-| 02J.10 Leave with names | exit | 男主因會議／行程先走，或雨澄先收 tablet；兩人以姓名道別。沒有人臨時說「加個 Line 吧」。 | `small_smile`；窗邊位留空 transition。 | `F_JYC +=1`; unlock COM-03J |
+| 02J.1 Causal arrival | establishing | 男主進店前以一個短 callback 想起「平日下午比較安靜」；店內確實有空位與插座。他沒有期待遇見雨澄。 | 店內有空位與插座，窗邊角落安靜。 | none |
+| 02J.2 Creator focus | visual introduction | 男主找座位時先看到一個熟悉側影；她正放大線稿、調整構圖，不是隨便塗鴉。旁白只確認「上次書架前的人」，不評價天分。 | 她專注放大線稿、調整構圖。 | none |
+| 02J.3 She sees him | agency beat | 她在停筆／喝水時抬頭，視線碰到男主。她有 1–2 秒可假裝沒看到，最後主動問：「那本後來有買嗎？」 | 她由專注轉為認出男主，短暫猶豫後開口。 | none |
+| 02J.4 Names | formal introduction | 男主回答上次的書，再補「我叫——」。她停半拍說「江雨澄」。名字交換短，不寫成正式握手。 | 兩人簡短交換姓名，帶一點客氣的笑意。 | name flags |
+| 02J.5 Seat boundary | blocking | 男主先問旁邊座位是否有人／是否會打擾；她明確說可以，但自己等一下還要畫。這同時給兩人退路。 | 經同意共享窗邊桌或鄰桌，仍保留各自工作的空間。 | none |
+| 02J.6 Player topic choice | local branch | 玩家問她畫的具體內容、延續上次作品觀點，或給一個普通稱讚。三條都可接受，但連結深度不同。 | 回應隨所選話題改變。 | stats / callback |
+| 02J.7 Her field becomes visible | payoff | 在具體分支，她會說到角色 silhouette、色彩腳本或畫面閱讀方向，並反問男主為何注意那一點；普通稱讚分支則只謝謝，靠她稍後自己補一句救回談話。 | 談作品時更投入；普通稱讚帶出小笑。 | `jyc_creator_work_seen=true` |
+| 02J.8 Parallel work preview | intimacy texture | 對話停下後兩人各自工作 10–20 分鐘；玩家用 1–2 nodes 感受她不是需要一直被問話才舒服。她偶爾把 tablet 轉一點確認光線，不是展示給男主求肯定。 | 雨澄用 tablet、男主用 laptop，各自工作。 | none |
+| 02J.9 Small return | reciprocity | 她在男主收電腦前主動問一句上次選的設定集內容／他的工作是不是都能在外面做。她也在觀察他，不是只被訪問。 | 她抬頭主動問一個具體問題。 | none |
+| 02J.10 Leave with names | exit | 男主因會議／行程先走，或雨澄先收 tablet；兩人以姓名道別。沒有人臨時說「加個 Line 吧」。 | 短短道別後，窗邊留下一個空位。 | `F_JYC +=1`; unlock COM-03J |
 
 ## Emotion arc
 
@@ -101,7 +108,7 @@ Choice design notes：
 
 ### `common_station_cafe_jyc_enter`
 
-**Visual**：`BG-CAFE-STATION` wide。先呈現空位、插座與窗邊區域。
+**Semantic Visual Beat**：男主先確認空位、插座與窗邊區域，再找可工作的座位。
 
 **Narration**：下一個會議還有一個多小時。我需要插座、桌子，最好再少一點車站廣播。
 
@@ -111,7 +118,7 @@ Choice design notes：
 
 ### `common_station_cafe_jyc_drawing`
 
-**Visual**：切入 `CG-COM-04`。雨澄低頭畫圖，tablet 上只顯示不可讀的虛構角色構圖。
+**Semantic Visual Beat**：雨澄低頭畫圖，tablet 上是她正在處理的虛構角色構圖。
 
 **Narration**：她在畫圖。不是隨手記幾筆；幾個相似輪廓排在一起，旁邊還有反覆調整過的色塊。
 
@@ -119,7 +126,7 @@ Choice design notes：
 
 **Jiang Yucheng**：那本……後來有買嗎？
 
-**Visual**：回 BG + `JYC-SPR-CAFE.caught_drawing`。
+**Semantic Visual Beat**：雨澄抬眼認出男主，在短暫停頓後繼續對話。
 
 **Protagonist**：買了舊版。暫時只買一本。
 
@@ -151,11 +158,28 @@ Choice design notes：
 2. `com02j_continue_topic` — **依 COM-01J choice 回扣上次談過的作品細節。**
 3. `com02j_simple_praise` — **「看起來很厲害。線很乾淨。」**
 
+#### Exact display mapping — `com02j_continue_topic`
+
+上方第 2 項是製作註記，不是 UI 文案；下表鎖定實際顯示文字。只顯示一個版本，選項 ID 皆為 `com02j_continue_topic`；標籤與該版本第一句 spoken line 完全相同。
+
+| Trustworthy COM-01J topic | Exact player-facing choice label | Spoken variant |
+| --- | --- | --- |
+| `visual_design` | 「妳這張夜景，也是在處理上次說的暗部嗎？」 | `visual_design` |
+| `worldbuilding` | 「這個角色的環境，看起來也有雨港那種分區。」 | `worldbuilding` |
+| `edition_value` | 「妳自己的圖，註釋會放到看得清楚嗎？」 | `edition_value` |
+| 缺少可用的前次 topic | 「上次那套設定集，妳畫自己的圖時也會拿來參考嗎？」 | `neutral` |
+
+Selector / continuity notes（製作註記，不顯示給玩家）：
+
+- 原有三個具體 callback 只在可信的 COM-01J history 對應該 topic 時使用；缺失、無法辨認或不可信的 topic 使用下方 `neutral`，保留第二項選擇。
+- Memory replay 只讀 replay-local COM-01J topic snapshot；缺少可用的局部 topic 時也使用 `neutral`，不借目前主線的 topic 補成過去選擇。
+- 中性版本只回扣已成立的共同設定集脈絡，不指定上次選過哪一個 topic。此次選擇仍照既有 state contract 設定 `jyc_second_topic=shared_work` 並套用原有 effects；本次對話可作後續作品 callback 的真實來源，不回填或捏造 `jyc_first_topic`，也不新增 COM-03J 事實。
+
 #### Branch `com02j_ask_drawing`
 
 **Protagonist**：這幾張是在抓同一個角色的動作嗎？
 
-**Visual**：`JYC-SPR-CAFE.caught_drawing`。
+**Semantic Visual Beat**：談話轉到她手上的角色動作練習。
 
 **Jiang Yucheng**：嗯。要讓她換衣服、換姿勢，還是看得出來是同一個人。
 
@@ -205,19 +229,29 @@ Choice design notes：
 
 **Jiang Yucheng**：教材反面。
 
+**Variant — neutral**
+
+**Protagonist**：上次那套設定集，妳畫自己的圖時也會拿來參考嗎？
+
+**Jiang Yucheng**：會啊，像構圖、色塊怎麼放，我會翻一下。
+
+**Protagonist**：這個角色也是裡面的？
+
+**Jiang Yucheng**：不是，角色是我自己的。只是參考畫面怎麼安排。
+
 → Rejoin `common_station_cafe_jyc_parallel`
 
 #### Branch `com02j_simple_praise`
 
 **Protagonist**：看起來很厲害。線很乾淨。
 
-**Visual**：`JYC-SPR-CAFE.tiny_laugh`。
+**Semantic Visual Beat**：雨澄以一個小笑回應普通稱讚。
 
 **Jiang Yucheng**：還沒畫完。現在看起來乾淨，是因為我把亂的圖層關掉了。
 
-**Protagonist**：那我剛好在正確的時間看到。
+**Protagonist**：我剛剛還以為快畫完了。
 
-**Jiang Yucheng**：大概三十秒後就不是了。
+**Jiang Yucheng**：沒有，還早。
 
 **Action**：她重新打開參考圖層，畫面變得複雜；她沒有急著證明自己。
 
@@ -225,7 +259,7 @@ Choice design notes：
 
 ### `common_station_cafe_jyc_parallel`
 
-**Visual**：窗邊桌 wide composite；雨澄用 tablet，男主開 laptop，兩人不正面相對。
+**Semantic Visual Beat**：雨澄用 tablet，男主開 laptop，兩人在窗邊各自工作，不正面相對。
 
 **Narration**：接下來十幾分鐘，我們各自看著自己的螢幕。
 
@@ -239,25 +273,25 @@ Choice design notes：
 
 **Jiang Yucheng**：你的工作都可以這樣帶著走？
 
-**Protagonist**：大部分。好處是在哪裡都能做。
+**Protagonist**：大部分。我在科技公司工作，像剛剛那些就能在外面處理。
 
-**Jiang Yucheng**：壞處也是？
+**Jiang Yucheng**：那你回家是不是也在做？
 
-**Protagonist**：也會跟著回家。
+**Protagonist**：嗯，有時候回家還是會打開電腦。
 
-**Jiang Yucheng**：那確實不只一個好處。
+**Jiang Yucheng**：那好像也沒比較輕鬆。
 
-**Visual**：`JYC-SPR-CAFE.interested`；語氣是輕吐槽，不是分析男主逃避工作。
+**Semantic Visual Beat**：雨澄抬頭回問工作能否帶著走，語氣帶一點輕吐槽。
 
 ### `common_station_cafe_jyc_exit`
 
-**Protagonist**：我得進會議了。今天謝謝妳分桌子。
+**Protagonist**：我得去開會了。今天謝謝妳讓我坐這裡。
 
-**Jiang Yucheng**：這本來也不是我的桌子。
+**Jiang Yucheng**：不會，反正有空位。
 
-**Protagonist**：那謝謝妳沒有趕人。
+**Protagonist**：嗯。那妳慢慢畫，我先走了。
 
-**Jiang Yucheng**：店員也沒有。
+**Jiang Yucheng**：好。
 
 **Action**：男主背起 laptop bag。雨澄把 stylus 放回筆槽。
 

@@ -1,8 +1,8 @@
 import { memoryEventForNode } from './memories.js';
 import { normalizePlayerName } from './player-name.js';
 
-// These are the only additive stats introduced by the COM-02X preview.
-const OPENING_ADDITIVE_STATS = new Set(['T_XT', 'K_XT', 'xt_advice_tendency']);
+// Only these additive Opening preview stats may default in historical saves.
+const OPENING_ADDITIVE_STATS = new Set(['T_XT', 'K_XT', 'xt_advice_tendency', 'T_JYC', 'C_JYC']);
 
 // Snapshots store node-entry state: choices are applied only when the player chooses.
 export class ProgressStore {
@@ -33,7 +33,8 @@ export class ProgressStore {
       frontierMemoryEventId: null,
       frontierRank: -1,
       checkpoints: {},
-      edges: []
+      edges: [],
+      com02jSupplement: null
     };
   }
 
@@ -94,6 +95,68 @@ export class ProgressStore {
     return snapshot ? memoryEventForNode(this.memories, snapshot.nodeId) : null;
   }
 
+  progressRank(snapshot, event = this.eventForSnapshot(snapshot)) {
+    // COM03X keeps its accepted Memory/art binding; its continuation is later
+    // than the newly inserted rank180 scene even though that card's rank is160.
+    if (this.chapter.id === 'opening-demo-chapter-01' && this.isCom03x(snapshot?.nodeId)) return 200;
+    return event?.progressRank ?? -1;
+  }
+
+  isCom03x(nodeId) {
+    return nodeId?.startsWith('common_package_xu_') || nodeId?.startsWith('com03x_');
+  }
+
+  isCom02j(nodeId) {
+    return nodeId?.startsWith('common_station_cafe_jyc_') || nodeId?.startsWith('com02j_');
+  }
+
+  loadCom02jSupplement(saved) {
+    if (this.chapter.id !== 'opening-demo-chapter-01' || !this.chapter.nodes.common_station_cafe_jyc_enter) return;
+    const pending = saved.com02jSupplement;
+    if (pending && this.valid(pending.returnSnapshot) && this.valid(pending.entrySnapshot)
+      && this.isCom03x(pending.returnSnapshot.nodeId) && pending.entrySnapshot.nodeId === 'common_station_cafe_jyc_enter') {
+      this.data.com02jSupplement = { returnSnapshot: this.clone(pending.returnSnapshot), entrySnapshot: this.clone(pending.entrySnapshot), wasComplete: pending.wasComplete === true };
+      this.data.runComplete = false;
+      return;
+    }
+    const { cursor, frontier, restartActive, runComplete } = this.data;
+    // Earlier ordinary Memory cursors and explicit restarts never reopen a world.
+    if (restartActive || !cursor || !frontier || !this.isCom03x(cursor.nodeId)
+      || cursor.nodeId !== frontier.nodeId || frontier.flags.includes('preview:com02j-complete')) return;
+    if (runComplete && this.chapter.nodes[cursor.nodeId]?.type !== 'route') return;
+    const predecessor = this.data.checkpoints.common_convenience_xu_exit_08;
+    const entry = predecessor ? this.clone(predecessor) : {
+      nodeId: 'common_station_cafe_jyc_enter', stats: { ...this.chapter.initialState,
+        jyc_first_topic: frontier.stats.jyc_first_topic,
+        met_jiang_yucheng: frontier.stats.met_jiang_yucheng,
+        heard_station_cafe_from_jyc: frontier.stats.heard_station_cafe_from_jyc }, flags: [], returnNodes: []
+    };
+    entry.nodeId = 'common_station_cafe_jyc_enter';
+    this.data.com02jSupplement = { returnSnapshot: this.clone(frontier), entrySnapshot: entry, wasComplete: runComplete };
+    this.data.cursor = this.clone(entry);
+    this.data.runComplete = false;
+    this.flush();
+  }
+
+  completeCom02jSupplement(state) {
+    const pending = this.data.com02jSupplement;
+    if (!pending) return null;
+    const returned = this.clone(pending.returnSnapshot);
+    for (const key of ['F_JYC', 'T_JYC', 'C_JYC']) {
+      returned.stats[key] += state[key] - pending.entrySnapshot.stats[key];
+    }
+    const added = [...state.flags].filter(flag => flag.startsWith('jyc_second_topic:')
+      || ['player_knows_jyc_name', 'jyc_knows_player_name', 'jyc_creator_work_seen', 'jyc_initiated_second_contact', 'preview:com02j-complete'].includes(flag));
+    returned.flags = [...new Set([...returned.flags.filter(flag => !flag.startsWith('jyc_second_topic:')), ...added])];
+    this.data.frontier = this.clone(returned);
+    this.data.cursor = this.clone(returned);
+    this.data.checkpoints[returned.nodeId] = this.clone(returned);
+    this.data.com02jSupplement = null;
+    this.data.runComplete = pending.wasComplete;
+    this.flush();
+    return this.restore(returned);
+  }
+
   deepestSnapshot(checkpoints, preferred = null) {
     const candidates = Object.values(checkpoints || {})
       .map((snapshot) => ({ snapshot, preferred: false }));
@@ -105,8 +168,8 @@ export class ProgressStore {
       if (!event) continue;
       if (
         !best
-        || event.progressRank > best.event.progressRank
-        || (event.progressRank === best.event.progressRank && candidate.preferred && !best.preferred)
+        || this.progressRank(snapshot, event) > this.progressRank(best.snapshot, best.event)
+        || (this.progressRank(snapshot, event) === this.progressRank(best.snapshot, best.event) && candidate.preferred && !best.preferred)
       ) {
         best = { snapshot, event, preferred: candidate.preferred };
       }
@@ -141,15 +204,16 @@ export class ProgressStore {
       const frontierEvent = this.eventForSnapshot(this.data.frontier);
       if (frontierEvent) {
         this.data.frontierMemoryEventId = frontierEvent.id;
-        this.data.frontierRank = frontierEvent.progressRank;
+        this.data.frontierRank = this.progressRank(this.data.frontier, frontierEvent);
       } else {
         const deepest = this.deepestSnapshot(this.data.checkpoints, this.data.cursor);
         if (deepest) {
           this.data.frontier = this.clone(deepest.snapshot);
           this.data.frontierMemoryEventId = deepest.event.id;
-          this.data.frontierRank = deepest.event.progressRank;
+          this.data.frontierRank = this.progressRank(deepest.snapshot, deepest.event);
         }
       }
+      this.loadCom02jSupplement(saved);
       return;
     }
 
@@ -163,10 +227,11 @@ export class ProgressStore {
     if (deepest) {
       this.data.frontier = this.clone(deepest.snapshot);
       this.data.frontierMemoryEventId = deepest.event.id;
-      this.data.frontierRank = deepest.event.progressRank;
+      this.data.frontierRank = this.progressRank(deepest.snapshot, deepest.event);
     } else if (this.data.cursor) {
       this.data.frontier = this.clone(this.data.cursor);
     }
+    this.loadCom02jSupplement(legacy);
     this.flush();
   }
 
@@ -177,15 +242,16 @@ export class ProgressStore {
     this.data.cursor = this.clone(snapshot);
     this.data.checkpoints[nodeId] = this.clone(snapshot);
     const event = memoryEventForNode(this.memories, nodeId);
-    const advancesFrontier = event && event.progressRank > this.data.frontierRank;
-    if (event && (
+    const rank = this.progressRank(snapshot, event);
+    const advancesFrontier = event && rank > this.data.frontierRank;
+    if (!this.data.com02jSupplement && event && (
       !this.data.frontier
       || advancesFrontier
       || (!this.replaying && event.id === this.data.frontierMemoryEventId)
     )) {
       this.data.frontier = this.clone(snapshot);
       this.data.frontierMemoryEventId = event.id;
-      this.data.frontierRank = event.progressRank;
+      this.data.frontierRank = rank;
       if (this.replaying && advancesFrontier) {
         this.replaying = false;
         this.data.runComplete = false;

@@ -1,0 +1,108 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "com02j-m1-preview-20261002",
+  "task_id": "NQA-COM02J-003",
+  "scene_id": "COM-02J",
+  "task_type": "narrative_review",
+  "status": "FAIL",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.5.0",
+    "pass": "narrative_review"
+  },
+  "source_ref": "da7c043c65f78b6618952d9c77db29374a3f50e6",
+  "packet_sha256": "59921fc3b785df6dbe12460006e86b6755922d3ba296f45536d7c05debfb3f67",
+  "input_digest_sha256": "4575d1be858c81fe20f833958969f92744bab9eefcf1dc9b1543b2e9c9d41b19",
+  "input_versions": [
+    {
+      "id": "content/production/narrative/opening-ch1/COM-01J.json",
+      "version": "abf683d6523b962d41f795cedc8f8c830921c58d739792774d3f26c569f51ddc",
+      "location": "content/production/narrative/opening-ch1/COM-01J.json"
+    },
+    {
+      "id": "docs/narrative/scenes/vertical-slice/COM-02J.md#L1-L333",
+      "version": "ad1668759c511ec65a9ceb82d6addc94cb407b893f61504fca8dbdf8da08bf71",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02J.md"
+    },
+    {
+      "id": "docs/narrative/scenes/vertical-slice/COM-02J.md#L382-L429",
+      "version": "64d29877dc38e622754d69787f4252b6e7c9062d0ba69e8e7ae5ab0c79dd38a4",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02J.md"
+    },
+    {
+      "id": "content/production/narrative/opening-ch1/COM-02J.json",
+      "version": "70ed29091bdf9267287e06aa3d56abc4d1df83e7ef3f21aff0eaf64d004acf7e",
+      "location": "content/production/narrative/opening-ch1/COM-02J.json"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "narrative-contract:COM-02J",
+      "version": "70ed29091bdf9267287e06aa3d56abc4d1df83e7ef3f21aff0eaf64d004acf7e",
+      "location": "content/production/narrative/opening-ch1/COM-02J.json"
+    },
+    {
+      "id": "locked-scene:COM-02J",
+      "version": "24886d44251781e1088e179b883a9f15b46e2d6a60f9d65fe83fe8dbcbf9c3b0",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02J.md"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "NQA-SOURCE-ACQUISITION",
+      "code": "NQA-SOURCE-ACQUISITION",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-FUNCTION-AND-PAYOFF",
+      "code": "NQA-FUNCTION-AND-PAYOFF",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-ENTRY-AND-EXIT",
+      "code": "NQA-ENTRY-AND-EXIT",
+      "result": "FAIL"
+    },
+    {
+      "name": "NQA-VOICE-AND-PACING",
+      "code": "NQA-VOICE-AND-PACING",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-CHOICE-AND-REJOIN",
+      "code": "NQA-CHOICE-AND-REJOIN",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-STATE-MAPPING",
+      "code": "NQA-STATE-MAPPING",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-MUST-NOT",
+      "code": "NQA-MUST-NOT",
+      "result": "FAIL"
+    },
+    {
+      "name": "NQA-SEMANTIC-VISUAL-BEATS",
+      "code": "NQA-SEMANTIC-VISUAL-BEATS",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-DIALOGUE-NATURALISM",
+      "code": "NQA-DIALOGUE-NATURALISM",
+      "result": "NEEDS_REVIEW"
+    }
+  ],
+  "known_issues": [
+    "Technology work is required exit knowledge but not disclosed in dialogue. Affected: docs/narrative/scenes/vertical-slice/COM-02J.md:419, content/production/narrative/opening-ch1/COM-02J.json#/exit_state/knowledge/0/knows/1",
+    "Repeated polished dry rejoinders warrant a continuous-dialogue review. Affected: docs/narrative/scenes/vertical-slice/COM-02J.md:223, docs/narrative/scenes/vertical-slice/COM-02J.md:247, docs/narrative/scenes/vertical-slice/COM-02J.md:261",
+    "Full packet/input snapshot and Handoff are ignored execution artifacts; verified Handoff SHA256 02da07fa8efcf6c2f83806921d64dae1f002b84bce0dc252fe9437d02b523856. No automatic current-PASS claim from legacy schema2-unsupported verifier."
+  ],
+  "human_gate_required": "none",
+  "invalidates": [
+    "narrative-qa:COM-02J"
+  ]
+}

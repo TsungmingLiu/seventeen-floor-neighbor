@@ -743,6 +743,20 @@ export class GameEngine {
       return;
     }
     if (node.type === 'branch') {
+      if (this.chapter.id === 'opening-demo-chapter-01' && this.nodeId === 'common_station_cafe_jyc_complete') {
+        const returned = this.progress.completeCom02jSupplement(this.state);
+        if (returned) {
+          Object.assign(this, returned);
+          this.previousNode = null;
+          this.render();
+          return;
+        }
+        if (this.progress.replaying && !this.progress.data.restartActive) {
+          this.refreshTitle();
+          this.showOnly(this.els.title);
+          return;
+        }
+      }
       // A historical Opening Memory stops at its original review boundary.
       // An explicit fresh run continues through this stable terminal alias.
       if (this.chapter.id === 'opening-demo-chapter-01' && this.nodeId === 'opening_demo_complete'
@@ -894,6 +908,11 @@ export class GameEngine {
 
   startFromTitle() {
     const { frontier, cursor, restartActive, runComplete } = this.progress.data;
+    const supplement = this.progress.data.com02jSupplement;
+    if (supplement) {
+      const local = this.progress.isCom02j(cursor?.nodeId) ? cursor : supplement.entrySnapshot;
+      return this.resumeGame(local);
+    }
     if (runComplete && !restartActive) {
       return this.startGame({ freshRun: true });
     }
@@ -904,14 +923,15 @@ export class GameEngine {
   refreshTitle() {
     const { frontier, cursor, restartActive, runComplete } = this.progress.data;
     const finished = runComplete && !restartActive;
-    const snapshot = restartActive || (finished && this.chapter.nodes[cursor?.nodeId]?.type === 'route')
+    const supplement = this.progress.data.com02jSupplement;
+    const snapshot = supplement ? (this.progress.isCom02j(cursor?.nodeId) ? cursor : supplement.entrySnapshot) : restartActive || (finished && this.chapter.nodes[cursor?.nodeId]?.type === 'route')
       ? cursor : frontier;
     const node = this.chapter.nodes[snapshot?.nodeId || this.chapter.startNode];
-    const activeEvent = restartActive
+    const activeEvent = restartActive || supplement
       ? memoryEventForNode(this.memoryLibrary, snapshot?.nodeId)
       : memoryEventById(this.memoryLibrary, this.progress.data.frontierMemoryEventId);
     const initialTitle = !frontier && !cursor && this.chapter.initialTitleArt;
-    let visual = snapshot && !restartActive ? titleBackdropVisual(this.memoryLibrary, this.progress, this.assets) : null;
+    let visual = snapshot && !restartActive && !supplement ? titleBackdropVisual(this.memoryLibrary, this.progress, this.assets) : null;
     let label = activeEvent?.title
       || node?.mapLabel
       || node?.moment

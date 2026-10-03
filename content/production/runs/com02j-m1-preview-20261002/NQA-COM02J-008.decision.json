@@ -1,0 +1,104 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "com02j-m1-preview-20261002",
+  "task_id": "NQA-COM02J-008",
+  "scene_id": "COM-02J",
+  "task_type": "narrative_review",
+  "status": "PASS",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.5.0",
+    "pass": "narrative_review"
+  },
+  "source_ref": "88ccb3267a0f971d7dfda0dba27a93ab108b734a",
+  "packet_sha256": "4a9bda5514b1f785d1d7662f5176f164b555b6cfc2d30077fe3a5d2ff76d1f70",
+  "input_digest_sha256": "908b5c842b85003860a1054747e14fbe5551349afb9338126bdaa161eefe1582",
+  "input_versions": [
+    {
+      "id": "content/production/narrative/opening-ch1/COM-01J.json",
+      "version": "abf683d6523b962d41f795cedc8f8c830921c58d739792774d3f26c569f51ddc",
+      "location": "content/production/narrative/opening-ch1/COM-01J.json"
+    },
+    {
+      "id": "docs/narrative/scenes/vertical-slice/COM-02J.md#L1-L360",
+      "version": "fc219cb9ebdde97349287d663552e118f645552f68614035422bbbcc1b031100",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02J.md"
+    },
+    {
+      "id": "docs/narrative/scenes/vertical-slice/COM-02J.md#L409-L456",
+      "version": "64d29877dc38e622754d69787f4252b6e7c9062d0ba69e8e7ae5ab0c79dd38a4",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02J.md"
+    },
+    {
+      "id": "content/production/narrative/opening-ch1/COM-02J.json",
+      "version": "70ed29091bdf9267287e06aa3d56abc4d1df83e7ef3f21aff0eaf64d004acf7e",
+      "location": "content/production/narrative/opening-ch1/COM-02J.json"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "narrative-contract:COM-02J",
+      "version": "70ed29091bdf9267287e06aa3d56abc4d1df83e7ef3f21aff0eaf64d004acf7e",
+      "location": "content/production/narrative/opening-ch1/COM-02J.json"
+    },
+    {
+      "id": "locked-scene:COM-02J",
+      "version": "a217f826a9e0b0379a763518b63d1a2d985f7930a0ec1691f01327662228ffb1",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02J.md"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "NQA-SOURCE-ACQUISITION",
+      "code": "NQA-SOURCE-ACQUISITION",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-FUNCTION-AND-PAYOFF",
+      "code": "NQA-FUNCTION-AND-PAYOFF",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-ENTRY-AND-EXIT",
+      "code": "NQA-ENTRY-AND-EXIT",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-VOICE-AND-PACING",
+      "code": "NQA-VOICE-AND-PACING",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-CHOICE-AND-REJOIN",
+      "code": "NQA-CHOICE-AND-REJOIN",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-STATE-MAPPING",
+      "code": "NQA-STATE-MAPPING",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-MUST-NOT",
+      "code": "NQA-MUST-NOT",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-SEMANTIC-VISUAL-BEATS",
+      "code": "NQA-SEMANTIC-VISUAL-BEATS",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-DIALOGUE-NATURALISM",
+      "code": "NQA-DIALOGUE-NATURALISM",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "Full packet/input snapshot and Handoff are ignored execution artifacts; verified Handoff SHA256 60c358e5915bcb5d02c036e3c8d30f38aa888243228be7eb6c925838e7bbd875. No automatic current-PASS claim from legacy schema2-unsupported verifier."
+  ],
+  "human_gate_required": "none",
+  "invalidates": []
+}
