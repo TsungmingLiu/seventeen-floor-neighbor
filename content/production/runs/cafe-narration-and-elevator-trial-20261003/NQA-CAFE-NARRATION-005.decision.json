@@ -1,0 +1,110 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "cafe-narration-and-elevator-trial-20261003",
+  "task_id": "NQA-CAFE-NARRATION-005",
+  "scene_id": "COM-02J",
+  "task_type": "narrative_review",
+  "status": "PASS",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.5.1",
+    "pass": "narrative_review"
+  },
+  "source_ref": "a2942035435cb675841d4fd0650a3e859b94f8e4",
+  "packet_sha256": "be806871c38e05b603f2471536c52381b08be7c96cf4c878425d019ef9f4406c",
+  "input_digest_sha256": "c3dbd137aaa3fef46ae48207c05ccf2350645dc73213772edf7121f25e4da9f8",
+  "input_versions": [
+    {
+      "id": "docs/narrative/CONTENT_PRODUCTION_SPEC.md",
+      "location": "docs/narrative/CONTENT_PRODUCTION_SPEC.md",
+      "version": "d6c3bfa96812a3fb067aab777681802939ef948ae27ee69cbe61a405e5c5fa6a"
+    },
+    {
+      "id": "content/production/narrative/opening-ch1/COM-02J.json",
+      "location": "content/production/narrative/opening-ch1/COM-02J.json",
+      "version": "70ed29091bdf9267287e06aa3d56abc4d1df83e7ef3f21aff0eaf64d004acf7e"
+    },
+    {
+      "id": "docs/narrative/scenes/vertical-slice/COM-02J.md",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02J.md",
+      "version": "8db1871c13cfc6b9f44fe434f93738cbd9c12f08eb21cacf602df2b7c3533655"
+    },
+    {
+      "id": "old_locked_scene:COM-02J",
+      "location": "6737c78a38d59c91a54da203acd7a8b3c028d3d9:docs/narrative/scenes/vertical-slice/COM-02J.md",
+      "version": "a217f826a9e0b0379a763518b63d1a2d985f7930a0ec1691f01327662228ffb1"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "approved_locked_scene:COM-02J",
+      "version": "8db1871c13cfc6b9f44fe434f93738cbd9c12f08eb21cacf602df2b7c3533655",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02J.md"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "exact_manual_source_acquisition",
+      "code": "NQA-EXACT-SOURCES",
+      "result": "PASS"
+    },
+    {
+      "name": "authorized_surgical_scope",
+      "code": "NQA-SURGICAL-SCOPE",
+      "result": "PASS"
+    },
+    {
+      "name": "scene_function_entry_exit_payoffs",
+      "code": "NQA-FUNCTION-AND-PAYOFFS",
+      "result": "PASS"
+    },
+    {
+      "name": "voice_knowledge_relationship_pace",
+      "code": "NQA-VOICE-AND-PACING",
+      "result": "PASS"
+    },
+    {
+      "name": "dialogue_conversational_naturalism",
+      "code": "NQA-DIALOGUE-NATURALISM",
+      "result": "PASS"
+    },
+    {
+      "name": "first_person_chinese_narration",
+      "code": "NQA-POV-AND-CHINESE",
+      "result": "PASS"
+    },
+    {
+      "name": "choices_rejoin_state_mapping",
+      "code": "NQA-CHOICE-REJOIN-STATE",
+      "result": "PASS"
+    },
+    {
+      "name": "must_not_forbidden_shortcut_reveal",
+      "code": "NQA-BOUNDARIES",
+      "result": "PASS"
+    },
+    {
+      "name": "semantic_visual_beats_and_prop_identity",
+      "code": "NQA-SEMANTIC-VISUAL-BEATS",
+      "result": "PASS"
+    },
+    {
+      "name": "no_visual_impact",
+      "code": "NQA-NO-VISUAL-IMPACT",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    {
+      "decision": "no_visual_impact",
+      "scene_id": "COM-02J",
+      "old_scene_sha256": "a217f826a9e0b0379a763518b63d1a2d985f7930a0ec1691f01327662228ffb1",
+      "new_scene_sha256": "8db1871c13cfc6b9f44fe434f93738cbd9c12f08eb21cacf602df2b7c3533655"
+    },
+    "Fresh independent review confirms six narration substitutions only; contract/dialogue/choices/state/semantic visual beats and digital pen identity preserved. No Visual QA or final art acceptance."
+  ],
+  "human_gate_required": "none",
+  "invalidates": []
+}
