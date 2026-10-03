@@ -1,0 +1,114 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "resume_checkpoint",
+  "run_id": "opening-feedback-20261003",
+  "task_id": "INT-OPENING-NAMES-001",
+  "scene_id": "Opening",
+  "task_type": "integrate",
+  "status": "PASS",
+  "harness": {
+    "id": "integrator",
+    "version": "1.4.0",
+    "pass": null
+  },
+  "source_ref": "a541d545bdc40c3f87be2fcca945c1ff3b9c471b",
+  "packet_sha256": "03752c0ed9f6716f900b5ec5125c0db5f961f893e01447b9ad432538e7c2b417",
+  "input_digest_sha256": "e5ba7dbae73847e0b7983287f4f27f4cb29569b421ec0255f9e2f05b53195a85",
+  "input_versions": [
+    {
+      "id": "content/production/narrative/opening-ch1/COM-00.json",
+      "location": "content/production/narrative/opening-ch1/COM-00.json",
+      "version": "d9c05b7abb496519ea72adeff89009dbedc60fad16f1780b3680a53ac033acb0"
+    },
+    {
+      "id": "content/production/narrative/opening-ch1/COM-01J.json",
+      "location": "content/production/narrative/opening-ch1/COM-01J.json",
+      "version": "abf683d6523b962d41f795cedc8f8c830921c58d739792774d3f26c569f51ddc"
+    },
+    {
+      "id": "content/production/narrative/opening-ch1/COM-02J.json",
+      "location": "content/production/narrative/opening-ch1/COM-02J.json",
+      "version": "70ed29091bdf9267287e06aa3d56abc4d1df83e7ef3f21aff0eaf64d004acf7e"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "src/engine.js",
+      "version": "3220f6d59bd614bc1832d9bb5e554a3be68c74f5610c57e00348aabb4fbf4d05",
+      "location": "src/engine.js"
+    },
+    {
+      "id": "content/routes/opening-demo/chapter-01.json",
+      "version": "fd1a6259ea5fa8e3f3ac3d5170df5c2b2628448946e21f3e2bf631260c50ae0d",
+      "location": "content/routes/opening-demo/chapter-01.json"
+    },
+    {
+      "id": "tests/engine-progress.test.mjs",
+      "version": "defd2c1c0ce29d7cfeefab74d25f0855da9d60655f55b739f1b0653726e76eef",
+      "location": "tests/engine-progress.test.mjs"
+    },
+    {
+      "id": "tests/browser-acceptance.spec.mjs",
+      "version": "8f5f85a8d56d6e042124a07abd1fb063f64a1461252ab8bd4e6f80bb0eab2beb",
+      "location": "tests/browser-acceptance.spec.mjs"
+    },
+    {
+      "id": "tests/com02j-preview.test.mjs",
+      "version": "fde463b63e4eb63e125b21c5c3316d76fc5f2f9920879f6c217e76fd12d2cf23",
+      "location": "tests/com02j-preview.test.mjs"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "focused-final-corrected (63/63)",
+      "code": "focused-final-corrected (63/63)",
+      "result": "PASS"
+    },
+    {
+      "name": "build",
+      "code": "build",
+      "result": "PASS"
+    },
+    {
+      "name": "validate",
+      "code": "validate",
+      "result": "PASS"
+    },
+    {
+      "name": "diff-check",
+      "code": "diff-check",
+      "result": "PASS"
+    },
+    {
+      "name": "source-prose-state-ID-visual-preservation",
+      "code": "source-prose-state-ID-visual-preservation",
+      "result": "PASS"
+    },
+    {
+      "name": "preview-smoke-42873",
+      "code": "preview-smoke-42873",
+      "result": "PASS"
+    },
+    {
+      "name": "browser-chromium",
+      "code": "browser-chromium",
+      "result": "PASS"
+    },
+    {
+      "name": "browser-jyc-reveal-selected",
+      "code": "browser-jyc-reveal-selected",
+      "result": "PASS"
+    },
+    {
+      "name": "full-npm-test",
+      "code": "full-npm-test",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "Full packet/input snapshot and Handoff are ignored execution artifacts; verified Handoff SHA256 be560c0f29841e1ec81021f9c998a9df3cef15b4473a776ca3d90eb9c9f6148f. No automatic current-PASS claim from legacy schema2-unsupported verifier."
+  ],
+  "human_gate_required": "none",
+  "invalidates": []
+}

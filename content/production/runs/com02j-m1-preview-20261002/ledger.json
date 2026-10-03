@@ -83,6 +83,18 @@
       "decision_receipt": "content/production/runs/com02j-m1-preview-20261002/INT-COM02J-PREVIEW-009.decision.json",
       "human_gate": "narrative_preview_review",
       "reason": "Exact packet and fresh worker Handoff verified at execution; output identities pinned in compact receipt."
+    },
+    {
+      "task_id": "HUMAN-COM02J-STORY-011",
+      "task_type": "human_decision",
+      "scene_id": "COM-02J",
+      "depends_on": [
+        "INT-COM02J-PREVIEW-009"
+      ],
+      "status": "PASS",
+      "decision_receipt": "content/production/runs/com02j-m1-preview-20261002/HUMAN-COM02J-STORY-011.decision.json",
+      "human_gate": "narrative_preview_review",
+      "reason": "Explicit Owner approval of remaining reviewed story; scoped issues preserved."
     }
   ],
   "invalidation_events": [
@@ -105,7 +117,7 @@
     "contract_sha256": "70ed29091bdf9267287e06aa3d56abc4d1df83e7ef3f21aff0eaf64d004acf7e",
     "public_url": "https://070823e2.seventeen-floor-neighbor.pages.dev/",
     "ci_status": "PASS",
-    "human_story_review": "PENDING",
+    "human_story_review": "PASS: HUMAN-COM02J-STORY-011; two listed Opening UI/COM02X art feedback items require follow-up, not final visual acceptance",
     "final_art": "PENDING",
     "final_visual_gate": "Expected FAIL: unchanged validator rejects allowPreviewArt and preview-only asset. No final visual acceptance.",
     "build": "PASS",
@@ -136,5 +148,8 @@
     "ci_artifact_sha256": "f4588b79b44863f9849a5d927cf39f49646e5b2cf1ea77d9b97c468bf5c707ff",
     "verified_at_utc": "2026-10-02T23:47:11Z",
     "proof_scope": "CI/deployment bind immutable code commit and PR merge ref. This follow-up changes only compact checkpoint and progress documentation; all12 integration output identities remain exact. No new pixel QA or Human approval."
-  }
+  },
+  "human_decisions": [
+    "content/production/runs/com02j-m1-preview-20261002/HUMAN-COM02J-STORY-011.decision.json"
+  ]
 }
