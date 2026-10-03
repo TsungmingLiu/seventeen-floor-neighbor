@@ -1,0 +1,88 @@
+{
+  "receiptVersion": 1,
+  "gate": "character-wardrobe-reference-replacement",
+  "date": "2026-10-03",
+  "characterId": "jiang_yucheng",
+  "canonicalProfile": "docs/art/characters/jiang-yucheng.md",
+  "decision": "Owner explicitly requested updating Jiang Yucheng Wardrobe A/B with supplied jyc-5.png and jyc-6.png. Preserve stable source IDs and wardrobe keys. This supersedes only the two current reference sheets, not historical CG render bindings or Human/QA outcomes.",
+  "sourceCatalog": "content/assets/source-catalog.json",
+  "referencePackRegistry": "content/assets/character-reference-packs.json",
+  "acceptanceScope": "wardrobe_reference_replacement_only",
+  "runtimeMasterAcceptance": "NOT_ACCEPTED",
+  "previousReceipt": {
+    "path": "content/assets/ingest-receipts/character-reference-packs-20260930.json",
+    "sha256": "c9b494905c42a258c3066ca1154755f7bfc41bf166aeece642b16ddd1a0b9a06"
+  },
+  "references": [
+    {
+      "sourceId": "ref.jiang_yucheng.wardrobe.a",
+      "uploadedFilename": "jyc-5.png",
+      "name": "jyc-ref-05-wardrobe-a.png",
+      "mimeType": "image/png",
+      "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-05-wardrobe-a.png",
+      "bytes": 2095723,
+      "width": 1491,
+      "height": 1055,
+      "sha256": "3a9c5e3bc05de31a9080cb12f5962fbd3c5121cb26b5caac954f70a883d5d2b3",
+      "verifiedDecode": true,
+      "status": "active-production",
+      "characterId": "jiang_yucheng",
+      "role": "wardrobe",
+      "provenance": "Owner supplied jyc-5.png on 2026-10-03; copied byte-for-byte; supersession recorded in jiang-yucheng-wardrobe-replacement-20261003.json"
+    },
+    {
+      "sourceId": "ref.jiang_yucheng.wardrobe.b",
+      "uploadedFilename": "jyc-6.png",
+      "name": "jyc-ref-06-wardrobe-b.png",
+      "mimeType": "image/png",
+      "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-06-wardrobe-b.png",
+      "bytes": 2048628,
+      "width": 1491,
+      "height": 1055,
+      "sha256": "9341e1b194676f4a526ac7f1cd6a46b978b756910e88ce632f9aa5f8f0d089b2",
+      "verifiedDecode": true,
+      "status": "active-production",
+      "characterId": "jiang_yucheng",
+      "role": "wardrobe",
+      "provenance": "Owner supplied jyc-6.png on 2026-10-03; copied byte-for-byte; supersession recorded in jiang-yucheng-wardrobe-replacement-20261003.json"
+    }
+  ],
+  "supersededReferences": [
+    {
+      "sourceId": "ref.jiang_yucheng.wardrobe.a",
+      "previous": {
+        "name": "jyc-ref-05-wardrobe-a.png",
+        "mimeType": "image/png",
+        "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-05-wardrobe-a.png",
+        "bytes": 2223889,
+        "width": 1491,
+        "height": 1055,
+        "sha256": "87abb71fa21c2cf939da5fc16741d26d67add479a5185d2140220c449340e0af",
+        "verifiedDecode": true,
+        "status": "active-production",
+        "characterId": "jiang_yucheng",
+        "role": "wardrobe",
+        "provenance": "Previously approved original PNG sheet copied byte-for-byte"
+      },
+      "replacementSha256": "3a9c5e3bc05de31a9080cb12f5962fbd3c5121cb26b5caac954f70a883d5d2b3"
+    },
+    {
+      "sourceId": "ref.jiang_yucheng.wardrobe.b",
+      "previous": {
+        "name": "jyc-ref-06-wardrobe-b.png",
+        "mimeType": "image/png",
+        "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-06-wardrobe-b.png",
+        "bytes": 2167237,
+        "width": 1491,
+        "height": 1055,
+        "sha256": "f4459c2cce637a393c5a181827113e9d9c06656ef5b7a7b2d28d1a2ded7e1b99",
+        "verifiedDecode": true,
+        "status": "active-production",
+        "characterId": "jiang_yucheng",
+        "role": "wardrobe",
+        "provenance": "Owner supplied jyc-wardrobe-6.png on 2026-09-30; copied byte-for-byte"
+      },
+      "replacementSha256": "9341e1b194676f4a526ac7f1cd6a46b978b756910e88ce632f9aa5f8f0d089b2"
+    }
+  ]
+}

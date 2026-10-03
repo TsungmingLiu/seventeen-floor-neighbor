@@ -33,7 +33,6 @@ Documents use exactly these lifecycle labels：
 - Active harnesses must not reference `.ai/archive/`, `.ai/experiments/`, or `docs/archive/`.
 - A provenance receipt may retain a pointer to archived material that actually produced an asset; that pointer is evidence, not executable guidance.
 - A research/migration task may read archive/experiment material only when its objective explicitly requires it. Its output still cannot silently change canon.
-- `docs/archive/proposals/urban-dating-sim-setting-proposal.md` is retired ideation. Only a bounded research/migration task may inspect it; it is not a production Task Packet source.
 
 ## 4. Runtime fixtures
 

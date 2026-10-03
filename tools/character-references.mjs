@@ -24,6 +24,91 @@ export function validateCharacterReferencePacks(sourceCatalog = catalog, registr
   return registry;
 }
 
+/** A new pack receipt must attest exactly the six registered production sources. */
+export function validateCharacterReferencePackReceipt(receipt, characterId, sourceCatalog = catalog, registry = packs) {
+  const pack = registry.characters[characterId];
+  insist(pack && receipt.receiptVersion === 1 && receipt.gate === 'complete-character-reference-pack'
+    && receipt.characterId === characterId && receipt.canonicalProfile === pack.canonicalProfile
+    && receipt.sourceCatalog === 'content/assets/source-catalog.json'
+    && receipt.referencePackRegistry === 'content/assets/character-reference-packs.json'
+    && receipt.acceptanceScope === 'character_reference_pack_only'
+    && receipt.runtimeMasterAcceptance === 'NOT_ACCEPTED', `${characterId}: invalid reference pack receipt identity/scope`);
+  const expected = new Set(Object.values(pack.sheets));
+  insist(Array.isArray(receipt.references) && receipt.references.length === 6, `${characterId}: receipt requires six sheets`);
+  for (const item of receipt.references) {
+    insist(expected.delete(item.sourceId), `${characterId}: duplicate or unrelated receipt source: ${item.sourceId}`);
+    insist(typeof item.uploadedFilename === 'string' && item.uploadedFilename.trim(), `${characterId}: missing uploaded filename`);
+    const source = sourceCatalog.files[item.sourceId];
+    for (const key of ['name', 'sourcePath', 'sha256', 'bytes', 'width', 'height', 'mimeType', 'verifiedDecode', 'status', 'characterId', 'role', 'provenance']) {
+      insist(source?.[key] === item[key], `${characterId}: reference receipt ${key} mismatch: ${item.sourceId}`);
+    }
+    insist(source.verifiedDecode === true, `${characterId}: reference receipt requires verified decode`);
+  }
+  insist(expected.size === 0, `${characterId}: unreceipted reference sheet`);
+  if (pack.heightLabelPolicy || receipt.heightLabelOverride) {
+    const override = receipt.heightLabelOverride;
+    insist(pack.heightLabelPolicy === 'canonical_profile_prevails'
+      && override?.policy === pack.heightLabelPolicy
+      && override.canonicalHeightCm === pack.canonicalHeightCm
+      && override.embeddedHeightLabelCm === pack.embeddedHeightLabelCm
+      && override.scope === 'embedded_height_labels_only'
+      && typeof override.humanDecision === 'string' && override.humanDecision.trim()
+      && /^[a-f0-9]{64}$/.test(receipt.canonicalProfileSha256)
+      && Array.isArray(override.sourceIds) && override.sourceIds.length === 6
+      && new Set(override.sourceIds).size === 6
+      && override.sourceIds.every(id => Object.values(pack.sheets).includes(id)),
+    `${characterId}: invalid reference receipt height-label override`);
+  }
+  validateCharacterReferencePacks(sourceCatalog, registry);
+  return receipt.references.map(item => item.sourceId);
+}
+
+/** Verify the two current wardrobe replacements against immutable original evidence. */
+export function validateCharacterWardrobeReplacementReceipt(receipt, previousReceipt, previousReceiptSha256, sourceCatalog = catalog, registry = packs) {
+  const context = 'Jiang Yucheng wardrobe replacement receipt';
+  const pack = registry.characters.jiang_yucheng;
+  insist(pack && receipt.receiptVersion === 1 && receipt.gate === 'character-wardrobe-reference-replacement'
+    && receipt.characterId === 'jiang_yucheng' && receipt.canonicalProfile === 'docs/art/characters/jiang-yucheng.md'
+    && receipt.sourceCatalog === 'content/assets/source-catalog.json'
+    && receipt.referencePackRegistry === 'content/assets/character-reference-packs.json'
+    && receipt.acceptanceScope === 'wardrobe_reference_replacement_only'
+    && receipt.runtimeMasterAcceptance === 'NOT_ACCEPTED', `${context}: invalid identity/scope`);
+  insist(previousReceipt.receiptVersion === 1 && previousReceipt.gate === 'complete-character-reference-packs'
+    && previousReceipt.sourceCatalog === receipt.sourceCatalog
+    && receipt.previousReceipt?.path === 'content/assets/ingest-receipts/character-reference-packs-20260930.json'
+    && /^[a-f0-9]{64}$/.test(previousReceiptSha256)
+    && receipt.previousReceipt.sha256 === previousReceiptSha256, `${context}: invalid previous receipt binding`);
+  const expected = new Set([pack.sheets['wardrobe.a'], pack.sheets['wardrobe.b']]);
+  insist(expected.size === 2 && Array.isArray(receipt.references) && receipt.references.length === 2
+    && Array.isArray(receipt.supersededReferences) && receipt.supersededReferences.length === 2,
+  `${context}: requires exactly two replacements and supersessions`);
+  const previousSources = new Map();
+  for (const item of receipt.references) {
+    insist(expected.delete(item.sourceId), `${context}: duplicate or unrelated source ${item.sourceId}`);
+    insist(typeof item.uploadedFilename === 'string' && item.uploadedFilename.trim(), `${context}: missing uploaded filename`);
+    const supersessions = receipt.supersededReferences.filter(record => record.sourceId === item.sourceId);
+    const originals = previousReceipt.references.filter(record => record.sourceId === item.sourceId);
+    insist(supersessions.length === 1 && originals.length === 1, `${context}: missing or duplicate supersession`);
+    const previous = supersessions[0].previous;
+    const original = Object.fromEntries(Object.entries(originals[0]).filter(([key]) => !['sourceId', 'uploadedFilename'].includes(key)));
+    insist(previous && Object.keys(previous).length === Object.keys(original).length
+      && Object.entries(original).every(([key, value]) => previous[key] === value), `${context}: altered previous evidence`);
+    const source = sourceCatalog.files[item.sourceId];
+    const current = Object.fromEntries(Object.entries(item).filter(([key]) => !['sourceId', 'uploadedFilename'].includes(key)));
+    insist(source && Object.keys(source).length === Object.keys(current).length
+      && Object.entries(source).every(([key, value]) => current[key] === value), `${context}: current catalog mismatch`);
+    insist(source.characterId === 'jiang_yucheng' && source.role === 'wardrobe' && source.mimeType === 'image/png'
+      && source.status === 'active-production' && source.verifiedDecode === true
+      && ['name', 'sourcePath', 'characterId', 'role', 'mimeType', 'status'].every(key => source[key] === previous[key])
+      && /^[a-f0-9]{64}$/.test(source.sha256) && source.sha256 !== previous.sha256
+      && supersessions[0].replacementSha256 === source.sha256, `${context}: invalid supersession chain`);
+    previousSources.set(item.sourceId, previous);
+  }
+  insist(expected.size === 0, `${context}: unreceipted wardrobe`);
+  validateCharacterReferencePacks(sourceCatalog, registry);
+  return previousSources;
+}
+
 /** Explicit, bounded selection; never attach all sheets or infer acting from scene prose. */
 export function selectCharacterReferences({ characterId, wardrobeKey, expression = false, body = false, production = true }, sourceCatalog = catalog, registry = packs) {
   const pack = registry.characters[characterId];

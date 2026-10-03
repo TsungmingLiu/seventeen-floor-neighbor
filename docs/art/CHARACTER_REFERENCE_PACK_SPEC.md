@@ -8,9 +8,9 @@
 
 > 狀態：**Canonical character-image reference contract**
 >
-> 版本：1.3
+> 版本：1.5
 >
-> 更新：2026-10-01
+> 更新：2026-10-03
 >
 > 目的：定義所有可進 production 的戀愛角色，在大量生成 CG 前必須具備的 6-sheet reference pack；同時記錄目前已入庫、可供 generation 綁定的參考圖與缺失項目。
 >
@@ -21,7 +21,7 @@
 
 # 1. Production status
 
-2026-09-23 QA review 記錄兩套角色 reference pack 通過設計驗收。該歷史 QA 狀態不表示目前所有圖檔均可取得。當前可綁定檔案與缺失項目以第 2–4 節的 repository status 為準。
+2026-09-23 QA review 記錄兩套角色 reference pack 通過設計驗收。該歷史 QA 狀態不表示目前所有圖檔均可取得。當前可綁定檔案與缺失項目以第 2–4 節與第 4.2–4.3 節的 repository status 為準。
 
 非阻擋性注意：
 
@@ -39,7 +39,9 @@ Both six-sheet packs are now available as original PNG files under `assets-src/r
 
 Exact filenames, roles, character IDs, MIME, dimensions, byte counts and SHA-256 are recorded in `content/assets/source-catalog.json` and `content/assets/ingest-receipts/character-reference-packs-20260930.json`. The original Gate 3 receipt remains historical evidence; its JPEG fingerprint is verified through the explicit supersession record, not presented as the new PNG's fingerprint.
 
-`content/assets/character-reference-packs.json` is the machine-readable six-sheet and wardrobe-look index. Character metadata lists all six sources. Reference images are production inputs and are not copied into the playable runtime asset bundle.
+江雨澄 Wardrobe A/B 已依 Owner 於 2026-10-03 提供的 `jyc-5.png`、`jyc-6.png` 原樣更新。兩張均為 `image/png`、1491 × 1055；current fingerprints 與原圖 supersession 證據記於 `content/assets/ingest-receipts/jiang-yucheng-wardrobe-replacement-20261003.json`。既有 `ref.jiang_yucheng.wardrobe.a/b`、八個 wardrobe keys 與 look semantics 保持不變。原 restoration／Gate 3 receipts 與已接受 CG 的 render bindings、Human／QA outcomes 保留其當時證據；本次更新不宣稱既有 CG 已按新圖重畫或修復衣著漂移。
+
+`content/assets/character-reference-packs.json` is the machine-readable six-sheet and wardrobe-look index. Runtime character metadata lists all six sources for integrated characters; future characters resolve through this registry without requiring runtime integration. Reference images are production inputs and are not copied into the playable runtime asset bundle.
 
 ---
 
@@ -116,6 +118,82 @@ Wardrobe B：
 2. Creator Event — white tights
 3. Signature Campus — white over-knee socks
 4. After Story / Weekend Morning — cozy long socks
+
+---
+
+## 4.2 Lin Ruoqing registered production reference pack
+
+Owner 已明確要求把六張已完成設定圖登錄為 production references；2026-10-03 逐張確認可見內容、PNG signature、完整 decode、尺寸、bytes 與 SHA-256，並原樣入庫。這是 reference-pack registration，沒有新增 runtime CG 或獨立 Visual QA PASS。
+
+人物背景／個性 authority：`docs/art/characters/lin-ruoqing.md`（內容保持不變）。圖片 authority：`content/assets/character-reference-packs.json` 的 `lin_ruoqing` + `content/assets/source-catalog.json`。入庫證據：`content/assets/ingest-receipts/lin-ruoqing-reference-pack-20261003.json`。
+
+所有原圖均為 `image/png`、1672 × 941，未裁切或重採樣。路徑前綴為 `assets-src/references/lin-ruoqing/`。
+
+| Upload | Repository filename | Source ID | Role / authority |
+| --- | --- | --- | --- |
+| `LRQ-1.png` | `lrq-ref-01-face.png` | `ref.lin_ruoqing.face.01` | `primary_face_identity` / highest facial authority |
+| `LRQ-2.png` | `lrq-ref-02-expression.png` | `ref.lin_ruoqing.expression.02` | `expression` / acting |
+| `LRQ-3.png` | `lrq-ref-03-body.png` | `ref.lin_ruoqing.body.03` | `body_proportions` / body authority |
+| `LRQ-4.png` | `lrq-ref-04-production.png` | `ref.lin_ruoqing.production.04` | `production_consistency` / hair, hands, props, lighting |
+| `LRQ-5.png` | `lrq-ref-05-wardrobe-a.png` | `ref.lin_ruoqing.wardrobe.a` | `wardrobe` / Wardrobe A |
+| `LRQ-6.png` | `lrq-ref-06-wardrobe-b.png` | `ref.lin_ruoqing.wardrobe.b` | `wardrobe` / Wardrobe B |
+
+Wardrobe keys reflect the labels on the supplied pixels, not an earlier prompt:
+
+| Key | Exact sheet look |
+| --- | --- |
+| `LRQ-WARDROBE-A-TEACHER-TROUSERS` | Teacher / Trousers |
+| `LRQ-WARDROBE-A-CARDIGAN-EVERYDAY` | Cardigan / Everyday |
+| `LRQ-WARDROBE-A-TEACHER-PRESENTATION` | Teacher / Presentation |
+| `LRQ-WARDROBE-A-HOODIE-WEEKEND` | Hoodie / Weekend |
+| `LRQ-WARDROBE-A-FLORAL-DATE` | Floral / Date |
+| `LRQ-WARDROBE-A-AUTUMN-OUTING` | Autumn / Outing |
+| `LRQ-WARDROBE-B-FITNESS-ACTIVE` | Fitness / Active |
+| `LRQ-WARDROBE-B-BADMINTON` | Badminton |
+| `LRQ-WARDROBE-B-HOME-REST` | Home / Rest |
+| `LRQ-WARDROBE-B-POOL-SWIM` | Pool / Swim |
+
+Select only the required sheets, for example:
+
+~~~sh
+npm run cg:references -- --character lin_ruoqing --wardrobe LRQ-WARDROBE-B-BADMINTON --expression --body
+~~~
+
+---
+
+## 4.3 Shen Yingxue registered production reference pack
+
+Owner 於 2026-10-03 明確要求啟用六張沈映雪設定圖；逐張確認可見內容、PNG signature、完整 decode、尺寸、bytes 與 SHA-256，並原樣入庫。登錄僅限 production references，沒有新增 runtime CG 或獨立 Visual QA PASS。
+
+人物背景／個性與身高 authority：`docs/art/characters/shen-yingxue.md`（byte-for-byte 保持不變，身高約 **172 cm**）。六張原圖都標示 `HEIGHT 175 CM`；Owner 明確決定：「維持172，圖就不管了，直接啟用。」此 override 僅接受原圖內嵌身高標示，**不把角色身高改為 175 cm**，也不修改 PNG。CG planning／人物尺度仍以 canonical **172 cm** 為準。
+
+圖片 authority：`content/assets/character-reference-packs.json` 的 `shen_yingxue` + `content/assets/source-catalog.json`。入庫與 override 證據：`content/assets/ingest-receipts/shen-yingxue-reference-pack-20261003.json`。所有原圖均為 `image/png`、1672 × 941，未裁切或重採樣；路徑前綴為 `assets-src/references/shen-yingxue/`。
+
+| Upload | Repository filename | Source ID | Role / authority |
+| --- | --- | --- | --- |
+| `SYX-1.png` | `syx-ref-01-face.png` | `ref.shen_yingxue.face.01` | `primary_face_identity` / highest facial authority |
+| `SYX-2.png` | `syx-ref-02-expression.png` | `ref.shen_yingxue.expression.02` | `expression` / acting |
+| `SYX-3.png` | `syx-ref-03-body.png` | `ref.shen_yingxue.body.03` | `body_proportions` / body authority, canonical height 172 cm |
+| `SYX-4.png` | `syx-ref-04-production.png` | `ref.shen_yingxue.production.04` | `production_consistency` / technical reference |
+| `SYX-5.png` | `syx-ref-05-wardrobe-a.png` | `ref.shen_yingxue.wardrobe.a` | `wardrobe` / Work & Public Wardrobe |
+| `SYX-6.png` | `syx-ref-06-wardrobe-b.png` | `ref.shen_yingxue.wardrobe.b` | `wardrobe` / Private & Leisure Wardrobe |
+
+Wardrobe keys follow the supplied sheet labels:
+
+| Key | Exact sheet look |
+| --- | --- |
+| `SYX-WARDROBE-A-STRATEGY-WORK` | Strategy Work |
+| `SYX-WARDROBE-A-CLIENT-FORMAL-DAY` | Client / Formal Day |
+| `SYX-WARDROBE-A-CITY-EVENING` | City / Evening |
+| `SYX-WARDROBE-A-CAFE-WEEKEND` | Café / Weekend |
+| `SYX-WARDROBE-B-LEISURE-CAFE` | Leisure / Café |
+| `SYX-WARDROBE-B-WORKOUT-GYM` | Workout / Gym |
+| `SYX-WARDROBE-B-HOME-LOUNGE` | Home / Lounge |
+| `SYX-WARDROBE-B-QUIET-EVENING-SLEEPWEAR` | Quiet Evening / Sleepwear |
+
+~~~sh
+npm run cg:references -- --character shen_yingxue --wardrobe SYX-WARDROBE-A-STRATEGY-WORK --body
+~~~
 
 ---
 
