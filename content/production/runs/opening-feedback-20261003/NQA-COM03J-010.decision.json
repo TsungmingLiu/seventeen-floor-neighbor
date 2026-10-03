@@ -1,0 +1,129 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "opening-feedback-20261003",
+  "task_id": "NQA-COM03J-010",
+  "scene_id": "COM-03J",
+  "task_type": "narrative_review",
+  "status": "PASS",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.5.0",
+    "pass": "narrative_review"
+  },
+  "source_ref": "fa75184a422b84d829c0e70aa4cea1871cf3b10e",
+  "packet_sha256": "36b3a5f35c0e5119393bc1ae1453dde48e07568fec726011879bd185411bb3c0",
+  "input_digest_sha256": "5b2d126b0bbef14c3cc57d241801eaddd9595fbbc5fee662056473529e448105",
+  "input_versions": [
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-03J.json",
+      "version": "35da25785637b1f4dbcbfd01f982671a2f71886e",
+      "location": "content/production/narrative/opening-ch1/COM-03J.json"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-03J.md",
+      "version": "6ef37f16fc601b4881ded0e273b1ee60123e4cd0",
+      "location": "docs/narrative/scenes/vertical-slice/COM-03J.md"
+    },
+    {
+      "id": "file:docs/narrative/CONTENT_PRODUCTION_SPEC.md",
+      "version": "b5e9f0ed355d3b451992cb263290ced23fcb9973",
+      "location": "docs/narrative/CONTENT_PRODUCTION_SPEC.md"
+    },
+    {
+      "id": "file:docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md",
+      "version": "a45247d93c2a1736e54aa13aca2110ee08a5b8c8",
+      "location": "docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md"
+    },
+    {
+      "id": "file:docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md",
+      "version": "fa68288637f8d1cddc0857b64b5d84b66469f173",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md"
+    },
+    {
+      "id": "file:docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_COMMON.md",
+      "version": "bd1d1cb374d6dca8673d63319f30e67904b5e22d",
+      "location": "docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_COMMON.md"
+    },
+    {
+      "id": "file:docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_JIANG_YUCHENG.md",
+      "version": "0baa4c850c1b3688b90694c4599f1675d88b99a0",
+      "location": "docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_JIANG_YUCHENG.md"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-02J.md",
+      "version": "78ca92fc2e29b8517227285590001fc10a4e9ee1",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02J.md"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "locked-scene:COM-03J",
+      "version": "07ebd9ce5e2db5ace7c9f9e78cb6643f598326c55fb810f0f5eb103238865d27",
+      "location": "docs/narrative/scenes/vertical-slice/COM-03J.md"
+    },
+    {
+      "id": "narrative-contract:COM-03J",
+      "version": "582918460ef2cef867a9c009e97d003313c05e236c3d814af80fe68949c3c1ce",
+      "location": "content/production/narrative/opening-ch1/COM-03J.json"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "NQA-SOURCE-ACQUISITION",
+      "code": "NQA-SOURCE-ACQUISITION",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-MACHINE-PREFLIGHT",
+      "code": "NQA-MACHINE-PREFLIGHT",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-SCENE-FUNCTION-AND-PAYOFFS",
+      "code": "NQA-SCENE-FUNCTION-AND-PAYOFFS",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-CALLBACK-AND-FALLBACK",
+      "code": "NQA-CALLBACK-AND-FALLBACK",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-CHOICE-AND-REJOIN",
+      "code": "NQA-CHOICE-AND-REJOIN",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-KNOWLEDGE-AND-RELATIONSHIP",
+      "code": "NQA-KNOWLEDGE-AND-RELATIONSHIP",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-VOICE-AND-PACING",
+      "code": "NQA-VOICE-AND-PACING",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-DIALOGUE-NATURALISM",
+      "code": "NQA-DIALOGUE-NATURALISM",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-STATE-AND-MEMORY-INTENT",
+      "code": "NQA-STATE-AND-MEMORY-INTENT",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-SEMANTIC-VISUAL-BEATS",
+      "code": "NQA-SEMANTIC-VISUAL-BEATS",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "Full packet/input snapshot and Handoff are ignored execution artifacts; verified Handoff SHA256 06c33d0cab1f9cb4a1610dec93982dcc6b8d0ef4ed683418a2187ca6cb9a92ad. No automatic current-PASS claim from legacy schema2-unsupported verifier."
+  ],
+  "human_gate_required": "none",
+  "invalidates": []
+}

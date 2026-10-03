@@ -37,6 +37,34 @@
       "decision_receipt": "content/production/runs/opening-feedback-20261003/MUA-COM02X-ELEVATOR-007.decision.json",
       "human_gate": "none",
       "reason": "Historical six-reference render spec only; five-reference compatibility revision requires fresh MUA."
+    },
+    {
+      "task_id": "NQA-COM03J-010",
+      "task_type": "narrative_review",
+      "scene_id": "COM-03J",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "tools/context.mjs:narrative_review",
+        "sha256": "36b3a5f35c0e5119393bc1ae1453dde48e07568fec726011879bd185411bb3c0"
+      },
+      "decision_receipt": "content/production/runs/opening-feedback-20261003/NQA-COM03J-010.decision.json",
+      "human_gate": "none",
+      "reason": "Exact packet and fresh worker Handoff verified at execution; output identities pinned in compact receipt."
+    },
+    {
+      "task_id": "MUA-COM02X-ELEVATOR-012",
+      "task_type": "visual_review",
+      "scene_id": "COM-02X",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual:task-packet-schema-v1.3.0",
+        "sha256": "9d3d313b234f430ee2893a392e5409a484d7dc35dcc57f9a5a274f1fd72d5397"
+      },
+      "decision_receipt": "content/production/runs/opening-feedback-20261003/MUA-COM02X-ELEVATOR-012.decision.json",
+      "human_gate": "none",
+      "reason": "Exact packet and fresh worker Handoff verified at execution; output identities pinned in compact receipt."
     }
   ],
   "invalidation_events": [
