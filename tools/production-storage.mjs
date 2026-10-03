@@ -165,7 +165,7 @@ export function assertDurableDecision(record, bytes = Buffer.from(JSON.stringify
   ensure(Object.keys(record).every((key) => durableKeys.has(key)), 'run record contains full attempt/transport fields');
   ensure(typeof record.run_id === 'string' && typeof record.task_id === 'string' &&
     ['PASS', 'FAIL', 'NEEDS_REVIEW', 'BLOCKED', 'HUMAN_ACCEPTED_AS_IS'].includes(record.status) &&
-    ['narrative_review', 'visual_review', 'human_decision', 'integrate'].includes(record.task_type) &&
+    ['narrative_design', 'narrative_review', 'visual_review', 'human_decision', 'integrate'].includes(record.task_type) &&
     Array.isArray(record.output_versions) && Array.isArray(record.qa_codes), 'invalid durable decision identity');
   for (const field of ['input_versions', 'output_versions']) {
     ensure(record[field] === undefined || (Array.isArray(record[field]) && record[field].every((item) => isObject(item) &&

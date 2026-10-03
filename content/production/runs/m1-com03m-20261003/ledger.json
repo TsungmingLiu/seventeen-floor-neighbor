@@ -1,0 +1,30 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_checkpoint",
+  "run_id": "m1-com03m-20261003",
+  "workflow_version": "1.3.1",
+  "source_ref": "b193e5056d64c3b200dae784fad4d05fc383943e",
+  "human_request": {
+    "summary": "Continue approved COM-03M through first minimal playable OPEN-A entry with fresh bounded workers.",
+    "gate_status": "approved scope; narrative preview review pending"
+  },
+  "status": "ACTIVE",
+  "tasks": [
+    {
+      "task_id": "ND-COM03M-001",
+      "task_type": "narrative_design",
+      "scene_id": "COM-03M",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1 bounded narrative-design packet",
+        "sha256": "33883726812d5325de323e78691f9114a46180052036aef492e08cdc00ed262c"
+      },
+      "decision_receipt": "content/production/runs/m1-com03m-20261003/ND-COM03M-001.decision.json",
+      "human_gate": "none",
+      "reason": "Verified exact fresh Narrative Design Handoff; dialogue and independent Narrative QA remain downstream."
+    }
+  ],
+  "invalidation_events": [],
+  "preview": null
+}
