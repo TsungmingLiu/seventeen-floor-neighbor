@@ -290,9 +290,16 @@ function validateStoryRoute(route, fail) {
       for (const branch of node.cases || []) {
         if (!nodes[branch.next]) fail(`route ${config.id} node ${id}: branch points to unknown node ${branch.next}`);
         for (const condition of branch.conditions || []) {
-          if (!(condition.stat in (chapter.initialState || {}))) fail(`route ${config.id} node ${id}: unknown stat ${condition.stat}`);
-          if (!['>=', '>', '<=', '<', '=='].includes(condition.operator)) fail(`route ${config.id} node ${id}: unsupported operator ${condition.operator}`);
-          if (!Number.isFinite(condition.value)) fail(`route ${config.id} node ${id}: condition ${condition.stat} must compare a finite number`);
+          if ('flag' in condition || 'present' in condition) {
+            if (typeof condition.flag !== 'string' || !condition.flag.trim()
+              || typeof condition.present !== 'boolean' || Object.keys(condition).length !== 2) {
+              fail(`route ${config.id} node ${id}: flag condition requires exactly a non-empty flag and boolean present`);
+            }
+          } else {
+            if (!(condition.stat in (chapter.initialState || {}))) fail(`route ${config.id} node ${id}: unknown stat ${condition.stat}`);
+            if (!['>=', '>', '<=', '<', '=='].includes(condition.operator)) fail(`route ${config.id} node ${id}: unsupported operator ${condition.operator}`);
+            if (!Number.isFinite(condition.value)) fail(`route ${config.id} node ${id}: condition ${condition.stat} must compare a finite number`);
+          }
         }
       }
       continue;

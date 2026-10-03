@@ -1,0 +1,198 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "opening-feedback-20261003",
+  "task_id": "VQA-COM02X-ELEVATOR-SOURCE-017",
+  "scene_id": "COM-02X",
+  "task_type": "visual_review",
+  "status": "FAIL",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.5.0",
+    "pass": "visual_review"
+  },
+  "source_ref": "cb2d546096ab1bce051850379133e40b1287f8c3",
+  "packet_sha256": "3d1653009236bc091927ed84cd7533b487bb59d8542caab5d7d82782f589bb22",
+  "input_digest_sha256": "cab9301789c6393f6ed266ad7aa03a32edad33a6def881fe62b107ae55b8e144",
+  "input_versions": [
+    {
+      "id": "AGENTS.md",
+      "location": "AGENTS.md",
+      "version": "3a9437e9c33c455ece1177a5b4ffa5752ca67687f6fdf4633d966ab1f6f0488e"
+    },
+    {
+      "id": ".ai/WORKFLOW_MANIFEST.yaml",
+      "location": ".ai/WORKFLOW_MANIFEST.yaml",
+      "version": "4e42799b5c23421af5ef3688f92e21f9eb666f05d2047134e54286d5bd71b239"
+    },
+    {
+      "id": ".ai/harnesses/bootstrap.md",
+      "location": ".ai/harnesses/bootstrap.md",
+      "version": "b347e41e1669ec92fdf4885ba4e97f09e97978e1bc5b04e17ece72f8aba8b131"
+    },
+    {
+      "id": ".ai/policies/SOURCE_AUTHORITY.md",
+      "location": ".ai/policies/SOURCE_AUTHORITY.md",
+      "version": "9db10a7925386836415fd000470cb535915b0e0e58eb7bee794f6a8ae445971c"
+    },
+    {
+      "id": ".ai/policies/CONTEXT_ISOLATION.md",
+      "location": ".ai/policies/CONTEXT_ISOLATION.md",
+      "version": "27c3fca1c65f513b9b3752dcd88b033a68fda600cef009c9a67a161ef06b96e1"
+    },
+    {
+      "id": ".ai/PRODUCTION_ORCHESTRATION.md",
+      "location": ".ai/PRODUCTION_ORCHESTRATION.md",
+      "version": "076322d3b22cae413603ddd2c576f924a6d5ad937f85f39c7e49dc8c1db61308"
+    },
+    {
+      "id": "docs/CONTENT_PRODUCTION_SOURCE_MAP.md",
+      "location": "docs/CONTENT_PRODUCTION_SOURCE_MAP.md",
+      "version": "c0ae2c825ef2c47afe78c14dc768758115d5a750e7b1afe9ebd6ead8a9b0804c"
+    },
+    {
+      "id": ".ai/schemas/TASK_PACKET.md",
+      "location": ".ai/schemas/TASK_PACKET.md",
+      "version": "0473fe9229c64d45ad1696adab632b66da760e0efe8c50a6478d05ff86500d58"
+    },
+    {
+      "id": ".ai/schemas/HANDOFF.md",
+      "location": ".ai/schemas/HANDOFF.md",
+      "version": "362659d079492d73cd190a9f32dbf035ac84869b61c42152adf7f1220018b37f"
+    },
+    {
+      "id": ".ai/harnesses/content-qa.md",
+      "location": ".ai/harnesses/content-qa.md",
+      "version": "ec9a9166ef328a8bb4bfdc7c68dd9c69ff7b4368d0b853217bd2d381146ad3a9"
+    },
+    {
+      "id": "content/production/cg-manifests/opening-ch1-com02x-return-elevator.json",
+      "location": "content/production/cg-manifests/opening-ch1-com02x-return-elevator.json",
+      "version": "05249fbedf39ce522ff877e1df4072d3ed75f24335cf5ff1927e7091dba2c0ec"
+    },
+    {
+      "id": "content/assets/source-catalog.json",
+      "location": "content/assets/source-catalog.json",
+      "version": "146034d8a6b01e13cc0d5f15b93cd89c5a93c65e140f9f3680808191d88d9cfa"
+    },
+    {
+      "id": "content/assets/character-reference-packs.json",
+      "location": "content/assets/character-reference-packs.json",
+      "version": "ee620a256c300cd559f88ea456d640ee142398142b484ad2a91bd3d111a6a9f7"
+    },
+    {
+      "id": "ref.xu_tang.face.01",
+      "location": "assets-src/references/xu-tang/xt-ref-01-face.png",
+      "version": "2fd137f796d0e7667a5913748158f75705b1a538b346b9e7f76aacb3c79acfd0"
+    },
+    {
+      "id": "ref.xu_tang.wardrobe.a",
+      "location": "assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png",
+      "version": "aaf33f06f3e39fc476deee03ab261a43e0911b8393366ae7399c633abfadc716"
+    },
+    {
+      "id": "ref.xu_tang.body.03",
+      "location": "assets-src/references/xu-tang/xt-ref-03-body.png",
+      "version": "cccde0bbd7d04b9cb66615ce3948a77529d77298dea806a3582a9d69723d8eb0"
+    },
+    {
+      "id": "source.com02x.walk-v3",
+      "location": "assets-src/opening-ch1-demo/com02x-walk-candidate-v3.png",
+      "version": "a1aa0d08023cc19a42b3c9260bca732059e77eb5dd37c8578afb82bd7dd82400"
+    },
+    {
+      "id": "source.opening.ch1.bg.apt_elevator",
+      "location": "assets-src/opening-ch1-demo/bg-apt-elevator-16x9-v1.webp",
+      "version": "2e1882334057fbd08b4d2c301b7924efc34cd1875e3d0dc1176c6315525e195e"
+    }
+  ],
+  "output_versions": [],
+  "qa_codes": [
+    {
+      "name": "VQA-SOURCE-ACQUISITION",
+      "code": "VQA-SOURCE-ACQUISITION",
+      "result": "PASS"
+    },
+    {
+      "name": "VQA-REFERENCE-AND-PACKET-PROVENANCE",
+      "code": "VQA-REFERENCE-AND-PACKET-PROVENANCE",
+      "result": "PASS"
+    },
+    {
+      "name": "VQA-NATIVE-PROVENANCE",
+      "code": "VQA-NATIVE-PROVENANCE",
+      "result": "PASS"
+    },
+    {
+      "name": "VQA-SOURCE-CLARITY",
+      "code": "VQA-SOURCE-CLARITY",
+      "result": "FAIL"
+    },
+    {
+      "name": "VQA-COMPRESSION-ARTIFACTS",
+      "code": "VQA-COMPRESSION-ARTIFACTS",
+      "result": "PASS"
+    },
+    {
+      "name": "VQA-IDENTITY-AGE-BODY-HAIR",
+      "code": "VQA-IDENTITY-AGE-BODY-HAIR",
+      "result": "PASS"
+    },
+    {
+      "name": "VQA-WARDROBE-MATERIALS",
+      "code": "VQA-WARDROBE-MATERIALS",
+      "result": "PASS"
+    },
+    {
+      "name": "VQA-HELD-OBJECT-SIDE",
+      "code": "VQA-HELD-OBJECT-SIDE",
+      "result": "FAIL"
+    },
+    {
+      "name": "VQA-POSE-ACTION-CAMERA-EMOTIONAL-READ",
+      "code": "VQA-POSE-ACTION-CAMERA-EMOTIONAL-READ",
+      "result": "PASS"
+    },
+    {
+      "name": "VQA-ENVIRONMENT-LIGHTING-TIME",
+      "code": "VQA-ENVIRONMENT-LIGHTING-TIME",
+      "result": "PASS"
+    },
+    {
+      "name": "VQA-STYLE-TEXT-REFLECTIONS",
+      "code": "VQA-STYLE-TEXT-REFLECTIONS",
+      "result": "PASS"
+    },
+    {
+      "name": "VQA-PROTECTED-COMPOSITION",
+      "code": "VQA-PROTECTED-COMPOSITION",
+      "result": "FAIL"
+    },
+    {
+      "name": "VQA-DESKTOP-DISPLAY",
+      "code": "VQA-DESKTOP-DISPLAY",
+      "result": "PENDING"
+    },
+    {
+      "name": "VQA-MOBILE-PORTRAIT-DISPLAY",
+      "code": "VQA-MOBILE-PORTRAIT-DISPLAY",
+      "result": "PENDING"
+    },
+    {
+      "name": "VQA-MOBILE-LANDSCAPE-DISPLAY",
+      "code": "VQA-MOBILE-LANDSCAPE-DISPLAY",
+      "result": "PENDING"
+    }
+  ],
+  "known_issues": [
+    "VQA-PROTECTED-COMPOSITION major",
+    "VQA-HELD-OBJECT-SIDE major",
+    "VQA-LOCALIZED-PANEL-BLUR medium",
+    "SOURCE-ONLY review of unadopted native1672x941 original SHA256 886c78b86000350d289c5e6544f97d1727dcd506d676d8523d28c474fb854bac. Original retained in active ignored job storage; no runtime asset adopted.",
+    "Compression PASS is ORIGINAL-only. Final derivative, desktop, both mobile profiles and Human master gate remain PENDING.",
+    "Exact input snapshot and Handoff stay ignored; verified Handoff SHA256 6b0522a9f6bb875dd74ef1ccc477b1a64a1e34cf03980343b23e9d4e78cee885. Cache paths are not required cross-session dependencies."
+  ],
+  "human_gate_required": "accepted_master_image_selection",
+  "invalidates": []
+}

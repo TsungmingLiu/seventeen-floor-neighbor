@@ -16,21 +16,22 @@ const assetManifest = 'content/assets/manifest.json';
 const humanDecision = 'content/production/runs/com02x-cg-20260930/HUMAN-COM02X-MASTER-001.decision.json';
 const git = (root, ...args) => execFileSync('git', ['-C', root, ...args], { encoding: 'utf8', stdio: 'pipe' }).trim();
 
-// Actual current content, isolated controlled edits, real CLI exit codes; no synthetic QA decisions.
+// Actual current unadopted runtime stays blocked. Historical accepted-entry scenarios use
+// a disposable local Git baseline; its commits are never production approval.
 test('current COM-02X pre-integration gate rejects stale or incomplete inputs', async (t) => {
   const temporary = await mkdtemp(path.join(os.tmpdir(), 'current-scene-stale-'));
   const checkout = path.join(temporary, 'checkout');
-  const sourceRef = git(projectRoot, 'rev-parse', 'HEAD');
+  const productionRef = git(projectRoot, 'rev-parse', 'HEAD');
+  let sourceRef = productionRef;
   const evidence = { task_id: 'M0-CURRENT-SCENE-STALE-001', source_ref: sourceRef,
     node_version: process.version, scenarios: [], inputs: {}, outputs: {} };
-  let added = false;
   const files = [contract, manifest, legacyManifest, acceptedReceipt, humanDecision, assetManifest,
     'docs/narrative/scenes/vertical-slice/COM-02X.md',
     'tools/production-impact.mjs', 'tools/production-integration-check.mjs'];
   const originals = new Map();
   try {
-    git(projectRoot, 'worktree', 'add', '--detach', checkout, sourceRef);
-    added = true;
+    git(projectRoot, 'clone', '--quiet', '--no-hardlinks', '--no-checkout', projectRoot, checkout);
+    git(checkout, 'checkout', '--quiet', '--detach', productionRef);
     for (const file of ['tools/production-impact.mjs', 'tools/production-integration-check.mjs']) {
       await copyFile(path.join(projectRoot, file), path.join(checkout, file));
     }
@@ -61,6 +62,38 @@ test('current COM-02X pre-integration gate rejects stale or incomplete inputs', 
         stderr: result.stderr.trim() });
       return report;
     };
+    await t.test('actual current unadopted runtime entry remains blocked before historical fixture isolation', async () => {
+      const result = run();
+      await record('actual_current_unadopted_runtime', result, 1);
+      assert.match(result.stderr, /runtime CG entry has no accepted asset binding: COM02X-RETURN-ELEVATOR-01/);
+      await assert.rejects(access(path.join(checkout, gateReport)), { code: 'ENOENT' });
+    });
+    const acceptedIds = ['COM02X-BG-01', 'COM02X-DLG-01', 'COM02X-DLG-02-MICROWAVE', 'COM02X-WALK-01'];
+    const referenceId = 'COM02X-ENV-CONVENIENCE-NIGHT-REFERENCE';
+    const excluded = [];
+    const fixtureManifests = git(checkout, 'ls-files', 'content/production/cg-manifests/*.json').split('\n');
+    for (const file of fixtureManifests) {
+      const value = await readJson(file);
+      const retained = value.entries.filter((entry) => entry.scene_id !== 'COM-02X' ||
+        acceptedIds.includes(entry.entry_id) || entry.entry_id === referenceId);
+      const removed = value.entries.filter((entry) => !retained.includes(entry));
+      if (!removed.length) continue;
+      assert.ok(removed.every((entry) => entry.status !== 'accepted'));
+      excluded.push(...removed.map((entry) => entry.entry_id));
+      await editJson(file, (fixture) => { fixture.entries = retained; });
+      assert.deepEqual((await readJson(file)).entries, retained);
+      git(checkout, 'add', '--', file);
+      originals.set(file, await readFile(path.join(checkout, file)));
+    }
+    assert.ok(excluded.includes('COM02X-RETURN-ELEVATOR-01'));
+    git(checkout, '-c', 'user.name=Disposable integration fixture', '-c', 'user.email=fixture@localhost',
+      'commit', '--quiet', '--no-verify', '-m', 'Isolate historical accepted COM02X entries for CLI regression');
+    sourceRef = git(checkout, 'rev-parse', 'HEAD');
+    originals.set(manifest, await readFile(path.join(checkout, manifest)));
+    evidence.fixture_baseline = { production_ref: productionRef, isolated_fixture_ref: sourceRef,
+      production_approval: false, compared_runtime_entry_ids: acceptedIds,
+      excluded_unadopted_entry_ids: excluded,
+      accepted_entry_and_receipt_bytes: 'unchanged; only disposable manifest membership isolated' };
     await t.test('unchanged bindings include four runtime entries and exact reference exclusion', async () => {
       const report = await record('unchanged', run(), 0);
       assert.equal(report.status, 'NO_STALE_DIFF');
@@ -166,10 +199,9 @@ test('current COM-02X pre-integration gate rejects stale or incomplete inputs', 
       } finally { await writeFile(path.join(checkout, file), bytes); }
     });
     for (const [file, bytes] of originals) assert.equal(sha256(await readFile(path.join(checkout, file))), sha256(bytes));
-    evidence.source_cleanup = 'RESTORED_AND_ISOLATED_WORKTREE_REMOVED';
+    evidence.source_cleanup = 'RESTORED_AND_DISPOSABLE_FIXTURE_REPOSITORY_REMOVED';
   } finally {
-    try { if (added) git(projectRoot, 'worktree', 'remove', '--force', checkout); }
-    finally { await rm(temporary, { recursive: true, force: true }); }
+    await rm(temporary, { recursive: true, force: true });
     const destination = path.join(projectRoot, 'generated/session-cache/m0-current-scene-stale/controlled-edit.audit.json');
     for (const file of ['tools/production-impact.mjs', 'tools/production-integration-check.mjs', 'tests/production-integration-check.test.mjs']) {
       evidence.outputs[file] = sha256(await readFile(path.join(projectRoot, file)));

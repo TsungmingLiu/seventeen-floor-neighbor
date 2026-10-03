@@ -50,7 +50,8 @@
       "地下街初遇",
       "深夜便利店",
       "包裹 / Line",
-      "咖啡店重逢"
+      "咖啡店重逢",
+      "推薦 / Discord"
     ],
     "initialState": {
       "mc_tone_formal": 0,

@@ -89,6 +89,10 @@ test('existing runtime preserves exact d4ab4bd fields and only the 25 approved a
     [...anonymousLabels].sort(), 'no anonymous label additions outside the exact pre-reveal set');
   for (const [id, node] of Object.entries(old)) {
     if (id === 'opening_demo_complete') continue;
+    if (id === 'com03x_preview_complete') {
+      assert.deepEqual(nodes[id], { type: 'branch', default: 'common_recommend_discord_jyc_enter' });
+      continue;
+    }
     assert.deepEqual(nodes[id], anonymousLabels.has(id) ? { ...node, speakerLabel: '女生' } : node,
       `accepted node changed: ${id}`);
   }
@@ -123,7 +127,7 @@ for (const nodeId of ['com03x_preview_complete', 'common_package_xu_choice', 'co
     assert.equal(returned.state.T_JYC, 2);
     assert.equal(returned.state.C_JYC, 3);
     assert.equal(returned.state.flags.has('contact_xu'), true);
-    assert.equal(progress.data.runComplete, saved.runComplete);
+    assert.equal(progress.data.runComplete, false, 'the completed old terminal now continues into COM03J');
     assert.equal(progress.completeCom02jSupplement(state), null, 'merge is exactly once');
     const reload = new ProgressStore(chapter, memories, storage);
     assert.equal(reload.data.com02jSupplement, null);

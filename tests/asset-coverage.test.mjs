@@ -50,8 +50,17 @@ test('current deterministic inventory distinguishes scene-local preview and adop
   assert.equal(asset(result, preview).status, 'placeholder');
   assert.equal(asset(result, preview).runtimeBound, true);
   assert.deepEqual(result.bindingErrors, [{ code: 'PREVIEW_ROUTE_OPT_IN', routeId: 'opening-demo' }]);
-  const previewBindings = asset(result, preview).references.map(ref => ref.binding);
-  assert.equal(previewBindings.length, 151);
+  const allPreviewBindings = asset(result, preview).references.map(ref => ref.binding);
+  const com03jBindings = allPreviewBindings.filter(binding =>
+    binding.startsWith('node:common_recommend_discord_jyc_') || binding.startsWith('memory:mem.opening.ch1.recommend-discord-jyc:'));
+  const previewBindings = allPreviewBindings.filter(binding => !com03jBindings.includes(binding));
+  assert.equal(allPreviewBindings.length, 253);
+  assert.equal(com03jBindings.length, 102);
+  assert.equal(com03jBindings.filter(binding => binding.startsWith('node:')).length, 100);
+  assert.deepEqual(com03jBindings.filter(binding => !binding.startsWith('node:')), [
+    'memory:mem.opening.ch1.recommend-discord-jyc:cover',
+    'memory:mem.opening.ch1.recommend-discord-jyc:titleBackdrop'
+  ]);
   assert.equal(previewBindings.filter(binding => binding.startsWith('node:')).length, 148);
   assert.deepEqual(previewBindings.filter(binding => !binding.startsWith('node:')), ['ending:demo_complete', 'endingArt', 'memory:mem.opening.ch1.station-cafe-jyc:cover']);
   assert.ok(previewBindings.filter(binding => binding.startsWith('node:')).every(binding =>

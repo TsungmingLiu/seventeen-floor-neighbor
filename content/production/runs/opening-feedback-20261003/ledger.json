@@ -65,6 +65,22 @@
       "decision_receipt": "content/production/runs/opening-feedback-20261003/MUA-COM02X-ELEVATOR-012.decision.json",
       "human_gate": "none",
       "reason": "Exact packet and fresh worker Handoff verified at execution; output identities pinned in compact receipt."
+    },
+    {
+      "task_id": "INT-COM03J-PREVIEW-015",
+      "task_type": "integrate",
+      "scene_id": "COM-03J",
+      "depends_on": [
+        "NQA-COM03J-010"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual:task-packet-schema-v1.3.0",
+        "sha256": "86a6878cecfce9b11c2bc31e52c33352a9b7d6a73501acbc35a0cfa9396e9fa2"
+      },
+      "decision_receipt": "content/production/runs/opening-feedback-20261003/INT-COM03J-PREVIEW-015.decision.json",
+      "human_gate": "narrative_preview_review",
+      "reason": "Exact packet and fresh worker Handoff verified at execution; output identities pinned in compact receipt."
     }
   ],
   "invalidation_events": [
@@ -95,7 +111,17 @@
     "smoke": "PASS verify672; localChromium twoflows PASS",
     "public_deployment": "PASS actualworkflowdeployment URLs",
     "workspace_public_http_probe": "BLOCKED CONNECT403 by session network policy; no public HTTP PASS inferred",
-    "com03j": "NQA-COM03J-010 PASS; local integration RUNNING",
-    "new_return_elevator": "original candidate1672x941 retained; sourceQA RUNNING, Human selection and derivative/display PENDING"
+    "com03j": "INT-COM03J-PREVIEW-015 PASS; local NARRATIVE_PREVIEW_READY; public publication PENDING",
+    "new_return_elevator": "SourceQA014 FAIL and corrective SourceQA017 FAIL; no newCG adopted/wired. Explicit further generation/defer decision PENDING.",
+    "com03j_source_freeze_sha256": "35691ae66c8dfdcc6882b8a00bb6a880cdf1ec4622b3d97f6479b751cf1892c5",
+    "com03j_tests": "241/241 PASS,0FAIL; actual final npm exit0. Prior240/233/7 exit1 and superseded143 preserved in ignored evidence.",
+    "com03j_browser": "Chromium3/3 PASS exact frozen runtime/build; closing choices,save/reload,neutral Memory fallback and new-run replay cursor isolation",
+    "com03j_build": "492nodes,22/22media; build/validate/diff/preview-smoke PASS",
+    "com03j_local_access_path": "http://127.0.0.1:39757 (local verified smoke; public deployment PENDING)",
+    "com03j_final_visuals": "validate:final actual exit1 EXPECTED preview-art rejection; no final art acceptance",
+    "new_return_elevator_source_qa_014": "content/production/runs/opening-feedback-20261003/VQA-COM02X-ELEVATOR-SOURCE-014.decision.json",
+    "new_return_elevator_source_qa_017": "content/production/runs/opening-feedback-20261003/VQA-COM02X-ELEVATOR-SOURCE-017.decision.json",
+    "new_return_elevator_candidate_sha256": "886c78b86000350d289c5e6544f97d1727dcd506d676d8523d28c474fb854bac",
+    "new_return_elevator_quality": "SOURCE FAIL; derivative/display/Human master selection PENDING; no automatic redraw"
   }
 }

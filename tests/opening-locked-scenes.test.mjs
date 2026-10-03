@@ -170,12 +170,12 @@ test('expanded boxes keep the existing Memory and visual boundaries', () => {
   }
   assert.equal(membership.get('opening_demo_complete'), 'mem.opening.ch1.convenience-xu');
   for (const id of Object.keys(nodes)) {
-    if (id === 'opening_demo_complete' || id.startsWith('common_station_cafe_jyc_') || id.startsWith('com02j_')) continue;
+    if (id === 'opening_demo_complete' || id.startsWith('common_station_cafe_jyc_') || id.startsWith('com02j_') || id.startsWith('common_recommend_discord_jyc_') || id === 'com03j_preview_complete') continue;
     assert.ok(membership.has(id), `unmapped Memory node ${id}`);
     if (isCom03xNode(id)) {
       assert.equal(membership.get(id), 'mem.opening.ch1.convenience-xu');
       if (id === 'com03x_preview_complete') {
-        assert.deepEqual(nodes[id], { type: 'route' });
+        assert.deepEqual(nodes[id], { type: 'branch', default: 'common_recommend_discord_jyc_enter' });
       } else {
         assert.deepEqual(nodes[id].visual, { mode: 'composite', background: 'bg.narrative_preview.placeholder', sprites: [] });
       }

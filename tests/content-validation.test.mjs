@@ -98,12 +98,12 @@ test('Opening memory unlock nodes must follow and include their replay anchor', 
 test('Opening route must retain a terminal node and reject a reachable cycle in its place', async () => {
   const content = await loadContent();
   const route = content.routes.find((item) => item.config.id === 'opening-demo');
-  route.chapter.nodes.com03x_preview_complete = {
+  route.chapter.nodes.com03j_preview_complete = {
     speaker: '旁白',
     text: 'cycle fixture',
     chapter: 2,
     visual: { mode: 'cg', asset: 'cg.opening.com01j.r01_interested' },
-    next: 'com03x_preview_complete'
+    next: 'com03j_preview_complete'
   };
   assert.ok((await validateContent(content)).some((error) => error.includes('no reachable route terminal')));
 });

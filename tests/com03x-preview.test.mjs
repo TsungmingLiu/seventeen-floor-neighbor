@@ -45,10 +45,10 @@ test('COM03X placeholder is opt-in, excluded from Gallery, and rejected by the f
   assert.equal(route.assetManifest.assets[preview].gallery, undefined);
   for (const [id, node] of Object.entries(route.chapter.nodes)) {
     if (!id.startsWith('common_package_xu_') && !id.startsWith('com03x_')) continue;
-    if (node.type === 'route') continue;
+    if (node.type === 'route' || node.type === 'branch') continue;
     assert.deepEqual(node.visual, { mode: 'composite', background: preview, sprites: [] });
   }
-  assert.equal(route.memoryLibrary.events.length, 5, 'no standalone COM03X Memory card');
+  assert.equal(route.memoryLibrary.events.length, 6, 'COM03J appends one common Memory card; no standalone COM03X card');
   assert.ok(route.memoryLibrary.events.every(event => !event.galleryAssets.includes(preview)));
   assert.deepEqual(await validateContent(content), []);
   const finalErrors = await validateContent(content, { finalVisuals: true });
