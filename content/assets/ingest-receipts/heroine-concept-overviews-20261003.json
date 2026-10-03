@@ -1,0 +1,82 @@
+{
+  "receiptVersion": 1,
+  "gate": "supplementary-character-concept-reference-ingest",
+  "date": "2026-10-03",
+  "decision": "Owner supplied one overview concept image for each of the four heroines and requested that they be classified, uploaded, and added to the reference documentation.",
+  "acceptanceScope": "design_reference_only",
+  "productionReferenceBinding": "FORBIDDEN",
+  "runtimeMasterAcceptance": "NOT_ACCEPTED",
+  "embeddedTextAuthority": "NONE",
+  "conceptReferenceIndex": "content/assets/character-concept-references.json",
+  "sourceCatalog": "content/assets/source-catalog.json",
+  "canonicalFacts": [
+    "docs/art/characters/xu-tang.md",
+    "docs/art/characters/jiang-yucheng.md",
+    "docs/art/characters/lin-ruoqing.md",
+    "docs/art/characters/shen-yingxue.md"
+  ],
+  "productionIdentity": "content/assets/character-reference-packs.json",
+  "references": [
+    {
+      "uploadedFilename": "C71805A4-743A-4A41-8012-666C3AAACC1B.jpeg",
+      "sourceId": "ref.jiang_yucheng.concept.overview",
+      "name": "jyc-concept-overview-v1.jpeg",
+      "mimeType": "image/jpeg",
+      "sourcePath": "assets-src/references/character-concepts/jiang-yucheng/jyc-concept-overview-v1.jpeg",
+      "bytes": 256571,
+      "width": 765,
+      "height": 1023,
+      "sha256": "12dbabc2b2bc190fc01cfae01b3d6d0e01c856c8d843d519c50b3642ede4fe39",
+      "verifiedDecode": true,
+      "status": "design-reference-only",
+      "characterId": "jiang_yucheng",
+      "role": "character_concept_overview"
+    },
+    {
+      "uploadedFilename": "B7FEFD3A-7A72-4CA6-A3F7-AF999F75C74B(2).jpeg",
+      "sourceId": "ref.shen_yingxue.concept.overview",
+      "name": "syx-concept-overview-precanon-zhixia-v1.jpeg",
+      "mimeType": "image/jpeg",
+      "sourcePath": "assets-src/references/character-concepts/shen-yingxue/syx-concept-overview-precanon-zhixia-v1.jpeg",
+      "bytes": 519285,
+      "width": 1223,
+      "height": 1286,
+      "sha256": "5362532e40fcf08baa5ce56d4ed6f1429208c622a4e001c4c1b0c58283181acc",
+      "verifiedDecode": true,
+      "status": "design-reference-only",
+      "characterId": "shen_yingxue",
+      "role": "character_concept_overview",
+      "embeddedLabelNote": "The sheet visibly uses the pre-canonical label 沈知夏 / Shen Zhixia. It is mapped only as a supplementary visual concept for canonical 沈映雪 / Shen Yingxue; the embedded name and all other embedded text are non-authoritative."
+    },
+    {
+      "uploadedFilename": "E42BCE89-DA1E-45EC-B621-1B00BA2A6603(1).jpeg",
+      "sourceId": "ref.lin_ruoqing.concept.overview",
+      "name": "lrq-concept-overview-v1.jpeg",
+      "mimeType": "image/jpeg",
+      "sourcePath": "assets-src/references/character-concepts/lin-ruoqing/lrq-concept-overview-v1.jpeg",
+      "bytes": 602620,
+      "width": 1312,
+      "height": 1199,
+      "sha256": "8fe44c90c46ce449158726820f8bccf87c62fd6189c3b321f0f16f6aca65778e",
+      "verifiedDecode": true,
+      "status": "design-reference-only",
+      "characterId": "lin_ruoqing",
+      "role": "character_concept_overview"
+    },
+    {
+      "uploadedFilename": "C71805A4-743A-4A41-8012-666C3AAACC1B(1).jpeg",
+      "sourceId": "ref.xu_tang.concept.overview",
+      "name": "xt-concept-overview-v1.jpeg",
+      "mimeType": "image/jpeg",
+      "sourcePath": "assets-src/references/character-concepts/xu-tang/xt-concept-overview-v1.jpeg",
+      "bytes": 247018,
+      "width": 768,
+      "height": 1023,
+      "sha256": "f8cd8ebf4630108474a2ea69d1c1dcb2d00c3193a910c9c481e70767b1690574",
+      "verifiedDecode": true,
+      "status": "design-reference-only",
+      "characterId": "xu_tang",
+      "role": "character_concept_overview"
+    }
+  ]
+}

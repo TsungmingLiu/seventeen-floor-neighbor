@@ -8,7 +8,7 @@
 
 > 狀態：**Canonical character-image reference contract**
 >
-> 版本：1.5
+> 版本：1.6
 >
 > 更新：2026-10-03
 >
@@ -42,6 +42,8 @@ Exact filenames, roles, character IDs, MIME, dimensions, byte counts and SHA-256
 江雨澄 Wardrobe A/B 已依 Owner 於 2026-10-03 提供的 `jyc-5.png`、`jyc-6.png` 原樣更新。兩張均為 `image/png`、1491 × 1055；current fingerprints 與原圖 supersession 證據記於 `content/assets/ingest-receipts/jiang-yucheng-wardrobe-replacement-20261003.json`。既有 `ref.jiang_yucheng.wardrobe.a/b`、八個 wardrobe keys 與 look semantics 保持不變。原 restoration／Gate 3 receipts 與已接受 CG 的 render bindings、Human／QA outcomes 保留其當時證據；本次更新不宣稱既有 CG 已按新圖重畫或修復衣著漂移。
 
 `content/assets/character-reference-packs.json` is the machine-readable six-sheet and wardrobe-look index. Runtime character metadata lists all six sources for integrated characters; future characters resolve through this registry without requiring runtime integration. Reference images are production inputs and are not copied into the playable runtime asset bundle.
+
+Four additional owner-supplied overview concept sheets are tracked separately in `content/assets/character-concept-references.json` and `content/assets/source-catalog.json`. They are `design-reference-only`: useful for human-facing visual concept recall, but deliberately outside the six-sheet registry and production CG selector.
 
 ---
 
@@ -194,6 +196,26 @@ Wardrobe keys follow the supplied sheet labels:
 ~~~sh
 npm run cg:references -- --character shen_yingxue --wardrobe SYX-WARDROBE-A-STRATEGY-WORK --body
 ~~~
+
+---
+
+## 4.4 Supplementary concept overview sheets — design-reference-only
+
+Owner 於 2026-10-03 提供四張「一角一張」的人設概念總覽圖。原始 JPEG bytes 已逐張保存，分類索引為 `content/assets/character-concept-references.json`，入庫證據為 `content/assets/ingest-receipts/heroine-concept-overviews-20261003.json`。
+
+這四張圖**不是第七張 production reference sheet**，也不擴充六張 pack contract：
+
+- 可供 Human 或明確 allowlist 的角色設計／研究任務快速回看整體氣質、構圖語彙與早期視覺概念。
+- **不得**加入新 CG 的 `reference_bindings`、`reference_transport.attachments`，不得取代 `ref-01`～`ref-06`，也不得作 `accepted_character_continuity`。
+- 圖內所有文字（姓名、年齡、身高、職業、個性、引言、服裝標籤等）**沒有 canonical authority**。人物事實以 `docs/art/characters/*.md` 為準；production identity／body／wardrobe／expression 仍以六張 reference pack 為準。
+- 沈映雪的概念圖仍可見 pre-canonical 標籤「沈知夏 / Shen Zhixia」。它只被映射為 `shen_yingxue` 的補充視覺概念圖；**不是角色別名、第二個角色或可恢復的舊設定**。
+
+| Canonical character | Source ID | Repository file | Classification |
+| --- | --- | --- | --- |
+| 許棠 / Xu Tang | `ref.xu_tang.concept.overview` | `assets-src/references/character-concepts/xu-tang/xt-concept-overview-v1.jpeg` | `design-reference-only` |
+| 江雨澄 / Jiang Yucheng | `ref.jiang_yucheng.concept.overview` | `assets-src/references/character-concepts/jiang-yucheng/jyc-concept-overview-v1.jpeg` | `design-reference-only` |
+| 林若晴 / Lin Ruoqing | `ref.lin_ruoqing.concept.overview` | `assets-src/references/character-concepts/lin-ruoqing/lrq-concept-overview-v1.jpeg` | `design-reference-only` |
+| 沈映雪 / Shen Yingxue | `ref.shen_yingxue.concept.overview` | `assets-src/references/character-concepts/shen-yingxue/syx-concept-overview-precanon-zhixia-v1.jpeg` | `design-reference-only` |
 
 ---
 

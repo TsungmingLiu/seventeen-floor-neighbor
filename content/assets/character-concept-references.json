@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "lifecycle": "CANONICAL",
+  "classification": "design-reference-only",
+  "updated": "2026-10-03",
+  "purpose": "Per-character supplementary overview images for human-facing visual concept recall and bounded character-design/research tasks. These images are outside the six-sheet production reference packs.",
+  "policy": {
+    "embeddedTextAuthority": "NONE",
+    "canonicalFacts": "docs/art/characters/*.md",
+    "productionIdentity": "content/assets/character-reference-packs.json",
+    "sourceResolution": "content/assets/source-catalog.json",
+    "cgAutoSelection": false,
+    "rendererBindingAllowed": false,
+    "rule": "Do not use these sources as face, body, production-consistency, wardrobe, expression, accepted-character-continuity, or renderer attachments. Any embedded names, ages, heights, jobs, biography, quotes, outfit labels, or other text are non-authoritative."
+  },
+  "characters": {
+    "jiang_yucheng": {
+      "displayName": "江雨澄 / Jiang Yucheng",
+      "sourceId": "ref.jiang_yucheng.concept.overview",
+      "sourcePath": "assets-src/references/character-concepts/jiang-yucheng/jyc-concept-overview-v1.jpeg"
+    },
+    "shen_yingxue": {
+      "displayName": "沈映雪 / Shen Yingxue",
+      "sourceId": "ref.shen_yingxue.concept.overview",
+      "sourcePath": "assets-src/references/character-concepts/shen-yingxue/syx-concept-overview-precanon-zhixia-v1.jpeg",
+      "embeddedLabelNote": "The sheet visibly uses the pre-canonical label 沈知夏 / Shen Zhixia. It is mapped only as a supplementary visual concept for canonical 沈映雪 / Shen Yingxue; the embedded name and all other embedded text are non-authoritative."
+    },
+    "lin_ruoqing": {
+      "displayName": "林若晴 / Lin Ruoqing",
+      "sourceId": "ref.lin_ruoqing.concept.overview",
+      "sourcePath": "assets-src/references/character-concepts/lin-ruoqing/lrq-concept-overview-v1.jpeg"
+    },
+    "xu_tang": {
+      "displayName": "許棠 / Xu Tang",
+      "sourceId": "ref.xu_tang.concept.overview",
+      "sourcePath": "assets-src/references/character-concepts/xu-tang/xt-concept-overview-v1.jpeg"
+    }
+  }
+}

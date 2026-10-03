@@ -28,6 +28,21 @@
 
 四人可以共享「會笑、會主動、會安靜、會犯錯」等正常人的特質；差異在於她們最自然的反應、建立親密的方法，以及必須面對的關係課題。不要靠職業、髮型或單一口頭禪代替人物差異。
 
+## Supplementary concept overview images
+
+四位女主各有一張 Owner 提供的概念總覽 JPEG，已分類為 **`design-reference-only`**。它們方便 Human 快速回看整體視覺概念，但不是 production reference pack 的第七張圖，也不會被 CG selector 自動載入。
+
+| 角色 | Source ID | 檔案 |
+| --- | --- | --- |
+| 許棠 / Xu Tang | `ref.xu_tang.concept.overview` | `assets-src/references/character-concepts/xu-tang/xt-concept-overview-v1.jpeg` |
+| 江雨澄 / Jiang Yucheng | `ref.jiang_yucheng.concept.overview` | `assets-src/references/character-concepts/jiang-yucheng/jyc-concept-overview-v1.jpeg` |
+| 林若晴 / Lin Ruoqing | `ref.lin_ruoqing.concept.overview` | `assets-src/references/character-concepts/lin-ruoqing/lrq-concept-overview-v1.jpeg` |
+| 沈映雪 / Shen Yingxue | `ref.shen_yingxue.concept.overview` | `assets-src/references/character-concepts/shen-yingxue/syx-concept-overview-precanon-zhixia-v1.jpeg` |
+
+Authority 順序保持清楚：人物事實看本目錄的 canonical profile；正式 image identity／body／expression／wardrobe 看六張 reference pack；上述 overview 只做補充視覺概念。**圖內嵌文字一律不升格成設定。** 沈映雪 overview 上的「沈知夏 / Shen Zhixia」是 pre-canonical 圖中文字，只保留像素作補充視覺參考，不建立 alias 或舊設定文件。
+
+Machine index：`content/assets/character-concept-references.json`；exact bytes／hash：`content/assets/source-catalog.json`；ingest evidence：`content/assets/ingest-receipts/heroine-concept-overviews-20261003.json`。
+
 ## Relationship baseline
 
 - 許棠與江雨澄的現行 knowledge／crossover 以既有 narrative artifacts 為準。

@@ -1,7 +1,7 @@
 {
   "sourceCatalogVersion": 2,
   "provider": "repo",
-  "note": "Accepted Opening CG/background WebP and four complete six-sheet character PNG packs resolve to tracked repo files. Ingest receipts record exact uploaded bytes; the 2026-09-30 restoration receipt records the superseded Xu Tang JPEG, and jiang-yucheng-wardrobe-replacement-20261003.json records the current Wardrobe A/B supersession without changing historical acceptance.",
+  "note": "Accepted Opening CG/background WebP and four complete six-sheet character PNG packs resolve to tracked repo files. Ingest receipts record exact uploaded bytes; the 2026-09-30 restoration receipt records the superseded Xu Tang JPEG, and jiang-yucheng-wardrobe-replacement-20261003.json records the current Wardrobe A/B supersession without changing historical acceptance; four owner-supplied JPEG concept overview sheets are also tracked as design-reference-only sources and are never production CG bindings.",
   "files": {
     "source.opening.ch1.bg.apt_17f_rain": {
       "name": "bg-apt-17f-rain-16x9-v1.webp",
@@ -652,6 +652,62 @@
       "sha256": "8434d7ae1f0857245abc99062a67b6c81d384de489a2854b65348da73edf0c81",
       "verifiedDecode": true,
       "status": "human-accepted-as-is"
+    },
+    "ref.jiang_yucheng.concept.overview": {
+      "name": "jyc-concept-overview-v1.jpeg",
+      "mimeType": "image/jpeg",
+      "sourcePath": "assets-src/references/character-concepts/jiang-yucheng/jyc-concept-overview-v1.jpeg",
+      "bytes": 256571,
+      "width": 765,
+      "height": 1023,
+      "sha256": "12dbabc2b2bc190fc01cfae01b3d6d0e01c856c8d843d519c50b3642ede4fe39",
+      "verifiedDecode": true,
+      "status": "design-reference-only",
+      "characterId": "jiang_yucheng",
+      "role": "character_concept_overview",
+      "provenance": "Owner supplied C71805A4-743A-4A41-8012-666C3AAACC1B.jpeg on 2026-10-03; preserved byte-for-byte as a supplementary concept overview. Embedded text has no canonical authority and this source is excluded from production CG reference selection; see content/assets/ingest-receipts/heroine-concept-overviews-20261003.json"
+    },
+    "ref.shen_yingxue.concept.overview": {
+      "name": "syx-concept-overview-precanon-zhixia-v1.jpeg",
+      "mimeType": "image/jpeg",
+      "sourcePath": "assets-src/references/character-concepts/shen-yingxue/syx-concept-overview-precanon-zhixia-v1.jpeg",
+      "bytes": 519285,
+      "width": 1223,
+      "height": 1286,
+      "sha256": "5362532e40fcf08baa5ce56d4ed6f1429208c622a4e001c4c1b0c58283181acc",
+      "verifiedDecode": true,
+      "status": "design-reference-only",
+      "characterId": "shen_yingxue",
+      "role": "character_concept_overview",
+      "provenance": "Owner supplied B7FEFD3A-7A72-4CA6-A3F7-AF999F75C74B(2).jpeg on 2026-10-03; preserved byte-for-byte as a supplementary concept overview. Embedded text has no canonical authority and this source is excluded from production CG reference selection; see content/assets/ingest-receipts/heroine-concept-overviews-20261003.json"
+    },
+    "ref.lin_ruoqing.concept.overview": {
+      "name": "lrq-concept-overview-v1.jpeg",
+      "mimeType": "image/jpeg",
+      "sourcePath": "assets-src/references/character-concepts/lin-ruoqing/lrq-concept-overview-v1.jpeg",
+      "bytes": 602620,
+      "width": 1312,
+      "height": 1199,
+      "sha256": "8fe44c90c46ce449158726820f8bccf87c62fd6189c3b321f0f16f6aca65778e",
+      "verifiedDecode": true,
+      "status": "design-reference-only",
+      "characterId": "lin_ruoqing",
+      "role": "character_concept_overview",
+      "provenance": "Owner supplied E42BCE89-DA1E-45EC-B621-1B00BA2A6603(1).jpeg on 2026-10-03; preserved byte-for-byte as a supplementary concept overview. Embedded text has no canonical authority and this source is excluded from production CG reference selection; see content/assets/ingest-receipts/heroine-concept-overviews-20261003.json"
+    },
+    "ref.xu_tang.concept.overview": {
+      "name": "xt-concept-overview-v1.jpeg",
+      "mimeType": "image/jpeg",
+      "sourcePath": "assets-src/references/character-concepts/xu-tang/xt-concept-overview-v1.jpeg",
+      "bytes": 247018,
+      "width": 768,
+      "height": 1023,
+      "sha256": "f8cd8ebf4630108474a2ea69d1c1dcb2d00c3193a910c9c481e70767b1690574",
+      "verifiedDecode": true,
+      "status": "design-reference-only",
+      "characterId": "xu_tang",
+      "role": "character_concept_overview",
+      "provenance": "Owner supplied C71805A4-743A-4A41-8012-666C3AAACC1B(1).jpeg on 2026-10-03; preserved byte-for-byte as a supplementary concept overview. Embedded text has no canonical authority and this source is excluded from production CG reference selection; see content/assets/ingest-receipts/heroine-concept-overviews-20261003.json"
     }
   }
 }
