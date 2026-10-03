@@ -90,14 +90,21 @@ test('Memories disclosure, character focus, cursor marker and frontier jump stay
   await expect(frontierCard).toBeFocused();
   await expect(page.locator('#memory-announcement')).toHaveText('已返回目前進度：電梯重啟');
   expect(await currentJourney(page)).toEqual(journeyBefore);
+  // The first desktop row can already be visible without scrolling. Check the
+  // focused event's readable title, including when a card is taller than the list.
+  await expect.poll(() => frontierCard.locator('strong').evaluate(title => {
+    const target = title.getBoundingClientRect();
+    const list = title.closest('#memory-list').getBoundingClientRect();
+    return target.width > 0 && target.height > 0
+      && target.top >= Math.max(0, list.top) && target.bottom <= Math.min(innerHeight, list.bottom)
+      && target.left >= Math.max(0, list.left) && target.right <= Math.min(innerWidth, list.right);
+  })).toBe(true);
   const scrollState = await page.locator('#memory-list').evaluate(list => ({
     left: list.scrollLeft,
-    pageLeft: window.scrollX,
-    visible: list.scrollTop > 0
+    pageLeft: window.scrollX
   }));
   expect(scrollState.left).toBe(0);
   expect(scrollState.pageLeft).toBe(0);
-  expect(scrollState.visible).toBe(true);
 });
 
 test('Opening names appear at exchange and early Memory stays anonymous after later knowledge', async ({ page }) => {
@@ -425,7 +432,7 @@ test('title Memories and Gallery stay disabled until delayed route data mounts',
   await expect(page.locator('#gallery-screen')).toBeVisible();
 });
 
-test('opening preview plays COM-00 → COM-01X → COM-01J → COM-02X and saves its shared exit', async ({ page }) => {
+test('opening preview plays through COM-03J and saves its shared exit', async ({ page }) => {
   test.setTimeout(240_000); // Full-story traversal includes the real typewriter animation.
   const errors = collectBlockingErrors(page);
   await page.goto('/');
@@ -565,8 +572,12 @@ test('opening preview plays COM-00 → COM-01X → COM-01J → COM-02X and saves
   )).toBe('common_movein_rain_open_chair');
 
   expect(finalJourney.playerDisplayName).toBe('測試姓名');
-  expect(finalJourney.frontierMemoryEventId).toBe('mem.opening.ch1.convenience-xu');
-  expect(finalJourney.frontierRank).toBe(200);
+  expect(finalJourney.cursor.nodeId).toBe('com03j_preview_complete');
+  const memoryLibrary = await (await page.request.get('/content/routes/opening-demo/memories.json')).json();
+  const finalMemory = memoryLibrary.events.find(event => event.unlockNodes.includes(finalJourney.cursor.nodeId));
+  expect(finalMemory.id).toBe('mem.opening.ch1.recommend-discord-jyc');
+  expect(finalJourney.frontierMemoryEventId).toBe(finalMemory.id);
+  expect(finalJourney.frontierRank).toBe(finalMemory.progressRank);
   expect(finalJourney.cursor.stats.F_XT).toBeGreaterThanOrEqual(2);
   expect(finalJourney.cursor.flags).toContain('player_knows_xu_freelance_creative_work');
   expect(seen.has('common_convenience_xu_work')).toBe(true);
@@ -831,6 +842,9 @@ test('invalid old completed cursor keeps safe explicit Start fallback', async ({
 
 async function seedCom02jJourney(page, nodeId, topic, complete = false) {
   await page.goto('/');
+  // HTML load does not await async route bootstrap. Finish mounting before a
+  // seeded reload can abort its fetches and report a spurious bootstrap error.
+  await expect(page.locator('#start-button')).toBeEnabled();
   const chapter = await (await page.request.get('/content/routes/opening-demo/chapter.json')).json();
   const stats = { ...chapter.initialState, F_XT: 9, F_JYC: 4, jyc_first_topic: topic };
   const flags = nodeId.startsWith('common_station_cafe_jyc_') ? [] : ['contact_xu','entry-effect:common_package_xu_first_message_06','saved-world'];
@@ -946,6 +960,7 @@ for(const [closing,variant,history] of [
   test.setTimeout(240_000);
   const errors=collectBlockingErrors(page),prefix='common_recommend_discord_jyc_';
   await page.goto('/');
+  await expect(page.locator('#start-button')).toBeEnabled();
   const chapter=await(await page.request.get('/content/routes/opening-demo/chapter.json')).json();
   const flags=['preview:com02j-complete','entry-effect:common_station_cafe_jyc_complete','player_knows_jyc_name','jyc_knows_player_name','jyc_creator_work_seen','contact_xu','entry-effect:common_package_xu_first_message_06','world-retained',...history];
   const stats={...chapter.initialState,F_XT:9,F_JYC:6,T_JYC:2,C_JYC:3,jyc_first_topic:99};
