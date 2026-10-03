@@ -81,7 +81,7 @@ async function narrativePrerequisiteFixture(gate = 'narrative_review', humanGate
   f.packet.input_versions.push({ id: 'scene', version: scene.git_blob_sha, location: scene.path });
   f.packet.inputs = { narrative_contract: 'input.json', locked_scene: 'scene.md' };
   const writer = gate === 'narrative_design';
-  const receipt = { schema_version: writer ? '1.0.0' : '2.0.0', ...(writer ? {} : { storage_class: 'durable_decision', evidence_purpose: 'qa_decision' }),
+  const receipt = { schema_version: '2.0.0', storage_class: 'durable_decision', evidence_purpose: 'qa_decision',
     run_id: 'upstream', task_id: 'QA', scene_id: 'SCENE-1', task_type: gate, status: 'PASS',
     harness: { id: writer ? 'content_writer' : 'content_qa', version: '1.0.0', pass: gate },
     input_versions: writer ? [f.packet.input_versions[1]] : f.packet.input_versions.map((input) => ({ ...input, id: `reviewed:${input.id}` })),
