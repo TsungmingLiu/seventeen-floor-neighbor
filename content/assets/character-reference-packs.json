@@ -93,6 +93,109 @@
           "look": "After Story / Weekend Morning"
         }
       }
+    },
+    "lin_ruoqing": {
+      "canonicalProfile": "docs/art/characters/lin-ruoqing.md",
+      "ingestReceipt": "content/assets/ingest-receipts/lin-ruoqing-reference-pack-20261003.json",
+      "sheets": {
+        "face.01": "ref.lin_ruoqing.face.01",
+        "expression.02": "ref.lin_ruoqing.expression.02",
+        "body.03": "ref.lin_ruoqing.body.03",
+        "production.04": "ref.lin_ruoqing.production.04",
+        "wardrobe.a": "ref.lin_ruoqing.wardrobe.a",
+        "wardrobe.b": "ref.lin_ruoqing.wardrobe.b"
+      },
+      "wardrobes": {
+        "LRQ-WARDROBE-A-TEACHER-TROUSERS": {
+          "sourceId": "ref.lin_ruoqing.wardrobe.a",
+          "look": "Teacher / Trousers"
+        },
+        "LRQ-WARDROBE-A-CARDIGAN-EVERYDAY": {
+          "sourceId": "ref.lin_ruoqing.wardrobe.a",
+          "look": "Cardigan / Everyday"
+        },
+        "LRQ-WARDROBE-A-TEACHER-PRESENTATION": {
+          "sourceId": "ref.lin_ruoqing.wardrobe.a",
+          "look": "Teacher / Presentation"
+        },
+        "LRQ-WARDROBE-A-HOODIE-WEEKEND": {
+          "sourceId": "ref.lin_ruoqing.wardrobe.a",
+          "look": "Hoodie / Weekend"
+        },
+        "LRQ-WARDROBE-A-FLORAL-DATE": {
+          "sourceId": "ref.lin_ruoqing.wardrobe.a",
+          "look": "Floral / Date"
+        },
+        "LRQ-WARDROBE-A-AUTUMN-OUTING": {
+          "sourceId": "ref.lin_ruoqing.wardrobe.a",
+          "look": "Autumn / Outing"
+        },
+        "LRQ-WARDROBE-B-FITNESS-ACTIVE": {
+          "sourceId": "ref.lin_ruoqing.wardrobe.b",
+          "look": "Fitness / Active"
+        },
+        "LRQ-WARDROBE-B-BADMINTON": {
+          "sourceId": "ref.lin_ruoqing.wardrobe.b",
+          "look": "Badminton"
+        },
+        "LRQ-WARDROBE-B-HOME-REST": {
+          "sourceId": "ref.lin_ruoqing.wardrobe.b",
+          "look": "Home / Rest"
+        },
+        "LRQ-WARDROBE-B-POOL-SWIM": {
+          "sourceId": "ref.lin_ruoqing.wardrobe.b",
+          "look": "Pool / Swim"
+        }
+      }
+    },
+    "shen_yingxue": {
+      "canonicalProfile": "docs/art/characters/shen-yingxue.md",
+      "ingestReceipt": "content/assets/ingest-receipts/shen-yingxue-reference-pack-20261003.json",
+      "canonicalHeightCm": 172,
+      "embeddedHeightLabelCm": 175,
+      "heightLabelPolicy": "canonical_profile_prevails",
+      "sheets": {
+        "face.01": "ref.shen_yingxue.face.01",
+        "expression.02": "ref.shen_yingxue.expression.02",
+        "body.03": "ref.shen_yingxue.body.03",
+        "production.04": "ref.shen_yingxue.production.04",
+        "wardrobe.a": "ref.shen_yingxue.wardrobe.a",
+        "wardrobe.b": "ref.shen_yingxue.wardrobe.b"
+      },
+      "wardrobes": {
+        "SYX-WARDROBE-A-STRATEGY-WORK": {
+          "sourceId": "ref.shen_yingxue.wardrobe.a",
+          "look": "Strategy Work"
+        },
+        "SYX-WARDROBE-A-CLIENT-FORMAL-DAY": {
+          "sourceId": "ref.shen_yingxue.wardrobe.a",
+          "look": "Client / Formal Day"
+        },
+        "SYX-WARDROBE-A-CITY-EVENING": {
+          "sourceId": "ref.shen_yingxue.wardrobe.a",
+          "look": "City / Evening"
+        },
+        "SYX-WARDROBE-A-CAFE-WEEKEND": {
+          "sourceId": "ref.shen_yingxue.wardrobe.a",
+          "look": "Café / Weekend"
+        },
+        "SYX-WARDROBE-B-LEISURE-CAFE": {
+          "sourceId": "ref.shen_yingxue.wardrobe.b",
+          "look": "Leisure / Café"
+        },
+        "SYX-WARDROBE-B-WORKOUT-GYM": {
+          "sourceId": "ref.shen_yingxue.wardrobe.b",
+          "look": "Workout / Gym"
+        },
+        "SYX-WARDROBE-B-HOME-LOUNGE": {
+          "sourceId": "ref.shen_yingxue.wardrobe.b",
+          "look": "Home / Lounge"
+        },
+        "SYX-WARDROBE-B-QUIET-EVENING-SLEEPWEAR": {
+          "sourceId": "ref.shen_yingxue.wardrobe.b",
+          "look": "Quiet Evening / Sleepwear"
+        }
+      }
     }
   }
 }

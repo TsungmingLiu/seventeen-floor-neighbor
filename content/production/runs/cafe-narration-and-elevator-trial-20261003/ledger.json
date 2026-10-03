@@ -128,6 +128,22 @@
       "decision_receipt": "content/production/runs/cafe-narration-and-elevator-trial-20261003/INT-CAFE-TABLET-FINAL-012.decision.json",
       "human_gate": "none",
       "reason": "Exact approved tablet wording compiled;36/36 focused tests and actual Chromium word/save/reload PASS; unchanged elevator render-input identity verified for QA009 reuse."
+    },
+    {
+      "task_id": "INT-MAIN-REFERENCE-RECONCILIATION-013",
+      "task_type": "integrate",
+      "scene_id": "COM-02J+COM-02X",
+      "depends_on": [
+        "INT-CAFE-TABLET-FINAL-012"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual:task-packet-schema-v1.3.0",
+        "sha256": "8580334a3fc868e3d77dbf60f38031f45249fd9d81ce676ad3d39e8899eec718"
+      },
+      "decision_receipt": "content/production/runs/cafe-narration-and-elevator-trial-20261003/INT-MAIN-REFERENCE-RECONCILIATION-013.decision.json",
+      "human_gate": "none",
+      "reason": "Fresh technical main-reference reconciliation;72/72 focused tests; strict catalog/main identities and all game inputs preserved."
     }
   ],
   "invalidation_events": [
@@ -153,7 +169,7 @@
     }
   ],
   "preview": {
-    "state": "Local final lexical integration ready; published full Verify pending.",
+    "state": "Main-reference reconciliation ready; new published full Verify pending.",
     "source_freeze_sha256": "738686a8e9855517f16f71e63a7d349e231e90457ad0a1a02b76037b26ab4592",
     "initial_fulltests": "exit1:244total/241pass/3fail; owned nested cancellation failure preserved.",
     "display": "VQA007 landscape FAIL; original provenance/compression/desktop/portrait trial checks PASS.",
@@ -162,6 +178,7 @@
     "corrective_display": "VQA009 PASS trialpresentation only; sourceQA017 FAIL retained.",
     "corrective_build_digest": "f3aedd940cdb8c7605c7f4db52c071f74ab883a7b9b55293fcfb2ee19b8a9ac6",
     "final_lexical_tests": "36/36 focused tests and Chromium word/save/reload actualexit0",
-    "final_lexical_build_digest": "42069a38e960720591d1c4c68f36ef6a3273f2409cc9d37086444e43283bf98b"
+    "final_lexical_build_digest": "42069a38e960720591d1c4c68f36ef6a3273f2409cc9d37086444e43283bf98b",
+    "reference_reconciliation": "47 source catalog entries;24 heroine reference hashes and26 frozen game inputs verified;72/72 focused tests actualPASS"
   }
 }

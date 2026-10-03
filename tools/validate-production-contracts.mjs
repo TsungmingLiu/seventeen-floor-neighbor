@@ -1,5 +1,5 @@
 import { validateProductionStorage } from './production-storage.mjs';
-import { validateCharacterReferencePacks } from './character-references.mjs';
+import { validateCharacterReferencePacks, validateCharacterReferencePackReceipt, validateCharacterWardrobeReplacementReceipt } from './character-references.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -395,21 +395,30 @@ function validateGate3RepositorySources(catalog) {
   const restoration = readJson('content/assets/ingest-receipts/character-reference-packs-20260930.json');
   invariant(restoration.receiptVersion === 1 && restoration.gate === 'complete-character-reference-packs' && restoration.sourceCatalog === SOURCE_CATALOG, 'invalid character pack restoration receipt');
   invariant(restoration.references.length === 12, 'restoration receipt requires 12 PNG sheets');
+  const wardrobeReplacement = readJson('content/assets/ingest-receipts/jiang-yucheng-wardrobe-replacement-20261003.json');
+  const previousWardrobes = validateCharacterWardrobeReplacementReceipt(wardrobeReplacement, restoration,
+    sha256(fs.readFileSync('content/assets/ingest-receipts/character-reference-packs-20260930.json')), catalog);
   const restoredIds = new Set();
   for (const item of restoration.references) {
     invariant(!restoredIds.has(item.sourceId), `duplicate restored source ID: ${item.sourceId}`);
     restoredIds.add(item.sourceId);
-    const source = catalog.files[item.sourceId];
+    const source = previousWardrobes.get(item.sourceId) ?? catalog.files[item.sourceId];
     for (const key of ['name', 'sourcePath', 'sha256', 'bytes', 'width', 'height', 'mimeType', 'status', 'characterId', 'role']) invariant(source?.[key] === item[key], `restored reference ${key} mismatch: ${item.sourceId}`);
   }
   validateCharacterReferencePacks(catalog);
+  const linRuoqingReceipt = readJson('content/assets/ingest-receipts/lin-ruoqing-reference-pack-20261003.json');
+  const linRuoqingIds = validateCharacterReferencePackReceipt(linRuoqingReceipt, 'lin_ruoqing', catalog);
+  const shenYingxueReceipt = readJson('content/assets/ingest-receipts/shen-yingxue-reference-pack-20261003.json');
+  const shenYingxueIds = validateCharacterReferencePackReceipt(shenYingxueReceipt, 'shen_yingxue', catalog);
+  invariant(shenYingxueReceipt.heightLabelOverride?.canonicalHeightCm === 172 && shenYingxueReceipt.heightLabelOverride?.embeddedHeightLabelCm === 175, 'Shen Yingxue requires the explicit 172 cm canonical / 175 cm embedded-label override');
+  invariant(sha256(fs.readFileSync(shenYingxueReceipt.canonicalProfile)) === shenYingxueReceipt.canonicalProfileSha256, 'Shen Yingxue canonical profile changed after the scoped height-label override');
   const referenceIds = new Set();
   for (const item of receipt.references) {
     invariant(!referenceIds.has(item.sourceId), `duplicate reference sourceId: ${item.sourceId}`);
     referenceIds.add(item.sourceId);
     const superseded = restoration.supersededReferences.find((record) => record.sourceId === item.sourceId);
     if (superseded) invariant(catalog.files[item.sourceId]?.sha256 === superseded.replacementSha256, `superseded replacement mismatch: ${item.sourceId}`);
-    const source = superseded?.previous ?? catalog.files[item.sourceId];
+    const source = superseded?.previous ?? previousWardrobes.get(item.sourceId) ?? catalog.files[item.sourceId];
     invariant(source && item.sourceId.startsWith('ref.'), `reference receipt source is missing or invalid: ${item.sourceId}`);
     for (const [receiptKey, catalogKey] of [['repoPath', 'sourcePath'], ['sha256', 'sha256'], ['bytes', 'bytes'], ['width', 'width'], ['height', 'height'], ['mimeType', 'mimeType'], ['status', 'status'], ['characterId', 'characterId'], ['role', 'role']]) {
       invariant(source[catalogKey] === item[receiptKey], `reference receipt ${receiptKey} mismatch: ${item.sourceId}`);
@@ -492,7 +501,7 @@ function validateGate3RepositorySources(catalog) {
   invariant(walkManifest.entries.length === 1 && walkManifest.entries[0].entry_id === walkAsset.entryId && walkManifest.entries[0].status === 'accepted' && JSON.stringify(walkManifest.entries[0].known_issues) === JSON.stringify(walkQa.known_issues), 'COM-02X walking manifest adoption/issues mismatch');
   const titleSourceCount = validateTitleMasterSource(catalog);
   const trialSourceCount = validateReturnElevatorTrial({ catalog, manifest: readJson('content/assets/manifest.json'), sourceMap: readJson('content/assets/source-map.json'), route: readJson(OPENING_ROUTE), chapter: readJson('content/routes/opening-demo/chapter-01.json'), memories: readJson('content/routes/opening-demo/memories.json'), receipt: readJson(RETURN_ELEVATOR_TRIAL_RECEIPT), human: readJson(RETURN_ELEVATOR_TRIAL_HUMAN), qa: readJson(RETURN_ELEVATOR_TRIAL_QA), decisionHashes: { human: sha256(fs.readFileSync(RETURN_ELEVATOR_TRIAL_HUMAN)), qa: sha256(fs.readFileSync(RETURN_ELEVATOR_TRIAL_QA)) } });
-  invariant(trialSourceCount === 1 && Object.keys(catalog.files).length === acceptedIds.size + restoredIds.size + 1 + batchIds.size + 1 + 1 + 1 + titleSourceCount + trialSourceCount, 'source catalog contains an unknown or unreceipted source');
+  invariant(trialSourceCount === 1 && Object.keys(catalog.files).length === acceptedIds.size + restoredIds.size + linRuoqingIds.length + shenYingxueIds.length + 1 + batchIds.size + 1 + 1 + 1 + titleSourceCount + trialSourceCount, 'source catalog contains an unknown or unreceipted source');
   return receipt;
 }
 
