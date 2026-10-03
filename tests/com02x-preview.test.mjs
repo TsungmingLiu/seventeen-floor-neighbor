@@ -58,8 +58,11 @@ test('formal COM-02X integration binds accepted CG and scene art without preview
   const assets = json('../content/assets/manifest.json').assets;
   const catalog = json('../content/assets/source-catalog.json').files;
   const receipt = json('../content/assets/ingest-receipts/com02x-accepted-masters-v1.json');
-  assert.equal(route.story.allowPreviewArt, undefined);
-  assert.ok(!route.assetIds.includes('bg.narrative_preview.placeholder'));
+  assert.equal(route.story.allowPreviewArt, true);
+  assert.equal(route.story.endingArt, 'bg.narrative_preview.placeholder');
+  assert.ok(route.assetIds.includes('bg.narrative_preview.placeholder'));
+  assert.ok(Object.entries(nodes).filter(([id]) => id.startsWith('common_package_xu_') || /^com03x_(?:ask|recall|joke)_/.test(id))
+    .every(([, node]) => node.visual?.background === 'bg.narrative_preview.placeholder'));
   assert.ok(route.assetIds.includes('bg.opening.com02x.convenience_night'));
   assert.ok(route.assetIds.includes('cg.opening.com02x.recognition'));
   assert.ok(route.assetIds.includes('cg.opening.com02x.microwave_wait'));

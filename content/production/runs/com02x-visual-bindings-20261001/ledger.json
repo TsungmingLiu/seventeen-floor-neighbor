@@ -9,7 +9,7 @@
     "gate_status": "final_playable_acceptance",
     "human_directive": "你可能要再檢查一次便利店後半跟回家的圖，過劇情的時候沒有正確的套用。"
   },
-  "status": "READY_FOR_HUMAN_ACCEPTANCE",
+  "status": "ACCEPTED",
   "tasks": [
     {
       "task_id": "HUMAN-COM02X-WALK-ADOPTION-003",
@@ -55,6 +55,18 @@
       "decision_receipt": "content/production/runs/com02x-visual-bindings-20261001/VERIFY-COM02X-VISUAL-BINDINGS-008.decision.json",
       "human_gate": "final_playable_acceptance",
       "reason": "Exact integration snapshot, complete CI and immutable public flow verified."
+    },
+    {
+      "task_id": "HUMAN-COM02X-PLAYABLE-009",
+      "task_type": "human_decision",
+      "scene_id": "COM-02X",
+      "depends_on": [
+        "VERIFY-COM02X-VISUAL-BINDINGS-008"
+      ],
+      "status": "PASS",
+      "decision_receipt": "content/production/runs/com02x-visual-bindings-20261001/HUMAN-COM02X-PLAYABLE-009.decision.json",
+      "human_gate": "none",
+      "reason": "Actual Human final playable acceptance; tested URL and commit SHA were not explicitly reported."
     }
   ],
   "invalidation_events": [],
@@ -69,6 +81,7 @@
     "smoke": "PASS; public route and CG bytes match; forward flow/reload/Gallery pass"
   },
   "human_decisions": [
-    "content/production/runs/com02x-visual-bindings-20261001/HUMAN-COM02X-WALK-ADOPTION-003.decision.json"
+    "content/production/runs/com02x-visual-bindings-20261001/HUMAN-COM02X-WALK-ADOPTION-003.decision.json",
+    "content/production/runs/com02x-visual-bindings-20261001/HUMAN-COM02X-PLAYABLE-009.decision.json"
   ]
 }

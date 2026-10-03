@@ -84,6 +84,8 @@ output SHA-256s against the bounded Handoff.
 
 ## M0 Exit Gate review
 
+This table preserves the original audit checkpoint; subsequent closure is linked below.
+
 | M0 criterion | Evidence and remaining gate |
 | --- | --- |
 | Accepted scenes use registered runtime art | PR #39 COM02X exact bindings and checkpoint; current coverage verifies 19 runtime identities |
@@ -93,9 +95,11 @@ output SHA-256s against the bounded Handoff.
 | Active docs/runtime/build describe one production path | Repo-native baseline preserved; architecture/source-map/scripts/CI describe the new coverage contract |
 | Main checks and fresh playable acceptance | PR #43's prior head passed Verify 624 (117/117, deployment/smoke); this extension still needs new-head CI and merge/main verification. COM02X final Human playable acceptance remains unrecorded |
 
-The M0 engineering mechanism is complete on this branch. **M0 remains active**
-until the integrated main verification and final Human playable acceptance are
-recorded. Known provisional/accepted-as-is art remains visible for later scoped
-quality work; M0 does not require this maintenance task to regenerate it. M1
-Gameplay Validation Slice has not started. Issue #27 orchestration and M4 full
-release acceptance remain outside this change.
+At this audit checkpoint, the M0 engineering mechanism was complete on the
+branch, with main verification and final Human playable acceptance still open.
+The subsequent merged baseline and actual Human acceptance are recorded in
+[M0 foundation acceptance](M0_FOUNDATION_ACCEPTANCE.md). Known provisional/accepted-as-is
+art remains visible for later scoped quality work; M0 does not require this
+maintenance task to regenerate it. The subsequent M1 scope proposal is recorded
+separately from this coverage audit. Issue #27 orchestration and M4 full release
+acceptance remain outside this change.

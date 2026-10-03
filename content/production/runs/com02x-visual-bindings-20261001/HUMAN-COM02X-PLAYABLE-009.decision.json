@@ -1,0 +1,194 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "human_decision",
+  "run_id": "com02x-visual-bindings-20261001",
+  "task_id": "HUMAN-COM02X-PLAYABLE-009",
+  "scene_id": "COM-02X",
+  "task_type": "human_decision",
+  "status": "PASS",
+  "harness": {
+    "id": "integrator",
+    "version": "1.3.1",
+    "pass": null
+  },
+  "source_ref": "386a0111b3714326db9117bcf9836103d97f4018",
+  "packet_sha256": "3371a590ffcb48379f06cf67751f981a45240148bc993036c42a1dd879847986",
+  "input_digest_sha256": "3f913c496bd7813be18c4c501f438ea0cf3a908f87ed4df2c0a7e54d19df1ae8",
+  "input_versions": [
+    {
+      "id": "AGENTS.md",
+      "version": "3a9437e9c33c455ece1177a5b4ffa5752ca67687f6fdf4633d966ab1f6f0488e",
+      "location": "AGENTS.md"
+    },
+    {
+      "id": ".ai/WORKFLOW_MANIFEST.yaml",
+      "version": "4e42799b5c23421af5ef3688f92e21f9eb666f05d2047134e54286d5bd71b239",
+      "location": ".ai/WORKFLOW_MANIFEST.yaml"
+    },
+    {
+      "id": ".ai/harnesses/bootstrap.md",
+      "version": "b347e41e1669ec92fdf4885ba4e97f09e97978e1bc5b04e17ece72f8aba8b131",
+      "location": ".ai/harnesses/bootstrap.md"
+    },
+    {
+      "id": ".ai/harnesses/integrator.md",
+      "version": "44c503f10e84aabef15b154f6749423cb3d6e12db53709275c777a0a15753b87",
+      "location": ".ai/harnesses/integrator.md"
+    },
+    {
+      "id": ".ai/policies/SOURCE_AUTHORITY.md",
+      "version": "9db10a7925386836415fd000470cb535915b0e0e58eb7bee794f6a8ae445971c",
+      "location": ".ai/policies/SOURCE_AUTHORITY.md"
+    },
+    {
+      "id": ".ai/policies/CONTEXT_ISOLATION.md",
+      "version": "27c3fca1c65f513b9b3752dcd88b033a68fda600cef009c9a67a161ef06b96e1",
+      "location": ".ai/policies/CONTEXT_ISOLATION.md"
+    },
+    {
+      "id": ".ai/schemas/TASK_PACKET.md",
+      "version": "0473fe9229c64d45ad1696adab632b66da760e0efe8c50a6478d05ff86500d58",
+      "location": ".ai/schemas/TASK_PACKET.md"
+    },
+    {
+      "id": ".ai/schemas/HANDOFF.md",
+      "version": "362659d079492d73cd190a9f32dbf035ac84869b61c42152adf7f1220018b37f",
+      "location": ".ai/schemas/HANDOFF.md"
+    },
+    {
+      "id": ".ai/schemas/PRODUCTION_RUN_LEDGER.md",
+      "version": "aac924528a3ea74c11a27b09d10a3dd649168508a587b7e4167b8de60bd652c9",
+      "location": ".ai/schemas/PRODUCTION_RUN_LEDGER.md"
+    },
+    {
+      "id": "docs/CONTENT_PRODUCTION_SOURCE_MAP.md",
+      "version": "dd02c17459bfc67623fbc16092ac20db804e1d3bafbf45f699e2c96c5ae8de3c",
+      "location": "docs/CONTENT_PRODUCTION_SOURCE_MAP.md"
+    },
+    {
+      "id": "tools/production-storage.mjs",
+      "version": "06f1b13d8c9276128ff2b49347ccc7a820ddfd7290a7f0c8ee7fb2a20c52c865",
+      "location": "tools/production-storage.mjs"
+    },
+    {
+      "id": "content/production/runs/com02x-visual-bindings-20261001/ledger.json",
+      "version": "685232c657ed3394de4591c99df75f72a5bfe6739411f348e5472b08f83ca0e6",
+      "location": "content/production/runs/com02x-visual-bindings-20261001/ledger.json"
+    },
+    {
+      "id": "content/production/runs/com02x-visual-bindings-20261001/VERIFY-COM02X-VISUAL-BINDINGS-008.decision.json",
+      "version": "504288f93f69f6bfa840550722ee7cb7a9b6426c7b299691d75dd54f5f7fb7b5",
+      "location": "content/production/runs/com02x-visual-bindings-20261001/VERIFY-COM02X-VISUAL-BINDINGS-008.decision.json"
+    },
+    {
+      "id": "content/routes/opening-demo/route.json",
+      "version": "6094672d71d01dad0a3349456aa0ce5729a46160043a181b26c44667922e4afc",
+      "location": "content/routes/opening-demo/route.json"
+    },
+    {
+      "id": "content/routes/opening-demo/chapter-01.json",
+      "version": "897e52bc5ff1a2452d1775e097c25e5b1d9eab23612738666b2e362b470b7f30",
+      "location": "content/routes/opening-demo/chapter-01.json"
+    },
+    {
+      "id": "content/routes/opening-demo/memories.json",
+      "version": "620aa45974e0292d9184b8cebdb8c51f621b3edad65b4035e3efa9ba2dcea48e",
+      "location": "content/routes/opening-demo/memories.json"
+    },
+    {
+      "id": "content/assets/manifest.json",
+      "version": "4a7bcb1b6deb6a8e2f1a907412a0bff9fd417895df89bafd86212619e8a80ef6",
+      "location": "content/assets/manifest.json"
+    },
+    {
+      "id": "assets-src/opening-ch1-demo/com02x-bg-01-v1.webp",
+      "version": "5bff68c7d038f32283bba5a1c56c652b4fc11019c4c68c892aee9517fd749112",
+      "location": "assets-src/opening-ch1-demo/com02x-bg-01-v1.webp"
+    },
+    {
+      "id": "assets-src/opening-ch1-demo/com02x-dlg-01-v1.webp",
+      "version": "dde697e3460ed77d3d102c28ff1e25970e0e1f6912b718c764c0073704078d4d",
+      "location": "assets-src/opening-ch1-demo/com02x-dlg-01-v1.webp"
+    },
+    {
+      "id": "assets-src/opening-ch1-demo/com02x-microwave-v1.webp",
+      "version": "d3006f2e29f26af80d812c1afc92de5a0807eef42fe822c80502338942cb2f24",
+      "location": "assets-src/opening-ch1-demo/com02x-microwave-v1.webp"
+    },
+    {
+      "id": "assets-src/opening-ch1-demo/com02x-walk-v3.webp",
+      "version": "5e575a70762c09fdc958333f51ea8b1f12b20109d90ca22e224e66be38accbfd",
+      "location": "assets-src/opening-ch1-demo/com02x-walk-v3.webp"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "content/routes/opening-demo/chapter-01.json",
+      "version": "897e52bc5ff1a2452d1775e097c25e5b1d9eab23612738666b2e362b470b7f30",
+      "location": "content/routes/opening-demo/chapter-01.json"
+    },
+    {
+      "id": "content/routes/opening-demo/memories.json",
+      "version": "620aa45974e0292d9184b8cebdb8c51f621b3edad65b4035e3efa9ba2dcea48e",
+      "location": "content/routes/opening-demo/memories.json"
+    },
+    {
+      "id": "content/routes/opening-demo/route.json",
+      "version": "6094672d71d01dad0a3349456aa0ce5729a46160043a181b26c44667922e4afc",
+      "location": "content/routes/opening-demo/route.json"
+    },
+    {
+      "id": "content/assets/manifest.json",
+      "version": "4a7bcb1b6deb6a8e2f1a907412a0bff9fd417895df89bafd86212619e8a80ef6",
+      "location": "content/assets/manifest.json"
+    },
+    {
+      "id": "assets-src/opening-ch1-demo/com02x-bg-01-v1.webp",
+      "version": "5bff68c7d038f32283bba5a1c56c652b4fc11019c4c68c892aee9517fd749112",
+      "location": "assets-src/opening-ch1-demo/com02x-bg-01-v1.webp"
+    },
+    {
+      "id": "assets-src/opening-ch1-demo/com02x-dlg-01-v1.webp",
+      "version": "dde697e3460ed77d3d102c28ff1e25970e0e1f6912b718c764c0073704078d4d",
+      "location": "assets-src/opening-ch1-demo/com02x-dlg-01-v1.webp"
+    },
+    {
+      "id": "assets-src/opening-ch1-demo/com02x-microwave-v1.webp",
+      "version": "d3006f2e29f26af80d812c1afc92de5a0807eef42fe822c80502338942cb2f24",
+      "location": "assets-src/opening-ch1-demo/com02x-microwave-v1.webp"
+    },
+    {
+      "id": "assets-src/opening-ch1-demo/com02x-walk-v3.webp",
+      "version": "5e575a70762c09fdc958333f51ea8b1f12b20109d90ca22e224e66be38accbfd",
+      "location": "assets-src/opening-ch1-demo/com02x-walk-v3.webp"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "Actual Human final playable acceptance",
+      "code": "HUMAN-FINAL-PLAYABLE-ACCEPTANCE",
+      "result": "PASS"
+    },
+    {
+      "name": "Runtime identity matches VERIFY008 and pinned integration checkpoint",
+      "code": "UNCHANGED-RUNTIME-IDENTITIES",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    {
+      "scope": "final_playable_acceptance",
+      "human_directive": "我測了可玩性，沒有可見問題。繼續下一步。",
+      "reported_date": "2026-10-02",
+      "tested_url": "unknown",
+      "tested_commit_sha": "unknown",
+      "binding_context": "PR43 head386a011; user did not explicitly identify tested URL or commit SHA.",
+      "pr_url": "https://github.com/TsungmingLiu/seventeen-floor-neighbor/pull/43"
+    },
+    "This records the actual Human report of no visible playable issues and closes only final_playable_acceptance. It does not verify a main merge or assert which URL/commit the user tested.",
+    "Runtime and art bytes match VERIFY-COM02X-VISUAL-BINDINGS-008 at ba5f832. Historical QA/Human decisions, walking pixel QA FAIL and dialogue-safe-zone NEEDS_REVIEW remain unchanged; this is not art release-ready approval."
+  ],
+  "human_gate_required": "none",
+  "invalidates": []
+}

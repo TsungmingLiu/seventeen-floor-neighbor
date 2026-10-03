@@ -38,17 +38,26 @@ function clearFixture() {
   return input;
 }
 
-test('current deterministic inventory distinguishes unused preview and adopted caveats', () => {
+test('current deterministic inventory distinguishes scene-local preview and adopted caveats', () => {
   const result = report();
   assert.equal(JSON.stringify(result), JSON.stringify(report()));
   assert.deepEqual(result.summary, {
-    inventory: 21, runtimeBound: 20, declared: 20, referenced: 20, unused: 1,
+    inventory: 21, runtimeBound: 21, declared: 21, referenced: 21, unused: 0,
     inventoryStatuses: { placeholder: 1, provisional: 2, accepted: 18, unverified: 0 },
-    runtimeStatuses: { placeholder: 0, provisional: 2, accepted: 18, unverified: 0 },
-    blockedRuntimeAssets: 8, bindingErrors: 0, coverageClear: false
+    runtimeStatuses: { placeholder: 1, provisional: 2, accepted: 18, unverified: 0 },
+    blockedRuntimeAssets: 9, bindingErrors: 1, coverageClear: false
   });
   assert.equal(asset(result, preview).status, 'placeholder');
-  assert.equal(asset(result, preview).runtimeBound, false);
+  assert.equal(asset(result, preview).runtimeBound, true);
+  assert.deepEqual(result.bindingErrors, [{ code: 'PREVIEW_ROUTE_OPT_IN', routeId: 'opening-demo' }]);
+  const previewBindings = asset(result, preview).references.map(ref => ref.binding);
+  assert.equal(previewBindings.length, 85);
+  assert.equal(previewBindings.filter(binding => binding.startsWith('node:')).length, 83);
+  assert.deepEqual(previewBindings.filter(binding => !binding.startsWith('node:')), ['ending:demo_complete', 'endingArt']);
+  assert.ok(previewBindings.filter(binding => binding.startsWith('node:')).every(binding =>
+    /^node:(common_package_xu_|com03x_)/.test(binding)));
+  assert.ok(result.assets.filter(item => item.references.some(ref => /^node:common_convenience_xu_/.test(ref.binding)))
+    .every(item => item.status === 'accepted' && item.assetId !== preview));
   assert.equal(coverageExitCode(result), 0);
   assert.equal(coverageExitCode(result, { strict: true }), 1);
   assert.equal(result.scope.releaseReadiness, 'not_recorded');
@@ -229,7 +238,7 @@ test('CLI JSON is deterministic and strict mode returns expected failure', () =>
   assert.equal(second.stdout, first.stdout);
   assert.equal(strict.status, 1, strict.stderr);
   assert.equal(strict.stdout, first.stdout);
-  assert.equal(JSON.parse(first.stdout).summary.runtimeBound, 20);
+  assert.equal(JSON.parse(first.stdout).summary.runtimeBound, 21);
 });
 function fileURL() { return new URL('../tools/asset-coverage.mjs', import.meta.url).pathname; }
 

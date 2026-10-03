@@ -1,0 +1,76 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "human_decision",
+  "run_id": "com03x-m1-preview-20261002",
+  "task_id": "HUMAN-COM03X-STORY-005",
+  "scene_id": "COM-03X",
+  "task_type": "human_decision",
+  "status": "PASS",
+  "harness": {
+    "id": "integrator",
+    "version": "1.4.0",
+    "pass": null
+  },
+  "source_ref": "d4ab4bd0ffc4bec97f81ad288a52194bc3a883bd",
+  "packet_sha256": "0127405a92d0b881f3240979e6b01a2d5421e90909ef047928f0382f09325078",
+  "input_digest_sha256": "58fc450d1458966e1705e593b498d33017e22ba4b66369389037b034589bd1bd",
+  "input_versions": [
+    {
+      "id": "docs/narrative/scenes/vertical-slice/COM-03X.md",
+      "version": "e837b0b365dcf2157e841bce67614e6f41ca758717c4cf20e93c6a01ac54142a",
+      "location": "docs/narrative/scenes/vertical-slice/COM-03X.md"
+    },
+    {
+      "id": "content/production/narrative/opening-ch1/COM-03X.json",
+      "version": "81b6c71fedb43b4d32c025a2d190dea9c1138905680a99562efa417b522d507c",
+      "location": "content/production/narrative/opening-ch1/COM-03X.json"
+    },
+    {
+      "id": "content/routes/opening-demo/route.json",
+      "version": "cff959d3497a85ed504a7e857c0b5bfde5355705e5b6dfd5f135411133cc27d9",
+      "location": "content/routes/opening-demo/route.json"
+    },
+    {
+      "id": "content/routes/opening-demo/chapter-01.json",
+      "version": "dfdeef9510c35006f922cb1675706652efb16fa56e649d08a062f0995d1e6b3e",
+      "location": "content/routes/opening-demo/chapter-01.json"
+    },
+    {
+      "id": "src/progress.js",
+      "version": "96ce36801641b9b03c6e29f2b7065b6a6afdf71ca0c9dbbde58fb8b0b13a2c02",
+      "location": "src/progress.js"
+    },
+    {
+      "id": "src/engine.js",
+      "version": "8873e0eb00d812f9bbcce090c098ce6aa5d50461fda82e918422898017b0fcde",
+      "location": "src/engine.js"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "docs/narrative/scenes/vertical-slice/COM-03X.md",
+      "version": "e837b0b365dcf2157e841bce67614e6f41ca758717c4cf20e93c6a01ac54142a",
+      "location": "docs/narrative/scenes/vertical-slice/COM-03X.md"
+    },
+    {
+      "id": "content/production/narrative/opening-ch1/COM-03X.json",
+      "version": "81b6c71fedb43b4d32c025a2d190dea9c1138905680a99562efa417b522d507c",
+      "location": "content/production/narrative/opening-ch1/COM-03X.json"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "human_narrative_preview_review",
+      "code": "HUMAN-STORY-APPROVED",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "2026-10-02 Owner: 試玩了，我覺得對白劇情還可以，給過。繼續推進。",
+    "Scope: COM03X story/dialogue preview published at https://7410c7f4.seventeen-floor-neighbor.pages.dev/ for d4ab4bd; runtime unchanged at 7be3375, clean Verify660 172/172 and deployment smoke PASS.",
+    "No final CG/Visual QA/final playable acceptance conferred; continue next M1 COM02J narrative preview."
+  ],
+  "human_gate_required": "none",
+  "invalidates": []
+}

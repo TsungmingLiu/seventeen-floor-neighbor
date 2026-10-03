@@ -5,6 +5,7 @@ import { createHash } from 'node:crypto';
 
 const nodes = JSON.parse(readFileSync(new URL('../content/routes/opening-demo/chapter-01.json', import.meta.url))).nodes;
 const memories = JSON.parse(readFileSync(new URL('../content/routes/opening-demo/memories.json', import.meta.url))).events;
+const isCom03xNode = id => id.startsWith('common_package_xu_') || id.startsWith('com03x_');
 const scenes = [
   ['COM-00', 'common_elevator_restart_enter'],
   ['COM-01X', 'common_bookstore_bridge_enter'],
@@ -126,8 +127,9 @@ common_convenience_xu_choice
 test('saved node IDs, choice destinations and effects remain stable', () => {
   assert.equal(originalNodeIds.length, 144);
   for (const id of originalNodeIds) assert.ok(nodes[id], `deleted save node ${id}`);
+  const originalIds = new Set(originalNodeIds);
   const choiceEdges = Object.fromEntries(
-    Object.entries(nodes).filter(([, node]) => node.choices).map(([id, node]) => [id,
+    Object.entries(nodes).filter(([id, node]) => originalIds.has(id) && node.choices).map(([id, node]) => [id,
       node.choices.map(choice => Object.fromEntries(
         ['id', 'next', 'effects', 'addFlags'].filter(key => key in choice).map(key => [key, choice[key]])
       ))
@@ -138,6 +140,17 @@ test('saved node IDs, choice destinations and effects remain stable', () => {
   assert.deepEqual(nodes.common_convenience_xu_exit_08.entryEffects, { F_XT: 1 });
   assert.deepEqual(nodes.common_convenience_xu_exit_08.entryFlags,
     ['player_knows_xu_freelance_creative_work', 'xu_knows_player_remote_tech_work']);
+  // Old checkpoints retain their predecessor and terminal ID; the terminal now redirects.
+  assert.equal(nodes.common_convenience_xu_exit_08.next, 'opening_demo_complete');
+  assert.deepEqual(nodes.opening_demo_complete, { type: 'branch', default: 'common_package_xu_arrive' });
+  // This is the approved extension's structural identity, not a replacement save baseline.
+  assert.ok(!originalIds.has('common_package_xu_choice'));
+  assert.deepEqual(nodes.common_package_xu_choice.choices.map(({ id, next, effects }) => ({ id, next, effects })), [
+    { id: 'com03x_recall_deadline', next: 'com03x_recall_deadline', effects: { mc_tone_observant: 1 } },
+    { id: 'com03x_ask_proof', next: 'com03x_ask_proof', effects: { mc_tone_practical: 1 } },
+    { id: 'com03x_joke_building', next: 'com03x_joke_building', effects: { mc_tone_humorous: 1 } }
+  ]);
+  for (const choice of nodes.common_package_xu_choice.choices) assert.ok(nodes[choice.next]);
 });
 
 test('expanded boxes keep the existing Memory and visual boundaries', () => {
@@ -148,10 +161,25 @@ test('expanded boxes keep the existing Memory and visual boundaries', () => {
       membership.set(id, event.id);
     }
   }
+  for (const id of ['common_package_xu_arrive', 'common_package_xu_choice', 'com03x_recall_deadline', 'com03x_preview_complete']) {
+    assert.ok(isCom03xNode(id));
+    assert.equal(membership.get(id), 'mem.opening.ch1.convenience-xu');
+  }
+  for (const id of ['common_convenience_xu_exit_08', 'common_bookstore_bridge_choice', 'opening_demo_complete']) {
+    assert.ok(!isCom03xNode(id));
+  }
+  assert.equal(membership.get('opening_demo_complete'), 'mem.opening.ch1.convenience-xu');
   for (const id of Object.keys(nodes)) {
     if (id === 'opening_demo_complete') continue;
     assert.ok(membership.has(id), `unmapped Memory node ${id}`);
-    if (id.startsWith('common_convenience_xu_')) {
+    if (isCom03xNode(id)) {
+      assert.equal(membership.get(id), 'mem.opening.ch1.convenience-xu');
+      if (id === 'com03x_preview_complete') {
+        assert.deepEqual(nodes[id], { type: 'route' });
+      } else {
+        assert.deepEqual(nodes[id].visual, { mode: 'composite', background: 'bg.narrative_preview.placeholder', sprites: [] });
+      }
+    } else if (id.startsWith('common_convenience_xu_')) {
       assert.notEqual(nodes[id].visual?.background, 'bg.narrative_preview.placeholder');
       if (id === 'common_convenience_xu_choice' || id === 'common_convenience_xu_recognize' || id.startsWith('common_convenience_xu_recognize_')
       || /^common_convenience_xu_(ask_food|share_work|tease_same)(_|$)/.test(id)
