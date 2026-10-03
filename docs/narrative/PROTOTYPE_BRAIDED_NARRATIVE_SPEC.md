@@ -2,13 +2,13 @@
 
 > 狀態：**Canonical prototype narrative plan / pre-script**
 >
-> 版本：0.5
+> 版本：0.6
 >
-> 更新：2026-09-23
+> 更新：2026-10-03
 >
 > 範圍：只涵蓋許棠、江雨澄雙女主 prototype。`opening-demo` 已接入的故事以相應 Locked Scene 與 Narrative Contract 為準；已退役的舊 route 不能反推本文件的劇情。
 >
-> 本文件自身是 prototype narrative authority；runtime/content 與已實作的 Memories／replay 契約見 `ARCHITECTURE.md`。舊 setting proposal 只保留 ideation provenance，不是上位規格。
+> 本文件擁有 scene purpose、角色弧線與 pacing；#52 選擇／後果 authority 由 interaction spec 擁有，#55 availability／return／clarity 精確 gates 由 route/state spec §5、§8–11 擁有。這是 Human 批准的 v0.6 migration；舊 blueprint 的數值與強制雙入口／COMMIT 須後續對齊，既有 Locked Scene／runtime/save/Memory/asset IDs 保留至明示 migration。runtime/content 與已實作的 Memories／replay 契約見 `ARCHITECTURE.md`。舊 setting proposal 只保留 ideation provenance，不是上位規格。
 >
 > 配套文件：
 > - `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md`：route DAG、dependencies、state/knowledge flags。
@@ -78,25 +78,11 @@ Prototype 不採「Chapter 3 選一位女主後另一位消失」的傳統 route
 
 # 2. Relationship model
 
-每位女主獨立維護：
+新 narrative authority 是 exact events、knowledge、choice history、雙方 intent、可追溯的行為 pattern 與 repair outcome；不新增 F/T/C/K、strike 或 renamed hidden scores。舊整合內容的 numeric state 僅作 compatibility，不能新開 scene／route／ending。
 
-~~~text
-F = familiarity
-T = trust
-C = chemistry
-K = compatibility
-~~~
+Expression choice 用 Warm / Candid / Playful，各自有情境價值；action choice 按實際行動需要選項。Local reaction、Echo callback、Structural 改可達 scene 集合分開；後者通常在當場／接下來 1–2 個 Memory Events 可感知，major attention、repair、deception、clarity 可長 divergence。
 
-一般 choice 建議變動 `-1 / 0 / +1`；核心行為可 `±2`。數值不直接顯示。
-
-Ending 不得單靠數值。還要結合：
-
-- repeated behavior pattern；
-- heroine-specific flags；
-- repair 是否成功；
-- relationship intent；
-- exclusivity / overlap / deception 狀態；
-- 女主對另一人的 knowledge。
+ordinary acquaintance、cooling/dormant、explicit closure、unresolved harm 與 never_met 不混用。一次未選不等於 closure；她不持續發無限邀請。接受邀請只進下一合法 scene，不等於 earned intimacy／repair／Good。
 
 ## 2.1 行為 pattern 原則
 
@@ -150,17 +136,17 @@ spoke_for_her
 故事約跨 6–7 週，不使用硬核 calendar simulator，但 scene text 可以自然標示時間。
 
 ~~~text
-COMMON
+MIXED DISCOVERY / 已有 contacts
   ↓
 OPEN DATING A
   ↓
 EARLY 1-ON-1
   ↓
-FIRST CROSSOVER
+FIRST CROSSOVER（雙方條件成立時）
   ↓
 OPEN DATING B / RE-APPROACH
   ↓
-SECOND CROSSOVER
+SECOND CROSSOVER（可略過）
   ↓
 BRAIDED INTIMACY
   ↓
@@ -168,7 +154,7 @@ HEROINE CONFLICTS
   ↓
 REPAIR INVITATIONS
   ↓
-COMMITMENT GATE
+HEROINE-SPECIFIC CLARITY（COMMIT collision 可選）
   ├─ honest Xu focus
   ├─ honest JYC focus
   ├─ honest overlap
@@ -179,7 +165,7 @@ LATE LOCK
 Good / Friend / Distance
 ~~~
 
-真正的 route lock 約在整體 65–75% 之後。
+late lock 在必要 arc／repair outcome 與該 heroine clarity 已具體處理後；百分比不是 eligibility。
 
 ---
 
@@ -204,13 +190,13 @@ Good / Friend / Distance
 
 **Choice intent**
 - 正式道謝：偏克制。
-- 自嘲堵住公共走廊：偏幽默，`C_XT +1`。
+- 自嘲堵住公共走廊：偏幽默，Local response。
 - 專注收箱子：neutral。
 不設明顯最佳答案。
 
 **Exit**
 - `met_xu_tang = true`
-- 解鎖 COM-01X / COM-01J。
+- 解鎖鄰居後續；COM-01J 由 eligible discovery window 決定，不強迫初遇。
 
 **Memory**：common / scene cover，progress band 100。  
 **Art**：BG-APT-17F-RAIN；XT-SPR-WEEKDAY；CG-COM-01。
@@ -233,13 +219,15 @@ Good / Friend / Distance
 **Choice**
 幽默／實際／安靜陪等，只塑造男主 tone。
 
-**Exit**：`F_XT +1`。  
+**Exit**：完成一次 ordinary neighbor encounter，保留當地 knowledge。
 **Memory**：common。  
 **Art**：BG-APT-ELEVATOR；XT-SPR-WEEKDAY；停電近景 CG 為 P2 optional。
 
 ---
 
 ### COM-01J — 地下街初遇
+
+**Discovery**：Opening 或下一 discovery window 的第二自然機會。第二入口以短 variant 建立首次共同興趣，merge 原後續；若未曾初遇，COM-02J 不可回憶上次咖啡推薦。仍須逐幕建立名字／contact，不複製 route。
 
 **時間／地點**：同週末，台北地下街 ACG 店。  
 **Purpose**：用共同興趣，而不是英雄救美，建立江雨澄入口。
@@ -259,7 +247,7 @@ Good / Friend / Distance
 
 **Exit**
 - `met_jiang_yucheng = true`
-- `F_JYC +1`
+- 初識共同興趣，不等於 romantic signal
 
 **Memory**：common。  
 **Art**：BG-ACG-SHOP；JYC-SPR-CAMPUS；CG-COM-02 P1。
@@ -279,9 +267,9 @@ Good / Friend / Distance
 5. 她不需要解釋為什麼這麼晚吃飯。
 
 **Choice**
-問附近吃什麼／聊工作／半開玩笑她也才吃。直接說「妳應該好好吃飯」會產生輕微界線訊號但不扣大分。
+問附近吃什麼／聊工作／半開玩笑她也才吃。直接說「妳應該好好吃飯」會產生當地界線反應，不能當成數值懲罰。
 
-**Exit**：`F_XT +1`。  
+**Exit**：完成一次 ordinary neighbor encounter，保留當地 knowledge。
 **Art**：BG-CONVENIENCE-NIGHT；XT-SPR-LATE-CASUAL；CG-COM-03。
 
 ---
@@ -301,7 +289,7 @@ Good / Friend / Distance
 **Choices**
 問她畫什麼／延續上次作品／泛稱「好厲害」。前兩者提供更具體連結。
 
-**Exit**：`F_JYC +1`，可進 COM-03J。  
+**Exit**：交換名字／共同興趣，可進 COM-03J。
 **Art**：BG-CAFE-STATION；JYC-SPR-CAFE；CG-COM-04。
 
 ---
@@ -320,7 +308,7 @@ Good / Friend / Distance
 
 **Exit**
 - `contact_xu = true`
-- `F_XT +1`
+- 建立可聯絡的普通鄰居關係，不等於 romantic signal
 
 **Memory**：可被 COM-03M 壓縮，不必獨立卡。  
 **Art**：BG-APT-17F-DAY/NIGHT；XT-SPR-WEEKDAY。
@@ -340,7 +328,7 @@ Good / Friend / Distance
 
 **Exit**
 - `contact_jyc = true`
-- `F_JYC +1`
+- 初識共同興趣，不等於 romantic signal
 
 **Art**：聊天 UI；JYC avatar；不需要 CG。
 
@@ -364,7 +352,7 @@ Good / Friend / Distance
 - 線上反差。
 
 **Player-facing effect**
-玩家開始期待兩種完全不同的 notification。
+只呈現已建立 contact 的訊息；雙方皆認識時開始期待兩種 notification。未見雨澄的較短路徑有效，不補寫她的 montage。
 
 **Exit**
 - `open_dating_unlocked = true`
@@ -382,13 +370,13 @@ Good / Friend / Distance
 **不是傳統 scene，而是第一個有限 attention window。**
 
 **時間**：Week 2–3。  
-**Slots**：建議 2 個 major social slots。
+**Slots**：2 個 authored major social slots。
 
 可選 early anchors：
 - XT-04 中山書店
 - JYC-05 ACG 主場
 
-玩家可以兩個都玩，只是順序不同。若先選一人，另一人不關閉。
+可 XJ、JX、XX、JJ，也可 solo/rest/wait。只顯示已知/contactable 且當地 eligible 的邀請；未見另一人仍可完成較短走法。slot 用完後不能追加 OPEN-A 第三 slot；返回未玩 anchor 可用下一 window 的合法 slot，精確 gate 見 route/state §8。
 
 **State**
 - 更新 `focusHistory[]`
@@ -412,9 +400,9 @@ Good / Friend / Distance
 5. 她自己提出再喝咖啡，等於主動延長相處。
 
 **Choice pattern**
-- 陪她慢慢看：`K +2, T +1, xt_respected_pace=true`
-- 提醒行程：`F +1, K -1`，不算壞。
-- 幽默說她要住進書店：高 chemistry 時 `C +1`。
+- 陪她慢慢看：`xt_respected_pace=true`，她分享書頁
+- 提醒行程：她回應彼此行程差異，不算標準錯答。
+- 幽默說她要住進書店：看當地反應，保留 Local humor。
 
 **Exit**：若之後再投資許棠，XT-05 優先開。  
 **Art**：BG-BOOKSTORE；XT-SPR-BOOKSTORE；CG-XT-01。
@@ -444,7 +432,7 @@ Good / Friend / Distance
 **State**
 - `xt_asked_support_mode` 依前半 choice。
 - `xt_saw_competence_mask = true`
-- 健康互動：`T +1~2, K +1`
+- 健康互動：彼此確認 support mode
 
 **Art**：BG-CAFE-GROUND-DAY；XT-SPR-BOOKSTORE/WORK；CG-XT-02。
 
@@ -462,9 +450,9 @@ Good / Friend / Distance
 5. 小周邊／抽選形成純 reward beat。
 
 **Choices**
-- 讓她帶路：`K +2`
-- 認真參與她的興趣：`C +1~2`
-- 她一停頓就替她答：`T -1`
+- 讓她帶路：她保留帶路／表達選擇的主導權
+- 認真參與她的興趣：互相發現共同興趣
+- 她一停頓就替她答：替她代答的具體 pressure evidence
 
 **State**
 - `jyc_seen_in_element=true`
@@ -485,10 +473,10 @@ Good / Friend / Distance
 5. 結束後兩人各滑手機，安靜也舒服。
 
 **Choices**
-- 認真跟她競爭：可 `C +1`
-- 故意讓她：被發現後 `K -1`
-- 一直教：`K -1`
-- 接受她比自己強：`K +1`
+- 認真跟她競爭：可有 Local playful reaction
+- 故意讓她：被發現後可有當地不滿
+- 一直教：她指出自己會玩，男主是否停止成為具體 pressure evidence
+- 接受她比自己強：當地尊重與共同玩樂
 
 **State**
 - `jyc_home_space_comfort=true`
@@ -530,7 +518,7 @@ Good / Friend / Distance
 ### OPEN-B — Open Dating Window B
 
 **時間**：Week 3–4。  
-**Slots**：建議 3 個 major social slots。
+**Slots**：3 個 authored major social slots。
 
 可用 scene pool：
 - XT-06 夜市
@@ -540,11 +528,11 @@ Good / Friend / Distance
 - JYC-07 Alias
 - JYC-08 主動邀約
 
-不是所有 scene 都必須由玩家菜單直接選；部分可由前置狀態／訊息邀請觸發。
+每 slot 可 contextual player invite、incoming invite、solo/rest/wait；她可接受、counteroffer、婉拒。發起方只改短入口，share 原 date scene。等待有生活內容但不保證邀請；不跳 prerequisite 或消除 harm。
 
 **核心規則**
 - 同一女主可連續兩次，形成 recent focus。
-- 偏一邊後另一邊可透過 RE-X/RE-J 回到前景。
+- 偏一邊後另一邊可有一次自然 RE；錯過後僅緊接的下一 attention window 允許一次 player reopening（route/state §9），非永久回收。
 - 不能因一次沒選就永久關閉。
 - 世界要記得玩家最近把時間花在哪裡。
 
@@ -562,7 +550,7 @@ Good / Friend / Distance
 - 人群中距離縮短。
 
 **Physical choice**
-讓她走內側／短暫扶手臂／直接牽住。最後一個只有高 T/C 且已有 reciprocal signal 才不造成 boundary strike。
+讓她走內側／短暫扶手臂／直接牽住。必須看當地 reciprocal cue 與同意；越界記具體行為與她的反應，不靠高 T/C 或 strike count 抵免。
 
 **State**
 - `xt_physical_comfort`
@@ -584,9 +572,9 @@ Good / Friend / Distance
 5. 窗戶倒影裡兩人坐得很近。
 
 **State**
-- curiosity response：`K +1, T +1`
-- insist-on-winning：`K -1`
-- attraction signal 可 `C +1`
+- curiosity response：她可分享不同理解
+- insist-on-winning：她停止分享看法，下一段可 callback 這次分歧
+- attraction signal 依互相靠近的當地 cue 表達
 
 **Art**：BG-CINEMA-LOBBY、BG-MRT-CAR-NIGHT；XT-SPR-RIVER/RAIN；CG-XT-05。
 
@@ -594,7 +582,7 @@ Good / Friend / Distance
 
 ### XT-08 — 河濱：過去
 
-**Purpose**：許棠 trust gate；解釋但不妖魔化前任。
+**Purpose**：她在已發生的相處後願意分享過去；解釋但不妖魔化前任。
 
 **Reveal**
 前任逐步把「關心」變成報備、安排與替她做決定。她真正怕的是關係逐漸要求她交出生活主導權。
@@ -607,7 +595,7 @@ Good / Friend / Distance
 
 **Choice**
 - 只罵前任：理解表面。
-- 問她最怕哪一部分再次發生：`T +2, xt_understands_autonomy=true`
+- 問她最怕哪一部分再次發生：`xt_understands_autonomy=true`，具體理解她的擔心
 - 立刻承諾「我絕對不會」：neutral。
 
 **Art**：BG-RIVERSIDE-DUSK；XT-SPR-RIVER/RAIN；CG-XT-06。
@@ -628,7 +616,7 @@ Good / Friend / Distance
 
 **State**
 - `jyc_saw_practical_deflection=true`
-- 玩家若真正談自己的空白／不確定：`T_JYC +1`
+- 玩家若真正談自己的空白／不確定：建立男主自我揭露的真實歷史
 
 **Art**：BG-RAIN-AWNING-DAY 或 BG-CASUAL-EATERY；JYC-SPR-CASUAL；CG-JYC-04A optional/P1。
 
@@ -642,9 +630,9 @@ Good / Friend / Distance
 男主從畫風、簽名習慣、之前聊天內容逐步推斷她是自己曾看過的小型匿名插畫帳號。
 
 **Choices**
-- 等她自己說：`T +2, jyc_alias_private=true`
-- 私下溫和確認：`T +1`
-- 在別人面前提：`T -3, jyc_alias_exposed=true, pressure_strike+1`
+- 等她自己說：`jyc_alias_private=true`
+- 私下溫和確認：私下確認的當地回應
+- 在別人面前提：`jyc_alias_exposed=true`，nearby harm / repair consequences
 
 **Reveal**
 她怕的不是作品不夠好，而是別人喜歡 imagined creator，不喜歡現實中的她。
@@ -668,29 +656,21 @@ Good / Friend / Distance
 
 **State**
 - `jyc_invited_player=true`
-- 接受但不過度放大：`T/C +1`
+- 接受但不過度放大：接受 offline invitation；後續成行才推進
 
 **Art**：chat UI。CG 非必需。
 
 ---
 
+普通 contact 熟人尚未投入或約定同行時，引用共同話題的是 first invitation，不是 RE。XX 後普通雨澄熟人以 first invitation 在 OPEN-B 下一合法 slot 進 JYC-05；JJ 後普通許棠熟人對稱進 XT-04，再循原 prerequisites。首次邀請不編造 romantic history 或 RE miss/window；精確 slot/gates 見 route/state §8–9。
+
 ### RE-X — 許棠重新靠近
 
-**Kind**：reactive scene family，不是固定一個劇情。  
-**Trigger**：`recentFocus=jyc` 且許棠仍有足夠 familiarity。
+**Kind**：有真實 prior investment／已約未成 plan 且已 cooling/dormant 時，一次自然 re-approach 的短 reactive family；精確 eligibility／missed 後 one-window player reopen 見 route/state §9。
 
-**可用表現**
-- 17 樓偶遇；
-- 許棠傳「你最近是不是很忙」；
-- 便利店碰到；
-- 她提起之前沒去成／還沒去的地方。
+她本就要逛設計／攝影書店，引用真實共同話題，問他要不要一起；也可17樓／便利店偶遇後接此邀請。男主主動 reopening 可引用那家尚未成行的店，詢問她方便的 pace。不是帶工作解方接管她。
 
-**Purpose**
-讓玩家可以回頭，但許棠記得自己前陣子不是 focus。
-
-**State**
-- 若玩家主動重新投資，更新 recentFocus。
-- 不自動恢復 romantic momentum；需靠後續 scene。
+接受 → 下一合法 slot 的未玩 XT-04 或下一必要 Xu scene；只聊天不算 focus investment。錯過自然 offer → dormant，唯一 player window 消耗／到期後不再發浪漫 hook；明確拒絕 → 本輪 romantic closure。ordinary neighbor life 可留，不冒充 Friend/Distance ending。
 
 **Art**：既有 17F / convenience BG + XT sprite，不需要新 CG。
 
@@ -698,15 +678,11 @@ Good / Friend / Distance
 
 ### RE-J — 雨澄重新靠近
 
-**Trigger**：`recentFocus=xu` 且雨澄仍有聯絡。
+同樣須有真實 prior investment／已約未成 plan 且已 cooling/dormant，才是 RE-J；她傳共同遊戲更新／新作品，因自己的興趣想一起玩或去展；player reopen 引用已發生的 exchange，讓她决定 offline 見面方式。不能替 never_met 建共同歷史。
 
-**可用表現**
-- 傳新遊戲更新；
-- 丟一張圖；
-- 問「你最近是不是沒在玩了」；
-- 咖啡店自然碰到。
+接受 → 下一合法 slot 的未玩 JYC-05 或下一必要 scene；共享 date 主體，不送 intimacy。剛從另一人 conflict 回來可有 exact-history `possibleReboundFrom` variant，但她只知道當地取得的事實。錯過／reopening／closure 同 §9。
 
-若玩家剛和許棠 conflict 後立刻突然對雨澄非常積極，可加 `possible_rebound` variant；她會察覺男主今天不太一樣，但不會讀心。
+RE 不修復擅安排程、代答或曝光等具體 harm。早期相鄰 continuation 可補具体承認、詢問、停止越界及她的接受／拒绝，未處理就不得邀約繞過；不 set XT/JYC late repair_completed。
 
 **Art**：UI / cafe BG + JYC sprite。
 
@@ -743,13 +719,13 @@ Good / Friend / Distance
 ### BRAID-C — Braided Intimacy Window
 
 **時間**：Week 4–5。  
-**Purpose**：允許兩邊在 late lock 前都走到約 60% 深度。
+**Purpose**：必要 midgame scenes 已演出且她接受私人推進時，各 heroine 可進自己的 core arc；不使用「深度」分數。
 
 Available：
 - XT-09 → XT-10 → XT-11
 - JYC-09 → JYC-10 → JYC-11
 
-玩家不一定兩組都完整觸發，但若兩邊 romantic investment 高，系統應允許兩個核心 conflict 同時存在，這才是 overlap 的壓力來源。
+玩家不一定兩組都完整觸發，但若兩邊已建立具體 romantic expectations，系統應允許兩個核心 conflict 同時存在，這才是 overlap 的壓力來源。
 
 **Implementation note**
 這不是全排列。各 heroine arc 仍有內部順序；window 只決定哪條先發生與另一條是否仍開放。
@@ -771,7 +747,7 @@ Available：
 **Choice**
 - 不評論凌亂；
 - 乾式玩笑；
-- 下意識開始整理（`K -1`）。
+- 下意識開始整理（她是否允許、男主是否停手，形成具體 takeover evidence）。
 
 **Key line intent**
 她問「你不無聊嗎？」潛台詞是她不確定自己是否必須一直提供 girlfriend performance。
@@ -780,7 +756,7 @@ Available：
 
 **State**
 - `xt_home_opened=true`
-- `T +1~2`
+- 她允許私人空間並保留邊界
 
 **Art**：BG-XT-HOME-STUDIO；XT-SPR-HOME-WORK；CG-XT-07。
 
@@ -821,7 +797,7 @@ Available：
 - 男主走過她門口沒敲。
 - 依先前 choice 使用不同 internal narration。
 
-若 `xt_boundary_strikes >= 2`，她已接近退回普通鄰居；健康路徑則只是雙方消化。
+若她已針對具體反覆越界表達退回普通鄰居，依該 outcome 處理；其他路徑可只是雙方消化，不用 strike threshold。
 
 **Art**：BG-APT-17F-NIGHT；可無人物。
 
@@ -844,9 +820,9 @@ Available：
 5. 原定晚餐取消，她只想回家。
 
 **Player response**
-- 替她說謊否認：仍是替她決定，`K -1`
-- 很高興直接證實：`T -3, pressure+1`
-- 看她 cue，讓她自己回、需要時自然帶走：`T +2, K +2`
+- 替她說謊否認：仍是替她決定，記她的可見反應與未決 visibility harm
+- 很高興直接證實：她被未經同意曝光，形成具體 harm
+- 看她 cue，讓她自己回、需要時自然帶走：尊重她的 cue / bounded request，依當地 outcome 決定
 
 **Art**：BG-CREATOR-EVENT、BG-MRT-CAR-NIGHT；JYC-SPR-CREATOR；CG-JYC-05、CG-JYC-06。
 
@@ -863,9 +839,9 @@ Available：
 「尊重她」若等於永遠不說自己需要線下關係，也是一種 avoidance。
 
 **Choices**
-- 「妳不能一直逃」：`T -2`
-- 「以後都 online 就好」：`K -2`
-- 笨拙但誠實地說自己不知道怎麼靠近她：`K +2`
+- 「妳不能一直逃」：記她被催促的反應
+- 「以後都 online 就好」：回避線下需求，保留未決 intent
+- 笨拙但誠實地說自己不知道怎麼靠近她：男主說出自己的線下需求，讓双方有事可談
 
 **Her counterattack**
 她不能只是被說服。她反問男主：
@@ -891,7 +867,7 @@ Discord 顯示她在線。男主開 chat 又關；她也沒有發來。
 
 不需要旁白解釋太多。
 
-若 trust 已很低，她可能直接減少 online 互動；若關係健康，則仍能看到她 online，形成「距離明明只有一個訊息」的感覺。
+若男主已公開 alias、無視她的離場 cue 或在她退回線上後仍催促曝光，且未承認／停止該行為，她可明確減少私人 online 互動；若他尊重她的 visibility 選擇、她仍願意交流，則仍能看到她 online，形成「距離明明只有一個訊息」的感覺。
 
 **Art**：UI-centric，不需要 CG。
 
@@ -903,22 +879,10 @@ Discord 顯示她在線。男主開 chat 又關；她也沒有發來。
 
 **Kind**：state gate，不是 player-facing menu。
 
-計算：
-- 兩邊 F/T/C/K；
-- recentFocus；
-- romantic signal；
-- knowledge flags；
-- conflict 是否發生；
-- boundary/pressure patterns；
-- 是否可能是 rebound；
-- 是否已有 exclusivity。
+檢查已發生的 conflict、knowledge、boundary/pressure evidence、雙方允許 repair 與尚未 closure 的具體 outcome。
 
-輸出可用：
-- XT-12 available / unavailable / cool version；
-- JYC-12 available / unavailable / cool version；
-- 兩個都 available → COMMIT collision；
-- 只有一邊 → 可自然 late focus；
-- 兩邊都不夠 → Friend/Distance 路徑提前變窄。
+XT-12/JYC-12 各自可 available、暫時不願或 closure；接受 repair invitation 只是進場，不預先 set repair_completed。只有一邊有後續可走 local clarity；雙方都有也不强迫撞期。兩邊都無 romantic continuation 時，按真實歷史交代 Friend/Distance 或 ordinary/dormant，不能偽造 earned endings。
+
 
 ---
 
@@ -934,9 +898,9 @@ Discord 顯示她在線。男主開 chat 又關；她也沒有發來。
 5. 這是她在練習 bounded support。
 
 **Choices**
-- 做她明確請求的事：`T +2, K +2`
-- 自行再替她跟廠商談：`T -2`
-- 因受傷而拒絕：`K -2`
+- 做她明確請求的事：尊重她的 cue / bounded request，依當地 outcome 決定
+- 自行再替她跟廠商談：重演接管，repair 未完成，下一場需面對她的界線
+- 因受傷而拒絕：bounded favor 未成行，兩人必須面對尚未說清的失望
 
 **Repair dialogue intent**
 她承認自己有時把「不要控制我」擴大成「不要需要任何人」；但不要一次說得太完整。男主也承認自己容易把 care 變成 solution。
@@ -966,12 +930,12 @@ Discord 顯示她在線。男主開 chat 又關；她也沒有發來。
 5. 補充：「但不要一直站我旁邊。」
 
 **Choice**
-- 在附近，需要時才回來：`T +2, K +2`
-- 全程守攤：`K -1`
-- 替她招呼／代答：`T -1`
+- 在附近，需要時才回來：尊重她的 cue / bounded request，依當地 outcome 決定
+- 全程守攤：違反她指定的距離，依她的回應保留未解 pressure
+- 替她招呼／代答：替她代答的具體 pressure evidence
 
 **State**
-- `jyc_repair_completed=true`
+- `jyc_repair_completed=true` only if accountability / bounded support and her response actually resolve the named conflict.
 - 她仍會累、仍不愛陌生人，沒有被「治好」。
 
 **Art**：BG-CREATOR-SMALL；JYC-SPR-CREATOR-TABLE；CG-JYC-07、CG-JYC-08。
@@ -982,7 +946,7 @@ Discord 顯示她在線。男主開 chat 又關；她也沒有發來。
 
 **核心 structural branch。**
 
-若兩邊 repair invitation 都成立，安排在同一個星期六：
+**Optional scene，非全局 clarity authority。** 只有兩邊 meaningful late invitations 都成立且實際行程合理衝突，才可安排同一星期六：
 - 許棠的 bounded-help 後續／補回來的小旅行邀請；
 - 雨澄的小型 creator table。
 
@@ -994,7 +958,7 @@ Discord 顯示她在線。男主開 chat 又關；她也沒有發來。
 3. 坦白自己已答應另一邊／正在釐清 → BOTH-H。
 4. 對兩邊都說完全有空，試圖硬排且刻意隱瞞 → BOTH-L。
 
-這裡第一次讓「不選擇」成為男主 flaw 的正面議題。
+沒有同日衝突時仍在 heroine-specific clarity 面對未決期待：Xu 要自主與共同決策，JYC 要 visibility control 與 online/offline 一致。必要 conflict／repair outcome 成立、她明說關係期待才 clarity due；先處理承諾與雙方 intent，才能 late lock，不以普通 invite 延後。
 
 ---
 
@@ -1005,8 +969,8 @@ Discord 顯示她在線。男主開 chat 又關；她也沒有發來。
 玩家不必向雨澄交代全部 dating history，但不能編造工作、家庭等理由。
 
 **Outcomes**
-- 誠實且尊重：雨澄 trust 可以保留，未必 Distance；進 XT-13。
-- 已和雨澄發展很深時，她可能明確受傷，留下 future Friend/Distance memory。
+- 坦白實際承諾且尊重雨澄的回應：她可同意保留友情，也可要求距離；依真實 history 走 JYC closure handoff，不預定 ending。許棠 romantic clarity 與 repair outcomes 允許時才進 XT-13。
+- 若雨澄已發起 offline 邀約、分享 alias 或兩人已有明確 romantic expectations，她可指出被懸置的具體承諾與傷害；是否友情或距離由她與玩家當地回應決定。
 
 ---
 
@@ -1014,7 +978,7 @@ Discord 顯示她在線。男主開 chat 又關；她也沒有發來。
 
 HONEST-X 的鏡像，但許棠的反應符合她的人格：她不要求男主報備，但會在意他是否讓自己一直處在被模糊對待的位置。
 
-誠實處理後進 JYC-13。
+許棠按真實 history 經 Xu closure handoff 收束；雨澄 romantic clarity 與 repair outcomes 允許時才進 JYC-13。
 
 ---
 
@@ -1025,9 +989,9 @@ HONEST-X 的鏡像，但許棠的反應符合她的人格：她不要求男主�
 玩家可以承認自己尚未 exclusivity、也確實和另一人走得近。這不自動判為海王，也不保證兩人願意繼續。
 
 **State**
-- `overlapLevel >= 1`
+- 雙方已有 romantic expectations，尚無 exclusivity
 - `deception=false`
-- heroine reactions based on T/K/knowledge。
+- heroine reactions based on actual shared history / knowledge / her stated needs。
 
 進 OV-01。
 
@@ -1102,7 +1066,7 @@ HONEST-X 的鏡像，但許棠的反應符合她的人格：她不要求男主�
 真正的傷害來自玩家知道自己說過什麼。
 
 **State**
-- 相關 heroine `trust_damage_major=true`
+- 逐 heroine 記錄被拆穿的具體謊言、違反的承諾、她取得的 knowledge 與當地受傷／退出回應；既有 `trust_damage_major` 只作 compatibility，不作新 gate
 - 進 SHURA-02。
 
 **Art**：BG-CAFE-GROUND / CITY；三人立繪；CG-SHURA-01 P0。
@@ -1128,7 +1092,7 @@ HONEST-X 的鏡像，但許棠的反應符合她的人格：她不要求男主�
 - 把責任推給她們沒問清楚；
 - 逃避。
 
-只有第一種有機會進 DECIDE 後修復；其餘提高 BOTH-D / Distance 機率。
+承認害怕選擇只是 accountability 的起點：還須說清實際謊言／承諾、停止誤導，且該 heroine 願意進入指名 repair，才可保留 DECIDE 後 recovery。辯稱未 exclusive、推責或逃避未處理上述傷害；許棠可拒絕再次被模糊對待，雨澄可退出無法判斷真實版本的私人連結，各自明確 closure → 各自 -D；兩邊皆實際 closure 才 → BOTH-D，不計 ending 機率。
 
 ---
 
@@ -1140,20 +1104,21 @@ Possible:
 - 明確選擇許棠並對雨澄負責任地結束 romantic ambiguity。
 - 明確選擇雨澄並對許棠同樣處理。
 - 承認自己現在不適合進入任何 relationship。
-- 高 deception / 低 trust 時，兩邊都不願再進入戀愛。
+- 若對兩邊說過互斥承諾、以工作等假理由隱瞞已答應的行程，或違反既有排他承諾，且仍推責／隱瞞／未停止行為：許棠可拒絕模糊與接管，雨澄可拒絕失去 visibility／真實資訊控制；依各自明說的退出回應進 closure handoff。
 
 **Important**
-不能讓玩家一句「選 A」瞬間洗掉前面欺瞞。Late route 是否能走 Good，要看 repair viability。
+不能讓玩家一句「選 A」瞬間洗掉前面欺瞞。Late Good 必須逐項交代謊言與承諾、承認傷害、演出 changed behavior，且該 heroine 明確願意繼續；未處理 harm 或她拒絕 recovery，不能進 romantic -13。Friend 須雙方認可且接受後果，否則按其明確距離回應進 -D；雙方實際 closure 才進 BOTH-D。
 
 ---
+
+Xu／JYC closure handoff 是 TENSION、repair outcome、local clarity、HONEST-X/J 或 DECIDE 當地的非浪漫收束分支，非新 scene/Memory/runtime ID。有真實互相重視的關係、雙方同意友情且 harm 已處理或接受後果 → 既有 XT-F/JYC-F；明確距離、repair refusal 或未處理 harm 使她拒絕繼續 → XT-D/JYC-D。修復拒絕不自動轉友情；ordinary/dormant 僅交代生活。這些入口不要求 -13 date 或 romantic -14；若已合法到 -14 才改 final intent，仍可進 F/D。-13/-14 的 repaired romantic 主幹是 Good 必經，而非所有 closure 的必經。
 
 ## 5.8 許棠 late lock
 
 ### XT-13 — 補回來的星期六
 
 **Entry**
-- honest Xu focus，或 DECIDE 選 Xu 且 repair viable。
-- `xt_repair_completed=true` 最理想。
+- Xu clarity resolved romantic，必要 XT-12 的 accountability／bounded support outcome 已完成且她願意繼續；HONEST-X 或 DECIDE 也不能跳過這些 prerequisite。
 
 **Purpose**：不是補考原行程，而是展示兩人新的 decision-making。
 
@@ -1243,7 +1208,7 @@ Possible:
 ### JYC-13 — 散場
 
 **Entry**
-- honest JYC focus，或 DECIDE 選 JYC 且 repair viable。
+- JYC clarity resolved romantic，必要 JYC-12 的 visibility-safe repair outcome 已完成且她願意繼續；HONEST-J 或 DECIDE 不能跳過。
 - creator table 已發生。
 
 **Beats**
@@ -1321,9 +1286,9 @@ Friend ending 的核心可包含她的 readiness：
 ### BOTH-D — 雙 Distance：沒有誰輸
 
 **Trigger**
-- deception 嚴重；
-- SHURA-02 仍不承擔；
-- 或 DECIDE 選擇維持模糊而兩邊都退出。
+- 真實雙邊 romantic history 已成立；
+- SHURA-02 後仍未交代具體謊言／違反承諾、推責或繼續誤導，兩人各自明確退出；
+- 或 DECIDE 仍維持未決承諾，兩邊各自拒絕繼續並 closure。
 
 不是「兩個女人一起懲罰玩家」。
 
@@ -1554,7 +1519,7 @@ W4 玩家看到的是 Memory Event，不是上述所有 authoring gates。
 - OPEN-A / OPEN-B / BRAID-C / TENSION 不顯示工程名稱；
 - RE-X / RE-J 只有發生有情緒價值的版本才成 Memory；
 - SH-01 / SH-02 是 shared memories；
-- COMMIT 顯示為自然事件標題，例如「同一個星期六」；
+- COMMIT 僅實際 collision 觸發才顯示自然事件標題，例如「同一個星期六」；
 - HONEST-X/J、BOTH-H/L 多數不必各自成卡，可由結果 scene 表示；
 - 修羅場未解鎖前不得提前顯示名稱或數量；
 - relationship resolution endings 各自獨立 unlock；
@@ -1589,7 +1554,7 @@ Progress rank 使用 phase band，而不是 raw node count。兩女主同階段�
 - 為什麼今天會發生這件事合理；
 - 角色各自想要什麼；
 - 戲劇問題不是單靠誤會；
-- 至少一個 relationship 狀態有變化；
+- scene function / information gain / emotional beat 明確；Local ordinary interaction 不必強行升級 relationship；
 - choice 不只是 obvious good/bad；
 - 若有失敗，失敗是 pattern 或有 repair 空間；
 - exit / next dependencies 可表達；

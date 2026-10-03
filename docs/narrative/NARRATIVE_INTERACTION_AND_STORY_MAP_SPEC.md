@@ -2,12 +2,12 @@
 
 > Lifecycle: **CANONICAL**
 >
-> Version: 1.0.0
+> Version: 1.1.0
 >
 > Updated: 2026-10-03
 >
 > Scope: Player choice authoring、narrative consequence、Story Map topology、relationship-state authority、replay semantics。  
-> Implementation tracking: GitHub Issue #52。  
+> Implementation tracking: GitHub Issues #52 / #55。
 > Story Map UX / scalability prototype: GitHub Issue #50。
 
 ## 1. Purpose
@@ -51,11 +51,11 @@ Story Map 不是故事寫完後才套上的裝飾性 flowchart。Narrative topol
 目前部分 active narrative/runtime source 仍包含 `F/T/C/K`、relationship threshold、tone counter 等舊模型。這些值在 migration 完成前只可視為：
 
 1. 現有已整合內容的 compatibility state；或
-2. 尚待 Phase 1 reconciliation 的 legacy tuning description。
+2. 既有舊值的歷史 tuning description（非新 narrative authority）。
 
 **不得以它們建立新的 scene prerequisite、route unlock、ending gate 或新故事 creative truth。**
 
-任何正式新場景 production 若同時依賴本文件與尚未 reconciliation 的舊數值 gate，應在 narrative-design preflight 中回報 conflict / BLOCKED，而不是自行折衷。
+本輪 Human 批准 v0.6 in-place reconciliation：macro／mandatory heroine arcs 仍由 braided spec 擁有；精確 discovery、availability、slot、one-window reopening、repair／clarity entry gates 由 route/state spec §5、§8–11 擁有。下層 blueprint 的舊數值／固定雙入口／固定 COMMIT 描述須下一 bounded task 對齊；不得帶入新 production。既有 Locked Scene approval 不被文檔 migration 自動改寫。
 
 ---
 
@@ -174,7 +174,7 @@ Action choice：
 - option count 由故事需要決定；
 - player-facing wording 應描述具體行動，而不是抽象 route label。
 
-例如 COMMIT 不應只寫：
+relationship clarity 可在 heroine-local scene 處理；COMMIT 是有真實行程衝突時的 optional 特定 scene。兩者均不應只寫：
 
 - 選許棠
 - 選雨澄
@@ -400,6 +400,8 @@ Friend 是完整 relationship resolution，不是：
 
 > 分數不夠，所以只能 Friend。
 
+有實際互相重視的關係、雙方認可友情且具體 harm 已處理或接受後果時，可經 route/state §11 的 heroine-specific closure handoff 直接進既有 -F，不要求浪漫 -13/-14 主幹。
+
 Friend 不得靠曖昧吻或「其實很快會在一起」否定自身完整性。
 
 ### 8.3 Distance
@@ -413,7 +415,7 @@ Distance 是 closure，不顯示 BAD END。
 - deception trust collapse；
 - repair 被拒絕。
 
-Distance 仍要保留角色尊嚴與生活延續。
+Distance 仍要保留角色尊嚴與生活延續。明確距離或 repair refusal 可經 route/state §11 的 closure handoff 直接進既有 -D，不偽造 romantic continuation；never_met／ordinary／dormant 不因此取得 earned ending。
 
 ---
 
@@ -628,7 +630,7 @@ Replay 早期 Memory：
 
 ### 12.4 COMMIT — Major structural reference
 
-`同一個星期六`
+`同一個星期六` 是 optional collision example，只有雙方 meaningful late invitations 與實際衝突才成立；不以雙方 available 強迫同日。Heroine-specific clarity 仍必須處理其 autonomy／visibility 期待，再准許 late lock。
 
 玩家的 disclosure / commitment 行為可進：
 
@@ -677,7 +679,7 @@ Replay 早期 Memory：
 
 Good route 必須讓兩邊都修。
 
-### Mandatory spine
+### Mandatory Good spine
 
 保留：
 
@@ -752,7 +754,7 @@ Good completion 不是她變外向，而是：
 - 男主能承認自己想要 online + offline 都存在；
 - 她不需要在男主面前切換成人格。
 
-### Mandatory spine
+### Mandatory Good spine
 
 保留：
 
@@ -805,9 +807,17 @@ Coda：
 - 未 exclusivity 前 simultaneous dating 不是 moral failure；
 - deception 才是 conflict source；
 - heroine knowledge 只能由實際 scene 更新；
-- 未 focus heroine 不突然從世界消失；
+- 未 focus heroine 可保留 ordinary life；不發無限 romantic hooks；
 - crossover 不把兩位女主寫成裁判團；
-- late lock 才真正關閉 major romantic alternatives。
+- explicit romantic rejection/closure 即關閉該方 reopening；clarity due 停止新 reopening，late lock 關閉其他 major romantic alternatives。
+
+#55 的探索與有限 attention 原則：早期生活圈與後續 distributed discovery 混合；重要 heroine 可有一次短 second-entry variant merge 原 progression，仍可整輪未遇。沒有新增第三 heroine 或 hard active cap。Known ordinary、cooling/dormant、closure、harm 各自保留，不能把未見／未戀愛寫成 earned Friend/Distance ending。
+
+每個有限 social slot 可 contextual player invite、incoming invite、solo/rest/wait；她可接受、counteroffer 或 decline，發起方只改短入口並共享原 date scene。accepted 只排下一未玩 prerequisite，不保證 success/intimacy；wait 有生活內容且不保證 incoming invite。
+
+她可自然 re-approach 一次；錯過後只有緊接的下一 attention window 可 player reopen 一次，在 contact/context、合法 slot、未 clarity due/late lock、無 closure/unresolved harm 時才可用。明確拒绝 romantic reopening 關閉本輪；過期不 respawn。RE 只恢復可投入機會；真正 harm 需指名 repair outcome，不能藉邀約清除。精確 decision table 與 legal same-heroine-slot anchor return 見 route/state §8–9。
+
+Map 應呈現當地可理解因果：接受 return → 下一 anchor、拒绝 → closure、等待 → dormant、clarity 回答 → late continuation／closure；不是每個訊息或入口 variant 都獨立卡。相同 scene 內容可 merge，closure/knowledge/eligibility 不同不能假 merge。Good 後每人三幕 substantial After Story，主要 Local/Echo choices，不再是 breakup 考試。
 
 Structural choices 應以具體行動表達，尤其：
 
