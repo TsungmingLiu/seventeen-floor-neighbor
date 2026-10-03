@@ -1,0 +1,114 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "microwave-embodiment-20261003",
+  "task_id": "NQA-COM02X-PILOT-001",
+  "scene_id": "COM-02X",
+  "task_type": "narrative_review",
+  "status": "PASS",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.5.1",
+    "pass": "narrative_review"
+  },
+  "source_ref": "b193e5056d64c3b200dae784fad4d05fc383943e",
+  "packet_sha256": "d5354bb26f8f174444f2125243ea78444e36225f9f832a1003f4fdc41ac5deee",
+  "input_digest_sha256": "7cf37431208ff32b6ad0c810dcfab3737824dde14a3d6da36f19dbf757dcd435",
+  "input_versions": [
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-02X.json",
+      "version": "5f85482b7c420a5f7726035e369679360f83cfd5",
+      "location": "content/production/narrative/opening-ch1/COM-02X.json"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-02X.md",
+      "version": "938edf40f2f34a9faee054971f72747e213c73ee",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02X.md"
+    },
+    {
+      "id": "file:docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md",
+      "version": "6183a123370363d95112994d9d88a6a6296a9d4e",
+      "location": "docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md"
+    },
+    {
+      "id": "file:docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md",
+      "version": "7144fe200bcb85874ad54c151eb0d77effc7be04",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-00.md",
+      "version": "59520478b9c3132cc3ccb1b6105f091b244131dc",
+      "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-01X.md",
+      "version": "4dc02231b706015c6e6dfc633763f40ae51ddec0",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01X.md"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "approved_contract:COM-02X",
+      "location": "content/production/narrative/opening-ch1/COM-02X.json",
+      "version": "5f85482b7c420a5f7726035e369679360f83cfd5"
+    },
+    {
+      "id": "approved_locked_scene:COM-02X",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02X.md",
+      "version": "938edf40f2f34a9faee054971f72747e213c73ee"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "NQA-SCENE-FUNCTION",
+      "code": "NQA-SCENE-FUNCTION",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-KNOWLEDGE",
+      "code": "NQA-KNOWLEDGE",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-RELATIONSHIP-PACE",
+      "code": "NQA-RELATIONSHIP-PACE",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-CHOICE-REJOIN",
+      "code": "NQA-CHOICE-REJOIN",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-MUST-NOT",
+      "code": "NQA-MUST-NOT",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-STATE-MAPPING",
+      "code": "NQA-STATE-MAPPING",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-SEMANTIC-VISUAL-BEATS",
+      "code": "NQA-SEMANTIC-VISUAL-BEATS",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-VOICE-AND-PACING",
+      "code": "NQA-VOICE-AND-PACING",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-DIALOGUE-NATURALISM",
+      "code": "NQA-DIALOGUE-NATURALISM",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "Text-only current scene Narrative QA; no pixel review, existing asset reacceptance or new Human approval."
+  ],
+  "human_gate_required": "none",
+  "invalidates": []
+}

@@ -1,0 +1,40 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_checkpoint",
+  "run_id": "microwave-embodiment-20261003",
+  "workflow_version": "1.3.1",
+  "source_ref": "b193e5056d64c3b200dae784fad4d05fc383943e",
+  "human_request": {
+    "summary": "One bounded COM-02X microwave Scene Embodiment B pilot; preserve existing accepted A and all historical QA/Human outcomes.",
+    "gate_status": "none"
+  },
+  "status": "ACTIVE",
+  "tasks": [
+    {
+      "task_id": "NQA-COM02X-PILOT-001",
+      "task_type": "narrative_review",
+      "scene_id": "COM-02X",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "tools/context.mjs:narrative_review",
+        "sha256": "d5354bb26f8f174444f2125243ea78444e36225f9f832a1003f4fdc41ac5deee"
+      },
+      "decision_receipt": "content/production/runs/microwave-embodiment-20261003/NQA-COM02X-PILOT-001.decision.json",
+      "human_gate": "none",
+      "reason": null
+    },
+    {
+      "task_id": "PLAN-MICROWAVE-B-001",
+      "task_type": "cg_plan",
+      "scene_id": "COM-02X",
+      "depends_on": [
+        "NQA-COM02X-PILOT-001"
+      ],
+      "status": "READY",
+      "decision_receipt": null,
+      "human_gate": "none",
+      "reason": null
+    }
+  ]
+}
