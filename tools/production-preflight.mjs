@@ -105,6 +105,51 @@ function neededGates(packet) {
     visual_review: packet.review_scope === 'candidate' ? ['manifest_usability'] : ['narrative_review'],
     integrate: packet.integration_mode === 'final' ? ['narrative_review', 'visual_review', 'accepted_master_image_selection'] : ['narrative_review'] })[packet.task_type] || [];
 }
+const humanGates = ['major_story_direction', 'canonical_character_design', 'accepted_master_image_selection',
+  'narrative_preview_review', 'final_playable_acceptance'];
+const priorStages = { narrative_design: ['narrative_design', 'content_writer', 'narrative_design'],
+  narrative_review: ['narrative_review', 'content_qa', 'narrative_review'],
+  manifest_usability: ['visual_review', 'content_qa', 'visual_review'],
+  visual_review: ['visual_review', 'content_qa', 'visual_review'] };
+// IDs can change between authoring, QA and approval outputs. Coverage binds content locations/bytes,
+// not an incidental shared ID, and full-file and excerpt identities remain distinct.
+function consumedGateInputs(packet, gate) {
+  const paths = gate === 'narrative_design' ? [packet.inputs?.narrative_contract] :
+    gate === 'narrative_review' ? [packet.inputs?.narrative_contract, packet.inputs?.locked_scene] :
+    ['manifest_usability', 'visual_review', 'accepted_master_image_selection'].includes(gate) ? [packet.inputs?.cg_manifest] : [];
+  insist(paths.length && paths.every(Boolean), `unresolved consumed inputs for dependency gate: ${gate}`);
+  if (gate === 'visual_review' || gate === 'accepted_master_image_selection') {
+    const images = (packet.required_acquisition.images || []).filter((image) =>
+      gate === 'visual_review' ? image.role === 'candidate' || ['candidate_original', 'runtime_derivative', 'runtime_screenshot'].includes(image.artifact_role) :
+        image.role === 'candidate' || image.artifact_role === 'candidate_original');
+    insist(images.length, `unresolved reviewed image inputs for dependency gate: ${gate}`);
+    paths.push(...images.map((image) => image.path));
+    if (gate === 'visual_review' && packet.preflight_requirements.display_profiles_source) paths.push(packet.preflight_requirements.display_profiles_source.path);
+  }
+  const inputs = packet.input_versions.filter((input) => paths.includes(input.location.split('#')[0]));
+  insist(paths.every((relative) => inputs.some((input) => input.location.split('#')[0] === relative)), `missing consumed input identity for dependency gate: ${gate}`);
+  return inputs;
+}
+async function dependencyIdentity(version, { root, binding }) {
+  const relative = safePath(version.location, { fragment: true });
+  const transient = binding.sources.find((source) => source.path === relative && source.storage === 'transient');
+  insist(!transientPath(relative) || transient, 'dependency transient identity is not acquired');
+  const current = transient ? await readSafe(root, relative) : git(root, 'show', `${binding.source_ref}:${relative}`);
+  if (version.location.includes('#')) {
+    const range = version.location.split('#')[1].match(/^L([0-9]+)-L([0-9]+)$/);
+    insist(range && !transient, 'unsupported dependency identity selector');
+    const lines = current.toString('utf8').split('\n'), start = Number(range[1]), end = Number(range[2]);
+    insist(start >= 1 && end >= start && end <= lines.length && hash(lines.slice(start - 1, end).join('\n')) === version.version, 'stale dependency QA excerpt');
+    return `${version.location}:${version.version}`;
+  }
+  if (transient) insist([hash(current), `sha256:${hash(current)}`].includes(version.version), 'stale dependency transient SHA-256');
+  else boundVersion(current, version.version, 'stale dependency QA source');
+  return `${version.location}:${hash(current)}`;
+}
+async function requireCoverage(required, evidence, context, label) {
+  const identities = new Set(await Promise.all(evidence.map((version) => dependencyIdentity(version, context))));
+  for (const version of required) insist(identities.has(await dependencyIdentity(version, context)), label);
+}
 async function manualRequirements(packet, { root, checkWorktree, binding }) {
   const requirements = packet.preflight_requirements;
   insist(requirements?.version === 1 && Array.isArray(requirements.dependencies), 'manual packet requires preflight_requirements v1/dependencies');
@@ -161,7 +206,7 @@ async function manualRequirements(packet, { root, checkWorktree, binding }) {
     insist(entry?.scene_id === packet.scene_id, 'wrong visual review scene/entry');
     if (packet.review_scope === 'candidate') insist(packet.required_acquisition.images.some((image) => image.source_id === packet.inputs.candidate_source_id && image.role === 'candidate'), 'manual candidate review requires explicit acquired candidate');
   }
-  const dependencyGates = new Set();
+  const dependencyGates = new Set(), verifiedDependencies = [];
   for (const dependency of requirements.dependencies) {
     safePath(dependency.receipt); insist(dependency.run_id && dependency.task_id && dependency.gate, 'incomplete dependency');
     const bytes = git(root, 'show', `${binding.source_ref}:${dependency.receipt}`);
@@ -174,26 +219,47 @@ async function manualRequirements(packet, { root, checkWorktree, binding }) {
       (!packet.scene_id || receipt.scene_id === packet.scene_id), 'dependency approval is absent or wrong scene/task');
     insist(Array.isArray(dependency.input_versions) && dependency.input_versions.length &&
       jsonHash(receipt.input_versions) === jsonHash(dependency.input_versions), 'stale dependency QA input versions');
-    for (const version of dependency.input_versions) {
-      const relative = safePath(version.location, { fragment: true });
-      const current = git(root, 'show', `${binding.source_ref}:${relative}`);
-      if (version.location.includes('#')) {
-        const range = version.location.split('#')[1].match(/^L([0-9]+)-L([0-9]+)$/);
-        insist(range, 'unsupported dependency identity selector');
-        const lines = current.toString('utf8').split('\n'), start = Number(range[1]), end = Number(range[2]);
-        insist(start >= 1 && end >= start && end <= lines.length && hash(lines.slice(start - 1, end).join('\n')) === version.version, 'stale dependency QA excerpt');
-      } else boundVersion(current, version.version, 'stale dependency QA source');
-      const consuming = packet.input_versions.filter((input) => input.location === version.location);
-      insist(!consuming.length || consuming.some((input) => input.version === version.version), 'QA inputs do not cover current inputs');
-    }
-    if (dependency.gate === 'accepted_master_image_selection') insist(receipt.evidence_purpose === 'human_decision' && receipt.task_type === 'human_decision' && receipt.human_gate_required === dependency.gate, 'missing Human approval');
+    for (const version of dependency.input_versions) await dependencyIdentity(version, { root, binding });
+    const human = humanGates.includes(dependency.gate), stage = priorStages[dependency.gate];
+    insist(human || stage, 'unsupported dependency approval gate');
+    if (human) insist(receipt.evidence_purpose === 'human_decision' && receipt.task_type === 'human_decision' &&
+      receipt.human_gate_required === dependency.gate, 'missing Human approval');
     else {
+      insist(receipt.task_type === stage[0] && receipt.harness?.id === stage[1] && receipt.harness.pass === stage[2], 'dependency stage provenance mismatch');
+      if (receipt.review_scope !== undefined && receipt.task_type === 'visual_review') insist(receipt.review_scope ===
+        (dependency.gate === 'manifest_usability' ? 'manifest_usability' : 'candidate'), 'dependency QA scope mismatch');
       const codes = receipt.qa_codes;
       insist(Array.isArray(codes) && codes.length && codes.every((check) => check.result === 'PASS') && Array.isArray(dependency.required_qa_codes) && dependency.required_qa_codes.length && dependency.required_qa_codes.every((code) => codes.some((check) => check.code === code && check.result === 'PASS')), 'missing dependency QA outcome');
-      if (['narrative_review', 'visual_review', 'manifest_usability'].includes(dependency.gate)) insist(receipt.harness?.id === 'content_qa' && receipt.harness.pass === (dependency.gate === 'narrative_review' ? 'narrative_review' : 'visual_review') && dependency.required_qa_codes.every((code) => code.startsWith(dependency.gate === 'manifest_usability' ? 'MUA-' : dependency.gate === 'narrative_review' ? 'NQA-' : 'VQA-')), 'dependency QA scope mismatch');
+      const prefix = { manifest_usability: 'MUA-', narrative_review: 'NQA-', visual_review: 'VQA-' }[dependency.gate];
+      if (prefix) insist(dependency.required_qa_codes.every((code) => code.startsWith(prefix)), 'dependency QA scope mismatch');
     }
+    // A contract can be the narrative-design output rather than that writer's input.
+    if (stage || dependency.gate === 'accepted_master_image_selection') await requireCoverage(consumedGateInputs(packet, dependency.gate),
+      [...receipt.input_versions, ...(dependency.gate === 'narrative_design' ? receipt.output_versions || [] : [])],
+      { root, binding }, `dependency does not cover consumed inputs: ${dependency.gate}`);
     if (dependency.output_versions) insist(jsonHash(receipt.output_versions) === jsonHash(dependency.output_versions), 'dependency output versions mismatch');
-    dependencyGates.add(dependency.gate);
+    dependencyGates.add(dependency.gate); verifiedDependencies.push({ dependency, receipt });
+  }
+  for (const { dependency, receipt } of verifiedDependencies) {
+    if (receipt.task_type === 'human_decision') continue;
+    const gate = receipt.human_gate_required;
+    insist(gate === 'none' || humanGates.includes(gate), 'unsupported or missing upstream Human gate identity');
+    if (gate === 'none') continue;
+    // The exact upstream receipt binds its run/task, reviewed inputs and outputs without
+    // requiring Human to repeat the QA context. A scene-only approval cannot resolve it.
+    insist(Array.isArray(receipt.output_versions) && receipt.output_versions.length, 'upstream Human gate has unresolved output identities');
+    for (const output of receipt.output_versions) await dependencyIdentity(output, { root, binding });
+    const resolutions = verifiedDependencies.filter((item) => item.receipt.task_type === 'human_decision' && item.dependency.gate === gate);
+    insist(resolutions.length, `unresolved upstream Human gate: ${gate}`);
+    let resolved = false;
+    for (const decision of resolutions) {
+      try {
+        await requireCoverage([{ id: 'upstream_receipt', location: dependency.receipt, version: dependency.version }],
+          decision.receipt.input_versions, { root, binding }, 'Human decision does not bind exact upstream receipt/input/output identities');
+        resolved = true;
+      } catch (error) { if (resolutions.length === 1) throw error; }
+    }
+    insist(resolved, `unresolved upstream Human gate: ${gate}`);
   }
   for (const accepted of packet.inputs?.accepted_outputs || []) insist(requirements.dependencies.some((dependency) => dependency.run_id === accepted.run_id && dependency.task_id === accepted.task_id && dependency.output_versions?.some((output) => output.id === accepted.id && output.version === accepted.version)), 'accepted output lacks exact dependency evidence');
   for (const gate of neededGates(packet)) insist(dependencyGates.has(gate), `missing required dependency approval: ${gate}`);

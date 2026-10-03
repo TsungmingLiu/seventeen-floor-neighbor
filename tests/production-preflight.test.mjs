@@ -34,7 +34,7 @@ export async function fixture() {
   await writeFile(path.join(root, 'catalog.json'), JSON.stringify({ sourceCatalogVersion: 2, provider: 'repo', files: { 'source.fixture.second': { name: 'reference2.png', mimeType: 'image/png', sourcePath: 'assets-src/reference2.png', bytes: imageBytes.length, width: 1, height: 1, sha256: hash(imageBytes), verifiedDecode: true, status: 'active-production' }, 'source.fixture.reference': { name: 'reference.png', mimeType: 'image/png', sourcePath: 'assets-src/reference.png', bytes: imageBytes.length, width: 1, height: 1, sha256: hash(imageBytes), verifiedDecode: true, status: 'active-production' } } }));
   git('init');
   const inputVersion = { id: 'input', version: git('hash-object', 'input.json'), location: 'input.json' };
-  await writeFile(path.join(root, 'approval.json'), JSON.stringify({ run_id: 'upstream', task_id: 'QA', scene_id: 'SCENE-1', status: 'PASS', input_versions: [inputVersion, { id: 'manifest', version: git('hash-object', 'manifest.json'), location: 'manifest.json' }], harness: { id: 'content_qa', pass: 'visual_review' }, qa_codes: [{ name: 'manifest_usability', code: 'MUA-FIXTURE', result: 'PASS' }] }));
+  await writeFile(path.join(root, 'approval.json'), JSON.stringify({ run_id: 'upstream', task_id: 'QA', scene_id: 'SCENE-1', task_type: 'visual_review', human_gate_required: 'none', status: 'PASS', input_versions: [inputVersion, { id: 'manifest', version: git('hash-object', 'manifest.json'), location: 'manifest.json' }], harness: { id: 'content_qa', pass: 'visual_review' }, qa_codes: [{ name: 'manifest_usability', code: 'MUA-FIXTURE', result: 'PASS' }] }));
   const profiles = [{ id: 'desktop', kind: 'desktop', width: 1920, height: 1080, dpr: 1, orientation: 'landscape' }, { id: 'landscape', kind: 'mobile_landscape', width: 844, height: 390, dpr: 3, orientation: 'landscape' }, { id: 'portrait', kind: 'mobile_portrait', width: 390, height: 844, dpr: 3, orientation: 'portrait' }];
   await writeFile(path.join(root, 'profiles.json'), JSON.stringify({ display_profiles: profiles }));
   git('add', '.'); git('-c', 'user.name=Fixture', '-c', 'user.email=fixture@example.invalid', 'commit', '-m', 'synthetic fixture');
@@ -62,6 +62,36 @@ export async function candidateFixture() {
   packet.preflight_requirements.dependencies = [{ gate: 'manifest_usability', required_qa_codes: ['MUA-FIXTURE'], run_id: 'upstream', task_id: 'QA', receipt: 'approval.json', version: (await f.acquire('approval.json')).git_blob_sha, input_versions: receipt.input_versions }];
   const packetPath = 'generated/session-cache/run/candidate-packet.json'; await writeCache(f.root, packetPath, packet);
   return { ...f, packet, packetPath, image };
+}
+async function commitFixtureReceipt(f, receipt, relative = 'approval.json') {
+  await writeFile(path.join(f.root, relative), JSON.stringify(receipt));
+  f.git('add', relative); f.git('-c', 'user.name=Fixture', '-c', 'user.email=fixture@example.invalid', 'commit', '-m', 'synthetic prerequisite evidence');
+  const ref = f.git('rev-parse', 'HEAD'); f.packet.source_binding.github.ref = ref;
+  f.acquire = async (location) => ({ path: location, git_blob_sha: f.git('rev-parse', `${ref}:${location}`),
+    sha256: hash(await readFile(path.join(f.root, location))), expected_nonempty: true });
+  return { receipt: relative, version: (await f.acquire(relative)).git_blob_sha, run_id: receipt.run_id,
+    task_id: receipt.task_id, input_versions: receipt.input_versions, output_versions: receipt.output_versions };
+}
+async function narrativePrerequisiteFixture(gate = 'narrative_review', humanGate = 'none') {
+  const f = await fixture();
+  Object.assign(f.packet, gate === 'narrative_design' ? { task_type: 'scene_dialogue', harness: 'content_writer',
+    pass: 'scene_dialogue', integration_mode: undefined, scene_id: 'SCENE-1' } : { integration_mode: 'narrative_preview', scene_id: 'SCENE-1' });
+  const scene = await f.acquire('scene.md');
+  f.packet.required_acquisition.markdown.push(scene); f.packet.allowed_sources.push(scene.path);
+  f.packet.input_versions.push({ id: 'scene', version: scene.git_blob_sha, location: scene.path });
+  f.packet.inputs = { narrative_contract: 'input.json', locked_scene: 'scene.md' };
+  const writer = gate === 'narrative_design';
+  const receipt = { schema_version: writer ? '1.0.0' : '2.0.0', ...(writer ? {} : { storage_class: 'durable_decision', evidence_purpose: 'qa_decision' }),
+    run_id: 'upstream', task_id: 'QA', scene_id: 'SCENE-1', task_type: gate, status: 'PASS',
+    harness: { id: writer ? 'content_writer' : 'content_qa', version: '1.0.0', pass: gate },
+    input_versions: writer ? [f.packet.input_versions[1]] : f.packet.input_versions.map((input) => ({ ...input, id: `reviewed:${input.id}` })),
+    output_versions: [{ id: writer ? 'narrative_contract:SCENE-1' : 'approved_locked_scene:SCENE-1',
+      location: writer ? 'input.json' : 'scene.md', version: writer ? f.packet.input_versions[0].version : scene.git_blob_sha }],
+    qa_codes: [{ name: 'fixture', code: writer ? 'DESIGN-FIXTURE' : 'NQA-FIXTURE', result: 'PASS' }],
+    human_gate_required: humanGate, invalidates: [] };
+  f.packet.preflight_requirements.dependencies = [{ ...await commitFixtureReceipt(f, receipt), gate,
+    required_qa_codes: [receipt.qa_codes[0].code] }];
+  return { ...f, receipt };
 }
 const clone = (value) => structuredClone(value);
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
@@ -172,6 +202,140 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
         const p = clone(f.packet); mutate(p); await assert.rejects(verifyTaskPacket(p, { root: f.root }));
       }
       await writeFile(path.join(f.root, f.image.path), 'tampered'); await assert.rejects(verifyTaskPacket(f.packet, { root: f.root }));
+    } finally { await f.cleanup(); }
+  });
+
+  test('narrative approval must cover both consumed sources; design may bind its contract output', async () => {
+    for (const gate of ['narrative_review', 'narrative_design']) {
+      const f = await narrativePrerequisiteFixture(gate); try {
+        assert.equal((await verifyTaskPacket(f.packet, { root: f.root })).kind, 'manual');
+        const omitted = clone(f.receipt);
+        if (gate === 'narrative_review') omitted.input_versions = omitted.input_versions.filter((input) => input.location !== 'scene.md');
+        else omitted.output_versions = [];
+        f.packet.preflight_requirements.dependencies[0] = { ...f.packet.preflight_requirements.dependencies[0], ...await commitFixtureReceipt(f, omitted) };
+        await assert.rejects(verifyTaskPacket(f.packet, { root: f.root }), /does not cover consumed inputs/);
+      } finally { await f.cleanup(); }
+    }
+  });
+  test('every prior stage rejects substituted task type, harness, pass and unknown gate', async () => {
+    for (const gate of ['narrative_design', 'narrative_review', 'manifest_usability', 'visual_review']) {
+      const f = ['narrative_design', 'narrative_review'].includes(gate) ? await narrativePrerequisiteFixture(gate) : await candidateFixture();
+      try {
+        let original = f.receipt || JSON.parse(await readFile(path.join(f.root, 'approval.json'), 'utf8'));
+        if (gate === 'visual_review') {
+          original = { ...original, input_versions: f.packet.input_versions, qa_codes: [{ name: 'fixture', code: 'VQA-FIXTURE', result: 'PASS' }] };
+          // This is an explicitly declared additional gate; manifest usability remains independently required.
+          f.packet.preflight_requirements.dependencies.push({ ...await commitFixtureReceipt(f, original, 'visual.json'), gate, required_qa_codes: ['VQA-FIXTURE'] });
+        }
+        assert.equal((await verifyTaskPacket(f.packet, { root: f.root })).kind, 'manual');
+        const index = gate === 'visual_review' ? 1 : 0;
+        const changes = [r => r.task_type = 'integrate', r => r.harness.id = 'cg_planner', r => r.harness.pass = 'scene_dialogue',
+          r => { r.task_type = 'visual_review'; r.harness = { id: 'content_qa', version: '1.0.0', pass: 'visual_review' }; r.qa_codes = [{ name: 'fixture', code: 'MUA-FIXTURE', result: 'PASS' }]; }];
+        for (const change of gate === 'manifest_usability' ? changes.slice(0, 3) : changes) {
+          // For manifest usability this last shape is already the correct stage.
+          const wrong = clone(original); change(wrong);
+          if (JSON.stringify(wrong) === JSON.stringify(original)) continue;
+          const declaration = await commitFixtureReceipt(f, wrong, gate === 'visual_review' ? 'visual.json' : 'approval.json');
+          f.packet.preflight_requirements.dependencies[index] = { ...declaration, gate, required_qa_codes: [wrong.qa_codes[0].code] };
+          await assert.rejects(verifyTaskPacket(f.packet, { root: f.root }), /provenance|scope/);
+        }
+        f.packet.preflight_requirements.dependencies[index] = { ...await commitFixtureReceipt(f, original, gate === 'visual_review' ? 'visual.json' : 'approval.json'), gate: 'unknown_approval', required_qa_codes: [original.qa_codes[0].code] };
+        await assert.rejects(verifyTaskPacket(f.packet, { root: f.root }), /unsupported dependency approval gate/);
+      } finally { await f.cleanup(); }
+    }
+  });
+  test('narrative design rejects visual approval even with all consumed identities matching', async () => {
+    const f = await narrativePrerequisiteFixture('narrative_design'); try {
+      assert.equal((await verifyTaskPacket(f.packet, { root: f.root })).kind, 'manual');
+      const wrong = { ...f.receipt, task_type: 'visual_review', harness: { id: 'content_qa', version: '1.0.0', pass: 'visual_review' },
+        input_versions: f.packet.input_versions, qa_codes: [{ name: 'fixture', code: 'MUA-FIXTURE', result: 'PASS' }] };
+      f.packet.preflight_requirements.dependencies[0] = { ...await commitFixtureReceipt(f, wrong), gate: 'narrative_design', required_qa_codes: ['MUA-FIXTURE'] };
+      await assert.rejects(verifyTaskPacket(f.packet, { root: f.root }), /dependency stage provenance mismatch/);
+    } finally { await f.cleanup(); }
+  });
+  test('manifest and visual review coverage cannot omit consumed manifest or candidate evidence', async () => {
+    const f = await candidateFixture(); try {
+      const original = JSON.parse(await readFile(path.join(f.root, 'approval.json'), 'utf8'));
+      assert.equal((await verifyTaskPacket(f.packet, { root: f.root })).kind, 'manual');
+      const omitted = { ...original, input_versions: original.input_versions.filter((input) => input.location !== 'manifest.json') };
+      f.packet.preflight_requirements.dependencies[0] = { ...await commitFixtureReceipt(f, omitted), gate: 'manifest_usability', required_qa_codes: ['MUA-FIXTURE'] };
+      await assert.rejects(verifyTaskPacket(f.packet, { root: f.root }), /does not cover consumed inputs/);
+      f.packet.preflight_requirements.dependencies[0] = { ...await commitFixtureReceipt(f, original), gate: 'manifest_usability', required_qa_codes: ['MUA-FIXTURE'] };
+      const visual = { ...original, input_versions: f.packet.input_versions, qa_codes: [{ name: 'fixture', code: 'VQA-FIXTURE', result: 'PASS' }] };
+      f.packet.preflight_requirements.dependencies.push({ ...await commitFixtureReceipt(f, visual, 'visual.json'), gate: 'visual_review', required_qa_codes: ['VQA-FIXTURE'] });
+      assert.equal((await verifyTaskPacket(f.packet, { root: f.root })).kind, 'manual');
+      const wrong = { ...visual, input_versions: visual.input_versions.filter((input) => input.location !== f.image.path) };
+      f.packet.preflight_requirements.dependencies[1] = { ...await commitFixtureReceipt(f, wrong, 'visual.json'), gate: 'visual_review', required_qa_codes: ['VQA-FIXTURE'] };
+      await assert.rejects(verifyTaskPacket(f.packet, { root: f.root }), /does not cover consumed inputs/);
+    } finally { await f.cleanup(); }
+  });
+  test('visual QA covers each derivative, screenshot and profile; Human accepted-as-is stays independent', async () => {
+    const f = await candidateFixture(); try {
+      const original = JSON.parse(await readFile(path.join(f.root, 'approval.json'), 'utf8'));
+      for (const artifact_role of ['runtime_derivative', 'runtime_screenshot']) {
+        const relative = `generated/session-cache/run/${artifact_role}.png`;
+        await writeFile(path.join(f.root, relative), await readFile(path.join(f.root, f.image.path)));
+        const image = { ...f.image, path: relative, filename: path.basename(relative), source_id: artifact_role, role: 'evidence', artifact_role };
+        f.packet.required_acquisition.images.push(image); f.packet.allowed_sources.push(relative);
+        f.packet.input_versions.push({ id: artifact_role, location: relative, version: image.sha256 });
+      }
+      const profile = await f.acquire('profiles.json'); f.packet.required_acquisition.markdown.push(profile);
+      f.packet.allowed_sources.push(profile.path); f.packet.input_versions.push({ id: 'profiles', location: profile.path, version: profile.git_blob_sha });
+      f.packet.preflight_requirements.display_profiles_source = { path: profile.path, version: profile.git_blob_sha };
+      const visual = { ...original, input_versions: f.packet.input_versions, qa_codes: [{ name: 'fixture', code: 'VQA-FIXTURE', result: 'PASS' }] };
+      f.packet.preflight_requirements.dependencies.push({ ...await commitFixtureReceipt(f, visual, 'visual.json'), gate: 'visual_review', required_qa_codes: ['VQA-FIXTURE'] });
+      assert.equal((await verifyTaskPacket(f.packet, { root: f.root })).kind, 'manual');
+      for (const id of ['runtime_derivative', 'runtime_screenshot', 'profiles']) {
+        const omitted = { ...visual, input_versions: visual.input_versions.filter((input) => input.id !== id) };
+        f.packet.preflight_requirements.dependencies[1] = { ...await commitFixtureReceipt(f, omitted, 'visual.json'), gate: 'visual_review', required_qa_codes: ['VQA-FIXTURE'] };
+        await assert.rejects(verifyTaskPacket(f.packet, { root: f.root }), /does not cover consumed inputs/);
+      }
+      f.packet.preflight_requirements.dependencies[1] = { ...await commitFixtureReceipt(f, visual, 'visual.json'), gate: 'visual_review', required_qa_codes: ['VQA-FIXTURE'] };
+      const human = { schema_version: '2.0.0', storage_class: 'durable_decision', evidence_purpose: 'human_decision',
+        run_id: 'upstream', task_id: 'HUMAN', scene_id: 'SCENE-1', task_type: 'human_decision', status: 'HUMAN_ACCEPTED_AS_IS',
+        input_versions: f.packet.input_versions.filter((input) => ['manifest', 'candidate'].includes(input.id)),
+        output_versions: [], qa_codes: [], human_gate_required: 'accepted_master_image_selection', invalidates: [] };
+      f.packet.preflight_requirements.dependencies.push({ ...await commitFixtureReceipt(f, human, 'human.json'), gate: 'accepted_master_image_selection' });
+      assert.equal((await verifyTaskPacket(f.packet, { root: f.root })).kind, 'manual');
+      const wrong = { ...human, input_versions: human.input_versions.filter((input) => input.id !== 'candidate') };
+      f.packet.preflight_requirements.dependencies[2] = { ...await commitFixtureReceipt(f, wrong, 'human.json'), gate: 'accepted_master_image_selection' };
+      await assert.rejects(verifyTaskPacket(f.packet, { root: f.root }), /does not cover consumed inputs/);
+    } finally { await f.cleanup(); }
+  });
+  test('upstream Human gate requires existing decision bound to exact receipt, sources and outputs', async () => {
+    const f = await narrativePrerequisiteFixture('narrative_review', 'major_story_direction'); try {
+      await assert.rejects(verifyTaskPacket(f.packet, { root: f.root }), /unresolved upstream Human gate/);
+      const upstream = f.packet.preflight_requirements.dependencies[0];
+      const human = { schema_version: '2.0.0', storage_class: 'durable_decision', evidence_purpose: 'human_decision',
+        run_id: 'upstream', task_id: 'HUMAN', scene_id: 'SCENE-1', task_type: 'human_decision', status: 'PASS',
+        input_versions: [{ id: 'upstream_receipt', location: upstream.receipt, version: upstream.version }],
+        output_versions: f.receipt.output_versions, qa_codes: [], human_gate_required: 'major_story_direction', invalidates: [] };
+      const declare = async (receipt) => { f.packet.preflight_requirements.dependencies[1] = { ...await commitFixtureReceipt(f, receipt, 'human.json'), gate: 'major_story_direction' }; };
+      await declare(human); assert.equal((await verifyTaskPacket(f.packet, { root: f.root })).kind, 'manual');
+      for (const change of [h => h.scene_id = 'OTHER', h => h.human_gate_required = 'canonical_character_design', h => h.status = 'NEEDS_REVIEW',
+        h => h.input_versions[0].version = '0'.repeat(40),
+        h => h.input_versions = [{ id: 'same_scene', location: 'scene.md', version: f.packet.input_versions[1].version }]]) {
+        const wrong = clone(human); change(wrong); await declare(wrong);
+        await assert.rejects(verifyTaskPacket(f.packet, { root: f.root }), /wrong scene|missing Human|absent|stale|does not bind/);
+      }
+      const unresolvedOutput = { ...f.receipt, output_versions: [] };
+      f.packet.preflight_requirements.dependencies[0] = { ...await commitFixtureReceipt(f, unresolvedOutput), gate: 'narrative_review', required_qa_codes: ['NQA-FIXTURE'] };
+      await assert.rejects(verifyTaskPacket(f.packet, { root: f.root }), /unresolved output identities/);
+      f.packet.preflight_requirements.dependencies[0] = { ...await commitFixtureReceipt(f, f.receipt), gate: 'narrative_review', required_qa_codes: ['NQA-FIXTURE'] };
+      await declare(human);
+      const otherTask = { ...f.receipt, task_id: 'OTHER-QA' };
+      f.packet.preflight_requirements.dependencies[0] = { ...await commitFixtureReceipt(f, otherTask), gate: 'narrative_review', required_qa_codes: ['NQA-FIXTURE'] };
+      await assert.rejects(verifyTaskPacket(f.packet, { root: f.root }), /stale dependency QA source/);
+    } finally { await f.cleanup(); }
+  });
+  test('unsupported historical selectors and missing upstream Human identity fail closed', async () => {
+    const f = await narrativePrerequisiteFixture(); try {
+      const unknown = clone(f.receipt); delete unknown.human_gate_required;
+      f.packet.preflight_requirements.dependencies[0] = { ...await commitFixtureReceipt(f, unknown), gate: 'narrative_review', required_qa_codes: ['NQA-FIXTURE'] };
+      await assert.rejects(verifyTaskPacket(f.packet, { root: f.root }), /missing upstream Human gate identity/);
+      const selected = clone(f.receipt); selected.input_versions[0].location = 'input.json#metadata_selector';
+      f.packet.preflight_requirements.dependencies[0] = { ...await commitFixtureReceipt(f, selected), gate: 'narrative_review', required_qa_codes: ['NQA-FIXTURE'] };
+      await assert.rejects(verifyTaskPacket(f.packet, { root: f.root }), /unsupported dependency identity selector/);
     } finally { await f.cleanup(); }
   });
 
