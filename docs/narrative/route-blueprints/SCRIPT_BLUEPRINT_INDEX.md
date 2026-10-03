@@ -2,9 +2,9 @@
 
 > Lifecycle: **CANONICAL**
 >
-> Version: 0.1
+> Version: 0.2
 >
-> Updated: 2026-09-26
+> Updated: 2026-10-03
 >
 > Scope: 許棠 / 江雨澄 braided prototype 的 **pre-script treatment layer**。本層位於 macro narrative / route graph 之下、Locked Scene / final dialogue 之上。
 
@@ -26,12 +26,13 @@
 ## 2. Authority / conflict order
 
 1. 已批准的 `docs/narrative/scenes/vertical-slice/*.md` 對同 scene 擁有最高 scene-local authority。
-2. `PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md` 擁有 macro arc、角色弧線與 relationship pacing。
-3. `PROTOTYPE_ROUTE_GRAPH_AND_STATE.md` 擁有 dependencies、structural branch、knowledge/state semantics。
-4. 本 blueprint 擁有 **pre-dialogue scene progression、branch intent、rejoin logic、transition hook**。
-5. final Locked Scene 可以在不改變上述 contract 的前提下改寫 wording、micro-beat、節奏與具體 dialogue。
+2. `NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md` 擁有 expression/action、Local/Echo/Structural 與 no-score authority。
+3. `PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md` 擁有 macro arc、角色弧線與 relationship pacing。
+4. `PROTOTYPE_ROUTE_GRAPH_AND_STATE.md` 擁有 dependencies、structural branch、knowledge/state semantics。
+5. 本 blueprint 擁有 **pre-dialogue scene progression、branch intent、rejoin logic、transition hook**。
+6. final Locked Scene 可以在不改變上述 contract 的前提下改寫 wording、micro-beat、節奏與具體 dialogue。
 
-若本 blueprint 與 1–3 衝突，以 1–3 為準並回報需修正 blueprint。
+若本 blueprint 與上位契約衝突，以上位契約 為準並回報需修正 blueprint。
 
 ## 3. Text-first production rule
 
@@ -52,7 +53,7 @@ macro / route canon
 原則：
 
 - 不為「目前沒有 CG」縮短 scene 或改掉 relationship beat。
-- scene 可先以 runtime 已有的 background / sprite / message UI / text presentation 完成可玩版本。
+- scene 可先以 runtime 已有的 已登記 background / preview-only / message UI / text presentation 完成可玩版本。
 - visual beat 只記 semantic event；是否值得做 CG 由後續 Visual Production 決定。
 - missing CG 不得成為下一個 narrative scene 的 blocker。
 - reaction / optional / reward CG 尤其應在 script 與 gameplay 穩定後再補。
@@ -110,7 +111,9 @@ macro / route canon
 - 另一位女主只能知道實際 scene 中取得的資訊。
 - 同時 dating 在 exclusivity 前不是道德失敗；欺瞞才是。
 - Friendship 是完整結局；Distance 是 closure，不是 punishment。
-- late lock 以前避免讓任一女主突然從世界消失。
+- 普通生活可持續；未見、ordinary、dormant、romantic closure 各有不同可達內容，不保證浪漫邀請常駐。
+- Expression 按 Warm/Candid/Playful；action 按實際邀約、接受、改期、拒絕、休息等行為。Local 是當地反應，Echo 是具體 callback，Structural 是可達場景改變，當場或接下來 1–2 個 Memory Events 可見；不新增 score gates。
+- OPEN-A/OPEN-B 有限 slots；短 discovery／initiator／RE 入口 merge 主幕，不新增 scene/Memory/runtime IDs。Good 必经必要主弧線與 -13/-14，F/D 可從真正 closure 直接接既有結局。
 - reactive variants 盡量在同 scene 用少量台詞/旁白變體解決，避免 route combinatorial explosion。
 
 ## 7. How the next production pass should use this

@@ -2,9 +2,9 @@
 
 > Lifecycle: **CANONICAL**
 >
-> Version: 0.1
+> Version: 0.2
 >
-> Updated: 2026-09-26
+> Updated: 2026-10-03
 >
 > Scope: JYC-05 → JYC-14 + Jiang endings / after story / codas.
 >
@@ -36,11 +36,11 @@ Good route 的完成不是她變外向，而是：
 
 **Entry condition**
 - 已有 `contact_jyc=true`。
-- 可作 OPEN-A 第一或第二個 major slot。
+- 可在 OPEN-A 合法 slot，或 OPEN-B 未玩 anchor return 的合法 slot首次進場。
 - 她和男主已有穩定線上聊天，但 offline 仍偏克制。
 
 **Immediate setup**
-兩人因一個限定展／地下街活動約出來。這次是明確共同興趣，不是男主陪她做「她的宅興趣」。
+她分享限定展／地下街活動資訊；player-led variant 引用 COM-03J 的作品推薦主動邀她。她可接受、counteroffer 人少的同 window 時段／地點、或說這次想自己逛。前兩者 merge 同一入口主幕；婉拒接 solo/rest/wait，不記 anchor 完成。ordinary 首邀不是 RE；合法 RE 只換已發生前事的入口。
 
 **Dramatic job**
 第一次讓玩家在線下看到「Online JYC」的同一人格，只是出現在她熟悉的場域。
@@ -60,22 +60,22 @@ Good route 的完成不是她變外向，而是：
 12. 男主若自然接住，不必把邀約放大成 confession。
 
 **Choice forks**
-- 讓她帶路：`jyc_seen_in_element=true`, `K +2`。
-- 真正參與：chemistry。
-- 代替她社交：`T -1`；若重複才形成 pressure pattern。
+- 讓她帶路：`jyc_seen_in_element=true`；她自己表達判斷。
+- 真正參與：作品讨论的當地火花（Local）。
+- 代替她社交：她收起話題；記是哪次代答，不能換成 pressure points。
 
 **Rejoin**
 都以「線下的她開始更像訊息裡的她」結束。
 
 **Next hook**
-線上 co-op 從共同興趣自然延伸到 JYC-06。
+線上 co-op 從共同興趣自然延伸到 JYC-06。若 JYC-05 代答 unresolved，家訪邀約前短 continuation 承認搶答、問何時希望幫忙，下一次讓她自己回店員／訊息；她接受才 addressed，拒絕則不進家訪，可留普通聊天或明確 closure。
 
 ---
 
 ## JYC-06 — Gaming Night
 
 **Entry condition**
-- JYC-05 或足夠 familiarity。
+- JYC-05 已演出且她同意家中一起玩；不以熟悉度跳 anchor。
 - 線上已玩過一兩次。
 
 **Immediate setup**
@@ -101,23 +101,21 @@ Good route 的完成不是她變外向，而是：
 14. 她回家後在線上丟一句比平常更自然的吐槽，證明 intimacy 沒有因出門而 reset。
 
 **Choice forks**
-- 認真競爭：chemistry。
-- 故意讓：`K -1`。
-- 一直指導：`K -1`。
-- 接受她強：`K +1`。
+- 競爭／接受她強：當地吐槽和 playful 回應。
+- 故意讓／一直指導：她點出被當新手；記此具體摩擦與是否停止（Local/Echo）。
 
 **Exit state**
 - `jyc_home_space_comfort=true`。
 
 **Next hook**
-此 scene 使 SH-01「從男主家離開時撞見許棠」合理。
+若一直教等摩擦 unresolved，同次散場短 repair：承認把她當新手、問她是否想聽建議，停下指導讓她主導下一局；她接受才 addressed。她仍不愿就先結束聚會，不用新邀約/RE補救，不設 JYC-12 repair_completed。離開仍可 SH-01 介紹存在，不代表 repair；若許棠未 contact/未在場则 bypass。
 
 # 3. Midgame ordinary dating and vulnerability
 
 ## JYC-06B — 雨天改行程
 
 **Entry condition**
-- JYC familiarity 足夠。
+- JYC-06 已演出，雙方接受新的 outing；early harm 已先處理。
 - 至少一次 1-on-1 outing。
 - 不要求 alias arc 已開。
 
@@ -143,8 +141,8 @@ Good route 的完成不是她變外向，而是：
 
 **Choice forks**
 - practical deflection：保留 mask。
-- 真正承認 uncertainty：`T_JYC +1`。
-- 把問題丟回她：若語氣 defensive，connection 降低。
+- 真正承認 uncertainty：她聽見男主真正的不確定。
+- 把問題丟回她：若語氣 defensive，她當地收回追問。
 
 **Exit state**
 - `jyc_saw_practical_deflection=true`。
@@ -155,7 +153,7 @@ Good route 的完成不是她變外向，而是：
 ## JYC-07 — 那個帳號
 
 **Entry condition**
-- trust 足夠。
+- JYC-06B 已演出，她仍願意分享作品；不跳知識與揭露前事。
 - 男主已看過她多次作品／聊天內容。
 - alias discovery 必須有可信線索，不可神推理。
 
@@ -180,9 +178,14 @@ Good route 的完成不是她變外向，而是：
 12. 男主最健康的回應不是勸她公開，而是尊重「妳想讓誰知道，本來就可以自己選」。
 
 **Choice forks**
-- 等她說：`jyc_alias_private=true`, `T +2`。
-- 私下確認：`T +1`。
-- 公開曝光：`jyc_alias_exposed=true`, `pressure_strike +1`, `T -3`。
+- 等她說：`jyc_alias_private=true`；她自主分享。
+- 私下確認：她可回答或拒談，男主接受其選擇。
+- 公開曝光：`jyc_alias_exposed=true`，具體曝光 harm unresolved，須後續指名 repair，不能用 RE 消除。
+
+**Adjacent exposure accountability / handoff**
+公開提起後，先結束旁人的話題，男主私下承認自己把她的帳號和本人連在一起、越過她的決定，問她希望怎樣處理已聽到的人。他停止轉發／確認身分；按她同意的範圍撤回自己的公開內容、請當場聽到的人不要傳開，不擅自另發澄清造成第二次曝光，不能保證旁人已忘記。她確認這些處理後，可明確接受有限續行，仍要求不再把本人和帳號連結；才把此次具體曝光處理記為 addressed，進 JYC-08 的邀約前入口，由她決定是否邀請。她拒絕處理或不願繼續則停止私人邀约，经 JYC closure handoff → JYC-D；只有雙方明確認友情並接受後果才 JYC-F。未得到她接受時仍 unresolved，不進 JYC-08，也不以等待、新邀約或 RE 清除。
+
+此 continuation 不回收 `jyc_alias_exposed`，不把重大曝光降為普通 cooling；曝光史及控制感受損仍在 JYC-09 外部壓力、JYC-10/11 退回線上與 JYC-12 指名修復中 payoff。此處不設 `jyc_repair_completed`；Good 仍須完整後續 spine 與 JYC-12 真 repair。
 
 **Rejoin**
 帳號存在繼續；Good route 不要求她最後公開真名。
@@ -195,7 +198,7 @@ JYC-09 必須在 creator circle 中讓「線上與現實撞上」成為外部壓
 ## JYC-08 — 你星期六有空嗎？
 
 **Entry condition**
-- JYC familiarity / trust 足夠。
+- JYC-07 已演出；分享邊界被尊重或具體 harm 已處理，她願意主動邀約。
 - 她已開始相信男主會尊重自己的 pacing。
 
 **Immediate setup**
@@ -218,14 +221,14 @@ JYC-09 必須在 creator circle 中讓「線上與現實撞上」成為外部壓
 
 **Exit state**
 - `jyc_invited_player=true`。
-- healthy acceptance：`T/C +1`。
+- 接受或真實改期：她敢把下一次安排說清楚；拖答已答應的 plan 才可 cooling。
 
 # 4. Braided intimacy / core conflict
 
 ## JYC-09 — Too Many Eyes
 
 **Entry condition**
-- creator/alias arc viable。
+- JYC-08 及作品/alias 前事已演出；她選擇參加該 creator event。
 - alias 已被男主知道或至少 creator identity 有一定暴露。
 - 若 `jyc_alias_exposed=true`，scene tension 更高。
 
@@ -255,9 +258,9 @@ creator event 中，一位和她 online 聊過一段時間的創作者逐步認�
 14. 到站後她先走，晚點只發一個很短的「到了」。
 
 **Choice forks**
-- 替她說謊：仍替她做決定，`K -1`。
-- 公開證實：`T -3`, `pressure+1`。
-- 跟 cue：`T +2, K +2`。
+- 替她說謊：記代答的具體越界，她未同意則仍須承認／停止。
+- 公開證實：指名曝光 harm unresolved。
+- 跟 cue：她自己答或選擇離場，visibility control 被實際保留。
 
 **Exit state**
 - visibility shock active。
@@ -300,9 +303,9 @@ creator event 中，一位和她 online 聊過一段時間的創作者逐步認�
 20. conversation 以 unresolved 但更誠實收尾。
 
 **Choice forks**
-- pressure：`T -2`。
-- total retreat：`K -2`。
-- honest need：`jyc_stated_offline_need=true`, `K +2`。
+- 催促：她指出被當問題修的當地反應。
+- 全退：男主仍未表達需求，intent unresolved。
+- honest need：`jyc_stated_offline_need=true`；需求可被共同處理。
 
 **State**
 - `jyc_named_competence_mask=true`。
@@ -324,22 +327,22 @@ creator event 中，一位和她 online 聊過一段時間的創作者逐步認�
 3. 看見上一次 conversation 停在一個普通 meme，而不是吵架最後一句。
 4. 他打字，刪掉。
 5. 她的 status 一度切 game / idle，證明她生活正常進行。
-6. 若 trust 高，她偶爾仍丟一個很短的內容，但沒有 offline invitation。
-7. 若 trust 低，連 online frequency 都下降。
+6. 若她仍願意在尊重 visibility 後保持交流，她偶爾仍丟一個很短的內容，但沒有 offline invitation。
+7. 若曝光／催促未承認停止，她不願再私人交流，連 online frequency 都下降。
 8. 男主第一次體會「尊重空間」和「什麼都不做」之間的差別。
 9. scene 不讓玩家靠 spam messages repair。
 10. 留白後由她在 JYC-12 主動回來。
 
 **Exit state**
 - healthy path：repair viable。
-- high pressure pattern：可能只剩 cool/friend/distance version。
+- 未處理曝光／反覆催促且她拒绝繼續：指名 harm、進 JYC closure handoff，不能用 cooling 假裝無事。
 
 # 5. Repair
 
 ## JYC-12 — 我想試一次
 
 **Entry condition**
-- repair viable。
+- JYC-09/10/11 的具體事件待處理，她允許此次 repair；邀約接受本身不完成 repair。
 - 先前已 foreshadow prints / 小誌 / creator gathering。
 - 她自己對這件事有既存目標。
 
@@ -374,25 +377,23 @@ creator event 中，一位和她 online 聊過一段時間的創作者逐步認�
 19. 她接受這個差異，不承諾變外向。
 
 **Choice forks**
-- bounded support：`T +2, K +2`, repair。
-- hover：`K -1`。
-- speak for her：`T -1`。
+- bounded support：真的按她指定範圍陪伴，具體承認曝光／代答／藏需求，聽她是否接受，才有 repair outcome。
+- hover／代答：再犯指名邊界，仍 unresolved；她可拒绝繼續。
 
 **Exit state**
-- `jyc_repair_completed=true` if successful。
-- late invitation viable。
+- accountability、改變行為與她明確接受後才 `jyc_repair_completed=true`；拒绝 repair 不自動友情。
+- **local clarity continuation**：break 時談完 harm，她說願意試線下相處但仍用筆名、仍有想退回線上的日子，問男主是否願意 online/offline 都在且不替她曝光。明確期待才 due。回答浪漫續行、友情或距離；一致浪漫且另一方承諾已處理 → JYC-13；雙方认友情並接受後果 → JYC-F；她拒绝繼續／未處理 harm → JYC-D。不能另約來跳過 due；雙 romantic expectations 存在時，先在此坦白並由雙方允許有限釐清才可 BOTH-H，具體誤導才 BOTH-L。
+- **timing handoff**：沒有未決另一方承諾時，直接同日收攤 → JYC-13。需 HONEST-J 處理另一方時，先完成該回覆／closure，來得及才接同日散場；需要跨日釐清則當天各自回家，不預演 JYC-13。JYC-12 的 repair table 已完成。她仍願意且 clarity 已回答／雙方允許有限釐清，才可在後續提出下一個小型 creator outing：她再以筆名參加、兩人約好她結束後一起回去，支援仍限她指定範圍。這個真正未來的安排若撞上許棠修復後共同規劃的一天，才進 COMMIT；它不取代或重演 JYC-12。
 
 # 6. Late lock
 
 ## JYC-13 — 散場
 
 **Entry condition**
-- HONEST-J 或 DECIDE → JYC。
-- creator table 已發生。
-- repair viable。
+- JYC local clarity resolved romantic，JYC-12 visibility-safe 真 repair 完成且她愿意繼續，creator table 已發生；另一方承諾已處理。HONEST-J/DECIDE 不能跳 prerequisite。
 
 **Immediate setup**
-活動結束後她已經耗盡 social battery，但不想立刻把這一天關掉。
+活動結束後她已經耗盡 social battery，但不想立刻把這一天關掉。直接路徑是 JYC-12 當日；經 COMMIT／跨日 HONEST-J／OV→DECIDE 的路徑，先完成另一方承諾處理與 JYC romantic clarity，確認她仍願意，再赴上述未來 creator outing。以短入口交代「今天仍用筆名、照她指定範圍陪伴」，不重播 repair；活動確實完成後，從本幕收攤 beat 1 合流，今天的被看見與疲累都指此次活動。若承諾或新增 harm 未處理，不赴此 romantic 散場，先 accountability／closure；不以合流替她接受。
 
 **Dramatic job**
 讓她主動在 offline 世界延長相處；把「我現實的自己不值得喜歡」說到最接近核心的位置。
@@ -423,7 +424,7 @@ creator event 中，一位和她 online 聊過一段時間的創作者逐步認�
 
 **Entry condition**
 - late JYC lock。
-- core conflict 已 repair or accepted consequence。
+- JYC-13 已合法演出，core conflict 真 repair 且 clarity resolved romantic。
 
 **Immediate setup**
 從 JYC-13 同一晚自然延續，不需要另造大事件。
@@ -444,7 +445,7 @@ creator event 中，一位和她 online 聊過一段時間的創作者逐步認�
 10. 男主承認大概還是會有第一次「沒事」，但可以學著第二次說真話。
 11. 她因這個不完美答案反而放鬆。
 12. Friend intent：可明確珍惜但不升級。
-13. Distance intent / low trust：她選擇保留 online or public-only distance。
+13. Distance intent / 她因指名 unresolved harm 拒絕繼續：她選擇保留 online or public-only distance。
 14. Good path 中，她不是被動等吻；可以用一句「現在是不是……」或乾脆往前半步。
 15. first kiss 在雙方 intent 清楚後發生。
 
@@ -452,6 +453,8 @@ creator event 中，一位和她 online 聊過一段時間的創作者逐步認�
 - evaluation → JYC-G / JYC-F / JYC-D。
 
 # 7. Jiang endings
+
+JYC-F/D 可從 TENSION、JYC-12 outcome、local clarity、HONEST-X 或 DECIDE 的 JYC closure handoff 直接進入，不需浪漫 JYC-13/14。never_met/ordinary/dormant 只交代生活；Good 必經 JYC-05→06→06B→07→08→09→10→11→12 真 repair→clarity→13→14，再接三集 After Story。
 
 ## JYC-G — Good：沒有第二個帳號
 
@@ -470,7 +473,7 @@ creator event 中，一位和她 online 聊過一段時間的創作者逐步認�
 ## JYC-F — Friend：先給你看
 
 **Entry patterns**
-- trust 很高但 romantic readiness 不一致；
+- 實際互相重視、雙方認友情但 romantic readiness 不一致；
 - 她不確定答應戀愛是不是因害怕失去男主；
 - 玩家明確選 friendship。
 
