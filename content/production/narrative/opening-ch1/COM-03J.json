@@ -1,0 +1,171 @@
+{
+  "schema_version": "1.0.0",
+  "scene_id": "COM-03J",
+  "lifecycle": "CANONICAL",
+  "source_scene": "docs/narrative/scenes/vertical-slice/COM-03J.md",
+  "entry_state": {
+    "relationships": [
+      {
+        "subject": "jiang_yucheng",
+        "toward": "protagonist",
+        "label": "acquaintances_with_specific_shared_context",
+        "constraints": [
+          "COM-02J 已交換姓名；她主動招呼與回問，兩人能同桌各自工作；尚未交換聯絡方式或相約。"
+        ]
+      },
+      {
+        "subject": "protagonist",
+        "toward": "jiang_yucheng",
+        "label": "acquaintances_with_specific_shared_context",
+        "constraints": [
+          "記得她的姓名、畫圖能力與共同作品脈絡；此次接觸不是追問她的私人身份。"
+        ]
+      }
+    ],
+    "knowledge": [
+      {
+        "holder": "jiang_yucheng",
+        "knows": [
+          "男主姓名；他在科技公司工作，部分工作可帶著走，回家有時也會開電腦。",
+          "兩人已談過共同作品；COM-02J 的具體話題只按可信 local history 成立。"
+        ],
+        "does_not_know": [
+          "男主精確職稱、住處、未披露私人關係。"
+        ]
+      },
+      {
+        "holder": "protagonist",
+        "knows": [
+          "江雨澄姓名；她在 tablet 畫圖，能談具體圖像判斷。",
+          "jyc_second_topic=her_art/shared_work/general_praise 各自只表示 COM-02J 當次真的發生的互動。"
+        ],
+        "does_not_know": [
+          "她的匿名創作帳號、商業委託、完整繪師身份、住處。"
+        ]
+      }
+    ],
+    "constraints": [
+      "故事前置為 COM-02J completed；route dependency row 的 interest choice 由既有共同興趣及 topic history 承接，不新增必選某分支的門檻；本幕前 contact_jyc=false，双方姓名及 creator-work knowledge 已成立。",
+      "Common graph 排列在 COM-03X 之後、COM-03M 之前；這是 sequence，不讓雨澄自動知道另一人的任何事，也不以 contact_xu 作本幕人物互動條件。",
+      "她在 COM-02J 之後回去找到適合共同作品脈絡的遊戲／作品推薦；不能宣稱 COM-02J 已約定傳連結、已聊過這個新作品或已交換帳號。",
+      "本幕短線下接觸仍在已成立的車站附近生活脈絡；接觸由她主動接回推薦，非約會邀約或去她家。"
+    ]
+  },
+  "scene_function": [
+    "把 COM-02J 的共同作品與她主動接觸延續成傳連結／截圖的實際需要，正式取得 contact_jyc。",
+    "以線下短句、普通告別到晚上文字分析展開，呈現同一個人在不同媒介與熟悉話題中的節奏，非兩種人格。",
+    "讓男主對作品的具體回應促成雙向交流；結尾選擇保留不同聊天節奏與下次主動的餘裕，為 COM-03M 留下訊息期待。"
+  ],
+  "character_intent": [
+    {
+      "character_id": "jiang_yucheng",
+      "intent": "分享自己找到的推薦，先試探男主是否還有興趣；他接住內容後才展開分析，能自行補充、更正並在收束時確認對方是否有空接話。"
+    },
+    {
+      "character_id": "protagonist",
+      "intent": "接住她主動分享的具體內容，表達真實看法與自己今晚的節奏；不把回覆當攻略測驗，也不要求她線下變得同樣健談。"
+    }
+  ],
+  "player_information_gain": [
+    "她在線下依然可以只說幾句，線上熟悉題目時卻回得更快、更長，會用 meme、截圖與自我更正補足意思；這些都是 COM-02J 已見到的主見與幽默的延續。",
+    "聯絡管道只因本次推薦需要而成立；晚間確實收到並回應連結／截圖，不以取得帳號代替分享的 payoff。",
+    "男主的作品回應能被她接住；延長聊天、溫和收束或留到之後各有合理節奏，均不表示約會、承諾或拒絕她本人。"
+  ],
+  "emotional_arc": [
+    "她先主動回扣找到推薦；線下交流仍短，聯絡交換有具體用途。",
+    "普通告別之後，晚上克制的第一則訊息把未完成的分享接起。",
+    "男主接住一個當下可見的內容細節，她逐步傳出分析、meme、截圖、補充和更正。",
+    "男主注意到文字裡的速度與熱度，觀察停在此刻，不替她診斷或總結隱藏心理。",
+    "她確認是否講多了；玩家依自己節奏回應，聊晚或自然收束，都保留下一次正常聯絡。"
+  ],
+  "required_payoffs": [
+    "所有路徑都完成她先提找到推薦、經雙方同意交換一個聯絡管道、線下普通告別、晚上真的傳推薦，以及 contact_jyc=true、F_JYC base +1。",
+    "本幕選用 Discord 作唯一呈現的管道；共享可接收私訊的帳號不等於匿名創作身份、公開社群加入或私人作品權限。",
+    "COM-02J callback 按可信 jyc_second_topic 只顯示一條：her_art 回扣輪廓／重心，shared_work 回扣共同設定集脈絡，general_praise 回扣她自己關亂圖層的當地幽默；缺失、未知或不可信 history 只回扣共同作品推薦。",
+    "shared_work 若要再用具體 COM-01J topic，必須另有可信 replay-local jyc_first_topic；visual_design/worldbuilding/edition_value 各自只回扣已批准 COM-02J 對應內容；缺此 history 退到設定集參考構圖／色塊的中性脈絡。不得由 shared_work 推定 first topic。",
+    "線上所有路徑先有克制的首訊息，以及男主對本幕已收到／看見內容的一個具體而可討論的回應，再讓她展開較長訊息；不能要求玩家選最懂的選項才看見 required online contrast。",
+    "meme、截圖、分析與自我更正服務同一推薦題目；第一人稱只記看見／讀到的差異，不斷言她害怕被看見或已向他展示真正的自己。",
+    "她確認是否講太多之後提供三種成年人可能選的回覆 intent：接著聊、接住但今晚收束、保留内容下次接；每支都要有她對當地回覆的反應與自然道別，再合流，不能直接跳到共用 exposition。",
+    "選擇差異只保存本次 reply style 與下次由她主動時的保留程度；不增加額外關係數值，不把短回設成壞答案或終止聯絡。",
+    "Memory replay 只讀 replay-local topic snapshot；缺歷史走中性版本，不借 live 主線填補，不回填 jyc_first_topic/jyc_second_topic，不向主線寫入本幕 state。"
+  ],
+  "exit_state": {
+    "relationships": [
+      {
+        "subject": "jiang_yucheng",
+        "toward": "protagonist",
+        "label": "acquaintances_with_shared_interest_and_contact",
+        "constraints": [
+          "有一個可繼續分享作品的聯絡管道；願意展開內容，但可收束、不要求隨時回覆。",
+          "本次結尾回覆留下不同主動餘裕；沒有戀愛、約會、信任測驗或公開身份承諾。"
+        ]
+      },
+      {
+        "subject": "protagonist",
+        "toward": "jiang_yucheng",
+        "label": "acquaintances_with_shared_interest_and_contact",
+        "constraints": [
+          "親眼讀到她在線上談熟悉內容更快、更長；仍是 COM-02J 那個有主見且有普通幽默的人。",
+          "知道她的聯絡帳號，不知道其匿名創作身份；不把聊天晚或訊息長度當成 romanticSignal。"
+        ]
+      }
+    ],
+    "knowledge": [
+      {
+        "holder": "jiang_yucheng",
+        "knows": [
+          "男主可接收本次推薦；他真的接住一項內容，並表達今晚繼續／收束／留待之後的節奏。",
+          "既有姓名、科技工作與可攜工作資訊不變。"
+        ],
+        "does_not_know": [
+          "男主精確職稱、住處及本幕未披露的私人關係。"
+        ]
+      },
+      {
+        "holder": "protagonist",
+        "knows": [
+          "她透過 Discord 分享本次推薦；熟悉題目使文字分析、meme、截圖、補充與更正展開。",
+          "原有姓名與畫圖能力不變；新作品資訊以本幕真實收到的內容為限。"
+        ],
+        "does_not_know": [
+          "她的匿名創作帳號、商業委託、完整繪師身份、住處或未披露的人際關係。"
+        ]
+      }
+    ],
+    "constraints": [
+      "contact_jyc=true；全路徑 F_JYC +1 base，仅一次；三種結尾不加額外 trust/chemistry/compatibility 數值。",
+      "romanticSignal、alias、主場／家中舒適、repair／pressure、focusHistory/recentFocus、exclusivity/deception 與其他角色 knowledge 全部保持 entry 值，不因訊息或短回重設。",
+      "本幕只交付 COM-03M 所需 Jiang contact 與訊息質感；不在本幕設 open_dating_unlocked、不保證後續邀約／major event 已發生。"
+    ]
+  },
+  "must_not": [
+    "不得改寫 approved COM-02J 的名字、台詞、choice meanings、effects、node IDs 或其工作披露。",
+    "不得讓取得 contact 成為最懂作品者的獎勵；普通／短回仍有聯絡與正常下一次。",
+    "不得把兩種媒介寫成真假人格、把線下慢熱治好、讓男主稱讚她終於正常或要求她像線上一樣說話。",
+    "不得揭露或推定匿名 creator alias；不得開她作品帳號、加入私人群／voice call、邀家中遊戲、提前主場／家庭／晚期 route facts。",
+    "不得沿 missing callback history 捏造前次選擇；不從 live state 補 replay，不能把 general_praise 分支改成深入 craft 討論的已發生事實。",
+    "不得把帳號、訊息量、聊晚或短回轉為浪漫表態、exclusivity、major investment、deception、pressure strike 或 terminal rejection。",
+    "不得讓她取得未由本幕披露的其他角色 knowledge。",
+    "不得用 guardrail narration 代替普通道別或內在診斷；不得把 contract 寫成心理學講解。",
+    "本 artifact 仍是 Narrative Design 與 pre-dialogue outline；不得聲稱 Locked Scene、獨立 Narrative QA、CG/Visual QA 或 Human narrative preview 已通過。"
+  ],
+  "implementation_mapping": {
+    "runtime_only": true,
+    "flags": {
+      "requires_completed_scene": "COM-02J",
+      "forbids_contact_jyc": true,
+      "contact_jyc": true,
+      "F_JYC": "increment:1;once_on_mainline_scene_completion",
+      "jyc_com03j_reply_style": "continue_content|warm_close|save_for_later;proposed_runtime_enum_for_next_message_initiative",
+      "jyc_first_topic": "read_only_trustworthy_local_history;unknown_uses_neutral",
+      "jyc_second_topic": "read_only_trustworthy_local_history;unknown_uses_neutral",
+      "relationship.jyc.romanticSignal": "unchanged",
+      "jyc_alias_private": "unchanged",
+      "jyc_alias_exposed": "unchanged",
+      "jyc_seen_in_element": "unchanged",
+      "jyc_home_space_comfort": "unchanged",
+      "recentFocus": "unchanged",
+      "focusHistory": "unchanged"
+    }
+  }
+}
