@@ -1,0 +1,57 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "human_decision",
+  "run_id": "com02j-m1-preview-20261002",
+  "task_id": "HUMAN-COM02J-STORY-011",
+  "scene_id": "COM-02J",
+  "task_type": "human_decision",
+  "status": "PASS",
+  "harness": {
+    "id": "integrator",
+    "version": "1.4.0",
+    "pass": null
+  },
+  "source_ref": "cb11e81271269e7dc9ceeef6c81d6544a3a33b0c",
+  "input_versions": [
+    {
+      "id": "docs/narrative/scenes/vertical-slice/COM-02J.md",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02J.md",
+      "version": "a217f826a9e0b0379a763518b63d1a2d985f7930a0ec1691f01327662228ffb1"
+    },
+    {
+      "id": "content/production/narrative/opening-ch1/COM-02J.json",
+      "location": "content/production/narrative/opening-ch1/COM-02J.json",
+      "version": "70ed29091bdf9267287e06aa3d56abc4d1df83e7ef3f21aff0eaf64d004acf7e"
+    },
+    {
+      "id": "content/routes/opening-demo/chapter-01.json",
+      "location": "content/routes/opening-demo/chapter-01.json",
+      "version": "10af2d63c075d9e12ff6645de89670af619ecf747708878dcbbd233db491777d"
+    },
+    {
+      "id": "src/engine.js",
+      "location": "src/engine.js",
+      "version": "9fe5f1a902cb7b28f34ee591d9fa0bb12e85a3b7ba2a1baa3bcbabf6abff3b26"
+    },
+    {
+      "id": "src/progress.js",
+      "location": "src/progress.js",
+      "version": "eba83c33b239d8fb582bba5371a8117b281b0335580717473b05a059f9e6c99a"
+    }
+  ],
+  "output_versions": [],
+  "qa_codes": [
+    {
+      "name": "Human narrative preview approval outside two listed feedback items",
+      "code": "HUMAN-NARRATIVE-PREVIEW-REVIEW",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "Owner tested immutable public deployment https://070823e2.seventeen-floor-neighbor.pages.dev/ and stated: 可以，挑幾個小問題：1. 第一幕許棠和江雨澄還沒有交換名字，遊戲對話框就出現名字了。2. 便利店回家電梯裡的CG沒有任何人，我想加個許棠的背影或者側影。其他沒有問題，可以繼續推進。",
+    "Scope: COM02J story/dialogue and remaining narrative preview accepted. Early opening speaker-name visibility and COM02X return-elevator image require explicit follow-up fixes. This is not new master-image selection, Visual QA, whole M1 acceptance, or final playable acceptance."
+  ],
+  "human_gate_required": "none",
+  "invalidates": []
+}
