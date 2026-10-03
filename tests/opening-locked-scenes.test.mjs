@@ -190,7 +190,7 @@ test('expanded boxes keep the existing Memory and visual boundaries', () => {
       } else if (/^common_convenience_xu_checkout_(0[4-9]|1[0-3])$/.test(id)) {
         assert.deepEqual(nodes[id].visual, { mode: 'cg', asset: 'cg.opening.com02x.walk_home' });
       } else {
-        assert.ok(['bg.opening.com02x.convenience_night', 'bg.opening.ch1.apt_elevator']
+        assert.ok(['bg.opening.com02x.convenience_night', 'bg.opening.ch1.apt_elevator', ...(['common_convenience_xu_exit', 'common_convenience_xu_exit_02'].includes(id) ? ['bg.opening.com02x.return_elevator_trial'] : [])]
           .includes(nodes[id].visual?.background), `COM-02X node ${id} uses registered scene coverage`);
       }
     } else {

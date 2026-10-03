@@ -41,6 +41,7 @@ function com02xImageForNode(id) {
     || /^common_convenience_xu_tell_eat_better(?:_0[23])?$/.test(id)) return 'com02x-dlg-01-v1.webp';
   if (/^common_convenience_xu_work_(0[2-9]|1[0-5])$/.test(id)) return 'com02x-microwave-v1.webp';
   if (/^common_convenience_xu_checkout_(0[4-9]|1[0-3])$/.test(id)) return 'com02x-walk-v3.webp';
+  if (['common_convenience_xu_exit', 'common_convenience_xu_exit_02'].includes(id)) return 'return-elevator-trial-v1.webp';
   if (id === 'common_convenience_xu_checkout_14' || /^common_convenience_xu_exit(?:_|$)/.test(id)) return 'apartment-elevator.webp';
   return 'com02x-bg-01-v1.webp';
 }
@@ -218,7 +219,7 @@ for (const [branchIndex, branch] of ['ask_food', 'share_work', 'tease_same', 'te
       const id = journey.cursor.nodeId;
       const expected = com02xImageForNode(id);
       if (expected) {
-        const expectedPath = expected === 'apartment-elevator.webp' ? apartmentPath : `/assets/opening-ch1-demo/${expected}`;
+        const expectedPath = expected === 'apartment-elevator.webp' ? apartmentPath : expected === 'return-elevator-trial-v1.webp' ? `/assets/opening-ch1-preview/${expected}` : `/assets/opening-ch1-demo/${expected}`;
         const scene = page.locator('#scene-image');
         await expect.poll(async () => new URL(await scene.getAttribute('src'), page.url()).pathname).toBe(expectedPath);
         await expect.poll(() => scene.evaluate(image => image.complete && image.naturalWidth > 0 && image.naturalHeight > 0)).toBe(true);

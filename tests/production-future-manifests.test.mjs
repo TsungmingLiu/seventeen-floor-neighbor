@@ -6,6 +6,9 @@ import path from 'node:path';
 import { spawnSync, execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
+import { validateReturnElevatorTrial, RETURN_ELEVATOR_TRIAL_RECEIPT, RETURN_ELEVATOR_TRIAL_HUMAN, RETURN_ELEVATOR_TRIAL_QA } from '../tools/validate-production-contracts.mjs';
+import { createHash } from 'node:crypto';
+
 const repository = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const sourceManifest = 'content/production/cg-manifests/opening-ch1-com01b.json';
 const injectedManifest = 'content/production/cg-manifests/future/chapter-two.json';
@@ -103,4 +106,38 @@ test('a valid nested future manifest with unique identities passes production va
 
   const result = validate(root);
   assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
+});
+
+
+test('return elevator trial rejects altered provenance, quality claims and expanded runtime scope', async () => {
+  const json = async file => JSON.parse(await readFile(path.join(repository, file), 'utf8'));
+  const data = {
+    catalog: await json('content/assets/source-catalog.json'), manifest: await json('content/assets/manifest.json'),
+    sourceMap: await json('content/assets/source-map.json'), route: await json('content/routes/opening-demo/route.json'),
+    chapter: await json('content/routes/opening-demo/chapter-01.json'), memories: await json('content/routes/opening-demo/memories.json'),
+    receipt: await json(RETURN_ELEVATOR_TRIAL_RECEIPT), human: await json(RETURN_ELEVATOR_TRIAL_HUMAN), qa: await json(RETURN_ELEVATOR_TRIAL_QA),
+    decisionHashes: { human: createHash('sha256').update(await readFile(path.join(repository, RETURN_ELEVATOR_TRIAL_HUMAN))).digest('hex'),
+      qa: createHash('sha256').update(await readFile(path.join(repository, RETURN_ELEVATOR_TRIAL_QA))).digest('hex') }
+  };
+  assert.equal(validateReturnElevatorTrial(data), 1);
+  for (const mutate of [
+    d => { d.receipt.original.sha256 = '0'.repeat(64); },
+    d => { d.receipt.derivative.sha256 = '0'.repeat(64); },
+    d => { d.receipt.humanDecision.sha256 = '0'.repeat(64); },
+    d => { d.decisionHashes.qa = '0'.repeat(64); },
+    d => { d.receipt.sourceQa.status = 'PASS'; },
+    d => { d.qa.status = 'PASS'; },
+    d => { d.receipt.lifecycle = 'ACCEPTED'; },
+    d => { d.receipt.scope.independentDisplayQa = 'PASS'; },
+    d => { d.receipt.knownIssues = []; },
+    d => { d.receipt.derivative.conversion.resize = 'upscale'; },
+    d => { d.route.story.allowPreviewArt = false; },
+    d => { d.chapter.nodes.common_convenience_xu_exit_03.visual.background = 'bg.opening.com02x.return_elevator_trial'; },
+    d => { d.chapter.nodes.common_convenience_xu_exit.visual = { mode: 'cg', asset: 'bg.opening.com02x.return_elevator_trial' }; },
+    d => { d.manifest.assets['bg.opening.com02x.return_elevator_trial'].gallery = { title: 'Forbidden' }; },
+    d => { d.memories.events[0].cover.asset = 'bg.opening.com02x.return_elevator_trial'; }
+  ]) {
+    const changed = structuredClone(data); mutate(changed);
+    assert.throws(() => validateReturnElevatorTrial(changed), /return elevator trial:/);
+  }
 });

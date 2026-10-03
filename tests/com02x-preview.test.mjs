@@ -76,6 +76,8 @@ test('formal COM-02X integration binds accepted CG and scene art without preview
       assert.deepEqual(node.visual, { mode: 'cg', asset: 'cg.opening.com02x.microwave_wait' });
     } else if (/^common_convenience_xu_checkout_(0[4-9]|1[0-3])$/.test(id)) {
       assert.deepEqual(node.visual, { mode: 'cg', asset: 'cg.opening.com02x.walk_home' });
+    } else if (['common_convenience_xu_exit', 'common_convenience_xu_exit_02'].includes(id)) {
+      assert.deepEqual(node.visual, { mode: 'composite', background: 'bg.opening.com02x.return_elevator_trial', sprites: [] });
     } else if (id === 'common_convenience_xu_checkout_14' || id.startsWith('common_convenience_xu_exit')) {
       assert.deepEqual(node.visual, { mode: 'composite', background: 'bg.opening.ch1.apt_elevator', sprites: [] });
     } else {

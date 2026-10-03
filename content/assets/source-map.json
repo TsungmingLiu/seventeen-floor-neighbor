@@ -149,6 +149,22 @@
       "sha256": "5028f66458aff84a1f4b5d9a55dc467b9c5cadd96fc119f55e452180e40633c3",
       "bytes": 141078,
       "masterSourceId": "source.opening.title.17f_doorlight.master"
+    },
+    "assets/opening-ch1-preview/return-elevator-trial-v1.webp": {
+      "source": "assets-src/opening-ch1-preview/return-elevator-trial-v1.webp",
+      "transform": "copy",
+      "sha256": "04ce2f7fbc6de3bd51cd7db4ff0805b4485fe6d63b4e2f2227f4ea31ca83e83c",
+      "bytes": 140914,
+      "masterSourceId": "source.opening.com02x.return_elevator_trial.original",
+      "originalSha256": "886c78b86000350d289c5e6544f97d1727dcd506d676d8523d28c474fb854bac",
+      "conversion": {
+        "encoder": "ffmpeg/libwebp",
+        "quality": 88,
+        "compressionLevel": 6,
+        "lossless": false,
+        "pixelFormat": "rgb24",
+        "resize": null
+      }
     }
   }
 }

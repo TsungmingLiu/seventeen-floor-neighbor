@@ -1,0 +1,263 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "resume_checkpoint",
+  "run_id": "cafe-narration-and-elevator-trial-20261003",
+  "task_id": "INT-CAFE-ELEVATOR-TRIAL-006",
+  "scene_id": "COM-02J+COM-02X",
+  "task_type": "integrate",
+  "status": "NEEDS_REVIEW",
+  "harness": {
+    "id": "integrator",
+    "version": "1.4.0",
+    "pass": null
+  },
+  "source_ref": "c42a8977668e3d5d87fed7db60142f7856149281",
+  "packet_sha256": "49528091aedeb534aa4af3d0a97288b9a6ef06b868a65ca197d216938fda9ab1",
+  "input_digest_sha256": "f93f519d306027473f5d3d244c30f8ba3f99985719da0456ae646de63aee0e09",
+  "input_versions": [
+    {
+      "id": "content/production/narrative/opening-ch1/COM-02J.json",
+      "version": "70ed29091bdf9267287e06aa3d56abc4d1df83e7ef3f21aff0eaf64d004acf7e",
+      "location": "content/production/narrative/opening-ch1/COM-02J.json"
+    },
+    {
+      "id": "docs/narrative/scenes/vertical-slice/COM-02J.md",
+      "version": "8db1871c13cfc6b9f44fe434f93738cbd9c12f08eb21cacf602df2b7c3533655",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02J.md"
+    },
+    {
+      "id": "content/production/runs/cafe-narration-and-elevator-trial-20261003/NQA-CAFE-NARRATION-005.decision.json",
+      "version": "43f2883d1f7a6c983b3099e381bcf7640eca5ff6a658124e9e874f6d5da59358",
+      "location": "content/production/runs/cafe-narration-and-elevator-trial-20261003/NQA-CAFE-NARRATION-005.decision.json"
+    },
+    {
+      "id": "content/production/runs/cafe-narration-and-elevator-trial-20261003/HUMAN-ELEVATOR-TRIAL-004.decision.json",
+      "version": "dd7f3e8404504704a677a2b8226936a13d69fbaf7fcbee18a538084ef5802a5b",
+      "location": "content/production/runs/cafe-narration-and-elevator-trial-20261003/HUMAN-ELEVATOR-TRIAL-004.decision.json"
+    },
+    {
+      "id": "content/production/runs/opening-feedback-20261003/VQA-COM02X-ELEVATOR-SOURCE-017.decision.json",
+      "version": "20e91ab22294b3767742e306bd3afaeca728fc13a64bad0e0d46871eee4d7928",
+      "location": "content/production/runs/opening-feedback-20261003/VQA-COM02X-ELEVATOR-SOURCE-017.decision.json"
+    },
+    {
+      "id": "content/production/runs/opening-feedback-20261003/VQA-COM02X-ELEVATOR-SOURCE-014.decision.json",
+      "version": "02fb76ac7b0ea4de0cab26be070199b4ddcd5247f401853d906b9c93abc6e9b4",
+      "location": "content/production/runs/opening-feedback-20261003/VQA-COM02X-ELEVATOR-SOURCE-014.decision.json"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "assets-src/opening-ch1-preview/return-elevator-trial-v1.png",
+      "version": "886c78b86000350d289c5e6544f97d1727dcd506d676d8523d28c474fb854bac",
+      "location": "assets-src/opening-ch1-preview/return-elevator-trial-v1.png"
+    },
+    {
+      "id": "assets-src/opening-ch1-preview/return-elevator-trial-v1.webp",
+      "version": "04ce2f7fbc6de3bd51cd7db4ff0805b4485fe6d63b4e2f2227f4ea31ca83e83c",
+      "location": "assets-src/opening-ch1-preview/return-elevator-trial-v1.webp"
+    },
+    {
+      "id": "content/assets/ingest-receipts/return-elevator-trial-v1.json",
+      "version": "dda05ada208b7050e75e2d02d628987a5c9abc03d2602988c09471c9b328c538",
+      "location": "content/assets/ingest-receipts/return-elevator-trial-v1.json"
+    },
+    {
+      "id": "content/assets/manifest.json",
+      "version": "5055bd4d48f5b9c95994ffd5fa77e6d16e279b2cab78f51b73651fd903509ec9",
+      "location": "content/assets/manifest.json"
+    },
+    {
+      "id": "content/assets/source-catalog.json",
+      "version": "298af943f183c6312978d69fbafc24682f7e34f6177233ec4639764060ac5007",
+      "location": "content/assets/source-catalog.json"
+    },
+    {
+      "id": "content/assets/source-map.json",
+      "version": "31c2b6694208f0a76a4eb0706675062a0bd241e28bb486ae910843ca4accbe25",
+      "location": "content/assets/source-map.json"
+    },
+    {
+      "id": "content/recipes/assets.json",
+      "version": "ab33a8bcedd53e771735b8fcbbe350a15d06393270afd83e961f4d0dd7615dde",
+      "location": "content/recipes/assets.json"
+    },
+    {
+      "id": "content/routes/opening-demo/chapter-01.json",
+      "version": "6cd3810e47a508b46f5e2faf4700089c7812e3df18c28efba299722b2417064a",
+      "location": "content/routes/opening-demo/chapter-01.json"
+    },
+    {
+      "id": "content/routes/opening-demo/route.json",
+      "version": "98ae4a8056b4605aa8b4b649404cec89fff0752b8e27adbbc0b8043ab067ff4a",
+      "location": "content/routes/opening-demo/route.json"
+    },
+    {
+      "id": "tests/asset-coverage.test.mjs",
+      "version": "8982ecc63250a946e2c332924355ee61a0fbe1999fbc4c639aeb30fd6a63c8e0",
+      "location": "tests/asset-coverage.test.mjs"
+    },
+    {
+      "id": "tests/browser-acceptance.spec.mjs",
+      "version": "69d9ab199b5d36aaa8bb2d701b4473c8574a76c5c0f90eae799f038453599053",
+      "location": "tests/browser-acceptance.spec.mjs"
+    },
+    {
+      "id": "tests/com02j-preview.test.mjs",
+      "version": "da6f46aef00ce72fddc6ffb73e2c04d4b974b9c46c8cce3703c71ab475991b2c",
+      "location": "tests/com02j-preview.test.mjs"
+    },
+    {
+      "id": "tests/com02x-preview.test.mjs",
+      "version": "18684e614ff37fdd77658a7c02b663617993b36962577e0d4e6d240812d169a5",
+      "location": "tests/com02x-preview.test.mjs"
+    },
+    {
+      "id": "tests/content-validation.test.mjs",
+      "version": "5feba773fbf28dad1025a2f19def82dca1b0800c74ffcf7e8266af48aaa7519c",
+      "location": "tests/content-validation.test.mjs"
+    },
+    {
+      "id": "tests/opening-locked-scenes.test.mjs",
+      "version": "cee85e90e8a3f232b074ec45a85800445329afc7b8620438aca826c638b480d8",
+      "location": "tests/opening-locked-scenes.test.mjs"
+    },
+    {
+      "id": "tests/production-future-manifests.test.mjs",
+      "version": "78f60027a79ffc738b2470892c282c48f1d604ec54dbfbc663bfc3f2a0944775",
+      "location": "tests/production-future-manifests.test.mjs"
+    },
+    {
+      "id": "tools/asset-coverage.mjs",
+      "version": "5d7f300515cce7cd4d5c819b6ca1f7f9bfbbfe014000ba865a9ebaabeed4d4b6",
+      "location": "tools/asset-coverage.mjs"
+    },
+    {
+      "id": "tools/content-lib.mjs",
+      "version": "0338b0278ef269fb2ee07bacf946a585854b066f8aa3b4ba0c8e4dab4b47b614",
+      "location": "tools/content-lib.mjs"
+    },
+    {
+      "id": "tools/validate-production-contracts.mjs",
+      "version": "3e1ae9dae102eba58813480716558838834e8113cc6786f58998ae03ef622b5e",
+      "location": "tools/validate-production-contracts.mjs"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "exact_packet_acquisition_62",
+      "code": "exact_packet_acquisition_62",
+      "result": "PASS"
+    },
+    {
+      "name": "preservation_against_exact_HEAD_and_fde_baseline",
+      "code": "preservation_against_exact_HEAD_and_fde_baseline",
+      "result": "PASS"
+    },
+    {
+      "name": "original_retained_and_derivative_original_size_full_decode",
+      "code": "original_retained_and_derivative_original_size_full_decode",
+      "result": "PASS"
+    },
+    {
+      "name": "initial_focused_tests",
+      "code": "initial_focused_tests",
+      "result": "FAIL"
+    },
+    {
+      "name": "focused_v3_before_last_allowlist_fixture_correction",
+      "code": "focused_v3_before_last_allowlist_fixture_correction",
+      "result": "FAIL"
+    },
+    {
+      "name": "final_focused_tests",
+      "code": "final_focused_tests",
+      "result": "PASS"
+    },
+    {
+      "name": "trial_and_existing_production_guard_tests",
+      "code": "trial_and_existing_production_guard_tests",
+      "result": "PASS"
+    },
+    {
+      "name": "build",
+      "code": "build",
+      "result": "PASS"
+    },
+    {
+      "name": "validate",
+      "code": "validate",
+      "result": "PASS"
+    },
+    {
+      "name": "assets_check",
+      "code": "assets_check",
+      "result": "PASS"
+    },
+    {
+      "name": "production_storage_boundary",
+      "code": "production_storage_boundary",
+      "result": "PASS"
+    },
+    {
+      "name": "ordinary_asset_coverage",
+      "code": "ordinary_asset_coverage",
+      "result": "PASS"
+    },
+    {
+      "name": "strict_asset_coverage",
+      "code": "strict_asset_coverage",
+      "result": "FAIL"
+    },
+    {
+      "name": "validate_final",
+      "code": "validate_final",
+      "result": "FAIL"
+    },
+    {
+      "name": "initial_preview_smoke_port4187",
+      "code": "initial_preview_smoke_port4187",
+      "result": "FAIL"
+    },
+    {
+      "name": "preview_smoke_free_isolated_port37161",
+      "code": "preview_smoke_free_isolated_port37161",
+      "result": "PASS"
+    },
+    {
+      "name": "installed_chromium_two_node_three_profile_capture",
+      "code": "installed_chromium_two_node_three_profile_capture",
+      "result": "PASS"
+    },
+    {
+      "name": "full_npm_test",
+      "code": "full_npm_test",
+      "result": "FAIL"
+    },
+    {
+      "name": "selected_browser_story_flow_smoke",
+      "code": "selected_browser_story_flow_smoke",
+      "result": "FAIL"
+    },
+    {
+      "name": "independent_display_visual_QA",
+      "code": "independent_display_visual_QA",
+      "result": "FAIL"
+    },
+    {
+      "name": "git_diff_check",
+      "code": "git_diff_check",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "Initial implementation only: exact six narration and two trial-background fields changed; canonical CG/old master bytes/status preserved.",
+    "Build/validate/assets/preview smoke and55focused+5guards PASS. Fullnpm exit1:244total/241pass/3fail/0cancelled,344664.596314ms. Failure44 obsolete COM03J fixture;141 owned nested historical runner SIGTERM during cancellation;168 root missing committed ledger checkpoint. No tool gate relaxation needed.",
+    "Owned browser cancellation exit143:1of3passed,2incomplete. Final corrected fullnpm/browser required.",
+    "Independent VQA007 FAIL landscape UI purchase occlusion/crown clipping; sourceQA017 FAIL retained. Compression/desktop/portrait PASS; fresh corrective presentation review required.",
+    "Verified Handoff SHA256 ae1fea3a594c9c558a8a6b9f628a3f539fe4dd680adb2eb0dda0f572e56614eb; sourcefreeze738686a8e9855517f16f71e63a7d349e231e90457ad0a1a02b76037b26ab4592/buildc1fe21b57c64054050b02c9233d6d924eaf74d874cbb12ebeb216fdf01adf668."
+  ],
+  "human_gate_required": "none",
+  "invalidates": []
+}

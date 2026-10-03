@@ -1,5 +1,5 @@
 {
-  "manifestVersion": 11,
+  "manifestVersion": 12,
   "assets": {
     "bg.opening.ch1.apt_17f_rain": {
       "canonicalAssetId": "BG-APT-17F-RAIN-16X9",
@@ -475,6 +475,26 @@
       },
       "knownIssues": [
         "Historical Visual QA remains NEEDS_REVIEW; Human selected this exact native master as-is with 50% 40% focus."
+      ]
+    },
+    "bg.opening.com02x.return_elevator_trial": {
+      "kind": "background",
+      "src": "assets/opening-ch1-preview/return-elevator-trial-v1.webp",
+      "width": 1672,
+      "height": 941,
+      "masterSourceId": "source.opening.com02x.return_elevator_trial.original",
+      "focus": {
+        "x": 39,
+        "y": 35
+      },
+      "previewOnly": true,
+      "knownIssues": [
+        "VQA-PROTECTED-COMPOSITION major",
+        "VQA-HELD-OBJECT-SIDE major",
+        "VQA-LOCALIZED-PANEL-BLUR medium",
+        "SOURCE-ONLY review of unadopted native1672x941 original SHA256 886c78b86000350d289c5e6544f97d1727dcd506d676d8523d28c474fb854bac. Original retained in active ignored job storage; no runtime asset adopted.",
+        "Compression PASS is ORIGINAL-only. Final derivative, desktop, both mobile profiles and Human master gate remain PENDING.",
+        "Exact input snapshot and Handoff stay ignored; verified Handoff SHA256 6b0522a9f6bb875dd74ef1ccc477b1a64a1e34cf03980343b23e9d4e78cee885. Cache paths are not required cross-session dependencies."
       ]
     }
   }

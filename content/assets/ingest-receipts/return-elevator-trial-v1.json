@@ -1,0 +1,66 @@
+{
+  "receiptVersion": 1,
+  "receiptType": "human-authorized-preview-trial",
+  "lifecycle": "PREVIEW-ONLY",
+  "integrationMode": "narrative_preview",
+  "logicalAssetId": "bg.opening.com02x.return_elevator_trial",
+  "sourceId": "source.opening.com02x.return_elevator_trial.original",
+  "original": {
+    "sourcePath": "assets-src/opening-ch1-preview/return-elevator-trial-v1.png",
+    "filename": "return-elevator-trial-v1.png",
+    "sha256": "886c78b86000350d289c5e6544f97d1727dcd506d676d8523d28c474fb854bac",
+    "bytes": 1986865,
+    "width": 1672,
+    "height": 941,
+    "mimeType": "image/png"
+  },
+  "derivative": {
+    "sourcePath": "assets-src/opening-ch1-preview/return-elevator-trial-v1.webp",
+    "runtimePath": "assets/opening-ch1-preview/return-elevator-trial-v1.webp",
+    "sha256": "04ce2f7fbc6de3bd51cd7db4ff0805b4485fe6d63b4e2f2227f4ea31ca83e83c",
+    "bytes": 140914,
+    "width": 1672,
+    "height": 941,
+    "mimeType": "image/webp",
+    "originalSha256": "886c78b86000350d289c5e6544f97d1727dcd506d676d8523d28c474fb854bac",
+    "conversion": {
+      "encoder": "ffmpeg/libwebp",
+      "quality": 88,
+      "compressionLevel": 6,
+      "lossless": false,
+      "pixelFormat": "rgb24",
+      "resize": null
+    }
+  },
+  "humanDecision": {
+    "path": "content/production/runs/cafe-narration-and-elevator-trial-20261003/HUMAN-ELEVATOR-TRIAL-004.decision.json",
+    "sha256": "dd7f3e8404504704a677a2b8226936a13d69fbaf7fcbee18a538084ef5802a5b",
+    "id": "HUMAN-ELEVATOR-TRIAL-004",
+    "status": "HUMAN_ACCEPTED_AS_IS",
+    "scope": "TRIAL_ONLY"
+  },
+  "sourceQa": {
+    "path": "content/production/runs/opening-feedback-20261003/VQA-COM02X-ELEVATOR-SOURCE-017.decision.json",
+    "sha256": "20e91ab22294b3767742e306bd3afaeca728fc13a64bad0e0d46871eee4d7928",
+    "id": "VQA-COM02X-ELEVATOR-SOURCE-017",
+    "status": "FAIL"
+  },
+  "scope": {
+    "chapterId": "opening-demo-chapter-01",
+    "nodeIds": [
+      "common_convenience_xu_exit",
+      "common_convenience_xu_exit_02"
+    ],
+    "gallery": false,
+    "canonicalMasterAcceptance": "NOT_ADOPTED",
+    "independentDisplayQa": "PENDING"
+  },
+  "knownIssues": [
+    "VQA-PROTECTED-COMPOSITION major",
+    "VQA-HELD-OBJECT-SIDE major",
+    "VQA-LOCALIZED-PANEL-BLUR medium",
+    "SOURCE-ONLY review of unadopted native1672x941 original SHA256 886c78b86000350d289c5e6544f97d1727dcd506d676d8523d28c474fb854bac. Original retained in active ignored job storage; no runtime asset adopted.",
+    "Compression PASS is ORIGINAL-only. Final derivative, desktop, both mobile profiles and Human master gate remain PENDING.",
+    "Exact input snapshot and Handoff stay ignored; verified Handoff SHA256 6b0522a9f6bb875dd74ef1ccc477b1a64a1e34cf03980343b23e9d4e78cee885. Cache paths are not required cross-session dependencies."
+  ]
+}

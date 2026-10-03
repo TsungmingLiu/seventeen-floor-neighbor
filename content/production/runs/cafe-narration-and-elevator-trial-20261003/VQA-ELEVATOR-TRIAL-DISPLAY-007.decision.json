@@ -1,0 +1,197 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "cafe-narration-and-elevator-trial-20261003",
+  "task_id": "VQA-ELEVATOR-TRIAL-DISPLAY-007",
+  "scene_id": "COM-02X",
+  "task_type": "visual_review",
+  "status": "FAIL",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.5.1",
+    "pass": "visual_review"
+  },
+  "source_ref": "c42a8977668e3d5d87fed7db60142f7856149281",
+  "packet_sha256": "75dcf955b40564cee6b53dad1ed6baaef3a08dc835ddb9fd32363c39cc29edf2",
+  "input_digest_sha256": "9bc5fb21a08a4dff601dd6403ba305924a7f4e844b4cfe0a7b672e11fe265e87",
+  "input_versions": [
+    {
+      "id": "AGENTS.md",
+      "location": "AGENTS.md",
+      "version": "3a9437e9c33c455ece1177a5b4ffa5752ca67687f6fdf4633d966ab1f6f0488e"
+    },
+    {
+      "id": ".ai/WORKFLOW_MANIFEST.yaml",
+      "location": ".ai/WORKFLOW_MANIFEST.yaml",
+      "version": "4e42799b5c23421af5ef3688f92e21f9eb666f05d2047134e54286d5bd71b239"
+    },
+    {
+      "id": ".ai/harnesses/bootstrap.md",
+      "location": ".ai/harnesses/bootstrap.md",
+      "version": "b347e41e1669ec92fdf4885ba4e97f09e97978e1bc5b04e17ece72f8aba8b131"
+    },
+    {
+      "id": ".ai/policies/SOURCE_AUTHORITY.md",
+      "location": ".ai/policies/SOURCE_AUTHORITY.md",
+      "version": "9db10a7925386836415fd000470cb535915b0e0e58eb7bee794f6a8ae445971c"
+    },
+    {
+      "id": ".ai/policies/CONTEXT_ISOLATION.md",
+      "location": ".ai/policies/CONTEXT_ISOLATION.md",
+      "version": "27c3fca1c65f513b9b3752dcd88b033a68fda600cef009c9a67a161ef06b96e1"
+    },
+    {
+      "id": ".ai/PRODUCTION_ORCHESTRATION.md",
+      "location": ".ai/PRODUCTION_ORCHESTRATION.md",
+      "version": "076322d3b22cae413603ddd2c576f924a6d5ad937f85f39c7e49dc8c1db61308"
+    },
+    {
+      "id": "docs/CONTENT_PRODUCTION_SOURCE_MAP.md",
+      "location": "docs/CONTENT_PRODUCTION_SOURCE_MAP.md",
+      "version": "c0ae2c825ef2c47afe78c14dc768758115d5a750e7b1afe9ebd6ead8a9b0804c"
+    },
+    {
+      "id": ".ai/schemas/TASK_PACKET.md",
+      "location": ".ai/schemas/TASK_PACKET.md",
+      "version": "0473fe9229c64d45ad1696adab632b66da760e0efe8c50a6478d05ff86500d58"
+    },
+    {
+      "id": ".ai/schemas/HANDOFF.md",
+      "location": ".ai/schemas/HANDOFF.md",
+      "version": "362659d079492d73cd190a9f32dbf035ac84869b61c42152adf7f1220018b37f"
+    },
+    {
+      "id": ".ai/harnesses/content-qa.md",
+      "location": ".ai/harnesses/content-qa.md",
+      "version": "ead10c0af7611a544da0ad9efa363f5ccde471d7d9e6e1bc58b2646069923ce9"
+    },
+    {
+      "id": "content/production/cg-manifests/opening-ch1-com02x-return-elevator.json",
+      "location": "content/production/cg-manifests/opening-ch1-com02x-return-elevator.json",
+      "version": "05249fbedf39ce522ff877e1df4072d3ed75f24335cf5ff1927e7091dba2c0ec"
+    },
+    {
+      "id": "content/production/runs/opening-feedback-20261003/VQA-COM02X-ELEVATOR-SOURCE-017.decision.json",
+      "location": "content/production/runs/opening-feedback-20261003/VQA-COM02X-ELEVATOR-SOURCE-017.decision.json",
+      "version": "20e91ab22294b3767742e306bd3afaeca728fc13a64bad0e0d46871eee4d7928"
+    },
+    {
+      "id": "content/production/runs/cafe-narration-and-elevator-trial-20261003/HUMAN-ELEVATOR-TRIAL-004.decision.json",
+      "location": "content/production/runs/cafe-narration-and-elevator-trial-20261003/HUMAN-ELEVATOR-TRIAL-004.decision.json",
+      "version": "dd7f3e8404504704a677a2b8226936a13d69fbaf7fcbee18a538084ef5802a5b"
+    },
+    {
+      "id": "selected_trial_original",
+      "location": "assets-src/opening-ch1-preview/return-elevator-trial-v1.png",
+      "version": "886c78b86000350d289c5e6544f97d1727dcd506d676d8523d28c474fb854bac"
+    },
+    {
+      "id": "actual_runtime_derivative",
+      "location": "assets-src/opening-ch1-preview/return-elevator-trial-v1.webp",
+      "version": "04ce2f7fbc6de3bd51cd7db4ff0805b4485fe6d63b4e2f2227f4ea31ca83e83c"
+    },
+    {
+      "id": "runtime-source-freeze",
+      "location": "external:verified-WORKTREE-source-freeze",
+      "version": "738686a8e9855517f16f71e63a7d349e231e90457ad0a1a02b76037b26ab4592"
+    },
+    {
+      "id": "runtime-build",
+      "location": "external:actual-local-build",
+      "version": "c1fe21b57c64054050b02c9233d6d924eaf74d874cbb12ebeb216fdf01adf668"
+    },
+    {
+      "id": "display:common_convenience_xu_exit:desktop",
+      "location": "external:actual-installed-Chromium-runtime-screenshot",
+      "version": "3c423c90af0431c4758c9950c0e61a1fa23033ef9bbb2c4df202f7b914e7adc7"
+    },
+    {
+      "id": "display:common_convenience_xu_exit_02:desktop",
+      "location": "external:actual-installed-Chromium-runtime-screenshot",
+      "version": "17503f14b6635533f0c7f728df755543f58c4e9f5809f291d038ea96d44ca439"
+    },
+    {
+      "id": "display:common_convenience_xu_exit:portrait",
+      "location": "external:actual-installed-Chromium-runtime-screenshot",
+      "version": "7ef2297af4084a84f7b770d818d3f4d84f7265e28f3e4b46707a03feadf68a69"
+    },
+    {
+      "id": "display:common_convenience_xu_exit_02:portrait",
+      "location": "external:actual-installed-Chromium-runtime-screenshot",
+      "version": "1c3771b28e2a77a88387268798820113b943c8fc507c03221abecf5f29b16b74"
+    },
+    {
+      "id": "display:common_convenience_xu_exit:landscape",
+      "location": "external:actual-installed-Chromium-runtime-screenshot",
+      "version": "24e9ff09841104926c96f90b6617b9f615429e56f819b61238107b317a59a2b1"
+    },
+    {
+      "id": "display:common_convenience_xu_exit_02:landscape",
+      "location": "external:actual-installed-Chromium-runtime-screenshot",
+      "version": "5458df859da1f8f990b3483d774f638c1c35639c0c123857bdbbb517886d69d4"
+    }
+  ],
+  "output_versions": [],
+  "qa_codes": [
+    {
+      "name": "VQA-SOURCE-ACQUISITION",
+      "code": "VQA-SOURCE-ACQUISITION",
+      "result": "PASS"
+    },
+    {
+      "name": "VQA-BUILD-PROFILE-BINDING",
+      "code": "VQA-BUILD-PROFILE-BINDING",
+      "result": "PASS"
+    },
+    {
+      "name": "VQA-NATIVE-PROVENANCE",
+      "code": "VQA-NATIVE-PROVENANCE",
+      "result": "PASS"
+    },
+    {
+      "name": "VQA-SOURCE-CLARITY",
+      "code": "VQA-SOURCE-CLARITY",
+      "result": "FAIL"
+    },
+    {
+      "name": "VQA-COMPRESSION-ARTIFACTS",
+      "code": "VQA-COMPRESSION-ARTIFACTS",
+      "result": "PASS"
+    },
+    {
+      "name": "VQA-DESKTOP-DISPLAY",
+      "code": "VQA-DESKTOP-DISPLAY",
+      "result": "PASS"
+    },
+    {
+      "name": "VQA-MOBILE-PORTRAIT-DISPLAY",
+      "code": "VQA-MOBILE-PORTRAIT-DISPLAY",
+      "result": "FAIL"
+    },
+    {
+      "name": "VQA-MOBILE-LANDSCAPE-DISPLAY",
+      "code": "VQA-MOBILE-LANDSCAPE-DISPLAY",
+      "result": "FAIL"
+    }
+  ],
+  "known_issues": [
+    "SourceQA017 FAIL preserved: protected composition major, held-object side major, localized panel blur medium.",
+    "Landscape major grip/purchase-bag UI occlusion and minor crown clipping on both nodes.",
+    "No rotate guidance visible in supplied actual screens; no workaround assumed.",
+    "Focus39/35 evaluated for explicit trial only; canonical protected specification54/40 remains unchanged and unsatisfied by the known source.",
+    "Minor native WebP fine-texture smoothing is advisory; no material new compression damage.",
+    {
+      "defect": "landscape-dialogue-occlusion",
+      "profile": "720x320 CSS DPR1",
+      "nodes": [
+        "common_convenience_xu_exit",
+        "common_convenience_xu_exit_02"
+      ],
+      "region": "grip/bag x302-349,y211-289; panel startsy202; crown matte y0-21",
+      "severity": "major UI occlusion; minor crown clip"
+    }
+  ],
+  "human_gate_required": "none",
+  "invalidates": []
+}

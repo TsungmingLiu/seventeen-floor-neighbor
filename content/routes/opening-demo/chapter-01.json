@@ -1497,7 +1497,7 @@
       "chapter": 3,
       "visual": {
         "mode": "composite",
-        "background": "bg.opening.ch1.apt_elevator",
+        "background": "bg.opening.com02x.return_elevator_trial",
         "sprites": []
       },
       "next": "common_convenience_xu_exit_02"
@@ -1508,7 +1508,7 @@
       "chapter": 3,
       "visual": {
         "mode": "composite",
-        "background": "bg.opening.ch1.apt_elevator",
+        "background": "bg.opening.com02x.return_elevator_trial",
         "sprites": []
       },
       "next": "common_convenience_xu_exit_03"
@@ -3578,7 +3578,7 @@
     },
     "common_station_cafe_jyc_enter_03": {
       "speaker": "旁白",
-      "text": "男主拿著 laptop bag 找座位，在窗邊看見熟悉的短髮側影。",
+      "text": "我拿著筆記本電腦包找座位，在窗邊看見熟悉的短髮側影。",
       "chapter": 5,
       "visual": {
         "mode": "composite",
@@ -3600,7 +3600,7 @@
     },
     "common_station_cafe_jyc_drawing_02": {
       "speaker": "旁白",
-      "text": "她停筆喝水，抬眼看見男主。兩人視線碰上。她停了兩秒。",
+      "text": "她停筆喝水，抬眼看見我。我們的視線碰上。她停了兩秒。",
       "chapter": 5,
       "visual": {
         "mode": "composite",
@@ -3677,7 +3677,7 @@
     },
     "common_station_cafe_jyc_names_03": {
       "speaker": "旁白",
-      "text": "沒有握手。男主指向她旁邊的空位。",
+      "text": "我們沒有握手。我指向她旁邊的空位。",
       "chapter": 5,
       "visual": {
         "mode": "composite",
@@ -3732,7 +3732,7 @@
     },
     "common_station_cafe_jyc_names_08": {
       "speaker": "旁白",
-      "text": "男主坐在斜對角，不直接面向她的 tablet。",
+      "text": "我坐在斜對角，不直接面向她的 tablet。",
       "chapter": 5,
       "visual": {
         "mode": "composite",
@@ -3766,7 +3766,7 @@
     },
     "common_station_cafe_jyc_parallel_03": {
       "speaker": "旁白",
-      "text": "男主闔上 laptop 準備離開；雨澄先抬頭。",
+      "text": "我闔上筆記本電腦準備離開；雨澄先抬頭。",
       "chapter": 5,
       "visual": {
         "mode": "composite",
@@ -3876,7 +3876,7 @@
     },
     "common_station_cafe_jyc_exit_05": {
       "speaker": "旁白",
-      "text": "男主背起 laptop bag。雨澄把 stylus 放回筆槽。",
+      "text": "我背起筆記本電腦包。雨澄把畫筆放回筆槽。",
       "chapter": 5,
       "visual": {
         "mode": "composite",

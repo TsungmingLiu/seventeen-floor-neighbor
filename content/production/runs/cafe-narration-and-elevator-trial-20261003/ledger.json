@@ -1,0 +1,92 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_checkpoint",
+  "run_id": "cafe-narration-and-elevator-trial-20261003",
+  "workflow_version": "1.3.0",
+  "source_ref": "c42a8977668e3d5d87fed7db60142f7856149281",
+  "human_request": {
+    "summary": "First-person Chinese cafe narration and future writing/QA defaults; exact selected elevator original trial integration.",
+    "gate_status": "Human trial-only original selected as-is; final quality/playable acceptance pending."
+  },
+  "status": "ACTIVE",
+  "tasks": [
+    {
+      "task_id": "NQA-CAFE-NARRATION-005",
+      "task_type": "narrative_review",
+      "scene_id": "COM-02J",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual:task-packet-schema-v1.3.0",
+        "sha256": "be806871c38e05b603f2471536c52381b08be7c96cf4c878425d019ef9f4406c"
+      },
+      "decision_receipt": "content/production/runs/cafe-narration-and-elevator-trial-20261003/NQA-CAFE-NARRATION-005.decision.json",
+      "human_gate": "none",
+      "reason": "Fresh independent Narrative QA, dialogue naturalism/no_visual_impact PASS; verified hashes. No verifier CURRENT_PASS inferred."
+    },
+    {
+      "task_id": "HUMAN-ELEVATOR-TRIAL-004",
+      "task_type": "human_decision",
+      "scene_id": "COM-02X",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "Human:current-chat",
+        "sha256": "dd7f3e8404504704a677a2b8226936a13d69fbaf7fcbee18a538084ef5802a5b"
+      },
+      "decision_receipt": "content/production/runs/cafe-narration-and-elevator-trial-20261003/HUMAN-ELEVATOR-TRIAL-004.decision.json",
+      "human_gate": "none",
+      "reason": "Explicit Human exact-original trial selection as-is; source FAIL and final acceptance unchanged."
+    },
+    {
+      "task_id": "INT-CAFE-ELEVATOR-TRIAL-006",
+      "task_type": "integrate",
+      "scene_id": "COM-02J+COM-02X",
+      "depends_on": [
+        "NQA-CAFE-NARRATION-005",
+        "HUMAN-ELEVATOR-TRIAL-004"
+      ],
+      "status": "NEEDS_REVIEW",
+      "packet": {
+        "generator": "manual:task-packet-schema-v1.3.0",
+        "sha256": "49528091aedeb534aa4af3d0a97288b9a6ef06b868a65ca197d216938fda9ab1"
+      },
+      "decision_receipt": "content/production/runs/cafe-narration-and-elevator-trial-20261003/INT-CAFE-ELEVATOR-TRIAL-006.decision.json",
+      "human_gate": "none",
+      "reason": "Verified initial implementation; fixture/checkpoint/landscape corrections pending."
+    },
+    {
+      "task_id": "VQA-ELEVATOR-TRIAL-DISPLAY-007",
+      "task_type": "visual_review",
+      "scene_id": "COM-02X",
+      "depends_on": [],
+      "status": "FAIL",
+      "packet": {
+        "generator": "manual:task-packet-schema-v1.3.0",
+        "sha256": "75dcf955b40564cee6b53dad1ed6baaef3a08dc835ddb9fd32363c39cc29edf2"
+      },
+      "decision_receipt": "content/production/runs/cafe-narration-and-elevator-trial-20261003/VQA-ELEVATOR-TRIAL-DISPLAY-007.decision.json",
+      "human_gate": "none",
+      "reason": "Independent landscape UI occlusion/crown clipping; original source FAIL retained."
+    }
+  ],
+  "invalidation_events": [
+    {
+      "changed_artifact_id": "locked_scene:COM-02J",
+      "old_version": "a217f826a9e0b0379a763518b63d1a2d985f7930a0ec1691f01327662228ffb1",
+      "new_version": "8db1871c13cfc6b9f44fe434f93738cbd9c12f08eb21cacf602df2b7c3533655",
+      "affected_task_ids": [
+        "INT-CAFE-ELEVATOR-TRIAL-006"
+      ],
+      "decision": "no_visual_impact",
+      "evidence": "content/production/runs/cafe-narration-and-elevator-trial-20261003/NQA-CAFE-NARRATION-005.decision.json"
+    }
+  ],
+  "preview": {
+    "state": "Initial local checked build; landscape correction pending; not published.",
+    "source_freeze_sha256": "738686a8e9855517f16f71e63a7d349e231e90457ad0a1a02b76037b26ab4592",
+    "initial_fulltests": "exit1:244total/241pass/3fail; owned nested cancellation failure preserved.",
+    "display": "VQA007 landscape FAIL; original provenance/compression/desktop/portrait trial checks PASS.",
+    "final_art": "validate:final expectedexit1; sourceQA017 FAIL; canonical return-elevator CG unadopted."
+  }
+}

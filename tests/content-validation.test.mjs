@@ -220,3 +220,23 @@ test('initialTitleArt is optional and validates allowed asset kind and route mem
   invalid.routes[0].chapter.initialTitleArt = id; invalid.routes[0].assetManifest.assets[id].kind = 'sprite';
   assert.ok((await validateContent(invalid)).some((e) => e.includes('initialTitleArt: must be background or cg')));
 });
+
+test('preview contract permits only the two exact background paths and rejects final-art disguises', async () => {
+  const base = await loadContent();
+  const id = 'bg.opening.com02x.return_elevator_trial';
+  for (const mutate of [
+    asset => { delete asset.previewOnly; },
+    asset => { asset.previewOnly = false; },
+    asset => { asset.src = 'assets/ui/narrative-preview-v1.webp'; },
+    asset => { asset.kind = 'cg'; },
+    asset => { asset.gallery = { title: 'Forbidden' }; },
+    asset => { asset.participants = []; },
+    asset => { asset.canonicalCgEntry = 'COM02X-RETURN-ELEVATOR-01'; }
+  ]) {
+    const content = clone(base); mutate(content.manifest.assets[id]);
+    assert.ok((await validateContent(content)).some(error => error.startsWith(`asset ${id}:`) && /previewOnly must remain true|invalid preview-only asset contract/.test(error)));
+  }
+  const unknown = clone(base);
+  unknown.manifest.assets['bg.unregistered.preview'] = clone(base.manifest.assets[id]);
+  assert.ok((await validateContent(unknown)).includes('asset bg.unregistered.preview: invalid preview-only asset contract'));
+});

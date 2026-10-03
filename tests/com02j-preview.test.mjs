@@ -93,12 +93,16 @@ test('existing runtime preserves exact d4ab4bd fields and only the 25 approved a
       assert.deepEqual(nodes[id], { type: 'branch', default: 'common_recommend_discord_jyc_enter' });
       continue;
     }
-    assert.deepEqual(nodes[id], anonymousLabels.has(id) ? { ...node, speakerLabel: '女生' } : node,
+    const expected = anonymousLabels.has(id) ? { ...node, speakerLabel: '女生' } : structuredClone(node);
+    if (['common_convenience_xu_exit', 'common_convenience_xu_exit_02'].includes(id)) {
+      expected.visual.background = 'bg.opening.com02x.return_elevator_trial';
+    }
+    assert.deepEqual(nodes[id], expected,
       `accepted node changed: ${id}`);
   }
   assert.equal(Object.entries(old).filter(([id,node]) => (id.startsWith('common_package_xu_') || id.startsWith('com03x_')) && node.text).length, 83);
   assert.deepEqual(memories.events.slice(0,4), prior('memories.json').events);
-  assert.deepEqual(route.assetIds, prior('route.json').assetIds);
+  assert.deepEqual(route.assetIds, [...prior('route.json').assetIds, 'bg.opening.com02x.return_elevator_trial']);
 });
 
 for (const nodeId of ['com03x_preview_complete', 'common_package_xu_choice', 'com03x_ask_proof_02', 'common_package_xu_first_message_06']) {
