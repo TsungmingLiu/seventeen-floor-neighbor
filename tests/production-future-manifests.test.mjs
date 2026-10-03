@@ -141,3 +141,13 @@ test('return elevator trial rejects altered provenance, quality claims and expan
     assert.throws(() => validateReturnElevatorTrial(changed), /return elevator trial:/);
   }
 });
+
+test('nested opt-in future manifest cannot evade required embodiment validation', async (t) => {
+  const root = await isolatedRepository(t);
+  const manifest = withUniqueIdentities(await baseManifest(root));
+  manifest.schema_version = '1.1.0';
+  await putManifest(root, manifest);
+  const result = validate(root);
+  assert.notEqual(result.status, 0, `${result.stdout}\n${result.stderr}`);
+  assert.match(result.stderr, /scene_embodiment/);
+});

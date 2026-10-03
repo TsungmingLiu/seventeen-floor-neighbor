@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 import { isIndependentTitleArtwork, readerFor, buildProductionImpact } from '../tools/production-impact.mjs';
 import { projectRoot } from '../tools/content-lib.mjs';
 
@@ -8,6 +9,8 @@ const assetsPath = 'content/assets/manifest.json';
 const routePath = 'content/routes/opening-demo/route.json';
 const receiptPath = 'content/assets/ingest-receipts/title-master-native-v1.json';
 const base = readerFor(projectRoot, 'WORKTREE');
+// COM-03J updated the shared-route regression expectation at this immutable ref.
+const sharedRouteTarget = 'fde44c5fe52ff60e3395008012a6c2fa655d190c';
 async function fixture(overrides = {}) {
   const reader = { ...base, async json(file) { return overrides[file] || base.json(file); } };
   const title = await reader.json(titlePath);
@@ -50,9 +53,9 @@ test('title exclusion rejects story, Memory, Gallery, chapter card and accepted-
 
 test('accepted scene CGs retain the historical shared-route impact and exact title exclusion', async () => {
   const report = await buildProductionImpact({ root: projectRoot, sceneId: 'COM-00',
-    from: 'c5251cd2ac58e8daca0d034a0799b60c456dd7d7', to: 'WORKTREE' });
+    from: 'c5251cd2ac58e8daca0d034a0799b60c456dd7d7', to: sharedRouteTarget });
   // COM-03X, COM-02J and COM-03J append shared route/config; title exclusion must preserve that impact.
-  // These digests are computed from the historical/current scene route projections.
+  // Both route digests belong to fixed historical projections, independent of later renderer edits.
   assert.deepEqual(report.changes, [{
     changed_artifact_id: 'route_binding:COM-00',
     old_version: '7067bd963e0ee4ce38550c2d10c09ac27f51ed369370f7f93e92d6c14fad4240',
@@ -64,4 +67,43 @@ test('accepted scene CGs retain the historical shared-route impact and exact tit
   assert.deepEqual(report.excluded_reference_entry_ids, ['TITLE-17F-DOORLIGHT-01']);
   assert.ok(!report.compared_entry_ids.includes('TITLE-17F-DOORLIGHT-01'));
   assert.ok(report.compared_entry_ids.length > 0);
+});
+
+test('current renderer changes require exact scene CG review while excluding independent title art', async () => {
+  const rendererPath = 'tools/render-cg-packets.mjs';
+  const digest = (bytes) => createHash('sha256').update(bytes).digest('hex');
+  const oldVersion = digest(await readerFor(projectRoot, sharedRouteTarget).readBytes(rendererPath));
+  const newVersion = digest(await base.readBytes(rendererPath));
+  assert.notEqual(newVersion, oldVersion);
+  const report = await buildProductionImpact({ root: projectRoot, sceneId: 'COM-00',
+    from: sharedRouteTarget, to: 'WORKTREE' });
+  const invalidated = [
+    'accepted_asset:cg.opening.com00.s02_door_assist',
+    'accepted_asset:cg.opening.com00.s04_base_neutral',
+    'accepted_asset:cg.opening.com00.s04_r01_polite_smile',
+    'candidate:COM00-S02-DOOR-ASSIST',
+    'candidate:COM00-S04-BASE-NEUTRAL',
+    'candidate:COM00-S04-R01-POLITE-SMILE',
+    'integration:COM-00',
+    'manifest_review:COM00-S02-DOOR-ASSIST',
+    'manifest_review:COM00-S04-BASE-NEUTRAL',
+    'manifest_review:COM00-S04-R01-POLITE-SMILE',
+    'playable_review:COM-00',
+    'render_packet:COM00-S02-DOOR-ASSIST',
+    'render_packet:COM00-S04-BASE-NEUTRAL',
+    'render_packet:COM00-S04-R01-POLITE-SMILE'
+  ];
+  assert.deepEqual(report.changes, [{
+    changed_artifact_id: `render_projection:${rendererPath}`,
+    old_version: oldVersion,
+    new_version: newVersion,
+    reason: 'renderer_tool_version_changed_requires_review',
+    would_invalidate: invalidated
+  }]);
+  assert.deepEqual(report.would_invalidate, invalidated);
+  assert.deepEqual(report.visual_artifacts_not_impacted_by_diff, []);
+  assert.deepEqual(report.compared_entry_ids,
+    ['COM00-S02-DOOR-ASSIST', 'COM00-S04-BASE-NEUTRAL', 'COM00-S04-R01-POLITE-SMILE']);
+  assert.deepEqual(report.excluded_reference_entry_ids, ['TITLE-17F-DOORLIGHT-01']);
+  assert.equal(report.ledger_mutated, false);
 });

@@ -1,5 +1,8 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import { spawnSync } from 'node:child_process';
 import test from 'node:test';
 
 import {
@@ -9,6 +12,7 @@ import {
   buildPackets,
   projectEntry,
   stableStringify,
+  sha256,
   validateManifest,
   validateRepoSourceCatalog
 } from '../tools/render-cg-packets.mjs';
@@ -310,4 +314,202 @@ test('linked sequence requires explicit benefit and consecutive matching entries
   second.continuity.previous_entry_id = first.entry_id;
   delete second.sequence_continuity_benefit;
   assert.throws(() => validateManifest(manifest), /sequence_continuity_benefit is required/);
+});
+
+// Exact projections captured before edits at pinned 05c35687966e1cc20945860be91de97880cbb068.
+const pinnedLegacyControls = [
+  {
+    "file": "opening-ch1.json",
+    "entry_id": "COM00-S02-DOOR-ASSIST",
+    "prompt": "cf5dca1233fd4821c345e9293ceeb63b492427e06ce89685f391141b62bc6850",
+    "spec": "b2fe79cb3a4c0dbb0dda86bda2252bd2d81bdf43979fbc99c6b527d09c8a3a0c",
+    "packet": "fc1a7e3c17a84b86389c209c30db93243b67651f39180b3e321d3e694a739516"
+  },
+  {
+    "file": "opening-ch1.json",
+    "entry_id": "COM00-S04-BASE-NEUTRAL",
+    "prompt": "a30a13268d4e55ab8a2d9beba1de100843d6e8102092d5d6ed5867c4dad7f7a7",
+    "spec": "a78b4b422c1d0d8b6f4321fd80d1ffaec3ac458f3e2a590603a0b9a386d7481c",
+    "packet": "81eb564f4c31b800590c2abfb081f8276782ad1ee65f08d0d8631fa0ebfdaebc"
+  },
+  {
+    "file": "opening-ch1.json",
+    "entry_id": "COM00-S04-R01-POLITE-SMILE",
+    "prompt": "e0dc3145877bd75399a3fb951d888dc82cdec90458ac983115af8974abba52e7",
+    "spec": "b1ecf0ed52d8f5ab92fb242a059fb84c23c2334b9f0585dd16259c0b48fe8360",
+    "packet": "12c4b4b173a3ad761c1b625aa48399d9ad06b6355528d19d86cfa34db0013bcf"
+  },
+  {
+    "file": "opening-ch1.json",
+    "entry_id": "COM01X-BASE-NORMAL",
+    "prompt": "92f6c8f6d48a0ef3ce28ffd8bc14d428f00a97afa28a50a4da2e8839f3aa94df",
+    "spec": "08d8887ccdf4eb181bcc667be9412aff299b27e2a9315985a08259667c4ae720",
+    "packet": "a961378bdb0b779fcc03ffa942b9563ccd303f9f891e557115dcccf9209dc91d"
+  },
+  {
+    "file": "opening-ch1.json",
+    "entry_id": "COM01X-R01-RESTART",
+    "prompt": "76ee87fa42f3b506a630f786df9642fd01a53b759b8502e443bf54e7fa4b01a8",
+    "spec": "2db79b60a8f57413ba89c7540450b6acba0689457437193a8b432d2082fc8445",
+    "packet": "214fa48435a0bfef9aee827d4d378554e2a0259ec44c40176167f029718d57b3"
+  },
+  {
+    "file": "opening-ch1.json",
+    "entry_id": "COM01X-R02-DRY-SMILE",
+    "prompt": "a749184c89d636b240d43d9e5bc7a87eb5f8681c36f7729ac65b66eccc964a0c",
+    "spec": "1d45f5cae9f69fee715a9e6ca8787a14a2470789bb22e1ee7b309d43c8e8c3dc",
+    "packet": "65fdb35bf9c3a357c83dbc224bc499cb2a0f02292b2b4cd617200d964bb539e0"
+  },
+  {
+    "file": "opening-ch1-com01b.json",
+    "entry_id": "COM-01B-CG-01",
+    "prompt": "f0eb435938689dc4ea69906c4943529e0f9ac0c70459412bfe6aaa7b4c23ee4b",
+    "spec": "13058d2edc98e71903281b82790012c42d567211bc256542f1ae217e69369235",
+    "packet": "395684246563ace1b2be0639fa25c82bd8463685764045309cd8f61703fcb7d7"
+  },
+  {
+    "file": "opening-ch1-com01b.json",
+    "entry_id": "COM-01B-CG-02",
+    "prompt": "5099c460f168e7c43ac375108e5d0af92b561c2e78d79932b56e618e734556ad",
+    "spec": "bd3caf96dad50dd2f8b29af790d9d8882e208a5b69a5c4a7fd1338d88b19d6db",
+    "packet": "a555dfe592099a329ff7fb716d1ab36e097e09bbd3b1f87f4cb91087ee2301d2"
+  },
+  {
+    "file": "opening-ch1-com02x-microwave.json",
+    "entry_id": "COM02X-DLG-02-MICROWAVE",
+    "prompt": "f5b6bb65f7776c36ef92105903e3d8488740d5f78932fd6327d5f34a5d91c763",
+    "spec": "ca784198cc74c073d5547e82537f4e26ad5ecbf68cc339d78e6a15fe089317a9",
+    "packet": "72f8dd5bc47501b93ffe0c317777e79bbf6f200545cbd20b0ec91f836275359f"
+  }
+];
+
+test('pinned legacy 1.0 controls reproduce exact prompts, render specs and entire packets', () => {
+  for (const control of pinnedLegacyControls) {
+    const manifest = JSON.parse(fs.readFileSync(new URL(`../content/production/cg-manifests/${control.file}`, import.meta.url)));
+    const packet = projectEntry(manifest, manifest.entries.find(entry => entry.entry_id === control.entry_id));
+    assert.equal(packet.shared_prompt_sha256, control.prompt);
+    assert.equal(packet.render_spec_sha256, control.spec);
+    assert.equal(sha256(stableStringify(packet)), control.packet);
+  }
+});
+
+function embodimentManifest() {
+  const manifest = validManifest();
+  manifest.schema_version = '1.1.0';
+  manifest.entries[0].scene_embodiment = {
+    captured_moment: { before: 'Approaching the door.', during: 'Pausing at the threshold.', after: 'Continuing home.' },
+    characters: [{
+      character_id: 'xu_tang',
+      action_flow: { before: 'Step toward the door.', during: 'Pause with hand at the handle.', after: 'Release the handle.' },
+      environment_coupling: { mode: 'anchored', anchor: 'Door threshold.', interaction: 'Hand rests on door handle while talking.' },
+      physical_cues: { support: 'Both feet on threshold floor.', contact: 'Fingers meet handle.', weight: 'Weight on rear foot.', material_response: 'Sleeve folds at bent elbow.' }
+    }],
+    depth_staging: { foreground: 'Near door edge.', midground: 'Character at threshold.', background: 'Hallway recedes.', subject_separation: 'Edge light against darker hallway.' }
+  };
+  return manifest;
+}
+
+test('1.1 shot sizes fail closed consistently in shared validation, projection and CLI', () => {
+  const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'cg-shot-size-'));
+  const manifestPath = path.join(directory, 'manifest.json');
+  const cli = new URL('../tools/render-cg-packets.mjs', import.meta.url);
+  try {
+    for (const shotSize of ['extreme_wide', 'wide', 'medium_wide', 'medium', 'medium_close', 'close', 'extreme_close', 'close_up', 'portrait', 'unknown']) {
+      const manifest = embodimentManifest();
+      manifest.entries[0].camera.shot_size = shotSize;
+      fs.writeFileSync(manifestPath, JSON.stringify(manifest));
+      const result = spawnSync(process.execPath, [cli.pathname, '--manifest', manifestPath, '--check'], { encoding: 'utf8' });
+      assert.ifError(result.error);
+      if (['extreme_wide', 'wide', 'medium_wide', 'medium'].includes(shotSize)) {
+        assert.doesNotThrow(() => validateManifest(manifest), shotSize);
+        assert.doesNotThrow(() => projectEntry(manifest, manifest.entries[0]), shotSize);
+        assert.equal(result.status, 0, `${shotSize}: ${result.stderr}`);
+        assert.match(result.stdout, /Validated test-cg-manifest@1\.0\.0: 1 entries/);
+      } else {
+        assert.throws(() => validateManifest(manifest), /unsupported shot_size in POC/, shotSize);
+        assert.throws(() => projectEntry(manifest, manifest.entries[0]), /unsupported shot_size in POC/, shotSize);
+        assert.equal(result.status, 1, shotSize);
+        assert.match(result.stderr, /unsupported shot_size in POC/, shotSize);
+        assert.equal(result.stdout, '', shotSize);
+      }
+    }
+    for (const shotSize of ['medium_close', 'close', 'extreme_close']) {
+      const legacy = validManifest();
+      legacy.entries[0].camera.shot_size = shotSize;
+      assert.doesNotThrow(() => validateManifest(legacy), `legacy ${shotSize}`);
+      assert.doesNotThrow(() => projectEntry(legacy, legacy.entries[0]), `legacy ${shotSize}`);
+    }
+  } finally {
+    fs.rmSync(directory, { recursive: true, force: true });
+  }
+});
+
+test('opt-in embodiment projects every authored field identically through all adapters', () => {
+  const manifest = embodimentManifest();
+  const packets = buildPackets(manifest);
+  const prompt = packets[0].shared_prompt;
+  assert.ok(prompt.includes(stableStringify(manifest.entries[0].scene_embodiment)));
+  assert.equal(`${adaptChatManual(packets).split('```text\n')[1].split('\n```')[0]}\n`, prompt);
+  assert.equal(JSON.parse(adaptWorkBatch(packets)).shared_prompt, prompt);
+  assert.equal(JSON.parse(adaptApi(packets)).jobs[0].input.prompt, prompt);
+  assert.deepEqual(buildPackets(structuredClone(manifest)), packets);
+});
+
+test('version, incomplete embodiment, class and unresolved exception boundaries fail closed', () => {
+  const cases = [
+    [m => { m.schema_version = '2.0.0'; }, /schema_version/],
+    [m => { m.schema_version = '1.0.0'; }, /requires schema_version/],
+    [m => { delete m.entries[0].scene_embodiment; }, /must be an object/],
+    [m => { m.entries[0].scene_embodiment.captured_moment.during = ' '; }, /during must be non-empty/],
+    [m => { delete m.entries[0].scene_embodiment.characters[0].action_flow.after; }, /after is required/],
+    [m => { delete m.entries[0].scene_embodiment.characters[0].physical_cues.weight; }, /weight is required/],
+    [m => { delete m.entries[0].scene_embodiment.depth_staging.background; }, /background is required/],
+    [m => { m.entries[0].scene_embodiment.characters = []; }, /exactly cover/],
+    [m => { m.entries[0].scene_embodiment.characters[0].character_id = 'unknown'; }, /exactly cover/],
+    [m => { m.entries[0].scene_embodiment.characters[0].environment_coupling.mode = 'none'; }, /mode is invalid/],
+    [m => { m.entries[0].scene_embodiment.exception = 'portrait'; }, /unsupported fields/],
+    [m => { m.entries[0].cg_class = 'reaction_cg'; }, /unsupported POC class/],
+    [m => { m.entries[0].cg_class = 'cg_sequence_keyframe'; }, /unsupported POC class/],
+    [m => { m.entries[0].camera.shot_size = 'close'; }, /close-up unsupported/],
+    [m => { m.entries[0].continuity.previous_entry_id = m.entries[0].entry_id; }, /inheritance\/sequence unsupported/],
+    [m => { m.entries[0].sequence_id = 'test'; m.entries[0].sequence_continuity_benefit = 'test'; }, /inheritance\/sequence unsupported/],
+    [m => { m.entries[0].cg_class = 'event_cg'; }, /event requires active_interaction/]
+  ];
+  for (const [mutate, error] of cases) {
+    const manifest = embodimentManifest(); mutate(manifest);
+    assert.throws(() => validateManifest(manifest), error);
+  }
+});
+
+test('event supports active interaction, background requires no character embodiment', () => {
+  const event = embodimentManifest();
+  event.entries[0].cg_class = 'event_cg';
+  event.entries[0].scene_embodiment.characters[0].environment_coupling.mode = 'active_interaction';
+  assert.doesNotThrow(() => validateManifest(event));
+  const background = embodimentManifest(); const entry = background.entries[0];
+  entry.cg_class = 'background_cg'; entry.characters = []; entry.scene_embodiment.characters = [];
+  entry.reference_transport = { mode: 'none', fresh_session_required: true, no_unrelated_images_allowed: true, accepted_base_asset_id: null, attachments: [] };
+  assert.doesNotThrow(() => validateManifest(background));
+});
+
+test('embodiment changes affect only the edited entry render spec and prompt', () => {
+  const manifest = embodimentManifest();
+  const second = structuredClone(manifest.entries[0]);
+  second.entry_id = 'TEST-OTHER'; second.output.logical_asset_id = 'cg.test.other';
+  manifest.entries.push(second);
+  const before = manifest.entries.map(entry => projectEntry(manifest, entry));
+  second.scene_embodiment.captured_moment.during = 'Another authored moment.';
+  const after = manifest.entries.map(entry => projectEntry(manifest, entry));
+  assert.equal(before[0].render_spec_sha256, after[0].render_spec_sha256);
+  assert.equal(before[0].shared_prompt_sha256, after[0].shared_prompt_sha256);
+  assert.notEqual(before[1].render_spec_sha256, after[1].render_spec_sha256);
+  assert.notEqual(before[1].shared_prompt_sha256, after[1].shared_prompt_sha256);
+  assert.notEqual(before[0].manifest_sha256, after[0].manifest_sha256);
+});
+
+test('POC projection cannot substitute an unvalidated object with an existing entry ID', () => {
+  const manifest = embodimentManifest();
+  const substitute = structuredClone(manifest.entries[0]);
+  substitute.scene_embodiment.characters = [];
+  assert.throws(() => projectEntry(manifest, substitute), /must match the validated manifest entry/);
 });

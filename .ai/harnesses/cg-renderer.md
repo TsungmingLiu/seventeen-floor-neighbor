@@ -53,3 +53,7 @@ Reaction CG 以 entry 指定的 accepted base 為 edit target；只允許 entry 
 - never self-accept or ingest。
 
 This gate is prospective: preserve existing adopted original bytes, accepted manifests and recorded QA/Human outcomes; do not relabel historical QA as a review under this harness version.
+
+## Explicit Scene Embodiment POC packets
+
+For an explicitly opted-in schema `1.1.0` entry, execute the fixed projected Scene Embodiment section verbatim with the rest of the packet. Do not invent action/coupling/physical/depth details or resolve inheritance/exceptions. Unsupported POC classes/framing/continuity block before projection. `1.0.0` packets remain unchanged. Field completeness is not pixel QA or Human adoption; preserve all existing reference, quality and stop rules.
