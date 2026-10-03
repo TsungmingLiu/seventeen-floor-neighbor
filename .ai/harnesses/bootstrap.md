@@ -17,8 +17,8 @@ Version: 1.1.0
 5. Read that active harness and one Task Packet。
 6. Reject any production packet that allowlists a root declared under manifest `forbidden_source_roots`。
 7. Acquire every required source, verify exact path/ref/non-empty content and record immutable version when available。
-8. Execute only after acquisition passes；missing/conflicting input means `BLOCKED`，not context expansion。
-9. Return the standard handoff with exact sources and outputs。
+8. Run `npm run production:preflight -- --packet <ignored packet.json> --scene <expected scene> --out <new ignored preflight.json>` immediately before dispatch/execution (omit scene only for a non-scene task). Existing generated packet verifiers remain mandatory; manual v1 declarations and support limits are in `docs/PRODUCTION_WORKFLOW_TOOLS.md`. Nonzero exit / denied dispatch means `BLOCKED`. Preflight does not prove source pixels visible, semantic QA or Human approval. Execute only after acquisition passes；missing/conflicting input means `BLOCKED`，not context expansion。
+9. Supply actual status/QA/used-source facts and run `npm run production:handoff -- --packet <packet.json> --facts <facts.json> --binding <new binding.json> --out <new handoff.json>`; Coordinator verifies with `--packet <packet.json> --verify <handoff.json>` before recording a result. Legacy full Handoffs remain supported. Return only a concise status/digest/output/gate summary to parent context; full source/version binding stays in ignored cache。
 
 Each independent production task MUST execute in a fresh bounded worker。Multi-stage work follows dependency DAG；only dependency-independent tasks may run in parallel。Passing one stage does not authorize later stages to inherit earlier worker/parent full context。若 worker isolation 不可用，回 `BLOCKED`，不由 parent 代工。
 

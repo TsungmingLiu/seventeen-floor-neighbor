@@ -2,7 +2,7 @@
 
 > Lifecycle: **CANONICAL**
 >
-> Version: 1.4.7
+> Version: 1.4.8
 >
 > Updated: 2026-10-03
 
@@ -19,6 +19,7 @@
 | --- | --- | --- | --- |
 | Workflow entry | `.ai/WORKFLOW_MANIFEST.yaml` | pipeline routing、active harness/schema registry、execution defaults | story facts、shot content |
 | Production orchestration | `.ai/PRODUCTION_ORCHESTRATION.md` | parent control plane、DAG、invalidation、resume、playable DoD | creative production stage |
+| Dispatch/return tooling | `docs/PRODUCTION_WORKFLOW_TOOLS.md` + `tools/production-preflight.mjs`, `tools/production-handoff.mjs`, `tools/production-task-io.mjs` | prospective declared prerequisite checks、exact packet/source/output integrity、compact cache Handoff verification | creative authority、semantic/pixel QA、Human acceptance、durable approval |
 | Temporary job artifacts | `generated/job-artifacts/<run_id>/<attempt_id>/` | ignored asynchronous job/attempt/candidate/transport/log state | canonical specification、durable acceptance |
 | Run ledger | `.ai/schemas/PRODUCTION_RUN_LEDGER.md` + `content/production/runs/<run_id>/` | GENERATED task/identity/status evidence | creative authority、worker memory |
 | Source policy | `.ai/policies/SOURCE_AUTHORITY.md` | lifecycle、precedence、conflict/read rules、fixture policy | task content |

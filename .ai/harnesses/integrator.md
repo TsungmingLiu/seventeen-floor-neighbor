@@ -82,3 +82,7 @@ Schema gap or conflict means `BLOCKED` with the smallest missing runtime capabil
 ## Governance maintenance
 
 `integration_mode: governance_maintenance` is an explicitly authorized engineering/policy task. Audit dependencies using machine-only identities, preserve creative/runtime bytes and Human gates, and run build/validate/final plus relevant tool tests. Storage cleanup may project historical execution metadata into exact immutable Git locators; it must not change recorded QA outcomes or acceptance. Put its packet, audit, logs and full Handoff in ignored session cache; do not create an art-production run for repository maintenance. Playable/demo checks are required only when runtime behavior changes.
+
+## Prospective tooling return
+
+The Coordinator uses `production:preflight` before dispatch, including the applicable accepted-output dependencies and exact final display profile source/projection. Integrator supplies actual implementation status/QA/used-source facts to `production:handoff`; Coordinator verifies the full compact binding and new output bytes before recording its short result. These tools cannot self-award independent derivative/display QA, accepted-master selection, `READY_FOR_HUMAN_ACCEPTANCE`, or final Human acceptance. Governance maintenance returns cache-only evidence and creates no art-production run. See `docs/PRODUCTION_WORKFLOW_TOOLS.md`.
