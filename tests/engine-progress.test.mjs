@@ -661,7 +661,7 @@ for (const [index, tone] of ['mc_tone_observant', 'mc_tone_practical', 'mc_tone_
     assert.deepEqual(engine.state, { ...saved.cursor.stats, flags: new Set(saved.cursor.flags) });
     const seen = new Set();
     let reloaded = false;
-    for (let step = 0; step < 150 && engine.nodeId !== 'com03x_preview_complete'; step += 1) {
+    for (let step = 0; step < 180 && engine.nodeId !== 'common_recommend_discord_jyc_enter'; step += 1) {
       seen.add(engine.nodeId);
       if (engine.nodeId === 'common_package_xu_proof_10' && !reloaded) {
         const before = structuredClone(engine.progress.data.cursor);
@@ -677,19 +677,26 @@ for (const [index, tone] of ['mc_tone_observant', 'mc_tone_practical', 'mc_tone_
       } else engine.advance();
     }
     assert.equal(reloaded, true);
-    assert.equal(engine.nodeId, 'com03x_preview_complete');
+    assert.equal(engine.nodeId, 'common_recommend_discord_jyc_enter');
     for (const id of ['common_package_xu_proof', 'common_package_xu_callback', 'common_package_xu_line', 'common_package_xu_exit', 'common_package_xu_first_message']) assert.ok(seen.has(id));
     const expected = { ...saved.cursor.stats, F_XT: 8, F_JYC: saved.cursor.stats.F_JYC + 1, T_JYC: saved.cursor.stats.T_JYC + 1, [tone]: saved.cursor.stats[tone] + 1 };
     assert.deepEqual(engine.progress.data.cursor.stats, expected);
     assert.ok(saved.cursor.flags.every(flag => engine.state.flags.has(flag)));
     assert.ok(engine.state.flags.has('contact_xu'));
-    assert.equal(engine.progress.data.runComplete, true);
+    assert.equal(engine.progress.data.runComplete, false);
     assert.equal(engine.progress.data.playerDisplayName, '小雨');
     assert.ok(saved.edges.every(edge => engine.progress.data.edges.some(actual => actual.join() === edge.join())));
     engine.resumeGame(engine.progress.data.checkpoints.common_package_xu_first_message_06);
     assert.equal(engine.state.F_XT, 8, 'reloading payoff does not repeat familiarity');
     assert.deepEqual(engine.progress.data.cursor.stats, expected);
     engine.advance();
+    for (let step = 0; step < 100 && engine.nodeId !== 'com03j_preview_complete'; step++) {
+      const node = runtime.chapter.nodes[engine.nodeId];
+      if (node.choices) { engine.enterChoiceMode(node.choices); engine.els.choices.children[0].click(); }
+      else engine.advance();
+    }
+    assert.equal(engine.nodeId, 'com03j_preview_complete');
+    assert.equal(engine.state.F_JYC, expected.F_JYC + 1);
     const actualComplete = instantEngine(runtime);
     actualComplete.refreshTitle();
     assert.equal(actualComplete.els.startButton.textContent, '開始遊戲');
@@ -724,13 +731,13 @@ test('existing Memory stops before appended contact, preserving ongoing frontier
 });
 
 test('actual complete Opening Memory reload still offers Start and invalid historical cursor retains fallback', () => {
-  for (const nodeId of ['com03x_preview_complete', 'deleted-node']) {
+  for (const nodeId of ['com03j_preview_complete', 'deleted-node']) {
     installBrowserMocks();
     const runtime = openingRuntime();
     const saved = completedOpeningSave(runtime, nodeId);
     localStorage.setItem(`${runtime.chapter.id}:journey:v2`, JSON.stringify(saved));
     const engine = instantEngine(runtime);
-    if (nodeId === 'com03x_preview_complete') {
+    if (nodeId === 'com03j_preview_complete') {
       engine.progress.beginReplay();
       engine.progress.capture('common_convenience_xu_enter', { ...runtime.chapter.initialState, flags: new Set(['earlier']) }, []);
       const reloaded = instantEngine(runtime);
@@ -752,8 +759,8 @@ test('a historical terminal Memory cursor cannot reopen or regress a completed a
   installBrowserMocks();
   const runtime = openingRuntime();
   const saved = completedOpeningSave(runtime);
-  saved.frontier = { ...saved.cursor, nodeId: 'com03x_preview_complete', stats: { ...saved.cursor.stats, F_XT: 99 }, flags: ['contact_xu', 'new-world'] };
-  saved.checkpoints.com03x_preview_complete = saved.frontier;
+  saved.frontier = { ...saved.cursor, nodeId: 'com03j_preview_complete', stats: { ...saved.cursor.stats, F_XT: 99 }, flags: ['contact_xu', 'new-world'] };
+  saved.checkpoints.com03j_preview_complete = saved.frontier;
   localStorage.setItem(`${runtime.chapter.id}:journey:v2`, JSON.stringify(saved));
   const engine = instantEngine(runtime);
   assert.equal(engine.progress.data.runComplete, true);
@@ -842,8 +849,9 @@ for (const nodeId of ['com03x_preview_complete','common_package_xu_proof_10','co
       runComplete: nodeId === 'com03x_preview_complete', checkpoints: { [nodeId]: snapshot }, edges: [] }));
     let engine = instantEngine(runtime);engine.startFromTitle();
     assert.equal(engine.nodeId, 'common_station_cafe_jyc_enter');
+    const target = nodeId === 'com03x_preview_complete' ? 'common_recommend_discord_jyc_enter' : nodeId;
     let reloaded = false;
-    for (let step = 0; step < 70 && engine.nodeId !== nodeId; step++) {
+    for (let step = 0; step < 70 && engine.nodeId !== target; step++) {
       const node = runtime.chapter.nodes[engine.nodeId];
       if (node.choices) {
         engine.enterChoiceMode(node.choices);engine.els.choices.children[2].click();
@@ -854,7 +862,7 @@ for (const nodeId of ['com03x_preview_complete','common_package_xu_proof_10','co
       } else engine.advance();
     }
     assert.equal(reloaded,true);
-    assert.equal(engine.nodeId,nodeId);
+    assert.equal(engine.nodeId,target);
     assert.equal(engine.state.F_XT,9);
     assert.equal(engine.state.F_JYC,5);
     assert.equal(engine.state.C_JYC,1);
@@ -862,7 +870,118 @@ for (const nodeId of ['com03x_preview_complete','common_package_xu_proof_10','co
     assert.ok(flags.every(flag => engine.state.flags.has(flag)));
     assert.equal(engine.progress.data.com02jSupplement,null);
     const reload = instantEngine(runtime);reload.refreshTitle();
-    assert.equal(reload.els.startButton.textContent,nodeId === 'com03x_preview_complete' ? '開始遊戲' : '繼續遊戲');
+    assert.equal(reload.els.startButton.textContent,'繼續遊戲');
     assert.equal(reload.progress.data.com02jSupplement,null);
   });
 }
+
+const com03jPrefix = 'common_recommend_discord_jyc_';
+const com03jEntryFlags = ['preview:com02j-complete','entry-effect:common_station_cafe_jyc_complete','player_knows_jyc_name','jyc_knows_player_name','jyc_creator_work_seen'];
+const com03jCallbacks = [
+  ['her_art', ['jyc_second_topic:her_art']],
+  ['shared_visual_design',['jyc_second_topic:shared_work','history:jyc_first_topic:visual_design']],
+  ['shared_worldbuilding',['jyc_second_topic:shared_work','history:jyc_first_topic:worldbuilding']],
+  ['shared_edition_value',['jyc_second_topic:shared_work','history:jyc_first_topic:edition_value']],
+  ['shared_neutral',['jyc_second_topic:shared_work']],
+  ['general_praise',['jyc_second_topic:general_praise']],
+  ['neutral',[]]
+];
+for (const [variant,history] of com03jCallbacks) for (const choiceIndex of [0,1,2]) {
+  test(`COM03J actual engine ${variant}, closing ${choiceIndex}, reload at callback/contact/choice/close/exit is once`,()=>{
+    installBrowserMocks();const runtime=openingRuntime();let engine=instantEngine(runtime);engine.progress.setPlayerName('小雨');
+    const flags=[...com03jEntryFlags,...history,'contact_xu','world-retained'];
+    const stats={...runtime.chapter.initialState,F_XT:17,F_JYC:6,jyc_first_topic:99,T_JYC:3,C_JYC:4};
+    engine.resumeGame({nodeId:com03jPrefix+'enter',stats,flags,returnNodes:[]});
+    const seen=[],reloads=new Set();let selected=false;
+    for(let step=0;step<110&&engine.nodeId!=='com03j_preview_complete';step++){
+      const id=engine.nodeId,node=runtime.chapter.nodes[id];seen.push(id);
+      if([com03jPrefix+'callback_'+variant,com03jPrefix+'contact',com03jPrefix+'choice',com03jPrefix+['continue_close','warm_close','save_for_later'][choiceIndex],com03jPrefix+'exit'].includes(id)&&!reloads.has(id)){
+        reloads.add(id);const cursor=structuredClone(engine.progress.data.cursor);engine=instantEngine(runtime);engine.startFromTitle();assert.deepEqual(engine.progress.data.cursor,cursor);
+      }
+      if(node.choices){engine.advance();assert.equal(engine.els.dialoguePanel.classList.contains('is-hidden'),true);engine.els.choices.children[choiceIndex].click();selected=true;}else engine.advance();
+    }
+    assert.equal(engine.nodeId,'com03j_preview_complete');assert.equal(selected,true);assert.equal(reloads.size,5);
+    assert.equal(seen.filter(id=>/^common_recommend_discord_jyc_callback_[a-z_]+$/.test(id)).length,1);
+    assert.ok(seen.includes(com03jPrefix+'callback_'+variant));
+    assert.deepEqual({...engine.state,flags:undefined},{...stats,F_JYC:7,flags:undefined});
+    assert.ok(engine.state.flags.has('contact_jyc'));assert.ok(flags.every(flag=>engine.state.flags.has(flag)));
+    assert.equal([...engine.state.flags].filter(f=>f.startsWith('jyc_com03j_reply_style:')).length,1);
+    assert.ok(engine.state.flags.has('jyc_com03j_reply_style:'+['continue_content','warm_close','save_for_later'][choiceIndex]));
+    assert.equal(engine.progress.data.frontierRank,220);assert.equal(engine.progress.data.runComplete,true);
+    const saved=structuredClone(engine.progress.data.frontier);engine=instantEngine(runtime);assert.deepEqual(engine.progress.data.frontier,saved);engine.startFromTitle();
+    assert.equal(engine.nodeId,runtime.chapter.startNode);assert.equal(engine.state.F_JYC,0);
+  });
+}
+
+test('COM03J callbacks reject counter inference, contradictory local identities and missing provenance',()=>{
+  for(const history of [['jyc_second_topic:shared_work'],['jyc_second_topic:her_art','jyc_second_topic:general_praise'],['jyc_second_topic:shared_work','history:jyc_first_topic:worldbuilding','history:jyc_first_topic:visual_design'],['jyc_second_topic:unknown']]){
+    installBrowserMocks();const runtime=openingRuntime();const engine=instantEngine(runtime);engine.progress.setPlayerName('小雨');
+    engine.resumeGame({nodeId:com03jPrefix+'callback',stats:{...runtime.chapter.initialState,jyc_first_topic:2},flags:[...com03jEntryFlags,...history],returnNodes:[]});
+    const shared=history[0]==='jyc_second_topic:shared_work';assert.equal(engine.nodeId,com03jPrefix+'callback_'+(shared?'shared_neutral':'neutral'));
+  }
+  installBrowserMocks();const runtime=openingRuntime();const engine=instantEngine(runtime);engine.progress.setPlayerName('小雨');
+  engine.resumeGame({nodeId:com03jPrefix+'callback',stats:runtime.chapter.initialState,flags:['jyc_second_topic:her_art'],returnNodes:[]});assert.equal(engine.nodeId,com03jPrefix+'callback_neutral');
+  assert.throws(()=>engine.resumeGame({nodeId:com03jPrefix+'enter',stats:runtime.chapter.initialState,flags:[],returnNodes:[]}),/COM03J entry requires/);
+});
+
+for(const unknown of [false,true])test(`COM03J Memory local history ${unknown?'unknown':'trusted'} survives reload and discards local closing/effects`,()=>{
+  installBrowserMocks();const runtime=openingRuntime();let engine=instantEngine(runtime);engine.progress.setPlayerName('小雨');
+  const entry={nodeId:com03jPrefix+'enter',stats:{...runtime.chapter.initialState,F_JYC:6},flags:[...com03jEntryFlags,...(unknown?[]:['jyc_second_topic:shared_work','history:jyc_first_topic:worldbuilding'])],returnNodes:[]};
+  engine.progress.capture(entry.nodeId,engine.progress.restore(entry).state,[]);
+  const state={...runtime.chapter.initialState,F_JYC:7,F_XT:24,flags:new Set([...com03jEntryFlags,'contact_jyc','preview:com03j-complete','jyc_second_topic:her_art','jyc_com03j_reply_style:warm_close','live-private'])};
+  engine.progress.capture('com03j_preview_complete',state,[]);engine.progress.finishRun();
+  const before=structuredClone(engine.progress.data);
+  engine.replayMemory({replayNode:entry.nodeId});let reloaded=false,callback;
+  for(let step=0;step<100&&!engine.els.game.classList.contains('is-hidden');step++){
+    const id=engine.nodeId,node=runtime.chapter.nodes[id];if(/^common_recommend_discord_jyc_callback_[a-z_]+$/.test(id))callback=id;
+    if(id===com03jPrefix+'meme'&&!reloaded){const cursor=structuredClone(engine.progress.data.cursor);engine=instantEngine(runtime);engine.startFromTitle();assert.deepEqual(engine.progress.data.cursor,cursor);reloaded=true;}
+    if(node.choices){engine.advance();engine.els.choices.children[0].click();}else engine.advance();
+  }
+  assert.equal(callback,com03jPrefix+'callback_'+(unknown?'neutral':'shared_worldbuilding'));assert.equal(reloaded,true);
+  assert.equal(engine.els.memories.classList.contains('is-hidden'),false);assert.equal(engine.progress.data.com03jReplay,null);
+  assert.deepEqual(engine.progress.data.frontier,before.frontier);assert.deepEqual(engine.progress.data.cursor,before.cursor);assert.deepEqual(engine.progress.data.checkpoints,before.checkpoints);assert.deepEqual(engine.progress.data.edges,before.edges);assert.equal(engine.progress.data.runComplete,true);
+  assert.equal(engine.state.F_XT,24);assert.ok(engine.state.flags.has('live-private'));assert.equal(engine.state.flags.has('jyc_com03j_reply_style:continue_content'),false);
+});
+
+for(const index of [0,1,2])test(`fresh full Opening records first-topic provenance on actual choice ${index} and enters COM03J naturally`,()=>{
+  installBrowserMocks();const runtime=openingRuntime();const engine=instantEngine(runtime);engine.progress.setPlayerName('小雨');engine.startGame();
+  let selectedFirst=false,entered=false;
+  for(let step=0;step<550&&engine.nodeId!=='com03j_preview_complete';step++){
+    const id=engine.nodeId,node=runtime.chapter.nodes[id];if(id===com03jPrefix+'enter')entered=true;
+    if(node.choices){engine.enterChoiceMode(node.choices);engine.els.choices.children[id==='common_acg_first_meet_choice'?index:id.startsWith('common_station_cafe_jyc_choice_')?1:0].click();if(id==='common_acg_first_meet_choice')selectedFirst=true;}else engine.advance();
+  }
+  assert.equal(selectedFirst,true);assert.equal(entered,true);assert.equal(engine.nodeId,'com03j_preview_complete');assert.ok(engine.state.flags.has('contact_xu'));assert.ok(engine.state.flags.has('contact_jyc'));
+  const topic=['worldbuilding','visual_design','edition_value'][index];assert.ok(engine.state.flags.has('history:jyc_first_topic:'+topic));
+  assert.ok(engine.progress.data.checkpoints[com03jPrefix+'callback_shared_'+topic]);
+});
+
+test('COM03J missing entry snapshot starts a complete neutral Memory from surviving local facts, never live history',()=>{
+  installBrowserMocks();const runtime=openingRuntime();const engine=instantEngine(runtime);engine.progress.setPlayerName('小雨');
+  const flags=[...com03jEntryFlags,'contact_jyc','preview:com03j-complete','entry-effect:common_recommend_discord_jyc_exit','jyc_second_topic:her_art','history:jyc_first_topic:visual_design','jyc_com03j_reply_style:warm_close'];
+  const state={...runtime.chapter.initialState,F_JYC:8,F_XT:18,flags:new Set(flags)};
+  engine.progress.capture('com03j_preview_complete',state,[]);engine.progress.finishRun();const world=structuredClone(engine.progress.data.frontier);
+  const event=runtime.memoryLibrary.events.find(e=>e.id==='mem.opening.ch1.recommend-discord-jyc');
+  engine.replayMemory(event);assert.equal(engine.nodeId,com03jPrefix+'enter');assert.equal(engine.state.F_JYC,7);
+  while(!engine.nodeId.startsWith(com03jPrefix+'callback_'))engine.advance();
+  assert.equal(engine.nodeId,com03jPrefix+'callback_neutral');assert.deepEqual(engine.progress.data.frontier,world);
+  for(let step=0;step<100&&!engine.els.game.classList.contains('is-hidden');step++){
+    const node=runtime.chapter.nodes[engine.nodeId];if(node.choices){engine.enterChoiceMode(node.choices);engine.els.choices.children[2].click();}else engine.advance();
+  }
+  assert.equal(engine.els.memories.classList.contains('is-hidden'),false);assert.deepEqual(engine.progress.data.frontier,world);assert.equal(engine.state.F_JYC,8);assert.equal(engine.progress.data.runComplete,true);
+});
+
+test('COM03J isolated Memory reload restores the active fresh-run cursor and restart mode alongside historical frontier',()=>{
+  installBrowserMocks();const runtime=openingRuntime();let engine=instantEngine(runtime);engine.progress.setPlayerName('小雨');
+  const entry={nodeId:com03jPrefix+'enter',stats:{...runtime.chapter.initialState,F_JYC:6},flags:[...com03jEntryFlags,'jyc_second_topic:her_art'],returnNodes:[]};
+  engine.progress.capture(entry.nodeId,engine.progress.restore(entry).state,[]);
+  engine.progress.capture('com03j_preview_complete',{...runtime.chapter.initialState,F_XT:21,F_JYC:7,flags:new Set([...com03jEntryFlags,'contact_jyc','live-completed'])},[]);engine.progress.finishRun();
+  engine.startFromTitle();assert.equal(engine.progress.data.restartActive,true);const before=structuredClone(engine.progress.data);
+  engine.replayMemory({replayNode:entry.nodeId});let reloaded=false;
+  for(let step=0;step<100&&!engine.els.game.classList.contains('is-hidden');step++){
+    const node=runtime.chapter.nodes[engine.nodeId];if(engine.nodeId===com03jPrefix+'meme'&&!reloaded){engine=instantEngine(runtime);engine.startFromTitle();reloaded=true;}
+    if(node.choices){engine.enterChoiceMode(node.choices);engine.els.choices.children[1].click();}else engine.advance();
+  }
+  assert.equal(reloaded,true);assert.equal(engine.progress.data.restartActive,true);assert.equal(engine.progress.data.runComplete,false);assert.equal(engine.progress.replaying,true);
+  assert.deepEqual(engine.progress.data.frontier,before.frontier);assert.deepEqual(engine.progress.data.cursor,before.cursor);assert.deepEqual(engine.progress.data.checkpoints,before.checkpoints);assert.equal(engine.state.F_XT,0);assert.equal(engine.state.F_JYC,0);assert.equal(engine.state.flags.has('contact_jyc'),false);
+  engine=instantEngine(runtime);engine.startFromTitle();assert.equal(engine.nodeId,runtime.chapter.startNode);assert.equal(engine.progress.data.restartActive,true);assert.equal(engine.state.F_JYC,0);assert.deepEqual(engine.progress.data.frontier,before.frontier);
+});

@@ -89,12 +89,20 @@ test('existing runtime preserves exact d4ab4bd fields and only the 25 approved a
     [...anonymousLabels].sort(), 'no anonymous label additions outside the exact pre-reveal set');
   for (const [id, node] of Object.entries(old)) {
     if (id === 'opening_demo_complete') continue;
-    assert.deepEqual(nodes[id], anonymousLabels.has(id) ? { ...node, speakerLabel: '女生' } : node,
+    if (id === 'com03x_preview_complete') {
+      assert.deepEqual(nodes[id], { type: 'branch', default: 'common_recommend_discord_jyc_enter' });
+      continue;
+    }
+    const expected = anonymousLabels.has(id) ? { ...node, speakerLabel: '女生' } : structuredClone(node);
+    if (['common_convenience_xu_exit', 'common_convenience_xu_exit_02'].includes(id)) {
+      expected.visual.background = 'bg.opening.com02x.return_elevator_trial';
+    }
+    assert.deepEqual(nodes[id], expected,
       `accepted node changed: ${id}`);
   }
   assert.equal(Object.entries(old).filter(([id,node]) => (id.startsWith('common_package_xu_') || id.startsWith('com03x_')) && node.text).length, 83);
   assert.deepEqual(memories.events.slice(0,4), prior('memories.json').events);
-  assert.deepEqual(route.assetIds, prior('route.json').assetIds);
+  assert.deepEqual(route.assetIds, [...prior('route.json').assetIds, 'bg.opening.com02x.return_elevator_trial']);
 });
 
 for (const nodeId of ['com03x_preview_complete', 'common_package_xu_choice', 'com03x_ask_proof_02', 'common_package_xu_first_message_06']) {
@@ -123,7 +131,7 @@ for (const nodeId of ['com03x_preview_complete', 'common_package_xu_choice', 'co
     assert.equal(returned.state.T_JYC, 2);
     assert.equal(returned.state.C_JYC, 3);
     assert.equal(returned.state.flags.has('contact_xu'), true);
-    assert.equal(progress.data.runComplete, saved.runComplete);
+    assert.equal(progress.data.runComplete, false, 'the completed old terminal now continues into COM03J');
     assert.equal(progress.completeCom02jSupplement(state), null, 'merge is exactly once');
     const reload = new ProgressStore(chapter, memories, storage);
     assert.equal(reload.data.com02jSupplement, null);

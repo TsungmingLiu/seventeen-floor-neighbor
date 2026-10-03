@@ -23,8 +23,105 @@
       "decision_receipt": "content/production/runs/opening-feedback-20261003/INT-OPENING-NAMES-001.decision.json",
       "human_gate": "none",
       "reason": "Exact packet and fresh worker Handoff verified at execution; output identities pinned in compact receipt."
+    },
+    {
+      "task_id": "MUA-COM02X-ELEVATOR-007",
+      "task_type": "visual_review",
+      "scene_id": "COM-02X",
+      "depends_on": [],
+      "status": "STALE",
+      "packet": {
+        "generator": "manual:task-packet-schema-v1.3.0",
+        "sha256": "1f8809d1353de22d15b50939c6bb72921b0ea389f35ec5fa9b01e90bc58ddcad"
+      },
+      "decision_receipt": "content/production/runs/opening-feedback-20261003/MUA-COM02X-ELEVATOR-007.decision.json",
+      "human_gate": "none",
+      "reason": "Historical six-reference render spec only; five-reference compatibility revision requires fresh MUA."
+    },
+    {
+      "task_id": "NQA-COM03J-010",
+      "task_type": "narrative_review",
+      "scene_id": "COM-03J",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "tools/context.mjs:narrative_review",
+        "sha256": "36b3a5f35c0e5119393bc1ae1453dde48e07568fec726011879bd185411bb3c0"
+      },
+      "decision_receipt": "content/production/runs/opening-feedback-20261003/NQA-COM03J-010.decision.json",
+      "human_gate": "none",
+      "reason": "Exact packet and fresh worker Handoff verified at execution; output identities pinned in compact receipt."
+    },
+    {
+      "task_id": "MUA-COM02X-ELEVATOR-012",
+      "task_type": "visual_review",
+      "scene_id": "COM-02X",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual:task-packet-schema-v1.3.0",
+        "sha256": "9d3d313b234f430ee2893a392e5409a484d7dc35dcc57f9a5a274f1fd72d5397"
+      },
+      "decision_receipt": "content/production/runs/opening-feedback-20261003/MUA-COM02X-ELEVATOR-012.decision.json",
+      "human_gate": "none",
+      "reason": "Exact packet and fresh worker Handoff verified at execution; output identities pinned in compact receipt."
+    },
+    {
+      "task_id": "INT-COM03J-PREVIEW-015",
+      "task_type": "integrate",
+      "scene_id": "COM-03J",
+      "depends_on": [
+        "NQA-COM03J-010"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual:task-packet-schema-v1.3.0",
+        "sha256": "86a6878cecfce9b11c2bc31e52c33352a9b7d6a73501acbc35a0cfa9396e9fa2"
+      },
+      "decision_receipt": "content/production/runs/opening-feedback-20261003/INT-COM03J-PREVIEW-015.decision.json",
+      "human_gate": "narrative_preview_review",
+      "reason": "Exact packet and fresh worker Handoff verified at execution; output identities pinned in compact receipt."
     }
   ],
-  "invalidation_events": [],
-  "preview": null
+  "invalidation_events": [
+    {
+      "changed_artifact_id": "opening-ch1-com02x-return-elevator",
+      "old_version": "8f63717bd2af6e6380cd046f866c1dc0a85471709e04e91daa9001ddc424eba8",
+      "new_version": "05249fbedf39ce522ff877e1df4072d3ed75f24335cf5ff1927e7091dba2c0ec",
+      "affected_task_ids": [
+        "MUA-COM02X-ELEVATOR-007"
+      ],
+      "decision": "STALE",
+      "evidence": "Verified PLAN-COM02X-ELEVATOR-TRANSPORT-011 Handoff d8fde7852761d4b98b9e99a5895391078661387bd83f77dad0f0d60a4220a17a; explicit max-five tool error, zero completed generations."
+    }
+  ],
+  "preview": {
+    "names_code_commit": "672d50b65e6820d076870ce6c7b754d1357699f1",
+    "names_pr": "https://github.com/TsungmingLiu/seventeen-floor-neighbor/pull/48",
+    "names_url_or_access_path": "https://a588ac25.seventeen-floor-neighbor.pages.dev/",
+    "names_alias": "https://pr-48.seventeen-floor-neighbor.pages.dev/",
+    "visibility": "public",
+    "names_ci_run": "37084992536",
+    "names_ci_merge": "0c4e8b3 (merge of672d50b intoecaae7f)",
+    "names_verify_job": "111093291467",
+    "names_deploy_job": "111095153944",
+    "build": "PASS verify672",
+    "validation": "PASS verify672",
+    "tests": "206/206 PASS,0FAIL verify672",
+    "smoke": "PASS verify672; localChromium twoflows PASS",
+    "public_deployment": "PASS actualworkflowdeployment URLs",
+    "workspace_public_http_probe": "BLOCKED CONNECT403 by session network policy; no public HTTP PASS inferred",
+    "com03j": "INT-COM03J-PREVIEW-015 PASS; local NARRATIVE_PREVIEW_READY; public publication PENDING",
+    "new_return_elevator": "SourceQA014 FAIL and corrective SourceQA017 FAIL; no newCG adopted/wired. Explicit further generation/defer decision PENDING.",
+    "com03j_source_freeze_sha256": "35691ae66c8dfdcc6882b8a00bb6a880cdf1ec4622b3d97f6479b751cf1892c5",
+    "com03j_tests": "241/241 PASS,0FAIL; actual final npm exit0. Prior240/233/7 exit1 and superseded143 preserved in ignored evidence.",
+    "com03j_browser": "Chromium3/3 PASS exact frozen runtime/build; closing choices,save/reload,neutral Memory fallback and new-run replay cursor isolation",
+    "com03j_build": "492nodes,22/22media; build/validate/diff/preview-smoke PASS",
+    "com03j_local_access_path": "http://127.0.0.1:39757 (local verified smoke; public deployment PENDING)",
+    "com03j_final_visuals": "validate:final actual exit1 EXPECTED preview-art rejection; no final art acceptance",
+    "new_return_elevator_source_qa_014": "content/production/runs/opening-feedback-20261003/VQA-COM02X-ELEVATOR-SOURCE-014.decision.json",
+    "new_return_elevator_source_qa_017": "content/production/runs/opening-feedback-20261003/VQA-COM02X-ELEVATOR-SOURCE-017.decision.json",
+    "new_return_elevator_candidate_sha256": "886c78b86000350d289c5e6544f97d1727dcd506d676d8523d28c474fb854bac",
+    "new_return_elevator_quality": "SOURCE FAIL; derivative/display/Human master selection PENDING; no automatic redraw"
+  }
 }

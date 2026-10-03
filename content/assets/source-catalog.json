@@ -654,6 +654,26 @@
       "sha256": "8434d7ae1f0857245abc99062a67b6c81d384de489a2854b65348da73edf0c81",
       "verifiedDecode": true,
       "status": "human-accepted-as-is"
+    },
+    "source.opening.com02x.return_elevator_trial.original": {
+      "name": "return-elevator-trial-v1.png",
+      "mimeType": "image/png",
+      "sourcePath": "assets-src/opening-ch1-preview/return-elevator-trial-v1.png",
+      "bytes": 1986865,
+      "width": 1672,
+      "height": 941,
+      "sha256": "886c78b86000350d289c5e6544f97d1727dcd506d676d8523d28c474fb854bac",
+      "verifiedDecode": true,
+      "status": "preview-only-trial",
+      "role": "human_selected_preview_trial_original",
+      "knownIssues": [
+        "VQA-PROTECTED-COMPOSITION major",
+        "VQA-HELD-OBJECT-SIDE major",
+        "VQA-LOCALIZED-PANEL-BLUR medium",
+        "SOURCE-ONLY review of unadopted native1672x941 original SHA256 886c78b86000350d289c5e6544f97d1727dcd506d676d8523d28c474fb854bac. Original retained in active ignored job storage; no runtime asset adopted.",
+        "Compression PASS is ORIGINAL-only. Final derivative, desktop, both mobile profiles and Human master gate remain PENDING.",
+        "Exact input snapshot and Handoff stay ignored; verified Handoff SHA256 6b0522a9f6bb875dd74ef1ccc477b1a64a1e34cf03980343b23e9d4e78cee885. Cache paths are not required cross-session dependencies."
+      ]
     }
   }
 }

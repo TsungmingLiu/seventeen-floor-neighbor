@@ -1,0 +1,126 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "cafe-narration-and-elevator-trial-20261003",
+  "task_id": "VQA-ELEVATOR-LANDSCAPE-CORRECTIVE-009",
+  "scene_id": "COM-02X",
+  "task_type": "visual_review",
+  "status": "PASS",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.5.1",
+    "pass": "visual_review"
+  },
+  "source_ref": "02fb10c8a7dbccb57fbbc4cead91b228fd42f1f6",
+  "packet_sha256": "851dc22cdafcd2caa96a3befd85bd1169d2b89792a268110355a744ca81b4748",
+  "input_digest_sha256": "1a2e797d95baf34c6c54b19344799eff872a7d092dca5ec589e6d39e77d82d84",
+  "input_versions": [
+    {
+      "id": "content/production/runs/opening-feedback-20261003/VQA-COM02X-ELEVATOR-SOURCE-017.decision.json",
+      "version": "20e91ab22294b3767742e306bd3afaeca728fc13a64bad0e0d46871eee4d7928",
+      "location": "content/production/runs/opening-feedback-20261003/VQA-COM02X-ELEVATOR-SOURCE-017.decision.json"
+    },
+    {
+      "id": "content/production/runs/cafe-narration-and-elevator-trial-20261003/HUMAN-ELEVATOR-TRIAL-004.decision.json",
+      "version": "dd7f3e8404504704a677a2b8226936a13d69fbaf7fcbee18a538084ef5802a5b",
+      "location": "content/production/runs/cafe-narration-and-elevator-trial-20261003/HUMAN-ELEVATOR-TRIAL-004.decision.json"
+    },
+    {
+      "id": "content/production/runs/cafe-narration-and-elevator-trial-20261003/VQA-ELEVATOR-TRIAL-DISPLAY-007.decision.json",
+      "version": "5e1b4e98080e6f6011a52a06397d3eada6ce990fd18b991b98e2909e414db4a2",
+      "location": "content/production/runs/cafe-narration-and-elevator-trial-20261003/VQA-ELEVATOR-TRIAL-DISPLAY-007.decision.json"
+    },
+    {
+      "id": "selected_trial_original",
+      "version": "886c78b86000350d289c5e6544f97d1727dcd506d676d8523d28c474fb854bac",
+      "location": "assets-src/opening-ch1-preview/return-elevator-trial-v1.png"
+    },
+    {
+      "id": "actual_runtime_derivative",
+      "version": "04ce2f7fbc6de3bd51cd7db4ff0805b4485fe6d63b4e2f2227f4ea31ca83e83c",
+      "location": "assets-src/opening-ch1-preview/return-elevator-trial-v1.webp"
+    },
+    {
+      "id": "display:common_convenience_xu_exit:desktop",
+      "location": "external:actual-installed-Chromium-runtime-screenshot",
+      "version": "2ccc4fbad81e69aab5ac5b7aa84d5c7aeb2364597558a8df2d93949d55085755"
+    },
+    {
+      "id": "display:common_convenience_xu_exit_02:desktop",
+      "location": "external:actual-installed-Chromium-runtime-screenshot",
+      "version": "17503f14b6635533f0c7f728df755543f58c4e9f5809f291d038ea96d44ca439"
+    },
+    {
+      "id": "display:common_convenience_xu_exit:portrait",
+      "location": "external:actual-installed-Chromium-runtime-screenshot",
+      "version": "7ef2297af4084a84f7b770d818d3f4d84f7265e28f3e4b46707a03feadf68a69"
+    },
+    {
+      "id": "display:common_convenience_xu_exit_02:portrait",
+      "location": "external:actual-installed-Chromium-runtime-screenshot",
+      "version": "1c3771b28e2a77a88387268798820113b943c8fc507c03221abecf5f29b16b74"
+    },
+    {
+      "id": "display:common_convenience_xu_exit:landscape",
+      "location": "external:actual-installed-Chromium-runtime-screenshot",
+      "version": "3ee53170a3572ee2cce463be16a0fc7066f0d9d70c0ee5a311a9d8db0ba6dfc5"
+    },
+    {
+      "id": "display:common_convenience_xu_exit_02:landscape",
+      "location": "external:actual-installed-Chromium-runtime-screenshot",
+      "version": "d92f7ca67796a05812c24380b4458a29a1fec4695a5e94d88e5ea3812ef030d0"
+    }
+  ],
+  "output_versions": [],
+  "qa_codes": [
+    {
+      "name": "VQA-SOURCE-ACQUISITION",
+      "code": "VQA-SOURCE-ACQUISITION",
+      "result": "PASS"
+    },
+    {
+      "name": "VQA-BUILD-PROFILE-BINDING",
+      "code": "VQA-BUILD-PROFILE-BINDING",
+      "result": "PASS"
+    },
+    {
+      "name": "VQA-NATIVE-PROVENANCE",
+      "code": "VQA-NATIVE-PROVENANCE",
+      "result": "PASS"
+    },
+    {
+      "name": "VQA-SOURCE-CLARITY",
+      "code": "VQA-SOURCE-CLARITY",
+      "result": "FAIL"
+    },
+    {
+      "name": "VQA-COMPRESSION-ARTIFACTS",
+      "code": "VQA-COMPRESSION-ARTIFACTS",
+      "result": "PASS"
+    },
+    {
+      "name": "VQA-DESKTOP-DISPLAY",
+      "code": "VQA-DESKTOP-DISPLAY",
+      "result": "PASS"
+    },
+    {
+      "name": "VQA-MOBILE-PORTRAIT-DISPLAY",
+      "code": "VQA-MOBILE-PORTRAIT-DISPLAY",
+      "result": "PASS"
+    },
+    {
+      "name": "VQA-MOBILE-LANDSCAPE-DISPLAY",
+      "code": "VQA-MOBILE-LANDSCAPE-DISPLAY",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "Fresh independent trialpresentation PASS for BOTHnodes x1440x900,320x720,720x320 CSS,DPR1; realdialogue/HUD/controls retained. Landscape grip/bag/crown issues resolved.",
+    "Original886c78/WebP04ce2f unchanged; priornative/compressionPASS verified/reused. OriginalSourceQA017clarity/continuity/compositionFAIL remains inherited out-of-scope; no canonicalCG/finalsourcequality/finalplayable acceptance.",
+    "All26inputs/70frozenfiles/38buildfiles and both digests independently verified at exactruntimebuildf3aedd940cdb8c7605c7f4db52c071f74ab883a7b9b55293fcfb2ee19b8a9ac6.",
+    "Verified independent HandoffSHA25654a1d04a91930b13bae0e1621233ecfc3b89478c73ee8b261285a226b12ee3fd; exact screenshot identities retained without session-cache source dependencies."
+  ],
+  "human_gate_required": "none",
+  "invalidates": []
+}

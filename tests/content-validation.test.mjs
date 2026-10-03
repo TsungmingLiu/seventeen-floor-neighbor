@@ -98,12 +98,12 @@ test('Opening memory unlock nodes must follow and include their replay anchor', 
 test('Opening route must retain a terminal node and reject a reachable cycle in its place', async () => {
   const content = await loadContent();
   const route = content.routes.find((item) => item.config.id === 'opening-demo');
-  route.chapter.nodes.com03x_preview_complete = {
+  route.chapter.nodes.com03j_preview_complete = {
     speaker: '旁白',
     text: 'cycle fixture',
     chapter: 2,
     visual: { mode: 'cg', asset: 'cg.opening.com01j.r01_interested' },
-    next: 'com03x_preview_complete'
+    next: 'com03j_preview_complete'
   };
   assert.ok((await validateContent(content)).some((error) => error.includes('no reachable route terminal')));
 });
@@ -219,4 +219,24 @@ test('initialTitleArt is optional and validates allowed asset kind and route mem
   const invalid = clone(base); const id = 'bg.opening.title.17f_doorlight';
   invalid.routes[0].chapter.initialTitleArt = id; invalid.routes[0].assetManifest.assets[id].kind = 'sprite';
   assert.ok((await validateContent(invalid)).some((e) => e.includes('initialTitleArt: must be background or cg')));
+});
+
+test('preview contract permits only the two exact background paths and rejects final-art disguises', async () => {
+  const base = await loadContent();
+  const id = 'bg.opening.com02x.return_elevator_trial';
+  for (const mutate of [
+    asset => { delete asset.previewOnly; },
+    asset => { asset.previewOnly = false; },
+    asset => { asset.src = 'assets/ui/narrative-preview-v1.webp'; },
+    asset => { asset.kind = 'cg'; },
+    asset => { asset.gallery = { title: 'Forbidden' }; },
+    asset => { asset.participants = []; },
+    asset => { asset.canonicalCgEntry = 'COM02X-RETURN-ELEVATOR-01'; }
+  ]) {
+    const content = clone(base); mutate(content.manifest.assets[id]);
+    assert.ok((await validateContent(content)).some(error => error.startsWith(`asset ${id}:`) && /previewOnly must remain true|invalid preview-only asset contract/.test(error)));
+  }
+  const unknown = clone(base);
+  unknown.manifest.assets['bg.unregistered.preview'] = clone(base.manifest.assets[id]);
+  assert.ok((await validateContent(unknown)).includes('asset bg.unregistered.preview: invalid preview-only asset contract'));
 });

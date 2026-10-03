@@ -42,22 +42,31 @@ test('current deterministic inventory distinguishes scene-local preview and adop
   const result = report();
   assert.equal(JSON.stringify(result), JSON.stringify(report()));
   assert.deepEqual(result.summary, {
-    inventory: 21, runtimeBound: 21, declared: 21, referenced: 21, unused: 0,
-    inventoryStatuses: { placeholder: 1, provisional: 2, accepted: 18, unverified: 0 },
-    runtimeStatuses: { placeholder: 1, provisional: 2, accepted: 18, unverified: 0 },
-    blockedRuntimeAssets: 9, bindingErrors: 1, coverageClear: false
+    inventory: 22, runtimeBound: 22, declared: 22, referenced: 22, unused: 0,
+    inventoryStatuses: { placeholder: 2, provisional: 2, accepted: 18, unverified: 0 },
+    runtimeStatuses: { placeholder: 2, provisional: 2, accepted: 18, unverified: 0 },
+    blockedRuntimeAssets: 10, bindingErrors: 1, coverageClear: false
   });
   assert.equal(asset(result, preview).status, 'placeholder');
   assert.equal(asset(result, preview).runtimeBound, true);
   assert.deepEqual(result.bindingErrors, [{ code: 'PREVIEW_ROUTE_OPT_IN', routeId: 'opening-demo' }]);
-  const previewBindings = asset(result, preview).references.map(ref => ref.binding);
-  assert.equal(previewBindings.length, 151);
+  const allPreviewBindings = asset(result, preview).references.map(ref => ref.binding);
+  const com03jBindings = allPreviewBindings.filter(binding =>
+    binding.startsWith('node:common_recommend_discord_jyc_') || binding.startsWith('memory:mem.opening.ch1.recommend-discord-jyc:'));
+  const previewBindings = allPreviewBindings.filter(binding => !com03jBindings.includes(binding));
+  assert.equal(allPreviewBindings.length, 253);
+  assert.equal(com03jBindings.length, 102);
+  assert.equal(com03jBindings.filter(binding => binding.startsWith('node:')).length, 100);
+  assert.deepEqual(com03jBindings.filter(binding => !binding.startsWith('node:')), [
+    'memory:mem.opening.ch1.recommend-discord-jyc:cover',
+    'memory:mem.opening.ch1.recommend-discord-jyc:titleBackdrop'
+  ]);
   assert.equal(previewBindings.filter(binding => binding.startsWith('node:')).length, 148);
   assert.deepEqual(previewBindings.filter(binding => !binding.startsWith('node:')), ['ending:demo_complete', 'endingArt', 'memory:mem.opening.ch1.station-cafe-jyc:cover']);
   assert.ok(previewBindings.filter(binding => binding.startsWith('node:')).every(binding =>
     /^node:(common_package_xu_|com03x_|common_station_cafe_jyc_|com02j_)/.test(binding)));
   assert.ok(result.assets.filter(item => item.references.some(ref => /^node:common_convenience_xu_/.test(ref.binding)))
-    .every(item => item.status === 'accepted' && item.assetId !== preview));
+    .every(item => item.assetId === 'bg.opening.com02x.return_elevator_trial' ? item.status === 'placeholder' : item.status === 'accepted' && item.assetId !== preview));
   assert.equal(coverageExitCode(result), 0);
   assert.equal(coverageExitCode(result, { strict: true }), 1);
   assert.equal(result.scope.releaseReadiness, 'not_recorded');
@@ -238,7 +247,7 @@ test('CLI JSON is deterministic and strict mode returns expected failure', () =>
   assert.equal(second.stdout, first.stdout);
   assert.equal(strict.status, 1, strict.stderr);
   assert.equal(strict.stdout, first.stdout);
-  assert.equal(JSON.parse(first.stdout).summary.runtimeBound, 21);
+  assert.equal(JSON.parse(first.stdout).summary.runtimeBound, 22);
 });
 function fileURL() { return new URL('../tools/asset-coverage.mjs', import.meta.url).pathname; }
 
@@ -259,4 +268,36 @@ test('initial title background preserves as-is QA and fails closed for corrupt p
   }
   const missing = clone(); document(missing, routePath).assetIds = document(missing, routePath).assetIds.filter((v) => v !== id);
   assert.ok(report(missing).bindingErrors.some((e) => e.code === 'ASSET_NOT_ALLOWLISTED' && e.binding === 'initialTitleArt'));
+});
+
+
+test('exact elevator trial remains preview-only with FAIL history and strict release rejection', () => {
+  const id = 'bg.opening.com02x.return_elevator_trial';
+  const current = asset(report(), id);
+  assert.equal(current.status, 'placeholder');
+  assert.equal(current.adoptionScope, 'narrative_preview_only');
+  assert.equal(current.disposition, 'trial-only');
+  assert.equal(current.visualQaStatus, 'FAIL');
+  assert.deepEqual(current.provenanceErrors, []);
+  assert.deepEqual(current.references.map(ref => ref.binding).sort(), ['node:common_convenience_xu_exit:background', 'node:common_convenience_xu_exit_02:background'].sort());
+  assert.equal(coverageExitCode(report()), 0);
+  assert.equal(coverageExitCode(report(), { strict: true }), 1);
+  const receiptPath = 'content/assets/ingest-receipts/return-elevator-trial-v1.json';
+  for (const mutate of [
+    input => { document(input, receiptPath).original.sha256 = '0'.repeat(64); },
+    input => { document(input, receiptPath).derivative.sha256 = '0'.repeat(64); },
+    input => { document(input, receiptPath).humanDecision.sha256 = '0'.repeat(64); },
+    input => { document(input, receiptPath).sourceQa.sha256 = '0'.repeat(64); },
+    input => { document(input, receiptPath).sourceQa.status = 'PASS'; },
+    input => { document(input, receiptPath).lifecycle = 'ACCEPTED'; },
+    input => { document(input, receiptPath).scope.nodeIds.push('common_convenience_xu_exit_03'); },
+    input => { document(input, routePath).story.allowPreviewArt = false; },
+    input => { document(input, memoriesPath).events[0].galleryAssets.push(id); }
+  ]) {
+    const input = clone(); mutate(input);
+    const changed = report(input);
+    assert.equal(asset(changed, id).status, 'unverified');
+    assert.ok(asset(changed, id).provenanceErrors.length);
+    assert.equal(coverageExitCode(changed), 1);
+  }
 });

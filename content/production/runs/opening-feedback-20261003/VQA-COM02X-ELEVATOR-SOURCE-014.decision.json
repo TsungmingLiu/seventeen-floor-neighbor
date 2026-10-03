@@ -1,0 +1,172 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "opening-feedback-20261003",
+  "task_id": "VQA-COM02X-ELEVATOR-SOURCE-014",
+  "scene_id": "COM-02X",
+  "task_type": "visual_review",
+  "status": "FAIL",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.5.0",
+    "pass": "visual_review"
+  },
+  "source_ref": "2665e195410b96d6bc8b83db40ab72f7c8fc49e3",
+  "packet_sha256": "5c7e957c461d6fdb9e6b2a7499c4ca6e24507eea663e37bfc1b1f815fe53c7ba",
+  "input_digest_sha256": "9da50227a0d1144a168211a8044e82591d81fae9181ec8bad9c36c9debbc28d5",
+  "input_versions": [
+    {
+      "id": "AGENTS.md",
+      "location": "AGENTS.md",
+      "version": "3a9437e9c33c455ece1177a5b4ffa5752ca67687f6fdf4633d966ab1f6f0488e"
+    },
+    {
+      "id": ".ai/WORKFLOW_MANIFEST.yaml",
+      "location": ".ai/WORKFLOW_MANIFEST.yaml",
+      "version": "4e42799b5c23421af5ef3688f92e21f9eb666f05d2047134e54286d5bd71b239"
+    },
+    {
+      "id": ".ai/harnesses/bootstrap.md",
+      "location": ".ai/harnesses/bootstrap.md",
+      "version": "b347e41e1669ec92fdf4885ba4e97f09e97978e1bc5b04e17ece72f8aba8b131"
+    },
+    {
+      "id": ".ai/policies/SOURCE_AUTHORITY.md",
+      "location": ".ai/policies/SOURCE_AUTHORITY.md",
+      "version": "9db10a7925386836415fd000470cb535915b0e0e58eb7bee794f6a8ae445971c"
+    },
+    {
+      "id": ".ai/policies/CONTEXT_ISOLATION.md",
+      "location": ".ai/policies/CONTEXT_ISOLATION.md",
+      "version": "27c3fca1c65f513b9b3752dcd88b033a68fda600cef009c9a67a161ef06b96e1"
+    },
+    {
+      "id": ".ai/PRODUCTION_ORCHESTRATION.md",
+      "location": ".ai/PRODUCTION_ORCHESTRATION.md",
+      "version": "076322d3b22cae413603ddd2c576f924a6d5ad937f85f39c7e49dc8c1db61308"
+    },
+    {
+      "id": "docs/CONTENT_PRODUCTION_SOURCE_MAP.md",
+      "location": "docs/CONTENT_PRODUCTION_SOURCE_MAP.md",
+      "version": "c0ae2c825ef2c47afe78c14dc768758115d5a750e7b1afe9ebd6ead8a9b0804c"
+    },
+    {
+      "id": ".ai/schemas/TASK_PACKET.md",
+      "location": ".ai/schemas/TASK_PACKET.md",
+      "version": "0473fe9229c64d45ad1696adab632b66da760e0efe8c50a6478d05ff86500d58"
+    },
+    {
+      "id": ".ai/schemas/HANDOFF.md",
+      "location": ".ai/schemas/HANDOFF.md",
+      "version": "362659d079492d73cd190a9f32dbf035ac84869b61c42152adf7f1220018b37f"
+    },
+    {
+      "id": ".ai/harnesses/content-qa.md",
+      "location": ".ai/harnesses/content-qa.md",
+      "version": "ec9a9166ef328a8bb4bfdc7c68dd9c69ff7b4368d0b853217bd2d381146ad3a9"
+    },
+    {
+      "id": "content/production/cg-manifests/opening-ch1-com02x-return-elevator.json",
+      "location": "content/production/cg-manifests/opening-ch1-com02x-return-elevator.json",
+      "version": "05249fbedf39ce522ff877e1df4072d3ed75f24335cf5ff1927e7091dba2c0ec"
+    },
+    {
+      "id": "content/assets/source-catalog.json",
+      "location": "content/assets/source-catalog.json",
+      "version": "146034d8a6b01e13cc0d5f15b93cd89c5a93c65e140f9f3680808191d88d9cfa"
+    },
+    {
+      "id": "content/assets/character-reference-packs.json",
+      "location": "content/assets/character-reference-packs.json",
+      "version": "ee620a256c300cd559f88ea456d640ee142398142b484ad2a91bd3d111a6a9f7"
+    },
+    {
+      "id": "ref.xu_tang.face.01",
+      "location": "assets-src/references/xu-tang/xt-ref-01-face.png",
+      "version": "2fd137f796d0e7667a5913748158f75705b1a538b346b9e7f76aacb3c79acfd0"
+    },
+    {
+      "id": "ref.xu_tang.wardrobe.a",
+      "location": "assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png",
+      "version": "aaf33f06f3e39fc476deee03ab261a43e0911b8393366ae7399c633abfadc716"
+    },
+    {
+      "id": "ref.xu_tang.body.03",
+      "location": "assets-src/references/xu-tang/xt-ref-03-body.png",
+      "version": "cccde0bbd7d04b9cb66615ce3948a77529d77298dea806a3582a9d69723d8eb0"
+    },
+    {
+      "id": "source.com02x.walk-v3",
+      "location": "assets-src/opening-ch1-demo/com02x-walk-candidate-v3.png",
+      "version": "a1aa0d08023cc19a42b3c9260bca732059e77eb5dd37c8578afb82bd7dd82400"
+    },
+    {
+      "id": "source.opening.ch1.bg.apt_elevator",
+      "location": "assets-src/opening-ch1-demo/bg-apt-elevator-16x9-v1.webp",
+      "version": "2e1882334057fbd08b4d2c301b7924efc34cd1875e3d0dc1176c6315525e195e"
+    }
+  ],
+  "output_versions": [],
+  "qa_codes": [
+    {
+      "name": "VQA-SOURCE-ACQUISITION",
+      "code": "VQA-SOURCE-ACQUISITION",
+      "result": "PASS"
+    },
+    {
+      "name": "VQA-NATIVE-PROVENANCE",
+      "code": "VQA-NATIVE-PROVENANCE",
+      "result": "PASS"
+    },
+    {
+      "name": "VQA-SOURCE-CLARITY",
+      "code": "VQA-SOURCE-CLARITY",
+      "result": "PASS"
+    },
+    {
+      "name": "VQA-COMPRESSION-ARTIFACTS",
+      "code": "VQA-COMPRESSION-ARTIFACTS",
+      "result": "PASS"
+    },
+    {
+      "name": "VQA-IDENTITY-WARDROBE-BODY",
+      "code": "VQA-IDENTITY-WARDROBE-BODY",
+      "result": "PASS"
+    },
+    {
+      "name": "VQA-POSE-ACTION-AXIS",
+      "code": "VQA-POSE-ACTION-AXIS",
+      "result": "PASS"
+    },
+    {
+      "name": "VQA-ENVIRONMENT-LIGHTING-TEXT-STYLE",
+      "code": "VQA-ENVIRONMENT-LIGHTING-TEXT-STYLE",
+      "result": "PASS"
+    },
+    {
+      "name": "VQA-HANDS-PROPS-ANATOMY",
+      "code": "VQA-HANDS-PROPS-ANATOMY",
+      "result": "PASS"
+    },
+    {
+      "name": "VQA-PROP-CARRYING-CONTINUITY",
+      "code": "VQA-PROP-CARRYING-CONTINUITY",
+      "result": "FAIL"
+    },
+    {
+      "name": "VQA-COMPOSITION-PROTECTED-REGION",
+      "code": "VQA-COMPOSITION-PROTECTED-REGION",
+      "result": "FAIL"
+    }
+  ],
+  "known_issues": [
+    "VQA-COMPOSITION-PROTECTED-REGION major",
+    "VQA-PROP-CARRYING-CONTINUITY moderate",
+    "SOURCE-ONLY review of unadopted native1672x941 original SHA256 99ad452fd9d002f49a8fd958b9f7fe7a8f3e91927554ba1958b2f6b5748a7149. Original retained in active ignored job storage; no runtime asset adopted.",
+    "Compression PASS is ORIGINAL-only. Final derivative, desktop, both mobile profiles and Human master gate remain PENDING.",
+    "Exact input snapshot and Handoff stay ignored; verified Handoff SHA256 3ad8a2102db6b5ace621c7fefde1554341ff1d97244d4c7f10f5ede833680129. Cache paths are not required cross-session dependencies."
+  ],
+  "human_gate_required": "accepted_master_image_selection",
+  "invalidates": []
+}

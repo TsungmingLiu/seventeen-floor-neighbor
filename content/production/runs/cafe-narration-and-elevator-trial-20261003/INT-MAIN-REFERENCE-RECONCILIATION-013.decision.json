@@ -1,0 +1,159 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "resume_checkpoint",
+  "run_id": "cafe-narration-and-elevator-trial-20261003",
+  "task_id": "INT-MAIN-REFERENCE-RECONCILIATION-013",
+  "scene_id": "COM-02J+COM-02X",
+  "task_type": "integrate",
+  "status": "PASS",
+  "harness": {
+    "id": "integrator",
+    "version": "1.4.0",
+    "pass": null
+  },
+  "source_ref": "65b0c530232eeb63dd73ce6c6316c706a9f0887f",
+  "packet_sha256": "8580334a3fc868e3d77dbf60f38031f45249fd9d81ce676ad3d39e8899eec718",
+  "input_digest_sha256": "ce0456ce18e18c3ce1e4b4e96df4c311d2d413a27670e350f3cb05ab2beaf5b9",
+  "input_versions": [
+    {
+      "id": "65b0c530232eeb63dd73ce6c6316c706a9f0887f:tools/validate-production-contracts.mjs",
+      "version": "3e1ae9dae102eba58813480716558838834e8113cc6786f58998ae03ef622b5e",
+      "location": "tools/validate-production-contracts.mjs"
+    },
+    {
+      "id": "47e2c0df2e071f8be04cb26a38915dd853509954:tools/validate-production-contracts.mjs",
+      "version": "e41899fff33fb7f9b4eb69949d9af60d6f0989e2a20355cef73bd9dd95426394",
+      "location": "tools/validate-production-contracts.mjs"
+    },
+    {
+      "id": "65b0c530232eeb63dd73ce6c6316c706a9f0887f:content/assets/source-catalog.json",
+      "version": "298af943f183c6312978d69fbafc24682f7e34f6177233ec4639764060ac5007",
+      "location": "content/assets/source-catalog.json"
+    },
+    {
+      "id": "47e2c0df2e071f8be04cb26a38915dd853509954:content/assets/source-catalog.json",
+      "version": "bfdc06999b00aa4e3cbab4b463d257f4eca1d08e5bcecb1e7bc288bb25765d34",
+      "location": "content/assets/source-catalog.json"
+    },
+    {
+      "id": "47e2c0df2e071f8be04cb26a38915dd853509954:content/assets/character-reference-packs.json",
+      "version": "7b8807c02d39b07c95f91cd61bc75aea823881a8054e9a7d8be71ba5dc163bef",
+      "location": "content/assets/character-reference-packs.json"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "tools/validate-production-contracts.mjs",
+      "version": "c492958f86a3946580af71bd30775316ad5908a7ca3a80ba305810b694acff0a",
+      "location": "tools/validate-production-contracts.mjs"
+    },
+    {
+      "id": "content/assets/source-catalog.json",
+      "version": "4915ab55db8ea63f372a6303352ca313eb9ba2e042ea3e953072ed2bb89aeb02",
+      "location": "content/assets/source-catalog.json"
+    },
+    {
+      "id": "content/assets/character-reference-packs.json",
+      "version": "7b8807c02d39b07c95f91cd61bc75aea823881a8054e9a7d8be71ba5dc163bef",
+      "location": "content/assets/character-reference-packs.json"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "node-version",
+      "code": "node-version",
+      "result": "PASS"
+    },
+    {
+      "name": "focused-regressions",
+      "code": "focused-regressions",
+      "result": "FAIL"
+    },
+    {
+      "name": "focused-regressions-network",
+      "code": "focused-regressions-network",
+      "result": "PASS"
+    },
+    {
+      "name": "build",
+      "code": "build",
+      "result": "PASS"
+    },
+    {
+      "name": "validate",
+      "code": "validate",
+      "result": "FAIL"
+    },
+    {
+      "name": "storage",
+      "code": "storage",
+      "result": "FAIL"
+    },
+    {
+      "name": "coverage",
+      "code": "coverage",
+      "result": "FAIL"
+    },
+    {
+      "name": "preview-port-zero",
+      "code": "preview-port-zero",
+      "result": "PASS"
+    },
+    {
+      "name": "final-expected-rejection",
+      "code": "final-expected-rejection",
+      "result": "PASS"
+    },
+    {
+      "name": "diff-check",
+      "code": "diff-check",
+      "result": "PASS"
+    },
+    {
+      "name": "coverage-supported",
+      "code": "coverage-supported",
+      "result": "PASS"
+    },
+    {
+      "name": "validate-resolved-index",
+      "code": "validate-resolved-index",
+      "result": "PASS"
+    },
+    {
+      "name": "storage-resolved-index",
+      "code": "storage-resolved-index",
+      "result": "PASS"
+    },
+    {
+      "name": "frozen-game-inputs",
+      "code": "frozen-game-inputs",
+      "result": "PASS"
+    },
+    {
+      "name": "upstream-reference-identities",
+      "code": "upstream-reference-identities",
+      "result": "PASS"
+    },
+    {
+      "name": "conflict-marker-and-index-check",
+      "code": "conflict-marker-and-index-check",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "Final visual validation intentionally rejects the preview allowlist and allowPreviewArt. Trial original retains source QA FAIL; canonical adoption and independent display QA are not granted.",
+    "Coverage retains 2 placeholder and 2 provisional assets; coverageClear remains false.",
+    "Initial sandbox, unresolved-index and unsupported-CLI failures remain in cache logs; successful targeted retries are recorded separately.",
+    "Technical merge only: strict catalog combines four heroine packs and exactly one verified trial source. No fixture edits;72/72 focused tests actualPASS.",
+    "All26 frozen game inputs,24 upstream reference hashes and46 upstream source-catalog rows retained; mergedcatalog47 sources. QA009 trial display evidence remains valid for unchanged runtime render inputs, without changing sourceQA017 FAIL.",
+    {
+      "upstream_ref": "47e2c0df2e071f8be04cb26a38915dd853509954",
+      "handoff_sha256": "75157dd1a857a15376bfbef18be329b58c4004474ae3a3509fef6b668eb881b2",
+      "frozen_game_audit_sha256": "292952a2ea9812292ad598090aa6b991a715ef55c20ee4c22829876e7871744b",
+      "reference_hash_audit_sha256": "734395fc578c184116f88264be974f039b4b0d57bbed1ebb1d1ffd82b3256038"
+    }
+  ],
+  "human_gate_required": "none",
+  "invalidates": []
+}

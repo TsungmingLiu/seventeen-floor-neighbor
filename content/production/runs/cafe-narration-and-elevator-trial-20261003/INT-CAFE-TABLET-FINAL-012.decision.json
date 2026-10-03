@@ -1,0 +1,190 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "resume_checkpoint",
+  "run_id": "cafe-narration-and-elevator-trial-20261003",
+  "task_id": "INT-CAFE-TABLET-FINAL-012",
+  "scene_id": "COM-02J",
+  "task_type": "integrate",
+  "status": "PASS",
+  "harness": {
+    "id": "integrator",
+    "version": "1.4.0",
+    "pass": null
+  },
+  "source_ref": "efa3dfde776ab1dc232967a0d7587be877948ca2",
+  "packet_sha256": "117da6424a61844923d0a39fda195e69b5c2d6c374f6c019b1861eea90ba32c7",
+  "input_digest_sha256": "b7ee1fb36bc3896ccf92956f6f35ae175656bdb1219b47b07b0ffe37ad96d78e",
+  "input_versions": [
+    {
+      "id": "docs/narrative/scenes/vertical-slice/COM-02J.md",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02J.md",
+      "version": "8db1871c13cfc6b9f44fe434f93738cbd9c12f08eb21cacf602df2b7c3533655"
+    },
+    {
+      "id": "content/production/runs/cafe-narration-and-elevator-trial-20261003/NQA-CAFE-TABLET-FOLLOWUP-011.decision.json",
+      "location": "content/production/runs/cafe-narration-and-elevator-trial-20261003/NQA-CAFE-TABLET-FOLLOWUP-011.decision.json",
+      "version": "993c52cde544bbaa1c4705c5148fba94b70e7a9799af5d165cb24d814acbf837"
+    },
+    {
+      "id": "content/production/runs/cafe-narration-and-elevator-trial-20261003/INT-ELEVATOR-LANDSCAPE-CORRECTIVE-008.decision.json",
+      "location": "content/production/runs/cafe-narration-and-elevator-trial-20261003/INT-ELEVATOR-LANDSCAPE-CORRECTIVE-008.decision.json",
+      "version": "6810b7729ca0cd6a9c42775a7e0e019173a35a54a8d90f0ac251615da99a32e2"
+    },
+    {
+      "id": "content/production/runs/cafe-narration-and-elevator-trial-20261003/VQA-ELEVATOR-LANDSCAPE-CORRECTIVE-009.decision.json",
+      "location": "content/production/runs/cafe-narration-and-elevator-trial-20261003/VQA-ELEVATOR-LANDSCAPE-CORRECTIVE-009.decision.json",
+      "version": "c78510f1ceeee5a5ff21e1d02635486c0e54cd11defb45758fc39fd5d0c559c6"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "content/routes/opening-demo/chapter-01.json",
+      "location": "content/routes/opening-demo/chapter-01.json",
+      "version": "26cf6e6dc8db4d926e0706d33f89bd0447c624469be016654843324ca00f048a"
+    },
+    {
+      "id": "docs/narrative/scenes/vertical-slice/COM-02J.md",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02J.md",
+      "version": "745091840190f855cf9aa6cb8ade5e5c5a0921e9a3b1ebdf8bd7833010bc3ae3"
+    },
+    {
+      "id": "tests/com03j-preview.test.mjs",
+      "location": "tests/com03j-preview.test.mjs",
+      "version": "802b5866508ea23d682be7767c858e04e495f330ee09cc36f9c8387744ff70d3"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "source_acquisition_50_pinned_inputs",
+      "code": "source_acquisition_50_pinned_inputs",
+      "result": "PASS"
+    },
+    {
+      "name": "exact_complete_approved_scene_copy_745091",
+      "code": "exact_complete_approved_scene_copy_745091",
+      "result": "PASS"
+    },
+    {
+      "name": "only_names08_text_and_same_fixture_changed",
+      "code": "only_names08_text_and_same_fixture_changed",
+      "result": "PASS"
+    },
+    {
+      "name": "source_freeze_reverified_after_checks",
+      "code": "source_freeze_reverified_after_checks",
+      "result": "PASS"
+    },
+    {
+      "name": "focused_regressions_36_of_36",
+      "code": "focused_regressions_36_of_36",
+      "result": "PASS"
+    },
+    {
+      "name": "trial_render_consumed_inputs_unchanged_metadata_only",
+      "code": "trial_render_consumed_inputs_unchanged_metadata_only",
+      "result": "PASS"
+    },
+    {
+      "name": "original_886c78_and_WebP_04ce2f_unchanged",
+      "code": "original_886c78_and_WebP_04ce2f_unchanged",
+      "result": "PASS"
+    },
+    {
+      "name": "focused-regressions",
+      "code": "focused-regressions",
+      "result": "PASS"
+    },
+    {
+      "name": "build",
+      "code": "build",
+      "result": "PASS"
+    },
+    {
+      "name": "validate",
+      "code": "validate",
+      "result": "PASS"
+    },
+    {
+      "name": "storage",
+      "code": "storage",
+      "result": "PASS"
+    },
+    {
+      "name": "diff",
+      "code": "diff",
+      "result": "PASS"
+    },
+    {
+      "name": "preview-smoke",
+      "code": "preview-smoke",
+      "result": "PASS"
+    },
+    {
+      "name": "browser-word-save-reload",
+      "code": "browser-word-save-reload",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "Exact approved complete scene adopted; only names08 narration and its existing fixture mechanically updated. Focused36/36 and actual Chromium word/save/reload smoke exit0.",
+    "Prior full244/244 remains baseline evidence; full Verify on published head pending.",
+    "Independent QA009 trial display reused only for byte-identical consumed render inputs: 37/38 built files identical; changed chapter differs only in unrelated names08 text. SourceQA017 FAIL and final-art gates unchanged.",
+    {
+      "baseline_ref": "efa3dfde776ab1dc232967a0d7587be877948ca2",
+      "baseline_build_sha256": "f3aedd940cdb8c7605c7f4db52c071f74ab883a7b9b55293fcfb2ee19b8a9ac6",
+      "current_build_sha256": "42069a38e960720591d1c4c68f36ef6a3273f2409cc9d37086444e43283bf98b",
+      "unchanged_build_file_count": 37,
+      "changed_build_file": "dist/content/routes/opening-demo/chapter.json",
+      "render_preservation_evidence_sha256": "b861a75cf31c7913ab711a1fc15b26a447725ad55833cc15b98aaa3ed26a2d18",
+      "proof_scope": "metadata-only identity proof for Coordinator reuse; no new independent pixel QA; source clarity FAIL retained"
+    },
+    {
+      "render_object_id": "common_convenience_xu_exit",
+      "sha256": "b5a4519de2c091739b243f44bc42607d5c6a102fdbd8216b9abf6c8db374bdb8",
+      "unchanged": true
+    },
+    {
+      "render_object_id": "common_convenience_xu_exit_02",
+      "sha256": "022144e9e3971f6259c7d293dc9a563b0ad1be23b80464aee81b9fa336e4708f",
+      "unchanged": true
+    },
+    {
+      "render_object_id": "global:chapterLabels",
+      "sha256": "611ab9e647e1c364f93ced92ca1e6a8e329347120c183e8c04d91b465303ab9c",
+      "unchanged": true
+    },
+    {
+      "render_object_id": "route",
+      "sha256": "98ae4a8056b4605aa8b4b649404cec89fff0752b8e27adbbc0b8043ab067ff4a",
+      "unchanged": true
+    },
+    {
+      "render_object_id": "memory",
+      "sha256": "18d68f48cb23e97208718e54485ea31bcbe2e655284d009f2a18efe60f8d9571",
+      "unchanged": true
+    },
+    {
+      "render_object_id": "asset_registry",
+      "sha256": "5055bd4d48f5b9c95994ffd5fa77e6d16e279b2cab78f51b73651fd903509ec9",
+      "unchanged": true
+    },
+    {
+      "render_object_id": "css",
+      "sha256": "a517e215357315b1898b4343ed1baae052d46d2222259e55b67f0bbc5c8f9e80",
+      "unchanged": true
+    },
+    {
+      "render_object_id": "html",
+      "sha256": "7a3d3ad089c5359c67996406d3acfb769e8f37b16af65b8cd0baf61fec6ade76",
+      "unchanged": true
+    },
+    {
+      "render_object_id": "asset:bg.opening.com02x.return_elevator_trial",
+      "sha256": "7c58bd7e929827e9f9e39ae5c81937991010c64d8e922ed642d5dba6278ef6dc",
+      "unchanged": true
+    }
+  ],
+  "human_gate_required": "none",
+  "invalidates": []
+}

@@ -24,6 +24,9 @@ const SOURCE_CATALOG = 'content/assets/source-catalog.json';
 const GATE3_RECEIPT = 'content/assets/ingest-receipts/repo-source-gate3-v1.json';
 const COM02X_REFERENCE_RECEIPT = 'content/assets/ingest-receipts/com02x-environment-reference-v1.json';
 const COM02X_ACCEPTED_MASTERS_RECEIPT = 'content/assets/ingest-receipts/com02x-accepted-masters-v1.json';
+export const RETURN_ELEVATOR_TRIAL_RECEIPT = 'content/assets/ingest-receipts/return-elevator-trial-v1.json';
+export const RETURN_ELEVATOR_TRIAL_HUMAN = 'content/production/runs/cafe-narration-and-elevator-trial-20261003/HUMAN-ELEVATOR-TRIAL-004.decision.json';
+export const RETURN_ELEVATOR_TRIAL_QA = 'content/production/runs/opening-feedback-20261003/VQA-COM02X-ELEVATOR-SOURCE-017.decision.json';
 const ORCHESTRATION = '.ai/PRODUCTION_ORCHESTRATION.md';
 const SOURCE_MAP = 'docs/CONTENT_PRODUCTION_SOURCE_MAP.md';
 const DRY_RUN = 'tests/fixtures/production-orchestration-dry-run.json';
@@ -329,6 +332,49 @@ function validateOrchestrationContract() {
   }
 }
 
+// This exact Human-authorized trial adds no canonical accepted source or quality PASS.
+export function validateReturnElevatorTrial({ catalog, manifest, sourceMap, route, chapter, memories, receipt, human, qa, decisionHashes }, { verifyFiles = true } = {}) {
+  const check = (value, reason) => invariant(value, `return elevator trial: ${reason}`);
+  const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+  const id = 'bg.opening.com02x.return_elevator_trial';
+  const sourceId = 'source.opening.com02x.return_elevator_trial.original';
+  const originalPath = 'assets-src/opening-ch1-preview/return-elevator-trial-v1.png';
+  const derivativePath = 'assets-src/opening-ch1-preview/return-elevator-trial-v1.webp';
+  const runtimePath = 'assets/opening-ch1-preview/return-elevator-trial-v1.webp';
+  const originalHash = '886c78b86000350d289c5e6544f97d1727dcd506d676d8523d28c474fb854bac';
+  const humanHash = 'dd7f3e8404504704a677a2b8226936a13d69fbaf7fcbee18a538084ef5802a5b';
+  const qaHash = '20e91ab22294b3767742e306bd3afaeca728fc13a64bad0e0d46871eee4d7928';
+  const nodeIds = ['common_convenience_xu_exit', 'common_convenience_xu_exit_02'];
+  const conversion = { encoder: 'ffmpeg/libwebp', quality: 88, compressionLevel: 6, lossless: false, pixelFormat: 'rgb24', resize: null };
+  check(receipt?.receiptVersion === 1 && receipt.receiptType === 'human-authorized-preview-trial' && receipt.lifecycle === 'PREVIEW-ONLY' && receipt.integrationMode === 'narrative_preview' && receipt.logicalAssetId === id && receipt.sourceId === sourceId, 'receipt identity/scope mismatch');
+  const original = receipt.original;
+  const derivative = receipt.derivative;
+  check(original?.sourcePath === originalPath && original.filename === 'return-elevator-trial-v1.png' && original.sha256 === originalHash && original.bytes === 1986865 && original.width === 1672 && original.height === 941 && original.mimeType === 'image/png', 'selected original mismatch');
+  check(derivative?.sourcePath === derivativePath && derivative.runtimePath === runtimePath && derivative.originalSha256 === originalHash && /^[a-f0-9]{64}$/.test(derivative.sha256 || '') && Number.isInteger(derivative.bytes) && derivative.bytes > 0 && derivative.width === 1672 && derivative.height === 941 && derivative.mimeType === 'image/webp' && same(derivative.conversion, conversion), 'derivative identity/settings mismatch');
+  check(receipt.humanDecision?.path === RETURN_ELEVATOR_TRIAL_HUMAN && receipt.humanDecision.sha256 === humanHash && decisionHashes?.human === humanHash && receipt.humanDecision.id === 'HUMAN-ELEVATOR-TRIAL-004' && receipt.humanDecision.status === 'HUMAN_ACCEPTED_AS_IS' && receipt.humanDecision.scope === 'TRIAL_ONLY', 'Human decision fingerprint/scope mismatch');
+  check(human?.task_id === 'HUMAN-ELEVATOR-TRIAL-004' && human.status === 'HUMAN_ACCEPTED_AS_IS' && human.scene_id === 'COM-02X' && human.output_versions?.length === 1 && human.output_versions[0].id === 'selected-trial-original:COM02X-RETURN-ELEVATOR-01' && human.output_versions[0].version === originalHash, 'Human selection mismatch');
+  check(receipt.sourceQa?.path === RETURN_ELEVATOR_TRIAL_QA && receipt.sourceQa.sha256 === qaHash && decisionHashes?.qa === qaHash && receipt.sourceQa.id === 'VQA-COM02X-ELEVATOR-SOURCE-017' && receipt.sourceQa.status === 'FAIL' && qa?.task_id === 'VQA-COM02X-ELEVATOR-SOURCE-017' && qa.status === 'FAIL', 'source QA FAIL history mismatch');
+  check(same(receipt.knownIssues, qa.known_issues), 'known issues mismatch');
+  check(receipt.scope?.chapterId === 'opening-demo-chapter-01' && same(receipt.scope.nodeIds, nodeIds) && receipt.scope.gallery === false && receipt.scope.canonicalMasterAcceptance === 'NOT_ADOPTED' && receipt.scope.independentDisplayQa === 'PENDING', 'trial scope exceeds authorization');
+  const source = catalog?.files?.[sourceId];
+  check(source?.sourcePath === originalPath && source.name === original.filename && source.sha256 === originalHash && source.bytes === original.bytes && source.width === 1672 && source.height === 941 && source.mimeType === 'image/png' && source.status === 'preview-only-trial' && source.role === 'human_selected_preview_trial_original' && source.verifiedDecode === true && !source.canonicalAssetId && same(source.knownIssues, qa.known_issues), 'catalog original mismatch');
+  const asset = manifest?.assets?.[id];
+  check(asset?.kind === 'background' && asset.previewOnly === true && !asset.gallery && !asset.canonicalAssetId && !asset.canonicalCgManifest && !asset.canonicalCgEntry && asset.masterSourceId === sourceId && asset.src === runtimePath && asset.width === 1672 && asset.height === 941 && same(asset.knownIssues, qa.known_issues), 'preview asset mismatch');
+  const mapped = sourceMap?.files?.[runtimePath];
+  check(mapped?.source === derivativePath && mapped.transform === 'copy' && mapped.sha256 === derivative.sha256 && mapped.bytes === derivative.bytes && mapped.masterSourceId === sourceId && mapped.originalSha256 === originalHash && same(mapped.conversion, conversion), 'runtime derivative mapping mismatch');
+  check(route?.story?.allowPreviewArt === true && route.assetIds?.filter(value => value === id).length === 1, 'route preview opt-in/allowlist mismatch');
+  check(!JSON.stringify(route.story).includes(id) && memories && !JSON.stringify(memories).includes(id), 'trial cannot bind title/ending/Memory/Gallery');
+  const bindings = Object.entries(chapter?.nodes || {}).filter(([, node]) => node.visual?.background === id || node.visual?.asset === id);
+  check(same(bindings.map(([nodeId]) => nodeId), nodeIds) && bindings.every(([, node]) => same(node.visual, { mode: 'composite', background: id, sprites: [] })), 'exact two composite node bindings mismatch');
+  if (verifyFiles) {
+    for (const file of [original, derivative]) {
+      const bytes = fs.readFileSync(file.sourcePath);
+      check(bytes.length === file.bytes && sha256(bytes) === file.sha256, 'actual image fingerprint mismatch');
+    }
+  }
+  return 1;
+}
+
 function validateGate3RepositorySources(catalog) {
   validateRepoSourceCatalog(catalog);
   const receipt = readJson(GATE3_RECEIPT);
@@ -454,7 +500,8 @@ function validateGate3RepositorySources(catalog) {
   const walkManifest = readJson('content/production/cg-manifests/opening-ch1-com02x-walk.json');
   invariant(walkManifest.entries.length === 1 && walkManifest.entries[0].entry_id === walkAsset.entryId && walkManifest.entries[0].status === 'accepted' && JSON.stringify(walkManifest.entries[0].known_issues) === JSON.stringify(walkQa.known_issues), 'COM-02X walking manifest adoption/issues mismatch');
   const titleSourceCount = validateTitleMasterSource(catalog);
-  invariant(Object.keys(catalog.files).length === acceptedIds.size + restoredIds.size + linRuoqingIds.length + shenYingxueIds.length + 1 + batchIds.size + 1 + 1 + 1 + titleSourceCount, 'source catalog contains an unknown or unreceipted source');
+  const trialSourceCount = validateReturnElevatorTrial({ catalog, manifest: readJson('content/assets/manifest.json'), sourceMap: readJson('content/assets/source-map.json'), route: readJson(OPENING_ROUTE), chapter: readJson('content/routes/opening-demo/chapter-01.json'), memories: readJson('content/routes/opening-demo/memories.json'), receipt: readJson(RETURN_ELEVATOR_TRIAL_RECEIPT), human: readJson(RETURN_ELEVATOR_TRIAL_HUMAN), qa: readJson(RETURN_ELEVATOR_TRIAL_QA), decisionHashes: { human: sha256(fs.readFileSync(RETURN_ELEVATOR_TRIAL_HUMAN)), qa: sha256(fs.readFileSync(RETURN_ELEVATOR_TRIAL_QA)) } });
+  invariant(trialSourceCount === 1 && Object.keys(catalog.files).length === acceptedIds.size + restoredIds.size + linRuoqingIds.length + shenYingxueIds.length + 1 + batchIds.size + 1 + 1 + 1 + titleSourceCount + trialSourceCount, 'source catalog contains an unknown or unreceipted source');
   return receipt;
 }
 

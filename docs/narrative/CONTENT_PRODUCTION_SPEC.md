@@ -2,9 +2,9 @@
 
 > Lifecycle: **CANONICAL**
 >
-> Version: 1.2.0
+> Version: 1.2.1
 >
-> Updated: 2026-09-25
+> Updated: 2026-10-03
 
 本文件定義 production content 的單一路徑。語言規則是中文 prose + English canonical schema/identifier/production terminology；固定術語不得自行換成近義翻譯。
 
@@ -47,6 +47,10 @@ Approved Locked Scene 可以先以 repo 內的背景或明示的 preview-only We
 
 `Locked Scene` 在 Narrative Continuity Contract 內完成 narration、dialogue、choices、branch/rejoin、state mapping 與 `Semantic Visual Beat`。它可以寫「她先看書再抬眼」「兩人保持普通陌生人距離」，但不寫 image prompt、reference transport 或 adapter instructions。
 
+玩家可見 narration 預設採男主第一人稱當下視角；可自然表達時使用「我」，避免以第三人稱「男主」自稱，不要求每句補主詞。此 POV 仍受 knowledge／reveal timing 限制，不把觀察／推測寫成他人動機或未取得的事實。Scene／contract 技術 metadata 的「男主」角色標籤及其他具名角色與 narration 自稱分開處理。
+
+Playable prose 以中文為主，尤其 narration 避免無必要的中英夾雜；咖啡廳 `Laptop` 優先寫「筆記本電腦」、`Stylus` 優先寫「畫筆」，Human 明示接受 `MacBook` 作品牌名稱。這是風格預設與用字偏好，不是 ASCII 禁令；自然或情境所需的精確產品／平台／專有名稱可保留，不翻譯無關專名，不把 narration 的替換偏好機械套用到 dialogue。技術 schema／identifier／production terminology 仍遵守固定術語規則。
+
 ### Visual Production
 
 `CG Planner` 只從 approved Locked Scene 選擇值得 render 的 beat，建立 `Canonical CG Manifest`。每個 `CG Manifest Entry` 必須 render-ready and self-contained；任何未決 creative ambiguity 都退回前一層。
@@ -78,6 +82,7 @@ Runtime boolean/numeric flags 只放在 `implementation_mapping`。它們必須�
 
 - entry/exit relationship pace 沒有跳級；
 - character knowledge 與 reveal timing 正確；
+- 玩家可見 narration 的第一人稱自稱、中文用字偏好與自然專名例外成立，且保留 POV knowledge 限制及 dialogue 自然度；
 - dialogue voice 與 choice intent 成立；
 - branch 在 rejoin 後相容；
 - required payoff 已完成；

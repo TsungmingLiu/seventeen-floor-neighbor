@@ -114,7 +114,7 @@ Choice design notes：
 
 **Narration**：地下街那個女生提過北邊出口的咖啡店。至少「不太趕人」這一點是真的。
 
-**Action**：男主拿著 laptop bag 找座位，在窗邊看見熟悉的短髮側影。
+**Action**：我拿著筆記本電腦包找座位，在窗邊看見熟悉的短髮側影。
 
 ### `common_station_cafe_jyc_drawing`
 
@@ -122,7 +122,7 @@ Choice design notes：
 
 **Narration**：她在畫圖。不是隨手記幾筆；幾個相似輪廓排在一起，旁邊還有反覆調整過的色塊。
 
-**Action**：她停筆喝水，抬眼看見男主。兩人視線碰上。她停了兩秒。
+**Action**：她停筆喝水，抬眼看見我。我們的視線碰上。她停了兩秒。
 
 **Jiang Yucheng**：那本……後來有買嗎？
 
@@ -140,7 +140,7 @@ Choice design notes：
 
 **Jiang Yucheng**：江雨澄。
 
-**Action**：沒有握手。男主指向她旁邊的空位。
+**Action**：我們沒有握手。我指向她旁邊的空位。
 
 **Protagonist**：這裡有人嗎？如果妳要專心，我坐別邊。
 
@@ -150,7 +150,7 @@ Choice design notes：
 
 **Protagonist**：正好。我也要工作。
 
-**Action**：男主坐在斜對角，不直接面向她的 tablet。
+**Action**：我坐在斜對角，不直接面向她的平板電腦。
 
 ### `common_station_cafe_jyc_choice`
 
@@ -267,7 +267,7 @@ Selector / continuity notes（製作註記，不顯示給玩家）：
 
 **Audio**：咖啡機、遠處人流、stylus 輕觸聲。
 
-**Action**：男主闔上 laptop 準備離開；雨澄先抬頭。
+**Action**：我闔上筆記本電腦準備離開；雨澄先抬頭。
 
 ### `common_station_cafe_jyc_reciprocity`
 
@@ -293,7 +293,7 @@ Selector / continuity notes（製作註記，不顯示給玩家）：
 
 **Jiang Yucheng**：好。
 
-**Action**：男主背起 laptop bag。雨澄把 stylus 放回筆槽。
+**Action**：我背起筆記本電腦包。雨澄把畫筆放回筆槽。
 
 **Protagonist**：下次見，江雨澄。
 

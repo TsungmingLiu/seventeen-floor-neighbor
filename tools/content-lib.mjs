@@ -290,9 +290,16 @@ function validateStoryRoute(route, fail) {
       for (const branch of node.cases || []) {
         if (!nodes[branch.next]) fail(`route ${config.id} node ${id}: branch points to unknown node ${branch.next}`);
         for (const condition of branch.conditions || []) {
-          if (!(condition.stat in (chapter.initialState || {}))) fail(`route ${config.id} node ${id}: unknown stat ${condition.stat}`);
-          if (!['>=', '>', '<=', '<', '=='].includes(condition.operator)) fail(`route ${config.id} node ${id}: unsupported operator ${condition.operator}`);
-          if (!Number.isFinite(condition.value)) fail(`route ${config.id} node ${id}: condition ${condition.stat} must compare a finite number`);
+          if ('flag' in condition || 'present' in condition) {
+            if (typeof condition.flag !== 'string' || !condition.flag.trim()
+              || typeof condition.present !== 'boolean' || Object.keys(condition).length !== 2) {
+              fail(`route ${config.id} node ${id}: flag condition requires exactly a non-empty flag and boolean present`);
+            }
+          } else {
+            if (!(condition.stat in (chapter.initialState || {}))) fail(`route ${config.id} node ${id}: unknown stat ${condition.stat}`);
+            if (!['>=', '>', '<=', '<', '=='].includes(condition.operator)) fail(`route ${config.id} node ${id}: unsupported operator ${condition.operator}`);
+            if (!Number.isFinite(condition.value)) fail(`route ${config.id} node ${id}: condition ${condition.stat} must compare a finite number`);
+          }
         }
       }
       continue;
@@ -415,12 +422,16 @@ export async function validateContent(content, { finalVisuals = false } = {}) {
   }
 
   for (const [id, asset] of Object.entries(assets)) {
-    if (id === 'bg.narrative_preview.placeholder' && asset.previewOnly !== true) {
+    if (['bg.narrative_preview.placeholder', 'bg.opening.com02x.return_elevator_trial'].includes(id) && asset.previewOnly !== true) {
       fail(`asset ${id}: previewOnly must remain true`);
     }
     if (asset.previewOnly !== undefined) {
-      if (asset.previewOnly !== true || id !== 'bg.narrative_preview.placeholder' || asset.kind !== 'background' ||
-          asset.gallery || asset.participants || asset.canonicalCgEntry || asset.src !== 'assets/ui/narrative-preview-v1.webp') {
+      const previewPaths = {
+        'bg.narrative_preview.placeholder': 'assets/ui/narrative-preview-v1.webp',
+        'bg.opening.com02x.return_elevator_trial': 'assets/opening-ch1-preview/return-elevator-trial-v1.webp'
+      };
+      if (asset.previewOnly !== true || !Object.hasOwn(previewPaths, id) || asset.kind !== 'background' ||
+          asset.gallery || asset.participants || asset.canonicalCgEntry || asset.src !== previewPaths[id]) {
         fail(`asset ${id}: invalid preview-only asset contract`);
       }
     }

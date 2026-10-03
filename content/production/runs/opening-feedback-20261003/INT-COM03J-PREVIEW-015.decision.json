@@ -1,0 +1,197 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "resume_checkpoint",
+  "run_id": "opening-feedback-20261003",
+  "task_id": "INT-COM03J-PREVIEW-015",
+  "scene_id": "COM-03J",
+  "task_type": "integrate",
+  "status": "PASS",
+  "harness": {
+    "id": "integrator",
+    "version": "1.4.0",
+    "pass": null
+  },
+  "source_ref": "2665e195410b96d6bc8b83db40ab72f7c8fc49e3",
+  "packet_sha256": "86a6878cecfce9b11c2bc31e52c33352a9b7d6a73501acbc35a0cfa9396e9fa2",
+  "input_digest_sha256": "5fcc8988d02eeee15b85aa199d3c242725da159b51a6e231a49341ad48f63b02",
+  "input_versions": [
+    {
+      "id": "docs/narrative/scenes/vertical-slice/COM-03J.md",
+      "location": "docs/narrative/scenes/vertical-slice/COM-03J.md",
+      "version": "07ebd9ce5e2db5ace7c9f9e78cb6643f598326c55fb810f0f5eb103238865d27"
+    },
+    {
+      "id": "content/production/narrative/opening-ch1/COM-03J.json",
+      "location": "content/production/narrative/opening-ch1/COM-03J.json",
+      "version": "582918460ef2cef867a9c009e97d003313c05e236c3d814af80fe68949c3c1ce"
+    },
+    {
+      "id": "content/production/runs/opening-feedback-20261003/NQA-COM03J-010.decision.json",
+      "location": "content/production/runs/opening-feedback-20261003/NQA-COM03J-010.decision.json",
+      "version": "7f6096dbff056babe6f91f0ccbb55ab8a9656dc9a4d0dfc6cd1b95a10da78b18"
+    },
+    {
+      "id": "content/production/runs/com02j-m1-preview-20261002/HUMAN-COM02J-STORY-011.decision.json",
+      "location": "content/production/runs/com02j-m1-preview-20261002/HUMAN-COM02J-STORY-011.decision.json",
+      "version": "b42b0addc8cc699891407c99fdb6cf094f15fcab4c28490a23fbcffef425ef81"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "content/routes/opening-demo/chapter-01.json",
+      "version": "455ea31726c4bd1f3581899aee44568ed416f5a108cfc01472c9bc5ad52b4538",
+      "location": "content/routes/opening-demo/chapter-01.json"
+    },
+    {
+      "id": "content/routes/opening-demo/route.json",
+      "version": "90931684308ab248d93c764939e47515d65bb63b709cc5c0d9f01e786c4dda05",
+      "location": "content/routes/opening-demo/route.json"
+    },
+    {
+      "id": "content/routes/opening-demo/memories.json",
+      "version": "18d68f48cb23e97208718e54485ea31bcbe2e655284d009f2a18efe60f8d9571",
+      "location": "content/routes/opening-demo/memories.json"
+    },
+    {
+      "id": "src/engine.js",
+      "version": "c61f58059de87986042f05433f03db5f3ac58c2d3428fafc027ae398706089db",
+      "location": "src/engine.js"
+    },
+    {
+      "id": "src/progress.js",
+      "version": "1870cbb32ec4b5a3eecb1169391d56cad2b6d94b69227a4203122a99cf72aaab",
+      "location": "src/progress.js"
+    },
+    {
+      "id": "tools/content-lib.mjs",
+      "version": "acdd2097c10b388771a90ef9f814e9273de7b933dcebc096e72e0d258ef89908",
+      "location": "tools/content-lib.mjs"
+    },
+    {
+      "id": "tests/com02j-preview.test.mjs",
+      "version": "5d74ac2a265e5c52023a29ae8db3024ef6e58ff91a3753816c0dc3e5fc0d6f73",
+      "location": "tests/com02j-preview.test.mjs"
+    },
+    {
+      "id": "tests/com03x-preview.test.mjs",
+      "version": "137b16865428f2b8dee7babbb796c85a4d1f5cb17465fa5969fca84784d1f0f4",
+      "location": "tests/com03x-preview.test.mjs"
+    },
+    {
+      "id": "tests/browser-acceptance.spec.mjs",
+      "version": "04153a3b9bbfa48ec0b752a00b4499b59710fd3c5694a8afc6469c9d4ebc92f4",
+      "location": "tests/browser-acceptance.spec.mjs"
+    },
+    {
+      "id": "tests/content-validation.test.mjs",
+      "version": "8d12ade92d56c5e33918c927696683e38e17ed145cc02129859a55d3579a8425",
+      "location": "tests/content-validation.test.mjs"
+    },
+    {
+      "id": "tests/engine-progress.test.mjs",
+      "version": "b9f55ec4dc1f954c5df52db6b27d190c6aa764ea8a6d58f21489f147b9570cc7",
+      "location": "tests/engine-progress.test.mjs"
+    },
+    {
+      "id": "tests/opening-locked-scenes.test.mjs",
+      "version": "50944c72354e7baa8c03952a8018ba16e4532c73e8663177b477334d135e5103",
+      "location": "tests/opening-locked-scenes.test.mjs"
+    },
+    {
+      "id": "tests/com03j-preview.test.mjs",
+      "version": "fa7e62c5ee450067b7bac44b60f0361a0ad10abb5525bee151b360ae565d743d",
+      "location": "tests/com03j-preview.test.mjs"
+    },
+    {
+      "id": "tests/asset-coverage.test.mjs",
+      "version": "a260ecc32010a4125a9289556aae57354918af7bdc9de71d751d418df231107f",
+      "location": "tests/asset-coverage.test.mjs"
+    },
+    {
+      "id": "tests/production-integration-check.test.mjs",
+      "version": "72d9a6fbacb0a4250d388bf03488f41823d76991c800bbf0d745837101487053",
+      "location": "tests/production-integration-check.test.mjs"
+    },
+    {
+      "id": "tests/title-art-impact.test.mjs",
+      "version": "26edc942dd63845a19277c8cccc6ad572dc67e0d63b8c637cf1f78205c9bcd9c",
+      "location": "tests/title-art-impact.test.mjs"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "immutable_source_acquisition_and_independent_NQA_binding",
+      "code": "immutable_source_acquisition_and_independent_NQA_binding",
+      "result": "PASS"
+    },
+    {
+      "name": "approved_text_compilation",
+      "code": "approved_text_compilation",
+      "result": "PASS"
+    },
+    {
+      "name": "preserved_old_prose_effects_IDs_early_speaker_names_Memory_and_art",
+      "code": "preserved_old_prose_effects_IDs_early_speaker_names_Memory_and_art",
+      "result": "PASS"
+    },
+    {
+      "name": "build",
+      "code": "build",
+      "result": "PASS"
+    },
+    {
+      "name": "validate",
+      "code": "validate",
+      "result": "PASS"
+    },
+    {
+      "name": "diff_check",
+      "code": "diff_check",
+      "result": "PASS"
+    },
+    {
+      "name": "focused_runtime_source_save_replay_suite",
+      "code": "focused_runtime_source_save_replay_suite",
+      "result": "PASS"
+    },
+    {
+      "name": "focused_asset_inventory_regression",
+      "code": "focused_asset_inventory_regression",
+      "result": "PASS"
+    },
+    {
+      "name": "focused_historical_gate_and_title_fixtures",
+      "code": "focused_historical_gate_and_title_fixtures",
+      "result": "PASS"
+    },
+    {
+      "name": "npm_test",
+      "code": "npm_test",
+      "result": "PASS"
+    },
+    {
+      "name": "preview_smoke_isolated_free_port",
+      "code": "preview_smoke_isolated_free_port",
+      "result": "PASS"
+    },
+    {
+      "name": "installed_Chromium_story_save_reload_Memory",
+      "code": "installed_Chromium_story_save_reload_Memory",
+      "result": "PASS"
+    },
+    {
+      "name": "validate_final_visuals",
+      "code": "validate_final_visuals",
+      "result": "FAIL"
+    }
+  ],
+  "known_issues": [
+    "Coordinator must publish verified commit/CI/public URL for Human narrative-preview review; local URL is not a public deployment.",
+    "COM03J uses only the registered preview-only background. CG/visual production, independent final visual QA and final playable acceptance remain outside this task.",
+    "Whole final visual validator intentionally rejects current preview opt-in/placeholder; historical asset caveats and QA/Human statuses remain unchanged.",
+    "Full packet/input snapshot and Handoff are ignored execution artifacts; verified Handoff SHA256 47fce7963b568d3aef8e0c45f9afa5838d674e24cbb96095e4148ee74f2d8b31. No automatic current-PASS claim from legacy schema2-unsupported verifier."
+  ],
+  "human_gate_required": "narrative_preview_review",
+  "invalidates": []
+}

@@ -34,7 +34,8 @@ export class ProgressStore {
       frontierRank: -1,
       checkpoints: {},
       edges: [],
-      com02jSupplement: null
+      com02jSupplement: null,
+      com03jReplay: null
     };
   }
 
@@ -110,6 +111,33 @@ export class ProgressStore {
     return nodeId?.startsWith('common_station_cafe_jyc_') || nodeId?.startsWith('com02j_');
   }
 
+  isCom03j(nodeId) {
+    return nodeId?.startsWith('common_recommend_discord_jyc_') || nodeId === 'com03j_preview_complete';
+  }
+
+  reopenCom03jAppend() {
+    if (this.chapter.id !== 'opening-demo-chapter-01' || this.data.restartActive
+      || this.data.com02jSupplement || this.data.com03jReplay) return;
+    const frontier = this.data.frontier;
+    if (this.data.runComplete && frontier?.nodeId === 'com03x_preview_complete'
+      && this.chapter.nodes.com03x_preview_complete?.type === 'branch'
+      && frontier.flags.includes('preview:com02j-complete')) {
+      this.data.runComplete = false;
+      this.flush();
+    }
+  }
+
+  finishCom03jReplay() {
+    const replay = this.data.com03jReplay;
+    if (!replay) return null;
+    this.data.cursor = this.clone(replay.returnCursor);
+    this.data.com03jReplay = null;
+    this.data.restartActive = replay.returnRestartActive === true;
+    this.replaying = this.data.restartActive;
+    this.flush();
+    return this.restore(this.data.restartActive ? this.data.cursor : this.data.frontier || this.data.cursor);
+  }
+
   loadCom02jSupplement(saved) {
     if (this.chapter.id !== 'opening-demo-chapter-01' || !this.chapter.nodes.common_station_cafe_jyc_enter) return;
     const pending = saved.com02jSupplement;
@@ -123,7 +151,8 @@ export class ProgressStore {
     // Earlier ordinary Memory cursors and explicit restarts never reopen a world.
     if (restartActive || !cursor || !frontier || !this.isCom03x(cursor.nodeId)
       || cursor.nodeId !== frontier.nodeId || frontier.flags.includes('preview:com02j-complete')) return;
-    if (runComplete && this.chapter.nodes[cursor.nodeId]?.type !== 'route') return;
+    if (runComplete && this.chapter.nodes[cursor.nodeId]?.type !== 'route'
+      && cursor.nodeId !== 'com03x_preview_complete') return;
     const predecessor = this.data.checkpoints.common_convenience_xu_exit_08;
     const entry = predecessor ? this.clone(predecessor) : {
       nodeId: 'common_station_cafe_jyc_enter', stats: { ...this.chapter.initialState,
@@ -153,6 +182,7 @@ export class ProgressStore {
     this.data.checkpoints[returned.nodeId] = this.clone(returned);
     this.data.com02jSupplement = null;
     this.data.runComplete = pending.wasComplete;
+    this.reopenCom03jAppend();
     this.flush();
     return this.restore(returned);
   }
@@ -214,6 +244,13 @@ export class ProgressStore {
         }
       }
       this.loadCom02jSupplement(saved);
+      if (saved.com03jReplay && this.isCom03j(this.data.cursor?.nodeId)
+        && this.valid(saved.com03jReplay.returnCursor) && !this.data.restartActive) {
+        this.data.com03jReplay = { returnCursor: this.clone(saved.com03jReplay.returnCursor),
+          returnRestartActive: saved.com03jReplay.returnRestartActive === true };
+        this.replaying = true;
+      }
+      this.reopenCom03jAppend();
       return;
     }
 
@@ -221,7 +258,8 @@ export class ProgressStore {
     if (legacy?.version !== 1) return;
     this.data.checkpoints = this.sanitizeCheckpoints(legacy.checkpoints);
     this.data.cursor = this.clone(legacy.current);
-    this.data.runComplete = this.chapter.nodes[this.data.cursor?.nodeId]?.type === 'route';
+    this.data.runComplete = this.chapter.nodes[this.data.cursor?.nodeId]?.type === 'route'
+      || (this.chapter.id === 'opening-demo-chapter-01' && this.data.cursor?.nodeId === 'com03x_preview_complete');
     this.data.edges = this.sanitizeEdges(legacy.edges);
     const deepest = this.deepestSnapshot(this.data.checkpoints, this.data.cursor);
     if (deepest) {
@@ -232,6 +270,7 @@ export class ProgressStore {
       this.data.frontier = this.clone(this.data.cursor);
     }
     this.loadCom02jSupplement(legacy);
+    this.reopenCom03jAppend();
     this.flush();
   }
 
@@ -240,11 +279,11 @@ export class ProgressStore {
       .map(key => [key, state[key] ?? this.chapter.initialState[key]]));
     const snapshot = { nodeId, stats, flags: [...state.flags], returnNodes: [...returnNodes] };
     this.data.cursor = this.clone(snapshot);
-    this.data.checkpoints[nodeId] = this.clone(snapshot);
+    if (!this.data.com03jReplay) this.data.checkpoints[nodeId] = this.clone(snapshot);
     const event = memoryEventForNode(this.memories, nodeId);
     const rank = this.progressRank(snapshot, event);
     const advancesFrontier = event && rank > this.data.frontierRank;
-    if (!this.data.com02jSupplement && event && (
+    if (!this.data.com02jSupplement && !this.data.com03jReplay && event && (
       !this.data.frontier
       || advancesFrontier
       || (!this.replaying && event.id === this.data.frontierMemoryEventId)
@@ -273,6 +312,11 @@ export class ProgressStore {
   }
 
   beginReplay(snapshot = null) {
+    if (this.chapter.id === 'opening-demo-chapter-01' && this.isCom03j(snapshot?.nodeId)
+      && !this.data.com03jReplay && this.valid(this.data.cursor || this.data.frontier)) {
+      this.data.com03jReplay = { returnCursor: this.clone(this.data.cursor || this.data.frontier),
+        returnRestartActive: this.data.restartActive };
+    }
     if (snapshot && !this.setCursor(snapshot)) return false;
     this.data.restartActive = false;
     this.replaying = true;
@@ -281,6 +325,7 @@ export class ProgressStore {
   }
 
   beginFreshRun() {
+    this.data.com03jReplay = null;
     this.data.restartActive = true;
     this.data.runComplete = false;
     this.replaying = true;
@@ -299,6 +344,7 @@ export class ProgressStore {
   }
 
   connect(from, to) {
+    if (this.data.com03jReplay) return;
     if (!from || !to || from === to) return;
     if (!this.data.edges.some(edge => edge[0] === from && edge[1] === to)) {
       this.data.edges.push([from, to]);

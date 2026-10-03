@@ -2,6 +2,7 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
+import { validateReturnElevatorTrial, RETURN_ELEVATOR_TRIAL_RECEIPT, RETURN_ELEVATOR_TRIAL_HUMAN, RETURN_ELEVATOR_TRIAL_QA } from './validate-production-contracts.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const ASSETS = 'content/assets/manifest.json';
@@ -14,14 +15,17 @@ const RECEIPTS = [
   'content/assets/ingest-receipts/com02x-accepted-masters-v1.json',
   'content/assets/ingest-receipts/com02x-microwave-accepted-master-v1.json',
   'content/assets/ingest-receipts/com02x-walk-adopted-master-v3.json',
-  'content/assets/ingest-receipts/title-master-native-v1.json'
+  'content/assets/ingest-receipts/title-master-native-v1.json',
+  RETURN_ELEVATOR_TRIAL_RECEIPT
 ];
 // Deliberately bounded: catalog statuses and unrelated receipts cannot grant adoption.
 const DECISIONS = [
   'content/production/runs/com02x-cg-20260930/HUMAN-COM02X-MASTER-001.decision.json',
   'content/production/runs/com02x-cg-20260930/HUMAN-COM02X-MASTER-002.decision.json',
   'content/production/runs/com02x-visual-bindings-20261001/HUMAN-COM02X-WALK-ADOPTION-003.decision.json',
-  'content/production/runs/title-key-visual-20261002/HUMAN-TITLE-MASTER-001.decision.json'
+  'content/production/runs/title-key-visual-20261002/HUMAN-TITLE-MASTER-001.decision.json',
+  RETURN_ELEVATOR_TRIAL_HUMAN,
+  RETURN_ELEVATOR_TRIAL_QA
 ];
 export const sha256 = (bytes) => createHash('sha256').update(bytes).digest('hex');
 const sorted = (values) => [...new Set(values)].sort();
@@ -162,7 +166,29 @@ export function createCoverageReport({ documents, sourceErrors = [] }) {
       const { receiptPath, receipt, item } = candidates[0];
       evidence.push({ location: receiptPath, sha256: documents[receiptPath].sha256 });
       check(receipt.receiptVersion === 1, 'RECEIPT_VERSION_UNKNOWN');
-      if (receiptPath === RECEIPTS[1]) {
+      if (receiptPath === RETURN_ELEVATOR_TRIAL_RECEIPT) {
+        status = 'placeholder';
+        adoptionScope = 'narrative_preview_only';
+        disposition = 'trial-only';
+        visualQaStatus = 'FAIL';
+        knownIssues.push(...issues(receipt.knownIssues), 'VISUAL_QA_FAIL');
+        for (const location of [RETURN_ELEVATOR_TRIAL_HUMAN, RETURN_ELEVATOR_TRIAL_QA]) {
+          if (documents[location]) evidence.push({ location, sha256: documents[location].sha256 });
+        }
+        const route = get('content/routes/opening-demo/route.json');
+        try {
+          validateReturnElevatorTrial({ catalog: get(CATALOG), manifest: get(ASSETS), sourceMap: get(SOURCES), route,
+            chapter: get('content/routes/opening-demo/chapter-01.json'), receipt,
+            memories: get('content/routes/opening-demo/memories.json'),
+            human: get(RETURN_ELEVATOR_TRIAL_HUMAN), qa: get(RETURN_ELEVATOR_TRIAL_QA),
+            decisionHashes: { human: documents[RETURN_ELEVATOR_TRIAL_HUMAN]?.sha256, qa: documents[RETURN_ELEVATOR_TRIAL_QA]?.sha256 }
+          }, { verifyFiles: false });
+        } catch {
+          check(false, 'TRIAL_PROVENANCE_MISMATCH');
+        }
+        check(assetId === 'bg.opening.com02x.return_elevator_trial' && (references.get(assetId) || []).length === 2 &&
+          (references.get(assetId) || []).every(ref => ref.routeId === 'opening-demo' && ['node:common_convenience_xu_exit:background', 'node:common_convenience_xu_exit_02:background'].includes(ref.binding)), 'TRIAL_RUNTIME_SCOPE_MISMATCH');
+      } else if (receiptPath === RECEIPTS[1]) {
         status = 'placeholder';
         adoptionScope = 'narrative_preview_only';
         check(receipt.lifecycle === 'PREVIEW-ONLY' && asset.previewOnly === true, 'PREVIEW_SCOPE_MISMATCH');

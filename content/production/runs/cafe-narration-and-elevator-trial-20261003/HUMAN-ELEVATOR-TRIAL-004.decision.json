@@ -1,0 +1,49 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "human_decision",
+  "run_id": "cafe-narration-and-elevator-trial-20261003",
+  "task_id": "HUMAN-ELEVATOR-TRIAL-004",
+  "scene_id": "COM-02X",
+  "task_type": "human_decision",
+  "status": "HUMAN_ACCEPTED_AS_IS",
+  "harness": {
+    "id": "Human",
+    "version": "2026-10-03",
+    "pass": null
+  },
+  "source_ref": "a2942035435cb675841d4fd0650a3e859b94f8e4",
+  "input_versions": [
+    {
+      "id": "VQA-COM02X-ELEVATOR-SOURCE-014.decision",
+      "location": "content/production/runs/opening-feedback-20261003/VQA-COM02X-ELEVATOR-SOURCE-014.decision.json",
+      "version": "02fb76ac7b0ea4de0cab26be070199b4ddcd5247f401853d906b9c93abc6e9b4"
+    },
+    {
+      "id": "VQA-COM02X-ELEVATOR-SOURCE-017.decision",
+      "location": "content/production/runs/opening-feedback-20261003/VQA-COM02X-ELEVATOR-SOURCE-017.decision.json",
+      "version": "20e91ab22294b3767742e306bd3afaeca728fc13a64bad0e0d46871eee4d7928"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "selected-trial-original:COM02X-RETURN-ELEVATOR-01",
+      "version": "886c78b86000350d289c5e6544f97d1727dcd506d676d8523d28c474fb854bac",
+      "location": "external:displayed-corrective-elevator-original"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "actual-original-trial-selection",
+      "code": "HUMAN_EXPLICIT_TRIAL_SELECTION",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "Human quote: 電梯後選圖我覺得沒啥問題，先做進去試試看。",
+    "Exact displayed 1672x941 PNG authorized for preview-only trial integration; retain original bytes. This decision does not adopt canonical final CG or confer final visual/playable acceptance.",
+    "Source QA014 and QA017 remain FAIL; selected QA017 records protected-zone composition, bag-arm continuity and localized panel clarity issues. Independent derivative/display checks remain required; no redraw authorized."
+  ],
+  "human_gate_required": "none",
+  "invalidates": []
+}

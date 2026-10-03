@@ -1497,7 +1497,7 @@
       "chapter": 3,
       "visual": {
         "mode": "composite",
-        "background": "bg.opening.ch1.apt_elevator",
+        "background": "bg.opening.com02x.return_elevator_trial",
         "sprites": []
       },
       "next": "common_convenience_xu_exit_02"
@@ -1508,7 +1508,7 @@
       "chapter": 3,
       "visual": {
         "mode": "composite",
-        "background": "bg.opening.ch1.apt_elevator",
+        "background": "bg.opening.com02x.return_elevator_trial",
         "sprites": []
       },
       "next": "common_convenience_xu_exit_03"
@@ -3551,7 +3551,8 @@
       ]
     },
     "com03x_preview_complete": {
-      "type": "route"
+      "type": "branch",
+      "default": "common_recommend_discord_jyc_enter"
     },
     "common_station_cafe_jyc_enter": {
       "speaker": "旁白",
@@ -3577,7 +3578,7 @@
     },
     "common_station_cafe_jyc_enter_03": {
       "speaker": "旁白",
-      "text": "男主拿著 laptop bag 找座位，在窗邊看見熟悉的短髮側影。",
+      "text": "我拿著筆記本電腦包找座位，在窗邊看見熟悉的短髮側影。",
       "chapter": 5,
       "visual": {
         "mode": "composite",
@@ -3599,7 +3600,7 @@
     },
     "common_station_cafe_jyc_drawing_02": {
       "speaker": "旁白",
-      "text": "她停筆喝水，抬眼看見男主。兩人視線碰上。她停了兩秒。",
+      "text": "她停筆喝水，抬眼看見我。我們的視線碰上。她停了兩秒。",
       "chapter": 5,
       "visual": {
         "mode": "composite",
@@ -3676,7 +3677,7 @@
     },
     "common_station_cafe_jyc_names_03": {
       "speaker": "旁白",
-      "text": "沒有握手。男主指向她旁邊的空位。",
+      "text": "我們沒有握手。我指向她旁邊的空位。",
       "chapter": 5,
       "visual": {
         "mode": "composite",
@@ -3731,7 +3732,7 @@
     },
     "common_station_cafe_jyc_names_08": {
       "speaker": "旁白",
-      "text": "男主坐在斜對角，不直接面向她的 tablet。",
+      "text": "我坐在斜對角，不直接面向她的平板電腦。",
       "chapter": 5,
       "visual": {
         "mode": "composite",
@@ -3765,7 +3766,7 @@
     },
     "common_station_cafe_jyc_parallel_03": {
       "speaker": "旁白",
-      "text": "男主闔上 laptop 準備離開；雨澄先抬頭。",
+      "text": "我闔上筆記本電腦準備離開；雨澄先抬頭。",
       "chapter": 5,
       "visual": {
         "mode": "composite",
@@ -3875,7 +3876,7 @@
     },
     "common_station_cafe_jyc_exit_05": {
       "speaker": "旁白",
-      "text": "男主背起 laptop bag。雨澄把 stylus 放回筆槽。",
+      "text": "我背起筆記本電腦包。雨澄把畫筆放回筆槽。",
       "chapter": 5,
       "visual": {
         "mode": "composite",
@@ -4482,6 +4483,1346 @@
         "jyc_initiated_second_contact",
         "preview:com02j-complete"
       ]
+    },
+    "common_recommend_discord_jyc_enter": {
+      "chapter": 6,
+      "speaker": "旁白",
+      "text": "我推開咖啡店的門，先把杯子換到另一隻手。門外有人停了一下。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_enter_02",
+      "semanticVisualBeat": "男主拿著剛買的咖啡走出店門；雨澄在門外認出他，停下來先開口。"
+    },
+    "common_recommend_discord_jyc_enter_02": {
+      "chapter": 6,
+      "speaker": "江雨澄",
+      "text": "欸，你好。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_enter_03"
+    },
+    "common_recommend_discord_jyc_enter_03": {
+      "chapter": 6,
+      "speaker": "你",
+      "text": "喔，妳好。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_enter_04"
+    },
+    "common_recommend_discord_jyc_enter_04": {
+      "chapter": 6,
+      "speaker": "江雨澄",
+      "text": "我回去找到了。上次在咖啡店聊完，我想到一個遊戲，一時忘了叫什麼。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_enter_05"
+    },
+    "common_recommend_discord_jyc_enter_05": {
+      "chapter": 6,
+      "speaker": "你",
+      "text": "嗯？哪個？",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_callback"
+    },
+    "common_recommend_discord_jyc_callback_her_art": {
+      "chapter": 6,
+      "speaker": "江雨澄",
+      "text": "《折返月台》。裡面有個角色，坐著跟站著都很好認。我想到上次你問的那幾張動作。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_callback_her_art_02"
+    },
+    "common_recommend_discord_jyc_callback_her_art_02": {
+      "chapter": 6,
+      "speaker": "你",
+      "text": "看輪廓跟重心那個？",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_callback_her_art_03"
+    },
+    "common_recommend_discord_jyc_callback_her_art_03": {
+      "chapter": 6,
+      "speaker": "江雨澄",
+      "text": "嗯。截圖比較好講，我找一下。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_contact"
+    },
+    "common_recommend_discord_jyc_callback_shared_visual_design": {
+      "chapter": 6,
+      "speaker": "江雨澄",
+      "text": "《折返月台》。上次說亮的地方少一點，視線才會過去——它有幾個畫面是這樣。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_callback_shared_visual_design_02"
+    },
+    "common_recommend_discord_jyc_callback_shared_visual_design_02": {
+      "chapter": 6,
+      "speaker": "你",
+      "text": "不是把整張拉亮。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_callback_shared_visual_design_03"
+    },
+    "common_recommend_discord_jyc_callback_shared_visual_design_03": {
+      "chapter": 6,
+      "speaker": "江雨澄",
+      "text": "對。我有留一張截圖。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_contact"
+    },
+    "common_recommend_discord_jyc_callback_shared_worldbuilding": {
+      "chapter": 6,
+      "speaker": "江雨澄",
+      "text": "《折返月台》。它也是用畫面把環境分開，讓你知道現在在哪裡。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_callback_shared_worldbuilding_02"
+    },
+    "common_recommend_discord_jyc_callback_shared_worldbuilding_02": {
+      "chapter": 6,
+      "speaker": "你",
+      "text": "像上次說雨港的分區？",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_callback_shared_worldbuilding_03"
+    },
+    "common_recommend_discord_jyc_callback_shared_worldbuilding_03": {
+      "chapter": 6,
+      "speaker": "江雨澄",
+      "text": "有一點那種感覺。場景不一樣，我找圖給你看。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_contact"
+    },
+    "common_recommend_discord_jyc_callback_shared_edition_value": {
+      "chapter": 6,
+      "speaker": "江雨澄",
+      "text": "《折返月台》。我有留一張截圖，字看得清楚的。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_callback_shared_edition_value_02"
+    },
+    "common_recommend_discord_jyc_callback_shared_edition_value_02": {
+      "chapter": 6,
+      "speaker": "你",
+      "text": "這次不用拿反面教材了。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_callback_shared_edition_value_03"
+    },
+    "common_recommend_discord_jyc_callback_shared_edition_value_03": {
+      "chapter": 6,
+      "speaker": "江雨澄",
+      "text": "嗯，省得又要放大找字。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_contact"
+    },
+    "common_recommend_discord_jyc_callback_shared_neutral": {
+      "chapter": 6,
+      "speaker": "江雨澄",
+      "text": "《折返月台》。上次說設定集的構圖跟色塊可以拿來參考，我想到它有幾張畫面可以一起看。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_callback_shared_neutral_02"
+    },
+    "common_recommend_discord_jyc_callback_shared_neutral_02": {
+      "chapter": 6,
+      "speaker": "你",
+      "text": "喔，好。是遊戲裡的畫面？",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_callback_shared_neutral_03"
+    },
+    "common_recommend_discord_jyc_callback_shared_neutral_03": {
+      "chapter": 6,
+      "speaker": "江雨澄",
+      "text": "嗯，我有截圖。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_contact"
+    },
+    "common_recommend_discord_jyc_callback_general_praise": {
+      "chapter": 6,
+      "speaker": "江雨澄",
+      "text": "《折返月台》。我有留截圖。這次不用關掉亂的圖層。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_callback_general_praise_02"
+    },
+    "common_recommend_discord_jyc_callback_general_praise_02": {
+      "chapter": 6,
+      "speaker": "你",
+      "text": "這次是完整的？",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_callback_general_praise_03"
+    },
+    "common_recommend_discord_jyc_callback_general_praise_03": {
+      "chapter": 6,
+      "speaker": "江雨澄",
+      "text": "它的畫面啦，不是我的圖。月台那邊，我覺得你可以看一下。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_contact"
+    },
+    "common_recommend_discord_jyc_callback_neutral": {
+      "chapter": 6,
+      "speaker": "江雨澄",
+      "text": "《折返月台》。也是看畫面細節會比較有意思的那種。我有留一張截圖。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_callback_neutral_02"
+    },
+    "common_recommend_discord_jyc_callback_neutral_02": {
+      "chapter": 6,
+      "speaker": "你",
+      "text": "喔，好。妳有連結嗎？",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_callback_neutral_03"
+    },
+    "common_recommend_discord_jyc_callback_neutral_03": {
+      "chapter": 6,
+      "speaker": "江雨澄",
+      "text": "有，我找一下。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_contact"
+    },
+    "common_recommend_discord_jyc_contact": {
+      "chapter": 6,
+      "speaker": "旁白",
+      "text": "她滑了幾下，停在作品頁。店門又開了一次，我往旁邊讓了半步。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_contact_02",
+      "semanticVisualBeat": "她在自己手機上找公開作品頁。男主仍拿著杯子，等她找完。"
+    },
+    "common_recommend_discord_jyc_contact_02": {
+      "chapter": 6,
+      "speaker": "江雨澄",
+      "text": "我傳給你？這邊講可能講不完。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_contact_03"
+    },
+    "common_recommend_discord_jyc_contact_03": {
+      "chapter": 6,
+      "speaker": "你",
+      "text": "好啊。妳用 Discord 嗎？",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_contact_04"
+    },
+    "common_recommend_discord_jyc_contact_04": {
+      "chapter": 6,
+      "speaker": "江雨澄",
+      "text": "有。你給我帳號就好。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_contact_05"
+    },
+    "common_recommend_discord_jyc_contact_05": {
+      "chapter": 6,
+      "speaker": "旁白",
+      "text": "我把自己的 Discord 加好友資訊打開給她看。她送出邀請，我確認後接受。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_contact_06"
+    },
+    "common_recommend_discord_jyc_contact_06": {
+      "chapter": 6,
+      "speaker": "你",
+      "text": "有了。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_contact_07"
+    },
+    "common_recommend_discord_jyc_contact_07": {
+      "chapter": 6,
+      "speaker": "江雨澄",
+      "text": "那我晚上傳。截圖在電腦裡。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_contact_08"
+    },
+    "common_recommend_discord_jyc_contact_08": {
+      "chapter": 6,
+      "speaker": "你",
+      "text": "好，我再看。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_offline_exit"
+    },
+    "common_recommend_discord_jyc_offline_exit": {
+      "chapter": 6,
+      "speaker": "江雨澄",
+      "text": "那我先走了。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_offline_exit_02",
+      "semanticVisualBeat": "雨澄收起手機；咖啡店門口重新讓出通道。"
+    },
+    "common_recommend_discord_jyc_offline_exit_02": {
+      "chapter": 6,
+      "speaker": "你",
+      "text": "嗯，掰掰。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_offline_exit_03"
+    },
+    "common_recommend_discord_jyc_offline_exit_03": {
+      "chapter": 6,
+      "speaker": "江雨澄",
+      "text": "掰掰。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_offline_exit_04"
+    },
+    "common_recommend_discord_jyc_offline_exit_04": {
+      "chapter": 6,
+      "speaker": "旁白",
+      "text": "她往車站那邊走。我換回拿咖啡的手，杯蓋上沾了一點水。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_first_message"
+    },
+    "common_recommend_discord_jyc_first_message": {
+      "chapter": 6,
+      "speaker": "旁白",
+      "text": "晚上，Discord 跳出一則訊息。我把手邊的視窗縮小。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_first_message_02",
+      "semanticVisualBeat": "Discord 私訊裡出現公開作品頁連結及第一張月台截圖，前後沒有其他新帳號／群組資訊。",
+      "moment": "20:48。"
+    },
+    "common_recommend_discord_jyc_first_message_02": {
+      "chapter": 6,
+      "speaker": "Discord — 江雨澄",
+      "text": "下午說的遊戲。這張是月台那邊，你可以先看圖。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_first_message_03"
+    },
+    "common_recommend_discord_jyc_first_message_03": {
+      "chapter": 6,
+      "speaker": "旁白",
+      "text": "《折返月台》公開作品頁連結；第一張截圖：月台立柱旁一個站著的角色、候車椅上一個坐著的角色；遠處出口亮著，地面留有反光。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_first_message_04"
+    },
+    "common_recommend_discord_jyc_first_message_04": {
+      "chapter": 6,
+      "speaker": "旁白",
+      "text": "我點開連結，再把截圖放大。角色的臉只佔一小塊，站姿跟坐姿倒很清楚。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_content_uptake"
+    },
+    "common_recommend_discord_jyc_content_uptake": {
+      "chapter": 6,
+      "speaker": "你",
+      "text": "後面坐著那個，就算臉看不清楚也認得出來。手的位置差很多。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_content_uptake_02"
+    },
+    "common_recommend_discord_jyc_content_uptake_02": {
+      "chapter": 6,
+      "speaker": "Discord — 江雨澄",
+      "text": "對，他一直把手夾在膝蓋中間。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_content_uptake_03"
+    },
+    "common_recommend_discord_jyc_content_uptake_03": {
+      "chapter": 6,
+      "speaker": "你",
+      "text": "前面站著的，看起來快走到出口了。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_content_uptake_04"
+    },
+    "common_recommend_discord_jyc_content_uptake_04": {
+      "chapter": 6,
+      "speaker": "Discord — 江雨澄",
+      "text": "他其實站著沒動。那個亮的地方有點騙人。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_content_uptake_05"
+    },
+    "common_recommend_discord_jyc_content_uptake_05": {
+      "chapter": 6,
+      "speaker": "你",
+      "text": "喔，我剛剛以為他在往外走。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_analysis"
+    },
+    "common_recommend_discord_jyc_analysis": {
+      "chapter": 6,
+      "speaker": "Discord — 江雨澄",
+      "text": "看這張。換個位置，出口就沒那麼搶眼了。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_analysis_02",
+      "semanticVisualBeat": "第二張公開內容截圖接著出現；同一月台中視點已移至立柱旁，人物、站牌、箭頭和反光可以對照。"
+    },
+    "common_recommend_discord_jyc_analysis_02": {
+      "chapter": 6,
+      "speaker": "旁白",
+      "text": "第二張同一場景截圖，站牌及地上的箭頭更容易分辨，出口亮處被柱子遮住一部分。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_analysis_03"
+    },
+    "common_recommend_discord_jyc_analysis_03": {
+      "chapter": 6,
+      "speaker": "Discord — 江雨澄",
+      "text": "第一張很容易先看到出口，再看人。但地上那個箭頭是往另一邊，跟亮的地方方向相反。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_analysis_04"
+    },
+    "common_recommend_discord_jyc_analysis_04": {
+      "chapter": 6,
+      "speaker": "你",
+      "text": "真的欸。我一直看上面那塊亮的，沒看到箭頭。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_analysis_05"
+    },
+    "common_recommend_discord_jyc_analysis_05": {
+      "chapter": 6,
+      "speaker": "Discord — 江雨澄",
+      "text": "我也是第二次才看到。第一次以為路很好找。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_analysis_06"
+    },
+    "common_recommend_discord_jyc_analysis_06": {
+      "chapter": 6,
+      "speaker": "Discord — 江雨澄",
+      "text": "然後走錯。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_analysis_07"
+    },
+    "common_recommend_discord_jyc_analysis_07": {
+      "chapter": 6,
+      "speaker": "你",
+      "text": "所以那個光不是帶路用的？",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_analysis_08"
+    },
+    "common_recommend_discord_jyc_analysis_08": {
+      "chapter": 6,
+      "speaker": "Discord — 江雨澄",
+      "text": "不一定。那只是出口的燈。要往哪邊走，還是要看箭頭。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_meme"
+    },
+    "common_recommend_discord_jyc_meme": {
+      "chapter": 6,
+      "speaker": "旁白",
+      "text": "出口那塊亮處上方寫「看起來像答案」；地上箭頭旁寫「你漏看的題目」。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_meme_02",
+      "semanticVisualBeat": "她傳來同一張月台截圖加字的 meme；對話內容仍在同一推薦內。"
+    },
+    "common_recommend_discord_jyc_meme_02": {
+      "chapter": 6,
+      "speaker": "Discord — 江雨澄",
+      "text": "差不多是這樣。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_meme_03"
+    },
+    "common_recommend_discord_jyc_meme_03": {
+      "chapter": 6,
+      "speaker": "你",
+      "text": "箭頭就在我腳邊，我還看不到。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_meme_04"
+    },
+    "common_recommend_discord_jyc_meme_04": {
+      "chapter": 6,
+      "speaker": "Discord — 江雨澄",
+      "text": "它也沒多大。我不是每個畫面都看得到。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_meme_05"
+    },
+    "common_recommend_discord_jyc_meme_05": {
+      "chapter": 6,
+      "speaker": "旁白",
+      "text": "我回頭看第一張圖。剛讀完她這句，輸入提示又亮了。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_correction"
+    },
+    "common_recommend_discord_jyc_correction": {
+      "chapter": 6,
+      "speaker": "Discord — 江雨澄",
+      "text": "而且亮的地方也不是沒用。它在地上留了一條反光，剛好把站著那個人的腳分出來。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_correction_02"
+    },
+    "common_recommend_discord_jyc_correction_02": {
+      "chapter": 6,
+      "speaker": "你",
+      "text": "難怪背景也很暗，還是看得清楚人在哪。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_correction_03"
+    },
+    "common_recommend_discord_jyc_correction_03": {
+      "chapter": 6,
+      "speaker": "Discord — 江雨澄",
+      "text": "對。要是全部都亮，就看不到這個差別了。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_correction_04"
+    },
+    "common_recommend_discord_jyc_correction_04": {
+      "chapter": 6,
+      "speaker": "Discord — 江雨澄",
+      "text": "等一下，我剛剛說第一次以為路很好找，講得不太對。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_correction_05"
+    },
+    "common_recommend_discord_jyc_correction_05": {
+      "chapter": 6,
+      "speaker": "Discord — 江雨澄",
+      "text": "是我看到出口亮著，就以為一定能往那邊走。路其實一直有標，是我沒看。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_correction_06"
+    },
+    "common_recommend_discord_jyc_correction_06": {
+      "chapter": 6,
+      "speaker": "你",
+      "text": "我也看錯了。剛剛一直覺得他在走，現在看手又不像。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_correction_07"
+    },
+    "common_recommend_discord_jyc_correction_07": {
+      "chapter": 6,
+      "speaker": "Discord — 江雨澄",
+      "text": "嗯，你再看他手的位置就會發現。他站得滿僵的。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_notice"
+    },
+    "common_recommend_discord_jyc_notice": {
+      "chapter": 6,
+      "speaker": "旁白",
+      "text": "我本來想回一個「嗯」，游標停了一下。她已經又補了一句，還把自己前面說的話改掉了。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_notice_02",
+      "semanticVisualBeat": "男主停下打字，兩張截圖與分段到達的訊息仍在對話中。"
+    },
+    "common_recommend_discord_jyc_notice_02": {
+      "chapter": 6,
+      "speaker": "旁白",
+      "text": "下午在門口，她說截圖在電腦裡就收起手機。現在我往上滑，才發現已經聊了這麼多。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_notice_03"
+    },
+    "common_recommend_discord_jyc_notice_03": {
+      "chapter": 6,
+      "speaker": "Discord — 江雨澄",
+      "text": "這張還有別的地方，不過我先停一下。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_choice"
+    },
+    "common_recommend_discord_jyc_choice": {
+      "chapter": 6,
+      "speaker": "Discord — 江雨澄",
+      "text": "我是不是講太多？你如果在忙，可以晚點再看。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "choices": [
+        {
+          "id": "com03j_continue_content",
+          "text": "我還想看。站牌那邊呢？我剛剛一直沒注意它。",
+          "next": "common_recommend_discord_jyc_continue",
+          "addFlags": [
+            "jyc_com03j_reply_style:continue_content"
+          ]
+        },
+        {
+          "id": "com03j_warm_close",
+          "text": "沒有，箭頭那邊我有看懂。只是我今天想早點休息，先聊到這裡？",
+          "next": "common_recommend_discord_jyc_warm_close",
+          "addFlags": [
+            "jyc_com03j_reply_style:warm_close"
+          ]
+        },
+        {
+          "id": "com03j_save_for_later",
+          "text": "我想先自己看一下這兩張，消化完再跟妳聊。",
+          "next": "common_recommend_discord_jyc_save_for_later",
+          "addFlags": [
+            "jyc_com03j_reply_style:save_for_later"
+          ]
+        }
+      ]
+    },
+    "common_recommend_discord_jyc_continue": {
+      "chapter": 6,
+      "speaker": "你",
+      "text": "我還想看。站牌那邊呢？我剛剛一直沒注意它。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_continue_02"
+    },
+    "common_recommend_discord_jyc_continue_02": {
+      "chapter": 6,
+      "speaker": "Discord — 江雨澄",
+      "text": "喔，好。那你看第二張，站牌旁邊那條線。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_continue_03"
+    },
+    "common_recommend_discord_jyc_continue_03": {
+      "chapter": 6,
+      "speaker": "你",
+      "text": "柱子右邊？",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_continue_04"
+    },
+    "common_recommend_discord_jyc_continue_04": {
+      "chapter": 6,
+      "speaker": "Discord — 江雨澄",
+      "text": "嗯。那條線會把視線拉回人身上。不一定是先看臉。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_continue_05"
+    },
+    "common_recommend_discord_jyc_continue_05": {
+      "chapter": 6,
+      "speaker": "旁白",
+      "text": "我把第二張圖放大，往右挪了一點。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_continue_06"
+    },
+    "common_recommend_discord_jyc_continue_06": {
+      "chapter": 6,
+      "speaker": "你",
+      "text": "我剛剛以為妳在說站牌上面的字。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_continue_07"
+    },
+    "common_recommend_discord_jyc_continue_07": {
+      "chapter": 6,
+      "speaker": "Discord — 江雨澄",
+      "text": "喔，不是。我指旁邊的直線，打字好難指。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_continue_08"
+    },
+    "common_recommend_discord_jyc_continue_08": {
+      "chapter": 6,
+      "speaker": "你",
+      "text": "找到啦。它跟人的背幾乎平行。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_continue_09"
+    },
+    "common_recommend_discord_jyc_continue_09": {
+      "chapter": 6,
+      "speaker": "Discord — 江雨澄",
+      "text": "對，就是那裡。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_continue_10"
+    },
+    "common_recommend_discord_jyc_continue_10": {
+      "chapter": 6,
+      "speaker": "旁白",
+      "text": "我們拿兩張圖來回對照。她說哪裡，我再找一下，有一處怎麼看都覺得只是柱子。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_continue_11"
+    },
+    "common_recommend_discord_jyc_continue_11": {
+      "chapter": 6,
+      "speaker": "你",
+      "text": "這個我真的看不出來。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_continue_12"
+    },
+    "common_recommend_discord_jyc_continue_12": {
+      "chapter": 6,
+      "speaker": "Discord — 江雨澄",
+      "text": "也可能我想太多。那個先算了。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_continue_close"
+    },
+    "common_recommend_discord_jyc_continue_close": {
+      "chapter": 6,
+      "speaker": "你",
+      "text": "欸，十一點了。我先去睡，剩下的我自己再看一下。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_continue_close_02",
+      "semanticVisualBeat": "聊天視窗還停在同一推薦；男主看一眼時間，兩人把話題停下。",
+      "moment": "23:06。"
+    },
+    "common_recommend_discord_jyc_continue_close_02": {
+      "chapter": 6,
+      "speaker": "Discord — 江雨澄",
+      "text": "已經十一點？我也沒注意。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_continue_close_03"
+    },
+    "common_recommend_discord_jyc_continue_close_03": {
+      "chapter": 6,
+      "speaker": "你",
+      "text": "嗯，今天先這樣。謝謝妳傳圖。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_continue_close_04"
+    },
+    "common_recommend_discord_jyc_continue_close_04": {
+      "chapter": 6,
+      "speaker": "Discord — 江雨澄",
+      "text": "好，那先停。晚安。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_continue_close_05"
+    },
+    "common_recommend_discord_jyc_continue_close_05": {
+      "chapter": 6,
+      "speaker": "你",
+      "text": "晚安。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_exit"
+    },
+    "common_recommend_discord_jyc_warm_close": {
+      "chapter": 6,
+      "speaker": "你",
+      "text": "沒有，箭頭那邊我有看懂。只是我今天想早點休息，先聊到這裡？",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_warm_close_02",
+      "semanticVisualBeat": "輸入提示停住，推薦連結與兩張圖留在對話裡。"
+    },
+    "common_recommend_discord_jyc_warm_close_02": {
+      "chapter": 6,
+      "speaker": "Discord — 江雨澄",
+      "text": "好啊。那其他的先不傳了。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_warm_close_03"
+    },
+    "common_recommend_discord_jyc_warm_close_03": {
+      "chapter": 6,
+      "speaker": "你",
+      "text": "嗯，謝謝。妳傳的那兩張我留著。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_warm_close_04"
+    },
+    "common_recommend_discord_jyc_warm_close_04": {
+      "chapter": 6,
+      "speaker": "Discord — 江雨澄",
+      "text": "好，你休息吧。晚安。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_warm_close_05"
+    },
+    "common_recommend_discord_jyc_warm_close_05": {
+      "chapter": 6,
+      "speaker": "你",
+      "text": "晚安。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_exit"
+    },
+    "common_recommend_discord_jyc_save_for_later": {
+      "chapter": 6,
+      "speaker": "你",
+      "text": "我想先自己看一下這兩張，消化完再跟妳聊。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_save_for_later_02",
+      "semanticVisualBeat": "她停下補充，男主重新點開第一張已收到的圖。"
+    },
+    "common_recommend_discord_jyc_save_for_later_02": {
+      "chapter": 6,
+      "speaker": "Discord — 江雨澄",
+      "text": "好，那先看這兩張。我先不補了。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_save_for_later_03"
+    },
+    "common_recommend_discord_jyc_save_for_later_03": {
+      "chapter": 6,
+      "speaker": "你",
+      "text": "嗯，我先從第一張看。連結也留著。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_save_for_later_04"
+    },
+    "common_recommend_discord_jyc_save_for_later_04": {
+      "chapter": 6,
+      "speaker": "Discord — 江雨澄",
+      "text": "對，都在上面。你慢慢看，我先去弄別的。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_save_for_later_05"
+    },
+    "common_recommend_discord_jyc_save_for_later_05": {
+      "chapter": 6,
+      "speaker": "你",
+      "text": "好，謝謝。晚安。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_save_for_later_06"
+    },
+    "common_recommend_discord_jyc_save_for_later_06": {
+      "chapter": 6,
+      "speaker": "Discord — 江雨澄",
+      "text": "晚安。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_recommend_discord_jyc_exit"
+    },
+    "common_recommend_discord_jyc_exit": {
+      "chapter": 6,
+      "speaker": "旁白",
+      "text": "對話底下停在晚安。我把視窗縮小，連結還留在裡面。",
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "com03j_preview_complete",
+      "semanticVisualBeat": "私訊安靜下來；頁面、截圖及當次聊天仍可往上翻看。",
+      "entryEffects": {
+        "F_JYC": 1
+      },
+      "entryFlags": [
+        "contact_jyc",
+        "preview:com03j-complete"
+      ]
+    },
+    "common_recommend_discord_jyc_callback": {
+      "type": "branch",
+      "cases": [
+        {
+          "conditions": [
+            {
+              "flag": "entry-effect:common_station_cafe_jyc_complete",
+              "present": true
+            },
+            {
+              "flag": "preview:com02j-complete",
+              "present": true
+            },
+            {
+              "flag": "jyc_second_topic:her_art",
+              "present": true
+            },
+            {
+              "flag": "jyc_second_topic:shared_work",
+              "present": false
+            },
+            {
+              "flag": "jyc_second_topic:general_praise",
+              "present": false
+            }
+          ],
+          "next": "common_recommend_discord_jyc_callback_her_art"
+        },
+        {
+          "conditions": [
+            {
+              "flag": "entry-effect:common_station_cafe_jyc_complete",
+              "present": true
+            },
+            {
+              "flag": "preview:com02j-complete",
+              "present": true
+            },
+            {
+              "flag": "jyc_second_topic:her_art",
+              "present": false
+            },
+            {
+              "flag": "jyc_second_topic:shared_work",
+              "present": true
+            },
+            {
+              "flag": "jyc_second_topic:general_praise",
+              "present": false
+            },
+            {
+              "flag": "history:jyc_first_topic:visual_design",
+              "present": true
+            },
+            {
+              "flag": "history:jyc_first_topic:worldbuilding",
+              "present": false
+            },
+            {
+              "flag": "history:jyc_first_topic:edition_value",
+              "present": false
+            }
+          ],
+          "next": "common_recommend_discord_jyc_callback_shared_visual_design"
+        },
+        {
+          "conditions": [
+            {
+              "flag": "entry-effect:common_station_cafe_jyc_complete",
+              "present": true
+            },
+            {
+              "flag": "preview:com02j-complete",
+              "present": true
+            },
+            {
+              "flag": "jyc_second_topic:her_art",
+              "present": false
+            },
+            {
+              "flag": "jyc_second_topic:shared_work",
+              "present": true
+            },
+            {
+              "flag": "jyc_second_topic:general_praise",
+              "present": false
+            },
+            {
+              "flag": "history:jyc_first_topic:visual_design",
+              "present": false
+            },
+            {
+              "flag": "history:jyc_first_topic:worldbuilding",
+              "present": true
+            },
+            {
+              "flag": "history:jyc_first_topic:edition_value",
+              "present": false
+            }
+          ],
+          "next": "common_recommend_discord_jyc_callback_shared_worldbuilding"
+        },
+        {
+          "conditions": [
+            {
+              "flag": "entry-effect:common_station_cafe_jyc_complete",
+              "present": true
+            },
+            {
+              "flag": "preview:com02j-complete",
+              "present": true
+            },
+            {
+              "flag": "jyc_second_topic:her_art",
+              "present": false
+            },
+            {
+              "flag": "jyc_second_topic:shared_work",
+              "present": true
+            },
+            {
+              "flag": "jyc_second_topic:general_praise",
+              "present": false
+            },
+            {
+              "flag": "history:jyc_first_topic:visual_design",
+              "present": false
+            },
+            {
+              "flag": "history:jyc_first_topic:worldbuilding",
+              "present": false
+            },
+            {
+              "flag": "history:jyc_first_topic:edition_value",
+              "present": true
+            }
+          ],
+          "next": "common_recommend_discord_jyc_callback_shared_edition_value"
+        },
+        {
+          "conditions": [
+            {
+              "flag": "entry-effect:common_station_cafe_jyc_complete",
+              "present": true
+            },
+            {
+              "flag": "preview:com02j-complete",
+              "present": true
+            },
+            {
+              "flag": "jyc_second_topic:her_art",
+              "present": false
+            },
+            {
+              "flag": "jyc_second_topic:shared_work",
+              "present": true
+            },
+            {
+              "flag": "jyc_second_topic:general_praise",
+              "present": false
+            }
+          ],
+          "next": "common_recommend_discord_jyc_callback_shared_neutral"
+        },
+        {
+          "conditions": [
+            {
+              "flag": "entry-effect:common_station_cafe_jyc_complete",
+              "present": true
+            },
+            {
+              "flag": "preview:com02j-complete",
+              "present": true
+            },
+            {
+              "flag": "jyc_second_topic:her_art",
+              "present": false
+            },
+            {
+              "flag": "jyc_second_topic:shared_work",
+              "present": false
+            },
+            {
+              "flag": "jyc_second_topic:general_praise",
+              "present": true
+            }
+          ],
+          "next": "common_recommend_discord_jyc_callback_general_praise"
+        }
+      ],
+      "default": "common_recommend_discord_jyc_callback_neutral"
+    },
+    "com03j_preview_complete": {
+      "type": "route"
     }
   }
 }

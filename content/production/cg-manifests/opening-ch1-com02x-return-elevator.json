@@ -1,0 +1,235 @@
+{
+  "schema_version": "1.0.0",
+  "manifest_id": "opening-ch1-com02x-return-elevator",
+  "manifest_version": "1.0.1",
+  "lifecycle": "CANONICAL",
+  "source_scene_ids": [
+    "COM-02X"
+  ],
+  "style_contract": {
+    "style_id": "realistic-pbr-game-cinematic-v1",
+    "positive": [
+      "Realistic high-end game-cinematic / photographic PBR rendering with believable adult human anatomy, eye proportions and natural skin texture.",
+      "Physically plausible hair strands, knit cloth, fabric/plastic/metal/stone materials and steady warm interior lighting.",
+      "Photographic perspective and exposure; character realism at least canonical Xu primary face reference floor; everyday narrative staging."
+    ],
+    "negative": [
+      "Anime/manga proportions, oversized eyes, simplified facial anatomy, cartoon/animation-film/doll/figurine face or plastic airbrushed skin.",
+      "Painterly illustration, ink lines, screentone, cel shading, comic panel or character-sheet posing.",
+      "Embedded captions/UI/logos/watermarks, contact sheet/collage/multiple frames or unrelated character identity."
+    ],
+    "aspect_ratio": "16:9",
+    "output_count": 1
+  },
+  "entries": [
+    {
+      "entry_id": "COM02X-RETURN-ELEVATOR-01",
+      "scene_id": "COM-02X",
+      "source_scene": "docs/narrative/scenes/vertical-slice/COM-02X.md",
+      "status": "render_ready",
+      "cg_class": "dialogue_cg",
+      "sequence_id": null,
+      "beat_range": "02X.8 quiet return ride only: common_convenience_xu_exit and common_convenience_xu_exit_02, after entering the apartment building and before the doors open at exit_03.",
+      "narrative": {
+        "purpose": "Make the ordinary shared ride home visibly inhabited by Xu while preserving the unfilled comfortable silence of familiar neighbors with boundaries. One held image covers the two ride narration beats; the unseen protagonist is present only as the camera viewpoint. This is the uneventful return to 17F after independent checkout and the short walk home, without replaying a prior elevator incident or adding intimacy.",
+        "must_show": [
+          "Exactly one visible adult: Xu Tang, standing naturally in rear three-quarter view with a small readable side contour, facing the closed elevator doors during the ride.",
+          "The same apartment elevator cabin: warm overhead light, gray-brown veined stone wall panels/floor, brushed metal closed double doors, metal frames and handrails in their established physical order.",
+          "Xu still wears the accepted walk-v3 nighttime casual gray textured long-sleeve button-front home sweater and matching drawstring shorts, large gold hoops, long softly waved brown hair and cream shoulder tote. White casual sneakers follow only Wardrobe A look 2 when visible.",
+          "Her own checkout bag still holds her purchased coffee and meal; retain plausible bag/hand continuity, no duplicated separately exposed food or coffee. Calm weight-bearing stance and resting bag grip read as waiting through a normal ride."
+        ],
+        "must_not_imply": [
+          "A date, romantic invitation, protective or possessive care, flirtatious look back, bodily contact, sensual display or relationship escalation; no smile aimed at the camera.",
+          "An elevator malfunction, flicker, confinement, rescue or repeated earlier elevator scene.",
+          "Arrival/open-door action, hallway, 1702 key retrieval or goodbye has already happened. This frame ends before the doors open.",
+          "A second visible person, protagonist body/hands/reflection, new passenger, exchanged purchases or shared bags.",
+          "That a readable 7 destination or the source panel labels define their destination; the narrative destination is 17F and this is an in-transit frame. Do not present a legible contradictory destination selection."
+        ]
+      },
+      "characters": [
+        {
+          "character_id": "xu_tang",
+          "screen_side": "center",
+          "body_orientation": "Rear three-quarter facing the closed doors, turned only slightly toward frame-right so the near ear/hoop and restrained side contour can read; most of the back/hair remains visible. No head turn toward the unseen protagonist or lens.",
+          "pose": "Ordinary relaxed standing, weight supported naturally by both feet with a slight resting shift. No stride, arched back, leaning on a companion or posing. Cream tote remains on the same shoulder as the accepted walk reference; own checkout bag remains in the corresponding carrying hand, with a natural relaxed grip and enough slight elbow bend to keep grip and bag contents read in the protected region.",
+          "gaze": "Forward toward the closed door plane, quietly waiting; not toward lens, floor-number display or another person.",
+          "expression": "Neutral calm, residual late-night fatigue only through relaxed posture. Only a limited side contour is visible; no new acting beat, blush, glamour smile or distress.",
+          "wardrobe_key": "XT-WARDROBE-A-LATE-NIGHT-CONVENIENCE-STORE",
+          "held_objects": [
+            "xu_own_checkout_bag: same unbranded translucent bag carrying purchased black coffee and simple meal, retained from accepted walk-v3 without duplication or hand exchange",
+            "cream_shoulder_tote: same cream fabric tote and shoulder placement as accepted walk-v3"
+          ],
+          "reference_requirements": {
+            "production_consistency": false,
+            "expression": false,
+            "body_proportions": true,
+            "production_omission_reason": "Optional production sheet omitted solely to fit the exposed image_gen maximum of five direct reference paths. Retain mandatory canonical face, exact Wardrobe A look 2, body proportions for unchanged full standing scale, accepted walk-v3 immediate outfit/tote/purchase-grip continuity, and elevator environment. Face and body sheets contain rear hair/silhouette views; Wardrobe A and accepted walk-v3 supply knit/material and carrying-hand detail. These five direct files sufficiently constrain the unchanged rear/side waiting shot; production_consistency=false does not relax identity, rear hair, hand anatomy, materials, warm cabin lighting or native/display QA requirements."
+          },
+          "reference_bindings": [
+            {
+              "role": "primary_face_identity",
+              "source_id": "ref.xu_tang.face.01",
+              "expected_filename": "xt-ref-01-face.png"
+            },
+            {
+              "role": "wardrobe",
+              "source_id": "ref.xu_tang.wardrobe.a",
+              "expected_filename": "xt-ref-05-wardrobe-a.png"
+            },
+            {
+              "role": "body_proportions",
+              "source_id": "ref.xu_tang.body.03",
+              "expected_filename": "xt-ref-03-body.png"
+            },
+            {
+              "role": "accepted_character_continuity",
+              "source_id": "source.com02x.walk-v3",
+              "expected_filename": "com02x-walk-candidate-v3.png"
+            }
+          ]
+        }
+      ],
+      "environment": {
+        "location_id": "apt_elevator_com02x_return_ride",
+        "time_of_day": "Week 2 weekday approximately 23:00, same uninterrupted return home after the convenience store and walk.",
+        "weather": "Interior sheltered from the recently wet night; no rain or umbrella inside, no new weather event.",
+        "lighting": "Steady warm recessed overhead elevator illumination and physically plausible soft metal/stone reflections, matching the selected existing cabin. Natural indoor relighting of Xu from the outdoor walk is required by the location change; preserve wardrobe/material/identity, without beauty lighting, dramatic rim light or malfunction.",
+        "persistent_props": [
+          "Same closed brushed-metal double-door pair and center seam, gray-brown stone wall panels and floor, metal trim, two side handrails, warm ceiling light and right-side control-panel housing from the elevator reference. Keep the cabin geometry and material relationships; no hallway, new doors, mirrors or added hardware.",
+          "The source panel contains a readable 7 and selected 7 button in its earlier image. Keep the control housing as environment continuity, but subordinate its surface to natural non-focal depth/reflection so no numeral or selected destination is readable in this ride frame. Do not copy a readable 7 destination, fabricate a new numbered button array, or make a 17 display a focal prop. No floor-specific arrival information is needed.",
+          "Low-detail stone floor and lower side-wall area provide dialogue-safe background. Reflections stay material reflections; no reflected people or duplicate Xu."
+        ],
+        "reference_binding": {
+          "role": "accepted_environment_base",
+          "source_id": "source.opening.ch1.bg.apt_elevator",
+          "expected_filename": "bg-apt-elevator-16x9-v1.webp"
+        }
+      },
+      "camera": {
+        "shot_size": "medium_wide",
+        "angle": "Eye-level toward the existing closed-door plane, level horizon and zero roll. Frame the standing Xu from head through shoes with natural scale; avoid low angle, rear-body emphasis or fashion posing.",
+        "pov": "protagonist",
+        "axis_id": "COM02X-return-elevator-door-axis",
+        "camera_side": "Unseen protagonist in the rear part of the same cabin, slightly behind and left of Xu, looking toward the doors. Xu stands a comfortable step ahead near center; this is the ordinary indoor spatial transition from the prior side-by-side walk, not a continuation of the outdoor walking axis.",
+        "lens_intent": "Natural approximately 35-50mm photographic perspective without wide-angle anatomy distortion. Xu hair, limited side contour/earring and bag grip remain clear; enough cabin geometry remains recognizable. Peripheral panel numerals stay non-readable through non-focal optical/material treatment, not artificial pixel blur."
+      },
+      "continuity": {
+        "previous_entry_id": null,
+        "locked_fields": [
+          "/characters/0/character_id",
+          "/characters/0/wardrobe_key",
+          "/characters/0/held_objects",
+          "/characters/0/reference_bindings",
+          "/environment/reference_binding",
+          "/environment/time_of_day",
+          "/environment/weather",
+          "/camera/pov",
+          "/camera/axis_id",
+          "/composition/focus",
+          "/reference_transport",
+          "/output",
+          "/narrative"
+        ],
+        "allowed_changes": []
+      },
+      "composition": {
+        "focus": {
+          "x": 54,
+          "y": 40
+        },
+        "dialogue_safe_zone": "Use a central protected story region x=46..63%, y=18..52% of the 16:9 source for head/hair/visible hoop, rear/side identity silhouette and carrying-hand/bag-read. Place head around x=54%, y=24%; keep grip/upper checkout bag at y<=52%, without unnatural hand raising. Full standing figure may extend to approximately y=70%; legs/shoes below the story region may be occluded by landscape dialogue UI without losing the ride/identity/own-purchases meaning. Keep lower y=75..100% low-information floor. Desktop lower-left reading panel, mobile full-width bottom panel and floating speaker badge must not hide any critical head/earring/grip region. Actual panel height follows rendered text/font/safe-area values; screenshot evidence must verify every covered ride line and fail the display gate if a critical region is hidden.",
+        "framing_notes": [
+          "One new independent 16:9 cabin image, with Xu placed in the central band rather than at an extreme side. Preserve the referenced elevator construction and comfortable interpersonal spacing; do not shrink adult anatomy to make the UI fit. The full-body framing justifies body_proportions=true. Body sheet supplies proportions, never its black-shirt/jeans outfit; Wardrobe A column 2 and accepted walk-v3 supply the gray nighttime outfit/tote/purchases. expression=false because no expression change drives this rear/side waiting shot; production_consistency=false is the explicit optional omission for the exposed five-path transport limit: selected face/body rear views constrain rear hair/silhouette, and Wardrobe A plus accepted walk-v3 retain hand/material continuity; all realism, hand/material and lighting requirements remain.",
+          "Continuity comes from exact accepted-as-is walk-v3 PNG as supplementary character reference, not an edit target. Its 1672x941 size and retained historical VQA FAIL/dialogue-safe-zone findings are not acceptance or size exceptions for this new CG. Do not freeze the walk camera/stride/outdoor lighting; the approved indoor ride requires a new standing rear/side view and steady cabin illumination. Canonical primary face remains identity and realism authority.",
+          "Scope/output: logical cg.opening.com02x.return_elevator and canonical CG-COM02X-RETURN-ELEVATOR-01 are separate from global bg.opening.ch1.apt_elevator. Downstream integrator may bind only ride nodes common_convenience_xu_exit and common_convenience_xu_exit_02 after all required gates; do not replace the global first-scene elevator background or apply this closed-door frame to exit_03..exit_08. No runtime/prose/save changes are part of this manifest task.",
+          "Approved bounded desktop test profile: CSS viewport1440x900, landscape, DPR1. Pinned CSS caps the stage border-box at1280x720, centered in game-shell (expected viewport origin80,90); with1px border and border-box sizing the image content area is1278x718. scene-image fills that area with object-fit:cover and focus54%40%. For ideal16:9, rendered image is1278x718.875 with about0.875px vertical overflow (roughly source y0.049..99.927% retained); actual returned aspect integer rounding requires recalculation. Dialogue panel at lower-left has width min(46% of stage,35rem), left/bottom max(1rem,env safe-area) and floating badge top -1.15rem; height is text-dependent. Keep critical regions clear of this panel and the top HUD; lower-left floor can be covered.",
+          "Approved bounded mobile portrait test profile: CSS viewport320x720, portrait, DPR1. Stage/image box fills320x720; pinned scene-image uses cover, not contain or letterboxing. Ideal16:9 image renders1280x720; focus54%40% crops horizontal source to x40.5..65.5%, preserving all source height. Protected region x46..63 must survive this severe crop. At this width pinned dialogue panel has left/right max(.72rem,env safe-area), bottom max(.8rem,env safe-area), portrait padding1rem .95rem .88rem; speaker badge extends1rem above it. Text min-height3.6em, responsive font/line-height and actual line wrapping determine height. Do not invent exact panel bounds: measure after integration. Top HUD uses portrait .65rem/safe-area offsets,40px sound button and44px navigation minima. Hair/head should remain below HUD and above reading-panel occlusion.",
+          "Approved bounded mobile landscape test profile: CSS viewport720x320, landscape, DPR1. Stage/image box fills720x320; ideal16:9 cover image is720x405. focus54%40% offsets it vertically -34px, retaining source y8.395..87.407%. Source protected y18..52 maps to display y38.9..176.6px; verify hand/bag read before the floating speaker badge. Pinned <=760px dialogue panel is almost full-width with left/right/bottom max(.72rem,env safe-area), padding1.05rem 1rem .95rem, min text3.6em, font clamp(1rem,4.2vw,1.12rem), line-height1.68, badge top -1rem. At a16px root and zero safe-area a short ride line yields a panel approximately106.5px high and badge beginning around186px; these are CSS-derived planning estimates, not measured browser facts. Lower legs/floor may sit under UI; critical head/earring/grip cannot. Top HUD at max(.9rem,env safe-area) may cover ceiling margins, not identity.",
+          "Presentation authority is pinned public/styles.css + src/visuals.js + src/engine.js. resolveVisual chooses node focus before asset focus before its55/42 fallback; setImage applies object-position. Downstream integration must explicitly use this entry focus54/40 rather than the old background50/45 or fallback. No push-in/dark/flicker effect is required; existing vignette/HUD/dialogue layers remain and need screenshot review. Final screenshot evidence records actual viewport, DPR, image/stage content box, computed object-fit/object-position, safe-area/font values, crop and visible reading-panel/HUD bounds. Profiles are task-approved targets, not universal hardware defaults; no committed Playwright configuration or unimplemented rotate/contain behavior is asserted.",
+          "Manifest v1.0.1 is only a five-reference transport compatibility revision. Original v1.0.0 remains immutable at Git bc91cdcfa99902ae5bfbc8e42750a03c9f1bcc0f:content/production/cg-manifests/opening-ch1-com02x-return-elevator.json, blob 8cc6a0695f1e9447aad8a4d2b4c2f0efdcf00e94, raw SHA-256 8f63717bd2af6e6380cd046f866c1dc0a85471709e04e91daa9001ddc424eba8. The prior six-reference invocation was rejected before generation; no candidate or source-quality judgment resulted. Fresh independent manifest-usability review is required for this revised render spec; earlier usability approval is not current approval of v1.0.1."
+        ]
+      },
+      "render_constraints": {
+        "include": [
+          "Exactly one independent candidate in one fresh bounded renderer task, no grids, alternatives or automatic retry. Five exact declared direct images only (the exposed image_gen maximum is five reference paths), each visibly verified and actually supplied to the call; no unrelated character, outfit, environment, previous prompt or style reference.",
+          "Prefer the largest supported native16:9 output and highest available quality compatible with the approved references/aspect; allow normal integer-pixel rounding. Inspect exposed supported size/quality controls and record capability evidence/selected values; if controls are not exposed record \"not exposed\" and the preference. Requested settings do not guarantee actual dimensions. No fixed1672x941/1920x1080 floor, invented API argument, universal provider cap or manual upscale represented as native/high-definition.",
+          "Photographic high-end game-cinematic/PBR rendering with realistic adult anatomy, natural skin/hair/eyes at least as realistic as the primary face sheet, physically plausible gray knit cloth, fabric tote, translucent purchase bag, gold hoop metal, stone and brushed elevator metal. Ordinary late-night domestic dignity rather than a glamour photograph.",
+          "Bind the accepted walk-v3 only for immediate identity/outfit/tote/purchases continuity. Its rear view is reconstructed using selected face/body references, with Wardrobe A and accepted walk-v3 for hand/material continuity. Preserve the exact selected wardrobe look, not other columns; no black shirt/jeans from the body sheet, default weekday look or wardrobe-B outfit.",
+          "Closed doors and ordinary waiting stance, same cabin construction, steady warm overhead light, no visible protagonist or new people. Keep floor labels/selected destination unreadable so the source7 does not contradict travel to17F. The cabin remains recognizably the selected elevator without new numbered hardware.",
+          "Keep identity head/hair/hoop and own-purchase grip in protected x46..63%, y18..52%; retain explicit focus54/40 for downstream cover crop. Required original/native review and independently hash-bound final derivative/compression/display review are separate gates.",
+          "Immutable primary_face_identity: source_id=ref.xu_tang.face.01; repository path=assets-src/references/xu-tang/xt-ref-01-face.png; expected filename=xt-ref-01-face.png; MIME=image/png; original SHA-256=2fd137f796d0e7667a5913748158f75705b1a538b346b9e7f76aacb3c79acfd0. Resolve only this selected source-catalog row; verify exact bytes/MIME, complete decode, visible pixels and assigned role in the fresh renderer before supplying the file to generation. Metadata alone is insufficient; mismatch or unavailable pixels means BLOCKED.",
+          "Immutable wardrobe: source_id=ref.xu_tang.wardrobe.a; repository path=assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png; expected filename=xt-ref-05-wardrobe-a.png; MIME=image/png; original SHA-256=aaf33f06f3e39fc476deee03ab261a43e0911b8393366ae7399c633abfadc716. Resolve only this selected source-catalog row; verify exact bytes/MIME, complete decode, visible pixels and assigned role in the fresh renderer before supplying the file to generation. Metadata alone is insufficient; mismatch or unavailable pixels means BLOCKED.",
+          "Immutable body_proportions: source_id=ref.xu_tang.body.03; repository path=assets-src/references/xu-tang/xt-ref-03-body.png; expected filename=xt-ref-03-body.png; MIME=image/png; original SHA-256=cccde0bbd7d04b9cb66615ce3948a77529d77298dea806a3582a9d69723d8eb0. Resolve only this selected source-catalog row; verify exact bytes/MIME, complete decode, visible pixels and assigned role in the fresh renderer before supplying the file to generation. Metadata alone is insufficient; mismatch or unavailable pixels means BLOCKED.",
+          "Immutable accepted_character_continuity: source_id=source.com02x.walk-v3; repository path=assets-src/opening-ch1-demo/com02x-walk-candidate-v3.png; expected filename=com02x-walk-candidate-v3.png; MIME=image/png; original SHA-256=a1aa0d08023cc19a42b3c9260bca732059e77eb5dd37c8578afb82bd7dd82400. Resolve only this selected source-catalog row; verify exact bytes/MIME, complete decode, visible pixels and assigned role in the fresh renderer before supplying the file to generation. Metadata alone is insufficient; mismatch or unavailable pixels means BLOCKED.",
+          "Immutable accepted_environment_base: source_id=source.opening.ch1.bg.apt_elevator; repository path=assets-src/opening-ch1-demo/bg-apt-elevator-16x9-v1.webp; expected filename=bg-apt-elevator-16x9-v1.webp; MIME=image/webp; original SHA-256=2e1882334057fbd08b4d2c301b7924efc34cd1875e3d0dc1176c6315525e195e. Resolve only this selected source-catalog row; verify exact bytes/MIME, complete decode, visible pixels and assigned role in the fresh renderer before supplying the file to generation. Metadata alone is insufficient; mismatch or unavailable pixels means BLOCKED."
+        ],
+        "exclude": [
+          "Front-facing portrait, look-back flirtation, camera-directed smile, oversized eyes, anime/manga, cartoon/animation-film/doll/figurine anatomy, plastic skin, painterly/cel-shaded/ink-line treatment or character-sheet pose.",
+          "Protagonist face/body/hands/shadow/reflection, second passenger, duplicated Xu in metal reflection, touching, romance, shared bag, paid-for dinner, smartphone/tablet/stylus/umbrella/black work bag/necklace from unrelated production-sheet examples.",
+          "Changed sweater/shorts/tote look, sexualized neckline or shorts/legs/buttocks emphasis, low rear angle, arched-back posing, full-body identity drift, malformed bag grip or duplicate exposed coffee/meal.",
+          "Elevator emergency/flicker, dramatic entrapment, open doors, hallway/1702 keys/goodbye staged during ride, readable7 destination selection, invented numbered button array or dominant floor display.",
+          "Global elevator replacement, route-wide binding, embedding dialogue/UI/captions/watermarks/logos/brands/reference-sheet labels, contact sheet or multiple frames; simple reference enlargement passed off as a new native master."
+        ],
+        "text_policy": "No embedded dialogue, UI, captions, watermark, logo, brand or reference-sheet labels. Packaging and peripheral control numerals are non-focal/unreadable; floor-specific information is conveyed by runtime narration, not invented rendered text."
+      },
+      "reference_transport": {
+        "mode": "references_required",
+        "fresh_session_required": true,
+        "no_unrelated_images_allowed": true,
+        "accepted_base_asset_id": null,
+        "attachments": [
+          {
+            "role": "primary_face_identity",
+            "source_id": "ref.xu_tang.face.01",
+            "expected_filename": "xt-ref-01-face.png",
+            "pixels_must_be_visible": true
+          },
+          {
+            "role": "wardrobe",
+            "source_id": "ref.xu_tang.wardrobe.a",
+            "expected_filename": "xt-ref-05-wardrobe-a.png",
+            "pixels_must_be_visible": true
+          },
+          {
+            "role": "body_proportions",
+            "source_id": "ref.xu_tang.body.03",
+            "expected_filename": "xt-ref-03-body.png",
+            "pixels_must_be_visible": true
+          },
+          {
+            "role": "accepted_character_continuity",
+            "source_id": "source.com02x.walk-v3",
+            "expected_filename": "com02x-walk-candidate-v3.png",
+            "pixels_must_be_visible": true
+          },
+          {
+            "role": "accepted_environment_base",
+            "source_id": "source.opening.ch1.bg.apt_elevator",
+            "expected_filename": "bg-apt-elevator-16x9-v1.webp",
+            "pixels_must_be_visible": true
+          }
+        ]
+      },
+      "output": {
+        "canonical_asset_id": "CG-COM02X-RETURN-ELEVATOR-01",
+        "logical_asset_id": "cg.opening.com02x.return_elevator",
+        "master_filename": "com02x-return-elevator-01-master.png",
+        "quantity": 1
+      },
+      "acceptance": [
+        "Fresh independent manifest-usability review must pass before deterministic projection/render dispatch. Planner-stage completion and validator results are not manifest-usability approval, candidate image QA or Human acceptance.",
+        "Exactly one self-contained16:9 candidate for the quiet closed-door return ride before arrival, containing only Xu in the required rear/side standing view, with calm familiar-neighbor silence, no new story/action/relationship implication. Compare scene scope and cabin continuity; missing Xu, look-back/romance/emergency/open-door staging fails.",
+        "Exactly five direct source-catalog bindings and raw hashes listed in this entry are acquired/fully decoded/viewed by the fresh renderer and actually supplied to the single generation call. Record exact roles, filenames, path/hash/MIME and attachment evidence. Planning-visible reference pixels are not generation attachment proof.",
+        "Xu identity/hair/hoops/adult proportions match selected canonical face/body, gray sweater+matching drawstring shorts/white casual sneakers match Wardrobe A look2 and immediate walk-v3, cream tote and own checkout bag preserve continuity without hand/object swap or duplicate coffee/meal. Inspect visible side contour, rear hair, grip and materials at native size. The explicitly omitted production sheet is not a required attachment; body-sheet outfit and unrelated production props must not transfer. All rear hair, hand/material and lighting checks remain required.",
+        "VQA-NATIVE-PROVENANCE: record supported controls/capability evidence and requested size/quality or \"not exposed\" separately from actual returned width/height/MIME. Verify actual16:9 with normal integer-pixel rounding; retain untouched original returned bytes at an immutable location with original byte count/SHA-256 and provenance to manifest/entry/render packet/reference hashes. Never convert/upscale original bytes and label them native; preserve actual returned MIME/extension even if the proposed PNG master requires later bounded metadata reconciliation.",
+        "VQA-SOURCE-CLARITY: independent fresh candidate review inspects original pixels at native1:1 for resolved facial-side/hair/earring/cloth/hand/bag/elevator detail, blur, aliasing, anatomy, material/reflection artifacts and style/identity drift. Preference for high quality is not evidence. Raw-image defects return to renderer/planner as appropriate with evidence; no automatic redraw/retry, image scoring or unverified4K/retina claim.",
+        "VQA-COMPRESSION-ARTIFACTS: after integration, separately bind runtime derivative path,width/height,MIME,byte count/SHA-256 and conversion/compression settings where available to untouched accepted original. Independent fresh review compares native source and actual runtime derivative for compression halos/blocking, smearing, texture/detail loss and grip/hair/hoop readability. Source-only PASS cannot establish derivative PASS; derivative failures return to integrator without altering original pixels.",
+        "VQA-DESKTOP-DISPLAY: independent final derivative/display review requires hash-bound screenshot evidence of the actual integrated derivative at1440x900 CSS viewport,DPR1; record actual stage/image bounds, cover crop/object-position54/40, vignette, reading panel/badge/HUD and each covered ride line. Confirm head/hair/hoop and own-purchase grip remain clear, cabin reads correctly and no UI hides critical meaning. Desktop planning estimates are not screenshot acceptance.",
+        "VQA-MOBILE-PORTRAIT-DISPLAY: independent final review requires actual hash-bound320x720 CSS viewport,DPR1 portrait screenshots for both ride narration nodes/line states, derivative identity and measured stage/image/crop/focus/UI bounds. Verify severe horizontal cover crop preserves protected identity/bag region with the required focus54/40; no contain/letterbox assumption or missing-evidence PASS. Record actual font/safe-area/wrapping and ensure top HUD and bottom panel/badge do not hide critical regions.",
+        "VQA-MOBILE-LANDSCAPE-DISPLAY: independent final review requires actual hash-bound720x320 CSS viewport,DPR1 landscape screenshots and measured stage/image/crop/focus/reading-panel/badge/HUD bounds for both covered ride lines. Verify projected y8.395..87.407% crop recalculated from actual returned/derivative dimensions, clear head/hoop/hand-bag read above dialogue. Lower legs/floor may be covered; hidden critical grip/identity fails. Runtime crop/focus/UI failures return to integrator; material composition failure returns to planner if runtime focus cannot satisfy the approved constraints.",
+        "Absent required original/derivative/provenance/profile screenshot evidence means applicable gate BLOCKED/NEEDS_REVIEW; evidenced quality failure means FAIL/NEEDS_REVIEW. No overall final PASS until independent source and final derivative/display checks plus Human accepted-master selection are complete. Human adoption does not erase VQA findings. Existing walk accepted-as-is status and historical VQA FAIL are not transferred as a pass for this new image.",
+        "After independent candidate Visual QA and Human accepted-master selection, integration is limited to new logical CG at common_convenience_xu_exit and common_convenience_xu_exit_02, explicit focus54/40, with independent final derivative/display QA before readiness. Do not mutate global bg.opening.ch1.apt_elevator, first-scene bindings, later hallway/door-open beats, approved dialogue/choices/effects/nodeIDs/save contracts. Other preview-only scenes can still block whole-route final visual readiness; this single CG acceptance does not establish whole-route final acceptance."
+      ]
+    }
+  ]
+}

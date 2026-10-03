@@ -1,0 +1,131 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "resume_checkpoint",
+  "run_id": "cafe-narration-and-elevator-trial-20261003",
+  "task_id": "INT-ELEVATOR-LANDSCAPE-CORRECTIVE-008",
+  "scene_id": "COM-02J+COM-02X",
+  "task_type": "integrate",
+  "status": "PASS",
+  "harness": {
+    "id": "integrator",
+    "version": "1.4.0",
+    "pass": null
+  },
+  "source_ref": "02fb10c8a7dbccb57fbbc4cead91b228fd42f1f6",
+  "packet_sha256": "ac3a7860adbd86607badeae1a7edd3b1d969a00b2848ed5687b2771bbdb2e04b",
+  "input_digest_sha256": "b0e03e65af695763ad68e51828cd8524cd1dd77a29a948614c21973441d64c2e",
+  "input_versions": [
+    {
+      "id": "content/production/narrative/opening-ch1/COM-02J.json",
+      "version": "70ed29091bdf9267287e06aa3d56abc4d1df83e7ef3f21aff0eaf64d004acf7e",
+      "location": "content/production/narrative/opening-ch1/COM-02J.json"
+    },
+    {
+      "id": "docs/narrative/scenes/vertical-slice/COM-02J.md",
+      "version": "8db1871c13cfc6b9f44fe434f93738cbd9c12f08eb21cacf602df2b7c3533655",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02J.md"
+    },
+    {
+      "id": "content/production/runs/cafe-narration-and-elevator-trial-20261003/NQA-CAFE-NARRATION-005.decision.json",
+      "version": "43f2883d1f7a6c983b3099e381bcf7640eca5ff6a658124e9e874f6d5da59358",
+      "location": "content/production/runs/cafe-narration-and-elevator-trial-20261003/NQA-CAFE-NARRATION-005.decision.json"
+    },
+    {
+      "id": "content/production/runs/cafe-narration-and-elevator-trial-20261003/HUMAN-ELEVATOR-TRIAL-004.decision.json",
+      "version": "dd7f3e8404504704a677a2b8226936a13d69fbaf7fcbee18a538084ef5802a5b",
+      "location": "content/production/runs/cafe-narration-and-elevator-trial-20261003/HUMAN-ELEVATOR-TRIAL-004.decision.json"
+    },
+    {
+      "id": "content/production/runs/opening-feedback-20261003/VQA-COM02X-ELEVATOR-SOURCE-017.decision.json",
+      "version": "20e91ab22294b3767742e306bd3afaeca728fc13a64bad0e0d46871eee4d7928",
+      "location": "content/production/runs/opening-feedback-20261003/VQA-COM02X-ELEVATOR-SOURCE-017.decision.json"
+    },
+    {
+      "id": "content/production/runs/opening-feedback-20261003/VQA-COM02X-ELEVATOR-SOURCE-014.decision.json",
+      "version": "02fb76ac7b0ea4de0cab26be070199b4ddcd5247f401853d906b9c93abc6e9b4",
+      "location": "content/production/runs/opening-feedback-20261003/VQA-COM02X-ELEVATOR-SOURCE-014.decision.json"
+    },
+    {
+      "id": "content/production/runs/cafe-narration-and-elevator-trial-20261003/INT-CAFE-ELEVATOR-TRIAL-006.decision.json",
+      "version": "35dca3084a52029354e9c8f89b18834be0924943f6b4374c2802fd1f515d1bd6",
+      "location": "content/production/runs/cafe-narration-and-elevator-trial-20261003/INT-CAFE-ELEVATOR-TRIAL-006.decision.json"
+    },
+    {
+      "id": "content/production/runs/cafe-narration-and-elevator-trial-20261003/VQA-ELEVATOR-TRIAL-DISPLAY-007.decision.json",
+      "version": "5e1b4e98080e6f6011a52a06397d3eada6ce990fd18b991b98e2909e414db4a2",
+      "location": "content/production/runs/cafe-narration-and-elevator-trial-20261003/VQA-ELEVATOR-TRIAL-DISPLAY-007.decision.json"
+    },
+    {
+      "id": "content/production/runs/cafe-narration-and-elevator-trial-20261003/ledger.json",
+      "version": "42a5c9f49b659927fa0516c927831b8ff8ea545aecae3c554f75e69c80a7cf45",
+      "location": "content/production/runs/cafe-narration-and-elevator-trial-20261003/ledger.json"
+    },
+    {
+      "id": "selected_trial_original",
+      "version": "886c78b86000350d289c5e6544f97d1727dcd506d676d8523d28c474fb854bac",
+      "location": "assets-src/opening-ch1-preview/return-elevator-trial-v1.png"
+    },
+    {
+      "id": "runtime_derivative",
+      "version": "04ce2f7fbc6de3bd51cd7db4ff0805b4485fe6d63b4e2f2227f4ea31ca83e83c",
+      "location": "assets-src/opening-ch1-preview/return-elevator-trial-v1.webp"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "public/styles.css",
+      "version": "a517e215357315b1898b4343ed1baae052d46d2222259e55b67f0bbc5c8f9e80",
+      "location": "public/styles.css"
+    },
+    {
+      "id": "tests/com03j-preview.test.mjs",
+      "version": "566822cfbf560fc1d39fffe9c6153725d51e0b42c72318e0adfed2c5869f001d",
+      "location": "tests/com03j-preview.test.mjs"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "source acquisition and frozen-source preservation",
+      "code": "source acquisition and frozen-source preservation",
+      "result": "PASS"
+    },
+    {
+      "name": "focused COM03J final assertions and validator negatives",
+      "code": "focused COM03J final assertions and validator negatives",
+      "result": "PASS"
+    },
+    {
+      "name": "full npm suite",
+      "code": "full npm suite",
+      "result": "PASS"
+    },
+    {
+      "name": "build/validate/assets/coverage/storage/diff/isolated preview smoke",
+      "code": "build/validate/assets/coverage/storage/diff/isolated preview smoke",
+      "result": "PASS"
+    },
+    {
+      "name": "selected real Chromium flows",
+      "code": "selected real Chromium flows",
+      "result": "PASS"
+    },
+    {
+      "name": "fresh full cafe/elevator story and Memory smoke",
+      "code": "fresh full cafe/elevator story and Memory smoke",
+      "result": "PASS"
+    },
+    {
+      "name": "final visual acceptance guard rejects preview",
+      "code": "final visual acceptance guard rejects preview",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "Local244/244 actualfullnpm exit0;7/7Chromium and fresh cafe/elevator fullstory smoke exit0. Exactasset compactlandscapeCSS only; sourcepixels/graph/state unchanged.",
+    "Sourcefreeze083b2344c2f1377adb464c2517c809d1e1fe8cbb8c827893baafc0552349d403; buildf3aedd940cdb8c7605c7f4db52c071f74ab883a7b9b55293fcfb2ee19b8a9ac6. Previousfailure/cancellation outcomes preserved.",
+    "KnownrawsourceQA017FAIL and finalpreview-artrejection remain; localstageevidence not publicCI."
+  ],
+  "human_gate_required": "none",
+  "invalidates": []
+}
