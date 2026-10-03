@@ -38,17 +38,26 @@ function clearFixture() {
   return input;
 }
 
-test('current deterministic inventory distinguishes unused preview and adopted caveats', () => {
+test('current deterministic inventory distinguishes scene-local preview and adopted caveats', () => {
   const result = report();
   assert.equal(JSON.stringify(result), JSON.stringify(report()));
   assert.deepEqual(result.summary, {
-    inventory: 20, runtimeBound: 19, declared: 19, referenced: 19, unused: 1,
-    inventoryStatuses: { placeholder: 1, provisional: 2, accepted: 17, unverified: 0 },
-    runtimeStatuses: { placeholder: 0, provisional: 2, accepted: 17, unverified: 0 },
-    blockedRuntimeAssets: 7, bindingErrors: 0, coverageClear: false
+    inventory: 21, runtimeBound: 21, declared: 21, referenced: 21, unused: 0,
+    inventoryStatuses: { placeholder: 1, provisional: 2, accepted: 18, unverified: 0 },
+    runtimeStatuses: { placeholder: 1, provisional: 2, accepted: 18, unverified: 0 },
+    blockedRuntimeAssets: 9, bindingErrors: 1, coverageClear: false
   });
   assert.equal(asset(result, preview).status, 'placeholder');
-  assert.equal(asset(result, preview).runtimeBound, false);
+  assert.equal(asset(result, preview).runtimeBound, true);
+  assert.deepEqual(result.bindingErrors, [{ code: 'PREVIEW_ROUTE_OPT_IN', routeId: 'opening-demo' }]);
+  const previewBindings = asset(result, preview).references.map(ref => ref.binding);
+  assert.equal(previewBindings.length, 85);
+  assert.equal(previewBindings.filter(binding => binding.startsWith('node:')).length, 83);
+  assert.deepEqual(previewBindings.filter(binding => !binding.startsWith('node:')), ['ending:demo_complete', 'endingArt']);
+  assert.ok(previewBindings.filter(binding => binding.startsWith('node:')).every(binding =>
+    /^node:(common_package_xu_|com03x_)/.test(binding)));
+  assert.ok(result.assets.filter(item => item.references.some(ref => /^node:common_convenience_xu_/.test(ref.binding)))
+    .every(item => item.status === 'accepted' && item.assetId !== preview));
   assert.equal(coverageExitCode(result), 0);
   assert.equal(coverageExitCode(result, { strict: true }), 1);
   assert.equal(result.scope.releaseReadiness, 'not_recorded');
@@ -229,6 +238,25 @@ test('CLI JSON is deterministic and strict mode returns expected failure', () =>
   assert.equal(second.stdout, first.stdout);
   assert.equal(strict.status, 1, strict.stderr);
   assert.equal(strict.stdout, first.stdout);
-  assert.equal(JSON.parse(first.stdout).summary.runtimeBound, 19);
+  assert.equal(JSON.parse(first.stdout).summary.runtimeBound, 21);
 });
 function fileURL() { return new URL('../tools/asset-coverage.mjs', import.meta.url).pathname; }
+
+
+test('initial title background preserves as-is QA and fails closed for corrupt provenance or story use', () => {
+  const id = 'bg.opening.title.17f_doorlight';
+  const path = 'content/assets/ingest-receipts/title-master-native-v1.json';
+  const title = asset(report(), id);
+  assert.equal(title.status, 'accepted'); assert.equal(title.visualQaStatus, 'NEEDS_REVIEW');
+  assert.deepEqual(title.references.map((r) => r.binding), ['initialTitleArt']);
+  for (const mutate of [
+    (input) => { document(input, path).assets[0].sha256 = '0'.repeat(64); },
+    (input) => { document(input, path).visualQa.status = 'PASS'; },
+    (input) => { document(input, path).humanDecision.sha256 = '0'.repeat(64); },
+    (input) => { document(input, storyPath).nodes.fixture = { visual: { mode: 'composite', background: id } }; }
+  ]) {
+    const input = clone(); mutate(input); assert.equal(asset(report(input), id).status, 'unverified');
+  }
+  const missing = clone(); document(missing, routePath).assetIds = document(missing, routePath).assetIds.filter((v) => v !== id);
+  assert.ok(report(missing).bindingErrors.some((e) => e.code === 'ASSET_NOT_ALLOWLISTED' && e.binding === 'initialTitleArt'));
+});

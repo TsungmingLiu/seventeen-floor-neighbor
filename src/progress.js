@@ -126,6 +126,16 @@ export class ProgressStore {
         && this.chapter.nodes[this.data.cursor.nodeId]?.type !== 'route';
       this.data.runComplete = saved.runComplete === true
         || (!this.data.restartActive && this.chapter.nodes[this.data.cursor?.nodeId]?.type === 'route');
+      // This stable former Opening terminal now redirects to appended content.
+      // Ordinary Memory replay cursors and actual route terminals remain complete.
+      const cursorNode = this.chapter.nodes[this.data.cursor?.nodeId];
+      if (this.chapter.id === 'opening-demo-chapter-01' && !this.data.restartActive
+        && saved.runComplete === true && this.data.cursor?.nodeId === 'opening_demo_complete'
+        && this.data.frontier?.nodeId === 'common_convenience_xu_exit_08'
+        && cursorNode?.type === 'branch' && this.chapter.nodes[cursorNode.default]) {
+        this.data.runComplete = false;
+        this.data.frontier = this.clone(this.data.cursor);
+      }
       this.replaying = this.data.restartActive;
       this.data.edges = this.sanitizeEdges(saved.edges);
       const frontierEvent = this.eventForSnapshot(this.data.frontier);

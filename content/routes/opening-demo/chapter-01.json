@@ -492,7 +492,8 @@
       "next": "common_acg_first_meet_exit_locked_00"
     },
     "opening_demo_complete": {
-      "type": "route"
+      "type": "branch",
+      "default": "common_package_xu_arrive"
     },
     "common_bookstore_bridge_enter": {
       "speaker": "旁白",
@@ -2579,6 +2580,953 @@
       "speaker": "許棠",
       "text": "好，那你慢慢搬。晚安。",
       "next": "common_movein_rain_coda"
+    },
+    "common_package_xu_arrive": {
+      "speaker": "旁白",
+      "text": "電梯門在身後關上。我拿出鑰匙，才看到 1703 門邊靠著一個硬紙封套。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_arrive_02"
+    },
+    "common_package_xu_arrive_02": {
+      "speaker": "旁白",
+      "text": "我低頭看外面的物流標籤。收件人是許棠，地址最後一行寫著 1702。封口還貼著膠帶。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_arrive_03"
+    },
+    "common_package_xu_arrive_03": {
+      "speaker": "旁白",
+      "text": "隔壁的。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_arrive_04"
+    },
+    "common_package_xu_arrive_04": {
+      "speaker": "旁白",
+      "text": "我拿起封套，走到 1702 敲了兩下門。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_door"
+    },
+    "common_package_xu_door": {
+      "speaker": "旁白",
+      "text": "門開了。許棠看向我手上的封套。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_door_02"
+    },
+    "common_package_xu_door_02": {
+      "speaker": "許棠",
+      "text": "喔，放你那邊了？",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_door_03"
+    },
+    "common_package_xu_door_03": {
+      "speaker": "你",
+      "text": "對，就靠在我門口。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_door_04"
+    },
+    "common_package_xu_door_04": {
+      "speaker": "旁白",
+      "text": "我把封套遞給她。她接過去，看了看四角，再沿著封口摸了一下。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_door_05"
+    },
+    "common_package_xu_door_05": {
+      "speaker": "許棠",
+      "text": "謝謝。我剛剛還在找物流訊息……還好沒折到。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_door_06"
+    },
+    "common_package_xu_door_06": {
+      "speaker": "你",
+      "text": "這是上次要送印刷的？",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_door_07"
+    },
+    "common_package_xu_door_07": {
+      "speaker": "許棠",
+      "text": "嗯，那個案子的打樣。來，給你看一下。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_door_08"
+    },
+    "common_package_xu_door_08": {
+      "speaker": "旁白",
+      "text": "她站在自己門邊撕開膠帶，抽出兩張樣本，把有色塊的那一面轉向我。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_door_09"
+    },
+    "common_package_xu_door_09": {
+      "speaker": "許棠",
+      "text": "同一個版面，試兩種紙。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_door_10"
+    },
+    "common_package_xu_door_10": {
+      "speaker": "你",
+      "text": "喔，摸起來不一樣？",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_door_11"
+    },
+    "common_package_xu_door_11": {
+      "speaker": "許棠",
+      "text": "對，印出來也會不一樣。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_choice"
+    },
+    "common_package_xu_choice": {
+      "speaker": "旁白",
+      "text": "她把兩張樣本疊齊，又分開看。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "choices": [
+        {
+          "id": "com03x_recall_deadline",
+          "text": "上次妳趕到那麼晚，就是在改這個？",
+          "next": "com03x_recall_deadline",
+          "effects": {
+            "mc_tone_observant": 1
+          }
+        },
+        {
+          "id": "com03x_ask_proof",
+          "text": "打樣是在看螢幕上看不準的地方嗎？",
+          "next": "com03x_ask_proof",
+          "effects": {
+            "mc_tone_practical": 1
+          }
+        },
+        {
+          "id": "com03x_joke_building",
+          "text": "快遞大概也靠直覺在找門。",
+          "next": "com03x_joke_building",
+          "effects": {
+            "mc_tone_humorous": 1
+          }
+        }
+      ]
+    },
+    "com03x_recall_deadline": {
+      "speaker": "你",
+      "text": "上次妳趕到那麼晚，就是在改這個？",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "com03x_recall_deadline_02"
+    },
+    "com03x_recall_deadline_02": {
+      "speaker": "許棠",
+      "text": "對啊。那天先把檔案交出去，今天才收到紙本。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "com03x_recall_deadline_03"
+    },
+    "com03x_recall_deadline_03": {
+      "speaker": "你",
+      "text": "原來還沒結束。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "com03x_recall_deadline_04"
+    },
+    "com03x_recall_deadline_04": {
+      "speaker": "許棠",
+      "text": "還沒，這一輪也要給客戶看。看完才能排後面的印刷。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "com03x_recall_deadline_05"
+    },
+    "com03x_recall_deadline_05": {
+      "speaker": "你",
+      "text": "嗯。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "com03x_recall_deadline_06"
+    },
+    "com03x_recall_deadline_06": {
+      "speaker": "旁白",
+      "text": "她把樣本移到走廊燈下。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "com03x_recall_deadline_07"
+    },
+    "com03x_recall_deadline_07": {
+      "speaker": "許棠",
+      "text": "這邊亮一點。你看這兩塊灰色。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_proof"
+    },
+    "com03x_ask_proof": {
+      "speaker": "你",
+      "text": "打樣是在看螢幕上看不準的地方嗎？",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "com03x_ask_proof_02"
+    },
+    "com03x_ask_proof_02": {
+      "speaker": "許棠",
+      "text": "嗯，顏色、紙的效果，還有字印出來會不會太小。螢幕可以一直放大，拿到手就不是那回事了。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "com03x_ask_proof_03"
+    },
+    "com03x_ask_proof_03": {
+      "speaker": "你",
+      "text": "對喔。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "com03x_ask_proof_04"
+    },
+    "com03x_ask_proof_04": {
+      "speaker": "旁白",
+      "text": "她指了一下其中一行小字，我稍微湊近看紙。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "com03x_ask_proof_05"
+    },
+    "com03x_ask_proof_05": {
+      "speaker": "你",
+      "text": "這行我就得湊近一點。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "com03x_ask_proof_06"
+    },
+    "com03x_ask_proof_06": {
+      "speaker": "許棠",
+      "text": "是有點小。還有這裡，你看這兩塊灰色。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_proof"
+    },
+    "com03x_joke_building": {
+      "speaker": "你",
+      "text": "快遞大概也靠直覺在找門。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "com03x_joke_building_02"
+    },
+    "com03x_joke_building_02": {
+      "speaker": "許棠",
+      "text": "嗯，差一扇。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "com03x_joke_building_03"
+    },
+    "com03x_joke_building_03": {
+      "speaker": "旁白",
+      "text": "她看了一眼隔壁的門牌，笑了一下。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "com03x_joke_building_04"
+    },
+    "com03x_joke_building_04": {
+      "speaker": "你",
+      "text": "至少樓層對了。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "com03x_joke_building_05"
+    },
+    "com03x_joke_building_05": {
+      "speaker": "許棠",
+      "text": "也是。還好是送到你這邊。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "com03x_joke_building_06"
+    },
+    "com03x_joke_building_06": {
+      "speaker": "旁白",
+      "text": "她把手上滑開的兩張樣本重新拿好。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "com03x_joke_building_07"
+    },
+    "com03x_joke_building_07": {
+      "speaker": "許棠",
+      "text": "等一下，這邊亮一點。你看這兩塊灰色。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_proof"
+    },
+    "common_package_xu_proof": {
+      "speaker": "旁白",
+      "text": "她把兩張紙並排，指著同一個位置。我站在門外，看她指出來的色塊。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_proof_02"
+    },
+    "common_package_xu_proof_02": {
+      "speaker": "許棠",
+      "text": "這張有點偏綠。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_proof_03"
+    },
+    "common_package_xu_proof_03": {
+      "speaker": "你",
+      "text": "我看不太出來欸。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_proof_04"
+    },
+    "common_package_xu_proof_04": {
+      "speaker": "許棠",
+      "text": "這邊。跟旁邊這張比。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_proof_05"
+    },
+    "common_package_xu_proof_05": {
+      "speaker": "旁白",
+      "text": "我看了幾秒。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_proof_06"
+    },
+    "common_package_xu_proof_06": {
+      "speaker": "你",
+      "text": "好像有一點……也可能是妳講了，我才覺得有。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_proof_07"
+    },
+    "common_package_xu_proof_07": {
+      "speaker": "許棠",
+      "text": "嗯，其實很接近，不太容易看出來。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_proof_08"
+    },
+    "common_package_xu_proof_08": {
+      "speaker": "旁白",
+      "text": "她低頭比較了一會兒，又把兩張紙換了位置。我把鑰匙放回口袋。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_proof_09"
+    },
+    "common_package_xu_proof_09": {
+      "speaker": "你",
+      "text": "所以要重印？",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_proof_10"
+    },
+    "common_package_xu_proof_10": {
+      "speaker": "許棠",
+      "text": "先拍給客戶看。明早要回覆印刷廠，今晚得先確認用哪張。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_proof_11"
+    },
+    "common_package_xu_proof_11": {
+      "speaker": "你",
+      "text": "喔。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_proof_12"
+    },
+    "common_package_xu_proof_12": {
+      "speaker": "許棠",
+      "text": "如果要調，再調一點色值。紙應該不用換了。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_proof_13"
+    },
+    "common_package_xu_proof_13": {
+      "speaker": "旁白",
+      "text": "她從封套裡拿出同批的另一張樣本，翻到背面。我等她看完。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_proof_14"
+    },
+    "common_package_xu_proof_14": {
+      "speaker": "你",
+      "text": "兩面都要看？",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_proof_15"
+    },
+    "common_package_xu_proof_15": {
+      "speaker": "許棠",
+      "text": "要，看會不會透。這張還可以。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_proof_16"
+    },
+    "common_package_xu_proof_16": {
+      "speaker": "旁白",
+      "text": "她把紙舉了一下，再放回去。我跟著看，這次看見背面的字淡淡透過來。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_proof_17"
+    },
+    "common_package_xu_proof_17": {
+      "speaker": "你",
+      "text": "我以前好像都只看摸起來怎麼樣。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_proof_18"
+    },
+    "common_package_xu_proof_18": {
+      "speaker": "許棠",
+      "text": "也會看那個啊。有時候挑好紙，印出來又不一樣，還是要拿到才知道。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_proof_19"
+    },
+    "common_package_xu_proof_19": {
+      "speaker": "旁白",
+      "text": "她將幾張樣本一張張收齊，留了兩張在外面。我們安靜了一會兒。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_proof_20"
+    },
+    "common_package_xu_proof_20": {
+      "speaker": "旁白",
+      "text": "手機在口袋裡震了一下。我看了眼時間，從剛才出電梯到現在，已經過了六、七分鐘。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_callback"
+    },
+    "common_package_xu_callback": {
+      "speaker": "旁白",
+      "text": "她把封套立在身側，低頭看了一眼上面的地址。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_callback_02"
+    },
+    "common_package_xu_callback_02": {
+      "speaker": "許棠",
+      "text": "明明有寫 1702。你那邊之前也收過別人的？",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_callback_03"
+    },
+    "common_package_xu_callback_03": {
+      "speaker": "你",
+      "text": "搬來以後，這是第一次。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_callback_04"
+    },
+    "common_package_xu_callback_04": {
+      "speaker": "許棠",
+      "text": "喔。我之前有一件放到樓下，找了一陣子。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_callback_05"
+    },
+    "common_package_xu_callback_05": {
+      "speaker": "你",
+      "text": "那妳今天算快的。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_callback_06"
+    },
+    "common_package_xu_callback_06": {
+      "speaker": "許棠",
+      "text": "對，今天省事多了。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_line"
+    },
+    "common_package_xu_line": {
+      "speaker": "許棠",
+      "text": "我這週還有兩批會來。要不要加個 Line？如果又送到你那邊，傳我一下就好，不用一直敲門。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_line_02"
+    },
+    "common_package_xu_line_02": {
+      "speaker": "你",
+      "text": "好啊。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_line_03"
+    },
+    "common_package_xu_line_03": {
+      "speaker": "旁白",
+      "text": "她拿出手機，打開 Line QR。我拿出手機掃碼，完成新增。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_line_04"
+    },
+    "common_package_xu_line_04": {
+      "speaker": "許棠",
+      "text": "有了。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_line_05"
+    },
+    "common_package_xu_line_05": {
+      "speaker": "你",
+      "text": "嗯，我這邊也有。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_line_06"
+    },
+    "common_package_xu_line_06": {
+      "speaker": "許棠",
+      "text": "欸，之前跟你說的那間粥店，我把位置傳你。店名跟另一家很像。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_line_07"
+    },
+    "common_package_xu_line_07": {
+      "speaker": "你",
+      "text": "好，謝謝。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_line_08"
+    },
+    "common_package_xu_line_08": {
+      "speaker": "旁白",
+      "text": "她看了眼手上的兩張紙，把手機先放回口袋。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_exit"
+    },
+    "common_package_xu_exit": {
+      "speaker": "許棠",
+      "text": "我先去拍這兩張，等一下再傳。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_exit_02"
+    },
+    "common_package_xu_exit_02": {
+      "speaker": "你",
+      "text": "好，妳忙。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_exit_03"
+    },
+    "common_package_xu_exit_03": {
+      "speaker": "旁白",
+      "text": "她收好封套，往門內退了一步。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_exit_04"
+    },
+    "common_package_xu_exit_04": {
+      "speaker": "許棠",
+      "text": "剛剛謝了。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_exit_05"
+    },
+    "common_package_xu_exit_05": {
+      "speaker": "你",
+      "text": "不會。晚安。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_exit_06"
+    },
+    "common_package_xu_exit_06": {
+      "speaker": "許棠",
+      "text": "晚安。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_exit_07"
+    },
+    "common_package_xu_exit_07": {
+      "speaker": "旁白",
+      "text": "她關上門。我回到 1703，把鑰匙放在玄關。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_first_message"
+    },
+    "common_package_xu_first_message": {
+      "speaker": "旁白",
+      "text": "換好衣服後，我正要把手機插上充電，螢幕亮了一下。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_first_message_02"
+    },
+    "common_package_xu_first_message_02": {
+      "speaker": "許棠",
+      "text": "剛剛說的粥店，在這裡。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_first_message_03"
+    },
+    "common_package_xu_first_message_03": {
+      "speaker": "旁白",
+      "text": "訊息附著店家的地圖位置。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_first_message_04"
+    },
+    "common_package_xu_first_message_04": {
+      "speaker": "許棠",
+      "text": "記得週三沒開。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_first_message_05"
+    },
+    "common_package_xu_first_message_05": {
+      "speaker": "你",
+      "text": "收到，謝謝。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "common_package_xu_first_message_06"
+    },
+    "common_package_xu_first_message_06": {
+      "speaker": "旁白",
+      "text": "我點開地圖看了一眼，把手機接上充電線。",
+      "chapter": 4,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "com03x_preview_complete",
+      "entryEffects": {
+        "F_XT": 1
+      },
+      "entryFlags": [
+        "contact_xu"
+      ]
+    },
+    "com03x_preview_complete": {
+      "type": "route"
     }
   }
 }

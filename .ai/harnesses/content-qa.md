@@ -2,7 +2,7 @@
 
 Harness ID: `content_qa`
 
-Version: 1.4.0
+Version: 1.5.0
 
 ## Responsibility
 
@@ -83,6 +83,28 @@ Checks：
 - requested action/emotional read without premature narrative implication；
 - hands/props/composition/focus/safe zone/style；
 - reference and packet provenance。
+
+### Native-size and display-quality gates
+
+For future manifest usability, confirm the entry/packet explicitly prefers the **largest supported native 16:9 output and highest available quality**, with integer-pixel rounding, approved aspect/reference/edit compatibility, no fixed 1672×941 or 1920×1080 minimum and no artificial upscale represented as native/high-definition. Confirm exposed supported transport controls are used when available; absent controls must be recorded `not exposed`, without invented API arguments or a universal tool-cap claim. Prompt preference is not proof of returned size.
+
+For pixel review, report these named checks separately, with exact inspected file/hash, scope and observed evidence:
+
+| Check | Required evidence |
+| --- | --- |
+| `VQA-NATIVE-PROVENANCE` | Requested size/quality and exposed-control evidence or explicit limitation; actual returned width/height/MIME, original byte count/SHA-256 and immutable original location. Verify original returned bytes are preserved and distinguish any conversion/upscale/derivative. |
+| `VQA-SOURCE-CLARITY` | Original pixels visible and inspected at native size (1 image pixel per inspection pixel or equivalent 1:1 detail crops); inspect focal face/hands/objects, fine detail and unintended blur separately from approved depth of field. Record inspected regions and visibility limitations. |
+| `VQA-COMPRESSION-ARTIFACTS` | Inspect artifacts in the original and, separately, the exact runtime derivative pixels: blocking, ringing, banding, smearing/detail loss or other visible compression damage. Record original vs derivative dimensions/MIME/byte count/SHA-256 and conversion settings when available. An uncompressed original alone cannot establish final WebP/compression PASS. |
+| `VQA-DESKTOP-DISPLAY` | Actual runtime render/crop evidence using an explicit target desktop CSS viewport width/height, orientation and DPR, image display area, fit/crop behavior, focus and dialogue/UI state. Inspect clarity at that display size, critical regions, safe zone and UI occlusion. |
+| `VQA-MOBILE-PORTRAIT-DISPLAY` | Actual runtime render/crop evidence for explicit target mobile landscape and portrait profiles, with the same CSS viewport/DPR/crop/focus/UI evidence; inspect critical-region readability/cropping and applicable rotate guidance. |
+
+Profiles come from the approved task's composition/acceptance and runtime contract; do not invent universal viewport/DPR numbers. Screenshots/render evidence must identify the runtime ref/build, asset hash, profile and actual crop/focus/UI state; a resized source preview is not runtime evidence. Inspect the pixels actually available, not filenames, metadata or inferred 4K/retina labels. Missing profiles, original/derivative pixels or provenance yield `BLOCKED` or `NEEDS_REVIEW` for the affected gate, never PASS. An evidenced quality defect yields `FAIL` or `NEEDS_REVIEW`, stating severity and affected region/profile.
+
+A pre-integration candidate review may return overall `PASS` only when the packet's acceptance is explicitly source-only and all required source checks pass; report final derivative/display review as a later required gate, with no final-quality PASS. If that same packet requires derivative/display checks but their evidence is unavailable, return overall `BLOCKED`/`NEEDS_REVIEW` and mark the affected checks accordingly; a missing required check cannot coexist with overall PASS. Final checks remain dependencies of final readiness in either case. When integration produces the derivative or screenshots, Coordinator dispatches a **fresh bounded `content_qa / visual_review` task**, using existing `review_scope: candidate`, explicit `inputs.accepted_outputs`, `required_acquisition`, `allowed_sources`, `input_versions`, `constraints.locked` and `acceptance` for the accepted original, exact derivative and runtime evidence/profiles. This uses existing harness/pass and packet fields; it does not add a generator capability or new review-scope enum. Source QA/Human master acceptance remains distinct from final derivative/display QA. Integrator cannot self-award this independent PASS.
+
+Route raw-image clarity/artifact defects to the same entry's renderer if the approved specification is sufficient; missing/wrong planning or composition requirements go to planner. Route derivative compression, runtime crop/focus or UI implementation defects to integrator, preserving the original master. Missing evidence returns to its producing stage. Each correction requires an explicit bounded Task Packet; no automatic redraw/retry or image scoring. The corrected bytes/profile/build require a fresh review of affected checks.
+
+These rules are prospective. Preserve existing accepted specifications, original pixels and recorded QA/Human outcomes. Do not launder old QA into new native/display checks or infer that historical accepted-as-is means quality PASS.
 
 ## Result
 

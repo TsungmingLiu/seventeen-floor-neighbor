@@ -13,13 +13,15 @@ const RECEIPTS = [
   'content/assets/ingest-receipts/narrative-preview-placeholder-v1.json',
   'content/assets/ingest-receipts/com02x-accepted-masters-v1.json',
   'content/assets/ingest-receipts/com02x-microwave-accepted-master-v1.json',
-  'content/assets/ingest-receipts/com02x-walk-adopted-master-v3.json'
+  'content/assets/ingest-receipts/com02x-walk-adopted-master-v3.json',
+  'content/assets/ingest-receipts/title-master-native-v1.json'
 ];
 // Deliberately bounded: catalog statuses and unrelated receipts cannot grant adoption.
 const DECISIONS = [
   'content/production/runs/com02x-cg-20260930/HUMAN-COM02X-MASTER-001.decision.json',
   'content/production/runs/com02x-cg-20260930/HUMAN-COM02X-MASTER-002.decision.json',
-  'content/production/runs/com02x-visual-bindings-20261001/HUMAN-COM02X-WALK-ADOPTION-003.decision.json'
+  'content/production/runs/com02x-visual-bindings-20261001/HUMAN-COM02X-WALK-ADOPTION-003.decision.json',
+  'content/production/runs/title-key-visual-20261002/HUMAN-TITLE-MASTER-001.decision.json'
 ];
 export const sha256 = (bytes) => createHash('sha256').update(bytes).digest('hex');
 const sorted = (values) => [...new Set(values)].sort();
@@ -102,6 +104,7 @@ export function createCoverageReport({ documents, sourceErrors = [] }) {
       if (!allowed.has(assetId)) error('ASSET_NOT_ALLOWLISTED', { ...reference, assetId });
       if (assets[assetId] && expectedKinds && !expectedKinds.includes(assets[assetId].kind)) error('ASSET_KIND_MISMATCH', { ...reference, assetId });
     };
+    if (chapter.initialTitleArt !== undefined) use(chapter.initialTitleArt, 'initialTitleArt', ['cg', 'background']);
     use(chapter.titleArt, 'titleArt', ['cg', 'background']);
     use(chapter.endingArt, 'endingArt', ['cg', 'background']);
     for (const [id, ending] of Object.entries(chapter.endings || {})) if (ending.art) use(ending.art, `ending:${id}`, ['cg', 'background']);
@@ -192,11 +195,18 @@ export function createCoverageReport({ documents, sourceErrors = [] }) {
           const human = receipt.humanDecision;
           const decision = get(human?.path);
           if (DECISIONS.includes(human?.path) && documents[human.path]) evidence.push({ location: human.path, sha256: documents[human.path].sha256 });
-          check(['human-accepted-master-batch', 'human-adopted-master-batch'].includes(receipt.receiptType), 'HUMAN_RECEIPT_TYPE_UNKNOWN');
+          check(['human-accepted-master-batch', 'human-adopted-master-batch', 'human-adopted-title-master'].includes(receipt.receiptType), 'HUMAN_RECEIPT_TYPE_UNKNOWN');
           check(DECISIONS.includes(human?.path) && decision && documents[human.path]?.sha256 === human.sha256, 'HUMAN_DECISION_HASH_MISMATCH');
           check(decision && (decision.decision_id || decision.task_id) === human?.id && decision.run_id === receipt.runId && decision.scene_id === receipt.sceneId, 'HUMAN_DECISION_ID_MISMATCH');
           check(human?.disposition === 'ACCEPTED_AS_IS' && disposition === 'ACCEPTED_AS_IS' && item.humanDecisionSha256 === item.sha256 && human?.qaHistoryPreserved === true, 'HUMAN_DISPOSITION_MISMATCH');
-          if (receipt.receiptType === 'human-adopted-master-batch') {
+          if (receipt.receiptType === 'human-adopted-title-master') {
+            check(receiptPath === RECEIPTS[5] && assetId === 'bg.opening.title.17f_doorlight' && asset.kind === 'background' && !asset.gallery && receipt.sceneId === 'COM-00', 'TITLE_SCOPE_MISMATCH');
+            check(decision?.status === 'HUMAN_ACCEPTED_AS_IS' && human?.status === decision.status, 'HUMAN_ADOPTION_STATUS_MISMATCH');
+            check(decision?.output_versions?.some((v) => v.id === 'TITLE-17F-DOORLIGHT-01-selected-master' && v.version === item.sha256 && v.location === item.masterPath), 'HUMAN_MASTER_HASH_MISMATCH');
+            check(item.visualQaStatus === 'NEEDS_REVIEW' && receipt.visualQa?.status === 'NEEDS_REVIEW' && decision?.input_versions?.some((v) => v.id === 'VQA-TITLE-17F-001-original-review' && v.version === receipt.visualQa.sha256 && v.location === item.visualQaReceipt), 'QA_HISTORY_MISMATCH');
+            check(asset.focus?.x === 50 && asset.focus?.y === 40 && receipt.renderProvenance?.originalGenerationRef === 'a4e6e1b6e89c3d6dc180755842343230398e3403', 'TITLE_PROVENANCE_MISMATCH');
+            check((references.get(assetId) || []).every((r) => r.binding === 'initialTitleArt'), 'TITLE_RUNTIME_SCOPE_MISMATCH');
+          } else if (receipt.receiptType === 'human-adopted-master-batch') {
             check(decision?.status === 'HUMAN_ACCEPTED_AS_IS' && human?.status === decision.status && !('decision' in human), 'HUMAN_ADOPTION_STATUS_MISMATCH');
             check(decision?.output_versions?.some((v) => v.id === `accepted-master:${item.entryId}:v3` && v.version === item.sha256), 'HUMAN_MASTER_HASH_MISMATCH');
             check(decision?.qa_codes?.some((q) => q.result === visualQaStatus && q.code === 'VQA-COM02X-WALK-003') && receipt.visualQa?.status === visualQaStatus, 'QA_HISTORY_MISMATCH');
@@ -211,7 +221,7 @@ export function createCoverageReport({ documents, sourceErrors = [] }) {
           check(asset.src === item.runtimePath && runtime?.source === item.derivativePath && runtime?.sha256 === item.derivativeSha256 && runtime?.bytes === item.derivativeBytes && fingerprint(item.derivativeSha256, item.derivativeBytes), 'DERIVATIVE_BINDING_MISMATCH');
           if (visualQaStatus !== 'PASS') knownIssues.push(`VISUAL_QA_${visualQaStatus.toUpperCase()}`);
           const coverage = receipt.runtimeCoverage;
-          if (coverage) {
+          if (coverage && receipt.receiptType !== 'human-adopted-title-master') {
             for (const nodeId of coverage.nodeIds || []) check((references.get(assetId) || []).some((r) => r.binding === `node:${nodeId}:asset`), 'RECEIPTED_NODE_BINDING_MISMATCH');
             check((references.get(assetId) || []).some((r) => r.binding.startsWith(`memory:${coverage.memoryEventId}:`)), 'RECEIPTED_MEMORY_BINDING_MISMATCH');
           }

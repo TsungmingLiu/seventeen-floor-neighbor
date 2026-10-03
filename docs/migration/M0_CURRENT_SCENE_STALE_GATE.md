@@ -132,3 +132,12 @@ Full evidence stays ignored under `generated/session-cache/`:
   checkpoint-to-worktree check, SHA-256 `dc2b858d2484871ac3ef2de78906ec88df2828a9832bb57c55a79838a057dfd6`.
 
 Creative, runtime, art, QA and Human record bytes remain at the audited baseline.
+
+## Subsequent milestone checkpoint
+
+PR #43 head `386a011…` later passed clean [Verify run 626](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/37004805613)
+with **132/132 tests** and Cloudflare deployment/smoke, then merged as main
+`c5251cd…`. The Owner subsequently reported no visible playable issues.
+See [M0 foundation acceptance](M0_FOUNDATION_ACCEPTANCE.md) for the new Human
+receipt and main verification. These later facts supersede pending-gate wording
+at the original audit checkpoint; they do not alter its historical QA evidence.

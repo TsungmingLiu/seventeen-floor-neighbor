@@ -1,0 +1,138 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_checkpoint",
+  "run_id": "com03x-m1-preview-20261002",
+  "workflow_version": "1.3.0",
+  "source_ref": "f89e3a9c9b35c0d354c70fd8dd252d5b6107544e",
+  "human_request": {
+    "summary": "Start M1 with COM-03X design, dialogue, independent QA and playable narrative preview; update PR44.",
+    "gate_status": "COM03X Human narrative preview story/dialogue PASS; continue M1 COM02J work authorized"
+  },
+  "status": "NARRATIVE_PREVIEW_READY",
+  "tasks": [
+    {
+      "task_id": "NQA-COM03X-001",
+      "task_type": "narrative_review",
+      "scene_id": "COM-03X",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual:task-packet-schema-v1.3.0",
+        "sha256": "4a8d697eece918c9180463d68061b8d84b6d24ae56dc29b7b7fb226cb7f65bc6"
+      },
+      "decision_receipt": "content/production/runs/com03x-m1-preview-20261002/NQA-COM03X-001.decision.json",
+      "human_gate": "none",
+      "reason": "Compact resume boundary at exact committed scene/contract; verified writer attempts stay in ignored job state. Fresh independent QA completed."
+    },
+    {
+      "task_id": "INT-COM03X-PREVIEW-001",
+      "task_type": "integrate",
+      "scene_id": "COM-03X",
+      "depends_on": [
+        "NQA-COM03X-001"
+      ],
+      "status": "BLOCKED",
+      "decision_receipt": "content/production/runs/com03x-m1-preview-20261002/INT-COM03X-PREVIEW-001.decision.json",
+      "human_gate": "narrative_preview_review",
+      "reason": "JSON-only capability gap: completed-save continuation resets state. No runtime outputs."
+    },
+    {
+      "task_id": "INT-COM03X-PREVIEW-002",
+      "task_type": "integrate",
+      "scene_id": "COM-03X",
+      "depends_on": [
+        "NQA-COM03X-001"
+      ],
+      "status": "BLOCKED",
+      "decision_receipt": "content/production/runs/com03x-m1-preview-20261002/INT-COM03X-PREVIEW-002.decision.json",
+      "human_gate": "narrative_preview_review",
+      "reason": "Prepared preview candidate; changed shared story route binding needs explicit technical revalidation before publishing."
+    },
+    {
+      "task_id": "INT-COM03X-REVALIDATE-003",
+      "task_type": "integrate",
+      "scene_id": "COM-03X",
+      "depends_on": [
+        "NQA-COM03X-001"
+      ],
+      "status": "BLOCKED",
+      "packet": {
+        "generator": "manual:task-packet-schema-v1.3.0",
+        "sha256": "0127405a92d0b881f3240979e6b01a2d5421e90909ef047928f0382f09325078"
+      },
+      "decision_receipt": "content/production/runs/com03x-m1-preview-20261002/INT-COM03X-REVALIDATE-003.decision.json",
+      "human_gate": "narrative_preview_review",
+      "reason": "Re-reviewed shared binding; all required technical evidence acquired except three old unit assumptions, now separately corrected."
+    },
+    {
+      "task_id": "INT-COM03X-FIXTURES-004",
+      "task_type": "integrate",
+      "scene_id": "COM-03X",
+      "depends_on": [
+        "NQA-COM03X-001"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual:task-packet-schema-v1.3.0",
+        "sha256": "40a6860de52ee818adbaaf8f618762dd875b9af1d8ea93e55e648e6e3da02760"
+      },
+      "decision_receipt": "content/production/runs/com03x-m1-preview-20261002/INT-COM03X-FIXTURES-004.decision.json",
+      "human_gate": "narrative_preview_review",
+      "reason": "Focused fixture correction10/10PASS; subsequent clean Verify656 at d4ab4bd0ffc4bec97f81ad288a52194bc3a883bd completed172/172, resolving earlier unit gate. New runtime/creative bytes unchanged; publication evidence in preview."
+    }
+  ],
+  "invalidation_events": [
+    {
+      "changed_artifact_id": "route_binding:COM-02X",
+      "old_version": "3b2941a4f4ceee19c968d6ab8f0e96d15ddd951c062d5763271827bf1ccce241",
+      "new_version": "6b384da0f28c939297e70c429f2616c25d025ee0f51d5c2e3600b1cc18d4a931",
+      "affected_task_ids": [
+        "integration:COM-02X",
+        "playable_review:COM-02X"
+      ],
+      "decision": "STALE",
+      "evidence": "Intentional COM03X story extension changes shared chapter labels/ending/preview opt-in. Original historical gate preserved; new runtime technical review and Human story gate recorded separately. No visual descendants invalidated."
+    },
+    {
+      "changed_artifact_id": "route_binding:COM-00",
+      "old_version": "7067bd963e0ee4ce38550c2d10c09ac27f51ed369370f7f93e92d6c14fad4240",
+      "new_version": "3b6468b600d0c9a301ff98cad735f3338f7b919fd47b74dfca362de02511cbcc",
+      "affected_task_ids": [
+        "integration:COM-00",
+        "playable_review:COM-00"
+      ],
+      "decision": "STALE",
+      "evidence": "Intentional COM03X story extension changes shared chapter labels/ending/preview opt-in. Original historical gate preserved; new runtime technical review and Human story gate recorded separately. No visual descendants invalidated."
+    }
+  ],
+  "preview": {
+    "commit": "d4ab4bd0ffc4bec97f81ad288a52194bc3a883bd",
+    "profile": "narrative_preview; Chromium1280x720/DPR1; existing320px and1440px controls/title cases",
+    "visibility": "public",
+    "build": "PASS22/22media; treeSHA25687f0785a19cea894611d839c1e762bd845e070a0c008ee0da33ddaf6b1b3a10a",
+    "validation": "PASS322nodes/6contracts/18entries",
+    "tests": "Clean Node22 Verify656:172/172PASS,0FAIL; local historical169/172 plus focused10/10 recorded separately",
+    "browser": "26 unique casesPASS across original23and corrected3; exact runtime unchanged",
+    "smoke": "PASS6checks on available4188; local HTTP8/8bytes match",
+    "human_story_review": "PASS: HUMAN-COM03X-STORY-005; original public preview d4ab4bd",
+    "final_art": "PENDING",
+    "runtime_source_ref": "f89e3a9c9b35c0d354c70fd8dd252d5b6107544e",
+    "url_or_access_path": "https://7410c7f4.seventeen-floor-neighbor.pages.dev/",
+    "stable_url": "https://pr-44.seventeen-floor-neighbor.pages.dev/",
+    "ci_run_id": 37056543566,
+    "ci_verify_job_id": 111002534155,
+    "ci_deploy_job_id": 111006224696,
+    "ci_url": "https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/37056543566",
+    "deployed_smoke": "PASS: homepage/deep-link and runtime files fetched, cmp against verified CI artifact",
+    "publication_result": "Verify and deployment jobs success at exact d4ab4bd head; current metadata rollup does not alter tested runtime"
+  },
+  "human_decisions": [
+    {
+      "task_id": "HUMAN-COM03X-STORY-005",
+      "status": "PASS",
+      "scope": "narrative_preview_review only",
+      "decision_receipt": "content/production/runs/com03x-m1-preview-20261002/HUMAN-COM03X-STORY-005.decision.json",
+      "source_ref": "d4ab4bd0ffc4bec97f81ad288a52194bc3a883bd"
+    }
+  ]
+}

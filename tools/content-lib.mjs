@@ -245,6 +245,11 @@ function validateStoryRoute(route, fail) {
   for (const [stat, value] of Object.entries(chapter.initialState || {})) {
     if (!Number.isFinite(value)) fail(`route ${config.id}: initialState ${stat} must be a finite number`);
   }
+  if (chapter.initialTitleArt !== undefined) {
+    const art = requireAsset(chapter.initialTitleArt, null, 'initialTitleArt');
+    if (art && !['background', 'cg'].includes(art.kind)) fail(`route ${config.id} initialTitleArt: must be background or cg`);
+    if (art?.previewOnly && chapter.allowPreviewArt !== true) fail(`route ${config.id} initialTitleArt: preview art requires allowPreviewArt`);
+  }
   requireChapterArt(chapter.titleArt, 'titleArt');
   requireChapterArt(chapter.endingArt, 'endingArt');
   Object.entries(chapter.endings || {}).forEach(([id, ending]) => {

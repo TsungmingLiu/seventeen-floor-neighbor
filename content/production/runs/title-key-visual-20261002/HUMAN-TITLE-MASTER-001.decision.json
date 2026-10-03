@@ -1,0 +1,63 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "human_decision",
+  "run_id": "title-key-visual-20261002",
+  "task_id": "HUMAN-TITLE-MASTER-001",
+  "scene_id": "COM-00",
+  "task_type": "human_decision",
+  "status": "HUMAN_ACCEPTED_AS_IS",
+  "harness": {
+    "id": "Human",
+    "version": "2026-10-02",
+    "pass": null
+  },
+  "source_ref": "e42f7ffe813de2169eb162218ec190c42c128df1",
+  "input_versions": [
+    {
+      "id": "TITLE-17F-DOORLIGHT-01-generation-manifest",
+      "version": "3ac8f4d3e48a9a6b8c0a32b2c1c66dabb16323ce59c4accd2517396a965ce196",
+      "location": "external:original-title-generation-spec"
+    },
+    {
+      "id": "VQA-TITLE-17F-001-original-review",
+      "version": "80fca77cfa170c16c67d22c392368411299ce2805c0ec94a3dbcf01cb9ae99e6",
+      "location": "content/production/runs/title-key-visual-20261002/VQA-TITLE-17F-001.decision.json"
+    },
+    {
+      "id": "production-visual-native-size-policy",
+      "version": "bf8b080150d9a10218c433be04eb92479f9639b85b0c5e2e13770c9ee5738b97",
+      "location": "docs/art/PRODUCTION_VISUAL_DIRECTION.md"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "TITLE-17F-DOORLIGHT-01-selected-master",
+      "version": "8434d7ae1f0857245abc99062a67b6c81d384de489a2854b65348da73edf0c81",
+      "location": "assets-src/opening-title/title-17f-doorlight-v1.png"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "actual-master-selection",
+      "code": "HUMAN_EXPLICIT_SELECTION",
+      "result": "PASS"
+    },
+    {
+      "name": "portrait-focus-50-percent",
+      "code": "HUMAN_EXPLICIT_RUNTIME_FOCUS",
+      "result": "PASS"
+    },
+    {
+      "name": "native-size-policy",
+      "code": "HUMAN_CANCELLED_FIXED_MINIMUM",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "Human reply to actual candidate + 50% portrait focus: 採用這張並整合（推薦）",
+    "Native original master is 1672x941 PNG; do not resize or alter selected master bytes. Original resolution/focal-band review was NEEDS_REVIEW; explicit Human selection authorizes original pixels with tested 50% portrait focus under updated native-size policy."
+  ],
+  "human_gate_required": "none",
+  "invalidates": []
+}

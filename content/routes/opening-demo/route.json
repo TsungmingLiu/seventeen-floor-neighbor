@@ -34,19 +34,22 @@
     "bg.opening.com02x.convenience_night",
     "cg.opening.com02x.recognition",
     "cg.opening.com02x.microwave_wait",
-    "cg.opening.com02x.walk_home"
+    "cg.opening.com02x.walk_home",
+    "bg.opening.title.17f_doorlight",
+    "bg.narrative_preview.placeholder"
   ],
   "story": {
     "id": "opening-demo-chapter-01",
     "title": "Opening Chapter 1",
     "startNode": "common_movein_rain_open",
     "titleArt": "cg.opening.com00.s02_door_assist",
-    "endingArt": "cg.opening.com02x.recognition",
+    "endingArt": "bg.narrative_preview.placeholder",
     "chapterLabels": [
       "雨夜搬家",
       "電梯重啟",
       "地下街初遇",
-      "深夜便利店"
+      "深夜便利店",
+      "包裹 / Line"
     ],
     "initialState": {
       "mc_tone_formal": 0,
@@ -80,10 +83,12 @@
     "endings": {
       "demo_complete": {
         "title": "第一章 Demo 完成",
-        "art": "cg.opening.com02x.recognition",
+        "art": "bg.narrative_preview.placeholder",
         "text": "Opening Chapter 1 敘事預覽到此結束。\n\n這是故事與互動的審閱邊界。"
       }
-    }
+    },
+    "initialTitleArt": "bg.opening.title.17f_doorlight",
+    "allowPreviewArt": true
   },
   "memoryFile": "content/routes/opening-demo/memories.json"
 }

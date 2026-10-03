@@ -1,0 +1,80 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "title-key-visual-20261002",
+  "task_id": "TITLE-REVIEW-TOOL-CORRECTION-001",
+  "scene_id": "COM-00",
+  "task_type": "integrate",
+  "status": "PASS",
+  "harness": {
+    "id": "integrator",
+    "version": "1.3.1",
+    "pass": null
+  },
+  "source_ref": "552aea8ec4fa08a806d8f3fc5f48c91deae79496",
+  "packet_sha256": "aa7ec7c26da66ffd0b64f455a7963b979a8cca67ef27f80095c431a4208dc271",
+  "input_digest_sha256": "3c76f04f115bc4cdcf719a5287d97676d19f27b56ff034a451bea1c688088855",
+  "input_versions": [
+    {
+      "id": "tools/production-review.mjs",
+      "location": "tools/production-review.mjs",
+      "version": "57ac0d752c4ef64400f4f6eb815f7fc376e17888987f17b294e417e65f80158e"
+    },
+    {
+      "id": "tools/production-impact.mjs",
+      "location": "tools/production-impact.mjs",
+      "version": "33c180f98a8c18993d4e736926be37858136d0424afbe8a05f4135951e79bb81"
+    },
+    {
+      "id": "tests/production-review-current.test.mjs",
+      "location": "tests/production-review-current.test.mjs",
+      "version": "96a699885d6580f38d765b430b2f0fcb1d8e779f14ef30fdaca12805c45dbe77"
+    },
+    {
+      "id": "verified-correction-handoff",
+      "version": "d24098a266aedb9c27f024b3392627644288af027c811d4d75c376977e850089",
+      "location": "external:verified-integrator-handoff-fingerprint"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "fixed-scene-review",
+      "version": "d639d2eaf4c541c046fa39cc56b93953ce0969f572925bb592bba609f2877389",
+      "location": "tools/production-review.mjs"
+    },
+    {
+      "id": "regression-tests",
+      "version": "d4a870432b4e246e021465f364b0163ededb6be6a91d51a6a3ff7de50dee3bbe",
+      "location": "tests/production-review-current.test.mjs"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "current-review-and-title-impact-regressions",
+      "code": "4_TESTS_4_PASS_0_FAIL",
+      "result": "PASS"
+    },
+    {
+      "name": "pinned-historical-qa-wrapper",
+      "code": "11_SELECTED_SUITES_ZERO_INNER_FAILURES",
+      "result": "PASS"
+    },
+    {
+      "name": "build-content-final-storage-and-diff-checks",
+      "code": "REQUIRED_CHECKS_PASS",
+      "result": "PASS"
+    },
+    {
+      "name": "protected-story-artwork-runtime-sources",
+      "code": "SOURCE_BYTES_PRESERVED",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "Pinned historical wrapper reports one outer test and verifies all 11 selected suites with zero inner failures; it does not expose the exact successful inner test count.",
+    "No creative QA status or Human decision changed."
+  ],
+  "human_gate_required": "none",
+  "invalidates": []
+}

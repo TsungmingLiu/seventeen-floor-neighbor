@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { GameEngine } from '../src/engine.js';
+import { readFileSync } from 'node:fs';
 
 class MemoryStorage {
   constructor() { this.values = new Map(); }
@@ -39,7 +40,8 @@ class FakeElement {
   replaceChildren(...children) { this.children = children; }
   addEventListener(type, listener) { this.listeners.set(type, listener); }
   setAttribute() {}
-  focus() {}
+  focus() { this.focused = true; this.listeners.get('focus')?.(); }
+  setSelectionRange(start, end) { this.selectionStart = start; this.selectionEnd = end; }
   pause() {}
   play() { return Promise.resolve(); }
   load() {}
@@ -287,7 +289,7 @@ test('Start name form gates entry and the saved name survives Continue and Memor
   assert.equal(engine.els.nameDialog.open, true);
   assert.equal(engine.progress.data.cursor, null, 'opening is not captured before name entry');
   const submit = engine.els.nameForm.listeners.get('submit');
-  engine.els.nameInput.value = '   ';
+  engine.els.nameInput.value = '[bad]';
   submit({ preventDefault() {} });
   assert.equal(engine.els.nameDialog.open, true);
   assert.equal(engine.progress.data.cursor, null);
@@ -327,6 +329,128 @@ test('Start name form gates entry and the saved name survives Continue and Memor
   assert.equal(story.nodes.narration.speaker, '旁白');
   assert.equal(story.nodes.thought.speaker, '內心');
   assert.equal(reloaded.progress.data.playerDisplayName, '小雨');
+  reloaded.progress.finishRun();
+  reloaded.startFromTitle();
+  assert.equal(reloaded.progress.data.playerDisplayName, '小雨', 'explicit restart retains the saved name');
+  assert.equal(reloaded.els.nameDialog.open, false);
+});
+
+function namedEngine() {
+  const engine = engineFor(chapter({ start: { speaker: '我', text: '我叫[PLAYER_NAME]。' } }));
+  engine.bindEvents();
+  engine.startFromTitle();
+  return engine;
+}
+
+function nameEvent(engine, type, details = {}) {
+  engine.els.nameInput.listeners.get(type)?.(details);
+}
+
+function submitName(engine) {
+  engine.els.nameForm.listeners.get('submit')({ preventDefault() {} });
+}
+
+test('prefilled default survives autofocus and non-edit keys, then starts and persists without typing', () => {
+  const engine = namedEngine();
+  assert.equal(engine.els.nameInput.value, '劉樂');
+  assert.equal(engine.els.nameInput.focused, true);
+  engine.els.nameInput.focus();
+  for (const key of ['Tab', 'ArrowLeft', 'Enter', 'Shift']) nameEvent(engine, 'keydown', { key });
+  nameEvent(engine, 'keydown', { key: 'a', ctrlKey: true });
+  assert.equal(engine.els.nameInput.value, '劉樂');
+  assert.equal(engine.progress.data.playerDisplayName, null, 'no save mutation before confirmation');
+  submitName(engine);
+  engine.revealText();
+  assert.equal(engine.els.nameDialog.open, false);
+  assert.equal(engine.els.text.textContent, '我叫劉樂。');
+  assert.equal(JSON.parse(localStorage.getItem(engine.progress.key)).playerDisplayName, '劉樂');
+});
+
+test('first pointer interaction clears once with a cursor and subsequent interactions retain custom text', () => {
+  const engine = namedEngine();
+  nameEvent(engine, 'pointerdown');
+  nameEvent(engine, 'click');
+  assert.equal(engine.els.nameInput.value, '');
+  assert.equal(engine.els.nameInput.focused, true);
+  assert.equal(engine.els.nameInput.selectionStart, 0);
+  assert.equal(engine.els.nameInput.selectionEnd, 0);
+  engine.els.nameInput.value = '小雨';
+  for (const type of ['input', 'pointerdown', 'click', 'compositionstart', 'beforeinput']) nameEvent(engine, type);
+  engine.els.nameInput.focus();
+  assert.equal(engine.els.nameInput.value, '小雨');
+  engine.els.nameCancel.click();
+  assert.equal(engine.progress.data.cursor, null);
+  engine.startFromTitle();
+  assert.equal(engine.els.nameInput.value, '小雨', 'cancel/reopen retains the unsaved draft');
+  nameEvent(engine, 'click');
+  assert.equal(engine.els.nameInput.value, '小雨');
+  submitName(engine);
+  assert.equal(engine.progress.data.playerDisplayName, '小雨');
+});
+
+test('keyboard, IME, paste and native beforeinput clear default before editing without erasing later input', () => {
+  for (const [type, details] of [
+    ['keydown', { key: '雨' }], ['keydown', { key: 'Backspace' }], ['keydown', { key: 'Delete' }],
+    ['compositionstart', {}], ['beforeinput', { inputType: 'insertText' }],
+    ['paste', {}], ['cut', {}], ['drop', {}]
+  ]) {
+    const engine = namedEngine();
+    nameEvent(engine, type, details);
+    assert.equal(engine.els.nameInput.value, '', type);
+    engine.els.nameInput.value = '樂';
+    nameEvent(engine, 'beforeinput', { inputType: 'insertCompositionText' });
+    nameEvent(engine, 'input', { isComposing: true });
+    nameEvent(engine, 'compositionstart');
+    nameEvent(engine, 'click');
+    assert.equal(engine.els.nameInput.value, '樂', `${type} preserves ongoing edits`);
+    submitName(engine);
+    assert.equal(engine.progress.data.playerDisplayName, '樂');
+  }
+});
+
+test('autofill and native input retire default clearing even when they bypass beforeinput', () => {
+  const autofilled = engineFor(chapter({ start: { text: '[PLAYER_NAME]。' } }));
+  autofilled.bindEvents();
+  autofilled.els.nameInput.value = '開啟前填入';
+  autofilled.startFromTitle();
+  nameEvent(autofilled, 'click');
+  assert.equal(autofilled.els.nameInput.value, '開啟前填入', 'opening also preserves earlier browser autofill');
+  for (const signalInput of [false, true]) {
+    const engine = namedEngine();
+    engine.els.nameInput.value = '自訂名字';
+    if (signalInput) nameEvent(engine, 'input');
+    for (const type of ['pointerdown', 'click', 'beforeinput', 'compositionstart']) nameEvent(engine, type);
+    assert.equal(engine.els.nameInput.value, '自訂名字');
+    submitName(engine);
+    assert.equal(engine.progress.data.playerDisplayName, '自訂名字');
+  }
+  const engine = namedEngine();
+  nameEvent(engine, 'input');
+  nameEvent(engine, 'click');
+  assert.equal(engine.els.nameInput.value, '劉樂', 'an input event also preserves a custom value equal to the default');
+});
+
+test('cleared and whitespace names quick-start with the default, invalid nonblank remains editable', () => {
+  for (const value of ['', ' \t\u3000 ']) {
+    const engine = namedEngine();
+    nameEvent(engine, 'pointerdown');
+    engine.els.nameInput.value = value;
+    submitName(engine);
+    assert.equal(engine.els.nameDialog.open, false);
+    assert.equal(engine.progress.data.playerDisplayName, '劉樂');
+  }
+  const engine = namedEngine();
+  nameEvent(engine, 'pointerdown');
+  for (const value of ['[bad]', '雨'.repeat(21), '小\n雨']) {
+    engine.els.nameInput.value = value;
+    submitName(engine);
+    assert.equal(engine.els.nameDialog.open, true);
+    assert.equal(engine.progress.data.cursor, null);
+    assert.equal(engine.progress.data.playerDisplayName, null);
+    assert.ok(engine.els.nameError.textContent);
+    nameEvent(engine, 'click');
+    assert.equal(engine.els.nameInput.value, value, 'validation focus/click preserves custom input');
+  }
 });
 
 test('protagonist name tag falls back safely when a stored name is invalid', () => {
@@ -375,4 +499,181 @@ test('missing name at a rendered token clears stale text and cannot silently adv
   engine.advance();
   assert.equal(engine.nodeId, 'start');
   assert.equal(engine.progress.data.cursor, null);
+});
+
+
+test('dedicated initial title artwork is limited to zero progress and preserves legacy fallback', () => {
+  const story = chapter({ start: { text: 'Start' }, deep: { text: 'Deep' }, finish: { type: 'route' } });
+  story.titleArt = 'old'; story.endingArt = 'ending'; story.initialTitleArt = 'initial';
+  story.endings = { done: { title: 'Done', art: 'ending' } };
+  const assets = { initial: { kind: 'background', src: 'initial.webp', focus: { x: 50, y: 40 } },
+    old: { kind: 'cg', src: 'old.webp' }, saved: { kind: 'cg', src: 'saved.webp' }, ending: { kind: 'cg', src: 'ending.webp' } };
+  const engine = engineFor(story); engine.assets = assets;
+  engine.refreshTitle();
+  assert.equal(engine.els.titleArt.src, 'initial.webp');
+  assert.equal(engine.els.titleArt.style.objectPosition, '50% 40%');
+  assert.equal(engine.els.titleArt.classList.contains('is-initial-title-art'), true);
+  delete story.initialTitleArt; engine.refreshTitle(); assert.equal(engine.els.titleArt.src, 'old.webp');
+  story.initialTitleArt = 'initial';
+  const library = { events: [{ id: 'deep', title: 'Deep', progressRank: 10, replayNode: 'deep', unlockNodes: ['deep'], titleBackdropAsset: 'saved' }] };
+  engine.memoryLibrary = engine.progress.memories = library;
+  engine.progress.capture('deep', engine.state, []);
+  engine.refreshTitle(); assert.equal(engine.els.titleArt.src, 'saved.webp');
+  assert.equal(engine.els.titleArt.classList.contains('is-initial-title-art'), false);
+  const snapshot = engine.progress.data.cursor;
+  engine.progress.data.frontier = null; engine.refreshTitle();
+  assert.equal(engine.els.titleArt.src, 'old.webp', 'cursor-only progress keeps legacy title selection');
+  engine.progress.data.frontier = snapshot;
+  engine.progress.data.restartActive = true; engine.refreshTitle();
+  assert.notEqual(engine.els.titleArt.src, 'initial.webp');
+  engine.progress.data.restartActive = false; engine.progress.data.runComplete = true;
+  engine.progress.data.cursor = { ...snapshot, nodeId: 'finish' };
+  engine.resolveEnding = () => 'done'; engine.refreshTitle();
+  assert.equal(engine.els.titleArt.src, 'ending.webp');
+});
+
+function openingRuntime() {
+  const read = path => JSON.parse(readFileSync(new URL(`../${path}`, import.meta.url), 'utf8'));
+  const route = read('content/routes/opening-demo/route.json');
+  const nodes = read('content/routes/opening-demo/chapter-01.json').nodes;
+  return { chapter: { ...route.story, nodes }, sceneLibrary: {},
+    assetManifest: read('content/assets/manifest.json'), memoryLibrary: read('content/routes/opening-demo/memories.json') };
+}
+
+function instantEngine(runtime) {
+  const engine = new GameEngine(runtime);
+  engine.typeText = function (text) {
+    this.els.text.textContent = text;
+    this.isTyping = false;
+    this.awaitingChoiceReveal = !!this.chapter.nodes[this.nodeId].choices;
+  };
+  return engine;
+}
+
+function completedOpeningSave(runtime, nodeId = 'opening_demo_complete') {
+  const stats = { ...runtime.chapter.initialState, F_XT: 7, T_XT: 3, K_XT: 2, xt_advice_tendency: 1,
+    mc_tone_observant: 4, mc_tone_practical: 5, mc_tone_humorous: 6 };
+  const flags = ['player_knows_xu_freelance_creative_work', 'xu_knows_player_remote_tech_work', 'prior-boundary-history'];
+  const snapshot = { nodeId, stats, flags, returnNodes: [] };
+  return { version: 2, playerDisplayName: '小雨', cursor: snapshot,
+    frontier: { ...snapshot, nodeId: 'common_convenience_xu_exit_08' }, restartActive: false, runComplete: true,
+    checkpoints: { [nodeId]: snapshot }, edges: [['common_convenience_xu_exit_08', 'opening_demo_complete']] };
+}
+
+for (const [index, tone] of ['mc_tone_observant', 'mc_tone_practical', 'mc_tone_humorous'].entries()) {
+  test(`old completed Opening Continue preserves state through COM03X branch ${index + 1}, reload and one-time payoff`, () => {
+    installBrowserMocks();
+    const runtime = openingRuntime();
+    const saved = completedOpeningSave(runtime);
+    localStorage.setItem(`${runtime.chapter.id}:journey:v2`, JSON.stringify(saved));
+    let engine = instantEngine(runtime);
+    engine.refreshTitle();
+    assert.equal(engine.els.startButton.textContent, '繼續遊戲');
+    engine.startFromTitle();
+    assert.equal(engine.nodeId, 'common_package_xu_arrive');
+    assert.deepEqual(engine.state, { ...saved.cursor.stats, flags: new Set(saved.cursor.flags) });
+    const seen = new Set();
+    let reloaded = false;
+    for (let step = 0; step < 100 && engine.nodeId !== 'com03x_preview_complete'; step += 1) {
+      seen.add(engine.nodeId);
+      if (engine.nodeId === 'common_package_xu_proof_10' && !reloaded) {
+        const before = structuredClone(engine.progress.data.cursor);
+        engine = instantEngine(runtime);
+        engine.startFromTitle();
+        assert.deepEqual(engine.progress.data.cursor, before);
+        reloaded = true;
+      }
+      const node = runtime.chapter.nodes[engine.nodeId];
+      if (node.choices) {
+        engine.enterChoiceMode(node.choices);
+        engine.els.choices.children[index].click();
+      } else engine.advance();
+    }
+    assert.equal(reloaded, true);
+    assert.equal(engine.nodeId, 'com03x_preview_complete');
+    for (const id of ['common_package_xu_proof', 'common_package_xu_callback', 'common_package_xu_line', 'common_package_xu_exit', 'common_package_xu_first_message']) assert.ok(seen.has(id));
+    const expected = { ...saved.cursor.stats, F_XT: 8, [tone]: saved.cursor.stats[tone] + 1 };
+    assert.deepEqual(engine.progress.data.cursor.stats, expected);
+    assert.ok(saved.cursor.flags.every(flag => engine.state.flags.has(flag)));
+    assert.ok(engine.state.flags.has('contact_xu'));
+    assert.equal(engine.progress.data.runComplete, true);
+    assert.equal(engine.progress.data.playerDisplayName, '小雨');
+    assert.ok(saved.edges.every(edge => engine.progress.data.edges.some(actual => actual.join() === edge.join())));
+    engine.resumeGame(engine.progress.data.checkpoints.common_package_xu_first_message_06);
+    assert.equal(engine.state.F_XT, 8, 'reloading payoff does not repeat familiarity');
+    assert.deepEqual(engine.progress.data.cursor.stats, expected);
+    engine.advance();
+    const actualComplete = instantEngine(runtime);
+    actualComplete.refreshTitle();
+    assert.equal(actualComplete.els.startButton.textContent, '開始遊戲');
+    actualComplete.startFromTitle();
+    assert.equal(actualComplete.nodeId, runtime.chapter.startNode);
+    assert.equal(actualComplete.state.F_XT, 0);
+    assert.equal(actualComplete.progress.data.restartActive, true);
+  });
+}
+
+test('existing Memory stops before appended contact, preserving ongoing frontier and completion', () => {
+  installBrowserMocks();
+  const runtime = openingRuntime();
+  const engine = instantEngine(runtime);
+  engine.progress.setPlayerName('小雨');
+  engine.progress.capture('common_convenience_xu_exit_08', { ...runtime.chapter.initialState, F_XT: 7, flags: new Set(['old']) }, []);
+  engine.progress.capture('common_package_xu_proof', { ...runtime.chapter.initialState, F_XT: 7, flags: new Set(['old']) }, []);
+  const frontier = structuredClone(engine.progress.data.frontier);
+  engine.replayMemory({ replayNode: 'common_convenience_xu_exit_08' });
+  engine.advance();
+  assert.equal(engine.nodeId, 'opening_demo_complete');
+  assert.equal(engine.els.title.classList.contains('is-hidden'), false);
+  assert.deepEqual(engine.progress.data.frontier, frontier);
+  assert.equal(engine.progress.data.runComplete, false);
+  assert.equal(engine.state.flags.has('contact_xu'), false);
+  const reloaded = instantEngine(runtime);
+  assert.equal(reloaded.progress.data.runComplete, false);
+  assert.deepEqual(reloaded.progress.data.frontier, frontier);
+  reloaded.startFromTitle();
+  assert.equal(reloaded.nodeId, 'common_package_xu_proof');
+  assert.deepEqual(reloaded.state.flags, new Set(['old']));
+});
+
+test('actual complete Opening Memory reload still offers Start and invalid historical cursor retains fallback', () => {
+  for (const nodeId of ['com03x_preview_complete', 'deleted-node']) {
+    installBrowserMocks();
+    const runtime = openingRuntime();
+    const saved = completedOpeningSave(runtime, nodeId);
+    localStorage.setItem(`${runtime.chapter.id}:journey:v2`, JSON.stringify(saved));
+    const engine = instantEngine(runtime);
+    if (nodeId === 'com03x_preview_complete') {
+      engine.progress.beginReplay();
+      engine.progress.capture('common_convenience_xu_enter', { ...runtime.chapter.initialState, flags: new Set(['earlier']) }, []);
+      const reloaded = instantEngine(runtime);
+      reloaded.refreshTitle();
+      assert.equal(reloaded.progress.data.runComplete, true);
+      assert.equal(reloaded.els.startButton.textContent, '開始遊戲');
+      reloaded.startFromTitle();
+      assert.equal(reloaded.nodeId, runtime.chapter.startNode);
+    } else {
+      assert.equal(engine.progress.data.cursor, null);
+      assert.equal(engine.progress.data.runComplete, true);
+      engine.startFromTitle();
+      assert.equal(engine.nodeId, runtime.chapter.startNode);
+    }
+  }
+});
+
+test('a historical terminal Memory cursor cannot reopen or regress a completed appended world on reload', () => {
+  installBrowserMocks();
+  const runtime = openingRuntime();
+  const saved = completedOpeningSave(runtime);
+  saved.frontier = { ...saved.cursor, nodeId: 'com03x_preview_complete', stats: { ...saved.cursor.stats, F_XT: 99 }, flags: ['contact_xu', 'new-world'] };
+  saved.checkpoints.com03x_preview_complete = saved.frontier;
+  localStorage.setItem(`${runtime.chapter.id}:journey:v2`, JSON.stringify(saved));
+  const engine = instantEngine(runtime);
+  assert.equal(engine.progress.data.runComplete, true);
+  assert.deepEqual(engine.progress.data.frontier, saved.frontier);
+  engine.refreshTitle();
+  assert.equal(engine.els.startButton.textContent, '開始遊戲');
+  engine.startFromTitle();
+  assert.equal(engine.nodeId, runtime.chapter.startNode);
+  assert.deepEqual(engine.progress.data.frontier, saved.frontier);
 });

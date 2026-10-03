@@ -12,19 +12,44 @@
 
 # Current Milestone
 
-## M0 — Foundation Stable
+## M1 — Gameplay Validation
 
-目前唯一 active technical milestone。
+目前唯一 active technical milestone。最新 main 為 PR #45 `e28e45d…`，包含 title CG／預填姓名與 prospective final derivative/display QA policy；已核對的是 exact PR head `43db3a2…` 的 [Verify run 37034831902](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/37034831902)，Verify job `110930333722`、deploy／smoke job `110933137975` success，不推定 post-merge main CI 或新的 pixel QA。M0 已於 2026-10-02 由 PR #43 main `c5251cd…` 的 132/132 Verify、deployment／smoke 與既有 Human playable acceptance 關閉，見 [收尾證據](docs/migration/M0_FOUNDATION_ACCEPTANCE.md)。title 原 VQA NEEDS_REVIEW／final Human playable acceptance pending 與既有 art release constraints 保持。
 
-目標不是繼續擴張 architecture；PR #21 的 repo-native asset / workflow migration 已合併，接下來驗證 Narrative-first、Art-later playable baseline 的其餘 Exit Gates。
-
-詳細產品定義與 Exit Gate 見 `ROADMAP.md`。
-
-2026-10-02 最新 main 基線為 `e0c3a86…`（PR #39）；[COM-02X checkpoint](content/production/runs/com02x-visual-bindings-20261001/ledger.json)綁定 `ba5f832…` 的 CG 整合、Node 22 104/104／Chromium 11/11 與公開預覽驗證。相關八個 runtime／asset outputs 與目前 main SHA-256 相符，沿用其驗證範圍，不推定新 main CI。敘事／UI／Human 品質批准沿用 [PR #37 ledger](content/production/runs/pr37-review-fixes-20260930/ledger.json)；最終 Human playable acceptance 未記錄。下列勾選不代表全部 M0 Exit Gate 通過。
+目標是將選定的 30–60 分鐘 slice 接成真正可玩的流程，驗證注意力 trade-off、人物互動與可見 consequence；不擴張成通用 model-checking 或新 production engine。詳細產品 gate 由 `ROADMAP.md` 定義。
 
 ---
 
-## M0 Critical Path
+# M1 Current Work
+
+M0 已完成；本輪只處理 [M1 slice scope](docs/narrative/M1_GAMEPLAY_VALIDATION_SLICE.md) 需要的工程與驗證。
+
+- [x] 準備 scene/dependency／production gap／playtest scope proposal；這不是已實作 playable slice。
+- [x] COM-03X Narrative Design／Script Lock／獨立 Narrative QA PASS。
+- [x] COM-03X 首批 narrative preview：三分支、舊完成存檔 Continue、姓名／state、reload／Memory isolation 已驗證；[公開試玩](https://7410c7f4.seventeen-floor-neighbor.pages.dev/) 綁定 PR #44 `d4ab4bd…`。[乾淨 Verify 656](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/37056543566) 172/172、deploy／deployed smoke PASS；Chromium 26 個案例已有原 23 + corrected 3/3 的通過證據。237 個既有 nonterminal nodes 與 COM-02X accepted media／canon 保持；歷史 shared route-binding stale 判定保留，本輪另做技術再審。原本地 169/172 失敗與 fixture 修正 10/10 紀錄不改寫。Human story review 已於 2026-10-02 PASS（Owner 試玩批准）；final art 與完整 30–60 分鐘 M1 slice pending；`validate:final` 仍依 preview art 拒絕。
+
+## Gameplay Validation Slice integration
+
+- [ ] 將 M1 選定的 30–60 分鐘 validation slice 接成真正 playable flow。
+- [ ] 允許 incomplete art 使用 M0 placeholder contract。
+- [ ] 保持 narrative integration 與 final CG production 解耦。
+
+## Lightweight graph / state validation
+
+先實作足夠支撐 M1 的最小版本：
+
+- [x] unreachable node detection（既有 validator）
+- [x] dangling target detection（既有 validator）
+- [ ] impossible gate detection
+- [ ] dead / invalid state detection
+- [ ] obvious knowledge contradiction detection
+- [ ] invalid transition detection
+
+不要在沒有實際需求前擴張成通用 model-checking framework。
+
+---
+
+## Completed — M0 gate record
 
 ### 1. Repo-native visual asset migration
 
@@ -72,38 +97,11 @@ M0 先以一個真實 scene 的受控修改，證明定點影響報告可供整�
 - [x] PR #37 main [Cloudflare 部署後 smoke](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/36788149966)成功；該 PR 公開 alias 的內容 bytes 與 7/7 browser 已核對，見 ledger。舊 HTTP 403 不作當前 blocker。
 - [x] PR #37：江雨澄介紹前姓名、旁白／自白正體、玩家姓名 nametag，以及 title-screen Memory／CG 啟動時序修正。
 - [x] PR #39：COM-02X BG／recognition／microwave／walk v3 accepted-as-is 整合；83 nodes／四 choices／文本/state／stable save IDs／Memory rank 160 保持；Node 22 104/104、Chromium 11/11 與固定 Cloudflare preview 的 bytes／forward flow／reload／Gallery PASS，見 [驗證決策](content/production/runs/com02x-visual-bindings-20261001/VERIFY-COM02X-VISUAL-BINDINGS-008.decision.json)。原 Visual QA FAIL／safe-zone NEEDS_REVIEW 不改寫。
-- [ ] COM-02X 最終 Human playable acceptance（checkpoint 為 `READY_FOR_HUMAN_ACCEPTANCE`，不重問已批准的故事）。
+- [x] COM-02X 最終 Human playable acceptance：2026-10-02 Owner 回報無可見問題，checkpoint 已為 `ACCEPTED`；見 [實際 Human receipt](content/production/runs/com02x-visual-bindings-20261001/HUMAN-COM02X-PLAYABLE-009.decision.json)。
 - [x] COM-02X 當前 material-change／stale preflight → build 阻擋，以及 master／derivative／reference／Human decision 篡改與舊 report 清除 case（同上當前 gate 證據）。
-- [x] PR #43 head `720843e…` 的 [Node 22 Verify run 624](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/36966607788)：117/117 tests、build／validation、preview smoke、tracked-source integrity 及 Cloudflare deployment／deployed smoke PASS；尚未合併，不代表新 main 或 Human acceptance。
+- [x] PR #43 head `720843e…` 的 [Node 22 Verify run 624](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/36966607788)：117/117 tests、build／validation、preview smoke、tracked-source integrity 及 Cloudflare deployment／deployed smoke PASS；該 head 當時尚未合併，不代表新 main 或 Human acceptance。
 
-全部通過後，依 `ROADMAP.md` 判定 M0 是否可以結束。
-
----
-
-# NEXT — M1 Gameplay Validation 技術準備
-
-以下工作屬於下一個 milestone。
-
-在 M0 Exit Gate 通過前，不應搶占目前 critical path。
-
-## Gameplay Validation Slice integration
-
-- [ ] 將 M1 選定的 30–60 分鐘 validation slice 接成真正 playable flow。
-- [ ] 允許 incomplete art 使用 M0 placeholder contract。
-- [ ] 保持 narrative integration 與 final CG production 解耦。
-
-## Lightweight graph / state validation
-
-先實作足夠支撐 M1 的最小版本：
-
-- [ ] unreachable node detection
-- [ ] dangling target detection
-- [ ] impossible gate detection
-- [ ] dead / invalid state detection
-- [ ] obvious knowledge contradiction detection
-- [ ] invalid transition detection
-
-不要在沒有實際需求前擴張成通用 model-checking framework。
+M0 已通過；歷史 PR #43 main `c5251cd…` Node 22 Verify 132/132、deployment／smoke PASS。詳見 [M0 foundation acceptance](docs/migration/M0_FOUNDATION_ACCEPTANCE.md)。
 
 ---
 

@@ -1,0 +1,226 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "com03x-m1-preview-20261002",
+  "task_id": "NQA-COM03X-001",
+  "scene_id": "COM-03X",
+  "task_type": "narrative_review",
+  "status": "PASS",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.5.0",
+    "pass": "narrative_review"
+  },
+  "source_ref": "bbc771dc9c3452400b81f28efd1430813331fdea",
+  "packet_sha256": "4a8d697eece918c9180463d68061b8d84b6d24ae56dc29b7b7fb226cb7f65bc6",
+  "input_digest_sha256": "2e732c2856757351f1f23133d10e7ddc0d341ee716697de4dae549636871869c",
+  "input_versions": [
+    {
+      "id": "AGENTS.md",
+      "version": "3a9437e9c33c455ece1177a5b4ffa5752ca67687f6fdf4633d966ab1f6f0488e",
+      "location": "AGENTS.md"
+    },
+    {
+      "id": ".ai/WORKFLOW_MANIFEST.yaml",
+      "version": "4e42799b5c23421af5ef3688f92e21f9eb666f05d2047134e54286d5bd71b239",
+      "location": ".ai/WORKFLOW_MANIFEST.yaml"
+    },
+    {
+      "id": ".ai/harnesses/bootstrap.md",
+      "version": "b347e41e1669ec92fdf4885ba4e97f09e97978e1bc5b04e17ece72f8aba8b131",
+      "location": ".ai/harnesses/bootstrap.md"
+    },
+    {
+      "id": ".ai/policies/SOURCE_AUTHORITY.md",
+      "version": "9db10a7925386836415fd000470cb535915b0e0e58eb7bee794f6a8ae445971c",
+      "location": ".ai/policies/SOURCE_AUTHORITY.md"
+    },
+    {
+      "id": ".ai/policies/CONTEXT_ISOLATION.md",
+      "version": "27c3fca1c65f513b9b3752dcd88b033a68fda600cef009c9a67a161ef06b96e1",
+      "location": ".ai/policies/CONTEXT_ISOLATION.md"
+    },
+    {
+      "id": "docs/CONTENT_PRODUCTION_SOURCE_MAP.md",
+      "version": "c0ae2c825ef2c47afe78c14dc768758115d5a750e7b1afe9ebd6ead8a9b0804c",
+      "location": "docs/CONTENT_PRODUCTION_SOURCE_MAP.md"
+    },
+    {
+      "id": ".ai/harnesses/content-qa.md",
+      "version": "ec9a9166ef328a8bb4bfdc7c68dd9c69ff7b4368d0b853217bd2d381146ad3a9",
+      "location": ".ai/harnesses/content-qa.md"
+    },
+    {
+      "id": ".ai/schemas/TASK_PACKET.md",
+      "version": "0473fe9229c64d45ad1696adab632b66da760e0efe8c50a6478d05ff86500d58",
+      "location": ".ai/schemas/TASK_PACKET.md"
+    },
+    {
+      "id": ".ai/schemas/HANDOFF.md",
+      "version": "362659d079492d73cd190a9f32dbf035ac84869b61c42152adf7f1220018b37f",
+      "location": ".ai/schemas/HANDOFF.md"
+    },
+    {
+      "id": ".ai/schemas/NARRATIVE_CONTINUITY.md",
+      "version": "69194c36c4d9ca659242729a6c86c6645ce91b408d19c51b956a9def98b5e57b",
+      "location": ".ai/schemas/NARRATIVE_CONTINUITY.md"
+    },
+    {
+      "id": ".ai/schemas/narrative-continuity.schema.json",
+      "version": "38c79d1b957d88cdd07a4a7048f44c9a2a37ea4ee8eb5a12f27bb1dac6040d2f",
+      "location": ".ai/schemas/narrative-continuity.schema.json"
+    },
+    {
+      "id": "docs/narrative/CONTENT_PRODUCTION_SPEC.md",
+      "version": "0d0a8bd2de647f96df6eebcf55d7e4d32483fc8783df7ff6ddf0985450ab3d6a",
+      "location": "docs/narrative/CONTENT_PRODUCTION_SPEC.md"
+    },
+    {
+      "id": "content/production/narrative/opening-ch1/COM-02X.json",
+      "version": "bfd46a77ce8d935586b3581c3b4c92fb89e4dde5732142ac99daa718cb652952",
+      "location": "content/production/narrative/opening-ch1/COM-02X.json"
+    },
+    {
+      "id": "tools/validate-production-contracts.mjs",
+      "version": "77de4d2506ce77140e50cd3d815ad7031ef85c5cab90ac6a17c0fcb03924e8fa",
+      "location": "tools/validate-production-contracts.mjs"
+    },
+    {
+      "id": "package.json",
+      "version": "6a13720c43193679d154fbaee34acc67b82db684fe67beda582d2b21d81987b6",
+      "location": "package.json"
+    },
+    {
+      "id": "docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md#L30-L70",
+      "version": "6b8b7270159071c6473bd5debc8dfd898379a379f7608bfcb8498ff1ad1e35fb",
+      "location": "docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md"
+    },
+    {
+      "id": "docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md#L129-L147",
+      "version": "399f1bf5d10a8fd13f4b41a4be32c9f14f1384893690e5865dfa58dce828b0d7",
+      "location": "docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md"
+    },
+    {
+      "id": "docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md#L309-L329",
+      "version": "e7da2b7cd74ce8b8ee37e9364f68b89d24b5f4f2b139a81298225afe53b1b494",
+      "location": "docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md"
+    },
+    {
+      "id": "docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_COMMON.md#L161-L183",
+      "version": "7448d304eab8999699560ab108d5f0bb4c82c78a5d6a907766d371c178f35b07",
+      "location": "docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_COMMON.md"
+    },
+    {
+      "id": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L170-L186",
+      "version": "2805dac7d34f208bff823aa4dcf739f8b3d3a64b920b5e7f1b7c6974a33b484e",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md"
+    },
+    {
+      "id": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L253-L289",
+      "version": "fabfe6818bcc5a4a0e02acb7b98ff973780e4be67c1235fe5e4635d6083c86f9",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md"
+    },
+    {
+      "id": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L335-L344",
+      "version": "2dd56aae2aaa0f040585bb5136d801082e8747050333b403fc0127a3a1ff75eb",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md"
+    },
+    {
+      "id": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L354-L354",
+      "version": "92c79d48e65fbee3e1d40a494c31d2a3a18eccd4dafa6f1275f9f8a7c170579f",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md"
+    },
+    {
+      "id": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L688-L704",
+      "version": "7d8df4f9ff0fa07e93a717d0585e7076314fe651c942ee629bb311f6dde12d9c",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md"
+    },
+    {
+      "id": "docs/narrative/scenes/vertical-slice/COM-03X.md",
+      "version": "e837b0b365dcf2157e841bce67614e6f41ca758717c4cf20e93c6a01ac54142a",
+      "location": "docs/narrative/scenes/vertical-slice/COM-03X.md"
+    },
+    {
+      "id": "content/characters/xu_tang.json#L2-L4",
+      "version": "5738f7690acf5caf50859f3ca737cee6b4c1291d5d8db9406e8ad9f00b618303",
+      "location": "content/characters/xu_tang.json"
+    },
+    {
+      "id": "content/characters/xu_tang.json#L14-L21",
+      "version": "ec77cbe4e38f200c5cfbeeddabde40941ad72f39d240aba4d6fc728f9d59f3f7",
+      "location": "content/characters/xu_tang.json"
+    },
+    {
+      "id": "content/production/narrative/opening-ch1/COM-03X.json",
+      "version": "81b6c71fedb43b4d32c025a2d190dea9c1138905680a99562efa417b522d507c",
+      "location": "content/production/narrative/opening-ch1/COM-03X.json"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "approved-locked-scene:COM-03X",
+      "version": "e837b0b365dcf2157e841bce67614e6f41ca758717c4cf20e93c6a01ac54142a",
+      "location": "docs/narrative/scenes/vertical-slice/COM-03X.md"
+    },
+    {
+      "id": "narrative-contract:COM-03X",
+      "version": "81b6c71fedb43b4d32c025a2d190dea9c1138905680a99562efa417b522d507c",
+      "location": "content/production/narrative/opening-ch1/COM-03X.json"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "exact_source_acquisition",
+      "code": "NQA-SOURCE-ACQUISITION",
+      "result": "PASS"
+    },
+    {
+      "name": "function_and_payoff",
+      "code": "NQA-FUNCTION-AND-PAYOFF",
+      "result": "PASS"
+    },
+    {
+      "name": "entry_and_exit_continuity",
+      "code": "NQA-ENTRY-AND-EXIT",
+      "result": "PASS"
+    },
+    {
+      "name": "voice_knowledge_and_relationship_pace",
+      "code": "NQA-VOICE-AND-PACING",
+      "result": "PASS"
+    },
+    {
+      "name": "choice_and_rejoin",
+      "code": "NQA-CHOICE-AND-REJOIN",
+      "result": "PASS"
+    },
+    {
+      "name": "state_mapping",
+      "code": "NQA-STATE-MAPPING",
+      "result": "PASS"
+    },
+    {
+      "name": "must_not_and_premature_reveal",
+      "code": "NQA-MUST-NOT",
+      "result": "PASS"
+    },
+    {
+      "name": "semantic_visual_beats",
+      "code": "NQA-SEMANTIC-VISUAL-BEATS",
+      "result": "PASS"
+    },
+    {
+      "name": "dialogue_naturalism",
+      "code": "NQA-DIALOGUE-NATURALISM",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "Narrative QA only; visual and Human preview acceptance separate.",
+    "Fresh readonly Handoff verified at execution: SHA256 15b8f4b1b48be5dd4614d7236d029d9688561db75559dc12ad13007991a5608d. Full packet/Handoff and writer attempts are ignored temporary evidence.",
+    "This schema2 checkpoint/decision is not supported by the current bounded legacy production:run:check; no automatic current-PASS verifier claim. Resume by verifying exact recorded canonical identities and dispatching a new bounded packet if inputs change."
+  ],
+  "human_gate_required": "none",
+  "invalidates": []
+}
