@@ -9,11 +9,19 @@ The `Verify` GitHub Actions workflow runs on pushes and pull requests. It checks
 | Event | Pages branch | Result |
 | --- | --- | --- |
 | PR from this repository, opened/reopened/updated | `pr-<PR number>` | Preview; the branch alias moves to the latest successful deployment |
+| PR from this repository, merged | `pr-<PR number>` | Cleanup; keep the deployment currently owning the stable PR branch alias and delete superseded previews for that PR |
 | Push to `main` | `main` | Production, after the same Verify checks pass |
 | Push to another branch | none | Verify only; PR opening triggers the preview |
 | PR from a fork | none | Secret-free Verify only; no automatic preview |
 
 The default `pull_request` checkout builds GitHub's proposed merge commit, so a preview represents the PR combined with its current base. On a new commit, the newest workflow run supersedes the previous run. The Cloudflare branch alias `pr-<number>.<project>.pages.dev` stays stable while its target updates. Find the actual URL in the PR's **Deploy Cloudflare Pages** check summary or GitHub Deployment. Each run also records its immutable deployment URL. Do not record a temporary deployment URL in source files.
+
+### Merged PR preview cleanup
+
+The `Cleanup merged PR previews` workflow runs only when a same-repository pull request is actually merged. It lists Cloudflare Pages **preview** deployments, narrows them to the exact synthetic Pages branch `pr-<PR number>`, and keeps the one deployment that currently owns the stable branch alias `pr-<PR number>.<project>.pages.dev`. All other deployments in that exact preview branch are deleted.
+
+The stable alias is the keeper authority rather than `pull_request.head.sha`: PR previews are built from GitHub's proposed merge commit, and the current deploy command records `github.sha`, so the Cloudflare commit hash is not necessarily the PR head SHA. The cleanup is fail-closed: if Cloudflare does not report exactly one deployment owning the expected branch alias, it deletes nothing and fails the job. It never considers production deployments or the `main` branch. Fork PRs and PRs closed without merging are skipped.
+
 
 Cloudflare Pages serves the static files directly. The game enters at `/` and selects the story via query string; `index.html` sets the URL base to `/`, so a Pages SPA fallback on a deeper path can still find the JS, route JSON, and art. The deployment job fetches the live page, a fallback path, the route package, JS, and an asset after upload. Codespaces and Browser Acceptance remain separate engineering checks.
 

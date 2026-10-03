@@ -1,0 +1,162 @@
+name: Cleanup merged PR previews
+
+on:
+  pull_request:
+    types: [closed]
+
+permissions:
+  contents: read
+
+jobs:
+  cleanup:
+    name: Cleanup Cloudflare Pages PR previews
+    if: github.event.pull_request.merged == true && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Delete superseded PR preview deployments
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_PAGES_PROJECT: ${{ vars.CLOUDFLARE_PAGES_PROJECT }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          node <<'NODE'
+          const fs = require('node:fs');
+
+          const accountId = process.env.CLOUDFLARE_ACCOUNT_ID;
+          const apiToken = process.env.CLOUDFLARE_API_TOKEN;
+          const projectName = process.env.CLOUDFLARE_PAGES_PROJECT;
+          const prNumber = process.env.PR_NUMBER;
+
+          if (!accountId || !apiToken) {
+            throw new Error('CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN must be configured.');
+          }
+          if (!/^[a-z0-9][a-z0-9-]*$/.test(projectName || '')) {
+            throw new Error('CLOUDFLARE_PAGES_PROJECT is missing or malformed.');
+          }
+          if (!/^[1-9][0-9]*$/.test(prNumber || '')) {
+            throw new Error('PR_NUMBER is missing or malformed.');
+          }
+
+          const targetBranch = `pr-${prNumber}`;
+          if (targetBranch === 'main') {
+            throw new Error('Refusing to operate on the production branch.');
+          }
+
+          const expectedAliasHost = `${targetBranch}.${projectName}.pages.dev`.toLowerCase();
+          const baseUrl =
+            `https://api.cloudflare.com/client/v4/accounts/${encodeURIComponent(accountId)}` +
+            `/pages/projects/${encodeURIComponent(projectName)}/deployments`;
+          const headers = {
+            Authorization: `Bearer ${apiToken}`,
+            'Content-Type': 'application/json',
+          };
+
+          async function cloudflare(url, options = {}) {
+            const response = await fetch(url, { ...options, headers: { ...headers, ...(options.headers || {}) } });
+            let body;
+            try {
+              body = await response.json();
+            } catch {
+              throw new Error(`Cloudflare returned non-JSON response (HTTP ${response.status}).`);
+            }
+            if (!response.ok || body.success !== true) {
+              const messages = [...(body.errors || []), ...(body.messages || [])]
+                .map((entry) => entry.message)
+                .filter(Boolean)
+                .join('; ');
+              throw new Error(
+                `Cloudflare API request failed (HTTP ${response.status})${messages ? `: ${messages}` : ''}`,
+              );
+            }
+            return body;
+          }
+
+          function aliasHost(alias) {
+            if (typeof alias !== 'string' || alias.length === 0) return null;
+            try {
+              const url = new URL(alias.includes('://') ? alias : `https://${alias}`);
+              return url.hostname.toLowerCase();
+            } catch {
+              return null;
+            }
+          }
+
+          async function listPreviewDeployments() {
+            const deployments = [];
+            let page = 1;
+            while (true) {
+              if (page > 1000) {
+                throw new Error('Cloudflare pagination exceeded the safety limit.');
+              }
+              const url = new URL(baseUrl);
+              url.searchParams.set('env', 'preview');
+              url.searchParams.set('page', String(page));
+              url.searchParams.set('per_page', '100');
+
+              const body = await cloudflare(url.toString());
+              deployments.push(...(Array.isArray(body.result) ? body.result : []));
+
+              const totalPages = Number(body.result_info?.total_pages || 0);
+              const count = Array.isArray(body.result) ? body.result.length : 0;
+              if ((totalPages > 0 && page >= totalPages) || (totalPages === 0 && count < 100)) {
+                return deployments;
+              }
+              page += 1;
+            }
+          }
+
+          const deployments = await listPreviewDeployments();
+          const scoped = deployments.filter((deployment) => {
+            const metadata = deployment.deployment_trigger?.metadata;
+            return deployment.environment === 'preview' && metadata?.branch === targetBranch;
+          });
+
+          if (scoped.length === 0) {
+            fs.appendFileSync(
+              process.env.GITHUB_STEP_SUMMARY,
+              `## Cloudflare preview cleanup\n\nNo preview deployments found for \`${targetBranch}\`. Nothing to delete.\n`,
+            );
+            process.exit(0);
+          }
+
+          const keepers = scoped.filter((deployment) =>
+            (deployment.aliases || []).some((alias) => aliasHost(alias) === expectedAliasHost),
+          );
+
+          // Fail closed: do not delete anything unless Cloudflare identifies exactly one deployment
+          // as the current stable branch alias target.
+          if (keepers.length !== 1) {
+            throw new Error(
+              `Expected exactly one deployment for ${targetBranch} to own alias ${expectedAliasHost}; found ${keepers.length}. No deployments were deleted.`,
+            );
+          }
+
+          const keeper = keepers[0];
+          if (!keeper.id) {
+            throw new Error('Keeper deployment has no ID. No deployments were deleted.');
+          }
+
+          const stale = scoped.filter((deployment) => deployment.id && deployment.id !== keeper.id);
+
+          for (const deployment of stale) {
+            const deleteUrl = new URL(`${baseUrl}/${encodeURIComponent(deployment.id)}`);
+            deleteUrl.searchParams.set('force', 'true');
+            await cloudflare(deleteUrl.toString(), { method: 'DELETE' });
+          }
+
+          const shortCommit = keeper.deployment_trigger?.metadata?.commit_hash?.slice(0, 12) || 'unknown';
+          const summary = [
+            '## Cloudflare preview cleanup',
+            '',
+            `PR branch: \`${targetBranch}\``,
+            `Kept current alias target: \`${keeper.id}\` (commit \`${shortCommit}\`)`,
+            `Deleted superseded deployments: **${stale.length}**`,
+            '',
+          ].join('\n');
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, summary);
+          NODE
