@@ -122,17 +122,19 @@ M0 不做：
 
 至少包含：
 
-- 玩家與許棠、江雨澄都有實質互動；
+- 雙女主核心驗證路徑中，玩家與許棠、江雨澄都有實質互動；另保留可錯過江雨澄的較短合法走法，非每輪必見兩人；
 - 一次 attention allocation / open dating 選擇；
 - 每位女主至少一個 major interaction；
 - 一次 crossover / shared-awareness scene；
 - 一次 relationship friction；
-- 一次 repair opportunity；
+- 一次具體 early friction repair（承認行為、詢問 cue、停止越界、女主接受／拒絕）；RE 只處理重新投入；
 - 一次對關係或注意力具有實質影響的 decision。
 
 Final CG 不是前置條件。
 
 缺少美術的場景正常使用 M0 建立的 placeholder。
+
+v0.6 契約已獨立文件審查，blueprint 與 M1 authored-path plan 本輪已對齊；獨立一致性審查仍待完成，尚無新 dialogue／runtime／playtest acceptance。COM-03J 已整合但 Human narrative preview 未審；不把規劃視為新可玩。OPEN-A/B 有限 slots、XX/JJ 普通首邀回未玩 anchor、一次自然 RE 後緊接 window 的 bounded player reopening，詳見 [slice plan](docs/narrative/M1_GAMEPLAY_VALIDATION_SLICE.md)。
 
 ## 驗證重點
 
@@ -359,9 +361,9 @@ Roadmap 只維護工作所在的 horizon，不維護完整 task list。
 
 只包含直接幫助 **M1 Gameplay Validation** 的工作。
 
-- 按 [slice scope proposal](docs/narrative/M1_GAMEPLAY_VALIDATION_SLICE.md) 固定 30–60 分鐘目標與 scene/state dependencies；先處理一個 scene 的 Narrative Design，再由 fresh dialogue／QA／integrator workers 順序完成。
+- 按 [slice authoring plan](docs/narrative/M1_GAMEPLAY_VALIDATION_SLICE.md) 固定 30–60 分鐘目標與 scene/state dependencies；先處理一個 scene 的 Narrative Design，再由 fresh dialogue／QA／integrator workers 順序完成。
 - 用 canonical placeholder 支援缺 CG 的場景；accepted Opening baseline 不重寫。
-- 為注意力分配、shared awareness、friction／re-approach 設定可觀察的選擇結果與分支驗證；只補本 slice 必要的 graph/state 能力。
+- 為注意力分配、shared awareness、friction／真 early repair／合法 first invitation 與 RE 設定可觀察的選擇結果與分支驗證；只補本 slice 必要的 graph/state 能力。
 - 準備數名未讀過 spec 的玩家、計時與回饋紀錄；先驗證玩法，再擴張內容。
 
 M0 已完成；已知美術品質限制保持，Issue #27 orchestration、bulk CG、新 framework 不插入本輪。
@@ -418,13 +420,13 @@ M1 — Gameplay Validation
 
 **Current Goal**
 
-將 [M1 slice scope proposal](docs/narrative/M1_GAMEPLAY_VALIDATION_SLICE.md) 轉成 30–60 分鐘可測量的 playable flow，驗證人物互動與 attention trade-off；時間與玩法品質尚未經外部 playtest 證明。
+將 [M1 slice authoring plan](docs/narrative/M1_GAMEPLAY_VALIDATION_SLICE.md) 轉成 30–60 分鐘可測量的 playable flow，驗證人物互動與 attention trade-off；時間與玩法品質尚未經外部 playtest 證明。
 
 **Current Critical Path**
 
 ```text
 M0 complete: merged main checks + actual Human playable acceptance
-→ M1 slice scene/dependency scope
+→ reviewed v0.6 canon → blueprint/M1 plan independent consistency review pending
 → one-scene Narrative Design → Dialogue → independent QA → text-first integration
 → branch/state checks and several external playtests
 → fix observed gameplay problems before M2

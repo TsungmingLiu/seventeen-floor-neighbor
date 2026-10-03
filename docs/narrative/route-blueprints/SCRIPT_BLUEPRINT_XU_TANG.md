@@ -2,9 +2,9 @@
 
 > Lifecycle: **CANONICAL**
 >
-> Version: 0.1
+> Version: 0.2
 >
-> Updated: 2026-09-26
+> Updated: 2026-10-03
 >
 > Scope: XT-04 → XT-14 + Xu endings / after story / codas.
 >
@@ -33,10 +33,10 @@ Good route 要讓兩人都修，不是其中一人被教育。
 **Entry condition**
 - 已有 `contact_xu=true`。
 - 仍是熟悉鄰居，不是正式約會關係。
-- 可以是 OPEN-A 第一或第二個 major slot。
+- 可在 OPEN-A 的合法 slot，或 OPEN-B 未玩 anchor return 的合法 slot首次進場。
 
 **Immediate setup**
-許棠傳訊息說週末要去中山看一本設計／攝影書，順口問男主要不要一起。她不稱它為 date；男主也不需要替它下定義。
+許棠本就要看設計／攝影書，問同行；player-led variant 引用 COM-03X 的設計話題先邀她，她可接受、改到同 window 可用時間、或說這次想自己逛。接受／改期共享捷運出口主幕；拒絕接當前 slot 的 solo/rest/wait，不完成 XT-04。ordinary 首邀與合法 RE return 只改開場前事，不改主幕或送親密。
 
 **Dramatic job**
 建立許棠的「自己的 pace」，並第一次讓玩家選擇是跟上她、管理行程，還是用幽默陪她。
@@ -49,14 +49,14 @@ Good route 要讓兩人都修，不是其中一人被教育。
 5. 玩家第一次被迫面對：要不要提醒她「我們不是還要去……」。
 6. 若陪她慢慢看，她會自然開始把書頁轉向男主，分享真正有興趣的細節。
 7. 若提醒行程，她不生氣，只會問「你比較想去哪？」；這是 compatibility，而不是 moral test。
-8. 若幽默說「妳是不是打算住這」，她依 chemistry 可以回一句很乾的吐槽。
+8. 若幽默說「妳是不是打算住這」，她依當地玩笑的接法可以回一句很乾的吐槽。
 9. 原定下一站逐漸變得不重要。
 10. 最重要的主動 beat：許棠自己問「要不要找地方喝東西？」延長相處。
 
 **Choice forks**
-- 陪她慢慢看：`xt_respected_pace=true`, compatibility 上升。
+- 陪她慢慢看：`xt_respected_pace=true`, 她把書頁轉向他，記住一起慢看的前事（Echo）。
 - 提醒行程：顯示男主偏計畫型；若口氣正常，不是 bad choice。
-- 用玩笑打破時間焦慮：chemistry variant。
+- 用玩笑打破時間焦慮：當地玩笑反應（Local）。
 
 **Reactive variants**
 - 若玩家先前經常 practical：許棠可能說「你是不是都會先排好？」。
@@ -66,19 +66,18 @@ Good route 要讓兩人都修，不是其中一人被教育。
 都會去附近坐一下，只是許棠是否覺得「和他在一起不需要被趕」不同。
 
 **Exit state**
-- 至少 `F_XT +1`。
-- 健康路徑提高 `K/T`。
+- 第一次一對一已演出；記住是否共同決定 pace（Echo），不以數值開下一幕。
 - 若再投資 Xu，XT-05 開啟。
 
-**Next hook**
-她之後傳一張今天看到的書頁／設計，讓「一起待著」比活動本身更有記憶。
+**Next hook / early repair**
+她傳當日書頁；若 XT-04 擅排程被指為 unresolved，XT-05 邀請前的短 continuation 先承認替她排下一站、問她想怎麼安排，停止催促。她接受才 addressed 並進同桌；她暫不願 → rest/wait 或停在生活前景，明確距離則依真實關係 history closure。不設 XT-12 repair_completed，RE/邀約不代替此段。
 
 ---
 
 ## XT-05 — 同一張桌子
 
 **Entry condition**
-- XT-04 或足夠 Xu familiarity。
+- XT-04 已演出、雙方願意再同桌；不以熟悉度跳過 anchor。
 - 關係仍沒有明確 romance label。
 
 **Immediate setup**
@@ -106,7 +105,7 @@ Good route 要讓兩人都修，不是其中一人被教育。
 
 **Choice forks**
 - 先問她想要建議還是只想抱怨：`xt_asked_support_mode=true`。
-- 直接進 problem-solving：不是立即扣 trust，但留下 control-style seed。
+- 直接進 problem-solving：她可澄清只想抱怨；若仍替她決定，記下具體行為。
 - 男主 incident 後若真的承認累：讓她看到一點 vulnerability。
 - 若強行說「沒事，小事」：保留 competence mask。
 
@@ -115,7 +114,7 @@ Good route 要讓兩人都修，不是其中一人被教育。
 
 **Exit state**
 - `xt_saw_competence_mask=true`。
-- healthy path：`T/K +1`。
+- support mode 的實際回應供後續 callback。
 
 **Next hook**
 後續夜市／電影時，許棠會開始偶爾主動照顧男主，但不使用「照顧你」語言。
@@ -125,7 +124,7 @@ Good route 要讓兩人都修，不是其中一人被教育。
 ## XT-06 — 臨江街夜市
 
 **Entry condition**
-- Xu familiarity 足夠。
+- XT-05 已演出，彼此接受夜市邀約，early unresolved harm 已先處理。
 - 可在 OPEN-B 早段出現。
 
 **Immediate setup**
@@ -144,15 +143,15 @@ Good route 要讓兩人都修，不是其中一人被教育。
 7. 男主輸掉／被她吐槽。
 8. 人潮突然變密，兩人距離自然縮短。
 9. 身體互動 choice 出現：讓她走內側、短暫扶手臂、直接牽手。
-10. 許棠的反應依 trust/reciprocal signal 不同。
+10. 許棠依先前實際同意的接觸與當下回應反應；不能以分數代替互相意願。
 11. 如果直接牽手過早，她不是戲劇性甩開，只會抽回手並繼續走，氣氛短暫變薄。
 12. 若時機成熟，短暫接觸可以停留一秒，再自然放開。
 13. 最後兩人帶著小戰利品回家，仍住在同一層。
 
 **Choice forks**
-- safety-aware but non-possessive：小幅 trust。
-- physical escalation matched to state：chemistry。
-- push beyond reciprocity：`xt_boundary_strikes +1`。
+- 安全但不占有：她接受讓路的當地反應。
+- 接觸與她明示意願相符：互相靠近。
+- 越過意願：她抽手；承認並停止，否則保留指名的 unresolved boundary event。
 
 **Rejoin**
 夜市結束後兩人都能正常說晚安；單次失誤不斷線。
@@ -166,7 +165,7 @@ Good route 要讓兩人都修，不是其中一人被教育。
 ## XT-07 — 電影＋末班捷運
 
 **Entry condition**
-- 已有一定 chemistry / familiarity。
+- XT-06 已演出且她願意再約電影。
 - 至少一次真正 1-on-1 outing。
 
 **Immediate setup**
@@ -186,12 +185,12 @@ Good route 要讓兩人都修，不是其中一人被教育。
 8. 車廂很空，疲倦讓對話變短。
 9. 兩人坐得比以前近，玻璃倒影比正面更容易注意到距離。
 10. 許棠可能把手機畫面給他看，肩膀自然碰到。
-11. 若 chemistry 足夠，分開前有一個「是不是已經很像 date」的未說出口感。
+11. 若前面已互相接受 date-like 靠近，分開前有一個「是不是已經很像 date」的未說出口感。
 12. 仍不告白。
 
 **Choice forks**
-- insist on winning：compatibility 降。
-- curious disagreement：`K/T +1`。
+- insist on winning：她當地收起討論，留下爭輸贏的具體前事。
+- curious disagreement：她繼續說具體想法（Local/Echo）。
 - avoidance：關係不退，但錯過 deeper connection。
 
 **Exit state**
@@ -203,7 +202,7 @@ Good route 要讓兩人都修，不是其中一人被教育。
 ## XT-08 — 河濱：過去
 
 **Entry condition**
-- trust 足夠。
+- XT-07 已演出；她在當地願意談過去，沒有未處理越界。
 - 許棠已看過男主不只 competence 的一點裂縫。
 
 **Immediate setup**
@@ -229,11 +228,11 @@ Good route 要讓兩人都修，不是其中一人被教育。
 
 **Choice forks**
 - demonize ex：理解停在表面。
-- ask what she fears repeating：`xt_understands_autonomy=true`, `T +2`。
+- ask what she fears repeating：`xt_understands_autonomy=true`，回應具體怕重演的事。
 - sweeping promise：neutral；後續看行為。
 
 **Exit state**
-- trust gate 通過。
+- 她自己選擇揭露的 autonomy 前事成立。
 - 後續 XT-09 私人空間合理成立。
 
 # 4. Braided intimacy / core conflict
@@ -241,7 +240,7 @@ Good route 要讓兩人都修，不是其中一人被教育。
 ## XT-09 — 門裡面
 
 **Entry condition**
-- Xu trust / compatibility viable。
+- XT-08 已演出，她明確接受此晚靠近，具體 harm 已處理。
 - relationship 已有明顯 private/date-like momentum。
 - 另一 heroine 可同時存在；不影響 scene 主體。
 
@@ -267,13 +266,12 @@ Good route 要讓兩人都修，不是其中一人被教育。
 13. 臨走前，她說下次不用帶東西也可以來。
 
 **Choice forks**
-- respect space：trust/compatibility。
-- playful comment：chemistry。
-- reorganize：`K -1`，若有既往 pattern 則 boundary strike。
+- 尊重空間／玩笑：當地反應，不改可達集合。
+- 擅整理：她叫停；記此事件，停手、問她允許的範圍；未處理不能用後續邀約洗掉。
 
 **Exit state**
 - `xt_home_opened=true`。
-- healthy path：`T +1~2`。
+- 她實際允許男主再來，非累計值。
 
 **Next hook**
 兩人已經接近「像情侶但還沒說」；因此 XT-10 的取消才真正有重量。
@@ -283,7 +281,7 @@ Good route 要讓兩人都修，不是其中一人被教育。
 ## XT-10 — 沒有去成的星期六
 
 **Entry condition**
-- 高 Xu investment。
+- XT-09 的私人空間與互相需要已演出。
 - 原本已安排一整天近郊行程。
 - 過去至少有一次工作小幅打亂私人時間。
 
@@ -341,14 +339,14 @@ Good route 要讓兩人都修，不是其中一人被教育。
 4. 第二天他經過她門口，第一次明確想到敲門但沒有。
 5. 電梯 timing 錯開；生活仍正常，正因正常而顯得空。
 6. 若 `xt_withdrew_when_hurt`，男主會合理化自己是在尊重她。
-7. 若 `xt_control_pattern` 高，許棠的訊息更正式。
+7. 若 XT-04 擅排程、XT-09 擅整理等具體事件仍未承認／停止，許棠的訊息更正式。
 8. 若 healthy path，兩人不是冷戰，只是不知道下一句怎麼說。
 9. 一個 very small shared-life cue（她門口的包裹、樓下咖啡、雨聲）提醒 opening。
 10. scene 不由玩家用一個「傳訊息道歉」按鈕直接修完。
 
 **Exit state**
 - healthy path：repair invitation viable。
-- high strikes：Xu may cool toward ordinary-neighbor mode。
+- 她因未處理接管／沉默懲罰而拒絕繼續：保留 exact harm，接 Xu closure handoff；不改成無害 ordinary。
 
 **Next hook**
 XT-12 必須由許棠主動開第一個縫。
@@ -358,9 +356,9 @@ XT-12 必須由許棠主動開第一個縫。
 ## XT-12 — 可以幫我一件事嗎？
 
 **Entry condition**
-- Xu repair viable。
+- XT-10/11 的指名 conflict 尚未處理，她仍允許此 bounded repair；接受邀請不等於完成修復。
 - 她仍願意把男主留在生活裡。
-- 若 prior control pattern 高，使用 cooler variant。
+- 若有未處理的擅排程／接管事件，使用 cooler variant。
 
 **Immediate setup**
 她有一包印刷樣本必須在特定時間拿，但自己卡在工作。這個需求是 bounded、具體、可拒絕。
@@ -387,21 +385,20 @@ XT-12 必須由許棠主動開第一個縫。
 16. 她最後把下一個邀約主動留給自己：「那個沒去成的……之後再補？」
 
 **Choice forks**
-- 做 exactly requested：`xt_respected_bounded_help=true`, repair 成功。
+- 只做請求的事：`xt_respected_bounded_help=true`；還須雙方承認 XT-10 的具體傷害、停下接管／藏需求且她接受，才 repair 成功。
 - over-help：重新觸發核心問題。
--拒絕只是為了報復：repair viability 下降。
+- 拒絕只是為了報復：她點出被用求助懲罰的事，未處理則不允許 romantic continuation。
 
 **Exit state**
-- successful：`xt_repair_completed=true`。
-- 可能建立 late invitation。
+- 真正 accountability、changed behavior 與她接受 → `xt_repair_completed=true`。over-help 仍 unresolved；報復拒絕或她拒絕繼續 → Xu closure handoff，不自動友情。
+- **local clarity continuation**：交樣本後她提補回出遊，先問親近是否還能各自決定、男主是否會說需要。她明確提出關係期待才 due；玩家回答想以共同決策繼續浪漫、珍惜但想做朋友、或保持距離。浪漫一致、repair 完成且既有另一方承諾處理 → late lock/XT-13；友情需雙方同意且接受後果 → XT-F；拒絕 repair／明確距離 → XT-D。仍模糊不能另約跳過 clarity；雙方 late invite 真撞期才交 COMMIT。
 
 # 6. Late lock
 
 ## XT-13 — 補回來的星期六
 
 **Entry condition**
-- HONEST-X 或 DECIDE → Xu。
-- repair viable，最好 `xt_repair_completed=true`。
+- Xu local clarity resolved romantic，XT-12 真修復已完成且她願意繼續；另一方既有 romantic commitment 已處理。HONEST-X/DECIDE 不豁免 prerequisites。
 
 **Immediate setup**
 兩人把之前取消的 outing 補回來，但不把它當「考試重來」。
@@ -432,7 +429,7 @@ XT-12 必須由許棠主動開第一個縫。
 
 **Entry condition**
 - late Xu lock。
-- 主要 conflict 已有 repair or accepted consequence。
+- 主要 conflict 已有具體 repair；XT-13 已演出。
 
 **Immediate setup**
 回到 17 樓夜間，構圖／情緒呼應開場。這一次兩人不是陌生鄰居。
@@ -451,7 +448,7 @@ XT-12 必須由許棠主動開第一個縫。
 8. 她也承認自己可能還是會先往後退。
 9. 兩人把 relationship 定義成可以持續協商的東西，不是完美安全區。
 10. Friend intent：玩家明確說珍惜她但不想升級，許棠可接受，前提是前面不是欺騙。
-11. Distance intent / low trust：她不再要求繼續靠近。
+11. Distance intent / 她因具體未處理 harm 拒絕繼續：她不再要求繼續靠近。
 12. Good path 中，許棠也必須主動把關係說出口，而不是被告白後被動點頭。
 13. First kiss 要在雙方 intent 清楚後，安靜、互相靠近。
 
@@ -459,6 +456,8 @@ XT-12 必須由許棠主動開第一個縫。
 - evaluation → XT-G / XT-F / XT-D。
 
 # 7. Xu endings
+
+XT-F/D 也可由 TENSION、XT-12 outcome、local clarity、HONEST-J 或 DECIDE 的 Xu closure handoff 直接進入，不需浪漫 XT-13/14。never_met/ordinary/dormant 只交代現況；不是 earned Friend/Distance。Good 必經 XT-04→05→06→07→08→09→10→11→12 真 repair→clarity→13→14，並接三集 After Story。
 
 ## XT-G — Good：隔壁
 
@@ -480,7 +479,7 @@ XT-AF-01 → 03。
 ## XT-F — Friend：樓下？
 
 **Entry patterns**
-- trust/compatibility 高，但 romance intent 不一致；
+- 實際互相重視且雙方同意友情，但 romance intent 不一致；
 - repair 成功，但其中一人不 ready；
 - 玩家明確選 friendship。
 

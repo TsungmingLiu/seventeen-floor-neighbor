@@ -2,11 +2,11 @@
 
 > Lifecycle: **CANONICAL**
 >
-> Version: 0.1
+> Version: 0.2
 >
-> Updated: 2026-09-26
+> Updated: 2026-10-03
 >
-> Scope: TENSION → COMMIT → HONEST-X / HONEST-J / BOTH-H / BOTH-L → OV / SHURA → DECIDE → late-route handoff + BOTH-D.
+> Scope: TENSION → heroine-local clarity / optional COMMIT → HONEST-X / HONEST-J / BOTH-H / BOTH-L → OV / SHURA → DECIDE → late-route handoff + BOTH-D.
 >
 > Parent sources: `PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md`, `PROTOTYPE_ROUTE_GRAPH_AND_STATE.md`.
 
@@ -26,44 +26,32 @@
 
 **Kind**：state gate；不作 player-facing scene。
 
-**Inputs**
-- 兩邊 F/T/C/K；
-- romantic signals；
-- recentFocus；
-- conflict / repair 狀態；
-- boundary / pressure patterns；
-- knowledge flags；
-- exclusivity；
-- deception / rebound evidence。
+**Inputs**：已發生的 conflict、知識、具體越界／欺瞞事件、是否允許 repair、clarity 是否 due、已有承諾和 closure；不讀 F/T/C/K 或換名分數。
 
-**Outputs**
-1. **只有 Xu repair invitation viable**
-   - 不製造假的同日 collision。
-   - 直接把故事推向 Xu late focus。
-   - JYC 若仍重要，可有 honest closure / Friend / Distance variant。
-2. **只有 JYC viable**
-   - 鏡像處理。
-3. **兩邊都 viable**
-   - 進 COMMIT。
-4. **兩邊 romantic viability 都低**
-   - 可以提早讓 relationship intent 收斂到 Friend/Distance。
-   - 不需要硬演一場 COMMIT 才讓玩家失敗。
+**Outputs / 可見 handoff**
+1. 只有 Xu / JYC 允許 repair：接該 -12 的具體求助／活動 invitation；接受只進 repair，不先設成功。對另一方按實際 history 交代生活或 closure。
+2. 兩方允許 repair：各自演 -12 accountability 與 changed behavior，再到各自 local clarity；不強迫同日。
+3. 無浪漫 continuation：在當地說清友情／距離；真實互相重視、雙方認友情且接受後果 → -F，拒絕 repair 或明確距離 → -D。普通熟人／dormant／未見不偽造戀愛結局。
 
-**Authoring rule**
-TENSION 只決定「哪些後續合理」，不應偷偷替角色生成 knowledge。
+**local clarity setup**：Xu 交樣本後問補回出遊是否仍可共同決定、男主會否說自己的需要；JYC gathering break 後問兩人的線上／線下相處能否尊重筆名和退回線上的日子。她明確提出期待才 due；先答浪漫／友情／距離並處理既有承諾，不能用下次吃飯延後。雙 romantic expectations 都成立而仍未定可诚實 BOTH-H 或具體誤導 BOTH-L；不存在實際另一方就不造三角分支。
+
+TENSION 不生成任何 knowledge；local clarity 是 -12 相鄰 continuation，不另造 scene/Memory/runtime ID。
 
 # 3. COMMIT — 同一個星期六
 
 **Entry condition**
-- XT-12 / JYC-12 的 late invitations 都成立。
-- 玩家對兩邊都有足夠深度，使同一個星期六真的有意義。
+- XT-12 / JYC-12 的具體 repair outcomes 與該人物後續意願成立；不能預先邀約當作已修復。
+- 兩方 meaningful late invitations 且可證實的時間衝突；只有雙方 available 不足。無衝突走 heroine-local clarity。
 
 **Immediate setup**
 兩個 invitation 都是各自 arc 的 payoff：
 - 許棠：補回 bounded-support 後真正由兩人共同規劃的一天。
-- 雨澄：她主動參與的小型 creator table，需要男主以她指定方式出現。
+- 雨澄：JYC-12 repair table 已完成後，她提出下一個以筆名參加的小型 creator outing，約好活動結束後一起回去、支援限她指定範圍；這是未來共同安排，不是再次邀男主赴已完成的 repair table。
 
 兩者不應被寫成一個「重要活動」和一個「可隨便取消活動」，否則 choice 失去重量。
+
+**Chronology / merge**
+兩方 -12 及 local clarity 問答先發生；仍未定時須已坦白、雙方允許有限釐清，不能收下新邀約來延後回答 due。後續才收到上述未來同日安排 → COMMIT。HONEST-J 完成 Xu 承諾／closure 與 JYC romantic clarity後，赴未來 outing，短入口確認筆名與支援範圍、活動確實完成 → JYC-13 收攤合流 → 同晚 JYC-14；HONEST-X 則走 Xu late spine，JYC 按真實 history closure。BOTH-H 先把衝突安排說清、由她們接受取消／改期，OV-01/02 與 DECIDE 在新的出行前完成；選 JYC 且她仍願意、另一方已收束，才接同一未來 outing 散場合流。她不願改期或繼續即走 closure，不保證邀約保留。BOTH-L 的具體謊言經 SHURA／DECIDE 後須另做 heroine-specific accountability、行為改變與她接受，才可確認合法後續安排並合流；已完成的 JYC-12 不會清除新 deception。所有延後分支均不回播 JYC-12、不回到過去同晚，也不先演 JYC-13 再處理承諾。
 
 **Dramatic job**
 第一次把「我可以晚點再決定」變成不可能。
@@ -103,12 +91,12 @@ late lock 的品質取決於男主如何結束另一邊的 romantic ambiguity，
 7. 她可問「你是已經決定了嗎？」。
 8. 男主如果已決定，就必須說「是」；不能再回「我也不知道」。
 9. 她不必祝福，也不必翻臉。
-10. 高 trust 路徑可保留 friendship；低 trust / 高 ambiguity 可變 distance。
+10. 她可在真實共同歷史、明確同意與 harm 接受後果時保留友情；仍受傷可要求距離，不由 trust 門檻決定。
 11. 男主之後去找許棠時，情緒不是「贏了」，而是第一次真正做了一個會失去 option 的選擇。
 
 **Exit**
-- Xu late lock → XT-13。
-- JYC closure variant recorded。
+- Xu 真 repair 完成、clarity resolved romantic 且另一方承諾已處理 → XT-13；未完成停在 repair/clarity，不直接 lock。
+- JYC 有真實關係才走 closure handoff → JYC-F/D；ordinary/dormant/never_met 只交代現況。
 
 # 5. HONEST-J — 坦白選雨澄
 
@@ -123,12 +111,12 @@ late lock 的品質取決於男主如何結束另一邊的 romantic ambiguity，
 5. 她可能說自己不喜歡的是「如果你其實已經知道，還讓我猜」。
 6. 若此前玩家一直 honest，這句會較輕；若曾模糊，較重。
 7. 她不以鄰居身份威脅未來生活。
-8. 高 trust 可保留 ordinary friendship / neighbor connection。
+8. 她明确同意友情且接受後果才接 XT-F；ordinary 鄰居維持生活，不把它叫 earned Friend。
 9. 男主離開時知道自己真的關掉一個可能性。
 
 **Exit**
-- JYC late lock → JYC-13。
-- Xu closure variant recorded。
+- JYC 真 repair 完成、clarity resolved romantic 且另一方承諾已處理 → JYC-13。
+- Xu 依實際 history closure → XT-F/D 或普通生活，不預定友情。
 
 # 6. BOTH-H — 兩邊都說實話
 
@@ -236,7 +224,7 @@ OV-01 可以是一組 3–5 個短 vignette，而不是一個長 scene。
 3. 他需要切換訊息語氣、時間、地點。
 4. narration 顯示壓力來自維持兩個不同版本的 truth。
 5. 一個 small inconsistency 出現，例如時間、照片、地點、突然離開。
-6. 玩家仍有最後一次提前坦白的 escape hatch；若使用，可降級回 honest-overlap repair，而不是一定 SHURA。
+6. 玩家仍有最後一次提前坦白的 escape hatch；若使用，接分開 accountability 並承认已說出的具體謊言，再由她們決定是否有限釐清；不是重置為未欺瞞 BOTH-H。
 7. 若繼續隱瞞，進 SHURA-01。
 
 **Exit state**
@@ -312,7 +300,7 @@ OV-01 可以是一組 3–5 個短 vignette，而不是一個長 scene。
 
 **Exit**
 - accountability viable → DECIDE with possible repair。
-- deflection / blame → BOTH-D or heroine Distance probability sharply rises。
+- deflection / blame → 她可拒絕 recovery，依實際 closure 到該 -D；雙方都確實結束才 BOTH-D。
 
 # 12. DECIDE — 不選擇也是選擇
 
@@ -335,14 +323,14 @@ OV-01 可以是一組 3–5 個短 vignette，而不是一個長 scene。
 3. choice wording 應是具體行動，不是 heroine portrait button。
 4. 選 Xu/JYC 後，另一邊 closure 必須真的發生。
 5. 從 SHURA 進來時，選人不會清空 deception。
-6. late Good viability 仍由 heroine-specific repair / trust 決定。
+6. late Good 必須 heroine-specific accountability、changed behavior、她愿意繼續及 clarity resolved；選人不清除 deception。
 7. 選「不進任何 relationship」不是 coward-only bad end；若誠實承擔，可以進比較成熟的雙 Distance / closure。
 8. 繼續模糊則是男主 flaw 的 failure version。
 
 **Exit**
-- XT-13
-- JYC-13
-- BOTH-D
+- repair 與 clarity 真完成才 XT-13 / JYC-13；未完成先該人物 repair outcome。
+- heroine closure handoff → 既有 -F/-D，不要求 romantic -13/-14。
+- 雙方實際 closure 才 BOTH-D。
 
 # 13. BOTH-D — 雙 Distance：沒有誰輸
 
@@ -390,17 +378,17 @@ OV-01 可以是一組 3–5 個短 vignette，而不是一個長 scene。
 COM opening
 → XT-04
 → XT-05
-→ 至少一個 JYC early scene 保持 braided world
+→ JYC early scene 僅實際遇見／eligible 時；未遇見可較短單線
 → XT-06 / XT-07 / XT-08
 → SH-02 optional
 → XT-09
 → XT-10
 → XT-11
 → XT-12
-→ 若只有 Xu late invite viable，直接 late focus；若雙 invite，COMMIT → HONEST-X
+→ XT-12 真 repair → Xu local clarity；實際雙 late invites 撞期才 COMMIT → HONEST-X
 → XT-13
 → XT-14
-→ XT-G / F / D
+→ XT-G；較早 closure 可直接 XT-F/D
 → corresponding after story / coda
 
 **Emotional logic**
@@ -419,10 +407,10 @@ COM opening
 → JYC-10
 → JYC-11
 → JYC-12
-→ single viable invite direct late focus or COMMIT → HONEST-J
+→ JYC-12 真 repair → JYC local clarity；有實際 collision 才 COMMIT → HONEST-J
 → JYC-13
 → JYC-14
-→ JYC-G / F / D
+→ JYC-G；較早 closure 可直接 JYC-F/D
 → corresponding after story / coda
 
 **Emotional logic**
@@ -435,9 +423,9 @@ COM opening
 → SH-01
 → OPEN-B 平衡投資
 → SH-02
-→ XT conflict + JYC conflict 都至少部分發生
+→ XT-09→10→11 與 JYC-09→10→11 的必要 conflict 都發生
 → XT-12 + JYC-12
-→ COMMIT → BOTH-H
+→ 雙方 clarity expectations → local BOTH-H（實際 collision 才經 COMMIT）
 → OV-01
 → OV-02
 → DECIDE → Xu
@@ -462,7 +450,7 @@ COM opening
 ## Path E — Deceptive overlap → accountability → partial recovery
 
 **Recommended spine**
-兩邊高 investment
+兩邊有實際私人與 romantic commitment 前事
 → COMMIT → BOTH-L
 → SHURA-01
 → SHURA-02
@@ -470,7 +458,7 @@ COM opening
 → DECIDE
 → 選一人
 → heroine-specific repair viability check
-→ Good only if prior trust + repair evidence 足夠；否則 Friend / Distance
+→ 逐項處理謊言／承諾、changed behavior、女主接受與 clarity resolved 才 Good；雙方認友情才 Friend，她拒絕繼續則 Distance
 
 **Emotional logic**
 一句 apology 不能把 deception 洗掉。選擇一人只是停止繼續傷害，不等於自動恢復 trust。

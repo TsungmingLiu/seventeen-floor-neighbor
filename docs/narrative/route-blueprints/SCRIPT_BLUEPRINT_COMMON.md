@@ -2,9 +2,9 @@
 
 > Lifecycle: **CANONICAL**
 >
-> Version: 0.1
+> Version: 0.2
 >
-> Updated: 2026-09-26
+> Updated: 2026-10-03
 >
 > Parent sources: `PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md`, `PROTOTYPE_ROUTE_GRAPH_AND_STATE.md`.
 >
@@ -12,12 +12,12 @@
 
 # 1. Common opening contract
 
-Common opening 的任務不是讓玩家立刻選女主，而是建立兩個不同但同樣可信的入口：
+Common opening 建立生活半徑；以下是雙入口核心 coverage，不強迫每輪發現兩人：
 
 - 許棠先進入男主「住家 / 日常」。
 - 江雨澄先進入男主「興趣 / 線上」。
 - 男主在兩條線都只是被生活帶到一個可繼續認識的關係，不是立即 romance。
-- 到 COM-03M 前，玩家應已能感覺兩種 notification 有不同期待感，但還沒有任何 exclusivity 壓力。
+- COM-03M 只呈現已取得 contact 的訊息；兩方都認識才有兩種 notification，沒有 exclusivity 壓力。
 
 ## COM-00 — 雨夜搬家
 
@@ -72,7 +72,7 @@ Common opening 的任務不是讓玩家立刻選女主，而是建立兩個不�
 
 **Choice forks**：只塑造 tone；不產生 route lock。
 
-**Exit state**：`F_XT +1`。
+**Exit state**：熟悉的生活前事成立。
 
 **Next hook**：深夜便利店讓她第一次以比較放鬆、非通勤狀態出現。
 
@@ -80,7 +80,7 @@ Common opening 的任務不是讓玩家立刻選女主，而是建立兩個不�
 
 ## COM-01J — 地下街初遇
 
-**Entry condition**：男主與江雨澄完全不認識。
+**Entry condition**：男主與江雨澄完全不認識。Opening 的生活行動入口可去地下街買設定集，也可先回家／休息；未去只保留後續第二 discovery，不先設 met/contact。這是後續 migration 的短 entry plan，既有 locked Opening facts 不改。
 
 **Immediate setup**：男主有自己的 ACG / 設定集購買目的，因此接近不是以她為目標。
 
@@ -98,11 +98,11 @@ Common opening 的任務不是讓玩家立刻選女主，而是建立兩個不�
 9. 兩人沒有交換姓名，只有「可能再遇到也認得」的程度。
 
 **Choice forks**
-- 具體延伸作品：增加 familiarity。
+- 具體延伸作品：留下具體共同話題。
 - 泛泛稱讚：不冒犯，但沒建立共同語言。
 - 過度追問私人資訊：她會禮貌收尾。
 
-**Exit state**：`met_jiang_yucheng=true`, `F_JYC +1`。
+**Exit state**：`met_jiang_yucheng=true`；共同作品話題成立。
 
 **Next hook**：她之前提過一間相對安靜的咖啡店，使 COM-02J 的再次相遇不只是純巧合。
 
@@ -129,7 +129,7 @@ Common opening 的任務不是讓玩家立刻選女主，而是建立兩個不�
 
 **Rejoin**：她開始從「隔壁的人」變成「生活裡常碰到的人」。
 
-**Exit state**：`F_XT +1`。
+**Exit state**：熟悉的生活前事成立。
 
 ---
 
@@ -152,7 +152,7 @@ Common opening 的任務不是讓玩家立刻選女主，而是建立兩個不�
 8. 咖啡店逐漸變吵或她要離開，對話自然結束。
 9. 她主動補一個推薦，成為後續聯絡理由。
 
-**Exit state**：`F_JYC +1`。
+**Exit state**：共同作品脈絡成立。
 
 **Next hook**：COM-03J 由「我想到你上次講的那個」開始，而不是突然索取聯絡方式。
 
@@ -177,7 +177,7 @@ Common opening 的任務不是讓玩家立刻選女主，而是建立兩個不�
 8. 她關門前仍有一個短短的「謝了」，比第一次熟悉。
 9. 晚一點她真的把資訊傳來，證明交換不是藉口。
 
-**Exit state**：`contact_xu=true`, `F_XT +1`。
+**Exit state**：`contact_xu=true`。
 
 ---
 
@@ -200,26 +200,26 @@ Common opening 的任務不是讓玩家立刻選女主，而是建立兩個不�
 8. 若玩家跟上她節奏，兩人聊到偏晚；若只回短句，也保留未來。
 9. 最後她用一句「我是不是講太多」收束，男主回應可決定她下一次主動程度。
 
-**Exit state**：`contact_jyc=true`, `F_JYC +1`。
+**Exit state**：`contact_jyc=true`。
 
 ---
 
 ## COM-03M — 一週訊息 montage
 
-**Entry condition**：兩邊都已有 contact。
+**Entry condition**：至少一方已有 contact。
 
 **Dramatic job**：在不消耗大量 scene 的前提下，讓「相識」變成「開始期待對方出現」。
 
-**Progression**
+**Progression**（以下各 heroine beat 只在其 contact 已成立時呈現；單 contact 不補另一方訊息）
 1. 第一兩天訊息仍有明確理由：包裹、推薦、附近資訊。
 2. 許棠開始偶爾丟一句生活訊息，不一定等男主先開話題。
 3. 雨澄則從作品延伸到 meme、遊戲、零碎抱怨。
-4. 男主工作忙的一天，兩邊訊息同時出現；玩家第一次感到「我現在想先回誰」。
+4. 男主工作忙的一天，若雙 contact 兩邊訊息同時出現；玩家第一次感到「我現在想先回誰」。
 5. 不在這裡做 route lock；只記錄回覆傾向與 tone。
 6. 許棠可能用「吃了嗎」作為非常輕的關心。
 7. 雨澄可能深夜丟一段長分析，再補「不用現在回」。
 8. 男主開始主動分享一些自己遇到的小事，而不只是被動回覆。
-9. montage 最後形成兩個自然邀約入口。
+9. montage 最後由已 contact 方形成自然邀約入口；單方也可進 OPEN-A。
 
 **Exit state**：`open_dating_unlocked=true`。
 
@@ -229,21 +229,15 @@ Common opening 的任務不是讓玩家立刻選女主，而是建立兩個不�
 
 ## OPEN-A — Week 2–3
 
-OPEN-A 是 scheduler，不是菜單劇情。
+**Entry / scene function**：COM-03M 後兩個 authored major slots。已知/contactable 且 eligible 的人可邀；XX/JJ、XJ/JX 與 solo/rest/wait 均合法，不以 focus 當承諾。
 
-**Narrative contract**
-- 玩家有兩個 major social slots。
-- XT-04 與 JYC-05 都可成為第一個 anchor。
-- 若第一個 slot 投資某 heroine，第二位不因此消失；她仍可透過訊息存在。
-- 若兩個 slot 都投同一 heroine，另一位只降低近期 momentum，不關線。
+**具體入口**：许棠提週末中山設計書；玩家也可引用 COM-03X 的設計話題問同行，接 XT-04。雨澄分享限定展資訊；玩家可引用 Discord 作品討論邀同行，接 JYC-05。普通熟人接受的是第一次一對一，沒有「復合」台詞。女主接受、提同 window 合法時間／較低曝光地點或婉拒；改期不另送 slot，未成行不假造 anchor 完成。
 
-**Presentation suggestion**
-1. 先由兩個不同 invitation 進場。
-2. 玩家做具體行動選擇，而不是按「許棠線／雨澄線」。
-3. slot 間用工作日 montage 讓時間流逝。
-4. 第二個 slot 根據第一個選擇改 wording：另一位可以提「你最近好像很忙」，但不能憑空知道對方存在。
+**生活選擇**：solo 整理搬家箱／獨自逛書店；rest 處理工作後早睡；wait 看完作品、放下手機，訊息不保證到來。這些有男主生活內容並消耗當前 slot；漏回已答應的安排才留下 cooling 事件，不因休息本身扣關係。
 
-**Exit**：進入 early 1-on-1 progression；更新 `recentFocus` / `focusHistory`。
+**第二 discovery**：若 Opening 未去地下街，OPEN-A 兩 slot 後至 OPEN-B 開始前，男主因自己的設定集購買再入地下街，COM-01J 短 first-entry variant 去掉「以前見過」前提，仍只聊作品不交換姓名；merge COM-02J 正式交換名字，再 COM-03J 取得 contact。這是最後一次自然 discovery 機會，可選回家而未遇見；不送額外 date slot、不生成 RE 歷史。既有已整合 Opening 不被此規劃改寫。
+
+**Exit / handoff**：每 slot 演一個 major anchor/continuation 或生活片段。XT-04 → XT-05、JYC-05 → 先在線上 co-op → JYC-06，仍問當地願意與否。XX 後 ordinary 江雨澄可於 OPEN-B 第一合法 slot 首邀 JYC-05，JJ 對稱首邀 XT-04；OPEN-A entered 是歷史 gate，不能加第三 slot或跳到 midgame。未見雨澄者必先 discovery/contact chain；再次錯過則走較短許棠／個人生活路徑。
 
 ---
 
@@ -263,7 +257,7 @@ OPEN-A 是 scheduler，不是菜單劇情。
 5. 許棠可注意到雨澄拿著 controller / tote / 雨傘等 context，但不推理過頭。
 6. 雨澄得知許棠是隔壁鄰居。
 7. 三人沒有誰酸誰；真正 tension 是玩家開始知道這兩條線會碰到。
-8. 分開後，若 romantic signal 已高，對應 heroine 可有一條 very light follow-up。
+8. 分開後，若先前已有互相表達的 romantic signal，對應 heroine 可有一條 very light follow-up。
 9. follow-up 不問「她是誰」審訊，只是讓玩家感覺 awareness 已存在。
 
 **Exit state**：
@@ -275,55 +269,21 @@ OPEN-A 是 scheduler，不是菜單劇情。
 
 ## OPEN-B — Week 3–4
 
-**Narrative contract**
-- 三個 major slots。
-- pool：XT-06 / XT-07 / XT-08 / JYC-06B / JYC-07 / JYC-08。
-- prerequisites 仍有效；不是六選三。
-- 同一 heroine 可連續出現兩次，形成 focus。
-- 未 focus heroine 必須保留 re-approach path。
+**Entry**：已有 early anchor/continuation，或 OPEN-A 的生活 slots 已用完。三個 major slots；未玩 anchor 可在第一合法 slot 返回，其餘按 prerequisites 接 XT-06/07/08、JYC-06B/07/08。major outing 各占 slot；同次咖啡／雨天替代地點是 continuation，不能再算一次投入。
 
-**Scene-to-scene rhythm**
-1. 一個純好玩 / 日常 scene。
-2. 一個更私人或 date-like scene。
-3. 一個 trust / vulnerability scene。
-4. 若玩家連續投同一人，第三 slot 前插入 RE-X 或 RE-J 的輕量提醒。
-5. 不要用系統文字說「你忽略了某人」；由訊息頻率和人物行為表現。
+**安排**：一幕好玩日常、一幕 date-like／更私人、一幕 trust；選同方時另一方只有實際 contact 的短訊息。曾投入／已接受未成行 plan 被擱置者，OPEN-A 結束可有一次 RE；未投入者保留 contextual first invitation。slot 間由工作、獨處與訊息回覆形成時間流逝，不用系統指責。
 
----
+## RE-X / RE-J — 一次自然重新靠近
 
-## RE-X — 許棠重新靠近
+**Entry**：指名 prior investment 或已接受未成行 plan、其 missed response/arrangement 與 cooling/dormant；contact 或 recentFocus 指向另一人不夠。closure open、無 unresolved harm、natural offer unused 才進。
 
-**Entry condition**：`recentFocus=jyc` 且 Xu 線仍 viable。
+**RE-X progression**：OPEN-A 收尾17樓碰面，她拿著先前聊過書店的清單，本就要去，問要不要同行。男主可接受／提同一可用 window 時間／只聊兩句。接受 → 下一合法 slot 未玩 XT-04，已玩則 XT-05 或下一必要 scene；不提高親密。只聊天或錯過 → 她自己逛，訊息回到普通鄰居、dormant。
 
-**Best default version**
-1. 17樓偶遇。
-2. 許棠很自然問「你最近是不是很忙」。
-3. 男主知道她其實是在確認彼此是否還會繼續約，但她不會直接問。
-4. 她提到之前聊過的一家店／一件小事。
-5. 玩家可以順勢約回來、只聊天、或繼續模糊。
-6. 若玩家主動，下一個 Xu major scene 恢復 invitation momentum。
-7. 若不主動，她也不生氣，只把距離調回普通鄰居一點。
+**RE-J progression**：同收尾她傳已共同玩過的更新截圖，先聊改動，再問要不要一起玩／去展，並選自己可接受的線下方式。接受 → 未玩 JYC-05 或下一必要 scene；不能跳过 co-op/家訪前事。短回或錯過 → 她照常玩，停止主動 romantic invites；不猜另一人的關係，rebound 只用真實 knowledge。
 
-**Rejoin**：不直接加大量 trust/chemistry；只恢復可用的 narrative momentum。
+**一次 player reopening**：上述收尾 offer missed 後，緊接 OPEN-B 入場才開唯一 window，OPEN-B 第三 slot 收尾即關。玩家在一個剩餘合法 slot 以那家書店／該遊戲更新主動詢問；接受或 counteroffer 消耗機會，merge 同一未玩主幕；timing decline／不答也 consumed 且 dormant。她明說不再浪漫嘗試 → 當地 closure，本輪不再重開；普通電梯點頭／公共作品訊息仍可存在。無 slot、clarity due 或 late lock 即 expired，無延展。若自然 offer 在 OPEN-B 收尾才 missed，唯一 window 是紧接 BRAID-C，僅在其既有合法安排且 prerequisite 已成立時返回，phase 收尾關，不能插 slot 或跳私人主弧線。
 
----
-
-## RE-J — 雨澄重新靠近
-
-**Entry condition**：`recentFocus=xu` 且 JYC 線仍 viable。
-
-**Best default version**
-1. 她丟一張更新後的遊戲／新作品截圖。
-2. 表面完全是原本聊天風格。
-3. 幾輪後才出現一句「你最近是不是沒在玩」。
-4. 若男主積極回來，她會快速恢復原本節奏。
-5. 若男主剛從 Xu conflict 過來且突然異常熱絡，加入 `possibleReboundFrom=xu` subtext。
-6. 她不會問「是不是跟隔壁吵架」除非她已真的知道許棠存在且接近。
-7. 她只可能說「你今天很閒？」或「你今天怪怪的」。
-
-**Rejoin**：重新解鎖 JYC major scene，但不是免費恢復 romantic depth。
-
----
+**repair boundary**：XT-04 擅排程或 JYC-05 代答等 unresolved 前事先接該 heroine 相鄰 continuation 的承認／停止越界／她的回應；RE 不作該 repair，也不設 late repair_completed。明確 romantic closure 不可用普通首邀繞回。
 
 ## SH-02 — 創作者／設計活動同場
 
@@ -352,16 +312,17 @@ OPEN-A 是 scheduler，不是菜單劇情。
 ## BRAID-C — Week 4–5
 
 **Narrative contract**
-- XT-09→10→11 與 JYC-09→10→11 都可以在同一 phase 活著。
+- XT-09→10→11 與 JYC-09→10→11 是各自必要 phase 後續；兩條均進入才交錯演出，不以三 slots 六選三漏掉 payoff。
+- 缺另一方 arc/knowledge 就 bypass SH-02；單線仍完成自己的私人、conflict、repair 與 clarity。
 - 系統不要求玩家先完整跑完一條再開另一條。
 - 若兩邊都深，允許「一邊剛有 conflict，另一邊仍正常」的生活感。
 - conflict 後切到另一 heroine 不自動等於背叛；只有刻意拿對方當替代且形成 deceptive behavior 才影響後續。
-- 真正 late lock 仍在 COMMIT / DECIDE。
+- late lock 在該 heroine repair outcome 與 local clarity resolved 後；COMMIT 僅實際 collision 可選。
 
 **Recommended sequencing**
 - balanced route：XT-09 → JYC-09 → XT-10 → JYC-10 → XT-11 / JYC-11。
-- Xu-focus：XT-09→10→11，中間保留一個 JYC message / RE-J。
-- JYC-focus：JYC-09→10→11，中間保留一個 Xu encounter / RE-X。
+- Xu-focus：XT-09→10→11，中間按實際 contact/eligibility 保留 JYC message / RE-J。
+- JYC-focus：JYC-09→10→11，中間按實際 history/eligibility 保留 Xu encounter / RE-X。
 - 不需要把每種順序寫成不同 scene，只切換 opening / follow-up lines。
 
 # 3. Shared handoff to late game
