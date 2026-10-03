@@ -29,16 +29,27 @@
       "task_type": "visual_review",
       "scene_id": "COM-02X",
       "depends_on": [],
-      "status": "PASS",
+      "status": "STALE",
       "packet": {
         "generator": "manual:task-packet-schema-v1.3.0",
         "sha256": "1f8809d1353de22d15b50939c6bb72921b0ea389f35ec5fa9b01e90bc58ddcad"
       },
       "decision_receipt": "content/production/runs/opening-feedback-20261003/MUA-COM02X-ELEVATOR-007.decision.json",
       "human_gate": "none",
-      "reason": "Exact packet and fresh worker Handoff verified at execution; output identities pinned in compact receipt."
+      "reason": "Historical six-reference render spec only; five-reference compatibility revision requires fresh MUA."
     }
   ],
-  "invalidation_events": [],
+  "invalidation_events": [
+    {
+      "changed_artifact_id": "opening-ch1-com02x-return-elevator",
+      "old_version": "8f63717bd2af6e6380cd046f866c1dc0a85471709e04e91daa9001ddc424eba8",
+      "new_version": "05249fbedf39ce522ff877e1df4072d3ed75f24335cf5ff1927e7091dba2c0ec",
+      "affected_task_ids": [
+        "MUA-COM02X-ELEVATOR-007"
+      ],
+      "decision": "STALE",
+      "evidence": "Verified PLAN-COM02X-ELEVATOR-TRANSPORT-011 Handoff d8fde7852761d4b98b9e99a5895391078661387bd83f77dad0f0d60a4220a17a; explicit max-five tool error, zero completed generations."
+    }
+  ],
   "preview": null
 }
