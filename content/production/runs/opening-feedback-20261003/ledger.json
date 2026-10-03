@@ -23,6 +23,20 @@
       "decision_receipt": "content/production/runs/opening-feedback-20261003/INT-OPENING-NAMES-001.decision.json",
       "human_gate": "none",
       "reason": "Exact packet and fresh worker Handoff verified at execution; output identities pinned in compact receipt."
+    },
+    {
+      "task_id": "MUA-COM02X-ELEVATOR-007",
+      "task_type": "visual_review",
+      "scene_id": "COM-02X",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual:task-packet-schema-v1.3.0",
+        "sha256": "1f8809d1353de22d15b50939c6bb72921b0ea389f35ec5fa9b01e90bc58ddcad"
+      },
+      "decision_receipt": "content/production/runs/opening-feedback-20261003/MUA-COM02X-ELEVATOR-007.decision.json",
+      "human_gate": "none",
+      "reason": "Exact packet and fresh worker Handoff verified at execution; output identities pinned in compact receipt."
     }
   ],
   "invalidation_events": [],
