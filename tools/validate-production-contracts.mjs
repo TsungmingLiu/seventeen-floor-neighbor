@@ -359,6 +359,10 @@ function validateGate3RepositorySources(catalog) {
   validateCharacterReferencePacks(catalog);
   const linRuoqingReceipt = readJson('content/assets/ingest-receipts/lin-ruoqing-reference-pack-20261003.json');
   const linRuoqingIds = validateCharacterReferencePackReceipt(linRuoqingReceipt, 'lin_ruoqing', catalog);
+  const shenYingxueReceipt = readJson('content/assets/ingest-receipts/shen-yingxue-reference-pack-20261003.json');
+  const shenYingxueIds = validateCharacterReferencePackReceipt(shenYingxueReceipt, 'shen_yingxue', catalog);
+  invariant(shenYingxueReceipt.heightLabelOverride?.canonicalHeightCm === 172 && shenYingxueReceipt.heightLabelOverride?.embeddedHeightLabelCm === 175, 'Shen Yingxue requires the explicit 172 cm canonical / 175 cm embedded-label override');
+  invariant(sha256(fs.readFileSync(shenYingxueReceipt.canonicalProfile)) === shenYingxueReceipt.canonicalProfileSha256, 'Shen Yingxue canonical profile changed after the scoped height-label override');
   const referenceIds = new Set();
   for (const item of receipt.references) {
     invariant(!referenceIds.has(item.sourceId), `duplicate reference sourceId: ${item.sourceId}`);
@@ -446,7 +450,7 @@ function validateGate3RepositorySources(catalog) {
   invariant(sha256(fs.readFileSync(walkAsset.derivativePath)) === walkAsset.derivativeSha256 && fs.statSync(walkAsset.derivativePath).size === walkAsset.derivativeBytes, 'COM-02X walking derivative fingerprint mismatch');
   const walkManifest = readJson('content/production/cg-manifests/opening-ch1-com02x-walk.json');
   invariant(walkManifest.entries.length === 1 && walkManifest.entries[0].entry_id === walkAsset.entryId && walkManifest.entries[0].status === 'accepted' && JSON.stringify(walkManifest.entries[0].known_issues) === JSON.stringify(walkQa.known_issues), 'COM-02X walking manifest adoption/issues mismatch');
-  invariant(Object.keys(catalog.files).length === acceptedIds.size + restoredIds.size + linRuoqingIds.length + 1 + batchIds.size + 1 + 1 + 1, 'source catalog contains an unknown or unreceipted source');
+  invariant(Object.keys(catalog.files).length === acceptedIds.size + restoredIds.size + linRuoqingIds.length + shenYingxueIds.length + 1 + batchIds.size + 1 + 1 + 1, 'source catalog contains an unknown or unreceipted source');
   return receipt;
 }
 

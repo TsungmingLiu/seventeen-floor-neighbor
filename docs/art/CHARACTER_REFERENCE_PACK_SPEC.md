@@ -8,7 +8,7 @@
 
 > 狀態：**Canonical character-image reference contract**
 >
-> 版本：1.4
+> 版本：1.5
 >
 > 更新：2026-10-03
 >
@@ -21,7 +21,7 @@
 
 # 1. Production status
 
-2026-09-23 QA review 記錄兩套角色 reference pack 通過設計驗收。該歷史 QA 狀態不表示目前所有圖檔均可取得。當前可綁定檔案與缺失項目以第 2–4 節與第 4.2 節的 repository status 為準。
+2026-09-23 QA review 記錄兩套角色 reference pack 通過設計驗收。該歷史 QA 狀態不表示目前所有圖檔均可取得。當前可綁定檔案與缺失項目以第 2–4 節與第 4.2–4.3 節的 repository status 為準。
 
 非阻擋性注意：
 
@@ -155,6 +155,42 @@ Select only the required sheets, for example:
 
 ~~~sh
 npm run cg:references -- --character lin_ruoqing --wardrobe LRQ-WARDROBE-B-BADMINTON --expression --body
+~~~
+
+---
+
+## 4.3 Shen Yingxue registered production reference pack
+
+Owner 於 2026-10-03 明確要求啟用六張沈映雪設定圖；逐張確認可見內容、PNG signature、完整 decode、尺寸、bytes 與 SHA-256，並原樣入庫。登錄僅限 production references，沒有新增 runtime CG 或獨立 Visual QA PASS。
+
+人物背景／個性與身高 authority：`docs/art/characters/shen-yingxue.md`（byte-for-byte 保持不變，身高約 **172 cm**）。六張原圖都標示 `HEIGHT 175 CM`；Owner 明確決定：「維持172，圖就不管了，直接啟用。」此 override 僅接受原圖內嵌身高標示，**不把角色身高改為 175 cm**，也不修改 PNG。CG planning／人物尺度仍以 canonical **172 cm** 為準。
+
+圖片 authority：`content/assets/character-reference-packs.json` 的 `shen_yingxue` + `content/assets/source-catalog.json`。入庫與 override 證據：`content/assets/ingest-receipts/shen-yingxue-reference-pack-20261003.json`。所有原圖均為 `image/png`、1672 × 941，未裁切或重採樣；路徑前綴為 `assets-src/references/shen-yingxue/`。
+
+| Upload | Repository filename | Source ID | Role / authority |
+| --- | --- | --- | --- |
+| `SYX-1.png` | `syx-ref-01-face.png` | `ref.shen_yingxue.face.01` | `primary_face_identity` / highest facial authority |
+| `SYX-2.png` | `syx-ref-02-expression.png` | `ref.shen_yingxue.expression.02` | `expression` / acting |
+| `SYX-3.png` | `syx-ref-03-body.png` | `ref.shen_yingxue.body.03` | `body_proportions` / body authority, canonical height 172 cm |
+| `SYX-4.png` | `syx-ref-04-production.png` | `ref.shen_yingxue.production.04` | `production_consistency` / technical reference |
+| `SYX-5.png` | `syx-ref-05-wardrobe-a.png` | `ref.shen_yingxue.wardrobe.a` | `wardrobe` / Work & Public Wardrobe |
+| `SYX-6.png` | `syx-ref-06-wardrobe-b.png` | `ref.shen_yingxue.wardrobe.b` | `wardrobe` / Private & Leisure Wardrobe |
+
+Wardrobe keys follow the supplied sheet labels:
+
+| Key | Exact sheet look |
+| --- | --- |
+| `SYX-WARDROBE-A-STRATEGY-WORK` | Strategy Work |
+| `SYX-WARDROBE-A-CLIENT-FORMAL-DAY` | Client / Formal Day |
+| `SYX-WARDROBE-A-CITY-EVENING` | City / Evening |
+| `SYX-WARDROBE-A-CAFE-WEEKEND` | Café / Weekend |
+| `SYX-WARDROBE-B-LEISURE-CAFE` | Leisure / Café |
+| `SYX-WARDROBE-B-WORKOUT-GYM` | Workout / Gym |
+| `SYX-WARDROBE-B-HOME-LOUNGE` | Home / Lounge |
+| `SYX-WARDROBE-B-QUIET-EVENING-SLEEPWEAR` | Quiet Evening / Sleepwear |
+
+~~~sh
+npm run cg:references -- --character shen_yingxue --wardrobe SYX-WARDROBE-A-STRATEGY-WORK --body
 ~~~
 
 ---

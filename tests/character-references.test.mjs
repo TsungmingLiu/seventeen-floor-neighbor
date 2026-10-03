@@ -8,6 +8,42 @@ const read = (name) => JSON.parse(fs.readFileSync(new URL(`../${name}`, import.m
 const catalog = read('content/assets/source-catalog.json');
 const registry = read('content/assets/character-reference-packs.json');
 
+test('Shen Yingxue receipt requires the scoped Owner height-label override', () => {
+  const receipt = read('content/assets/ingest-receipts/shen-yingxue-reference-pack-20261003.json');
+  assert.equal(validateCharacterReferencePackReceipt(receipt, 'shen_yingxue').length, 6);
+  assert.equal(receipt.heightLabelOverride.humanDecision, '維持172，圖就不管了，直接啟用。');
+  assert.equal(receipt.heightLabelOverride.canonicalHeightCm, 172);
+  assert.equal(receipt.heightLabelOverride.embeddedHeightLabelCm, 175);
+  const registryWithoutOverride = structuredClone(registry);
+  delete registryWithoutOverride.characters.shen_yingxue.heightLabelPolicy;
+  assert.throws(() => validateCharacterReferencePackReceipt(receipt, 'shen_yingxue', catalog, registryWithoutOverride), /receipt/);
+  for (const problem of ['missing', 'height', 'scope', 'quote', 'sources', 'profile', 'runtime']) {
+    const forged = structuredClone(receipt);
+    if (problem === 'missing') delete forged.heightLabelOverride;
+    if (problem === 'height') forged.heightLabelOverride.canonicalHeightCm = 175;
+    if (problem === 'scope') forged.heightLabelOverride.scope = 'canonical_character_design';
+    if (problem === 'quote') forged.heightLabelOverride.humanDecision = '';
+    if (problem === 'sources') forged.heightLabelOverride.sourceIds[0] = forged.heightLabelOverride.sourceIds[1];
+    if (problem === 'profile') delete forged.canonicalProfileSha256;
+    if (problem === 'runtime') forged.runtimeMasterAcceptance = 'ACCEPTED';
+    assert.throws(() => validateCharacterReferencePackReceipt(forged, 'shen_yingxue'), /receipt/);
+  }
+});
+
+test('Shen Yingxue selection isolates exact public/private looks and shot needs', () => {
+  const pack = registry.characters.shen_yingxue;
+  assert.equal(Object.keys(pack.wardrobes).length, 8);
+  for (const [wardrobeKey, look] of Object.entries(pack.wardrobes)) {
+    const selection = selectCharacterReferences({ characterId: 'shen_yingxue', wardrobeKey });
+    assert.deepEqual(selection.map(item => item.source_id), ['ref.shen_yingxue.face.01', 'ref.shen_yingxue.production.04', look.sourceId]);
+  }
+  const extended = selectCharacterReferences({ characterId: 'shen_yingxue', wardrobeKey: 'SYX-WARDROBE-B-WORKOUT-GYM', expression: true, body: true });
+  assert.equal(extended.length, 5);
+  assert.ok(extended.every(item => item.source_id.startsWith('ref.shen_yingxue.')));
+  assert.ok(!extended.some(item => item.source_id === 'ref.shen_yingxue.wardrobe.a'));
+  assert.throws(() => selectCharacterReferences({ characterId: 'shen_yingxue', wardrobeKey: 'LRQ-WARDROBE-B-BADMINTON' }), /unknown wardrobe/);
+});
+
 test('Lin Ruoqing receipt rejects missing, duplicate, foreign and altered source evidence', () => {
   const receipt = read('content/assets/ingest-receipts/lin-ruoqing-reference-pack-20261003.json');
   assert.equal(validateCharacterReferencePackReceipt(receipt, 'lin_ruoqing').length, 6);

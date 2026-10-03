@@ -45,6 +45,20 @@ export function validateCharacterReferencePackReceipt(receipt, characterId, sour
     insist(source.verifiedDecode === true, `${characterId}: reference receipt requires verified decode`);
   }
   insist(expected.size === 0, `${characterId}: unreceipted reference sheet`);
+  if (pack.heightLabelPolicy || receipt.heightLabelOverride) {
+    const override = receipt.heightLabelOverride;
+    insist(pack.heightLabelPolicy === 'canonical_profile_prevails'
+      && override?.policy === pack.heightLabelPolicy
+      && override.canonicalHeightCm === pack.canonicalHeightCm
+      && override.embeddedHeightLabelCm === pack.embeddedHeightLabelCm
+      && override.scope === 'embedded_height_labels_only'
+      && typeof override.humanDecision === 'string' && override.humanDecision.trim()
+      && /^[a-f0-9]{64}$/.test(receipt.canonicalProfileSha256)
+      && Array.isArray(override.sourceIds) && override.sourceIds.length === 6
+      && new Set(override.sourceIds).size === 6
+      && override.sourceIds.every(id => Object.values(pack.sheets).includes(id)),
+    `${characterId}: invalid reference receipt height-label override`);
+  }
   validateCharacterReferencePacks(sourceCatalog, registry);
   return receipt.references.map(item => item.sourceId);
 }

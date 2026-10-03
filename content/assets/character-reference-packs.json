@@ -147,6 +147,55 @@
           "look": "Pool / Swim"
         }
       }
+    },
+    "shen_yingxue": {
+      "canonicalProfile": "docs/art/characters/shen-yingxue.md",
+      "ingestReceipt": "content/assets/ingest-receipts/shen-yingxue-reference-pack-20261003.json",
+      "canonicalHeightCm": 172,
+      "embeddedHeightLabelCm": 175,
+      "heightLabelPolicy": "canonical_profile_prevails",
+      "sheets": {
+        "face.01": "ref.shen_yingxue.face.01",
+        "expression.02": "ref.shen_yingxue.expression.02",
+        "body.03": "ref.shen_yingxue.body.03",
+        "production.04": "ref.shen_yingxue.production.04",
+        "wardrobe.a": "ref.shen_yingxue.wardrobe.a",
+        "wardrobe.b": "ref.shen_yingxue.wardrobe.b"
+      },
+      "wardrobes": {
+        "SYX-WARDROBE-A-STRATEGY-WORK": {
+          "sourceId": "ref.shen_yingxue.wardrobe.a",
+          "look": "Strategy Work"
+        },
+        "SYX-WARDROBE-A-CLIENT-FORMAL-DAY": {
+          "sourceId": "ref.shen_yingxue.wardrobe.a",
+          "look": "Client / Formal Day"
+        },
+        "SYX-WARDROBE-A-CITY-EVENING": {
+          "sourceId": "ref.shen_yingxue.wardrobe.a",
+          "look": "City / Evening"
+        },
+        "SYX-WARDROBE-A-CAFE-WEEKEND": {
+          "sourceId": "ref.shen_yingxue.wardrobe.a",
+          "look": "Café / Weekend"
+        },
+        "SYX-WARDROBE-B-LEISURE-CAFE": {
+          "sourceId": "ref.shen_yingxue.wardrobe.b",
+          "look": "Leisure / Café"
+        },
+        "SYX-WARDROBE-B-WORKOUT-GYM": {
+          "sourceId": "ref.shen_yingxue.wardrobe.b",
+          "look": "Workout / Gym"
+        },
+        "SYX-WARDROBE-B-HOME-LOUNGE": {
+          "sourceId": "ref.shen_yingxue.wardrobe.b",
+          "look": "Home / Lounge"
+        },
+        "SYX-WARDROBE-B-QUIET-EVENING-SLEEPWEAR": {
+          "sourceId": "ref.shen_yingxue.wardrobe.b",
+          "look": "Quiet Evening / Sleepwear"
+        }
+      }
     }
   }
 }
