@@ -350,11 +350,9 @@ The first-meet branch has no recognition shot or bookstore callback. The reunion
 
 **Protagonist**：謝謝，先不用傳給我啦。今天聊到這裡就很好。
 
-**Jiang Yucheng**：好啊，沒關係。謝謝你剛剛講肩膀……還有遊戲頁的事。
+**Jiang Yucheng**：好啊，沒關係。謝謝你剛剛聊我的圖，還有遊戲頁的事。
 
 **Protagonist**：我也謝謝妳講那張圖。
-
-**Jiang Yucheng**：好，路上小心。
 
 → Rejoin `common_station_cafe_jyc_exit` with `contact_jyc=false`. He declines the offered sharing in ordinary terms; the page was a topic, not sent, and neither person owes a later meeting.
 

@@ -367,6 +367,22 @@
       "decision_receipt": "content/production/runs/m1-com03m-20261003/NQA-BOOKGATE-002.decision.json",
       "human_gate": "none",
       "reason": "Actual fresh affected Narrative QA PASS for exact corrected source; semantic visual beats only, accepted-art reuse/pixels and Human preview still pending."
+    },
+    {
+      "task_id": "CW-CAFE-CORRECTION-001",
+      "task_type": "scene_dialogue",
+      "scene_id": "COM-02J",
+      "depends_on": [
+        "ND-CAFE-CORRECTION-001"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1 focused corrective dialogue",
+        "sha256": "2dcad88c3029d8030674fbddba67984a0b7fc4ad99f67fcab0041891eb50622a"
+      },
+      "decision_receipt": null,
+      "human_gate": "none",
+      "reason": "Actual fresh writer-only PASS verified; two no-contact findings corrected, contacted branch/shared exit bytes identical; affected Cafe QA and unchanged3J current-upstream revalidation pending."
     }
   ],
   "invalidation_events": [],
