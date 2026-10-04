@@ -202,6 +202,24 @@ test('schema2 QA codes reject a nested full API payload while typed Human and QA
   } finally { f.close(); }
 });
 
+test('schema2 durable QA decision accepts a narrative design contract approval', () => {
+  const f = fixture();
+  try {
+    const relative = 'content/production/runs/test/DESIGN-001.decision.json';
+    const decision = durableDecision({ task_id: 'DESIGN-001', scene_id: 'SCENE-1', task_type: 'narrative_design',
+      status: 'PASS', harness: { id: 'content_writer', version: '1.0.0', pass: 'narrative_design' },
+      input_versions: [{ id: 'design-brief', version: 'a'.repeat(64), location: 'external:design-brief' }],
+      output_versions: [{ id: 'narrative_contract:SCENE-1', version: 'b'.repeat(64), location: 'external:contract' }],
+      qa_codes: [{ name: 'contract_complete', code: 'ND-CONTRACT-COMPLETE', result: 'PASS' }],
+      human_gate_required: 'none', known_issues: [], invalidates: [] });
+    f.put(relative, JSON.stringify(decision));
+    assert.doesNotThrow(() => validateProductionStorage({ root: f.directory }));
+
+    f.put(relative, JSON.stringify({ ...decision, narrative_contract: { full_text: 'fixture prose' } }));
+    assert.throws(() => validateProductionStorage({ root: f.directory }), /full attempt\/transport fields|typed compact metadata/);
+  } finally { f.close(); }
+});
+
 test('schema2 checkpoint accepts scalar Human metadata and rejects nested transport in each container', () => {
   const f = fixture();
   try {

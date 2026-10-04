@@ -55,6 +55,61 @@ test('Opening choice effects must use finite amounts for declared state keys', a
   assert.ok((await validateContent(nonfiniteAmount)).some((error) => error.includes('choice effect C_XT must be a finite number')));
 });
 
+test('opt-in expression and action choice metadata is validated without constraining legacy choices', async () => {
+  const base = await loadContent();
+  const routeFor = (content) => content.routes.find((item) => item.config.id === 'opening-demo');
+  const taggedFixture = (choiceType) => {
+    const content = clone(base);
+    const node = routeFor(content).chapter.nodes.common_movein_rain_choice;
+    node.choiceType = choiceType;
+    node.choices.forEach((choice, index) => Object.assign(choice, {
+      id: `${choiceType}-${index + 1}`,
+      consequenceClass: 'local',
+      ...(choiceType === 'expression' ? { stance: ['warm', 'candid', 'playful'][index] } : {})
+    }));
+    return { content, node };
+  };
+
+  const expression = clone(base);
+  const expressionNode = routeFor(expression).chapter.nodes.common_movein_rain_choice;
+  expressionNode.choiceType = 'expression';
+  expressionNode.choices.forEach((choice, index) => {
+    Object.assign(choice, {
+      id: `response-${index + 1}`,
+      stance: ['warm', 'candid', 'playful'][index],
+      consequenceClass: ['local', 'echo', 'structural'][index]
+    });
+  });
+  assert.deepEqual(await validateContent(expression), []);
+
+  const action = clone(base);
+  const actionNode = routeFor(action).chapter.nodes.common_movein_rain_choice;
+  actionNode.choiceType = 'action';
+  actionNode.choices.push(clone(actionNode.choices[0]));
+  actionNode.choices.forEach((choice, index) => Object.assign(choice, {
+    id: `action-${index + 1}`,
+    stance: ['warm', 'candid', 'playful', 'warm'][index],
+    consequenceClass: 'local'
+  }));
+  assert.deepEqual(await validateContent(action), []);
+
+  const malformed = [
+    { type: 'action', mutate: (node) => { node.choiceType = 'mood'; }, diagnostic: 'choiceType must be expression or action' },
+    { type: 'action', mutate: (node) => { node.choices[0].id = 'Bad ID'; }, diagnostic: 'id must be a stable lowercase identifier' },
+    { type: 'action', mutate: (node) => { node.choices[1].id = node.choices[0].id; }, diagnostic: 'duplicate choice option id action-1' },
+    { type: 'action', mutate: (node) => { node.choices[0].consequenceClass = 'route'; }, diagnostic: 'consequenceClass must be local, echo, or structural' },
+    { type: 'expression', mutate: (node) => { node.choices[1].stance = 'warm'; }, diagnostic: 'expression stances must be warm, candid, and playful exactly once' },
+    { type: 'expression', mutate: (node) => { node.choices.pop(); }, diagnostic: 'expression choice requires exactly 3 options' }
+  ];
+  for (const { type, mutate, diagnostic } of malformed) {
+    const { content, node } = taggedFixture(type);
+    mutate(node);
+    assert.ok((await validateContent(content)).some((error) => error.includes(diagnostic)), diagnostic);
+  }
+
+  assert.deepEqual(await validateContent(base), []);
+});
+
 
 
 test('pure choice nodes omit placeholder speaker/text and legacy shapes are rejected', async () => {

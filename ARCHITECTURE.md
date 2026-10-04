@@ -27,6 +27,8 @@
 - `src/engine.js` 播放節點、choices、random scene return 與 ending；`src/visuals.js` 解析 logical asset、顯示畫面並提供載入失敗 fallback；`src/app.js` 載入 package。
 - 每個 node 的 visual mode 只能是 `composite`（背景與可選 sprites）、`cg`（完整圖片）或 `cinematic`（MP4 primary、WebM fallback、poster）。CG/cinematic 不能混入 composite sprites。`allowPreviewArt: true` 的 chapter 可明確引用 `previewOnly` background 作劇情審閱佔位圖，不能當成已驗收 CG；新 production art 依 `docs/art/PRODUCTION_VISUAL_DIRECTION.md` 採 CG-first / 16:9。
 - `src/branches.js` 保留 graph helper 供 debug/validation，不是玩家的 route UI。
+
+Choice metadata is opt-in on a choice node through `choiceType: "expression" | "action"`. Tagged options require stable lowercase `id` values and `consequenceClass: "local" | "echo" | "structural"`; expression options also require one each of `stance: "warm" | "candid" | "playful"` and exactly three options. Action options have no fixed count or stance. These fields are authoring and validation metadata: the runtime does not use them as scores, route authority, or player-facing labels. Untagged legacy choices retain their existing contract.
 - 修改局部 route 可先用 `npm run context -- --route <id> --node <id>` 取得相關 nodes、assets、角色與 recipe。角色設計變更可用 `npm run assets:plan -- <character-id>` 查依賴。
 
 ## 3. Player UI / Memories / save（已實作 W4 contract）

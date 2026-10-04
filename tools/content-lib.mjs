@@ -285,6 +285,45 @@ function validateStoryRoute(route, fail) {
         if (!Number.isFinite(amount)) fail(`route ${config.id} node ${id}: choice effect ${stat} must be a finite number`);
       }
     }
+    if (Object.hasOwn(node, 'choiceType')) {
+      const prefix = `route ${config.id} node ${id}:`;
+      if (!['expression', 'action'].includes(node.choiceType)) {
+        fail(`${prefix} choiceType must be expression or action`);
+      } else {
+        const choices = node.choices;
+        if (!Array.isArray(choices) || choices.length === 0) {
+          fail(`${prefix} tagged ${node.choiceType} choice requires at least one option`);
+        } else {
+          const ids = new Set();
+          const stances = new Set();
+          for (const [index, choice] of choices.entries()) {
+            const optionPrefix = `${prefix} option ${index + 1}:`;
+            if (typeof choice.id !== 'string' || !/^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$/.test(choice.id)) {
+              fail(`${optionPrefix} id must be a stable lowercase identifier`);
+            } else if (ids.has(choice.id)) {
+              fail(`${prefix} duplicate choice option id ${choice.id}`);
+            } else {
+              ids.add(choice.id);
+            }
+            if (!['local', 'echo', 'structural'].includes(choice.consequenceClass)) {
+              fail(`${optionPrefix} consequenceClass must be local, echo, or structural`);
+            }
+            if (node.choiceType === 'expression') {
+              if (!['warm', 'candid', 'playful'].includes(choice.stance)) {
+                fail(`${optionPrefix} expression stance must be warm, candid, or playful`);
+              } else if (stances.has(choice.stance)) {
+                fail(`${prefix} expression stances must be warm, candid, and playful exactly once`);
+              } else {
+                stances.add(choice.stance);
+              }
+            }
+          }
+          if (node.choiceType === 'expression' && choices.length !== 3) {
+            fail(`${prefix} expression choice requires exactly 3 options`);
+          }
+        }
+      }
+    }
     if (node.type === 'branch') {
       if (!nodes[node.default]) fail(`route ${config.id} node ${id}: unknown default branch ${node.default}`);
       for (const branch of node.cases || []) {
