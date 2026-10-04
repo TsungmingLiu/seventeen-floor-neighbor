@@ -1,5 +1,17 @@
 # COM-02J — 咖啡店重逢／初遇
 
+## Current authorized weekend/weekday design — ND-ARC-001
+
+- Lifecycle: **CANONICAL** task-local Narrative Design amendment, 2026-10-04. Source ref: `013b3f73e75d8f00bbd2fa53a6cd2d885fecb9a9`. Human 授權本輪方向與必要改寫；本 pass 沒有新 final prose、QA、runtime 或 CG acceptance。
+- Owning design: `docs/narrative/JYC_WEEKEND_WEEKDAY_REVISION.md`；current contract: `content/production/narrative/opening-ch1/COM-02J.json`。此 design section 與 current JSON 取代下方 baseline 的衝突時序／gate；下方舊 Locked prose 與其歷史 binding 完整保留作局部改寫或相容性參考，不是本輪新 Script Lock。
+- 平日重逢談書／初遇談畫：四個 dialogue unit 之一。改為週末後平日下午工作疲累出門。重逢先禮貌問可否坐附近，聊週末實際購買之書與真正 first topic；初遇保留當下畫圖話題與陌生距離，僅改週末 skip／今天走到出口的舊 framing。兩支各自取得坐位同意、名字、具體話題，平行做事與互問後可實際交換 Discord；保留普通不交換出口。全接當晚 COM-03X。重逢仍可看到她在畫圖，但主話題是書；不要僅為 COM-03J 舊 callback 加虛假構圖討論。
+- Stable ID plan：不需新前綴；保留 common_station_cafe_jyc_*／first_*、com02j_* topic／contact action IDs。
+- 永久排除：本輪 `com01b_weekday_street_walk` 才寫 `jyc_permanently_excluded=true`。此 flag 先於 contact/history，永不由 merge、reload、scheduler、public shared scene 或 ordinary invite 清除。Memory replay 限自己的 snapshot，不向 live 主線寫入；改走前一分岔屬另一 playthrough，不是本輪 reopening。
+- Semantic visual impact 與四個必要 dialogue units 見 owning design；現有 accepted image bytes、QA/Human 歷史都保留。獨立下游才裁決哪些畫面可重用。
+
+## Preserved pre-revision baseline
+
+
 > **Rendering boundary:** this LOCKED scene owns narrative, state, dialogue and semantic visual beats. Render-ready framing belongs to the canonical CG planning stage; historical 9:16, sprite and composite notes do not bind new production art.
 
 ## Status and binding

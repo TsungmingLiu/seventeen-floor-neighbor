@@ -1,5 +1,17 @@
 # COM-03J — 推薦 / Discord
 
+## Current authorized weekend/weekday design — ND-ARC-001
+
+- Lifecycle: **CANONICAL** task-local Narrative Design amendment, 2026-10-04. Source ref: `013b3f73e75d8f00bbd2fa53a6cd2d885fecb9a9`. Human 授權本輪方向與必要改寫；本 pass 沒有新 final prose、QA、runtime 或 CG acceptance。
+- Owning design: `docs/narrative/JYC_WEEKEND_WEEKDAY_REVISION.md`；current contract: `content/production/narrative/opening-ch1/COM-03J.json`。此 design section 與 current JSON 取代下方 baseline 的衝突時序／gate；下方舊 Locked prose 與其歷史 binding 完整保留作局部改寫或相容性參考，不是本輪新 Script Lock。
+- 同平日晚間線上推薦，先檢查排除：不需 final dialogue rewrite；只改 design route labels／gate／callback selector。包裹後同平日晚間，現有「下午／晚上」與公開《折返月台》body、三個回复分支可保持。先 !jyc_permanently_excluded 再 true actual Discord contact；無 contact bypass。具體 callback 只在新 cafe dialogue 確曾談到時使用，book-focused reunion 缺動作／關圖層前事用既有 neutral；不寫或補造新推薦承諾。
+- Stable ID plan：無新 IDs；common_recommend_discord_jyc_* 與 com03j_* 保留。
+- 永久排除：本輪 `com01b_weekday_street_walk` 才寫 `jyc_permanently_excluded=true`。此 flag 先於 contact/history，永不由 merge、reload、scheduler、public shared scene 或 ordinary invite 清除。Memory replay 限自己的 snapshot，不向 live 主線寫入；改走前一分岔屬另一 playthrough，不是本輪 reopening。
+- Semantic visual impact 與四個必要 dialogue units 見 owning design；現有 accepted image bytes、QA/Human 歷史都保留。獨立下游才裁決哪些畫面可重用。
+
+## Preserved pre-revision baseline
+
+
 > Lifecycle: **CANONICAL**（scene-local Locked Scene；writer-authored，獨立 Narrative QA 尚待審查）
 >
 > Scene / Dialogue task: `CW-CONTACT-CONTINUATION-001` / `m1-com03m-20261003`。

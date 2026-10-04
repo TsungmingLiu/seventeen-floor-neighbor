@@ -25,23 +25,37 @@
     "knowledge": [
       {
         "holder": "jiang_yucheng",
-        "knows": ["自己正在比較《逆光航路》兩個版本。"],
-        "does_not_know": ["男主姓名。", "男主工作。", "男主住處。"]
+        "knows": [
+          "自己正在比較《逆光航路》兩個版本。"
+        ],
+        "does_not_know": [
+          "男主姓名。",
+          "男主工作。",
+          "男主住處。"
+        ]
       },
       {
         "holder": "protagonist",
-        "knows": ["兩版設定集在雨港篇與印刷上有差異。"],
-        "does_not_know": ["江雨澄姓名。", "江雨澄職業。", "江雨澄住處。", "江雨澄匿名創作身份。"]
+        "knows": [
+          "兩版設定集在雨港篇與印刷上有差異。"
+        ],
+        "does_not_know": [
+          "江雨澄姓名。",
+          "江雨澄職業。",
+          "江雨澄住處。",
+          "江雨澄匿名創作身份。"
+        ]
       }
     ],
     "constraints": [
-      "兩人互不知姓名；互動只能由具體共同興趣成立。"
+      "兩人互不知姓名；互動只能由具體共同興趣成立。",
+      "本輪只由晴朗週末 com01b_bookstore_go 入場；留家支不執行；jyc_permanently_excluded 必須 false。"
     ]
   },
   "scene_function": [
     "用具體作品判斷建立江雨澄的首次出場，而不是外貌搭訕。",
     "呈現她先短答、確認安全後句子變長的 voice rhythm。",
-    "建立北邊出口安靜咖啡店，作為 COM-02J 的 causal geography。"
+    "保留北邊出口安靜咖啡店的地理 seed，供後續平日工作疲累時選用；週末不當場赴 cafe。"
   ],
   "character_intent": [
     {
@@ -66,7 +80,9 @@
   "required_payoffs": [
     "雨澄提出至少一項能補充或修正男主的作品判斷。",
     "三個 topic choices 都證明 genuine interest，沒有隱藏正解。",
-    "咖啡店推薦成立，但兩人不交換姓名或聯絡方式。"
+    "咖啡店推薦成立，但兩人不交換姓名或聯絡方式。",
+    "書架初遇、三個 topic、rejoin 的完整互動保留；只局部替換 cafe_seed／exit 中立即去咖啡的意圖，改成往後可用的推薦。",
+    "雨澄自行離開後，男主繼續翻書，最後實際買到原本想找的《逆光航路》世界設定增補版；他為自己的閱讀目的購買，不因她認可才購買。帶书回家，再接同週末便利店；不交換姓名或 contact。"
   ],
   "exit_state": {
     "relationships": [
@@ -90,17 +106,33 @@
     "knowledge": [
       {
         "holder": "jiang_yucheng",
-        "knows": ["男主看過舊版且對作品有具體判斷。"],
-        "does_not_know": ["男主姓名。", "男主工作。", "男主住處。"]
+        "knows": [
+          "男主看過舊版且對作品有具體判斷。"
+        ],
+        "does_not_know": [
+          "男主姓名。",
+          "男主工作。",
+          "男主住處。"
+        ]
       },
       {
         "holder": "protagonist",
-        "knows": ["她對雨港篇、色彩腳本或版本用途有具體判斷。", "北邊出口咖啡店適合安靜工作。"],
-        "does_not_know": ["江雨澄姓名。", "江雨澄職業。", "江雨澄住處。", "江雨澄匿名創作身份。"]
+        "knows": [
+          "她對雨港篇、色彩腳本或版本用途有具體判斷。",
+          "北邊出口咖啡店適合安靜工作。",
+          "自己已實際買到世界設定增補版；雨澄離開後才購買，她此時不知道結果。"
+        ],
+        "does_not_know": [
+          "江雨澄姓名。",
+          "江雨澄職業。",
+          "江雨澄住處。",
+          "江雨澄匿名創作身份。"
+        ]
       }
     ],
     "constraints": [
-      "兩人只靠共同作品脈絡可互相辨認；沒有社交債、聯絡方式或約會承諾。"
+      "兩人只靠共同作品脈絡可互相辨認；沒有社交債、聯絡方式或約會承諾。",
+      "本幕出口回家→同週末 COM-02X；COM-02J 是下一平日下午，不是同次外出。"
     ]
   },
   "must_not": [
@@ -108,7 +140,9 @@
     "不得因外貌搭話或長篇評價她可愛。",
     "不得詢問姓名、學校、社群帳號或聯絡方式。",
     "不得提前揭露匿名繪師身份、住處或與許棠的交集。",
-    "不得用 blush、靠近或正面模特凝視暗示 instant crush。"
+    "不得用 blush、靠近或正面模特凝視暗示 instant crush。",
+    "不得保留「我等一下去」／同次 cafe 承諾、跳過購書或把選了 bookstore go 當已購買。",
+    "jyc_permanently_excluded=true 只由本輪平日街頭獨自行動的實際 choice 建立；本輪不可清除，優先於 contact、met、舊 history 及任何 invitation/discovery gate；禁止其後全部江雨澄內容，包括訊息、重遇、第二 discovery、RE-J、reopening、同框、邀約、結局與 coda。"
   ],
   "implementation_mapping": {
     "runtime_only": true,
@@ -118,7 +152,9 @@
       "met_jiang_yucheng": true,
       "heard_station_cafe_from_jyc": true,
       "F_JYC": "increment:1",
-      "jyc_first_topic": "worldbuilding|visual_design|edition_value"
+      "jyc_first_topic": "worldbuilding|visual_design|edition_value",
+      "weekend_book_purchased": "true_only_on_actual_purchase_coda",
+      "requires_jyc_not_excluded": true
     }
   }
 }

@@ -1,5 +1,17 @@
 # COM-01B — 週末前的方向
 
+## Current authorized weekend/weekday design — ND-ARC-001
+
+- Lifecycle: **CANONICAL** task-local Narrative Design amendment, 2026-10-04. Source ref: `013b3f73e75d8f00bbd2fa53a6cd2d885fecb9a9`. Human 授權本輪方向與必要改寫；本 pass 沒有新 final prose、QA、runtime 或 CG acceptance。
+- Owning design: `docs/narrative/JYC_WEEKEND_WEEKDAY_REVISION.md`；current contract: `content/production/narrative/opening-ch1/COM-01B.json`。此 design section 與 current JSON 取代下方 baseline 的衝突時序／gate；下方舊 Locked prose 與其歷史 binding 完整保留作局部改寫或相容性參考，不是本輪新 Script Lock。
+- 週末／平日行動入口：四個 dialogue unit 之一；只改週末 decision 以後及新增平日 transition，保留前晚問路完整 prose。週末晴朗，在家作 go/home action；home 拆箱與工作，bookstore 接 COM-01J→實際購書→回家，兩支都 COM-02X。同幕所屬 common_weekday_outing_* 在 COM-02X 後才執行：平日下午居家工作疲累、出門；bookstore-met 直接 cafe reunion，home 才 cafe-first/street choice。street 獨走台北、感受熟悉又陌生、回家接 COM-03X，並永久排除江線。
+- Stable ID plan：common_weekend_home_enter/work/exit；common_weekday_outing_work/tired/decision/street_enter/street_return；com01b_weekday_cafe_first/com01b_weekday_street_walk。既有 weekend go/skip IDs 保留；舊 common_bookstore_bridge_cafe_decision 與 cafe_skip IDs 不挪作永久排除意圖，保留歷史兼容但新走法不播放。
+- 永久排除：本輪 `com01b_weekday_street_walk` 才寫 `jyc_permanently_excluded=true`。此 flag 先於 contact/history，永不由 merge、reload、scheduler、public shared scene 或 ordinary invite 清除。Memory replay 限自己的 snapshot，不向 live 主線寫入；改走前一分岔屬另一 playthrough，不是本輪 reopening。
+- Semantic visual impact 與四個必要 dialogue units 見 owning design；現有 accepted image bytes、QA/Human 歷史都保留。獨立下游才裁決哪些畫面可重用。
+
+## Preserved pre-revision baseline
+
+
 ## Status
 
 - Production stage: **Scene Dialogue / LOCKED (Script Lock)**；新增入店前 action／skip passage 待獨立 `content_qa / narrative_review`，並由下游獨立判定視覺影響。

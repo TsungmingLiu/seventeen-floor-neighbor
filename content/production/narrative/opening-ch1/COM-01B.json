@@ -66,19 +66,19 @@
       }
     ],
     "constraints": [
-      "COM-01X 已於搬家後第 3–4 天約 19:20 在 17 樓到站分開；本橋段是同週末前另一晚在大樓外的短暫偶遇，不延長電梯或家門口的既有結尾。",
-      "COM-01J 的約 15:40 地下街 ACG 店初遇只在玩家實際選擇去書店時發生。"
+      "COM-01X 已於平日晚間 17 樓分開；本幕保留週末前另一晚大樓外偶遇與有界線問路。",
+      "週末行動前尚未遇見江雨澄；本幕另擁有 COM-02X 完成後的平日居家工作／外出 transition，不能在週末預播咖啡店相遇。"
     ]
   },
   "scene_function": [
-    "讓男主在少有熟人的新環境裡，藉由詢問可自行去逛的地方多說一兩句；保留他用平常話掩飾一點失落的習慣。",
-    "以許棠實用且有界線的推薦，提供地下街書店的地理線索；週末是否實際前往由玩家在入店前決定。",
-    "在不改動 COM-01X 的 17 樓分開與 COM-01J 原有書店初遇內容的前提下，建立真正可跳過書店的 discovery 邊界。"
+    "保留男主以普通問路延長片刻交談、許棠提供方向後繼續自己行程的生活橋段。",
+    "把晴朗週末的書店購書與留家拆箱／工作作成真實可錯過的行動；兩支都接同週末晚間 COM-02X。",
+    "COM-02X 後清楚跨到平日：男主在家工作，疲累後外出；見過雨澄者去咖啡店重逢，未見者才可選咖啡店首遇或台北街頭獨行。"
   ],
   "character_intent": [
     {
       "character_id": "protagonist",
-      "intent": "不想讓少數能自然說話的對話太快結束，於是問附近可一個人閒逛的去處；不要求許棠同行。週末基於自己的找書目的決定去書店或暫不去，若未去仍可另行決定是否去咖啡店。"
+      "intent": "想與普通鄰居多說幾句，取得方向後自己過週末；書店有自己的購書目的，留家則拆箱／工作。平日工作疲累後決定去坐坐或獨走，不以尋找江雨澄為外出目的。"
     },
     {
       "character_id": "xu_tang",
@@ -91,19 +91,19 @@
     "許棠推薦與男主既有的《逆光航路》購書目標都成立；推薦不是已發生的入店行動，也不是為了追隨任何人。"
   ],
   "emotional_arc": [
-    "偶遇時沿用能聊幾句的鄰居節奏；男主察覺話題將盡，想留住一點新地方的聲音。",
-    "玩家以逛街、看書或找吃喝三種成人日常口吻問路；許棠用短而實際的話給同一個可行方向。",
-    "許棠道晚安離開；男主明亮地道謝，笑意收下後仍有一點孤單，但不把此刻寫成戀愛失落。",
-    "隔至同週末白天，在實際進入地下街書店以前讓玩家決定去或暫不去；去店才接 COM-01J，暫不去時咖啡店是另一個可接受或婉拒的日常行動。"
+    "另一晚的普通問路與明亮道謝仍帶些寂寞，但許棠不讀心、不陪同。",
+    "晴朗週末在家先選行動：書店找到想要的書與短暫共同作品對話，或在箱子和工作間度過一天。",
+    "兩種不同的一天在同週末便利店都被普通鄰居接住；跨到平日居家工作，疲累使男主想換個地方。",
+    "去咖啡店有機會認識／再認識一個人；獨走台北則親自感受熟悉又陌生的街道，回家接許棠包裹，不補江線。"
   ],
   "required_payoffs": [
-    "三個選項只改變提問切口：隨意逛店、找書、餐廳或咖啡；都讓許棠給出同一處地下街書店方向，並於她道晚安後 rejoin，不形成互斥地點或隱藏最佳答案。",
-    "許棠只指出大約十分鐘的方向與出口上層有咖啡，不替江雨澄說出北邊出口那間店的安靜時段、窗邊與插座；COM-01J 的 cafe seed 仍由江雨澄完成。",
-    "男主的笑容是有意維持明快的道謝，旁白只點出微弱寂寞；許棠離開後沒有回頭慰問、邀約或交換聯絡方式。",
-    "時間由週末前一晚清楚轉到同週末白天；玩家的書店 go/not-go action 發生在任何入店敘述之前。選擇去才保留既有約 15:40 入店文字、COM-01J 初遇與其作品目的；選擇不去不執行 COM-01J。",
-    "去書店路徑：COM-01J 先完成無姓名、無 contact 的共同作品初遇；同一次外出其後必定去咖啡店，COM-02J 在那裡作有因果的重逢。這是後續 COM-01J／COM-02J 時序修訂前提，不在本幕提前取得姓名或 contact。",
-    "不去書店路徑：另給去／不去咖啡店的真實 action choice；選擇去時以一場有界線的 COM-02J 初次見面取得當場實際談到的姓名／話題，沒有書架共同回憶、COM-01J cafe seed 或已知 jyc_first_topic；選擇不去時兩人始終未見且 contact_jyc=false。",
-    "兩條實際相遇的咖啡店後續，都只在自然持續交談、雙方有共同興趣且明確同意時可交換聯絡；Warm／Candid／Playful 不改 knowledge 或資格，拒絕交換可正常道別且不設浪漫結論／RE。聯絡的具體演出由獨立 COM-02J／COM-03J 修訂承擔。"
+    "保留三個問路 choice ID 與同一推薦、晚安 rejoin；只知約十分鐘地下街書店及出口上層咖啡，不提前得北出口使用細節。",
+    "週末晴朗、男主尚在家時才顯示 common_bookstore_bridge_weekend_decision；com01b_bookstore_go 接原約 15:40 書店，com01b_bookstore_skip 接在家拆箱與工作，不能先敘述已出門。",
+    "去書店才 COM-01J 初遇；其作品對話之後男主實際買到原本想要的世界設定增補版，回家，再接同週末約 23:00 COM-02X。留家支完成拆箱／工作生活片段，未見雨澄，亦接 COM-02X。週末無咖啡店行動 choice 或相遇。",
+    "COM-02X 完成後才 common_weekday_outing_work；平日在家完成工作、察覺疲累，帶筆記本電腦下午出門換環境。書店已遇雨澄者直接接 COM-02J 重逢，不新增街頭選項。",
+    "未曾去書店者在 common_weekday_outing_decision 作兩項 action：com01b_weekday_cafe_first 接 COM-02J 初遇；com01b_weekday_street_walk 接 common_weekday_outing_street_*。咖啡首遇沒有書架前事或雨澄推薦。",
+    "街頭支演出我記得部分路口、卻不再熟悉當下街景的第一人稱感受；不新增舊識、回憶人物或人物遭遇。選擇時建立不可逆的本輪永久江線排除，再回家；兩個咖啡出口與街頭回家均接 COM-03X 包裹。",
+    "COM-01B 不設 met/contact 或任何關係分數；相遇與聯絡仍由 COM-01J／COM-02J 真實事件及互相同意建立。街頭是生活選擇的機會成本，不當 bad ending、戀愛拒絕或道德懲罰。"
   ],
   "exit_state": {
     "relationships": [
@@ -128,7 +128,7 @@
         "toward": "jiang_yucheng",
         "label": "strangers",
         "constraints": [
-          "本幕結束仍互不相識；去書店才可在 COM-01J 首遇，不去書店而去咖啡店才可在 COM-02J 首遇，兩處都不去則仍為 strangers。"
+          "週末行動前仍陌生；書店支才初遇，留家支直到平日咖啡首遇才可相識；街頭支永不相遇。"
         ]
       }
     ],
@@ -169,25 +169,27 @@
       }
     ],
     "constraints": [
-      "無新增 Xu 或 Jiang 的 familiarity、trust、chemistry、compatibility、romanticSignal、contact 或 cross-knowledge；不改 recentFocus。",
-      "推薦不等於到訪：COM-01J 僅在書店 go 路徑執行；書店 skip 的 cafe go/no-go 選擇仍不在 COM-01B 建立 met_jiang_yucheng 或 contact_jyc。"
+      "本幕跨時段分支不假裝同一線性 exit：週末決策交 COM-01J 或留家→COM-02X；平日決策在 COM-02X 後返回，交 COM-02J 或街頭→COM-03X。",
+      "三條平日走法接同一包裹事件，但 met、contact、知名及作品 history 各自保留，不能以 graph merge 補齊。",
+      "jyc_permanently_excluded=true 只由本輪平日街頭獨自行動的實際 choice 建立；本輪不可清除，優先於 contact、met、舊 history 及任何 invitation/discovery gate；禁止其後全部江雨澄內容，包括訊息、重遇、第二 discovery、RE-J、reopening、同框、邀約、結局與 coda。"
     ]
   },
   "must_not": [
-    "不得把此橋段接在 COM-01X 已結束的 17 樓家門口繼續長談，也不得修改其垃圾室資訊或到站分開。",
-    "不得在玩家選擇書店 go 前敘述已進店；選擇 go 時 COM-01J 仍在同週末約 15:40 的地下街 ACG 設定集／周邊店，不改為一般書店或咖啡店。",
-    "不得讓許棠推薦特定雨澄咖啡店的北邊出口、平日下午安靜、窗邊或插座細節，搶先完成雨澄後續重逢伏筆。",
-    "不得讓許棠陪逛、追問寂寞、察覺未說出的情緒、交換聯絡方式或給浪漫暗示。",
-    "不得把三個提問選項設計成道德高低或不同 route；三條都不加 heroine relationship 數值。",
-    "不得提前揭露江雨澄姓名、身份、她與許棠的交集，或讓男主因預期邂逅才去店裡。",
-    "不得把書店 skip 寫成暗中到訪、強制咖啡店或自動與江雨澄相遇；兩處都 skip 時不得製造姓名、作品回憶或聯絡方式。",
-    "不得在 COM-01B 提前寫定 COM-02J／COM-03J 的新對白；聯絡資格由真實交談、共同興趣與同意決定，不由 tone、數值、答對題或第三次碰面決定。"
+    "不得改 COM-01X／COM-00 的已成立事實；許棠沒有讀心、同行、聯絡交換或提前給雨澄的具體咖啡條件。",
+    "不得維持週末同次外出必去咖啡店、週末 skip 後咖啡選項或兩處 skip 仍可 later rediscovery 的舊路徑。",
+    "不得把晴朗週末留家省成無內容的跳過；不得在未去書店支假造購書、COM-01J topic、heard_station_cafe_from_jyc 或初遇。",
+    "jyc_permanently_excluded=true 只由本輪平日街頭獨自行動的實際 choice 建立；本輪不可清除，優先於 contact、met、舊 history 及任何 invitation/discovery gate；禁止其後全部江雨澄內容，包括訊息、重遇、第二 discovery、RE-J、reopening、同框、邀約、結局與 coda。",
+    "本設計不寫最終對白、不整合 runtime、不改既有驗收像素或歷史 QA/Human 證據。"
   ],
   "implementation_mapping": {
     "runtime_only": true,
     "flags": {
-      "bookstore_visit_choice": "go|skip; choice history only, evaluated before weekend_transition",
-      "cafe_visit_if_bookstore_skipped": "go|skip; choice history only, separate action before any cafe entry"
+      "weekend_route": "actual choice history:com01b_bookstore_go|com01b_bookstore_skip",
+      "weekend_book_purchased": "true_only_after_COM01J_actual_purchase;false_on_home",
+      "weekday_route": "reunion_after_bookstore|cafe_first_after_home|street_after_home;actual_local_history",
+      "jyc_permanently_excluded": "set_true_once_on_com01b_weekday_street_walk;never_reset_in_this_playthrough",
+      "met_jiang_yucheng": "unchanged_here;actual_encounter_owned_by_COM01J_or_COM02J",
+      "contact_jyc": "unchanged_here;COM02J_mutual_exchange_only"
     }
   }
 }

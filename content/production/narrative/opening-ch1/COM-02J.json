@@ -10,7 +10,7 @@
         "toward": "protagonist",
         "label": "strangers_with_specific_shared_context",
         "constraints": [
-          "書店 go：COM-01J 剛發生，聊過《逆光航路》但未交換姓名／聯絡；書店 skip+cafe go：兩人從未見過。"
+          "書店 go：COM-01J 在前一週末發生，聊過《逆光航路》但未交換姓名／聯絡；書店 skip+cafe go：兩人從未見過。"
         ]
       },
       {
@@ -18,7 +18,7 @@
         "toward": "jiang_yucheng",
         "label": "strangers_with_specific_shared_context",
         "constraints": [
-          "書店 go：知道她剛才的作品判斷與北邊出口咖啡店推薦；書店 skip：只知道許棠提過出口上層有咖啡，不認識雨澄。"
+          "書店 go：知道她週末的作品判斷與北邊出口咖啡店推薦；書店 skip：只知道許棠提過出口上層有咖啡，不認識雨澄。"
         ]
       }
     ],
@@ -43,13 +43,14 @@
       }
     ],
     "constraints": [
-      "COM-01B 書店 go → COM-01J → 同次外出必到 COM-02J；書店 skip → 獨立 cafe go 才進本幕，cafe skip 不執行本幕，兩人始終未見且 contact_jyc=false。",
-      "男主因自己想坐下翻書、休息或處理事情進店；兩種入場均無 Week 2 間隔、隨機在場或額外 cafe 無人分支。"
+      "COM-02X 完成後，男主在下一個平日下午居家工作，疲累才帶筆記本電腦出門。週末書店已見者按實際 recommendation 直接進本 cafe 重逢；週末留家者選 com01b_weekday_cafe_first 才 cafe 首遇。",
+      "書店已見者真正買到世界設定增補版，週末到現在都未再見雨澄／交換名字；留家者未見雨澄、沒有購書或 COM-01J history。",
+      "com01b_weekday_street_walk 不進本幕；jyc_permanently_excluded 必須 false；不存在随机在場／empty cafe 分支。"
     ]
   },
   "scene_function": [
-    "書店 go 以剛才的實用推薦在同次外出自然重逢；書店 skip+cafe go 以許棠的普通地理線索及男主自主進店建立有界線的首次相遇。",
-    "兩種相遇都由實際可見的作品／畫圖細節進入對話，當場交換姓名、具體話題並互相回問；初遇不能借用書架回憶。",
+    "把平日居家工作後的疲累與自主出門導向咖啡店：前一週末書店相識者重逢，週末留家者從陌生開始。",
+    "重逢以實際買到的書與週末版本討論延伸；首遇以她当下画图起話。兩者先禮貌確認附近空位及是否打擾，得到同意才坐下，再互知名字、短暫各做各事。",
     "在自然持續交談、雙方有共同興趣且明確同意時，容許當場交換可傳作品的聯絡；普通拒絕則正常道別。"
   ],
   "character_intent": [
@@ -68,16 +69,16 @@
     "聯絡方式只是雙方願意繼續分享作品或談話時的實用管道，不能由語氣、分數或答對細節推定。"
   ],
   "emotional_arc": [
-    "男主按自己的理由進店：書店 go 是剛談過後意外重逢，書店 skip 是陌生人從現場細節開始普通交談。",
+    "男主按自己的理由進店：書店 go 是週末聊過後的平日重逢，書店 skip 是陌生人從現場細節開始普通交談。",
     "她的創作專注、主見與小幅幽默從具體話題呈現；交換姓名、確認座位界線，彼此實際問到一件可回答的事。",
     "短暫各做各事後交談可自然接回；共同興趣及雙方同意可導向交換聯絡，未交換則普通道別，沒有戀愛結論。"
   ],
   "required_payoffs": [
-    "書店 go 保留既有 common_station_cafe_jyc_* 節點、com02j_ask_drawing／com02j_continue_topic／com02j_simple_praise 三個 choice 身份及相容的畫圖、名字、座位同意、平行工作、她回問的節奏與 semantic visual beats；Week 2、已買舊版、延後聯絡等不相容 prose 交獨立 scene_dialogue 局部改寫。",
-    "書店 skip+cafe go 僅一個 authored 首遇：她在店內畫自己的角色構圖，男主因自己要坐下／處理事情入店；從當下可見的動作／色塊和各自作品喜好起話，才交換姓名、確認座位及可延續的共同興趣。她不得說「那本後來有買嗎」或假稱曾推薦咖啡店。",
-    "重逢從剛談過的《逆光航路》及她自己的構圖延伸；初遇從現場構圖與各自作品喜好延伸。繼續聊、提及可傳作品頁／截圖必須有當地交流支撐；沒有答題式聯絡門檻。",
+    "保留 common_station_cafe_jyc_*、com02j_ask_drawing／com02j_continue_topic／com02j_simple_praise 舊 IDs；只改符合平日重逢和已購世界設定增補版的文字。重逢核心談書，三個舊 topic intent 可改成書頁視覺／延伸週末話題／普通稱讚的相容切口；不強行維持原全幕畫圖主題。",
+    "週末留家+cafe first：保留 common_station_cafe_jyc_first_* 及三個 com02j_first_*；局部改入場為今天居家工作疲累後出門。她畫自己的角色構圖，從可見動作／色塊起話，才交換姓名、知共同興趣；不能說今天走到書店出口才放棄找書或假稱週末買書。",
+    "兩個入口都由男主先詢問 nearby 空位並給她不想被打擾的退出空間；她明確同意才坐，重逢不可把認得等同默認共桌。重逢讓她回問是否買書，男主說真正買到的版本及已讀細節，再聊書；首遇談實際畫圖。",
     "Warm／Candid／Playful 若用於表達，在同一真實前事下有相同 knowledge 與聯絡可行性；只在互相明確同意且實際交換後 contact_jyc=true。拒絕或未提議時 contact_jyc=false、普通道別，無 RE、romanticSignal、負分或戀愛拒絕敘述。",
-    "書店 skip+cafe skip 繞過本幕，兩人始終未見；COM-03J 的後續分享只能承接 COM-02J 實際發生的聯絡或誠實的無聯絡出口，不能以第三次碰面補造 consent。"
+    "本次咖啡談話可談久一些，但有平行做事及真實 reciprocal uptake；雙方同意實際交換 Discord 才 contact_jyc=true。保留 com02j_offer_discord／com02j_leave_without_contact 的有界線 consent 行動；兩個 cafe 結果均回公寓接同平日晚間 COM-03X，無 contact 者不補第三次相遇。"
   ],
   "exit_state": {
     "relationships": [
@@ -121,23 +122,23 @@
     ],
     "constraints": [
       "實際 cafe 相遇後 met_jiang_yucheng=true，姓名及 jyc_creator_work_seen 依當場事件成立；contact_jyc 僅在互相同意後實際交換為 true，否則 false。",
-      "書店 skip+cafe skip 不進本幕：met_jiang_yucheng=false、互不知姓名、contact_jyc=false。",
+      "街頭支完全 bypass 本幕，姓名／topic／contact 保持未知；永久排除不能被 merge 清除。",
       "拒絕／未交換不設 romanticSignal、RE 或負面 relationship authority；不改其他人物 knowledge。"
     ]
   },
   "must_not": [
-    "不得維持 Week 2 延遲、把聯絡強留給第三次碰面，或在書店 skip 後捏造《逆光航路》前次討論、購書、雨澄咖啡推薦或彼此認得。",
-    "不得將書店 go 改成可跳咖啡，或把書店 skip 後的 cafe go/no-go 變成強制；兩處都不去不發生江雨澄事件；不新增隨機在場或 cafe 無人分支。",
+    "不得保留週末同次外出／「剛剛在書店」／尚未購書的重逢 wording；不得在 first-meet 支假造書店 topic、購書或雨澄推薦。",
+    "書店已見者平日直接 cafe reunion；未見者的街頭 choice 有真實生活與永久排除。不得把街頭支改成單次不喝咖啡、延後 discover，或用第三次相遇補造 contact。",
     "不得站在她背後偷看、碰 tablet、索取完整作品、以鼓勵天分取代主見；不揭露匿名身份、商業委託或住處。",
     "不得用三個舊 topic choice、Warm／Candid／Playful、F／T／C/K 數值或答題表現決定聯絡資格；普通稱讚不是壞答案。",
     "不得把名字、同桌、聯絡或普通拒絕推定約會、戀愛拒絕、RE、romanticSignal、負分或排他承諾。",
-    "本 design pass 不寫最終新對白、不修改視覺資產或 COM-03J，也不宣稱 scene dialogue、QA 或 Human preview 已通過。"
+    "本 design pass 不寫最終新對白、不修改視覺資產或 runtime，也不宣稱 scene dialogue、QA 或 Human preview 已通過。",
+    "jyc_permanently_excluded=true 只由本輪平日街頭獨自行動的實際 choice 建立；本輪不可清除，優先於 contact、met、舊 history 及任何 invitation/discovery gate；禁止其後全部江雨澄內容，包括訊息、重遇、第二 discovery、RE-J、reopening、同框、邀約、結局與 coda。"
   ],
   "implementation_mapping": {
     "runtime_only": true,
     "flags": {
-      "entry_route": "bookstore_go_COM01J_completed_then_mandatory_cafe|bookstore_skip_cafe_go;choice_history_only",
-      "bookstore_skip_cafe_skip": "bypass_COM02J;met_jiang_yucheng=false;contact_jyc=false",
+      "entry_route": "weekday_reunion_after_weekend_bookstore|weekday_first_after_weekend_home;actual_history",
       "jyc_first_topic": "read_only_if_trustworthy_COM01J_history;first_cafe_meet_uses_local_neutral",
       "met_jiang_yucheng": "true_on_actual_cafe_first_meet;already_true_after_COM01J",
       "heard_station_cafe_from_jyc": "true_only_if_COM01J_occurred;unchanged_on_first_cafe_meet",
@@ -145,11 +146,13 @@
       "jyc_knows_player_name": "true_after_actual_name_exchange",
       "jyc_creator_work_seen": "true_after_visible_drawing",
       "jyc_initiated_second_contact": "true_only_on_bookstore_go_reunion;false_or_unset_on_first_meet",
-      "jyc_second_topic": "her_art|shared_work|general_praise;only_if_actual_topic_occurred",
+      "jyc_second_topic": "actual_spoken_topic_only;book_reunion_shared_work_if_matching;first_meet_her_art;never_invent_callback_facts",
       "contact_jyc": "true_only_after_explicit_mutual_agreement_and_actual_exchange;otherwise_false",
       "jyc_alias_private": "unchanged",
       "jyc_alias_exposed": "unchanged",
-      "relationship.jyc.romanticSignal": "unchanged"
+      "relationship.jyc.romanticSignal": "unchanged",
+      "weekday_street": "bypass_COM02J;permanent_exclusion=true;no_Jiang_knowledge_or_contact",
+      "requires_jyc_not_excluded": true
     }
   }
 }

@@ -1,0 +1,30 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_checkpoint",
+  "run_id": "jyc-weekend-weekday-20261004",
+  "workflow_version": "1.3.1",
+  "source_ref": "013b3f73e75d8f00bbd2fa53a6cd2d885fecb9a9",
+  "human_request": {
+    "summary": "Approved weekend bookstore/home, weekday cafe reunion/first or permanent JYC-excluding solo Taipei street redesign; no final CG generation.",
+    "gate_status": "major_story_direction_authorized"
+  },
+  "status": "ACTIVE",
+  "tasks": [
+    {
+      "task_id": "ND-ARC-001",
+      "task_type": "narrative_design",
+      "scene_id": "COM-01B",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "faa608233501161bed589b60fe69b9138f330eb077fcbf093988c73709683b2f"
+      },
+      "decision_receipt": "content/production/runs/jyc-weekend-weekday-20261004/ND-ARC-001.decision.json",
+      "human_gate": "none",
+      "reason": null
+    }
+  ],
+  "invalidation_events": [],
+  "preview": null
+}
