@@ -70,12 +70,16 @@ test('Memories disclosure, character focus, cursor marker and frontier jump stay
 
   const section = page.locator('#memory-list details');
   await expect(section).toHaveAttribute('open', '');
-  await expect(page.locator('[data-memory-id="mem.opening.ch1.recommend-discord-jyc"]')).toBeVisible();
+  const discordCard = page.locator('[data-memory-id="mem.opening.ch1.recommend-discord-jyc"]');
+  await expect(discordCard).toBeVisible();
+  await expect(discordCard).toBeDisabled();
+  await expect(discordCard.locator('strong')).toHaveText('???');
+  expect((await currentJourney(page)).checkpoints).not.toHaveProperty(library.events[6].replayNode);
   await expect(page.locator('[data-memory-id="mem.opening.ch1.convenience-xu"]')).toHaveClass(/is-reading/);
   await expect(page.locator('[data-memory-id="mem.opening.ch1.elevator-restart"]')).toHaveClass(/is-frontier/);
 
   await page.locator('#memory-filters button').filter({ hasText: '許棠' }).click();
-  await expect(page.locator('.memory-character-context')).toContainText('江雨澄：已探索 4 段');
+  await expect(page.locator('.memory-character-context')).toContainText('江雨澄：已探索 3 段');
   await expect(page.locator('[data-memory-id="mem.opening.ch1.recommend-discord-jyc"]')).toHaveCount(0);
 
   await section.locator('summary').click();
