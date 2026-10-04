@@ -4,6 +4,8 @@ Lifecycle: **CANONICAL** technical dispatch/return procedure. These gates verify
 
 ## Dispatch
 
+For coherent authoring batches, apply the packet and review rules in [orchestration section 8](../.ai/PRODUCTION_ORCHESTRATION.md#8-prospective-dispatchreturn-tooling-and-bounded-edit-batches); this document defines the existing packet/preflight mechanics and does not create a second creative authority.
+
 Keep the full JSON packet in ignored session cache. Existing `context --verify-packet` gates remain required for their generated packets; the production preflight also invokes their original exact canonical verifiers and content/production validators. Run immediately before dispatch:
 
 ```bash

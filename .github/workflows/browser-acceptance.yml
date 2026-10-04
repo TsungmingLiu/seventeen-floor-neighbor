@@ -1,6 +1,13 @@
 name: Browser Acceptance
 
 on:
+  workflow_call:
+    inputs:
+      reuse_verified_artifact:
+        description: Use the playable-game artifact produced by Verify in this exact run.
+        required: false
+        type: boolean
+        default: false
   workflow_dispatch:
   push:
     branches:
@@ -33,13 +40,28 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y -qq ffmpeg
 
-      - name: Build clean browser runtime
+      - name: Build clean browser runtime for manual run
+        if: github.event_name == 'workflow_dispatch'
         run: |
           npm run assets:check
           npm run assets:build
           npm run build
           npm run validate
           npm test
+
+      - name: Download same-run verified game
+        if: inputs.reuse_verified_artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: playable-game
+          path: dist/
+
+      - name: Check verified runtime artifact
+        if: inputs.reuse_verified_artifact
+        run: |
+          test -s dist/index.html
+          test -s dist/app.js
+          test -s dist/content/routes/index.json
 
       - name: Install transient Playwright runtime
         run: |
