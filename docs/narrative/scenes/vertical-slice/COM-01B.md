@@ -151,7 +151,7 @@ next: COM-01J if bookstore go; COM-02J if bookstore skip and cafe go; Xu／個�
 
 **Narration**：街上又只剩我的腳步聲。那一小段路忽然安靜了些，我還是繼續往前走。
 
-**Protagonist (thought)**：週末正好要看《逆光航路》新版設定集的實體增補。那家店，去看看吧。
+**Protagonist (thought)**：週末正好要看《逆光航路》新版設定集的實體增補。那家店會有嗎？
 
 ### `common_bookstore_bridge_weekend_decision`
 

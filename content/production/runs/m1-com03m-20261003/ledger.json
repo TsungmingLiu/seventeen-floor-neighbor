@@ -319,6 +319,22 @@
       "decision_receipt": "content/production/runs/m1-com03m-20261003/NQA-CONTACT-CONTINUATION-001.decision.json",
       "human_gate": "none",
       "reason": "Actual independent evening-message continuation QA PASS; upcoming upstream Cafe correction requires current-source revalidation, no prose rewrite."
+    },
+    {
+      "task_id": "CW-BOOKGATE-CORRECTION-001",
+      "task_type": "scene_dialogue",
+      "scene_id": "COM-01B",
+      "depends_on": [
+        "ND-BOOKGATE-CORRECTION-001"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1 focused corrective dialogue",
+        "sha256": "b12b6a9a2e55e0196e90c54e434a4576d76483475c51f00b16ddb9879eeb412f"
+      },
+      "decision_receipt": null,
+      "human_gate": "none",
+      "reason": "Fresh actual writer-only PASS verified; one-line precommit finding correction, all compatible source bytes preserved; affected independent NQA pending."
     }
   ],
   "invalidation_events": [],
