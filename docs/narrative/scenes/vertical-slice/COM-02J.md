@@ -5,12 +5,19 @@
 
 ## Status
 
-- Production stage: **S4 Script Lock / S5 State Contract / S6 Art Shot Lock**
-- Scope: Opening Vertical Slice / Jiang contact-and-contrast
-- Memory ownership: `common`
-- Progress band: `180`
-- Estimated play time: 6–8 minutes
-- Lock rule:重逢的因果固定為 COM-01J 的咖啡店推薦＋男主實際需要工作空間；她先認出男主並主動打招呼，兩人本幕正式交換姓名，但不交換聯絡方式。
+- Production stage: **Narrative Design / DRAFT** for revised cafe routes. The earlier go-path Locked Scene below is retained as a bounded source for the later `scene_dialogue` pass; its Week 2 timing, fixed bookstore history, contact prohibition and old state/visual staging are superseded where identified here.
+- Scope: same-visit cafe reunion after bookstore go, or one truthful first cafe meeting after bookstore skip+cafe go. The bookstore skip+cafe skip route bypasses this scene and leaves Jiang never met.
+- Memory ownership and established go-path `common_station_cafe_jyc_*` / three `com02j_*` choice identities remain design constraints; runtime wiring, new final dialogue, Narrative QA, Human preview and visual impact review are pending.
+
+## Revised Narrative Design boundary
+
+COM-01B places the bookstore decision before any shop entry. If the player goes, COM-01J happens around 15:40 that weekend and the same outing **must** continue to the cafe. The protagonist has his own reason to sit, compare the book or handle work; Jiang's practical recommendation supplies the exact cafe. Their cafe meeting is a reunion minutes later, with no invented Week 2 gap. She can recognize him and initiate the greeting. The old opening's useful seat and outlet observation, her drawing, name exchange, seating consent, three topic choice IDs, parallel activity and her question about his work remain available where the new time and actual actions support them. A line claiming he bought the old edition, that she recommended a weekday time, or that they have waited until another day needs local dialogue revision. Preserve compatible wording and expression / semantic visual beats, but do not treat the old script below as final for these altered facts.
+
+If the player skips the bookstore, COM-01B offers a separate cafe go/no-go action. Cafe go leads to **one** authored first encounter in this same scene. The protagonist knows only Xu's ordinary clue that a cafe is above a nearby exit and chooses to rest or work; he does not know the northern exit, Jiang's recommendation, her face, her book choices or `jyc_first_topic`. Jiang is drawing her own character in a visible cafe setting. He may ask about an observable pose / composition after ordinary seat consent, and they can compare what each is reading or making. Her response can correct his guess and give a real shared-interest thread. They exchange names only here, then have room to talk further and ask each other a question. Do not play the old recognition, “那本後來有買嗎”, old-version purchase, or any `com02j_continue_topic` callback that presumes COM-01J. This first encounter needs its own local expression branch and actual conversational bridge to the shared parallel-work / departure beat; the dialogue pass owns exact lines and IDs for newly required nodes. There is no random Jiang availability test or second no-encounter cafe path. Cafe no-go bypasses COM-02J altogether; no Jiang name, work knowledge, history or contact exists.
+
+At either actual cafe meeting, a concrete discussion and reciprocity can make further sharing useful: a work-in-progress observation, a real point of agreement or disagreement about visual design, or an offer to send a public work / game page. A locally explicit request and Jiang's freely given agreement must precede actual exchange of one usable contact channel. Alternatively either can decline or let the moment end; the other accepts this and they part normally. This choice is about action and consent, not a hidden relationship exam. Warm, Candid and Playful expression can vary the phrasing and local reaction while preserving the same facts and eligibility. `com02j_ask_drawing`, `com02j_continue_topic` and `com02j_simple_praise` remain valid on the bookstore-go route and none is a wrong answer; any local first-meet variation also cannot gate contact by tone, score or correct art terms. Actual consent/exchange alone sets `contact_jyc=true`; refusal / no offer leaves it false without RE, romantic closure, negative score, or `romanticSignal`.
+
+The go-path old script and prior CG / sprite / shot notes below document accepted elements only where compatible. This design pass adds no final dialogue, camera, calendar system, art requirement or third meeting. The scene-dialogue worker must produce the two truthful entrance variants, local shared-interest / consent / decline beats, one unambiguous exit for each contact outcome, and a bounded naturalization sweep. The Narrative QA worker then checks actual route coverage and visual consequences. The old COM-03J contract and script still assume `contact_jyc=false` and obtain Discord on a later third meeting; that dependency is stale under this design and must receive its own bounded narrative-design / dialogue review. For a cafe contact path, COM-03J may only continue through the already agreed channel with a new specific recommendation; for no contact, it must preserve an honest no-contact exit and cannot engineer a mandatory third encounter to obtain the account. Its callbacks must use only the actually spoken COM-01J / COM-02J topic, and COM-03M cannot assume contact if the player declined. No COM-03J bytes or approvals change in this pass.
 
 ## Canonical inputs
 
@@ -23,9 +30,13 @@
 ## Narrative Continuity Contract
 
 - Canonical contract: `content/production/narrative/opening-ch1/COM-02J.json`。
-- Verified contract SHA-256: `70ed29091bdf9267287e06aa3d56abc4d1df83e7ef3f21aff0eaf64d004acf7e`。
+- Contract SHA-256 is established by the revised design Handoff; the prior verified hash is superseded.
 - Binding scope：保留既有 Locked Scene 的 playable wording、node／choice IDs、branch rejoin 與 state mapping；取得姓名、看過創作與主動接觸的 timing 依 canonical contract。
 - Independent Narrative QA：pending；下一階段為 `content_qa / narrative_review`。Human narrative-preview review 尚未完成，本次 binding 不構成 QA 或 Human approval。
+
+## Prior go-path scene material (design reference; altered facts require scene dialogue revision)
+
+The following sections retain existing prose, IDs, choice intents and semantic visual beats for targeted revision. Any Week 2 premise, bookstore-only entry, no-contact lock, old production-status claim or later third-meeting contact instruction below is superseded by the Revised Narrative Design boundary above.
 
 ## Scene summary
 

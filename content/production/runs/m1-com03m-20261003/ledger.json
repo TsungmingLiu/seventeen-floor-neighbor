@@ -175,6 +175,22 @@
       "decision_receipt": "content/production/runs/m1-com03m-20261003/ND-BOOKGATE-003.decision.json",
       "human_gate": "none",
       "reason": "Actual current-source checks reaffirm unchanged owning B design outputs; original author receipt retained historical, no creative rerun."
+    },
+    {
+      "task_id": "ND-CAFE-001",
+      "task_type": "narrative_design",
+      "scene_id": "COM-02J",
+      "depends_on": [
+        "ND-BOOKGATE-002"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1 bounded cafe owning design",
+        "sha256": "4da8bb9fdcca8a9f4b95cdeb4330107959c7cc1aca26a41dfaabb42c7e9559c9"
+      },
+      "decision_receipt": "content/production/runs/m1-com03m-20261003/ND-CAFE-001.decision.json",
+      "human_gate": "none",
+      "reason": "Actual cafe same-visit/first-meet/consent design PASS; dialogue and independent NQA pending; separate COM03J continuity revision needed."
     }
   ],
   "invalidation_events": [],
