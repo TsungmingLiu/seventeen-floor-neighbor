@@ -88,6 +88,7 @@ jobs:
 
           async function listPreviewDeployments() {
             const deployments = [];
+            const pageSize = 10;
             let page = 1;
             while (true) {
               if (page > 1000) {
@@ -96,14 +97,14 @@ jobs:
               const url = new URL(baseUrl);
               url.searchParams.set('env', 'preview');
               url.searchParams.set('page', String(page));
-              url.searchParams.set('per_page', '100');
+              url.searchParams.set('per_page', String(pageSize));
 
               const body = await cloudflare(url.toString());
               deployments.push(...(Array.isArray(body.result) ? body.result : []));
 
               const totalPages = Number(body.result_info?.total_pages || 0);
               const count = Array.isArray(body.result) ? body.result.length : 0;
-              if ((totalPages > 0 && page >= totalPages) || (totalPages === 0 && count < 100)) {
+              if ((totalPages > 0 && page >= totalPages) || (totalPages === 0 && count < pageSize)) {
                 return deployments;
               }
               page += 1;
