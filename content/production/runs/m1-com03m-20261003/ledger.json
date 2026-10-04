@@ -69,6 +69,22 @@
       "decision_receipt": null,
       "human_gate": "none",
       "reason": "Actual writer-only PASS Handoff verified; exact authored Locked Scene committed for fresh independent Narrative QA, not Narrative QA or Human approval."
+    },
+    {
+      "task_id": "CW-COM03M-001",
+      "task_type": "scene_dialogue",
+      "scene_id": "COM-03M",
+      "depends_on": [
+        "ND-COM03M-002"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1 bounded scene-dialogue packet",
+        "sha256": "6157d24012bce958664a0c19f086ea250573045268de9ee7bbe5b5fc1116674d"
+      },
+      "decision_receipt": null,
+      "human_gate": "none",
+      "reason": "Exact actual writer-only PASS Handoff verified; authored scene ready for independent Narrative QA, no CG or Human acceptance."
     }
   ],
   "invalidation_events": [],
