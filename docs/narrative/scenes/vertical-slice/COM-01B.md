@@ -2,7 +2,7 @@
 
 ## Status
 
-- Production stage: **Narrative Design / DRAFT**；既有書店 go 路徑的已接受文字保留，新增 action／skip passage 待獨立 scene dialogue 與 `content_qa / narrative_review`。
+- Production stage: **Scene Dialogue / LOCKED (Script Lock)**；新增入店前 action／skip passage 待獨立 `content_qa / narrative_review`，並由下游獨立判定視覺影響。
 - Scope: Opening Chapter 1 / common bridge between `COM-01X` and `COM-01J`.
 - Memory ownership: `common`；不新增獨立 Memory 或 route 分歧。
 - Lock rule: 電梯那晚已在 17 樓分開。本幕是週末前另一晚、大樓外的短暫偶遇；許棠給路，不陪同，也不讀出男主未說出的心情。
@@ -11,10 +11,12 @@
 
 - `docs/narrative/scenes/vertical-slice/COM-01X.md`
 - `docs/narrative/scenes/vertical-slice/COM-01J.md`
+- Approved owning design: `ND-BOOKGATE-003`，來源版本 `30278ca09cc65c2d3505417ffae8ff59690860c1`；本幕設計來源為本檔該版本（Git blob `0cc5010298ec6387fd2d123c08f3c059cf602d33`）。
+- Immediate continuity: `COM-01X` 已分開；`COM-01J` 只由書店 go 進入。後續 cafe encounter/contact 由獨立 `COM-02J`／`COM-03J` 修訂承擔。
 
 ## Narrative Continuity Contract
 
-- Canonical contract: `content/production/narrative/opening-ch1/COM-01B.json`，本輪僅修入店前 discovery 邊界。
+- Canonical contract: `content/production/narrative/opening-ch1/COM-01B.json`，Git blob `670d61aeb9c59f92809f60c57336e27d6a005bae`；本輪僅完成其入店前 discovery 邊界，不改 contract。
 - Entry: 男主與許棠能自然聊幾句，仍是有界線的鄰居；男主尚未見過江雨澄。
 - Exit: 關係與數值不升級；男主多知道一處可自行去逛的店。實際到訪須經週末入店前 action choice；本幕不先設江雨澄相遇或聯絡。
 
@@ -36,7 +38,7 @@ requires:
 forbids:
   - met_jiang_yucheng == true
 previous: COM-01X
-next: COM-01J
+next: COM-01J if bookstore go; COM-02J if bookstore skip and cafe go; Xu／個人生活 if both skip
 ```
 
 - 時間：`COM-01X` 到站分開後，週末前的另一晚。不是電梯或 17 樓門口的續談。
@@ -151,13 +153,49 @@ next: COM-01J
 
 **Protagonist (thought)**：週末正好要看《逆光航路》新版設定集的實體增補。那家店，去看看吧。
 
-### Design boundary: before `common_bookstore_bridge_weekend_transition`
+### `common_bookstore_bridge_weekend_decision`
 
-此處是新 action choice 的**設計大綱，尚非 Locked dialogue／最終選項文案**。接在 `common_bookstore_bridge_rejoin` 之後、任何「走進台北地下街／來到店」敘述之前；保留三個 `com01b_*` 提問選項及其全部原字與 rejoin。玩家此時只知道許棠推薦的地點，仍未去過，也未見江雨澄。
+**Time transition**：同週末，白天。
 
-- **書店 go**：選擇實際前往；執行下方原有 `common_bookstore_bridge_weekend_transition` 原字及 `COM-01J` 既有初遇，不改其節點、三個作品表達選擇、姓名／contact 邊界或已接受的視覺事件。書店初遇之後，同一次外出**必定**去咖啡店，作有因果的 `COM-02J` 重逢；具體時序與後續交談由其獨立修訂擁有。
-- **書店 skip**：不執行下方入店 transition／`COM-01J`，不取得其作品 topic 或江雨澄推薦；再給玩家一個實際**去咖啡店／不去咖啡店**的 action choice。去店則在 `COM-02J` 設計一場有界線的首次相遇，建立當場實際取得的姓名及共同話題；不去則無江雨澄相遇、姓名或 contact，繼續 Xu／個人生活路徑。去咖啡店可由男主自己想坐下休息／處理事情及許棠先前給的普通上層咖啡線索支持，不假裝江雨澄已推薦北邊出口店。
-- **Cafe/contact 邊界**：兩種有實際相遇的 cafe 走法，只有在自然繼續交談、雙方有意且同意時才可交換聯絡；Warm／Candid／Playful 都有同一 knowledge 與可能性。拒絕聯絡是普通道別，不能生成 romantic closure、RE 或負面分數。此處只交代 downstream prerequisite，不寫咖啡店對白。
+**Narration**：出門時，我想起許棠說過的地下街書店。新版設定集的增補還沒看過。今天要去翻翻嗎？
+
+1. `com01b_bookstore_go` — **「去地下街書店翻翻設定集。」**
+2. `com01b_bookstore_skip` — **「今天先不去書店。」**
+
+#### Branch `com01b_bookstore_go`
+
+**Protagonist (thought)**：都出門了，去找找那本書吧。
+
+→ `common_bookstore_bridge_weekend_transition`；之後執行 `COM-01J`。書店初遇後，同一次外出必定前往咖啡店；咖啡店的重逢由 `COM-02J` 承接，本幕不預演相遇或聯絡。
+
+#### Branch `com01b_bookstore_skip`
+
+**Protagonist (thought)**：書改天再找。現在先走走，也不用為了出門硬排一站。
+
+**Action**：我沿街慢慢走。想起許棠說出口上層有咖啡可以坐，但我還沒決定要不要過去。
+
+→ `common_bookstore_bridge_cafe_decision`；不執行 `common_bookstore_bridge_weekend_transition` 或 `COM-01J`。
+
+### `common_bookstore_bridge_cafe_decision`（僅書店 skip）
+
+1. `com01b_cafe_go_after_bookstore_skip` — **「去附近找間咖啡店坐一會兒。」**
+2. `com01b_cafe_skip_after_bookstore_skip` — **「今天不喝咖啡，先回去。」**
+
+#### Branch `com01b_cafe_go_after_bookstore_skip`
+
+**Protagonist (thought)**：找個地方坐一下好了，順便把手邊的事理一理。
+
+**Action**：我往地下街附近走，沿街找一間能坐下的咖啡店。
+
+→ `COM-02J` 的書店 skip／咖啡店首次相遇入口。此時我只知道許棠提過上層有咖啡，尚未到訪書店，亦不認識江雨澄。
+
+#### Branch `com01b_cafe_skip_after_bookstore_skip`
+
+**Protagonist (thought)**：今天這樣走走就夠了，回去吧。
+
+**Action**：我轉回住處，沒有去地下街書店，也沒有走進咖啡店。
+
+→ Xu／個人生活續線；江雨澄仍未與我相遇。
 
 ### `common_bookstore_bridge_weekend_transition`
 
@@ -167,7 +205,7 @@ next: COM-01J
 
 → `COM-01J` / `common_acg_first_meet_enter`；其既有對白和首次相遇保持原樣。
 
-## Downstream owning revisions (not authored in this Design pass)
+## Downstream owning revisions (outside this Script Lock)
 
 - `COM-01J`：只加外部 go gate 與同次外出 cafe 因果出口；保留原有書架初遇、無姓名／無 contact 的事件、topic truth、IDs 與已接受 visual beats。書店 skip 時整幕不執行。
 - `COM-02J`：獨立修正原本 Week 2 cafe 重逢時序為書店 go 後同次外出必經的重逢，並處理書店 skip + cafe go 的**首次**相遇變體。後者不能使用店內舊識、Jiang 推薦、先前 topic 或既有姓名；兩條都在實際談話後才取得各自真實姓名／共同話題，並提供不依 tone 成績的持續交談與聯絡同意／拒絕結局。只需一個有界線的 authored 首遇，不另造隨機在場或 cafe 無人變體。
@@ -203,6 +241,7 @@ unchanged:
 
 - 上述 relationship 數字 `0` 表示**本幕增量為零**，不覆寫先前累積值。
 - 本幕只增加男主對地點的大致認識；書店 go/skip 及 skip 後 cafe go/skip 用 choice history 保存真實行動，不新增 relationship score 或人物好感門檻。兩處 skip 時 `met_jiang_yucheng=false`、`contact_jyc=false`。
+- Choice history：`common_bookstore_bridge_weekend_decision` 記 `com01b_bookstore_go|com01b_bookstore_skip`；只有後者進入 `common_bookstore_bridge_cafe_decision`，記 `com01b_cafe_go_after_bookstore_skip|com01b_cafe_skip_after_bookstore_skip`。書店 go 才有 `COM-01J`，且由其後續必經 cafe；書店 skip／cafe go 才由 `COM-02J` 首遇；兩處 skip 不觸發江雨澄相遇。以上是本幕 choice-history／接續映射，不新增 graph scene row。
 - `COM-01J` 的 `met_jiang_yucheng`、`F_JYC`、`heard_station_cafe_from_jyc` 與 `jyc_first_topic` 仍由該幕處理。
 
 ## Semantic Visual Beats

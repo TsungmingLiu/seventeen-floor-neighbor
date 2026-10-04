@@ -207,6 +207,22 @@
       "decision_receipt": "content/production/runs/m1-com03m-20261003/ND-CONTACT-CONTINUATION-001.decision.json",
       "human_gate": "none",
       "reason": "Actual ND PASS checks only in corrected compact projection; downstream dialogue/NQA NOT_RUN, original projection retained exact immutable Git locator in receipt."
+    },
+    {
+      "task_id": "CW-BOOKGATE-001",
+      "task_type": "scene_dialogue",
+      "scene_id": "COM-01B",
+      "depends_on": [
+        "ND-BOOKGATE-003"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1 bounded owning-scene dialogue",
+        "sha256": "0ded915434ab63338ccf43b05f19d72a12eaf4e89fa4710fd5baf4aabb6fb661"
+      },
+      "decision_receipt": null,
+      "human_gate": "none",
+      "reason": "Actual writer PASS Handoff verified; exact new previsit prose and prior go-text preservation checked. Independent NQA pending fixed docs/ref."
     }
   ],
   "invalidation_events": [],
