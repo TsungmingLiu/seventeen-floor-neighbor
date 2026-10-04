@@ -335,6 +335,22 @@
       "decision_receipt": null,
       "human_gate": "none",
       "reason": "Fresh actual writer-only PASS verified; one-line precommit finding correction, all compatible source bytes preserved; affected independent NQA pending."
+    },
+    {
+      "task_id": "ND-CAFE-CORRECTION-001",
+      "task_type": "narrative_design",
+      "scene_id": "COM-02J",
+      "depends_on": [
+        "NQA-CAFE-001"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1 contract-only corrective-scope check",
+        "sha256": "7c1920841db098ef566c50985d98ffea8bc1b2d30f57c311666768b69420fc10"
+      },
+      "decision_receipt": "content/production/runs/m1-com03m-20261003/ND-CAFE-CORRECTION-001.decision.json",
+      "human_gate": "none",
+      "reason": "Actual unchanged-contract-only correction authorization PASS; rejected Cafe source not approved. Fresh focused writer and affected independent QA pending."
     }
   ],
   "invalidation_events": [],
