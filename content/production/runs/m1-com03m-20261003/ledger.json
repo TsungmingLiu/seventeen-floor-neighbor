@@ -85,6 +85,38 @@
       "decision_receipt": null,
       "human_gate": "none",
       "reason": "Exact actual writer-only PASS Handoff verified; authored scene ready for independent Narrative QA, no CG or Human acceptance."
+    },
+    {
+      "task_id": "NQA-COM03M-001",
+      "task_type": "narrative_review",
+      "scene_id": "COM-03M",
+      "depends_on": [
+        "CW-COM03M-001"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "tools/context.mjs:narrative_review",
+        "sha256": "7bf07490b182f10bf39a6482671152e9f9d8b9ab234bebc25fb9195c88b0e00c"
+      },
+      "decision_receipt": "content/production/runs/m1-com03m-20261003/NQA-COM03M-001.decision.json",
+      "human_gate": "none",
+      "reason": "Fresh independent actual Narrative QA PASS; exact approved Locked Scene identity verified, no Visual QA or Human acceptance."
+    },
+    {
+      "task_id": "NQA-OPENA-001",
+      "task_type": "narrative_review",
+      "scene_id": "OPEN-A",
+      "depends_on": [
+        "CW-OPENA-001"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "tools/context.mjs:narrative_review",
+        "sha256": "7c4b79569016aa1fcf0442503be1e1b67f07ea6c0bca2512852874d2512bc0fe"
+      },
+      "decision_receipt": "content/production/runs/m1-com03m-20261003/NQA-OPENA-001.decision.json",
+      "human_gate": "none",
+      "reason": "Fresh independent actual Narrative QA PASS; exact approved Locked Scene identity verified, no Visual QA or Human acceptance."
     }
   ],
   "invalidation_events": [],
