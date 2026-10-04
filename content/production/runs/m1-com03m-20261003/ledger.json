@@ -463,6 +463,22 @@
       "decision_receipt": "content/production/runs/m1-com03m-20261003/NQA-CAFE-003.decision.json",
       "human_gate": "none",
       "reason": "Actual complete ending/contact/refusal naturalism checks PASS; unconditional edition callback lacks guaranteed prior topic per bounded review, NEEDS_REVIEW pending exact upstream clarification or focused correction. Final3J deferred."
+    },
+    {
+      "task_id": "NQA-CAFE-003-CLARIFICATION",
+      "task_type": "narrative_review",
+      "scene_id": "COM-02J",
+      "depends_on": [
+        "CW-CAFE-CORRECTION-002"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "tools/context.mjs:narrative_review",
+        "sha256": "aaf322f9acd76bb6459742d9da4119f05cafd599f50d93ff3c7f7774f13e1503"
+      },
+      "decision_receipt": "content/production/runs/m1-com03m-20261003/NQA-CAFE-003-CLARIFICATION.decision.json",
+      "human_gate": "none",
+      "reason": "Actual prior reviewer source-bound clarification PASS: COM01J common edition discussion precedes every topic choice; all unchanged-body checks reverified, current exactCafe approved. Original003 negative preserved; no prose/visual/Human approval manufactured."
     }
   ],
   "invalidation_events": [],
