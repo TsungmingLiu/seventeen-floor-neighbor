@@ -159,3 +159,111 @@ test('Discord Memory replay uses its contact snapshot and leaves the completed f
   assert.deepEqual(e.progress.data.frontier,before);
   assert.ok(!e.progress.data.cursor.flags.includes('jyc_com03j_reply_style:warm_close'));
 });
+
+
+function continueUntil(e, stop, choices = {}) {
+  const visited = [];
+  for (let step = 0; step < 1000; step++) {
+    visited.push(e.nodeId);
+    if (stop(e)) return visited;
+    const node = chapter.nodes[e.nodeId];
+    assert.notEqual(node.type, 'route', `unexpected terminal ${e.nodeId}`);
+    if (node.choices) {
+      const id = choices[e.nodeId] ?? node.choices[0].id;
+      const index = node.choices.findIndex(choice => choice.id === id);
+      assert.ok(index >= 0, `${e.nodeId} has choice ${id}`);
+      e.enterChoiceMode(node.choices);
+      e.els.choices.children[index].click();
+    } else e.advance();
+  }
+  assert.fail(`did not reach expected boundary: ${e.nodeId}`);
+}
+
+function legacyStorage(version, snapshot, checkpoints = {}) {
+  const storage = new Storage();
+  // Real historical saves precede the additive preview stats.
+  for (const key of ['T_XT', 'K_XT', 'xt_advice_tendency', 'T_JYC', 'C_JYC']) delete snapshot.stats[key];
+  const saved = version === 1
+    ? { version, current: snapshot, checkpoints, edges: [] }
+    : { version, playerDisplayName: '小雨', cursor: snapshot, frontier: snapshot, runComplete: true, checkpoints, edges: [] };
+  storage.setItem(`${chapter.id}:journey:v${version}`, JSON.stringify(saved));
+  return storage;
+}
+
+function descendants(element) {
+  return [element, ...element.children.flatMap(descendants)];
+}
+
+for (const version of [1, 2]) {
+  for (const accepted of [true, false]) {
+    test(`v${version} known-J Cafe supplement ${accepted ? 'accepted contact survives reload into Discord and J invite' : 'refused contact stays false'}`, () => {
+      const snapshot = { nodeId: 'com03x_preview_complete', stats: { ...chapter.initialState, met_jiang_yucheng: 1, F_XT: 7 }, flags: ['contact_xu', 'legacy:unrelated'], returnNodes: [] };
+      const storage = legacyStorage(version, snapshot, { [snapshot.nodeId]: structuredClone(snapshot) });
+      let e = makeEngine(storage);
+      e.progress.setPlayerName('小雨');
+      assert.ok(e.progress.data.com02jSupplement);
+      e.startFromTitle();
+      continueUntil(e, game => game.nodeId === 'common_station_cafe_jyc_contact_choice');
+      continueUntil(e, game => accepted ? game.state.flags.has('contact_jyc') : !game.progress.data.com02jSupplement, {
+        common_station_cafe_jyc_contact_choice: accepted ? 'com02j_offer_discord' : 'com02j_leave_without_contact'
+      });
+      // Branch nodes render immediately: refusal can already return to montage.
+      e = makeEngine(storage);
+      e.startFromTitle();
+      const visited = continueUntil(e, game => !game.progress.data.com02jSupplement);
+      assert.equal(e.state.flags.has('contact_jyc'), accepted);
+      assert.equal(e.state.F_XT, 7);
+      assert.ok(e.state.flags.has('legacy:unrelated'));
+      assert.ok(e.state.flags.has('contact_xu'));
+      assert.equal(e.progress.data.cursor.flags.includes('contact_jyc'), accepted);
+      e = makeEngine(storage);
+      assert.equal(e.progress.data.cursor.flags.includes('contact_jyc'), accepted);
+      e.startFromTitle();
+      const continuation = continueUntil(e, game => chapter.nodes[game.nodeId].type === 'route', accepted
+        ? { 'OPEN-A-ENTRY-ACTION-BOTH': 'OPEN-A-ACT-J', 'OPEN-A-J-TIME': 'OPEN-A-J-ACCEPT' }
+        : { 'OPEN-A-ENTRY-ACTION-X': 'OPEN-A-ACT-LIFE', 'OPEN-A-LIFE-ACTION': 'OPEN-A-LIFE-REST' });
+      assert.equal(e.nodeId, accepted ? 'OPEN-A-ENTRY-PENDING-J' : 'OPEN-A-ENTRY-REST');
+      assert.equal([...visited, ...continuation].some(id => id.startsWith('common_recommend_discord_jyc_enter')), accepted);
+      const event = memoryLibrary.events.find(event => event.id === 'mem.opening.ch1.recommend-discord-jyc');
+      assert.equal(isMemoryUnlocked(event, e.progress, chapter.startNode), accepted);
+      if (accepted) {
+        const frontier = structuredClone(e.progress.data.frontier);
+        e.replayMemory(event);
+        assert.equal(e.nodeId, event.replayNode);
+        assert.ok(e.state.flags.has('contact_jyc'));
+        continueUntil(e, game => !game.progress.data.com03jReplay);
+        assert.deepEqual(e.progress.data.frontier, frontier);
+      }
+    });
+  }
+
+  test(`v${version} no-contact Discord migration prunes false Memory checkpoints and preserves unrelated facts`, () => {
+    const snapshot = { nodeId: 'common_recommend_discord_jyc_enter_02', stats: { ...chapter.initialState, met_jiang_yucheng: 1, F_XT: 7 }, flags: ['contact_xu', 'preview:com02j-complete', 'legacy:unrelated'], returnNodes: [] };
+    const unrelated = { ...structuredClone(snapshot), nodeId: 'common_convenience_xu_exit_08' };
+    const checkpoints = { [snapshot.nodeId]: structuredClone(snapshot), common_recommend_discord_jyc_enter: { ...structuredClone(snapshot), nodeId: 'common_recommend_discord_jyc_enter' }, [unrelated.nodeId]: unrelated };
+    const storage = legacyStorage(version, snapshot, checkpoints);
+    let e = makeEngine(storage);
+    assert.equal(e.progress.data.cursor.nodeId, 'common_recommend_discord_jyc_no_contact_exit');
+    assert.equal(e.progress.data.frontier.nodeId, 'common_recommend_discord_jyc_no_contact_exit');
+    assert.deepEqual(e.progress.data.checkpoints[unrelated.nodeId], unrelated);
+    assert.equal(e.progress.data.cursor.stats.F_XT, 7);
+    assert.ok(e.progress.data.cursor.flags.includes('legacy:unrelated'));
+    const event = memoryLibrary.events.find(event => event.id === 'mem.opening.ch1.recommend-discord-jyc');
+    assert.ok(!isMemoryUnlocked(event, e.progress, chapter.startNode));
+    assert.ok(!Object.keys(e.progress.data.checkpoints).some(id => id.startsWith('common_recommend_discord_jyc_')));
+    e.renderMemoryList();
+    const card = descendants(e.els.memoryList).find(el => el.dataset.memoryId === event.id);
+    assert.ok(!card || card.disabled);
+    const cursor = structuredClone(e.progress.data.cursor);
+    e.replayMemory(event);
+    assert.deepEqual(e.progress.data.cursor, cursor);
+    e = makeEngine(storage);
+    assert.ok(!isMemoryUnlocked(event, e.progress, chapter.startNode));
+    assert.deepEqual(e.progress.data.checkpoints[unrelated.nodeId], unrelated);
+    e.progress.setPlayerName('小雨');
+    e.startFromTitle();
+    const visited = continueUntil(e, game => game.nodeId === 'COM03M-S01');
+    assert.ok(!visited.some(id => id.startsWith('common_recommend_discord_jyc_enter')));
+    assert.ok(!e.state.flags.has('contact_jyc'));
+  });
+}

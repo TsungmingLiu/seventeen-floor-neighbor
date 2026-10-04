@@ -118,6 +118,13 @@ export class ProgressStore {
   resumeUncontactedCom03j() {
     if (this.chapter.id !== 'opening-demo-chapter-01' || !this.chapter.nodes.common_recommend_discord_jyc_no_contact_exit) return;
     let redirected = false;
+    let pruned = false;
+    for (const [id, snapshot] of Object.entries(this.data.checkpoints)) {
+      if (this.isCom03j(id) && !snapshot.flags.includes('contact_jyc')) {
+        delete this.data.checkpoints[id];
+        pruned = true;
+      }
+    }
     for (const key of ['cursor', 'frontier']) {
       const snapshot = this.data[key];
       if (this.isCom03j(snapshot?.nodeId) && !snapshot.flags.includes('contact_jyc')) {
@@ -130,6 +137,7 @@ export class ProgressStore {
       this.data.frontierMemoryEventId = null;
       this.data.frontierRank = -1;
     }
+    if (redirected || pruned) this.flush();
   }
 
   reopenCom03jAppend() {
@@ -194,7 +202,7 @@ export class ProgressStore {
       returned.stats[key] += state[key] - pending.entrySnapshot.stats[key];
     }
     const added = [...state.flags].filter(flag => flag.startsWith('jyc_second_topic:')
-      || ['player_knows_jyc_name', 'jyc_knows_player_name', 'jyc_creator_work_seen', 'jyc_initiated_second_contact', 'preview:com02j-complete'].includes(flag));
+      || ['contact_jyc', 'player_knows_jyc_name', 'jyc_knows_player_name', 'jyc_creator_work_seen', 'jyc_initiated_second_contact', 'preview:com02j-complete'].includes(flag));
     returned.flags = [...new Set([...returned.flags.filter(flag => !flag.startsWith('jyc_second_topic:')), ...added])];
     this.data.frontier = this.clone(returned);
     this.data.cursor = this.clone(returned);
