@@ -63,6 +63,43 @@ jobs:
           if-no-files-found: error
           retention-days: 7
 
+  browser_paths:
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository)
+    runs-on: ubuntu-latest
+    outputs:
+      applicable: ${{ steps.filter.outputs.applicable }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - id: filter
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BEFORE: ${{ github.event.before }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          base="$BEFORE"
+          if [ "$EVENT_NAME" = pull_request ]; then base="$BASE_SHA"; fi
+          if [ -z "$base" ] || ! git cat-file -e "$base^{commit}" 2>/dev/null; then
+            echo 'applicable=true' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          changed=$(git diff --name-only "$base...$SHA")
+          if printf '%s\n' "$changed" | grep -Eq '^(src/|public/|content/|assets-src/|tools/build[^/]*\.mjs$|tools/preview-server\.mjs$|tests/browser-acceptance\.spec\.mjs$|\.github/workflows/(browser-acceptance|verify)\.yml$)'; then
+            echo 'applicable=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'applicable=false' >> "$GITHUB_OUTPUT"
+          fi
+
+  browser_acceptance:
+    needs: [verify, browser_paths]
+    if: needs.browser_paths.outputs.applicable == 'true'
+    uses: ./.github/workflows/browser-acceptance.yml
+    with:
+      reuse_verified_artifact: true
+
   deploy:
     name: Deploy Cloudflare Pages
     needs: verify
