@@ -161,6 +161,20 @@
       "decision_receipt": "content/production/runs/m1-com03m-20261003/ND-BOOKGATE-002.decision.json",
       "human_gate": "none",
       "reason": "Fresh actual owning-boundary design PASS; existing go path preservation verified. Dialogue/NQA/visual impact and separate cafe scene timing revisions remain downstream."
+    },
+    {
+      "task_id": "ND-BOOKGATE-003",
+      "task_type": "narrative_design",
+      "scene_id": "COM-01B",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1 unchanged-source design reaffirmation",
+        "sha256": "d72b2e25c13ad6a9fb461b4ddb63e980ec5b1f48d106005279e30fbc431730b3"
+      },
+      "decision_receipt": "content/production/runs/m1-com03m-20261003/ND-BOOKGATE-003.decision.json",
+      "human_gate": "none",
+      "reason": "Actual current-source checks reaffirm unchanged owning B design outputs; original author receipt retained historical, no creative rerun."
     }
   ],
   "invalidation_events": [],
