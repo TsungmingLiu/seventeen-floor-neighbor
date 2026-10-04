@@ -24,8 +24,8 @@ jobs:
           CLOUDFLARE_PAGES_PROJECT: ${{ vars.CLOUDFLARE_PAGES_PROJECT }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
-          node <<'NODE'
-          const fs = require('node:fs');
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
 
           const accountId = process.env.CLOUDFLARE_ACCOUNT_ID;
           const apiToken = process.env.CLOUDFLARE_API_TOKEN;
