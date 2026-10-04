@@ -93,6 +93,27 @@
       "decision_receipt": "content/production/runs/microwave-embodiment-20261003/VQA-MICROWAVE-B-001.decision.json",
       "human_gate": "none",
       "reason": "B-only source composition/safe-zone FAIL: hands below authored protected region, ovens far right; action/environment/depth NEEDS_REVIEW. Missing derivative/display evidence NEEDS_REVIEW; no A comparison/adoption/automatic retry. Human selection unrecorded."
+    },
+    {
+      "task_id": "HUMAN-MICROWAVE-KEEP-A-001",
+      "task_type": "human_decision",
+      "scene_id": "COM-02X",
+      "depends_on": [
+        "VQA-MICROWAVE-B-001"
+      ],
+      "status": "FAIL",
+      "decision_receipt": "content/production/runs/microwave-embodiment-20261003/HUMAN-MICROWAVE-KEEP-A-001.decision.json",
+      "human_gate": "accepted_master_image_selection",
+      "reason": "我覺得A看起來比較正常，保留A吧。 Exact B declined; retain current A and stop this pilot. No new master acceptance, QA PASS, adoption or further generation."
+    }
+  ],
+  "human_decisions": [
+    {
+      "task_id": "HUMAN-MICROWAVE-KEEP-A-001",
+      "decision_receipt": "content/production/runs/microwave-embodiment-20261003/HUMAN-MICROWAVE-KEEP-A-001.decision.json",
+      "disposition": "RETAIN_CURRENT_A_DECLINE_B",
+      "reason": "我覺得A看起來比較正常，保留A吧。",
+      "candidate_sha256": "39ccefbef8e12fcbbea6ba321e80ffd03f863020fd6b79fe6209932a3d57fed9"
     }
   ]
 }
