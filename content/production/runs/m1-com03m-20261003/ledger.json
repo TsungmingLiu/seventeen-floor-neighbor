@@ -53,6 +53,22 @@
       "decision_receipt": "content/production/runs/m1-com03m-20261003/ND-COM03M-002.decision.json",
       "human_gate": "none",
       "reason": "Fresh actual schema/contact/entry checks verify unchanged outputs against current instruction bytes; independent Narrative QA remains downstream."
+    },
+    {
+      "task_id": "CW-OPENA-001",
+      "task_type": "scene_dialogue",
+      "scene_id": "OPEN-A",
+      "depends_on": [
+        "ND-OPENA-001"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1 bounded scene-dialogue packet",
+        "sha256": "d946f63698d5fadfcf1865ccb2d6356ed6ba23a90e85ccbf7e14573cc0bc36ad"
+      },
+      "decision_receipt": null,
+      "human_gate": "none",
+      "reason": "Actual writer-only PASS Handoff verified; exact authored Locked Scene committed for fresh independent Narrative QA, not Narrative QA or Human approval."
     }
   ],
   "invalidation_events": [],
