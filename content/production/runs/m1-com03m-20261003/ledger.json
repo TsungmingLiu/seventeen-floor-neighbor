@@ -22,7 +22,7 @@
       },
       "decision_receipt": "content/production/runs/m1-com03m-20261003/ND-COM03M-001.decision.json",
       "human_gate": "none",
-      "reason": "Verified exact fresh Narrative Design Handoff; dialogue and independent Narrative QA remain downstream."
+      "reason": "Historical original design PASS; technical instruction bytes changed; exact unchanged design reaffirmed by ND-COM03M-002 for current downstream dispatch."
     },
     {
       "task_id": "ND-OPENA-001",
@@ -39,6 +39,20 @@
       "decision_receipt": "content/production/runs/m1-com03m-20261003/ND-OPENA-001.decision.json",
       "human_gate": "none",
       "reason": "Exact fresh bounded entry design Handoff verified; dialogue and independent Narrative QA downstream."
+    },
+    {
+      "task_id": "ND-COM03M-002",
+      "task_type": "narrative_design",
+      "scene_id": "COM-03M",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1 bounded design-reaffirmation packet attempt2",
+        "sha256": "e9f40a084a3f453a63838e0a9d8e41bece5a74fa9ae29f27817c3006ad8c13ba"
+      },
+      "decision_receipt": "content/production/runs/m1-com03m-20261003/ND-COM03M-002.decision.json",
+      "human_gate": "none",
+      "reason": "Fresh actual schema/contact/entry checks verify unchanged outputs against current instruction bytes; independent Narrative QA remains downstream."
     }
   ],
   "invalidation_events": [],
