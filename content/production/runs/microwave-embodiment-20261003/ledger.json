@@ -31,6 +31,23 @@
       "depends_on": [
         "NQA-COM02X-PILOT-001"
       ],
+      "status": "PASS",
+      "decision_receipt": null,
+      "human_gate": "none",
+      "reason": "Verified planner Handoff c66066380f39afc6b3435ac7a7d83d8aa9d07636ed4b4e5e1ddf0af13c2b32de; canonical manifest SHA2565324f4ea6732ba0ccf78438a61b4d30000392fff0fa488e15a47032c5fd61c5b; separate MUA pending.",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "bc6c968412cc97251b165aa083d01ada42751c12beac349ef628ced251b35047"
+      }
+    },
+    {
+      "task_id": "MUA-MICROWAVE-B-001",
+      "task_type": "visual_review",
+      "scene_id": "COM-02X",
+      "review_scope": "manifest_usability",
+      "depends_on": [
+        "PLAN-MICROWAVE-B-001"
+      ],
       "status": "READY",
       "decision_receipt": null,
       "human_gate": "none",

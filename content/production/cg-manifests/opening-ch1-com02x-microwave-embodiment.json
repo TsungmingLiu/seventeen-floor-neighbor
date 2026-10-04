@@ -1,0 +1,240 @@
+{
+  "schema_version": "1.1.0",
+  "manifest_id": "opening-ch1-com02x-microwave-embodiment",
+  "manifest_version": "1.0.0",
+  "lifecycle": "CANONICAL",
+  "source_scene_ids": [
+    "COM-02X"
+  ],
+  "style_contract": {
+    "style_id": "realistic-game-cinematic-pbr",
+    "positive": [
+      "Realistic high-end game cinematic photographic PBR adult character and environment rendering.",
+      "Natural facial anatomy,skin texture,hair strands and physically plausible fabric,glass,metal and indoor lighting.",
+      "Photographic normal-lens perspective,believable depth/exposure;color follows cool convenience-store night."
+    ],
+    "negative": [
+      "Anime/manga,cartoon,doll/avatar or animation-film face;plastic airbrushed skin.",
+      "Painterly illustration,cel shading,comic panels or studio-sheet posing.",
+      "Embedded captions,UI,watermarks,logos or unrelated identity."
+    ],
+    "aspect_ratio": "16:9",
+    "output_count": 1
+  },
+  "entries": [
+    {
+      "entry_id": "COM02X-DLG-MICROWAVE-EMBODIMENT-B-001",
+      "scene_id": "COM-02X",
+      "source_scene": "docs/narrative/scenes/vertical-slice/COM-02X.md",
+      "status": "render_ready",
+      "cg_class": "dialogue_cg",
+      "sequence_id": null,
+      "beat_range": "02X.5 / common_convenience_xu_work: both dinners actively heating, print-deadline disclosure before completion beep",
+      "narrative": {
+        "purpose": "Place the limited work conversation inside a real late-night wait for two dinners to heat; tired neighbors retain ordinary personal boundaries.",
+        "must_show": [
+          "Xu Tang waiting beside the checkout microwave counter while two closed microwave ovens heat separate dinners.",
+          "Her black coffee stays in her right hand; her left hand is empty, her dinner is inside one oven.",
+          "An unhurried conversational glance toward the off-screen protagonist, with her stance still oriented along the microwave counter.",
+          "Wardrobe A Look 02, wet blue night beyond the glass and cool store light."
+        ],
+        "must_not_imply": [
+          "A date, romantic signal, caretaking obligation, flirtation or pin-up.",
+          "Xu pressing a button while holding coffee, holding a second dinner, retrieving food during this instant or operating both ovens.",
+          "Any visible protagonist, employee, customer, extra person, reflection or silhouette.",
+          "Payment for another person, exchanged bags, contact information or complete client biography."
+        ]
+      },
+      "characters": [
+        {
+          "character_id": "xu_tang",
+          "screen_side": "center",
+          "body_orientation": "Three-quarter toward the checkout microwave counter on screen right; head turns modestly screen left to the nearby off-screen protagonist.",
+          "pose": "Standing near the counter after advancing in the queue, shoulders lowered; right elbow loosely bent with coffee held upright near lower chest, left elbow lightly bent and empty hand relaxed near waist. No leaned display pose.",
+          "gaze": "Eyes toward the off-screen neighbor on screen left during the print-deadline answer; level chin with slight downward pitch, no lens stare.",
+          "expression": "Quiet tired concentration and dry resignation, mouth gently parted mid-short reply, no broad smile or blush.",
+          "wardrobe_key": "XT-WARDROBE-A-LATE-NIGHT-CONVENIENCE-STORE",
+          "held_objects": [
+            "Black coffee bottle upright in right hand only."
+          ],
+          "reference_requirements": {
+            "production_consistency": false,
+            "expression": false,
+            "body_proportions": false,
+            "production_omission_reason": "Bounded task supplies exactly face, Wardrobe A Look 02, store and accepted DLG-01 continuity pixels. Supported medium waist-up framing needs no full-body mechanics or specialized acting; observed face/wardrobe and DLG-01 provide hair, hoop, sweater, tote and bottle continuity. No production sheet acquired or attached; no new recurring prop design, grip demonstration or hairstyle is requested."
+          },
+          "reference_bindings": [
+            {
+              "role": "primary_face_identity",
+              "source_id": "ref.xu_tang.face.01",
+              "expected_filename": "xt-ref-01-face.png"
+            },
+            {
+              "role": "wardrobe",
+              "source_id": "ref.xu_tang.wardrobe.a",
+              "expected_filename": "xt-ref-05-wardrobe-a.png"
+            },
+            {
+              "role": "accepted_character_continuity",
+              "source_id": "source.com02x.dlg-01",
+              "expected_filename": "com02x-dlg-01-candidate-v1.png"
+            }
+          ]
+        }
+      ],
+      "environment": {
+        "location_id": "convenience_store_night",
+        "time_of_day": "Week 2 weekday around 23:00",
+        "weather": "Recently wet night outside glass; dry indoor counter and tiled floor.",
+        "lighting": "Cool white overhead fluorescent light, restrained cool blue reflected night through window; realistic skin and cloth response, no beauty rim light.",
+        "persistent_props": [
+          "Exactly two stacked microwave ovens on the checkout counter, both doors closed, each containing one separate dinner; opaque mesh/soft internal light can imply ongoing heating without legible timers.",
+          "Pale checkout counter, refrigerator shelves along screen left, glass storefront with wet street reflections behind.",
+          "Xu right-hand black coffee bottle and plain cream canvas tote on her left shoulder, continuing accepted DLG-01; empty left hand, no handheld meal or shopping basket."
+        ],
+        "reference_binding": {
+          "role": "environment_reference",
+          "source_id": "ref.com02x.environment.convenience_night",
+          "expected_filename": "com02x-convenience-night-reference-v1.png"
+        }
+      },
+      "camera": {
+        "shot_size": "medium",
+        "angle": "Eye-level, waist-up view with horizontal room context; slightly oblique to counter so two stacked closed oven fronts remain readable beside Xu.",
+        "pov": "Nearby protagonist conversation height, protagonist wholly off-screen.",
+        "axis_id": "COM02X-MICROWAVE-COUNTER-CONVERSATION-B",
+        "camera_side": "Customer side of checkout counter looking diagonally along it; preserve refrigerator-left and counter-right store geography.",
+        "lens_intent": "Photographic normal lens, believable perspective; moderate depth of field keeps both ovens recognizable, background storefront softer, no extreme portrait bokeh."
+      },
+      "continuity": {
+        "previous_entry_id": null,
+        "locked_fields": [
+          "/characters/0/character_id",
+          "/characters/0/wardrobe_key",
+          "/characters/0/held_objects",
+          "/environment",
+          "/camera",
+          "/composition",
+          "/scene_embodiment"
+        ],
+        "allowed_changes": []
+      },
+      "composition": {
+        "focus": {
+          "x": 54,
+          "y": 40
+        },
+        "dialogue_safe_zone": "Keep identity face/hoops within source x46..57%, y20..33%; right-hand bottle and empty left hand within x47..58%, y37..49%; two stacked oven fronts in x59..64%, y22..47%. Reserve lower-left and lower source y55..100% for dialogue coverage and crop. These are planning regions requiring pixel and actual UI evidence, not measured outcomes. Hair top stays below top-HUD margins.",
+        "framing_notes": [
+          "Medium waist-up composition: Xu centered slightly left of the compact stacked ovens; oven fronts immediately adjacent rather than far screen right. Counter recedes obliquely; left refrigerator edge foreground and wet glass background preserve spatial depth. Keep all critical face/hand/heating cues together in source x46..64%, y20..49%; no feet/body-sheet requirement.",
+          "Task-approved desktop CSS viewport 1440x900 landscape DPR1: expected centered stage border-box1280x720, image content1278x718 at viewport origin approximately80,90; object-fit cover, focus54%40%. Ideal16:9 image1278x718.875 has about0.875px vertical overflow. Recalculate for actual integer-rounded native aspect. Dialogue width min(46% of stage,35rem), left/bottom max(1rem,safe-area), badge top -1.15rem; text-dependent height. Lower-left can be covered; protect face, both hands and ovens from panel and HUD.",
+          "Task-approved mobile landscape CSS viewport720x320 DPR1: stage/image720x320 with cover; ideal16:9 renders720x405 at vertical offset -34px, retaining y8.395..87.407%. Planned critical y20..49% maps approximately47..164.5 display px. Nearly full-width <=760px reading panel uses .72rem/safe-area offsets,1.05rem 1rem .95rem padding,3.6em minimum text and responsive1rem..1.12rem font/1.68 line-height. Selected technical excerpt estimates badge onset around186px for a short line, not measured browser evidence. Longer actual work lines require screenshot review; protect hands/oven readability above badge and head below HUD.",
+          "Task-approved portrait CSS viewport320x720 DPR1: stage/image320x720 cover, ideal16:9 renders1280x720. Focus54%40% retains source x40.5..65.5%, all source height. Planned x46..64% critical regions fit within this crop with right margin; actual source pixels/crop must be checked. Portrait panel .72rem lateral/safe-area offsets, .8rem bottom,1rem .95rem .88rem padding and text-dependent3.6em minimum height; speaker badge rises above panel. HUD .65rem/safe-area offsets,40px sound and44px navigation minima. Measure actual wrapped dialogue bounds rather than inventing panel height.",
+          "Integration must explicitly bind focus54/40 through node or asset focus; resolveVisual selects node then asset then55/42 fallback, setImage applies object-position. No contain/letterbox/rotate or push-in/dark/flicker behavior assumed. Later runtime evidence records viewport,DPR,stage/image box,fit,position,safe-area,font,crop,Hud/panel/badge bounds; existing vignette readability also needs inspection."
+        ]
+      },
+      "render_constraints": {
+        "include": [
+          "One realistic adult Xu Tang,27, natural oval face, narrow almond dark-brown eyes, natural pale textured skin and rose lips; canonical primary face is identity and minimum facial realism authority.",
+          "Realistic high-end game cinematic photographic PBR rendering with hair strands, knit texture, cloth folds and credible glass/metal/plastic light response.",
+          "Exact Wardrobe A Look 02 grey casual home sweater and grey drawstring shorts, white sneakers if outside crop; plain cream tote left shoulder, large gold hoops, loose dark-brown hair/fringe as observed in accepted DLG-01. Do not borrow other Wardrobe A looks.",
+          "Coffee right hand only and empty left hand; two stacked closed microwaves actively heating separate dinners behind the counter. No button press, reach into oven or simultaneous action collage.",
+          "Medium conversational staging with counter proximity, body weight and material response as authored in scene_embodiment; only one captured instant.",
+          "Prefer largest supported native16:9 output and highest available quality compatible with references/aspect, allowing integer-pixel rounding. Current built-in image_gen exposes prompt, reference image paths and transparency; size and quality controls are not exposed. Record not exposed and preference separately from actual returned dimensions. Future exposed supported controls may be used only if compatible. No fixed1672x941/1920x1080 floor, fabricated provider limit or invented API parameters; no manual upscale labeled native/high-definition.",
+          "Attach exactly the four bound reference images in a fresh renderer session, preserve face authority; accepted DLG-01 supplies immediate continuity only and is not an edit base."
+        ],
+        "exclude": [
+          "Any other visible person, face, hand, silhouette or human reflection.",
+          "Fashion pin-up, sexualized shorts/body framing, romantic closeness, blush or caring/hero role.",
+          "Studio-sheet posing, permanent head tilt, arched back, direct glamour stare, raised hair-touch arm copied from wardrobe sheet.",
+          "Extra ovens, handheld dinner, coffee switched left, finger pressing microwave, open oven, food retrieval or checkout payment in the same instant.",
+          "Anime/manga/cartoon or animation-film facial design, oversized eyes, doll/avatar face, plastic skin, cel shading, ink lines or painterly rendering.",
+          "Embedded UI, captions, watermark, logo, real packaging brand or legible client/work biography."
+        ],
+        "text_policy": "No embedded text, captions, UI or logos. Keep packaging, shelf tags and oven indicators unobtrusive and unreadable; do not fabricate readable gibberish."
+      },
+      "reference_transport": {
+        "mode": "references_required",
+        "fresh_session_required": true,
+        "no_unrelated_images_allowed": true,
+        "accepted_base_asset_id": null,
+        "attachments": [
+          {
+            "role": "primary_face_identity",
+            "source_id": "ref.xu_tang.face.01",
+            "expected_filename": "xt-ref-01-face.png",
+            "pixels_must_be_visible": true
+          },
+          {
+            "role": "wardrobe",
+            "source_id": "ref.xu_tang.wardrobe.a",
+            "expected_filename": "xt-ref-05-wardrobe-a.png",
+            "pixels_must_be_visible": true
+          },
+          {
+            "role": "environment_reference",
+            "source_id": "ref.com02x.environment.convenience_night",
+            "expected_filename": "com02x-convenience-night-reference-v1.png",
+            "pixels_must_be_visible": true
+          },
+          {
+            "role": "accepted_character_continuity",
+            "source_id": "source.com02x.dlg-01",
+            "expected_filename": "com02x-dlg-01-candidate-v1.png",
+            "pixels_must_be_visible": true
+          }
+        ]
+      },
+      "output": {
+        "canonical_asset_id": "opening-ch1-com02x-microwave-embodiment-b-001",
+        "logical_asset_id": "CG-COM02X-MICROWAVE-EMBODIMENT-B-001",
+        "master_filename": "com02x-microwave-embodiment-b-001.png",
+        "quantity": 1
+      },
+      "acceptance": [
+        "Independent fresh manifest-usability review must verify self-contained narrative/identity/reference/native/display requirements and MUA-CAPTURED-MOMENT,MUA-ACTION-FLOW,MUA-ENVIRONMENT-COUPLING,MUA-PHYSICAL-CUES,MUA-DEPTH-STAGING before render dispatch; render_ready records complete planner specification; independent manifest-usability approval still gates render dispatch.",
+        "VQA-NATIVE-PROVENANCE: record actual returned width,height,MIME,byte count,SHA-256 and untouched original-byte location; separately record requested preference and size/quality not exposed. No inferred resolution,upscale-as-native,4K/retina or unverified high-definition claim.",
+        "VQA-SOURCE-CLARITY: independent source review inspects hash-bound original at native pixel size for face/eye/hair/skin/knit/hand/bottle/oven clarity, blur/detail loss and source artifacts. Inspect exact scene-embodiment regions under VQA-CAPTURED-MOMENT,VQA-ACTION-FLOW,VQA-ENVIRONMENT-COUPLING,VQA-PHYSICAL-CUES,VQA-DEPTH-STAGING; planning/schema PASS cannot establish pixel PASS.",
+        "Source review also checks right-hand coffee/empty left, two closed heating ovens at the counter, exact wardrobe/face realism, believable contact/weight/materials, geography, no visible extras/intimacy, and source planned critical region feasibility.",
+        "VQA-COMPRESSION-ARTIFACTS: after integration, fresh independent final derivative review requires derivative location,width,height,MIME,byte count,SHA-256,conversion settings when available and source hash binding; inspect actual compressed derivative for blur,blocks,ringing or critical-detail loss. Source-only PASS cannot establish this gate.",
+        "VQA-DESKTOP-DISPLAY: after integration, inspect hash-bound actual runtime screenshots at1440x900 landscape DPR1 and720x320 landscape DPR1; record measured stage/image area,computed cover/object-position54/40,safe-area/fonts,crop and HUD/dialogue/badge bounds. Verify face,coffee/right grip,empty left hand and both oven fronts remain readable above dialogue, below HUD and through vignette.",
+        "VQA-MOBILE-PORTRAIT-DISPLAY: fresh final review of actual320x720 portrait DPR1 runtime derivative/screenshot evidence, measured cover crop/focus54/40,visible critical regions and wrapped dialogue/HUD occlusion. Planned crop calculations are not runtime QA.",
+        "Missing required evidence means BLOCKED/NEEDS_REVIEW for that gate; evidenced quality failure means FAIL/NEEDS_REVIEW. Raw source defects route to renderer/planner as appropriate; derivative compression/runtime crop/UI defects route to integrator. No automatic redraw/retry. Final independent derivative/display PASS is required before READY_FOR_HUMAN_ACCEPTANCE; no Human selection/adoption claimed here."
+      ],
+      "scene_embodiment": {
+        "captured_moment": {
+          "before": "After both meal boxes have been handed over, Xu has advanced to the checkout microwave counter; the protagonist has put away the lit phone and described finishing his software deployment/review.",
+          "during": "Both dinners are actively heating behind closed oven doors. Xu answers that the client needs the final round in the morning before printing; she glances toward the neighbor without leaving her place at the counter.",
+          "after": "The work clarification continues until a later completion beep draws her eyes to the ovens; the employee retrieves her dinner later and checkout follows. Retrieval and beep are not simultaneous actions in this image."
+        },
+        "characters": [
+          {
+            "character_id": "xu_tang",
+            "action_flow": {
+              "before": "She followed the queue forward and surrendered her dinner for heating, retaining coffee in her right hand and freeing the left.",
+              "during": "She waits within a small step of the microwave counter, torso still angled toward it, head turned lightly to the off-screen neighbor; bottle upright against a relaxed bent right forearm, left hand empty near waist.",
+              "after": "She will turn her attention toward the completion sound and later take back her meal before paying; no reach or button press is underway now."
+            },
+            "environment_coupling": {
+              "mode": "anchored",
+              "anchor": "Customer side of the checkout counter directly beside the two stacked microwaves heating their separate meals.",
+              "interaction": "Her waiting position and counter-facing torso remain tied to the oven queue while only head/eyes address the neighbor. Closed oven mesh with restrained heating glow makes the pause observable; counter edge passes behind her waist without a leaned-on pose."
+            },
+            "physical_cues": {
+              "support": "Body supported by both feet on the dry tile outside the waist-up crop; grounded upright pelvis and lowered shoulders, no floating lean or contact with unseen person.",
+              "contact": "Right fingers encircle the coffee bottle with visible thumb opposition; left fingers remain separate and empty near waist, not touching an oven. Tote strap bears against left shoulder and side of sweater.",
+              "weight": "Bottle hangs vertically from supported right grip with elbow below wrist; resting weight settles through hips, left shoulder receives the soft tote load, no levitating props.",
+              "material_response": "Grey knit compresses slightly at bent elbows and beneath tote strap, relaxed cloth folds fall from waist; canvas creases under gravity, bottle catches narrow fluorescent highlights, metal oven faces carry softer cool reflections distinct from wet background glass."
+            }
+          }
+        ],
+        "depth_staging": {
+          "foreground": "A partial refrigerator rail/shelf edge along far screen left provides near perspective; lower-left counter/floor context is low information for dialogue UI, no foreground person or hand.",
+          "midground": "Xu and her bottle/empty left hand share the conversational plane beside the counter; two stacked microwave fronts just to her screen right recede slightly behind her, neither intersects her hands or face.",
+          "background": "Storefront glass and wet blue street reflections behind counter/refrigerator aisle, distant packages soft and unbranded, no human figures/reflections.",
+          "subject_separation": "Cool counter and darker blue window separate grey sweater and brown hair; physical overlap at tote/shoulder and crisp hand/bottle contact define the subject, moderate optical falloff preserves oven edges without studio outline/rim glow."
+        }
+      }
+    }
+  ]
+}
