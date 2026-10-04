@@ -15,11 +15,12 @@ async function bootstrap() {
       || index.routes.find(candidate => candidate.id === index.defaultRoute);
     if (!route) throw new Error('No playable story configured');
     const base = `content/routes/${route.id}`;
-    const [assetManifest, chapter, sceneLibrary, memoryLibrary] = await Promise.all([
+    const [assetManifest, chapter, sceneLibrary, memoryLibrary, storyMap] = await Promise.all([
       fetchJson(`${base}/assets.json`),
       fetchJson(`${base}/chapter.json`),
       fetchJson(`${base}/scenes.json`),
-      fetchJson(`${base}/memories.json`)
+      fetchJson(`${base}/memories.json`),
+      fetchJson(`${base}/story-map.json`)
     ]);
     document.title = chapter.title;
     document.querySelector('#title-prefix').textContent = route.titlePrefix || '17樓的';
@@ -27,7 +28,7 @@ async function bootstrap() {
     document.querySelector('#title-eyebrow').textContent = route.eyebrow || '第一人稱互動戀愛故事';
     document.querySelector('#title-premise').textContent = route.premise || '';
     document.querySelector('#title-hint').textContent = route.hint || '';
-    const engine = new GameEngine({ chapter, assetManifest, sceneLibrary, memoryLibrary });
+    const engine = new GameEngine({ chapter, assetManifest, sceneLibrary, memoryLibrary, storyMap });
     engine.mount();
   } catch (error) {
     console.error(error);

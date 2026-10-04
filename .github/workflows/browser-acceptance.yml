@@ -30,6 +30,8 @@ jobs:
 
       - name: Build clean browser runtime for manual run
         if: github.event_name == 'workflow_dispatch'
+        env:
+          STORY_MAP_PROFILE: review
         run: |
           npm run assets:check
           npm run assets:build

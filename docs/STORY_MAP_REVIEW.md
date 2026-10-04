@@ -1,0 +1,13 @@
+# 故事回憶與開發審閱
+
+回憶沿用既有存檔、角色篩選與重玩功能，改以場景呈現。流程圖與章節清單是同一份場景資料的兩種排版；咖啡店初遇／重逢共用場景入口，已讀版本在詳情內切換。每句對白不另畫一張卡片。
+
+玩家預設只看到已探索的場景、已讀對白及已解鎖畫面。連線來自存檔實際走過的路徑，不以兩個已解鎖回憶推測玩家經歷。場景詳情與角色篩選不改變進度；按「從此場景重玩」才使用原有的回憶快照恢復故事。
+
+`npm run dev`、`npm run preview`、Codespace acceptance 與 PR 的 Cloudflare 預覽提供「開發審閱」開關。開啟後可看完整現有劇本、玩家選項及按前事分流的版本；改稿註記標示「待修改・尚未實作」。審閱是唯讀，不將修改寫回雲端遊戲；回饋時提供場景名稱與入口版本，由 Codex 修改來源並更新 PR 預覽。
+
+`npm run build` 預設是玩家版本；main 的 Verify 也使用玩家版本。建置時排除開發審閱模組與改稿註記，不靠手動刪除 checkbox。需要明確選擇時使用 `STORY_MAP_PROFILE=player` 或 `STORY_MAP_PROFILE=review`。建置後執行 `node tools/check-story-map-build.mjs`，並沿用同一個 profile 環境變數。
+
+劇本 JSON 與現有 Memory ID 是權威來源；`content/storyboards/opening-demo.json` 只負責場景分組及排版。`tools/story-map.mjs` 從實際劇本接續產生場景線與敘事條件，建置為 route 內的 `story-map.json`。開發註記獨立放在 `opening-demo-review.json`。不要把玩家進度或遊戲選項的邏輯寫進視圖。
+
+目前範圍是 Opening 已實作章節；JYC 時序改稿獨立審閱。待製作 CG 保持預覽狀態，本功能不生成最終 CG。

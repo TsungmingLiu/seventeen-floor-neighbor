@@ -1,0 +1,288 @@
+{
+  "schemaVersion": 1,
+  "groups": [
+    {
+      "id": "movein",
+      "title": "雨夜搬家",
+      "summary": "搬進十七樓，第一次認識隔壁的許棠。",
+      "row": 0,
+      "lane": "wide",
+      "variants": [
+        {
+          "id": "scene",
+          "label": "共通",
+          "memoryId": "mem.opening.ch1.movein",
+          "prefixes": [
+            "common_movein_rain_"
+          ],
+          "entry": "common_movein_rain_open"
+        }
+      ]
+    },
+    {
+      "id": "elevator",
+      "title": "電梯重啟",
+      "summary": "再次遇見許棠，聊起搬家後的日常。",
+      "row": 1,
+      "lane": "wide",
+      "variants": [
+        {
+          "id": "scene",
+          "label": "共通",
+          "memoryId": "mem.opening.ch1.elevator-restart",
+          "prefixes": [
+            "common_elevator_restart_"
+          ],
+          "entry": "common_elevator_restart_enter"
+        }
+      ]
+    },
+    {
+      "id": "neighborhood",
+      "title": "樓下偶遇與附近的店",
+      "summary": "許棠介紹附近可以逛逛、找書或喝咖啡的地方。",
+      "row": 2,
+      "lane": "wide",
+      "variants": [
+        {
+          "id": "scene",
+          "label": "共通",
+          "memoryId": "mem.opening.ch1.elevator-restart",
+          "prefixes": [
+            "common_bookstore_bridge_",
+            "com01b_browse_",
+            "com01b_find_",
+            "com01b_food_"
+          ],
+          "excludePrefixes": [
+            "common_bookstore_bridge_weekend_",
+            "common_bookstore_bridge_cafe_"
+          ],
+          "entry": "common_bookstore_bridge_enter"
+        }
+      ]
+    },
+    {
+      "id": "weekend",
+      "title": "週末，去不去書店？",
+      "summary": "決定今天是否到地下街翻設定集。",
+      "row": 3,
+      "lane": "wide",
+      "variants": [
+        {
+          "id": "scene",
+          "label": "共通",
+          "prefixes": [
+            "common_bookstore_bridge_weekend_"
+          ],
+          "entry": "common_bookstore_bridge_weekend_decision_time",
+          "excludePrefixes": [
+            "common_bookstore_bridge_weekend_transition"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bookstore",
+      "title": "雨澄・書店初遇",
+      "summary": "同一排設定集前，聊起作品與版本差異。",
+      "row": 4,
+      "lane": "left",
+      "variants": [
+        {
+          "id": "scene",
+          "label": "初遇",
+          "memoryId": "mem.opening.ch1.acg-first-meet",
+          "prefixes": [
+            "common_acg_first_meet_",
+            "com01b_bookstore_go",
+            "common_bookstore_bridge_weekend_transition"
+          ],
+          "entry": "com01b_bookstore_go",
+          "condition": "週末選擇去地下街書店。"
+        }
+      ]
+    },
+    {
+      "id": "skip-bookstore",
+      "title": "今天先不去書店",
+      "summary": "沿街走走，再決定是否去咖啡店。",
+      "row": 4,
+      "lane": "right",
+      "variants": [
+        {
+          "id": "scene",
+          "label": "獨處",
+          "prefixes": [
+            "com01b_bookstore_skip",
+            "common_bookstore_bridge_cafe_"
+          ],
+          "entry": "com01b_bookstore_skip",
+          "condition": "週末選擇先不去書店。"
+        }
+      ]
+    },
+    {
+      "id": "cafe",
+      "title": "雨澄・咖啡店",
+      "summary": "同一場景入口，依是否在書店相識使用不同版本。",
+      "row": 5,
+      "lane": "left",
+      "variants": [
+        {
+          "id": "reunion",
+          "label": "A・重逢",
+          "memoryId": "mem.opening.ch1.station-cafe-jyc",
+          "prefixes": [
+            "common_station_cafe_jyc_",
+            "com02j_"
+          ],
+          "entry": "common_station_cafe_jyc_enter",
+          "condition": "之前已在書店遇見雨澄。"
+        },
+        {
+          "id": "first",
+          "label": "B・初遇",
+          "memoryId": "mem.opening.ch1.first-cafe-jyc",
+          "prefixes": [
+            "com01b_cafe_go_after_bookstore_skip"
+          ],
+          "entry": "com01b_cafe_go_after_bookstore_skip",
+          "condition": "之前未在書店遇見雨澄，並選擇去咖啡店。"
+        }
+      ]
+    },
+    {
+      "id": "street",
+      "title": "獨行・回住處",
+      "summary": "沒有走進書店或咖啡店，先回去。",
+      "row": 5,
+      "lane": "right",
+      "variants": [
+        {
+          "id": "scene",
+          "label": "獨行",
+          "prefixes": [
+            "com01b_cafe_skip_after_bookstore_skip"
+          ],
+          "entry": "com01b_cafe_skip_after_bookstore_skip",
+          "condition": "沒有去書店，也選擇不去咖啡店。"
+        }
+      ]
+    },
+    {
+      "id": "convenience",
+      "title": "許棠・深夜便利店",
+      "summary": "不同出門路徑在便利店匯合，聊晚餐與工作。",
+      "row": 6,
+      "lane": "wide",
+      "variants": [
+        {
+          "id": "scene",
+          "label": "現行版本",
+          "memoryId": "mem.opening.ch1.convenience-xu",
+          "prefixes": [
+            "common_convenience_xu_",
+            "opening_demo_complete"
+          ],
+          "entry": "common_convenience_xu_enter"
+        }
+      ]
+    },
+    {
+      "id": "parcel",
+      "title": "許棠・包裹與聯絡方式",
+      "summary": "回家拿包裹，聊打樣與工作，交換聯絡方式。",
+      "row": 7,
+      "lane": "wide",
+      "variants": [
+        {
+          "id": "scene",
+          "label": "共通",
+          "memoryId": "mem.opening.ch1.convenience-xu",
+          "prefixes": [
+            "common_package_xu_",
+            "com03x_"
+          ],
+          "entry": "common_package_xu_arrive"
+        }
+      ]
+    },
+    {
+      "id": "recommend",
+      "title": "雨澄・推薦與訊息",
+      "summary": "透過已交換的聯絡方式，繼續聊她的作品。",
+      "row": 8,
+      "lane": "left",
+      "variants": [
+        {
+          "id": "scene",
+          "label": "已聯絡",
+          "memoryId": "mem.opening.ch1.recommend-discord-jyc",
+          "prefixes": [
+            "common_recommend_discord_jyc_",
+            "com03j_"
+          ],
+          "excludePrefixes": [
+            "common_recommend_discord_jyc_no_contact_"
+          ],
+          "entry": "common_recommend_discord_jyc_enter",
+          "condition": "已與雨澄交換聯絡方式。"
+        }
+      ]
+    },
+    {
+      "id": "no-contact",
+      "title": "接續自己的生活",
+      "summary": "沒有雨澄的聯絡方式，略過她的訊息段。",
+      "row": 8,
+      "lane": "right",
+      "variants": [
+        {
+          "id": "scene",
+          "label": "未聯絡",
+          "prefixes": [
+            "common_recommend_discord_jyc_no_contact_"
+          ],
+          "entry": "common_recommend_discord_jyc_no_contact_exit",
+          "condition": "尚未與雨澄交換聯絡方式。"
+        }
+      ]
+    },
+    {
+      "id": "week",
+      "title": "一週生活與訊息",
+      "summary": "工作與生活之間，回覆已認識的鄰居。",
+      "row": 9,
+      "lane": "wide",
+      "variants": [
+        {
+          "id": "scene",
+          "label": "依聯絡前事",
+          "prefixes": [
+            "COM03M-",
+            "opening_contactless_preview_complete"
+          ],
+          "entry": "COM03M-ENTRY"
+        }
+      ]
+    },
+    {
+      "id": "free-time",
+      "title": "第一個自由空檔",
+      "summary": "安排自己的時間，或聯絡已認識的人。",
+      "row": 10,
+      "lane": "wide",
+      "variants": [
+        {
+          "id": "scene",
+          "label": "依聯絡前事",
+          "prefixes": [
+            "OPEN-A-"
+          ],
+          "entry": "OPEN-A-ENTRY"
+        }
+      ]
+    }
+  ]
+}

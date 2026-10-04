@@ -364,3 +364,55 @@ h1 b{font:inherit}
     height:0;
   }
 }
+
+/* Scene projection shared by player Memories and read-only development review. */
+.memories-shell{width:min(1280px,100%)}
+.story-map-controls{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin:.65rem 0}
+.story-map-controls .memory-filter[aria-pressed="true"]{background:var(--pink);color:#24080f}
+.story-review-switch{display:flex;gap:.45rem;align-items:center;margin-left:auto;font-size:.85rem;color:var(--pink-soft);cursor:pointer}
+.story-map-controls [role="status"]{font-size:.72rem;color:#a8a8b5}
+.story-map-workspace{display:flex;gap:1rem;align-items:start;min-width:0}
+.story-map-list{flex:1;min-width:0;max-height:min(680px,65svh);padding:.3rem .35rem .7rem 0}
+.story-map-canvas{position:relative;padding:.9rem .1rem}
+.story-map-row{position:relative;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-bottom:2.2rem}
+.story-map-row:last-child{margin-bottom:0}
+.story-scene{min-height:110px;box-shadow:none;border-radius:12px;background:linear-gradient(135deg,#20222d,#15161e)}
+.story-scene::before{display:none}
+.story-scene[aria-pressed="true"]{outline:2px solid #dd9db0;outline-offset:2px}
+.story-scene[data-lane="wide"]{grid-column:1 / -1}
+.story-scene[data-lane="right"]{grid-column:2}
+.story-scene .memory-card-body{padding:.9rem 1rem;gap:.35rem}
+.story-scene .memory-card-meta{padding-right:4.5rem}
+.story-scene strong{max-width:100%;font-size:1rem}
+.story-variant-count{font-size:.7rem;color:#e7b7c3}
+.story-map-lines{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.story-map-lines path{fill:none;stroke:#977584;stroke-width:1.7}
+.story-continuations{display:flex;flex-direction:column;gap:.4rem;padding:.4rem .2rem .8rem}
+.story-continuation{border:0;background:none;color:#c4bac7;text-align:left;font-size:.73rem;cursor:pointer;line-height:1.5}
+.story-continuation:hover{color:var(--pink-soft)}
+.story-map-list[data-layout="list"] .story-map-row{display:flex;flex-direction:column;gap:.65rem;margin-bottom:.65rem}
+.story-map-list[data-layout="list"] .story-map-lines{display:none}
+.story-inspector{flex:0 0 350px;min-width:0;max-height:min(680px,65svh);overflow:auto;overscroll-behavior:contain;padding:1.15rem;border:1px solid #373441;border-radius:16px;background:#171820;color:#dedbe3;line-height:1.75;font-size:.85rem}
+.story-inspector[hidden]{display:none}
+.story-inspector h3{font-size:1.2rem;color:#fff;margin:.3rem 0 .6rem}
+.story-inspector h4{font-size:.85rem;color:#efd1db;border-top:1px solid #35313e;padding-top:1rem;margin:1.2rem 0 .6rem}
+.story-inspector-close{display:block;margin-left:auto;font-size:.78rem}
+.story-inspector p{white-space:pre-wrap}
+.story-variant-tabs{display:flex;flex-wrap:wrap;gap:.4rem}
+.story-variant-tabs [aria-pressed="true"]{border-color:var(--pink);color:var(--pink-soft)}
+.story-condition,.story-plan{padding:.75rem;border-radius:8px;background:#262330}
+.story-plan{border-left:3px solid #d6af64}
+.story-detail-art{width:100%;border-radius:8px;display:block;margin-bottom:.7rem}
+.story-replay{margin-top:.5rem;padding:.7rem 1rem;width:100%;font-size:.85rem}
+.story-passage{margin:.6rem 0;color:#ccc8d2}
+.story-passage b{color:#f1dce4;font-size:.78rem}
+.story-choice{border:1px solid #35313e;border-radius:8px;padding:.6rem;margin:.6rem 0}
+.story-choice summary{color:#e5b2c1;cursor:pointer;line-height:1.6}
+.story-note{color:#aaa3b3;font-size:.76rem}
+@media(max-width:1000px){.story-inspector{flex-basis:300px}.story-map-row{gap:.65rem}.story-scene .memory-card-body{padding:.75rem}}
+@media(max-width:760px){.story-map-workspace{display:block}.story-inspector{position:fixed;z-index:30;inset:auto .5rem .5rem;max-height:80svh;box-shadow:0 0 0 100vmax #0009;padding:1rem;max-width:none}.story-scene .memory-card-summary{font-size:.75rem}.story-map-list{max-height:60svh}.story-review-switch{margin-left:0}.story-map-row{gap:.6rem}.story-scene{min-height:110px}.story-scene.is-frontier::after,.story-scene.is-reading::after{font-size:.5rem;padding:.2rem}.story-map-list[data-layout="flow"] .story-scene[data-lane="wide"]{max-width:100%}}
+.story-condition-badge{color:#b8aec2;font-size:.7rem;line-height:1.5}
+.story-map-lines text{fill:#e6c3cd;stroke:#11121a;stroke-width:5px;paint-order:stroke;font-size:11px}
+.story-map-row{margin-bottom:3.2rem}
+@media(max-width:760px){.story-map-lines text{font-size:9px}}
+.story-pending-badge{position:absolute;right:.75rem;bottom:.65rem;font-size:.65rem;color:#d5b676}

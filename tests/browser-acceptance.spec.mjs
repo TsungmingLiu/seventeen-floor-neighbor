@@ -398,6 +398,7 @@ test('entered name persists through Continue and Memory replay without replacing
   await page.locator('#game-home-button').click();
   await page.locator('#memories-button').click();
   await page.locator('[data-memory-id="mem.opening.ch1.movein"]').click();
+  await page.locator('#story-inspector .story-replay').click();
   await expect(page.locator('#player-name-dialog')).not.toBeVisible();
   for (let step = 0; step < 80; step += 1) {
     await waitForDialogueReady(page);
@@ -448,6 +449,7 @@ test('pre-COM02X save keeps progress and asks for a name before Continue or repl
   await page.locator('#player-name-cancel').click();
   await page.locator('#memories-button').click();
   await page.locator('[data-memory-id="mem.opening.ch1.elevator-restart"]').click();
+  await page.locator('#story-inspector .story-replay').click();
   await expect(page.locator('#player-name-dialog')).toBeVisible();
   await enterPlayerName(page, '新名字');
   await waitForDialogueReady(page);
@@ -607,4 +609,39 @@ test('contacted week continues to a saved pending Jiang first-window boundary',a
   expect((await journey(page)).cursor).toEqual(saved.cursor);
   await page.locator('#gallery-button').click();
   expect(await page.locator('#cg-grid img').evaluateAll(images=>images.some(image=>image.src.includes('narrative-preview')))).toBe(false);
+});
+
+test('scene inspection, layout and development review never change the saved journey', async ({ page }) => {
+  await page.goto('/');
+  await page.locator('#start-button').click();
+  await enterPlayerName(page, '小雨');
+  await waitForDialogueReady(page);
+  await page.locator('#game-home-button').click();
+  await page.locator('#memories-button').click();
+  const before = await currentJourney(page);
+  await expect(page.locator('[data-group-id="cafe"]')).toHaveCount(0);
+  await page.locator('[data-group-id="movein"]').click();
+  await expect(page.locator('#story-inspector')).toBeVisible();
+  await expect(page.locator('#story-inspector')).not.toContainText('江雨澄');
+  await expect(page.locator('#story-inspector .story-choice')).toHaveCount(0);
+  await page.locator('.story-inspector-close').click();
+  await page.locator('#story-map-controls button').filter({ hasText: '章節清單' }).click();
+  await expect(page.locator('#memory-list')).toHaveAttribute('data-layout', 'list');
+  await page.locator('#story-map-controls button').filter({ hasText: '流程圖' }).click();
+  await expect(page.locator('#memory-list')).toHaveAttribute('data-layout', 'flow');
+  const reviewToggle = page.locator('#story-review-toggle');
+  if (await reviewToggle.count()) {
+    await reviewToggle.check();
+    await page.locator('[data-group-id="cafe"]').click();
+    await expect(page.locator('#story-inspector .story-variant-tabs button')).toHaveCount(2);
+    await page.locator('#story-inspector .story-variant-tabs button').filter({ hasText: 'B・初遇' }).click();
+    await expect(page.locator('#story-inspector')).toContainText('現有完整劇本與選項');
+    await expect(page.locator('#story-inspector')).not.toContainText('legacy:disabled');
+    await expect(page.locator('#story-inspector .story-replay')).toHaveCount(0);
+    await expect(page.locator('#story-inspector .story-script')).toContainText('旁白');
+    await page.locator('.story-inspector-close').click();
+    await reviewToggle.uncheck();
+    await expect(page.locator('[data-group-id="cafe"]')).toHaveCount(0);
+  }
+  expect(await currentJourney(page)).toEqual(before);
 });

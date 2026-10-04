@@ -38,7 +38,7 @@
         <header class="memories-header">
           <div>
             <p class="eyebrow">MEMORIES</p>
-            <h2 id="memories-title">回憶</h2>
+            <h2 id="memories-title">故事回憶</h2>
             <p class="memory-summary" id="memory-summary"></p>
           </div>
           <button class="text-button" id="memories-back" type="button">返回標題</button>
@@ -48,7 +48,11 @@
           <button class="text-button memory-current" id="memories-current" type="button">回到目前進度</button>
         </div>
         <p class="memory-announcement" id="memory-announcement" role="status" aria-live="polite"></p>
-        <div class="memory-list" id="memory-list"></div>
+        <div class="story-map-controls" id="story-map-controls" aria-label="故事視圖"></div>
+        <div class="story-map-workspace">
+          <div class="memory-list" id="memory-list"></div>
+          <aside class="story-inspector" id="story-inspector" aria-label="場景詳情" hidden></aside>
+        </div>
       </div>
     </section>
 
