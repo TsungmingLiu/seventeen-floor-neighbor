@@ -8,7 +8,7 @@
     "summary": "Continue approved COM-03M through first minimal playable OPEN-A entry with fresh bounded workers.",
     "gate_status": "approved scope; narrative preview review pending"
   },
-  "status": "ACTIVE",
+  "status": "BLOCKED",
   "tasks": [
     {
       "task_id": "ND-COM03M-001",
@@ -117,6 +117,22 @@
       "decision_receipt": "content/production/runs/m1-com03m-20261003/NQA-OPENA-001.decision.json",
       "human_gate": "none",
       "reason": "Fresh independent actual Narrative QA PASS; exact approved Locked Scene identity verified, no Visual QA or Human acceptance."
+    },
+    {
+      "task_id": "INT-COM03M-001",
+      "task_type": "integrate",
+      "scene_id": "COM-03M",
+      "depends_on": [
+        "NQA-COM03M-001"
+      ],
+      "status": "BLOCKED",
+      "packet": {
+        "generator": "manual-v1 bounded narrative-preview integration",
+        "sha256": "761247cc746576b0a24a89de8a7337cc658ddc0b07ab68b4f0ce25abef15f293"
+      },
+      "decision_receipt": "content/production/runs/m1-com03m-20261003/INT-COM03M-001.decision.json",
+      "human_gate": "narrative_preview_review",
+      "reason": "Actual blocked integration made no source edits; minimal Memory/frontier continuation and approved no-Jiang-contact gate require corrected authorized runtime scope."
     }
   ],
   "invalidation_events": [],

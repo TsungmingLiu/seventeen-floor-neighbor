@@ -1,0 +1,195 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "m1-com03m-20261003",
+  "task_id": "INT-COM03M-001",
+  "scene_id": "COM-03M",
+  "task_type": "integrate",
+  "status": "BLOCKED",
+  "harness": {
+    "id": "integrator",
+    "version": "1.4.0",
+    "pass": null
+  },
+  "source_ref": "43321eaca62f86d3663ca404cb1284855f8e0671",
+  "packet_sha256": "761247cc746576b0a24a89de8a7337cc658ddc0b07ab68b4f0ce25abef15f293",
+  "input_digest_sha256": "8d57a35f12114c6a91007978edc378cc5817189b3fe0b00babece0b68c99b34c",
+  "input_versions": [
+    {
+      "id": "source:AGENTS.md",
+      "location": "AGENTS.md",
+      "version": "30c4100ca74b97c1d0264afbdd96fa3586dfa72a"
+    },
+    {
+      "id": "source:.ai/WORKFLOW_MANIFEST.yaml",
+      "location": ".ai/WORKFLOW_MANIFEST.yaml",
+      "version": "73abdc4ae26ed2668785f7bbc85a672bb3a6b4ce"
+    },
+    {
+      "id": "source:.ai/harnesses/bootstrap.md",
+      "location": ".ai/harnesses/bootstrap.md",
+      "version": "203ed890ea00144d9e107fe5f00c0f9aec236065"
+    },
+    {
+      "id": "source:.ai/policies/SOURCE_AUTHORITY.md",
+      "location": ".ai/policies/SOURCE_AUTHORITY.md",
+      "version": "e1512e92dd4d9ee7eb715f37fb241a6bad786fac"
+    },
+    {
+      "id": "source:.ai/policies/CONTEXT_ISOLATION.md",
+      "location": ".ai/policies/CONTEXT_ISOLATION.md",
+      "version": "41d64227fc95501882525620bcf1de8fe396dc94"
+    },
+    {
+      "id": "source:docs/CONTENT_PRODUCTION_SOURCE_MAP.md",
+      "location": "docs/CONTENT_PRODUCTION_SOURCE_MAP.md",
+      "version": "357b75d23cf0692f777055c4263b31b1d9219747"
+    },
+    {
+      "id": "source:.ai/schemas/HANDOFF.md",
+      "location": ".ai/schemas/HANDOFF.md",
+      "version": "afc281249049d1408ca7ad343d6940bb683f0390"
+    },
+    {
+      "id": "source:docs/PRODUCTION_WORKFLOW_TOOLS.md",
+      "location": "docs/PRODUCTION_WORKFLOW_TOOLS.md",
+      "version": "f0bce55f5428036f53e17f68b017d66b969a1f73"
+    },
+    {
+      "id": "source:.ai/harnesses/integrator.md",
+      "location": ".ai/harnesses/integrator.md",
+      "version": "2383008f29c7611fa0a9ea616acf77b99a599818"
+    },
+    {
+      "id": "source:.ai/schemas/TASK_PACKET.md",
+      "location": ".ai/schemas/TASK_PACKET.md",
+      "version": "17b96da77cc08fb8882525528665787b7bf35dcd"
+    },
+    {
+      "id": "source:ARCHITECTURE.md",
+      "location": "ARCHITECTURE.md",
+      "version": "8af34c4fa67c517b93f6839c37c5eb247207f1d0"
+    },
+    {
+      "id": "source:content/production/narrative/opening-ch1/COM-03M.json",
+      "location": "content/production/narrative/opening-ch1/COM-03M.json",
+      "version": "2371edffe0380d8424da150c9769d0b6c96eb3cf"
+    },
+    {
+      "id": "source:docs/narrative/scenes/vertical-slice/COM-03M.md",
+      "location": "docs/narrative/scenes/vertical-slice/COM-03M.md",
+      "version": "9d0d44e057baacb86edf14cbc70a8b907601a3a3"
+    },
+    {
+      "id": "source:content/routes/opening-demo/chapter-01.json",
+      "location": "content/routes/opening-demo/chapter-01.json",
+      "version": "b098ef060ba3f32bde91a738574880ed706bf057"
+    },
+    {
+      "id": "source:content/routes/opening-demo/route.json",
+      "location": "content/routes/opening-demo/route.json",
+      "version": "333576cdcee03898a7ee3b078d1df1b137a07344"
+    },
+    {
+      "id": "source:src/engine.js",
+      "location": "src/engine.js",
+      "version": "c4d6805928ef798b397240d8188e58d960ee06ba"
+    },
+    {
+      "id": "source:src/progress.js",
+      "location": "src/progress.js",
+      "version": "aee7d3cb88157b1c43a5dd796d61b700377860f2"
+    },
+    {
+      "id": "source:src/branches.js",
+      "location": "src/branches.js",
+      "version": "d9744881f07d1b12ef9ebf8ca34f3b9bb93714a7"
+    },
+    {
+      "id": "source:src/visuals.js",
+      "location": "src/visuals.js",
+      "version": "8a4e6fa553e87d952dad9abee12d7aadf0517761"
+    },
+    {
+      "id": "source:src/player-name.js",
+      "location": "src/player-name.js",
+      "version": "0eeae5f745f09a3d4d78c2ef635f4621515e5648"
+    },
+    {
+      "id": "source:tools/content-lib.mjs",
+      "location": "tools/content-lib.mjs",
+      "version": "f23bb8944202e374603d3914fbcfd069a765f58a"
+    },
+    {
+      "id": "source:tools/preview-server.mjs",
+      "location": "tools/preview-server.mjs",
+      "version": "530d234c54b556775267506f6a3204098ce0c1bf"
+    },
+    {
+      "id": "source:tools/build.mjs",
+      "location": "tools/build.mjs",
+      "version": "ef2ff71ab62dfd615bebdfaa38d8c51aa3950777"
+    },
+    {
+      "id": "source:package.json",
+      "location": "package.json",
+      "version": "84b0644459ef847c9c3bb95e1d37ba8b53fbef16"
+    },
+    {
+      "id": "source:content/assets/manifest.json",
+      "location": "content/assets/manifest.json",
+      "version": "0000605b4efec9b96f00077c475eeed86009a653"
+    },
+    {
+      "id": "source:tests/com03j-preview.test.mjs",
+      "location": "tests/com03j-preview.test.mjs",
+      "version": "a915e320fa432f20c30e5e161dea6b5324cf5ef5"
+    },
+    {
+      "id": "source:tests/engine-progress.test.mjs",
+      "location": "tests/engine-progress.test.mjs",
+      "version": "2b7bfe03803c111ea613f1dde7724ae56afb499c"
+    },
+    {
+      "id": "source:tests/opening-locked-scenes.test.mjs",
+      "location": "tests/opening-locked-scenes.test.mjs",
+      "version": "061e008c3b8187e59841c9aa6d4620c73cad3564"
+    },
+    {
+      "id": "source:tests/browser-acceptance.spec.mjs",
+      "location": "tests/browser-acceptance.spec.mjs",
+      "version": "b9f7783fd75536c9703e7c0ccd5270fc06935091"
+    }
+  ],
+  "output_versions": [],
+  "qa_codes": [
+    {
+      "name": "exact packet/source acquisition: 29 sources SHA256/nonempty",
+      "code": "exact packet/source acquisition: 29 sources SHA256/nonempty",
+      "result": "PASS"
+    },
+    {
+      "name": "prospective COM03M preflight DISPATCH_ALLOWED",
+      "code": "prospective COM03M preflight DISPATCH_ALLOWED",
+      "result": "PASS"
+    },
+    {
+      "name": "initial Opening true missed-Jiang path exists",
+      "code": "initial Opening true missed-Jiang path exists",
+      "result": "FAIL"
+    },
+    {
+      "name": "permitted content-only new-scene save-resume integration",
+      "code": "permitted content-only new-scene save-resume integration",
+      "result": "FAIL"
+    }
+  ],
+  "known_issues": [
+    "Every initial Opening path reaches compulsory COM01J and met_jiang_yucheng=1. Approved packet supplies no alternative initial story prose/choice.",
+    "Added COM03M nodes lack Memory event membership, so capture cannot advance frontier; ordinary reload resumes previous scene. memories.json write is not permitted.",
+    "Changing com03j_preview_complete from route to branch bypasses existing COM03J replay completion interception; content-only extension cannot preserve that existing replay behavior."
+  ],
+  "human_gate_required": "narrative_preview_review",
+  "invalidates": []
+}
