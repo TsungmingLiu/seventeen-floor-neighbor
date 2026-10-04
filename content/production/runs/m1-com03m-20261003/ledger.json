@@ -5,7 +5,7 @@
   "workflow_version": "1.3.1",
   "source_ref": "b193e5056d64c3b200dae784fad4d05fc383943e",
   "human_request": {
-    "summary": "Continue approved COM03M through minimal actual OPEN-A entry; Human additionally authorizes genuine early go/not-go bookstore choice.",
+    "summary": "Continue approved COM03M through minimal actual OPEN-A entry. Latest explicit Human scope: 去書店--必定去咖啡店，再碰面可以自然的交換聯絡。不去書店--給選擇去不去咖啡店，如果碰面可以多聊幾句，意氣相投的話交換聯絡。 Bounded bookstore/cafe action and factual consensual contact revisions are authorized; new authored prose still requires independent stage checks and concrete preview review.",
     "gate_status": "approved scope; narrative preview review pending"
   },
   "status": "BLOCKED",
@@ -147,6 +147,20 @@
       "decision_receipt": "content/production/runs/m1-com03m-20261003/ND-BOOKGATE-001.decision.json",
       "human_gate": "none",
       "reason": "Fresh actual boundary check rejects separate gate after existing shop-entry narration; minimal owning COM01B source/contract correction required."
+    },
+    {
+      "task_id": "ND-BOOKGATE-002",
+      "task_type": "narrative_design",
+      "scene_id": "COM-01B",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1 bounded owning-scene discovery design attempt2",
+        "sha256": "34d54a643acec2900faad1fd0beef52f2d0efc5d6d00036ad23167c70ba53446"
+      },
+      "decision_receipt": "content/production/runs/m1-com03m-20261003/ND-BOOKGATE-002.decision.json",
+      "human_gate": "none",
+      "reason": "Fresh actual owning-boundary design PASS; existing go path preservation verified. Dialogue/NQA/visual impact and separate cafe scene timing revisions remain downstream."
     }
   ],
   "invalidation_events": [],

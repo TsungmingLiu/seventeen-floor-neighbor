@@ -2,7 +2,7 @@
 
 ## Status
 
-- Production stage: **S4 Script Lock / S5 State Contract**；待 `content_qa / narrative_review`。
+- Production stage: **Narrative Design / DRAFT**；既有書店 go 路徑的已接受文字保留，新增 action／skip passage 待獨立 scene dialogue 與 `content_qa / narrative_review`。
 - Scope: Opening Chapter 1 / common bridge between `COM-01X` and `COM-01J`.
 - Memory ownership: `common`；不新增獨立 Memory 或 route 分歧。
 - Lock rule: 電梯那晚已在 17 樓分開。本幕是週末前另一晚、大樓外的短暫偶遇；許棠給路，不陪同，也不讀出男主未說出的心情。
@@ -14,13 +14,13 @@
 
 ## Narrative Continuity Contract
 
-- Canonical contract: `content/production/narrative/opening-ch1/COM-01B.json`，內容保持原樣。
+- Canonical contract: `content/production/narrative/opening-ch1/COM-01B.json`，本輪僅修入店前 discovery 邊界。
 - Entry: 男主與許棠能自然聊幾句，仍是有界線的鄰居；男主尚未見過江雨澄。
-- Exit: 關係與數值不升級；男主多知道一處可自行去逛的店，週末仍為自己的《逆光航路》找書目的出門。
+- Exit: 關係與數值不升級；男主多知道一處可自行去逛的店。實際到訪須經週末入店前 action choice；本幕不先設江雨澄相遇或聯絡。
 
 ## Scene summary
 
-電梯重啟那晚之後、同週末前的另一個晚上，男主在公寓外遇見正要繼續往前走的許棠。兩人停下說幾句日常話。男主在新城市認識的人不多，見話題快結束，問附近有沒有能一個人逛的去處。玩家可從逛店、找書、吃喝三個自然切口提問。許棠都指向步行約十分鐘的地下街設定集／周邊書店，補一句出口上層有咖啡可坐。她道晚安，照原來的方向離開。男主把謝意說得明亮，笑容收起後留下一點寂寞。週末白天，他因本來就想查《逆光航路》新版設定集的實體增補內容而前往地下街，接上 `COM-01J`。
+電梯重啟那晚之後、同週末前的另一個晚上，男主在公寓外遇見正要繼續往前走的許棠。兩人停下說幾句日常話。男主在新城市認識的人不多，見話題快結束，問附近有沒有能一個人逛的去處。玩家可從逛店、找書、吃喝三個自然切口提問。許棠都指向步行約十分鐘的地下街設定集／周邊書店，補一句出口上層有咖啡可坐。她道晚安，照原來的方向離開。男主把謝意說得明亮，笑容收起後留下一點寂寞。週末白天，他因本來就想查《逆光航路》新版設定集的實體增補內容，先決定要不要去地下街書店。去才接上 `COM-01J`；不去則另外選擇要不要去咖啡店。
 
 ## Scene goal / dramatic question
 
@@ -53,7 +53,7 @@ next: COM-01J
 | 01B.3 日常提問 | 玩家從逛店、找書、吃喝選一個切口；三者都是可獨自實行的需求。 | choice history only |
 | 01B.4 同一推薦 | 每條都由許棠指出步行約十分鐘的地下街設定集／周邊書店，以及附近出口上層可坐的咖啡；不給特定店名或使用條件。 | location knowledge only |
 | 01B.5 有界線的晚安 | 許棠道晚安並繼續原本行程；男主刻意明亮地道謝。她沒有察覺他的微弱寂寞。 | no relationship change |
-| 01B.6 週末接續 | 同週末約 15:40，男主為《逆光航路》新版設定集走入地下街，停在 ACG 設定集／周邊店入口；`COM-01J` 原開場隨後開始。 | no Jiang contact yet |
+| 01B.6 週末決定 | 同週末白天，先作書店 go/not-go action；go 才執行既有入店 transition 與 `COM-01J`，skip 則再作咖啡店 go/not-go action。 | choice history；本幕尚無 Jiang encounter/contact |
 
 ## Player choice / local branch
 
@@ -151,6 +151,14 @@ next: COM-01J
 
 **Protagonist (thought)**：週末正好要看《逆光航路》新版設定集的實體增補。那家店，去看看吧。
 
+### Design boundary: before `common_bookstore_bridge_weekend_transition`
+
+此處是新 action choice 的**設計大綱，尚非 Locked dialogue／最終選項文案**。接在 `common_bookstore_bridge_rejoin` 之後、任何「走進台北地下街／來到店」敘述之前；保留三個 `com01b_*` 提問選項及其全部原字與 rejoin。玩家此時只知道許棠推薦的地點，仍未去過，也未見江雨澄。
+
+- **書店 go**：選擇實際前往；執行下方原有 `common_bookstore_bridge_weekend_transition` 原字及 `COM-01J` 既有初遇，不改其節點、三個作品表達選擇、姓名／contact 邊界或已接受的視覺事件。書店初遇之後，同一次外出**必定**去咖啡店，作有因果的 `COM-02J` 重逢；具體時序與後續交談由其獨立修訂擁有。
+- **書店 skip**：不執行下方入店 transition／`COM-01J`，不取得其作品 topic 或江雨澄推薦；再給玩家一個實際**去咖啡店／不去咖啡店**的 action choice。去店則在 `COM-02J` 設計一場有界線的首次相遇，建立當場實際取得的姓名及共同話題；不去則無江雨澄相遇、姓名或 contact，繼續 Xu／個人生活路徑。去咖啡店可由男主自己想坐下休息／處理事情及許棠先前給的普通上層咖啡線索支持，不假裝江雨澄已推薦北邊出口店。
+- **Cafe/contact 邊界**：兩種有實際相遇的 cafe 走法，只有在自然繼續交談、雙方有意且同意時才可交換聯絡；Warm／Candid／Playful 都有同一 knowledge 與可能性。拒絕聯絡是普通道別，不能生成 romantic closure、RE 或負面分數。此處只交代 downstream prerequisite，不寫咖啡店對白。
+
 ### `common_bookstore_bridge_weekend_transition`
 
 **Time transition**：同週末，約 15:40。
@@ -158,6 +166,13 @@ next: COM-01J
 **Action**：我走進台北地下街，來到那家以設定集與周邊為主的 ACG 店。我想查《逆光航路》新版究竟增補了什麼。
 
 → `COM-01J` / `common_acg_first_meet_enter`；其既有對白和首次相遇保持原樣。
+
+## Downstream owning revisions (not authored in this Design pass)
+
+- `COM-01J`：只加外部 go gate 與同次外出 cafe 因果出口；保留原有書架初遇、無姓名／無 contact 的事件、topic truth、IDs 與已接受 visual beats。書店 skip 時整幕不執行。
+- `COM-02J`：獨立修正原本 Week 2 cafe 重逢時序為書店 go 後同次外出必經的重逢，並處理書店 skip + cafe go 的**首次**相遇變體。後者不能使用店內舊識、Jiang 推薦、先前 topic 或既有姓名；兩條都在實際談話後才取得各自真實姓名／共同話題，並提供不依 tone 成績的持續交談與聯絡同意／拒絕結局。只需一個有界線的 authored 首遇，不另造隨機在場或 cafe 無人變體。
+- `COM-03J`：現有第三次咖啡店外碰面與必得 Discord contact 與前述可於 cafe 自然交換的 timing 衝突。獨立縮成只在有真實 cafe contact 後的後續分享／推薦，或對無 contact 的路徑保留誠實的不聯絡出口；任何 callback 必須按實際 topic history 選用。不得用第三次相遇補造先前 consent。
+- `COM-02X`／`COM-03X` 的 Xu 前置與 contact 仍獨立成立；`COM-03M` 的 contact-gated／never-met 變體與其後 `OPEN-A` 維持現有事實邊界。這些檔案均非本輪寫入。
 
 ## State contract
 
@@ -187,7 +202,7 @@ unchanged:
 ```
 
 - 上述 relationship 數字 `0` 表示**本幕增量為零**，不覆寫先前累積值。
-- 本幕只增加男主對地點的大致認識；若實作需要回顧，使用本幕完成紀錄或 choice history，不新增必需的 relationship flag。
+- 本幕只增加男主對地點的大致認識；書店 go/skip 及 skip 後 cafe go/skip 用 choice history 保存真實行動，不新增 relationship score 或人物好感門檻。兩處 skip 時 `met_jiang_yucheng=false`、`contact_jyc=false`。
 - `COM-01J` 的 `met_jiang_yucheng`、`F_JYC`、`heard_station_cafe_from_jyc` 與 `jyc_first_topic` 仍由該幕處理。
 
 ## Semantic Visual Beats
@@ -197,6 +212,8 @@ unchanged:
 - 許棠離開後，男主的表情回到平常，讓一點孤單存在但不誇張。
 - 同週末白天的地下街店入口，男主帶著自己的找書目標入店；江雨澄尚未進入本幕畫面或對話。
 
+上述最後一項僅書店 go 有資格播放；skip 路徑需獨立 visual impact review。
+
 以上只描述敘事可見事件；本幕不指定 camera、CG 數量、prompt 或 reference binding。
 
 ## Continuity boundary
@@ -204,4 +221,8 @@ unchanged:
 - `COM-01X` 的垃圾室資訊、17 樓到站及各自回門結尾不變。
 - 許棠沒有說出咖啡店名、北邊出口、平日下午安靜程度、窗邊、插座或店員習慣；這些具體資訊仍由 `COM-01J` 中江雨澄提供。
 - 男主沒有邀許棠同行、交換聯絡方式或把推薦當成私人邀請。許棠不知道他道謝之後的寂寞。
-- `COM-01J` 仍在週末約 15:40 的地下街 ACG 店，以男主和江雨澄互不相識、共同作品的具體比較開場。
+- `COM-01J` 僅書店 go 時在週末約 15:40 的地下街 ACG 店，以男主和江雨澄互不相識、共同作品的具體比較開場；skip 時不得沿用其相遇／咖啡推薦。
+
+## Accepted COM-01B art boundary
+
+現有四個已接受 COM-01B CG identity 均保留；大樓外偶遇、許棠指路、明亮道謝後的孤單，以及原有書店 go 入口的視覺含義不改。此 Design pass 不宣稱新 skip 路徑的視覺 QA 或 `no_visual_impact`；由獨立 NQA 查看相關既有像素與條件播放後判定。
