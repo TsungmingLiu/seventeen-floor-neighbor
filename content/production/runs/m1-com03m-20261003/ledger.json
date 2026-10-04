@@ -351,6 +351,22 @@
       "decision_receipt": "content/production/runs/m1-com03m-20261003/ND-CAFE-CORRECTION-001.decision.json",
       "human_gate": "none",
       "reason": "Actual unchanged-contract-only correction authorization PASS; rejected Cafe source not approved. Fresh focused writer and affected independent QA pending."
+    },
+    {
+      "task_id": "NQA-BOOKGATE-002",
+      "task_type": "narrative_review",
+      "scene_id": "COM-01B",
+      "depends_on": [
+        "CW-BOOKGATE-CORRECTION-001"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "tools/context.mjs:narrative_review",
+        "sha256": "1a5319fe73765d2dbbea07d48ee88cefbb08311a129fc088e9701450e67b74c0"
+      },
+      "decision_receipt": "content/production/runs/m1-com03m-20261003/NQA-BOOKGATE-002.decision.json",
+      "human_gate": "none",
+      "reason": "Actual fresh affected Narrative QA PASS for exact corrected source; semantic visual beats only, accepted-art reuse/pixels and Human preview still pending."
     }
   ],
   "invalidation_events": [],
