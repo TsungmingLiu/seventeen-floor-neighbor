@@ -255,6 +255,22 @@
       "decision_receipt": null,
       "human_gate": "none",
       "reason": "Actual writer PASS Handoff/contract-fit checks verified; evening Discord recommendation follows actual cafe departure, no second goodbye/offscreen promise. Independent joint-source NQA pending."
+    },
+    {
+      "task_id": "NQA-BOOKGATE-001",
+      "task_type": "narrative_review",
+      "scene_id": "COM-01B",
+      "depends_on": [
+        "CW-BOOKGATE-001"
+      ],
+      "status": "NEEDS_REVIEW",
+      "packet": {
+        "generator": "tools/context.mjs:narrative_review",
+        "sha256": "ac86008c90e53cda57087775bb64b8f72a6ff54b997fb7ccac1baf504c985df7"
+      },
+      "decision_receipt": "content/production/runs/m1-com03m-20261003/NQA-BOOKGATE-001.decision.json",
+      "human_gate": "none",
+      "reason": "Actual independent semantic QA NEEDS_REVIEW: shared thought precommits bookstore before go/skip. All other checks PASS; focused correction and fresh affected QA pending."
     }
   ],
   "invalidation_events": [],

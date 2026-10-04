@@ -4,7 +4,7 @@
 
 ## Status and binding
 
-- Production stage: **Scene/Dialogue — LOCKED**. This is the authored scene for the approved COM-02J Narrative Continuity Contract; independent Narrative QA, visual-impact review and Human narrative-preview review are pending.
+- Production stage: **Scene/Dialogue — Script Lock / LOCKED**. This is the authored scene for the approved COM-02J Narrative Continuity Contract; independent Narrative QA, visual-impact review and Human narrative-preview review are pending.
 - Canonical contract: `content/production/narrative/opening-ch1/COM-02J.json`, SHA-256 `f2cddc0d4c99c938cddd95d8cef543911135d4991de049a4ef9247221ce02106` (Git blob `c5c62394ecef934ff96159768a70c8787125730f`). Approved design/source scene: this file's pinned predecessor, Git blob `9de22cbb30350bffc63d66eb1b5432156cd9f2ce`.
 - Scene ownership: bookstore go → COM-01J → this cafe on the **same outing**, without another cafe choice. Bookstore skip + cafe go → this cafe as a **first meeting**. Bookstore skip + cafe skip bypasses this scene: `met_jiang_yucheng=false`, no names, topic or contact.
 - Immediate continuity: COM-01B supplies only the ordinary clue that an exit has a cafe upstairs. COM-01J, if played, supplies the actual north-exit cafe recommendation and the spoken 《逆光航路》 topic. The approved COM-03M contacted-Jiang payoff names Discord, so an actual contact exchange here uses Discord. This scene adds no COM-03M conversation or COM-03J instruction.
@@ -16,9 +16,9 @@
 - `content/production/narrative/opening-ch1/COM-01J.json` — actual bookstore knowledge
 - `content/production/narrative/opening-ch1/COM-03M.json` — Discord channel compatibility only
 - `docs/art/characters/jiang-yucheng.md#L11-L62` — task-bounded character voice
-- `docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_COMMON.md#L136-L160` — immediate scene intent
-- `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L296-L328` — knowledge boundary
-- `docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md#L154-L238` and `#L304-L375` — action/knowledge authority
+- `docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_COMMON.md` — immediate scene intent; this pass read only lines 136–160
+- `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md` — knowledge boundary; this pass read only lines 296–328
+- `docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md` — action/knowledge authority; this pass read only lines 154–238 and 304–375
 - Pinned predecessor `docs/narrative/scenes/vertical-slice/COM-02J.md` — compatible go-path dialogue and semantic beats
 
 ## Narrative Continuity Contract binding

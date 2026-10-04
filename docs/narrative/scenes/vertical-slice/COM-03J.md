@@ -11,6 +11,17 @@
 - COM-02J 擁有實際咖啡店相遇、互知姓名、共同話題、雙方同意與可用聯絡方式交換。書店 go 必定在同次外出到咖啡店；書店 skip 另有 cafe go/no-go。COM-03J 只承接已發生的事；COM-03X 的 common graph 位置不代表江雨澄又見過男主或知道許棠。
 - `common_recommend_discord_jyc_*` 為既有穩定 authoring node IDs，三個 `com03j_*` 為既有穩定 reply choice IDs；此處沒有 runtime／save／Memory wiring。私訊 body 的具體渠道是 **Discord**，因此只在 COM-02J 實際雙方同意並交換 Discord 後使用。若前事實際交換其他管道，本稿不可假作 Discord 私訊；需由後續 bounded channel wording revision 解決，不得靜默改口。
 
+## Canonical inputs
+
+- `content/production/narrative/opening-ch1/COM-03J.json` — exact approved COM-03J continuity contract.
+- `docs/narrative/scenes/vertical-slice/COM-02J.md` — pinned upstream cafe design source in this packet; its later Locked Scene is reserved for independent joint Narrative QA.
+- `content/production/narrative/opening-ch1/COM-02J.json` — approved upstream cafe contact/knowledge contract.
+- `content/production/narrative/opening-ch1/COM-03M.json` — contacted-Jiang Discord payoff requirement only.
+- `docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_COMMON.md` — only lines 184–206, COM-03J purpose and progression.
+- `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md` — only lines 296–328, Jiang knowledge constraints.
+- `docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md` — only lines 154–238 and 304–375, choice/consequence and no-score authority.
+- `docs/art/characters/jiang-yucheng.md` — only lines 11–62, Jiang character/voice boundary.
+
 ## Narrative Continuity Contract
 
 - Canonical contract: `content/production/narrative/opening-ch1/COM-03J.json`。
