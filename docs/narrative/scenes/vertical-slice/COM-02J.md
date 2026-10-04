@@ -14,6 +14,7 @@
 - `content/production/narrative/opening-ch1/COM-02J.json` — approved scene contract
 - `content/production/narrative/opening-ch1/COM-01B.json` — visit decision and Xu's limited clue
 - `content/production/narrative/opening-ch1/COM-01J.json` — actual bookstore knowledge
+- `docs/narrative/scenes/vertical-slice/COM-01J.md` — immediate bookstore scene source for independent callback verification
 - `content/production/narrative/opening-ch1/COM-03M.json` — Discord channel compatibility only
 - `docs/art/characters/jiang-yucheng.md#L11-L62` — task-bounded character voice
 - `docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_COMMON.md` — immediate scene intent; this pass read only lines 136–160

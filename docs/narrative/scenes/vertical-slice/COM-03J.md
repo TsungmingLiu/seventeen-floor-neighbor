@@ -15,6 +15,7 @@
 
 - `content/production/narrative/opening-ch1/COM-03J.json` — exact approved COM-03J continuity contract.
 - `docs/narrative/scenes/vertical-slice/COM-02J.md` — pinned upstream cafe design source in this packet; its later Locked Scene is reserved for independent joint Narrative QA.
+- `docs/narrative/scenes/vertical-slice/COM-01J.md` — prerequisite bookstore-topic source path for independent downstream QA; prose not acquired in this bounded packet.
 - `content/production/narrative/opening-ch1/COM-02J.json` — approved upstream cafe contact/knowledge contract.
 - `content/production/narrative/opening-ch1/COM-03M.json` — contacted-Jiang Discord payoff requirement only.
 - `docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_COMMON.md` — only lines 184–206, COM-03J purpose and progression.

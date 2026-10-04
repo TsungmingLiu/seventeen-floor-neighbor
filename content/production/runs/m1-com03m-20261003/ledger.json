@@ -254,7 +254,7 @@
       },
       "decision_receipt": null,
       "human_gate": "none",
-      "reason": "Actual writer PASS Handoff/contract-fit checks verified; evening Discord recommendation follows actual cafe departure, no second goodbye/offscreen promise. Independent joint-source NQA pending."
+      "reason": "Actual writer PASS Handoff/contract-fit checks verified; evening Discord recommendation follows actual cafe departure, no second goodbye/offscreen promise. Independent joint-source NQA pending. Same-objective metadata-only upstream COM01J canonical-input path added, actual Handoff verified/body bytes protected; no new prose/QA approval."
     },
     {
       "task_id": "NQA-BOOKGATE-001",
@@ -446,7 +446,7 @@
       },
       "decision_receipt": null,
       "human_gate": "none",
-      "reason": "Fresh actual writer-only PASS verified; complete both-outcome ending audit and coherent single shared departure, stableIDs/contract/contact facts unchanged. Fullaffected independent CafeQA pending; final3J current-source check waits CafePASS."
+      "reason": "Fresh actual writer-only PASS verified; complete both-outcome ending audit and coherent single shared departure, stableIDs/contract/contact facts unchanged. Fullaffected independent CafeQA pending; final3J current-source check waits CafePASS. Same-objective metadata-only upstream COM01J canonical-input path added, actual Handoff verified/body bytes protected; no new prose/QA approval."
     },
     {
       "task_id": "NQA-CAFE-003",
