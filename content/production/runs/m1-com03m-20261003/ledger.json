@@ -415,6 +415,22 @@
       "decision_receipt": "content/production/runs/m1-com03m-20261003/NQA-CONTACT-CONTINUATION-002.decision.json",
       "human_gate": "none",
       "reason": "Actual unchanged continuation QA PASS bound to Cafe10f6b955; after final Cafe ending correction, defer current-source revalidation until Cafe finalPASS; no continuation prose rewrite."
+    },
+    {
+      "task_id": "ND-CAFE-ENDING-SCOPE-001",
+      "task_type": "narrative_design",
+      "scene_id": "COM-02J",
+      "depends_on": [
+        "NQA-CAFE-002"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1 complete-ending contract-only corrective check",
+        "sha256": "46a6292518550397df9ca8252d5a7234027e3dc1f026a6b3abb933a16321ddf0"
+      },
+      "decision_receipt": "content/production/runs/m1-com03m-20261003/ND-CAFE-ENDING-SCOPE-001.decision.json",
+      "human_gate": "none",
+      "reason": "Actual current unchanged-contract scope PASS with exact canonical witness; one coherent departure is actual NQA correction objective fitting ordinary-exit boundary, not invented canonical clause. Fresh whole-ending writer/QA pending."
     }
   ],
   "invalidation_events": [],
