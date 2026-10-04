@@ -5,7 +5,7 @@
   "workflow_version": "1.3.1",
   "source_ref": "b193e5056d64c3b200dae784fad4d05fc383943e",
   "human_request": {
-    "summary": "Continue approved COM-03M through first minimal playable OPEN-A entry with fresh bounded workers.",
+    "summary": "Continue approved COM03M through minimal actual OPEN-A entry; Human additionally authorizes genuine early go/not-go bookstore choice.",
     "gate_status": "approved scope; narrative preview review pending"
   },
   "status": "BLOCKED",
@@ -133,6 +133,20 @@
       "decision_receipt": "content/production/runs/m1-com03m-20261003/INT-COM03M-001.decision.json",
       "human_gate": "narrative_preview_review",
       "reason": "Actual blocked integration made no source edits; minimal Memory/frontier continuation and approved no-Jiang-contact gate require corrected authorized runtime scope."
+    },
+    {
+      "task_id": "ND-BOOKGATE-001",
+      "task_type": "narrative_design",
+      "scene_id": "COM-01G",
+      "depends_on": [],
+      "status": "BLOCKED",
+      "packet": {
+        "generator": "manual-v1 bounded discovery-gate design",
+        "sha256": "654be00d6fac952f40224ca8462e094d4d7c0a9e63d3814122d1daef4f1c6b59"
+      },
+      "decision_receipt": "content/production/runs/m1-com03m-20261003/ND-BOOKGATE-001.decision.json",
+      "human_gate": "none",
+      "reason": "Fresh actual boundary check rejects separate gate after existing shop-entry narration; minimal owning COM01B source/contract correction required."
     }
   ],
   "invalidation_events": [],
