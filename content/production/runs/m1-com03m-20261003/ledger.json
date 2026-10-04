@@ -271,6 +271,22 @@
       "decision_receipt": "content/production/runs/m1-com03m-20261003/NQA-BOOKGATE-001.decision.json",
       "human_gate": "none",
       "reason": "Actual independent semantic QA NEEDS_REVIEW: shared thought precommits bookstore before go/skip. All other checks PASS; focused correction and fresh affected QA pending."
+    },
+    {
+      "task_id": "ND-BOOKGATE-CORRECTION-001",
+      "task_type": "narrative_design",
+      "scene_id": "COM-01B",
+      "depends_on": [
+        "NQA-BOOKGATE-001"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1 contract-only corrective-scope check",
+        "sha256": "b212910cf69810739e5fba0b00d2a8975b3872251285baf7602d7c6a8d022ac9"
+      },
+      "decision_receipt": "content/production/runs/m1-com03m-20261003/ND-BOOKGATE-CORRECTION-001.decision.json",
+      "human_gate": "none",
+      "reason": "Fresh actual contract-only authorization PASS; unchanged contract only, rejected scene not approved. Focused writer and affected independent NQA remain pending."
     }
   ],
   "invalidation_events": [],
