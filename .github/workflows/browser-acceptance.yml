@@ -9,18 +9,6 @@ on:
         type: boolean
         default: false
   workflow_dispatch:
-  push:
-    branches:
-      - main
-    paths:
-      - 'src/**'
-      - 'public/**'
-      - 'content/**'
-      - 'assets-src/**'
-      - 'tools/build*.mjs'
-      - 'tools/preview-server.mjs'
-      - 'tests/browser-acceptance.spec.mjs'
-      - '.github/workflows/browser-acceptance.yml'
 
 jobs:
   chromium:
