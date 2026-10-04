@@ -5,7 +5,7 @@
 ## Status and binding
 
 - Production stage: **Scene/Dialogue — Script Lock / LOCKED**. This is the authored scene for the approved COM-02J Narrative Continuity Contract; independent Narrative QA, visual-impact review and Human narrative-preview review are pending.
-- Canonical contract: `content/production/narrative/opening-ch1/COM-02J.json`, SHA-256 `f2cddc0d4c99c938cddd95d8cef543911135d4991de049a4ef9247221ce02106` (Git blob `c5c62394ecef934ff96159768a70c8787125730f`). Approved design/source scene: this file's pinned predecessor, Git blob `9de22cbb30350bffc63d66eb1b5432156cd9f2ce`.
+- Approved design/source scene: this file's pinned predecessor, Git blob `9de22cbb30350bffc63d66eb1b5432156cd9f2ce`.
 - Scene ownership: bookstore go → COM-01J → this cafe on the **same outing**, without another cafe choice. Bookstore skip + cafe go → this cafe as a **first meeting**. Bookstore skip + cafe skip bypasses this scene: `met_jiang_yucheng=false`, no names, topic or contact.
 - Immediate continuity: COM-01B supplies only the ordinary clue that an exit has a cafe upstairs. COM-01J, if played, supplies the actual north-exit cafe recommendation and the spoken 《逆光航路》 topic. The approved COM-03M contacted-Jiang payoff names Discord, so an actual contact exchange here uses Discord. This scene adds no COM-03M conversation or COM-03J instruction.
 
@@ -21,7 +21,10 @@
 - `docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md` — action/knowledge authority; this pass read only lines 154–238 and 304–375
 - Pinned predecessor `docs/narrative/scenes/vertical-slice/COM-02J.md` — compatible go-path dialogue and semantic beats
 
-## Narrative Continuity Contract binding
+## Narrative Continuity Contract
+
+- Canonical contract: `content/production/narrative/opening-ch1/COM-02J.json`
+- Contract SHA-256: `f2cddc0d4c99c938cddd95d8cef543911135d4991de049a4ef9247221ce02106` (Git blob `c5c62394ecef934ff96159768a70c8787125730f`).
 
 At entry, bookstore-go characters have just discussed a real work and remain unnamed acquaintances; bookstore-skip characters are strangers. The protagonist enters for his own rest, reading or work. Jiang is drawing her own character and owes him no conversation. Actual cafe interaction establishes both names, a particular shared-interest discussion, a question in each direction, and a brief interval of parallel activity. Contact is possible only after the local discussion and an explicit, mutually accepted exchange. The exit is an ordinary acquaintance with or without a usable channel, never a date or a romantic verdict. Her anonymous identity, precise job, home and commissions stay unknown. The skip-cafe route has no COM-02J event at all.
 
