@@ -1,0 +1,170 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "m1-com03m-20261003",
+  "task_id": "ND-OPENA-001",
+  "scene_id": "OPEN-A",
+  "task_type": "narrative_design",
+  "status": "PASS",
+  "harness": {
+    "id": "content_writer",
+    "version": "1.4.1",
+    "pass": "narrative_design"
+  },
+  "source_ref": "c99eb9a1693a44114ad4752f37d20d2d6f303f3c",
+  "packet_sha256": "966299835fcc530aeec62a2bf47ae7577dea47b9ef22f4203a5b9f34058ce646",
+  "input_digest_sha256": "afcbf59b20ae1d36cf473037cb7ae54753734e323a029efcad89353e078605d2",
+  "input_versions": [
+    {
+      "id": "source:AGENTS.md",
+      "location": "AGENTS.md",
+      "version": "30c4100ca74b97c1d0264afbdd96fa3586dfa72a"
+    },
+    {
+      "id": "source:.ai/WORKFLOW_MANIFEST.yaml",
+      "location": ".ai/WORKFLOW_MANIFEST.yaml",
+      "version": "73abdc4ae26ed2668785f7bbc85a672bb3a6b4ce"
+    },
+    {
+      "id": "source:.ai/harnesses/bootstrap.md",
+      "location": ".ai/harnesses/bootstrap.md",
+      "version": "203ed890ea00144d9e107fe5f00c0f9aec236065"
+    },
+    {
+      "id": "source:.ai/policies/SOURCE_AUTHORITY.md",
+      "location": ".ai/policies/SOURCE_AUTHORITY.md",
+      "version": "e1512e92dd4d9ee7eb715f37fb241a6bad786fac"
+    },
+    {
+      "id": "source:.ai/policies/CONTEXT_ISOLATION.md",
+      "location": ".ai/policies/CONTEXT_ISOLATION.md",
+      "version": "41d64227fc95501882525620bcf1de8fe396dc94"
+    },
+    {
+      "id": "source:docs/CONTENT_PRODUCTION_SOURCE_MAP.md",
+      "location": "docs/CONTENT_PRODUCTION_SOURCE_MAP.md",
+      "version": "357b75d23cf0692f777055c4263b31b1d9219747"
+    },
+    {
+      "id": "source:.ai/schemas/HANDOFF.md",
+      "location": ".ai/schemas/HANDOFF.md",
+      "version": "afc281249049d1408ca7ad343d6940bb683f0390"
+    },
+    {
+      "id": "source:docs/PRODUCTION_WORKFLOW_TOOLS.md",
+      "location": "docs/PRODUCTION_WORKFLOW_TOOLS.md",
+      "version": "f0bce55f5428036f53e17f68b017d66b969a1f73"
+    },
+    {
+      "id": "source:.ai/harnesses/content-writer.md",
+      "location": ".ai/harnesses/content-writer.md",
+      "version": "729e54d6a66e8744432184ffc41bdaf61bb0a743"
+    },
+    {
+      "id": "source:.ai/schemas/NARRATIVE_CONTINUITY.md",
+      "location": ".ai/schemas/NARRATIVE_CONTINUITY.md",
+      "version": "f32b4b315a51975d60d99818c3eec63f079df70c"
+    },
+    {
+      "id": "source:.ai/schemas/narrative-continuity.schema.json",
+      "location": ".ai/schemas/narrative-continuity.schema.json",
+      "version": "faa5bbf41856406f85eac61d7d25a57869e3495e"
+    },
+    {
+      "id": "source:tools/validate-production-contracts.mjs",
+      "location": "tools/validate-production-contracts.mjs",
+      "version": "5eeaa252ef121d8ce6e25557d860c88f1be09878"
+    },
+    {
+      "id": "source:docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_COMMON.md#L230-L243",
+      "location": "docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_COMMON.md#L230-L243",
+      "version": "a8b286b17bee4cadc70d0ee6b4f5016bf06f296be7ee5a68f87f9c03ce0d3a58"
+    },
+    {
+      "id": "source:docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L400-L415",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L400-L415",
+      "version": "907567fc8386e6044dc6db61e6cd71d41137e8368cea7d7f594854b91bda7e03"
+    },
+    {
+      "id": "source:docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L296-L328",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L296-L328",
+      "version": "1c0cf03d4ac7cc25cf81822cdf61f8f080258d93b6063034702fedcb6d5d3d90"
+    },
+    {
+      "id": "source:docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md#L154-L238",
+      "location": "docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md#L154-L238",
+      "version": "681b1e7c63582f40263121daa81d02dcf0746ecfa8898741f52da1cc456e0a1b"
+    },
+    {
+      "id": "source:docs/art/characters/xu-tang.md#L11-L60",
+      "location": "docs/art/characters/xu-tang.md#L11-L60",
+      "version": "d90293f69741aa1f444c421d2b65729854f738c54b86b43eb14b42715f88a507"
+    },
+    {
+      "id": "source:docs/art/characters/jiang-yucheng.md#L11-L62",
+      "location": "docs/art/characters/jiang-yucheng.md#L11-L62",
+      "version": "e41fa3698b27dfc2b8a03a9a83e4450289eca51a77888eded39359a051a0df62"
+    },
+    {
+      "id": "source:content/production/narrative/opening-ch1/COM-03M.json",
+      "location": "content/production/narrative/opening-ch1/COM-03M.json",
+      "version": "2371edffe0380d8424da150c9769d0b6c96eb3cf"
+    },
+    {
+      "id": "source:content/production/narrative/opening-ch1/COM-03X.json",
+      "location": "content/production/narrative/opening-ch1/COM-03X.json",
+      "version": "f114a8586b7f5d09d6c1daf8af87e73285bc8967"
+    },
+    {
+      "id": "source:content/production/narrative/opening-ch1/COM-03J.json",
+      "location": "content/production/narrative/opening-ch1/COM-03J.json",
+      "version": "35da25785637b1f4dbcbfd01f982671a2f71886e"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "narrative-continuity-contract:OPEN-A",
+      "location": "content/production/narrative/opening-ch1/OPEN-A.json",
+      "version": "b54307c2d21d583870c1e87755c4516bc5244cb1"
+    },
+    {
+      "id": "scene-design:OPEN-A",
+      "location": "docs/narrative/scenes/vertical-slice/OPEN-A.md",
+      "version": "464d7a0c9d0ddf2cb91c5ff19506ec98e452c525"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "ND-SCHEMA",
+      "code": "ND-SCHEMA",
+      "result": "PASS"
+    },
+    {
+      "name": "ND-CONTACT-BOUNDARY",
+      "code": "ND-CONTACT-BOUNDARY",
+      "result": "PASS"
+    },
+    {
+      "name": "ND-AGENCY-INVITE-OUTCOMES",
+      "code": "ND-AGENCY-INVITE-OUTCOMES",
+      "result": "PASS"
+    },
+    {
+      "name": "ND-TWO-WINDOW-SAVE-BOUNDARY",
+      "code": "ND-TWO-WINDOW-SAVE-BOUNDARY",
+      "result": "PASS"
+    },
+    {
+      "name": "ND-NO-SCOPE-EXPANSION",
+      "code": "ND-NO-SCOPE-EXPANSION",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "Independent Narrative QA and Human narrative preview review remain downstream.",
+    "Pending arrangements stop before unauthored XT-04/JYC-05; life outcomes stop before unauthored window 2."
+  ],
+  "human_gate_required": "none",
+  "invalidates": []
+}

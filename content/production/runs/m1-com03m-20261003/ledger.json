@@ -23,6 +23,22 @@
       "decision_receipt": "content/production/runs/m1-com03m-20261003/ND-COM03M-001.decision.json",
       "human_gate": "none",
       "reason": "Verified exact fresh Narrative Design Handoff; dialogue and independent Narrative QA remain downstream."
+    },
+    {
+      "task_id": "ND-OPENA-001",
+      "task_type": "narrative_design",
+      "scene_id": "OPEN-A",
+      "depends_on": [
+        "ND-COM03M-001"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1 bounded narrative-design packet",
+        "sha256": "966299835fcc530aeec62a2bf47ae7577dea47b9ef22f4203a5b9f34058ce646"
+      },
+      "decision_receipt": "content/production/runs/m1-com03m-20261003/ND-OPENA-001.decision.json",
+      "human_gate": "none",
+      "reason": "Exact fresh bounded entry design Handoff verified; dialogue and independent Narrative QA downstream."
     }
   ],
   "invalidation_events": [],

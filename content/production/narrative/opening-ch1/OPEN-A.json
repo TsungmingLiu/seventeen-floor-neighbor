@@ -1,0 +1,173 @@
+{
+  "schema_version": "1.0.0",
+  "scene_id": "OPEN-A",
+  "lifecycle": "CANONICAL",
+  "source_scene": "docs/narrative/scenes/vertical-slice/OPEN-A.md",
+  "entry_state": {
+    "relationships": [
+      {
+        "subject": "xu_tang",
+        "toward": "protagonist",
+        "label": "familiar_neighbors_with_boundaries",
+        "constraints": [
+          "僅既有 contact 方成立；普通熟人聯絡開始帶有對下一次分享的期待，維持 predecessor 的關係邊界，沒有確定的私人情感或已接受約會。"
+        ]
+      },
+      {
+        "subject": "jiang_yucheng",
+        "toward": "protagonist",
+        "label": "acquaintances_with_shared_interest_and_contact",
+        "constraints": [
+          "僅既有 contact 方成立；普通熟人聯絡開始帶有對下一次分享的期待，維持 predecessor 的關係邊界，沒有確定的私人情感或已接受約會。"
+        ]
+      }
+    ],
+    "knowledge": [
+      {
+        "holder": "protagonist",
+        "knows": [
+          "保留真實 entry knowledge；知道本幕實際收到的普通生活／作品內容，以及已 contact 方提供的具體活動話題。"
+        ],
+        "does_not_know": [
+          "活動是否會被接受、誰有空及未演出的後續場景；两人未披露的私人動機、匿名身份與跨人物關係。"
+        ]
+      },
+      {
+        "holder": "xu_tang",
+        "knows": [
+          "若已 contact，只新增她實際收到的男主小事與當地回覆節奏。"
+        ],
+        "does_not_know": [
+          "江雨澄存在或關係、另一個通知內容與男主未披露行程。"
+        ]
+      },
+      {
+        "holder": "jiang_yucheng",
+        "knows": [
+          "若已 contact，只新增她實際收到的男主小事與當地作品回應。"
+        ],
+        "does_not_know": [
+          "許棠存在或鄰居關係、另一個通知內容與男主未披露行程。"
+        ]
+      }
+    ],
+    "constraints": [
+      "COM-03M completed、open_dating_unlocked=true，至少一個真實 contact；從已收到的活動話題自然進入，不再重演 montage。",
+      "首次實際進入本幕才記 open_a_entered；OPEN-A 僅有第一、第二兩個 authored major windows。本次只寫第一 window 的邀約／生活入口，第二 window 未開啟。",
+      "從未見／已見未 contact 江雨澄均無她的訊息、邀請或選項；只 contact 一人仍可完整遊玩。既有 harm/closure 若使同行不合法，略過邀約，不用本幕重新開啟關係。"
+    ]
+  },
+  "scene_function": [
+    "把訊息話題轉為玩家可實際詢問、接邀、協商同 window 時段或婉拒的第一個生活安排；女主也有自己的可用時間與判斷。",
+    "讓男主想買設計書／看展、整理剩下的搬家箱、完成工作後休息等自身需要決定當下行動。",
+    "以已同意但尚未赴約的安排，或真正演出的 solo/rest/wait 第一 window 生活片段，交付可保存的入口結果；停在未 authored anchor 或第二 window 前。"
+  ],
+  "character_intent": [
+    {
+      "character_id": "protagonist",
+      "intent": "想找書、看作品，也可以想有人同行；直接說自己有空的時間或想休息，不替女主決定，也不把接受當戀愛獎勵。"
+    },
+    {
+      "character_id": "xu_tang",
+      "intent": "僅真實 contact 且 eligible 時，自己本來想看中山設計書，可主動問同行；保留自己安排，只接受合適時段，能拒絕提早出門而提出同 window 原時段。"
+    },
+    {
+      "character_id": "jiang_yucheng",
+      "intent": "僅真實 contact 且 eligible 時，延續限定展資訊；面對男主邀請先完成自己手上的作品，再提出同 window 較晚時段，不因被邀就放下自己的事。"
+    }
+  ],
+  "player_information_gain": [
+    "活動分享不是同意同行；實際詢問後才知道對方當地願意與否及可用時段。",
+    "許棠想看設計書、雨澄有自己的作品安排；資訊只從實際收到的訊息成立，不推定隱藏感情。",
+    "可以接住同 window 替代時間，也可以坦白不合適；個人生活不需要另一人批准，休息不扣關係。"
+  ],
+  "emotional_arc": [
+    "男主看到手邊未整理的箱子與自己的空檔，接回 COM-03M 已知活動話題，第一次考慮是否同行。",
+    "從普通提議到雙方說清楚可用時間；對方有自己的節奏，玩家可以接受或收回安排。",
+    "成行方向停在明確但未赴約的期待；未成行方向回到男主具體生活，仍保有正常聯絡。"
+  ],
+  "required_payoffs": [
+    "實際 entry 建立 open_a_entered=true；不得在 COM-03M exit、讀話題或只顯示按鈕時提前建立。",
+    "按 contact/eligibility 只顯示已知活動的具體行動：接許棠設計書同行提議／主動問她同行、問雨澄限定展同行、先安排自己的時間。雙 contact 不需要先選 route；一次只處理一個實際邀約，不向未選方自動送訊息。",
+    "許棠入口：她可主動提第一 window 下午的中山設計書；player-initiated 也回到同一時段確認。玩家可同意、問能否提早、或婉拒；她拒絕提早並保留原下午提議，玩家再接受原時段或明確不約。",
+    "雨澄入口：男主問第一 window 下午是否同行看限定展；她先做完手邊作品，婉拒所問較早時段並提出同 window 較晚的下午。玩家可接受或說這次時間不合。不新增展名、票券、營業時間或私人作品／匿名身份。",
+    "兩人接受只建立雙方同意的 pending XT-04／JYC-05 安排；尚未赴約、不完成 anchor、不記 major investment、不消耗第一 window。accepted 的時間／活動由所選 authored 分支固定可重建，不另建自由 calendar。",
+    "不邀、玩家婉拒或替代時間不合，當地有自然收束後進入同一生活選擇：整理剩下的搬家箱（solo）、完成手邊工作後早睡（rest）、看完已收到的作品再放下手機（wait）。每支各有具體 action、生活反應及收尾，wait 不保證新訊息；演完只消耗第一 window。",
+    "每個 pending 與生活 outcome 有獨立可達的保存 boundary，不能共用會抹掉結果的假 endpoint；第二 window 未開，不預約、消耗或贈送未來 slot。"
+  ],
+  "exit_state": {
+    "relationships": [
+      {
+        "subject": "xu_tang",
+        "toward": "protagonist",
+        "label": "familiar_neighbors_with_boundaries",
+        "constraints": [
+          "僅既有 contact 方成立；普通熟人聯絡開始帶有對下一次分享的期待，維持 predecessor 的關係邊界，沒有確定的私人情感或已接受約會。"
+        ]
+      },
+      {
+        "subject": "jiang_yucheng",
+        "toward": "protagonist",
+        "label": "acquaintances_with_shared_interest_and_contact",
+        "constraints": [
+          "僅既有 contact 方成立；普通熟人聯絡開始帶有對下一次分享的期待，維持 predecessor 的關係邊界，沒有確定的私人情感或已接受約會。"
+        ]
+      }
+    ],
+    "knowledge": [
+      {
+        "holder": "protagonist",
+        "knows": [
+          "保留 entry knowledge；只知道自己實際完成的生活片段，或被邀方明說的時段與共同 pending 安排。"
+        ],
+        "does_not_know": [
+          "未赴約的 anchor 内容、第二 window 結果、女主未披露的私人感情與另一人行程。"
+        ]
+      },
+      {
+        "holder": "xu_tang",
+        "knows": [
+          "若本次真的互動，只知道自己收到的邀約、時間協商及雙方當地結果。"
+        ],
+        "does_not_know": [
+          "雨澄存在或與男主的安排；男主未披露的其他生活選擇。"
+        ]
+      },
+      {
+        "holder": "jiang_yucheng",
+        "knows": [
+          "若本次真的互動，只知道自己收到的邀約、時間協商及雙方當地結果。"
+        ],
+        "does_not_know": [
+          "許棠存在或與男主的安排；男主未披露的其他生活選擇。"
+        ]
+      }
+    ],
+    "constraints": [
+      "pending_xu／pending_jyc：第一 window 未消耗，保存同意結果；停在 XT-04／JYC-05 之前，後續只在真正 anchor completion 消耗一次。此入口不冒充 date scene。",
+      "solo／rest／wait：第一 window 生活片段完成並消耗一次；停在未 authored 第二 window 前。OPEN-A 整體未完成，不能用 open_a_entered 直接放行 OPEN-B。",
+      "contact、romanticSignal、focusHistory/recentFocus、harm/closure、overlap/exclusivity/deception 及跨人物 knowledge 保持原值；沒有被答應後漏回或失約，故沒有 cooling／RE。"
+    ]
+  },
+  "must_not": [
+    "不得顯示未知／未 contact 人的訊息或邀請；不新增 discovery、heroine、私人前史或跨人物 knowledge。",
+    "不得寫完整 OPEN-A、第二 window、XT-04／JYC-05 對白或完成紀錄、continuation、OPEN-B／calendar、第三 slot。",
+    "不得替代女主同意、不把分享當邀約接受、設保證成功或以玩家選項決定女主感情；女主可拒絕不合時段，玩家也可拒絕替代時間。",
+    "不得用數字／hidden weighting、focus 或回覆順序作 relationship/route authority；不新增 route lock、investment、cooling、RE 或 consumed future slots。",
+    "不得把未成行／rest/wait 當 moral penalty、重開關係或浪漫拒絕；不把男主寫成照顧／排程工具，不代辦女主工作。",
+    "不得在 pending boundary 假造日期或用 placeholder anchor 消耗 window；不得恢復存檔時再送邀請、重放生活或再消耗一次。",
+    "本次 artifact 是 DESIGN/DRAFT，無 final prose、LOCKED、runtime integration、獨立 Narrative QA 或 Human preview acceptance。"
+  ],
+  "implementation_mapping": {
+    "runtime_only": true,
+    "flags": {
+      "open_a_entered": "true;once_on_actual_OPEN-A_entry;never_reset_on_resume",
+      "open_a_entry_outcome": "unresolved|pending_xu|pending_jyc|solo|rest|wait;proposed_scene_local_enum;commit_at_distinct_outcome_boundary",
+      "open_a_window1_consumed": "false_on_first_entry;true_once_only_after_authored_solo_rest_wait_completion;pending_stays_false_until_actual_anchor_completion",
+      "contact_xu": "read_only;gate_Xu_interaction",
+      "contact_jyc": "read_only;gate_Jiang_interaction",
+      "open_dating_unlocked": "read_only;requires_true",
+      "jyc_com03j_reply_style": "read_only_if_trustworthy;local_initiative_tone_only;unknown_neutral"
+    }
+  }
+}
