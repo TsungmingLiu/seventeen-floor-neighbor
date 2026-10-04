@@ -208,11 +208,11 @@ h1 b{font:inherit}
   background:rgba(12,13,19,.82);
 }
 .choice-list{
-  left:50%;
+  left:max(1rem,env(safe-area-inset-left));
   right:auto;
-  bottom:max(1.25rem,env(safe-area-inset-bottom));
-  width:min(92vw,34rem);
-  transform:translateX(-50%);
+  bottom:max(1rem,env(safe-area-inset-bottom));
+  width:min(46%,35rem);
+  transform:none;
   gap:.7rem;
 }
 .choice-button{
@@ -251,8 +251,8 @@ h1 b{font:inherit}
   animation:choice-rise .22s ease-out both;
 }
 @keyframes choice-rise{
-  from{opacity:0;transform:translate(-50%,10px)}
-  to{opacity:1;transform:translate(-50%,0)}
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:translateY(0)}
 }
 
 @media(max-width:760px){
