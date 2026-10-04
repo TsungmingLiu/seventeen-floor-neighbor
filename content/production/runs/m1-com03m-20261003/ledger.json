@@ -399,6 +399,22 @@
       "decision_receipt": "content/production/runs/m1-com03m-20261003/NQA-CAFE-002.decision.json",
       "human_gate": "none",
       "reason": "Actual independent corrected callback PASS; residual repeated departure across outcome/shared-exit still NEEDS_REVIEW, fresh focused correction pending."
+    },
+    {
+      "task_id": "NQA-CONTACT-CONTINUATION-002",
+      "task_type": "narrative_review",
+      "scene_id": "COM-03J",
+      "depends_on": [
+        "CW-CONTACT-CONTINUATION-001"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "tools/context.mjs:narrative_review",
+        "sha256": "7f532a51b96b74f1b3e97e729bb985b440ef19cb24a2ca99b26b9e31f31730b1"
+      },
+      "decision_receipt": "content/production/runs/m1-com03m-20261003/NQA-CONTACT-CONTINUATION-002.decision.json",
+      "human_gate": "none",
+      "reason": "Actual unchanged continuation QA PASS bound to Cafe10f6b955; after final Cafe ending correction, defer current-source revalidation until Cafe finalPASS; no continuation prose rewrite."
     }
   ],
   "invalidation_events": [],
