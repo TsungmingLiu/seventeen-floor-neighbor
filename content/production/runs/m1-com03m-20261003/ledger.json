@@ -191,6 +191,22 @@
       "decision_receipt": "content/production/runs/m1-com03m-20261003/ND-CAFE-001.decision.json",
       "human_gate": "none",
       "reason": "Actual cafe same-visit/first-meet/consent design PASS; dialogue and independent NQA pending; separate COM03J continuity revision needed."
+    },
+    {
+      "task_id": "ND-CONTACT-CONTINUATION-001",
+      "task_type": "narrative_design",
+      "scene_id": "COM-03J",
+      "depends_on": [
+        "ND-CAFE-001"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1 bounded contact continuation design",
+        "sha256": "eee40a704844516cbde245bb31097fd05058afdeb34767c6f5a86ee11fe81b36"
+      },
+      "decision_receipt": "content/production/runs/m1-com03m-20261003/ND-CONTACT-CONTINUATION-001.decision.json",
+      "human_gate": "none",
+      "reason": "Actual same-visit/contact/no-contact continuation design PASS; bounded dialogue and independent NQA pending."
     }
   ],
   "invalidation_events": [],
