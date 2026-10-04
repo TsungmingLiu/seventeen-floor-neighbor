@@ -447,6 +447,22 @@
       "decision_receipt": null,
       "human_gate": "none",
       "reason": "Fresh actual writer-only PASS verified; complete both-outcome ending audit and coherent single shared departure, stableIDs/contract/contact facts unchanged. Fullaffected independent CafeQA pending; final3J current-source check waits CafePASS."
+    },
+    {
+      "task_id": "NQA-CAFE-003",
+      "task_type": "narrative_review",
+      "scene_id": "COM-02J",
+      "depends_on": [
+        "CW-CAFE-CORRECTION-002"
+      ],
+      "status": "NEEDS_REVIEW",
+      "packet": {
+        "generator": "tools/context.mjs:narrative_review",
+        "sha256": "ab92688fcb9a4c6745b3fe3f2de98d54ade2e84bfef1e2b8c1934fb14745503d"
+      },
+      "decision_receipt": "content/production/runs/m1-com03m-20261003/NQA-CAFE-003.decision.json",
+      "human_gate": "none",
+      "reason": "Actual complete ending/contact/refusal naturalism checks PASS; unconditional edition callback lacks guaranteed prior topic per bounded review, NEEDS_REVIEW pending exact upstream clarification or focused correction. Final3J deferred."
     }
   ],
   "invalidation_events": [],
