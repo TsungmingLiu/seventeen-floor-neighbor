@@ -383,6 +383,22 @@
       "decision_receipt": null,
       "human_gate": "none",
       "reason": "Actual fresh writer-only PASS verified; two no-contact findings corrected, contacted branch/shared exit bytes identical; affected Cafe QA and unchanged3J current-upstream revalidation pending."
+    },
+    {
+      "task_id": "NQA-CAFE-002",
+      "task_type": "narrative_review",
+      "scene_id": "COM-02J",
+      "depends_on": [
+        "CW-CAFE-CORRECTION-001"
+      ],
+      "status": "NEEDS_REVIEW",
+      "packet": {
+        "generator": "tools/context.mjs:narrative_review",
+        "sha256": "22cb7f36a170cccc0f96fc3aa384e1d75e924fc764af6bb8cf8014fb9f0be20e"
+      },
+      "decision_receipt": "content/production/runs/m1-com03m-20261003/NQA-CAFE-002.decision.json",
+      "human_gate": "none",
+      "reason": "Actual independent corrected callback PASS; residual repeated departure across outcome/shared-exit still NEEDS_REVIEW, fresh focused correction pending."
     }
   ],
   "invalidation_events": [],
