@@ -360,15 +360,9 @@ The first-meet branch has no recognition shot or bookstore callback. The reunion
 
 **Condition — `contact_jyc=true`**
 
-**Protagonist**：我得先走了。今天謝謝妳讓我坐這裡。
+**Protagonist**：今天謝謝妳讓我坐這裡。
 
 **Jiang Yucheng**：不會，反正有空位。我看完那頁再回你。
-
-**Condition — `contact_jyc=false`**
-
-**Protagonist**：我得先走了。今天謝謝妳讓我坐這裡。
-
-**Jiang Yucheng**：不會，反正有空位。
 
 **Shared**
 

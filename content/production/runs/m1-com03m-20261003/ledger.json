@@ -431,6 +431,22 @@
       "decision_receipt": "content/production/runs/m1-com03m-20261003/ND-CAFE-ENDING-SCOPE-001.decision.json",
       "human_gate": "none",
       "reason": "Actual current unchanged-contract scope PASS with exact canonical witness; one coherent departure is actual NQA correction objective fitting ordinary-exit boundary, not invented canonical clause. Fresh whole-ending writer/QA pending."
+    },
+    {
+      "task_id": "CW-CAFE-CORRECTION-002",
+      "task_type": "scene_dialogue",
+      "scene_id": "COM-02J",
+      "depends_on": [
+        "ND-CAFE-ENDING-SCOPE-001"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1 complete ending correction",
+        "sha256": "ed61018048c1dace8a0f2d1b9cdfabd9a7edd2a32f227984bd71b9ac1ac9abc3"
+      },
+      "decision_receipt": null,
+      "human_gate": "none",
+      "reason": "Fresh actual writer-only PASS verified; complete both-outcome ending audit and coherent single shared departure, stableIDs/contract/contact facts unchanged. Fullaffected independent CafeQA pending; final3J current-source check waits CafePASS."
     }
   ],
   "invalidation_events": [],
