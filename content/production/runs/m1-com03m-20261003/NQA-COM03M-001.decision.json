@@ -1,0 +1,118 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "m1-com03m-20261003",
+  "task_id": "NQA-COM03M-001",
+  "scene_id": "COM-03M",
+  "task_type": "narrative_review",
+  "status": "PASS",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.5.1",
+    "pass": "narrative_review"
+  },
+  "source_ref": "ce76daaafe9d5309b4b015b3a57d6168e24b482a",
+  "packet_sha256": "7bf07490b182f10bf39a6482671152e9f9d8b9ab234bebc25fb9195c88b0e00c",
+  "input_digest_sha256": "2fe8e61ae50b2514d1c54834764bbf538e556dbda5cb31a850ca6a9be0a20f7f",
+  "input_versions": [
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-03M.json",
+      "version": "2371edffe0380d8424da150c9769d0b6c96eb3cf",
+      "location": "content/production/narrative/opening-ch1/COM-03M.json"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-03M.md",
+      "version": "9d0d44e057baacb86edf14cbc70a8b907601a3a3",
+      "location": "docs/narrative/scenes/vertical-slice/COM-03M.md"
+    },
+    {
+      "id": "file:docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_COMMON.md",
+      "version": "a0625e3550468d74db4b12252ae590ca6dc5652c",
+      "location": "docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_COMMON.md"
+    },
+    {
+      "id": "file:docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md",
+      "version": "7144fe200bcb85874ad54c151eb0d77effc7be04",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md"
+    },
+    {
+      "id": "file:docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md",
+      "version": "9d44ab016a3a32da239b2d711117e05f087625f4",
+      "location": "docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "approved_locked_scene:COM-03M",
+      "version": "9d0d44e057baacb86edf14cbc70a8b907601a3a3",
+      "location": "docs/narrative/scenes/vertical-slice/COM-03M.md"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "NQA-SCENE-FUNCTION",
+      "code": "NQA-SCENE-FUNCTION",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-CONTACT-VARIANT-TRUTHFULNESS",
+      "code": "NQA-CONTACT-VARIANT-TRUTHFULNESS",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-CHOICE-AND-REJOIN",
+      "code": "NQA-CHOICE-AND-REJOIN",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-VOICE-AND-PACING",
+      "code": "NQA-VOICE-AND-PACING",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-DIALOGUE-NATURALISM",
+      "code": "NQA-DIALOGUE-NATURALISM",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-PROTAGONIST-AND-INDEPENDENT-INTENTS",
+      "code": "NQA-PROTAGONIST-AND-INDEPENDENT-INTENTS",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-KNOWLEDGE-AND-RELATIONSHIP-PACE",
+      "code": "NQA-KNOWLEDGE-AND-RELATIONSHIP-PACE",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-STATE-AUTHORITY",
+      "code": "NQA-STATE-AUTHORITY",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-OPEN-A-TRANSITION",
+      "code": "NQA-OPEN-A-TRANSITION",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-MUST-NOT-AND-SEMANTIC-VISUAL-BEATS",
+      "code": "NQA-MUST-NOT-AND-SEMANTIC-VISUAL-BEATS",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-NARRATION-POV-AND-LANGUAGE",
+      "code": "NQA-NARRATION-POV-AND-LANGUAGE",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    {
+      "worker_handoff_sha256": "fc8bc8b725a7c7bb8ef4ba2688ec82faa4810ad94dc64116470eb53d0c74a402",
+      "review_report_sha256": "2446ba0f71412061e81f397a3ae4ce418d99bca514f8adfa5211c43f40eaa6a9",
+      "approved_scene_sha256": "e074faf3e624a179c9ad2c4dff3a964abbfe17178980b6e2ddfad020ed49a4b2"
+    }
+  ],
+  "human_gate_required": "none",
+  "invalidates": []
+}

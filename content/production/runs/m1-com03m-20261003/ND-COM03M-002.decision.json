@@ -1,0 +1,177 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "m1-com03m-20261003",
+  "task_id": "ND-COM03M-002",
+  "scene_id": "COM-03M",
+  "task_type": "narrative_design",
+  "status": "PASS",
+  "harness": {
+    "id": "content_writer",
+    "version": "1.4.1",
+    "pass": "narrative_design"
+  },
+  "source_ref": "c99eb9a1693a44114ad4752f37d20d2d6f303f3c",
+  "packet_sha256": "e9f40a084a3f453a63838e0a9d8e41bece5a74fa9ae29f27817c3006ad8c13ba",
+  "input_digest_sha256": "6a52335efd7d22ccd32651051e0bc0396a80cb1d0f5437ade6590c5d6b69ee3f",
+  "input_versions": [
+    {
+      "id": "source:AGENTS.md",
+      "location": "AGENTS.md",
+      "version": "30c4100ca74b97c1d0264afbdd96fa3586dfa72a"
+    },
+    {
+      "id": "source:.ai/WORKFLOW_MANIFEST.yaml",
+      "location": ".ai/WORKFLOW_MANIFEST.yaml",
+      "version": "73abdc4ae26ed2668785f7bbc85a672bb3a6b4ce"
+    },
+    {
+      "id": "source:.ai/harnesses/bootstrap.md",
+      "location": ".ai/harnesses/bootstrap.md",
+      "version": "203ed890ea00144d9e107fe5f00c0f9aec236065"
+    },
+    {
+      "id": "source:.ai/policies/SOURCE_AUTHORITY.md",
+      "location": ".ai/policies/SOURCE_AUTHORITY.md",
+      "version": "e1512e92dd4d9ee7eb715f37fb241a6bad786fac"
+    },
+    {
+      "id": "source:.ai/policies/CONTEXT_ISOLATION.md",
+      "location": ".ai/policies/CONTEXT_ISOLATION.md",
+      "version": "41d64227fc95501882525620bcf1de8fe396dc94"
+    },
+    {
+      "id": "source:docs/CONTENT_PRODUCTION_SOURCE_MAP.md",
+      "location": "docs/CONTENT_PRODUCTION_SOURCE_MAP.md",
+      "version": "357b75d23cf0692f777055c4263b31b1d9219747"
+    },
+    {
+      "id": "source:.ai/schemas/HANDOFF.md",
+      "location": ".ai/schemas/HANDOFF.md",
+      "version": "afc281249049d1408ca7ad343d6940bb683f0390"
+    },
+    {
+      "id": "source:docs/PRODUCTION_WORKFLOW_TOOLS.md",
+      "location": "docs/PRODUCTION_WORKFLOW_TOOLS.md",
+      "version": "f0bce55f5428036f53e17f68b017d66b969a1f73"
+    },
+    {
+      "id": "source:.ai/harnesses/content-writer.md",
+      "location": ".ai/harnesses/content-writer.md",
+      "version": "729e54d6a66e8744432184ffc41bdaf61bb0a743"
+    },
+    {
+      "id": "source:.ai/schemas/NARRATIVE_CONTINUITY.md",
+      "location": ".ai/schemas/NARRATIVE_CONTINUITY.md",
+      "version": "f32b4b315a51975d60d99818c3eec63f079df70c"
+    },
+    {
+      "id": "source:.ai/schemas/narrative-continuity.schema.json",
+      "location": ".ai/schemas/narrative-continuity.schema.json",
+      "version": "faa5bbf41856406f85eac61d7d25a57869e3495e"
+    },
+    {
+      "id": "source:tools/validate-production-contracts.mjs",
+      "location": "tools/validate-production-contracts.mjs",
+      "version": "5eeaa252ef121d8ce6e25557d860c88f1be09878"
+    },
+    {
+      "id": "source:docs/narrative/M1_GAMEPLAY_VALIDATION_SLICE.md",
+      "location": "docs/narrative/M1_GAMEPLAY_VALIDATION_SLICE.md",
+      "version": "34c3e660f896855a1b1a614aa338ede165350431"
+    },
+    {
+      "id": "source:docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_COMMON.md#L13-L21",
+      "location": "docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_COMMON.md#L13-L21",
+      "version": "32565bd9e1c65121a1f265a0e15284d1041232cbb8bcc9e8196022f7153a036e"
+    },
+    {
+      "id": "source:docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_COMMON.md#L184-L243",
+      "location": "docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_COMMON.md#L184-L243",
+      "version": "2f59d0771387c2926ae59496ed509016cc0f7608633a4dbae9204a94b9273c4b"
+    },
+    {
+      "id": "source:docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L195-L328",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L195-L328",
+      "version": "1448096b3ac20dfb2be2804f82d53b623217d448aec0174f9c50e2894acc6f66"
+    },
+    {
+      "id": "source:docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L400-L415",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L400-L415",
+      "version": "907567fc8386e6044dc6db61e6cd71d41137e8368cea7d7f594854b91bda7e03"
+    },
+    {
+      "id": "source:docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md#L80-L238",
+      "location": "docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md#L80-L238",
+      "version": "9635f55bdf5a4d222451b17e8dd138db0b2051e3327e5cb1abbd1401a67133ed"
+    },
+    {
+      "id": "source:docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md#L304-L375",
+      "location": "docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md#L304-L375",
+      "version": "bedba5fde683f553af552a0bcf171a710b4c3a114002d204f2e00adc4ec656c8"
+    },
+    {
+      "id": "source:docs/art/characters/xu-tang.md#L11-L60",
+      "location": "docs/art/characters/xu-tang.md#L11-L60",
+      "version": "d90293f69741aa1f444c421d2b65729854f738c54b86b43eb14b42715f88a507"
+    },
+    {
+      "id": "source:docs/art/characters/jiang-yucheng.md#L11-L62",
+      "location": "docs/art/characters/jiang-yucheng.md#L11-L62",
+      "version": "e41fa3698b27dfc2b8a03a9a83e4450289eca51a77888eded39359a051a0df62"
+    },
+    {
+      "id": "source:content/production/narrative/opening-ch1/COM-03X.json",
+      "location": "content/production/narrative/opening-ch1/COM-03X.json",
+      "version": "f114a8586b7f5d09d6c1daf8af87e73285bc8967"
+    },
+    {
+      "id": "source:content/production/narrative/opening-ch1/COM-03J.json",
+      "location": "content/production/narrative/opening-ch1/COM-03J.json",
+      "version": "35da25785637b1f4dbcbfd01f982671a2f71886e"
+    },
+    {
+      "id": "source:content/production/narrative/opening-ch1/COM-03M.json",
+      "location": "content/production/narrative/opening-ch1/COM-03M.json",
+      "version": "2371edffe0380d8424da150c9769d0b6c96eb3cf"
+    },
+    {
+      "id": "source:docs/narrative/scenes/vertical-slice/COM-03M.md",
+      "location": "docs/narrative/scenes/vertical-slice/COM-03M.md",
+      "version": "10e5690b5a6ae8f7213b0cdc88e4af514de24efb"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "narrative-continuity-contract:COM-03M",
+      "location": "content/production/narrative/opening-ch1/COM-03M.json",
+      "version": "2371edffe0380d8424da150c9769d0b6c96eb3cf"
+    },
+    {
+      "id": "scene-design:COM-03M",
+      "location": "docs/narrative/scenes/vertical-slice/COM-03M.md",
+      "version": "10e5690b5a6ae8f7213b0cdc88e4af514de24efb"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "ND-CONTRACT-SCHEMA",
+      "code": "ND-CONTRACT-SCHEMA",
+      "result": "PASS"
+    },
+    {
+      "name": "ND-CONTACT-AND-ENTRY-BOUNDARIES",
+      "code": "ND-CONTACT-AND-ENTRY-BOUNDARIES",
+      "result": "PASS"
+    },
+    {
+      "name": "ND-EXACT-OUTPUT-PRESERVATION",
+      "code": "ND-EXACT-OUTPUT-PRESERVATION",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [],
+  "human_gate_required": "none",
+  "invalidates": []
+}

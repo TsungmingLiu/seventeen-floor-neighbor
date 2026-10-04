@@ -8,6 +8,7 @@ Task Packet routes exactly one active harness/pass and one deliverable。
 run_id: unique-production-run-id
 task_id: unique-stable-id
 scene_id: one explicit scene when task is scene-scoped
+scene_ids: optional finite exact scene list instead of scene_id, manual narrative_preview accepted batch only
 task_type: narrative_design | scene_dialogue | narrative_review | cg_plan | cg_render | visual_review | integrate
 depends_on: [upstream-task-id]
 workflow_version: 1.3.0
@@ -64,6 +65,7 @@ inputs:
   render_packet: optional
   references: []
   accepted_outputs: []
+  scenes: optional [{scene_id, narrative_contract, locked_scene}] # exact rows for scene_ids batch
 input_versions:
   - id: canonical-artifact-id
     version: immutable hash / Git blob SHA / accepted asset receipt
@@ -109,6 +111,7 @@ human_gate: none | major_story_direction | canonical_character_design | accepted
 - `cg_renderer` packet 必須只指定 one independent manifest entry、its deterministic packet and references；只有 manifest 明列並符合 sequence 條件的 linked sequence 可作一個 bounded task。
 - Base CG 使用 `references_required`；Reaction CG 優先 `edit_from_accepted_base`。Reference acquisition 由所選 execution adapter 從 repository-relative catalog binding 負責。
 - 第二個獨立 objective 必須拆成另一個 Task Packet。
+- A manual `integrator / narrative_preview` accepted batch may use nonempty unique `scene_ids` and exactly matching `inputs.scenes` rows instead of top-level scene/contract aliases. Each scene retains exact acquired source versions, complete independent Narrative QA and applicable Human gates; dispatch uses `--scenes` with the same ordered IDs. Other routes remain single-scene. See `docs/PRODUCTION_WORKFLOW_TOOLS.md`.
 - `integration_mode: narrative_preview` 只依賴 approved Locked Scene 與已核對 repo bytes 的 background/preview-only WebP；Task Packet 必須列明 logical ID、route allowlist、預覽狀態與 review ref。`integration_mode: final` 要求所有必要 accepted CG 與 `npm run validate:final`，不得以 preview-only asset 滿足視覺驗收。
 
 Governance maintenance uses the integrator harness with explicit machine-only source boundaries and no creative authoring. Full packets remain ignored session artifacts. A storage-only task does not create a production run or advance art/QA/Human gates.

@@ -1,0 +1,181 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "m1-com03m-20261003",
+  "task_id": "ND-BOOKGATE-001",
+  "scene_id": "COM-01G",
+  "task_type": "narrative_design",
+  "status": "BLOCKED",
+  "harness": {
+    "id": "content_writer",
+    "version": "1.4.1",
+    "pass": "narrative_design"
+  },
+  "source_ref": "fcbbad8c2f37c353db6019657882379db4a0fbd0",
+  "packet_sha256": "654be00d6fac952f40224ca8462e094d4d7c0a9e63d3814122d1daef4f1c6b59",
+  "input_digest_sha256": "5c7ea04db40be4676d47139f1d6d15f67b84bc6fd45a2e2db59eb15deeb58b1b",
+  "input_versions": [
+    {
+      "id": "source:AGENTS.md",
+      "location": "AGENTS.md",
+      "version": "30c4100ca74b97c1d0264afbdd96fa3586dfa72a"
+    },
+    {
+      "id": "source:.ai/WORKFLOW_MANIFEST.yaml",
+      "location": ".ai/WORKFLOW_MANIFEST.yaml",
+      "version": "73abdc4ae26ed2668785f7bbc85a672bb3a6b4ce"
+    },
+    {
+      "id": "source:.ai/harnesses/bootstrap.md",
+      "location": ".ai/harnesses/bootstrap.md",
+      "version": "203ed890ea00144d9e107fe5f00c0f9aec236065"
+    },
+    {
+      "id": "source:.ai/policies/SOURCE_AUTHORITY.md",
+      "location": ".ai/policies/SOURCE_AUTHORITY.md",
+      "version": "e1512e92dd4d9ee7eb715f37fb241a6bad786fac"
+    },
+    {
+      "id": "source:.ai/policies/CONTEXT_ISOLATION.md",
+      "location": ".ai/policies/CONTEXT_ISOLATION.md",
+      "version": "41d64227fc95501882525620bcf1de8fe396dc94"
+    },
+    {
+      "id": "source:docs/CONTENT_PRODUCTION_SOURCE_MAP.md",
+      "location": "docs/CONTENT_PRODUCTION_SOURCE_MAP.md",
+      "version": "357b75d23cf0692f777055c4263b31b1d9219747"
+    },
+    {
+      "id": "source:.ai/schemas/HANDOFF.md",
+      "location": ".ai/schemas/HANDOFF.md",
+      "version": "afc281249049d1408ca7ad343d6940bb683f0390"
+    },
+    {
+      "id": "source:docs/PRODUCTION_WORKFLOW_TOOLS.md",
+      "location": "docs/PRODUCTION_WORKFLOW_TOOLS.md",
+      "version": "f0bce55f5428036f53e17f68b017d66b969a1f73"
+    },
+    {
+      "id": "source:.ai/harnesses/content-writer.md",
+      "location": ".ai/harnesses/content-writer.md",
+      "version": "729e54d6a66e8744432184ffc41bdaf61bb0a743"
+    },
+    {
+      "id": "source:.ai/schemas/NARRATIVE_CONTINUITY.md",
+      "location": ".ai/schemas/NARRATIVE_CONTINUITY.md",
+      "version": "f32b4b315a51975d60d99818c3eec63f079df70c"
+    },
+    {
+      "id": "source:.ai/schemas/narrative-continuity.schema.json",
+      "location": ".ai/schemas/narrative-continuity.schema.json",
+      "version": "faa5bbf41856406f85eac61d7d25a57869e3495e"
+    },
+    {
+      "id": "source:tools/validate-production-contracts.mjs",
+      "location": "tools/validate-production-contracts.mjs",
+      "version": "5eeaa252ef121d8ce6e25557d860c88f1be09878"
+    },
+    {
+      "id": "source:content/production/narrative/opening-ch1/COM-01B.json",
+      "location": "content/production/narrative/opening-ch1/COM-01B.json",
+      "version": "d02125cf9395eb81d7e2818fcab632caeaa69e3e"
+    },
+    {
+      "id": "source:docs/narrative/scenes/vertical-slice/COM-01B.md",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01B.md",
+      "version": "169f51f75ee0c19229f764651eb92b5377dba70e"
+    },
+    {
+      "id": "source:content/production/narrative/opening-ch1/COM-01J.json",
+      "location": "content/production/narrative/opening-ch1/COM-01J.json",
+      "version": "faf7e36eb017124e43f511d3cea9c00884d4cb86"
+    },
+    {
+      "id": "source:docs/narrative/scenes/vertical-slice/COM-01J.md",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01J.md",
+      "version": "5753923e9f0aff602997c9f5e6d0f3e897173be3"
+    },
+    {
+      "id": "source:content/production/narrative/opening-ch1/COM-02X.json",
+      "location": "content/production/narrative/opening-ch1/COM-02X.json",
+      "version": "5f85482b7c420a5f7726035e369679360f83cfd5"
+    },
+    {
+      "id": "source:docs/narrative/scenes/vertical-slice/COM-02X.md",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02X.md",
+      "version": "938edf40f2f34a9faee054971f72747e213c73ee"
+    },
+    {
+      "id": "source:content/production/narrative/opening-ch1/COM-03X.json",
+      "location": "content/production/narrative/opening-ch1/COM-03X.json",
+      "version": "f114a8586b7f5d09d6c1daf8af87e73285bc8967"
+    },
+    {
+      "id": "source:docs/narrative/scenes/vertical-slice/COM-03X.md",
+      "location": "docs/narrative/scenes/vertical-slice/COM-03X.md",
+      "version": "d59b30f4592ab8026b39f72c6560524afb5ba3e6"
+    },
+    {
+      "id": "source:content/production/narrative/opening-ch1/COM-03M.json",
+      "location": "content/production/narrative/opening-ch1/COM-03M.json",
+      "version": "2371edffe0380d8424da150c9769d0b6c96eb3cf"
+    },
+    {
+      "id": "source:docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_COMMON.md#L54-L110",
+      "location": "docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_COMMON.md#L54-L110",
+      "version": "ba95c325d4264c7b257a94fc3d4249669560ad616443e2916b7b957b03a4f2b8"
+    },
+    {
+      "id": "source:docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L296-L328",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L296-L328",
+      "version": "1c0cf03d4ac7cc25cf81822cdf61f8f080258d93b6063034702fedcb6d5d3d90"
+    },
+    {
+      "id": "source:docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md#L154-L238",
+      "location": "docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md#L154-L238",
+      "version": "681b1e7c63582f40263121daa81d02dcf0746ecfa8898741f52da1cc456e0a1b"
+    },
+    {
+      "id": "source:docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md#L304-L375",
+      "location": "docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md#L304-L375",
+      "version": "bedba5fde683f553af552a0bcf171a710b4c3a114002d204f2e00adc4ec656c8"
+    }
+  ],
+  "output_versions": [],
+  "qa_codes": [
+    {
+      "name": "author_schema_boundary",
+      "code": "ND-AUTHOR-SCHEMA",
+      "result": "PASS"
+    },
+    {
+      "name": "contact_prerequisites",
+      "code": "ND-CONTACT-PREREQUISITES",
+      "result": "PASS"
+    },
+    {
+      "name": "truthful_previsit_boundary",
+      "code": "ND-PREVISIT-BOUNDARY",
+      "result": "FAIL"
+    },
+    {
+      "name": "exact_two_outputs",
+      "code": "ND-EXACT-OUTPUTS",
+      "result": "FAIL"
+    },
+    {
+      "name": "scope_preservation",
+      "code": "ND-SCOPE-PRESERVATION",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "ND-OWNING-SOURCE-DELTA: COM-01B owns unconditional visit before existing COM01B->COM01J edge. Contract scene_function[1], character_intent protagonist, player_information_gain[2], emotional_arc[3], required_payoffs[3] require visit; scene summary/exit, beat 01B.6, locked common_bookstore_bridge_weekend_transition, semantic final beat bind the same actual entry. A new COM-01G after this cannot truthfully offer not-go.",
+    "ND-BOUNDARY-BLOCKED: smallest legitimate gate belongs after COM01B neighbor goodbye/rejoin and before weekend visit action. Preserve common_bookstore_bridge_rejoin and old expression choices. Owning COM01B source/contract must permit contingent visit; go keeps old weekend_transition prose/node identity and COM01J opening. Current exact new-pair write scope excludes both owning sources; no pair produced and no locked source mutated.",
+    "ND-SUPPLEMENT-DISCOVERY-BOUNDARY: future integration must skip Jiang-only supplements only when their actual met/seed/contact prerequisites fail, never fabricate COM01J completion. Actual COM02X requires COM01X + met_xu only; COM03X requires COM02X completion and establishes contact_xu; COM03M requires either contact and explicitly supports Jiang never_met. Unallowlisted COM02J/COM03J exact prerequisite identities remain to be acquired by a fresh authorized stage; no rewrite or new discovery authored here.",
+    "ND-ART-IMPACT-UNREVIEWED: existing accepted COM01B four-CG metadata acknowledged via dispatch directive only; no pixels or manifest acquired. COM01B transition text/semantic event would be affected. Independent Narrative QA must judge exact old/new scene impact; no Visual QA or no_visual_impact inferred."
+  ],
+  "human_gate_required": "none",
+  "invalidates": []
+}

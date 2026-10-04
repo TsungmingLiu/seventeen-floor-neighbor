@@ -729,9 +729,9 @@ export class GameEngine {
     this.renderedText = interpolatePlayerName(node.text, this.progress.data.playerDisplayName);
     if (this.chapter.id === 'opening-demo-chapter-01'
       && this.nodeId === 'common_recommend_discord_jyc_enter') {
-      const required = ['preview:com02j-complete', 'player_knows_jyc_name', 'jyc_knows_player_name', 'jyc_creator_work_seen'];
-      if (!required.every(flag => this.state.flags.has(flag)) || this.state.flags.has('contact_jyc')) {
-        throw new Error('COM03J entry requires completed COM02J, exchanged names and creator-work knowledge, without prior Jiang contact');
+      const required = ['preview:com02j-complete', 'player_knows_jyc_name', 'jyc_knows_player_name', 'jyc_creator_work_seen', 'contact_jyc'];
+      if (!required.every(flag => this.state.flags.has(flag))) {
+        throw new Error('COM03J entry requires completed COM02J and an accepted Discord exchange');
       }
     }
     if (node.entryEffects || node.entryFlags) {
@@ -765,6 +765,14 @@ export class GameEngine {
       return;
     }
     if (node.type === 'branch') {
+      if (this.chapter.id === 'opening-demo-chapter-01' && this.nodeId === 'com03j_preview_complete'
+        && this.progress.data.com03jReplay) {
+        const restored = this.progress.finishCom03jReplay();
+        if (restored) Object.assign(this, restored);
+        this.previousNode = null;
+        this.openMemories();
+        return;
+      }
       if (this.chapter.id === 'opening-demo-chapter-01' && this.nodeId === 'com03x_preview_complete') {
         if (this.progress.replaying && !this.progress.data.restartActive) {
           this.refreshTitle();
@@ -1086,17 +1094,18 @@ export class GameEngine {
     }
     const candidateIds = [event.replayNode, ...(event.unlockNodes || [])];
     let snapshot = candidateIds.map((id) => this.progress.data.checkpoints[id]).find(Boolean);
+    if (event.replayNode === 'common_recommend_discord_jyc_enter'
+      && snapshot && !snapshot.flags.includes('contact_jyc')) return;
     if (snapshot && this.chapter.id === 'opening-demo-chapter-01'
       && event.replayNode === 'common_recommend_discord_jyc_enter'
       && snapshot.nodeId !== event.replayNode) {
       // A surviving scene-local checkpoint establishes entry facts, never its
       // missing callback history. Replay starts at the complete neutral scene.
       snapshot = this.progress.clone(snapshot);
-      if (snapshot.flags.includes('entry-effect:common_recommend_discord_jyc_exit')) snapshot.stats.F_JYC -= 1;
       snapshot.nodeId = event.replayNode;
       snapshot.flags = snapshot.flags.filter(flag => !flag.startsWith('jyc_second_topic:')
         && !flag.startsWith('history:jyc_first_topic:') && !flag.startsWith('jyc_com03j_reply_style:')
-        && !['contact_jyc', 'preview:com03j-complete', 'entry-effect:common_recommend_discord_jyc_exit'].includes(flag));
+        && !['preview:com03j-complete', 'entry-effect:common_recommend_discord_jyc_exit'].includes(flag));
     }
     if (snapshot) this.resumeGame(snapshot, { replay: true });
   }

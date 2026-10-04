@@ -1,0 +1,172 @@
+{
+  "schema_version": "1.0.0",
+  "scene_id": "COM-03M",
+  "lifecycle": "CANONICAL",
+  "source_scene": "docs/narrative/scenes/vertical-slice/COM-03M.md",
+  "entry_state": {
+    "relationships": [
+      {
+        "subject": "xu_tang",
+        "toward": "protagonist",
+        "label": "familiar_neighbors_with_boundaries",
+        "constraints": [
+          "僅 contact_xu=true 時存在本幕訊息互動；承接 COM-03X 的普通鄰居、Line 與有限設計工作資訊，沒有約會或照顧義務。"
+        ]
+      },
+      {
+        "subject": "jiang_yucheng",
+        "toward": "protagonist",
+        "label": "acquaintances_with_shared_interest_and_contact",
+        "constraints": [
+          "僅 contact_jyc=true 時存在本幕訊息互動；承接 COM-03J 的 Discord 分享與當次收束節奏，沒有匿名創作身份、家訪或戀愛承諾。"
+        ]
+      }
+    ],
+    "knowledge": [
+      {
+        "holder": "protagonist",
+        "knows": [
+          "只保留實際完成 predecessor 的姓名、聯絡方式與 local history；單 contact 不補另一人的訊息或共同前事。"
+        ],
+        "does_not_know": [
+          "兩人未披露的私人情感、精確生活安排；雨澄的匿名創作身份、住處與商業委託。"
+        ]
+      },
+      {
+        "holder": "xu_tang",
+        "knows": [
+          "若已 contact，僅有 COM-03X exit knowledge 與本幕實際收到的男主分享。"
+        ],
+        "does_not_know": [
+          "雨澄是否存在及與男主的關係；未向她披露的男主行程。"
+        ]
+      },
+      {
+        "holder": "jiang_yucheng",
+        "knows": [
+          "若已 contact，僅有 COM-03J exit knowledge 與本幕實際收到的男主分享。"
+        ],
+        "does_not_know": [
+          "許棠是否存在、鄰居關係及與男主的關係；未向她披露的男主行程。"
+        ]
+      }
+    ],
+    "constraints": [
+      "至少 contact_xu 或 contact_jyc 一個已由真實 contact scene 建立；沒有 contact 的人完全略過，不以本幕完成 discovery。",
+      "承接 COM-03X／COM-03J 各自 exit；Jiang never_met、known-but-not-contacted 與已 contacted 必須分開，前兩者均無 Jiang 訊息。",
+      "開始一段約一週的訊息與個人生活 montage；既有 romanticSignal、knowledge、harm 與 commitment 狀態不由短訊息改寫。"
+    ]
+  },
+  "scene_function": [
+    "把有理由的普通聯絡逐步延伸成偶爾想到要分享小事、留意下一則訊息的生活熟悉感。",
+    "讓男主工作、吃飯、搬家收尾與自己的作品／休息需求穿插其間，並保有主動接話與結束聊天的能力。",
+    "以已 contact 方的具體活動話題自然交給 OPEN-A；建立入口，不在本幕答應邀約或消耗 major slot。"
+  ],
+  "character_intent": [
+    {
+      "character_id": "protagonist",
+      "intent": "願意分享自己遇到的小事與真實看法，也要完成工作、吃飯與休息；可以想相處而不必立即回所有訊息。"
+    },
+    {
+      "character_id": "xu_tang",
+      "intent": "若已 contact，從實用鄰里資訊偶爾延伸普通生活分享與輕關心；有自己的工作和出門安排，不常態管理男主的生活。"
+    },
+    {
+      "character_id": "jiang_yucheng",
+      "intent": "若已 contact，從收到的作品內容延伸分析、遊戲或小抱怨；可以補充也能容許晚回，不要求男主假裝全懂或一直在線。"
+    }
+  ],
+  "player_information_gain": [
+    "只有已聯絡的人會進入自己的訊息日常；許棠的生活型分享與雨澄的作品型展開有各自節奏，兩人仍有獨立生活。",
+    "自己可以先完成手邊事情、主動分享或自然收束；回覆順序不等於選定伴侶。",
+    "已 contact 許棠的週末中山設計書話題／已 contact 雨澄的限定展資訊，提供之後詢問同行的具體理由；活動是否成行尚未確定。"
+  ],
+  "emotional_arc": [
+    "最初一兩天由收件／附近資訊或作品推薦接話，不重演交換帳號。",
+    "平常工作、飯後或整理住處的空隙逐漸容得下一句分享；偶有落空或隔一段時間才接上。",
+    "忙碌一天需要決定何時回訊息；雙 contact 才有先回哪一則的輕微拉扯，單 contact 仍有自己的生活節奏。",
+    "由被動接收走到自己也想傳一件小事，結尾留下一個可詢問同行的生活活動話題。"
+  ],
+  "required_payoffs": [
+    "每個 contact variant 都有開頭的具體聯絡理由、男主獨立生活、雙向的小事分享與自然收束；不能為縮短 montage 只列 notification。",
+    "許棠訊息只在 contact_xu=true 出現，以 Line、實用資訊到偶爾生活分享／輕問候展開；設計話題依 COM-03X 可知內容，不新增過去共同外出。",
+    "雨澄訊息只在 contact_jyc=true 出現，以 Discord、當下收到的推薦／分析延伸 meme、遊戲或小抱怨；COM-03J reply style 只調整主動餘裕，不封鎖本幕共同 payoff，缺 history 用中性接話。",
+    "雙 contact 忙碌 beat 可有一個 action choice：先回許棠、先回雨澄、完成手邊工作再回；演出具體 local 節奏差異後合流。未選的訊息保留可晚回，不假造漏掉已答應的安排。單 contact 不顯示選人選項；其工作與回覆以自然節奏演出。",
+    "訊息不能每回都服務工作或效率；至少一段男主自己的飯食／整理搬家箱／看作品與休息生活，以及一件由他主動分享的小事，有當下可見的回應或自然留待之後。",
+    "收尾按 contact 分別呈現許棠週末中山設計書話題、雨澄限定展資訊；雙 contact 都有才雙入口。話題讓玩家之後可以問同行，不代替雙方同意、具體行程或已完成 anchor。",
+    "完成本幕建立 open_dating_unlocked=true，接 OPEN-A 兩個有限 authored major slots；本幕短回、邀約話題與生活 montage 不計 major investment。"
+  ],
+  "exit_state": {
+    "relationships": [
+      {
+        "subject": "xu_tang",
+        "toward": "protagonist",
+        "label": "familiar_neighbors_with_boundaries",
+        "constraints": [
+          "僅既有 contact 方成立；普通熟人聯絡開始帶有對下一次分享的期待，維持 predecessor 的關係邊界，沒有確定的私人情感或已接受約會。"
+        ]
+      },
+      {
+        "subject": "jiang_yucheng",
+        "toward": "protagonist",
+        "label": "acquaintances_with_shared_interest_and_contact",
+        "constraints": [
+          "僅既有 contact 方成立；普通熟人聯絡開始帶有對下一次分享的期待，維持 predecessor 的關係邊界，沒有確定的私人情感或已接受約會。"
+        ]
+      }
+    ],
+    "knowledge": [
+      {
+        "holder": "protagonist",
+        "knows": [
+          "保留真實 entry knowledge；知道本幕實際收到的普通生活／作品內容，以及已 contact 方提供的具體活動話題。"
+        ],
+        "does_not_know": [
+          "活動是否會被接受、誰有空及未演出的後續場景；两人未披露的私人動機、匿名身份與跨人物關係。"
+        ]
+      },
+      {
+        "holder": "xu_tang",
+        "knows": [
+          "若已 contact，只新增她實際收到的男主小事與當地回覆節奏。"
+        ],
+        "does_not_know": [
+          "江雨澄存在或關係、另一個通知內容與男主未披露行程。"
+        ]
+      },
+      {
+        "holder": "jiang_yucheng",
+        "knows": [
+          "若已 contact，只新增她實際收到的男主小事與當地作品回應。"
+        ],
+        "does_not_know": [
+          "許棠存在或鄰居關係、另一個通知內容與男主未披露行程。"
+        ]
+      }
+    ],
+    "constraints": [
+      "contact_xu/contact_jyc 保持 entry；未見／未 contact Jiang 的走法仍有效，可接許棠／個人生活 OPEN-A。",
+      "open_dating_unlocked 只代表可進 OPEN-A；無邀約已接受、anchor completed、slot 已消耗或 romantic availability 保證。",
+      "romanticSignal、focusHistory/recentFocus、overlap/exclusivity/deception、harm/closure 與未披露 knowledge 保持 entry；晚回或休息本身不生成 cooling、RE 或 reopening 歷史。"
+    ]
+  },
+  "must_not": [
+    "不得產生未 contact 方訊息、共同記憶、跨人物 knowledge 或 compulsory Jiang discovery；不新增 heroine。",
+    "不得把訊息長度、先回誰、聊天到晚或輕關心設為分數、hidden weighting、route lock、romanticSignal 或 moral penalty；不延伸 predecessor 的 F/T/C/K compatibility mutation。",
+    "不得把男主寫成兩位女主的全天候照顧者／排程者，或用反覆加班與任務更新取代普通成年生活。",
+    "不得在第一人稱 narration 斷言女主隱藏動機、感情或未見日常；只能記當下讀到、看到、做過與自己的想法。",
+    "不得把邀約話題當接受、保證 date、進屋／voice co-op／anchor 完成；不開 focus heroine menu、自由 calendar、scheduler 新欄位或第三 OPEN-A slot。",
+    "不得加入 RE/return、accepted missed plan、friction repair、late route 或 ending state；這些由後續已界定 scene 擁有。",
+    "不得假借缺失的 COM-03J topic/reply history 補 shared memories；callback 只用 trustworthy local history，未知時退到中性內容。",
+    "本次只有 Narrative Design 與 DESIGN/DRAFT outline；不含 final dialogue、Locked Scene、CG、獨立 Narrative QA 或 Human acceptance 主張。"
+  ],
+  "implementation_mapping": {
+    "runtime_only": true,
+    "flags": {
+      "requires_contact_any": "contact_xu || contact_jyc",
+      "contact_xu": "read_only;gate_Xu_messages_and_activity_hook",
+      "contact_jyc": "read_only;gate_Jiang_messages_and_activity_hook",
+      "open_dating_unlocked": true
+    }
+  }
+}

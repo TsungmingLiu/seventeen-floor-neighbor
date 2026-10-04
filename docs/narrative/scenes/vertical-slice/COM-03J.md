@@ -2,195 +2,131 @@
 
 > Lifecycle: **CANONICAL**（scene-local Locked Scene；writer-authored，獨立 Narrative QA 尚待審查）
 >
-> Scene / Dialogue task: `SC-COM03J-009` / `opening-feedback-20261003`。
+> Scene / Dialogue task: `CW-CONTACT-CONTINUATION-001` / `m1-com03m-20261003`。
 
 ## Status and boundary
 
-- Production stage: `content_writer / scene_dialogue`；一幕 Script Lock（Locked Scene），等待 `content_qa / narrative_review` 採用。
-- Upstream Narrative Design: `ND-COM03J-004`；approved contract 與 beat／choice intent 不變。
-- Memory ownership intent: `common`。以下確立本幕 authoring node／choice IDs，尚未寫入 runtime／save／Memory contract。
-- 本幕不綁 CG、cover 或 visual asset；只有 Semantic Visual Beat。敘事預覽 integration、Human narrative-preview review、後續 visual gates 皆 pending。
-- COM-02J Human 決定只批准該前事，不批准本幕；不宣稱實測 first-play 時長。
+- Production stage: `content_writer / scene_dialogue`；本幕 Script Lock，等待獨立 `content_qa / narrative_review`。Human narrative-preview、visual 與 runtime integration gates 仍待後續階段。
+- Approved Narrative Design: `ND-CONTACT-CONTINUATION-001`；JSON 不由本 dialogue pass 改動。
+- COM-02J 擁有實際咖啡店相遇、互知姓名、共同話題、雙方同意與可用聯絡方式交換。書店 go 必定在同次外出到咖啡店；書店 skip 另有 cafe go/no-go。COM-03J 只承接已發生的事；COM-03X 的 common graph 位置不代表江雨澄又見過男主或知道許棠。
+- `common_recommend_discord_jyc_*` 為既有穩定 authoring node IDs，三個 `com03j_*` 為既有穩定 reply choice IDs；此處沒有 runtime／save／Memory wiring。私訊 body 的具體渠道是 **Discord**，因此只在 COM-02J 實際雙方同意並交換 Discord 後使用。若前事實際交換其他管道，本稿不可假作 Discord 私訊；需由後續 bounded channel wording revision 解決，不得靜默改口。
 
 ## Canonical inputs
 
-- `docs/narrative/CONTENT_PRODUCTION_SPEC.md` — Narrative Design／Locked Scene／review boundary。
-- `docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md` — global POV／heroine-spine L30–64、Jiang L71–147、COM-03J L330–348。
-- `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md` — graph IDs L29–41、state envelope L170–186、relationship axes L253–269、Jiang flags L290–311、knowledge L325–344、dependency row L355、implementation guardrails L688–704。
-- `docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_COMMON.md` — common opening L13–21、COM-03J L184–206。
-- `docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_JIANG_YUCHENG.md` — dramatic spine L13–32。
-- `docs/narrative/scenes/vertical-slice/COM-02J.md` — approved immediate continuity L1–360、dialogue／state notes L409–456；其餘場景內容不作本幕新事實。
-
-## Bounded supporting inputs
-
-Voice／identity 只用 `content/characters/jiang_yucheng.json` L2–4、L53–56。前事狀態由 `content/production/narrative/opening-ch1/COM-02J.json` 綁定；`content/production/runs/com02j-m1-preview-20261002/HUMAN-COM02J-STORY-011.decision.json` 是前事 Human 決定。`docs/narrative/DIALOGUE_CALIBRATION.md` 只用作程序；本 packet 沒有批准樣本節錄，不讀 bank 或其他角色參考。完整 exact input identities／acquisition／writer sweep evidence 留在 ignored task cache。
+- `content/production/narrative/opening-ch1/COM-03J.json` — exact approved COM-03J continuity contract.
+- `docs/narrative/scenes/vertical-slice/COM-02J.md` — pinned upstream cafe design source in this packet; its later Locked Scene is reserved for independent joint Narrative QA.
+- `docs/narrative/scenes/vertical-slice/COM-01J.md` — prerequisite bookstore-topic source path for independent downstream QA; prose not acquired in this bounded packet.
+- `content/production/narrative/opening-ch1/COM-02J.json` — approved upstream cafe contact/knowledge contract.
+- `content/production/narrative/opening-ch1/COM-03M.json` — contacted-Jiang Discord payoff requirement only.
+- `docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_COMMON.md` — only lines 184–206, COM-03J purpose and progression.
+- `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md` — only lines 296–328, Jiang knowledge constraints.
+- `docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md` — only lines 154–238 and 304–375, choice/consequence and no-score authority.
+- `docs/art/characters/jiang-yucheng.md` — only lines 11–62, Jiang character/voice boundary.
 
 ## Narrative Continuity Contract
 
 - Canonical contract: `content/production/narrative/opening-ch1/COM-03J.json`。
-- Verified contract SHA-256: `582918460ef2cef867a9c009e97d003313c05e236c3d814af80fe68949c3c1ce`。
-- Schema: `1.0.0`；JSON bytes 保持 approved ND 版本。本幕完成其 pre-dialogue outline 所要求的 dialogue，不把 JSON 內的 upstream-stage 狀態敘述改成下游 approval。
-- Entry：`acquaintances_with_specific_shared_context`。已知姓名、她會畫圖及男主科技工作／可攜工作的有限資訊；有共同作品脈絡，尚無聯絡方式。
-- Exit：`acquaintances_with_shared_interest_and_contact`。Discord 分享已發生，男主已接住一項當下內容，她在線上展開；各支自然收束，保留本次 reply style。
-- Contract 的 scene function、character intent、knowledge timing、required payoffs、exit constraints 與 `must_not` 均為 binding；獨立 Narrative QA／preview／Human acceptance pending。
+- Verified contract SHA-256: `2a68efcb18dc06c982ecb19272f263a40eb104b86c793222ee8c0ba5b845e7e1`。
 
-## Entry and scene premise
+- Entry：COM-02J 實際 cafe reunion 或 first meeting 後，雙方才知道當場交換的姓名和具體話題。聯絡可能已實際交換，也可能普通未交換；兩處皆 skip 時仍互不相識，本幕 Jiang content bypass。
+- Contacted exit：只在 COM-02J 實際 Discord 交換、姓名和具體共同話題均成立時，從同次 cafe 討論接《折返月台》公開推薦及當晚訊息。雨澄的線上反應隨熟悉內容展開；三種收束只記 local reply rhythm，沒有邀約或戀愛承諾。
+- No-contact exit：實際 cafe 相遇但未交換聯絡時，只保留 COM-02J 已演出的姓名與話題，普通告別後不播私訊。未見者沒有姓名、話題、訊息或聯絡。
+- Knowledge：只按 COM-01J／COM-02J 真正演出且具可信 provenance 的 history 回扣。首次 cafe 相遇不承接書架、雨澄的咖啡推薦或前次作品話題。無創作匿名身分、商業委託、住處與跨人物知識揭露。
+- State：`contact_jyc`、`met_jiang_yucheng`、雙方姓名與 cafe topic 全部 read-only 承接 COM-02J；本幕不補設 contact，不增加 `relationship.jyc.familiarity`，不設 RE、romanticSignal、focus／calendar／slot authority。
+
+## Entry and branch contract
 
 ```yaml
-requires:
-  - COM-02J completed
-  - player_knows_jyc_name == true
-  - jyc_knows_player_name == true
-  - jyc_creator_work_seen == true
-forbids:
+route_inputs:
+  bookstore_go: COM-01J completed -> same-visit COM-02J reunion
+  bookstore_skip_cafe_go: COM-02J first meeting, no COM-01J history
+  bookstore_skip_cafe_skip: bypass COM-02J and all COM-03J Jiang content
+contacted_discord_requires:
+  - actual COM-02J cafe encounter and completed name exchange
+  - actual concrete common topic and public-recommendation bridge
+  - explicit mutual consent and actual usable Discord exchange in COM-02J
   - contact_jyc == true
+no_contact_cafe:
+  - actual COM-02J cafe encounter
+  - contact_jyc == false
+  - skip private-message and reply-choice nodes
+never_met:
+  - met_jiang_yucheng == false
+  - contact_jyc == false
+  - skip all Jiang nodes
 ```
 
-Common sequence 為 `COM-02J → COM-03X → COM-03J → COM-03M`；COM-03X 只提供 sequence ID，不作本幕人物 knowledge 或 `contact_xu` gate。前事真正未完成／姓名未取得屬 entry failure，不能用 neutral callback 補造相識。
+COM-02J already completes the cafe goodbye on both actual-contact and no-contact paths. This scene starts later that same evening. Its first Discord message introduces the related recommendation from the actual cafe conversation; nobody promised to send 《折返月台》 earlier. The shared online body may play on either contacted cafe route because COM-02J has established real names, a concrete shared visual-interest topic, mutual consent and an actually exchanged Discord channel. The no-contact exit is a structural pass-through only.
 
-COM-02J 後的一個平日下午，在同一車站附近的咖啡店外短碰面。男主剛買完咖啡走出來，她路過時認出他、先開口。沒有中間約會、私下邀約或額外相處 montage。當晚回到男主自己的螢幕前，以 Discord 私訊接起推薦。
-
-《折返月台》是本幕 task-local 虛構遊戲推薦；只呈現公開作品頁及兩張內容截圖。兩張圖都是同一個月台／候車區域：一張有站立與坐著的角色輪廓，另一張移動至柱子旁，站牌、指向出口的箭頭及地面反光仍可見。不新增作者／發售史／匿名創作或既有通關履歷。Meme 是她將同一張推薦截圖加文字後送出的訊息，非她的 creator 帳號或私人作品。
+《折返月台》是 task-local 虛構遊戲推薦；只呈現公開作品頁及兩張內容截圖。兩圖都在同一月台／候車區：一張有站立與坐著的角色輪廓，另一張視點移到柱旁，站牌、出口箭頭與地面反光仍可見。Meme 是同一推薦截圖上的加字，不是她的創作帳號或私人作品。
 
 ## Beat sheet
 
-| Beat | Playable location | Semantic Visual Beat / payoff |
+| Beat | Authoring node | Semantic payoff |
 | --- | --- | --- |
-| 03J.1 她先接回推薦 | `common_recommend_discord_jyc_enter` → `callback` | 咖啡店外認出男主，她先開口；依可信 history 只播一個 callback。 |
-| 03J.2 有用途的交換 | `contact` | 她拿手機找作品頁、雙方同意加 Discord，確認可私訊。 |
-| 03J.3 普通告別 | `offline_exit` | 她收手機，兩人各自離開。 |
-| 03J.4 克制首訊息 | `first_message` | 當晚一則短訊息、作品頁與第一張截圖。 |
-| 03J.5 接住當下內容 | `content_uptake` | 男主讀圖再回一項具體觀察；她補正他的局部誤讀。 |
-| 03J.6 文字展開 | `analysis` → `meme` → `correction` | 第二張截圖、分析、meme、補充與自我更正分回合到達。 |
-| 03J.7 小停頓 | `notice` | 男主停下打字，看見她仍在輸入；只觀察此刻節奏差異。 |
-| 03J.8 她確認節奏 | `choice` → 三支 | 「我是不是講太多」；每支有她的反應及自己的道別。 |
-| 03J.9 合流 | `exit` | 對話停住、螢幕保留推薦；一次 completion effects，不新增 exposition。 |
+| 03J.0 真實路徑檢查 | scene gate / `no_contact_exit` | 未見者直接 bypass；已見但未交換者沿 cafe 普通告別離開。 |
+| 03J.1 當晚承接 | `enter` → `callback` | 從實際 cafe 話題選一則克制的公開遊戲推薦首訊，無第三次碰面或重複告別。 |
+| 03J.2 公開圖 | `first_message` | 同則 Discord 訊息附公開頁與第一張圖。 |
+| 03J.4 接住內容 | `content_uptake` | 男主先讀圖、回具體觀察，她局部補正。 |
+| 03J.5 文字展開 | `analysis` → `meme` → `correction` | 第二張圖、分析、meme 與自我更正分回合到達。 |
+| 03J.6 確認節奏 | `notice` → `choice` → 三支 | 玩家按今晚節奏回覆，三支各自道別後合流。 |
+| 03J.7 合流 | `exit` | 只保存實際訊息支的 reply style，接 common successor。 |
 
 ## Locked playable script
 
-製作標籤 `Jiang Yucheng`／`Protagonist` 不是 spoken address。姓名已由 COM-02J 取得；當面不必每回合稱全名。`Discord — Jiang Yucheng` 是私訊 sender 語意標籤，不設定新 creator alias 或帳號字串。時間標記只呈現故事時間。所有 callback variant 與 branch 是同一幕中的互斥局部分支。
+製作標籤 `Jiang Yucheng`／`Protagonist` 並非 spoken address。`Discord — Jiang Yucheng` 是實際交換的私訊 sender 語意標籤，不設定匿名創作帳號。時間標記只呈現故事時間。所有 callback variants 互斥，只在事實條件具備時使用。
+
+### `common_recommend_discord_jyc_no_contact_exit`
+
+**Condition**：COM-02J 已實際 cafe 相遇，但未交換任何可用聯絡方式。COM-02J 已完成普通道別，這裡不重演、不添加第三次見面或私訊。保留已取得的姓名和當場話題，直接前往下一個有效 common structural target；不設 reply style。從未見面的路徑連此 node 也不執行。
 
 ### `common_recommend_discord_jyc_enter`
 
-**Semantic Visual Beat**：男主拿著剛買的咖啡走出店門；雨澄在門外認出他，停下來先開口。
+**Condition**：COM-02J 已實際交換 Discord 並完成咖啡店道別，雙方姓名及當場具體共同話題均成立。這裡開始於同日晚間，沒有新的線下見面。
 
-**Narration**：我推開咖啡店的門，先把杯子換到另一隻手。門外有人停了一下。
+**Narration**：晚上，我把下午帶去咖啡店的筆記本電腦打開，桌面還留著沒關完的視窗。
 
-**Jiang Yucheng**：欸，你好。
-
-**Protagonist**：喔，妳好。
-
-**Jiang Yucheng**：我回去找到了。上次在咖啡店聊完，我想到一個遊戲，一時忘了叫什麼。
-
-**Protagonist**：嗯？哪個？
+**Action**：Discord 出現江雨澄的訊息。我把手邊的視窗縮小。
 
 → `common_recommend_discord_jyc_callback`
 
 ### `common_recommend_discord_jyc_callback`
 
-**Selector**：按下方 Callback selector 表只執行一個完整 variant，再到 `common_recommend_discord_jyc_contact`。各版都在本次才提出新推薦。
+**Selector**：按下方 Callback selector 只執行一個與 COM-02J 實際 cafe 交談相符的 **Discord 首訊** variant，再到 `common_recommend_discord_jyc_first_message` 的同則訊息附件。沒有任何 variant 假稱下午已提過《折返月台》或答應傳圖。
 
 #### Variant `her_art`
 
-**Jiang Yucheng**：《折返月台》。裡面有個角色，坐著跟站著都很好認。我想到上次你問的那幾張動作。
-
-**Protagonist**：看輪廓跟重心那個？
-
-**Jiang Yucheng**：嗯。截圖比較好講，我找一下。
+**Discord — Jiang Yucheng**：下午說到你看我那幾張動作，我想到《折返月台》。裡面有個角色，坐著跟站著都很好認。我傳一張圖給你看。
 
 #### Variant `shared_visual_design`
 
-**Jiang Yucheng**：《折返月台》。上次說亮的地方少一點，視線才會過去——它有幾個畫面是這樣。
-
-**Protagonist**：不是把整張拉亮。
-
-**Jiang Yucheng**：對。我有留一張截圖。
+**Discord — Jiang Yucheng**：下午說到亮的地方少一點，視線反而會過去，我想到《折返月台》。它有幾個畫面也是這樣。我有截圖。
 
 #### Variant `shared_worldbuilding`
 
-**Jiang Yucheng**：《折返月台》。它也是用畫面把環境分開，讓你知道現在在哪裡。
-
-**Protagonist**：像上次說雨港的分區？
-
-**Jiang Yucheng**：有一點那種感覺。場景不一樣，我找圖給你看。
+**Discord — Jiang Yucheng**：下午聊雨港的分區，我想到《折返月台》。它也是用畫面讓你知道自己走到哪裡，場景不一樣。我傳張圖給你看。
 
 #### Variant `shared_edition_value`
 
-**Jiang Yucheng**：《折返月台》。我有留一張截圖，字看得清楚的。
-
-**Protagonist**：這次不用拿反面教材了。
-
-**Jiang Yucheng**：嗯，省得又要放大找字。
+**Discord — Jiang Yucheng**：下午講到那本書字太小，我想到《折返月台》有個畫面也可以放大找細節。不過這張的字看得清楚。我有截圖。
 
 #### Variant `shared_neutral`
 
-**Jiang Yucheng**：《折返月台》。上次說設定集的構圖跟色塊可以拿來參考，我想到它有幾張畫面可以一起看。
-
-**Protagonist**：喔，好。是遊戲裡的畫面？
-
-**Jiang Yucheng**：嗯，我有截圖。
+**Discord — Jiang Yucheng**：下午聊到畫面怎麼安排，我想到《折返月台》。有一張圖我覺得你可以看一下。
 
 #### Variant `general_praise`
 
-**Jiang Yucheng**：《折返月台》。我有留截圖。這次不用關掉亂的圖層。
-
-**Protagonist**：這次是完整的？
-
-**Jiang Yucheng**：它的畫面啦，不是我的圖。月台那邊，我覺得你可以看一下。
+**Discord — Jiang Yucheng**：下午說我把亂的圖層關掉才顯得乾淨，我後來想到《折返月台》一張圖。這張是遊戲裡的完整畫面啦。我傳給你看。
 
 #### Variant `neutral`
 
-**Jiang Yucheng**：《折返月台》。也是看畫面細節會比較有意思的那種。我有留一張截圖。
-
-**Protagonist**：喔，好。妳有連結嗎？
-
-**Jiang Yucheng**：有，我找一下。
-
-### `common_recommend_discord_jyc_contact`
-
-**Semantic Visual Beat**：她在自己手機上找公開作品頁。男主仍拿著杯子，等她找完。
-
-**Action**：她滑了幾下，停在作品頁。店門又開了一次，我往旁邊讓了半步。
-
-**Jiang Yucheng**：我傳給你？這邊講可能講不完。
-
-**Protagonist**：好啊。妳用 Discord 嗎？
-
-**Jiang Yucheng**：有。你給我帳號就好。
-
-**Action**：我把自己的 Discord 加好友資訊打開給她看。她送出邀請，我確認後接受。
-
-**Protagonist**：有了。
-
-**Jiang Yucheng**：那我晚上傳。截圖在電腦裡。
-
-**Protagonist**：好，我再看。
-
-→ `common_recommend_discord_jyc_offline_exit`
-
-### `common_recommend_discord_jyc_offline_exit`
-
-**Semantic Visual Beat**：雨澄收起手機；咖啡店門口重新讓出通道。
-
-**Jiang Yucheng**：那我先走了。
-
-**Protagonist**：嗯，掰掰。
-
-**Jiang Yucheng**：掰掰。
-
-**Narration**：她往車站那邊走。我換回拿咖啡的手，杯蓋上沾了一點水。
-
-→ 當晚 `common_recommend_discord_jyc_first_message`
+**Discord — Jiang Yucheng**：下午聊到畫面怎麼安排，我想到《折返月台》。有張月台的圖，細節滿有意思的。我傳給你看。
 
 ### `common_recommend_discord_jyc_first_message`
 
 **Time**：20:48。
 
 **Semantic Visual Beat**：Discord 私訊裡出現公開作品頁連結及第一張月台截圖，前後沒有其他新帳號／群組資訊。
-
-**Narration**：晚上，Discord 跳出一則訊息。我把手邊的視窗縮小。
-
-**Discord — Jiang Yucheng**：下午說的遊戲。這張是月台那邊，你可以先看圖。
 
 **Message attachment**：《折返月台》公開作品頁連結；第一張截圖：月台立柱旁一個站著的角色、候車椅上一個坐著的角色；遠處出口亮著，地面留有反光。
 
@@ -274,7 +210,7 @@ COM-02J 後的一個平日下午，在同一車站附近的咖啡店外短碰面
 
 **Narration**：我本來想回一個「嗯」，游標停了一下。她已經又補了一句，還把自己前面說的話改掉了。
 
-**Narration**：下午在門口，她說截圖在電腦裡就收起手機。現在我往上滑，才發現已經聊了這麼多。
+**Narration**：下午在咖啡店，她講畫面時還會停一下找詞。現在我往上滑，才發現已經聊了這麼多。
 
 **Discord — Jiang Yucheng**：這張還有別的地方，不過我先停一下。
 
@@ -388,7 +324,7 @@ COM-02J 後的一個平日下午，在同一車站附近的咖啡店外短碰面
 
 **Narration**：對話底下停在晚安。我把視窗縮小，連結還留在裡面。
 
-**Mainline completion intent**：`contact_jyc=true`；`relationship.jyc.familiarity +=1`，一次；保存所選 `jyc_com03j_reply_style`。
+**Mainline completion intent**：保留 COM-02J 已成立的 `contact_jyc=true` 與 encounter 狀態；僅保存所選 `jyc_com03j_reply_style`，不增加 familiarity。
 
 **Replay completion intent**：結束本幕 replay-local flow；丟棄 local choice mutation，返回 Memory，不寫主線。
 
@@ -396,81 +332,57 @@ COM-02J 後的一個平日下午，在同一車站附近的咖啡店外短碰面
 
 ## Callback selector
 
-`common_recommend_discord_jyc_callback` 不是 choice。Selector 輸入是各自具可信 provenance 的 scene-local history。Mainline 用目前這次 playthrough 的 COM-02J／COM-01J 記錄；Memory 只用 replay-local snapshot。Unknown／missing／untrusted 不從數值、其他 choice 或 live 主線推回。
+`common_recommend_discord_jyc_callback` 是 read-only local history selector，不是玩家 choice。它挑選同晚首訊措詞；七個 variant 都附同一公開作品頁與月台截圖。Mainline 讀本次 playthrough 的可信 COM-02J history；僅 bookstore-go 且 COM-01J 確實發生時讀可信 first topic。Memory 只讀 replay-local encounter/contact/topic snapshot；缺失、不可信或別的 save history 不得以 live state 補全。以下各 variant 均到 `first_message` 的附件；無 contact 時不進 selector。
 
-| Trustworthy local `jyc_second_topic` | Trustworthy local `jyc_first_topic` | Execute only | Then |
+| Trustworthy COM-02J topic / spoken detail | Additional trustworthy fact | Execute only | Factual limit |
 | --- | --- | --- | --- |
-| `her_art` | 不使用 | `her_art` | `contact` |
-| `shared_work` | `visual_design` | `shared_visual_design` | `contact` |
-| `shared_work` | `worldbuilding` | `shared_worldbuilding` | `contact` |
-| `shared_work` | `edition_value` | `shared_edition_value` | `contact` |
-| `shared_work` | 缺失／未知／不可信 | `shared_neutral` | `contact` |
-| `general_praise` | 不使用 | `general_praise` | `contact` |
-| 缺失／未知／不可信 second topic | 任意，不使用 | `neutral` | `contact` |
-
-Second topic 有效時不被 first topic 覆蓋；shared_work 本身不證明 first topic。`general_praise` 只回扣關圖層的幽默，不借用 her_art 深聊。Neutral 不聲稱前次特定 choice。Selector read-only，不回填任何 topic；選哪個 callback 都到同一個有用途的 Discord exchange。
+| `her_art`，實際談動作／輪廓 | 不使用 first topic | `her_art` | 可用於 reunion 或 first cafe meet，語句只回扣當日下午實際畫圖。 |
+| `shared_work`，當場確實談明暗安排 | bookstore go + COM-01J `visual_design`，且本次 cafe 也回扣 | `shared_visual_design` | 兩場實際說過才提此前設定。 |
+| `shared_work`，當場確實談雨港分區 | bookstore go + COM-01J `worldbuilding`，且本次 cafe 也回扣 | `shared_worldbuilding` | first cafe meet 絕不使用。 |
+| `shared_work`，當場確實回扣字／版本笑話 | bookstore go + COM-01J `edition_value`，且本次 cafe 也回扣 | `shared_edition_value` | first cafe meet 絕不使用。 |
+| `shared_work`，當場只談一般畫面安排 | first topic 缺失／未知或無當地特定 callback | `shared_neutral` | 不提書店作品或未說過的設定集。 |
+| `general_praise`，當場確實有關圖層幽默 | 不使用 first topic | `general_praise` | 只回扣剛才的圖層句。 |
+| 當場具體共同視覺興趣成立，detail 缺失／未知／不可信 | 不使用 first topic | `neutral` | 不主張選過某 topic；若連共同話題也無可信證據，停止線上 path 並交 Narrative QA／integration 查明，不憑空推薦。 |
 
 ## Choice / rejoin contract
 
-| Stable choice ID | Reply style | 本支完成的當地反應與道別 | Next initiative residue（給後續 writer／integrator） |
+| Stable choice ID | Local reply style | Reaction and goodbye | Next initiative residue |
 | --- | --- | --- | --- |
-| `com03j_continue_content` | `continue_content` | 她接著說站牌／線條，允許男主沒看懂及她自己可能想多；較晚由男主提休息，雙方晚安。 | 可較直接接續作品分享；不推定隨時有空。 |
-| `com03j_warm_close` | `warm_close` | 她收到今晚想休息的意思、停止加圖，雙方晚安。 | 下次分享可先用一則短訊息確認節奏；沒有數值懲罰。 |
-| `com03j_save_for_later` | `save_for_later` | 她把已發資料留在對話，讓男主自己看，雙方晚安。 | 先留這個題目空間；之後可簡短確認或換一小點，不催進度。 |
+| `com03j_continue_content` | `continue_content` | 她接站牌／線條，容許男主看不出一處；晚些時由男主提休息，雙方晚安。 | 可直接再分享一點作品，不推定隨時有空。 |
+| `com03j_warm_close` | `warm_close` | 她接到今晚想休息，停止加圖，雙方晚安。 | 下次可先短訊確認節奏，沒有懲罰。 |
+| `com03j_save_for_later` | `save_for_later` | 她把已傳的兩張圖留給男主自己看，雙方晚安。 | 留出自己看的空間，不催進度。 |
 
-全部 rejoin `common_recommend_discord_jyc_exit`；共同出口只記對話停在晚安和資料仍在，不插入另一支的聊晚／未承諾的下次時間。各支 stats 均為 `0`，必要 online uptake／analysis 在 choice 前已成立。
+三支都 rejoin `common_recommend_discord_jyc_exit`。玩家回覆的是自己的今晚節奏；並不改變是否有 contact、姓名、knowledge、romantic eligibility 或其他 scene gate。
 
-## Runtime mapping
+## Runtime / Memory mapping intent
 
-此節是 authoring-to-runtime 的確切規格，尚無 wiring／runtime QA。表內 shorthand `enter` 等都指完整前綴 `common_recommend_discord_jyc_`，`COM-03M` 為 scene-level structural target，後續 integrator 才解析其 entry node。
+Authoring graph for actual contacted Discord path: `enter → callback (one true variant) → first_message → content_uptake → analysis → meme → correction → notice → choice → chosen branch → exit → COM-03M`。`continue` 再經 `continue_close`。Exact targets：`com03j_continue_content → common_recommend_discord_jyc_continue`；`com03j_warm_close → common_recommend_discord_jyc_warm_close`；`com03j_save_for_later → common_recommend_discord_jyc_save_for_later`。
 
-| Authoring node suffix | Next / selector | Local state / effect timing |
-| --- | --- | --- |
-| `enter` | `callback` | 無 mutation。 |
-| `callback` | 執行七個 variant 中一個 → `contact` | Read-only `jyc_second_topic`；只有可信 `shared_work` 才再讀 `jyc_first_topic`。 |
-| `contact` | `offline_exit` | 演出交換及接受好友；state finalization 留到 `exit`，勿另加 F。 |
-| `offline_exit` | `first_message` | 明確時間轉換，沒有 knowledge bonus。 |
-| `first_message` | `content_uptake` | 推薦頁／第一張圖已收到。 |
-| `content_uptake` | `analysis` | 男主具體回應成立於本幕可見資料。 |
-| `analysis` | `meme` | 第二張圖／分析已收到。 |
-| `meme` | `correction` | 同一推薦的 meme。 |
-| `correction` | `notice` | 補充與自我更正，無私人身份 reveal。 |
-| `notice` | `choice` | POV 只記當下文字節奏。 |
-| `choice` | 三個 `com03j_*` choice 按下方 Exact choice target 映射到各 branch | 記錄本次局部選擇，尚不向主線 commit。 |
-| `continue` | `continue_close` | Local reply style `continue_content`。 |
-| `continue_close` | `exit` | 本支普通晚安，保留時間差異。 |
-| `warm_close` | `exit` | Local reply style `warm_close`；本支晚安。 |
-| `save_for_later` | `exit` | Local reply style `save_for_later`；本支晚安。 |
-| `exit` | Mainline `COM-03M`；replay 返回 Memory | 只在 mainline completion 執行以下一次效果。 |
-
-Exact choice target：`com03j_continue_content → common_recommend_discord_jyc_continue`；`com03j_warm_close → common_recommend_discord_jyc_warm_close`；`com03j_save_for_later → common_recommend_discord_jyc_save_for_later`。七個 callback variants inline 在 `callback` node 下，非七個連續 nodes，也非新的玩家選項。
+Actual cafe/no-contact: COM-02J normal goodbye → `no_contact_exit` → next valid common structural target, with no `first_message`／choice／Jiang reply style. Never met: bypass all COM-03J Jiang nodes. COM-03M only emits its Jiang message when `contact_jyc=true`; this script adds no such flag. Whether another common scene may play depends on its own structural prerequisites.
 
 ```yaml
-set_on_mainline_completion_once:
-  contact_jyc: true
-  relationship.jyc.familiarity: increment 1
-  jyc_com03j_reply_style: chosen continue_content | warm_close | save_for_later
-choice_local_stats:
-  com03j_continue_content: { familiarity: 0, trust: 0, chemistry: 0, compatibility: 0 }
-  com03j_warm_close: { familiarity: 0, trust: 0, chemistry: 0, compatibility: 0 }
-  com03j_save_for_later: { familiarity: 0, trust: 0, chemistry: 0, compatibility: 0 }
-read_only_callback:
-  - jyc_second_topic
-  - jyc_first_topic  # only trustworthy shared_work detail
-preserve_entry_values:
+read_only_from_actual_COM02J:
+  - met_jiang_yucheng
   - player_knows_jyc_name/jyc_knows_player_name/jyc_creator_work_seen
-  - relationship.jyc.trust/chemistry/compatibility/romanticSignal
+  - actual_cafe_common_topic
+  - contact_jyc
+  - actual_exchanged_channel == Discord  # required to use this retained body
+read_only_callback:
+  - jyc_second_topic  # only when local history is trustworthy and spoken
+  - jyc_first_topic   # only bookstore go + actual COM-01J history + cafe callback
+set_on_mainline_message_completion_once:
+  jyc_com03j_reply_style: chosen continue_content | warm_close | save_for_later
+unchanged:
+  - contact_jyc/met_jiang_yucheng and both name flags
+  - relationship.jyc.familiarity/trust/chemistry/compatibility/romanticSignal
   - jyc_alias_private/jyc_alias_exposed
   - jyc_seen_in_element/jyc_home_space_comfort
-  - all repair/pressure flags
   - focusHistory/recentFocus/lastMajorDate
   - exclusivity/deception and all other-character knowledge
 ```
 
-`F_JYC` 在 contract 中對應 runtime `relationship.jyc.familiarity`；本幕僅 base +1。`jyc_com03j_reply_style` 是 contract-approved proposed runtime enum，用於下一次 initiative 語意；不宣稱已接入 engine。`preserve_entry_values` 保留現值，不能全部強制 false。只有本幕實際傳圖、回覆與同意管道的 knowledge 成立，不新增 creator alias、職稱、住處或其他人知識。
-
-Mainline completion 必須用既有 scene completion 去重機制；中途 save／reload 需保留當地 node、callback variant 和所選 reply style，不能從 `contact` 或恢復 node 再加 F。已完成 scene 不再重授同一 increment。Memory replay 只讀 replay-local history，local flags／reply style／stats 在 replay 範圍內，離開時不寫主線。若 replay 無 history snapshot，選 `neutral`，不是讀 live state。這些是後續 integration 的必要檢查，writer 不聲稱已測試 engine/save 行為。
+Replay reads only its own trustworthy route, encounter, contact, topic and channel snapshot. Without proven cafe contact and actual Discord, it does not play the online body. It applies no mainline mutation; replay-local reply choice is discarded on return. Mainline completion deduplicates the local reply-style save. The later integrator must preserve node, variant and branch across save/load; this writer has not claimed engine/save tests.
 
 ## Verification boundary
 
-Writer 已完成一次 bounded continuous-dialogue naturalization sweep，exact draft／final hashes 與修改 evidence 留在 ignored cache。Own-stage source／contract／callback／mapping checks 與機器 production/schema/storage/diff 結果由 structured Handoff 報告。這不代替 fresh independent `content_qa / narrative_review`，也不批准 Human playable story。後續先 Narrative QA，再按 accepted scene 做 narrative preview；本 pass 無 runtime／CG／camera／render／Human 決策變更。
+Writer completed exactly one bounded continuous-dialogue naturalization sweep on the evening entrance, first-message callbacks and retained online exchange. The shared body keeps the original public page, two screenshots, uptake, analysis, meme, correction, three stable reply IDs, branch reactions and semantic visual beats. The changed evening entrance has an explicit cafe topic cause; no script voice asserts a new meeting, unearned consent, earlier promise or unseen history. Own-stage validation and exact output hash are in this task's ignored Handoff. Fresh independent Narrative QA, Human preview, visual review and runtime integration remain separate gates.

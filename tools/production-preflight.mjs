@@ -99,6 +99,22 @@ export async function sourceIdentities(packet, { root = defaultRoot, checkWorktr
     input_digest_sha256: jsonHash(packet.input_versions) };
 }
 
+// A preview batch remains one finite task; all approvals remain scene-local.
+function sceneScopes(packet) {
+  if (packet.scene_ids !== undefined) {
+    insist(packet.task_type === 'integrate' && packet.harness === 'integrator' && packet.integration_mode === 'narrative_preview' && !packet.scene_id,
+      'scene_ids only supports narrative preview batches without scene_id');
+    insist(Array.isArray(packet.scene_ids) && packet.scene_ids.length && packet.scene_ids.every((id) => typeof id === 'string' && /^[A-Za-z0-9][A-Za-z0-9_-]*$/.test(id)) &&
+      new Set(packet.scene_ids).size === packet.scene_ids.length, 'invalid finite scene_ids');
+    const scenes = packet.inputs?.scenes;
+    insist(Array.isArray(scenes) && scenes.length === packet.scene_ids.length && new Set(scenes.map((scene) => scene.scene_id)).size === scenes.length &&
+      scenes.every((scene) => Object.keys(scene).every((key) => ['scene_id', 'narrative_contract', 'locked_scene'].includes(key)) && packet.scene_ids.includes(scene.scene_id) && scene.narrative_contract && scene.locked_scene) &&
+      !packet.inputs.narrative_contract && !packet.inputs.locked_scene, 'batch requires exact per-scene inputs');
+    return scenes.map((scene) => ({ ...packet, scene_ids: undefined, scene_id: scene.scene_id, inputs: { ...packet.inputs, ...scene } }));
+  }
+  insist(!packet.inputs?.scenes, 'scene inputs require scene_ids');
+  return [packet];
+}
 function neededGates(packet) {
   if (packet.integration_mode === 'governance_maintenance') return [];
   return ({ scene_dialogue: ['narrative_design'], cg_plan: ['narrative_review'], cg_render: ['manifest_usability'],
@@ -162,6 +178,7 @@ function acquiredInput(version, binding) {
   return acquisition;
 }
 async function manualRequirements(packet, { root, checkWorktree, binding }) {
+  const scopes = sceneScopes(packet);
   const requirements = packet.preflight_requirements;
   insist(requirements?.version === 1 && Array.isArray(requirements.dependencies), 'manual packet requires preflight_requirements v1/dependencies');
   binding.machine_evidence = [];
@@ -194,19 +211,21 @@ async function manualRequirements(packet, { root, checkWorktree, binding }) {
     const locations = source.excerpts.length ? source.excerpts.map((part) => `${source.path}#L${part.start_line}-L${part.end_line}`) : [source.path];
     for (const location of locations) insist(packet.input_versions.some((input) => input.location === location), `missing input version: ${location}`);
   }
-  if (packet.inputs?.narrative_contract) {
-    const relative = safePath(packet.inputs.narrative_contract);
-    insist(binding.sources.some((source) => source.path === relative), 'contract not acquired');
-    const contract = JSON.parse(git(root, 'show', `${binding.source_ref}:${relative}`).toString('utf8'));
-    insist(contract.scene_id === packet.scene_id && (!packet.inputs.locked_scene || contract.source_scene === packet.inputs.locked_scene), 'wrong scene/contract binding');
-  }
-  if (packet.integration_mode !== 'governance_maintenance') insist(typeof packet.scene_id === 'string' && packet.scene_id.length, 'manual creative/scene task requires explicit scene ID');
-  for (const key of ['locked_scene', 'cg_manifest', 'render_packet']) if (packet.inputs?.[key]) {
-    const relative = safePath(packet.inputs[key]);
-    insist(binding.sources.some((source) => source.path === relative), `unacquired input: ${key}`);
-  }
-  if (['scene_dialogue', 'cg_plan'].includes(packet.task_type) || (packet.task_type === 'integrate' && packet.integration_mode !== 'governance_maintenance')) {
-    insist(packet.inputs?.narrative_contract && packet.inputs?.locked_scene, 'manual scene task requires explicit acquired contract and Locked Scene');
+  for (const scope of scopes) {
+    if (scope.inputs?.narrative_contract) {
+      const relative = safePath(scope.inputs.narrative_contract);
+      insist(binding.sources.some((source) => source.path === relative), 'contract not acquired');
+      const contract = JSON.parse(git(root, 'show', `${binding.source_ref}:${relative}`).toString('utf8'));
+      insist(contract.scene_id === scope.scene_id && (!scope.inputs.locked_scene || contract.source_scene === scope.inputs.locked_scene), 'wrong scene/contract binding');
+    }
+    if (scope.integration_mode !== 'governance_maintenance') insist(typeof scope.scene_id === 'string' && scope.scene_id.length, 'manual creative/scene task requires explicit scene ID');
+    for (const key of ['locked_scene', 'cg_manifest', 'render_packet']) if (scope.inputs?.[key]) {
+      const relative = safePath(scope.inputs[key]);
+      insist(binding.sources.some((source) => source.path === relative), `unacquired input: ${key}`);
+    }
+    if (['scene_dialogue', 'cg_plan'].includes(scope.task_type) || (scope.task_type === 'integrate' && scope.integration_mode !== 'governance_maintenance')) {
+      insist(scope.inputs?.narrative_contract && scope.inputs?.locked_scene, 'manual scene task requires explicit acquired contract and Locked Scene');
+    }
   }
   if (packet.task_type === 'visual_review') {
     insist(['candidate', 'manifest_usability'].includes(packet.review_scope) && packet.inputs?.cg_manifest && packet.inputs?.cg_entry_id, 'manual visual review requires one explicit manifest entry/scope');
@@ -225,10 +244,9 @@ async function manualRequirements(packet, { root, checkWorktree, binding }) {
     const receipt = JSON.parse(bytes.toString('utf8'));
     if (receipt.schema_version === '2.0.0') assertDurableDecision(receipt, bytes);
     insist(receipt.run_id === dependency.run_id && receipt.task_id === dependency.task_id && (receipt.status === 'PASS' || (dependency.gate === 'accepted_master_image_selection' && receipt.status === 'HUMAN_ACCEPTED_AS_IS')) &&
-      (!packet.scene_id || receipt.scene_id === packet.scene_id), 'dependency approval is absent or wrong scene/task');
+      (packet.integration_mode === 'governance_maintenance' || scopes.some((scope) => receipt.scene_id === scope.scene_id)), 'dependency approval is absent or wrong scene/task');
     insist(Array.isArray(dependency.input_versions) && dependency.input_versions.length &&
       jsonHash(receipt.input_versions) === jsonHash(dependency.input_versions), 'stale dependency QA input versions');
-    for (const version of dependency.input_versions) await dependencyIdentity(version, { root, binding });
     const human = humanGates.includes(dependency.gate), stage = priorStages[dependency.gate];
     insist(human || stage, 'unsupported dependency approval gate');
     if (human) insist(receipt.evidence_purpose === 'human_decision' && receipt.task_type === 'human_decision' &&
@@ -242,12 +260,29 @@ async function manualRequirements(packet, { root, checkWorktree, binding }) {
       const prefix = { manifest_usability: 'MUA-', narrative_review: 'NQA-', visual_review: 'VQA-' }[dependency.gate];
       if (prefix) insist(dependency.required_qa_codes.every((code) => code.startsWith(prefix)), 'dependency QA scope mismatch');
     }
+    // Only a validated design receipt can replace its old owning-file input with
+    // that receipt's exact approved current output at the same acquired location.
+    const approvedInputs = [];
+    for (const version of dependency.input_versions) {
+      let current = version;
+      try { await dependencyIdentity(version, { root, binding }); }
+      catch (error) {
+        const outputs = dependency.gate === 'narrative_design' && !version.location.includes('#') ?
+          (receipt.output_versions || []).filter((item) => item.location === version.location) : [];
+        if (!outputs.length) throw error;
+        insist(outputs.length === 1 && /^[0-9a-f]{40}$/.test(receipt.source_ref || ''), 'design supersession requires exact historical source_ref/output');
+        git(root, 'cat-file', '-e', `${receipt.source_ref}^{commit}`);
+        boundVersion(git(root, 'show', `${receipt.source_ref}:${safePath(version.location)}`), version.version, 'historical design input');
+        current = outputs[0]; acquiredInput(current, binding); await dependencyIdentity(current, { root, binding });
+      }
+      approvedInputs.push(current);
+    }
     // A contract can be the narrative-design output rather than that writer's input.
-    if (stage || dependency.gate === 'accepted_master_image_selection') await requireCoverage(consumedGateInputs(packet, dependency.gate),
-      [...receipt.input_versions, ...(dependency.gate === 'narrative_design' ? receipt.output_versions || [] : [])],
+    if (stage || dependency.gate === 'accepted_master_image_selection') await requireCoverage(consumedGateInputs(scopes.find((scope) => scope.scene_id === receipt.scene_id) || packet, dependency.gate),
+      [...approvedInputs, ...(dependency.gate === 'narrative_design' ? receipt.output_versions || [] : [])],
       { root, binding }, `dependency does not cover consumed inputs: ${dependency.gate}`);
     if (dependency.output_versions) insist(jsonHash(receipt.output_versions) === jsonHash(dependency.output_versions), 'dependency output versions mismatch');
-    dependencyGates.add(dependency.gate); verifiedDependencies.push({ dependency, receipt });
+    dependencyGates.add(`${receipt.scene_id}:${dependency.gate}`); verifiedDependencies.push({ dependency, receipt });
   }
   for (const { dependency, receipt } of verifiedDependencies) {
     if (receipt.task_type === 'human_decision') continue;
@@ -258,7 +293,7 @@ async function manualRequirements(packet, { root, checkWorktree, binding }) {
     // requiring Human to repeat the QA context. A scene-only approval cannot resolve it.
     insist(Array.isArray(receipt.output_versions) && receipt.output_versions.length, 'upstream Human gate has unresolved output identities');
     for (const output of receipt.output_versions) await dependencyIdentity(output, { root, binding });
-    const resolutions = verifiedDependencies.filter((item) => item.receipt.task_type === 'human_decision' && item.dependency.gate === gate);
+    const resolutions = verifiedDependencies.filter((item) => item.receipt.task_type === 'human_decision' && item.dependency.gate === gate && item.receipt.scene_id === receipt.scene_id);
     insist(resolutions.length, `unresolved upstream Human gate: ${gate}`);
     let resolved = false;
     for (const decision of resolutions) {
@@ -279,7 +314,7 @@ async function manualRequirements(packet, { root, checkWorktree, binding }) {
     acquiredInput(outputs[0], binding);
     await dependencyIdentity(outputs[0], { root, binding });
   }
-  for (const gate of neededGates(packet)) insist(dependencyGates.has(gate), `missing required dependency approval: ${gate}`);
+  for (const scope of scopes) for (const gate of neededGates(scope)) insist(dependencyGates.has(`${scope.scene_id}:${gate}`), `missing required dependency approval: ${gate} (${scope.scene_id})`);
   for (const task of packet.depends_on || []) insist(requirements.dependencies.some((dependency) => dependency.run_id === packet.run_id && dependency.task_id === task), `unverified dependency: ${task}`);
   if (packet.harness === 'cg_renderer') {
     insist(packet.inputs?.cg_entry_id && !packet.inputs.cg_entry_ids && !packet.inputs.locked_scene && !packet.inputs.narrative_contract && packet.inputs.cg_manifest && packet.inputs.render_packet, 'manual renderer supports one manifest entry/packet only');
@@ -335,12 +370,14 @@ async function manualRequirements(packet, { root, checkWorktree, binding }) {
   }
 }
 
-export async function verifyTaskPacket(packet, { root = defaultRoot, kind, expectedScene, checkWorktree = true } = {}) {
+export async function verifyTaskPacket(packet, { root = defaultRoot, kind, expectedScene, expectedScenes, checkWorktree = true } = {}) {
   const generatedType = packet.task_type === 'narrative_review' || (packet.task_type === 'cg_plan' && packet.scene_id === 'COM-00') ||
     (packet.task_type === 'visual_review' && ((packet.review_scope === 'manifest_usability' && packet.scene_id === 'COM-00') ||
       (packet.review_scope === 'candidate' && packet.inputs?.cg_entry_id === 'COM00-S04-BASE-NEUTRAL')));
   kind ||= packet.preflight_requirements ? 'manual' : 'generated';
   insist(['manual', 'generated'].includes(kind), 'invalid packet kind');
+  sceneScopes(packet);
+  if (expectedScenes) insist(Array.isArray(packet.scene_ids) && jsonHash(packet.scene_ids) === jsonHash(expectedScenes), 'wrong dispatched scenes');
   if (expectedScene) insist(packet.scene_id === expectedScene, 'wrong dispatched scene');
   const binding = await sourceIdentities(packet, { root, checkWorktree });
   if (generatedType) {
@@ -357,15 +394,16 @@ export async function verifyTaskPacket(packet, { root = defaultRoot, kind, expec
   return { ...binding, kind };
 }
 
-export async function preflightProduction({ root = defaultRoot, packetPath, kind, expectedScene } = {}) {
+export async function preflightProduction({ root = defaultRoot, packetPath, kind, expectedScene, expectedScenes } = {}) {
   const stages = []; let stage = 'cache';
   const report = { version: 1, dispatch_allowed: false, status: 'BLOCKED', semantic_qa: 'NOT_RUN', pixels_verified: false, production_approval: false, stages };
   try {
     await checkSessionCache(root); stage = 'packet';
     const bytes = await readSafe(root, packetPath, { cache: true, maxBytes: 1024 * 1024 });
     const packet = JSON.parse(bytes.toString('utf8'));
+    if (packet.scene_ids !== undefined) insist(expectedScenes && !expectedScene, 'batch dispatch requires --scenes to bind Coordinator intent');
     if (packet.scene_id && packet.integration_mode !== 'governance_maintenance') insist(expectedScene, 'scene-scoped dispatch requires --scene to bind Coordinator intent');
-    report.binding = { packet_sha256: hash(bytes), ...await verifyTaskPacket(packet, { root, kind, expectedScene }) };
+    report.binding = { packet_sha256: hash(bytes), ...await verifyTaskPacket(packet, { root, kind, expectedScene, expectedScenes }) };
     stages.push({ id: stage, status: 'PASS' });
     for (const [id, script] of [['content', 'tools/validate-content.mjs'], ['production', 'tools/validate-production-contracts.mjs']]) {
       stage = id; const result = await runCheck(root, script);
@@ -379,9 +417,9 @@ export async function preflightProduction({ root = defaultRoot, packetPath, kind
 }
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   try {
-    const args = cliArgs(process.argv.slice(2), ['--packet', '--kind', '--scene', '--out']);
+    const args = cliArgs(process.argv.slice(2), ['--packet', '--kind', '--scene', '--scenes', '--out']);
     insist(args.out, 'preflight requires --out <new cache report>');
-    const report = await preflightProduction({ packetPath: args.packet, kind: args.kind, expectedScene: args.scene });
+    const report = await preflightProduction({ packetPath: args.packet, kind: args.kind, expectedScene: args.scene, expectedScenes: args.scenes?.split(',') });
     if (args.out) await writeCache(defaultRoot, args.out, report);
     console.log(JSON.stringify({ status: report.status, dispatch_allowed: report.dispatch_allowed, semantic_qa: report.semantic_qa,
       production_approval: false, packet_sha256: report.binding?.packet_sha256, report: args.out || null,

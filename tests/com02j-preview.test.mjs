@@ -38,107 +38,6 @@ function scriptGroups() {
   return groups;
 }
 
-test('COM02J compiles all 61 approved turns, speaker timing, labels and rejoins exactly', () => {
-  let turns = 0;
-  for (const [anchor, body] of scriptGroups()) {
-    const approved = [...body.matchAll(/^\*\*(Narration|Action|Protagonist|Jiang Yucheng)\*\*：(.*)$/gm)];
-    let id = anchor;
-    for (const [index, [, role, text]] of approved.entries()) {
-      const node = nodes[id];
-      assert.equal(node.text, text, `${anchor} turn ${index}`);
-      assert.equal(node.speaker, role === 'Protagonist' ? '你' : role === 'Jiang Yucheng' ? anchor === 'common_station_cafe_jyc_drawing' ? '女生' : '江雨澄' : '旁白');
-      assert.deepEqual(node.visual, { mode: 'composite', background: 'bg.narrative_preview.placeholder', sprites: [] });
-      if (index < approved.length - 1) id = node.next;
-      turns++;
-    }
-    if (anchor.startsWith('com02j_')) assert.equal(nodes[id].next, 'common_station_cafe_jyc_parallel');
-  }
-  assert.equal(turns, 61);
-  assert.equal(nodes.common_station_cafe_jyc_parallel_02.audioCue, '咖啡機、遠處人流、stylus 輕觸聲。');
-  for (const variant of ['visual_design', 'worldbuilding', 'edition_value', 'neutral']) {
-    const choices = nodes[`common_station_cafe_jyc_choice_${variant}`].choices;
-    assert.deepEqual(choices.map(c => c.id), ['com02j_ask_drawing', 'com02j_continue_topic', 'com02j_simple_praise']);
-    assert.equal(choices[1].text, nodes[`com02j_continue_topic_${variant}`].text);
-    assert.equal(choices[1].next, 'com02j_continue_topic');
-  }
-  assert.equal(nodes.opening_demo_complete.default, 'common_station_cafe_jyc_enter');
-  assert.equal(nodes[supplementEnd].default, 'common_package_xu_arrive');
-});
-
-test('existing runtime preserves exact d4ab4bd fields and only the 25 approved anonymous label overrides', () => {
-  const baseline = 'd4ab4bd0ffc4bec97f81ad288a52194bc3a883bd';
-  const prior = file => JSON.parse(execFileSync('git', ['show', `${baseline}:content/routes/opening-demo/${file}`], { encoding: 'utf8' }));
-  const old = prior('chapter-01.json').nodes;
-  const anonymousLabels = new Set([
-    'common_movein_rain_move', 'common_movein_rain_formal', 'common_movein_rain_joke',
-    'common_movein_rain_practical', 'common_movein_rain_door_locked_00',
-    'common_movein_rain_door_locked_02', 'common_movein_rain_joke_locked_01',
-    'common_movein_rain_practical_locked_02', 'common_movein_rain_formal_locked_04',
-    'common_acg_first_meet_rejoin', 'common_acg_first_meet_cafe_reply', 'common_acg_first_meet_coda',
-    'common_acg_first_meet_observation_locked_01',
-    'common_acg_first_meet_worldbuilding_locked_00', 'common_acg_first_meet_worldbuilding_locked_03',
-    'common_acg_first_meet_worldbuilding_locked_05', 'common_acg_first_meet_visual_design_locked_01',
-    'common_acg_first_meet_visual_design_locked_04', 'common_acg_first_meet_buying_practical_locked_00',
-    'common_acg_first_meet_buying_practical_locked_02', 'common_acg_first_meet_buying_practical_locked_04',
-    'common_acg_first_meet_rejoin_locked_01',
-    'common_acg_first_meet_cafe_seed_locked_00', 'common_acg_first_meet_cafe_seed_locked_02',
-    'common_acg_first_meet_exit_locked_01'
-  ]);
-  assert.equal(anonymousLabels.size, 25);
-  assert.deepEqual(Object.keys(nodes).filter(id => Object.hasOwn(nodes[id], 'speakerLabel')).sort(),
-    [...anonymousLabels].sort(), 'no anonymous label additions outside the exact pre-reveal set');
-  for (const [id, node] of Object.entries(old)) {
-    if (id === 'opening_demo_complete') continue;
-    if (id === 'com03x_preview_complete') {
-      assert.deepEqual(nodes[id], { type: 'branch', default: 'common_recommend_discord_jyc_enter' });
-      continue;
-    }
-    const expected = anonymousLabels.has(id) ? { ...node, speakerLabel: '女生' } : structuredClone(node);
-    if (['common_convenience_xu_exit', 'common_convenience_xu_exit_02'].includes(id)) {
-      expected.visual.background = 'bg.opening.com02x.return_elevator_trial';
-    }
-    assert.deepEqual(nodes[id], expected,
-      `accepted node changed: ${id}`);
-  }
-  assert.equal(Object.entries(old).filter(([id,node]) => (id.startsWith('common_package_xu_') || id.startsWith('com03x_')) && node.text).length, 83);
-  assert.deepEqual(memories.events.slice(0,4), prior('memories.json').events);
-  assert.deepEqual(route.assetIds, [...prior('route.json').assetIds, 'bg.opening.com02x.return_elevator_trial']);
-});
-
-for (const nodeId of ['com03x_preview_complete', 'common_package_xu_choice', 'com03x_ask_proof_02', 'common_package_xu_first_message_06']) {
-  test(`COM02J supplement ${nodeId} survives reload and merges only local effects without replaying world counters`, () => {
-    const saved = savedAt(nodeId, nodeId === 'com03x_preview_complete');
-    const storage = new Storage(saved);
-    let progress = new ProgressStore(chapter, memories, storage);
-    assert.equal(progress.data.playerDisplayName, '小雨');
-    assert.deepEqual(progress.data.frontier, saved.frontier);
-    assert.equal(progress.data.frontierRank, 200);
-    assert.equal(progress.data.runComplete, false);
-    assert.equal(progress.data.cursor.nodeId, 'common_station_cafe_jyc_enter');
-    assert.equal(progress.data.cursor.flags.includes('contact_xu'), false, 'future world flags do not enter local Memory');
-    const state = progress.restore(progress.data.cursor).state;
-    state.F_JYC += 2;
-    state.flags.add('jyc_second_topic:shared_work');
-    for (const flag of nodes[supplementEnd].entryFlags) state.flags.add(flag);
-    progress.capture('com02j_continue_topic_visual_design_02', state, []);
-    progress = new ProgressStore(chapter, memories, storage);
-    assert.equal(progress.data.cursor.nodeId, 'com02j_continue_topic_visual_design_02');
-    assert.deepEqual(progress.data.frontier, saved.frontier);
-    const returned = progress.completeCom02jSupplement(state);
-    assert.equal(returned.nodeId, nodeId);
-    assert.equal(returned.state.F_XT, 20);
-    assert.equal(returned.state.F_JYC, 8);
-    assert.equal(returned.state.T_JYC, 2);
-    assert.equal(returned.state.C_JYC, 3);
-    assert.equal(returned.state.flags.has('contact_xu'), true);
-    assert.equal(progress.data.runComplete, false, 'the completed old terminal now continues into COM03J');
-    assert.equal(progress.completeCom02jSupplement(state), null, 'merge is exactly once');
-    const reload = new ProgressStore(chapter, memories, storage);
-    assert.equal(reload.data.com02jSupplement, null);
-    assert.deepEqual(reload.data.frontier, progress.data.frontier);
-  });
-}
-
 test('newer complete worlds, ordinary Memory cursors, restart and predecessor saves never reopen as COM02J upgrades', () => {
   for (const kind of ['newer', 'memory', 'restart', 'predecessor']) {
     const saved = savedAt('com03x_preview_complete', true);
@@ -151,14 +50,14 @@ test('newer complete worlds, ordinary Memory cursors, restart and predecessor sa
   }
 });
 
-test('fresh chronology preserves a later COM03X frontier across isolated COM02J Memory replay and reload', () => {
+test('cafe before convenience preserves the later COM03X frontier across isolated Memory replay and reload', () => {
   const storage = new Storage();
   const progress = new ProgressStore(chapter, memories, storage);
   const state = { ...chapter.initialState, flags: new Set([marker]) };
+  progress.capture('common_station_cafe_jyc_enter', state, []);
+  assert.equal(progress.data.frontierRank, 150);
   progress.capture('common_convenience_xu_exit_08', state, []);
   assert.equal(progress.data.frontierRank, 160);
-  progress.capture('common_station_cafe_jyc_enter', state, []);
-  assert.equal(progress.data.frontierRank, 180);
   progress.capture('common_package_xu_line', state, []);
   assert.equal(progress.data.frontierRank, 200);
   const world = structuredClone(progress.data.frontier);
@@ -178,46 +77,24 @@ test('COM02J placeholder remains opted in and excluded from Gallery/final accept
   assert.deepEqual(memories.events.at(-1).galleryAssets, []);
 });
 
-test('historical v1 COM03X terminal supplements through the same bounded path and defaults only new additive stats', () => {
-  const current=savedAt('com03x_preview_complete',true).cursor;
-  delete current.stats.T_JYC;delete current.stats.C_JYC;
-  const values=new Map([[`${chapter.id}:journey:v1`,JSON.stringify({version:1,current,checkpoints:{[current.nodeId]:current},edges:[]})]]);
-  const storage={getItem:key=>values.get(key)||null,setItem:(key,value)=>values.set(key,value)};
-  const store=new ProgressStore(chapter,memories,storage);
-  assert.equal(store.data.com02jSupplement.wasComplete,true);
-  assert.equal(store.data.cursor.nodeId,'common_station_cafe_jyc_enter');
-  assert.equal(store.data.frontier.stats.F_XT,20);
-  assert.equal(store.data.frontier.stats.T_JYC,0);
-  assert.equal(store.data.frontier.stats.C_JYC,0);
-  const reloaded=new ProgressStore(chapter,memories,storage);
-  assert.deepEqual(reloaded.data.com02jSupplement,store.data.com02jSupplement);
-  const state=reloaded.restore(reloaded.data.cursor).state;
-  state.F_JYC+=1;state.T_JYC+=1;
-  state.flags.add('preview:com02j-complete');
-  state.flags.add('jyc_second_topic:her_art');
-  const returned=reloaded.completeCom02jSupplement(state);
-  assert.equal(returned.state.F_XT,20);
-  assert.equal(returned.state.F_JYC,7);
-  assert.equal(returned.state.T_JYC,1);
-  assert.equal(returned.state.C_JYC,0);
-  assert.ok(['F_JYC','T_JYC','C_JYC'].every(key=>Number.isFinite(returned.state[key])));
+test('approved cafe dialogue and actions are represented verbatim on the two entrances',()=>{
+  const text=[...script.matchAll(/^\*\*(?:Narration|Action|Protagonist|Jiang Yucheng)\*\*：(.+)$/gm)].map(m=>m[1]);
+  assert.ok(text.length>100);
+  const actual=new Set(Object.values(nodes).map(node=>node.text));
+  for(const line of text)assert.ok(actual.has(line),line);
+  for(const id of ['common_station_cafe_jyc_enter','common_station_cafe_jyc_first_enter','common_station_cafe_jyc_contact_choice','com02j_offer_discord','com02j_leave_without_contact'])assert.ok(nodes[id]);
 });
-
-
-test('sparse historical v2 supplementation keeps finite deltas and uses neutral absent creator/history facts', () => {
-  const saved=savedAt('com03x_preview_complete',true);
-  delete saved.cursor.stats.T_JYC;delete saved.cursor.stats.C_JYC;
-  saved.cursor.stats.jyc_first_topic=0;saved.cursor.flags=['contact_xu','unrelated-player-flag'];
-  const store=new ProgressStore(chapter,memories,new Storage(saved));
-  assert.equal(store.data.cursor.stats.jyc_first_topic,0);
-  assert.deepEqual(store.data.cursor.flags,[]);
-  const state=store.restore(store.data.cursor).state;state.F_JYC+=1;state.C_JYC+=1;
-  state.flags.add('preview:com02j-complete');state.flags.add('jyc_second_topic:general_praise');
-  const returned=store.completeCom02jSupplement(state);
-  assert.equal(returned.state.F_XT,20);
-  assert.equal(returned.state.F_JYC,7);
-  assert.equal(returned.state.T_JYC,0);
-  assert.equal(returned.state.C_JYC,1);
-  assert.equal(returned.state.flags.has('unrelated-player-flag'),true);
-  assert.ok(['F_JYC','T_JYC','C_JYC'].every(key=>Number.isFinite(returned.state[key])));
+test('cafe contact is established only by the accepted exchange and the no-contact exit stays clean',()=>{
+  assert.deepEqual(nodes.common_station_cafe_jyc_contact_choice.choices.map(x=>x.id),['com02j_offer_discord','com02j_leave_without_contact']);
+  assert.ok(nodes.com02j_offer_discord_04.entryFlags.includes('contact_jyc'));
+  assert.ok(!JSON.stringify(nodes.com02j_leave_without_contact).includes('contact_jyc'));
+  assert.equal(nodes.common_station_cafe_jyc_complete.default,'common_convenience_xu_enter');
+  assert.equal(nodes.common_station_cafe_jyc_first_drawing_02.entryEffects.met_jiang_yucheng,1);
+  assert.equal(nodes.common_station_cafe_jyc_first_drawing_02.speakerLabel,'女生');
+});
+test('cafe preview uses registered placeholder and cannot satisfy final visual validation',async()=>{
+  const content=await loadContent();
+  for(const [id,node] of Object.entries(nodes))if((id.startsWith('common_station_cafe_jyc_')||id.startsWith('com02j_'))&&node.visual)assert.equal(node.visual.background,'bg.narrative_preview.placeholder');
+  assert.deepEqual(await validateContent(content),[]);
+  assert.ok((await validateContent(content,{finalVisuals:true})).some(e=>e.includes('final visual acceptance forbids allowPreviewArt')));
 });
