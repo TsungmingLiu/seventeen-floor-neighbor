@@ -8,7 +8,7 @@
     "summary": "One bounded COM-02X microwave Scene Embodiment B pilot; preserve existing accepted A and all historical QA/Human outcomes.",
     "gate_status": "none"
   },
-  "status": "ACTIVE",
+  "status": "BLOCKED",
   "tasks": [
     {
       "task_id": "NQA-COM02X-PILOT-001",
@@ -64,10 +64,35 @@
       "depends_on": [
         "MUA-MICROWAVE-B-001"
       ],
-      "status": "READY",
+      "status": "PASS",
       "decision_receipt": null,
       "human_gate": "none",
-      "reason": null
+      "reason": "Exactly one built-in imagegen call; byte-identical original PNG1672x941,2376025bytes,SHA25639ccefbef8e12fcbbea6ba321e80ffd03f863020fd6b79fe6209932a3d57fed9 at generated/job-artifacts/microwave-embodiment-20261003/B/candidate.png. Verified capture Handoff982af53b1717710faadfe5f03bd5f09e3084289353c9f38619e2f5cbe3712efc; provenanceSHA256dd3cec8ceaa74f12463568c72cff824025998117310b5e429ef67b05b09eba7c. Capture PASS only.",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "0798c336898808cbdf4b5eb39f982b69fbf136a243e281d9f815beeda88046f9"
+      }
+    },
+    {
+      "task_id": "VQA-MICROWAVE-B-001",
+      "task_type": "visual_review",
+      "scene_id": "COM-02X",
+      "review_scope": "candidate",
+      "entry_ids": [
+        "COM02X-DLG-MICROWAVE-EMBODIMENT-B-001"
+      ],
+      "depends_on": [
+        "RENDER-MICROWAVE-B-001",
+        "MUA-MICROWAVE-B-001"
+      ],
+      "status": "FAIL",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "4b802c8db55909717f91ac2a3a066a80ba4aeb51e263ac0e05b741c0b4281e78"
+      },
+      "decision_receipt": "content/production/runs/microwave-embodiment-20261003/VQA-MICROWAVE-B-001.decision.json",
+      "human_gate": "none",
+      "reason": "B-only source composition/safe-zone FAIL: hands below authored protected region, ovens far right; action/environment/depth NEEDS_REVIEW. Missing derivative/display evidence NEEDS_REVIEW; no A comparison/adoption/automatic retry. Human selection unrecorded."
     }
   ]
 }

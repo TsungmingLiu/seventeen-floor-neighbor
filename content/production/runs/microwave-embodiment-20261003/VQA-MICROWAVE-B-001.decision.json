@@ -1,0 +1,197 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "microwave-embodiment-20261003",
+  "task_id": "VQA-MICROWAVE-B-001",
+  "scene_id": "COM-02X",
+  "task_type": "visual_review",
+  "status": "FAIL",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.5.1",
+    "pass": "visual_review"
+  },
+  "source_ref": "07528d8f462f9c74efbee7c44159d5737c08cf53",
+  "packet_sha256": "4b802c8db55909717f91ac2a3a066a80ba4aeb51e263ac0e05b741c0b4281e78",
+  "input_digest_sha256": "3b21d9cd5671ef3e2518650ab93a7340ea3f2ee53042debf9e89c83317f0e609",
+  "input_versions": [
+    {
+      "id": "source:content/production/cg-manifests/opening-ch1-com02x-microwave-embodiment.json",
+      "location": "content/production/cg-manifests/opening-ch1-com02x-microwave-embodiment.json",
+      "version": "de84ba21792ff79af78efc1b223a95e28dc8aa14"
+    },
+    {
+      "id": "source:docs/narrative/scenes/vertical-slice/COM-02X.md",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02X.md",
+      "version": "938edf40f2f34a9faee054971f72747e213c73ee"
+    },
+    {
+      "id": "source:content/production/narrative/opening-ch1/COM-02X.json",
+      "location": "content/production/narrative/opening-ch1/COM-02X.json",
+      "version": "5f85482b7c420a5f7726035e369679360f83cfd5"
+    },
+    {
+      "id": "source:docs/art/PRODUCTION_VISUAL_DIRECTION.md",
+      "location": "docs/art/PRODUCTION_VISUAL_DIRECTION.md",
+      "version": "3e74624856c5faa3f3bea3cd2a63dfc5cb6c6bdb"
+    },
+    {
+      "id": "source:docs/art/CG_PRODUCTION_SPEC.md",
+      "location": "docs/art/CG_PRODUCTION_SPEC.md",
+      "version": "447e411649a622386ae0fcbbeaecd6743923a12b"
+    },
+    {
+      "id": "source:.ai/schemas/CG_MANIFEST.md",
+      "location": ".ai/schemas/CG_MANIFEST.md",
+      "version": "30c2a7c875aa0d94064484e8f054a78dcf6e44da"
+    },
+    {
+      "id": "source:.ai/schemas/cg-manifest.schema.json",
+      "location": ".ai/schemas/cg-manifest.schema.json",
+      "version": "a7e1bdfad4ba36e9928079c64f5eb629ff118509"
+    },
+    {
+      "id": "source:docs/art/CHARACTER_REFERENCE_PACK_SPEC.md#L1-L83",
+      "location": "docs/art/CHARACTER_REFERENCE_PACK_SPEC.md#L1-L83",
+      "version": "ebbc12ebf179d630b9d6e2d24ec118b5b7f3a63c4a9d0f4513fbaedcab731a34"
+    },
+    {
+      "id": "source:docs/art/CHARACTER_REFERENCE_PACK_SPEC.md#L255-L282",
+      "location": "docs/art/CHARACTER_REFERENCE_PACK_SPEC.md#L255-L282",
+      "version": "6f7d64e07cf28e765799bf7b3ba0b63cc6f3af2c2cd9d102a062513d60cf039b"
+    },
+    {
+      "id": "source:content/characters/xu_tang.json",
+      "location": "content/characters/xu_tang.json",
+      "version": "94c458fd2cbe1f04c6cfff7bba7ec0a29c51420a"
+    },
+    {
+      "id": "source:docs/art/characters/xu-tang.md#L61-L79",
+      "location": "docs/art/characters/xu-tang.md#L61-L79",
+      "version": "1b376556fac0272f0aafdd0858795929dab286d424b520031a2babe1edd252ae"
+    },
+    {
+      "id": "source:content/production/runs/microwave-embodiment-20261003/MUA-MICROWAVE-B-001.decision.json",
+      "location": "content/production/runs/microwave-embodiment-20261003/MUA-MICROWAVE-B-001.decision.json",
+      "version": "892e2e145f3463c79982f4fc3337653a0d0a62f6"
+    },
+    {
+      "id": "ref.xu_tang.face.01",
+      "location": "assets-src/references/xu-tang/xt-ref-01-face.png",
+      "version": "bd2b9eff6323dd24fabf28ef48f1492fdf12098f"
+    },
+    {
+      "id": "ref.xu_tang.wardrobe.a",
+      "location": "assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png",
+      "version": "67998d2e618f89fb141357dca324e7c85783440b"
+    },
+    {
+      "id": "ref.com02x.environment.convenience_night",
+      "location": "assets-src/references/environments/com02x-convenience-night-reference-v1.png",
+      "version": "c6b4423f1a408dfefa8bac94eeb6d0ddc261cb7c"
+    },
+    {
+      "id": "source.com02x.dlg-01",
+      "location": "assets-src/opening-ch1-demo/com02x-dlg-01-candidate-v1.png",
+      "version": "503e042663916376826a13ef57cf46a28a415aca"
+    },
+    {
+      "id": "candidate:COM02X-MICROWAVE-EMBODIMENT-B-001",
+      "location": "generated/job-artifacts/microwave-embodiment-20261003/B/candidate.png",
+      "version": "39ccefbef8e12fcbbea6ba321e80ffd03f863020fd6b79fe6209932a3d57fed9"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "candidate:COM02X-MICROWAVE-EMBODIMENT-B-001",
+      "location": "generated/job-artifacts/microwave-embodiment-20261003/B/candidate.png",
+      "version": "39ccefbef8e12fcbbea6ba321e80ffd03f863020fd6b79fe6209932a3d57fed9"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "VQA-CAPTURED-MOMENT",
+      "code": "VQA-CAPTURED-MOMENT",
+      "result": "PASS"
+    },
+    {
+      "name": "VQA-ACTION-FLOW",
+      "code": "VQA-ACTION-FLOW",
+      "result": "NEEDS_REVIEW"
+    },
+    {
+      "name": "VQA-ENVIRONMENT-COUPLING",
+      "code": "VQA-ENVIRONMENT-COUPLING",
+      "result": "NEEDS_REVIEW"
+    },
+    {
+      "name": "VQA-PHYSICAL-CUES",
+      "code": "VQA-PHYSICAL-CUES",
+      "result": "PASS"
+    },
+    {
+      "name": "VQA-DEPTH-STAGING",
+      "code": "VQA-DEPTH-STAGING",
+      "result": "NEEDS_REVIEW"
+    },
+    {
+      "name": "VQA-IDENTITY-WARDROBE",
+      "code": "VQA-IDENTITY-WARDROBE",
+      "result": "PASS"
+    },
+    {
+      "name": "VQA-HANDS-PROPS",
+      "code": "VQA-HANDS-PROPS",
+      "result": "PASS"
+    },
+    {
+      "name": "VQA-LOCATION-NARRATIVE",
+      "code": "VQA-LOCATION-NARRATIVE",
+      "result": "PASS"
+    },
+    {
+      "name": "VQA-COMPOSITION-SAFE-ZONE",
+      "code": "VQA-COMPOSITION-SAFE-ZONE",
+      "result": "FAIL"
+    },
+    {
+      "name": "VQA-NATIVE-PROVENANCE",
+      "code": "VQA-NATIVE-PROVENANCE",
+      "result": "PASS"
+    },
+    {
+      "name": "VQA-SOURCE-CLARITY",
+      "code": "VQA-SOURCE-CLARITY",
+      "result": "PASS"
+    },
+    {
+      "name": "VQA-ORIGINAL-ARTIFACTS",
+      "code": "VQA-ORIGINAL-ARTIFACTS",
+      "result": "PASS"
+    },
+    {
+      "name": "VQA-COMPRESSION-ARTIFACTS",
+      "code": "VQA-COMPRESSION-ARTIFACTS",
+      "result": "NEEDS_REVIEW"
+    },
+    {
+      "name": "VQA-DESKTOP-DISPLAY",
+      "code": "VQA-DESKTOP-DISPLAY",
+      "result": "NEEDS_REVIEW"
+    },
+    {
+      "name": "VQA-MOBILE-PORTRAIT-DISPLAY",
+      "code": "VQA-MOBILE-PORTRAIT-DISPLAY",
+      "result": "NEEDS_REVIEW"
+    }
+  ],
+  "known_issues": [
+    "Source FAIL: face/hands/oven grouping deviates substantially from manifest; hands occupy reserved lower dialogue region and oven fronts lie far right.",
+    "Counter-facing torso/action coupling and authored oven midground placement need review.",
+    "Final derivative/compression and desktop/mobile landscape/portrait runtime evidence absent; all final display gates remain NEEDS_REVIEW.",
+    "Human exact master selection remains required and unrecorded; no adoption, runtime change, A comparison or automatic retry."
+  ],
+  "human_gate_required": "none",
+  "invalidates": []
+}
