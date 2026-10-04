@@ -1,0 +1,140 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "microwave-embodiment-20261003",
+  "task_id": "MUA-MICROWAVE-B-001",
+  "scene_id": "COM-02X",
+  "task_type": "visual_review",
+  "status": "PASS",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.5.1",
+    "pass": "visual_review"
+  },
+  "source_ref": "b9c8d7c5721f52d1969f326fa95c4dcd244dffb1",
+  "packet_sha256": "d21fd9b8bf7d53a920eac52710eb5f3fe2a7402e02ba7ecd8014a2a22191f358",
+  "input_digest_sha256": "d996d73d0304502f7e5f67e0a45cbf118dc36328c7fcc8c39c485dc00df23751",
+  "input_versions": [
+    {
+      "id": "source:content/production/cg-manifests/opening-ch1-com02x-microwave-embodiment.json",
+      "location": "content/production/cg-manifests/opening-ch1-com02x-microwave-embodiment.json",
+      "version": "de84ba21792ff79af78efc1b223a95e28dc8aa14"
+    },
+    {
+      "id": "source:docs/narrative/scenes/vertical-slice/COM-02X.md",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02X.md",
+      "version": "938edf40f2f34a9faee054971f72747e213c73ee"
+    },
+    {
+      "id": "source:content/production/narrative/opening-ch1/COM-02X.json",
+      "location": "content/production/narrative/opening-ch1/COM-02X.json",
+      "version": "5f85482b7c420a5f7726035e369679360f83cfd5"
+    },
+    {
+      "id": "source:docs/art/PRODUCTION_VISUAL_DIRECTION.md",
+      "location": "docs/art/PRODUCTION_VISUAL_DIRECTION.md",
+      "version": "3e74624856c5faa3f3bea3cd2a63dfc5cb6c6bdb"
+    },
+    {
+      "id": "source:docs/art/CG_PRODUCTION_SPEC.md",
+      "location": "docs/art/CG_PRODUCTION_SPEC.md",
+      "version": "447e411649a622386ae0fcbbeaecd6743923a12b"
+    },
+    {
+      "id": "source:.ai/schemas/CG_MANIFEST.md",
+      "location": ".ai/schemas/CG_MANIFEST.md",
+      "version": "30c2a7c875aa0d94064484e8f054a78dcf6e44da"
+    },
+    {
+      "id": "source:.ai/schemas/cg-manifest.schema.json",
+      "location": ".ai/schemas/cg-manifest.schema.json",
+      "version": "a7e1bdfad4ba36e9928079c64f5eb629ff118509"
+    },
+    {
+      "id": "source:docs/art/CHARACTER_REFERENCE_PACK_SPEC.md#L1-L83",
+      "location": "docs/art/CHARACTER_REFERENCE_PACK_SPEC.md#L1-L83",
+      "version": "ebbc12ebf179d630b9d6e2d24ec118b5b7f3a63c4a9d0f4513fbaedcab731a34"
+    },
+    {
+      "id": "source:docs/art/CHARACTER_REFERENCE_PACK_SPEC.md#L255-L282",
+      "location": "docs/art/CHARACTER_REFERENCE_PACK_SPEC.md#L255-L282",
+      "version": "6f7d64e07cf28e765799bf7b3ba0b63cc6f3af2c2cd9d102a062513d60cf039b"
+    },
+    {
+      "id": "source:content/characters/xu_tang.json",
+      "location": "content/characters/xu_tang.json",
+      "version": "94c458fd2cbe1f04c6cfff7bba7ec0a29c51420a"
+    },
+    {
+      "id": "source:docs/art/characters/xu-tang.md#L61-L79",
+      "location": "docs/art/characters/xu-tang.md#L61-L79",
+      "version": "1b376556fac0272f0aafdd0858795929dab286d424b520031a2babe1edd252ae"
+    },
+    {
+      "id": "source:content/production/runs/microwave-embodiment-20261003/NQA-COM02X-PILOT-001.decision.json",
+      "location": "content/production/runs/microwave-embodiment-20261003/NQA-COM02X-PILOT-001.decision.json",
+      "version": "c1496fb53978be846d1f18c8a5e419b95fc550d7"
+    },
+    {
+      "id": "ref.xu_tang.face.01",
+      "location": "assets-src/references/xu-tang/xt-ref-01-face.png",
+      "version": "bd2b9eff6323dd24fabf28ef48f1492fdf12098f"
+    },
+    {
+      "id": "ref.xu_tang.wardrobe.a",
+      "location": "assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png",
+      "version": "67998d2e618f89fb141357dca324e7c85783440b"
+    },
+    {
+      "id": "ref.com02x.environment.convenience_night",
+      "location": "assets-src/references/environments/com02x-convenience-night-reference-v1.png",
+      "version": "c6b4423f1a408dfefa8bac94eeb6d0ddc261cb7c"
+    },
+    {
+      "id": "source.com02x.dlg-01",
+      "location": "assets-src/opening-ch1-demo/com02x-dlg-01-candidate-v1.png",
+      "version": "503e042663916376826a13ef57cf46a28a415aca"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "COM02X-DLG-MICROWAVE-EMBODIMENT-B-001",
+      "location": "content/production/cg-manifests/opening-ch1-com02x-microwave-embodiment.json",
+      "version": "de84ba21792ff79af78efc1b223a95e28dc8aa14"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "MUA-CAPTURED-MOMENT",
+      "code": "MUA-CAPTURED-MOMENT",
+      "result": "PASS"
+    },
+    {
+      "name": "MUA-ACTION-FLOW",
+      "code": "MUA-ACTION-FLOW",
+      "result": "PASS"
+    },
+    {
+      "name": "MUA-ENVIRONMENT-COUPLING",
+      "code": "MUA-ENVIRONMENT-COUPLING",
+      "result": "PASS"
+    },
+    {
+      "name": "MUA-PHYSICAL-CUES",
+      "code": "MUA-PHYSICAL-CUES",
+      "result": "PASS"
+    },
+    {
+      "name": "MUA-DEPTH-STAGING",
+      "code": "MUA-DEPTH-STAGING",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "Scope limited to manifest usability; no candidate pixel QA, derivative/compression/display QA, or Human master selection/adoption was performed.",
+    "Task-approved portrait crop leaves a 1.5 percentage point planned margin beyond the oven extent; actual crop readability remains for final display review."
+  ],
+  "human_gate_required": "none",
+  "invalidates": []
+}

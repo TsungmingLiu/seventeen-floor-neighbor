@@ -48,6 +48,22 @@
       "depends_on": [
         "PLAN-MICROWAVE-B-001"
       ],
+      "status": "PASS",
+      "decision_receipt": "content/production/runs/microwave-embodiment-20261003/MUA-MICROWAVE-B-001.decision.json",
+      "human_gate": "none",
+      "reason": "Independent manifest-only QA; candidatepixels/finaldisplay/Humanselection pending.",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "d21fd9b8bf7d53a920eac52710eb5f3fe2a7402e02ba7ecd8014a2a22191f358"
+      }
+    },
+    {
+      "task_id": "RENDER-MICROWAVE-B-001",
+      "task_type": "cg_render",
+      "scene_id": "COM-02X",
+      "depends_on": [
+        "MUA-MICROWAVE-B-001"
+      ],
       "status": "READY",
       "decision_receipt": null,
       "human_gate": "none",
