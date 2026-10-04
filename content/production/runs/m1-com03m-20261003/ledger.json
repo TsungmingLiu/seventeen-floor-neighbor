@@ -206,7 +206,7 @@
       },
       "decision_receipt": "content/production/runs/m1-com03m-20261003/ND-CONTACT-CONTINUATION-001.decision.json",
       "human_gate": "none",
-      "reason": "Actual same-visit/contact/no-contact continuation design PASS; bounded dialogue and independent NQA pending."
+      "reason": "Actual ND PASS checks only in corrected compact projection; downstream dialogue/NQA NOT_RUN, original projection retained exact immutable Git locator in receipt."
     }
   ],
   "invalidation_events": [],
