@@ -239,6 +239,22 @@
       "decision_receipt": null,
       "human_gate": "none",
       "reason": "Actual writer PASS Handoff verified; actual Discord consent/refusal and definitive cafe departure authored. Independent NQA pending; exact3J seam read downstream."
+    },
+    {
+      "task_id": "CW-CONTACT-CONTINUATION-001",
+      "task_type": "scene_dialogue",
+      "scene_id": "COM-03J",
+      "depends_on": [
+        "ND-CONTACT-CONTINUATION-001"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1 bounded contact continuation dialogue",
+        "sha256": "4912b1ea83a43f3b10b0f4445dad52470491d2292c06786f7c6bc45d379c1fb7"
+      },
+      "decision_receipt": null,
+      "human_gate": "none",
+      "reason": "Actual writer PASS Handoff/contract-fit checks verified; evening Discord recommendation follows actual cafe departure, no second goodbye/offscreen promise. Independent joint-source NQA pending."
     }
   ],
   "invalidation_events": [],
