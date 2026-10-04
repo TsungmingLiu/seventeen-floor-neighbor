@@ -153,13 +153,12 @@ test('Opening memory unlock nodes must follow and include their replay anchor', 
 test('Opening route must retain a terminal node and reject a reachable cycle in its place', async () => {
   const content = await loadContent();
   const route = content.routes.find((item) => item.config.id === 'opening-demo');
-  route.chapter.nodes.com03j_preview_complete = {
-    speaker: '旁白',
-    text: 'cycle fixture',
-    chapter: 2,
-    visual: { mode: 'cg', asset: 'cg.opening.com01j.r01_interested' },
-    next: 'com03j_preview_complete'
-  };
+  for (const [id, node] of Object.entries(route.chapter.nodes)) {
+    if (node.type === 'route') route.chapter.nodes[id] = {
+      speaker: '旁白', text: 'cycle fixture', chapter: 2,
+      visual: { mode: 'composite', background: 'bg.narrative_preview.placeholder', sprites: [] }, next: id
+    };
+  }
   assert.ok((await validateContent(content)).some((error) => error.includes('no reachable route terminal')));
 });
 
@@ -182,7 +181,7 @@ test('route must declare exactly one default ending rule', async () => {
   assert.ok((await validateContent(content)).some((error) => error.includes('endingRules require exactly one default ending (found 2)')));
 });
 
-test('all COM-01B questions rejoin after goodnight and reach the existing COM-01J opening', async () => {
+test('all COM-01B questions rejoin after goodnight at the actual bookstore decision', async () => {
   const content = await loadContent();
   const route = content.routes.find((item) => item.config.id === 'opening-demo');
   const nodes = route.chapter.nodes;
@@ -191,17 +190,17 @@ test('all COM-01B questions rejoin after goodnight and reach the existing COM-01
     elevatorExit = nodes[elevatorExit].next;
     assert.match(elevatorExit, /^common_elevator_restart_exit_locked_/);
   }
-  let weekend = 'common_bookstore_bridge_weekend_transition';
-  while (nodes[weekend].next !== 'common_acg_first_meet_enter') {
-    weekend = nodes[weekend].next;
-    assert.match(weekend, /^common_bookstore_bridge_weekend_transition_locked_/);
-  }
+  assert.equal(nodes.common_bookstore_bridge_weekend_transition_locked_00.next, 'common_acg_first_meet_enter');
+  assert.deepEqual(nodes.common_bookstore_bridge_weekend_decision.choices.map(choice => choice.id),
+    ['com01b_bookstore_go', 'com01b_bookstore_skip']);
+  assert.equal(nodes.com01b_bookstore_go.next, 'common_bookstore_bridge_weekend_transition');
+  assert.notEqual(nodes.com01b_bookstore_skip.next, 'common_acg_first_meet_enter');
   assert.equal(nodes.common_bookstore_bridge_choice.choices.length, 3);
   for (const choice of nodes.common_bookstore_bridge_choice.choices) {
     assert.equal(choice.effects, undefined);
     let current = choice.next;
     const visited = [];
-    while (current !== 'common_acg_first_meet_enter') {
+    while (current !== 'common_bookstore_bridge_weekend_decision') {
       assert.ok(nodes[current], `missing node ${current}`);
       assert.ok(!visited.includes(current), `cycle at ${current}`);
       visited.push(current);
@@ -211,7 +210,7 @@ test('all COM-01B questions rejoin after goodnight and reach the existing COM-01
     assert.ok(visited.includes(choice.next + '_goodnight'));
     assert.ok(visited.includes(choice.next + '_thanks'));
     assert.ok(visited.includes('common_bookstore_bridge_rejoin'));
-    assert.ok(visited.includes('common_bookstore_bridge_weekend_transition'));
+    assert.ok(visited.includes('common_bookstore_bridge_weekend_decision_time'));
   }
   assert.deepEqual(route.chapter.initialState, content.routes.find((item) => item.config.id === 'opening-demo').config.story.initialState);
 });

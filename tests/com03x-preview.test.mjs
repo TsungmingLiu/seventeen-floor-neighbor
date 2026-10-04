@@ -48,7 +48,7 @@ test('COM03X placeholder is opt-in, excluded from Gallery, and rejected by the f
     if (node.type === 'route' || node.type === 'branch') continue;
     assert.deepEqual(node.visual, { mode: 'composite', background: preview, sprites: [] });
   }
-  assert.equal(route.memoryLibrary.events.length, 6, 'COM03J appends one common Memory card; no standalone COM03X card');
+  assert.equal(route.memoryLibrary.events.length, 7, 'the first cafe meeting has its own truthful Memory card');
   assert.ok(route.memoryLibrary.events.every(event => !event.galleryAssets.includes(preview)));
   assert.deepEqual(await validateContent(content), []);
   const finalErrors = await validateContent(content, { finalVisuals: true });

@@ -98,7 +98,7 @@ export class ProgressStore {
 
   progressRank(snapshot, event = this.eventForSnapshot(snapshot)) {
     // COM03X keeps its accepted Memory/art binding; its continuation is later
-    // than the newly inserted rank180 scene even though that card's rank is160.
+    // than the convenience-store card even though that card's rank is 160.
     if (this.chapter.id === 'opening-demo-chapter-01' && this.isCom03x(snapshot?.nodeId)) return 200;
     return event?.progressRank ?? -1;
   }
@@ -113,6 +113,23 @@ export class ProgressStore {
 
   isCom03j(nodeId) {
     return nodeId?.startsWith('common_recommend_discord_jyc_') || nodeId === 'com03j_preview_complete';
+  }
+
+  resumeUncontactedCom03j() {
+    if (this.chapter.id !== 'opening-demo-chapter-01' || !this.chapter.nodes.common_recommend_discord_jyc_no_contact_exit) return;
+    let redirected = false;
+    for (const key of ['cursor', 'frontier']) {
+      const snapshot = this.data[key];
+      if (this.isCom03j(snapshot?.nodeId) && !snapshot.flags.includes('contact_jyc')) {
+        snapshot.nodeId = 'common_recommend_discord_jyc_no_contact_exit';
+        this.data.runComplete = false;
+        redirected = true;
+      }
+    }
+    if (redirected) {
+      this.data.frontierMemoryEventId = null;
+      this.data.frontierRank = -1;
+    }
   }
 
   reopenCom03jAppend() {
@@ -150,7 +167,9 @@ export class ProgressStore {
     const { cursor, frontier, restartActive, runComplete } = this.data;
     // Earlier ordinary Memory cursors and explicit restarts never reopen a world.
     if (restartActive || !cursor || !frontier || !this.isCom03x(cursor.nodeId)
-      || cursor.nodeId !== frontier.nodeId || frontier.flags.includes('preview:com02j-complete')) return;
+      || cursor.nodeId !== frontier.nodeId || cursor.flags.includes('preview:com02j-complete')
+      || frontier.flags.includes('preview:com02j-complete')
+      || frontier.stats.met_jiang_yucheng <= 0) return;
     if (runComplete && this.chapter.nodes[cursor.nodeId]?.type !== 'route'
       && cursor.nodeId !== 'com03x_preview_complete') return;
     const predecessor = this.data.checkpoints.common_convenience_xu_exit_08;
@@ -229,6 +248,12 @@ export class ProgressStore {
         this.data.runComplete = false;
         this.data.frontier = this.clone(this.data.cursor);
       }
+      if (this.chapter.id === 'opening-demo-chapter-01' && !this.data.restartActive
+        && saved.runComplete === true && this.data.cursor?.nodeId === 'com03j_preview_complete'
+        && cursorNode?.type === 'branch') {
+        this.data.runComplete = false;
+        this.data.frontier = this.clone(this.data.cursor);
+      }
       this.replaying = this.data.restartActive;
       this.data.edges = this.sanitizeEdges(saved.edges);
       const frontierEvent = this.eventForSnapshot(this.data.frontier);
@@ -244,6 +269,7 @@ export class ProgressStore {
         }
       }
       this.loadCom02jSupplement(saved);
+      this.resumeUncontactedCom03j();
       if (saved.com03jReplay && this.isCom03j(this.data.cursor?.nodeId)
         && this.valid(saved.com03jReplay.returnCursor) && !this.data.restartActive) {
         this.data.com03jReplay = { returnCursor: this.clone(saved.com03jReplay.returnCursor),
@@ -270,6 +296,7 @@ export class ProgressStore {
       this.data.frontier = this.clone(this.data.cursor);
     }
     this.loadCom02jSupplement(legacy);
+    this.resumeUncontactedCom03j();
     this.reopenCom03jAppend();
     this.flush();
   }
