@@ -1,0 +1,104 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "feedback-20261005",
+  "task_id": "ND-FEEDBACK-002",
+  "scene_id": "COM-01B",
+  "task_type": "narrative_design",
+  "status": "PASS",
+  "harness": {
+    "id": "content_writer",
+    "version": "1.4.1",
+    "pass": "narrative_design"
+  },
+  "source_ref": "cf9ebed2f62e655c89d73aa55c036663941ecc89",
+  "packet_sha256": "7c16bb727bab38a0aa5eab5f36da61c5a7aaa47b369d602d8f047a4949502c77",
+  "input_digest_sha256": "117f4a76dacfddcb3107fd4edfe092d129c79f53f01c29a9d5c3c44ddd0363fd",
+  "input_versions": [
+    {
+      "id": "content/production/narrative/opening-ch1/COM-01B.json",
+      "location": "content/production/narrative/opening-ch1/COM-01B.json",
+      "version": "2ef1b23f939be4c25d5204d4376a478cb97ac31c"
+    },
+    {
+      "id": "content/production/narrative/opening-ch1/COM-02J.json",
+      "location": "content/production/narrative/opening-ch1/COM-02J.json",
+      "version": "149826944b31512fae0169dc90822de05604aed8"
+    },
+    {
+      "id": "content/production/narrative/opening-ch1/COM-03J.json",
+      "location": "content/production/narrative/opening-ch1/COM-03J.json",
+      "version": "e92b4d22af4e5cb57537de6f34856a28b280a1b9"
+    },
+    {
+      "id": "content/production/runs/feedback-20261005/ND-FEEDBACK-001.decision.json",
+      "location": "content/production/runs/feedback-20261005/ND-FEEDBACK-001.decision.json",
+      "version": "87dd17ab2d246b370f8b5fd92ea4ec9153dda77c"
+    },
+    {
+      "id": "content/production/runs/feedback-20261005/ND-COM01B-001.decision.json",
+      "location": "content/production/runs/feedback-20261005/ND-COM01B-001.decision.json",
+      "version": "8c9029631cb19b879b08ba6bfecb507db53b6c0d"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "narrative_contract:COM-01B",
+      "location": "content/production/narrative/opening-ch1/COM-01B.json",
+      "version": "sha256:0a528af067f5f1da04401385f39d7021979ebe541b02794a0ecf97dbc7334ea7"
+    },
+    {
+      "id": "narrative_contract:COM-02J",
+      "location": "content/production/narrative/opening-ch1/COM-02J.json",
+      "version": "sha256:084ea15ca2c48836c7ccc06a141da5420f27d55ed93cc873f687e82ded268339"
+    },
+    {
+      "id": "narrative_contract:COM-03J",
+      "location": "content/production/narrative/opening-ch1/COM-03J.json",
+      "version": "sha256:b98324d7513b5055612b6ea32c365fcbdd74f7c586f6750accd42c8eb14513a9"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "Exact corrected COM-01B contract approved as scene-local prerequisite for annotation writer; unchanged intro order and local entry/exit facts preserved",
+      "code": "ND-COM01B-CONTRACT-COVERAGE",
+      "result": "PASS"
+    },
+    {
+      "name": "All three corrected contracts distinguish bookstore-only cafe reunion from any genuinely earned initial encounter future eligibility",
+      "code": "ND-INITIAL-ENCOUNTER-FUTURE-ELIGIBILITY",
+      "result": "PASS"
+    },
+    {
+      "name": "Cafe-only repeated replay stays initial; actual COM-01J encounter required for reunion",
+      "code": "ND-BOOKSTORE-EVER-EARNED",
+      "result": "PASS"
+    },
+    {
+      "name": "Refusal, mutual consent, local contact, purchase and bounded reapproach preserved without snapshot merge",
+      "code": "ND-CONSENT-LOCAL-FACTS",
+      "result": "PASS"
+    },
+    {
+      "name": "Greatest-progress main continuation and monotone cumulative eligibility preserved",
+      "code": "ND-MAX-MAIN-PRESERVED",
+      "result": "PASS"
+    },
+    {
+      "name": "Settled COM-01B introduction and unpacking/bookstore bridge retain all choice/event IDs and facts",
+      "code": "ND-COM01B-BOUNDED-REWRITE",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "Explicit user-directed technical correction and exact three-output design approval; no scene prose, runtime integration, independent Narrative QA or playable acceptance claimed."
+  ],
+  "human_gate_required": "none",
+  "invalidates": [
+    "locked_scene:COM-01B:eligibility_annotation",
+    "locked_scene:COM-02J:eligibility_annotation",
+    "locked_scene:COM-03J:eligibility_annotation",
+    "runtime:JYC-encounter-eligibility"
+  ]
+}
