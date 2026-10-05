@@ -181,3 +181,45 @@ test('a runtime stop sentinel cannot advertise its schema fallback as a playable
   assert.equal(groupForNode(compiled, blockedId).id, 'convenience');
   assert.equal(compiled.edges.some(e => e.from === 'convenience' && e.to === 'movein'), false);
 });
+
+for (const [decision, chosen, alternative] of [
+  ['common_bookstore_bridge_weekend_decision', 'com01b_bookstore_skip', 'bookstore'],
+  ['common_bookstore_bridge_weekend_decision', 'com01b_bookstore_go', 'skip-bookstore'],
+  ['common_weekday_outing_decision', 'com01b_weekday_cafe_first', 'street'],
+  ['common_weekday_outing_decision', 'com01b_weekday_street_walk', 'cafe']
+]) test(`encountered ${decision} reveals only unknown alternative to ${chosen}`, () => {
+  const save = progress([decision, chosen]);
+  save.data.edges = [[decision, chosen]];
+  const before = JSON.stringify(save);
+  const view = storyMapView(map, memoryLibrary, chapter, save);
+  const unknown = view.groups.find(group => group.id === alternative);
+  assert.equal(unknown.locked, true);
+  assert.equal(unknown.title, '???');
+  assert.deepEqual(unknown.variants, []);
+  assert.ok(view.alternatives.some(edge => edge.to === alternative));
+  assert.equal(view.edges.some(edge => edge.to === alternative), false);
+  assert.equal(view.groups.some(group => group.id === 'free-time'), false);
+  assert.equal(JSON.stringify(save), before);
+});
+
+test('genuine pre-revision save reveals the encountered bookstore alternative without manufacturing traversal', async () => {
+  const fixture = await read('./fixtures/jyc-pre-revision-save.json');
+  const old = fixture.cases.find(c => c.id === 'skip_both:com01b_bookstore_skip');
+  const save = { data: { checkpoints: old.checkpoints, cursor: old.snapshot, frontier: old.snapshot, edges: [] } };
+  const before = JSON.stringify(save);
+  const view = storyMapView(map, memoryLibrary, chapter, save);
+  assert.equal(view.groups.find(group => group.id === 'bookstore').title, '???');
+  assert.equal(view.groups.some(group => group.id === 'street'), false);
+  assert.deepEqual(view.edges, []);
+  assert.equal(JSON.stringify(save), before);
+});
+
+test('an observed journey through same-scene intermediate nodes keeps parcel to week connected', () => {
+  const chapter = { startNode: 'parcel', nodes: { parcel: {}, gate: {}, week: {} } };
+  const variant = id => ({ id, entry: id, nodeIds: id === 'parcel' ? ['parcel', 'gate'] : [id], checkpointOnly: true });
+  const map = { groups: [{ id: 'parcel', variants: [variant('parcel')] }, { id: 'week', variants: [variant('week')] }], edges: [] };
+  const save = progress(['parcel', 'week']);
+  save.data.edges = [['parcel', 'gate'], ['gate', 'week']];
+  const view = storyMapView(map, { events: [] }, chapter, save);
+  assert.deepEqual(view.edges, [{ from: 'parcel', to: 'week' }]);
+});

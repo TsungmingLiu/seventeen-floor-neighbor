@@ -6,8 +6,9 @@ export function installReview(controller, controls, chapter) {
   checkbox.type = 'checkbox';
   checkbox.id = 'story-review-toggle';
   label.append(checkbox, document.createTextNode('開發審閱'));
-  controls.append(label);
-  const status = document.createElement('span'); status.role = 'status'; controls.append(status);
+
+  const status = document.createElement('span'); status.role = 'status';
+  controller.reviewControls = [label, status];
   checkbox.addEventListener('change', async () => {
     if (!checkbox.checked) { controller.review = false; status.textContent = ''; controller.refresh(); return; }
     checkbox.disabled = true;

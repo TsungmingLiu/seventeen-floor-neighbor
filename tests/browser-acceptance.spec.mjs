@@ -552,13 +552,22 @@ test('scene inspection, layout and development review never change the saved jou
   await expect(page.locator('#story-inspector')).not.toContainText('江雨澄');
   await expect(page.locator('#story-inspector .story-choice')).toHaveCount(0);
   await page.locator('.story-inspector-close').click();
-  await page.locator('#story-map-controls button').filter({ hasText: '章節清單' }).click();
+  await expect(page.locator('#story-map-controls button')).toHaveCount(0);
+  await expect(page.locator('#memory-filters')).not.toContainText('心動');
+  await expect(page.locator('#memory-list')).toHaveAttribute('data-layout', 'flow');
+  await page.locator('#memory-filters button').filter({ hasText: '許棠' }).click();
   await expect(page.locator('#memory-list')).toHaveAttribute('data-layout', 'list');
-  await page.locator('#story-map-controls button').filter({ hasText: '流程圖' }).click();
+  await page.locator('#memory-filters button').filter({ hasText: '全部' }).click();
   await expect(page.locator('#memory-list')).toHaveAttribute('data-layout', 'flow');
   const reviewToggle = page.locator('#story-review-toggle');
   if (await reviewToggle.count()) {
+    await expect(reviewToggle).toBeAttached();
+    expect(await reviewToggle.evaluate(el => el.closest('#memory-filters') !== null)).toBe(true);
     await reviewToggle.check();
+    await page.locator('#memory-filters button').filter({ hasText: '江雨澄' }).click();
+    await expect(page.locator('#memory-list')).toHaveAttribute('data-layout', 'list');
+    await page.locator('#memory-filters button').filter({ hasText: '全部' }).click();
+    await expect(page.locator('#memory-list')).toHaveAttribute('data-layout', 'flow');
     await page.locator('[data-group-id="cafe"]').click();
     await expect(page.locator('#story-inspector .story-variant-tabs button')).toHaveCount(2);
     await page.locator('#story-inspector .story-variant-tabs button').filter({ hasText: 'B・初遇' }).click();

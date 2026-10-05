@@ -17,6 +17,19 @@ export function storyMapView(map, library, chapter, progress, review = false) {
     .find(event => !isMemoryUnlocked(event, progress, chapter.startNode));
   const frontierGroup = groupForNode(map, progress.data.frontier?.nodeId)?.id;
   const cursorGroup = groupForNode(map, progress.data.cursor?.nodeId)?.id;
+  const discovered = new Set();
+  const alternatives = [];
+  if (!review) for (const [id, node] of Object.entries(chapter.nodes)) {
+    if (!node.choices) continue;
+    const encountered = checkpoints[id] || node.choices.some(choice => checkpoints[choice.next])
+      || (progress.data.edges || []).some(([from]) => from === id);
+    if (!encountered) continue;
+    const from = groupForNode(map, id)?.id;
+    for (const edge of map.edges.filter(edge => edge.from === from && node.choices.some(choice => choice.text === edge.label))) {
+      discovered.add(edge.to);
+      alternatives.push({ ...edge, unexplored: true });
+    }
+  }
   const groups = map.groups.flatMap(group => {
     const variants = group.variants.filter(variant => review || (!variant.checkpointOnly && variant.memoryId && firstForMemory.get(variant.memoryId) === group.id
       ? isMemoryUnlocked(memoryEventById(library, variant.memoryId), progress, chapter.startNode)
@@ -27,12 +40,13 @@ export function storyMapView(map, library, chapter, progress, review = false) {
         entry: memoryEventById(library, known.memoryId).replayNode });
     }
     const locked = !review && !variants.length;
-    if (locked && !group.variants.some(v => v.memoryId === firstLocked?.id && firstForMemory.get(v.memoryId) === group.id)) return [];
+    if (locked && !discovered.has(group.id) && !group.variants.some(v => v.memoryId === firstLocked?.id && firstForMemory.get(v.memoryId) === group.id)) return [];
     const shown = locked ? [] : variants;
     const memory = shown.map(v => memoryEventById(library, v.memoryId)).find(Boolean);
-    return [{ ...group, variants: shown, locked,
+    return [{ ...group, ...(locked ? { title: '???', summary: '故事還會繼續。' } : {}),
+      sectionId: group.variants[0]?.sectionId, variants: shown, locked,
       memoryId: memory && firstForMemory.get(memory.id) === group.id ? memory.id
-        : locked ? firstLocked.id : null,
+        : locked && group.variants.some(v => v.memoryId === firstLocked?.id) ? firstLocked.id : null,
       frontier: group.id === frontierGroup || (!frontierGroup && group.variants.some(v => v.memoryId === progress.data.frontierMemoryEventId)),
       reading: group.id === cursorGroup && cursorGroup !== frontierGroup }];
   });
@@ -55,10 +69,10 @@ export function storyMapView(map, library, chapter, progress, review = false) {
       const target = groupForNode(map, id)?.id;
       if (target && target !== source) {
         if (groups.some(g => g.id === target && !g.locked) && !edges.some(e => e.from === source && e.to === target)) edges.push({ from: source, to: target, ...(label ? { label } : {}) });
-      } else if (!target) pending.push(...(next.get(id) || []).map(id => ({ id, label })));
+      } else pending.push(...(next.get(id) || []).map(id => ({ id, label })));
     }
   }
-  return { groups, edges };
+  return { groups, edges, alternatives: alternatives.filter(edge => groups.some(group => group.id === edge.to && group.locked)) };
 }
 
 function el(tag, className, text) {
@@ -77,17 +91,9 @@ function button(text, action, className = 'text-button') {
 export function createStoryMap(engine) {
   const inspector = document.querySelector('#story-inspector');
   const controls = document.querySelector('#story-map-controls');
-  let layout = window.matchMedia('(max-width: 760px)').matches ? 'list' : 'flow';
+  let layout = 'flow';
   let selected = null, selectedVariant = null, lastOptions, frame = 0;
   const controller = { review: false, notes: {}, render, refresh: () => engine.renderMemoryList() };
-  const layoutButtons = ['flow', 'list'].map(mode => {
-    const control = button(mode === 'flow' ? '流程圖' : '章節清單', () => {
-      layout = mode;
-      render(lastOptions);
-    }, 'memory-filter');
-    controls.append(control);
-    return control;
-  });
   const reviewInstaller = /* STORY_MAP_REVIEW_FACTORY */ null;
   reviewInstaller?.(controller, controls, engine.chapter);
 
@@ -113,25 +119,28 @@ export function createStoryMap(engine) {
     const stats = renderMemories({ ...options, container: scratch });
     if (controller.review) {
       options.filters.replaceChildren();
-      const filterValues = [['all', '全部'], ...Object.entries(options.library.characterLabels || {}), ['highlight', '心動']];
+      const filterValues = [['all', '全部'], ...Object.entries(options.library.characterLabels || {})];
       for (const [value, label] of filterValues) {
         const control = button(label, () => options.onFilter(value), 'memory-filter');
         control.setAttribute('aria-pressed', String(value === options.activeFilter)); options.filters.append(control);
       }
       options.filters.parentElement.querySelector('.memory-character-context')?.remove();
     }
+    // Review controls survive the filter rebuild and occupy the final filter slot.
+    options.filters.querySelectorAll('button').forEach(control => {
+      if (control.textContent === '心動') control.remove();
+    });
+    if (controller.reviewControls) options.filters.append(...controller.reviewControls);
     const view = storyMapView(options.map, options.library, options.chapter, options.progress, controller.review);
     const filter = options.activeFilter;
-    const visible = view.groups.filter(group => filter === 'all' || group.variants.some(v => {
-      const event = memoryEventById(options.library, v.memoryId);
-      return filter === 'highlight' ? event?.highlight : v.characterIds.includes(filter);
-    }));
+    layout = filter === 'all' ? 'flow' : 'list';
+    const visible = view.groups.filter(group => filter === 'all' || group.variants.some(v => v.characterIds.includes(filter)));
+
     options.container.classList.add('story-map-list');
     options.container.dataset.layout = layout;
-    layoutButtons.forEach((control, i) => control.setAttribute('aria-pressed', String(layout === ['flow', 'list'][i])));
     options.container.replaceChildren();
     for (const section of options.library.sections) {
-      const groups = visible.filter(g => g.variants[0]?.sectionId === section.id || g.locked);
+      const groups = visible.filter(g => g.sectionId === section.id);
       if (!groups.length) continue;
       const details = el('details', 'memory-section-disclosure');
       const defaultSections = options.expandedSections || new Set([section.id]);
@@ -175,9 +184,9 @@ export function createStoryMap(engine) {
         canvas.append(row);
       }
       const continuations = el('div', 'story-continuations');
-      for (const edge of view.edges) {
+      for (const edge of [...view.edges, ...(view.alternatives || [])]) {
         const from = groups.find(g => g.id === edge.from), to = visible.find(g => g.id === edge.to);
-        if (!from || !to || (layout === 'flow' && to.row === from.row + 1)) continue;
+        if (!from || !to || (layout === 'flow' && to.row > from.row)) continue;
         continuations.append(button(`${to.row < from.row ? '返回場景：' : ''}${from.title} → ${to.title}${edge.label ? `：${edge.label}` : ''}`, () => {
           const card = options.container.querySelector(`[data-group-id="${to.id}"]`);
           if (card && !card.disabled) { card.focus({ preventScroll: true }); card.click(); }
@@ -307,15 +316,20 @@ export function createStoryMap(engine) {
       const svg = canvas.querySelector('svg'); svg.replaceChildren();
       const rect = canvas.getBoundingClientRect();
       svg.setAttribute('viewBox', `0 0 ${rect.width || 1} ${rect.height || 1}`);
-      for (const edge of view.edges) {
+      for (const edge of [...view.edges, ...(view.alternatives || [])]) {
         const from = canvas.querySelector(`[data-group-id="${edge.from}"]`), to = canvas.querySelector(`[data-group-id="${edge.to}"]`);
         const aGroup = view.groups.find(g => g.id === edge.from), bGroup = view.groups.find(g => g.id === edge.to);
-        if (!from || !to || bGroup.row !== aGroup.row + 1) continue;
+        if (!from || !to || bGroup.row <= aGroup.row) continue;
         const a = from.getBoundingClientRect(), b = to.getBoundingClientRect();
         const x1 = a.left + a.width/2 - rect.left, y1 = a.bottom - rect.top;
         const x2 = b.left + b.width/2 - rect.left, y2 = b.top - rect.top;
         const path = document.createElementNS(svg.namespaceURI, 'path');
-        path.setAttribute('d', `M${x1},${y1} C${x1},${(y1+y2)/2} ${x2},${(y1+y2)/2} ${x2},${y2}`);
+        path.dataset.from = edge.from; path.dataset.to = edge.to;
+        if (edge.unexplored) path.classList.add('is-unexplored');
+        const side = rect.width - 4;
+        path.setAttribute('d', bGroup.row === aGroup.row + 1
+          ? `M${x1},${y1} C${x1},${(y1+y2)/2} ${x2},${(y1+y2)/2} ${x2},${y2}`
+          : `M${x1},${y1} C${x1},${y1+16} ${side},${y1+16} ${side},${y1+24} L${side},${y2-24} C${side},${y2-16} ${x2},${y2-16} ${x2},${y2}`);
         svg.append(path);
         if (edge.label) {
           const label = document.createElementNS(svg.namespaceURI, 'text');
