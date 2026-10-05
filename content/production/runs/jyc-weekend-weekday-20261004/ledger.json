@@ -340,8 +340,69 @@
       "decision_receipt": "content/production/runs/jyc-weekend-weekday-20261004/INT-JYC-001.decision.json",
       "human_gate": "narrative_preview_review",
       "reason": null
+    },
+    {
+      "task_id": "ENG-JYC-FIXTURES-001",
+      "task_type": "integrate",
+      "scene_id": "COM-01B",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "e10451fa51cabb53f918174245b89ff5847e99a9bad4eacd9fec39d60e5d9804"
+      },
+      "decision_receipt": "content/production/runs/jyc-weekend-weekday-20261004/ENG-JYC-FIXTURES-001.decision.json",
+      "human_gate": "none",
+      "reason": null
+    },
+    {
+      "task_id": "ENG-JYC-FRONTIER-001",
+      "task_type": "integrate",
+      "scene_id": "COM-01B",
+      "depends_on": [],
+      "status": "NEEDS_REVIEW",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "5d9648c94793e83c04457517f6ffffa1a2cae83d2eb4e2aa204377bc78f8b0cf"
+      },
+      "decision_receipt": "content/production/runs/jyc-weekend-weekday-20261004/ENG-JYC-FRONTIER-001.decision.json",
+      "human_gate": "none",
+      "reason": null
+    },
+    {
+      "task_id": "INT-JYC-002",
+      "task_type": "integrate",
+      "scene_id": "COM-01B",
+      "depends_on": [
+        "NQA-OPEN-A-002",
+        "NQA-COM-01B-002",
+        "NQA-COM-01J-001",
+        "NQA-COM-02X-001",
+        "NQA-COM-02J-001",
+        "NQA-COM-03X-003",
+        "NQA-COM-03J-004",
+        "NQA-COM-03M-001"
+      ],
+      "status": "NEEDS_REVIEW",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "1b8ce9a3255a0b5acc668a07260fa2cd84cd3cf667cb99bf9733a8565265e228"
+      },
+      "decision_receipt": "content/production/runs/jyc-weekend-weekday-20261004/INT-JYC-002.decision.json",
+      "human_gate": "narrative_preview_review",
+      "reason": "Worker return reported PASS for261 tests; independent partial-frontier180→185 replay regression invalidates runtime readiness until correction. No creative QA invalidation."
     }
   ],
-  "invalidation_events": [],
+  "invalidation_events": [
+    {
+      "task_id": "INT-JYC-002",
+      "reason": "Independent exact partial-frontier replay regression fails. Retain reported handoff as evidence; integration adoption pending.",
+      "affected": [
+        "integration:opening-ch1",
+        "playable_review:opening-ch1"
+      ],
+      "source": "ENG-JYC-FRONTIER-001"
+    }
+  ],
   "preview": null
 }

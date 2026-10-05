@@ -33,6 +33,8 @@ export class ProgressStore {
       runComplete: false,
       frontierMemoryEventId: null,
       frontierRank: -1,
+      jycEverUnlocked: false,
+      unlockedMemoryEventIds: [],
       checkpoints: {},
       edges: [],
       com02jSupplement: null,
@@ -83,6 +85,14 @@ export class ProgressStore {
     };
   }
 
+  isLegacyOpeningSnapshot(snapshot) {
+    return this.chapter.id === 'opening-demo-chapter-01' && this.chapter.nodes.common_weekday_outing_selector
+      && /^(common_acg_first_meet_|common_station_cafe_jyc_|com02j_|common_convenience_xu_|com01b_(bookstore_skip|cafe_))/.test(snapshot?.nodeId || '')
+      && !snapshot.flags.some(flag => flag === 'preview:jyc-weekend-weekday' || flag === 'weekend_book_purchased'
+        || flag === 'jyc_permanently_excluded' || flag.startsWith('history:common_bookstore_bridge_weekend_decision:')
+        || flag.startsWith('entry-effect:common_weekend_home_'));
+  }
+
   sanitizeCheckpoints(checkpoints) {
     return Object.fromEntries(Object.entries(checkpoints || {})
       .filter(([id, snapshot]) => id === snapshot?.nodeId && this.valid(snapshot))
@@ -101,13 +111,17 @@ export class ProgressStore {
     const event = memoryEventForNode(this.memories, snapshot.nodeId);
     if (this.chapter.id !== 'opening-demo-chapter-01' || !this.isCom02j(snapshot.nodeId)) return event;
     // Shared cafe tails belong to the actual encounter, with no live-state fallback.
-    const first = snapshot.flags.includes('entry-effect:common_station_cafe_jyc_first_drawing_02')
-      || snapshot.flags.includes('history:common_weekday_outing_decision:com01b_weekday_cafe_first');
+    const first = snapshot.nodeId.startsWith('common_station_cafe_jyc_first_')
+      || snapshot.flags.includes('entry-effect:common_station_cafe_jyc_first_drawing_02')
+      || snapshot.flags.includes('history:common_weekday_outing_decision:com01b_weekday_cafe_first')
+      || (this.isLegacyOpeningSnapshot(snapshot) && snapshot.stats.jyc_first_topic === 0
+        && !snapshot.flags.includes('jyc_initiated_second_contact'));
     const id = first ? 'mem.opening.ch1.first-cafe-jyc' : 'mem.opening.ch1.station-cafe-jyc';
     return this.memories.events.find(item => item.id === id) || event;
   }
 
   progressRank(snapshot, event = this.eventForSnapshot(snapshot)) {
+    if (this.isLegacyOpeningSnapshot(snapshot) && snapshot.nodeId.startsWith('com01b_')) return 140;
     const continuationRank = this.openingContinuationRank(snapshot?.nodeId);
     if (continuationRank >= 0) return continuationRank;
     // COM03X keeps its accepted Memory/art binding; its continuation is later
@@ -143,6 +157,7 @@ export class ProgressStore {
   resumeUncontactedCom03j() {
     if (this.chapter.id !== 'opening-demo-chapter-01' || !this.chapter.nodes.common_recommend_discord_jyc_no_contact_exit) return;
     let redirected = false;
+    let frontierRedirected = false;
     let pruned = false;
     for (const [id, snapshot] of Object.entries(this.data.checkpoints)) {
       if (this.isCom03j(id) && !snapshot.flags.includes('contact_jyc')) {
@@ -154,11 +169,14 @@ export class ProgressStore {
       const snapshot = this.data[key];
       if (this.isCom03j(snapshot?.nodeId) && !snapshot.flags.includes('contact_jyc')) {
         snapshot.nodeId = 'common_recommend_discord_jyc_no_contact_exit';
-        this.data.runComplete = false;
+        if (key === 'frontier') {
+          frontierRedirected = true;
+          this.data.runComplete = false;
+        }
         redirected = true;
       }
     }
-    if (redirected) {
+    if (frontierRedirected) {
       this.data.frontierMemoryEventId = null;
       this.data.frontierRank = -1;
     }
@@ -249,7 +267,7 @@ export class ProgressStore {
     for (const candidate of candidates) {
       const { snapshot } = candidate;
       const event = this.eventForSnapshot(snapshot);
-      if (!event && this.openingContinuationRank(snapshot.nodeId) < 0) continue;
+      if (!event && this.openingContinuationRank(snapshot.nodeId) < 0 && !this.isLegacyOpeningSnapshot(snapshot)) continue;
       if (
         !best
         || this.progressRank(snapshot, event) > this.progressRank(best.snapshot, best.event)
@@ -264,6 +282,9 @@ export class ProgressStore {
   load() {
     const saved = this.parse(this.key);
     if (saved?.version === 2) {
+      this.data.jycEverUnlocked = saved.jycEverUnlocked === true;
+      this.data.unlockedMemoryEventIds = [...new Set((Array.isArray(saved.unlockedMemoryEventIds)
+        ? saved.unlockedMemoryEventIds : []).filter(id => this.memories.events.some(event => event.id === id)))];
       this.data.playerDisplayName = normalizePlayerName(saved.playerDisplayName);
       this.data.checkpoints = this.sanitizeCheckpoints(saved.checkpoints);
       this.data.cursor = this.clone(saved.cursor);
@@ -298,6 +319,9 @@ export class ProgressStore {
       } else if (this.openingContinuationRank(this.data.frontier?.nodeId) >= 0) {
         this.data.frontierMemoryEventId = null;
         this.data.frontierRank = this.progressRank(this.data.frontier);
+      } else if (this.isLegacyOpeningSnapshot(this.data.frontier)) {
+        this.data.frontierMemoryEventId = null;
+        this.data.frontierRank = this.progressRank(this.data.frontier);
       } else if (this.data.frontier?.nodeId !== 'common_recommend_discord_jyc_no_contact_exit') {
         const deepest = this.deepestSnapshot(this.data.checkpoints, this.data.cursor);
         if (deepest) {
@@ -306,6 +330,7 @@ export class ProgressStore {
           this.data.frontierRank = this.progressRank(deepest.snapshot, deepest.event);
         }
       }
+      this.rememberUnlocks();
       this.loadCom02jSupplement(saved);
       this.resumeUncontactedCom03j();
       if (saved.com03jReplay && this.isCom03j(this.data.cursor?.nodeId)
@@ -315,6 +340,8 @@ export class ProgressStore {
         this.replaying = true;
       }
       this.reopenCom03jAppend();
+      this.rememberUnlocks();
+      this.flush();
       return;
     }
 
@@ -333,16 +360,31 @@ export class ProgressStore {
     } else if (this.data.cursor) {
       this.data.frontier = this.clone(this.data.cursor);
     }
+    this.rememberUnlocks();
     this.loadCom02jSupplement(legacy);
     this.resumeUncontactedCom03j();
     this.reopenCom03jAppend();
+    this.rememberUnlocks();
     this.flush();
+  }
+
+  rememberUnlocks(snapshot = null) {
+    const snapshots = snapshot ? [snapshot] : [this.data.cursor, this.data.frontier, ...Object.values(this.data.checkpoints)];
+    for (const item of snapshots.filter(item => this.valid(item))) {
+      if (this.chapter.id === 'opening-demo-chapter-01' && !jiangExcluded(item)
+        && (item.stats.met_jiang_yucheng > 0 || item.flags.includes('contact_jyc'))) this.data.jycEverUnlocked = true;
+      const event = this.eventForSnapshot(item);
+      if ((this.isCom03j(item.nodeId) && !item.flags.includes('contact_jyc'))
+        || (jiangExcluded(item) && event?.characterIds?.includes('jiang_yucheng'))) continue;
+      if (event && !this.data.unlockedMemoryEventIds.includes(event.id)) this.data.unlockedMemoryEventIds.push(event.id);
+    }
   }
 
   capture(nodeId, state, returnNodes) {
     const stats = Object.fromEntries(Object.keys(this.chapter.initialState)
       .map(key => [key, state[key] ?? this.chapter.initialState[key]]));
     const snapshot = { nodeId, stats, flags: [...state.flags], returnNodes: [...returnNodes] };
+    this.rememberUnlocks(snapshot);
     this.data.cursor = this.clone(snapshot);
     if (!this.data.com03jReplay) this.data.checkpoints[nodeId] = this.clone(snapshot);
     const event = this.eventForSnapshot(snapshot);
@@ -355,8 +397,7 @@ export class ProgressStore {
     if (!this.data.com02jSupplement && !this.data.com03jReplay && (event || continuation) && (
       !this.data.frontier
       || advancesFrontier
-      || (!this.replaying && (continuation || event?.id === this.data.frontierMemoryEventId))
-      || (continuation && this.data.restartActive && rank >= this.data.frontierRank)
+      || (!this.replaying && rank >= this.data.frontierRank && (continuation || event?.id === this.data.frontierMemoryEventId))
     )) {
       this.data.frontier = this.clone(snapshot);
       this.data.frontierMemoryEventId = event?.id || null;

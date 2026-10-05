@@ -19,6 +19,7 @@ export function memoryEventById(library, id) {
 export function isMemoryUnlocked(event, progress, startNode) {
   if (!event) return false;
   if (event.replayNode === startNode) return true;
+  if (progress?.data?.unlockedMemoryEventIds?.includes(event.id)) return true;
   const checkpoints = progress?.data?.checkpoints || {};
   return [event.replayNode, ...(event.unlockNodes || [])].some((nodeId) => !!checkpoints[nodeId]);
 }

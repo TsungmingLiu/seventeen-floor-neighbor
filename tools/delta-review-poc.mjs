@@ -3,7 +3,7 @@ import { execFileSync } from 'node:child_process';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { buildBenchmark, parseWorkerEvents, resultSchema, selectHeadings } from './benchmark-review-context.mjs';
+import { buildBenchmark, benchmarkFixtureRef, parseWorkerEvents, resultSchema, selectHeadings } from './benchmark-review-context.mjs';
 import { writeScratchFiles } from './compile-review-context.mjs';
 import { configuredTrial, readonlyWorker } from './readonly-quota-worker.mjs';
 
@@ -132,7 +132,7 @@ export function requiresFull(result) {
     (result.status === 'FAIL' && !result.findings.length);
 }
 
-export async function buildDelta({ root = rootDefault, ref = 'HEAD', base = ref } = {}) {
+export async function buildDelta({ root = rootDefault, ref = benchmarkFixtureRef, base = ref } = {}) {
   const benchmark = await buildBenchmark({ root, ref, base });
   const files = new Map(benchmark.files);
   const sourceRef = benchmark.manifest.source_ref;

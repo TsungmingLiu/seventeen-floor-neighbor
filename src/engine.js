@@ -101,7 +101,8 @@ export class GameEngine {
   }
 
   createInitialState() {
-    return { ...this.chapter.initialState, flags: new Set() };
+    return { ...this.chapter.initialState, flags: new Set(this.chapter.id === 'opening-demo-chapter-01'
+      ? ['preview:jyc-weekend-weekday'] : []) };
   }
 
   asset(id, expectedKind) {
@@ -766,6 +767,14 @@ export class GameEngine {
         this.state.flags.add(appliedFlag);
       }
     }
+    if (this.chapter.id === 'opening-demo-chapter-01') {
+      const legacyDestination = this.legacyOpeningDestination();
+      if (legacyDestination) {
+        this.nodeId = legacyDestination;
+        this.render();
+        return;
+      }
+    }
     this.progress.connect(this.previousNode, this.nodeId);
     this.previousNode = this.nodeId;
     if (node.type === 'random') {
@@ -907,6 +916,25 @@ export class GameEngine {
     return operations[condition.operator]?.() || false;
   }
 
+  legacyOpeningDestination() {
+    if (!this.legacyOpeningRun) return null;
+    const id = this.nodeId;
+    // Old bookstore/cafe/skip saves establish no purchased book or home-work day.
+    // Continue through existing neutral/shared exchanges, without adding facts.
+    if (id === 'common_acg_first_meet_purchase' || id === 'common_station_cafe_jyc_enter'
+      || id === 'common_station_cafe_jyc_enter_03' || id === 'common_station_cafe_jyc_enter_02') return 'common_station_cafe_jyc_drawing';
+    if (id === 'com01b_bookstore_skip' || id === 'com01b_bookstore_skip_01') return 'common_bookstore_bridge_cafe_decision';
+    if (id === 'common_convenience_xu_weekend_selector') return 'common_convenience_xu_legacy_merge';
+    if (id === 'common_convenience_xu_revision_exit' && (!this.progress.replaying || this.progress.data.restartActive)) return 'common_package_xu_arrive';
+    if (id === 'common_station_cafe_jyc_names' || id === 'common_station_cafe_jyc_names_07') return 'common_station_cafe_jyc_first_names';
+    if (id === 'common_station_cafe_jyc_names_01' || id === 'common_station_cafe_jyc_names_08' || id === 'common_station_cafe_jyc_names_rev_09'
+      || id === 'common_station_cafe_jyc_choice') return 'common_station_cafe_jyc_first_shared';
+    if (id === 'common_station_cafe_jyc_share_go') return 'common_station_cafe_jyc_share_skip';
+    if (id === 'common_station_cafe_jyc_complete' && !this.progress.data.com02jSupplement
+      && (!this.progress.replaying || this.progress.data.restartActive)) return 'common_convenience_xu_enter';
+    return null;
+  }
+
   resolveEnding() {
     const rule = this.chapter.endingRules.find((candidate) =>
       candidate.default || candidate.conditions.every((condition) => this.matchesCondition(condition))
@@ -967,6 +995,7 @@ export class GameEngine {
     else this.progress.endReplay();
     this.stopCinematic();
     this.state = this.createInitialState();
+    this.legacyOpeningRun = false;
     this.returnNodes = [];
     this.nodeId = this.chapter.startNode;
     this.previousNode = null;
@@ -982,6 +1011,7 @@ export class GameEngine {
     else if (!this.progress.data.restartActive) this.progress.endReplay();
     this.stopCinematic();
     Object.assign(this, restored);
+    this.legacyOpeningRun = this.progress.isLegacyOpeningSnapshot(snapshot);
     this.previousNode = null;
     this.showOnly(this.els.game);
     this.render();

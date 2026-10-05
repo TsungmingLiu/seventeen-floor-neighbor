@@ -99,7 +99,9 @@ test('first cafe meeting with refused contact keeps Memory truthful and bypasses
   assert.ok(isMemoryUnlocked(byId('mem.opening.ch1.first-cafe-jyc'),e.progress,chapter.startNode));
   assert.ok(!isMemoryUnlocked(byId('mem.opening.ch1.station-cafe-jyc'),e.progress,chapter.startNode));
   assert.ok(!isMemoryUnlocked(byId('mem.opening.ch1.recommend-discord-jyc'),e.progress,chapter.startNode));
-  assert.equal(e.progress.data.frontierMemoryEventId,'mem.opening.ch1.convenience-xu');
+  assert.equal(e.progress.data.frontierMemoryEventId,null);
+  assert.equal(e.progress.data.frontierRank,260);
+  assert.equal(e.progress.data.frontier.nodeId,'OPEN-A-ENTRY-REST');
 });
 
 test('legacy mid Discord save without contact resumes through the honest no-contact exit',()=>{

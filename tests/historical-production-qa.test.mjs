@@ -21,10 +21,10 @@ const suites = [
 test('historical QA contracts run against their pinned pre-rewrite source', async () => {
   const temporary = await mkdtemp(path.join(os.tmpdir(), 'historical-production-qa-'));
   const checkout = path.join(temporary, 'repo');
-  let added = false;
   try {
-    await run('git', ['-C', root, 'worktree', 'add', '--detach', checkout, historicalRef]);
-    added = true;
+    // Isolated clone keeps shared worktree metadata outside the fixture untouched.
+    await run('git', ['clone', '--quiet', '--no-hardlinks', '--no-checkout', root, checkout]);
+    await run('git', ['-C', checkout, 'checkout', '--quiet', '--detach', historicalRef]);
     const { stdout } = await run('git', ['-C', checkout, 'rev-parse', 'HEAD']);
     assert.equal(stdout.trim(), historicalRef);
     for (const name of suites) {
@@ -51,7 +51,6 @@ test('historical QA contracts run against their pinned pre-rewrite source', asyn
       assert.fail(`Pinned historical QA failed at ${historicalRef} (${error.code ?? 'unknown code'}): ${error.message}\n${error.stdout || ''}\n${error.stderr || ''}`);
     }
   } finally {
-    if (added) await run('git', ['-C', root, 'worktree', 'remove', '--force', checkout]);
     await rm(temporary, { recursive: true, force: true });
   }
 });

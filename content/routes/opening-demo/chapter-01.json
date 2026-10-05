@@ -2916,33 +2916,33 @@
     },
     "common_acg_first_meet_cafe_seed_locked_02": {
       "chapter": 2,
-      "speaker": "江雨澄",
-      "text": "嗯。這裡人太多，翻一頁要讓一次路。",
       "visual": {
         "mode": "cg",
         "asset": "cg.opening.com01j.r01_interested"
       },
+      "speaker": "江雨澄",
+      "text": "嗯。這裡人太多，翻一頁要讓一次路。",
       "next": "common_acg_first_meet_exit",
       "speakerLabel": "女生"
     },
     "common_acg_first_meet_exit_locked_00": {
       "chapter": 2,
-      "speaker": "你",
-      "text": "好，我回去再翻舊的。謝謝。",
       "visual": {
         "mode": "cg",
         "asset": "cg.opening.com01j.r01_interested"
       },
+      "speaker": "你",
+      "text": "好，我回去再翻舊的。謝謝。",
       "next": "common_acg_first_meet_exit_locked_01"
     },
     "common_acg_first_meet_exit_locked_01": {
       "chapter": 2,
-      "speaker": "江雨澄",
-      "text": "嗯。",
       "visual": {
         "mode": "cg",
         "asset": "cg.opening.com01j.r01_interested"
       },
+      "speaker": "江雨澄",
+      "text": "嗯。",
       "next": "common_acg_first_meet_exit_locked_02",
       "speakerLabel": "女生"
     },

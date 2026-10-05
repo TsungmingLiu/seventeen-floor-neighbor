@@ -1,6 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import { GameEngine } from '../src/engine.js';
 import { isMemoryUnlocked } from '../src/memories.js';
 
@@ -46,8 +48,8 @@ function makeEngine(storage=new Storage()) {
   e.typeText=function(text){this.els.text.textContent=text;this.isTyping=false;this.awaitingChoiceReveal=!!this.chapter.nodes[this.nodeId].choices;};
   return e;
 }
-function play(choices={},storage=new Storage()) {
-  const e=makeEngine(storage);e.progress.setPlayerName('小雨');e.startGame();
+function play(choices={},storage=new Storage(),options={}) {
+  const e=makeEngine(storage);e.progress.setPlayerName('小雨');e.startGame(options);
   const visited=[];
   for(let step=0;step<1500;step++) {
     const id=e.nodeId;visited.push(id);
@@ -242,7 +244,7 @@ test('live week/window cursors and all five review boundaries Continue exactly a
     assert.equal(e.progress.data.frontierMemoryEventId,null);
     assert.equal(e.progress.data.frontierRank,260);
     const finalSnapshot=structuredClone(e.progress.data.frontier);
-    const reload=makeEngine(storage);assert.equal(reload.els.startButton.textContent,'繼續遊戲');reload.startFromTitle();
+    const reload=makeEngine(storage);reload.refreshTitle();assert.equal(reload.els.startButton.textContent,'繼續遊戲');reload.startFromTitle();
     assert.equal(reload.nodeId,e.nodeId);assert.deepEqual([...reload.state.flags],finalSnapshot.flags);
     for (const [nodeId,snapshot] of Object.entries(e.progress.data.checkpoints).filter(([id])=>/^(COM03M-|OPEN-A-)/.test(id))) {
       for(const version of [1,2]) {
@@ -263,4 +265,87 @@ test('week/window Memory replay cannot replace the excluded live frontier or cle
   e.progress.beginReplay(e.progress.data.checkpoints['COM03M-S01']);
   e.progress.capture('OPEN-A-ENTRY', {...chapter.initialState,flags:new Set(['contact_jyc'])}, []);
   assert.deepEqual(e.progress.data.frontier,live);assert.ok(e.progress.data.frontier.flags.includes('jyc_permanently_excluded'));
+});
+
+test('persistent JYC unlock, explored Memories and greatest main frontier survive missed/contactless/street replays', () => {
+  const { e, storage } = play(pathChoices('A'));
+  const frontier = structuredClone(e.progress.data.frontier);
+  const unlocked = memoryLibrary.events.filter(event => isMemoryUnlocked(event,e.progress,chapter.startNode)).map(event=>event.id);
+  assert.equal(e.progress.data.jycEverUnlocked,true);
+  for (const choices of [pathChoices('C'), {...pathChoices('B'),common_station_cafe_jyc_contact_choice:'com02j_leave_without_contact'}]) {
+    const replay = play(choices,storage,{freshRun:true}).e;
+    assert.equal(replay.progress.data.jycEverUnlocked,true);
+    assert.deepEqual(replay.progress.data.frontier,frontier);
+    assert.ok(!replay.state.flags.has('contact_jyc'));
+    assert.ok(!replay.state.flags.has('weekend_book_purchased'));
+    assert.equal(replay.state.met_jiang_yucheng,choices.common_weekday_outing_decision==='com01b_weekday_street_walk'?0:1);
+    for(const id of unlocked) assert.ok(isMemoryUnlocked(memoryLibrary.events.find(event=>event.id===id),replay.progress,chapter.startNode),id);
+    const reload=makeEngine(storage);
+    assert.equal(reload.progress.data.jycEverUnlocked,true);
+    assert.deepEqual(reload.progress.data.frontier,frontier);
+    const local=replay.progress.data.checkpoints.common_weekday_outing_work;
+    reload.resumeGame(local,{replay:true});
+    assert.equal(reload.state.met_jiang_yucheng,0);
+    assert.ok(!reload.state.flags.has('contact_jyc'));
+  }
+  const imported=JSON.parse(storage.getItem(e.progress.key));
+  imported.cursor={...structuredClone(frontier),nodeId:'common_recommend_discord_jyc_enter_02',flags:frontier.flags.filter(flag=>flag!=='contact_jyc')};
+  imported.restartActive=false;
+  const migratedStorage=new Storage();migratedStorage.setItem(e.progress.key,JSON.stringify(imported));
+  const migrated=makeEngine(migratedStorage);
+  assert.deepEqual(migrated.progress.data.frontier,frontier);
+  assert.equal(migrated.progress.data.frontierRank,260);
+  assert.equal(migrated.progress.data.jycEverUnlocked,true);
+  assert.equal(migrated.progress.data.cursor.nodeId,'common_recommend_discord_jyc_no_contact_exit');
+});
+
+test('first-ever unseen street remains locally and persistently unacquainted', () => {
+  const { e, storage }=play(pathChoices('C'));
+  assert.equal(e.progress.data.jycEverUnlocked,false);
+  assert.equal(makeEngine(storage).progress.data.jycEverUnlocked,false);
+  for(const event of memoryLibrary.events.filter(event=>event.characterIds.includes('jiang_yucheng'))) assert.ok(!isMemoryUnlocked(event,e.progress,chapter.startNode),event.id);
+});
+
+test('real baseline v1/v2 saves continue without invented purchase/home-work or retroactive exclusion', () => {
+  const fixture=read('tests/fixtures/jyc-pre-revision-save.json');
+  const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
+  for(const [path,identity] of Object.entries(fixture.sources)) {
+    const bytes=execFileSync('git',['show',`${fixture.baseline}:${path}`]);
+    assert.equal(hash(bytes),identity.sha256);
+    assert.equal(execFileSync('git',['rev-parse',`${fixture.baseline}:${path}`],{encoding:'utf8'}).trim(),identity.git_blob);
+  }
+  assert.equal(fixture.cases.length,30);
+  for(const item of fixture.cases) for(const version of [1,2]) {
+    const storage=new Storage();const snapshot=structuredClone(item.snapshot);
+    storage.setItem(`${chapter.id}:journey:v${version}`,JSON.stringify(version===1
+      ?{version,current:snapshot,checkpoints:item.checkpoints}
+      :{version,playerDisplayName:'小雨',cursor:snapshot,frontier:snapshot,checkpoints:item.checkpoints}));
+    const e=makeEngine(storage);e.progress.setPlayerName('小雨');e.startFromTitle();
+    const visited=[];
+    for(let step=0;step<1200&&chapter.nodes[e.nodeId].type!=='route';step++) {
+      visited.push(e.nodeId);const node=chapter.nodes[e.nodeId];
+      if(node.choices) {
+        const requested=item.choices[e.nodeId] || defaults[e.nodeId] || node.choices[0].id;
+        e.enterChoiceMode(node.choices);const index=node.choices.findIndex(choice=>choice.id===requested);
+        e.els.choices.children[index<0?0:index].click();
+      } else e.advance();
+    }
+    assert.equal(chapter.nodes[e.nodeId].type,'route',`${version}/${item.id}`);
+    assert.ok(!visited.some(id=>/weekend_home|weekday_outing|acg_first_meet_purchase|convenience_xu_weekend_(book|home)/.test(id)),item.id);
+    assert.ok(!e.state.flags.has('weekend_book_purchased'),item.id);
+    assert.ok(!e.state.flags.has('jyc_permanently_excluded'),item.id);
+    assert.ok(![...e.state.flags].some(flag=>flag.startsWith('entry-effect:common_weekend_home_')),item.id);
+    if(snapshot.flags.includes('preview:com02j-complete')&&!snapshot.flags.includes('contact_jyc')) assert.ok(!e.state.flags.has('contact_jyc'),item.id);
+  }
+});
+
+test('untouched baseline nodes retain exact structural parity outside the approved impacted prefixes', () => {
+  const fixture=read('tests/fixtures/jyc-pre-revision-parity.json');
+  const bytes=execFileSync('git',['show',`${fixture.baseline}:content/routes/opening-demo/chapter-01.json`]);
+  assert.equal(createHash('sha256').update(bytes).digest('hex'),fixture.baseline_chapter_sha256);
+  const baseline=JSON.parse(bytes).nodes;
+  for(const [id,node] of Object.entries(baseline)) {
+    if(!fixture.impacted_prefixes.some(prefix=>id.startsWith(prefix))&&!fixture.explicit_policy_nodes.includes(id)) assert.deepEqual(chapter.nodes[id],node,id);
+  }
+  assert.deepEqual(fixture.unexpected_changed_nodes,[]);
 });
