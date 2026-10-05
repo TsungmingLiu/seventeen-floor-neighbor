@@ -1,0 +1,235 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_checkpoint",
+  "run_id": "feedback-20261005",
+  "workflow_version": "1.3.1",
+  "source_ref": "93bfa88dee2c9f6aafb9348503f0877644065c17",
+  "human_request": {
+    "summary": "Bounded earned-global JYC eligibility override, COM-01B intro rewrite, Line-許棠 remote speaker labels, Memories filters and consistent encountered-decision graph alternatives.",
+    "gate_status": "explicit_user_directive"
+  },
+  "status": "ACTIVE",
+  "tasks": [
+    {
+      "task_id": "ND-FEEDBACK-001",
+      "task_type": "narrative_design",
+      "scene_id": "COM-01J",
+      "depends_on": [],
+      "status": "STALE",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "acae2cc38fc15d4aa7295287f0edba54f9049de41731da3e46c3cc64f50873c6"
+      },
+      "decision_receipt": "content/production/runs/feedback-20261005/ND-FEEDBACK-001.decision.json",
+      "human_gate": "none",
+      "reason": "Historical approved output superseded only for future-eligibility technical descriptions by ND-FEEDBACK-002; original evidence retained."
+    },
+    {
+      "task_id": "ND-COM01B-001",
+      "task_type": "narrative_design",
+      "scene_id": "COM-01B",
+      "depends_on": [
+        "ND-FEEDBACK-001"
+      ],
+      "status": "STALE",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "982cfb18ce57cfbecdaf865758241b4dfc30e3d85128a478900caf8f6ba7a1df"
+      },
+      "decision_receipt": "content/production/runs/feedback-20261005/ND-COM01B-001.decision.json",
+      "human_gate": "none",
+      "reason": "Historical approved output superseded only for future-eligibility technical descriptions by ND-FEEDBACK-002; original evidence retained."
+    },
+    {
+      "task_id": "UI-FEEDBACK-001",
+      "task_type": "integrate",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "81caf5d2817edc82fce6e4506e07316818c953564d1c73127f52962322e342d1"
+      },
+      "decision_receipt": null,
+      "human_gate": "none",
+      "reason": "Actual scoped UI acceptance verified; unchanged preview-art validate:final limitation retained, no final visual claims."
+    },
+    {
+      "task_id": "SW-COM01B-001",
+      "task_type": "scene_dialogue",
+      "scene_id": "COM-01B",
+      "depends_on": [
+        "ND-COM01B-001"
+      ],
+      "status": "PASS",
+      "decision_receipt": null,
+      "human_gate": "none",
+      "reason": "Verified authoring Handoff and committed scene942526be; independent narrative approval remains next task.",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "6b9abca019e0bb42509b0eb4cc9ee68ad74406cd25fdb29bd8427be685b03383"
+      }
+    },
+    {
+      "task_id": "NQA-COM01B-001",
+      "task_type": "narrative_review",
+      "scene_id": "COM-01B",
+      "depends_on": [
+        "SW-COM01B-001"
+      ],
+      "status": "BLOCKED",
+      "decision_receipt": "content/production/runs/feedback-20261005/NQA-COM01B-001.decision.json",
+      "human_gate": "none",
+      "reason": "Active technical selector/replay/exclusion annotations conflict with approved earned-global contract; prose checks PASS.",
+      "packet": {
+        "generator": "tools/context.mjs:narrative_review",
+        "sha256": "6e052995743429b8a662e4da3b3ac9b49ef5a3591f6c23848b04ad060fe7107f"
+      }
+    },
+    {
+      "task_id": "ENG-ELIGIBILITY-001",
+      "task_type": "integrate",
+      "depends_on": [
+        "ND-FEEDBACK-001"
+      ],
+      "status": "NEEDS_REVIEW",
+      "decision_receipt": "content/production/runs/feedback-20261005/ENG-ELIGIBILITY-001.decision.json",
+      "human_gate": "none",
+      "reason": "Verified committed engineering state; 80 focused tests pass, pending corrected-design reconciliation, approved COM01B compile, two parity tests and full suite in fresh integration.",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "5e43bacf42436af5332d5d94f048a7b2e18f39fc40b66bcc6fdd5512fcbdbc90"
+      }
+    },
+    {
+      "task_id": "INT-FEEDBACK-001",
+      "task_type": "integrate",
+      "scene_id": "COM-01B",
+      "depends_on": [
+        "ND-FEEDBACK-002",
+        "NQA-COM01B-002"
+      ],
+      "status": "FAIL",
+      "decision_receipt": "content/production/runs/feedback-20261005/INT-FEEDBACK-001.decision.json",
+      "human_gate": "none",
+      "reason": "Source checkpoint4599403: targeted47/47 and sourceChrome4/4 PASS; fullsuite282/286 FAIL with parser/walker/build-race/ledger causes retained.",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "cbf8b35ace7886a667b33eb07e8f865d8010e54932a77363802af0b26613a627"
+      }
+    },
+    {
+      "task_id": "ND-FEEDBACK-002",
+      "task_type": "narrative_design",
+      "scene_id": "COM-01B",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "7c16bb727bab38a0aa5eab5f36da61c5a7aaa47b369d602d8f047a4949502c77"
+      },
+      "decision_receipt": "content/production/runs/feedback-20261005/ND-FEEDBACK-002.decision.json",
+      "human_gate": "none",
+      "reason": "One focused correction to separate bookstore reunion gate from any-initial future eligibility."
+    },
+    {
+      "task_id": "SW-COM01B-002",
+      "task_type": "scene_dialogue",
+      "scene_id": "COM-01B",
+      "depends_on": [
+        "ND-FEEDBACK-002"
+      ],
+      "status": "PASS",
+      "decision_receipt": null,
+      "human_gate": "none",
+      "reason": "Verified committed annotation correction 4dcf8368; all166 playable prose/time/choice/event items preserved.",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "424a11b8033586793b0fc841d8c237baa6eb0376c67b7bf60f1b425ebb893582"
+      }
+    },
+    {
+      "task_id": "NQA-COM01B-002",
+      "task_type": "narrative_review",
+      "scene_id": "COM-01B",
+      "depends_on": [
+        "SW-COM01B-002"
+      ],
+      "status": "PASS",
+      "decision_receipt": "content/production/runs/feedback-20261005/NQA-COM01B-002.decision.json",
+      "human_gate": "none",
+      "reason": "Fresh independent review after upstream technical annotations settled.",
+      "packet": {
+        "generator": "tools/context.mjs:narrative_review",
+        "sha256": "25921465dd461f7ca6a661295d63815ef13c432600fc9e0596f90826e8ac2b70"
+      }
+    },
+    {
+      "task_id": "INT-UI-FEEDBACK-001",
+      "task_type": "integrate",
+      "depends_on": [
+        "INT-FEEDBACK-002",
+        "UI-FEEDBACK-001"
+      ],
+      "status": "PENDING",
+      "decision_receipt": null,
+      "human_gate": "final_playable_acceptance",
+      "reason": "Fresh UI ordinary source merge, DETAIL/sharedGAME/conditionlabel projections, targeted tests/build/validate then exact CI/deploy verification."
+    },
+    {
+      "task_id": "INT-FEEDBACK-002",
+      "task_type": "integrate",
+      "scene_id": "COM-01B",
+      "depends_on": [
+        "ND-FEEDBACK-002",
+        "NQA-COM01B-002"
+      ],
+      "status": "RUNNING",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "d9771c1ce7a2297941fd35be9bf1d11ba5be7578a9acd355d9e9ce632836194d"
+      },
+      "decision_receipt": null,
+      "human_gate": "none",
+      "reason": "One focused parser compatibility correction; targeted66/66 PASS, serialfullsuite286/287 sole missing-HEAD-ledger failure; coordinator metadata fix pending retest."
+    }
+  ],
+  "invalidation_events": [
+    {
+      "changed_artifact_id": "narrative_contract:COM-01B",
+      "old_version": "2ef1b23f939be4c25d5204d4376a478cb97ac31c",
+      "new_version": "sha256:0a528af067f5f1da04401385f39d7021979ebe541b02794a0ecf97dbc7334ea7",
+      "affected_task_ids": [
+        "ND-FEEDBACK-001",
+        "ND-COM01B-001",
+        "ENG-ELIGIBILITY-001"
+      ],
+      "decision": "STALE",
+      "evidence": "content/production/runs/feedback-20261005/ND-FEEDBACK-002.decision.json"
+    },
+    {
+      "changed_artifact_id": "narrative_contract:COM-02J",
+      "old_version": "149826944b31512fae0169dc90822de05604aed8",
+      "new_version": "sha256:084ea15ca2c48836c7ccc06a141da5420f27d55ed93cc873f687e82ded268339",
+      "affected_task_ids": [
+        "ND-FEEDBACK-001",
+        "ND-COM01B-001",
+        "ENG-ELIGIBILITY-001"
+      ],
+      "decision": "STALE",
+      "evidence": "content/production/runs/feedback-20261005/ND-FEEDBACK-002.decision.json"
+    },
+    {
+      "changed_artifact_id": "narrative_contract:COM-03J",
+      "old_version": "e92b4d22af4e5cb57537de6f34856a28b280a1b9",
+      "new_version": "sha256:b98324d7513b5055612b6ea32c365fcbdd74f7c586f6750accd42c8eb14513a9",
+      "affected_task_ids": [
+        "ND-FEEDBACK-001",
+        "ND-COM01B-001",
+        "ENG-ELIGIBILITY-001"
+      ],
+      "decision": "STALE",
+      "evidence": "content/production/runs/feedback-20261005/ND-FEEDBACK-002.decision.json"
+    }
+  ],
+  "preview": null
+}
