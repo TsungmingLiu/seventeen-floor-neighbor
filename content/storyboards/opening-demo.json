@@ -396,7 +396,7 @@
                 "common_weekday_outing_street_"
               ],
               "entry": "common_weekday_outing_street_enter",
-              "condition": "尚未認識雨澄，週間選擇街上走走；之後不再開啟她的劇情。"
+              "condition": "這次尚未認識雨澄，週間選擇街上走走，接續沒有她的路線；先前已解鎖的內容仍保留。"
             }
           ]
         },

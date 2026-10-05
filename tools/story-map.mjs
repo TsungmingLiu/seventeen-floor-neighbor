@@ -1,6 +1,6 @@
 const narrativeConditions = {
   met_jiang_yucheng: ['已認識雨澄', '尚未認識雨澄'],
-  jyc_permanently_excluded: ['已選擇街景獨行，不再開啟雨澄的劇情', '仍可接續雨澄的劇情'],
+  jyc_permanently_excluded: ['這次選擇街景獨行，接續沒有雨澄的劇情', '這次仍可接續雨澄的劇情'],
   weekend_book_purchased: ['週末已買到想要的書', '週末沒有去書店買書'],
   'history:common_bookstore_bridge_weekend_decision:com01b_bookstore_go': ['週末選擇去書店', '週末沒有選擇去書店'],
   'history:common_bookstore_bridge_weekend_decision:com01b_bookstore_skip': ['週末選擇留在家', '週末沒有選擇留在家'],
