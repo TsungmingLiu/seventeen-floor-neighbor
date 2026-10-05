@@ -117,3 +117,19 @@ test('a scene version does not borrow the other version’s bound picture', () =
   assert.deepEqual(scene.variants.find(v => v.id === 'book').galleryAssets, ['cg.opening.com01j.base_guarded']);
   assert.deepEqual(scene.variants.find(v => v.id === 'work').galleryAssets, ['cg.opening.com01x.base_normal']);
 });
+
+test('contradictory compatibility cases cannot add artwork, branch labels or review connections', () => {
+  const altered = structuredClone(chapter);
+  altered.nodes.common_convenience_xu_enter = {
+    type: 'branch',
+    cases: [{ conditions: [{ flag: 'closed', present: true }, { flag: 'closed', present: false }], next: 'common_convenience_xu_retired_picture' }],
+    default: 'common_package_xu_arrive'
+  };
+  altered.nodes.common_convenience_xu_retired_picture = {
+    text: 'retired fixture', visual: { mode: 'cg', asset: 'cg.opening.com01x.base_normal' }, next: chapter.startNode
+  };
+  const compiled = compileStoryMap({ ...route, chapter: altered }, definition);
+  assert.deepEqual(compiled.branchLabels.common_convenience_xu_enter, {});
+  assert.equal(compiled.edges.some(e => e.from === 'convenience' && e.to === 'movein'), false);
+  assert.ok(compiled.groups.find(g => g.id === 'convenience').variants.every(v => !v.galleryAssets.includes('cg.opening.com01x.base_normal')));
+});

@@ -26,10 +26,22 @@ export function narrativeCondition(conditions) {
 }
 
 // Presentation mapping only. Gameplay and Memory/save IDs keep their existing authority.
+function inactiveCase({ conditions = [] }) {
+  const flags = new Map();
+  for (const condition of conditions) {
+    if (!condition.flag) continue;
+    const present = condition.present !== false;
+    if (condition.flag === 'legacy:disabled' && present) return true;
+    if (flags.has(condition.flag) && flags.get(condition.flag) !== present) return true;
+    flags.set(condition.flag, present);
+  }
+  return false;
+}
+
 export function runtimeTargets(node, pools = {}) {
   if (node.choices) return node.choices.map(c => c.next);
   if (node.type === 'branch') return [...(node.cases || [])
-    .filter(c => !(c.conditions || []).some(x => x.flag === 'legacy:disabled' && x.present))
+    .filter(c => !inactiveCase(c))
     .map(c => c.next), node.default].filter(Boolean);
   if (node.type === 'random') return [...(pools[node.pool]?.entries || []).map(e => e.entryNode), node.after].filter(Boolean);
   return [node.next].filter(Boolean);
@@ -100,7 +112,7 @@ export function compileStoryMap(route, definition) {
     }
   }
   const branchLabels = Object.fromEntries(Object.entries(chapter.nodes).filter(([,node]) => node.type === 'branch').map(([id,node]) => [id,
-    Object.fromEntries((node.cases || []).filter(c => !(c.conditions || []).some(x => x.flag === 'legacy:disabled' && x.present)).map(c => [c.next, narrativeCondition(c.conditions)]))
+    Object.fromEntries((node.cases || []).filter(c => !inactiveCase(c)).map(c => [c.next, narrativeCondition(c.conditions)]))
   ]));
   return { schemaVersion: 1, revision: revision?.id || 'current', groups, edges, branchLabels };
 }

@@ -256,7 +256,7 @@ export function createStoryMap(engine) {
           walk(choice.next, branch, depth + 1, new Set(visited)); host.append(branch);
         }
       } else if (controller.review && node.type === 'branch') {
-        const targets = [...(node.cases || []).filter(c => !(c.conditions || []).some(x => x.flag === 'legacy:disabled' && x.present)).map(c => c.next), node.default].filter(Boolean);
+        const targets = [...new Set([...Object.keys(options.map.branchLabels?.[id] || {}), node.default].filter(Boolean))];
         if (targets.length === 1) walk(targets[0], host, depth + 1, visited);
         else for (const target of targets) {
           const branch = el('details', 'story-choice');
