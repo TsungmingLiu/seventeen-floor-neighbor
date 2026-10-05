@@ -238,6 +238,7 @@ export function createStoryMap(engine) {
     const allIds = new Set(group.variants.flatMap(v => v.nodeIds));
     let introStops = null;
     function walk(id, host, depth = 0, visited = new Set()) {
+      if (controller.review && options.map.reviewBlockedNodes?.includes(id)) return;
       if (introStops?.has(id)) return;
       if (!allIds.has(id) || visited.has(id) || depth > 1000) return;
       if (!controller.review && !options.progress.data.checkpoints[id]) return;
@@ -256,7 +257,7 @@ export function createStoryMap(engine) {
           walk(choice.next, branch, depth + 1, new Set(visited)); host.append(branch);
         }
       } else if (controller.review && node.type === 'branch') {
-        const targets = [...new Set([...Object.keys(options.map.branchLabels?.[id] || {}), node.default].filter(Boolean))];
+        const targets = [...new Set([...Object.keys(options.map.branchLabels?.[id] || {}), node.default].filter(target => target && !options.map.reviewBlockedNodes?.includes(target)))];
         if (targets.length === 1) walk(targets[0], host, depth + 1, visited);
         else for (const target of targets) {
           const branch = el('details', 'story-choice');

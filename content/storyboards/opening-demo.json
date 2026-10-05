@@ -288,6 +288,7 @@
   "revisions": [
     {
       "id": "weekday-jyc",
+      "reviewBlockedNodes": ["common_weekday_outing_invalid_history"],
       "whenNodes": [
         "common_weekday_outing_work",
         "common_convenience_xu_weekend_book",

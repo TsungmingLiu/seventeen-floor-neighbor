@@ -54,6 +54,11 @@ export function compileStoryMap(route, definition) {
   if (definition.schemaVersion !== 1) throw new Error('Story Map: unsupported schema');
   const { chapter, memoryLibrary, sceneLibrary } = route;
   const revision = (definition.revisions || []).find(r => r.whenNodes.every(id => chapter.nodes[id]));
+  // Runtime may deliberately stop at a compatibility/error sentinel. Its JSON
+  // fallback is not a playable story connection; retain IDs for old saves only.
+  const reviewBlockedNodes = revision?.reviewBlockedNodes || definition.reviewBlockedNodes || [];
+  const blocked = new Set(reviewBlockedNodes);
+  const targets = node => runtimeTargets(node, sceneLibrary.pools).filter(id => !blocked.has(id));
   const definitions = revision ? definition.groups.map(group => ({ ...group, ...(revision.groups[group.id] || {}) })).concat(revision.addGroups || []) : definition.groups;
   const events = new Map(memoryLibrary.events.map(e => [e.id, e]));
   const nodeToGroup = new Map();
@@ -78,8 +83,8 @@ export function compileStoryMap(route, definition) {
       const otherEntries = new Set(group.variants.filter(v => v.id !== variant.id).map(v => v.entry));
       while (pending.length) {
         const id = pending.pop();
-        if (reachable.has(id) || !allowed.has(id) || otherEntries.has(id)) continue;
-        reachable.add(id); pending.push(...runtimeTargets(chapter.nodes[id], sceneLibrary.pools));
+        if (reachable.has(id) || !allowed.has(id) || otherEntries.has(id) || blocked.has(id)) continue;
+        reachable.add(id); pending.push(...targets(chapter.nodes[id]));
       }
       const usedAssets = new Set([...reachable].flatMap(id => {
         const visual = chapter.nodes[id].visual || {};
@@ -96,14 +101,14 @@ export function compileStoryMap(route, definition) {
   const currentNodes = new Set(), pendingNodes = [chapter.startNode];
   while (pendingNodes.length) {
     const id = pendingNodes.pop();
-    if (!id || currentNodes.has(id) || !chapter.nodes[id]) continue;
+    if (!id || currentNodes.has(id) || !chapter.nodes[id] || blocked.has(id)) continue;
     currentNodes.add(id);
-    pendingNodes.push(...runtimeTargets(chapter.nodes[id], sceneLibrary.pools));
+    pendingNodes.push(...targets(chapter.nodes[id]));
   }
   const edges = [];
   for (const group of groups) {
     const visited = new Set();
-    const pending = group.variants.flatMap(v => v.nodeIds).filter(id => currentNodes.has(id)).flatMap(id => runtimeTargets(chapter.nodes[id], sceneLibrary.pools).map(target => ({ id: target, label: chapter.nodes[id].choices?.find(c => c.next === target)?.text })));
+    const pending = group.variants.flatMap(v => v.nodeIds).filter(id => currentNodes.has(id)).flatMap(id => targets(chapter.nodes[id]).map(target => ({ id: target, label: chapter.nodes[id].choices?.find(c => c.next === target)?.text })));
     while (pending.length) {
       const { id, label } = pending.pop();
       if (!id || visited.has(id) || !chapter.nodes[id]) continue;
@@ -111,11 +116,11 @@ export function compileStoryMap(route, definition) {
       const target = nodeToGroup.get(id);
       if (target && target !== group.id) {
         if (!edges.some(e => e.from === group.id && e.to === target)) edges.push({ from: group.id, to: target, ...(label ? { label } : {}) });
-      } else if (!target) pending.push(...runtimeTargets(chapter.nodes[id], sceneLibrary.pools).map(target => ({ id: target, label })));
+      } else if (!target) pending.push(...targets(chapter.nodes[id]).map(target => ({ id: target, label })));
     }
   }
   const branchLabels = Object.fromEntries(Object.entries(chapter.nodes).filter(([,node]) => node.type === 'branch').map(([id,node]) => [id,
-    Object.fromEntries((node.cases || []).filter(c => !inactiveCase(c)).map(c => [c.next, narrativeCondition(c.conditions)]))
+    Object.fromEntries((node.cases || []).filter(c => !inactiveCase(c) && !blocked.has(c.next)).map(c => [c.next, narrativeCondition(c.conditions)]))
   ]));
-  return { schemaVersion: 1, revision: revision?.id || 'current', groups, edges, branchLabels };
+  return { schemaVersion: 1, revision: revision?.id || 'current', reviewBlockedNodes, groups, edges, branchLabels };
 }

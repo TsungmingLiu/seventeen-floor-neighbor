@@ -147,3 +147,13 @@ test('contradictory compatibility cases cannot add artwork, branch labels or rev
   assert.equal(compiled.edges.some(e => e.from === 'convenience' && e.to === 'movein'), false);
   assert.ok(compiled.groups.find(g => g.id === 'convenience').variants.every(v => !v.galleryAssets.includes('cg.opening.com01x.base_normal')));
 });
+
+test('a runtime stop sentinel cannot advertise its schema fallback as a playable continuation', () => {
+  const changed = structuredClone(chapter), blockedId = 'common_convenience_xu_stop_fixture';
+  changed.nodes.common_convenience_xu_enter = { type: 'branch', cases: [], default: blockedId };
+  changed.nodes[blockedId] = { next: chapter.startNode };
+  const compiled = compileStoryMap({ ...route, chapter: changed }, { ...definition, reviewBlockedNodes: [blockedId] });
+  assert.ok(compiled.reviewBlockedNodes.includes(blockedId));
+  assert.equal(groupForNode(compiled, blockedId).id, 'convenience');
+  assert.equal(compiled.edges.some(e => e.from === 'convenience' && e.to === 'movein'), false);
+});
