@@ -56,7 +56,9 @@ export function compileStoryMap(route, definition) {
   const revision = (definition.revisions || []).find(r => r.whenNodes.every(id => chapter.nodes[id]));
   // Runtime may deliberately stop at a compatibility/error sentinel. Its JSON
   // fallback is not a playable story connection; retain IDs for old saves only.
-  const reviewBlockedNodes = revision?.reviewBlockedNodes || definition.reviewBlockedNodes || [];
+  const reviewBlockedNodes = [...new Set([
+    ...(definition.reviewBlockedNodes || []), ...(revision?.reviewBlockedNodes || [])
+  ])];
   const blocked = new Set(reviewBlockedNodes);
   const targets = node => runtimeTargets(node, sceneLibrary.pools).filter(id => !blocked.has(id));
   const definitions = revision ? definition.groups.map(group => ({ ...group, ...(revision.groups[group.id] || {}) })).concat(revision.addGroups || []) : definition.groups;
