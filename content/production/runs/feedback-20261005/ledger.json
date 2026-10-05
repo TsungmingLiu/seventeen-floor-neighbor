@@ -170,10 +170,10 @@
         "INT-FEEDBACK-002",
         "UI-FEEDBACK-001"
       ],
-      "status": "PENDING",
+      "status": "READY",
       "decision_receipt": null,
       "human_gate": "final_playable_acceptance",
-      "reason": "Fresh UI ordinary source merge, DETAIL/sharedGAME/conditionlabel projections, targeted tests/build/validate then exact CI/deploy verification."
+      "reason": "Sourceintegration and immutableUI367 acceptancePASS; freshordinarymerge/projection task next."
     },
     {
       "task_id": "INT-FEEDBACK-002",
@@ -183,14 +183,14 @@
         "ND-FEEDBACK-002",
         "NQA-COM01B-002"
       ],
-      "status": "RUNNING",
+      "status": "PASS",
       "packet": {
         "generator": "manual-v1",
         "sha256": "d9771c1ce7a2297941fd35be9bf1d11ba5be7578a9acd355d9e9ce632836194d"
       },
-      "decision_receipt": null,
+      "decision_receipt": "content/production/runs/feedback-20261005/INT-FEEDBACK-002.decision.json",
       "human_gate": "none",
-      "reason": "One focused parser compatibility correction; targeted66/66 PASS, serialfullsuite286/287 sole missing-HEAD-ledger failure; coordinator metadata fix pending retest."
+      "reason": "Verified source81518ae: finalserial289/289, targetedactualGAME/consent casesPASS, build/validate/storage/diff/smokePASS; priorfailedlogs/receiptretained."
     }
   ],
   "invalidation_events": [
