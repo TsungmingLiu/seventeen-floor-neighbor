@@ -734,7 +734,7 @@ export class GameEngine {
     const id = this.nodeId;
     if (!this.bookstoreEligible()) {
       if (id === 'common_weekday_outing_selector') {
-        if (jiangExcluded(this.state)) return 'common_weekday_outing_street_enter';
+        if (jiangExcluded(this.state, this.progress.hasJiangEligibility())) return 'common_weekday_outing_street_enter';
         const history = ['com01b_bookstore_go', 'com01b_bookstore_skip'].some(choice =>
           this.state.flags.has(`history:common_bookstore_bridge_weekend_decision:${choice}`));
         if (history) return 'common_weekday_outing_home';

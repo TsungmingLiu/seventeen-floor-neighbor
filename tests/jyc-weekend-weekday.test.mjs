@@ -583,3 +583,40 @@ test('earned reunion plays local recommendation action without inventing a purch
   assert.ok(!e.state.flags.has('weekend_book_purchased'));
   assert.ok(!e.state.flags.has('contact_jyc'));
 });
+
+for (const path of ['A', 'B']) {
+  test(`earned path ${path} restores local met zero into actual shared choices without fabricating contact`, () => {
+    const {e,storage}=play({...pathChoices(path),common_station_cafe_jyc_contact_choice:'com02j_leave_without_contact'});
+    const main=structuredClone(e.progress.data.frontier);
+    const reload=makeEngine(storage);reload.progress.setPlayerName('小雨');
+    const local={nodeId:'common_weekday_outing_selector',stats:{...chapter.initialState},flags:[
+      'preview:jyc-weekend-weekday','jyc_permanently_excluded',
+      'history:common_bookstore_bridge_weekend_decision:com01b_bookstore_skip'
+    ],returnNodes:[]};
+    reload.resumeGame(local,{replay:true});
+    assert.equal(reload.state.met_jiang_yucheng,0);
+    assert.ok(!reload.state.flags.has('contact_jyc'));
+    assert.ok(!reload.state.flags.has('weekend_book_purchased'));
+    const visited=walkEngine(reload,pathChoices('B'),'common_station_cafe_jyc_contact_choice');
+    assert.equal(reload.nodeId,'common_station_cafe_jyc_contact_choice');
+    assert.ok(visited.includes(path==='A'?'common_station_cafe_jyc_enter_02':'common_station_cafe_jyc_first_enter'));
+    assert.ok(!visited.includes('common_weekday_outing_street_enter'));
+    const choices=chapter.nodes[reload.nodeId].choices;
+    reload.enterChoiceMode(choices);
+    assert.equal(reload.els.choices.children.length,2,'actual bounded exchange/refusal choices render');
+    assert.deepEqual(choices.map(choice=>choice.id),['com02j_offer_discord','com02j_leave_without_contact']);
+    assert.ok(!reload.state.flags.has('contact_jyc'));
+    assert.deepEqual(reload.progress.data.frontier,main);
+    reload.els.choices.children[1].click();
+    walkEngine(reload,{},'common_station_cafe_jyc_complete');
+    assert.ok(!reload.state.flags.has('contact_jyc'),'actual refusal callback retains no contact');
+    const noContact={...local,nodeId:'OPEN-A-ENTRY-ACTION-GATE'};
+    reload.resumeGame(noContact,{replay:true});
+    assert.equal(reload.nodeId,'OPEN-A-LIFE-DIRECT','earned eligibility alone cannot enable a contact-dependent invitation');
+    reload.resumeGame({...local,nodeId:'COM03M-J01-GATE'},{replay:true});
+    assert.equal(reload.nodeId,'COM03M-S02','earned eligibility alone cannot manufacture remote messages');
+    assert.equal(reload.state.met_jiang_yucheng,0);
+    assert.ok(!reload.state.flags.has('contact_jyc'));
+    assert.deepEqual(reload.progress.data.frontier,main);
+  });
+}
