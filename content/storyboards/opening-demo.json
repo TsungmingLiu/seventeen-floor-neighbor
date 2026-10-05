@@ -308,6 +308,7 @@
             {
               "id": "home",
               "label": "在家",
+              "memoryId": "mem.opening.ch1.weekend-home",
               "prefixes": [
                 "com01b_bookstore_skip",
                 "common_weekend_home_"
@@ -391,6 +392,7 @@
             {
               "id": "solo",
               "label": "獨行",
+              "memoryId": "mem.opening.ch1.taipei-street",
               "prefixes": [
                 "com01b_weekday_street_walk",
                 "common_weekday_outing_street_"
@@ -427,6 +429,7 @@
             {
               "id": "scene",
               "label": "依週末前事",
+              "memoryId": "mem.opening.ch1.weekday-outing",
               "prefixes": [
                 "common_weekday_outing_"
               ],

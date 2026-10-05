@@ -12,6 +12,16 @@ const definition = await read('../content/storyboards/opening-demo.json');
 const assetManifest = await read('../content/assets/manifest.json');
 const route = { chapter, memoryLibrary, sceneLibrary: { pools: {} }, assetManifest };
 const map = compileStoryMap(route, definition);
+const revisedLibrary = () => {
+  const library = structuredClone(memoryLibrary);
+  const variants = [...Object.values(definition.revisions[0].groups), ...definition.revisions[0].addGroups].flatMap(g => g.variants || []);
+  for (const variant of variants.filter(v => v.memoryId)) {
+    if (!library.events.some(event => event.id === variant.memoryId)) library.events.push({
+      id: variant.memoryId, sectionId: library.sections[0].id, replayNode: variant.entry, unlockNodes: [variant.entry], characterIds: []
+    });
+  }
+  return library;
+};
 const snapshot = id => ({ nodeId: id, stats: chapter.initialState, flags: [], returnNodes: [] });
 const progress = ids => ({ data: { checkpoints: Object.fromEntries(ids.map(id => [id, snapshot(id)])), edges: [], cursor: null, frontier: null } });
 
@@ -83,7 +93,7 @@ test('source revisions change chronology only when every required entry exists',
   const fake = structuredClone(chapter);
   const rev = definition.revisions[0];
   for (const id of rev.whenNodes) fake.nodes[id] = { text: '', next: 'common_package_xu_arrive' };
-  const revised = compileStoryMap({ ...route, chapter: fake }, definition);
+  const revised = compileStoryMap({ ...route, chapter: fake, memoryLibrary: revisedLibrary() }, definition);
   assert.equal(revised.revision, 'weekday-jyc');
   assert.ok(revised.groups.find(g => g.id === 'convenience').row < revised.groups.find(g => g.id === 'cafe').row);
   assert.equal(revised.groups.find(g => g.id === 'weekday').variants[0].entry, 'common_weekday_outing_work');
@@ -141,7 +151,7 @@ test('a scene version does not borrow the other version’s bound picture', () =
   changed.nodes.common_convenience_xu_variant_test = { type: 'branch', cases: [{ next: 'common_convenience_xu_weekend_book' }], default: 'common_convenience_xu_weekend_home' };
   changed.nodes.common_convenience_xu_weekend_book.visual = { mode: 'cg', asset: 'cg.opening.com01j.base_guarded' };
   changed.nodes.common_convenience_xu_weekend_home.visual = { mode: 'cg', asset: 'cg.opening.com01x.base_normal' };
-  const scene = compileStoryMap({ ...route, chapter: changed }, definition).groups.find(g => g.id === 'convenience');
+  const scene = compileStoryMap({ ...route, chapter: changed, memoryLibrary: revisedLibrary() }, definition).groups.find(g => g.id === 'convenience');
   assert.deepEqual(scene.variants.find(v => v.id === 'book').galleryAssets, ['cg.opening.com01j.base_guarded']);
   assert.deepEqual(scene.variants.find(v => v.id === 'work').galleryAssets, ['cg.opening.com01x.base_normal']);
 });
