@@ -5,10 +5,10 @@
   "workflow_version": "1.3.1",
   "source_ref": "013b3f73e75d8f00bbd2fa53a6cd2d885fecb9a9",
   "human_request": {
-    "summary": "Approved weekend bookstore/home, weekday cafe reunion/first or permanent JYC-excluding solo Taipei street redesign; no final CG generation.",
+    "summary": "Authorized sunny weekend bookstore/home and weekday cafe reunion/first or this-playthrough JYC-excluding Taipei street revision; persistent opened routes, Memories and main frontier stay monotone across replay; no final CG production.",
     "gate_status": "major_story_direction_authorized"
   },
-  "status": "ACTIVE",
+  "status": "NARRATIVE_PREVIEW_READY",
   "tasks": [
     {
       "task_id": "ND-ARC-001",
@@ -391,6 +391,29 @@
       "decision_receipt": "content/production/runs/jyc-weekend-weekday-20261004/INT-JYC-002.decision.json",
       "human_gate": "narrative_preview_review",
       "reason": "Worker return reported PASS for261 tests; independent partial-frontier180→185 replay regression invalidates runtime readiness until correction. No creative QA invalidation."
+    },
+    {
+      "task_id": "INT-JYC-003",
+      "task_type": "integrate",
+      "scene_id": "COM-01B",
+      "depends_on": [
+        "NQA-OPEN-A-002",
+        "NQA-COM-01B-002",
+        "NQA-COM-01J-001",
+        "NQA-COM-02X-001",
+        "NQA-COM-02J-001",
+        "NQA-COM-03X-003",
+        "NQA-COM-03J-004",
+        "NQA-COM-03M-001"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "40f672811ce863382ac49d7a68b91e9025863158cb07e72362eab9281c5fa66f"
+      },
+      "decision_receipt": "content/production/runs/jyc-weekend-weekday-20261004/INT-JYC-003.decision.json",
+      "human_gate": "narrative_preview_review",
+      "reason": null
     }
   ],
   "invalidation_events": [
@@ -402,6 +425,15 @@
         "playable_review:opening-ch1"
       ],
       "source": "ENG-JYC-FRONTIER-001"
+    },
+    {
+      "task_id": "INT-JYC-003",
+      "reason": "Verified runtime partial-frontier correction resolves INT002 independent180→185 replay defect; exactsnapshot/localtruth/unlocks/reload/forwardprogress tests PASS.",
+      "affected": [
+        "integration:opening-ch1",
+        "playable_review:opening-ch1"
+      ],
+      "source": "INT-JYC-003"
     }
   ],
   "preview": null

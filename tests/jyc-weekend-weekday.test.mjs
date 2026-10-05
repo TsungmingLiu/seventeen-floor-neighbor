@@ -48,12 +48,12 @@ function makeEngine(storage=new Storage()) {
   e.typeText=function(text){this.els.text.textContent=text;this.isTyping=false;this.awaitingChoiceReveal=!!this.chapter.nodes[this.nodeId].choices;};
   return e;
 }
-function play(choices={},storage=new Storage(),options={}) {
+function play(choices={},storage=new Storage(),options={},stopAt=null) {
   const e=makeEngine(storage);e.progress.setPlayerName('小雨');e.startGame(options);
   const visited=[];
   for(let step=0;step<1500;step++) {
     const id=e.nodeId;visited.push(id);
-    if(chapter.nodes[id].type==='route') return {e,visited,storage};
+    if(id===stopAt || chapter.nodes[id].type==='route') return {e,visited,storage};
     const node=chapter.nodes[id];
     if(node.choices) {
       const requested=choices[id]??node.choices[0].id;
@@ -305,6 +305,67 @@ test('first-ever unseen street remains locally and persistently unacquainted', (
   assert.equal(makeEngine(storage).progress.data.jycEverUnlocked,false);
   for(const event of memoryLibrary.events.filter(event=>event.characterIds.includes('jiang_yucheng'))) assert.ok(!isMemoryUnlocked(event,e.progress,chapter.startNode),event.id);
 });
+
+for (const freshRun of [false, true]) {
+  test(`actual ${freshRun ? 'fresh restart' : 'weekday Memory replay'} preserves partial known cafe main through street and package`, () => {
+    const { e, storage } = play(pathChoices('A'), new Storage(), {}, 'common_station_cafe_jyc_names_02');
+    const main = structuredClone(e.progress.data.frontier);
+    assert.equal(e.progress.data.frontierRank, 180);
+    assert.equal(main.stats.met_jiang_yucheng, 1);
+    assert.ok(main.flags.includes('weekend_book_purchased'));
+    assert.ok(main.flags.includes('history:common_bookstore_bridge_weekend_decision:com01b_bookstore_go'));
+    let local;
+    if (freshRun) {
+      local = play(pathChoices('C'), storage, { freshRun: true }, 'common_package_xu_arrive').e;
+    } else {
+      const homeRun = play(pathChoices('C'), new Storage(), {}, 'common_weekday_outing_work');
+      const home = homeRun.e.progress.data.cursor;
+      assert.equal(home.stats.met_jiang_yucheng, 0);
+      assert.ok(homeRun.visited.includes('common_weekend_home_enter'));
+      assert.ok(home.flags.includes('history:common_bookstore_bridge_weekend_decision:com01b_bookstore_skip'));
+      e.resumeGame(home, { replay: true });
+      const visited = [];
+      for (let step = 0; step < 200 && e.nodeId !== 'common_package_xu_arrive'; step++) {
+        visited.push(e.nodeId);
+        const node = chapter.nodes[e.nodeId];
+        if (node.choices) {
+          e.enterChoiceMode(node.choices);
+          const index = node.choices.findIndex(choice => choice.id === pathChoices('C')[e.nodeId]);
+          e.els.choices.children[index < 0 ? 0 : index].click();
+        } else e.advance();
+      }
+      assert.ok(visited.includes('common_weekday_outing_street_enter'));
+      local = e;
+    }
+    assert.equal(local.nodeId, 'common_package_xu_arrive');
+    const cursor = structuredClone(local.progress.data.cursor);
+    assert.equal(local.progress.progressRank(cursor), 200);
+    assert.deepEqual(local.progress.data.frontier, main);
+    assert.equal(local.progress.data.frontierRank, 180);
+    assert.equal(local.progress.data.frontierMemoryEventId, 'mem.opening.ch1.station-cafe-jyc');
+    assert.equal(local.progress.replaying, true);
+    assert.equal(local.progress.data.restartActive, freshRun);
+    const reload = makeEngine(storage);
+    assert.deepEqual(reload.progress.data.frontier, main);
+    assert.deepEqual(reload.progress.data.cursor, cursor);
+    assert.equal(reload.progress.replaying, true);
+    assert.equal(reload.progress.data.restartActive, freshRun);
+    for (const store of [local.progress, reload.progress]) {
+      assert.equal(store.data.jycEverUnlocked, true);
+      const actual = store.restore(store.data.cursor).state;
+      assert.equal(actual.met_jiang_yucheng, 0);
+      assert.ok(actual.flags.has('jyc_permanently_excluded'));
+      for (const flag of ['contact_jyc', 'player_knows_jyc_name', 'weekend_book_purchased']) assert.ok(!actual.flags.has(flag));
+      for (const id of ['mem.opening.ch1.station-cafe-jyc', 'mem.opening.ch1.taipei-street']) {
+        assert.ok(isMemoryUnlocked(memoryLibrary.events.find(event => event.id === id), store, chapter.startNode));
+      }
+    }
+    reload.startFromTitle();
+    assert.equal(reload.nodeId, freshRun ? cursor.nodeId : main.nodeId);
+    assert.deepEqual(reload.progress.data.frontier, main);
+    assert.equal(reload.state.met_jiang_yucheng, freshRun ? 0 : 1);
+  });
+}
 
 test('real baseline v1/v2 saves continue without invented purchase/home-work or retroactive exclusion', () => {
   const fixture=read('tests/fixtures/jyc-pre-revision-save.json');

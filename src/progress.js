@@ -30,6 +30,7 @@ export class ProgressStore {
       cursor: null,
       frontier: null,
       restartActive: false,
+      replayActive: false,
       runComplete: false,
       frontierMemoryEventId: null,
       frontierRank: -1,
@@ -292,25 +293,25 @@ export class ProgressStore {
       this.data.restartActive = saved.restartActive === true
         && !!this.data.cursor
         && this.chapter.nodes[this.data.cursor.nodeId]?.type !== 'route';
+      this.replaying = this.data.restartActive || saved.replayActive === true;
       this.data.runComplete = saved.runComplete === true
         || (!this.data.restartActive && this.chapter.nodes[this.data.cursor?.nodeId]?.type === 'route');
       // This stable former Opening terminal now redirects to appended content.
       // Ordinary Memory replay cursors and actual route terminals remain complete.
       const cursorNode = this.chapter.nodes[this.data.cursor?.nodeId];
-      if (this.chapter.id === 'opening-demo-chapter-01' && !this.data.restartActive
+      if (this.chapter.id === 'opening-demo-chapter-01' && !this.replaying
         && saved.runComplete === true && this.data.cursor?.nodeId === 'opening_demo_complete'
         && this.data.frontier?.nodeId === 'common_convenience_xu_exit_08'
         && cursorNode?.type === 'branch' && this.chapter.nodes[cursorNode.default]) {
         this.data.runComplete = false;
         this.data.frontier = this.clone(this.data.cursor);
       }
-      if (this.chapter.id === 'opening-demo-chapter-01' && !this.data.restartActive
+      if (this.chapter.id === 'opening-demo-chapter-01' && !this.replaying
         && saved.runComplete === true && this.data.cursor?.nodeId === 'com03j_preview_complete'
         && cursorNode?.type === 'branch') {
         this.data.runComplete = false;
         this.data.frontier = this.clone(this.data.cursor);
       }
-      this.replaying = this.data.restartActive;
       this.data.edges = this.sanitizeEdges(saved.edges);
       const frontierEvent = this.eventForSnapshot(this.data.frontier);
       if (frontierEvent) {
@@ -380,6 +381,24 @@ export class ProgressStore {
     }
   }
 
+  canExtendMain(snapshot) {
+    const main = this.data.frontier;
+    if (!main || !this.replaying || this.chapter.id !== 'opening-demo-chapter-01') return true;
+    // Rank orders scenes in time, not mutually exclusive playthroughs. A replay
+    // may own later main progress only when it retains the main branch's facts.
+    // Compare narrative facts, never relationship scores or merged snapshots.
+    for (const key of ['met_xu_tang', 'met_jiang_yucheng']) {
+      if (main.stats[key] > 0 && !(snapshot.stats[key] > 0)) return false;
+    }
+    if (!jiangExcluded(main) && jiangExcluded(snapshot)
+      && (main.stats.met_jiang_yucheng > 0 || main.flags.includes('contact_jyc'))) return false;
+    const retainedFacts = new Set(['weekend_book_purchased', 'jyc_permanently_excluded',
+      'contact_xu', 'contact_jyc', 'player_knows_jyc_name', 'jyc_knows_player_name',
+      'jyc_creator_work_seen']);
+    return main.flags.every(flag => !(flag.startsWith('history:') || retainedFacts.has(flag))
+      || snapshot.flags.includes(flag));
+  }
+
   capture(nodeId, state, returnNodes) {
     const stats = Object.fromEntries(Object.keys(this.chapter.initialState)
       .map(key => [key, state[key] ?? this.chapter.initialState[key]]));
@@ -394,7 +413,7 @@ export class ProgressStore {
     const continuation = this.openingContinuationRank(nodeId) >= 0
       && (!this.replaying || this.data.restartActive);
     const advancesFrontier = (event || continuation) && rank > this.data.frontierRank;
-    if (!this.data.com02jSupplement && !this.data.com03jReplay && (event || continuation) && (
+    if (!this.data.com02jSupplement && !this.data.com03jReplay && this.canExtendMain(snapshot) && (event || continuation) && (
       !this.data.frontier
       || advancesFrontier
       || (!this.replaying && rank >= this.data.frontierRank && (continuation || event?.id === this.data.frontierMemoryEventId))
@@ -452,6 +471,7 @@ export class ProgressStore {
 
   endReplay() {
     this.replaying = false;
+    this.flush();
   }
 
   connect(from, to) {
@@ -474,6 +494,7 @@ export class ProgressStore {
   }
 
   flush() {
+    this.data.replayActive = this.replaying;
     try { this.storage.setItem(this.key, JSON.stringify(this.data)); this.persisted = true; }
     catch { this.persisted = false; }
   }
