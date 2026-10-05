@@ -51,6 +51,20 @@
       "decision_receipt": "content/production/runs/jyc-weekend-weekday-20261004/ND-COM-02X-001.decision.json",
       "human_gate": "none",
       "reason": null
+    },
+    {
+      "task_id": "NQA-COM-01B-001",
+      "task_type": "narrative_review",
+      "scene_id": "COM-01B",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "3e59fe9b1459b4f016adab0aa81f6cd4bd33749ba3f6bc8c4162656590a23c4b"
+      },
+      "decision_receipt": "content/production/runs/jyc-weekend-weekday-20261004/NQA-COM-01B-001.decision.json",
+      "human_gate": "none",
+      "reason": null
     }
   ],
   "invalidation_events": [],

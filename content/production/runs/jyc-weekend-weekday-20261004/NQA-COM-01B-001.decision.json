@@ -1,0 +1,78 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "jyc-weekend-weekday-20261004",
+  "task_id": "NQA-COM-01B-001",
+  "scene_id": "COM-01B",
+  "task_type": "narrative_review",
+  "status": "PASS",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.5.1",
+    "pass": "narrative_review"
+  },
+  "source_ref": "acd18305afbc11916d549a8c6f94763e4edca4b4",
+  "packet_sha256": "3e59fe9b1459b4f016adab0aa81f6cd4bd33749ba3f6bc8c4162656590a23c4b",
+  "input_digest_sha256": "ac2c184043aa811d00d311622177f51623647deff257644d7830bc118f0b9d60",
+  "input_versions": [
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-01B.json",
+      "version": "8db48beb145c4a4a4359037ecb09beb35c1b3c90",
+      "location": "content/production/narrative/opening-ch1/COM-01B.json"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-01B.md",
+      "version": "4b670646ba68de3ca67e7a29738a902ccd8ff680",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01B.md"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-01X.md",
+      "version": "4dc02231b706015c6e6dfc633763f40ae51ddec0",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01X.md"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-01J.md",
+      "version": "ac03faf51d3e21df967e4d194fd9512d9c555ed0",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01J.md"
+    }
+  ],
+  "output_versions": [],
+  "qa_codes": [
+    {
+      "name": "NQA-VOICE-AND-PACING",
+      "code": "NQA-VOICE-AND-PACING",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-DIALOGUE-NATURALISM",
+      "code": "NQA-DIALOGUE-NATURALISM",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-KNOWLEDGE-AND-CONTINUITY",
+      "code": "NQA-KNOWLEDGE-AND-CONTINUITY",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-CHOICES-AND-REJOINS",
+      "code": "NQA-CHOICES-AND-REJOINS",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-STATE-AND-STABLE-IDS",
+      "code": "NQA-STATE-AND-STABLE-IDS",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-SEMANTIC-VISUAL-BEATS",
+      "code": "NQA-SEMANTIC-VISUAL-BEATS",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "Conditional visual impact of the revised home, weekday, and street beats remains for separate downstream review; runtime integration is outside this pass."
+  ],
+  "human_gate_required": "none",
+  "invalidates": []
+}
