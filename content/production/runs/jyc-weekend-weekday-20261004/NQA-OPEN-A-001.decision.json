@@ -1,0 +1,88 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "jyc-weekend-weekday-20261004",
+  "task_id": "NQA-OPEN-A-001",
+  "scene_id": "OPEN-A",
+  "task_type": "narrative_review",
+  "status": "NEEDS_REVIEW",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.5.1",
+    "pass": "narrative_review"
+  },
+  "source_ref": "4894a96f7b05d6e8d4e61042acfc01166715bdd6",
+  "packet_sha256": "7544939890764f654b17ab3d2d7b1aaddc9aa652bc743271983bcd160bf4a2aa",
+  "input_digest_sha256": "d84d9e782a0a028644f90066887da4bc176a31d075b23bc9570a8d27e13a11a7",
+  "input_versions": [
+    {
+      "id": "file:content/production/narrative/opening-ch1/OPEN-A.json",
+      "version": "ce058d0350200bef42159b17e0abfd214e2c9e23",
+      "location": "content/production/narrative/opening-ch1/OPEN-A.json"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/OPEN-A.md",
+      "version": "8000155b79def7c96c46afee5d6eb3069d0a91bb",
+      "location": "docs/narrative/scenes/vertical-slice/OPEN-A.md"
+    },
+    {
+      "id": "file:docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_COMMON.md",
+      "version": "a0625e3550468d74db4b12252ae590ca6dc5652c",
+      "location": "docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_COMMON.md"
+    },
+    {
+      "id": "file:docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md",
+      "version": "7144fe200bcb85874ad54c151eb0d77effc7be04",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md"
+    },
+    {
+      "id": "file:docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md",
+      "version": "9d44ab016a3a32da239b2d711117e05f087625f4",
+      "location": "docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md"
+    }
+  ],
+  "output_versions": [],
+  "qa_codes": [
+    {
+      "name": "NQA-VOICE-AND-PACING",
+      "code": "NQA-VOICE-AND-PACING",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-DIALOGUE-NATURALISM",
+      "code": "NQA-DIALOGUE-NATURALISM",
+      "result": "NEEDS_REVIEW"
+    },
+    {
+      "name": "NQA-KNOWLEDGE-AND-CONTACT-GATES",
+      "code": "NQA-KNOWLEDGE-AND-CONTACT-GATES",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-CHOICE-VARIANTS-AND-REJOINS",
+      "code": "NQA-CHOICE-VARIANTS-AND-REJOINS",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-STATE-IDS-AND-BOUNDARIES",
+      "code": "NQA-STATE-IDS-AND-BOUNDARIES",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-REQUIRED-PAYOFFS",
+      "code": "NQA-REQUIRED-PAYOFFS",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-SEMANTIC-VISUAL-BEATS",
+      "code": "NQA-SEMANTIC-VISUAL-BEATS",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "NQA-DIALOGUE-NATURALISM: OPEN-A-X-START-PLAYER affirmative confirmation is repeated across consecutive lines."
+  ],
+  "human_gate_required": "none",
+  "invalidates": []
+}
