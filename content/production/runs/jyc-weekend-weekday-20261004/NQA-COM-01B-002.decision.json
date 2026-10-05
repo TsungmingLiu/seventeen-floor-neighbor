@@ -1,0 +1,81 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "jyc-weekend-weekday-20261004",
+  "task_id": "NQA-COM-01B-002",
+  "scene_id": "COM-01B",
+  "task_type": "narrative_review",
+  "status": "PASS",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.5.1",
+    "pass": "narrative_review"
+  },
+  "source_ref": "26c264c010994be2328bb45a09ece2c755bad9c6",
+  "packet_sha256": "994627736a00b9b85653d9bfab22c67377337077c72350b981d6422b5c9a05a9",
+  "input_digest_sha256": "35f28473368ae0f9196fc0a4c6483f8082d91f0f5262f506a57e9220c7496057",
+  "input_versions": [
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-01B.json",
+      "version": "8db48beb145c4a4a4359037ecb09beb35c1b3c90",
+      "location": "content/production/narrative/opening-ch1/COM-01B.json"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-01B.md",
+      "version": "4b670646ba68de3ca67e7a29738a902ccd8ff680",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01B.md"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-01X.md",
+      "version": "4dc02231b706015c6e6dfc633763f40ae51ddec0",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01X.md"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-01J.md",
+      "version": "bba46990dd9db33136156fffaf792b2ed03c53f1",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01J.md"
+    }
+  ],
+  "output_versions": [],
+  "qa_codes": [
+    {
+      "name": "NQA-VOICE-AND-PACING",
+      "code": "NQA-VOICE-AND-PACING",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-DIALOGUE-NATURALISM",
+      "code": "NQA-DIALOGUE-NATURALISM",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-FIRST-PERSON-NARRATION",
+      "code": "NQA-FIRST-PERSON-NARRATION",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-KNOWLEDGE-AND-TIMING",
+      "code": "NQA-KNOWLEDGE-AND-TIMING",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-CHOICE-REJOIN-AND-STATE",
+      "code": "NQA-CHOICE-REJOIN-AND-STATE",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-REQUIRED-PAYOFFS",
+      "code": "NQA-REQUIRED-PAYOFFS",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-SEMANTIC-VISUAL-BEATS",
+      "code": "NQA-SEMANTIC-VISUAL-BEATS",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [],
+  "human_gate_required": "none",
+  "invalidates": []
+}
