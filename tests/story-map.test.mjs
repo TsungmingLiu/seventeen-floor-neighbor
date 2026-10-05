@@ -44,6 +44,20 @@ test('connections require observed journey edges, never two unrelated checkpoint
   assert.deepEqual(storyMapView(map, memoryLibrary, chapter, save).edges, [{ from: 'movein', to: 'elevator' }]);
 });
 
+test('reviewing a missed-encounter path does not hide an already earned café version', () => {
+  const save = progress(['common_station_cafe_jyc_first_enter']);
+  save.data.frontier = snapshot('common_station_cafe_jyc_first_enter');
+  const before = storyMapView(map, memoryLibrary, chapter, save).groups.find(g => g.id === 'cafe');
+  const streetEntry = map.groups.find(g => g.id === 'street').variants[0].entry;
+  save.data.cursor = { ...snapshot(streetEntry), flags: ['jyc_permanently_excluded'] };
+  save.data.checkpoints[streetEntry] = save.data.cursor;
+  const unchanged = JSON.stringify(save);
+  const after = storyMapView(map, memoryLibrary, chapter, save).groups.find(g => g.id === 'cafe');
+  assert.equal(after.frontier, true);
+  assert.deepEqual(after.variants.map(v => v.id), before.variants.map(v => v.id));
+  assert.equal(JSON.stringify(save), unchanged);
+});
+
 test('parcel is a separate scene and does not unlock from the earlier shared Memory', () => {
   const save = progress(['common_convenience_xu_enter']);
   assert.equal(storyMapView(map, memoryLibrary, chapter, save).groups.some(g => g.id === 'parcel'), false);
