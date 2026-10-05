@@ -1,0 +1,119 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "feedback-20261005",
+  "task_id": "NQA-COM01B-001",
+  "scene_id": "COM-01B",
+  "task_type": "narrative_review",
+  "status": "BLOCKED",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.5.1",
+    "pass": "narrative_review"
+  },
+  "source_ref": "942526be5c8d6da8dccc07a212653568c451fed4",
+  "packet_sha256": "6e052995743429b8a662e4da3b3ac9b49ef5a3591f6c23848b04ad060fe7107f",
+  "input_digest_sha256": "26b7fd23844179906aaf84cf6d1fb9244f914f7a644859b0e1889ef46c70200c",
+  "input_versions": [
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-01B.json",
+      "version": "2ef1b23f939be4c25d5204d4376a478cb97ac31c",
+      "location": "content/production/narrative/opening-ch1/COM-01B.json"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-01B.md",
+      "version": "9c5f8617003d605c2dd17ff802c2541e294f4a5e",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01B.md"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-01X.md",
+      "version": "4dc02231b706015c6e6dfc633763f40ae51ddec0",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01X.md"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-01J.md",
+      "version": "bba46990dd9db33136156fffaf792b2ed03c53f1",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01J.md"
+    }
+  ],
+  "output_versions": [],
+  "qa_codes": [
+    {
+      "name": "NQA-SCENE-FUNCTION-ENTRY-EXIT-PAYOFF",
+      "code": "NQA-SCENE-FUNCTION-ENTRY-EXIT-PAYOFF",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-VOICE-AND-PACING",
+      "code": "NQA-VOICE-AND-PACING",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-DIALOGUE-NATURALISM",
+      "code": "NQA-DIALOGUE-NATURALISM",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-KNOWLEDGE-AND-RELATIONSHIP-BOUNDARIES",
+      "code": "NQA-KNOWLEDGE-AND-RELATIONSHIP-BOUNDARIES",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-WEEKEND-MOTIVATION-CHOICE-ORDER",
+      "code": "NQA-WEEKEND-MOTIVATION-CHOICE-ORDER",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-LOCAL-CHOICE-REJOIN-EVENT-TRUTH",
+      "code": "NQA-LOCAL-CHOICE-REJOIN-EVENT-TRUTH",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-FIRST-PERSON-NARRATION",
+      "code": "NQA-FIRST-PERSON-NARRATION",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-SEMANTIC-VISUAL-BEATS",
+      "code": "NQA-SEMANTIC-VISUAL-BEATS",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-CONTRACT-SHARED-ELIGIBILITY-SELECTOR",
+      "code": "NQA-CONTRACT-SHARED-ELIGIBILITY-SELECTOR",
+      "result": "FAIL"
+    },
+    {
+      "name": "NQA-CONTRACT-REPLAY-EXCLUSION-ANNOTATIONS",
+      "code": "NQA-CONTRACT-REPLAY-EXCLUSION-ANNOTATIONS",
+      "result": "FAIL"
+    }
+  ],
+  "known_issues": [
+    {
+      "code": "NQA-CONTRACT-SHARED-ELIGIBILITY-SELECTOR",
+      "field": "COM-01B.md Current Script Lock / Entry selectors state markers / weekday_resume.selectors, weekday_home_choices.selector; Current playable script / common_weekday_outing_decision visibility",
+      "detail": "Lines 57-91 and 323 declare active exact mapping: reunion requires local go, completed COM-01J, purchased book, met and not excluded; home_no_bookstore owns decision. Current contract required_payoffs[3-4], entry_state.constraints[2] and implementation_mapping.flags.weekday_route require the shared GAME/replay decision tree with reunion iff genuinely earned bookstore initial encounter ever; cafe-first/met/contact/go alone do not qualify. Active selector cannot represent earned replay eligibility without importing local facts."
+    },
+    {
+      "code": "NQA-CONTRACT-REPLAY-EXCLUSION-ANNOTATIONS",
+      "field": "COM-01B.md Current authorized design line 9; Current Script Lock permanent_exclusion and line 126; street-return annotation line 372",
+      "detail": "Active absolute Jiang rejection/snapshot-only/no-live-write assertions omit the current contract exception: genuine COM-01J completion in replay earns persistent cumulative eligibility, preserving street snapshot/refusal/local facts and main Continue. Contract exit_state.constraints[2-3], must_not[3] and jyc_bookstore_ever_earned own this override. Do not clear exclusion or fabricate purchase/contact; distinguish snapshot isolation from legitimate eligibility acquisition."
+    },
+    {
+      "scope": "passed_semantic_review",
+      "detail": "Whole current scene read continuously once against complete current contract and acquired COM-01X/COM-01J. Sunlight/boxes/preview paragraph is before action choice, physical-book curiosity connects naturally to pending boxes/work; departure happens only on go. Evening question branches, shared goodnight, home/work, weekday fatigue and solo street return preserve local knowledge and event truth. No prose repair requested."
+    },
+    {
+      "scope": "visual_impact_unasserted",
+      "detail": "Declared inputs provide current narrative semantics only, no exact prior whole-scene comparison/CG/pixels. No NQA-NO-VISUAL-IMPACT, CG reuse verdict, visual QA or historical QA awarded. Prospective timing/conditional playback review remains separate."
+    },
+    {
+      "scope": "runtime_unasserted",
+      "detail": "Concurrent runtime/source-parity final compile checks are outside this narrative task; they are not narrative QA defects."
+    }
+  ],
+  "human_gate_required": "none",
+  "invalidates": []
+}
