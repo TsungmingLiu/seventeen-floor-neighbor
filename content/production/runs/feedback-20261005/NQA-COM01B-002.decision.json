@@ -1,0 +1,86 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "feedback-20261005",
+  "task_id": "NQA-COM01B-002",
+  "scene_id": "COM-01B",
+  "task_type": "narrative_review",
+  "status": "PASS",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.5.1",
+    "pass": "narrative_review"
+  },
+  "source_ref": "4dcf83685a13f19d16003b1ccc05f6af958c873b",
+  "packet_sha256": "25921465dd461f7ca6a661295d63815ef13c432600fc9e0596f90826e8ac2b70",
+  "input_digest_sha256": "5ed604248bd5fbf737551a2004a12a63ea54dd74588197d60fe537263f7af81c",
+  "input_versions": [
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-01B.json",
+      "version": "617e88a0e18563e12c1f3665f920a1c359c745f0",
+      "location": "content/production/narrative/opening-ch1/COM-01B.json"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-01B.md",
+      "version": "e994bfc7d10c1fd700f7a31f601cc4ab13baa0b4",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01B.md"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-01X.md",
+      "version": "4dc02231b706015c6e6dfc633763f40ae51ddec0",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01X.md"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-01J.md",
+      "version": "bba46990dd9db33136156fffaf792b2ed03c53f1",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01J.md"
+    }
+  ],
+  "output_versions": [],
+  "qa_codes": [
+    {
+      "name": "Scene function and required payoffs",
+      "code": "NQA-SCENE-FUNCTION",
+      "result": "PASS"
+    },
+    {
+      "name": "Voice, knowledge and relationship pace",
+      "code": "NQA-VOICE-AND-PACING",
+      "result": "PASS"
+    },
+    {
+      "name": "Continuous conversational naturalism",
+      "code": "NQA-DIALOGUE-NATURALISM",
+      "result": "PASS"
+    },
+    {
+      "name": "Choice, event and rejoin consistency",
+      "code": "NQA-CHOICE-REJOIN",
+      "result": "PASS"
+    },
+    {
+      "name": "Pre-choice sunlight, boxes and physical preview motivation",
+      "code": "NQA-PRECHOICE-MOTIVATION",
+      "result": "PASS"
+    },
+    {
+      "name": "State, earned eligibility and replay isolation",
+      "code": "NQA-STATE-AND-ELIGIBILITY",
+      "result": "PASS"
+    },
+    {
+      "name": "First-person observation and forbidden shortcuts",
+      "code": "NQA-NARRATION-AND-BOUNDARIES",
+      "result": "PASS"
+    },
+    {
+      "name": "Narrative semantic visual beats",
+      "code": "NQA-SEMANTIC-VISUAL-BEATS",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [],
+  "human_gate_required": "none",
+  "invalidates": []
+}
