@@ -54,7 +54,8 @@
     "constraints": [
       "COM-03M completed、open_dating_unlocked=true，至少一個真實 contact；從已收到的活動話題自然進入，不再重演 montage。",
       "首次實際進入本幕才記 open_a_entered；OPEN-A 僅有第一、第二兩個 authored major windows。本次只寫第一 window 的邀約／生活入口，第二 window 未開啟。",
-      "從未見／已見未 contact 江雨澄均無她的訊息、邀請或選項；只 contact 一人仍可完整遊玩。既有 harm/closure 若使同行不合法，略過邀約，不用本幕重新開啟關係。"
+      "從未見／已見未 contact 江雨澄均無她的訊息、邀請或選項；只 contact 一人仍可完整遊玩。既有 harm/closure 若使同行不合法，略過邀約，不用本幕重新開啟關係。",
+      "Jiang 任何 content／option／通知先要求 !jyc_permanently_excluded，再按真實 contact、knowledge 與原有 eligibility；永久排除不只是 never_met，也不是可第二 discovery 的暫時未遇見。"
     ]
   },
   "scene_function": [
@@ -146,7 +147,8 @@
     "constraints": [
       "pending_xu／pending_jyc：第一 window 未消耗，保存同意結果；停在 XT-04／JYC-05 之前，後續只在真正 anchor completion 消耗一次。此入口不冒充 date scene。",
       "solo／rest／wait：第一 window 生活片段完成並消耗一次；停在未 authored 第二 window 前。OPEN-A 整體未完成，不能用 open_a_entered 直接放行 OPEN-B。",
-      "contact、romanticSignal、focusHistory/recentFocus、harm/closure、overlap/exclusivity/deception 及跨人物 knowledge 保持原值；沒有被答應後漏回或失約，故沒有 cooling／RE。"
+      "contact、romanticSignal、focusHistory/recentFocus、harm/closure、overlap/exclusivity/deception 及跨人物 knowledge 保持原值；沒有被答應後漏回或失約，故沒有 cooling／RE。",
+      "jyc_permanently_excluded=true 只由本輪平日街頭獨自行動的實際 choice 建立；本輪不可清除，優先於 contact、met、舊 history 及任何 invitation/discovery gate；禁止其後全部江雨澄內容，包括訊息、重遇、第二 discovery、RE-J、reopening、同框、邀約、結局與 coda。"
     ]
   },
   "must_not": [
@@ -156,7 +158,8 @@
     "不得用數字／hidden weighting、focus 或回覆順序作 relationship/route authority；不新增 route lock、investment、cooling、RE 或 consumed future slots。",
     "不得把未成行／rest/wait 當 moral penalty、重開關係或浪漫拒絕；不把男主寫成照顧／排程工具，不代辦女主工作。",
     "不得在 pending boundary 假造日期或用 placeholder anchor 消耗 window；不得恢復存檔時再送邀請、重放生活或再消耗一次。",
-    "本次 artifact 是 DESIGN/DRAFT，無 final prose、LOCKED、runtime integration、獨立 Narrative QA 或 Human preview acceptance。"
+    "本次 artifact 是 DESIGN/DRAFT，無 final prose、LOCKED、runtime integration、獨立 Narrative QA 或 Human preview acceptance。",
+    "jyc_permanently_excluded=true 只由本輪平日街頭獨自行動的實際 choice 建立；本輪不可清除，優先於 contact、met、舊 history 及任何 invitation/discovery gate；禁止其後全部江雨澄內容，包括訊息、重遇、第二 discovery、RE-J、reopening、同框、邀約、結局與 coda。"
   ],
   "implementation_mapping": {
     "runtime_only": true,
@@ -165,9 +168,10 @@
       "open_a_entry_outcome": "unresolved|pending_xu|pending_jyc|solo|rest|wait;proposed_scene_local_enum;commit_at_distinct_outcome_boundary",
       "open_a_window1_consumed": "false_on_first_entry;true_once_only_after_authored_solo_rest_wait_completion;pending_stays_false_until_actual_anchor_completion",
       "contact_xu": "read_only;gate_Xu_interaction",
-      "contact_jyc": "read_only;gate_Jiang_interaction",
+      "contact_jyc": "read_only;Jiang_content_requires_contact_jyc_and_not_jyc_permanently_excluded",
       "open_dating_unlocked": "read_only;requires_true",
-      "jyc_com03j_reply_style": "read_only_if_trustworthy;local_initiative_tone_only;unknown_neutral"
+      "jyc_com03j_reply_style": "read_only_if_trustworthy;local_initiative_tone_only;unknown_neutral",
+      "jyc_permanently_excluded": "read_only;preserve;blocks_all_later_Jiang_paths"
     }
   }
 }

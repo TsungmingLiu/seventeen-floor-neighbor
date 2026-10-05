@@ -1,0 +1,107 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "jyc-weekend-weekday-20261004",
+  "task_id": "ND-COM-03X-002",
+  "scene_id": "COM-03X",
+  "task_type": "narrative_design",
+  "status": "PASS",
+  "harness": {
+    "id": "content_writer",
+    "version": "1.4.1",
+    "pass": "narrative_design"
+  },
+  "source_ref": "f110efe5f010ede1b590804ff52a4573131d96a5",
+  "packet_sha256": "ebe1dd282cf521a92704a7f38b9f823336c2bc6c7e543b7977efd4fe540f46b9",
+  "input_digest_sha256": "3e7433d1c5a0bf1ee0c7063cb371f946e5082ca326d199f4d1bc30307bd74e5d",
+  "input_versions": [
+    {
+      "id": "source:docs/PRODUCTION_WORKFLOW_TOOLS.md",
+      "version": "d68831f828f80ff6c9f9b61368949b81042e8d30",
+      "location": "docs/PRODUCTION_WORKFLOW_TOOLS.md"
+    },
+    {
+      "id": "source:.ai/schemas/NARRATIVE_CONTINUITY.md",
+      "version": "f32b4b315a51975d60d99818c3eec63f079df70c",
+      "location": ".ai/schemas/NARRATIVE_CONTINUITY.md"
+    },
+    {
+      "id": "source:.ai/schemas/narrative-continuity.schema.json",
+      "version": "faa5bbf41856406f85eac61d7d25a57869e3495e",
+      "location": ".ai/schemas/narrative-continuity.schema.json"
+    },
+    {
+      "id": "source:content/production/narrative/opening-ch1/COM-03X.json",
+      "version": "12715fd13d5718b52b97baf6d5a226d07e21b076",
+      "location": "content/production/narrative/opening-ch1/COM-03X.json"
+    },
+    {
+      "id": "source:docs/narrative/scenes/vertical-slice/COM-03X.md",
+      "version": "3e5c13b482c2bc4012f231c3c5e989d93086eb00",
+      "location": "docs/narrative/scenes/vertical-slice/COM-03X.md"
+    },
+    {
+      "id": "source:docs/narrative/JYC_WEEKEND_WEEKDAY_REVISION.md",
+      "version": "6d7abe9a1ffa62918113d6d860aa645291e21cfb",
+      "location": "docs/narrative/JYC_WEEKEND_WEEKDAY_REVISION.md"
+    },
+    {
+      "id": "source:docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md",
+      "version": "9d44ab016a3a32da239b2d711117e05f087625f4",
+      "location": "docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md"
+    },
+    {
+      "id": "source:content/production/runs/jyc-weekend-weekday-20261004/NQA-COM-03X-001.decision.json",
+      "version": "11b3df418b9ebe395b168789bb2bab14f929dc90",
+      "location": "content/production/runs/jyc-weekend-weekday-20261004/NQA-COM-03X-001.decision.json"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "narrative-continuity-contract:COM-03X",
+      "location": "content/production/narrative/opening-ch1/COM-03X.json",
+      "version": "sha256:8b60cb5194a5e870ef4632d7c913af5142819a362af76263209ca4fe23c84f3c"
+    },
+    {
+      "id": "scene-exit-metadata:COM-03X",
+      "location": "docs/narrative/scenes/vertical-slice/COM-03X.md",
+      "version": "sha256:13c0c22282aa8d102e20f7240ef2bddafacf50bf637205a6e041d4c07b3ebd58"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "ND-SCENE-CONTRACT",
+      "code": "ND-SCENE-CONTRACT",
+      "result": "PASS"
+    },
+    {
+      "name": "ND-CONDITIONAL-SUCCESSOR-ALIGNMENT",
+      "code": "ND-CONDITIONAL-SUCCESSOR-ALIGNMENT",
+      "result": "PASS"
+    },
+    {
+      "name": "ND-PROSE-AND-STATE-PRESERVATION",
+      "code": "ND-PROSE-AND-STATE-PRESERVATION",
+      "result": "PASS"
+    },
+    {
+      "name": "REPO-VALIDATE",
+      "code": "REPO-VALIDATE",
+      "result": "PASS"
+    },
+    {
+      "name": "BUILD",
+      "code": "BUILD",
+      "result": "PASS"
+    },
+    {
+      "name": "DIFF-CHECK",
+      "code": "DIFF-CHECK",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [],
+  "human_gate_required": "none",
+  "invalidates": []
+}

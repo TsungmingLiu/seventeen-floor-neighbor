@@ -11,6 +11,9 @@ const hash = (text) => createHash('sha256').update(text).digest('hex');
 const encode = (value) => `${JSON.stringify(value, null, 2)}\n`;
 const size = (value) => Buffer.byteLength(value);
 export const arms = ['baseline', 'continuity', 'digest', 'combined'];
+// Fixed engineering probes depend on this exact script/contract/runtime family.
+// This is regression evidence, never current production narrative authority.
+export const benchmarkFixtureRef = '013b3f73e75d8f00bbd2fa53a6cd2d885fecb9a9';
 const continuityHeadings = {
   'COM-00.md': ['## Scene summary', '### `common_movein_rain_names`', '### `common_movein_rain_goodnight`',
     '## State contract', '## Dialogue writing notes', '## End state'],
@@ -77,7 +80,17 @@ export const resultSchema = {
   }
 };
 
-export async function buildBenchmark({ root = rootDefault, base, ref } = {}) {
+export async function buildBenchmark({ root = rootDefault, ref = benchmarkFixtureRef, base = ref } = {}) {
+  const head = execFileSync('git', ['-C', root, 'rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
+  if (ref === benchmarkFixtureRef && head !== ref) {
+    const temporary = await mkdtemp(path.join(os.tmpdir(), 'quota-fixture-'));
+    const checkout = path.join(temporary, 'repo');
+    try {
+      execFileSync('git', ['clone', '--quiet', '--no-hardlinks', '--no-checkout', root, checkout]);
+      execFileSync('git', ['-C', checkout, 'checkout', '--quiet', '--detach', ref]);
+      return await buildBenchmark({ root: checkout, ref, base });
+    } finally { await rm(temporary, { recursive: true, force: true }); }
+  }
   const compiled = await compileReviewContext({ root, sceneId: 'COM-02X', base, ref });
   const packet = JSON.parse(compiled.packetBody);
   const shared = [];
@@ -253,7 +266,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
       const { loadAndValidate } = await import('./content-lib.mjs');
       const { validateProductionContracts } = await import('./validate-production-contracts.mjs');
       await loadAndValidate(); validateProductionContracts();
-      const result = await buildBenchmark({ base: args.includes('--base') ? argument('base') : undefined, ref: args.includes('--ref') ? argument('ref') : 'HEAD' });
+      const result = await buildBenchmark({ base: args.includes('--base') ? argument('base') : undefined, ref: args.includes('--ref') ? argument('ref') : benchmarkFixtureRef });
       await writeScratchFiles(`generated/session-cache/quota-benchmark/${runId}`, result.files);
       console.log(encode(result.manifest.comparison));
     }

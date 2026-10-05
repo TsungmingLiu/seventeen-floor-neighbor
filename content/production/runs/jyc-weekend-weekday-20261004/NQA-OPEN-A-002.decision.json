@@ -1,0 +1,101 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "jyc-weekend-weekday-20261004",
+  "task_id": "NQA-OPEN-A-002",
+  "scene_id": "OPEN-A",
+  "task_type": "narrative_review",
+  "status": "PASS",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.5.1",
+    "pass": "narrative_review"
+  },
+  "source_ref": "5ff386dc1a4deb00f6f01772c7db9835e0191124",
+  "packet_sha256": "b00d7c1ad87e6e71085c5bc3a769d00aea757c5ad6bb65895238c16a1cbbada4",
+  "input_digest_sha256": "d84d9e782a0a028644f90066887da4bc176a31d075b23bc9570a8d27e13a11a7",
+  "input_versions": [
+    {
+      "id": "file:content/production/narrative/opening-ch1/OPEN-A.json",
+      "version": "ce058d0350200bef42159b17e0abfd214e2c9e23",
+      "location": "content/production/narrative/opening-ch1/OPEN-A.json"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/OPEN-A.md",
+      "version": "8000155b79def7c96c46afee5d6eb3069d0a91bb",
+      "location": "docs/narrative/scenes/vertical-slice/OPEN-A.md"
+    },
+    {
+      "id": "file:docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_COMMON.md",
+      "version": "a0625e3550468d74db4b12252ae590ca6dc5652c",
+      "location": "docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_COMMON.md"
+    },
+    {
+      "id": "file:docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md",
+      "version": "7144fe200bcb85874ad54c151eb0d77effc7be04",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md"
+    },
+    {
+      "id": "file:docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md",
+      "version": "9d44ab016a3a32da239b2d711117e05f087625f4",
+      "location": "docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md"
+    }
+  ],
+  "output_versions": [],
+  "qa_codes": [
+    {
+      "name": "NQA-CURRENT-AUTHORITY",
+      "code": "NQA-CURRENT-AUTHORITY",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-SCENE-FUNCTION-AND-PAYOFFS",
+      "code": "NQA-SCENE-FUNCTION-AND-PAYOFFS",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-VOICE-AND-PACING",
+      "code": "NQA-VOICE-AND-PACING",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-DIALOGUE-NATURALISM",
+      "code": "NQA-DIALOGUE-NATURALISM",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-FIRST-PERSON-TRADITIONAL-CHINESE",
+      "code": "NQA-FIRST-PERSON-TRADITIONAL-CHINESE",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-KNOWLEDGE-AND-CONTACT-TIMING",
+      "code": "NQA-KNOWLEDGE-AND-CONTACT-TIMING",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-LOCAL-VARIANTS-AND-REJOINS",
+      "code": "NQA-LOCAL-VARIANTS-AND-REJOINS",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-EXACT-STATE-IDS-AND-BOUNDARIES",
+      "code": "NQA-EXACT-STATE-IDS-AND-BOUNDARIES",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-NO-RELATIONSHIP-SCORE-GATE",
+      "code": "NQA-NO-RELATIONSHIP-SCORE-GATE",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-SEMANTIC-VISUAL-BEATS",
+      "code": "NQA-SEMANTIC-VISUAL-BEATS",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [],
+  "human_gate_required": "none",
+  "invalidates": []
+}

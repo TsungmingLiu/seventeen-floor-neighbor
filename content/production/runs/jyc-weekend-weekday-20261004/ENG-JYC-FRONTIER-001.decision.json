@@ -1,0 +1,99 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "resume_checkpoint",
+  "run_id": "jyc-weekend-weekday-20261004",
+  "task_id": "ENG-JYC-FRONTIER-001",
+  "scene_id": "COM-01B",
+  "task_type": "integrate",
+  "status": "NEEDS_REVIEW",
+  "harness": {
+    "id": "integrator",
+    "version": "1.4.0",
+    "pass": null
+  },
+  "source_ref": "c57b547154a616c175c3b51508777865faef8f54",
+  "packet_sha256": "5d9648c94793e83c04457517f6ffffa1a2cae83d2eb4e2aa204377bc78f8b0cf",
+  "input_digest_sha256": "96eb72413fcb2b020181e69562620f3352466cc5dc0bb71ece243b1687fa4933",
+  "input_versions": [
+    {
+      "id": "source:src/progress.js",
+      "version": "2f618335c588fc423e802a60ab4022c931a3af54",
+      "location": "src/progress.js"
+    },
+    {
+      "id": "source:src/memories.js",
+      "version": "b39735d5b9e1fe8405db9de208daba08fe2125b5",
+      "location": "src/memories.js"
+    },
+    {
+      "id": "source:content/routes/opening-demo/memories.json",
+      "version": "4263c2b18a2259567d44f53176d0ef6d73148ebe",
+      "location": "content/routes/opening-demo/memories.json"
+    },
+    {
+      "id": "source:content/routes/opening-demo/route.json",
+      "version": "fc14181465cd3c3301f209dab239977677d7e419",
+      "location": "content/routes/opening-demo/route.json"
+    },
+    {
+      "id": "source:content/routes/opening-demo/chapter-01.json",
+      "version": "be72b35a90ba9bac75cb0fe8608d2913c42f8ca4",
+      "location": "content/routes/opening-demo/chapter-01.json"
+    },
+    {
+      "id": "source:tests/progress.test.mjs",
+      "version": "f13b5bb6f7a66b8533d552ceafb6741e6fd04938",
+      "location": "tests/progress.test.mjs"
+    },
+    {
+      "id": "source:tests/engine-progress.test.mjs",
+      "version": "e998f1c8965633054769a5cd13bc88d6086e8be5",
+      "location": "tests/engine-progress.test.mjs"
+    },
+    {
+      "id": "source:tests/jyc-weekend-weekday.test.mjs",
+      "version": "40b7aa2436d20689110d6ad07447a3e6396979bc",
+      "location": "tests/jyc-weekend-weekday.test.mjs"
+    },
+    {
+      "id": "source:package.json",
+      "version": "84b0644459ef847c9c3bb95e1d37ba8b53fbef16",
+      "location": "package.json"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "partial-frontier-monotone-regression",
+      "location": "tests/jyc-frontier-monotone.test.mjs",
+      "version": "sha256:dad3032dc0138362b9c669be0ec2f7e451fff4b6329596c670c7867cdbef5e61"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "Exact worker preflight packet identity and dispatch",
+      "code": "Exact worker preflight packet identity and dispatch",
+      "result": "PASS"
+    },
+    {
+      "name": "Pinned Node 22 targeted test",
+      "code": "Pinned Node 22 targeted test",
+      "result": "FAIL"
+    },
+    {
+      "name": "git diff --check",
+      "code": "git diff --check",
+      "result": "PASS"
+    },
+    {
+      "name": "Only authorized test file changed",
+      "code": "Only authorized test file changed",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "The pinned ProgressStore data has no jycEverUnlocked property; the monotonicity assertion is conditional, as required."
+  ],
+  "human_gate_required": "none",
+  "invalidates": []
+}

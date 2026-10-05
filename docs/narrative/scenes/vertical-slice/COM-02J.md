@@ -1,43 +1,96 @@
 # COM-02J — 咖啡店重逢／初遇
 
-> **Rendering boundary:** this LOCKED scene owns narrative, state, dialogue and semantic visual beats. Render-ready framing belongs to the canonical CG planning stage; historical 9:16, sprite and composite notes do not bind new production art.
+## Current authorized weekend/weekday design — ND-ARC-001
+
+- Lifecycle: **CANONICAL** task-local Narrative Design amendment, 2026-10-04. Source ref: `013b3f73e75d8f00bbd2fa53a6cd2d885fecb9a9`. Human 授權本輪方向與必要改寫；ND-ARC-001 design pass 本身沒有新 final prose、QA、runtime 或 CG acceptance。
+- Owning design: `docs/narrative/JYC_WEEKEND_WEEKDAY_REVISION.md`；current contract: `content/production/narrative/opening-ch1/COM-02J.json`。此 design section 與 current JSON 擁有本輪時序／gate；下方是本輪新 Script Lock，相容舊台詞保留，舊 binding 僅列於歷史識別段，不作 current approval。
+- 平日重逢談書／初遇談畫：四個 dialogue unit 之一。改為週末後平日下午工作疲累出門。重逢先禮貌問可否坐附近，聊週末實際購買之書與真正 first topic；初遇保留當下畫圖話題與陌生距離，僅改週末 skip／今天走到出口的舊 framing。兩支各自取得坐位同意、名字、具體話題，平行做事與互問後可實際交換 Discord；保留普通不交換出口。全接當晚 COM-03X。重逢仍可看到她在畫圖，但主話題是書；不要僅為 COM-03J 舊 callback 加虛假構圖討論。
+- Stable ID plan：不需新前綴；保留 common_station_cafe_jyc_*／first_*、com02j_* topic／contact action IDs。
+- 永久排除：本輪 `com01b_weekday_street_walk` 才寫 `jyc_permanently_excluded=true`。此 flag 先於 contact/history，永不由 merge、reload、scheduler、public shared scene 或 ordinary invite 清除。Memory replay 限自己的 snapshot，不向 live 主線寫入；改走前一分岔屬另一 playthrough，不是本輪 reopening。
+- Semantic visual impact 與四個必要 dialogue units 見 owning design；現有 accepted image bytes、QA/Human 歷史都保留。獨立下游才裁決哪些畫面可重用。
+
+## Current Script Lock — CW-COM-02J-001
+
+> **Rendering boundary:** this LOCKED scene owns narrative, state, dialogue and semantic visual beats. Render-ready framing belongs to the canonical CG planning stage.
 
 ## Status and binding
 
-- Production stage: **Scene/Dialogue — Script Lock / LOCKED**. This is the authored scene for the approved COM-02J Narrative Continuity Contract; independent Narrative QA, visual-impact review and Human narrative-preview review are pending.
-- Approved design/source scene: this file's pinned predecessor, Git blob `9de22cbb30350bffc63d66eb1b5432156cd9f2ce`.
-- Scene ownership: bookstore go → COM-01J → this cafe on the **same outing**, without another cafe choice. Bookstore skip + cafe go → this cafe as a **first meeting**. Bookstore skip + cafe skip bypasses this scene: `met_jiang_yucheng=false`, no names, topic or contact.
-- Immediate continuity: COM-01B supplies only the ordinary clue that an exit has a cafe upstairs. COM-01J, if played, supplies the actual north-exit cafe recommendation and the spoken 《逆光航路》 topic. The approved COM-03M contacted-Jiang payoff names Discord, so an actual contact exchange here uses Discord. This scene adds no COM-03M conversation or COM-03J instruction.
+- Production stage: **Scene/Dialogue — Script Lock / LOCKED**. Writing task `CW-COM-02J-001`: **PASS** against the approved contract. Independent Narrative QA: **PENDING**; visual-impact review / Visual QA: **PENDING**; runtime integration: **PENDING**; Human narrative-preview / final playable acceptance: **PENDING**.
+- Run: `jyc-weekend-weekday-20261004`; harness `content_writer` v1.4.1, pass `scene_dialogue`; workflow v1.3.1. Dispatched source ref: `26c264c010994be2328bb45a09ece2c755bad9c6`; input scene Git blob: `fceadbbeddbf3c71fefa5869f16130254fcc2a0f`.
+- Approved design: `ND-COM-02J-001`, exact decision Git blob `8618e60439ce638b8e5c805d2b9dec9f3e493d71`; owning arc `docs/narrative/JYC_WEEKEND_WEEKDAY_REVISION.md`. Human direction authorizes this rewrite, not later QA or acceptance.
+- Scene ownership: following-weekday afternoon, after home work and fatigue. Weekend bookstore go → cafe reunion; weekend home + `com01b_weekday_cafe_first` → cafe first meeting. The upstream street branch bypasses this scene permanently. Every cafe exit returns home and hands off to **COM-03X**, the same weekday evening package event.
 
 ## Canonical inputs
 
-- `content/production/narrative/opening-ch1/COM-02J.json` — approved scene contract
-- `content/production/narrative/opening-ch1/COM-01B.json` — visit decision and Xu's limited clue
-- `content/production/narrative/opening-ch1/COM-01J.json` — actual bookstore knowledge
-- `docs/narrative/scenes/vertical-slice/COM-01J.md` — immediate bookstore scene source for independent callback verification
-- `content/production/narrative/opening-ch1/COM-03M.json` — Discord channel compatibility only
-- `docs/art/characters/jiang-yucheng.md#L11-L62` — task-bounded character voice
-- `docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_COMMON.md` — immediate scene intent; this pass read only lines 136–160
-- `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md` — knowledge boundary; this pass read only lines 296–328
-- `docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md` — action/knowledge authority; this pass read only lines 154–238 and 304–375
-- Pinned predecessor `docs/narrative/scenes/vertical-slice/COM-02J.md` — compatible go-path dialogue and semantic beats
+- `content/production/narrative/opening-ch1/COM-02J.json` — approved Narrative Continuity Contract.
+- `docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md` — narrative interaction and Story Map rules.
+
+### Source-usage provenance
+
+Only the packet's sources: the approved COM-02J contract and decision; this scene's dispatched predecessor; the task-local weekend/weekday amendment; Jiang's canonical profile; the Narrative Interaction and Story Map Spec; narrative continuity schemas and Production Workflow Tools. Other scenes, runtime, voice bank, CGs and images were not acquired. Immediate predecessor/successor facts are used only as supplied by the approved contract and amendment.
 
 ## Narrative Continuity Contract
 
 - Canonical contract: `content/production/narrative/opening-ch1/COM-02J.json`
-- Contract SHA-256: `f2cddc0d4c99c938cddd95d8cef543911135d4991de049a4ef9247221ce02106` (Git blob `c5c62394ecef934ff96159768a70c8787125730f`).
+- Contract SHA-256: `0bc3e9ba29ca3d2dadc0d9f258fd8dba27f2bee0fa508b410363bba784b09ae3` (Git blob `bfcd20c4279079c4ab1676061edc99ddb0ca2371`). Contract bytes unchanged by this writing pass.
 
-At entry, bookstore-go characters have just discussed a real work and remain unnamed acquaintances; bookstore-skip characters are strangers. The protagonist enters for his own rest, reading or work. Jiang is drawing her own character and owes him no conversation. Actual cafe interaction establishes both names, a particular shared-interest discussion, a question in each direction, and a brief interval of parallel activity. Contact is possible only after the local discussion and an explicit, mutually accepted exchange. The exit is an ordinary acquaintance with or without a usable channel, never a date or a romantic verdict. Her anonymous identity, precise job, home and commissions stay unknown. The skip-cafe route has no COM-02J event at all.
+The reunion has a weekend bookstore encounter, an actual world-setting supplement purchase and no prior name/contact exchange. The first meeting has none of those Jiang facts. Both enter for rest or their own work, ask to sit nearby, receive permission, exchange names, discuss a concrete subject and spend time doing separate things. Contact requires an explicit proposal, assent and a completed Discord exchange. Either result remains ordinary acquaintance, with no date, alias reveal, romantic verdict or promised future encounter.
+
+## Exact branch selectors
+
+The following executable authoring selector is a deterministic projection for the integrator, **not an engine patch or new persistent state**. `choiceHistory` is the current playthrough / replay snapshot's node-to-choice-ID map; `flags` is that same snapshot. `trustworthyFirstTopic` is supplied only from verified actual COM-01J history, never another run or live-state fallback. Missing topic selects `neutral`; missing/contradictory entry evidence must block integration rather than invent a meeting.
+
+```js
+function selectCom02j({ flags, choiceHistory, trustworthyFirstTopic }) {
+  if (flags.jyc_permanently_excluded === true) return null;
+  if (flags.jyc_permanently_excluded !== false) {
+    throw new Error('COM-02J: missing exclusion guard');
+  }
+  const chosen = new Set(Object.values(choiceHistory));
+  if (chosen.has('com01b_weekday_street_walk')) return null;
+  const bookstore = chosen.has('com01b_bookstore_go');
+  const home = chosen.has('com01b_bookstore_skip');
+  if (bookstore === home) throw new Error('COM-02J: ambiguous weekend history');
+  if (bookstore) {
+    if (flags.met_jiang_yucheng !== true ||
+        flags.heard_station_cafe_from_jyc !== true ||
+        flags.weekend_book_purchased !== true) {
+      throw new Error('COM-02J: missing actual bookstore/purchase evidence');
+    }
+    const topics = ['visual_design', 'worldbuilding', 'edition_value'];
+    return {
+      entryNode: 'common_station_cafe_jyc_enter',
+      route: 'weekday_reunion_after_weekend_bookstore',
+      continueTopicVariant: topics.includes(trustworthyFirstTopic)
+        ? trustworthyFirstTopic : 'neutral',
+      exitScene: 'COM-03X'
+    };
+  }
+  if (!chosen.has('com01b_weekday_cafe_first')) return null;
+  if (flags.met_jiang_yucheng === true || flags.contact_jyc === true ||
+      flags.heard_station_cafe_from_jyc === true) {
+    throw new Error('COM-02J: first meeting has prior Jiang evidence');
+  }
+  return {
+    entryNode: 'common_station_cafe_jyc_first_enter',
+    route: 'weekday_first_after_weekend_home',
+    continueTopicVariant: null,
+    exitScene: 'COM-03X'
+  };
+}
+```
+
+Evaluate the selector at fresh scene entry, not again after a first-meet event has set `met_jiang_yucheng=true`; save/resume must preserve the already selected route from its own actual history. Every authored node requires `flags.jyc_permanently_excluded !== true` and a non-null selection. `route` and `continueTopicVariant` below refer to this transient selection; they do not introduce saved flags. A street selection never acquires a cafe node, name, topic, contact or later Jiang content. Street prose/state is owned upstream and is not rewritten here.
 
 ## Scene flow and semantic visual beats
 
-| Path | Entry → shared work → exit | Semantic visual beat |
+| Path | Entry → local conversation → shared body | Semantic visual beat |
 | --- | --- | --- |
-| Bookstore go | `common_station_cafe_jyc_enter` → `common_station_cafe_jyc_drawing` → `common_station_cafe_jyc_names` → `common_station_cafe_jyc_choice` → `common_station_cafe_jyc_parallel` | Open seat/outlet, her focused drawing, recognition and her chosen greeting, consent to sit, then separate screens. |
-| Bookstore skip + cafe go | `common_station_cafe_jyc_first_enter` → `common_station_cafe_jyc_first_drawing` → `common_station_cafe_jyc_first_names` → `common_station_cafe_jyc_first_choice` → `common_station_cafe_jyc_parallel` | Cafe sign above the exit, an ordinary free seat, her visible composition, a stranger's cautious response, consent to sit, then separate screens. |
-| Either actual meeting | `common_station_cafe_jyc_parallel` → `common_station_cafe_jyc_reciprocity` → `common_station_cafe_jyc_share` → `common_station_cafe_jyc_contact_choice` → `common_station_cafe_jyc_exit` | Each works independently; she asks about his work; a specific observation creates a reason to share; departure is calm on either outcome. |
+| Weekend bookstore go | `common_station_cafe_jyc_enter` → `common_station_cafe_jyc_drawing` → `common_station_cafe_jyc_names` → `common_station_cafe_jyc_choice` → `common_station_cafe_jyc_parallel` | Weekday daylight; recognition after days, purchased book, explicit permission before sitting; book pages carry the main conversation while her own drawing remains visible. |
+| Weekend home + weekday cafe | `common_station_cafe_jyc_first_enter` → `common_station_cafe_jyc_first_drawing` → `common_station_cafe_jyc_first_names` → `common_station_cafe_jyc_first_choice` → `common_station_cafe_jyc_parallel` | Work fatigue precedes entry; nearby seat, visible drawing, no recognition or bookstore memory; permission precedes sitting. |
+| Either actual meeting | `common_station_cafe_jyc_parallel` → `common_station_cafe_jyc_reciprocity` → `common_station_cafe_jyc_share` → `common_station_cafe_jyc_contact_choice` → `common_station_cafe_jyc_exit` → COM-03X | Separate work, reciprocal interest, optional actual phone exchange; ordinary daylight departure and return home before the evening package event. |
 
-The first-meet branch has no recognition shot or bookstore callback. The reunion retains the creator-focus → recognition beat. If later visual planning uses one shared drawing/work image, the first-meet presentation must omit any recognition meaning. No random availability roll or extra empty-cafe route exists.
+Changed semantic beats: reunion after days instead of one outing; purchased world-setting supplement and book-centered discussion; weekday fatigue/daylight; route-specific book/drawing share bridge; direct home/package handoff. First-meet drawing, nearby-seat consent, parallel activity, reciprocal questions and actual contact consent retain their compatible meanings. Downstream independent review decides visual reuse; no image was inspected or accepted here.
 
 ## Locked playable script
 
@@ -47,9 +100,9 @@ The first-meet branch has no recognition shot or bookstore callback. The reunion
 
 **Semantic Visual Beat**：我先確認空位、插座與窗邊區域，再找可坐下翻書、處理事情的位置。
 
-**Narration**：剛才在書店翻過的那幾頁還在腦子裡。我本來就想找個地方坐下，順便回掉手上的事。
+**Narration**：在家盯著電腦一下午，出門後眼睛才舒服一點。我把週末買的《逆光航路》世界設定增補版也帶了出來，想換個地方翻幾頁。
 
-**Narration**：她說的北邊出口咖啡店就在上面。窗邊還真有空位。
+**Narration**：週末她說的北邊出口咖啡店就在上面。窗邊還真有空位。
 
 **Action**：我拿著筆記本電腦包走向窗邊，才看見熟悉的短髮側影。
 
@@ -61,126 +114,148 @@ The first-meet branch has no recognition shot or bookstore callback. The reunion
 
 **Action**：她停筆喝水，抬眼看見我。我們的視線碰上。她停了兩秒。
 
-**Jiang Yucheng**：欸。你也上來了。那本後來有買嗎？
+**Jiang Yucheng**：欸，是你。
 
-**Protagonist**：還在想。先上來坐一下。妳說這裡好坐，是真的。
+**Protagonist**：欸，這麼巧。
+
+#### `common_station_cafe_jyc_names`
+
+**Action**：我指向她旁邊的空位。
+
+**Protagonist**：這裡有人嗎？我可以坐這邊嗎？如果妳要專心，我坐別邊。
+
+**Jiang Yucheng**：沒有人，可以坐。我等一下還要畫，可能不太說話。
+
+**Protagonist**：正好。我也有幾封訊息要回，回完再看書。
+
+**Action**：我坐在斜對角，不直接面向她的平板電腦。
+
+**Protagonist**：上次忘了問。我叫 [PLAYER_NAME]。
+
+**Jiang Yucheng**：江雨澄。那本後來有買嗎？
+
+**Protagonist**：有，買了世界設定增補版。週末回去翻了一些，今天也帶著。
+
+**Action**：我從包裡拿出書，放在自己的桌面。
+
+**Jiang Yucheng**：喔，那本。你看到雨港那邊了？
+
+**Protagonist**：看到分區圖。我本來只想翻一下，結果一直對著地圖找舊版出現過的地方。
+
+**Jiang Yucheng**：那張我也看很久。小字好多。
+
+**Protagonist**：對。今天在家又盯了一下午電腦，眼睛有點累。妳說這裡好坐，是真的。
 
 **Jiang Yucheng**：我可沒保證這個時間也安靜。
 
 **Protagonist**：目前還算過關。
 
-#### `common_station_cafe_jyc_names`
-
-**Protagonist**：上次忘了問。我叫 [PLAYER_NAME]。
-
-**Jiang Yucheng**：江雨澄。
-
-**Action**：我們沒有握手。我指向她旁邊的空位。
-
-**Protagonist**：這裡有人嗎？如果妳要專心，我坐別邊。
-
-**Jiang Yucheng**：沒有人。我等一下還要畫，可能不太說話。
-
-**Protagonist**：正好。我也要工作。
-
-**Action**：我坐在斜對角，不直接面向她的平板電腦。
-
 #### `common_station_cafe_jyc_choice`
 
-這三個既有 choice ID 均可接到後面的共同興趣與聯絡行動；沒有正解。玩家只看見一個可信的 `com02j_continue_topic` 文案。
+這三個既有 choice ID 保留作本地話題行動（`action`，Local；可信週末 callback 為 Echo），不改為語氣評分。ID 中的 `ask_drawing` 是 compatibility identity，本輪實際切口為書頁視覺。三項均接相同聯絡機會；普通稱讚不是壞答案。玩家只看見一個可信的 `com02j_continue_topic` 文案。
 
-1. `com02j_ask_drawing` — 「這幾張是在抓同一個角色的動作嗎？」
-2. `com02j_continue_topic` — 依下表顯示一個上次確實談過的切口。
-3. `com02j_simple_praise` — 「看起來很厲害。線很乾淨。」
+1. `com02j_ask_drawing` — 「這張分區圖，妳會先看哪裡？」
+2. `com02j_continue_topic` — 依下表顯示週末確實談過的切口，否則 neutral。
+3. `com02j_simple_praise` — 「這本滿好看的。那張分區圖我翻了好幾次。」
 
-| Trustworthy replay-local COM-01J topic | Exact label and first spoken line |
+| `continueTopicVariant` | Exact label and first spoken line |
 | --- | --- |
-| `visual_design` | 「妳這張夜景，也是在處理上次說的暗部嗎？」 |
-| `worldbuilding` | 「這個角色的環境，看起來也有雨港那種分區。」 |
-| `edition_value` | 「妳自己的圖，註釋會放到看得清楚嗎？」 |
-| Missing, unknown or untrustworthy | 「上次那套設定集，妳畫自己的圖時也會拿來參考嗎？」 |
-
-`com02j_continue_topic` reads only actual COM-01J history, including replay-local history. Its neutral version does not create `jyc_first_topic` or pretend a particular earlier choice. It never appears on the bookstore-skip route.
+| `visual_design` | 「上次妳說暗部別全看成黑的，我回去有再翻舊版。」 |
+| `worldbuilding` | 「妳上次說雨港的分區，我在這本找到那張圖了。」 |
+| `edition_value` | 「買回去看，這本那些地圖註解真的比較好找。」 |
+| `neutral` | 「這本多了不少地方設定。妳有比較喜歡哪一段嗎？」 |
 
 ##### Branch `com02j_ask_drawing`
 
-**Protagonist**：這幾張是在抓同一個角色的動作嗎？
+**Protagonist**：這張分區圖，妳會先看哪裡？
 
-**Semantic Visual Beat**：談話轉到她手上的角色動作練習。
+**Semantic Visual Beat**：我把自己買的書翻到雨港分區圖，放在自己的桌面，她願意抬眼看。
 
-**Jiang Yucheng**：嗯。要讓她換衣服、換姿勢，還是看得出來是同一個人。
+**Jiang Yucheng**：先看港邊，再往住宅區。它把很密的地方留在同一邊，另一邊反而空很多。
 
-**Protagonist**：所以先找不會變的地方。
+**Protagonist**：我一開始只顧著找地名，沒注意那個空的地方。
 
-**Jiang Yucheng**：輪廓、重心，還有她站著的習慣。臉反而不是第一個。
+**Jiang Yucheng**：嗯，先別看字，會比較明顯。
 
-**Jiang Yucheng**：你怎麼看出來是同一個角色？
+**Action**：我把手指從註解移開，重新看了一遍。
 
-**Protagonist**：肩膀和手的位置很像。也可能我猜錯。
+**Protagonist**：喔，真的。我剛剛還以為這一塊是沒畫完。
 
-**Jiang Yucheng**：沒有，猜對了。
+**Jiang Yucheng**：不是漏畫啦。都塞滿的話，你反而不知道先看哪裡。
 
-→ Rejoin `common_station_cafe_jyc_parallel`.
+→ Set `jyc_second_topic=shared_work`; rejoin `common_station_cafe_jyc_parallel`.
 
 ##### Branch `com02j_continue_topic`
 
-**Variant — `visual_design`**
+**Variant — `continueTopicVariant === 'visual_design'`**
 
-**Protagonist**：妳這張夜景，也是在處理上次說的暗部嗎？
+**Protagonist**：上次妳說暗部別全看成黑的，我回去有再翻舊版。
 
-**Jiang Yucheng**：有一點。但我不想把東西藏在黑色裡，所以亮的地方要更少。
+**Jiang Yucheng**：有看出差別嗎？
 
-**Protagonist**：讓視線自己走過去。
+**Protagonist**：有一點。這張分區圖我也試著先找亮的地方，沒一直追著字看。
 
 **Jiang Yucheng**：對。不是把整張圖拉亮。
 
-**Variant — `worldbuilding`**
+**Protagonist**：但小巷那幾頁我還是看得很慢。
 
-**Protagonist**：這個角色的環境，看起來也有雨港那種分區。
+**Jiang Yucheng**：那幾頁本來就不好讀。我也要翻回去對。
 
-**Jiang Yucheng**：氣氛有參考，設定不是。她住的地方更乾，而且更窄。
+**Variant — `continueTopicVariant === 'worldbuilding'`**
 
-**Protagonist**：所以不是同人圖。
+**Protagonist**：妳上次說雨港的分區，我在這本找到那張圖了。
 
-**Jiang Yucheng**：不是。是我自己的。
+**Jiang Yucheng**：你覺得呢？
 
-**Variant — `edition_value`**
+**Protagonist**：對著圖看才知道，原來舊版那幾個地方離得這麼近。以前我以為隔很遠。
 
-**Protagonist**：妳自己的圖，註釋會放到看得清楚嗎？
+**Jiang Yucheng**：對啊。光看場景很容易以為是不同區。
 
-**Jiang Yucheng**：會。被那本機械稿氣過之後一定會。
+**Protagonist**：我還來回翻了好幾次，想確認是不是記錯了。
+
+**Jiang Yucheng**：我第一次看也是。你可以先夾著地圖那頁，不用一直找。
+
+**Variant — `continueTopicVariant === 'edition_value'`**
+
+**Protagonist**：買回去看，這本那些地圖註解真的比較好找。
+
+**Jiang Yucheng**：至少不用猜它在指哪裡。
+
+**Protagonist**：嗯。我還是會漏看，但翻回去就找得到。
+
+**Jiang Yucheng**：那就有差。機械稿那本是翻回去也看不清楚。
 
 **Protagonist**：這樣就不用靠猜字了。
 
 **Jiang Yucheng**：對，反面教材。
 
-**Variant — `neutral`**
+**Variant — `continueTopicVariant === 'neutral'`**
 
-**Protagonist**：上次那套設定集，妳畫自己的圖時也會拿來參考嗎？
+**Protagonist**：這本多了不少地方設定。妳有比較喜歡哪一段嗎？
 
-**Jiang Yucheng**：會啊，像構圖、色塊怎麼放，我會翻一下。
+**Jiang Yucheng**：雨港那段。尤其是把幾個區放在一起的圖。
 
-**Protagonist**：這個角色也是裡面的？
+**Protagonist**：我也是先停在那張。比一頁一頁看場景好懂。
 
-**Jiang Yucheng**：不是，角色是我自己的。只是參考畫面怎麼安排。
+**Jiang Yucheng**：會知道它們怎麼接起來。單看其中一張，好看是好看，可是容易看完就忘了在哪裡。
 
-→ Exactly one variant rejoins `common_station_cafe_jyc_parallel`.
+→ Exactly one variant sets `jyc_second_topic=shared_work` and rejoins `common_station_cafe_jyc_parallel`. Neutral creates no past topic.
 
 ##### Branch `com02j_simple_praise`
 
-**Protagonist**：看起來很厲害。線很乾淨。
+**Protagonist**：這本滿好看的。那張分區圖我翻了好幾次。
 
-**Semantic Visual Beat**：雨澄以一個小笑回應普通稱讚。
+**Semantic Visual Beat**：我指向自己書上的分區圖；雨澄以一個小笑回應普通稱讚。
 
-**Jiang Yucheng**：還沒畫完。現在看起來乾淨，是因為我把亂的圖層關掉了。
+**Jiang Yucheng**：嗯，那張我也喜歡。不過不是每頁都那麼好找，後面有幾張註解又變小了。
 
-**Protagonist**：我剛剛還以為快畫完了。
+**Protagonist**：我還沒看到那裡。現在只翻到雨港。
 
-**Jiang Yucheng**：沒有，還早。
+**Jiang Yucheng**：那先慢慢看，不用急著翻完。
 
-**Action**：她重新打開參考圖層，畫面變得複雜；她沒有急著證明自己。
+**Action**：我把書留在自己這邊，沒有把它推到她的平板前。
 
-→ Rejoin `common_station_cafe_jyc_parallel`.
+→ Set `jyc_second_topic=general_praise`; rejoin `common_station_cafe_jyc_parallel`.
 
 ### Bookstore-skip, cafe-go first meeting
 
@@ -188,7 +263,7 @@ The first-meet branch has no recognition shot or bookstore callback. The reunion
 
 **Semantic Visual Beat**：出口上層有咖啡店；我選一處能休息和處理事情的座位，沒有尋人的視線。
 
-**Narration**：剛剛沒去書店。許棠說過出口上面有咖啡，我走到這裡，剛好想坐一會兒，把訊息回完。
+**Narration**：在家工作一下午，最後同一段訊息看了兩次還沒看進去。我帶著電腦出門，想起許棠提過出口上面有咖啡，決定先坐一會兒。
 
 **Action**：窗邊還有空位。我先看桌面夠不夠放筆記本電腦，才注意到鄰桌有人在畫圖。
 
@@ -202,9 +277,9 @@ The first-meet branch has no recognition shot or bookstore callback. The reunion
 
 **Jiang Yucheng**：沒有。你要插座的話，這邊有一個。
 
-**Protagonist**：喔，謝謝。我坐這裡會不會擋到妳畫圖？
+**Protagonist**：喔，謝謝。我可以坐這裡嗎？會不會擋到妳畫圖？妳要專心的話，我坐別邊。
 
-**Jiang Yucheng**：不會。我只是要調一下光。
+**Jiang Yucheng**：可以，不會擋到。我只是要調一下光。
 
 **Action**：我坐在斜對角，打開自己的筆記本電腦。她把畫筆重新落到平板上。
 
@@ -212,7 +287,7 @@ The first-meet branch has no recognition shot or bookstore callback. The reunion
 
 **Protagonist**：剛剛那幾個姿勢，是同一個角色嗎？看得到一點，不方便說也沒關係。
 
-**Jiang Yucheng**：是同一個。欸，剛才那張呢？我把重心畫偏了，現在在修。
+**Jiang Yucheng**：是同一個。剛才那張我把重心畫偏了，現在在修。
 
 **Protagonist**：我還以為是她要轉身跑。肩膀好像先動了。
 
@@ -222,11 +297,11 @@ The first-meet branch has no recognition shot or bookstore callback. The reunion
 
 **Jiang Yucheng**：江雨澄。沒事，你是看畫才問的。
 
-**Action**：她把平板轉回自己的角度。我們各自坐好，沒有要求她把整張圖拿來看。
+**Action**：她把平板轉回自己的角度，我也把電腦往自己這邊挪了一點。
 
 #### `common_station_cafe_jyc_first_choice`
 
-這是本地表達分支，不讀 `jyc_first_topic`、不借 COM-01J 的三個 choice ID。三項都從當場可見的圖開始，也都接同一個後續分享機會。
+這是 `expression` / Local 分支，三個 stance 各一次；不讀 `jyc_first_topic`、不借 COM-01J 的三個 choice ID。三項都從當場可見的圖開始，也都接同一個後續分享機會。
 
 1. `com02j_first_warm` — 「妳說她想回頭，這一下真的看得出來。」
 2. `com02j_first_candid` — 「我剛剛以為她要跑，完全猜反了。」
@@ -254,7 +329,7 @@ The first-meet branch has no recognition shot or bookstore callback. The reunion
 
 **Jiang Yucheng**：你平常會看這種角色設定嗎？
 
-**Protagonist**：會看一些。我本來想去找《逆光航路》的新版設定集，今天走到出口就先找地方坐了。角色怎麼用姿勢講故事，我滿愛看。
+**Protagonist**：會看一些。角色怎麼用姿勢講故事，我滿愛看。我今天在家工作到有點累，出來坐一下，剛好看到妳在調那個動作。
 
 **Jiang Yucheng**：我也會翻設定集。可是有時候一頁塞太多註解，反而看不到人站在哪裡。
 
@@ -264,7 +339,7 @@ The first-meet branch has no recognition shot or bookstore callback. The reunion
 
 **Action**：她笑了一下，回去調那條線；我也把自己的訊息打完。
 
-→ Rejoin `common_station_cafe_jyc_parallel`.
+→ Set `jyc_second_topic=her_art` for all three first-meet expressions; rejoin `common_station_cafe_jyc_parallel`.
 
 ### Shared continuation after either actual meeting
 
@@ -274,7 +349,13 @@ The first-meet branch has no recognition shot or bookstore callback. The reunion
 
 **Narration**：接下來十幾分鐘，我們各自看著自己的螢幕。
 
-**Narration**：她改了幾次線。我回完兩封訊息。沒有人負責把沉默變成話題。
+**Narration**：她改了幾次線。我回完兩封訊息，聽著咖啡機又響了一輪。
+
+**Condition — `route === 'weekday_reunion_after_weekend_bookstore'`**
+
+**Action**：我把電腦推開一點，接著翻書。看了幾頁，才把書闔起來收進包裡。
+
+**Shared**
 
 **Audio**：咖啡機、遠處人流、畫筆輕觸聲。
 
@@ -288,11 +369,15 @@ The first-meet branch has no recognition shot or bookstore callback. The reunion
 
 **Jiang Yucheng**：那你回家是不是也在做？
 
-**Protagonist**：嗯，有時候回家還是會打開電腦。
+**Protagonist**：嗯，今天就在家做。坐太久了，才想說出來換個地方。
 
 **Jiang Yucheng**：那好像也沒比較輕鬆。
 
-**Protagonist**：是啊。妳那個角色呢，剛才那幾張都要用在同一頁？
+**Protagonist**：是啊。
+
+**Action**：她低頭把畫筆放下，我才又看向剛才露出的一角。
+
+**Protagonist**：妳那個角色呢，剛才那幾張都要用在同一頁？
 
 **Jiang Yucheng**：還不知道。我想先讓她站得像同一個人，再決定哪張放進去。
 
@@ -300,13 +385,15 @@ The first-meet branch has no recognition shot or bookstore callback. The reunion
 
 #### `common_station_cafe_jyc_share`
 
-**Condition — bookstore go**
+**Condition — `route === 'weekday_reunion_after_weekend_bookstore'`**
 
-**Protagonist**：剛剛在書店聽妳講版本差異，再看這幾張，我有點懂妳為什麼會在意畫面要先讓人看懂。
+**Protagonist**：這本我應該還會翻很久。那張分區圖我剛剛又看了一次，先看整張、再找字，跟我一開始看的感覺不太一樣。
 
-**Jiang Yucheng**：也不是每張都要一眼看完啦。至少第一眼別讓人找不到主角。
+**Jiang Yucheng**：也不是每張都要一眼看完啦。先看整張，再挑你想看的地方就好。
 
-**Condition — bookstore skip**
+**Protagonist**：嗯。我平常看遊戲介紹也常常直接找文字，今天才發現自己真的很少先看整頁。
+
+**Condition — `route === 'weekday_first_after_weekend_home'`**
 
 **Protagonist**：我剛才真的把她看成要跑的人。聽妳講完，再看肩膀就不一樣了。
 
@@ -351,7 +438,17 @@ The first-meet branch has no recognition shot or bookstore callback. The reunion
 
 **Protagonist**：謝謝，先不用傳給我啦。今天聊到這裡就很好。
 
-**Jiang Yucheng**：好啊，沒關係。謝謝你剛剛聊我的圖，還有遊戲頁的事。
+**Jiang Yucheng**：好啊，沒關係。
+
+**Condition — `route === 'weekday_reunion_after_weekend_bookstore'`**
+
+**Protagonist**：也謝謝妳講那本書，我回去再慢慢看。
+
+**Jiang Yucheng**：嗯，慢慢看。
+
+**Condition — `route === 'weekday_first_after_weekend_home'`**
+
+**Jiang Yucheng**：謝謝你剛剛聊我的圖，還有遊戲頁的事。
 
 **Protagonist**：我也謝謝妳講那張圖。
 
@@ -359,7 +456,7 @@ The first-meet branch has no recognition shot or bookstore callback. The reunion
 
 #### `common_station_cafe_jyc_exit`
 
-**Condition — `contact_jyc=true`**
+**Condition — `flags.contact_jyc === true`**
 
 **Protagonist**：今天謝謝妳讓我坐這裡。
 
@@ -373,31 +470,44 @@ The first-meet branch has no recognition shot or bookstore callback. The reunion
 
 **Jiang Yucheng**：好，掰掰。
 
-**Semantic Visual Beat**：窗邊留下空位；她可繼續自己的畫，沒有追出店外的告白或被拒絕的特寫。
+**Semantic Visual Beat**：窗邊留下空位；她繼續自己的畫，我帶走自己的電腦包。
+
+**Narration**：下樓時天還亮著。我揉了揉肩膀，沿著來時的路往公寓走。
+
+→ Both contact outcomes, on either entry: return home → **COM-03X**, same weekday evening package event. No COM-02X / evening convenience detour; no third cafe meeting.
 
 ## Choice, state and successor mapping
 
-| Entry/action | Fact established | State effect |
+| Entry/action | Exact event / state marker | Next |
 | --- | --- | --- |
-| Bookstore go, after completed COM-01J | Mandatory same-visit reunion; she recognizes him and initiates greeting | Preserve `met_jiang_yucheng=true`, `heard_station_cafe_from_jyc=true`, trustworthy `jyc_first_topic`; set `jyc_initiated_second_contact=true` at her greeting. |
-| Bookstore skip + cafe go | One actual first encounter; no earlier Jiang context | Set `met_jiang_yucheng=true` on actual encounter; leave `heard_station_cafe_from_jyc=false` and `jyc_initiated_second_contact=false` or unset. Do not create `jyc_first_topic`. |
-| Either actual encounter, drawing and name exchange | Her own character work is visible; both say their names | Set `jyc_creator_work_seen=true`, `player_knows_jyc_name=true`, `jyc_knows_player_name=true` after the corresponding on-screen events. |
-| Reunion `com02j_ask_drawing` | Her art is discussed | `jyc_second_topic=her_art`; keep legacy `T_JYC +1` as local texture/telemetry only. |
-| Reunion `com02j_continue_topic` | Actual COM-01J topic or neutral shared book is discussed | `jyc_second_topic=shared_work`; keep legacy `F_JYC +1` as local texture/telemetry only. |
-| Reunion `com02j_simple_praise` | Praise leads to her own concrete explanation | `jyc_second_topic=general_praise`; keep legacy `C_JYC +1` as local texture/telemetry only. |
-| First-meet `com02j_first_warm` / `com02j_first_candid` / `com02j_first_playful` | Same observed posture, character and shared-interest facts | `jyc_second_topic=her_art` from the spoken drawing discussion for all three; no `jyc_first_topic` or numerical gate. |
-| Shared parallel work and reciprocity | She asks about portable work; he says he works in a technology company; he asks about her drawing | The limited work and craft knowledge is available afterward on both actual-meeting routes. Apply existing actual-encounter familiarity baseline, never as contact eligibility. |
-| `com02j_offer_discord` | She agrees, sends a Discord request; he accepts; the page is sent | Set `contact_jyc=true` only after that exchange. Discord is the actual usable channel for subsequent contacted-Jiang content. |
-| `com02j_leave_without_contact` | Ordinary goodbye; no account, invitation or page transfer | `contact_jyc=false`; no RE, `romanticSignal`, negative relationship effect or forced later encounter. |
-| Bookstore skip + cafe skip | COM-02J is bypassed altogether | `met_jiang_yucheng=false`, no names, `jyc_creator_work_seen=false`, `contact_jyc=false`; no COM-02J choice history. |
+| `weekday_reunion_after_weekend_bookstore` | Preserve actual `met_jiang_yucheng=true`, `heard_station_cafe_from_jyc=true`, `weekend_book_purchased=true` and trustworthy `jyc_first_topic`; set `jyc_initiated_second_contact=true` only at her greeting. | Reunion enter → drawing/greeting → seat consent/names/book uptake → reunion choice. |
+| `weekday_first_after_weekend_home` | Set `met_jiang_yucheng=true` on actual encounter; `heard_station_cafe_from_jyc=false`, `jyc_initiated_second_contact=false` or unset. No `jyc_first_topic` creation. | First enter → drawing/seat consent → names → first choice. |
+| Corresponding visible drawing | `jyc_creator_work_seen=true` only after the drawing is visible; even book reunion establishes no unseen work detail. | Continue local body. |
+| Corresponding actual name exchange | `player_knows_jyc_name=true`, `jyc_knows_player_name=true` only after both speak. | Continue local body. |
+| `com02j_ask_drawing` | Now book-page visual discussion, so `jyc_second_topic=shared_work`; legacy ID retained, no fabricated her-art callback. | `common_station_cafe_jyc_parallel` |
+| `com02j_continue_topic` | Exactly selected actual-history variant or neutral: `jyc_second_topic=shared_work`; neutral creates no first-topic history. | `common_station_cafe_jyc_parallel` |
+| `com02j_simple_praise` | Book praise and her concrete response: `jyc_second_topic=general_praise`; no drawing-layer fact. | `common_station_cafe_jyc_parallel` |
+| `com02j_first_warm` / `com02j_first_candid` / `com02j_first_playful` | Same visible posture and actual discussion: `jyc_second_topic=her_art`; no bookstore/topic history. | Shared first-meet continuation → `common_station_cafe_jyc_parallel` |
+| Parallel / reciprocity / share | Limited technology-company / portable-work facts actually spoken; reciprocal question about her own character. Route-specific bridge selected exactly as above. | parallel → reciprocity → share → contact choice |
+| `com02j_offer_discord` | After her assent, friend request, his acceptance and sent link: `contact_jyc=true`. Before completion, no usable channel is awarded. | `common_station_cafe_jyc_exit` → COM-03X |
+| `com02j_leave_without_contact` | `contact_jyc=false`; no account request, sent link, RE, romantic refusal, `romanticSignal` or negative score. | `common_station_cafe_jyc_exit` → COM-03X |
+| Upstream `com01b_weekday_street_walk` / `jyc_permanently_excluded=true` | Selector returns null; no COM-02J node, choice history or state mutation. No scene-local reopening. | Upstream street owner supplies its own return → COM-03X. |
 
-The established go-path `common_station_cafe_jyc_*` and three `com02j_*` topic identities remain stable. Contact action IDs and `common_station_cafe_jyc_first_*` nodes are new, scene-local IDs. `jyc_alias_private`, `jyc_alias_exposed`, `relationship.jyc.romanticSignal` and all other-character knowledge remain unchanged. F/T/C counters, if retained for existing telemetry, never decide whether the contact choice appears. Replay reads only its local COM-01J snapshot. A missing snapshot uses the neutral reunion text, not another run's choice. The skip route never reads it.
+Every local branch has concrete prose above. Contact choice is `action` / Structural: selecting an actual mutual exchange establishes a usable channel for later contacted content. It appears on both entrances after all local choices, with no score, stance, terminology or topic gate. Name exchange and sitting do not imply a date. Existing F/T/C/K compatibility counters, if retained by integration, are telemetry only; this writer introduces no numeric mutation or eligibility authority.
 
-Both actual-meeting exits supply truthful names and one discussed topic for the later branch. Only the contacted exit supplies Discord and a sent game-page link; a later recommendation must be newly spoken when used. The noncontact exit carries no latent permission to message her. The never-met route bypasses Jiang events and may reach common continuation only with its real Xu/personal-life facts. COM-03J remains a separate bounded successor review; this file does not claim that old successor prose has been repaired.
+All existing `common_station_cafe_jyc_*`, `common_station_cafe_jyc_first_*`, reunion topic IDs, first-meet expression IDs and contact action IDs remain stable; no new node prefix or scene is required. Additional compiled line suffixes, existing encounter-baseline compatibility and runtime/save wiring belong to the integrator. `jyc_alias_private`, `jyc_alias_exposed`, `relationship.jyc.romanticSignal`, permanent exclusion and other-character knowledge are unchanged by this scene.
+
+No-contact exits go to the package with known-but-not-contacted Jiang facts, then the approved Xu-only continuation; they do not invent a third meeting or online permission. Contact exits go to that same package with the actual channel and sent page; the later COM-03J review must use truthful neutral messaging for book branches that lack its old drawing callbacks. No topic enum substitutes for actual spoken evidence. The package merge preserves these differences.
+
+Outside this scene, non-street paths retain actual familiarity, heroine consent, prerequisites, finite attention windows, one natural reapproach and its immediately following single reopening window, with harm/closure/clarity gates intact. Contact here grants neither prior investment nor repair. This scene authors no RE/invitation and never clears street exclusion.
 
 ## Writer checks and handoff boundary
 
-- Checked both entries against the approved COM-01B/COM-01J facts: no first-meet recognition, bookstore purchase, cafe recommendation or past topic is invented; bookstore go continues on the same outing.
-- Checked all local expression/topic branches and the common rejoin: each supplies an observed work detail and reaches the same two contact actions. The channel is actually exchanged only on explicit mutual assent; ordinary departure leaves no contact.
-- Performed one bounded naturalization read of the continuous dialogue: ordinary hesitation, correction and work silence remain; names, craft discussion, reciprocal question and page-sharing proposal arise in that order. The existing go-path lines and semantic beats are retained where their facts still fit.
-- `git diff --check` and handoff/preflight verification are mechanical checks only. Independent Narrative QA, visual-impact review and Human preview remain separate gates.
+- Own writing acceptance: **PASS**. Checked weekday home-work fatigue, actual purchase on reunion only, nearby-seat consent before sitting, concrete book/drawing uptake, names, independent activity and reciprocal interest against the exact approved contract.
+- Checked all three reunion choices, all four callback variants, all three first-meet expressions, both share bridges and both contact outcomes for truthful local rejoin; every cafe exit goes directly home to the same weekday COM-03X package event.
+- Exactly **one bounded naturalization sweep** of the complete new draft: retained compatible ordinary replies, drawing misunderstanding/correction, small humor and work silence; softened abrupt topic changes and kept branch-specific thanks. No contract, choice intent, knowledge timing or accepted semantic beat was changed by the sweep.
+- The write is restricted to this scene. Narrative contract, other scenes, runtime, art and prior QA/Human receipts are unchanged. Source acquisition/preflight, production validation and diff checks are mechanical evidence; independent Narrative QA, visual-impact / Visual QA, runtime integration and Human review remain **PENDING**.
+
+## Historical binding — provenance only
+
+The pre-revision scene retained a prior design/source blob `9de22cbb30350bffc63d66eb1b5432156cd9f2ce` and contract SHA-256 `f2cddc0d4c99c938cddd95d8cef543911135d4991de049a4ef9247221ce02106` (blob `c5c62394ecef934ff96159768a70c8787125730f`). Those identities describe historical same-outing / drawing-centered prose, not the current weekday contract or an approval of this rewrite. Compatible first-meet drawing, reciprocal work, page-sharing, Discord assent/exchange and farewell lines remain in the current script; affected same-outing, unpurchased-book and reunion-drawing claims were rewritten for the approved semantic reason. No historical source or receipt was acquired or modified.

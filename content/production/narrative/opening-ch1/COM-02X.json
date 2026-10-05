@@ -47,13 +47,13 @@
       }
     ],
     "constraints": [
-      "Week 2 平日約 23:00；兩人因各自工作拖晚而在公寓步行範圍的便利店偶遇。",
+      "同週末約 23:00；書店購書後回家，或留家拆箱／工作後，各自因晚餐需要下樓。許棠仍因自己送印前 deadline 下樓，男主書店支不能假稱今晚工作拖晚。",
       "許棠可以疲憊，但仍保有決定自己晚餐與回家時間的主導權。"
     ]
   },
   "scene_function": [
     "把許棠從外表完整、帶距離感的鄰居狀態拉回普通深夜生活，建立生活質地。",
-    "讓雙方交換有限工作輪廓與附近生活資訊，但不升級為邀約或照顧事件。",
+    "讓不同週末生活的男主與許棠在便利店重新聊起：購書支談想買且已買的設定集；留家支談拆箱和居家工作，再交換同等有限的工作輪廓。",
     "用四個 choice 區分好奇、分享、輕鬆玩笑與規訓式關心，讓界線差異可感知但可修復。"
   ],
   "character_intent": [
@@ -79,10 +79,10 @@
   ],
   "required_payoffs": [
     "許棠先自然叫出男主名字，其來源只能是 COM-00 的互相介紹。",
-    "所有四個 choice 都 rejoin 到共同工作／附近資訊段，沒有互斥 canon。",
-    "所有路徑都建立雙方工作輪廓 knowledge；男主不取得許棠公司、收入、完整客戶背景。",
+    "common_convenience_xu_*、com02x_* 舊 ID 與可相容的食物、玩笑、界線回應保持；四個 choice 中 share_work 依實際 weekend route 改文案，不假稱書店支剛收工，全部再合流共享工作與附近資訊。",
+    "書店支在等微波的普通話題中談及原本想買、今日已買的設定集，許棠有具體接話；留家支談拆箱後在家工作，她接住工作的一天。兩支均自然建立男主做軟體／多數在家與許棠自由接案視覺設計、明早送印前 deadline；不一次報履歷。",
     "兩人前後結帳並一起走回公寓的一小段，最後自然分開。",
-    "base familiarity +1；ask_food 路徑額外 familiarity +1；tell_eat_better 只增加 xt_advice_tendency 並降低 compatibility，不增加 xt_boundary_strikes。"
+    "保留已整合 F/T/C/K 與 xt_advice_tendency 的 compatibility mutation，不新增數值或以其決定 availability；同一建議不新增 boundary strike。生活資訊、contact 與後續 gate 由真實事件決定。"
   ],
   "exit_state": {
     "relationships": [
@@ -108,7 +108,7 @@
         "holder": "xu_tang",
         "knows": [
           "男主多數時間可在家工作。",
-          "男主今晚剛處理上線／review 類工作到晚。"
+          "男主多數時間在家做軟體工作；書店支知道他週末買到本來想找的設定集，留家支知道今天拆箱／居家工作；不能把兩個互斥日程都當已發生。"
         ],
         "does_not_know": [
           "男主公司、收入或完整職涯背景。",
@@ -131,7 +131,8 @@
     "constraints": [
       "contact_xu 仍未建立。",
       "一次規訓式關心不構成 control_pattern；xt_boundary_strikes 不增加。",
-      "relationship.xu.romanticSignal 維持 false。"
+      "relationship.xu.romanticSignal 維持 false。",
+      "兩支完成同一普通鄰居事件與共同必要工作 knowledge 後，接 COM-01B 所屬 common_weekday_outing_work；不直接轉咖啡或包裹。"
     ]
   },
   "must_not": [
@@ -140,7 +141,9 @@
     "不得讓許棠為 23:00 吃飯道歉或交代完整工作／人生背景。",
     "不得把一次 unsolicited advice 升級為重大衝突、terminal route 或 xt_boundary_strikes。",
     "不得交換聯絡方式；contact_xu 必須留給後續 COM-03X。",
-    "不得讓任一角色憑空知道另一人的公司、收入、感情狀態或未在 scene 中取得的資訊。"
+    "不得讓任一角色憑空知道另一人的公司、收入、感情狀態或未在 scene 中取得的資訊。",
+    "不得把週末晴天強改濕夜以沿用畫面；不得在 bookstore 支借用剛收工、當晚 deployment 或全天坐電腦的留家前事。",
+    "許棠可知道男主購書，但不因此知道江雨澄存在；不添加第三人名字或兩女主關係。"
   ],
   "implementation_mapping": {
     "runtime_only": true,
@@ -153,7 +156,8 @@
       "K_XT_tell_eat_better": "increment:-1",
       "xt_advice_tendency": "increment:1 when com02x_tell_eat_better",
       "player_knows_xu_freelance_creative_work": true,
-      "xu_knows_player_remote_tech_work": true
+      "xu_knows_player_remote_tech_work": true,
+      "weekend_route": "read_only_actual_weekend_choice_history;bookstore_or_home_variant"
     }
   }
 }

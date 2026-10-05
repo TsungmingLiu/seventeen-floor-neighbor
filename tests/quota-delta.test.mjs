@@ -4,8 +4,8 @@ import { readFile } from 'node:fs/promises';
 import { execFileSync } from 'node:child_process';
 import { buildDelta, deltaCases, planDelta, projectDelta, requiresFull, sceneGraph, scoreDelta } from '../tools/delta-review-poc.mjs';
 
-const scene = await readFile('docs/narrative/scenes/vertical-slice/COM-02X.md', 'utf8');
-const ref = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
+const ref = '013b3f73e75d8f00bbd2fa53a6cd2d885fecb9a9';
+const scene = execFileSync('git', ['show', `${ref}:docs/narrative/scenes/vertical-slice/COM-02X.md`], { encoding: 'utf8' });
 
 test('dialogue shape is only provisional; dependency projection retains siblings, shared payoff tail and exact evidence', () => {
   const [first, second, hard] = deltaCases(scene);

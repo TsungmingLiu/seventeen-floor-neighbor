@@ -27,7 +27,7 @@
         "holder": "protagonist",
         "knows": [
           "許棠姓名、住 1702。",
-          "她做自由接案／視覺設計，COM-02X 當晚在趕印刷前版本。",
+          "她做自由接案／視覺設計；上週末 COM-02X 當晚在趕印刷前版本。",
           "附近深夜食物的一項具體資訊。"
         ],
         "does_not_know": [
@@ -39,7 +39,7 @@
         "holder": "xu_tang",
         "knows": [
           "男主姓名、住 1703，搬來不久。",
-          "男主多數時間可在家工作，COM-02X 當晚處理上線／review 類工作到晚。"
+          "男主多數時間在家做軟體工作；上週末的購書或拆箱／工作資訊只按 COM-02X 真實支線。"
         ],
         "does_not_know": [
           "男主 Line。",
@@ -49,7 +49,7 @@
     ],
     "constraints": [
       "承接已完成的 COM-02X；contact_xu 尚未建立，romanticSignal 維持 false。",
-      "Week 2 的 17 樓門口；許棠的印刷樣本誤放在男主門口。"
+      "COM-02X 之後的下一平日晚間，17 樓門口誤送樣本；男主由下午 cafe reunion、cafe first 或街頭獨走回來，三支都接包裹；Jiang history 各自保留。"
     ]
   },
   "scene_function": [
@@ -81,7 +81,8 @@
     "門口對話自然停留超過五分鐘；由當下工作／收件互動形成交換 Line 的實用理由。",
     "各 choice 只區分記得前事、工作好奇或生活玩笑，均有自然 bridge 回到共同段；所有路徑都交回包裹、取得相同必要工作 knowledge 與 Line。",
     "她關門前自然道謝；晚一點真的傳來先前提出的附近店家／大樓資訊，證明聯絡用途確實成立。",
-    "所有路徑建立 contact_xu=true 與 base familiarity +1；沒有額外 choice-local heroine stat 或 romantic signal。"
+    "所有路徑建立 contact_xu=true 與 base familiarity +1；沒有額外 choice-local heroine stat 或 romantic signal。",
+    "現有包裹／樣本／Line 全部對白可保持：「上次／那天」指週末便利店，她 deadline 和職業前事皆已在兩支共有；不再讀男主當晚部署到晚的舊 assertion。"
   ],
   "exit_state": {
     "relationships": [
@@ -129,7 +130,8 @@
     ],
     "constraints": [
       "contact_xu 已建立；雙方各回自己住處，romanticSignal 維持 false。",
-      "保留既有 pattern telemetry；COM-02X 的一次 unsolicited advice 不新增懲罰、不阻斷聯絡方式。"
+      "保留既有 pattern telemetry；COM-02X 的一次 unsolicited advice 不新增懲罰、不阻斷聯絡方式。",
+      "保留 jyc_permanently_excluded 及真實相遇／contact 原值；contacted cafe 者同晚可 COM-03J，無 contact／street 者直接 COM-03M 的許棠訊息，不因包裹合流補江線。"
     ]
   },
   "must_not": [
@@ -138,7 +140,8 @@
     "不得因任一 choice 未問 COM-02X 的食物問題，卻斷言男主當時問過；任何前事 callback 必須符合所有相關路徑實際取得的 knowledge。",
     "不得提前授予未披露的私人／跨人物 knowledge、exclusivity 或 commitment；取得 contact 不建立新 focus／overlap／deception 語意。",
     "不得增加或歸零 boundary counters，不因 COM-02X 一次建議拒絕 contact；不新增信任、chemistry、compatibility 或浪漫進展。",
-    "不得新增 intimacy meter、一次性印刷知識旗標或重複 Line booleans；contact_xu 是聯絡方式 gate。"
+    "不得新增 intimacy meter、一次性印刷知識旗標或重複 Line booleans；contact_xu 是聯絡方式 gate。",
+    "jyc_permanently_excluded=true 只由本輪平日街頭獨自行動的實際 choice 建立；本輪不可清除，優先於 contact、met、舊 history 及任何 invitation/discovery gate；禁止其後全部江雨澄內容，包括訊息、重遇、第二 discovery、RE-J、reopening、同框、邀約、結局與 coda。"
   ],
   "implementation_mapping": {
     "runtime_only": true,
@@ -146,7 +149,8 @@
       "requires_COM02X_completed": true,
       "forbids_contact_xu": true,
       "contact_xu": true,
-      "F_XT_base": "increment:1"
+      "F_XT_base": "increment:1",
+      "jyc_permanently_excluded": "read_only_preserve_through_Xu_merge"
     }
   }
 }

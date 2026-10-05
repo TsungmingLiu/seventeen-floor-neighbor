@@ -193,7 +193,8 @@ test('all COM-01B questions rejoin after goodnight at the actual bookstore decis
   assert.equal(nodes.common_bookstore_bridge_weekend_transition_locked_00.next, 'common_acg_first_meet_enter');
   assert.deepEqual(nodes.common_bookstore_bridge_weekend_decision.choices.map(choice => choice.id),
     ['com01b_bookstore_go', 'com01b_bookstore_skip']);
-  assert.equal(nodes.com01b_bookstore_go.next, 'common_bookstore_bridge_weekend_transition');
+  assert.equal(nodes.com01b_bookstore_go.next, 'com01b_bookstore_go_rev_01');
+  assert.equal(nodes.com01b_bookstore_go_rev_01.next, 'common_bookstore_bridge_weekend_transition');
   assert.notEqual(nodes.com01b_bookstore_skip.next, 'common_acg_first_meet_enter');
   assert.equal(nodes.common_bookstore_bridge_choice.choices.length, 3);
   for (const choice of nodes.common_bookstore_bridge_choice.choices) {

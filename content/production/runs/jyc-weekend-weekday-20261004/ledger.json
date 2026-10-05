@@ -1,0 +1,440 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_checkpoint",
+  "run_id": "jyc-weekend-weekday-20261004",
+  "workflow_version": "1.3.1",
+  "source_ref": "013b3f73e75d8f00bbd2fa53a6cd2d885fecb9a9",
+  "human_request": {
+    "summary": "Authorized sunny weekend bookstore/home and weekday cafe reunion/first or this-playthrough JYC-excluding Taipei street revision; persistent opened routes, Memories and main frontier stay monotone across replay; no final CG production.",
+    "gate_status": "major_story_direction_authorized"
+  },
+  "status": "NARRATIVE_PREVIEW_READY",
+  "tasks": [
+    {
+      "task_id": "ND-ARC-001",
+      "task_type": "narrative_design",
+      "scene_id": "COM-01B",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "faa608233501161bed589b60fe69b9138f330eb077fcbf093988c73709683b2f"
+      },
+      "decision_receipt": "content/production/runs/jyc-weekend-weekday-20261004/ND-ARC-001.decision.json",
+      "human_gate": "none",
+      "reason": null
+    },
+    {
+      "task_id": "ND-COM-01J-001",
+      "task_type": "narrative_design",
+      "scene_id": "COM-01J",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "ec512a6c6e51740da3c359497ca407f556a38fd23a8059e49bb64d0a50a1485a"
+      },
+      "decision_receipt": "content/production/runs/jyc-weekend-weekday-20261004/ND-COM-01J-001.decision.json",
+      "human_gate": "none",
+      "reason": null
+    },
+    {
+      "task_id": "ND-COM-02X-001",
+      "task_type": "narrative_design",
+      "scene_id": "COM-02X",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "ad7df077ca140106c45d9459f79b11bc8605daa0fa2140b855471c9c0167e5f3"
+      },
+      "decision_receipt": "content/production/runs/jyc-weekend-weekday-20261004/ND-COM-02X-001.decision.json",
+      "human_gate": "none",
+      "reason": null
+    },
+    {
+      "task_id": "NQA-COM-01B-001",
+      "task_type": "narrative_review",
+      "scene_id": "COM-01B",
+      "depends_on": [],
+      "status": "STALE",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "3e59fe9b1459b4f016adab0aa81f6cd4bd33749ba3f6bc8c4162656590a23c4b"
+      },
+      "decision_receipt": "content/production/runs/jyc-weekend-weekday-20261004/NQA-COM-01B-001.decision.json",
+      "human_gate": "none",
+      "reason": "Immediate-continuity COM-01J Script Lock metadata changed after scoped review; fresh bounded review will refresh exact input binding."
+    },
+    {
+      "task_id": "ND-COM-02J-001",
+      "task_type": "narrative_design",
+      "scene_id": "COM-02J",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "d1dc012cbe7ecbd6caa2ebab4211d08112fb24ba9bd3489682c658c0c9d1b3fb"
+      },
+      "decision_receipt": "content/production/runs/jyc-weekend-weekday-20261004/ND-COM-02J-001.decision.json",
+      "human_gate": "none",
+      "reason": null
+    },
+    {
+      "task_id": "NQA-COM-01J-001",
+      "task_type": "narrative_review",
+      "scene_id": "COM-01J",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "49861458b4c928d71e53cd52b5b5ad75805c2788441a222e275343ec9ae5b744"
+      },
+      "decision_receipt": "content/production/runs/jyc-weekend-weekday-20261004/NQA-COM-01J-001.decision.json",
+      "human_gate": "none",
+      "reason": null
+    },
+    {
+      "task_id": "NQA-COM-02X-001",
+      "task_type": "narrative_review",
+      "scene_id": "COM-02X",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "0008bd1a67da771dba8a1017d9db5c88d26e3b0bad9eccf95d28570b1200c8f2"
+      },
+      "decision_receipt": "content/production/runs/jyc-weekend-weekday-20261004/NQA-COM-02X-001.decision.json",
+      "human_gate": "none",
+      "reason": null
+    },
+    {
+      "task_id": "ND-COM-03X-001",
+      "task_type": "narrative_design",
+      "scene_id": "COM-03X",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "1ab248ffbd9333770a708935b538155899bd85ea9f9ca3da561dd8211715572f"
+      },
+      "decision_receipt": "content/production/runs/jyc-weekend-weekday-20261004/ND-COM-03X-001.decision.json",
+      "human_gate": "none",
+      "reason": null
+    },
+    {
+      "task_id": "NQA-COM-02J-001",
+      "task_type": "narrative_review",
+      "scene_id": "COM-02J",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "31182dd55927a53c25123ce6662c98976b57d484319bddaca5761a8056dcdd4e"
+      },
+      "decision_receipt": "content/production/runs/jyc-weekend-weekday-20261004/NQA-COM-02J-001.decision.json",
+      "human_gate": "none",
+      "reason": null
+    },
+    {
+      "task_id": "NQA-COM-01B-002",
+      "task_type": "narrative_review",
+      "scene_id": "COM-01B",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "994627736a00b9b85653d9bfab22c67377337077c72350b981d6422b5c9a05a9"
+      },
+      "decision_receipt": "content/production/runs/jyc-weekend-weekday-20261004/NQA-COM-01B-002.decision.json",
+      "human_gate": "none",
+      "reason": null
+    },
+    {
+      "task_id": "NQA-COM-03J-002",
+      "task_type": "narrative_review",
+      "scene_id": "COM-03J",
+      "depends_on": [],
+      "status": "NEEDS_REVIEW",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "f7815d3d0072f87632897b49232d936a70e38e7a8b26d79dd86bb268d68ceeb8"
+      },
+      "decision_receipt": "content/production/runs/jyc-weekend-weekday-20261004/NQA-COM-03J-002.decision.json",
+      "human_gate": "none",
+      "reason": null
+    },
+    {
+      "task_id": "NQA-COM-03X-001",
+      "task_type": "narrative_review",
+      "scene_id": "COM-03X",
+      "depends_on": [],
+      "status": "FAIL",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "f1caa86ca87912cfd4e509049fe0c3b4e1ba682231c4000d9149785a8c7a7278"
+      },
+      "decision_receipt": "content/production/runs/jyc-weekend-weekday-20261004/NQA-COM-03X-001.decision.json",
+      "human_gate": "none",
+      "reason": null
+    },
+    {
+      "task_id": "ND-COM-03J-001",
+      "task_type": "narrative_design",
+      "scene_id": "COM-03J",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "dbc7be625b1fc0ccdd082acea5e957a4408ac35c2bb5284bba50d92ed56afe2f"
+      },
+      "decision_receipt": "content/production/runs/jyc-weekend-weekday-20261004/ND-COM-03J-001.decision.json",
+      "human_gate": "none",
+      "reason": null
+    },
+    {
+      "task_id": "ND-COM-03X-002",
+      "task_type": "narrative_design",
+      "scene_id": "COM-03X",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "ebe1dd282cf521a92704a7f38b9f823336c2bc6c7e543b7977efd4fe540f46b9"
+      },
+      "decision_receipt": "content/production/runs/jyc-weekend-weekday-20261004/ND-COM-03X-002.decision.json",
+      "human_gate": "none",
+      "reason": null
+    },
+    {
+      "task_id": "ND-COM-03J-003",
+      "task_type": "narrative_design",
+      "scene_id": "COM-03J",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "e7c950241944a14bce32660b00fab6a0f6bc7f8b2560a716f49ee8d16b1b7a20"
+      },
+      "decision_receipt": "content/production/runs/jyc-weekend-weekday-20261004/ND-COM-03J-003.decision.json",
+      "human_gate": "none",
+      "reason": null
+    },
+    {
+      "task_id": "NQA-COM-03X-002",
+      "task_type": "narrative_review",
+      "scene_id": "COM-03X",
+      "depends_on": [],
+      "status": "NEEDS_REVIEW",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "2b3e18b4aaa98f8f94da020576a55aba688f2334012bb4996637e5e894f1da3d"
+      },
+      "decision_receipt": "content/production/runs/jyc-weekend-weekday-20261004/NQA-COM-03X-002.decision.json",
+      "human_gate": "none",
+      "reason": null
+    },
+    {
+      "task_id": "NQA-OPEN-A-001",
+      "task_type": "narrative_review",
+      "scene_id": "OPEN-A",
+      "depends_on": [],
+      "status": "NEEDS_REVIEW",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "7544939890764f654b17ab3d2d7b1aaddc9aa652bc743271983bcd160bf4a2aa"
+      },
+      "decision_receipt": "content/production/runs/jyc-weekend-weekday-20261004/NQA-OPEN-A-001.decision.json",
+      "human_gate": "none",
+      "reason": null
+    },
+    {
+      "task_id": "NQA-COM-03M-001",
+      "task_type": "narrative_review",
+      "scene_id": "COM-03M",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "64e914362619dbd377ee75ef4e4c3122ca62e59aec813f4f99a929cfa58dbf92"
+      },
+      "decision_receipt": "content/production/runs/jyc-weekend-weekday-20261004/NQA-COM-03M-001.decision.json",
+      "human_gate": "none",
+      "reason": null
+    },
+    {
+      "task_id": "NQA-COM-03X-003",
+      "task_type": "narrative_review",
+      "scene_id": "COM-03X",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "37d9a79a0476d4b586daf14f3a8ebe62d9f1d4ab8f90ba208d2e912bbf3a869b"
+      },
+      "decision_receipt": "content/production/runs/jyc-weekend-weekday-20261004/NQA-COM-03X-003.decision.json",
+      "human_gate": "none",
+      "reason": null
+    },
+    {
+      "task_id": "NQA-COM-03J-003",
+      "task_type": "narrative_review",
+      "scene_id": "COM-03J",
+      "depends_on": [],
+      "status": "NEEDS_REVIEW",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "ebf9e12255c20f6f048dc501551ba141c9a40c7efd5ada5f25e5c0aa65cc0221"
+      },
+      "decision_receipt": "content/production/runs/jyc-weekend-weekday-20261004/NQA-COM-03J-003.decision.json",
+      "human_gate": "none",
+      "reason": null
+    },
+    {
+      "task_id": "NQA-OPEN-A-002",
+      "task_type": "narrative_review",
+      "scene_id": "OPEN-A",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "b00d7c1ad87e6e71085c5bc3a769d00aea757c5ad6bb65895238c16a1cbbada4"
+      },
+      "decision_receipt": "content/production/runs/jyc-weekend-weekday-20261004/NQA-OPEN-A-002.decision.json",
+      "human_gate": "none",
+      "reason": null
+    },
+    {
+      "task_id": "NQA-COM-03J-004",
+      "task_type": "narrative_review",
+      "scene_id": "COM-03J",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "e8924f2170b178799454a4f5b45dcca2f7cd5de1d5fd3f068dffe5b8957ce96b"
+      },
+      "decision_receipt": "content/production/runs/jyc-weekend-weekday-20261004/NQA-COM-03J-004.decision.json",
+      "human_gate": "none",
+      "reason": null
+    },
+    {
+      "task_id": "INT-JYC-001",
+      "task_type": "integrate",
+      "scene_id": "COM-01B",
+      "depends_on": [
+        "NQA-OPEN-A-002",
+        "NQA-COM-01B-002",
+        "NQA-COM-01J-001",
+        "NQA-COM-02X-001",
+        "NQA-COM-02J-001",
+        "NQA-COM-03X-003",
+        "NQA-COM-03J-004",
+        "NQA-COM-03M-001"
+      ],
+      "status": "NEEDS_REVIEW",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "d8f435311af3e92b1825d83a68c8f6ee089bfe994c654e442650c18bdb8a5263"
+      },
+      "decision_receipt": "content/production/runs/jyc-weekend-weekday-20261004/INT-JYC-001.decision.json",
+      "human_gate": "narrative_preview_review",
+      "reason": null
+    },
+    {
+      "task_id": "ENG-JYC-FIXTURES-001",
+      "task_type": "integrate",
+      "scene_id": "COM-01B",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "e10451fa51cabb53f918174245b89ff5847e99a9bad4eacd9fec39d60e5d9804"
+      },
+      "decision_receipt": "content/production/runs/jyc-weekend-weekday-20261004/ENG-JYC-FIXTURES-001.decision.json",
+      "human_gate": "none",
+      "reason": null
+    },
+    {
+      "task_id": "ENG-JYC-FRONTIER-001",
+      "task_type": "integrate",
+      "scene_id": "COM-01B",
+      "depends_on": [],
+      "status": "NEEDS_REVIEW",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "5d9648c94793e83c04457517f6ffffa1a2cae83d2eb4e2aa204377bc78f8b0cf"
+      },
+      "decision_receipt": "content/production/runs/jyc-weekend-weekday-20261004/ENG-JYC-FRONTIER-001.decision.json",
+      "human_gate": "none",
+      "reason": null
+    },
+    {
+      "task_id": "INT-JYC-002",
+      "task_type": "integrate",
+      "scene_id": "COM-01B",
+      "depends_on": [
+        "NQA-OPEN-A-002",
+        "NQA-COM-01B-002",
+        "NQA-COM-01J-001",
+        "NQA-COM-02X-001",
+        "NQA-COM-02J-001",
+        "NQA-COM-03X-003",
+        "NQA-COM-03J-004",
+        "NQA-COM-03M-001"
+      ],
+      "status": "NEEDS_REVIEW",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "1b8ce9a3255a0b5acc668a07260fa2cd84cd3cf667cb99bf9733a8565265e228"
+      },
+      "decision_receipt": "content/production/runs/jyc-weekend-weekday-20261004/INT-JYC-002.decision.json",
+      "human_gate": "narrative_preview_review",
+      "reason": "Worker return reported PASS for261 tests; independent partial-frontier180→185 replay regression invalidates runtime readiness until correction. No creative QA invalidation."
+    },
+    {
+      "task_id": "INT-JYC-003",
+      "task_type": "integrate",
+      "scene_id": "COM-01B",
+      "depends_on": [
+        "NQA-OPEN-A-002",
+        "NQA-COM-01B-002",
+        "NQA-COM-01J-001",
+        "NQA-COM-02X-001",
+        "NQA-COM-02J-001",
+        "NQA-COM-03X-003",
+        "NQA-COM-03J-004",
+        "NQA-COM-03M-001"
+      ],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "40f672811ce863382ac49d7a68b91e9025863158cb07e72362eab9281c5fa66f"
+      },
+      "decision_receipt": "content/production/runs/jyc-weekend-weekday-20261004/INT-JYC-003.decision.json",
+      "human_gate": "narrative_preview_review",
+      "reason": null
+    }
+  ],
+  "invalidation_events": [
+    {
+      "task_id": "INT-JYC-002",
+      "reason": "Independent exact partial-frontier replay regression fails. Retain reported handoff as evidence; integration adoption pending.",
+      "affected": [
+        "integration:opening-ch1",
+        "playable_review:opening-ch1"
+      ],
+      "source": "ENG-JYC-FRONTIER-001"
+    },
+    {
+      "task_id": "INT-JYC-003",
+      "reason": "Verified runtime partial-frontier correction resolves INT002 independent180→185 replay defect; exactsnapshot/localtruth/unlocks/reload/forwardprogress tests PASS.",
+      "affected": [
+        "integration:opening-ch1",
+        "playable_review:opening-ch1"
+      ],
+      "source": "INT-JYC-003"
+    }
+  ],
+  "preview": null
+}

@@ -8,8 +8,8 @@ import { buildBenchmark, makeCases, selectHeadings, parseWorkerEvents, scoreTria
 import { writeScratchFiles } from '../tools/compile-review-context.mjs';
 
 const scenePath = 'docs/narrative/scenes/vertical-slice/COM-02X.md';
-const scene = await readFile(scenePath, 'utf8');
-const ref = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
+const ref = '013b3f73e75d8f00bbd2fa53a6cd2d885fecb9a9';
+const scene = execFileSync('git', ['show', `${ref}:${scenePath}`], { encoding: 'utf8' });
 
 test('four-arm COM-02X benchmark preserves complete target and strict continuity evidence, without leaking gold', async () => {
   const result = await buildBenchmark({ base: ref, ref });

@@ -132,7 +132,7 @@ test('return elevator trial rejects altered provenance, quality claims and expan
     d => { d.receipt.knownIssues = []; },
     d => { d.receipt.derivative.conversion.resize = 'upscale'; },
     d => { d.route.story.allowPreviewArt = false; },
-    d => { d.chapter.nodes.common_convenience_xu_exit_03.visual.background = 'bg.opening.com02x.return_elevator_trial'; },
+    d => { d.chapter.nodes.common_convenience_xu_exit_preview.visual.background = 'bg.opening.com02x.return_elevator_trial'; },
     d => { d.chapter.nodes.common_convenience_xu_exit.visual = { mode: 'cg', asset: 'bg.opening.com02x.return_elevator_trial' }; },
     d => { d.manifest.assets['bg.opening.com02x.return_elevator_trial'].gallery = { title: 'Forbidden' }; },
     d => { d.memories.events[0].cover.asset = 'bg.opening.com02x.return_elevator_trial'; }

@@ -33,6 +33,24 @@ if (argument('task') || argument('verify-packet')) {
     buildManifestUsabilityPacket, verifyManifestUsabilityPacket,
     buildCandidateVisualReviewPacket, verifyCandidateVisualReviewPacket } = await import('./context-packet.mjs');
   try {
+    const routingFlags = ['model-tier', 'routing-reason', 'attempt', 'correction-of', 'escalation-from'];
+    const selectedRouting = routingFlags.filter((name) => process.argv.includes(`--${name}`));
+    let executionPolicy;
+    if (selectedRouting.length) {
+      if (argument('verify-packet') || argument('task') !== 'narrative_review')
+        throw new Error('Execution policy options require narrative_review packet generation');
+      for (const name of selectedRouting) {
+        if (process.argv.filter((value) => value === `--${name}`).length !== 1 ||
+          !argument(name) || argument(name).startsWith('--'))
+          throw new Error(`Execution policy option requires one explicit value: --${name}`);
+      }
+      if (!['model-tier', 'routing-reason', 'attempt'].every((name) => selectedRouting.includes(name)))
+        throw new Error('Explicit execution policy requires --model-tier, --routing-reason and --attempt');
+      if (!/^[1-9][0-9]*$/.test(argument('attempt')))
+        throw new Error('Execution policy --attempt requires a positive integer');
+      executionPolicy = Object.fromEntries(selectedRouting.map((name) =>
+        [name.replaceAll('-', '_'), name === 'attempt' ? Number(argument(name)) : argument(name)]));
+    }
     if (argument('verify-packet')) {
       const packet = JSON.parse(await readFile(path.resolve(argument('verify-packet')), 'utf8'));
       if (packet.task_type === 'narrative_review') await verifyNarrativeReviewPacket(packet);
@@ -56,7 +74,7 @@ if (argument('task') || argument('verify-packet')) {
       const options = { sceneId: argument('scene'), runId: argument('run-id'),
         taskId: argument('task-id'), ref: argument('ref') };
       const packet = argument('task') === 'narrative_review'
-        ? await buildNarrativeReviewPacket(options)
+        ? await buildNarrativeReviewPacket({ ...options, executionPolicy })
         : argument('task') === 'cg_plan'
           ? await buildCgPlanPacket({ ...options,
             upstreamRunId: argument('upstream-run-id'), upstreamTaskId: argument('upstream-task-id'),
