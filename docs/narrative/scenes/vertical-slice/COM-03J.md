@@ -3,44 +3,44 @@
 ## Current authorized weekend/weekday design — ND-ARC-001
 
 - Lifecycle: **CANONICAL** task-local Narrative Design amendment, 2026-10-04. Source ref: `013b3f73e75d8f00bbd2fa53a6cd2d885fecb9a9`. Human 授權本輪方向與必要改寫；本 pass 沒有新 final prose、QA、runtime 或 CG acceptance。
-- Owning design: `docs/narrative/JYC_WEEKEND_WEEKDAY_REVISION.md`；current contract: `content/production/narrative/opening-ch1/COM-03J.json`。此 design section 與 current JSON 取代下方 baseline 的衝突時序／gate；下方舊 Locked prose 與其歷史 binding 完整保留作局部改寫或相容性參考，不是本輪新 Script Lock。
+- Owning design: `docs/narrative/JYC_WEEKEND_WEEKDAY_REVISION.md`；current contract: `content/production/narrative/opening-ch1/COM-03J.json`。此 design section 與 current JSON 擁有時序／gate；下方 CW-COM-03J-002 Script Lock 保留相容原稿，按批准的 scene-local repair scope 局部修訂。歷史 writing identity 不作本輪 approval。
 - 同平日晚間線上推薦，先檢查排除：不需 final dialogue rewrite；只改 design route labels／gate／callback selector。包裹後同平日晚間，現有「下午／晚上」與公開《折返月台》body、三個回复分支可保持。先 !jyc_permanently_excluded 再 true actual Discord contact；無 contact bypass。具體 callback 只在新 cafe dialogue 確曾談到時使用，book-focused reunion 缺動作／關圖層前事用既有 neutral；不寫或補造新推薦承諾。
 - Stable ID plan：無新 IDs；common_recommend_discord_jyc_* 與 com03j_* 保留。
 - 永久排除：本輪 `com01b_weekday_street_walk` 才寫 `jyc_permanently_excluded=true`。此 flag 先於 contact/history，永不由 merge、reload、scheduler、public shared scene 或 ordinary invite 清除。Memory replay 限自己的 snapshot，不向 live 主線寫入；改走前一分岔屬另一 playthrough，不是本輪 reopening。
 - Semantic visual impact 與四個必要 dialogue units 見 owning design；現有 accepted image bytes、QA/Human 歷史都保留。獨立下游才裁決哪些畫面可重用。
 
-## Preserved pre-revision baseline
+## Current Script Lock — CW-COM-03J-002
 
 
 > Lifecycle: **CANONICAL**（scene-local Locked Scene；writer-authored，獨立 Narrative QA 尚待審查）
 >
-> Scene / Dialogue task: `CW-CONTACT-CONTINUATION-001` / `m1-com03m-20261003`。
+> Scene / Dialogue task: `CW-COM-03J-002` / `jyc-weekend-weekday-20261004`。相容原稿沿用；本輪只修批准的 callback 與線上自然度。
 
 ## Status and boundary
 
 - Production stage: `content_writer / scene_dialogue`；本幕 Script Lock，等待獨立 `content_qa / narrative_review`。Human narrative-preview、visual 與 runtime integration gates 仍待後續階段。
-- Approved Narrative Design: `ND-CONTACT-CONTINUATION-001`；JSON 不由本 dialogue pass 改動。
-- COM-02J 擁有實際咖啡店相遇、互知姓名、共同話題、雙方同意與可用聯絡方式交換。書店 go 必定在同次外出到咖啡店；書店 skip 另有 cafe go/no-go。COM-03J 只承接已發生的事；COM-03X 的 common graph 位置不代表江雨澄又見過男主或知道許棠。
+- Run: `jyc-weekend-weekday-20261004`; task `CW-COM-03J-002`; harness `content_writer` v1.4.1 / `scene_dialogue`; workflow v1.3.1。Dispatched ref: `0daaed06d5149ae9d6c98c2fbb8eed54a3a21c97`; input scene blob: `48d3a106fc8d4eafcea125c8f90997f8c1c7f93f`。
+- Approved Narrative Design: `ND-COM-03J-003`，decision blob `f69563543a3a1b44ca2e277c0983af9939089927`；下方 source-local repair scope 為本輪批准範圍。JSON 不由本 dialogue pass 改動。
+- COM-02J 擁有實際平日咖啡店相遇、互知姓名、共同話題、雙方同意與可用聯絡方式交換。週末書店 go 在後續平日 cafe 重逢；週末留家支在平日選 cafe 初遇或街頭永久排除。COM-03J 在同晚包裹後只承接已發生的事；COM-03X 的 common graph 位置不代表江雨澄又見過男主或知道許棠。
 - `common_recommend_discord_jyc_*` 為既有穩定 authoring node IDs，三個 `com03j_*` 為既有穩定 reply choice IDs；此處沒有 runtime／save／Memory wiring。私訊 body 的具體渠道是 **Discord**，因此只在 COM-02J 實際雙方同意並交換 Discord 後使用。若前事實際交換其他管道，本稿不可假作 Discord 私訊；需由後續 bounded channel wording revision 解決，不得靜默改口。
 
 ## Canonical inputs
 
 - `content/production/narrative/opening-ch1/COM-03J.json` — exact approved COM-03J continuity contract.
-- `docs/narrative/scenes/vertical-slice/COM-02J.md` — pinned upstream cafe design source in this packet; its later Locked Scene is reserved for independent joint Narrative QA.
-- `docs/narrative/scenes/vertical-slice/COM-01J.md` — prerequisite bookstore-topic source path for independent downstream QA; prose not acquired in this bounded packet.
-- `content/production/narrative/opening-ch1/COM-02J.json` — approved upstream cafe contact/knowledge contract.
-- `content/production/narrative/opening-ch1/COM-03M.json` — contacted-Jiang Discord payoff requirement only.
-- `docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_COMMON.md` — only lines 184–206, COM-03J purpose and progression.
-- `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md` — only lines 296–328, Jiang knowledge constraints.
-- `docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md` — only lines 154–238 and 304–375, choice/consequence and no-score authority.
-- `docs/art/characters/jiang-yucheng.md` — only lines 11–62, Jiang character/voice boundary.
+- `docs/narrative/scenes/vertical-slice/COM-02J.md` — exact upstream Locked Scene, including actual book/map praise and small-annotation response.
+- `docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md` — choice/consequence and no-score authority.
+- `docs/art/characters/jiang-yucheng.md` — Jiang character/voice boundary.
+
+### Source-usage provenance
+
+The exact packet additionally supplies the current scene, approved ND-COM-03J-003 decision, task-local weekend/weekday amendment, continuity schemas and Production Workflow Tools. No other scene, contract, voice bank, runtime, CG or image was acquired. The original writing task `CW-CONTACT-CONTINUATION-001` / `m1-com03m-20261003` is retained as prose provenance only; discarded CW001 supplies no edits or lineage.
 
 ## Narrative Continuity Contract
 
 - Canonical contract: `content/production/narrative/opening-ch1/COM-03J.json`。
-- Verified contract SHA-256: `2a68efcb18dc06c982ecb19272f263a40eb104b86c793222ee8c0ba5b845e7e1`。
+- Verified contract SHA-256: `2b8aa83da0638dbba3e6526ede81313e5b05afeb9e0d0db63bd9876671dc5678`。Git blob: `79dfbcdd38ab5a17098112e969a8c2941bf66172`；contract bytes unchanged.
 
-- Entry：COM-02J 實際 cafe reunion 或 first meeting 後，雙方才知道當場交換的姓名和具體話題。聯絡可能已實際交換，也可能普通未交換；兩處皆 skip 時仍互不相識，本幕 Jiang content bypass。
+- Entry：COM-02J 實際平日 cafe reunion 或 first meeting 後，雙方才知道當場交換的姓名和具體話題。聯絡可能已實際交換，也可能普通未交換；平日街頭永久排除支仍互不相識，本幕 Jiang content bypass。
 - Contacted exit：只在 COM-02J 實際 Discord 交換、姓名和具體共同話題均成立時，從同次 cafe 討論接《折返月台》公開推薦及當晚訊息。雨澄的線上反應隨熟悉內容展開；三種收束只記 local reply rhythm，沒有邀約或戀愛承諾。
 - No-contact exit：實際 cafe 相遇但未交換聯絡時，只保留 COM-02J 已演出的姓名與話題，普通告別後不播私訊。未見者沒有姓名、話題、訊息或聯絡。
 - Knowledge：只按 COM-01J／COM-02J 真正演出且具可信 provenance 的 history 回扣。首次 cafe 相遇不承接書架、雨澄的咖啡推薦或前次作品話題。無創作匿名身分、商業委託、住處與跨人物知識揭露。
@@ -50,9 +50,9 @@
 
 ```yaml
 route_inputs:
-  bookstore_go: COM-01J completed -> same-visit COM-02J reunion
-  bookstore_skip_cafe_go: COM-02J first meeting, no COM-01J history
-  bookstore_skip_cafe_skip: bypass COM-02J and all COM-03J Jiang content
+  bookstore_go: weekend COM-01J completed -> weekday COM-02J reunion
+  bookstore_skip_cafe_go: weekend home -> weekday COM-02J first meeting, no COM-01J history
+  weekday_street: permanent exclusion -> bypass all COM-03J Jiang content
 contacted_discord_requires:
   - actual COM-02J cafe encounter and completed name exchange
   - actual concrete common topic and public-recommendation bridge
@@ -128,7 +128,7 @@ COM-02J already completes the cafe goodbye on both actual-contact and no-contact
 
 #### Variant `general_praise`
 
-**Discord — Jiang Yucheng**：下午說我把亂的圖層關掉才顯得乾淨，我後來想到《折返月台》一張圖。這張是遊戲裡的完整畫面啦。我傳給你看。
+**Discord — Jiang Yucheng**：下午你說雨港那張分區圖翻了好幾次，我想到《折返月台》的一張圖。不是書後面那種小註解啦，這張可以放大看。我傳給你看。
 
 #### Variant `neutral`
 
@@ -154,7 +154,7 @@ COM-02J already completes the cafe goodbye on both actual-contact and no-contact
 
 **Protagonist — message**：前面站著的，看起來快走到出口了。
 
-**Discord — Jiang Yucheng**：他其實站著沒動。那個亮的地方有點騙人。
+**Discord — Jiang Yucheng**：他其實沒動。我知道，看起來很像要走。
 
 **Protagonist — message**：喔，我剛剛以為他在往外走。
 
@@ -168,7 +168,7 @@ COM-02J already completes the cafe goodbye on both actual-contact and no-contact
 
 **Message attachment**：第二張同一場景截圖，站牌及地上的箭頭更容易分辨，出口亮處被柱子遮住一部分。
 
-**Discord — Jiang Yucheng**：第一張很容易先看到出口，再看人。但地上那個箭頭是往另一邊，跟亮的地方方向相反。
+**Discord — Jiang Yucheng**：你往下看，地上有個箭頭。它跟出口那塊亮的地方，方向剛好相反。
 
 **Protagonist — message**：真的欸。我一直看上面那塊亮的，沒看到箭頭。
 
@@ -178,7 +178,7 @@ COM-02J already completes the cafe goodbye on both actual-contact and no-contact
 
 **Protagonist — message**：所以那個光不是帶路用的？
 
-**Discord — Jiang Yucheng**：不一定。那只是出口的燈。要往哪邊走，還是要看箭頭。
+**Discord — Jiang Yucheng**：嗯……那只是出口的燈，不一定是帶路用的。要走哪邊還是看箭頭。
 
 → `common_recommend_discord_jyc_meme`
 
@@ -200,9 +200,9 @@ COM-02J already completes the cafe goodbye on both actual-contact and no-contact
 
 ### `common_recommend_discord_jyc_correction`
 
-**Discord — Jiang Yucheng**：而且亮的地方也不是沒用。它在地上留了一條反光，剛好把站著那個人的腳分出來。
+**Discord — Jiang Yucheng**：啊，剛剛那個亮的地方，也不是沒用啦。你看地上那條反光，站著那個人的腳就分出來了。
 
-**Protagonist — message**：難怪背景也很暗，還是看得清楚人在哪。
+**Protagonist — message**：喔，看到了。背景這麼暗，腳還是看得清楚。
 
 **Discord — Jiang Yucheng**：對。要是全部都亮，就看不到這個差別了。
 
@@ -210,7 +210,7 @@ COM-02J already completes the cafe goodbye on both actual-contact and no-contact
 
 **Discord — Jiang Yucheng**：是我看到出口亮著，就以為一定能往那邊走。路其實一直有標，是我沒看。
 
-**Protagonist — message**：我也看錯了。剛剛一直覺得他在走，現在看手又不像。
+**Protagonist — message**：我還是覺得他像在走。可是看他的手……好像又不是。
 
 **Discord — Jiang Yucheng**：嗯，你再看他手的位置就會發現。他站得滿僵的。
 
@@ -353,8 +353,60 @@ COM-02J already completes the cafe goodbye on both actual-contact and no-contact
 | `shared_work`，當場確實談雨港分區 | bookstore go + COM-01J `worldbuilding`，且本次 cafe 也回扣 | `shared_worldbuilding` | first cafe meet 絕不使用。 |
 | `shared_work`，當場確實回扣字／版本笑話 | bookstore go + COM-01J `edition_value`，且本次 cafe 也回扣 | `shared_edition_value` | first cafe meet 絕不使用。 |
 | `shared_work`，當場只談一般畫面安排 | first topic 缺失／未知或無當地特定 callback | `shared_neutral` | 不提書店作品或未說過的設定集。 |
-| `general_praise`，當場確實有關圖層幽默 | 不使用 first topic | `general_praise` | 只回扣剛才的圖層句。 |
+| `general_praise`，當場確實稱讚書／雨港分區圖，且她回應後面註解變小 | 不使用 first topic | `general_praise` | 只回扣本次 cafe 的書／圖／註解；缺失或不可信時用 `neutral`。 |
 | 當場具體共同視覺興趣成立，detail 缺失／未知／不可信 | 不使用 first topic | `neutral` | 不主張選過某 topic；若連共同話題也無可信證據，停止線上 path 並交 Narrative QA／integration 查明，不憑空推薦。 |
+
+### Executable authoring selector
+
+This is a compileable authoring projection for later integration, not a runtime change. All arguments belong to the same verified playthrough or replay snapshot. `cafeEvidence` contains verified spoken/event evidence, not new saved flags: `commonVisualTopic` and `usableDiscordExchange` cover the actual shared topic and completed mutual exchange; `details` lists only callback facts actually spoken. A topic enum alone supplies none of those facts. `trustworthyFirstTopic` is read only for `shared_work` on bookstore-go. Detail keys below describe the table's exact spoken requirements; missing/untrusted details select the existing neutral message.
+
+```js
+function selectCom03j({ flags, choiceHistory, cafeEvidence,
+  trustworthySecondTopic, trustworthyFirstTopic }) {
+  if (flags.jyc_permanently_excluded === true) return null;
+  if (flags.jyc_permanently_excluded !== false) {
+    throw new Error('COM-03J: missing exclusion guard');
+  }
+  const chosen = new Set(Object.values(choiceHistory));
+  if (chosen.has('com01b_weekday_street_walk')) return null;
+  if (flags.met_jiang_yucheng === false) return null;
+  if (flags.met_jiang_yucheng !== true) {
+    throw new Error('COM-03J: missing encounter evidence');
+  }
+  if (flags.contact_jyc === false) {
+    return { entryNode: 'common_recommend_discord_jyc_no_contact_exit',
+      callbackVariant: null };
+  }
+  if (flags.contact_jyc !== true || flags.player_knows_jyc_name !== true ||
+      flags.jyc_knows_player_name !== true ||
+      cafeEvidence?.commonVisualTopic !== true ||
+      cafeEvidence?.usableDiscordExchange !== true) {
+    throw new Error('COM-03J: incomplete actual cafe/Discord evidence');
+  }
+  const details = new Set(cafeEvidence.details ?? []);
+  let callbackVariant = 'neutral';
+  if (trustworthySecondTopic === 'general_praise') {
+    if (details.has('rain_port_map_praise_and_small_annotations')) {
+      callbackVariant = 'general_praise';
+    }
+  } else if (trustworthySecondTopic === 'her_art') {
+    if (details.has('her_character_poses')) callbackVariant = 'her_art';
+  } else if (trustworthySecondTopic === 'shared_work') {
+    const variants = {
+      visual_design: ['less_bright_area_draws_attention', 'shared_visual_design'],
+      worldbuilding: ['rain_port_districts', 'shared_worldbuilding'],
+      edition_value: ['small_book_text', 'shared_edition_value']
+    };
+    const specific = chosen.has('com01b_bookstore_go')
+      ? variants[trustworthyFirstTopic] : null;
+    callbackVariant = specific && details.has(specific[0])
+      ? specific[1] : 'shared_neutral';
+  }
+  return { entryNode: 'common_recommend_discord_jyc_enter', callbackVariant };
+}
+```
+
+Select once on scene entry; save/resume retains that selection and chosen reply branch. All contacted nodes require a non-null contacted selection. The callback plays only its selected variant and then the same `first_message` attachments. The general-praise path never consults first-topic history. Reply state remains exactly the three branch-local markers above; replay discards them on return. Integration must derive evidence from actual authored history, never fill a missing replay fact from live state.
 
 ## Choice / rejoin contract
 
@@ -403,4 +455,6 @@ Replay reads only its own trustworthy route, encounter, contact, topic and chann
 
 ## Verification boundary
 
-Writer completed exactly one bounded continuous-dialogue naturalization sweep on the evening entrance, first-message callbacks and retained online exchange. The shared body keeps the original public page, two screenshots, uptake, analysis, meme, correction, three stable reply IDs, branch reactions and semantic visual beats. The changed evening entrance has an explicit cafe topic cause; no script voice asserts a new meeting, unearned consent, earlier promise or unseen history. Own-stage validation and exact output hash are in this task's ignored Handoff. Fresh independent Narrative QA, Human preview, visual review and runtime integration remain separate gates.
+CW-COM-03J-002 completed exactly one bounded continuous-dialogue naturalization sweep over the affected online exchange, retaining ordinary uptake, misunderstanding, meme, self-correction and all three branch reactions/goodbyes. Only six existing messages in uptake/analysis/correction were softened; the general-praise first message and its selector were repaired against the exact COM-02J book/map/annotation exchange. Other callback prose, narration, actions, attachments, choices, times and rejoin targets remain reusable and unchanged. Scene metadata now binds this packet and the unchanged contract; the authoring selector makes the existing guards and factual fallback explicit.
+
+Modified semantic visual beats: **none authored**. Every existing Semantic Visual Beat line remains byte-for-byte identical; independent Narrative QA still owns any no-visual-impact decision. Contract, runtime, art and prior QA/Human evidence were not modified. Writer own-stage checks and exact output identity are in this task's ignored Handoff; independent Narrative QA, Human preview, visual review and runtime integration remain **PENDING**.
