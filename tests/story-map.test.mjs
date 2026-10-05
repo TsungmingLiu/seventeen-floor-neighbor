@@ -95,6 +95,20 @@ test('every reachable Opening passage has a scene in the presentation mapping', 
   assert.ok(seen.size > 700);
 });
 
+test('current branch conditions have readable narrative labels', () => {
+  const seen = new Set(), pending = [chapter.startNode];
+  while (pending.length) {
+    const id = pending.pop();
+    if (!id || seen.has(id) || !chapter.nodes[id]) continue;
+    seen.add(id);
+    for (const label of Object.values(map.branchLabels[id] || {})) {
+      assert.ok(label && !label.includes('依先前互動接續'), `Untranslated condition at ${id}: ${label}`);
+      assert.equal(/history:|contact_|jyc_|preview:/.test(label), false);
+    }
+    pending.push(...runtimeTargets(chapter.nodes[id]));
+  }
+});
+
 test('an unreachable compatibility node cannot lend artwork or connections to the current scene', () => {
   const altered = structuredClone(chapter);
   altered.nodes.common_convenience_xu_legacy_art_test = {
