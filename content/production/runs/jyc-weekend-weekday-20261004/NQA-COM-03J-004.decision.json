@@ -1,0 +1,136 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "jyc-weekend-weekday-20261004",
+  "task_id": "NQA-COM-03J-004",
+  "scene_id": "COM-03J",
+  "task_type": "narrative_review",
+  "status": "PASS",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.5.1",
+    "pass": "narrative_review"
+  },
+  "source_ref": "2144afa3cf6bb2b974fd2cb0dbdf2a0362c18922",
+  "packet_sha256": "e8924f2170b178799454a4f5b45dcca2f7cd5de1d5fd3f068dffe5b8957ce96b",
+  "input_digest_sha256": "8ea57d2392757d0757dc4fafa73a3f70552d87a839f0ceca4cfd83953956717e",
+  "input_versions": [
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-03J.json",
+      "version": "79dfbcdd38ab5a17098112e969a8c2941bf66172",
+      "location": "content/production/narrative/opening-ch1/COM-03J.json"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-03J.md",
+      "version": "1397ebdd4181c67e02c83a203f7ee4d03329d73e",
+      "location": "docs/narrative/scenes/vertical-slice/COM-03J.md"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-02J.md",
+      "version": "88eee4bd88926df7056f91edb29a46c70d0384e0",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02J.md"
+    },
+    {
+      "id": "file:docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md",
+      "version": "9d44ab016a3a32da239b2d711117e05f087625f4",
+      "location": "docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md"
+    }
+  ],
+  "output_versions": [],
+  "qa_codes": [
+    {
+      "name": "NQA-SCENE-FUNCTION-AND-PAYOFFS",
+      "code": "NQA-SCENE-FUNCTION-AND-PAYOFFS",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-VOICE-AND-PACING",
+      "code": "NQA-VOICE-AND-PACING",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-DIALOGUE-NATURALISM",
+      "code": "NQA-DIALOGUE-NATURALISM",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-FIRST-PERSON-TRADITIONAL-CHINESE",
+      "code": "NQA-FIRST-PERSON-TRADITIONAL-CHINESE",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-KNOWLEDGE-AND-CONTACT-TIMING",
+      "code": "NQA-KNOWLEDGE-AND-CONTACT-TIMING",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-CALLBACK-FACTUALITY",
+      "code": "NQA-CALLBACK-FACTUALITY",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-LOCAL-VARIANTS-AND-REJOINS",
+      "code": "NQA-LOCAL-VARIANTS-AND-REJOINS",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-CHOICE-TRIAD",
+      "code": "NQA-CHOICE-TRIAD",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-CHOICE-DISTINCTNESS",
+      "code": "NQA-CHOICE-DISTINCTNESS",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-CHOICE-NO-ANSWER-KEY",
+      "code": "NQA-CHOICE-NO-ANSWER-KEY",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-REACTION-CONTEXT",
+      "code": "NQA-REACTION-CONTEXT",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-SEMANTIC-CONSEQUENCE",
+      "code": "NQA-SEMANTIC-CONSEQUENCE",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-STRUCTURAL-LOCALITY",
+      "code": "NQA-STRUCTURAL-LOCALITY",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-MAP-LEGIBILITY",
+      "code": "NQA-MAP-LEGIBILITY",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-NO-RELATIONSHIP-SCORE-GATE",
+      "code": "NQA-NO-RELATIONSHIP-SCORE-GATE",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-STATE-ID-MERGE-BOUNDARIES",
+      "code": "NQA-STATE-ID-MERGE-BOUNDARIES",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-SEMANTIC-VISUAL-BEATS",
+      "code": "NQA-SEMANTIC-VISUAL-BEATS",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-SOURCE-AUTHORITY-AND-SCOPE",
+      "code": "NQA-SOURCE-AUTHORITY-AND-SCOPE",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [],
+  "human_gate_required": "none",
+  "invalidates": []
+}
