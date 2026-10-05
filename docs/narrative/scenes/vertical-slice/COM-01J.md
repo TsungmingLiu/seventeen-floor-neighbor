@@ -3,13 +3,13 @@
 ## Current authorized weekend/weekday design — ND-ARC-001
 
 - Lifecycle: **CANONICAL** task-local Narrative Design amendment, 2026-10-04. Source ref: `013b3f73e75d8f00bbd2fa53a6cd2d885fecb9a9`. Human 授權本輪方向與必要改寫；本 pass 沒有新 final prose、QA、runtime 或 CG acceptance。
-- Owning design: `docs/narrative/JYC_WEEKEND_WEEKDAY_REVISION.md`；current contract: `content/production/narrative/opening-ch1/COM-01J.json`。此 design section 與 current JSON 取代下方 baseline 的衝突時序／gate；下方舊 Locked prose 與其歷史 binding 完整保留作局部改寫或相容性參考，不是本輪新 Script Lock。
+- Owning design: `docs/narrative/JYC_WEEKEND_WEEKDAY_REVISION.md`；current contract: `content/production/narrative/opening-ch1/COM-01J.json`。此 design section 與 current JSON 取代下方 baseline 的衝突時序／gate；下方 enter→rejoin 舊 Locked prose 原文保留；本輪僅改 cafe_seed／exit 並加入 purchase／home_return。舊 coda 保留於文末歷史區，不參與編譯；本輪稿待獨立 Narrative QA。
 - 保留初遇，修改購書出口：四個 dialogue unit 之一，限 cafe_seed／exit coda 的時間意圖及購書／回家結尾。從 enter 到 rejoin、三個 topic 分支全部保留。咖啡推薦是供後續平日使用，刪除同次外出立刻去 cafe 的承諾。雨澄離開後，我實際買到原本想要的世界設定增補版並回家；同週末接 COM-02X。無姓名／contact。
 - Stable ID plan：common_acg_first_meet_purchase/home_return；現有 common_acg_first_meet_* 及三個 com01j_* topic IDs 保留。
 - 永久排除：本輪 `com01b_weekday_street_walk` 才寫 `jyc_permanently_excluded=true`。此 flag 先於 contact/history，永不由 merge、reload、scheduler、public shared scene 或 ordinary invite 清除。Memory replay 限自己的 snapshot，不向 live 主線寫入；改走前一分岔屬另一 playthrough，不是本輪 reopening。
 - Semantic visual impact 與四個必要 dialogue units 見 owning design；現有 accepted image bytes、QA/Human 歷史都保留。獨立下游才裁決哪些畫面可重用。
 
-## Preserved pre-revision baseline
+## Current dialogue revision — CW-COM-01J-001
 
 
 > **Rendering boundary:** this scene remains canonical for narrative/state/staging and semantic visual beats. Older 9:16/sprite/composite instructions are historical annotations; new render-ready decisions belong to the canonical CG manifest produced by `cg_planner`.
@@ -17,7 +17,8 @@
 
 ## Status
 
-- Production stage: **S4 Script Lock / S5 State Contract / S6 Art Shot Lock**
+- Current production stage: **scene_dialogue complete / writer PASS**；本輪沒有新 QA 或 Art Shot acceptance。
+- Historical production stage: **S4 Script Lock / S5 State Contract / S6 Art Shot Lock**。
 - Scope: Opening Vertical Slice / common Jiang entry
 - Memory ownership: `common`
 - Progress band: `140`
@@ -40,7 +41,7 @@
 
 ## Scene summary
 
-同週末，男主為補齊一套自己真的關注的虛構科幻遊戲設定集，來到台北地下街的 ACG 店。江雨澄站在同一排書架前，比較《逆光航路》兩本不同內容的畫冊。男主不是對她搭話，而是針對版本差異說出一項具體、可驗證的觀察；她先短答，確認他不是硬找話題後，才補上自己在意的美術判斷。兩人聊到足以記住對方，卻沒有交換姓名或聯絡方式。離開前，她順口提到附近一間適合坐著翻書、畫圖的安靜咖啡店，為 COM-02J 建立 causal geography。
+同週末，男主為補齊一套自己真的關注的虛構科幻遊戲設定集，來到台北地下街的 ACG 店。江雨澄站在同一排書架前，比較《逆光航路》兩本不同內容的畫冊。男主不是對她搭話，而是針對版本差異說出一項具體、可驗證的觀察；她先短答，確認他不是硬找話題後，才補上自己在意的美術判斷。兩人聊到足以記住對方，卻沒有交換姓名或聯絡方式。離開前，她順口提到附近一間適合坐著翻書的咖啡店，留下後續平日下午可用的地理資訊。她離開後，我買好原本想找的世界設定增補版，帶回家翻閱，再接同週末晚間 COM-02X。
 
 ## Scene goal / dramatic question
 
@@ -54,7 +55,10 @@
 ```yaml
 requires:
   - met_xu_tang == true
-recommended_previous: COM-01X
+  - jyc_permanently_excluded == false
+history_requires:
+  common_bookstore_bridge_weekend_decision: com01b_bookstore_go
+recommended_previous: COM-01B
 ```
 
 - 時間：Week 1 週末，約 15:40。
@@ -81,8 +85,10 @@ recommended_previous: COM-01X
 | 01J.5 Player topic choice | local branch | 玩家從世界設定、視覺設計、版本實用性三個角度回答。每條都證明真實興趣，但揭示不同 tone。 | dissolve 回 sprite；表情依分支。 | tone + optional topic record |
 | 01J.6 她的判斷變長 | payoff | 雨澄不只同意；她提出一個具體不同意見或補充，例如新版色彩腳本完整，但機械圖註釋被縮得難讀。語速稍快，說到一半才意識自己講多。 | `talking_about_art` 等效表情；campus set 使用 `small_smile / thinking_before_reply`。 | none |
 | 01J.7 留退路 | respect beat | 男主可以接一個追問或在對話自然停點收住。即使玩家選繼續聊，也只多 2–3 來回，不問私人資訊。 | 兩人仍分站書架兩側。 | none |
-| 01J.8 Cafe seed | causal bridge | 男主提到想找地方坐著比較版本／還要處理一點工作。雨澄說地下街出口附近有間車站咖啡店，平日下午窗邊較安靜、店員不趕人；像實用推薦，不像邀約。 | `polite` / `small_smile`。 | `heard_station_cafe_from_jyc=true` |
+| 01J.8 Cafe seed | causal bridge | 男主問附近是否有地方能安靜翻書。雨澄給平日下午可用的咖啡店推薦；男主留待往後，當日不赴 cafe。 | `polite` / `small_smile`。 | `heard_station_cafe_from_jyc=true` |
 | 01J.9 No-name exit | exit | 她先拿定其中一本或放回一本；人流讓兩人自然錯開。只說「那本如果只看雨港篇比較值得」之類作品收尾。男主沒有追上問名字。 | JYC sprite 淡出至地下街走道 transition。 | `met_jiang_yucheng=true`; `F_JYC +=1` |
+| 01J.10 Purchase | actual purchase | 她離開後，我繼續翻完展示本，為原本的閱讀目的選世界設定增補版，付錢帶走。 | 購書、收據與書袋的 semantic beat；不指定畫面。 | `weekend_book_purchased=true`，只在付錢完成後 |
+| 01J.11 Home return | scene handoff | 我帶書回家，拆封對照電子版。當晚約 23:00 接 COM-02X 的購書分支。 | 晴朗週末回家、已購書在桌上；不指定畫面。 | 保留本幕實際知識 |
 
 ## Emotion arc
 
@@ -121,7 +127,7 @@ Choice design notes：
 
 ## Locked playable script
 
-> Dialogue/action/state remain locked. Any `Visual` line below is a historical runtime transcript, not a current render instruction；new rendering uses `content/production/cg-manifests/opening-ch1.json` only。
+> Enter→rejoin retains its previous locked dialogue/action. The revised coda and local state markers await independent Narrative QA. Any `Visual` line below is a historical runtime transcript, not a current render instruction；new rendering uses `content/production/cg-manifests/opening-ch1.json` only。
 
 ### `common_acg_first_meet_enter`
 
@@ -233,13 +239,13 @@ Choice design notes：
 
 ### `common_acg_first_meet_cafe_seed`
 
-**Protagonist**：這兩本我可能還要想一下。我晚點也得處理一點工作……這附近有哪裡能坐著翻書、不太吵的嗎？
+**Protagonist**：這兩本我可能還要想一下。這附近有哪裡能坐著翻書、不太吵的嗎？
 
 **Jiang Yucheng**：北邊出口那間可以去看看。
 
 **Jiang Yucheng**：週末這時候我不太確定會不會吵。平日下午窗邊滿安靜的，插座也有。坐久一點，店員不太會趕。
 
-**Protagonist**：好，謝謝。我等一下去看看。
+**Protagonist**：好，謝謝。平日有空再去看看。
 
 **Jiang Yucheng**：嗯。這裡人太多，翻一頁要讓一次路。
 
@@ -257,11 +263,37 @@ Choice design notes：
 
 **Action**：她拿著選定的書走向結帳。我退回書架另一側，翻開展示本。
 
-**Protagonist (thought)**：這兩本還得再翻一下。北邊出口那間咖啡店，等一下也可以去看看。
+**Protagonist (thought)**：這兩本還得再翻一下。
 
 **Narration**：結帳的人潮隔開了書架兩側。她帶著書走了，我還在展示本前翻頁。
 
 **End actions**：`met_jiang_yucheng=true`；`relationship.jyc.familiarity +=1`；設定 `heard_station_cafe_from_jyc=true` 與 `jyc_first_topic`。
+
+→ Next `common_acg_first_meet_purchase`
+
+### `common_acg_first_meet_purchase`
+
+**Action**：我把世界設定增補版的展示本翻到最後，再回頭看了幾頁。我把機械稿的展示本闔上放回原位，拿起旁邊封膜完整的增補版。
+
+**Protagonist (thought)**：還是先買原本要找的這本。機械稿下次再說。
+
+**Action**：我拿著世界設定增補版去結帳，付完錢，把書和收據一起收進袋子。
+
+**Narration**：走出地下街，外面還亮著。我提好袋子，往回家的捷運入口走。
+
+**End actions**：`weekend_book_purchased=true`。
+
+→ Next `common_acg_first_meet_home_return`
+
+### `common_acg_first_meet_home_return`
+
+**Action**：回到家，我把書袋放在桌上，拆掉封膜。我把書攤平，從剛才在店裡翻過的幾頁開始看。
+
+**Narration**：我翻了幾頁，又打開原本的電子版對照。窗邊的陽光落在桌上，我把書往裡挪了一點。
+
+**Protagonist (thought)**：這頁果然還是看紙本舒服一點。
+
+→ Scene handoff `COM-02X`，同週末約 23:00；使用已完成購書的 weekend-book variant。下一次咖啡店外出由後續平日工作段承接。
 
 ## State contract
 
@@ -270,11 +302,14 @@ Choice design notes：
 ```yaml
 requires:
   - met_xu_tang == true
+  - jyc_permanently_excluded == false
+history_requires:
+  common_bookstore_bridge_weekend_decision: com01b_bookstore_go
 forbids:
   - met_jiang_yucheng == true
 ```
 
-### Stats
+### Legacy compatibility stats（不作 narrative authority）
 
 ```yaml
 relationship.jyc.familiarity: +1
@@ -290,11 +325,14 @@ set:
   met_jiang_yucheng: true
   heard_station_cafe_from_jyc: true
   jyc_first_topic: worldbuilding | visual_design | edition_value
+set_on_completed_purchase_only:
+  weekend_book_purchased: true
 unchanged:
   player_knows_jyc_name: false
   jyc_knows_player_name: false
   contact_jyc: false
   relationship.jyc.romanticSignal: false
+  jyc_permanently_excluded: false
 ```
 
 - 不更新任何 Xu/JYC cross-knowledge；兩人尚不知道彼此存在。
@@ -302,12 +340,13 @@ unchanged:
 
 ### Next structural targets
 
-- 解鎖 `COM-02J`。
-- Common sequence 可先進 `COM-02X` 再回 `COM-02J`，以交錯方式建立兩條 texture。
+- `common_acg_first_meet_exit` → `common_acg_first_meet_purchase` → `common_acg_first_meet_home_return` → 同週末晚間 `COM-02X`。
+- `COM-02X` 使用 `weekend_book_purchased == true` 的已購書 variant；留家分支不進本幕。
+- 後續 `common_weekday_outing_work` 才承接平日下午外出與 `COM-02J` 重遇；本幕不通往週末 cafe。
 
 ## Runtime / Memory intent
 
-- 建議拆成 10–13 個 nodes，前綴 `common_acg_first_meet_*`。
+- 保留既有 `common_acg_first_meet_*` node IDs 與三個 topic choice IDs；新增 `common_acg_first_meet_purchase`／`common_acg_first_meet_home_return`。Topic branches 原 rejoin 完全不變，整合時可在此前綴內拆出必要 suffix nodes。
 - Memory title：**地下街初遇**。
 - Current playable Memory cover：`cg.opening.com01j.base_guarded`；title backdrop 可使用 accepted reaction。
 - Replay 必須保留玩家原先 `jyc_first_topic` 或以 replay-local state 顯示，不改寫 frontier save。
@@ -320,6 +359,12 @@ Canonical manifest：`content/production/cg-manifests/opening-ch1.json`。
 - `COM01J-R01-INTERESTED`：base 的 expression/gaze bounded edit；interest 指向作品討論。
 
 現有 accepted demo base/reaction 有 ingest receipt 記錄的 provisional wardrobe drift。Manifest 的 `known_issues` 保留這個事實，但 canonical wardrobe 仍是 `JYC-WARDROBE-A-ACG-OUTING`；未來 rerender 不得把 drift 當 design precedent。
+
+### Current coda semantic visual changes
+
+- 書架初遇核心與反應意義保留。Cafe seed 的去向意圖變成後續平日資訊，不新增相約或同行。
+- 新增實際結帳、持書袋離開地下街、晴朗週末回家與已購入增補版拆封對照。這些取代立即去 cafe 的 coda；需下游 visual-impact review，不宣稱既有圖可直接覆蓋。
+- 未讀取 CG 或圖片，未修改任何 accepted image bytes 或歷史 QA/Human evidence。
 
 ## Dialogue writing notes
 
@@ -358,9 +403,16 @@ Canonical manifest：`content/production/cg-manifests/opening-ch1.json`。
 - `met_jiang_yucheng=true`, `F_JYC +1`。
 - 兩人仍不知道彼此姓名，但能靠《逆光航路》與第一次談到的 topic 認出對方。
 - 玩家已看到雨澄的核心節奏：先短答、判斷安全、進入作品後句子變長、在自己選的節點退出。
-- 男主記住她提過的車站咖啡店，讓下一次相遇是 causal reuse，而不是純巧合。
+- 男主記住她提過的車站咖啡店，留待下一平日下午；本日已買好世界設定增補版並回家。
+- `weekend_book_purchased=true` 來自完成結帳；她已先離開，此時不知道他最後買了哪本。
 
-## Review log
+## Current writer checks（非獨立 QA）
+
+- Exactly one bounded naturalization sweep：將完整互動連續重讀，僅檢查並自然化 affected coda；enter→rejoin 核心原文不動。Cafe seed 保留普通致謝與原有節奏，沒有新增履歷／親密推論；獨行 coda 用實際購書與回家 action 呈現結果。
+- 三個既有 topic branches 的 playable prose 與 rejoin 原文保留；沒有新選項、分數 authority 或提前姓名／contact。
+- 只完成 scene_dialogue；Narrative QA、visual-impact review 與 runtime integration 尚未完成。
+
+## Historical review log（原記錄保留；不代表本輪 QA）
 
 - Player-perspective pass：共同興趣具體到足以支撐交談，又不需要玩家真的了解虛構 IP 才能跟上。
 - Character/continuity pass：無姓名／聯絡方式；COM-02J 的 cafe 來源已明確埋入。
@@ -368,3 +420,42 @@ Canonical manifest：`content/production/cg-manifests/opening-ch1.json`。
 - Voice contrast pass：與許棠的短乾生活語氣不同；雨澄在興趣打開後句長與資訊密度上升。
 - Art pass：CG 捕捉認知轉折，不複製站立 sprite。
 - Locked unresolved items：虛構 IP 名稱可在全體 content naming review 時替換，但必須跨 COM-01J／02J／03J 同步。
+
+## Historical pre-revision coda（不參與本輪編譯）
+
+以下原文只保留修訂前證據；其中立即去 cafe 的台詞／意圖已由 current coda 取代，不是可執行 node。
+
+```text
+### `common_acg_first_meet_cafe_seed`
+
+**Protagonist**：這兩本我可能還要想一下。我晚點也得處理一點工作……這附近有哪裡能坐著翻書、不太吵的嗎？
+
+**Jiang Yucheng**：北邊出口那間可以去看看。
+
+**Jiang Yucheng**：週末這時候我不太確定會不會吵。平日下午窗邊滿安靜的，插座也有。坐久一點，店員不太會趕。
+
+**Protagonist**：好，謝謝。我等一下去看看。
+
+**Jiang Yucheng**：嗯。這裡人太多，翻一頁要讓一次路。
+
+**Visual**：她話音一停，表情回到 `polite`；不要 blush。
+
+### `common_acg_first_meet_exit`
+
+**Action**：有人從兩人中間的走道經過。雨澄往結帳方向退半步，我讓開書架。
+
+**Jiang Yucheng**：如果主要看雨港篇，舊版還是比較值得。
+
+**Protagonist**：好，我回去再翻舊的。謝謝。
+
+**Jiang Yucheng**：嗯。
+
+**Action**：她拿著選定的書走向結帳。我退回書架另一側，翻開展示本。
+
+**Protagonist (thought)**：這兩本還得再翻一下。北邊出口那間咖啡店，等一下也可以去看看。
+
+**Narration**：結帳的人潮隔開了書架兩側。她帶著書走了，我還在展示本前翻頁。
+
+**End actions**：`met_jiang_yucheng=true`；`relationship.jyc.familiarity +=1`；設定 `heard_station_cafe_from_jyc=true` 與 `jyc_first_topic`。
+
+```
