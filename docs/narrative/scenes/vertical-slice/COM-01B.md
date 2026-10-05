@@ -213,13 +213,13 @@ JSON 中 `history` 以 choice-node ID 為 key，value 為實際選中的 choice 
 
 **Protagonist (thought)**：週末正好要看《逆光航路》新版設定集的實體增補。那家店會有嗎？
 
-### `common_bookstore_bridge_weekend_decision`
-
 **Time transition**：同週末，晴朗的午後；我還在家。
 
 **Narration**：陽光從窗簾邊照進來，落在還沒拆完的紙箱上。我挪開椅子上的衣服，坐了一下。手機裡還留著《逆光航路》新版設定集的介紹；網頁那幾張預覽，看不太出增補了多少。
 
-**Protagonist (thought)**：許棠說的那家地下街書店，大概會有吧。不過這幾箱也擱好幾天了。
+### `common_bookstore_bridge_weekend_decision`
+
+**Protagonist (thought)**：去許棠說的那家店翻翻，應該比盯著這幾張照片清楚。不過箱子也擱好幾天了，還有工作要整理……先做哪一邊？
 
 1. `com01b_bookstore_go` — **「去地下街書店翻翻設定集。」**
 2. `com01b_bookstore_skip` — **「留在家拆箱，整理一下工作。」**
