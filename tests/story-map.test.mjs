@@ -58,7 +58,7 @@ test('parcel is a separate scene and does not unlock from the earlier shared Mem
 test('review projection exposes all entry versions without modifying gameplay', () => {
   const save = progress([]), before = JSON.stringify(save);
   const view = storyMapView(map, memoryLibrary, chapter, save, true);
-  assert.equal(view.groups.length, definition.groups.length);
+  assert.equal(view.groups.length, map.groups.length);
   assert.ok(view.groups.every(g => !g.locked));
   assert.equal(JSON.stringify(save), before);
   assert.ok(view.edges.find(e => e.from === 'weekend' && e.to === 'bookstore').label.includes('書店'));
