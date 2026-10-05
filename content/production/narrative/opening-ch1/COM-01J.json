@@ -49,7 +49,8 @@
     ],
     "constraints": [
       "兩人互不知姓名；互動只能由具體共同興趣成立。",
-      "本輪只由晴朗週末 com01b_bookstore_go 入場；留家支不執行；jyc_permanently_excluded 必須 false。"
+      "本次或 replay 由晴朗週末 com01b_bookstore_go 入場並實際演出書店初遇；留家支不執行。舊街頭主線排除不可阻止 replay 真正取得這次初遇；取得前不憑 choice 或節點跳轉預先解鎖。",
+      "cafe 入口共用 GAME decision tree：僅初次遊玩或 replay 曾真正完成 COM-01J 書店初遇才用 reunion；單獨 cafe 首遇、cafe 首遇 replay、選 bookstore go 但尚未初遇、一般 met/contact 與 jycEverUnlocked 均不足。累積 eligibility 只解鎖可玩內容，不把另一段遊玩的購書、姓名、topic、contact、consent 或承諾併入當次事實。"
     ]
   },
   "scene_function": [
@@ -132,7 +133,8 @@
     ],
     "constraints": [
       "兩人只靠共同作品脈絡可互相辨認；沒有社交債、聯絡方式或約會承諾。",
-      "本幕出口回家→同週末 COM-02X；COM-02J 是下一平日下午，不是同次外出。"
+      "本幕出口回家→同週末 COM-02X；COM-02J 是下一平日下午，不是同次外出。",
+      "累積進度取已實際取得的最大集合；低進度／街頭／未交換 replay 不清除已解鎖內容，不替換 greatest-progress frontier／主線 Continue。replay 新取得的 eligibility 持久化，但當次 cursor、主線 snapshot 與 refusal facts 各自保存。"
     ]
   },
   "must_not": [
@@ -142,7 +144,7 @@
     "不得提前揭露匿名繪師身份、住處或與許棠的交集。",
     "不得用 blush、靠近或正面模特凝視暗示 instant crush。",
     "不得保留「我等一下去」／同次 cafe 承諾、跳過購書或把選了 bookstore go 當已購買。",
-    "jyc_permanently_excluded=true 只由本輪平日街頭獨自行動的實際 choice 建立；本輪不可清除，優先於 contact、met、舊 history 及任何 invitation/discovery gate；禁止其後全部江雨澄內容，包括訊息、重遇、第二 discovery、RE-J、reopening、同框、邀約、結局與 coda。"
+    "街頭 choice 的 jyc_permanently_excluded 保留當次未相遇事實；未曾真正完成書店初遇時仍阻擋江線。本次或任何 replay 真正完成 COM-01J 後，累積書店 eligibility 可開啟 cafe 重逢及後續江線；不改寫街頭 snapshot，不補姓名、購書、contact 或邀約。拒絕／未交換的安全邊界保持，直到實際取得對應同意或後續選擇；RE／reopening 仍遵守其有界線 gate。"
   ],
   "implementation_mapping": {
     "runtime_only": true,
@@ -154,7 +156,8 @@
       "F_JYC": "increment:1",
       "jyc_first_topic": "worldbuilding|visual_design|edition_value",
       "weekend_book_purchased": "true_only_on_actual_purchase_coda",
-      "requires_jyc_not_excluded": true
+      "requires_jyc_not_excluded": "actual_bookstore_replay_is_allowed_to_earn_eligibility;local_unearned_future_Jiang_stays_blocked",
+      "jyc_bookstore_ever_earned": "persistent_monotone_eligibility_only_after_actual_COM01J_initial_encounter_in_first_play_or_replay;not_cafe_first_or_generic_met_contact;no_snapshot_merge"
     }
   }
 }
