@@ -1,4 +1,5 @@
 const narrativeConditions = {
+  met_jiang_yucheng: ['已認識雨澄', '尚未認識雨澄'],
   jyc_permanently_excluded: ['已選擇街景獨行，不再開啟雨澄的劇情', '仍可接續雨澄的劇情'],
   weekend_book_purchased: ['週末已買到想要的書', '週末沒有去書店買書'],
   contact_jyc: ['已與雨澄交換聯絡方式', '尚未與雨澄交換聯絡方式'],
