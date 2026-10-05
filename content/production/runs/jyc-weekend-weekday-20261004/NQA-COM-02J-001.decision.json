@@ -1,0 +1,76 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "jyc-weekend-weekday-20261004",
+  "task_id": "NQA-COM-02J-001",
+  "scene_id": "COM-02J",
+  "task_type": "narrative_review",
+  "status": "PASS",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.5.1",
+    "pass": "narrative_review"
+  },
+  "source_ref": "57be01b2fc943967761a641d2e1b0718ce39222d",
+  "packet_sha256": "31182dd55927a53c25123ce6662c98976b57d484319bddaca5761a8056dcdd4e",
+  "input_digest_sha256": "d348e6f18d00ec17e48ae3b3fb3e3f1fa50c7a02d3ebd402e5cf78b7c8602a4a",
+  "input_versions": [
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-02J.json",
+      "version": "bfcd20c4279079c4ab1676061edc99ddb0ca2371",
+      "location": "content/production/narrative/opening-ch1/COM-02J.json"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-02J.md",
+      "version": "88eee4bd88926df7056f91edb29a46c70d0384e0",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02J.md"
+    },
+    {
+      "id": "file:docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md",
+      "version": "9d44ab016a3a32da239b2d711117e05f087625f4",
+      "location": "docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md"
+    }
+  ],
+  "output_versions": [],
+  "qa_codes": [
+    {
+      "name": "NQA-VOICE-AND-PACING",
+      "code": "NQA-VOICE-AND-PACING",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-DIALOGUE-NATURALISM",
+      "code": "NQA-DIALOGUE-NATURALISM",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-KNOWLEDGE-AND-TIMING",
+      "code": "NQA-KNOWLEDGE-AND-TIMING",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-LOCAL-VARIANTS-AND-REJOINS",
+      "code": "NQA-LOCAL-VARIANTS-AND-REJOINS",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-STATE-IDS-AND-MERGE-BOUNDARIES",
+      "code": "NQA-STATE-IDS-AND-MERGE-BOUNDARIES",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-REQUESTED-PAYOFFS",
+      "code": "NQA-REQUESTED-PAYOFFS",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-SEMANTIC-VISUAL-BEATS",
+      "code": "NQA-SEMANTIC-VISUAL-BEATS",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [],
+  "human_gate_required": "none",
+  "invalidates": []
+}

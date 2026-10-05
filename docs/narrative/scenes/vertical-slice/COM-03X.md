@@ -27,7 +27,7 @@
 - `docs/narrative/CONTENT_PRODUCTION_SPEC.md` — production layer boundaries and fixed terminology.
 - `docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md#L30-L70`, `docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md#L129-L147`, `docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md#L309-L329` — protagonist, dialogue intent and COM-03X function.
 - `docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_COMMON.md#L161-L183` — package, client deadline, practical contact and later information payoff.
-- `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L170-L186`, `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L253-L289`, `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L335-L344`, `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L354-L354`, `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L688-L704` — state semantics, knowledge and dependency boundaries.
+- `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L170-L186`, `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L253-L289`, `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L335-L344`, `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L354-L354`, `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L410-L410` — state semantics, knowledge and dependency boundaries.
 - `content/characters/xu_tang.json#L2-L4`, `content/characters/xu_tang.json#L14-L21` — task-local identity and behavior facts.
 - Prior unapproved COM-03X S1 candidate, pinned at `a2ff5e369b304249a84788a1a6e603dc0a00c44b`: `docs/narrative/scenes/vertical-slice/COM-03X.md#L1-L449`, `docs/narrative/scenes/vertical-slice/COM-03X.md#L577-L615` — existing narrative and branch IDs only within the verified contract; superseded by this Script Lock.
 

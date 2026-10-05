@@ -1,0 +1,99 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "jyc-weekend-weekday-20261004",
+  "task_id": "ND-COM-03X-001",
+  "scene_id": "COM-03X",
+  "task_type": "narrative_design",
+  "status": "PASS",
+  "harness": {
+    "id": "content_writer",
+    "version": "1.4.1",
+    "pass": "narrative_design"
+  },
+  "source_ref": "57be01b2fc943967761a641d2e1b0718ce39222d",
+  "packet_sha256": "1ab248ffbd9333770a708935b538155899bd85ea9f9ca3da561dd8211715572f",
+  "input_digest_sha256": "95d653b076aa755f8863ce9a1e374d327fe8b066d55e18d87af51df3f9024f06",
+  "input_versions": [
+    {
+      "id": "source:docs/PRODUCTION_WORKFLOW_TOOLS.md",
+      "version": "d68831f828f80ff6c9f9b61368949b81042e8d30",
+      "location": "docs/PRODUCTION_WORKFLOW_TOOLS.md"
+    },
+    {
+      "id": "source:.ai/schemas/NARRATIVE_CONTINUITY.md",
+      "version": "f32b4b315a51975d60d99818c3eec63f079df70c",
+      "location": ".ai/schemas/NARRATIVE_CONTINUITY.md"
+    },
+    {
+      "id": "source:.ai/schemas/narrative-continuity.schema.json",
+      "version": "faa5bbf41856406f85eac61d7d25a57869e3495e",
+      "location": ".ai/schemas/narrative-continuity.schema.json"
+    },
+    {
+      "id": "source:content/production/narrative/opening-ch1/COM-03X.json",
+      "version": "12715fd13d5718b52b97baf6d5a226d07e21b076",
+      "location": "content/production/narrative/opening-ch1/COM-03X.json"
+    },
+    {
+      "id": "source:docs/narrative/scenes/vertical-slice/COM-03X.md",
+      "version": "bce7b86e989bba892346d3c42347ae28e5f6f5a6",
+      "location": "docs/narrative/scenes/vertical-slice/COM-03X.md"
+    },
+    {
+      "id": "source:docs/narrative/JYC_WEEKEND_WEEKDAY_REVISION.md",
+      "version": "6d7abe9a1ffa62918113d6d860aa645291e21cfb",
+      "location": "docs/narrative/JYC_WEEKEND_WEEKDAY_REVISION.md"
+    },
+    {
+      "id": "source:docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md",
+      "version": "9d44ab016a3a32da239b2d711117e05f087625f4",
+      "location": "docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md"
+    },
+    {
+      "id": "source:docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md",
+      "version": "7144fe200bcb85874ad54c151eb0d77effc7be04",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "source-declarations:COM-03X",
+      "location": "docs/narrative/scenes/vertical-slice/COM-03X.md",
+      "version": "sha256:c407a80f4b140426b488651a7d23740a6be956138d7a251323ebfa9cacf17bc9"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "Source bounds: route-state source has 635 lines; all existing in-scope selectors are in range; stale #L688-L704 replaced with #L410-L410.",
+      "code": "Source bounds: route-state source has 635 lines; all existing in-scope selectors are in range; stale #L688-L704 replaced with #L410-L410.",
+      "result": "PASS"
+    },
+    {
+      "name": "Byte preservation: scene remains 15,713 bytes; byte-for-byte identical after removing the one selector replacement; no prose or approved contract changes.",
+      "code": "Byte preservation: scene remains 15,713 bytes; byte-for-byte identical after removing the one selector replacement; no prose or approved contract changes.",
+      "result": "PASS"
+    },
+    {
+      "name": "Production contract validation: 10 Narrative Continuity Contracts and 19 CG Manifest Entries validated.",
+      "code": "Production contract validation: 10 Narrative Continuity Contracts and 19 CG Manifest Entries validated.",
+      "result": "PASS"
+    },
+    {
+      "name": "git diff --check",
+      "code": "git diff --check",
+      "result": "PASS"
+    },
+    {
+      "name": "Narrative review",
+      "code": "Narrative review",
+      "result": "NOT_RUN"
+    }
+  ],
+  "known_issues": [
+    "Independent content_qa / narrative_review remains the next pipeline stage."
+  ],
+  "human_gate_required": "none",
+  "invalidates": []
+}
