@@ -35,6 +35,8 @@ export class ProgressStore {
       frontierMemoryEventId: null,
       frontierRank: -1,
       jycEverUnlocked: false,
+      bookstoreEverEarned: false,
+      initialEncounterEverEarned: false,
       unlockedMemoryEventIds: [],
       checkpoints: {},
       edges: [],
@@ -79,7 +81,7 @@ export class ProgressStore {
     if (!this.valid(snapshot)) return null;
     return {
       nodeId: this.chapter.id === 'opening-demo-chapter-01'
-        ? excludedJiangDestination(snapshot.nodeId, snapshot) || snapshot.nodeId : snapshot.nodeId,
+        ? excludedJiangDestination(snapshot.nodeId, snapshot, this.hasJiangEligibility()) || snapshot.nodeId : snapshot.nodeId,
       stats: this.normalizeStats(snapshot.stats),
       flags: [...snapshot.flags],
       returnNodes: [...snapshot.returnNodes]
@@ -98,7 +100,7 @@ export class ProgressStore {
     return Object.fromEntries(Object.entries(checkpoints || {})
       .filter(([id, snapshot]) => id === snapshot?.nodeId && this.valid(snapshot))
       .filter(([id, snapshot]) => this.chapter.id !== 'opening-demo-chapter-01'
-        || !excludedJiangDestination(id, snapshot))
+        || !excludedJiangDestination(id, snapshot, this.hasJiangEligibility()))
       .map(([id, snapshot]) => [id, this.clone(snapshot)]));
   }
 
@@ -112,11 +114,11 @@ export class ProgressStore {
     const event = memoryEventForNode(this.memories, snapshot.nodeId);
     if (this.chapter.id !== 'opening-demo-chapter-01' || !this.isCom02j(snapshot.nodeId)) return event;
     // Shared cafe tails belong to the actual encounter, with no live-state fallback.
-    const first = snapshot.nodeId.startsWith('common_station_cafe_jyc_first_')
+    const first = !snapshot.flags.includes('history:cafe-bookstore-reunion') && (snapshot.nodeId.startsWith('common_station_cafe_jyc_first_')
       || snapshot.flags.includes('entry-effect:common_station_cafe_jyc_first_drawing_02')
       || snapshot.flags.includes('history:common_weekday_outing_decision:com01b_weekday_cafe_first')
       || (this.isLegacyOpeningSnapshot(snapshot) && snapshot.stats.jyc_first_topic === 0
-        && !snapshot.flags.includes('jyc_initiated_second_contact'));
+        && !snapshot.flags.includes('jyc_initiated_second_contact')));
     const id = first ? 'mem.opening.ch1.first-cafe-jyc' : 'mem.opening.ch1.station-cafe-jyc';
     return this.memories.events.find(item => item.id === id) || event;
   }
@@ -284,6 +286,8 @@ export class ProgressStore {
     const saved = this.parse(this.key);
     if (saved?.version === 2) {
       this.data.jycEverUnlocked = saved.jycEverUnlocked === true;
+      this.data.bookstoreEverEarned = saved.bookstoreEverEarned === true;
+      this.data.initialEncounterEverEarned = saved.initialEncounterEverEarned === true || this.data.bookstoreEverEarned;
       this.data.unlockedMemoryEventIds = [...new Set((Array.isArray(saved.unlockedMemoryEventIds)
         ? saved.unlockedMemoryEventIds : []).filter(id => this.memories.events.some(event => event.id === id)))];
       this.data.playerDisplayName = normalizePlayerName(saved.playerDisplayName);
@@ -369,14 +373,49 @@ export class ProgressStore {
     this.flush();
   }
 
+  hasBookstoreEligibility() {
+    return this.chapter.id === 'opening-demo-chapter-01' && this.data.bookstoreEverEarned;
+  }
+
+  hasJiangEligibility() {
+    return this.chapter.id === 'opening-demo-chapter-01' && this.data.initialEncounterEverEarned;
+  }
+
+  earnedInitialEncounterSnapshot(snapshot) {
+    if (this.earnedBookstoreSnapshot(snapshot)) return true;
+    if (this.chapter.id !== 'opening-demo-chapter-01' || !this.valid(snapshot)) return false;
+    return snapshot.stats.met_jiang_yucheng > 0
+      && snapshot.flags.includes('jyc_creator_work_seen')
+      && (snapshot.flags.includes('entry-effect:common_station_cafe_jyc_first_drawing_02')
+        || (!jiangExcluded(snapshot) && snapshot.flags.includes('player_knows_jyc_name')
+          && snapshot.flags.includes('jyc_knows_player_name')
+          && snapshot.stats.jyc_first_topic === 0));
+  }
+
+  earnedBookstoreSnapshot(snapshot) {
+    if (this.chapter.id !== 'opening-demo-chapter-01' || !this.valid(snapshot)) return false;
+    if (snapshot.flags.includes('bookstore-encounter-complete')) return true;
+    // Historical saves must prove the completed bookstore scene, never merely
+    // its entry card, a selected topic, generic acquaintance or cafe contact.
+    const completed = snapshot.nodeId === 'common_acg_first_meet_exit_locked_02'
+      || snapshot.nodeId.startsWith('common_acg_first_meet_purchase')
+      || !snapshot.nodeId.startsWith('common_acg_first_meet_');
+    return completed && snapshot.stats.met_jiang_yucheng > 0
+      && [1, 2, 3].includes(snapshot.stats.jyc_first_topic)
+      && snapshot.stats.heard_station_cafe_from_jyc > 0
+      && !jiangExcluded(snapshot);
+  }
+
   rememberUnlocks(snapshot = null) {
     const snapshots = snapshot ? [snapshot] : [this.data.cursor, this.data.frontier, ...Object.values(this.data.checkpoints)];
     for (const item of snapshots.filter(item => this.valid(item))) {
-      if (this.chapter.id === 'opening-demo-chapter-01' && !jiangExcluded(item)
+      if (this.earnedBookstoreSnapshot(item)) this.data.bookstoreEverEarned = true;
+      if (this.earnedInitialEncounterSnapshot(item)) this.data.initialEncounterEverEarned = true;
+      if (this.chapter.id === 'opening-demo-chapter-01' && !jiangExcluded(item, this.hasJiangEligibility())
         && (item.stats.met_jiang_yucheng > 0 || item.flags.includes('contact_jyc'))) this.data.jycEverUnlocked = true;
       const event = this.eventForSnapshot(item);
       if ((this.isCom03j(item.nodeId) && !item.flags.includes('contact_jyc'))
-        || (jiangExcluded(item) && event?.characterIds?.includes('jiang_yucheng'))) continue;
+        || (jiangExcluded(item, this.hasJiangEligibility()) && event?.characterIds?.includes('jiang_yucheng'))) continue;
       if (event && !this.data.unlockedMemoryEventIds.includes(event.id)) this.data.unlockedMemoryEventIds.push(event.id);
     }
   }

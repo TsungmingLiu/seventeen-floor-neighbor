@@ -245,17 +245,17 @@
 
 **Narration**：換好衣服後，我正要把手機插上充電，螢幕亮了一下。
 
-**Xu Tang (message)**：剛剛說的粥店，在這裡。
+**Line-許棠 (message)**：剛剛說的粥店，在這裡。
 
 **Action**：訊息附著店家的地圖位置。
 
-**Xu Tang (message)**：記得週三沒開。
+**Line-許棠 (message)**：記得週三沒開。
 
 **Protagonist (message)**：收到，謝謝。
 
 **Action**：我點開地圖看了一眼，把手機接上充電線。
 
-**End actions**：本幕結束時套用一次 base state；只有實際 cafe contact 且未永久排除江雨澄時才接 `COM-03J`；無 contact 或街頭路徑接許棠專屬的 `COM-03M`。
+**End actions**：本幕結束時套用一次 base state；只有實際 cafe contact 且通過累積真正初遇（書店或 cafe）eligibility 的有效排除 gate 時才接 `COM-03J`；未曾真正取得任何初遇時街頭排除仍有效。無當次 contact 者接許棠專屬的 `COM-03M`；累積 eligibility 不補 contact 或改寫街頭 snapshot。
 
 ## Player choice / rejoin contract
 

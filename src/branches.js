@@ -1,13 +1,14 @@
 // A street playthrough cannot recover Jiang availability from imported contact
 // or topic flags. Keep the guard shared by playback and snapshot migration.
-export function jiangExcluded(state) {
+export function jiangExcluded(state, initialEncounterEligible = false) {
+  if (initialEncounterEligible) return false;
   const flags = state?.flags;
   return flags instanceof Set ? flags.has('jyc_permanently_excluded')
     : Array.isArray(flags) && flags.includes('jyc_permanently_excluded');
 }
 
-export function excludedJiangDestination(nodeId, state) {
-  if (!jiangExcluded(state)) return null;
+export function excludedJiangDestination(nodeId, state, initialEncounterEligible = false) {
+  if (!jiangExcluded(state, initialEncounterEligible)) return null;
   if (nodeId?.startsWith('common_acg_first_meet_')) return 'common_convenience_xu_enter';
   if (nodeId?.startsWith('common_station_cafe_jyc_') || nodeId?.startsWith('com02j_')) return 'common_package_xu_arrive';
   if (nodeId?.startsWith('common_recommend_discord_jyc_') || nodeId === 'com03j_preview_complete') return 'COM03M-ENTRY';
