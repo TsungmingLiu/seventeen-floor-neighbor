@@ -541,3 +541,45 @@ test('cafe-initial earns future availability across excluded replay while bookst
   assert.deepEqual(again.progress.data.frontier,main);
   assert.ok(again.progress.data.cursor.flags.includes('jyc_permanently_excluded'));
 });
+
+test('ordinary new play shares persisted bookstore gate and Continue retains greatest main', () => {
+  const {e,storage}=play(pathChoices('A'));
+  const main=structuredClone(e.progress.data.frontier);
+  e.startGame({freshRun:true});
+  const visited=walkEngine(e,pathChoices('B'),'common_station_cafe_jyc_enter_02');
+  assert.ok(!visited.includes('common_weekday_outing_decision'));
+  assert.equal(e.bookstoreEligible(),true);
+  assert.equal(e.progress.hasJiangEligibility(),true);
+  assert.equal(e.state.met_jiang_yucheng,0);
+  assert.ok(!e.state.flags.has('weekend_book_purchased'));
+  assert.ok(!e.state.flags.has('contact_jyc'));
+  assert.deepEqual(e.progress.data.frontier,main);
+  const reload=makeEngine(storage);
+  assert.equal(reload.bookstoreEligible(),true);
+  reload.startFromTitle();
+  assert.equal(reload.nodeId,e.nodeId);
+  assert.deepEqual(reload.progress.data.frontier,main);
+});
+
+test('reunion local book playback never fabricates an unearned cafe recommendation', () => {
+  const e=makeEngine();e.progress.setPlayerName('小雨');
+  e.progress.data.bookstoreEverEarned=true;
+  e.progress.data.initialEncounterEverEarned=true;
+  e.state={...chapter.initialState,flags:new Set(['weekend_book_purchased'])};
+  e.nodeId='common_weekday_outing_reunion_rev_01';e.render();
+  assert.equal(e.nodeId,'common_station_cafe_jyc_enter_02');
+  assert.equal(e.state.heard_station_cafe_from_jyc,0);
+  assert.ok(!e.state.flags.has('contact_jyc'));
+});
+
+test('earned reunion plays local recommendation action without inventing a purchased book', () => {
+  const e=makeEngine();e.progress.setPlayerName('小雨');
+  e.progress.data.bookstoreEverEarned=true;
+  e.progress.data.initialEncounterEverEarned=true;
+  e.state={...chapter.initialState,heard_station_cafe_from_jyc:1,flags:new Set()};
+  e.nodeId='common_weekday_outing_selector';e.render();
+  assert.equal(e.nodeId,'common_weekday_outing_reunion_rev_02');
+  e.advance();assert.equal(e.nodeId,'common_station_cafe_jyc_enter_02');
+  assert.ok(!e.state.flags.has('weekend_book_purchased'));
+  assert.ok(!e.state.flags.has('contact_jyc'));
+});

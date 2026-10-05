@@ -6805,25 +6805,15 @@
       "default": "COM03M-S01"
     },
     "common_bookstore_bridge_weekend_decision_time": {
-      "chapter": 1,
-      "speaker": "旁白",
-      "text": "同週末，白天。",
-      "visual": {
-        "mode": "composite",
-        "background": "bg.narrative_preview.placeholder",
-        "sprites": []
-      },
+      "type": "branch",
+      "cases": [],
+      "default": "common_bookstore_bridge_weekend_decision_time_01",
       "next": "common_bookstore_bridge_weekend_decision_time_01"
     },
     "common_bookstore_bridge_weekend_decision_time_01": {
-      "chapter": 1,
-      "speaker": "旁白",
-      "text": "出門時，我想起許棠說過的地下街書店。新版設定集的增補還沒看過。今天要去翻翻嗎？",
-      "visual": {
-        "mode": "composite",
-        "background": "bg.narrative_preview.placeholder",
-        "sprites": []
-      },
+      "type": "branch",
+      "cases": [],
+      "default": "common_bookstore_bridge_weekend_decision_frame",
       "next": "common_bookstore_bridge_weekend_decision_frame"
     },
     "com01b_bookstore_go": {
@@ -10639,7 +10629,7 @@
     "common_bookstore_bridge_weekend_decision_rev_01": {
       "chapter": 1,
       "speaker": "內心",
-      "text": "許棠說的那家地下街書店，大概會有吧。不過這幾箱也擱好幾天了。",
+      "text": "去許棠說的那家店翻翻，應該比盯著這幾張照片清楚。不過箱子也擱好幾天了，還有工作要整理……先做哪一邊？",
       "visual": {
         "mode": "composite",
         "background": "bg.narrative_preview.placeholder",
@@ -10746,7 +10736,8 @@
         "background": "bg.narrative_preview.placeholder",
         "sprites": []
       },
-      "next": "common_weekend_home_exit_rev_01"
+      "next": "common_weekend_home_exit_rev_01",
+      "moment": "同週末，約 23:00。"
     },
     "common_weekend_home_exit_rev_01": {
       "chapter": 1,
@@ -10780,7 +10771,8 @@
         "background": "bg.narrative_preview.placeholder",
         "sprites": []
       },
-      "next": "common_weekday_outing_work_rev_01"
+      "next": "common_weekday_outing_work_rev_01",
+      "moment": "接下來的一個平日，午後；家裡。"
     },
     "common_weekday_outing_work_rev_01": {
       "chapter": 1,
@@ -10983,7 +10975,8 @@
         "background": "bg.narrative_preview.placeholder",
         "sprites": []
       },
-      "next": "common_bookstore_bridge_weekend_decision_rev_01"
+      "next": "common_bookstore_bridge_weekend_decision_rev_01",
+      "moment": "同週末，晴朗的午後；我還在家。"
     },
     "common_bookstore_bridge_weekend_decision": {
       "chapter": 1,

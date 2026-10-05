@@ -1,0 +1,258 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "resume_checkpoint",
+  "run_id": "feedback-20261005",
+  "task_id": "INT-FEEDBACK-001",
+  "scene_id": "COM-01B",
+  "task_type": "integrate",
+  "status": "FAIL",
+  "harness": {
+    "id": "integrator",
+    "version": "1.4.0",
+    "pass": null
+  },
+  "source_ref": "f08a65a70968ea93c2c8ff0c29cab76bd5643b51",
+  "packet_sha256": "cbf8b35ace7886a667b33eb07e8f865d8010e54932a77363802af0b26613a627",
+  "input_digest_sha256": "4dc0c0bd8fce59e0409603d6c003bcc35872532a076283d625110aecc64cc718",
+  "input_versions": [
+    {
+      "id": "ARCHITECTURE.md",
+      "location": "ARCHITECTURE.md",
+      "version": "8af34c4fa67c517b93f6839c37c5eb247207f1d0"
+    },
+    {
+      "id": "src/app.js",
+      "location": "src/app.js",
+      "version": "bce8e2af4de84c9f6d17c2a823222bd2c02e264c"
+    },
+    {
+      "id": "src/engine.js",
+      "location": "src/engine.js",
+      "version": "bbcbd1c6c2aec485e09ab1e1dc2fdee00c2aed82"
+    },
+    {
+      "id": "src/progress.js",
+      "location": "src/progress.js",
+      "version": "499e5a418dc6446953f008e95f6c9ad2ecb625df"
+    },
+    {
+      "id": "src/branches.js",
+      "location": "src/branches.js",
+      "version": "8af49fbdb5467845044fb026db8dd05fced7d0ef"
+    },
+    {
+      "id": "src/memories.js",
+      "location": "src/memories.js",
+      "version": "7894956e0773ebdbd3f3509501cb0a1d4e3b3fab"
+    },
+    {
+      "id": "src/presentation.js",
+      "location": "src/presentation.js",
+      "version": "39fb0d9358cf22852970bebf4d28dd01f07b76e5"
+    },
+    {
+      "id": "content/routes/opening-demo/chapter-01.json",
+      "location": "content/routes/opening-demo/chapter-01.json",
+      "version": "b2f227941055dd2abeece00ee56a00478df507d8"
+    },
+    {
+      "id": "content/routes/opening-demo/memories.json",
+      "location": "content/routes/opening-demo/memories.json",
+      "version": "4263c2b18a2259567d44f53176d0ef6d73148ebe"
+    },
+    {
+      "id": "content/routes/opening-demo/route.json",
+      "location": "content/routes/opening-demo/route.json",
+      "version": "0d67bb74ee494a71b13739c5396254c61d5fc8f6"
+    },
+    {
+      "id": "content/production/narrative/opening-ch1/COM-01B.json",
+      "location": "content/production/narrative/opening-ch1/COM-01B.json",
+      "version": "617e88a0e18563e12c1f3665f920a1c359c745f0"
+    },
+    {
+      "id": "content/production/narrative/opening-ch1/COM-01J.json",
+      "location": "content/production/narrative/opening-ch1/COM-01J.json",
+      "version": "09a37d931b5428cca3e36e4f1c96c4c178007681"
+    },
+    {
+      "id": "content/production/narrative/opening-ch1/COM-02J.json",
+      "location": "content/production/narrative/opening-ch1/COM-02J.json",
+      "version": "05fd27ae20e95bbdca0d7741dbb3f644b4475e07"
+    },
+    {
+      "id": "content/production/narrative/opening-ch1/COM-03J.json",
+      "location": "content/production/narrative/opening-ch1/COM-03J.json",
+      "version": "ba90e63bd67727d38ec96b40f77f1482d710565a"
+    },
+    {
+      "id": "docs/narrative/scenes/vertical-slice/COM-01B.md",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01B.md",
+      "version": "e994bfc7d10c1fd700f7a31f601cc4ab13baa0b4"
+    },
+    {
+      "id": "docs/narrative/scenes/vertical-slice/COM-02J.md",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02J.md",
+      "version": "88eee4bd88926df7056f91edb29a46c70d0384e0"
+    },
+    {
+      "id": "docs/narrative/scenes/vertical-slice/COM-03J.md",
+      "location": "docs/narrative/scenes/vertical-slice/COM-03J.md",
+      "version": "1397ebdd4181c67e02c83a203f7ee4d03329d73e"
+    },
+    {
+      "id": "docs/narrative/scenes/vertical-slice/COM-03X.md",
+      "location": "docs/narrative/scenes/vertical-slice/COM-03X.md",
+      "version": "ba7b48ff8ceb53c84448d65437713f7d76646aca"
+    },
+    {
+      "id": "docs/narrative/scenes/vertical-slice/COM-03M.md",
+      "location": "docs/narrative/scenes/vertical-slice/COM-03M.md",
+      "version": "647c0868fa093bb185a986e23047b32742708f6d"
+    },
+    {
+      "id": "docs/narrative/scenes/vertical-slice/OPEN-A.md",
+      "location": "docs/narrative/scenes/vertical-slice/OPEN-A.md",
+      "version": "8000155b79def7c96c46afee5d6eb3069d0a91bb"
+    },
+    {
+      "id": "content/production/runs/feedback-20261005/ND-FEEDBACK-002.decision.json",
+      "location": "content/production/runs/feedback-20261005/ND-FEEDBACK-002.decision.json",
+      "version": "6539eb743ab86a545bcefcb752f25929d3152b77"
+    },
+    {
+      "id": "content/production/runs/feedback-20261005/NQA-COM01B-002.decision.json",
+      "location": "content/production/runs/feedback-20261005/NQA-COM01B-002.decision.json",
+      "version": "dcef4345184d7e28182864cc87ed36b3168cacd4"
+    },
+    {
+      "id": "content/production/runs/feedback-20261005/ENG-ELIGIBILITY-001.decision.json",
+      "location": "content/production/runs/feedback-20261005/ENG-ELIGIBILITY-001.decision.json",
+      "version": "660e0a5825a00ce01ee93051e2eff4205fe2aeca"
+    },
+    {
+      "id": "tests/jyc-frontier-monotone.test.mjs",
+      "location": "tests/jyc-frontier-monotone.test.mjs",
+      "version": "646fdc55cf2342dcd86bd2caad993345da7a8ebf"
+    },
+    {
+      "id": "tests/jyc-weekend-weekday.test.mjs",
+      "location": "tests/jyc-weekend-weekday.test.mjs",
+      "version": "c084bc02e83806c44fc781c8df59df832d1aa071"
+    },
+    {
+      "id": "tests/engine-progress.test.mjs",
+      "location": "tests/engine-progress.test.mjs",
+      "version": "e998f1c8965633054769a5cd13bc88d6086e8be5"
+    },
+    {
+      "id": "tests/progress.test.mjs",
+      "location": "tests/progress.test.mjs",
+      "version": "f13b5bb6f7a66b8533d552ceafb6741e6fd04938"
+    },
+    {
+      "id": "tests/memories.test.mjs",
+      "location": "tests/memories.test.mjs",
+      "version": "a3c3d91d826d07b136d96b2a52cfbd001a8510da"
+    },
+    {
+      "id": "tests/presentation.test.mjs",
+      "location": "tests/presentation.test.mjs",
+      "version": "7dfb4a39ded07ee5ae71ed43fb4dbb74aef68ad0"
+    },
+    {
+      "id": "tests/opening-locked-scenes.test.mjs",
+      "location": "tests/opening-locked-scenes.test.mjs",
+      "version": "20ed074f7731a7929c44ca39afa167e9fdc15512"
+    },
+    {
+      "id": "tests/browser-acceptance.spec.mjs",
+      "location": "tests/browser-acceptance.spec.mjs",
+      "version": "ef42a8ea69a196fc4391c5ab5e7b781a064f512d"
+    },
+    {
+      "id": "tests/fixtures/jyc-pre-revision-save.json",
+      "location": "tests/fixtures/jyc-pre-revision-save.json",
+      "version": "625c57d4bd48e89c980946efd846fcf632cf22ca"
+    },
+    {
+      "id": "tests/fixtures/jyc-pre-revision-parity.json",
+      "location": "tests/fixtures/jyc-pre-revision-parity.json",
+      "version": "ea9bfbfb3309064eaf6f23abf482f1838e5d5f1b"
+    },
+    {
+      "id": "package.json",
+      "location": "package.json",
+      "version": "84b0644459ef847c9c3bb95e1d37ba8b53fbef16"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "content/routes/opening-demo/chapter-01.json",
+      "location": "content/routes/opening-demo/chapter-01.json",
+      "version": "sha256:668a8ac83b509a9a050eb606c2f4bbc5a2e6d1a59e7d500fdf0c00414ecb7bc2"
+    },
+    {
+      "id": "docs/narrative/scenes/vertical-slice/COM-02J.md",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02J.md",
+      "version": "sha256:570d41cee76e1ca8c907238a34238cb4bd37aa9f179bfdda7868a5f784ea9bc7"
+    },
+    {
+      "id": "docs/narrative/scenes/vertical-slice/COM-03J.md",
+      "location": "docs/narrative/scenes/vertical-slice/COM-03J.md",
+      "version": "sha256:4de9546e3334092b400c0ba344fb2f72a133b65a72dab0acc9840adce12c6142"
+    },
+    {
+      "id": "docs/narrative/scenes/vertical-slice/COM-03M.md",
+      "location": "docs/narrative/scenes/vertical-slice/COM-03M.md",
+      "version": "sha256:9fefcfc78a9ae220ea230b4b76a1296bf887e6121842d535f3883e85d720732e"
+    },
+    {
+      "id": "docs/narrative/scenes/vertical-slice/OPEN-A.md",
+      "location": "docs/narrative/scenes/vertical-slice/OPEN-A.md",
+      "version": "sha256:47d47e75ae9d789111c4f08062201c043b8e301ed841e9f018cf3890736e1a31"
+    },
+    {
+      "id": "src/engine.js",
+      "location": "src/engine.js",
+      "version": "sha256:9c4ef65e228266a9f87ef5706dd7a2d40d9f375b1a6a5a364d76c2f78f8bb937"
+    },
+    {
+      "id": "tests/jyc-weekend-weekday.test.mjs",
+      "location": "tests/jyc-weekend-weekday.test.mjs",
+      "version": "sha256:1a760553b5c509f9d8c3e5b6207090a5c903488a49e996fa717fafe00676be64"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "Exact COM01B prose/order and thought parity, earned gates, ordinary newplay, reload, local facts and greatest main",
+      "code": "ENG-TARGETED-SOURCE-CONFORMANCE",
+      "result": "PASS"
+    },
+    {
+      "name": "Full npm test: 282/286, four failures requiring bounded corrective verification",
+      "code": "ENG-FULL-SUITE",
+      "result": "FAIL"
+    },
+    {
+      "name": "Corrected source build, validate, storage, diff and preview smoke",
+      "code": "ENG-BUILD-VALIDATE-SMOKE",
+      "result": "PASS"
+    },
+    {
+      "name": "Acquired COM03M OPEN-A COM03X remote-turn exact spoken-text and name-tag coverage",
+      "code": "ENG-REMOTE-LABEL-PARITY",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "Full suite failed COM03X parser recognition of Line-許棠; unallowlisted parser repair deferred to fresh bounded corrective worker.",
+    "Full suite legacy next-walker failure repaired by transparent next/default compatibility; final serial full verification still required.",
+    "Full suite runtime-assets fixture copy raced my parallel build; final verification must run serially after build.",
+    "Full suite review fixture rejected coordinator untracked ledger; coordinator moved it intact to ignored cache before checkpoint.",
+    "Browser A/B/C/refusal checks pending completion at checkpoint; no downstream UI, CI, art or final-playable acceptance."
+  ],
+  "human_gate_required": "none",
+  "invalidates": []
+}

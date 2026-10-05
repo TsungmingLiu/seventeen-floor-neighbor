@@ -742,8 +742,19 @@ export class GameEngine {
       return null;
     }
     const purchased = this.state.flags.has('weekend_book_purchased');
+    const recommended = this.state.heard_station_cafe_from_jyc > 0;
+    if (id === 'common_weekday_outing_reunion_rev_01' && !recommended) {
+      return 'common_station_cafe_jyc_enter_02';
+    }
+    if (id === 'common_weekday_outing_reunion_rev_02' && !recommended) {
+      return 'common_station_cafe_jyc_enter_02';
+    }
     if (id === 'common_weekday_outing_selector' || id === 'common_weekday_outing_decision') {
-      return purchased ? 'common_weekday_outing_reunion' : 'common_station_cafe_jyc_enter_02';
+      return purchased ? 'common_weekday_outing_reunion'
+        : recommended ? 'common_weekday_outing_reunion_rev_02' : 'common_station_cafe_jyc_enter_02';
+    }
+    if (id === 'common_station_cafe_jyc_enter' && !purchased) {
+      return 'common_station_cafe_jyc_enter_02';
     }
     if (id === 'common_station_cafe_jyc_first_enter') {
       return purchased ? 'common_station_cafe_jyc_enter' : 'common_station_cafe_jyc_enter_02';
