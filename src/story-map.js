@@ -17,9 +17,14 @@ export function storyMapView(map, library, chapter, progress, review = false) {
   const frontierGroup = groupForNode(map, progress.data.frontier?.nodeId)?.id;
   const cursorGroup = groupForNode(map, progress.data.cursor?.nodeId)?.id;
   const groups = map.groups.flatMap(group => {
-    const variants = group.variants.filter(variant => review || (variant.memoryId && firstForMemory.get(variant.memoryId) === group.id
+    const variants = group.variants.filter(variant => review || (!variant.checkpointOnly && variant.memoryId && firstForMemory.get(variant.memoryId) === group.id
       ? isMemoryUnlocked(memoryEventById(library, variant.memoryId), progress, chapter.startNode)
-      : variant.nodeIds.some(id => checkpoints[id])));
+      : (variant.unlockNodes || variant.nodeIds).some(id => checkpoints[id])));
+    if (!review && !variants.length && group.variants.every(v => v.checkpointOnly)) {
+      const known = group.variants.find(v => isMemoryUnlocked(memoryEventById(library, v.memoryId), progress, chapter.startNode));
+      if (known) variants.push({ ...known, id: 'historical', label: '已讀部分', condition: undefined,
+        entry: memoryEventById(library, known.memoryId).replayNode });
+    }
     const locked = !review && !variants.length;
     if (locked && !group.variants.some(v => v.memoryId === firstLocked?.id && firstForMemory.get(v.memoryId) === group.id)) return [];
     const shown = locked ? [] : variants;
@@ -99,6 +104,7 @@ export function createStoryMap(engine) {
 
   function render(options) {
     lastOptions = options;
+    controller.revision = options.map?.revision || 'current';
     if (!options.map) return renderMemories(options);
     // Keep the existing character filters, disclosures and explored counts.
     // The temporary legacy cards never enter the visible DOM.
@@ -181,7 +187,7 @@ export function createStoryMap(engine) {
     if (selected) {
       const current = visible.find(g => g.id === selected && !g.locked);
       if (current) showDetails(current, options);
-      else { selected = null; inspector.hidden = true; }
+      else { selected = null; inspector.hidden = true; inspector.replaceChildren(); }
     }
     requestAnimationFrame(drawLines);
     return stats;
@@ -193,7 +199,7 @@ export function createStoryMap(engine) {
     const close = button('關閉詳情', () => {
       inspector.hidden = true; selected = null;
       const card = options.container.querySelector(`[data-group-id="${group.id}"]`);
-      card?.setAttribute('aria-pressed', 'false'); card?.focus({ preventScroll: true });
+      card?.setAttribute('aria-pressed', 'false'); card?.focus({ preventScroll: true }); inspector.replaceChildren();
     }, 'text-button story-inspector-close');
     inspector.append(close, el('p', 'eyebrow', 'SCENE'), el('h3', '', group.title), el('p', '', group.summary));
     const variants = el('div', 'story-variant-tabs');
@@ -211,7 +217,7 @@ export function createStoryMap(engine) {
     const hasSnapshot = variant.nodeIds.some(id => options.progress.data.checkpoints[id]);
     if (!controller.review && hasSnapshot) {
       const replay = { ...(event || {}), replayNode: variant.entry, unlockNodes: variant.nodeIds };
-      inspector.append(button('從此場景重玩', () => options.onReplay(replay), 'primary-button story-replay'));
+      inspector.append(button('從此入口重玩', () => options.onReplay(replay), 'primary-button story-replay'));
     }
     const assets = variant.galleryAssets.filter(id => controller.review || options.unlockedCGs.has(id));
     if (assets.length) {
@@ -227,9 +233,11 @@ export function createStoryMap(engine) {
     inspector.append(el('h4', '', controller.review ? '現有完整劇本與選項' : '已讀劇情'));
     const script = el('div', 'story-script');
     const allIds = new Set(group.variants.flatMap(v => v.nodeIds));
+    let introStops = null;
     function walk(id, host, depth = 0, visited = new Set()) {
+      if (introStops?.has(id)) return;
       if (!allIds.has(id) || visited.has(id) || depth > 1000) return;
-      if (!controller.review && !options.progress.data.checkpoints[id] && id !== options.chapter.startNode) return;
+      if (!controller.review && !options.progress.data.checkpoints[id]) return;
       visited.add(id);
       const node = options.chapter.nodes[id];
       if (!node) return;
@@ -257,6 +265,13 @@ export function createStoryMap(engine) {
       } else if (node.next) walk(node.next, host, depth + 1, visited);
     }
     const read = new Set();
+    if (variant.introEntry && variant.introEntry !== variant.entry) {
+      script.append(el('h5', '', '場景共同開頭'));
+      introStops = new Set(group.variants.map(v => v.entry));
+      walk(variant.introEntry, script, 0, read);
+      introStops = null;
+      script.append(el('h5', '', variant.label));
+    }
     walk(variant.entry, script, 0, read);
     // Historical saves can retain a later checkpoint while losing the scene entry.
     if (!controller.review) for (const id of variant.nodeIds) walk(id, script, 0, read);

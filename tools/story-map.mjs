@@ -35,9 +35,11 @@ export function runtimeTargets(node, pools = {}) {
 export function compileStoryMap(route, definition) {
   if (definition.schemaVersion !== 1) throw new Error('Story Map: unsupported schema');
   const { chapter, memoryLibrary, sceneLibrary } = route;
+  const revision = (definition.revisions || []).find(r => r.whenNodes.every(id => chapter.nodes[id]));
+  const definitions = revision ? definition.groups.map(group => ({ ...group, ...(revision.groups[group.id] || {}) })).concat(revision.addGroups || []) : definition.groups;
   const events = new Map(memoryLibrary.events.map(e => [e.id, e]));
   const nodeToGroup = new Map();
-  const groups = definition.groups.map(group => {
+  const groups = definitions.map(group => {
     const variants = group.variants.map(variant => {
       const event = variant.memoryId ? events.get(variant.memoryId) : null;
       if (variant.memoryId && !event) throw new Error(`Story Map: unknown Memory ${variant.memoryId}`);
@@ -53,8 +55,13 @@ export function compileStoryMap(route, definition) {
         if (nodeToGroup.has(id) && nodeToGroup.get(id) !== group.id) throw new Error(`Story Map: overlapping group for ${id}`);
         nodeToGroup.set(id, group.id);
       }
+      const usedAssets = new Set(nodeIds.flatMap(id => {
+        const visual = chapter.nodes[id].visual || {};
+        return [visual.asset, visual.background];
+      }).filter(Boolean));
       return { ...variant, nodeIds, sectionId: event?.sectionId || memoryLibrary.sections[0]?.id,
-        characterIds: event?.characterIds || [], cover: event?.cover, galleryAssets: event?.galleryAssets || [] };
+        characterIds: event?.characterIds || [], cover: usedAssets.has(event?.cover?.asset) ? event.cover : undefined,
+        galleryAssets: (event?.galleryAssets || []).filter(id => usedAssets.has(id)) };
     });
     return { ...group, variants };
   });
@@ -75,5 +82,5 @@ export function compileStoryMap(route, definition) {
   const branchLabels = Object.fromEntries(Object.entries(chapter.nodes).filter(([,node]) => node.type === 'branch').map(([id,node]) => [id,
     Object.fromEntries((node.cases || []).filter(c => !(c.conditions || []).some(x => x.flag === 'legacy:disabled' && x.present)).map(c => [c.next, narrativeCondition(c.conditions)]))
   ]));
-  return { schemaVersion: 1, groups, edges, branchLabels };
+  return { schemaVersion: 1, revision: revision?.id || 'current', groups, edges, branchLabels };
 }

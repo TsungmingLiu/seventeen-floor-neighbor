@@ -16,7 +16,7 @@ export function installReview(controller, controls, chapter) {
       const response = await fetch(`content/routes/${routeId}/story-map-review.json`, { cache: 'no-cache' });
       if (!response.ok) throw new Error('Review notes unavailable');
       const review = await response.json();
-      controller.notes = review.notes || {};
+      controller.notes = review.revisions?.[controller.revision]?.notes || review.notes || {};
       controller.review = checkbox.checked;
       status.textContent = '唯讀・完整劇本';
       controller.refresh();

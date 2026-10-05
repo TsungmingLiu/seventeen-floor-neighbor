@@ -1,10 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { compileStoryMap } from '../tools/story-map.mjs';
+import { compileStoryMap, runtimeTargets } from '../tools/story-map.mjs';
 import { storyMapView, groupForNode } from '../src/story-map.js';
 const read = async file => JSON.parse(await readFile(new URL(file, import.meta.url), 'utf8'));
-const chapter = await read('../content/routes/opening-demo/chapter-01.json');
+const story = await read('../content/routes/opening-demo/chapter-01.json');
+const config = await read('../content/routes/opening-demo/route.json');
+const chapter = { ...config.story, nodes: story.nodes };
 const memoryLibrary = await read('../content/routes/opening-demo/memories.json');
 const definition = await read('../content/storyboards/opening-demo.json');
 const route = { chapter, memoryLibrary, sceneLibrary: { pools: {} } };
@@ -28,7 +30,7 @@ test('café variants occupy one scene and keep existing replay/Memory identity',
 
 test('player projection does not expose names or variants of unknown scenes', () => {
   const view = storyMapView(map, memoryLibrary, chapter, progress([]));
-  assert.deepEqual(view.groups.filter(g => !g.locked).map(g => g.id), []);
+  assert.deepEqual(view.groups.filter(g => !g.locked).map(g => g.id), ['movein']);
   assert.ok(view.groups.filter(g => g.locked).every(g => g.variants.length === 0));
   assert.equal(view.groups.some(g => g.id === 'cafe'), false);
   assert.deepEqual(view.edges, []);
@@ -49,6 +51,7 @@ test('parcel is a separate scene and does not unlock from the earlier shared Mem
   const parcel = storyMapView(map, memoryLibrary, chapter, save).groups.find(g => g.id === 'parcel');
   assert.equal(parcel.frontier, true);
   assert.equal(parcel.memoryId, null);
+  assert.deepEqual(parcel.variants[0].galleryAssets, []); // Shared Memory never lends convenience-store CGs to the parcel scene.
 });
 
 test('review projection exposes all entry versions without modifying gameplay', () => {
@@ -59,4 +62,34 @@ test('review projection exposes all entry versions without modifying gameplay', 
   assert.equal(JSON.stringify(save), before);
   assert.ok(view.edges.find(e => e.from === 'weekend' && e.to === 'bookstore').label.includes('書店'));
   assert.equal(view.edges.some(e => e.from === 'bookstore' && e.to === 'weekend'), false);
+});
+
+test('source revisions change chronology only when every required entry exists', () => {
+  const fake = structuredClone(chapter);
+  const rev = definition.revisions[0];
+  for (const id of rev.whenNodes) fake.nodes[id] = { text: '', next: 'common_package_xu_arrive' };
+  const revised = compileStoryMap({ ...route, chapter: fake }, definition);
+  assert.equal(revised.revision, 'weekday-jyc');
+  assert.ok(revised.groups.find(g => g.id === 'convenience').row < revised.groups.find(g => g.id === 'cafe').row);
+  assert.equal(revised.groups.find(g => g.id === 'weekday').variants[0].entry, 'common_weekday_outing_work');
+  const save = progress(['common_convenience_xu_weekend_home']);
+  const shown = storyMapView(revised, memoryLibrary, fake, save).groups.find(g => g.id === 'convenience');
+  assert.deepEqual(shown.variants.map(v => v.id), ['work']);
+  const historical = storyMapView(revised, memoryLibrary, fake, progress(['common_convenience_xu_enter'])).groups.find(g => g.id === 'convenience');
+  assert.deepEqual(historical.variants.map(v => v.id), ['historical']);
+  delete fake.nodes[rev.whenNodes[0]];
+  assert.equal(compileStoryMap({ ...route, chapter: fake }, definition).revision, 'current');
+});
+
+test('every reachable Opening passage has a scene in the presentation mapping', () => {
+  const mapped = new Set(map.groups.flatMap(group => group.variants.flatMap(variant => variant.nodeIds)));
+  const seen = new Set(), pending = [chapter.startNode];
+  while (pending.length) {
+    const id = pending.pop();
+    if (!id || seen.has(id) || !chapter.nodes[id]) continue;
+    seen.add(id);
+    assert.ok(mapped.has(id), `Unmapped reachable passage: ${id}`);
+    pending.push(...runtimeTargets(chapter.nodes[id]));
+  }
+  assert.ok(seen.size > 700);
 });

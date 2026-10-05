@@ -284,5 +284,159 @@
         }
       ]
     }
+  ],
+  "revisions": [
+    {
+      "id": "weekday-jyc",
+      "whenNodes": [
+        "common_weekday_outing_work",
+        "common_convenience_xu_weekend_book",
+        "common_convenience_xu_weekend_home",
+        "common_weekday_outing_street_enter",
+        "com01b_weekday_cafe_first"
+      ],
+      "groups": {
+        "weekend": {
+          "title": "週末，出去走走嗎？",
+          "summary": "好天氣的週末，選擇去書店，或在家整理行李與工作。"
+        },
+        "skip-bookstore": {
+          "title": "在家・行李與工作",
+          "summary": "整理還沒收完的搬家行李，順便做點工作。",
+          "variants": [
+            {
+              "id": "home",
+              "label": "在家",
+              "prefixes": [
+                "com01b_bookstore_skip",
+                "common_weekend_home_"
+              ],
+              "entry": "com01b_bookstore_skip",
+              "condition": "週末選擇在家。"
+            }
+          ]
+        },
+        "convenience": {
+          "row": 5,
+          "title": "許棠・晚上便利店",
+          "summary": "週末晚上遇到許棠，依白天的安排聊書或工作。",
+          "variants": [
+            {
+              "id": "book",
+              "label": "A・買到想要的書",
+              "memoryId": "mem.opening.ch1.convenience-xu",
+              "checkpointOnly": true,
+              "prefixes": [
+                "common_convenience_xu_",
+                "opening_demo_complete"
+              ],
+              "entry": "common_convenience_xu_weekend_book",
+              "condition": "週末去過書店，買到想要的書。",
+              "unlockNodes": [
+                "common_convenience_xu_weekend_book"
+              ],
+              "introEntry": "common_convenience_xu_enter"
+            },
+            {
+              "id": "work",
+              "label": "B・在家工作",
+              "memoryId": "mem.opening.ch1.convenience-xu",
+              "checkpointOnly": true,
+              "prefixes": [
+                "common_convenience_xu_",
+                "opening_demo_complete"
+              ],
+              "entry": "common_convenience_xu_weekend_home",
+              "condition": "週末在家整理行李與工作。",
+              "unlockNodes": [
+                "common_convenience_xu_weekend_home"
+              ],
+              "introEntry": "common_convenience_xu_enter"
+            }
+          ]
+        },
+        "cafe": {
+          "row": 7,
+          "summary": "週間工作累了後到咖啡店，依是否在書店相識使用不同版本。",
+          "variants": [
+            {
+              "id": "reunion",
+              "label": "A・重逢",
+              "memoryId": "mem.opening.ch1.station-cafe-jyc",
+              "prefixes": [
+                "common_station_cafe_jyc_",
+                "com02j_"
+              ],
+              "entry": "common_station_cafe_jyc_enter",
+              "condition": "之前已在書店遇見雨澄。"
+            },
+            {
+              "id": "first",
+              "label": "B・初遇",
+              "memoryId": "mem.opening.ch1.first-cafe-jyc",
+              "prefixes": [
+                "com01b_weekday_cafe_first"
+              ],
+              "entry": "com01b_weekday_cafe_first",
+              "condition": "書店沒有遇見雨澄，週間選擇去咖啡店。"
+            }
+          ]
+        },
+        "street": {
+          "row": 7,
+          "title": "獨行・台北街景",
+          "summary": "走在熟悉又陌生的城市，沒有走進咖啡店。",
+          "variants": [
+            {
+              "id": "solo",
+              "label": "獨行",
+              "prefixes": [
+                "com01b_weekday_street_walk",
+                "common_weekday_outing_street_"
+              ],
+              "entry": "common_weekday_outing_street_enter",
+              "condition": "尚未認識雨澄，週間選擇街上走走；之後不再開啟她的劇情。"
+            }
+          ]
+        },
+        "parcel": {
+          "row": 8
+        },
+        "recommend": {
+          "row": 9
+        },
+        "no-contact": {
+          "row": 9
+        },
+        "week": {
+          "row": 10
+        },
+        "free-time": {
+          "row": 11
+        }
+      },
+      "addGroups": [
+        {
+          "id": "weekday",
+          "title": "週間・工作後的空檔",
+          "summary": "在家上班累了，決定出去坐坐或散步。",
+          "row": 6,
+          "lane": "wide",
+          "variants": [
+            {
+              "id": "scene",
+              "label": "依週末前事",
+              "prefixes": [
+                "common_weekday_outing_"
+              ],
+              "excludePrefixes": [
+                "common_weekday_outing_street_"
+              ],
+              "entry": "common_weekday_outing_work"
+            }
+          ]
+        }
+      ]
+    }
   ]
 }
