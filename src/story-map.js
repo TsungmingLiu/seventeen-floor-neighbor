@@ -1,4 +1,5 @@
 import { isMemoryUnlocked, memoryEventById, renderMemories } from './memories.js';
+import { interpolatePlayerName, normalizePlayerName } from './player-name.js';
 /* STORY_MAP_REVIEW_IMPORT */
 
 // Projection only: this module never writes ProgressStore or evaluates gameplay choices.
@@ -247,8 +248,12 @@ export function createStoryMap(engine) {
       if (!node) return;
       if (node.text) {
         const passage = el('p', 'story-passage');
-        if (node.speaker) passage.append(el('b', '', `${node.speaker}　`));
-        passage.append(document.createTextNode(node.text)); host.append(passage);
+        const playerName = normalizePlayerName(options.progress.data.playerDisplayName);
+        const speaker = controller.review ? node.speaker
+          : ['你', '我'].includes(node.speaker) ? playerName || '我' : node.speakerLabel ?? node.speaker;
+        if (speaker) passage.append(el('b', '', `${speaker}　`));
+        passage.append(document.createTextNode(controller.review ? node.text
+          : interpolatePlayerName(node.text, playerName || '你'))); host.append(passage);
       }
       if (controller.review && node.choices) {
         for (const choice of node.choices) {
