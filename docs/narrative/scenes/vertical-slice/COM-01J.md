@@ -17,7 +17,7 @@
 
 ## Status
 
-- Current production stage: **scene_dialogue complete / writer PASS**；本輪沒有新 QA 或 Art Shot acceptance。
+- Production stage: **S4 Script Lock** — finalized writing candidate / writer PASS。Script Lock 僅表示本輪寫作稿完成；獨立 Narrative QA、visual-impact review 與 visual acceptance 仍待完成，不構成批准。
 - Historical production stage: **S4 Script Lock / S5 State Contract / S6 Art Shot Lock**。
 - Scope: Opening Vertical Slice / common Jiang entry
 - Memory ownership: `common`
