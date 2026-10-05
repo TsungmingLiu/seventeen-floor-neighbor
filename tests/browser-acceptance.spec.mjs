@@ -429,7 +429,8 @@ async function advanceWithKeyboard(page) {
   await page.keyboard.press('Space');
 }
 async function ready(page) {
-  if ((await page.locator('#advance-hint').textContent()) === '…') await advanceWithKeyboard(page);
+  // Typing can finish between reading the hint and sending Space. Readiness
+  // must not advance the cursor before follow() records the next dialogue.
   await expect.poll(async () => /點擊繼續|點擊選擇/.test(await page.locator('#advance-hint').textContent() || '')
     || await page.locator('#choice-list').isVisible(), { timeout: 8000 }).toBe(true);
 }
@@ -505,12 +506,21 @@ test('bookstore-skip cafe first meeting and refusal unlock only the truthful Mem
 
 test('contacted week continues to a saved pending Jiang first-window boundary',async({page})=>{
   test.setTimeout(240_000);
-  await seed(page,'COM03M-S01',{met_xu_tang:1,met_jiang_yucheng:1},['contact_xu','contact_jyc','jyc_com03j_reply_style:warm_close']);
-  const seen=await follow(page,'OPEN-A-ENTRY-PENDING-J',{
+  const chapter=await seed(page,'COM03M-S01',{met_xu_tang:1,met_jiang_yucheng:1},['contact_xu','contact_jyc','jyc_com03j_reply_style:warm_close']);
+  const seen=await follow(page,'COM03M-J01-warm_close');
+  await ready(page);
+  await expect(page.locator('#dialogue-text')).toHaveText(chapter.nodes['COM03M-J01-warm_close'].text);
+  const callback=await journey(page);
+  expect(callback.cursor.nodeId).toBe('COM03M-J01-warm_close');
+  expect(callback.cursor.flags).toEqual(expect.arrayContaining(['contact_xu','contact_jyc','jyc_com03j_reply_style:warm_close']));
+  expect(callback.checkpoints['COM03M-J01-warm_close']).toEqual(callback.cursor);
+  expect(callback.checkpoints).not.toHaveProperty('COM03M-J01-neutral');
+  expect(callback.edges).toContainEqual(['COM03M-J01','COM03M-J01-warm_close']);
+  seen.push(...await follow(page,'OPEN-A-ENTRY-PENDING-J',{
     'COM03M-C01':'COM03M-C01-J',
     'OPEN-A-ENTRY-ACTION-BOTH':'OPEN-A-ACT-J',
     'OPEN-A-J-TIME':'OPEN-A-J-ACCEPT'
-  },210);
+  },210));
   expect(seen).toContain('COM03M-S01');
   expect(seen).toContain('COM03M-J01-warm_close');
   expect(seen).toContain('COM03M-S06');
