@@ -104,3 +104,15 @@ test('an unreachable compatibility node cannot lend artwork to the current scene
   const scene = compiled.groups.find(g => g.id === 'convenience');
   assert.ok(scene.variants.every(v => !v.galleryAssets.includes('cg.opening.com01x.base_normal')));
 });
+
+test('a scene version does not borrow the other version’s bound picture', () => {
+  const changed = structuredClone(chapter);
+  for (const id of definition.revisions[0].whenNodes) changed.nodes[id] = { next: 'common_package_xu_arrive' };
+  changed.nodes.common_convenience_xu_enter = { next: 'common_convenience_xu_variant_test' };
+  changed.nodes.common_convenience_xu_variant_test = { type: 'branch', cases: [{ next: 'common_convenience_xu_weekend_book' }], default: 'common_convenience_xu_weekend_home' };
+  changed.nodes.common_convenience_xu_weekend_book.visual = { mode: 'cg', asset: 'cg.opening.com01j.base_guarded' };
+  changed.nodes.common_convenience_xu_weekend_home.visual = { mode: 'cg', asset: 'cg.opening.com01x.base_normal' };
+  const scene = compileStoryMap({ ...route, chapter: changed }, definition).groups.find(g => g.id === 'convenience');
+  assert.deepEqual(scene.variants.find(v => v.id === 'book').galleryAssets, ['cg.opening.com01j.base_guarded']);
+  assert.deepEqual(scene.variants.find(v => v.id === 'work').galleryAssets, ['cg.opening.com01x.base_normal']);
+});

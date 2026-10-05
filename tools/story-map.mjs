@@ -1,4 +1,6 @@
 const narrativeConditions = {
+  jyc_permanently_excluded: ['已選擇街景獨行，不再開啟雨澄的劇情', '仍可接續雨澄的劇情'],
+  weekend_book_purchased: ['週末已買到想要的書', '週末沒有去書店買書'],
   contact_jyc: ['已與雨澄交換聯絡方式', '尚未與雨澄交換聯絡方式'],
   contact_xu: ['已與許棠交換聯絡方式', '尚未與許棠交換聯絡方式'],
   'preview:com02j-complete': ['已走過雨澄咖啡店場景', '尚未走過雨澄咖啡店場景'],
@@ -57,9 +59,10 @@ export function compileStoryMap(route, definition) {
       }
       const reachable = new Set(), pending = [variant.introEntry, variant.entry].filter(Boolean);
       const allowed = new Set(nodeIds);
+      const otherEntries = new Set(group.variants.filter(v => v.id !== variant.id).map(v => v.entry));
       while (pending.length) {
         const id = pending.pop();
-        if (reachable.has(id) || !allowed.has(id)) continue;
+        if (reachable.has(id) || !allowed.has(id) || otherEntries.has(id)) continue;
         reachable.add(id); pending.push(...runtimeTargets(chapter.nodes[id], sceneLibrary.pools));
       }
       const usedAssets = new Set([...reachable].flatMap(id => {

@@ -198,6 +198,7 @@ export function createStoryMap(engine) {
   function showDetails(group, options) {
     inspector.hidden = false;
     inspector.replaceChildren();
+    inspector.scrollTop = 0;
     const close = button('關閉詳情', () => {
       inspector.hidden = true; selected = null;
       const card = options.container.querySelector(`[data-group-id="${group.id}"]`);
@@ -287,6 +288,7 @@ export function createStoryMap(engine) {
         const next = view.groups.find(g => g.id === edge.to);
         if (next) inspector.append(button(`${edge.label ? `${edge.label} → ` : ''}${next.title}`, () => {
           selected = next.id; selectedVariant = null; render(options);
+          inspector.querySelector('.story-inspector-close')?.focus({ preventScroll: true });
         }, 'story-continuation'));
       }
     }
