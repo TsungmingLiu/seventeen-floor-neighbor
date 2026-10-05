@@ -1,0 +1,123 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "jyc-weekend-weekday-20261004",
+  "task_id": "NQA-COM-03X-002",
+  "scene_id": "COM-03X",
+  "task_type": "narrative_review",
+  "status": "NEEDS_REVIEW",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.5.1",
+    "pass": "narrative_review"
+  },
+  "source_ref": "8a4443588b37e73ac98dd0743347bccc283adc87",
+  "packet_sha256": "2b3e18b4aaa98f8f94da020576a55aba688f2334012bb4996637e5e894f1da3d",
+  "input_digest_sha256": "da634bfc8e4df431b23aeb4b9fdf8f60c915eba6d0911548fcef7953834b61dd",
+  "input_versions": [
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-03X.json",
+      "version": "12715fd13d5718b52b97baf6d5a226d07e21b076",
+      "location": "content/production/narrative/opening-ch1/COM-03X.json"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-03X.md",
+      "version": "64ddb75fa6154cd0484ed3d7b841c0cff7b58dac",
+      "location": "docs/narrative/scenes/vertical-slice/COM-03X.md"
+    },
+    {
+      "id": "file:docs/narrative/CONTENT_PRODUCTION_SPEC.md",
+      "version": "3b1486320fded196e9d707c4cff180bc52e95ae2",
+      "location": "docs/narrative/CONTENT_PRODUCTION_SPEC.md"
+    },
+    {
+      "id": "excerpt:docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md:declared:L30-L70",
+      "version": "b0923c7177d786fa01e454b92ed22c55d2edc6cd86547800bc55e29e03fb01fe",
+      "location": "docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md#L30-L70"
+    },
+    {
+      "id": "excerpt:docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md:declared:L129-L147",
+      "version": "418d12ae2c85c8d40e7837988e19b56e7a466b5944d09746a01737097ba69fd1",
+      "location": "docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md#L129-L147"
+    },
+    {
+      "id": "excerpt:docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md:declared:L309-L329",
+      "version": "40329a4363662c1aeb8fef510184ce6fb928d5ee22479fc41fb4f6f574578e45",
+      "location": "docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md#L309-L329"
+    },
+    {
+      "id": "excerpt:docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_COMMON.md:declared:L161-L183",
+      "version": "c32013e04a1b9a80e33f37219eeb389a5945ee6b56811ad1234ac045cf0ce48c",
+      "location": "docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_COMMON.md#L161-L183"
+    },
+    {
+      "id": "excerpt:docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md:declared:L170-L186",
+      "version": "c60aedbf371fe5a87e5d2e2f12abeed22683fba5224e33ac674b51c0c95b63ea",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L170-L186"
+    },
+    {
+      "id": "excerpt:docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md:declared:L253-L289",
+      "version": "2fd3bfa4807aacfc26d961b2ce58eadef742d8bb127ce7f318c8bf53c2595210",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L253-L289"
+    },
+    {
+      "id": "excerpt:docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md:declared:L335-L344",
+      "version": "95a88b4b2ab332d4248fc925e7881fdbc9e13429876f506bc733d34e2221e9d6",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L335-L344"
+    },
+    {
+      "id": "excerpt:docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md:declared:L354-L354",
+      "version": "035853897fee4ee04259988a65ffb4b46f77df82a5a3e19d44e362c083736360",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L354-L354"
+    },
+    {
+      "id": "excerpt:docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md:declared:L410-L410",
+      "version": "750b91570122fe5ac191500c7f2cc9bc6c5143c832296d150e64635fd4f88e77",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L410-L410"
+    }
+  ],
+  "output_versions": [],
+  "qa_codes": [
+    {
+      "name": "NQA-SCENE-FUNCTION-AND-PAYOFF",
+      "code": "NQA-SCENE-FUNCTION-AND-PAYOFF",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-VOICE-AND-POV",
+      "code": "NQA-VOICE-AND-POV",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-KNOWLEDGE-AND-TIMING",
+      "code": "NQA-KNOWLEDGE-AND-TIMING",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-CHOICE-REJOIN",
+      "code": "NQA-CHOICE-REJOIN",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-STATE-AND-MERGE-BOUNDARIES",
+      "code": "NQA-STATE-AND-MERGE-BOUNDARIES",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-SEMANTIC-VISUAL-BEATS",
+      "code": "NQA-SEMANTIC-VISUAL-BEATS",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-DIALOGUE-NATURALISM",
+      "code": "NQA-DIALOGUE-NATURALISM",
+      "result": "NEEDS_REVIEW"
+    }
+  ],
+  "known_issues": [
+    "NQA-DIALOGUE-NATURALISM: common_package_xu_proof reads unusually task-efficient across consecutive print-check questions and answers."
+  ],
+  "human_gate_required": "none",
+  "invalidates": []
+}
