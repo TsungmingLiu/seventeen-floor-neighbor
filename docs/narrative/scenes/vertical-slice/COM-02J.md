@@ -41,25 +41,19 @@ The reunion has a weekend bookstore encounter, an actual world-setting supplemen
 The following executable authoring selector is a deterministic projection for the integrator, **not an engine patch or new persistent state**. `choiceHistory` is the current playthrough / replay snapshot's node-to-choice-ID map; `flags` is that same snapshot. `trustworthyFirstTopic` is supplied only from verified actual COM-01J history, never another run or live-state fallback. Missing topic selects `neutral`; missing/contradictory entry evidence must block integration rather than invent a meeting.
 
 ```js
-function selectCom02j({ flags, choiceHistory, trustworthyFirstTopic }) {
-  if (flags.jyc_permanently_excluded === true) return null;
-  if (flags.jyc_permanently_excluded !== false) {
+function selectCom02j({ flags, choiceHistory, trustworthyFirstTopic,
+  bookstoreEverEarned, initialEncounterEverEarned }) {
+  if (flags.jyc_permanently_excluded === true && !initialEncounterEverEarned) return null;
+  if (typeof flags.jyc_permanently_excluded !== 'boolean') {
     throw new Error('COM-02J: missing exclusion guard');
   }
   const chosen = new Set(Object.values(choiceHistory));
-  if (chosen.has('com01b_weekday_street_walk')) return null;
-  const bookstore = chosen.has('com01b_bookstore_go');
-  const home = chosen.has('com01b_bookstore_skip');
-  if (bookstore === home) throw new Error('COM-02J: ambiguous weekend history');
-  if (bookstore) {
-    if (flags.met_jiang_yucheng !== true ||
-        flags.heard_station_cafe_from_jyc !== true ||
-        flags.weekend_book_purchased !== true) {
-      throw new Error('COM-02J: missing actual bookstore/purchase evidence');
-    }
+  if (chosen.has('com01b_weekday_street_walk') && !bookstoreEverEarned) return null;
+  if (bookstoreEverEarned === true) {
     const topics = ['visual_design', 'worldbuilding', 'edition_value'];
     return {
-      entryNode: 'common_station_cafe_jyc_enter',
+      entryNode: flags.weekend_book_purchased === true
+        ? 'common_station_cafe_jyc_enter' : 'common_station_cafe_jyc_enter_02',
       route: 'weekday_reunion_after_weekend_bookstore',
       continueTopicVariant: topics.includes(trustworthyFirstTopic)
         ? trustworthyFirstTopic : 'neutral',
@@ -80,7 +74,7 @@ function selectCom02j({ flags, choiceHistory, trustworthyFirstTopic }) {
 }
 ```
 
-Evaluate the selector at fresh scene entry, not again after a first-meet event has set `met_jiang_yucheng=true`; save/resume must preserve the already selected route from its own actual history. Every authored node requires `flags.jyc_permanently_excluded !== true` and a non-null selection. `route` and `continueTopicVariant` below refer to this transient selection; they do not introduce saved flags. A street selection never acquires a cafe node, name, topic, contact or later Jiang content. Street prose/state is owned upstream and is not rewritten here.
+Evaluate the selector at fresh scene entry, not again after a first-meet event has set `met_jiang_yucheng=true`; save/resume must preserve the already selected route from its own actual history. Every authored node requires a non-null selection and the shared effective exclusion guard: local street exclusion blocks only while no genuinely earned initial encounter (bookstore or cafe first) exists. Cafe reunion requires `bookstoreEverEarned`; eligibility never supplies local purchase, recommendation, topic or contact facts. `route` and `continueTopicVariant` below refer to this transient selection; they do not introduce saved flags. A street selection never acquires a cafe node, name, topic, contact or later Jiang content. Street prose/state is owned upstream and is not rewritten here.
 
 ## Scene flow and semantic visual beats
 

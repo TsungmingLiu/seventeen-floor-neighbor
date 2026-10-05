@@ -267,18 +267,21 @@ test('week/window Memory replay cannot replace the excluded live frontier or cle
   assert.deepEqual(e.progress.data.frontier,live);assert.ok(e.progress.data.frontier.flags.includes('jyc_permanently_excluded'));
 });
 
-test('persistent JYC unlock, explored Memories and greatest main frontier survive missed/contactless/street replays', () => {
+test('bookstore eligibility routes later home replays to reunion while refusal and greatest main survive', () => {
   const { e, storage } = play(pathChoices('A'));
   const frontier = structuredClone(e.progress.data.frontier);
   const unlocked = memoryLibrary.events.filter(event => isMemoryUnlocked(event,e.progress,chapter.startNode)).map(event=>event.id);
   assert.equal(e.progress.data.jycEverUnlocked,true);
-  for (const choices of [pathChoices('C'), {...pathChoices('B'),common_station_cafe_jyc_contact_choice:'com02j_leave_without_contact'}]) {
+  for (const choices of [pathChoices('C'), pathChoices('B')].map(path => ({...path,common_station_cafe_jyc_contact_choice:'com02j_leave_without_contact'}))) {
     const replay = play(choices,storage,{freshRun:true}).e;
     assert.equal(replay.progress.data.jycEverUnlocked,true);
     assert.deepEqual(replay.progress.data.frontier,frontier);
     assert.ok(!replay.state.flags.has('contact_jyc'));
     assert.ok(!replay.state.flags.has('weekend_book_purchased'));
-    assert.equal(replay.state.met_jiang_yucheng,choices.common_weekday_outing_decision==='com01b_weekday_street_walk'?0:1);
+    assert.equal(replay.state.met_jiang_yucheng,1);
+    assert.equal(replay.progress.data.bookstoreEverEarned,true);
+    assert.ok(replay.state.flags.has('history:cafe-bookstore-reunion'));
+    assert.ok(!replay.state.flags.has('jyc_permanently_excluded'));
     for(const id of unlocked) assert.ok(isMemoryUnlocked(memoryLibrary.events.find(event=>event.id===id),replay.progress,chapter.startNode),id);
     const reload=makeEngine(storage);
     assert.equal(reload.progress.data.jycEverUnlocked,true);
@@ -308,12 +311,13 @@ test('first-ever unseen street remains locally and persistently unacquainted', (
 
 for (const freshRun of [false, true]) {
   test(`actual ${freshRun ? 'fresh restart' : 'weekday Memory replay'} preserves partial known cafe main through street and package`, () => {
-    const { e, storage } = play(pathChoices('A'), new Storage(), {}, 'common_station_cafe_jyc_names_02');
+    const { e, storage } = play(pathChoices('B'), new Storage(), {}, 'common_station_cafe_jyc_first_names_01');
     const main = structuredClone(e.progress.data.frontier);
     assert.equal(e.progress.data.frontierRank, 180);
     assert.equal(main.stats.met_jiang_yucheng, 1);
-    assert.ok(main.flags.includes('weekend_book_purchased'));
-    assert.ok(main.flags.includes('history:common_bookstore_bridge_weekend_decision:com01b_bookstore_go'));
+    assert.ok(!main.flags.includes('weekend_book_purchased'));
+    assert.ok(main.flags.includes('history:common_bookstore_bridge_weekend_decision:com01b_bookstore_skip'));
+    assert.equal(e.progress.data.bookstoreEverEarned,false);
     let local;
     if (freshRun) {
       local = play(pathChoices('C'), storage, { freshRun: true }, 'common_package_xu_arrive').e;
@@ -342,7 +346,7 @@ for (const freshRun of [false, true]) {
     assert.equal(local.progress.progressRank(cursor), 200);
     assert.deepEqual(local.progress.data.frontier, main);
     assert.equal(local.progress.data.frontierRank, 180);
-    assert.equal(local.progress.data.frontierMemoryEventId, 'mem.opening.ch1.station-cafe-jyc');
+    assert.equal(local.progress.data.frontierMemoryEventId, 'mem.opening.ch1.first-cafe-jyc');
     assert.equal(local.progress.replaying, true);
     assert.equal(local.progress.data.restartActive, freshRun);
     const reload = makeEngine(storage);
@@ -356,7 +360,7 @@ for (const freshRun of [false, true]) {
       assert.equal(actual.met_jiang_yucheng, 0);
       assert.ok(actual.flags.has('jyc_permanently_excluded'));
       for (const flag of ['contact_jyc', 'player_knows_jyc_name', 'weekend_book_purchased']) assert.ok(!actual.flags.has(flag));
-      for (const id of ['mem.opening.ch1.station-cafe-jyc', 'mem.opening.ch1.taipei-street']) {
+      for (const id of ['mem.opening.ch1.first-cafe-jyc', 'mem.opening.ch1.taipei-street']) {
         assert.ok(isMemoryUnlocked(memoryLibrary.events.find(event => event.id === id), store, chapter.startNode));
       }
     }
@@ -406,7 +410,213 @@ test('untouched baseline nodes retain exact structural parity outside the approv
   assert.equal(createHash('sha256').update(bytes).digest('hex'),fixture.baseline_chapter_sha256);
   const baseline=JSON.parse(bytes).nodes;
   for(const [id,node] of Object.entries(baseline)) {
-    if(!fixture.impacted_prefixes.some(prefix=>id.startsWith(prefix))&&!fixture.explicit_policy_nodes.includes(id)) assert.deepEqual(chapter.nodes[id],node,id);
+    if(!fixture.impacted_prefixes.some(prefix=>id.startsWith(prefix))&&!fixture.explicit_policy_nodes.includes(id)) {
+      const current = structuredClone(chapter.nodes[id]);
+      if (current.speaker === '許棠' && current.channel === 'LINE') {
+        assert.equal(current.speakerLabel,'Line-許棠',id);
+        delete current.channel; delete current.speakerLabel;
+      }
+      assert.deepEqual(current,node,id);
+    }
   }
   assert.deepEqual(fixture.unexpected_changed_nodes,[]);
 });
+
+function walkEngine(e, choices = {}, stopAt) {
+  const visited = [];
+  for (let step = 0; step < 1500; step++) {
+    const id = e.nodeId; visited.push(id);
+    if (id === stopAt || chapter.nodes[id].type === 'route') return visited;
+    const node = chapter.nodes[id];
+    if (node.choices) {
+      const requested = choices[id] ?? node.choices[0].id;
+      const index = node.choices.findIndex(choice => choice.id === requested);
+      assert.ok(index >= 0, `${id} has choice ${requested}`);
+      e.enterChoiceMode(node.choices); e.els.choices.children[index].click();
+    } else e.advance();
+    assert.notEqual(e.nodeId, id, `stuck at ${id}`);
+  }
+  assert.fail(`route did not finish: ${e.nodeId}`);
+}
+
+test('cafe-only first play and actual cafe Memory replay never earn bookstore reunion', () => {
+  const {e,storage} = play(pathChoices('B'));
+  assert.equal(e.progress.data.jycEverUnlocked,true);
+  assert.equal(e.bookstoreEligible(),false);
+  const main = structuredClone(e.progress.data.frontier);
+  const reload = makeEngine(storage); reload.progress.setPlayerName('小雨');
+  reload.replayMemory(memoryLibrary.events.find(event=>event.id==='mem.opening.ch1.first-cafe-jyc'));
+  assert.equal(reload.nodeId,'common_station_cafe_jyc_first_enter');
+  const visited = walkEngine(reload, {common_station_cafe_jyc_contact_choice:'com02j_leave_without_contact'}, 'common_station_cafe_jyc_complete');
+  assert.ok(visited.includes('common_station_cafe_jyc_first_drawing_02'));
+  assert.ok(!visited.includes('common_station_cafe_jyc_drawing_02'));
+  assert.equal(reload.bookstoreEligible(),false);
+  assert.ok(!reload.state.flags.has('weekend_book_purchased'));
+  assert.ok(!reload.state.flags.has('contact_jyc'));
+  assert.deepEqual(reload.progress.data.frontier,main);
+});
+
+test('street main then actual bookstore replay earns durable eligibility without replacing greatest continuation', () => {
+  const {e,storage} = play(pathChoices('C'));
+  const main = structuredClone(e.progress.data.frontier);
+  const weekday = structuredClone(e.progress.data.checkpoints.common_weekday_outing_work);
+  const bookEntry = {nodeId:'common_acg_first_meet_enter', stats:{...chapter.initialState},flags:['preview:jyc-weekend-weekday','history:common_bookstore_bridge_weekend_decision:com01b_bookstore_go'],returnNodes:[]};
+  e.resumeGame(bookEntry,{replay:true});
+  assert.equal(e.bookstoreEligible(),false);
+  walkEngine(e,{},'common_acg_first_meet_worldbuilding');
+  assert.equal(e.bookstoreEligible(),false,'choosing topic is not completed encounter');
+  walkEngine(e,{},'common_acg_first_meet_purchase');
+  assert.equal(e.bookstoreEligible(),true);
+  assert.ok(!e.state.flags.has('weekend_book_purchased'));
+  assert.deepEqual(e.progress.data.frontier,main);
+  const reload=makeEngine(storage); reload.progress.setPlayerName('小雨');
+  assert.equal(reload.bookstoreEligible(),true);
+  assert.deepEqual(reload.progress.data.frontier,main);
+  reload.resumeGame(weekday,{replay:true});
+  const visited=walkEngine(reload,{common_station_cafe_jyc_contact_choice:'com02j_leave_without_contact'},'common_station_cafe_jyc_complete');
+  assert.ok(visited.includes('common_station_cafe_jyc_drawing_02'));
+  assert.ok(!visited.includes('common_station_cafe_jyc_first_enter'));
+  assert.ok(!visited.includes('common_weekday_outing_decision'));
+  for(const flag of ['weekend_book_purchased','contact_jyc','history:jyc_first_topic:worldbuilding']) assert.ok(!reload.state.flags.has(flag),flag);
+  assert.ok(reload.state.flags.has('history:cafe-bookstore-reunion'));
+  assert.deepEqual(reload.progress.data.frontier,main);
+  assert.ok(main.flags.includes('jyc_permanently_excluded'));
+  const future=play(pathChoices('B'),storage,{freshRun:true});
+  assert.ok(future.visited.includes('common_recommend_discord_jyc_enter'));
+  assert.ok(future.e.state.flags.has('contact_jyc'),'only actual accepted cafe exchange earns contact');
+  assert.ok(!future.e.state.flags.has('weekend_book_purchased'));
+  assert.deepEqual(future.e.progress.data.frontier,main);
+});
+
+
+test('v1/v2 legacy migration distinguishes completed bookstore proof from premature or cafe-only records', () => {
+  const source=play(pathChoices('A')).e;
+  const completed=structuredClone(source.progress.data.checkpoints.common_acg_first_meet_purchase);
+  completed.flags=completed.flags.filter(flag=>!flag.startsWith('bookstore-encounter-complete')&&!flag.startsWith('entry-effect:common_acg_first_meet_exit_locked_02'));
+  const premature=structuredClone(source.progress.data.checkpoints.common_acg_first_meet_worldbuilding);
+  const cafe=play(pathChoices('B')).e.progress.data.frontier;
+  for(const version of [1,2]) for(const [snapshot,earned] of [[completed,true],[premature,false],[cafe,false]]) {
+    const storage=new Storage();storage.setItem(`${chapter.id}:journey:v${version}`,JSON.stringify(version===1
+      ?{version,current:snapshot,checkpoints:{[snapshot.nodeId]:snapshot}}
+      :{version,cursor:snapshot,frontier:snapshot,checkpoints:{[snapshot.nodeId]:snapshot},jycEverUnlocked:true}));
+    const reload=makeEngine(storage);
+    assert.equal(reload.bookstoreEligible(),earned,`${version}/${snapshot.nodeId}`);
+    assert.equal(reload.progress.data.cursor.flags.includes('weekend_book_purchased'),snapshot.flags.includes('weekend_book_purchased'));
+    assert.equal(reload.progress.data.cursor.flags.includes('contact_jyc'),snapshot.flags.includes('contact_jyc'));
+    assert.equal(makeEngine(storage).bookstoreEligible(),earned,'reload monotone');
+  }
+});
+
+test('actual engine shows Line-許棠 on remote package and later messages while face-to-face stays 許棠', () => {
+  const e=makeEngine();e.progress.setPlayerName('小雨');
+  for(const id of ['common_package_xu_first_message_02','COM03M-X01','COM03M-X05','OPEN-A-X-START-INCOMING_01']) {
+    e.nodeId=id;e.render();assert.equal(e.els.speaker.textContent,'Line-許棠',id);
+  }
+  e.nodeId='common_package_xu_line';e.render();assert.equal(e.els.speaker.textContent,'許棠');
+});
+
+
+test('cafe-initial earns future availability across excluded replay while bookstore reunion and contact stay distinct', () => {
+  const {e,storage}=play({...pathChoices('B'),common_station_cafe_jyc_contact_choice:'com02j_leave_without_contact'});
+  assert.equal(e.bookstoreEligible(),false);
+  assert.equal(e.progress.hasJiangEligibility(),true);
+  assert.ok(!e.state.flags.has('contact_jyc'));
+  const main=structuredClone(e.progress.data.frontier);
+  const reload=makeEngine(storage);reload.progress.setPlayerName('小雨');
+  const local={nodeId:'common_station_cafe_jyc_first_enter',stats:{...chapter.initialState},flags:['preview:jyc-weekend-weekday','jyc_permanently_excluded','history:common_bookstore_bridge_weekend_decision:com01b_bookstore_skip'],returnNodes:[]};
+  reload.resumeGame(local,{replay:true});
+  assert.equal(reload.nodeId,'common_station_cafe_jyc_first_enter');
+  const visited=walkEngine(reload,{common_station_cafe_jyc_contact_choice:'com02j_leave_without_contact'},'common_station_cafe_jyc_complete');
+  assert.ok(visited.includes('common_station_cafe_jyc_first_drawing_02'));
+  assert.ok(!visited.includes('common_station_cafe_jyc_drawing_02'));
+  assert.ok(reload.state.flags.has('jyc_permanently_excluded'));
+  assert.ok(!reload.state.flags.has('contact_jyc'));
+  assert.ok(!reload.state.flags.has('weekend_book_purchased'));
+  assert.equal(reload.bookstoreEligible(),false);
+  assert.equal(reload.progress.hasJiangEligibility(),true);
+  assert.deepEqual(reload.progress.data.frontier,main);
+  const again=makeEngine(storage);
+  assert.equal(again.progress.hasJiangEligibility(),true);
+  assert.equal(again.bookstoreEligible(),false);
+  assert.deepEqual(again.progress.data.frontier,main);
+  assert.ok(again.progress.data.cursor.flags.includes('jyc_permanently_excluded'));
+});
+
+test('ordinary new play shares persisted bookstore gate and Continue retains greatest main', () => {
+  const {e,storage}=play(pathChoices('A'));
+  const main=structuredClone(e.progress.data.frontier);
+  e.startGame({freshRun:true});
+  const visited=walkEngine(e,pathChoices('B'),'common_station_cafe_jyc_enter_02');
+  assert.ok(!visited.includes('common_weekday_outing_decision'));
+  assert.equal(e.bookstoreEligible(),true);
+  assert.equal(e.progress.hasJiangEligibility(),true);
+  assert.equal(e.state.met_jiang_yucheng,0);
+  assert.ok(!e.state.flags.has('weekend_book_purchased'));
+  assert.ok(!e.state.flags.has('contact_jyc'));
+  assert.deepEqual(e.progress.data.frontier,main);
+  const reload=makeEngine(storage);
+  assert.equal(reload.bookstoreEligible(),true);
+  reload.startFromTitle();
+  assert.equal(reload.nodeId,e.nodeId);
+  assert.deepEqual(reload.progress.data.frontier,main);
+});
+
+test('reunion local book playback never fabricates an unearned cafe recommendation', () => {
+  const e=makeEngine();e.progress.setPlayerName('小雨');
+  e.progress.data.bookstoreEverEarned=true;
+  e.progress.data.initialEncounterEverEarned=true;
+  e.state={...chapter.initialState,flags:new Set(['weekend_book_purchased'])};
+  e.nodeId='common_weekday_outing_reunion_rev_01';e.render();
+  assert.equal(e.nodeId,'common_station_cafe_jyc_enter_02');
+  assert.equal(e.state.heard_station_cafe_from_jyc,0);
+  assert.ok(!e.state.flags.has('contact_jyc'));
+});
+
+test('earned reunion plays local recommendation action without inventing a purchased book', () => {
+  const e=makeEngine();e.progress.setPlayerName('小雨');
+  e.progress.data.bookstoreEverEarned=true;
+  e.progress.data.initialEncounterEverEarned=true;
+  e.state={...chapter.initialState,heard_station_cafe_from_jyc:1,flags:new Set()};
+  e.nodeId='common_weekday_outing_selector';e.render();
+  assert.equal(e.nodeId,'common_weekday_outing_reunion_rev_02');
+  e.advance();assert.equal(e.nodeId,'common_station_cafe_jyc_enter_02');
+  assert.ok(!e.state.flags.has('weekend_book_purchased'));
+  assert.ok(!e.state.flags.has('contact_jyc'));
+});
+
+for (const path of ['A', 'B']) {
+  test(`earned path ${path} restores local met zero into actual shared choices without fabricating contact`, () => {
+    const {e,storage}=play({...pathChoices(path),common_station_cafe_jyc_contact_choice:'com02j_leave_without_contact'});
+    const main=structuredClone(e.progress.data.frontier);
+    const reload=makeEngine(storage);reload.progress.setPlayerName('小雨');
+    const local={nodeId:'common_weekday_outing_selector',stats:{...chapter.initialState},flags:[
+      'preview:jyc-weekend-weekday','jyc_permanently_excluded',
+      'history:common_bookstore_bridge_weekend_decision:com01b_bookstore_skip'
+    ],returnNodes:[]};
+    reload.resumeGame(local,{replay:true});
+    assert.equal(reload.state.met_jiang_yucheng,0);
+    assert.ok(!reload.state.flags.has('contact_jyc'));
+    assert.ok(!reload.state.flags.has('weekend_book_purchased'));
+    const visited=walkEngine(reload,pathChoices('B'),'common_station_cafe_jyc_contact_choice');
+    assert.equal(reload.nodeId,'common_station_cafe_jyc_contact_choice');
+    assert.ok(visited.includes(path==='A'?'common_station_cafe_jyc_enter_02':'common_station_cafe_jyc_first_enter'));
+    assert.ok(!visited.includes('common_weekday_outing_street_enter'));
+    const choices=chapter.nodes[reload.nodeId].choices;
+    reload.enterChoiceMode(choices);
+    assert.equal(reload.els.choices.children.length,2,'actual bounded exchange/refusal choices render');
+    assert.deepEqual(choices.map(choice=>choice.id),['com02j_offer_discord','com02j_leave_without_contact']);
+    assert.ok(!reload.state.flags.has('contact_jyc'));
+    assert.deepEqual(reload.progress.data.frontier,main);
+    reload.els.choices.children[1].click();
+    walkEngine(reload,{},'common_station_cafe_jyc_complete');
+    assert.ok(!reload.state.flags.has('contact_jyc'),'actual refusal callback retains no contact');
+    const noContact={...local,nodeId:'OPEN-A-ENTRY-ACTION-GATE'};
+    reload.resumeGame(noContact,{replay:true});
+    assert.equal(reload.nodeId,'OPEN-A-LIFE-DIRECT','earned eligibility alone cannot enable a contact-dependent invitation');
+    reload.resumeGame({...local,nodeId:'COM03M-J01-GATE'},{replay:true});
+    assert.equal(reload.nodeId,'COM03M-S02','earned eligibility alone cannot manufacture remote messages');
+    assert.equal(reload.state.met_jiang_yucheng,0);
+    assert.ok(!reload.state.flags.has('contact_jyc'));
+    assert.deepEqual(reload.progress.data.frontier,main);
+  });
+}

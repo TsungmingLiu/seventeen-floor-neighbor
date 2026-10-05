@@ -46,8 +46,9 @@
     ],
     "constraints": [
       "COM-02J 是週末之後的平日下午 cafe reunion 或 first-meet；COM-03X 的平日晚間包裹完成後才開始同晚訊息。本幕沒有新的線下相遇。",
-      "contact_jyc 只能承接本次 cafe 互相同意的實際 Discord 交換；未交換者 bypass 私訊，街頭永久排除者 bypass 本幕全部 Jiang 內容。",
-      "所有 callback 必須與實際 cafe dialogue 相符：書店重逢由書話題，不得默認談過她的角色動作／關圖層。若無某具體承接證據，選既有 neutral 首訊，不自行補前事。"
+      "contact_jyc 只能承接本次 cafe 互相同意的實際 Discord 交換；未交換者 bypass 私訊，街頭當次無聯絡者 bypass 本幕全部 Jiang 內容。實際取得的累積初遇 eligibility（書店或 cafe 首遇）不代替 contact；未取得任何初遇時街頭排除仍有效。",
+      "所有 callback 必須與實際 cafe dialogue 相符：書店重逢由書話題，不得默認談過她的角色動作／關圖層。若無某具體承接證據，選既有 neutral 首訊，不自行補前事。",
+      "cafe 入口共用 GAME decision tree：僅初次遊玩或 replay 曾真正完成 COM-01J 書店初遇才用 reunion；單獨 cafe 首遇、cafe 首遇 replay、選 bookstore go 但尚未初遇、一般 met/contact 與 jycEverUnlocked 均不足。累積 eligibility 只解鎖可玩內容，不把另一段遊玩的購書、姓名、topic、contact、consent 或承諾併入當次事實。"
     ]
   },
   "scene_function": [
@@ -77,13 +78,13 @@
     "她確認是否講多了，玩家按自己的節奏回應；三支當地反應與道別後合流，保留下一次正常聯絡。"
   ],
   "required_payoffs": [
-    "先檢查 !jyc_permanently_excluded，再查真實 COM-02J encounter/names/topic/contact；週末書店→平日重逢有可信 COM-01J history，留家→平日初遇沒有；街頭支完全 bypass。兩條真正 cafe contact 都可共用同晚 online body。",
+    "先按實際取得的累積初遇 eligibility（書店或 cafe 首遇）判定街頭排除 gate，再查當次真實 COM-02J encounter/names/topic/contact；真正 cafe contact 才可共用同晚 online body。cafe-only 仍可按自己的真實 contact 進線上，但不取得書店 reunion eligibility；街頭當次無 contact 則 bypass。",
     "已 contact 路徑保留可相容的《折返月台》公開頁、月台人物／箭頭／反光兩張圖、分析、meme、自我更正、男主具體 uptake、三個 com03j_* reply-choice IDs 與各支自然道別；新推薦須有實際 cafe 討論作橋，未曾答應傳圖就不假稱答應。",
     "保持既有 Discord channel、公开推荐 body、三個 reply choice 及知識邊界；「下午」指同平日 cafe，「晚上」指包裹後當晚；不再交換 contact 或追加熟悉度。",
     "callback 只用可信 replay-local/mainline local history：her_art、shared_work、general_praise 或中性按當次真實話題；shared_work 的具體 COM-01J topic 另需可信 first topic；首次 cafe 路徑不使用書店細節或舊關圖層笑話，除非在 cafe 真的說過。缺失或不可信 history 用不主張特定前事的中性推薦。",
     "Warm／Candid／Playful 在相同真實前事下有相同 knowledge 與 contact 可行性；不能以 tone、topic、數值或正確藝術判斷決定 eligibility。無 contact 的 cafe 路徑普通道別，沒有訊息與 reply-style choice；未見路徑無姓名、topic 或 contact。",
     "線上路徑先有克制首訊、男主就已收到內容提出一項具體看法，再有她較長的分析；meme、截圖與更正服務同一推薦，不揭露匿名創作身份。三個回覆選擇各有當地反應，無 moral penalty 或 romanticSignal。",
-    "Memory replay 只讀 replay-local topic/contact snapshot；沒有可證接觸時不補線上內容，也不讀 live 主線或向主線寫入 flag、熟悉度與 reply style。"
+    "Memory replay 的 topic/contact/consent 只讀當次可信 snapshot；沒有可證接觸時不補線上內容，不向主線寫入 flag、熟悉度與 reply style。真正完成的初遇 eligibility（書店或 cafe 首遇）可單獨累積持久化，不與主線 snapshot 合併；書店 eligibility 仍獨立決定 cafe reunion。"
   ],
   "exit_state": {
     "relationships": [
@@ -127,7 +128,8 @@
     "constraints": [
       "contact_jyc 與 met_jiang_yucheng 保持 COM-02J 事實，未交換/未見均不改為 true；COM-03M 只有已 contact 的 Jiang 路徑才有訊息。",
       "僅線上路徑保存 jyc_com03j_reply_style；本幕無新的 familiarity base increment、romanticSignal、RE、focusHistory 或其他人物 knowledge mutation。",
-      "jyc_permanently_excluded=true 只由本輪平日街頭獨自行動的實際 choice 建立；本輪不可清除，優先於 contact、met、舊 history 及任何 invitation/discovery gate；禁止其後全部江雨澄內容，包括訊息、重遇、第二 discovery、RE-J、reopening、同框、邀約、結局與 coda。"
+      "街頭 choice 的 jyc_permanently_excluded 保留當次未相遇事實；未曾在實際遊玩取得任何初遇時仍阻擋後續江線。本次或任何 replay 真正完成 COM-01J 書店初遇或 COM-02J cafe 首遇後，累積初遇 eligibility 可解除後續江線排除；cafe 重逢仍僅由真正完成 COM-01J 的書店 eligibility 決定，cafe-only 重複 replay 保持 initial。不改寫街頭 snapshot，不補姓名、購書、topic、contact 或邀約。拒絕／未交換的安全邊界保持，直到實際取得對應同意或後續選擇；RE／reopening 仍遵守其有界線 gate。",
+      "累積進度取已實際取得的最大集合；低進度／街頭／未交換 replay 不清除已解鎖內容，不替換 greatest-progress frontier／主線 Continue。replay 新取得的 eligibility 持久化，但當次 cursor、主線 snapshot 與 refusal facts 各自保存。"
     ]
   },
   "must_not": [
@@ -137,7 +139,7 @@
     "不得由一條 topic history 推另一條，借 live state 填 Memory replay，或提前揭露匿名帳號、商業委託、住處與跨人物 knowledge。",
     "不得把文字長度當兩種人格或親密承諾，將線上推薦寫成約會／公開群組／私人作品權限，或讓第一人稱斷言她未說出的心理。",
     "本 design pass 不寫最終新對白、不修改其他 scene/runtime/art、不宣稱 Locked Scene、Narrative QA、preview 或 Human acceptance 已完成。",
-    "jyc_permanently_excluded=true 只由本輪平日街頭獨自行動的實際 choice 建立；本輪不可清除，優先於 contact、met、舊 history 及任何 invitation/discovery gate；禁止其後全部江雨澄內容，包括訊息、重遇、第二 discovery、RE-J、reopening、同框、邀約、結局與 coda。"
+    "街頭 choice 的 jyc_permanently_excluded 保留當次未相遇事實；未曾在實際遊玩取得任何初遇時仍阻擋後續江線。本次或任何 replay 真正完成 COM-01J 書店初遇或 COM-02J cafe 首遇後，累積初遇 eligibility 可解除後續江線排除；cafe 重逢仍僅由真正完成 COM-01J 的書店 eligibility 決定，cafe-only 重複 replay 保持 initial。不改寫街頭 snapshot，不補姓名、購書、topic、contact 或邀約。拒絕／未交換的安全邊界保持，直到實際取得對應同意或後續選擇；RE／reopening 仍遵守其有界線 gate。"
   ],
   "implementation_mapping": {
     "runtime_only": true,
@@ -157,7 +159,8 @@
       "jyc_alias_exposed": "unchanged",
       "recentFocus": "unchanged",
       "focusHistory": "unchanged",
-      "requires_jyc_not_excluded": true
+      "requires_jyc_not_excluded": "effective_future_eligibility_guard_respects_any_actual_earned_initial_encounter_COM01J_bookstore_or_COM02J_cafe_first_in_first_play_or_replay;bookstore_only_cafe_reunion_predicate_unchanged;actual_local_consent_and_contact_required_for_messages;no_local_purchase_or_snapshot_merge",
+      "jyc_bookstore_ever_earned": "persistent_monotone_eligibility_only_after_actual_COM01J_initial_encounter_in_first_play_or_replay;not_cafe_first_or_generic_met_contact;no_snapshot_merge"
     }
   }
 }

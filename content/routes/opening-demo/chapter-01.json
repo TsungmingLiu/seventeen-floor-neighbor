@@ -2954,7 +2954,10 @@
         "mode": "cg",
         "asset": "cg.opening.com01j.r01_interested"
       },
-      "next": "common_acg_first_meet_exit_rev_05"
+      "next": "common_acg_first_meet_exit_rev_05",
+      "entryFlags": [
+        "bookstore-encounter-complete"
+      ]
     },
     "common_acg_first_meet_exit_locked_03": {
       "chapter": 2,
@@ -3921,7 +3924,9 @@
         "background": "bg.narrative_preview.placeholder",
         "sprites": []
       },
-      "next": "common_package_xu_first_message_03"
+      "next": "common_package_xu_first_message_03",
+      "channel": "LINE",
+      "speakerLabel": "Line-許棠"
     },
     "common_package_xu_first_message_03": {
       "speaker": "旁白",
@@ -3943,7 +3948,9 @@
         "background": "bg.narrative_preview.placeholder",
         "sprites": []
       },
-      "next": "common_package_xu_first_message_05"
+      "next": "common_package_xu_first_message_05",
+      "channel": "LINE",
+      "speakerLabel": "Line-許棠"
     },
     "common_package_xu_first_message_05": {
       "speaker": "你",
@@ -6798,25 +6805,15 @@
       "default": "COM03M-S01"
     },
     "common_bookstore_bridge_weekend_decision_time": {
-      "chapter": 1,
-      "speaker": "旁白",
-      "text": "同週末，白天。",
-      "visual": {
-        "mode": "composite",
-        "background": "bg.narrative_preview.placeholder",
-        "sprites": []
-      },
+      "type": "branch",
+      "cases": [],
+      "default": "common_bookstore_bridge_weekend_decision_time_01",
       "next": "common_bookstore_bridge_weekend_decision_time_01"
     },
     "common_bookstore_bridge_weekend_decision_time_01": {
-      "chapter": 1,
-      "speaker": "旁白",
-      "text": "出門時，我想起許棠說過的地下街書店。新版設定集的增補還沒看過。今天要去翻翻嗎？",
-      "visual": {
-        "mode": "composite",
-        "background": "bg.narrative_preview.placeholder",
-        "sprites": []
-      },
+      "type": "branch",
+      "cases": [],
+      "default": "common_bookstore_bridge_weekend_decision_frame",
       "next": "common_bookstore_bridge_weekend_decision_frame"
     },
     "com01b_bookstore_go": {
@@ -7747,7 +7744,9 @@
         "background": "bg.narrative_preview.placeholder",
         "sprites": []
       },
-      "next": "COM03M-X01_01"
+      "next": "COM03M-X01_01",
+      "channel": "LINE",
+      "speakerLabel": "Line-許棠"
     },
     "COM03M-X01_01": {
       "chapter": 7,
@@ -7769,7 +7768,9 @@
         "background": "bg.narrative_preview.placeholder",
         "sprites": []
       },
-      "next": "COM03M-X01_03"
+      "next": "COM03M-X01_03",
+      "channel": "LINE",
+      "speakerLabel": "Line-許棠"
     },
     "COM03M-X01_03": {
       "chapter": 7,
@@ -7802,7 +7803,9 @@
         "background": "bg.narrative_preview.placeholder",
         "sprites": []
       },
-      "next": "COM03M-X01_06"
+      "next": "COM03M-X01_06",
+      "channel": "LINE",
+      "speakerLabel": "Line-許棠"
     },
     "COM03M-X01_06": {
       "chapter": 7,
@@ -7857,7 +7860,9 @@
         "background": "bg.narrative_preview.placeholder",
         "sprites": []
       },
-      "next": "COM03M-X02_01"
+      "next": "COM03M-X02_01",
+      "channel": "LINE",
+      "speakerLabel": "Line-許棠"
     },
     "COM03M-X02_01": {
       "chapter": 7,
@@ -7868,7 +7873,9 @@
         "background": "bg.narrative_preview.placeholder",
         "sprites": []
       },
-      "next": "COM03M-X02_02"
+      "next": "COM03M-X02_02",
+      "channel": "LINE",
+      "speakerLabel": "Line-許棠"
     },
     "COM03M-X02_02": {
       "chapter": 7,
@@ -7890,7 +7897,9 @@
         "background": "bg.narrative_preview.placeholder",
         "sprites": []
       },
-      "next": "COM03M-X02_04"
+      "next": "COM03M-X02_04",
+      "channel": "LINE",
+      "speakerLabel": "Line-許棠"
     },
     "COM03M-X02_04": {
       "chapter": 7,
@@ -7923,7 +7932,9 @@
         "background": "bg.narrative_preview.placeholder",
         "sprites": []
       },
-      "next": "COM03M-X02_07"
+      "next": "COM03M-X02_07",
+      "channel": "LINE",
+      "speakerLabel": "Line-許棠"
     },
     "COM03M-X02_07": {
       "chapter": 7,
@@ -8088,7 +8099,9 @@
         "background": "bg.narrative_preview.placeholder",
         "sprites": []
       },
-      "next": "COM03M-BOTH-NOTIFY_02"
+      "next": "COM03M-BOTH-NOTIFY_02",
+      "channel": "LINE",
+      "speakerLabel": "Line-許棠"
     },
     "COM03M-BOTH-NOTIFY_02": {
       "chapter": 7,
@@ -8187,7 +8200,9 @@
         "background": "bg.narrative_preview.placeholder",
         "sprites": []
       },
-      "next": "COM03M-X04_03"
+      "next": "COM03M-X04_03",
+      "channel": "LINE",
+      "speakerLabel": "Line-許棠"
     },
     "COM03M-X04_03": {
       "chapter": 7,
@@ -8209,7 +8224,9 @@
         "background": "bg.narrative_preview.placeholder",
         "sprites": []
       },
-      "next": "COM03M-X04_05"
+      "next": "COM03M-X04_05",
+      "channel": "LINE",
+      "speakerLabel": "Line-許棠"
     },
     "COM03M-X04_05": {
       "chapter": 7,
@@ -8231,7 +8248,9 @@
         "background": "bg.narrative_preview.placeholder",
         "sprites": []
       },
-      "next": "COM03M-X04_07"
+      "next": "COM03M-X04_07",
+      "channel": "LINE",
+      "speakerLabel": "Line-許棠"
     },
     "COM03M-X04_07": {
       "chapter": 7,
@@ -8253,7 +8272,9 @@
         "background": "bg.narrative_preview.placeholder",
         "sprites": []
       },
-      "next": "COM03M-X04_09"
+      "next": "COM03M-X04_09",
+      "channel": "LINE",
+      "speakerLabel": "Line-許棠"
     },
     "COM03M-X04_09": {
       "chapter": 7,
@@ -8440,7 +8461,9 @@
         "background": "bg.narrative_preview.placeholder",
         "sprites": []
       },
-      "next": "COM03M-X05_01"
+      "next": "COM03M-X05_01",
+      "channel": "LINE",
+      "speakerLabel": "Line-許棠"
     },
     "COM03M-X05_01": {
       "chapter": 7,
@@ -8462,7 +8485,9 @@
         "background": "bg.narrative_preview.placeholder",
         "sprites": []
       },
-      "next": "COM03M-X05_03"
+      "next": "COM03M-X05_03",
+      "channel": "LINE",
+      "speakerLabel": "Line-許棠"
     },
     "COM03M-X05_03": {
       "chapter": 7,
@@ -8484,7 +8509,9 @@
         "background": "bg.narrative_preview.placeholder",
         "sprites": []
       },
-      "next": "COM03M-X05_05"
+      "next": "COM03M-X05_05",
+      "channel": "LINE",
+      "speakerLabel": "Line-許棠"
     },
     "COM03M-X05_05": {
       "chapter": 7,
@@ -8506,7 +8533,9 @@
         "background": "bg.narrative_preview.placeholder",
         "sprites": []
       },
-      "next": "COM03M-J05-GATE"
+      "next": "COM03M-J05-GATE",
+      "channel": "LINE",
+      "speakerLabel": "Line-許棠"
     },
     "COM03M-J05": {
       "chapter": 7,
@@ -8847,7 +8876,9 @@
         "background": "bg.narrative_preview.placeholder",
         "sprites": []
       },
-      "next": "COM03M-BX_02"
+      "next": "COM03M-BX_02",
+      "channel": "LINE",
+      "speakerLabel": "Line-許棠"
     },
     "COM03M-BX_02": {
       "chapter": 7,
@@ -8990,7 +9021,9 @@
         "background": "bg.narrative_preview.placeholder",
         "sprites": []
       },
-      "next": "COM03M-BJ_08"
+      "next": "COM03M-BJ_08",
+      "channel": "LINE",
+      "speakerLabel": "Line-許棠"
     },
     "COM03M-BJ_08": {
       "chapter": 7,
@@ -9045,7 +9078,9 @@
         "background": "bg.narrative_preview.placeholder",
         "sprites": []
       },
-      "next": "COM03M-BW_04"
+      "next": "COM03M-BW_04",
+      "channel": "LINE",
+      "speakerLabel": "Line-許棠"
     },
     "COM03M-BW_04": {
       "chapter": 7,
@@ -9122,7 +9157,9 @@
         "background": "bg.narrative_preview.placeholder",
         "sprites": []
       },
-      "next": "COM03M-BX-ONLY_01"
+      "next": "COM03M-BX-ONLY_01",
+      "channel": "LINE",
+      "speakerLabel": "Line-許棠"
     },
     "COM03M-BX-ONLY_01": {
       "chapter": 7,
@@ -9155,7 +9192,9 @@
         "background": "bg.narrative_preview.placeholder",
         "sprites": []
       },
-      "next": "COM03M-BX-ONLY_04"
+      "next": "COM03M-BX-ONLY_04",
+      "channel": "LINE",
+      "speakerLabel": "Line-許棠"
     },
     "COM03M-BX-ONLY_04": {
       "chapter": 7,
@@ -9757,7 +9796,9 @@
         "background": "bg.narrative_preview.placeholder",
         "sprites": []
       },
-      "next": "OPEN-A-X-START-INCOMING_02"
+      "next": "OPEN-A-X-START-INCOMING_02",
+      "channel": "LINE",
+      "speakerLabel": "Line-許棠"
     },
     "OPEN-A-X-START-INCOMING_02": {
       "chapter": 8,
@@ -9801,7 +9842,9 @@
         "background": "bg.narrative_preview.placeholder",
         "sprites": []
       },
-      "next": "OPEN-A-X-START-PLAYER_03"
+      "next": "OPEN-A-X-START-PLAYER_03",
+      "channel": "LINE",
+      "speakerLabel": "Line-許棠"
     },
     "OPEN-A-X-START-PLAYER_03": {
       "chapter": 8,
@@ -9812,7 +9855,9 @@
         "background": "bg.narrative_preview.placeholder",
         "sprites": []
       },
-      "next": "OPEN-A-X-REPLY"
+      "next": "OPEN-A-X-REPLY",
+      "channel": "LINE",
+      "speakerLabel": "Line-許棠"
     },
     "OPEN-A-X-CONFIRM": {
       "chapter": 8,
@@ -9834,7 +9879,9 @@
         "background": "bg.narrative_preview.placeholder",
         "sprites": []
       },
-      "next": "OPEN-A-X-CONFIRM_02"
+      "next": "OPEN-A-X-CONFIRM_02",
+      "channel": "LINE",
+      "speakerLabel": "Line-許棠"
     },
     "OPEN-A-X-CONFIRM_02": {
       "chapter": 8,
@@ -9867,7 +9914,9 @@
         "background": "bg.narrative_preview.placeholder",
         "sprites": []
       },
-      "next": "OPEN-A-X-CONFIRM-COUNTER_02"
+      "next": "OPEN-A-X-CONFIRM-COUNTER_02",
+      "channel": "LINE",
+      "speakerLabel": "Line-許棠"
     },
     "OPEN-A-X-CONFIRM-COUNTER_02": {
       "chapter": 8,
@@ -9878,7 +9927,9 @@
         "background": "bg.narrative_preview.placeholder",
         "sprites": []
       },
-      "next": "OPEN-A-X-CONFIRM-COUNTER_03"
+      "next": "OPEN-A-X-CONFIRM-COUNTER_03",
+      "channel": "LINE",
+      "speakerLabel": "Line-許棠"
     },
     "OPEN-A-X-CONFIRM-COUNTER_03": {
       "chapter": 8,
@@ -9911,7 +9962,9 @@
         "background": "bg.narrative_preview.placeholder",
         "sprites": []
       },
-      "next": "OPEN-A-X-CLOSE_02"
+      "next": "OPEN-A-X-CLOSE_02",
+      "channel": "LINE",
+      "speakerLabel": "Line-許棠"
     },
     "OPEN-A-X-CLOSE_02": {
       "chapter": 8,
@@ -9922,7 +9975,9 @@
         "background": "bg.narrative_preview.placeholder",
         "sprites": []
       },
-      "next": "OPEN-A-LIFE-AFTER-X"
+      "next": "OPEN-A-LIFE-AFTER-X",
+      "channel": "LINE",
+      "speakerLabel": "Line-許棠"
     },
     "OPEN-A-X-CLOSE-COUNTER": {
       "chapter": 8,
@@ -9944,7 +9999,9 @@
         "background": "bg.narrative_preview.placeholder",
         "sprites": []
       },
-      "next": "OPEN-A-X-CLOSE-COUNTER_02"
+      "next": "OPEN-A-X-CLOSE-COUNTER_02",
+      "channel": "LINE",
+      "speakerLabel": "Line-許棠"
     },
     "OPEN-A-X-CLOSE-COUNTER_02": {
       "chapter": 8,
@@ -9955,7 +10012,9 @@
         "background": "bg.narrative_preview.placeholder",
         "sprites": []
       },
-      "next": "OPEN-A-LIFE-AFTER-X"
+      "next": "OPEN-A-LIFE-AFTER-X",
+      "channel": "LINE",
+      "speakerLabel": "Line-許棠"
     },
     "OPEN-A-LIFE-AFTER-X": {
       "chapter": 8,
@@ -10350,7 +10409,9 @@
         "background": "bg.narrative_preview.placeholder",
         "sprites": []
       },
-      "next": "OPEN-A-X-COUNTER_02"
+      "next": "OPEN-A-X-COUNTER_02",
+      "channel": "LINE",
+      "speakerLabel": "Line-許棠"
     },
     "OPEN-A-X-COUNTER_02": {
       "chapter": 8,
@@ -10361,7 +10422,9 @@
         "background": "bg.narrative_preview.placeholder",
         "sprites": []
       },
-      "next": "OPEN-A-X-COUNTER_03"
+      "next": "OPEN-A-X-COUNTER_03",
+      "channel": "LINE",
+      "speakerLabel": "Line-許棠"
     },
     "OPEN-A-X-COUNTER_03": {
       "chapter": 8,
@@ -10566,7 +10629,7 @@
     "common_bookstore_bridge_weekend_decision_rev_01": {
       "chapter": 1,
       "speaker": "內心",
-      "text": "許棠說的那家地下街書店，大概會有吧。不過這幾箱也擱好幾天了。",
+      "text": "去許棠說的那家店翻翻，應該比盯著這幾張照片清楚。不過箱子也擱好幾天了，還有工作要整理……先做哪一邊？",
       "visual": {
         "mode": "composite",
         "background": "bg.narrative_preview.placeholder",
@@ -10673,7 +10736,8 @@
         "background": "bg.narrative_preview.placeholder",
         "sprites": []
       },
-      "next": "common_weekend_home_exit_rev_01"
+      "next": "common_weekend_home_exit_rev_01",
+      "moment": "同週末，約 23:00。"
     },
     "common_weekend_home_exit_rev_01": {
       "chapter": 1,
@@ -10707,7 +10771,8 @@
         "background": "bg.narrative_preview.placeholder",
         "sprites": []
       },
-      "next": "common_weekday_outing_work_rev_01"
+      "next": "common_weekday_outing_work_rev_01",
+      "moment": "接下來的一個平日，午後；家裡。"
     },
     "common_weekday_outing_work_rev_01": {
       "chapter": 1,
@@ -10910,7 +10975,8 @@
         "background": "bg.narrative_preview.placeholder",
         "sprites": []
       },
-      "next": "common_bookstore_bridge_weekend_decision_rev_01"
+      "next": "common_bookstore_bridge_weekend_decision_rev_01",
+      "moment": "同週末，晴朗的午後；我還在家。"
     },
     "common_bookstore_bridge_weekend_decision": {
       "chapter": 1,

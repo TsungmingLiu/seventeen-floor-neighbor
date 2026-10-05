@@ -362,13 +362,13 @@ This is a compileable authoring projection for later integration, not a runtime 
 
 ```js
 function selectCom03j({ flags, choiceHistory, cafeEvidence,
-  trustworthySecondTopic, trustworthyFirstTopic }) {
-  if (flags.jyc_permanently_excluded === true) return null;
-  if (flags.jyc_permanently_excluded !== false) {
+  trustworthySecondTopic, trustworthyFirstTopic, initialEncounterEverEarned }) {
+  if (flags.jyc_permanently_excluded === true && !initialEncounterEverEarned) return null;
+  if (typeof flags.jyc_permanently_excluded !== 'boolean') {
     throw new Error('COM-03J: missing exclusion guard');
   }
   const chosen = new Set(Object.values(choiceHistory));
-  if (chosen.has('com01b_weekday_street_walk')) return null;
+  if (chosen.has('com01b_weekday_street_walk') && !initialEncounterEverEarned) return null;
   if (flags.met_jiang_yucheng === false) return null;
   if (flags.met_jiang_yucheng !== true) {
     throw new Error('COM-03J: missing encounter evidence');

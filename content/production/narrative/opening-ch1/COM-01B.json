@@ -67,7 +67,8 @@
     ],
     "constraints": [
       "COM-01X 已於平日晚間 17 樓分開；本幕保留週末前另一晚大樓外偶遇與有界線問路。",
-      "週末行動前尚未遇見江雨澄；本幕另擁有 COM-02X 完成後的平日居家工作／外出 transition，不能在週末預播咖啡店相遇。"
+      "週末行動前尚未遇見江雨澄；本幕另擁有 COM-02X 完成後的平日居家工作／外出 transition，不能在週末預播咖啡店相遇。",
+      "cafe 入口共用 GAME decision tree：僅初次遊玩或 replay 曾真正完成 COM-01J 書店初遇才用 reunion；單獨 cafe 首遇、cafe 首遇 replay、選 bookstore go 但尚未初遇、一般 met/contact 與 jycEverUnlocked 均不足。累積 eligibility 只解鎖可玩內容，不把另一段遊玩的購書、姓名、topic、contact、consent 或承諾併入當次事實。"
     ]
   },
   "scene_function": [
@@ -100,10 +101,11 @@
     "保留三個問路 choice ID 與同一推薦、晚安 rejoin；只知約十分鐘地下街書店及出口上層咖啡，不提前得北出口使用細節。",
     "週末晴朗、男主尚在家時才顯示 common_bookstore_bridge_weekend_decision；com01b_bookstore_go 接原約 15:40 書店，com01b_bookstore_skip 接在家拆箱與工作，不能先敘述已出門。",
     "去書店才 COM-01J 初遇；其作品對話之後男主實際買到原本想要的世界設定增補版，回家，再接同週末約 23:00 COM-02X。留家支完成拆箱／工作生活片段，未見雨澄，亦接 COM-02X。週末無咖啡店行動 choice 或相遇。",
-    "COM-02X 完成後才 common_weekday_outing_work；平日在家完成工作、察覺疲累，帶筆記本電腦下午出門換環境。書店已遇雨澄者直接接 COM-02J 重逢，不新增街頭選項。",
-    "未曾去書店者在 common_weekday_outing_decision 作兩項 action：com01b_weekday_cafe_first 接 COM-02J 初遇；com01b_weekday_street_walk 接 common_weekday_outing_street_*。咖啡首遇沒有書架前事或雨澄推薦。",
-    "街頭支演出我記得部分路口、卻不再熟悉當下街景的第一人稱感受；不新增舊識、回憶人物或人物遭遇。選擇時建立不可逆的本輪永久江線排除，再回家；兩個咖啡出口與街頭回家均接 COM-03X 包裹。",
-    "COM-01B 不設 met/contact 或任何關係分數；相遇與聯絡仍由 COM-01J／COM-02J 真實事件及互相同意建立。街頭是生活選擇的機會成本，不當 bad ending、戀愛拒絕或道德懲罰。"
+    "COM-02X 完成後才 common_weekday_outing_work；平日在家完成工作、察覺疲累，帶筆記本電腦下午出門換環境。書店初遇曾真正取得者（含 replay）接 COM-02J 重逢，不新增街頭選項。",
+    "尚未真正取得書店初遇者在 common_weekday_outing_decision 作兩項 action：com01b_weekday_cafe_first 接 COM-02J 初遇；com01b_weekday_street_walk 接 common_weekday_outing_street_*。咖啡首遇沒有書架前事或雨澄推薦。",
+    "街頭支演出我記得部分路口、卻不再熟悉當下街景的第一人稱感受；不新增舊識、回憶人物或人物遭遇。選擇時保留本次未相遇與街頭排除；其跨 replay 效力按實際取得的累積初遇 eligibility（書店或 cafe 首遇）判定，再回家；兩個咖啡出口與街頭回家均接 COM-03X 包裹。",
+    "COM-01B 不設 met/contact 或任何關係分數；相遇與聯絡仍由 COM-01J／COM-02J 真實事件及互相同意建立。街頭是生活選擇的機會成本，不當 bad ending、戀愛拒絕或道德懲罰。",
+    "晨光、箱子與男主既有設定集預覽動機置於週末 action choice 前；以尚待拆箱／工作和自己的購書目的連接書店／留家兩項選擇。保留所有 choice/event ID、entry/exit、時間順序與其事實，不提前宣稱出門或購書。"
   ],
   "exit_state": {
     "relationships": [
@@ -128,7 +130,7 @@
         "toward": "jiang_yucheng",
         "label": "strangers",
         "constraints": [
-          "週末行動前仍陌生；書店支才初遇，留家支直到平日咖啡首遇才可相識；街頭支永不相遇。"
+          "週末行動前本次仍陌生；書店支才初遇，留家支可在平日 cafe 首遇；街頭支本次未見。曾真正取得書店初遇時，後续 cafe replay 可重逢。"
         ]
       }
     ],
@@ -171,14 +173,15 @@
     "constraints": [
       "本幕跨時段分支不假裝同一線性 exit：週末決策交 COM-01J 或留家→COM-02X；平日決策在 COM-02X 後返回，交 COM-02J 或街頭→COM-03X。",
       "三條平日走法接同一包裹事件，但 met、contact、知名及作品 history 各自保留，不能以 graph merge 補齊。",
-      "jyc_permanently_excluded=true 只由本輪平日街頭獨自行動的實際 choice 建立；本輪不可清除，優先於 contact、met、舊 history 及任何 invitation/discovery gate；禁止其後全部江雨澄內容，包括訊息、重遇、第二 discovery、RE-J、reopening、同框、邀約、結局與 coda。"
+      "街頭 choice 的 jyc_permanently_excluded 保留當次未相遇事實；未曾在實際遊玩取得任何初遇時仍阻擋後續江線。本次或任何 replay 真正完成 COM-01J 書店初遇或 COM-02J cafe 首遇後，累積初遇 eligibility 可解除後續江線排除；cafe 重逢仍僅由真正完成 COM-01J 的書店 eligibility 決定，cafe-only 重複 replay 保持 initial。不改寫街頭 snapshot，不補姓名、購書、topic、contact 或邀約。拒絕／未交換的安全邊界保持，直到實際取得對應同意或後續選擇；RE／reopening 仍遵守其有界線 gate。",
+      "累積進度取已實際取得的最大集合；低進度／街頭／未交換 replay 不清除已解鎖內容，不替換 greatest-progress frontier／主線 Continue。replay 新取得的 eligibility 持久化，但當次 cursor、主線 snapshot 與 refusal facts 各自保存。"
     ]
   },
   "must_not": [
     "不得改 COM-01X／COM-00 的已成立事實；許棠沒有讀心、同行、聯絡交換或提前給雨澄的具體咖啡條件。",
     "不得維持週末同次外出必去咖啡店、週末 skip 後咖啡選項或兩處 skip 仍可 later rediscovery 的舊路徑。",
     "不得把晴朗週末留家省成無內容的跳過；不得在未去書店支假造購書、COM-01J topic、heard_station_cafe_from_jyc 或初遇。",
-    "jyc_permanently_excluded=true 只由本輪平日街頭獨自行動的實際 choice 建立；本輪不可清除，優先於 contact、met、舊 history 及任何 invitation/discovery gate；禁止其後全部江雨澄內容，包括訊息、重遇、第二 discovery、RE-J、reopening、同框、邀約、結局與 coda。",
+    "街頭 choice 的 jyc_permanently_excluded 保留當次未相遇事實；未曾在實際遊玩取得任何初遇時仍阻擋後續江線。本次或任何 replay 真正完成 COM-01J 書店初遇或 COM-02J cafe 首遇後，累積初遇 eligibility 可解除後續江線排除；cafe 重逢仍僅由真正完成 COM-01J 的書店 eligibility 決定，cafe-only 重複 replay 保持 initial。不改寫街頭 snapshot，不補姓名、購書、topic、contact 或邀約。拒絕／未交換的安全邊界保持，直到實際取得對應同意或後續選擇；RE／reopening 仍遵守其有界線 gate。",
     "本設計不寫最終對白、不整合 runtime、不改既有驗收像素或歷史 QA/Human 證據。"
   ],
   "implementation_mapping": {
@@ -186,10 +189,11 @@
     "flags": {
       "weekend_route": "actual choice history:com01b_bookstore_go|com01b_bookstore_skip",
       "weekend_book_purchased": "true_only_after_COM01J_actual_purchase;false_on_home",
-      "weekday_route": "reunion_after_bookstore|cafe_first_after_home|street_after_home;actual_local_history",
-      "jyc_permanently_excluded": "set_true_once_on_com01b_weekday_street_walk;never_reset_in_this_playthrough",
+      "weekday_route": "shared_GAME_and_replay_tree:reunion_iff_bookstore_ever_earned;otherwise_cafe_first_or_street;local_facts_preserved",
+      "jyc_permanently_excluded": "local_street_choice_fact;blocks_future_Jiang_when_no_genuinely_earned_initial_encounter_COM01J_bookstore_or_COM02J_cafe_first_in_actual_play;earned_first_play_or_replay_may_unlock_without_clearing_or_merging_snapshot;bookstore_only_cafe_reunion_predicate_unchanged;no_local_contact_purchase_or_consent_invention",
       "met_jiang_yucheng": "unchanged_here;actual_encounter_owned_by_COM01J_or_COM02J",
-      "contact_jyc": "unchanged_here;COM02J_mutual_exchange_only"
+      "contact_jyc": "unchanged_here;COM02J_mutual_exchange_only",
+      "jyc_bookstore_ever_earned": "persistent_monotone_eligibility_only_after_actual_COM01J_initial_encounter_in_first_play_or_replay;not_cafe_first_or_generic_met_contact;no_snapshot_merge"
     }
   }
 }

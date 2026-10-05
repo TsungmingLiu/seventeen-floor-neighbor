@@ -1,0 +1,135 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "feedback-20261005",
+  "task_id": "ND-FEEDBACK-001",
+  "scene_id": "COM-01J",
+  "task_type": "narrative_design",
+  "status": "PASS",
+  "harness": {
+    "id": "content_writer",
+    "version": "1.4.1",
+    "pass": "narrative_design"
+  },
+  "source_ref": "93bfa88dee2c9f6aafb9348503f0877644065c17",
+  "packet_sha256": "acae2cc38fc15d4aa7295287f0edba54f9049de41731da3e46c3cc64f50873c6",
+  "input_digest_sha256": "e4a05a97acdecc92ebab415b4a5087bb07391ccc75f47947b45ae0ed80acd4ce",
+  "input_versions": [
+    {
+      "id": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md",
+      "version": "7144fe200bcb85874ad54c151eb0d77effc7be04"
+    },
+    {
+      "id": "docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md",
+      "location": "docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md",
+      "version": "9d44ab016a3a32da239b2d711117e05f087625f4"
+    },
+    {
+      "id": "content/production/narrative/opening-ch1/COM-01B.json",
+      "location": "content/production/narrative/opening-ch1/COM-01B.json",
+      "version": "8db48beb145c4a4a4359037ecb09beb35c1b3c90"
+    },
+    {
+      "id": "content/production/narrative/opening-ch1/COM-01J.json",
+      "location": "content/production/narrative/opening-ch1/COM-01J.json",
+      "version": "fff9c0bcf1891b8ccd9d7af7eea20cfb419460c7"
+    },
+    {
+      "id": "content/production/narrative/opening-ch1/COM-02J.json",
+      "location": "content/production/narrative/opening-ch1/COM-02J.json",
+      "version": "bfcd20c4279079c4ab1676061edc99ddb0ca2371"
+    },
+    {
+      "id": "content/production/narrative/opening-ch1/COM-03J.json",
+      "location": "content/production/narrative/opening-ch1/COM-03J.json",
+      "version": "79dfbcdd38ab5a17098112e969a8c2941bf66172"
+    },
+    {
+      "id": "src/engine.js",
+      "location": "src/engine.js",
+      "version": "d163e79bdd447a8ecd66198b2817633022c43ad6"
+    },
+    {
+      "id": "src/progress.js",
+      "location": "src/progress.js",
+      "version": "2394f0f42946d0af0d40e0aa4b57c2b8c0c03082"
+    },
+    {
+      "id": "src/memories.js",
+      "location": "src/memories.js",
+      "version": "7894956e0773ebdbd3f3509501cb0a1d4e3b3fab"
+    },
+    {
+      "id": "src/branches.js",
+      "location": "src/branches.js",
+      "version": "00a87a63211358f221707fabefc68e6dda3c37df"
+    },
+    {
+      "id": "tests/jyc-frontier-monotone.test.mjs",
+      "location": "tests/jyc-frontier-monotone.test.mjs",
+      "version": "646fdc55cf2342dcd86bd2caad993345da7a8ebf"
+    },
+    {
+      "id": "tests/jyc-weekend-weekday.test.mjs",
+      "location": "tests/jyc-weekend-weekday.test.mjs",
+      "version": "df2c3ef4b373b7783f3d13b8dc2424c1b6c09b1d"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "narrative_contract:COM-01B",
+      "location": "content/production/narrative/opening-ch1/COM-01B.json",
+      "version": "sha256:2f2ec7fa6c5f91679f5bd6f2d76faedee5d82a0bee2f8fdab4938cccbce91453"
+    },
+    {
+      "id": "narrative_contract:COM-01J",
+      "location": "content/production/narrative/opening-ch1/COM-01J.json",
+      "version": "sha256:9ecdbe7e9ae23b500579655e29308593b6c6de77b52c892f2f55cdadcd494bd3"
+    },
+    {
+      "id": "narrative_contract:COM-02J",
+      "location": "content/production/narrative/opening-ch1/COM-02J.json",
+      "version": "sha256:0238a8fd8ac43790e5687dc29ccec9c26f4e6289116399786699fb961e885a77"
+    },
+    {
+      "id": "narrative_contract:COM-03J",
+      "location": "content/production/narrative/opening-ch1/COM-03J.json",
+      "version": "sha256:636d00c7060c3ebf050de65342bafa949af9ab5fee81c46992b3af4fe7344181"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "bookstore earned eligibility distinct from cafe and local facts",
+      "code": "ND-BOOKSTORE-EVER-EARNED",
+      "result": "PASS"
+    },
+    {
+      "name": "max progress and main continuation preserved",
+      "code": "ND-MAX-MAIN-PRESERVED",
+      "result": "PASS"
+    },
+    {
+      "name": "contact refusal and bounded reapproach preserved",
+      "code": "ND-CONSENT-LOCAL-FACTS",
+      "result": "PASS"
+    },
+    {
+      "name": "COM-01B paragraph order boundary preserves choices and events",
+      "code": "ND-COM01B-BOUNDED-REWRITE",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "Design approval covers all four contract outputs; no scene dialogue, runtime integration, Narrative QA or preview acceptance claimed."
+  ],
+  "human_gate_required": "none",
+  "invalidates": [
+    "locked_scene:COM-01B",
+    "locked_scene:COM-01J",
+    "locked_scene:COM-02J",
+    "locked_scene:COM-03J",
+    "runtime:JYC-encounter-eligibility"
+  ]
+}

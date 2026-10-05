@@ -728,9 +728,60 @@ export class GameEngine {
     setTimeout(() => this.els.moment.classList.add('is-hidden'), 2100);
   }
 
+  bookstoreEligible() {
+    return this.progress.hasBookstoreEligibility();
+  }
+
+  earnedCafeDestination() {
+    const id = this.nodeId;
+    if (!this.bookstoreEligible()) {
+      if (id === 'common_weekday_outing_selector') {
+        if (jiangExcluded(this.state, this.progress.hasJiangEligibility())) return 'common_weekday_outing_street_enter';
+        const history = ['com01b_bookstore_go', 'com01b_bookstore_skip'].some(choice =>
+          this.state.flags.has(`history:common_bookstore_bridge_weekend_decision:${choice}`));
+        if (history) return 'common_weekday_outing_home';
+      }
+      return null;
+    }
+    const purchased = this.state.flags.has('weekend_book_purchased');
+    const recommended = this.state.heard_station_cafe_from_jyc > 0;
+    if (id === 'common_weekday_outing_reunion_rev_01' && !recommended) {
+      return 'common_station_cafe_jyc_enter_02';
+    }
+    if (id === 'common_weekday_outing_reunion_rev_02' && !recommended) {
+      return 'common_station_cafe_jyc_enter_02';
+    }
+    if (id === 'common_weekday_outing_selector' || id === 'common_weekday_outing_decision') {
+      return purchased ? 'common_weekday_outing_reunion'
+        : recommended ? 'common_weekday_outing_reunion_rev_02' : 'common_station_cafe_jyc_enter_02';
+    }
+    if (id === 'common_station_cafe_jyc_enter' && !purchased) {
+      return 'common_station_cafe_jyc_enter_02';
+    }
+    if (id === 'common_station_cafe_jyc_first_enter') {
+      return purchased ? 'common_station_cafe_jyc_enter' : 'common_station_cafe_jyc_enter_02';
+    }
+    // Reuse existing neutral passages when this replay has no purchased book.
+    // Eligibility does not import another run's purchase, topic or contact.
+    if (!purchased && this.state.flags.has('history:cafe-bookstore-reunion')) {
+      if (id === 'common_station_cafe_jyc_names_04') return 'common_station_cafe_jyc_first_drawing_05';
+    }
+    return null;
+  }
+
   render() {
     if (this.chapter.id === 'opening-demo-chapter-01') {
-      const bypass = excludedJiangDestination(this.nodeId, this.state);
+      const cafeDestination = this.earnedCafeDestination();
+      if (cafeDestination) {
+        this.nodeId = cafeDestination;
+        this.render();
+        return;
+      }
+      if (this.nodeId === 'common_station_cafe_jyc_drawing_03' && this.bookstoreEligible()) {
+        this.state.flags.add('history:cafe-bookstore-reunion');
+        this.state.met_jiang_yucheng = Math.max(1, this.state.met_jiang_yucheng);
+      }
+      const bypass = excludedJiangDestination(this.nodeId, this.state, this.progress.hasJiangEligibility());
       if (bypass) {
         this.nodeId = bypass;
         this.render();
@@ -902,7 +953,11 @@ export class GameEngine {
 
   matchesCondition(condition) {
     if (Object.hasOwn(condition, 'flag')) {
-      if (condition.flag === 'contact_jyc' && condition.present && jiangExcluded(this.state)) return false;
+      if (condition.flag === 'jyc_permanently_excluded' && typeof condition.present === 'boolean'
+        && Object.keys(condition).length === 2) {
+        return jiangExcluded(this.state, this.progress.hasJiangEligibility()) === condition.present;
+      }
+      if (condition.flag === 'contact_jyc' && condition.present && jiangExcluded(this.state, this.progress.hasJiangEligibility())) return false;
       return typeof condition.flag === 'string' && typeof condition.present === 'boolean'
         && Object.keys(condition).length === 2
         && this.state.flags.has(condition.flag) === condition.present;
