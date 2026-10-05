@@ -255,7 +255,7 @@
 
 **Action**：我點開地圖看了一眼，把手機接上充電線。
 
-**End actions**：本幕結束時套用一次 base state；結構上的下一幕為 `COM-03J`。
+**End actions**：本幕結束時套用一次 base state；只有實際 cafe contact 且未永久排除江雨澄時才接 `COM-03J`；無 contact 或街頭路徑接許棠專屬的 `COM-03M`。
 
 ## Player choice / rejoin contract
 
@@ -277,7 +277,7 @@
 - Preserve all prior pattern telemetry and boundary counters, including `xt_advice_tendency` and `xt_boundary_strikes`; no increments, resets or contact penalty from COM-02X's one unsolicited suggestion.
 - Narrative knowledge: Xu's voluntarily shown paper/color checks, client deadline and Line; later nearby shop position. Xu knows the envelope was returned intact and has the protagonist's Line.
 - No print-process flag or duplicate Line booleans; `contact_xu` remains the single contact gate. No new focus, exclusivity or cross-character knowledge.
-- Structural successor: `COM-03J`; contact contributes to the existing later COM-03M prerequisite, without unlocking OPEN-A here.
+- Conditional structural successor: actual cafe contact with Jiang not permanently excluded → `COM-03J`; no contact or street path → Xu-only `COM-03M`. Preserve actual Jiang contact/exclusion state; do not unlock OPEN-A here.
 - Integration is deferred; no runtime nodes or package data are changed by this authoring output.
 
 ## Semantic Visual Beats
