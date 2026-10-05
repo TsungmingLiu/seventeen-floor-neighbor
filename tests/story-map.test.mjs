@@ -9,7 +9,8 @@ const config = await read('../content/routes/opening-demo/route.json');
 const chapter = { ...config.story, nodes: story.nodes };
 const memoryLibrary = await read('../content/routes/opening-demo/memories.json');
 const definition = await read('../content/storyboards/opening-demo.json');
-const route = { chapter, memoryLibrary, sceneLibrary: { pools: {} } };
+const assetManifest = await read('../content/assets/manifest.json');
+const route = { chapter, memoryLibrary, sceneLibrary: { pools: {} }, assetManifest };
 const map = compileStoryMap(route, definition);
 const snapshot = id => ({ nodeId: id, stats: chapter.initialState, flags: [], returnNodes: [] });
 const progress = ids => ({ data: { checkpoints: Object.fromEntries(ids.map(id => [id, snapshot(id)])), edges: [], cursor: null, frontier: null } });
@@ -92,4 +93,14 @@ test('every reachable Opening passage has a scene in the presentation mapping', 
     pending.push(...runtimeTargets(chapter.nodes[id]));
   }
   assert.ok(seen.size > 700);
+});
+
+test('an unreachable compatibility node cannot lend artwork to the current scene', () => {
+  const altered = structuredClone(chapter);
+  altered.nodes.common_convenience_xu_legacy_art_test = {
+    text: 'retired fixture', visual: { mode: 'cg', asset: 'cg.opening.com01x.base_normal' }
+  };
+  const compiled = compileStoryMap({ ...route, chapter: altered }, definition);
+  const scene = compiled.groups.find(g => g.id === 'convenience');
+  assert.ok(scene.variants.every(v => !v.galleryAssets.includes('cg.opening.com01x.base_normal')));
 });

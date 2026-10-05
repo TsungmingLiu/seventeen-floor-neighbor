@@ -55,13 +55,20 @@ export function compileStoryMap(route, definition) {
         if (nodeToGroup.has(id) && nodeToGroup.get(id) !== group.id) throw new Error(`Story Map: overlapping group for ${id}`);
         nodeToGroup.set(id, group.id);
       }
-      const usedAssets = new Set(nodeIds.flatMap(id => {
+      const reachable = new Set(), pending = [variant.introEntry, variant.entry].filter(Boolean);
+      const allowed = new Set(nodeIds);
+      while (pending.length) {
+        const id = pending.pop();
+        if (reachable.has(id) || !allowed.has(id)) continue;
+        reachable.add(id); pending.push(...runtimeTargets(chapter.nodes[id], sceneLibrary.pools));
+      }
+      const usedAssets = new Set([...reachable].flatMap(id => {
         const visual = chapter.nodes[id].visual || {};
         return [visual.asset, visual.background];
       }).filter(Boolean));
       return { ...variant, nodeIds, sectionId: event?.sectionId || memoryLibrary.sections[0]?.id,
         characterIds: event?.characterIds || [], cover: usedAssets.has(event?.cover?.asset) ? event.cover : undefined,
-        galleryAssets: (event?.galleryAssets || []).filter(id => usedAssets.has(id)) };
+        galleryAssets: [...usedAssets].filter(id => route.assetManifest?.assets?.[id]?.gallery || event?.galleryAssets?.includes(id)) };
     });
     return { ...group, variants };
   });

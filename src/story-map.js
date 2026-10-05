@@ -158,7 +158,9 @@ export function createStoryMap(engine) {
           const body = el('span', 'memory-card-body');
           body.append(el('span', 'memory-card-meta', group.locked ? '尚未發生' : controller.review ? '已實作' : '已探索'), el('strong', '', group.locked ? '???' : group.title), el('span', 'memory-card-summary', group.locked ? '故事還會繼續。' : group.summary));
           if (controller.review && controller.notes[group.id]) body.append(el('span', 'story-pending-badge', '待修改'));
-          if (controller.review && group.variants[0]?.condition) body.append(el('span', 'story-condition-badge', group.variants[0].condition));
+          if (controller.review) for (const v of group.variants.filter(v => v.condition)) {
+            body.append(el('span', 'story-condition-badge', `${group.variants.length > 1 ? `${v.label}：` : ''}${v.condition}`));
+          }
           if (group.variants.length > 1) body.append(el('span', 'story-variant-count', `${group.variants.length} 個入口版本`));
           card.append(body);
           if (!group.locked) card.addEventListener('click', () => {
