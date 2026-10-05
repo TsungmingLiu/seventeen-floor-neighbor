@@ -57,12 +57,26 @@
       "task_type": "narrative_review",
       "scene_id": "COM-01B",
       "depends_on": [],
-      "status": "PASS",
+      "status": "STALE",
       "packet": {
         "generator": "manual-v1",
         "sha256": "3e59fe9b1459b4f016adab0aa81f6cd4bd33749ba3f6bc8c4162656590a23c4b"
       },
       "decision_receipt": "content/production/runs/jyc-weekend-weekday-20261004/NQA-COM-01B-001.decision.json",
+      "human_gate": "none",
+      "reason": "Immediate-continuity COM-01J Script Lock metadata changed after scoped review; fresh bounded review will refresh exact input binding."
+    },
+    {
+      "task_id": "ND-COM-02J-001",
+      "task_type": "narrative_design",
+      "scene_id": "COM-02J",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "d1dc012cbe7ecbd6caa2ebab4211d08112fb24ba9bd3489682c658c0c9d1b3fb"
+      },
+      "decision_receipt": "content/production/runs/jyc-weekend-weekday-20261004/ND-COM-02J-001.decision.json",
       "human_gate": "none",
       "reason": null
     }
