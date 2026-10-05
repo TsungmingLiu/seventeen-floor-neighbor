@@ -51,11 +51,16 @@ test('current deterministic inventory distinguishes scene-local preview and adop
   const result = report();
   assert.equal(JSON.stringify(result), JSON.stringify(report()));
   assert.deepEqual(result.summary, {
-    inventory: 22, runtimeBound: 22, declared: 22, referenced: 14, unused: 0,
+    inventory: 22, runtimeBound: 20, declared: 20, referenced: 14, unused: 2,
     inventoryStatuses: { placeholder: 2, provisional: 2, accepted: 16, unverified: 2 },
-    runtimeStatuses: { placeholder: 2, provisional: 2, accepted: 16, unverified: 2 },
-    blockedRuntimeAssets: 10, bindingErrors: 1, coverageClear: false
+    runtimeStatuses: { placeholder: 2, provisional: 2, accepted: 16, unverified: 0 },
+    blockedRuntimeAssets: 8, bindingErrors: 1, coverageClear: false
   });
+  for (const id of ['cg.opening.com02x.microwave_wait', 'cg.opening.com02x.walk_home']) {
+    assert.equal(asset(result, id).runtimeBound, false);
+    assert.deepEqual(asset(result, id).declaredInRoutes, []);
+    assert.deepEqual(asset(result, id).references, []);
+  }
   assert.equal(asset(result, preview).status, 'placeholder');
   assert.equal(asset(result, preview).runtimeBound, true);
   assert.deepEqual(result.bindingErrors, [{ code: 'PREVIEW_ROUTE_OPT_IN', routeId: 'opening-demo' }]);
@@ -82,13 +87,27 @@ test('current deterministic inventory distinguishes scene-local preview and adop
     /^node:(common_package_xu_|com03x_|common_station_cafe_jyc_|com02j_|common_bookstore_bridge_|com01b_|common_acg_first_meet_(purchase|home_return)|common_weekend_home_|common_weekday_outing_|common_convenience_xu_|common_recommend_discord_jyc_|com03j_|COM03M-|OPEN-A-)/.test(binding)));
   assert.ok(result.assets.filter(item => item.references.some(ref => /^node:common_convenience_xu_/.test(ref.binding)))
     .every(item => item.assetId === preview || item.assetId === 'bg.opening.com02x.return_elevator_trial'));
-  assert.equal(coverageExitCode(result), 1);
+  assert.equal(coverageExitCode(result), 0);
   assert.deepEqual(result.assets.filter(item => item.status === 'unverified').map(item => item.assetId), ['cg.opening.com02x.microwave_wait', 'cg.opening.com02x.walk_home']);
   assert.equal(coverageExitCode(result, { strict: true }), 1);
   assert.equal(result.scope.releaseReadiness, 'not_recorded');
   assert.equal(result.scope.playableAcceptance, 'not_assessed');
   assert.equal(result.scope.binaryBytesVerified, false);
   for (const item of result.assets) assert.equal(item.releaseReadiness, 'not_recorded');
+});
+
+test('reactivating a retired asset with an actual runtime reference binds it and fails provenance closed', () => {
+  const input = clone();
+  const id = 'cg.opening.com02x.microwave_wait';
+  document(input, routePath).assetIds.push(id);
+  const nodes = document(input, storyPath).nodes;
+  nodes[Object.keys(nodes)[0]].visual = { mode: 'cg', asset: id };
+  const result = report(input);
+  assert.equal(asset(result, id).runtimeBound, true);
+  assert.ok(asset(result, id).references.some((reference) => reference.binding.startsWith('node:')));
+  assert.ok(asset(result, id).provenanceErrors.length > 0);
+  assert.equal(coverageExitCode(result), 1);
+  assert.equal(coverageExitCode(result, { strict: true }), 1);
 });
 
 test('controlled clear coverage passes strict without granting release/playable acceptance', () => {
@@ -259,11 +278,11 @@ test('CLI JSON is deterministic and strict mode returns expected failure', () =>
   const first = spawnSync(process.execPath, [cli], { encoding: 'utf8' });
   const second = spawnSync(process.execPath, [cli], { encoding: 'utf8' });
   const strict = spawnSync(process.execPath, [cli, '--strict'], { encoding: 'utf8' });
-  assert.equal(first.status, 1, first.stderr);
+  assert.equal(first.status, 0, first.stderr);
   assert.equal(second.stdout, first.stdout);
   assert.equal(strict.status, 1, strict.stderr);
   assert.equal(strict.stdout, first.stdout);
-  assert.equal(JSON.parse(first.stdout).summary.runtimeBound, 22);
+  assert.equal(JSON.parse(first.stdout).summary.runtimeBound, 20);
 });
 function fileURL() { return new URL('../tools/asset-coverage.mjs', import.meta.url).pathname; }
 
@@ -296,7 +315,7 @@ test('exact elevator trial remains preview-only with FAIL history and strict rel
   assert.equal(current.visualQaStatus, 'FAIL');
   assert.deepEqual(current.provenanceErrors, []);
   assert.deepEqual(current.references.map(ref => ref.binding).sort(), ['node:common_convenience_xu_exit:background', 'node:common_convenience_xu_exit_02:background'].sort());
-  assert.equal(coverageExitCode(report()), 1);
+  assert.equal(coverageExitCode(report()), 0);
   assert.equal(coverageExitCode(report(), { strict: true }), 1);
   const receiptPath = 'content/assets/ingest-receipts/return-elevator-trial-v1.json';
   for (const mutate of [

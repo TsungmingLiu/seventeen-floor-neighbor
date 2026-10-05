@@ -213,6 +213,65 @@ function validateMemoryRoute(route, fail) {
   if (!hasStart) fail(`route ${config.id} memories: one event must replay chapter startNode ${chapter.startNode}`);
 }
 
+function routeAssetReferences(route) {
+  const references = [];
+  const chapter = route.chapter || {};
+  const add = (assetId) => { if (typeof assetId === 'string' && assetId) references.push(assetId); };
+  add(chapter.initialTitleArt);
+  add(chapter.titleArt);
+  add(chapter.endingArt);
+  for (const ending of Object.values(chapter.endings || {})) add(ending?.art);
+  for (const node of Object.values(chapter.nodes || {})) {
+    const visual = node?.visual;
+    if (!visual) continue;
+    if (visual.mode === 'composite') {
+      add(visual.background);
+      for (const sprite of visual.sprites || []) add(sprite?.asset);
+    } else add(visual.asset);
+  }
+  for (const event of route.memoryLibrary?.events || []) {
+    add(event?.cover?.asset);
+    add(event?.titleBackdropAsset);
+    for (const assetId of event?.galleryAssets || []) add(assetId);
+  }
+  return references;
+}
+
+function validateRetainedInventory(routes, assets, fail) {
+  const references = new Map();
+  for (const route of routes) {
+    for (const assetId of routeAssetReferences(route)) {
+      if (!references.has(assetId)) references.set(assetId, []);
+      references.get(assetId).push(route.config.id);
+    }
+  }
+  for (const route of routes) {
+    const declared = route.config.retainedInventoryAssetIds;
+    if (declared === undefined) continue;
+    if (!Array.isArray(declared) || declared.length === 0) {
+      fail(`route ${route.config.id}: retainedInventoryAssetIds must be a non-empty array`);
+      continue;
+    }
+    const seen = new Set();
+    for (const assetId of declared) {
+      if (typeof assetId !== 'string' || !assetId.trim()) {
+        fail(`route ${route.config.id}: retainedInventoryAssetIds must contain non-empty asset IDs`);
+        continue;
+      }
+      if (seen.has(assetId)) fail(`route ${route.config.id}: duplicate retained inventory asset ${assetId}`);
+      seen.add(assetId);
+      if (!Object.hasOwn(assets, assetId)) fail(`route ${route.config.id}: unknown retained inventory asset ${assetId}`);
+      if ((route.config.assetIds || []).includes(assetId)) {
+        fail(`route ${route.config.id}: retained inventory asset ${assetId} also appears in assetIds`);
+      }
+      const usedBy = references.get(assetId) || [];
+      if (usedBy.length) {
+        fail(`route ${route.config.id}: retained inventory asset ${assetId} is currently referenced by route(s) ${[...new Set(usedBy)].sort().join(', ')}`);
+      }
+    }
+  }
+}
+
 function validateStoryRoute(route, fail) {
   const { config, chapter, sceneLibrary, assetManifest } = route;
   const assets = assetManifest.assets || {};
@@ -534,8 +593,9 @@ export async function validateContent(content, { finalVisuals = false } = {}) {
   }
   for (const id of Object.keys(assets)) {
     if (!recipeOutputs.has(id)) fail(`asset ${id}: no generation recipe`);
-    if (!assets[id].previewOnly && !routes.some((route) => route.config.assetIds?.includes(id))) fail(`asset ${id}: not assigned to any route`);
+    if (!assets[id].previewOnly && !routes.some((route) => route.config.assetIds?.includes(id) || route.config.retainedInventoryAssetIds?.includes(id))) fail(`asset ${id}: not assigned to any route`);
   }
+  validateRetainedInventory(routes, assets, fail);
   for (const route of routes) {
     for (const id of route.config.assetIds || []) if (!assets[id]) fail(`route ${route.config.id}: unknown asset ${id}`);
     if (finalVisuals && (route.config.assetIds || []).some((id) => assets[id]?.previewOnly)) {
