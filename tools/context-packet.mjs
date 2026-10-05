@@ -98,6 +98,27 @@ function manifestList(text, label) {
   return [...section.matchAll(/^    - (.+)$/gm)].map((match) => match[1]);
 }
 
+function narrativeSelections(section, isCanonicalNarrative, forbiddenRoots) {
+  const selections = new Map();
+  // Only the leading source list on a standard bullet is authority. Backtick
+  // references in provenance prose (including historical candidates) are not.
+  for (const bullet of section.matchAll(/^- (`[^`]+`(?:,[ \t]*`[^`]+`)*)/gm)) {
+    for (const token of bullet[1].matchAll(/`([^`]+)`/g)) {
+      const [relative, fragment, ...extra] = token[1].split('#');
+      safePath(relative, forbiddenRoots);
+      if (!relative.startsWith('docs/narrative/')) continue;
+      insist(isCanonicalNarrative(relative), `noncanonical narrative input: ${relative}`);
+      insist(!extra.length && (fragment === undefined || /^L[1-9][0-9]*-L[1-9][0-9]*$/.test(fragment)),
+        `invalid narrative source selector: ${token[1]}`);
+      const selected = selections.get(relative) || new Set();
+      selected.add(fragment);
+      insist(!(selected.has(undefined) && selected.size > 1), `mixed full-file and excerpt input: ${relative}`);
+      selections.set(relative, selected);
+    }
+  }
+  return selections;
+}
+
 export async function buildNarrativeReviewPacket({ sceneId, runId, taskId, root = defaultRoot, ref } = {}) {
   insist(/^[A-Z][A-Z0-9]*(?:-[A-Z0-9]+)+$/.test(sceneId || ''), 'invalid scene ID');
   insist(/^[a-zA-Z0-9][a-zA-Z0-9_-]*$/.test(runId || ''), 'invalid run ID');
@@ -139,16 +160,23 @@ export async function buildNarrativeReviewPacket({ sceneId, runId, taskId, root 
   insist(/Production stage:.*Script Lock/.test(scene.text), `${scenePath} is not a Locked Scene`);
   const section = scene.text.match(/^## Canonical inputs\s*\n([\s\S]*?)(?=^## |$(?![\s\S]))/m)?.[1];
   insist(section, `${scenePath} has no canonical input list`);
-  const contextPaths = [...new Set([...section.matchAll(/^- `([^`]+)`/gm)].map((match) => match[1])
-    .filter((relative) => relative.startsWith('docs/narrative/')))];
+  const selections = narrativeSelections(section, isCanonicalNarrative, forbiddenRoots);
+  const contextPaths = [...selections.keys()];
   insist(contextPaths.length > 0, `${scenePath} declares no narrative canon`);
-  contextPaths.forEach((relative) => insist(isCanonicalNarrative(relative), `noncanonical narrative input: ${relative}`));
 
   const sources = [contractPath, scenePath, ...contextPaths];
   const markdown = [];
   for (const relative of sources) {
     const source = await trackedText(root, ref, relative, forbiddenRoots);
-    const excerpts = sourceExcerpts(relative, source.text, sceneId);
+    const selected = selections.get(relative);
+    const explicit = selected && !selected.has(undefined);
+    const excerpts = explicit ? [...selected].map((fragment) => {
+      const [, start, end] = fragment.match(/^L([0-9]+)-L([0-9]+)$/);
+      const lines = source.text.split('\n');
+      insist(Number.isSafeInteger(Number(start)) && Number.isSafeInteger(Number(end)) &&
+        Number(start) <= Number(end) && Number(end) <= lines.length, `out-of-range narrative excerpt: ${relative}#${fragment}`);
+      return excerpt(lines, Number(start) - 1, Number(end), `declared:${fragment}`);
+    }) : sourceExcerpts(relative, source.text, sceneId);
     markdown.push({ path: relative, expected_nonempty: true, git_blob_sha: source.blob,
       ...(excerpts.length ? { excerpts } : {}) });
   }
@@ -172,7 +200,10 @@ export async function buildNarrativeReviewPacket({ sceneId, runId, taskId, root 
     allowed_sources: markdown.flatMap(allowedSource),
     forbidden_source_roots: forbiddenRoots,
     inputs: { narrative_contract: contractPath, locked_scene: scenePath, references: [], accepted_outputs: [] },
-    input_versions: markdown.map((source) => ({ id: `file:${source.path}`, version: source.git_blob_sha, location: source.path })),
+    input_versions: markdown.flatMap((source) => selections.get(source.path)?.has(undefined) === false
+      ? source.excerpts.map((part) => ({ id: `excerpt:${source.path}:${part.label}`, version: part.sha256,
+        location: `${source.path}#L${part.start_line}-L${part.end_line}` }))
+      : [{ id: `file:${source.path}`, version: source.git_blob_sha, location: source.path }]),
     reference_transport: { mode: 'not_applicable', fresh_session_required: true, no_unrelated_images_allowed: true },
     constraints: {
       locked: [`Review only ${sceneId} and the declared canon excerpts; use the approved scene semantics as written.`],

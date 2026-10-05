@@ -20,7 +20,12 @@
 - Approved design: `ND-COM-02J-001`, exact decision Git blob `8618e60439ce638b8e5c805d2b9dec9f3e493d71`; owning arc `docs/narrative/JYC_WEEKEND_WEEKDAY_REVISION.md`. Human direction authorizes this rewrite, not later QA or acceptance.
 - Scene ownership: following-weekday afternoon, after home work and fatigue. Weekend bookstore go → cafe reunion; weekend home + `com01b_weekday_cafe_first` → cafe first meeting. The upstream street branch bypasses this scene permanently. Every cafe exit returns home and hands off to **COM-03X**, the same weekday evening package event.
 
-## Canonical inputs used
+## Canonical inputs
+
+- `content/production/narrative/opening-ch1/COM-02J.json` — approved Narrative Continuity Contract.
+- `docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md` — narrative interaction and Story Map rules.
+
+### Source-usage provenance
 
 Only the packet's sources: the approved COM-02J contract and decision; this scene's dispatched predecessor; the task-local weekend/weekday amendment; Jiang's canonical profile; the Narrative Interaction and Story Map Spec; narrative continuity schemas and Production Workflow Tools. Other scenes, runtime, voice bank, CGs and images were not acquired. Immediate predecessor/successor facts are used only as supplied by the approved contract and amendment.
 
