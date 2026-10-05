@@ -119,10 +119,35 @@ function narrativeSelections(section, isCanonicalNarrative, forbiddenRoots) {
   return selections;
 }
 
-export async function buildNarrativeReviewPacket({ sceneId, runId, taskId, root = defaultRoot, ref } = {}) {
+function narrativeReviewExecutionPolicy(policy, taskId) {
+  insist(policy && typeof policy === 'object' && !Array.isArray(policy), 'execution_policy must be an object');
+  const { model_tier: tier, routing_reason: reason, attempt } = policy;
+  const reasons = ['default_bounded', 'creative_judgment', 'material_ambiguity_or_conflict',
+    'cross_scene_or_cross_system_reasoning', 'final_high_impact_qa', 'validation_escalation'];
+  insist(Object.keys(policy).every((key) => ['model_tier', 'routing_reason', 'attempt', 'correction_of', 'escalation_from'].includes(key)) &&
+    ['model_tier', 'routing_reason', 'attempt'].every((key) => Object.hasOwn(policy, key)), 'invalid execution_policy fields');
+  insist(['economical', 'capable'].includes(tier) && reasons.includes(reason), 'invalid execution_policy tier or reason');
+  insist(reason !== 'default_bounded' || tier === 'economical', 'default_bounded requires economical tier');
+  insist(Number.isSafeInteger(attempt) && attempt >= 1, 'execution_policy attempt must be a positive safe integer');
+  const lineage = ['correction_of', 'escalation_from'].filter((key) => Object.hasOwn(policy, key));
+  for (const key of lineage) {
+    insist(typeof policy[key] === 'string' && /^[a-zA-Z0-9][a-zA-Z0-9_-]*$/.test(policy[key]) && policy[key] !== taskId,
+      `invalid execution_policy ${key}: expected a prior task attempt ID`);
+  }
+  insist(attempt === 1 ? lineage.length === 0 : lineage.length > 0, 'execution_policy lineage must match attempt');
+  insist(reason !== 'validation_escalation' || (tier === 'capable' && attempt >= 3 && lineage.includes('escalation_from')),
+    'validation_escalation requires capable tier, a post-correction attempt and escalation_from');
+  // Validate declared routing metadata; prior outcomes still belong to Coordinator.
+  return { model_tier: tier, routing_reason: reason, attempt,
+    ...Object.fromEntries(lineage.map((key) => [key, policy[key]])) };
+}
+
+export async function buildNarrativeReviewPacket({ sceneId, runId, taskId, root = defaultRoot, ref, executionPolicy } = {}) {
   insist(/^[A-Z][A-Z0-9]*(?:-[A-Z0-9]+)+$/.test(sceneId || ''), 'invalid scene ID');
   insist(/^[a-zA-Z0-9][a-zA-Z0-9_-]*$/.test(runId || ''), 'invalid run ID');
   insist(/^[a-zA-Z0-9][a-zA-Z0-9_-]*$/.test(taskId || ''), 'invalid task ID');
+  const policy = narrativeReviewExecutionPolicy(executionPolicy === undefined
+    ? { model_tier: 'economical', routing_reason: 'default_bounded', attempt: 1 } : executionPolicy, taskId);
   root = path.resolve(root);
   ref = ref || git(root, 'rev-parse', 'HEAD');
   insist(/^[0-9a-f]{40}$/.test(ref), 'source ref must be a commit SHA');
@@ -190,7 +215,7 @@ export async function buildNarrativeReviewPacket({ sceneId, runId, taskId, root 
     harness: 'content_qa',
     pass: 'narrative_review',
     objective: `Independently review the existing locked ${sceneId} scene and its Narrative Continuity Contract; return one QA handoff.`,
-    execution_policy: { model_tier: 'economical', routing_reason: 'default_bounded', attempt: 1 },
+    execution_policy: policy,
     source_binding: { github: {
       repository_full_name: repositoryFullName,
       repository_url: repositoryUrl,
@@ -219,9 +244,11 @@ export async function buildNarrativeReviewPacket({ sceneId, runId, taskId, root 
 
 export async function verifyNarrativeReviewPacket(packet, { root = defaultRoot } = {}) {
   insist(packet && typeof packet === 'object' && !Array.isArray(packet), 'packet must be an object');
+  narrativeReviewExecutionPolicy(packet.execution_policy, packet.task_id);
   const ref = packet.source_binding?.github?.ref;
   const rebuilt = await buildNarrativeReviewPacket({
-    sceneId: packet.scene_id, runId: packet.run_id, taskId: packet.task_id, root, ref
+    sceneId: packet.scene_id, runId: packet.run_id, taskId: packet.task_id, root, ref,
+    executionPolicy: packet.execution_policy
   });
   insist(JSON.stringify(packet) === JSON.stringify(rebuilt), 'Task Packet fields, allowlist or input hashes differ from canonical sources');
   return true;
