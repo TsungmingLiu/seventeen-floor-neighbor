@@ -34,18 +34,6 @@ async function galleryEntryCount(page) {
   ).length;
 }
 
-function com02xImageForNode(id) {
-  if (!id?.startsWith('common_convenience_xu_')) return null;
-  if (id === 'common_convenience_xu_choice' || /^common_convenience_xu_recognize(?:_|$)/.test(id)
-    || /^common_convenience_xu_(ask_food|share_work|tease_same)(?:_|$)/.test(id)
-    || /^common_convenience_xu_tell_eat_better(?:_0[23])?$/.test(id)) return 'com02x-dlg-01-v1.webp';
-  if (/^common_convenience_xu_work_(0[2-9]|1[0-5])$/.test(id)) return 'com02x-microwave-v1.webp';
-  if (/^common_convenience_xu_checkout_(0[4-9]|1[0-3])$/.test(id)) return 'com02x-walk-v3.webp';
-  if (['common_convenience_xu_exit', 'common_convenience_xu_exit_02'].includes(id)) return 'return-elevator-trial-v1.webp';
-  if (id === 'common_convenience_xu_checkout_14' || /^common_convenience_xu_exit(?:_|$)/.test(id)) return 'apartment-elevator.webp';
-  return 'com02x-bg-01-v1.webp';
-}
-
 async function currentJourney(page) {
   return page.evaluate(() => JSON.parse(localStorage.getItem('opening-demo-chapter-01:journey:v2')));
 }
@@ -190,93 +178,16 @@ for (const mode of ['keyboard', 'native beforeinput', 'IME', 'autofill']) {
 }
 
 for (const [branchIndex, branch] of ['ask_food', 'share_work', 'tease_same', 'tell_eat_better'].entries()) {
-  test(`COM-02X ${branch} forward flow loads held CGs, ten walking nodes, reload and Gallery`, async ({ page }, testInfo) => {
-    test.setTimeout(240_000);
-    const errors = collectBlockingErrors(page);
-    await page.goto('/');
-    await expect(page.locator('#start-button')).toBeEnabled();
-    await page.locator('#start-button').click();
-    await enterPlayerName(page);
-    const scopedSeen = new Map();
-    let reloadedWalk = false;
-    let choiceTaken = false;
-    let previousScopedSrc = null;
-    const switches = [];
-    const runtimeAssets = await (await page.request.get('/content/routes/opening-demo/assets.json')).json();
-    const apartmentPath = `/${runtimeAssets.assets['bg.opening.ch1.apt_elevator'].src}`;
-    for (let step = 0; step < 360; step += 1) {
-      if (await page.locator('#ending-screen').isVisible()) break;
-      await waitForDialogueReady(page);
-      const journey = await currentJourney(page);
-      const id = journey.cursor.nodeId;
-      const expected = com02xImageForNode(id);
-      if (expected) {
-        const expectedPath = expected === 'apartment-elevator.webp' ? apartmentPath : expected === 'return-elevator-trial-v1.webp' ? `/assets/opening-ch1-preview/${expected}` : `/assets/opening-ch1-demo/${expected}`;
-        const scene = page.locator('#scene-image');
-        await expect.poll(async () => new URL(await scene.getAttribute('src'), page.url()).pathname).toBe(expectedPath);
-        await expect.poll(() => scene.evaluate(image => image.complete && image.naturalWidth > 0 && image.naturalHeight > 0)).toBe(true);
-        scopedSeen.set(id, expected);
-        if (previousScopedSrc !== expected) switches.push({ node: id, image: expected });
-        previousScopedSrc = expected;
-        if (id === 'common_convenience_xu_checkout_08' && !reloadedWalk) {
-          await testInfo.attach(`${branch}-walk`, { body: await page.screenshot(), contentType: 'image/png' });
-          await page.reload();
-          await expect(page.locator('#start-button')).toHaveText('繼續遊戲');
-          await page.locator('#start-button').click();
-          await waitForDialogueReady(page);
-          const restored = await currentJourney(page);
-          expect(restored.cursor).toEqual(journey.cursor);
-          expect(restored.frontier).toEqual(journey.frontier);
-          expect(restored.frontierRank).toBe(160);
-          await expect.poll(() => page.locator('#scene-image').evaluate(image => image.complete && image.naturalWidth === 1672 && image.naturalHeight === 941)).toBe(true);
-          expect(new URL(await page.locator('#scene-image').getAttribute('src'), page.url()).pathname).toBe('/assets/opening-ch1-demo/com02x-walk-v3.webp');
-          reloadedWalk = true;
-        }
-      }
-      if (id === 'common_convenience_xu_exit_08') break;
-      const choices = page.locator('#choice-list .choice-button');
-      if ((await page.locator('#advance-hint').textContent()) === '點擊選擇' && !await page.locator('#choice-list').isVisible()) {
-        await page.locator('#advance-zone').click();
-        await expect(page.locator('#choice-list')).toBeVisible();
-      }
-      if (await choices.count() && await page.locator('#choice-list').isVisible()) {
-        if (id === 'common_convenience_xu_choice') {
-          await choices.nth(branchIndex).click();
-          choiceTaken = true;
-        } else await choices.first().click();
-      } else await page.locator('#advance-zone').click();
-      await expect.poll(async () => (await currentJourney(page)).cursor.nodeId).not.toBe(id);
-    }
-    await expect(page.locator('#game-shell')).toBeVisible();
-    expect((await currentJourney(page)).cursor.nodeId).toBe('common_convenience_xu_exit_08');
-    expect(choiceTaken).toBe(true);
-    expect(reloadedWalk).toBe(true);
-    expect(scopedSeen.get(`common_convenience_xu_${branch}`)).toBe('com02x-dlg-01-v1.webp');
-    for (let n = 2; n <= 15; n += 1) expect(scopedSeen.get(`common_convenience_xu_work_${String(n).padStart(2, '0')}`)).toBe('com02x-microwave-v1.webp');
-    for (let n = 4; n <= 13; n += 1) expect(scopedSeen.get(`common_convenience_xu_checkout_${String(n).padStart(2, '0')}`)).toBe('com02x-walk-v3.webp');
-    for (const id of ['common_convenience_xu_work', 'common_convenience_xu_work_16', 'common_convenience_xu_work_17', 'common_convenience_xu_checkout_03']) expect(scopedSeen.get(id)).toBe('com02x-bg-01-v1.webp');
-    if (branch === 'tell_eat_better') {
-      for (let n = 4; n <= 7; n += 1) expect(scopedSeen.get(`common_convenience_xu_tell_eat_better_0${n}`)).toBe('com02x-bg-01-v1.webp');
-    }
-    expect(scopedSeen.get('common_convenience_xu_checkout_14')).toBe('apartment-elevator.webp');
-    const finished = await currentJourney(page);
-    expect(finished.frontierRank).toBe(160);
-    expect(finished.runComplete).toBe(false);
-    await page.locator('#game-home-button').click();
-    await page.locator('#memories-button').click();
-    await expect(page.locator('[data-memory-id="mem.opening.ch1.convenience-xu"]')).toBeEnabled();
-    await page.locator('#memories-back').click();
-    await page.locator('#gallery-button').click();
-    for (const [assetId, title] of [['cg.opening.com02x.recognition', '深夜便利店'], ['cg.opening.com02x.microwave_wait', '深夜便利店・微波等待'], ['cg.opening.com02x.walk_home', '深夜便利店・一起回家']]) {
-      const card = page.locator(`#cg-grid button[aria-label="查看 ${title}"]`);
-      await expect(card).toBeEnabled();
-      await card.click();
-      await expect(page.locator('#cg-viewer')).toBeVisible();
-      await expect.poll(async () => new URL(await page.locator('#cg-viewer-image').getAttribute('src'), page.url()).pathname).toBe(`/${runtimeAssets.assets[assetId].src}`);
-      await expect.poll(() => page.locator('#cg-viewer-image').evaluate(image => image.complete && image.naturalWidth > 0)).toBe(true);
-      await page.locator('#cg-viewer-close').click();
-    }
-    await testInfo.attach(`${branch}-runtime-flow`, { body: Buffer.from(JSON.stringify({ branch, scopedSeen: Object.fromEntries(scopedSeen), switches, reloadedWalk, frontierRank: finished.frontierRank, galleryVerified: 3, errors }, null, 2)), contentType: 'application/json' });
+  test(`COM-02X ${branch} weekend preview reload uses placeholder and preserves work transition`, async ({page}) => {
+    test.setTimeout(180_000);
+    const errors=collectBlockingErrors(page);
+    await seed(page,'common_convenience_xu_enter',{met_xu_tang:1},['history:common_bookstore_bridge_weekend_decision:com01b_bookstore_skip']);
+    await follow(page,'common_weekday_outing_work',{'common_convenience_xu_choice_home':`com02x_${branch}`});
+    expect((await journey(page)).cursor.flags).toContain('preview:com02x-complete');
+    expect((await journey(page)).frontierRank).toBe(170);
+    await expect(page.locator('#scene-image')).toHaveAttribute('src',/narrative-preview-v1.webp/);
+    const before=await journey(page);await page.reload();await page.locator('#start-button').click();
+    expect((await journey(page)).cursor).toEqual(before.cursor);
     expect(errors).toEqual([]);
   });
 }
@@ -513,7 +424,12 @@ test('invalid old completed cursor keeps safe explicit Start fallback', async ({
 async function journey(page) {
   return page.evaluate(() => JSON.parse(localStorage.getItem('opening-demo-chapter-01:journey:v2')));
 }
+async function advanceWithKeyboard(page) {
+  await page.locator('#advance-zone').focus();
+  await page.keyboard.press('Space');
+}
 async function ready(page) {
+  if ((await page.locator('#advance-hint').textContent()) === '…') await advanceWithKeyboard(page);
   await expect.poll(async () => /點擊繼續|點擊選擇/.test(await page.locator('#advance-hint').textContent() || '')
     || await page.locator('#choice-list').isVisible(), { timeout: 8000 }).toBe(true);
 }
@@ -530,6 +446,7 @@ async function seed(page,nodeId,stats={},flags=[]) {
 }
 async function follow(page,stop,choices={},limit=260) {
   const seen=[];
+  const chapter=await (await page.request.get('/content/routes/opening-demo/chapter.json')).json();
   for(let step=0;step<limit;step++) {
     const current=await journey(page);
     const id=current.cursor?.nodeId;
@@ -537,14 +454,14 @@ async function follow(page,stop,choices={},limit=260) {
     if(id===stop) return seen;
     if(await page.locator('#ending-screen').isVisible()) throw new Error(`Reached ${id} before ${stop}`);
     await ready(page);
-    const node=(await (await page.request.get('/content/routes/opening-demo/chapter.json')).json()).nodes[id];
+    const node=chapter.nodes[id];
     if(node.choices) {
-      if(!await page.locator('#choice-list').isVisible()) await page.locator('#advance-zone').click();
+      if(!await page.locator('#choice-list').isVisible()) await advanceWithKeyboard(page);
       const wanted=choices[id]??node.choices[0].id;
       const index=node.choices.findIndex(choice=>choice.id===wanted);
       expect(index,`${id}: ${wanted}`).toBeGreaterThanOrEqual(0);
       await page.locator('#choice-list .choice-button').nth(index).click();
-    } else await page.locator('#advance-zone').click();
+    } else await advanceWithKeyboard(page);
     await expect.poll(async()=>(await journey(page)).cursor?.nodeId,{timeout:8000}).not.toBe(id);
   }
   throw new Error(`Did not reach ${stop}; stopped at ${(await journey(page)).cursor?.nodeId}`);
@@ -552,11 +469,11 @@ async function follow(page,stop,choices={},limit=260) {
 
 test('bookstore and cafe skips keep Jiang unseen and avoid shop art',async({page})=>{
   test.setTimeout(120_000);
-  await seed(page,'common_bookstore_bridge_weekend_decision_time',{met_xu_tang:1});
-  const seen=await follow(page,'common_convenience_xu_enter',{
+  await seed(page,'common_bookstore_bridge_weekend_decision_frame',{met_xu_tang:1});
+  const seen=await follow(page,'common_package_xu_arrive',{
     common_bookstore_bridge_weekend_decision:'com01b_bookstore_skip',
-    common_bookstore_bridge_cafe_decision:'com01b_cafe_skip_after_bookstore_skip'
-  },20);
+    common_weekday_outing_decision:'com01b_weekday_street_walk'
+  },220);
   expect(seen).not.toContain('common_acg_first_meet_enter');
   expect(seen).not.toContain('common_station_cafe_jyc_first_enter');
   const saved=await journey(page);
@@ -570,12 +487,12 @@ test('bookstore and cafe skips keep Jiang unseen and avoid shop art',async({page
 
 test('bookstore-skip cafe first meeting and refusal unlock only the truthful Memory',async({page})=>{
   test.setTimeout(180_000);
-  await seed(page,'common_bookstore_bridge_weekend_decision_time',{met_xu_tang:1});
-  const seen=await follow(page,'common_convenience_xu_enter',{
+  await seed(page,'common_bookstore_bridge_weekend_decision_frame',{met_xu_tang:1});
+  const seen=await follow(page,'common_package_xu_arrive',{
     common_bookstore_bridge_weekend_decision:'com01b_bookstore_skip',
-    common_bookstore_bridge_cafe_decision:'com01b_cafe_go_after_bookstore_skip',
+    common_weekday_outing_decision:'com01b_weekday_cafe_first',
     common_station_cafe_jyc_contact_choice:'com02j_leave_without_contact'
-  },130);
+  },260);
   expect(seen).toContain('common_station_cafe_jyc_first_enter');
   expect(seen).not.toContain('common_station_cafe_jyc_enter');
   expect((await journey(page)).cursor.flags).not.toContain('contact_jyc');
@@ -607,4 +524,27 @@ test('contacted week continues to a saved pending Jiang first-window boundary',a
   expect((await journey(page)).cursor).toEqual(saved.cursor);
   await page.locator('#gallery-button').click();
   expect(await page.locator('#cg-grid img').evaluateAll(images=>images.some(image=>image.src.includes('narrative-preview')))).toBe(false);
+});
+
+for (const path of ['A','B','C']) {
+ test(`weekend-weekday path ${path} runs to its saved review boundary`,async({page})=>{
+  test.setTimeout(240_000);const errors=collectBlockingErrors(page);
+  await seed(page,'common_bookstore_bridge_weekend_decision_frame',{met_xu_tang:1});
+  const seen=await follow(page,'OPEN-A-ENTRY-SOLO',{
+   common_bookstore_bridge_weekend_decision:path==='A'?'com01b_bookstore_go':'com01b_bookstore_skip',
+   common_weekday_outing_decision:path==='C'?'com01b_weekday_street_walk':'com01b_weekday_cafe_first',
+   'OPEN-A-ENTRY-ACTION-BOTH':'OPEN-A-ACT-LIFE','OPEN-A-ENTRY-ACTION-X':'OPEN-A-ACT-LIFE','OPEN-A-LIFE-ACTION':'OPEN-A-LIFE-SOLO'
+  },450);
+  expect(seen.indexOf('common_convenience_xu_enter')).toBeLessThan(seen.indexOf('common_weekday_outing_work'));
+  const saved=await journey(page);expect(saved.cursor.flags.includes('jyc_permanently_excluded')).toBe(path==='C');
+  if(path==='C')expect(seen.some(id=>/acg_first_meet|cafe_jyc|discord_jyc|COM03M-J(?!.*GATE)|OPEN-A-J/.test(id))).toBe(false);
+  await page.reload();expect((await journey(page)).cursor).toEqual(saved.cursor);expect(errors).toEqual([]);
+ });
+}
+test('stale contact cannot reopen Jiang after the irreversible street choice',async({page})=>{
+ test.setTimeout(180_000);const errors=collectBlockingErrors(page);
+ await seed(page,'common_weekday_outing_street_return',{},['jyc_permanently_excluded','contact_xu','contact_jyc','preview:com02j-complete','player_knows_jyc_name','jyc_knows_player_name','jyc_creator_work_seen']);
+ const seen=await follow(page,'OPEN-A-ENTRY-SOLO',{'OPEN-A-ENTRY-ACTION-X':'OPEN-A-ACT-LIFE','OPEN-A-LIFE-ACTION':'OPEN-A-LIFE-SOLO'},300);
+ expect(seen.some(id=>/discord_jyc|COM03M-J(?!.*GATE)|COM03M-BJ|OPEN-A-J/.test(id))).toBe(false);
+ expect((await journey(page)).cursor.flags).toContain('jyc_permanently_excluded');expect(errors).toEqual([]);
 });

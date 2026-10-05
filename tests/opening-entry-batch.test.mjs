@@ -67,7 +67,7 @@ function play(choices={},storage=new Storage()) {
 test('real Opening bookstore visit reaches mandatory cafe and contact before the finite Xu arrangement',()=>{
   const {e,visited}=play({'common_bookstore_bridge_weekend_decision':'com01b_bookstore_go','common_station_cafe_jyc_contact_choice':'com02j_offer_discord','OPEN-A-ENTRY-ACTION-BOTH':'OPEN-A-ACT-X','OPEN-A-X-REPLY':'OPEN-A-X-ACCEPT'});
   assert.ok(visited.indexOf('common_acg_first_meet_enter')<visited.indexOf('common_station_cafe_jyc_enter'));
-  assert.ok(visited.indexOf('common_station_cafe_jyc_enter')<visited.indexOf('common_convenience_xu_enter'), visited.filter(id => /cafe_jyc_enter|convenience_xu_enter|acg_first_meet_exit|opening_demo_complete/.test(id)).join(','));
+  assert.ok(visited.indexOf('common_convenience_xu_enter')<visited.indexOf('common_station_cafe_jyc_enter'), visited.filter(id => /cafe_jyc_enter|convenience_xu_enter|acg_first_meet_exit|opening_demo_complete/.test(id)).join(','));
   assert.ok(visited.includes('common_recommend_discord_jyc_enter'));
   assert.ok(visited.includes('COM03M-S01'));
   assert.equal(e.nodeId,'OPEN-A-ENTRY-PENDING-X');
@@ -77,7 +77,7 @@ test('real Opening bookstore visit reaches mandatory cafe and contact before the
 });
 
 test('real Opening skip-both route keeps Jiang unseen and reaches a consumed solo boundary',()=>{
-  const {e,visited}=play({'common_bookstore_bridge_weekend_decision':'com01b_bookstore_skip','common_bookstore_bridge_cafe_decision':'com01b_cafe_skip_after_bookstore_skip','OPEN-A-ENTRY-ACTION-X':'OPEN-A-ACT-LIFE','OPEN-A-LIFE-ACTION':'OPEN-A-LIFE-SOLO'});
+  const {e,visited}=play({'common_bookstore_bridge_weekend_decision':'com01b_bookstore_skip','common_weekday_outing_decision':'com01b_weekday_street_walk','OPEN-A-ENTRY-ACTION-X':'OPEN-A-ACT-LIFE','OPEN-A-LIFE-ACTION':'OPEN-A-LIFE-SOLO'});
   assert.equal(e.nodeId,'OPEN-A-ENTRY-SOLO');
   assert.equal(e.state.met_jiang_yucheng,0);
   assert.ok(!e.state.flags.has('contact_jyc'));
@@ -88,7 +88,7 @@ test('real Opening skip-both route keeps Jiang unseen and reaches a consumed sol
 });
 
 test('first cafe meeting with refused contact keeps Memory truthful and bypasses Discord',()=>{
-  const {e,visited}=play({'common_bookstore_bridge_weekend_decision':'com01b_bookstore_skip','common_bookstore_bridge_cafe_decision':'com01b_cafe_go_after_bookstore_skip','common_station_cafe_jyc_contact_choice':'com02j_leave_without_contact','OPEN-A-ENTRY-ACTION-X':'OPEN-A-ACT-LIFE','OPEN-A-LIFE-ACTION':'OPEN-A-LIFE-REST'});
+  const {e,visited}=play({'common_bookstore_bridge_weekend_decision':'com01b_bookstore_skip','common_weekday_outing_decision':'com01b_weekday_cafe_first','common_station_cafe_jyc_contact_choice':'com02j_leave_without_contact','OPEN-A-ENTRY-ACTION-X':'OPEN-A-ACT-LIFE','OPEN-A-LIFE-ACTION':'OPEN-A-LIFE-REST'});
   assert.equal(e.nodeId,'OPEN-A-ENTRY-REST');
   assert.ok(visited.includes('common_station_cafe_jyc_first_enter'));
   assert.ok(!visited.includes('common_acg_first_meet_enter'));
@@ -122,7 +122,7 @@ test('finite arrangement and solo boundaries survive reload without consuming pe
   assert.equal(reloaded.progress.data.runComplete,true);
   assert.ok(reloaded.progress.data.cursor.flags.includes('open_a_entered'));
   assert.ok(!reloaded.progress.data.cursor.flags.includes('open_a_window1_consumed'));
-  const solo=play({'common_bookstore_bridge_weekend_decision':'com01b_bookstore_skip','common_bookstore_bridge_cafe_decision':'com01b_cafe_skip_after_bookstore_skip','OPEN-A-ENTRY-ACTION-X':'OPEN-A-ACT-LIFE','OPEN-A-LIFE-ACTION':'OPEN-A-LIFE-WAIT'});
+  const solo=play({'common_bookstore_bridge_weekend_decision':'com01b_bookstore_skip','common_weekday_outing_decision':'com01b_weekday_street_walk','OPEN-A-ENTRY-ACTION-X':'OPEN-A-ACT-LIFE','OPEN-A-LIFE-ACTION':'OPEN-A-LIFE-WAIT'});
   assert.equal(solo.e.nodeId,'OPEN-A-ENTRY-WAIT');
   const saved=makeEngine(solo.storage);
   assert.equal(saved.progress.data.cursor.nodeId,'OPEN-A-ENTRY-WAIT');
@@ -139,7 +139,7 @@ test('counteroffer stays pending while declined invitations return to an own-lif
     const {e,visited}=play(choices);
     assert.equal(e.nodeId,'OPEN-A-ENTRY-REST');
     assert.ok(visited.includes('OPEN-A-LIFE-ACTION'));
-    assert.ok(!e.state.flags.has('open_a_window1_consumed'));
+    assert.ok(e.state.flags.has('open_a_window1_consumed'));
   }
 });
 

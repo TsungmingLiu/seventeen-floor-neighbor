@@ -3,6 +3,7 @@ import { paintPreview, paintSprites, resolveVisual, setImage } from './visuals.j
 import { memoryEventById, memoryEventForNode, memoryStats, renderMemories, titleBackdropVisual } from './memories.js';
 import { hasRenderableText, presentationModeForNode, speakerLabelForNode } from './presentation.js';
 import { DEFAULT_PLAYER_NAME, interpolatePlayerName, normalizePlayerName, submittedPlayerName } from './player-name.js';
+import { excludedJiangDestination, jiangExcluded } from './branches.js';
 
 export class GameEngine {
   constructor({ chapter, assetManifest, sceneLibrary, memoryLibrary }) {
@@ -683,7 +684,17 @@ export class GameEngine {
         Object.entries(choice.effects || {}).forEach(([key, value]) => {
           this.state[key] = (this.state[key] || 0) + value;
         });
-        (choice.addFlags || []).forEach((flag) => this.state.flags.add(flag));
+        (choice.addFlags || []).forEach((flag) => {
+          const prefix = ['jyc_second_topic:', 'jyc_com03j_reply_style:',
+            'history:common_bookstore_bridge_weekend_decision:',
+            'history:common_weekday_outing_decision:'].find(prefix => flag.startsWith(prefix));
+          if (prefix) {
+            for (const previous of this.state.flags) {
+              if (previous.startsWith(prefix)) this.state.flags.delete(previous);
+            }
+          }
+          this.state.flags.add(flag);
+        });
         if (this.chapter.id === 'opening-demo-chapter-01' && this.nodeId === 'common_acg_first_meet_choice') {
           const topic = { common_acg_first_meet_worldbuilding: 'worldbuilding',
             common_acg_first_meet_visual_design: 'visual_design',
@@ -715,6 +726,17 @@ export class GameEngine {
   }
 
   render() {
+    if (this.chapter.id === 'opening-demo-chapter-01') {
+      const bypass = excludedJiangDestination(this.nodeId, this.state);
+      if (bypass) {
+        this.nodeId = bypass;
+        this.render();
+        return;
+      }
+      if (this.nodeId === 'common_weekday_outing_invalid_history') {
+        throw new Error('BLOCKED_INCONSISTENT_SAVE_NO_FABRICATED_ENCOUNTER_OR_FLAG_RESET');
+      }
+    }
     const node = this.chapter.nodes[this.nodeId];
     if (!node) throw new Error(`Unknown story node: ${this.nodeId}`);
     if (node.text?.includes('[PLAYER_NAME]') && !normalizePlayerName(this.progress.data.playerDisplayName)) {
@@ -765,6 +787,13 @@ export class GameEngine {
       return;
     }
     if (node.type === 'branch') {
+      if (this.chapter.id === 'opening-demo-chapter-01' && this.nodeId === 'common_convenience_xu_revision_exit'
+        && this.progress.replaying && !this.progress.data.restartActive) {
+        this.nodeId = 'opening_demo_complete';
+        this.refreshTitle();
+        this.showOnly(this.els.title);
+        return;
+      }
       if (this.chapter.id === 'opening-demo-chapter-01' && this.nodeId === 'com03j_preview_complete'
         && this.progress.data.com03jReplay) {
         const restored = this.progress.finishCom03jReplay();
@@ -862,6 +891,7 @@ export class GameEngine {
 
   matchesCondition(condition) {
     if (Object.hasOwn(condition, 'flag')) {
+      if (condition.flag === 'contact_jyc' && condition.present && jiangExcluded(this.state)) return false;
       return typeof condition.flag === 'string' && typeof condition.present === 'boolean'
         && Object.keys(condition).length === 2
         && this.state.flags.has(condition.flag) === condition.present;
@@ -965,6 +995,9 @@ export class GameEngine {
       const local = this.progress.isCom02j(cursor?.nodeId) ? cursor : supplement.entrySnapshot;
       return this.resumeGame(local);
     }
+    if (this.progress.isOpeningReviewBoundary(frontier?.nodeId) && !restartActive) {
+      return this.resumeGame(frontier);
+    }
     if (runComplete && !restartActive) {
       return this.startGame({ freshRun: true });
     }
@@ -974,7 +1007,7 @@ export class GameEngine {
 
   refreshTitle() {
     const { frontier, cursor, restartActive, runComplete } = this.progress.data;
-    const finished = runComplete && !restartActive;
+    const finished = runComplete && !restartActive && !this.progress.isOpeningReviewBoundary(frontier?.nodeId);
     const supplement = this.progress.data.com02jSupplement;
     const snapshot = supplement ? (this.progress.isCom02j(cursor?.nodeId) ? cursor : supplement.entrySnapshot) : restartActive || (finished && this.chapter.nodes[cursor?.nodeId]?.type === 'route')
       ? cursor : frontier;

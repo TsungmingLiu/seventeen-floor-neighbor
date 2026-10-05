@@ -118,7 +118,8 @@ export function renderMemories({
 
   const unlockedEvents = events.filter((event) => unlocked.has(event.id));
   const characterIds = [...new Set(unlockedEvents.flatMap((event) => event.characterIds || []))];
-  const readingEvent = memoryEventForNode(library, progress?.data?.cursor?.nodeId);
+  const readingEvent = progress?.eventForSnapshot?.(progress?.data?.cursor)
+    || memoryEventForNode(library, progress?.data?.cursor?.nodeId);
   const frontierEvent = memoryEventById(library, progress?.data?.frontierMemoryEventId);
   const readingMemoryId = readingEvent?.id !== frontierEvent?.id ? readingEvent?.id : null;
   const defaultExpandedSections = expandedSections || new Set([

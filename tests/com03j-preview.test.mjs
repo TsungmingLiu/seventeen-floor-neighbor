@@ -42,8 +42,8 @@ test('approved evening turns, public attachment descriptions and reply actions a
 });
 test('evening continuation is gated by actual cafe contact and grants no new contact',()=>{
   const gate=nodes.com03x_preview_complete;
-  assert.deepEqual(gate.cases[0].conditions,[{flag:'contact_jyc',present:true}]);
-  assert.equal(gate.cases[0].next,'common_recommend_discord_jyc_enter');
+  assert.deepEqual(gate.cases[1].conditions,[{flag:'jyc_permanently_excluded',present:false},{flag:'contact_jyc',present:true}]);
+  assert.equal(gate.cases[1].next,'common_recommend_discord_jyc_enter');
   assert.equal(gate.default,'COM03M-ENTRY');
   assert.equal(nodes.common_recommend_discord_jyc_no_contact_exit.default,'COM03M-ENTRY');
   assert.equal(nodes.common_recommend_discord_jyc_exit.entryFlags,undefined);
