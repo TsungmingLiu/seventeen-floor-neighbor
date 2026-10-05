@@ -1,0 +1,69 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "feedback-20261005",
+  "task_id": "ND-COM01B-001",
+  "scene_id": "COM-01B",
+  "task_type": "narrative_design",
+  "status": "PASS",
+  "harness": {
+    "id": "content_writer",
+    "version": "1.4.1",
+    "pass": "narrative_design"
+  },
+  "source_ref": "6441ff29cb8ba0a7aa6f28b92bf40c9a1da49739",
+  "packet_sha256": "982cfb18ce57cfbecdaf865758241b4dfc30e3d85128a478900caf8f6ba7a1df",
+  "input_digest_sha256": "00ca38b5b3ed9ca25f3417b75b723afb63c70d6720c222b62af4fae439dc6636",
+  "input_versions": [
+    {
+      "id": "content/production/narrative/opening-ch1/COM-01B.json",
+      "location": "content/production/narrative/opening-ch1/COM-01B.json",
+      "version": "2ef1b23f939be4c25d5204d4376a478cb97ac31c"
+    },
+    {
+      "id": "content/production/runs/feedback-20261005/ND-FEEDBACK-001.decision.json",
+      "location": "content/production/runs/feedback-20261005/ND-FEEDBACK-001.decision.json",
+      "version": "87dd17ab2d246b370f8b5fd92ea4ec9153dda77c"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "narrative_contract:COM-01B",
+      "location": "content/production/narrative/opening-ch1/COM-01B.json",
+      "version": "sha256:2f2ec7fa6c5f91679f5bd6f2d76faedee5d82a0bee2f8fdab4938cccbce91453"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "Exact unchanged COM-01B contract fully reviewed and approved",
+      "code": "ND-COM01B-CONTRACT-COVERAGE",
+      "result": "PASS"
+    },
+    {
+      "name": "Genuine bookstore ever-earned eligibility distinct from cafe and play-local facts",
+      "code": "ND-BOOKSTORE-EVER-EARNED",
+      "result": "PASS"
+    },
+    {
+      "name": "Cumulative max preserves greatest-progress frontier and main continuation",
+      "code": "ND-MAX-MAIN-PRESERVED",
+      "result": "PASS"
+    },
+    {
+      "name": "Refusal and mutual contact remain local; bounded reapproach preserved",
+      "code": "ND-CONSENT-LOCAL-FACTS",
+      "result": "PASS"
+    },
+    {
+      "name": "Earlier home introduction and unpacking/bookstore bridge preserve choices events entry and exit",
+      "code": "ND-COM01B-BOUNDED-REWRITE",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "Scene-local approval of the exact unchanged COM-01B contract; no contract/prose mutation, runtime integration, Narrative QA or playable acceptance claimed."
+  ],
+  "human_gate_required": "none",
+  "invalidates": []
+}
