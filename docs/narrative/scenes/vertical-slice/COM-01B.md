@@ -4,9 +4,9 @@
 
 - Lifecycle: **CANONICAL** task-local Narrative Design amendment, 2026-10-04. Source ref: `013b3f73e75d8f00bbd2fa53a6cd2d885fecb9a9`. Human 授權本輪方向與必要改寫；本 pass 沒有新 final prose、QA、runtime 或 CG acceptance。
 - Owning design: `docs/narrative/JYC_WEEKEND_WEEKDAY_REVISION.md`；current contract: `content/production/narrative/opening-ch1/COM-01B.json`。此 design section 與 current JSON 取代下方 baseline 的衝突時序／gate；下方舊 Locked prose 與其歷史 binding 完整保留作局部改寫或相容性參考，不是本輪新 Script Lock。
-- 週末／平日行動入口：四個 dialogue unit 之一；只改週末 decision 以後及新增平日 transition，保留前晚問路完整 prose。週末晴朗，在家作 go/home action；home 拆箱與工作，bookstore 接 COM-01J→實際購書→回家，兩支都 COM-02X。同幕所屬 common_weekday_outing_* 在 COM-02X 後才執行：平日下午居家工作疲累、出門；bookstore-met 直接 cafe reunion，home 才 cafe-first/street choice。street 獨走台北、感受熟悉又陌生、回家接 COM-03X，並永久排除江線。
+- 週末／平日行動入口：四個 dialogue unit 之一；只改週末 decision 以後及新增平日 transition，保留前晚問路完整 prose。週末晴朗，在家作 go/home action；home 拆箱與工作，bookstore 接 COM-01J→實際購書→回家，兩支都 COM-02X。同幕所屬 common_weekday_outing_* 在 COM-02X 後才執行：平日下午居家工作疲累、出門；曾真正取得書店初遇（含 replay）直接 cafe reunion，未取得者才 cafe-first/street choice。street 獨走台北、感受熟悉又陌生、回家接 COM-03X；保留當次排除事實，後續江線 eligibility 依實際取得的書店或 cafe 首遇累積判定。
 - Stable ID plan：common_weekend_home_enter/work/exit；common_weekday_outing_work/tired/decision/street_enter/street_return；com01b_weekday_cafe_first/com01b_weekday_street_walk。既有 weekend go/skip IDs 保留；舊 common_bookstore_bridge_cafe_decision 與 cafe_skip IDs 不挪作永久排除意圖，保留歷史兼容但新走法不播放。
-- 永久排除：本輪 `com01b_weekday_street_walk` 才寫 `jyc_permanently_excluded=true`。此 flag 先於 contact/history，永不由 merge、reload、scheduler、public shared scene 或 ordinary invite 清除。Memory replay 限自己的 snapshot，不向 live 主線寫入；改走前一分岔屬另一 playthrough，不是本輪 reopening。
+- 永久排除：本輪 `com01b_weekday_street_walk` 才寫 `jyc_permanently_excluded=true`。此 flag 保留當次街頭選擇事實，不由 merge、reload、scheduler、public shared scene 或 ordinary invite 清除。尚未真正取得任何初遇時阻擋後續江線；初次遊玩或 replay 真正完成 COM-01J 書店初遇或 COM-02J cafe 首遇可累積取得後續 eligibility。replay 保留自己的 cursor、snapshot、refusal／consent 及購書／contact 事實；只有實際取得的 eligibility 持久化，不覆寫 greatest-progress frontier／主線 Continue。cafe reunion 仍只認書店初遇，cafe-only replay 保持 initial。
 - Semantic visual impact 與四個必要 dialogue units 見 owning design；現有 accepted image bytes、QA/Human 歷史都保留。獨立下游才裁決哪些畫面可重用。
 
 ## Current Script Lock — CW-COM-01B-001
@@ -17,7 +17,7 @@
 
 ### Entry / selectors / state markers
 
-JSON 中 `history` 以 choice-node ID 為 key，value 為實際選中的 choice ID；`completed` 表示實際完成的 scene，`flags` 表示實際事件狀態。這是本幕可直接解析的 selector/state 表達，不新增重複的 route enum 或分數。`all`／`any`／`not` 僅是 bounded authoring condition；整合者負責編譯成現有 engine schema。
+JSON 中 `history` 以 choice-node ID 為 key，value 為實際選中的 choice ID；`completed` 表示實際完成的 scene，`flags` 表示實際事件狀態。這是本幕可直接解析的 selector/state 表達，不新增重複的 route enum 或分數。`all`／`any`／`not` 僅是 bounded authoring condition；整合者負責編譯成現有 engine schema。`jyc_bookstore_ever_earned` 只由初次遊玩或 replay 真正完成 COM-01J 初遇取得；不是 go、一般 met/contact 或 cafe 首遇。GAME 與 replay 共用下列 decision tree，累積 eligibility 不合併當次 story facts。
 
 ```json
 {
@@ -62,11 +62,7 @@ JSON 中 `history` 以 choice-node ID 為 key，value 為實際選中的 choice 
       {
         "id": "reunion_after_bookstore",
         "all": [
-          {"history": "common_bookstore_bridge_weekend_decision", "equals": "com01b_bookstore_go"},
-          {"completed": "COM-01J"},
-          {"flag": "weekend_book_purchased", "equals": true},
-          {"flag": "met_jiang_yucheng", "equals": true},
-          {"not": {"flag": "jyc_permanently_excluded", "equals": true}}
+          {"eligibility": "jyc_bookstore_ever_earned", "equals": true}
         ],
         "set": {},
         "handoff": "COM-02J:bookstore_reunion"
@@ -74,9 +70,7 @@ JSON 中 `history` 以 choice-node ID 為 key，value 為實際選中的 choice 
       {
         "id": "home_no_bookstore",
         "all": [
-          {"history": "common_bookstore_bridge_weekend_decision", "equals": "com01b_bookstore_skip"},
-          {"flag": "met_jiang_yucheng", "equals": false},
-          {"not": {"flag": "jyc_permanently_excluded", "equals": true}}
+          {"eligibility": "jyc_bookstore_ever_earned", "equals": false}
         ],
         "next": "common_weekday_outing_decision"
       }
@@ -113,9 +107,11 @@ JSON 中 `history` 以 choice-node ID 為 key，value 為實際選中的 choice 
     "heard_station_cafe_from_jyc", "jyc_first_topic", "all_relationship_values"
   ],
   "permanent_exclusion": {
-    "precedence": "before_met_contact_history_and_all_jyc_content_checks",
+    "precedence": "local_street_exclusion_blocks_future_Jiang_only_without_genuinely_earned_initial_encounter_COM01J_or_COM02J_cafe_first",
     "may_reset_in_this_playthrough": false,
-    "memory_replay": "snapshot_only_no_live_write",
+    "memory_replay": "persist_only_actually_earned_monotone_eligibility_preserve_cursor_snapshot_local_facts_refusal_consent_and_greatest_main_continue",
+    "future_eligibility": "any_actual_initial_encounter_in_first_play_or_replay_bookstore_or_cafe_first",
+    "cafe_reunion_eligibility": "actual_COM01J_bookstore_initial_encounter_ever_only_not_cafe_first_generic_met_contact_or_go",
     "legacy_cafe_skip_sets_exclusion": false
   }
 }
@@ -123,7 +119,7 @@ JSON 中 `history` 以 choice-node ID 為 key，value 為實際選中的 choice 
 
 - Home branch 保留實際的未購書／未相遇狀態，不寫入書店 topic、姓名、咖啡推薦或 contact。`weekend_book_purchased` 只由 COM-01J 真正購書後設立；COM-01B 不用 go choice 代替購書事實。
 - 平日 reunion 不顯示 cafe/street 選項。咖啡店的初遇／重逢、名字、話題與聯絡同意仍由 COM-02J 演出；此處只交真實入口。兩個咖啡出口都交 COM-03X，保留各自 contact/noncontact 事實。
-- 街頭選擇時即設永久排除，後續全部 Jiang scenes、訊息、通知、再 discovery、RE-J、reopening、邀約、public/shared presence、ending、afterstory/coda 均須先拒絕。merge、reload、scheduler 和普通邀請不可清除。Memory snapshot 不寫 live state；另一 playthrough 的早期改選不算本輪重開。舊 cafe skip 不可反推此 flag。
+- 街頭選擇時設 `jyc_permanently_excluded=true` 並保留當次未相遇事實。尚未真正取得任何初遇時，後續 Jiang scenes、訊息、通知、再 discovery、RE-J、reopening、邀約、public/shared presence、ending、afterstory/coda 受此排除。初次遊玩或任何 replay 真正完成 COM-01J 書店初遇或 COM-02J cafe 首遇後，累積 eligibility 可解除後續江線排除，不清除或合併街頭 snapshot。cafe reunion 仍只認 COM-01J，cafe-only 重複 replay 保持 initial。merge、reload、scheduler 和普通邀請不可假造取得；replay 不補姓名、購書、topic、contact、consent 或承諾。低進度／街頭／未交換 replay 不減少累積解鎖，不覆寫 greatest-progress frontier／主線 Continue；拒絕／未交換安全邊界與一次有界線 RE／reopening gate 繼續成立。舊 cafe skip 不可反推此 flag。
 - COM-02X 是同週末約 23:00 的真事件 merge；書店支接「買到原本想找的書」的當日話題，home 支接拆箱／工作。COM-03X 是同平日晚間的真事件 merge；不補齊任何 Jiang 姓名、topic、contact 或 availability。
 - 書店與咖啡是可錯過的生活機會；新 action 沒有 stance 分數或好壞答案。街頭不授予江線 Friend/Distance ending。非 street 仍遵守既有 familiarity、有限投入、consent、repair／clarity 與一次有界線 reapproach/reopening gates。
 
@@ -304,6 +300,8 @@ JSON 中 `history` 以 choice-node ID 為 key，value 為實際選中的 choice 
 
 #### Selector `reunion_after_bookstore`
 
+**Local-fact playback marker**：此 selector 的 COM-02J handoff 只由真正取得的書店初遇 eligibility 決定，不要求本次 go、購書或 met/contact，也不受本次街頭排除撤銷。以下既有設定集 narration 僅在本次實際購書時播放；書店推薦 thought 同時要求本次實際購書及真實取得該推薦；北出口 action 僅在本次真實取得該推薦時播放。replay 只有 eligibility 時不匯入這些 local facts／文字，以已成立的外出 intent 交 COM-02J；不新增 spoken prose。
+
 **Narration**：那本週末買回來的設定集放在桌子另一邊，書籤還夾在增補的部分。我把它也放進包裡。
 
 **Protagonist (thought)**：上次書店那個女生提過的咖啡店，可以去坐坐。書也還沒翻完。
@@ -314,13 +312,15 @@ JSON 中 `history` 以 choice-node ID 為 key，value 為實際選中的 choice 
 
 #### Selector `home_no_bookstore`
 
+**Selector marker**：名稱保留為 stable authoring ID；條件為尚未真正取得書店初遇 eligibility，包含 cafe-only 初次遊玩／replay。不是一般 met/contact 的反面。以下文字只述本次已成立的許棠地理資訊。
+
 **Narration**：拉上包的拉鍊時，我想起許棠提過，地下街附近出口上層有咖啡可以坐。要找個地方坐下，還是先在街上走走？
 
 → `common_weekday_outing_decision`。
 
 ### `common_weekday_outing_decision`
 
-**Visibility marker**：僅 `home_no_bookstore`；此時仍在家門內，未曾到訪書店或認識江雨澄。
+**Visibility marker**：僅 `home_no_bookstore`，即未真正取得書店初遇 eligibility；此時仍在家門內。本次未到訪書店／未初遇的 local facts 保留；cafe-only 曾取得的累積 eligibility 不改為 bookstore reunion，也不併入姓名／contact。
 
 1. `com01b_weekday_cafe_first` — **「去附近找間咖啡店坐一會兒。」**
 2. `com01b_weekday_street_walk` — **「在台北街上走走，再回家。」**
@@ -335,7 +335,7 @@ JSON 中 `history` 以 choice-node ID 為 key，value 為實際選中的 choice 
 
 #### Branch `com01b_weekday_street_walk`
 
-**State marker, before next node**：`history[common_weekday_outing_decision]=com01b_weekday_street_walk`；`jyc_permanently_excluded=true`，本輪永不清除。
+**State marker, before next node**：`history[common_weekday_outing_decision]=com01b_weekday_street_walk`；`jyc_permanently_excluded=true`，保留本次 snapshot；後續江線排除依真正取得的任何初遇 eligibility 判定，不以 eligibility 清除此 local flag。
 
 **Protagonist (thought)**：今天先走走吧，電腦晚點再拿出來。
 
@@ -369,7 +369,7 @@ JSON 中 `history` 以 choice-node ID 為 key，value 為實際選中的 choice 
 
 **Action**：我走進大樓，把肩上的包往上提了提，按下電梯的按鈕。
 
-→ `COM-03X` 的包裹事件入口，保持未見／未聯絡江雨澄與永久排除。包裹、許棠 samples、Line 等事件仍由 COM-03X 演出；本幕不提前播放，也不加任何人影、舊識或補遇。
+→ `COM-03X` 的包裹事件入口，保持本次未見／未聯絡江雨澄與街頭排除 snapshot；後續江線可玩 eligibility 可由任何真正取得的書店或 cafe 首遇（含 replay）累積解鎖，不匯入相遇／contact／consent，不覆寫主線 Continue。包裹、許棠 samples、Line 等事件仍由 COM-03X 演出；本幕不提前播放，也不加任何人影、舊識或補遇。
 
 ### Semantic visual change report / handoff boundary
 
