@@ -75,10 +75,19 @@ export function compileStoryMap(route, definition) {
     });
     return { ...group, variants };
   });
+  // Keep retired compatibility IDs available for historical saves, while the
+  // review graph follows only passages reachable from the current story entry.
+  const currentNodes = new Set(), pendingNodes = [chapter.startNode];
+  while (pendingNodes.length) {
+    const id = pendingNodes.pop();
+    if (!id || currentNodes.has(id) || !chapter.nodes[id]) continue;
+    currentNodes.add(id);
+    pendingNodes.push(...runtimeTargets(chapter.nodes[id], sceneLibrary.pools));
+  }
   const edges = [];
   for (const group of groups) {
     const visited = new Set();
-    const pending = group.variants.flatMap(v => v.nodeIds).flatMap(id => runtimeTargets(chapter.nodes[id], sceneLibrary.pools).map(target => ({ id: target, label: chapter.nodes[id].choices?.find(c => c.next === target)?.text })));
+    const pending = group.variants.flatMap(v => v.nodeIds).filter(id => currentNodes.has(id)).flatMap(id => runtimeTargets(chapter.nodes[id], sceneLibrary.pools).map(target => ({ id: target, label: chapter.nodes[id].choices?.find(c => c.next === target)?.text })));
     while (pending.length) {
       const { id, label } = pending.pop();
       if (!id || visited.has(id) || !chapter.nodes[id]) continue;

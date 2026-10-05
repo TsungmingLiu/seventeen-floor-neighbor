@@ -95,14 +95,15 @@ test('every reachable Opening passage has a scene in the presentation mapping', 
   assert.ok(seen.size > 700);
 });
 
-test('an unreachable compatibility node cannot lend artwork to the current scene', () => {
+test('an unreachable compatibility node cannot lend artwork or connections to the current scene', () => {
   const altered = structuredClone(chapter);
   altered.nodes.common_convenience_xu_legacy_art_test = {
-    text: 'retired fixture', visual: { mode: 'cg', asset: 'cg.opening.com01x.base_normal' }
+    text: 'retired fixture', visual: { mode: 'cg', asset: 'cg.opening.com01x.base_normal' }, next: chapter.startNode
   };
   const compiled = compileStoryMap({ ...route, chapter: altered }, definition);
   const scene = compiled.groups.find(g => g.id === 'convenience');
   assert.ok(scene.variants.every(v => !v.galleryAssets.includes('cg.opening.com01x.base_normal')));
+  assert.equal(compiled.edges.some(edge => edge.from === 'convenience' && edge.to === 'movein'), false);
 });
 
 test('a scene version does not borrow the other version’s bound picture', () => {
