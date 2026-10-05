@@ -33,11 +33,13 @@
     "cg.opening-ch1.com01b.04",
     "bg.opening.com02x.convenience_night",
     "cg.opening.com02x.recognition",
-    "cg.opening.com02x.microwave_wait",
-    "cg.opening.com02x.walk_home",
     "bg.opening.title.17f_doorlight",
     "bg.narrative_preview.placeholder",
     "bg.opening.com02x.return_elevator_trial"
+  ],
+  "retainedInventoryAssetIds": [
+    "cg.opening.com02x.microwave_wait",
+    "cg.opening.com02x.walk_home"
   ],
   "story": {
     "id": "opening-demo-chapter-01",
