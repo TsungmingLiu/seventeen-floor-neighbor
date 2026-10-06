@@ -401,6 +401,7 @@ Roadmap 只維護工作所在的 horizon，不維護完整 task list。
 - [#77](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/77)：先完成 C0 current-main 一致性／缺口核對，再按各自前事製作 XT-04／JYC-05、continuations／真 early repair、SH-01，以及有限 slots／bounded return。
 - [#78](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/78)：可立即準備分支矩陣、計時與問卷；契約固定後補 slice 必需的 graph/state/save 檢查，核心路徑可玩後才進外部 playtest。
 - 使用已登記的 preview placeholder 支援缺 CG 的場景；保持 narrative integration 與 final art 解耦，不無故重寫已接受 Opening。
+- [#76 P0–P3](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/76)：M1 期間並行準備下一批 CG 的服裝語意、必要單套 refs／routing、輕量 telemetry；只提升直接妨礙 playtest 的顯示缺陷。全 34 looks、全面修圖與 rollout 仍 deferred。
 - 已交付的 discovery／Memories 整合與 M0 foundation 不重開成新的 blocker；deferred 殘項見 §10。
 
 
@@ -452,12 +453,13 @@ M2–M4 已知但目前不應執行的工作。
 
 **Active milestone：M1 Gameplay Validation。** 目標是包含 Opening、約 30–60 分鐘的可測量首輪體驗；這是目標，尚無完整外部 playtest 數據。從未解鎖江雨澄的較短生活／許棠走法仍合法。
 
-## 下一件事與兩張 active task issues
+## 下一件事與 M1 active task issues
 
 | 工作 | 現在可以開始什麼 | 完成後接什麼 |
 | --- | --- | --- |
 | [#77 — 內容與整合](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/77) | **C0：核對 current main、已批准入口／累積解鎖與舊 plan 的差異** | 契約明確後製作 XT-04／JYC-05，再依前事接 continuation、repair、SH-01 與有限 return |
 | [#78 — 驗證與 playtest](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/78) | 分支矩陣、計時表、問卷與內部案例準備 | 契約固定後補 machine checks；核心路徑與負向案例通過後做外部首玩 |
+| [#76 P0–P3 — CG 前置改善](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/76) | P2 輕量記錄準備、P0 下一批服裝需求核對、P3 playtest blocker triage | P0 範圍固定後完成本批 P1 exact-look routing；下一批正式生圖前就緒 |
 
 C0 也核對尚未記錄的 gate 與其他進度文件，不把舊 checklist 未勾選解讀為已合併功能尚未交付。保留 #71 的 earned-discovery 決策：書店初遇真正解鎖才走咖啡重逢；只咖啡初遇仍走初遇；任一真正初遇的累積資格不因後來街景／重玩撤銷，但不補造 local contact、購書、knowledge 或 consent。
 
@@ -504,7 +506,7 @@ flowchart TD
 
 **可並行的範圍：**
 
-- C0 核對時，#78 可以準備案例、計時與回饋方法。
+- C0 核對時，#78 可以準備案例、計時與回饋方法；#76 P2 可準備輕量 telemetry，P0 可核對下一批 CG 的服裝語意／可見人物需求。
 - C0 與各 scene prerequisite 固定後，XT-04／JYC-05 分別製作；各自前幕完成後，許棠 continuation 與江雨澄 co-op／家訪可繼續並行。
 - 已批准契約的 machine-check cases 可與該 scene 的對白工作並行；checks 跟隨每個整合批次。
 - 共用 chapter／registry 的 wiring 依批次順序整合；兩個 worker 不同時改同一份共用檔。
@@ -531,6 +533,32 @@ flowchart LR
 
 本輪沿用現有 orchestration／Task Packet／preflight／handoff；不新增 production engine。Final CG 不在 M1 上述依賴鏈內；正式美術另走 manifest／render／獨立 pixel QA／Human selection／ingest／display QA gates。
 
+## M1 並行的 CG 前置改善：#76 P0–P3
+
+這批工作提升輸入的可控性與收益可量測性；**純文字 M1 不等待 refs crop 或正式 CG**。下一批正式生圖前，先完成該批必要 exact-look refs、selector／validator／deterministic packets 與記錄能力，不要求做滿 34 looks／68 assets。這裡列的是實作任務，不宣稱已交付或已證明品質提升。
+
+- P0：與 #77 C0 對齊下一批 visible characters／wardrobe keys／continuity，提供 bounded writer-safe 語意選項。若同批準備正式 CG，先鎖故事服裝；不回寫 accepted／legacy history。
+- P1：只做本批實需 looks 的 upper／full、provenance 與 routing；缺 ref／wrong key／cross-character／hash mismatch fail closed。先乾跑，不為準備工作自動生成圖片。
+- P2：現在準備最小記錄格式；下一次明示授權的生成從首次 attempt 記 actual elapsed、可得 tokens、Human 操作／修正與 QA 結果。未提供的值標 not exposed／not measured，不拿 bytes 推定 ROI。
+- P3：觀察到遮擋對白／關鍵 crop／劇情誤讀等 playtest blocker 才提升修正；其他 historical art debt 延後。
+
+```mermaid
+flowchart TD
+    SCOPE["#77 C0 與下一批故事需求"] --> OPTIONS["#76 P0<br/>服裝語意與必要 looks"]
+    OPTIONS --> REFS["#76 P1<br/>refs／selector／validator／packet 乾跑"]
+    LOCKED["已批准 Locked Scene<br/>獨立 Narrative QA"] --> PLAN["現有 Planner<br/>manifest usability"]
+    REFS --> PLAN
+    PLAN --> RENDER["下一次明示授權的 CG generation"]
+    TELEMETRY["#76 P2：現在可並行<br/>輕量記錄準備"] --> RENDER
+    RENDER --> VQA["獨立 pixel QA<br/>Human selection"]
+    VQA --> ADOPT["ingest／display QA<br/>適用 playable acceptance"]
+    classDef now fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#0f172a;
+    class SCOPE,TELEMETRY now;
+```
+
+Writer 在本批適用契約下選 wardrobe，Planner carry/validate；新 ownership／refs path 依最小相容擴充導入，不把圖片或 renderer context 給 writer。各 scene 的敘事審查順序仍見上圖。
+P1 可與服裝語意固定後的 dialogue／NQA 並行；共用 registry／selector 按批次整合。**這張 CG 圖不接到 M1 文字 playtest 的必經路徑**；P3 若發現直接 blocker，才成為對應 playtest 的前置修正。M1 exit 不等待 #76 全部 deferred 工作。
+
 ## Deferred 工作何時重啟
 
 以下 tracker 保存剩餘需求與原 issue 追溯，不是 M1 blocker，也不因 M1 通過就全部自動開工。
@@ -540,7 +568,7 @@ flowchart LR
 | [#73 — 完整 narrative](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/73) | M1 exit 後，M2 的完整 lifecycle／choice governance／clarity／endings／After Story | M1 只實作 core slice 所需的 bounded subset |
 | [#74 — 地圖與架構 scaling](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/74) | M2 有真實 graph 規模需求；M3 polish／M4 device 與效能驗收 | 現有兩女主 correctness 留在 #78；不為假想 5／8 人重寫引擎 |
 | [#75 — production efficiency](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/75) | 實際 production friction／新 scene ROI 或 multi-task stale recovery 的測量需求成立 | 不以新 framework／Story IR 阻塞 M1 |
-| [#76 — 美術與研究](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/76) | 穩定 M2 scene 的必要小樣本；M3 按價值投資 final art | QA debt、wardrobe refs、Embodiment／telemetry 不作 text-first slice 前置 |
+| [#76 D1–D3 — 美術與研究殘項](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/76) | 穩定 scene／M3 按價值投資；rollout 等實際 evidence 與 Human 決定 | 全 looks／全面修圖／完整 rollout 延後；M1 P0–P3 見上節 |
 
 #72 的 bounded A/B 結論是 manifest 小幅改善、pixels 無穩定總勝者、實際 token/time ROI 未量測；保留 lightweight testing guidance、加 telemetry、暫不 rollout。#76 的 evidence 與 Human gate 仍必要，不能從本表取得 rollout approval。
 
@@ -548,5 +576,5 @@ flowchart LR
 
 數名未讀 spec 玩家完成首玩；保存實際 path、有效遊玩時間／中斷與回饋。能判斷人物互動、有限注意力 trade-off、crossover、具體 friction／repair、consequence 可讀性，以及玩家是否想繼續。重大問題修正並重驗後，才由 Owner review milestone 結論並進 M2。
 
-本輪不納 BRAID-C、late clarity／COMMIT／endings、bulk final CG、更多 heroine 或新的 production framework。各任務詳細 checklist 見 #77／#78；整併前的完整描述、關閉理由與追溯表保留於 [#79](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/79)。
+本輪不納 BRAID-C、late clarity／COMMIT／endings、bulk final CG、更多 heroine 或新的 production framework。各任務詳細 checklist 見 #77／#78／#76 P0–P3；整併前的完整描述、關閉理由與追溯表保留於 [#79](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/79)。
 
