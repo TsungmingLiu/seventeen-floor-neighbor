@@ -45,6 +45,9 @@
         "ref.lin_ruoqing.wardrobe_look.b_home_rest.upper",
         "ref.lin_ruoqing.wardrobe_look.b_pool_swim.full",
         "ref.lin_ruoqing.wardrobe_look.b_pool_swim.upper"
+      ],
+      "candidateRefs": [
+        "a81e549ed8965572adc57b487ae9664e39101893"
       ]
     },
     {
@@ -62,6 +65,9 @@
         "ref.xu_tang.wardrobe_look.a_bookstore_cafe_date.upper",
         "ref.xu_tang.wardrobe_look.a_weekend_night_out.full",
         "ref.xu_tang.wardrobe_look.a_weekend_night_out.upper"
+      ],
+      "candidateRefs": [
+        "a81e549ed8965572adc57b487ae9664e39101893"
       ]
     },
     {
@@ -73,6 +79,9 @@
       "acceptedSourceIds": [
         "ref.jiang_yucheng.wardrobe_look.b_cute_date.full",
         "ref.jiang_yucheng.wardrobe_look.b_cute_date.upper"
+      ],
+      "candidateRefs": [
+        "a81e549ed8965572adc57b487ae9664e39101893"
       ]
     },
     {
@@ -84,6 +93,9 @@
       "acceptedSourceIds": [
         "ref.shen_yingxue.wardrobe_look.b_home_lounge.full",
         "ref.shen_yingxue.wardrobe_look.b_home_lounge.upper"
+      ],
+      "candidateRefs": [
+        "a81e549ed8965572adc57b487ae9664e39101893"
       ]
     },
     {
@@ -107,6 +119,9 @@
         "ref.jiang_yucheng.wardrobe_look.a_cafe_creator.upper",
         "ref.jiang_yucheng.wardrobe_look.b_creator_event.full",
         "ref.jiang_yucheng.wardrobe_look.b_creator_event.upper"
+      ],
+      "candidateRefs": [
+        "ac26b68c4c792c358812df4fabf0d1ef99085170"
       ]
     },
     {
@@ -128,6 +143,20 @@
         "ref.shen_yingxue.wardrobe_look.b_workout_gym.upper",
         "ref.shen_yingxue.wardrobe_look.b_quiet_evening_sleepwear.full",
         "ref.shen_yingxue.wardrobe_look.b_quiet_evening_sleepwear.upper"
+      ],
+      "candidateRefs": [
+        "ac26b68c4c792c358812df4fabf0d1ef99085170:assets-src/references/shen-yingxue/wardrobe-looks/SYX-WARDROBE-A-CLIENT-FORMAL-DAY/full.png",
+        "ac26b68c4c792c358812df4fabf0d1ef99085170:assets-src/references/shen-yingxue/wardrobe-looks/SYX-WARDROBE-A-CLIENT-FORMAL-DAY/upper.png",
+        "ac26b68c4c792c358812df4fabf0d1ef99085170:assets-src/references/shen-yingxue/wardrobe-looks/SYX-WARDROBE-A-CITY-EVENING/full.png",
+        "ac26b68c4c792c358812df4fabf0d1ef99085170:assets-src/references/shen-yingxue/wardrobe-looks/SYX-WARDROBE-A-CITY-EVENING/upper.png",
+        "ac26b68c4c792c358812df4fabf0d1ef99085170:assets-src/references/shen-yingxue/wardrobe-looks/SYX-WARDROBE-A-CAFE-WEEKEND/full.png",
+        "ac26b68c4c792c358812df4fabf0d1ef99085170:assets-src/references/shen-yingxue/wardrobe-looks/SYX-WARDROBE-A-CAFE-WEEKEND/upper.png",
+        "ac26b68c4c792c358812df4fabf0d1ef99085170:assets-src/references/shen-yingxue/wardrobe-looks/SYX-WARDROBE-B-LEISURE-CAFE/full.png",
+        "ac26b68c4c792c358812df4fabf0d1ef99085170:assets-src/references/shen-yingxue/wardrobe-looks/SYX-WARDROBE-B-LEISURE-CAFE/upper.png",
+        "ac26b68c4c792c358812df4fabf0d1ef99085170:assets-src/references/shen-yingxue/wardrobe-looks/SYX-WARDROBE-B-WORKOUT-GYM/full.png",
+        "ac26b68c4c792c358812df4fabf0d1ef99085170:assets-src/references/shen-yingxue/wardrobe-looks/SYX-WARDROBE-B-WORKOUT-GYM/upper.png",
+        "ac26b68c4c792c358812df4fabf0d1ef99085170:assets-src/references/shen-yingxue/wardrobe-looks/SYX-WARDROBE-B-QUIET-EVENING-SLEEPWEAR/full.png",
+        "ac26b68c4c792c358812df4fabf0d1ef99085170:assets-src/references/shen-yingxue/wardrobe-looks/SYX-WARDROBE-B-QUIET-EVENING-SLEEPWEAR/upper.png"
       ]
     },
     {
@@ -138,6 +167,9 @@
       "reportVersion": "sha256:939ce3414b21ad4df7e9dc01031a988329d826696d66f1b60ad7cad48d006121",
       "acceptedSourceIds": [
         "ref.xu_tang.wardrobe_look.b_after_story_weekend_morning.upper"
+      ],
+      "candidateRefs": [
+        "ac26b68c4c792c358812df4fabf0d1ef99085170"
       ]
     },
     {
@@ -154,6 +186,9 @@
         "ref.xu_tang.wardrobe_look.b_repair_ending_serious_date.full",
         "ref.xu_tang.wardrobe_look.b_repair_ending_serious_date.upper",
         "ref.xu_tang.wardrobe_look.b_after_story_weekend_morning.full"
+      ],
+      "candidateRefs": [
+        "ff19863880cc607c62c5cc737dd7100a658d4a4d"
       ]
     },
     {
@@ -165,462 +200,9 @@
       "acceptedSourceIds": [
         "ref.shen_yingxue.wardrobe_look.a_strategy_work.full",
         "ref.shen_yingxue.wardrobe_look.a_strategy_work.upper"
-      ]
-    }
-  ],
-  "registeredReferences": [
-    {
-      "sourceId": "ref.lin_ruoqing.wardrobe_look.a_teacher_trousers.full",
-      "candidateRef": "a81e549ed8965572adc57b487ae9664e39101893",
-      "decisionTask": "LIN-RUOQING-FIDELITY"
-    },
-    {
-      "sourceId": "ref.lin_ruoqing.wardrobe_look.a_teacher_trousers.upper",
-      "candidateRef": "a81e549ed8965572adc57b487ae9664e39101893",
-      "decisionTask": "LIN-RUOQING-FIDELITY"
-    },
-    {
-      "sourceId": "ref.lin_ruoqing.wardrobe_look.a_cardigan_everyday.full",
-      "candidateRef": "a81e549ed8965572adc57b487ae9664e39101893",
-      "decisionTask": "LIN-RUOQING-FIDELITY"
-    },
-    {
-      "sourceId": "ref.lin_ruoqing.wardrobe_look.a_cardigan_everyday.upper",
-      "candidateRef": "a81e549ed8965572adc57b487ae9664e39101893",
-      "decisionTask": "LIN-RUOQING-FIDELITY"
-    },
-    {
-      "sourceId": "ref.lin_ruoqing.wardrobe_look.a_teacher_presentation.full",
-      "candidateRef": "a81e549ed8965572adc57b487ae9664e39101893",
-      "decisionTask": "LIN-RUOQING-FIDELITY"
-    },
-    {
-      "sourceId": "ref.lin_ruoqing.wardrobe_look.a_teacher_presentation.upper",
-      "candidateRef": "a81e549ed8965572adc57b487ae9664e39101893",
-      "decisionTask": "LIN-RUOQING-FIDELITY"
-    },
-    {
-      "sourceId": "ref.lin_ruoqing.wardrobe_look.a_hoodie_weekend.full",
-      "candidateRef": "a81e549ed8965572adc57b487ae9664e39101893",
-      "decisionTask": "LIN-RUOQING-FIDELITY"
-    },
-    {
-      "sourceId": "ref.lin_ruoqing.wardrobe_look.a_hoodie_weekend.upper",
-      "candidateRef": "a81e549ed8965572adc57b487ae9664e39101893",
-      "decisionTask": "LIN-RUOQING-FIDELITY"
-    },
-    {
-      "sourceId": "ref.lin_ruoqing.wardrobe_look.a_floral_date.full",
-      "candidateRef": "a81e549ed8965572adc57b487ae9664e39101893",
-      "decisionTask": "LIN-RUOQING-FIDELITY"
-    },
-    {
-      "sourceId": "ref.lin_ruoqing.wardrobe_look.a_floral_date.upper",
-      "candidateRef": "a81e549ed8965572adc57b487ae9664e39101893",
-      "decisionTask": "LIN-RUOQING-FIDELITY"
-    },
-    {
-      "sourceId": "ref.lin_ruoqing.wardrobe_look.a_autumn_outing.full",
-      "candidateRef": "a81e549ed8965572adc57b487ae9664e39101893",
-      "decisionTask": "LIN-RUOQING-FIDELITY"
-    },
-    {
-      "sourceId": "ref.lin_ruoqing.wardrobe_look.a_autumn_outing.upper",
-      "candidateRef": "a81e549ed8965572adc57b487ae9664e39101893",
-      "decisionTask": "LIN-RUOQING-FIDELITY"
-    },
-    {
-      "sourceId": "ref.lin_ruoqing.wardrobe_look.b_fitness_active.full",
-      "candidateRef": "a81e549ed8965572adc57b487ae9664e39101893",
-      "decisionTask": "LIN-RUOQING-FIDELITY"
-    },
-    {
-      "sourceId": "ref.lin_ruoqing.wardrobe_look.b_fitness_active.upper",
-      "candidateRef": "a81e549ed8965572adc57b487ae9664e39101893",
-      "decisionTask": "LIN-RUOQING-FIDELITY"
-    },
-    {
-      "sourceId": "ref.lin_ruoqing.wardrobe_look.b_badminton.full",
-      "candidateRef": "a81e549ed8965572adc57b487ae9664e39101893",
-      "decisionTask": "LIN-RUOQING-FIDELITY"
-    },
-    {
-      "sourceId": "ref.lin_ruoqing.wardrobe_look.b_badminton.upper",
-      "candidateRef": "a81e549ed8965572adc57b487ae9664e39101893",
-      "decisionTask": "LIN-RUOQING-FIDELITY"
-    },
-    {
-      "sourceId": "ref.lin_ruoqing.wardrobe_look.b_home_rest.full",
-      "candidateRef": "a81e549ed8965572adc57b487ae9664e39101893",
-      "decisionTask": "LIN-RUOQING-FIDELITY"
-    },
-    {
-      "sourceId": "ref.lin_ruoqing.wardrobe_look.b_home_rest.upper",
-      "candidateRef": "a81e549ed8965572adc57b487ae9664e39101893",
-      "decisionTask": "LIN-RUOQING-FIDELITY"
-    },
-    {
-      "sourceId": "ref.lin_ruoqing.wardrobe_look.b_pool_swim.full",
-      "candidateRef": "a81e549ed8965572adc57b487ae9664e39101893",
-      "decisionTask": "LIN-RUOQING-FIDELITY"
-    },
-    {
-      "sourceId": "ref.lin_ruoqing.wardrobe_look.b_pool_swim.upper",
-      "candidateRef": "a81e549ed8965572adc57b487ae9664e39101893",
-      "decisionTask": "LIN-RUOQING-FIDELITY"
-    },
-    {
-      "sourceId": "ref.xu_tang.wardrobe_look.a_weekday_neighbor.full",
-      "candidateRef": "a81e549ed8965572adc57b487ae9664e39101893",
-      "decisionTask": "XU-TANG-FIDELITY-CORRECTED"
-    },
-    {
-      "sourceId": "ref.xu_tang.wardrobe_look.a_weekday_neighbor.upper",
-      "candidateRef": "a81e549ed8965572adc57b487ae9664e39101893",
-      "decisionTask": "XU-TANG-FIDELITY-CORRECTED"
-    },
-    {
-      "sourceId": "ref.xu_tang.wardrobe_look.a_late_night_convenience_store.full",
-      "candidateRef": "a81e549ed8965572adc57b487ae9664e39101893",
-      "decisionTask": "XU-TANG-FIDELITY-CORRECTED"
-    },
-    {
-      "sourceId": "ref.xu_tang.wardrobe_look.a_late_night_convenience_store.upper",
-      "candidateRef": "a81e549ed8965572adc57b487ae9664e39101893",
-      "decisionTask": "XU-TANG-FIDELITY-CORRECTED"
-    },
-    {
-      "sourceId": "ref.xu_tang.wardrobe_look.a_bookstore_cafe_date.full",
-      "candidateRef": "a81e549ed8965572adc57b487ae9664e39101893",
-      "decisionTask": "XU-TANG-FIDELITY-CORRECTED"
-    },
-    {
-      "sourceId": "ref.xu_tang.wardrobe_look.a_bookstore_cafe_date.upper",
-      "candidateRef": "a81e549ed8965572adc57b487ae9664e39101893",
-      "decisionTask": "XU-TANG-FIDELITY-CORRECTED"
-    },
-    {
-      "sourceId": "ref.xu_tang.wardrobe_look.a_weekend_night_out.full",
-      "candidateRef": "a81e549ed8965572adc57b487ae9664e39101893",
-      "decisionTask": "XU-TANG-FIDELITY-CORRECTED"
-    },
-    {
-      "sourceId": "ref.xu_tang.wardrobe_look.a_weekend_night_out.upper",
-      "candidateRef": "a81e549ed8965572adc57b487ae9664e39101893",
-      "decisionTask": "XU-TANG-FIDELITY-CORRECTED"
-    },
-    {
-      "sourceId": "ref.jiang_yucheng.wardrobe_look.b_cute_date.full",
-      "candidateRef": "a81e549ed8965572adc57b487ae9664e39101893",
-      "decisionTask": "JIANG-YUCHENG-FIDELITY",
-      "inheritedLimitations": [
-        "Inherited canonical main-photo clipping at the bag edge (x14) and skirt side; the native crop preserves all available original main-figure pixels. Missing source pixels are not an extraction failure."
-      ]
-    },
-    {
-      "sourceId": "ref.jiang_yucheng.wardrobe_look.b_cute_date.upper",
-      "candidateRef": "a81e549ed8965572adc57b487ae9664e39101893",
-      "decisionTask": "JIANG-YUCHENG-FIDELITY",
-      "inheritedLimitations": [
-        "Inherited canonical main-photo clipping at the bag edge (x14) and skirt side; the native crop preserves all available original main-figure pixels. Missing source pixels are not an extraction failure."
-      ]
-    },
-    {
-      "sourceId": "ref.shen_yingxue.wardrobe_look.b_home_lounge.full",
-      "candidateRef": "a81e549ed8965572adc57b487ae9664e39101893",
-      "decisionTask": "SHEN-YINGXUE-FIDELITY"
-    },
-    {
-      "sourceId": "ref.shen_yingxue.wardrobe_look.b_home_lounge.upper",
-      "candidateRef": "a81e549ed8965572adc57b487ae9664e39101893",
-      "decisionTask": "SHEN-YINGXUE-FIDELITY"
-    },
-    {
-      "sourceId": "ref.jiang_yucheng.wardrobe_look.a_campus_graduate_student.full",
-      "candidateRef": "ac26b68c4c792c358812df4fabf0d1ef99085170",
-      "decisionTask": "JIANG-YUCHENG-FINAL-AFFECTED-FIDELITY",
-      "inheritedLimitations": [
-        "Bag/left cardigan are already cut by original sheet x=0 boundary; no completion invented."
-      ]
-    },
-    {
-      "sourceId": "ref.jiang_yucheng.wardrobe_look.a_campus_graduate_student.upper",
-      "candidateRef": "ac26b68c4c792c358812df4fabf0d1ef99085170",
-      "decisionTask": "JIANG-YUCHENG-FINAL-AFFECTED-FIDELITY",
-      "inheritedLimitations": [
-        "Bag/left cardigan are already cut by original sheet x=0 boundary; no completion invented."
-      ]
-    },
-    {
-      "sourceId": "ref.jiang_yucheng.wardrobe_look.a_acg_outing.full",
-      "candidateRef": "ac26b68c4c792c358812df4fabf0d1ef99085170",
-      "decisionTask": "JIANG-YUCHENG-FINAL-AFFECTED-FIDELITY",
-      "inheritedLimitations": [
-        "Bag edge is already clipped at original photo left x=762; no missing bag pixels can be recovered outside that photo."
-      ]
-    },
-    {
-      "sourceId": "ref.jiang_yucheng.wardrobe_look.a_acg_outing.upper",
-      "candidateRef": "ac26b68c4c792c358812df4fabf0d1ef99085170",
-      "decisionTask": "JIANG-YUCHENG-FINAL-AFFECTED-FIDELITY",
-      "inheritedLimitations": [
-        "Bag edge is already clipped at original photo left x=762; no missing bag pixels can be recovered outside that photo."
-      ]
-    },
-    {
-      "sourceId": "ref.jiang_yucheng.wardrobe_look.a_gaming_home_casual.full",
-      "candidateRef": "ac26b68c4c792c358812df4fabf0d1ef99085170",
-      "decisionTask": "JIANG-YUCHENG-FINAL-AFFECTED-FIDELITY",
-      "inheritedLimitations": [
-        "Raised sleeve/hoodie at original photo right x=1356 is source-clipped; current edge preserves all visible garment pixels inside photo."
-      ]
-    },
-    {
-      "sourceId": "ref.jiang_yucheng.wardrobe_look.a_gaming_home_casual.upper",
-      "candidateRef": "ac26b68c4c792c358812df4fabf0d1ef99085170",
-      "decisionTask": "JIANG-YUCHENG-FINAL-AFFECTED-FIDELITY",
-      "inheritedLimitations": [
-        "Raised sleeve/hoodie at original photo right x=1356 is source-clipped; current edge preserves all visible garment pixels inside photo."
-      ]
-    },
-    {
-      "sourceId": "ref.jiang_yucheng.wardrobe_look.b_signature_campus.full",
-      "candidateRef": "ac26b68c4c792c358812df4fabf0d1ef99085170",
-      "decisionTask": "JIANG-YUCHENG-FINAL-AFFECTED-FIDELITY",
-      "inheritedLimitations": [
-        "Bag is clipped at original main-photo left x=744; no invention or new loss."
-      ]
-    },
-    {
-      "sourceId": "ref.jiang_yucheng.wardrobe_look.b_signature_campus.upper",
-      "candidateRef": "ac26b68c4c792c358812df4fabf0d1ef99085170",
-      "decisionTask": "JIANG-YUCHENG-FINAL-AFFECTED-FIDELITY",
-      "inheritedLimitations": [
-        "Bag is clipped at original main-photo left x=744; no invention or new loss."
-      ]
-    },
-    {
-      "sourceId": "ref.jiang_yucheng.wardrobe_look.b_after_story_weekend_morning.full",
-      "candidateRef": "ac26b68c4c792c358812df4fabf0d1ef99085170",
-      "decisionTask": "JIANG-YUCHENG-FINAL-AFFECTED-FIDELITY",
-      "inheritedLimitations": [
-        "Loose hoodie is already clipped at original photo boundaries x=1118 and x=1349; clipping remains explicit."
-      ]
-    },
-    {
-      "sourceId": "ref.jiang_yucheng.wardrobe_look.b_after_story_weekend_morning.upper",
-      "candidateRef": "ac26b68c4c792c358812df4fabf0d1ef99085170",
-      "decisionTask": "JIANG-YUCHENG-FINAL-AFFECTED-FIDELITY",
-      "inheritedLimitations": [
-        "Loose hoodie is already clipped at original photo boundaries x=1118 and x=1349; clipping remains explicit."
-      ]
-    },
-    {
-      "sourceId": "ref.jiang_yucheng.wardrobe_look.a_cafe_creator.full",
-      "candidateRef": "ac26b68c4c792c358812df4fabf0d1ef99085170",
-      "decisionTask": "JIANG-YUCHENG-FINAL-AFFECTED-FIDELITY",
-      "inheritedLimitations": [
-        "Tablet/table/chair and left edge of seated scene are clipped at original main photo x=405; retained furniture is source scene context, not a sheet layout frame."
-      ]
-    },
-    {
-      "sourceId": "ref.jiang_yucheng.wardrobe_look.a_cafe_creator.upper",
-      "candidateRef": "ac26b68c4c792c358812df4fabf0d1ef99085170",
-      "decisionTask": "JIANG-YUCHENG-FINAL-AFFECTED-FIDELITY",
-      "inheritedLimitations": [
-        "Tablet/table/chair and left edge of seated scene are clipped at original main photo x=405; retained furniture is source scene context, not a sheet layout frame."
-      ]
-    },
-    {
-      "sourceId": "ref.jiang_yucheng.wardrobe_look.b_creator_event.full",
-      "candidateRef": "ac26b68c4c792c358812df4fabf0d1ef99085170",
-      "decisionTask": "JIANG-YUCHENG-FINAL-AFFECTED-FIDELITY",
-      "inheritedLimitations": [
-        "No critical anatomy or garment clipping newly introduced; pose/furniture completion not applicable."
-      ]
-    },
-    {
-      "sourceId": "ref.jiang_yucheng.wardrobe_look.b_creator_event.upper",
-      "candidateRef": "ac26b68c4c792c358812df4fabf0d1ef99085170",
-      "decisionTask": "JIANG-YUCHENG-FINAL-AFFECTED-FIDELITY",
-      "inheritedLimitations": [
-        "No critical anatomy or garment clipping newly introduced; pose/furniture completion not applicable."
-      ]
-    },
-    {
-      "sourceId": "ref.shen_yingxue.wardrobe_look.a_client_formal_day.full",
-      "candidateRef": "ac26b68c4c792c358812df4fabf0d1ef99085170:assets-src/references/shen-yingxue/wardrobe-looks/SYX-WARDROBE-A-CLIENT-FORMAL-DAY/full.png",
-      "decisionTask": "SHEN-YINGXUE-FINAL-AFFECTED-FIDELITY",
-      "inheritedLimitations": [
-        "Full view inherits any shoe-bottom clipping at the source photo boundary; no missing anatomy or accessory pixels are inferred."
-      ]
-    },
-    {
-      "sourceId": "ref.shen_yingxue.wardrobe_look.a_client_formal_day.upper",
-      "candidateRef": "ac26b68c4c792c358812df4fabf0d1ef99085170:assets-src/references/shen-yingxue/wardrobe-looks/SYX-WARDROBE-A-CLIENT-FORMAL-DAY/upper.png",
-      "decisionTask": "SHEN-YINGXUE-FINAL-AFFECTED-FIDELITY",
-      "inheritedLimitations": [
-        "Upper view intentionally ends below waist and omits legs/shoes/props."
-      ]
-    },
-    {
-      "sourceId": "ref.shen_yingxue.wardrobe_look.a_city_evening.full",
-      "candidateRef": "ac26b68c4c792c358812df4fabf0d1ef99085170:assets-src/references/shen-yingxue/wardrobe-looks/SYX-WARDROBE-A-CITY-EVENING/full.png",
-      "decisionTask": "SHEN-YINGXUE-FINAL-AFFECTED-FIDELITY",
-      "inheritedLimitations": [
-        "Full view inherits any shoe-bottom clipping at the source photo boundary; no missing anatomy or accessory pixels are inferred."
-      ]
-    },
-    {
-      "sourceId": "ref.shen_yingxue.wardrobe_look.a_city_evening.upper",
-      "candidateRef": "ac26b68c4c792c358812df4fabf0d1ef99085170:assets-src/references/shen-yingxue/wardrobe-looks/SYX-WARDROBE-A-CITY-EVENING/upper.png",
-      "decisionTask": "SHEN-YINGXUE-FINAL-AFFECTED-FIDELITY",
-      "inheritedLimitations": [
-        "Upper view intentionally ends below waist and omits legs/shoes/props."
-      ]
-    },
-    {
-      "sourceId": "ref.shen_yingxue.wardrobe_look.a_cafe_weekend.full",
-      "candidateRef": "ac26b68c4c792c358812df4fabf0d1ef99085170:assets-src/references/shen-yingxue/wardrobe-looks/SYX-WARDROBE-A-CAFE-WEEKEND/full.png",
-      "decisionTask": "SHEN-YINGXUE-FINAL-AFFECTED-FIDELITY",
-      "inheritedLimitations": [
-        "Full view inherits any shoe-bottom clipping at the source photo boundary; no missing anatomy or accessory pixels are inferred."
-      ]
-    },
-    {
-      "sourceId": "ref.shen_yingxue.wardrobe_look.a_cafe_weekend.upper",
-      "candidateRef": "ac26b68c4c792c358812df4fabf0d1ef99085170:assets-src/references/shen-yingxue/wardrobe-looks/SYX-WARDROBE-A-CAFE-WEEKEND/upper.png",
-      "decisionTask": "SHEN-YINGXUE-FINAL-AFFECTED-FIDELITY",
-      "inheritedLimitations": [
-        "Upper view intentionally ends below waist and omits legs/shoes/props."
-      ]
-    },
-    {
-      "sourceId": "ref.shen_yingxue.wardrobe_look.b_leisure_cafe.full",
-      "candidateRef": "ac26b68c4c792c358812df4fabf0d1ef99085170:assets-src/references/shen-yingxue/wardrobe-looks/SYX-WARDROBE-B-LEISURE-CAFE/full.png",
-      "decisionTask": "SHEN-YINGXUE-FINAL-AFFECTED-FIDELITY",
-      "inheritedLimitations": [
-        "Full view inherits any shoe-bottom clipping at the source photo boundary; no missing anatomy or accessory pixels are inferred."
-      ]
-    },
-    {
-      "sourceId": "ref.shen_yingxue.wardrobe_look.b_leisure_cafe.upper",
-      "candidateRef": "ac26b68c4c792c358812df4fabf0d1ef99085170:assets-src/references/shen-yingxue/wardrobe-looks/SYX-WARDROBE-B-LEISURE-CAFE/upper.png",
-      "decisionTask": "SHEN-YINGXUE-FINAL-AFFECTED-FIDELITY",
-      "inheritedLimitations": [
-        "Upper view intentionally ends below waist and omits legs/shoes/props."
-      ]
-    },
-    {
-      "sourceId": "ref.shen_yingxue.wardrobe_look.b_workout_gym.full",
-      "candidateRef": "ac26b68c4c792c358812df4fabf0d1ef99085170:assets-src/references/shen-yingxue/wardrobe-looks/SYX-WARDROBE-B-WORKOUT-GYM/full.png",
-      "decisionTask": "SHEN-YINGXUE-FINAL-AFFECTED-FIDELITY",
-      "inheritedLimitations": [
-        "Full view inherits any shoe-bottom clipping at the source photo boundary; no missing anatomy or accessory pixels are inferred."
-      ]
-    },
-    {
-      "sourceId": "ref.shen_yingxue.wardrobe_look.b_workout_gym.upper",
-      "candidateRef": "ac26b68c4c792c358812df4fabf0d1ef99085170:assets-src/references/shen-yingxue/wardrobe-looks/SYX-WARDROBE-B-WORKOUT-GYM/upper.png",
-      "decisionTask": "SHEN-YINGXUE-FINAL-AFFECTED-FIDELITY",
-      "inheritedLimitations": [
-        "Upper view intentionally ends below waist and omits legs/shoes/props."
-      ]
-    },
-    {
-      "sourceId": "ref.shen_yingxue.wardrobe_look.b_quiet_evening_sleepwear.full",
-      "candidateRef": "ac26b68c4c792c358812df4fabf0d1ef99085170:assets-src/references/shen-yingxue/wardrobe-looks/SYX-WARDROBE-B-QUIET-EVENING-SLEEPWEAR/full.png",
-      "decisionTask": "SHEN-YINGXUE-FINAL-AFFECTED-FIDELITY",
-      "inheritedLimitations": [
-        "Full view inherits any shoe-bottom clipping at the source photo boundary; no missing anatomy or accessory pixels are inferred."
-      ]
-    },
-    {
-      "sourceId": "ref.shen_yingxue.wardrobe_look.b_quiet_evening_sleepwear.upper",
-      "candidateRef": "ac26b68c4c792c358812df4fabf0d1ef99085170:assets-src/references/shen-yingxue/wardrobe-looks/SYX-WARDROBE-B-QUIET-EVENING-SLEEPWEAR/upper.png",
-      "decisionTask": "SHEN-YINGXUE-FINAL-AFFECTED-FIDELITY",
-      "inheritedLimitations": [
-        "Upper view intentionally ends below waist and omits legs/shoes/props."
-      ]
-    },
-    {
-      "sourceId": "ref.xu_tang.wardrobe_look.b_after_story_weekend_morning.upper",
-      "candidateRef": "ac26b68c4c792c358812df4fabf0d1ef99085170",
-      "decisionTask": "XU-TANG-FINAL-AFFECTED-FIDELITY",
-      "inheritedLimitations": [
-        "Original B photographic panels clip portions of edge garments/accessories; missing source pixels cannot be reconstructed. Upper intentionally ends at source y539 and omits lower clothing, legs, shoes and below-frame accessories."
-      ]
-    },
-    {
-      "sourceId": "ref.xu_tang.wardrobe_look.b_riverside_rainy_date.full",
-      "candidateRef": "ff19863880cc607c62c5cc737dd7100a658d4a4d",
-      "decisionTask": "XU-TANG-CORRECTIVE-FINAL-QA",
-      "inheritedLimitations": [
-        "Source panel clips the far-right coat/arm boundary; preserved without invented extension."
-      ]
-    },
-    {
-      "sourceId": "ref.xu_tang.wardrobe_look.b_riverside_rainy_date.upper",
-      "candidateRef": "ff19863880cc607c62c5cc737dd7100a658d4a4d",
-      "decisionTask": "XU-TANG-CORRECTIVE-FINAL-QA",
-      "inheritedLimitations": [
-        "Source panel clips the far-right coat/arm boundary; preserved without invented extension. Intentional lower frame at source y539 omits lower outfit, lower hand/accessory portions where below frame and footwear; not a full-body reference."
-      ]
-    },
-    {
-      "sourceId": "ref.xu_tang.wardrobe_look.b_work_deadline_home.full",
-      "candidateRef": "ff19863880cc607c62c5cc737dd7100a658d4a4d",
-      "decisionTask": "XU-TANG-CORRECTIVE-FINAL-QA",
-      "inheritedLimitations": [
-        "Source panel clips the far-right sleeve/arm boundary; raised hand is already occluded by hair/head."
-      ]
-    },
-    {
-      "sourceId": "ref.xu_tang.wardrobe_look.b_work_deadline_home.upper",
-      "candidateRef": "ff19863880cc607c62c5cc737dd7100a658d4a4d",
-      "decisionTask": "XU-TANG-CORRECTIVE-FINAL-QA",
-      "inheritedLimitations": [
-        "Source panel clips the far-right sleeve/arm boundary; raised hand is already occluded by hair/head. Intentional lower frame at source y539 omits lower outfit, lower hand/accessory portions where below frame and footwear; not a full-body reference."
-      ]
-    },
-    {
-      "sourceId": "ref.xu_tang.wardrobe_look.b_repair_ending_serious_date.full",
-      "candidateRef": "ff19863880cc607c62c5cc737dd7100a658d4a4d",
-      "decisionTask": "XU-TANG-CORRECTIVE-FINAL-QA",
-      "inheritedLimitations": [
-        "Source panel clips the far-right coat/bag boundary; preserved without extending source artwork."
-      ]
-    },
-    {
-      "sourceId": "ref.xu_tang.wardrobe_look.b_repair_ending_serious_date.upper",
-      "candidateRef": "ff19863880cc607c62c5cc737dd7100a658d4a4d",
-      "decisionTask": "XU-TANG-CORRECTIVE-FINAL-QA",
-      "inheritedLimitations": [
-        "Source panel clips the far-right coat/bag boundary; preserved without extending source artwork. Intentional lower frame at source y539 omits lower outfit, lower hand/accessory portions where below frame and footwear; not a full-body reference."
-      ]
-    },
-    {
-      "sourceId": "ref.xu_tang.wardrobe_look.b_after_story_weekend_morning.full",
-      "candidateRef": "ff19863880cc607c62c5cc737dd7100a658d4a4d",
-      "decisionTask": "XU-TANG-CORRECTIVE-FINAL-QA",
-      "inheritedLimitations": [
-        "Source panel clips the far-right cardigan/arm boundary; preserved without invented extension."
-      ]
-    },
-    {
-      "sourceId": "ref.shen_yingxue.wardrobe_look.a_strategy_work.full",
-      "candidateRef": "ff19863880cc607c62c5cc737dd7100a658d4a4d",
-      "decisionTask": "SHEN-YINGXUE-CORRECTIVE-FINAL-QA",
-      "inheritedLimitations": [
-        "The source sheet itself places the shoes at the lower sheet edge; the crop inherits the source's tight lower framing and does not invent missing pixels."
-      ]
-    },
-    {
-      "sourceId": "ref.shen_yingxue.wardrobe_look.a_strategy_work.upper",
-      "candidateRef": "ff19863880cc607c62c5cc737dd7100a658d4a4d",
-      "decisionTask": "SHEN-YINGXUE-CORRECTIVE-FINAL-QA",
-      "inheritedLimitations": [
-        "The upper variant intentionally ends below the waist and omits the lower outfit, bag, and shoes by framing."
+      ],
+      "candidateRefs": [
+        "ff19863880cc607c62c5cc737dd7100a658d4a4d"
       ]
     }
   ],

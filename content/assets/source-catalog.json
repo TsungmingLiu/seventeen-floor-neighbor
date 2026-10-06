@@ -637,7 +637,7 @@
       "width": 256,
       "height": 884,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.xu_tang.wardrobe.a",
         "sourcePath": "assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png",
@@ -661,7 +661,7 @@
       "width": 256,
       "height": 346,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.xu_tang.wardrobe.a",
         "sourcePath": "assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png",
@@ -685,7 +685,7 @@
       "width": 259,
       "height": 884,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.xu_tang.wardrobe.a",
         "sourcePath": "assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png",
@@ -709,7 +709,7 @@
       "width": 259,
       "height": 346,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.xu_tang.wardrobe.a",
         "sourcePath": "assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png",
@@ -733,7 +733,7 @@
       "width": 266,
       "height": 884,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.xu_tang.wardrobe.a",
         "sourcePath": "assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png",
@@ -757,7 +757,7 @@
       "width": 266,
       "height": 346,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.xu_tang.wardrobe.a",
         "sourcePath": "assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png",
@@ -781,7 +781,7 @@
       "width": 252,
       "height": 884,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.xu_tang.wardrobe.a",
         "sourcePath": "assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png",
@@ -805,7 +805,7 @@
       "width": 252,
       "height": 346,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.xu_tang.wardrobe.a",
         "sourcePath": "assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png",
@@ -830,7 +830,7 @@
       "width": 265,
       "height": 871,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.xu_tang.wardrobe.b",
         "sourcePath": "assets-src/references/xu-tang/xt-ref-06-wardrobe-b.png",
@@ -863,7 +863,7 @@
       "width": 265,
       "height": 346,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.xu_tang.wardrobe.b",
         "sourcePath": "assets-src/references/xu-tang/xt-ref-06-wardrobe-b.png",
@@ -896,7 +896,7 @@
       "width": 259,
       "height": 871,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.xu_tang.wardrobe.b",
         "sourcePath": "assets-src/references/xu-tang/xt-ref-06-wardrobe-b.png",
@@ -943,7 +943,7 @@
       "width": 259,
       "height": 346,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.xu_tang.wardrobe.b",
         "sourcePath": "assets-src/references/xu-tang/xt-ref-06-wardrobe-b.png",
@@ -990,7 +990,7 @@
       "width": 266,
       "height": 871,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.xu_tang.wardrobe.b",
         "sourcePath": "assets-src/references/xu-tang/xt-ref-06-wardrobe-b.png",
@@ -1044,7 +1044,7 @@
       "width": 266,
       "height": 346,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.xu_tang.wardrobe.b",
         "sourcePath": "assets-src/references/xu-tang/xt-ref-06-wardrobe-b.png",
@@ -1098,7 +1098,7 @@
       "width": 256,
       "height": 871,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.xu_tang.wardrobe.b",
         "sourcePath": "assets-src/references/xu-tang/xt-ref-06-wardrobe-b.png",
@@ -1131,7 +1131,7 @@
       "width": 252,
       "height": 346,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.xu_tang.wardrobe.b",
         "sourcePath": "assets-src/references/xu-tang/xt-ref-06-wardrobe-b.png",
@@ -1164,7 +1164,7 @@
       "width": 265,
       "height": 850,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.jiang_yucheng.wardrobe.a",
         "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-05-wardrobe-a.png",
@@ -1203,7 +1203,7 @@
       "width": 265,
       "height": 420,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.jiang_yucheng.wardrobe.a",
         "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-05-wardrobe-a.png",
@@ -1236,7 +1236,7 @@
       "width": 219,
       "height": 841,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.jiang_yucheng.wardrobe.a",
         "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-05-wardrobe-a.png",
@@ -1261,7 +1261,7 @@
       "width": 219,
       "height": 399,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.jiang_yucheng.wardrobe.a",
         "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-05-wardrobe-a.png",
@@ -1286,7 +1286,7 @@
       "width": 242,
       "height": 842,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.jiang_yucheng.wardrobe.a",
         "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-05-wardrobe-a.png",
@@ -1331,7 +1331,7 @@
       "width": 242,
       "height": 399,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.jiang_yucheng.wardrobe.a",
         "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-05-wardrobe-a.png",
@@ -1370,7 +1370,7 @@
       "width": 226,
       "height": 842,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.jiang_yucheng.wardrobe.a",
         "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-05-wardrobe-a.png",
@@ -1409,7 +1409,7 @@
       "width": 226,
       "height": 404,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.jiang_yucheng.wardrobe.a",
         "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-05-wardrobe-a.png",
@@ -1441,7 +1441,7 @@
       "width": 232,
       "height": 898,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.jiang_yucheng.wardrobe.b",
         "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-06-wardrobe-b.png",
@@ -1465,7 +1465,7 @@
       "width": 232,
       "height": 453,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.jiang_yucheng.wardrobe.b",
         "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-06-wardrobe-b.png",
@@ -1490,7 +1490,7 @@
       "width": 238,
       "height": 898,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.jiang_yucheng.wardrobe.b",
         "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-06-wardrobe-b.png",
@@ -1515,7 +1515,7 @@
       "width": 238,
       "height": 458,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.jiang_yucheng.wardrobe.b",
         "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-06-wardrobe-b.png",
@@ -1540,7 +1540,7 @@
       "width": 236,
       "height": 898,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.jiang_yucheng.wardrobe.b",
         "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-06-wardrobe-b.png",
@@ -1566,7 +1566,7 @@
       "width": 236,
       "height": 468,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.jiang_yucheng.wardrobe.b",
         "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-06-wardrobe-b.png",
@@ -1592,7 +1592,7 @@
       "width": 232,
       "height": 898,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.jiang_yucheng.wardrobe.b",
         "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-06-wardrobe-b.png",
@@ -1618,7 +1618,7 @@
       "width": 232,
       "height": 468,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.jiang_yucheng.wardrobe.b",
         "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-06-wardrobe-b.png",
@@ -1643,7 +1643,7 @@
       "width": 270,
       "height": 734,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.lin_ruoqing.wardrobe.a",
         "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-05-wardrobe-a.png",
@@ -1667,7 +1667,7 @@
       "width": 270,
       "height": 411,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.lin_ruoqing.wardrobe.a",
         "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-05-wardrobe-a.png",
@@ -1691,7 +1691,7 @@
       "width": 267,
       "height": 734,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.lin_ruoqing.wardrobe.a",
         "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-05-wardrobe-a.png",
@@ -1715,7 +1715,7 @@
       "width": 267,
       "height": 411,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.lin_ruoqing.wardrobe.a",
         "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-05-wardrobe-a.png",
@@ -1739,7 +1739,7 @@
       "width": 269,
       "height": 734,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.lin_ruoqing.wardrobe.a",
         "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-05-wardrobe-a.png",
@@ -1763,7 +1763,7 @@
       "width": 269,
       "height": 306,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.lin_ruoqing.wardrobe.a",
         "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-05-wardrobe-a.png",
@@ -1787,7 +1787,7 @@
       "width": 267,
       "height": 734,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.lin_ruoqing.wardrobe.a",
         "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-05-wardrobe-a.png",
@@ -1811,7 +1811,7 @@
       "width": 267,
       "height": 406,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.lin_ruoqing.wardrobe.a",
         "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-05-wardrobe-a.png",
@@ -1835,7 +1835,7 @@
       "width": 270,
       "height": 734,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.lin_ruoqing.wardrobe.a",
         "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-05-wardrobe-a.png",
@@ -1859,7 +1859,7 @@
       "width": 270,
       "height": 428,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.lin_ruoqing.wardrobe.a",
         "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-05-wardrobe-a.png",
@@ -1883,7 +1883,7 @@
       "width": 269,
       "height": 734,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.lin_ruoqing.wardrobe.a",
         "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-05-wardrobe-a.png",
@@ -1907,7 +1907,7 @@
       "width": 269,
       "height": 428,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.lin_ruoqing.wardrobe.a",
         "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-05-wardrobe-a.png",
@@ -1931,7 +1931,7 @@
       "width": 406,
       "height": 686,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.lin_ruoqing.wardrobe.b",
         "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-06-wardrobe-b.png",
@@ -1955,7 +1955,7 @@
       "width": 406,
       "height": 315,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.lin_ruoqing.wardrobe.b",
         "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-06-wardrobe-b.png",
@@ -1979,7 +1979,7 @@
       "width": 406,
       "height": 686,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.lin_ruoqing.wardrobe.b",
         "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-06-wardrobe-b.png",
@@ -2003,7 +2003,7 @@
       "width": 406,
       "height": 316,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.lin_ruoqing.wardrobe.b",
         "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-06-wardrobe-b.png",
@@ -2027,7 +2027,7 @@
       "width": 405,
       "height": 686,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.lin_ruoqing.wardrobe.b",
         "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-06-wardrobe-b.png",
@@ -2051,7 +2051,7 @@
       "width": 405,
       "height": 388,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.lin_ruoqing.wardrobe.b",
         "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-06-wardrobe-b.png",
@@ -2075,7 +2075,7 @@
       "width": 405,
       "height": 686,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.lin_ruoqing.wardrobe.b",
         "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-06-wardrobe-b.png",
@@ -2099,7 +2099,7 @@
       "width": 405,
       "height": 346,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.lin_ruoqing.wardrobe.b",
         "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-06-wardrobe-b.png",
@@ -2124,7 +2124,7 @@
       "width": 234,
       "height": 657,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.shen_yingxue.wardrobe.a",
         "sourcePath": "assets-src/references/shen-yingxue/syx-ref-05-wardrobe-a.png",
@@ -2221,7 +2221,7 @@
       "width": 234,
       "height": 306,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.shen_yingxue.wardrobe.a",
         "sourcePath": "assets-src/references/shen-yingxue/syx-ref-05-wardrobe-a.png",
@@ -2283,7 +2283,7 @@
       "width": 249,
       "height": 657,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.shen_yingxue.wardrobe.a",
         "sourcePath": "assets-src/references/shen-yingxue/syx-ref-05-wardrobe-a.png",
@@ -2308,7 +2308,7 @@
       "width": 249,
       "height": 283,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.shen_yingxue.wardrobe.a",
         "sourcePath": "assets-src/references/shen-yingxue/syx-ref-05-wardrobe-a.png",
@@ -2333,7 +2333,7 @@
       "width": 242,
       "height": 657,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.shen_yingxue.wardrobe.a",
         "sourcePath": "assets-src/references/shen-yingxue/syx-ref-05-wardrobe-a.png",
@@ -2358,7 +2358,7 @@
       "width": 242,
       "height": 291,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.shen_yingxue.wardrobe.a",
         "sourcePath": "assets-src/references/shen-yingxue/syx-ref-05-wardrobe-a.png",
@@ -2383,7 +2383,7 @@
       "width": 242,
       "height": 657,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.shen_yingxue.wardrobe.a",
         "sourcePath": "assets-src/references/shen-yingxue/syx-ref-05-wardrobe-a.png",
@@ -2408,7 +2408,7 @@
       "width": 242,
       "height": 286,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.shen_yingxue.wardrobe.a",
         "sourcePath": "assets-src/references/shen-yingxue/syx-ref-05-wardrobe-a.png",
@@ -2433,7 +2433,7 @@
       "width": 252,
       "height": 678,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.shen_yingxue.wardrobe.b",
         "sourcePath": "assets-src/references/shen-yingxue/syx-ref-06-wardrobe-b.png",
@@ -2458,7 +2458,7 @@
       "width": 252,
       "height": 327,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.shen_yingxue.wardrobe.b",
         "sourcePath": "assets-src/references/shen-yingxue/syx-ref-06-wardrobe-b.png",
@@ -2483,7 +2483,7 @@
       "width": 250,
       "height": 678,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.shen_yingxue.wardrobe.b",
         "sourcePath": "assets-src/references/shen-yingxue/syx-ref-06-wardrobe-b.png",
@@ -2508,7 +2508,7 @@
       "width": 250,
       "height": 312,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.shen_yingxue.wardrobe.b",
         "sourcePath": "assets-src/references/shen-yingxue/syx-ref-06-wardrobe-b.png",
@@ -2532,7 +2532,7 @@
       "width": 250,
       "height": 678,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.shen_yingxue.wardrobe.b",
         "sourcePath": "assets-src/references/shen-yingxue/syx-ref-06-wardrobe-b.png",
@@ -2556,7 +2556,7 @@
       "width": 250,
       "height": 322,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.shen_yingxue.wardrobe.b",
         "sourcePath": "assets-src/references/shen-yingxue/syx-ref-06-wardrobe-b.png",
@@ -2581,7 +2581,7 @@
       "width": 252,
       "height": 678,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.shen_yingxue.wardrobe.b",
         "sourcePath": "assets-src/references/shen-yingxue/syx-ref-06-wardrobe-b.png",
@@ -2606,7 +2606,7 @@
       "width": 252,
       "height": 342,
       "verifiedDecode": true,
-      "status": "optional-reference",
+      "status": "active-production",
       "derivation": {
         "sourceId": "ref.shen_yingxue.wardrobe.b",
         "sourcePath": "assets-src/references/shen-yingxue/syx-ref-06-wardrobe-b.png",
