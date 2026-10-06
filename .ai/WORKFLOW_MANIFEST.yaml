@@ -10,7 +10,7 @@ workflow:
   reference_resolution:
     provider: repo_file
     catalog: content/assets/source-catalog.json
-    rule: Resolve source IDs only through source_catalog.files[sourceId].sourcePath; verify exact role, filename, MIME, SHA-256, and visible pixels before generation.
+    rule: Resolve source IDs only through source_catalog.files[sourceId].sourcePath; verify exact role, filename, MIME, canonical path/ref, and visible pixels before generation.
     missing_reference: BLOCKED
 
 principles:

@@ -24,7 +24,9 @@ test('COM-01X review binds its contract, accepted WebP bytes, route choices, Mem
     assert.match(visual.thumbnailDataUrl, /^data:image\/webp;base64,/);
     const bytes = Buffer.from(visual.thumbnailDataUrl.slice('data:image/webp;base64,'.length), 'base64');
     assert.equal(bytes.toString('base64'), visual.thumbnailDataUrl.slice('data:image/webp;base64,'.length));
-    assert.equal(sha256(bytes), visual.sha256);
+    assert.equal(visual.sha256, undefined);
+    assert.equal(visual.ref, 'WORKTREE');
+    assert.ok(bytes.length > 0);
     assert.ok(bytes.length > 12 && bytes.subarray(0, 4).toString() === 'RIFF' && bytes.subarray(8, 12).toString() === 'WEBP');
     assert.ok(visual.repoPath.endsWith('.webp'));
   }
@@ -71,7 +73,8 @@ test('COM-00 shows independently verified Narrative QA and one candidate Visual 
   assert.equal(candidate.entryId, 'COM00-S04-BASE-NEUTRAL');
   assert.equal(candidate.runId, 'issue16-com00-vqa-recovery-20260927');
   assert.equal(candidate.taskId, 'VQA-COM00-S04-BASE-002');
-  assert.equal(candidate.candidateSha256, '7f18dccd8483498adc196c144cc6edafeff6bdd0f6db573bee288b32152862ea');
+  assert.equal(candidate.candidateSha256, undefined);
+  assert.equal(candidate.candidatePath, model.visuals.find((visual) => visual.entryId === candidate.entryId).repoPath);
   assert.ok(candidate.qaCodes.includes('VQA-DIALOGUE-SAFE-ZONE'));
   assert.ok(model.provenance.sources.some((source) => source.path === candidate.receiptPath));
   const html = renderProductionReview(model);

@@ -5,8 +5,21 @@ import { access, copyFile, mkdir, mkdtemp, readFile, rm, writeFile } from 'node:
 import os from 'node:os';
 import path from 'node:path';
 import { projectRoot } from '../tools/content-lib.mjs';
-import { sha256 } from '../tools/render-cg-packets.mjs';
+import { crc32 } from 'node:zlib';
+import { sha256, validateRepoSourceCatalog } from '../tools/render-cg-packets.mjs';
 
+function validImageReplacement(bytes) {
+  if (bytes.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))) {
+    const payload = Buffer.from('fixture\0same locator'), chunk = Buffer.alloc(payload.length + 12);
+    chunk.writeUInt32BE(payload.length); chunk.write('tEXt', 4); payload.copy(chunk, 8);
+    chunk.writeUInt32BE(crc32(chunk.subarray(4, -4)), chunk.length - 4);
+    const end = bytes.indexOf(Buffer.from('IEND')) - 4;
+    return Buffer.concat([bytes.subarray(0, end), chunk, bytes.subarray(end)]);
+  }
+  assert.equal(bytes.toString('ascii', 8, 12), 'WEBP');
+  const chunk = Buffer.from('JUNK\x04\0\0\0test', 'binary'), result = Buffer.concat([bytes, chunk]);
+  result.writeUInt32LE(result.length - 8, 4); return result;
+}
 const contract = 'content/production/narrative/opening-ch1/COM-02X.json';
 const manifest = 'content/production/cg-manifests/opening-ch1-com02x.json';
 const legacyManifest = 'content/production/cg-manifests/opening-ch1.json';
@@ -32,7 +45,7 @@ test('current COM-02X pre-integration gate rejects stale or incomplete inputs', 
   try {
     git(projectRoot, 'clone', '--quiet', '--no-hardlinks', '--no-checkout', projectRoot, checkout);
     git(checkout, 'checkout', '--quiet', '--detach', productionRef);
-    for (const file of ['tools/production-impact.mjs', 'tools/production-integration-check.mjs']) {
+    for (const file of ['tools/production-impact.mjs', 'tools/production-integration-check.mjs', 'tools/render-cg-packets.mjs']) {
       await copyFile(path.join(projectRoot, file), path.join(checkout, file));
     }
     for (const file of files) {
@@ -161,41 +174,46 @@ test('current COM-02X pre-integration gate rejects stale or incomplete inputs', 
       await assert.rejects(access(path.join(checkout, gateReport)), { code: 'ENOENT' });
       await restore();
     });
-    await t.test('tampered Human decision and receipt hashes reject', async () => {
+    await t.test('tampered Human decision and master locators reject', async () => {
       await writeFile(path.join(checkout, humanDecision), Buffer.concat([originals.get(humanDecision), Buffer.from('\n')]));
       await record('tampered_human_decision', run(), 1);
       await restore();
-      await editJson(acceptedReceipt, (value) => { value.assets[0].sha256 = '0'.repeat(64); });
+      await editJson(acceptedReceipt, (value) => { value.assets[0].masterPath = 'assets-src/wrong.png'; });
       await record('tampered_receipt_hash', run(), 1);
       await restore();
     });
     await t.test('rehashed Human receipt still requires the exact adopted asset selection', async () => {
-      await editJson(humanDecision, (value) => { value.accepted_assets[0].sha256 = '0'.repeat(64); });
+      await editJson(humanDecision, (value) => { value.accepted_assets[0].filename = 'wrong.png'; });
       const modifiedHash = sha256(await readFile(path.join(checkout, humanDecision)));
       await editJson(acceptedReceipt, (value) => { value.humanDecision.sha256 = modifiedHash; });
       await record('mismatched_exact_human_selection', run(), 1);
       await restore();
     });
-    await t.test('tampered derivative and accepted master fail acquisition', async () => {
+    await t.test('valid derivative and accepted master replacements keep the same locator', async () => {
       const asset = (await readJson(acceptedReceipt)).assets[0];
       for (const [name, file] of [['tampered_derivative', asset.derivativePath], ['tampered_master', asset.masterPath]]) {
         const bytes = await readFile(path.join(checkout, file));
         try {
-          const altered = Buffer.from(bytes); altered[altered.length - 1] ^= 1;
+          const altered = validImageReplacement(bytes);
           await writeFile(path.join(checkout, file), altered);
-          await record(name, run(), 1);
+          await record(name, run(), 0);
+          await writeFile(path.join(checkout, file), 'invalid pixels');
+          await record(`${name}_invalid`, run(), 1);
           await assert.rejects(access(path.join(checkout, gateReport)), { code: 'ENOENT' });
         } finally { await writeFile(path.join(checkout, file), bytes); }
       }
     });
-    await t.test('tampered reference bytes cannot use a prior clean report', async () => {
+    await t.test('reference overwrite keeps locator identity while full decode rejects corruption', async () => {
       const catalog = await readJson('content/assets/source-catalog.json');
       const file = catalog.files['ref.com02x.environment.convenience_night'].sourcePath;
       const bytes = await readFile(path.join(checkout, file));
       try {
-        const altered = Buffer.from(bytes); altered[altered.length - 1] ^= 1;
+        const altered = validImageReplacement(bytes);
         await writeFile(path.join(checkout, file), altered);
-        await record('tampered_reference', run(), 1);
+        await record('valid_reference_replacement', run(), 0);
+        validateRepoSourceCatalog(catalog, { repoRoot: checkout });
+        await writeFile(path.join(checkout, file), altered.subarray(0, 40));
+        assert.throws(() => validateRepoSourceCatalog(catalog, { repoRoot: checkout }));
       } finally { await writeFile(path.join(checkout, file), bytes); }
     });
     for (const [file, bytes] of originals) assert.equal(sha256(await readFile(path.join(checkout, file))), sha256(bytes));

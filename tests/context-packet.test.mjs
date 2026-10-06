@@ -368,7 +368,7 @@ test('review CLI projects explicit routing and rejects incomplete, malformed or 
       'content-lib.mjs': `export const projectRoot = ${JSON.stringify(args.root)}; export async function loadAndValidate() {}`,
       'validate-production-contracts.mjs': 'export function validateProductionContracts() {}',
       'verify-production-run.mjs': 'export function verifyProductionRun() {}',
-      'render-cg-packets.mjs': 'export function buildPackets() {} export function validateManifest() {} export function validateRepoSourceCatalog() {}'
+      'render-cg-packets.mjs': 'export function buildPackets() {} export function validateManifest() {} export function validateRepoSourceCatalog() {} export const stableStringify = JSON.stringify;'
     };
     await mkdir(path.join(args.root, 'tools'));
     for (const [name, bytes] of Object.entries(toolFiles)) await writeFile(path.join(args.root, 'tools', name), bytes);

@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { spawnSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 import test from 'node:test';
 
 import {
@@ -171,11 +171,44 @@ test('Chat manual, Work batch and API adapters share one prompt', () => {
   assert.deepEqual(work.reference_acquisition.required_bindings, packets[0].reference_transport.attachments);
   assert.deepEqual(work.reference_acquisition.resolved_files.map((file) => file.source_id), ['ref.xu_tang.face.01', 'ref.xu_tang.wardrobe.a', 'ref.xu_tang.production.04', 'source.opening.ch1.bg.apt_17f_rain']);
   assert.equal(work.reference_acquisition.resolved_files.length, packets[0].reference_transport.attachments.length);
+  assert.ok(work.reference_acquisition.resolved_files.every((file) => file.ref === 'WORKTREE' && file.sha256 === undefined && file.bytes === undefined));
+  assert.doesNotMatch(work.reference_acquisition.preflight, /SHA|hash|expected.byte/i);
+  assert.equal(work.manifest_sha256, packets[0].manifest_sha256);
+  assert.equal(work.render_spec_sha256, packets[0].render_spec_sha256);
   assert.ok(work.reference_acquisition.resolved_files.every((file) => file.sourcePath.startsWith('assets-src/')));
   assert.match(chat, /Attachment checklist/);
   assert.equal(api.jobs[0].input.prompt, expected);
   assert.equal(work.shared_prompt_sha256, packets[0].shared_prompt_sha256);
   assert.equal(api.jobs[0].provenance.shared_prompt_sha256, packets[0].shared_prompt_sha256);
+});
+
+test('local Work batch rejects committed ref labels even when the commit exists without the image path', () => {
+  const repoRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'work-batch-local-'));
+  const sourcePath = 'assets-src/reference.png';
+  const git = (...args) => execFileSync('git', ['-C', repoRoot, ...args], { encoding: 'utf8', stdio: 'pipe' }).trim();
+  try {
+    git('init');
+    git('-c', 'user.name=Fixture', '-c', 'user.email=fixture@example.invalid', 'commit', '--allow-empty', '-m', 'empty fixture');
+    const commit = git('rev-parse', 'HEAD');
+    fs.mkdirSync(path.join(repoRoot, 'assets-src'));
+    fs.writeFileSync(path.join(repoRoot, sourcePath), Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a7N8AAAAASUVORK5CYII=', 'base64'));
+    const catalog = { sourceCatalogVersion: 2, provider: 'repo', files: { 'source.fixture.reference': {
+      name: 'reference.png', sourcePath, mimeType: 'image/png', width: 1, height: 1, verifiedDecode: true, status: 'active-production'
+    } } };
+    const packets = [{ entry_id: 'FIXTURE', reference_transport: { attachments: [{ role: 'environment', source_id: 'source.fixture.reference', expected_filename: 'reference.png' }] } }];
+    assert.throws(() => git('cat-file', '-e', `${commit}:${sourcePath}`));
+    const options = { catalog, repoRoot };
+    for (const ref of ['HEAD', commit, git('hash-object', sourcePath), 'nonexistent-ref', '0'.repeat(64)]) {
+      assert.throws(() => adaptWorkBatch(packets, { ...options, ref }), /local Work batch image acquisition ref must be WORKTREE/);
+    }
+    for (const extra of [{}, { ref: 'WORKTREE' }]) {
+      const work = JSON.parse(adaptWorkBatch(packets, { ...options, ...extra }));
+      assert.equal(work.reference_acquisition.resolved_files[0].ref, 'WORKTREE');
+      assert.equal(work.reference_acquisition.resolved_files[0].sourcePath, sourcePath);
+    }
+    fs.writeFileSync(path.join(repoRoot, sourcePath), 'invalid image');
+    assert.throws(() => adaptWorkBatch(packets, options), /MIME does not match file signature/);
+  } finally { fs.rmSync(repoRoot, { recursive: true, force: true }); }
 });
 
 test('Work batch resolves accepted bases by one canonical asset ID', () => {
@@ -188,10 +221,10 @@ test('Work batch resolves accepted bases by one canonical asset ID', () => {
   assert.equal(work.reference_acquisition.resolved_files[0].canonicalAssetId, source.canonicalAssetId);
 });
 
-test('repository source catalog rejects hash tampering, path traversal and remote bindings', () => {
+test('repository source catalog ignores legacy image hashes and rejects path traversal and remote bindings', () => {
   const badHash = structuredClone(sourceCatalog);
   badHash.files['ref.xu_tang.face.01'].sha256 = '0'.repeat(64);
-  assert.throws(() => validateRepoSourceCatalog(badHash), /SHA-256 mismatch/);
+  assert.equal(validateRepoSourceCatalog(badHash), badHash);
 
   const traversal = structuredClone(sourceCatalog);
   traversal.files['ref.xu_tang.face.01'].sourcePath = 'assets-src/../../outside.png';
@@ -377,9 +410,9 @@ const pinnedLegacyControls = [
   {
     "file": "opening-ch1-com02x-microwave.json",
     "entry_id": "COM02X-DLG-02-MICROWAVE",
-    "prompt": "f5b6bb65f7776c36ef92105903e3d8488740d5f78932fd6327d5f34a5d91c763",
-    "spec": "ca784198cc74c073d5547e82537f4e26ad5ecbf68cc339d78e6a15fe089317a9",
-    "packet": "72f8dd5bc47501b93ffe0c317777e79bbf6f200545cbd20b0ec91f836275359f"
+    "prompt": "cb9242bb7b518f3111d508a35360cfa33cdff51adb56953d0a7e396b89508454",
+    "spec": "6c00fe0eef67a53b653ed8c3a75d9f1fe9c974ef1b7af4c52c3fe50d83a415e9",
+    "packet": "43c8fba69d33f6534e010db772140e9f431f375bc713feb14d94f620d21870be"
   }
 ];
 

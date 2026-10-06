@@ -29,7 +29,6 @@ const DECISIONS = [
 ];
 export const sha256 = (bytes) => createHash('sha256').update(bytes).digest('hex');
 const sorted = (values) => [...new Set(values)].sort();
-const fingerprint = (hash, bytes) => /^[a-f0-9]{64}$/.test(hash || '') && Number.isInteger(bytes) && bytes > 0;
 const issues = (values = []) => values.map((value) => typeof value === 'string' ? value : JSON.stringify(value));
 
 export async function loadCoverageInputs(projectRoot = root) {
@@ -155,7 +154,7 @@ export function createCoverageReport({ documents, sourceErrors = [] }) {
       if (receipt?.logicalAssetId === assetId) candidates.push({ receiptPath, receipt, item: receipt });
     }
     check(candidates.length === 1, candidates.length ? 'CONTRADICTORY_RECEIPTS' : 'ADOPTION_RECEIPT_MISSING');
-    check(runtime && fingerprint(runtime.sha256, runtime.bytes), 'RUNTIME_FINGERPRINT_MISSING');
+    check(runtime?.source, 'RUNTIME_LOCATOR_MISSING');
     const evidence = [];
     const knownIssues = [...issues(asset.knownIssues), ...issues(source?.knownIssues)];
     let status = 'unverified';
@@ -192,21 +191,21 @@ export function createCoverageReport({ documents, sourceErrors = [] }) {
         status = 'placeholder';
         adoptionScope = 'narrative_preview_only';
         check(receipt.lifecycle === 'PREVIEW-ONLY' && asset.previewOnly === true, 'PREVIEW_SCOPE_MISMATCH');
-        check(asset.src === item.runtimePath && runtime?.source === item.repoPath && runtime?.sha256 === item.sha256 && runtime?.bytes === item.bytes, 'PREVIEW_BINDING_MISMATCH');
+        check(asset.src === item.runtimePath && runtime?.source === item.repoPath, 'PREVIEW_BINDING_MISMATCH');
       } else {
         status = 'accepted';
         adoptionScope = 'exact_receipted_master';
         knownIssues.push(...issues(item.knownIssues), ...issues(item.acceptedKnownIssues));
-        check(source && source.verifiedDecode === true && fingerprint(source.sha256, source.bytes), 'MASTER_FINGERPRINT_MISSING');
+        check(source?.sourcePath && source.verifiedDecode === true, 'MASTER_LOCATOR_MISSING');
         check(asset.masterSourceId === item.sourceId, 'MASTER_SOURCE_ID_MISMATCH');
         check(asset.canonicalAssetId === (item.canonicalAssetId || item.canonicalId), 'CANONICAL_ID_MISMATCH');
-        check(source?.sourcePath === (item.repoPath || item.masterPath) && source?.sha256 === item.sha256 && source?.bytes === item.bytes, 'MASTER_BINDING_MISMATCH');
+        check(source?.sourcePath === (item.repoPath || item.masterPath), 'MASTER_BINDING_MISMATCH');
         check(source?.name === (item.acceptedFilename || item.filename), 'MASTER_FILENAME_MISMATCH');
         check(runtime?.masterSourceId === item.sourceId && runtime?.transform === 'copy', 'RUNTIME_MASTER_MISMATCH');
         if (receiptPath === RECEIPTS[0]) {
           adoptionScope = 'repo_demo_representation';
           check(receipt.gate === 'repo-production-reference-gate3' && receipt.sourceCatalog === CATALOG, 'REPO_RECEIPT_SCOPE_MISMATCH');
-          check(asset.src?.startsWith('assets/') && runtime?.source === item.repoPath && runtime?.sha256 === item.sha256 && runtime?.bytes === item.bytes, 'RUNTIME_BINDING_MISMATCH');
+          check(asset.src?.startsWith('assets/') && runtime?.source === item.repoPath, 'RUNTIME_BINDING_MISMATCH');
           check(source?.logicalAssetId === assetId && source?.canonicalAssetId === asset.canonicalAssetId, 'CATALOG_ID_MISMATCH');
           check(source?.status === 'active-production', 'CATALOG_STATUS_CONTRADICTION');
           if (issues(item.knownIssues).includes('demo-approved provisional wardrobe drift')) {
@@ -224,27 +223,27 @@ export function createCoverageReport({ documents, sourceErrors = [] }) {
           check(['human-accepted-master-batch', 'human-adopted-master-batch', 'human-adopted-title-master'].includes(receipt.receiptType), 'HUMAN_RECEIPT_TYPE_UNKNOWN');
           check(DECISIONS.includes(human?.path) && decision && documents[human.path]?.sha256 === human.sha256, 'HUMAN_DECISION_HASH_MISMATCH');
           check(decision && (decision.decision_id || decision.task_id) === human?.id && decision.run_id === receipt.runId && decision.scene_id === receipt.sceneId, 'HUMAN_DECISION_ID_MISMATCH');
-          check(human?.disposition === 'ACCEPTED_AS_IS' && disposition === 'ACCEPTED_AS_IS' && item.humanDecisionSha256 === item.sha256 && human?.qaHistoryPreserved === true, 'HUMAN_DISPOSITION_MISMATCH');
+          check(human?.disposition === 'ACCEPTED_AS_IS' && disposition === 'ACCEPTED_AS_IS' && human?.qaHistoryPreserved === true, 'HUMAN_DISPOSITION_MISMATCH');
           if (receipt.receiptType === 'human-adopted-title-master') {
             check(receiptPath === RECEIPTS[5] && assetId === 'bg.opening.title.17f_doorlight' && asset.kind === 'background' && !asset.gallery && receipt.sceneId === 'COM-00', 'TITLE_SCOPE_MISMATCH');
             check(decision?.status === 'HUMAN_ACCEPTED_AS_IS' && human?.status === decision.status, 'HUMAN_ADOPTION_STATUS_MISMATCH');
-            check(decision?.output_versions?.some((v) => v.id === 'TITLE-17F-DOORLIGHT-01-selected-master' && v.version === item.sha256 && v.location === item.masterPath), 'HUMAN_MASTER_HASH_MISMATCH');
+            check(decision?.output_versions?.some((v) => v.id === 'TITLE-17F-DOORLIGHT-01-selected-master' && v.location === item.masterPath), 'HUMAN_MASTER_LOCATOR_MISMATCH');
             check(item.visualQaStatus === 'NEEDS_REVIEW' && receipt.visualQa?.status === 'NEEDS_REVIEW' && decision?.input_versions?.some((v) => v.id === 'VQA-TITLE-17F-001-original-review' && v.version === receipt.visualQa.sha256 && v.location === item.visualQaReceipt), 'QA_HISTORY_MISMATCH');
             check(asset.focus?.x === 50 && asset.focus?.y === 40 && receipt.renderProvenance?.originalGenerationRef === 'a4e6e1b6e89c3d6dc180755842343230398e3403', 'TITLE_PROVENANCE_MISMATCH');
             check((references.get(assetId) || []).every((r) => r.binding === 'initialTitleArt'), 'TITLE_RUNTIME_SCOPE_MISMATCH');
           } else if (receipt.receiptType === 'human-adopted-master-batch') {
             check(decision?.status === 'HUMAN_ACCEPTED_AS_IS' && human?.status === decision.status && !('decision' in human), 'HUMAN_ADOPTION_STATUS_MISMATCH');
-            check(decision?.output_versions?.some((v) => v.id === `accepted-master:${item.entryId}:v3` && v.version === item.sha256), 'HUMAN_MASTER_HASH_MISMATCH');
+            check(decision?.output_versions?.some((v) => v.id === `accepted-master:${item.entryId}:v3` && [item.masterPath, `candidate:${item.entryId}:v3`].includes(v.location)), 'HUMAN_MASTER_LOCATOR_MISMATCH');
             check(decision?.qa_codes?.some((q) => q.result === visualQaStatus && q.code === 'VQA-COM02X-WALK-003') && receipt.visualQa?.status === visualQaStatus, 'QA_HISTORY_MISMATCH');
           } else {
             const selection = decision?.accepted_assets?.filter((v) => v.entry_id === item.entryId) || [];
             check(decision?.decision === 'PASS' && human?.decision === 'PASS' && decision?.gate === 'accepted_master_image_selection' && decision?.qa_history_preserved === true, 'HUMAN_ACCEPTANCE_STATUS_MISMATCH');
-            check(selection.length === 1 && selection[0].sha256 === item.sha256 && selection[0].filename === item.filename && selection[0].human_disposition === disposition, 'HUMAN_MASTER_HASH_MISMATCH');
+            check(selection.length === 1 && selection[0].filename === item.filename && selection[0].human_disposition === disposition, 'HUMAN_MASTER_LOCATOR_MISMATCH');
             check(selection.length === 1 && selection[0].visual_qa_status === visualQaStatus && selection[0].visual_qa_receipt === item.visualQaReceipt, 'QA_HISTORY_MISMATCH');
             knownIssues.push(...issues(selection[0]?.accepted_known_issues));
           }
           check(source?.status === 'human-accepted-as-is', 'CATALOG_STATUS_CONTRADICTION');
-          check(asset.src === item.runtimePath && runtime?.source === item.derivativePath && runtime?.sha256 === item.derivativeSha256 && runtime?.bytes === item.derivativeBytes && fingerprint(item.derivativeSha256, item.derivativeBytes), 'DERIVATIVE_BINDING_MISMATCH');
+          check(asset.src === item.runtimePath && runtime?.source === item.derivativePath, 'DERIVATIVE_BINDING_MISMATCH');
           if (visualQaStatus !== 'PASS') knownIssues.push(`VISUAL_QA_${visualQaStatus.toUpperCase()}`);
           const coverage = receipt.runtimeCoverage;
           if (coverage && receipt.receiptType !== 'human-adopted-title-master') {

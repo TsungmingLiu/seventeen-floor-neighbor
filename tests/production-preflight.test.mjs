@@ -280,12 +280,12 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
       const wrongScene = clone(r); wrongScene.scene_id = 'OTHER'; await assert.rejects(verifyTaskPacket(wrongScene, { root: f.root }), /wrong scene/);
       const undeclared = clone(r); undeclared.inputs.references = ['other']; await assert.rejects(verifyTaskPacket(undeclared, { root: f.root }), /reference mismatch/);
     } finally { await f.cleanup(); }
-  });  test('uncommitted candidate/derivative/screenshots require exact role/hash/image bytes', async () => {
+  });  test('uncommitted candidate/derivative/screenshots require exact role/locator and decoded pixels', async () => {
     const f = await candidateFixture(); try {
       const binding = await verifyTaskPacket(f.packet, { root: f.root });
       assert.ok(binding.sources.some((source) => source.path === f.image.path && source.storage === 'transient' && !source.git_blob_sha));
       for (const role of ['runtime_derivative', 'runtime_screenshot']) { const p = clone(f.packet); p.required_acquisition.images[0].artifact_role = role; assert.equal((await verifyTaskPacket(p, { root: f.root })).kind, 'manual'); }
-      for (const mutate of [p => delete p.required_acquisition.images[0].artifact_role, p => p.required_acquisition.images[0].artifact_role = 'canonical_prose', p => p.required_acquisition.images[0].sha256 = '0'.repeat(64), p => p.required_acquisition.images[0].mime_type = 'image/jpeg', p => p.required_acquisition.images[0].width = 2, p => p.input_versions.at(-1).version = '0'.repeat(40)]) {
+      for (const mutate of [p => delete p.required_acquisition.images[0].artifact_role, p => p.required_acquisition.images[0].artifact_role = 'canonical_prose', p => p.required_acquisition.images[0].mime_type = 'image/jpeg', p => p.required_acquisition.images[0].width = 2]) {
         const p = clone(f.packet); mutate(p); await assert.rejects(verifyTaskPacket(p, { root: f.root }));
       }
       await writeFile(path.join(f.root, f.image.path), 'tampered'); await assert.rejects(verifyTaskPacket(f.packet, { root: f.root }));
@@ -488,7 +488,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
       await assert.rejects(verifyTaskPacket(f.packet, { root: f.root }), /full-file input outside acquired excerpt boundary/);
     } finally { await f.cleanup(); }
   });
-  test('consumed transient accepted output uses actual SHA-only acquired material', async () => {
+  test('consumed transient accepted image output resolves by locator despite legacy digests', async () => {
     const f = await candidateFixture(); try {
       const image = f.packet.required_acquisition.images[0];
       const receipt = JSON.parse(await readFile(path.join(f.root, 'approval.json'), 'utf8'));
@@ -500,9 +500,9 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
       };
       await declare(output.version); assert.equal((await verifyTaskPacket(f.packet, { root: f.root })).kind, 'manual');
       await declare(f.git('hash-object', image.path));
-      await assert.rejects(verifyTaskPacket(f.packet, { root: f.root }), /stale dependency transient SHA-256/);
+      assert.equal((await verifyTaskPacket(f.packet, { root: f.root })).kind, 'manual');
       await declare(`sha256:${'0'.repeat(64)}`);
-      await assert.rejects(verifyTaskPacket(f.packet, { root: f.root }), /stale dependency transient SHA-256/);
+      assert.equal((await verifyTaskPacket(f.packet, { root: f.root })).kind, 'manual');
     } finally { await f.cleanup(); }
   });
   test('multiple acquired excerpts each require an exact selected input identity', async () => {

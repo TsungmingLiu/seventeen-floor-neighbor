@@ -33,11 +33,11 @@
 
 # 2. Current repository reference availability
 
-Production adapters resolve source IDs through `content/assets/source-catalog.json` to its `sourcePath` and verify the file, MIME, SHA-256, role, and visible pixels before generation. Historical provider metadata is not an active acquisition binding.
+Production adapters resolve source IDs through `content/assets/source-catalog.json` to its `sourcePath` and verify the canonical path/ref, file existence/full decode, MIME, role, and visible pixels before generation. Historical provider metadata is not an active acquisition binding.
 
 Both six-sheet packs are now available as original PNG files under `assets-src/references/xu-tang/` and `assets-src/references/jiang-yucheng/`. The Owner supplied all 12 files on 2026-09-30. Four already stored face/Wardrobe A sheets match the uploads byte-for-byte; seven missing sheets have been restored, and Xu Tang's temporary body JPEG has been superseded by the supplied PNG.
 
-Exact filenames, roles, character IDs, MIME, dimensions, byte counts and SHA-256 are recorded in `content/assets/source-catalog.json` and `content/assets/ingest-receipts/character-reference-packs-20260930.json`. The original Gate 3 receipt remains historical evidence; its JPEG fingerprint is verified through the explicit supersession record, not presented as the new PNG's fingerprint.
+Exact filenames, roles, character IDs, MIME and dimensions are active metadata; historical byte counts and SHA-256 were recorded in `content/assets/source-catalog.json` and `content/assets/ingest-receipts/character-reference-packs-20260930.json`. Checksum and byte-count fields in historical receipts are inert records; acquisition uses canonical path/ref, and supersession remains provenance evidence.
 
 江雨澄 Wardrobe A/B 已依 Owner 於 2026-10-03 提供的 `jyc-5.png`、`jyc-6.png` 原樣更新。兩張均為 `image/png`、1491 × 1055；current fingerprints 與原圖 supersession 證據記於 `content/assets/ingest-receipts/jiang-yucheng-wardrobe-replacement-20261003.json`。既有 `ref.jiang_yucheng.wardrobe.a/b`、八個 wardrobe keys 與 look semantics 保持不變。原 restoration／Gate 3 receipts 與已接受 CG 的 render bindings、Human／QA outcomes 保留其當時證據；本次更新不宣稱既有 CG 已按新圖重畫或修復衣著漂移。
 
@@ -286,8 +286,8 @@ Accepted entries retain their original render bindings as provenance. COM-01B's 
 
 Canonical CG Manifest 的 `reference_transport.attachments[]` 指定 generation 必須收到的 image inputs。取得方式由 `Execution Adapter` 決定，不是角色 reference pack 的設計決策：
 
-1. `chat_manual`：依 source catalog 的 repository-relative path 取得 entry 指定的圖，並在 fresh image-generation chat 附上；worker 逐張確認 pixels、role、filename、MIME 與 SHA-256。
-2. `work_batch`：依 source catalog 的 repository-relative path 取得 entry 指定的 files；逐張確認 pixels、role、filename、MIME 與 SHA-256 後送進 generation call。
+1. `chat_manual`：依 source catalog 的 repository-relative path 取得 entry 指定的圖，並在 fresh image-generation chat 附上；worker 逐張確認 pixels、role、filename、MIME 與 canonical path/ref。
+2. `work_batch`：依 source catalog 的 repository-relative path 取得 entry 指定的 files；逐張確認 pixels、role、filename、MIME 與 canonical path/ref 後送進 generation call。
 3. `api`：未來 executor 以相同 bindings 提供 image inputs，並留下實際使用的來源紀錄。
 
 任何 adapter 遇到缺失、錯誤或 unrelated images 都須 `BLOCKED`。只知道 path、hash 或檔名，不算已把像素送進 generation。每個獨立 image task 只生成一張 candidate；previous generated CG 不可取代新 base CG 的 canonical identity refs。
@@ -495,7 +495,7 @@ all pages clearly depict the same established adult character
 - [ ] wardrobe 覆蓋早期、約會、工作/興趣、ending/after-story
 - [ ] canonical signature element 一致
 - [ ] filenames 完全符合 `<slug>-ref-01..06-*.png`
-- [ ] Repository-relative source paths and immutable hashes are recorded in the catalog and manifest
+- [ ] Repository-relative source paths and actual branch/ref are recorded in acquisition bindings; image checksums are never required
 - [ ] 後續 CG prompt 有明確 reference selection，不只寫「保持角色一致」
 
 許棠與江雨澄均有上述 reference-pack QA 通過紀錄；當前本地可用影像仍以第 2–4 節為準。

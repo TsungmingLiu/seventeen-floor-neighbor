@@ -47,12 +47,12 @@ test('Shen Yingxue selection isolates exact public/private looks and shot needs'
 test('Lin Ruoqing receipt rejects missing, duplicate, foreign and altered source evidence', () => {
   const receipt = read('content/assets/ingest-receipts/lin-ruoqing-reference-pack-20261003.json');
   assert.equal(validateCharacterReferencePackReceipt(receipt, 'lin_ruoqing').length, 6);
-  for (const problem of ['missing', 'duplicate', 'foreign', 'sha256', 'role', 'runtime']) {
+  for (const problem of ['missing', 'duplicate', 'foreign', 'path', 'role', 'runtime']) {
     const forged = structuredClone(receipt);
     if (problem === 'missing') forged.references.pop();
     if (problem === 'duplicate') forged.references[1] = structuredClone(forged.references[0]);
     if (problem === 'foreign') forged.references[0].sourceId = 'ref.xu_tang.face.01';
-    if (problem === 'sha256') forged.references[0].sha256 = '0'.repeat(64);
+    if (problem === 'path') forged.references[0].sourcePath = 'assets-src/wrong.png';
     if (problem === 'role') forged.references[0].role = 'wardrobe';
     if (problem === 'runtime') forged.runtimeMasterAcceptance = 'ACCEPTED';
     assert.throws(() => validateCharacterReferencePackReceipt(forged, 'lin_ruoqing'), /receipt/);
@@ -84,7 +84,7 @@ function manifestWithSelection(characterId, wardrobeKey, { expression = false, b
   return manifest;
 }
 
-test('both complete six-sheet packs are cataloged with uploaded byte fingerprints', () => {
+test('both complete six-sheet packs are cataloged with canonical image locators', () => {
   validateCharacterReferencePacks(catalog, registry);
   const receipt = read('content/assets/ingest-receipts/character-reference-packs-20260930.json');
   assert.equal(receipt.references.length, 12);
@@ -93,7 +93,8 @@ test('both complete six-sheet packs are cataloged with uploaded byte fingerprint
   const previous = validateCharacterWardrobeReplacementReceipt(replacement, receipt,
     sha256(fs.readFileSync(new URL('../content/assets/ingest-receipts/character-reference-packs-20260930.json', import.meta.url))));
   for (const record of receipt.references) {
-    assert.deepEqual(previous.get(record.sourceId) ?? catalog.files[record.sourceId], Object.fromEntries(Object.entries(record).filter(([key]) => !['sourceId', 'uploadedFilename'].includes(key))));
+    const locator = (value) => Object.fromEntries(Object.entries(value).filter(([key]) => !['sourceId', 'uploadedFilename', 'sha256', 'bytes'].includes(key)));
+    assert.deepEqual(locator(previous.get(record.sourceId) ?? catalog.files[record.sourceId]), locator(record));
   }
 });
 
@@ -109,7 +110,7 @@ test('Jiang Yucheng wardrobe replacement rejects forged supersession and scope e
   const gate3A = gate3.references.find(item => item.sourceId === 'ref.jiang_yucheng.wardrobe.a');
   for (const key of ['sha256', 'bytes', 'width', 'height', 'mimeType', 'status', 'characterId', 'role']) assert.equal(previous.get(gate3A.sourceId)[key], gate3A[key]);
   assert.equal(previous.get(gate3A.sourceId).sourcePath, gate3A.repoPath);
-  for (const problem of ['missing', 'duplicate', 'foreign', 'missing_supersession', 'duplicate_supersession', 'old_hash', 'new_hash', 'catalog_hash', 'path', 'role', 'scope', 'runtime', 'receipt_hash', 'receipt_path']) {
+  for (const problem of ['missing', 'duplicate', 'foreign', 'missing_supersession', 'duplicate_supersession', 'path', 'role', 'scope', 'runtime', 'receipt_hash', 'receipt_path']) {
     const forged = structuredClone(receipt);
     if (problem === 'missing') forged.references.pop();
     if (problem === 'duplicate') forged.references[1] = structuredClone(forged.references[0]);
@@ -127,8 +128,12 @@ test('Jiang Yucheng wardrobe replacement rejects forged supersession and scope e
     if (problem === 'receipt_path') forged.previousReceipt.path = 'content/assets/ingest-receipts/repo-source-gate3-v1.json';
     assert.throws(() => validateCharacterWardrobeReplacementReceipt(forged, original, hash), /replacement receipt/);
   }
+  const legacy = structuredClone(receipt);
+  legacy.supersededReferences[0].previous.sha256 = 'invalid legacy'; legacy.references[0].sha256 = 'stale';
+  legacy.supersededReferences[0].replacementSha256 = 'stale';
+  assert.doesNotThrow(() => validateCharacterWardrobeReplacementReceipt(legacy, original, hash));
   const tamperedCatalog = structuredClone(catalog);
-  tamperedCatalog.files[receipt.references[0].sourceId].bytes++;
+  tamperedCatalog.files[receipt.references[0].sourceId].sourcePath = 'assets-src/wrong.png';
   assert.throws(() => validateCharacterWardrobeReplacementReceipt(receipt, original, hash, tamperedCatalog), /catalog mismatch/);
   assert.throws(() => validateCharacterWardrobeReplacementReceipt(receipt, original, '0'.repeat(64)), /previous receipt binding/);
 });

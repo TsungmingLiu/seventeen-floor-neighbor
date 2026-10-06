@@ -6,7 +6,7 @@ import { assertDurableDecision } from './production-storage.mjs';
 import { buildPackets, validateRepoSourceCatalog } from './render-cg-packets.mjs';
 import { checkSessionCache } from './check-session-cache.mjs';
 import { runCheck, diagnostics } from './preflight-review.mjs';
-import { defaultRoot, hash, jsonHash, git, safePath, readSafe, writeCache, cliArgs, boundVersion, requireCondition as insist } from './production-task-io.mjs';
+import { defaultRoot, hash, jsonHash, git, isImage, imageVersion, requireImageVersion, normalizeVersions, safePath, readSafe, writeCache, cliArgs, boundVersion, requireCondition as insist } from './production-task-io.mjs';
 
 const harnessPaths = { content_writer: '.ai/harnesses/content-writer.md', content_qa: '.ai/harnesses/content-qa.md',
   cg_planner: '.ai/harnesses/cg-planner.md', cg_renderer: '.ai/harnesses/cg-renderer.md', integrator: '.ai/harnesses/integrator.md' };
@@ -20,16 +20,15 @@ const transientRoots = ['generated/session-cache/', 'generated/job-artifacts/'];
 const transientRoles = ['deterministic_render_packet', 'renderer_capability', 'candidate_original', 'runtime_derivative', 'runtime_screenshot'];
 function transientPath(relative) { return transientRoots.some((prefix) => relative.startsWith(prefix)); }
 async function inputBytes(root, ref, source) {
-  return source.storage === 'transient' ? readSafe(root, source.path) : git(root, 'show', `${ref}:${source.path}`);
+  return source.storage === 'transient' ? readSafe(root, source.path) : git(root, 'show', `${source.ref || ref}:${source.path}`);
 }
 function validateTransientImage(root, item, bytes) {
   const signatures = { 'image/png': bytes.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10])),
     'image/jpeg': bytes[0] === 0xff && bytes[1] === 0xd8 && bytes[2] === 0xff,
     'image/webp': bytes.toString('ascii', 0, 4) === 'RIFF' && bytes.toString('ascii', 8, 12) === 'WEBP' };
   insist(signatures[item.mime_type] && item.filename === path.posix.basename(item.path) && item.source_id && item.role && item.pixels_must_be_visible === true, 'incomplete transient image identity/signature');
-  const absolute = path.join(root, item.path);
-  const probe = JSON.parse(execFileSync('ffprobe', ['-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=codec_name,width,height', '-of', 'json', absolute], { encoding: 'utf8', stdio: 'pipe', timeout: 60000 }));
-  execFileSync('ffmpeg', ['-v', 'error', '-xerror', '-i', absolute, '-map', '0:v:0', '-an', '-sn', '-dn', '-f', 'null', '-'], { stdio: 'pipe', timeout: 60000 });
+  const probe = JSON.parse(execFileSync('ffprobe', ['-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=codec_name,width,height', '-of', 'json', 'pipe:0'], { input: bytes, encoding: 'utf8', stdio: 'pipe', timeout: 60000 }));
+  execFileSync('ffmpeg', ['-v', 'error', '-xerror', '-i', 'pipe:0', '-map', '0:v:0', '-an', '-sn', '-dn', '-f', 'null', '-'], { input: bytes, stdio: 'pipe', timeout: 60000 });
   const stream = probe.streams?.[0];
   insist(stream && stream.width === item.width && stream.height === item.height && stream.codec_name === ({ 'image/png': 'png', 'image/jpeg': 'mjpeg', 'image/webp': 'webp' })[item.mime_type], 'transient image dimension/codec mismatch');
 }
@@ -56,24 +55,30 @@ export async function sourceIdentities(packet, { root = defaultRoot, checkWorktr
     const excerpts = item.excerpts || [];
     const allowed = excerpts.length ? excerpts.map((part) => `${item.path}#L${part.start_line}-L${part.end_line}`) : [item.path];
     insist(allowed.every((value) => packet.allowed_sources.includes(value)), `unallowlisted acquisition: ${item.path}`);
+    const image = isImage(item.path, item.mime_type || '');
     const transient = transientPath(item.path);
     let bytes, identity;
     if (transient) {
-      insist(transientRoles.includes(item.artifact_role) && !item.git_blob_sha && /^[0-9a-f]{64}$/.test(item.sha256 || '') && !item.excerpts?.length, 'transient source requires explicit artifact role/SHA only');
+      insist(transientRoles.includes(item.artifact_role) && (image || (!item.git_blob_sha && /^[0-9a-f]{64}$/.test(item.sha256 || ''))) && !item.excerpts?.length, 'transient source requires explicit artifact role/SHA only');
       insist(!git(root, 'ls-files', '--', item.path).length, 'transient source must not be tracked');
-      const image = (packet.required_acquisition.images || []).includes(item);
       insist(image ? ['candidate_original', 'runtime_derivative', 'runtime_screenshot'].includes(item.artifact_role) && ((packet.harness === 'content_qa' && packet.pass === 'visual_review' && packet.review_scope === 'candidate') || (packet.harness === 'integrator' && packet.integration_mode === 'final')) :
         ['deterministic_render_packet', 'renderer_capability'].includes(item.artifact_role) && packet.harness === 'cg_renderer', 'transient artifact role is outside task boundary');
-      bytes = await readSafe(root, item.path); identity = { storage: 'transient', artifact_role: item.artifact_role, sha256: hash(bytes), bytes: bytes.length };
-      if (image) validateTransientImage(root, item, bytes);
+      bytes = await readSafe(root, item.path); identity = image ? { storage: 'transient', artifact_role: item.artifact_role, media_type: item.mime_type, ref: 'WORKTREE' } : { storage: 'transient', artifact_role: item.artifact_role, sha256: hash(bytes), bytes: bytes.length };
+      if (image) { insist(!item.ref || item.ref === 'WORKTREE', 'transient image ref must be WORKTREE'); validateTransientImage(root, item, bytes); }
     } else {
-      bytes = git(root, 'show', `${ref}:${item.path}`);
-      insist(typeof item.git_blob_sha === 'string', `missing Git identity: ${item.path}`);
-      identity = { storage: 'git', ...boundVersion(bytes, item.git_blob_sha, item.path) };
+      const imageRef = image ? item.ref || ref : ref;
+      if (image) { imageVersion(item.path, imageRef); git(root, 'cat-file', '-e', `${imageRef}^{commit}`); }
+      bytes = git(root, 'show', `${imageRef}:${item.path}`);
+      if (!image) insist(typeof item.git_blob_sha === 'string', `missing Git identity: ${item.path}`);
+      identity = image ? { storage: 'git', media_type: item.mime_type, ref: imageRef } : { storage: 'git', ...boundVersion(bytes, item.git_blob_sha, item.path) };
+      if (image) {
+        validateTransientImage(root, item, bytes);
+        validateTransientImage(root, item, await readSafe(root, item.path));
+      }
     }
     insist(bytes.length, `empty source: ${item.path}`);
-    if (item.sha256) insist(identity.sha256 === item.sha256, `tampered SHA: ${item.path}`);
-    if (checkWorktree && !transient) insist(bytes.equals(await readSafe(root, item.path)), `source differs from ref: ${item.path}`);
+    if (!image && item.sha256) insist(identity.sha256 === item.sha256, `tampered SHA: ${item.path}`);
+    if (checkWorktree && !transient && !image) insist(bytes.equals(await readSafe(root, item.path)), `source differs from ref: ${item.path}`);
     for (const part of excerpts) {
       const lines = bytes.toString('utf8').split('\n');
       insist(Number.isInteger(part.start_line) && Number.isInteger(part.end_line) && part.start_line >= 1 && part.end_line >= part.start_line && part.end_line <= lines.length,
@@ -95,8 +100,9 @@ export async function sourceIdentities(packet, { root = defaultRoot, checkWorktr
   for (const relative of ['tools/production-preflight.mjs', 'tools/production-handoff.mjs', 'tools/production-task-io.mjs', 'tools/context-packet.mjs']) {
     tools.push({ path: relative, sha256: hash(await readFile(new URL(`../${relative}`, import.meta.url))) });
   }
-  return { source_ref: ref, sources, shared_instructions: shared, tools, input_versions: packet.input_versions,
-    input_digest_sha256: jsonHash(packet.input_versions) };
+  const input_versions = normalizeVersions(packet.input_versions, sources, ref);
+  return { source_ref: ref, sources, shared_instructions: shared, tools, input_versions,
+    input_digest_sha256: jsonHash(input_versions) };
 }
 
 // A preview batch remains one finite task; all approvals remain scene-local.
@@ -150,7 +156,12 @@ async function dependencyIdentity(version, { root, binding }) {
   const relative = safePath(version.location, { fragment: true });
   const transient = binding.sources.find((source) => source.path === relative && source.storage === 'transient');
   insist(!transientPath(relative) || transient, 'dependency transient identity is not acquired');
-  const current = transient ? await readSafe(root, relative) : git(root, 'show', `${binding.source_ref}:${relative}`);
+  const acquisition = binding.sources.find((source) => source.path === relative);
+  const current = transient ? await readSafe(root, relative) : git(root, 'show', `${acquisition?.ref || binding.source_ref}:${relative}`);
+  if (isImage(relative, acquisition?.media_type || '')) {
+    insist(current.length, 'empty dependency image');
+    return requireImageVersion(version.version, relative, acquisition?.ref || binding.source_ref);
+  }
   if (version.location.includes('#')) {
     const range = version.location.split('#')[1].match(/^L([0-9]+)-L([0-9]+)$/);
     insist(range && !transient, 'unsupported dependency identity selector');
@@ -193,7 +204,7 @@ async function manualRequirements(packet, { root, checkWorktree, binding }) {
     const catalog = JSON.parse(bytes.toString('utf8')), selected = {};
     for (const image of images) {
       const record = catalog.files?.[image.source_id];
-      insist(record && record.sourcePath === image.path && record.name === image.filename && record.mimeType === image.mime_type && record.sha256 === image.sha256 && record.width === image.width && record.height === image.height, 'image catalog identity mismatch');
+      insist(record && record.sourcePath === image.path && record.name === image.filename && record.mimeType === image.mime_type && record.width === image.width && record.height === image.height, 'image catalog identity mismatch');
       selected[image.source_id] = record;
     }
     validateRepoSourceCatalog({ sourceCatalogVersion: catalog.sourceCatalogVersion, provider: catalog.provider, files: selected }, { repoRoot: root });
@@ -204,6 +215,7 @@ async function manualRequirements(packet, { root, checkWorktree, binding }) {
     insist(!locations.has(input.id), 'duplicate input ID'); locations.add(input.id);
     const acquisition = acquiredInput(input, binding);
     const bytes = await inputBytes(root, binding.source_ref, acquisition);
+    if (isImage(input.location, acquisition.media_type || '')) { requireImageVersion(input.version, input.location, acquisition.ref); continue; }
     if (acquisition.storage === 'transient') insist([acquisition.sha256, `sha256:${acquisition.sha256}`].includes(input.version), 'transient input version must be exact SHA-256');
     if (!input.location.includes('#')) boundVersion(bytes, input.version, input.location);
   }
@@ -246,7 +258,7 @@ async function manualRequirements(packet, { root, checkWorktree, binding }) {
     insist(receipt.run_id === dependency.run_id && receipt.task_id === dependency.task_id && (receipt.status === 'PASS' || (dependency.gate === 'accepted_master_image_selection' && receipt.status === 'HUMAN_ACCEPTED_AS_IS')) &&
       (packet.integration_mode === 'governance_maintenance' || scopes.some((scope) => receipt.scene_id === scope.scene_id)), 'dependency approval is absent or wrong scene/task');
     insist(Array.isArray(dependency.input_versions) && dependency.input_versions.length &&
-      jsonHash(receipt.input_versions) === jsonHash(dependency.input_versions), 'stale dependency QA input versions');
+      jsonHash(normalizeVersions(receipt.input_versions, binding.sources, binding.source_ref)) === jsonHash(normalizeVersions(dependency.input_versions, binding.sources, binding.source_ref)), 'stale dependency QA input versions');
     const human = humanGates.includes(dependency.gate), stage = priorStages[dependency.gate];
     insist(human || stage, 'unsupported dependency approval gate');
     if (human) insist(receipt.evidence_purpose === 'human_decision' && receipt.task_type === 'human_decision' &&
@@ -281,7 +293,7 @@ async function manualRequirements(packet, { root, checkWorktree, binding }) {
     if (stage || dependency.gate === 'accepted_master_image_selection') await requireCoverage(consumedGateInputs(scopes.find((scope) => scope.scene_id === receipt.scene_id) || packet, dependency.gate),
       [...approvedInputs, ...(dependency.gate === 'narrative_design' ? receipt.output_versions || [] : [])],
       { root, binding }, `dependency does not cover consumed inputs: ${dependency.gate}`);
-    if (dependency.output_versions) insist(jsonHash(receipt.output_versions) === jsonHash(dependency.output_versions), 'dependency output versions mismatch');
+    if (dependency.output_versions) insist(jsonHash(normalizeVersions(receipt.output_versions, binding.sources, binding.source_ref)) === jsonHash(normalizeVersions(dependency.output_versions, binding.sources, binding.source_ref)), 'dependency output versions mismatch');
     dependencyGates.add(`${receipt.scene_id}:${dependency.gate}`); verifiedDependencies.push({ dependency, receipt });
   }
   for (const { dependency, receipt } of verifiedDependencies) {
@@ -307,11 +319,15 @@ async function manualRequirements(packet, { root, checkWorktree, binding }) {
   }
   for (const accepted of packet.inputs?.accepted_outputs || []) {
     const outputs = verifiedDependencies.flatMap(({ dependency }) => dependency.run_id === accepted.run_id && dependency.task_id === accepted.task_id ?
-      (dependency.output_versions || []).filter((output) => output.id === accepted.id && output.version === accepted.version &&
+      (dependency.output_versions || []).filter((output) => output.id === accepted.id && (isImage(output.location, binding.sources.find((source) => source.path === output.location)?.media_type || '') || output.version === accepted.version) &&
         (accepted.location === undefined || output.location === accepted.location)) : []);
     insist(outputs.length && new Set(outputs.map((output) => output.location)).size === 1, 'accepted output lacks exact dependency evidence');
     // Resolve only consumed outputs. Unconsumed historical receipt outputs are not new context.
-    acquiredInput(outputs[0], binding);
+    const acquisition = acquiredInput(outputs[0], binding);
+    if (isImage(outputs[0].location, acquisition.media_type || '')) {
+      insist(accepted.ref === undefined || accepted.ref === acquisition.ref, 'accepted output ref mismatch');
+      requireImageVersion(accepted.version, outputs[0].location, acquisition.ref);
+    }
     await dependencyIdentity(outputs[0], { root, binding });
   }
   for (const scope of scopes) for (const gate of neededGates(scope)) insist(dependencyGates.has(`${scope.scene_id}:${gate}`), `missing required dependency approval: ${gate} (${scope.scene_id})`);
@@ -323,7 +339,7 @@ async function manualRequirements(packet, { root, checkWorktree, binding }) {
     insist(capability?.adapter && typeof capability.capability_source === 'string' && Number.isInteger(capability.max_reference_images) && capability.max_reference_images >= 1,
       'missing renderer max-reference capability');
     insist(references.length > 0 && references.length <= capability.max_reference_images, 'renderer reference limit exceeded or references absent');
-    insist(new Set(references.map((item) => item.source_id)).size === references.length && references.every((item) => item.role && item.source_id && item.filename === path.posix.basename(item.path) && item.mime_type && item.sha256 && item.pixels_must_be_visible === true), 'incomplete renderer reference metadata');
+    insist(new Set(references.map((item) => item.source_id)).size === references.length && references.every((item) => item.role && item.source_id && item.filename === path.posix.basename(item.path) && item.mime_type && item.pixels_must_be_visible === true), 'incomplete renderer reference metadata');
     insist(Array.isArray(packet.inputs?.references) && jsonHash([...packet.inputs.references].sort()) === jsonHash(references.map((item) => item.source_id).sort()), 'renderer declared reference mismatch');
     const manifest = JSON.parse(git(root, 'show', `${binding.source_ref}:${packet.inputs.cg_manifest}`).toString('utf8'));
     const [projected] = buildPackets(manifest, { entryIds: [packet.inputs.cg_entry_id], statuses: ['render_ready', 'accepted'] });

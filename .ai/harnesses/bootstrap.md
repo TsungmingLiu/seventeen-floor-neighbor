@@ -30,4 +30,4 @@ Each independent production task MUST execute in a fresh bounded worker。Multi-
 
 Text source PASS requires exact repo/ref/path、non-empty returned content and blob SHA when available。
 
-Image reference PASS requires exact expected role/filename/MIME、non-empty pixels visible to the worker and an auditable runtime attachment/binding. Metadata-only acquisition fails。
+Image reference PASS requires exact canonical path/ref and expected role/filename/MIME、non-empty pixels visible to the worker and an auditable runtime attachment/binding. Metadata-only acquisition fails。

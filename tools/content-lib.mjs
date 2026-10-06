@@ -514,8 +514,8 @@ export async function validateContent(content, { finalVisuals = false } = {}) {
     }
     if (entry.provider === 'local') {
       if (entry.transform !== 'copy') fail(`asset source map: runtime conversion is not allowed for ${runtimePath}; ingest first`);
-      if (entry.sha256 && !/^[0-9a-f]{64}$/.test(entry.sha256)) fail(`asset source map: invalid SHA-256 for ${runtimePath}`);
-      if (entry.bytes != null && (!Number.isSafeInteger(entry.bytes) || entry.bytes <= 0)) fail(`asset source map: invalid byte count for ${runtimePath}`);
+      if (!/\.(png|jpe?g|webp)$/i.test(entry.source) && entry.sha256 && !/^[0-9a-f]{64}$/.test(entry.sha256)) fail(`asset source map: invalid SHA-256 for ${runtimePath}`);
+      if (!/\.(png|jpe?g|webp)$/i.test(entry.source) && entry.bytes != null && (!Number.isSafeInteger(entry.bytes) || entry.bytes <= 0)) fail(`asset source map: invalid byte count for ${runtimePath}`);
     }
   }
 

@@ -4,7 +4,7 @@ import { readFile, readdir, realpath, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { verifyProductionRun } from './verify-production-run.mjs';
-import { buildPackets, validateManifest, validateRepoSourceCatalog } from './render-cg-packets.mjs';
+import { buildPackets, validateManifest, validateRepoSourceCatalog, stableStringify } from './render-cg-packets.mjs';
 
 const defaultRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const contractRoot = 'content/production/narrative';
@@ -250,7 +250,7 @@ export async function verifyNarrativeReviewPacket(packet, { root = defaultRoot }
     sceneId: packet.scene_id, runId: packet.run_id, taskId: packet.task_id, root, ref,
     executionPolicy: packet.execution_policy
   });
-  insist(JSON.stringify(packet) === JSON.stringify(rebuilt), 'Task Packet fields, allowlist or input hashes differ from canonical sources');
+  insist(stableStringify(packetWithoutImageDigests(packet, rebuilt)) === stableStringify(rebuilt), 'Task Packet fields, allowlist or input hashes differ from canonical sources');
   return true;
 }
 
@@ -344,7 +344,7 @@ export async function buildCgPlanPacket({ sceneId, runId, taskId, ref, upstreamR
     `environment is not the registered COM-00 background: ${id}`);
     selectedRecords.push({ id, record: item });
     const imageRecord = { source_id: id, role: expectedRole, path: item.sourcePath, filename: item.name,
-      mime_type: item.mimeType, sha256: item.sha256, git_blob_sha: git(root, 'rev-parse', `${ref}:${item.sourcePath}`),
+      mime_type: item.mimeType, ref,
       width: item.width, height: item.height, pixels_must_be_visible: true };
     return imageRecord;
   });
@@ -353,9 +353,9 @@ export async function buildCgPlanPacket({ sceneId, runId, taskId, ref, upstreamR
     git_blob_sha: sources[relative].blob, ...(relative.endsWith('CHARACTER_REFERENCE_PACK_SPEC.md') ? {
       excerpts: [headingExcerpt(sources[relative].text, '# 3. Xu Tang canonical reference manifest', 'xu-tang-reference-spec')]
     } : {}) }));
-  const backgroundRecordHash = createHash('sha256').update(JSON.stringify(backgroundAsset)).digest('hex');
+  const backgroundRecordHash = `${ref}:${backgroundAsset.src}`;
   const selectedCatalogVersions = selectedRecords.map(({ id, record }) => ({
-    id: `catalog-record:${id}`, version: createHash('sha256').update(JSON.stringify(record)).digest('hex'),
+    id: `catalog-record:${id}`, version: `${ref}:${record.sourcePath}`,
     location: `content/assets/source-catalog.json#${id}`
   }));
   return {
@@ -376,7 +376,7 @@ export async function buildCgPlanPacket({ sceneId, runId, taskId, ref, upstreamR
       ? item.excerpts.map((excerpt) => ({ id: `excerpt:${item.path}:${excerpt.label}`, version: excerpt.sha256,
         location: `${item.path}#L${excerpt.start_line}-L${excerpt.end_line}` }))
       : [{ id: `file:${item.path}`, version: item.git_blob_sha, location: item.path }]),
-      ...images.map((item) => ({ id: `image:${item.source_id}`, version: item.git_blob_sha, location: item.path })),
+      ...images.map((item) => ({ id: `image:${item.source_id}`, version: `${ref}:${item.path}`, location: item.path })),
       ...selectedCatalogVersions,
       { id: 'asset-record:bg.opening.ch1.apt_17f_rain', version: backgroundRecordHash,
         location: 'content/assets/manifest.json#bg.opening.ch1.apt_17f_rain' },
@@ -391,6 +391,20 @@ export async function buildCgPlanPacket({ sceneId, runId, taskId, ref, upstreamR
   };
 }
 
+function packetWithoutImageDigests(packet, rebuilt) {
+  const copy = structuredClone(packet);
+  copy.required_acquisition.images = (copy.required_acquisition.images || []).map((image) => {
+    const { sha256: _sha, git_blob_sha: _blob, bytes: _bytes, ...rest } = image;
+    return { ...rest, ref: rest.ref || copy.source_binding.github.ref };
+  });
+  copy.input_versions = copy.input_versions.map((item) => {
+    const expected = rebuilt.input_versions.find((version) => version.id === item.id && version.location === item.location);
+    return expected && /^(?:image|catalog-record|asset-record|source-map):/.test(item.id) &&
+      (!item.version?.includes(':') || item.version.startsWith('sha256:')) ? { ...item, version: expected.version } : item;
+  });
+  return copy;
+}
+
 export async function verifyCgPlanPacket(packet, { root = defaultRoot } = {}) {
   insist(packet && typeof packet === 'object' && !Array.isArray(packet), 'packet must be an object');
   const rebuilt = await buildCgPlanPacket({ sceneId: packet.scene_id, runId: packet.run_id,
@@ -398,7 +412,7 @@ export async function verifyCgPlanPacket(packet, { root = defaultRoot } = {}) {
     upstreamRunId: packet.inputs?.accepted_outputs?.[0]?.run_id,
     upstreamTaskId: packet.inputs?.accepted_outputs?.[0]?.task_id,
     referenceIds: packet.inputs?.references, root });
-  insist(JSON.stringify(packet) === JSON.stringify(rebuilt), 'CG Plan Packet fields, allowlist or input hashes differ from canonical sources');
+  insist(stableStringify(packetWithoutImageDigests(packet, rebuilt)) === stableStringify(rebuilt), 'CG Plan Packet fields, allowlist or input hashes differ from canonical sources');
   return true;
 }
 
@@ -539,10 +553,9 @@ export async function buildManifestUsabilityPacket({ sceneId, runId, taskId, ref
   }
   const imageVersions = await Promise.all([...neededRefs].map(async ([id, record]) => {
     const bytes = await readFile(path.join(root, record.sourcePath));
-    const blob = git(root, 'rev-parse', `${ref}:${record.sourcePath}`);
-    const sha = createHash('sha256').update(Buffer.from(bytes)).digest('hex');
-    insist(record.sha256 === sha, `source catalog SHA-256 mismatch: ${id}`);
-    return { id, record, blob };
+    insist(bytes.length > 0, `empty image source: ${id}`);
+    git(root, 'cat-file', '-e', `${ref}:${record.sourcePath}`);
+    return { id, record };
   }));
 
   const manifestLines = source.manifest.text.split('\n');
@@ -582,11 +595,11 @@ export async function buildManifestUsabilityPacket({ sceneId, runId, taskId, ref
   const acceptedOutput = { id: `narrative-qa:${sceneId}`, run_id: upstreamRunId, task_id: upstreamTaskId,
     status: 'CURRENT_PASS', approved_locked_scene_git_blob: sceneBlob };
   const catalogVersions = [...neededRefs].map(([id, record]) => ({ id: `catalog-record:${id}`,
-    version: createHash('sha256').update(JSON.stringify(record)).digest('hex'), location: `${manifestUsabilityPaths.catalog}#${id}` }));
+    version: `${ref}:${record.sourcePath}`, location: `${manifestUsabilityPaths.catalog}#${id}` }));
   const assetVersions = [...neededAssetIds].map((id) => {
     const asset = assetManifest.assets?.[id];
     insist(asset, `missing selected runtime asset record: ${id}`);
-    return { id: `asset-record:${id}`, version: createHash('sha256').update(JSON.stringify(asset)).digest('hex'),
+    return { id: `asset-record:${id}`, version: `${ref}:${asset.src}`,
       location: `content/assets/manifest.json#${id}` };
   });
   const renderPackets = buildPackets(manifest, { entryIds: expectedIds, statuses: ['accepted'] });
@@ -608,7 +621,7 @@ export async function buildManifestUsabilityPacket({ sceneId, runId, taskId, ref
         ? item.excerpts.map((part) => ({ id: `excerpt:${item.path}:${part.label}`, version: part.sha256,
           location: `${item.path}#L${part.start_line}-L${part.end_line}` }))
         : [{ id: `file:${item.path}`, version: item.git_blob_sha, location: item.path }]),
-      ...entryVersions, ...imageVersions.map(({ id, record, blob }) => ({ id: `image:${id}`, version: blob, location: record.sourcePath })),
+      ...entryVersions, ...imageVersions.map(({ id, record }) => ({ id: `image:${id}`, version: `${ref}:${record.sourcePath}`, location: record.sourcePath })),
       ...catalogVersions, ...assetVersions, { id: `receipt:${upstreamRunId}/${upstreamTaskId}`,
         version: git(root, 'rev-parse', `${ref}:content/production/runs/${upstreamRunId}/${upstreamTaskId}.decision.json`),
         location: `content/production/runs/${upstreamRunId}/${upstreamTaskId}.decision.json` }
@@ -629,7 +642,7 @@ export async function verifyManifestUsabilityPacket(packet, { root = defaultRoot
     upstreamRunId: packet.inputs?.accepted_outputs?.[0]?.run_id,
     upstreamTaskId: packet.inputs?.accepted_outputs?.[0]?.task_id,
     entryIds: packet.inputs?.cg_entry_ids, root });
-  insist(JSON.stringify(packet) === JSON.stringify(rebuilt), 'Manifest Usability Task Packet fields, allowlist or input hashes differ from canonical sources');
+  insist(stableStringify(packetWithoutImageDigests(packet, rebuilt)) === stableStringify(rebuilt), 'Manifest Usability Task Packet fields, allowlist or input hashes differ from canonical sources');
   return true;
 }
 
@@ -679,7 +692,6 @@ export async function buildCandidateVisualReviewPacket({ sceneId, runId, taskId,
   'candidate source ID, output, and asset registration do not match');
   const mapped = sourceMap.files?.[asset.src];
   insist(mapped?.source === candidate.sourcePath && mapped.transform === 'copy' &&
-    mapped.sha256 === candidate.sha256 && mapped.bytes === candidate.bytes &&
     mapped.masterSourceId === candidateSourceId, 'candidate runtime source map differs from repo bytes');
 
   const bindings = [...entry.characters.flatMap((character) => character.reference_bindings),
@@ -699,12 +711,10 @@ export async function buildCandidateVisualReviewPacket({ sceneId, runId, taskId,
     const absolute = path.join(root, relative);
     insist((await realpath(absolute)) === absolute, `source is a symlink: ${relative}`);
     const bytes = await readFile(absolute);
-    const blob = createHash('sha1').update(`blob ${bytes.length}\0`).update(bytes).digest('hex');
-    insist(blob === git(root, 'rev-parse', `${ref}:${relative}`) &&
-      createHash('sha256').update(bytes).digest('hex') === record.sha256,
-    `image bytes differ from committed source/catalog: ${sourceId}`);
+    insist(bytes.length > 0, `empty image source: ${sourceId}`);
+    git(root, 'cat-file', '-e', `${ref}:${relative}`);
     return { role, source_id: sourceId, path: relative, filename: record.name,
-      mime_type: record.mimeType, sha256: record.sha256, git_blob_sha: blob,
+      mime_type: record.mimeType, ref,
       width: record.width, height: record.height, pixels_must_be_visible: true };
   };
   const images = [await imageSpec(candidateSourceId, 'candidate', candidate.name),
@@ -720,12 +730,12 @@ export async function buildCandidateVisualReviewPacket({ sceneId, runId, taskId,
       source.excerpts?.some((part) => item.id === `excerpt:${source.path}:${part.label}`)))
     .filter((item) => !item.id.startsWith('image:') && !item.id.startsWith('catalog-record:') &&
       !item.id.startsWith('asset-record:') && !item.id.startsWith('receipt:'));
-  inputVersions.push(...images.map((item) => ({ id: `image:${item.source_id}`, version: item.git_blob_sha, location: item.path })));
+  inputVersions.push(...images.map((item) => ({ id: `image:${item.source_id}`, version: `${ref}:${item.path}`, location: item.path })));
   inputVersions.push(...preflight.input_versions.filter((item) =>
     (item.id.startsWith('catalog-record:') && sourceIds.has(item.id.slice('catalog-record:'.length))) ||
     (item.id.startsWith('asset-record:') && assetIds.has(item.id.slice('asset-record:'.length)))));
   inputVersions.push({ id: `source-map:${asset.src}`,
-    version: createHash('sha256').update(JSON.stringify(mapped)).digest('hex'),
+    version: `${ref}:${mapped.source}`,
     location: `content/assets/source-map.json#${asset.src}` });
   inputVersions.push({ id: `receipt:${upstreamRunId}/${upstreamTaskId}`,
     version: git(root, 'rev-parse', `${ref}:${receiptPath}`), location: receiptPath });
@@ -766,7 +776,7 @@ export async function verifyCandidateVisualReviewPacket(packet, { root = default
     upstreamRunId: packet.inputs?.accepted_outputs?.[0]?.run_id,
     upstreamTaskId: packet.inputs?.accepted_outputs?.[0]?.task_id,
     entryId: packet.inputs?.cg_entry_id, candidateSourceId: packet.inputs?.candidate_source_id, root });
-  insist(JSON.stringify(packet) === JSON.stringify(rebuilt),
+  insist(stableStringify(packetWithoutImageDigests(packet, rebuilt)) === stableStringify(rebuilt),
     'Candidate Visual QA Task Packet fields, allowlist or input hashes differ from canonical sources');
   return true;
 }
