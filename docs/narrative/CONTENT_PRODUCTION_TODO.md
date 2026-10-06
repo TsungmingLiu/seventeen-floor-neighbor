@@ -2,9 +2,9 @@
 
 > Lifecycle: **CANONICAL** creative-production backlog
 >
-> Version: 1.3.5
+> Version: 1.3.6
 >
-> Updated: 2026-10-02
+> Updated: 2026-10-06
 
 這份文件只記 production progress、review gate 與 blocker。它不複製 scene spec、CG prompt 或 operator instructions。
 
@@ -16,7 +16,7 @@
 
 ## Opening Vertical Slice
 
-最新 main 為 `e28e45d…`（PR #45），包含 title CG／預填姓名與 prospective final derivative/display QA policy。已核對的是 exact PR head `43db3a2…` 的 [Node 22 Verify run 37034831902](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/37034831902)：Verify job `110930333722`、deploy／smoke job `110933137975` success；不推定 post-merge main CI 或新的 pixel QA。title 的 Human master／focus 選擇與原 VQA `NEEDS_REVIEW` 並存，checkpoint 仍為 `READY_FOR_HUMAN_ACCEPTANCE`，final Human playable acceptance pending。新 policy 不回寫既有 QA／Human scope。
+C0 核對基線為 2026-10-06 main `0b48183…`；`e28e45d…`（PR #45）是歷史 title snapshot，包含 title CG／預填姓名與 prospective final derivative/display QA policy。已核對的是 exact PR head `43db3a2…` 的 [Node 22 Verify run 37034831902](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/37034831902)：Verify job `110930333722`、deploy／smoke job `110933137975` success；不推定 post-merge main CI 或新的 pixel QA。title 的 Human master／focus 選擇與原 VQA `NEEDS_REVIEW` 並存，checkpoint 仍為 `READY_FOR_HUMAN_ACCEPTANCE`，final Human playable acceptance pending。新 policy 不回寫既有 QA／Human scope。
 
 M0 關閉證據仍綁定 PR #43 main `c5251cd…` Node 22 Verify 132/132、Cloudflare deployment／smoke PASS；該 acceptance 快照的 COM-02X 八個 runtime outputs 與原 `ba5f832…` checkpoint 相同，[HUMAN-COM02X-PLAYABLE-009](../../content/production/runs/com02x-visual-bindings-20261001/HUMAN-COM02X-PLAYABLE-009.decision.json) 記錄 Owner「我測了可玩性，沒有可見問題」，existing checkpoint 現為 `ACCEPTED`。原 PR #33／#37 敘事與 UI 批准沿用；provisional／獨立 Visual QA FAIL／safe-zone NEEDS_REVIEW 保持，未記錄的 final visual scope 另行追蹤。
 
@@ -29,6 +29,8 @@ M0 關閉證據仍綁定 PR #43 main `c5251cd…` Node 22 Verify 132/132、Cloud
 | `COM-02X` | locked + continuity contract; PR #33 narrative/POV accepted | PR #39 integrated BG／recognition／microwave／walk v3; forward flow／reload／Gallery verified; Memory rank 160、可 replay | exact Human accepted-as-is masters registered; original per-image VQA FAIL／safe-zone NEEDS_REVIEW preserved | Human playable acceptance recorded; original art/QA caveats remain |
 | `COM-02J` | approved contract + completed Locked Scene；NQA-COM02J-008 PASS（exact hashes；六條 local paths） | NARRATIVE_PREVIEW_READY；chronology／舊存檔補讀／reload／新增 Memory verified；35 unique browser cases PASS；PR #47 `cb11e81…` CI 201/201、deploy／deployed smoke PASS | registered preview-only background；final art pending | new Human narrative_preview_review pending |
 | `COM-03X` | approved contract + Script Lock；NQA-COM03X-001 PASS（exact hashes） | NARRATIVE_PREVIEW_READY；PR #44 `d4ab4bd…` clean CI 172/172、deploy／deployed smoke PASS；Chromium 原 23 + corrected 3/3 PASS；shared binding 技術再審與 historical stale 判定分別保留；不建立 standalone Memory card | 唯一 registered preview-only background；final art pending | Human narrative_preview_review 已於 2026-10-02 PASS；未授予 Visual QA／final playable acceptance |
+
+已交付入口以 ROADMAP §4／§10 為準：COM-03J／COM-03M／OPEN-A 第一 window 已整合，pending XT-04／JYC-05 尚未赴約，生活 outcomes 只完成第一 slot。#71 earned 初遇資格累積不補 local contact／consent；C0 [plan 的 findings/prerequisites](M1_GAMEPLAY_VALIDATION_SLICE.md) 列明需同步的舊 discovery／contact／absolute-exclusion annotations；先 bounded alignment＋獨立 consistency review，再兩條 anchor ND。既有 NQA／Human／CI 都保留 exact snapshot scope，不推定 current main 重跑或完整 slice acceptance。
 
 ## Production gates
 
@@ -58,8 +60,8 @@ Narrative Preview 與視覺分支都依賴 Narrative QA；任一分支不可自�
 - [x] M1 首批 COM-03X：Narrative Design → Dialogue → independent QA PASS。
 - [x] COM-03X 首批 preview integration verification：[公開試玩](https://7410c7f4.seventeen-floor-neighbor.pages.dev/)／[Verify 656](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/37056543566) 綁定 exact PR #44 `d4ab4bd0ffc4bec97f81ad288a52194bc3a883bd`，172/172、deploy／deployed bytes smoke PASS；runtime／approved creative identities 與已驗證 `f89e3a9…` 相同。Chromium 26 個 unique cases 由原 23 與 corrected 3/3 覆蓋；原 full unit 169/172 失敗與 fixture correction 10/10 保留於 compact [run checkpoint](../../content/production/runs/com03x-m1-preview-20261002/ledger.json)。237 個既有 nonterminal nodes 與 COM-02X scene／contract／Memory slice／media 已核對；歷史 shared route-binding stale gate 不改寫，本輪重新做工程驗證。Human narrative_preview_review 已於 2026-10-02 PASS（[Human receipt](../../content/production/runs/com03x-m1-preview-20261002/HUMAN-COM03X-STORY-005.decision.json)）；final art 與完整 M1 slice pending；`validate:final` 因 preview art 預期拒絕，不代表 Visual QA／final playable acceptance。
 - [x] COM-02J：必要 continuity contract、完整 callback script 與 fresh independent QA 通過後接 narrative preview。compile／save/Memory／既有 art preservation 檢查通過；原 failures 與 corrected evidence 保留於 [checkpoint](../../content/production/runs/com02j-m1-preview-20261002/ledger.json)。[公開試玩](https://070823e2.seventeen-floor-neighbor.pages.dev/)／[Verify 668](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/37078425847) 綁定 `cb11e81271269e7dc9ceeef6c81d6544a3a33b0c`（CI merge `d2070d8…`）；201/201、deploy／deployed bytes smoke PASS。原本地 full 195/199 與 affected reruns 分開保留；不授予 Human／Visual QA acceptance。
-- [ ] M1 後續 scenes／完整 30–60 分鐘 slice 尚未完成；COM-03J 是結構 successor，未在本批新增其劇情。
-- [ ] 校準另案：預先固定兩幕未參與選樣／修正的許棠情境，依 calibration policy 驗證品質／工時／修正次數；不取代 M1 external playtest。
+- [ ] M1 後續 scenes／完整 30–60 分鐘 slice 尚未完成；COM-03J／COM-03M／OPEN-A 入口已交付；anchors／第二 slot／OPEN-B／repair／SH-01／return 尚未交付。
+- [ ] 校準另案：預先固定兩幕未參與選樣／修正的許棠情境，依 calibration policy 驗證品質／工時／修正次數；不取代 M1 internal end-to-end／Owner review；formal external research 按 ROADMAP deferred。
 - [ ] 僅對尚未記錄的 Opening migration schema/usability scope 補 review（machine migration/validation complete）；不重新要求 PR #33 已批准的 dialogue／POV／姓名輸入接受。
 - [ ] 依 `docs/narrative/route-blueprints/` 從剩餘 common scenes 開始批量推進 `Narrative Design → Scene/Dialogue → Narrative QA`；**不要等待 CG 完成才寫下一個 scene**。
 - [ ] 接著完成 Xu early/mid route（XT-04 → XT-12）與 JYC early/mid route（JYC-05 → JYC-12）的 Locked Scene / dialogue batch。

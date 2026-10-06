@@ -2,11 +2,11 @@
 
 > Lifecycle: **GENERATED**
 >
-> 狀態：v0.6 scene authoring plan；independent blueprint consistency review pending。不是 Scene Contract、Locked Scene、Narrative QA 或 playable acceptance。
+> 狀態：v0.7 C0 consistency／gap review draft；必要 annotation alignment 與 independent whole-batch review pending。不是 Scene Contract、Locked Scene、Narrative QA 或 playable acceptance。
 >
-> 來源基線：`eee793f91e22d6d4f8799c60edcd6e7c6ec1962f`；2026-10-03。
+> 來源基線：`0b48183fa2b630f2f31cb38dba2bb3b00d0704f0`；2026-10-06。
 >
-> Task：`ND-V06-BLUEPRINT-001`／`content_writer`／`narrative_design`。
+> Task：`ND-M1-C0-001`／`content_writer`／`narrative_design`。
 
 ## 1. 要驗證的核心體驗
 
@@ -25,24 +25,26 @@ M1 保留雙女主實質互動、兩個 major anchors、attention allocation、J
 
 ## 2. 合法入口、安排與停點
 
-保留唯一 playable entry、所有既有 stable IDs 與 accepted Opening 前事；下列 late discovery／scheduler 是規劃，不改本轮 Locked Scene 或 runtime。Scene-local authoring 以各 blueprint 为 owner，不複製新規格。
+保留唯一 playable entry、所有既有 stable IDs 與 accepted Opening 前事；discovery 與第一個 window 入口已交付；完整 scheduler／anchors 仍是規劃，不改 Locked Scene 或 runtime。Scene-local authoring 以各 blueprint 为 owner，不複製新規格。
 
 | 承載點 | 實際／規劃状态 | M1 的 entry → handoff |
 | --- | --- | --- |
 | COM-00/01X/01B/01J/02X | 既有 integrated/locked baseline | 沿用现有 flow；COM-01B 不自行新增 gate |
-| COM-02J | 既有 locked 前事；整合 gate 由後續 worker 核對 | 正式姓名、作品討論，接 COM-03J；不自行改 locked wording |
-| COM-03X | 後續 scene-level production 待核對 gate | 從 COM-02X 包裹/設計話題取得 contact_xu；不是戀愛 milestone |
-| COM-03J | **已整合；Human narrative preview 未審** | 共同作品 → contact_jyc；不宣稱 Human acceptance 或新 final CG |
-| COM-03M | blueprint plan | 僅已 contact 方訊息；雙方皆有才雙 notification → OPEN-A |
-| 第二 discovery | COM-01J 短 first-entry variant，尚未實作 | OPEN-A 收尾→OPEN-B 前自己的設定集購買；可回家而未見，遇見才 COM-02J→03J |
-| OPEN-A | scheduler plan | 兩個 major slots；XJ/JX/XX/JJ、solo/rest/wait，無第三 slot |
+| COM-02J | 已整合的 cafe reunion／first-meet；逐版 QA／Human scope 保留 | 實際姓名／作品討論；互相同意交換才 contact_jyc，再接 COM-03X→COM-03J |
+| COM-03X | 已整合；既有 Human story PASS scope 保留 | 從 COM-02X 包裹/設計話題取得 contact_xu；不是戀愛 milestone |
+| COM-03J | **已整合；不新增 Human acceptance** | 只承接 COM-02J 真實 contact 的同晚訊息；無 contact bypass |
+| COM-03M | 已整合 contact-gated montage | 僅已 contact 方訊息；雙方皆有才雙 notification → OPEN-A |
+| 第二 discovery | 已交付平日 cafe first-meet | 週末留家後 COM-02X→平日居家工作；cafe 首遇或街頭独走→COM-03X。不再排 OPEN-A→OPEN-B 第三次 discovery |
+| OPEN-A | 第一 window 入口已整合；完整 scheduler 待製作 | 兩個 major slots；XJ/JX/XX/JJ、solo/rest/wait，無第三 slot |
 | OPEN-B | bounded return/continuation plan | 三 slots；第一合法 slot 可補未玩 XT-04/JYC-05，後續按各自 predecessor |
 | XT-04→05 | scene plan | 普通鄰居第一次書店→同桌；擅排程 unresolved 先短 repair 再邀同桌 |
 | JYC-05→06 | scene plan | contact/作品首邀→線上 co-op 前事→她同意家訪；代答 unresolved 先 repair |
 | SH-01 | scene plan | JYC-06 與 contact_xu 成立才介紹；不送 date/alias/status knowledge |
 | RE-X/J | reactive plan | 真 prior investment/accepted missed plan 且 cooling/dormant、open、無 harm才一次自然 offer |
 
-COM-02J/COM-03J 整合狀態只按此 source head／本輪指令，未擴讀 receipts；後續整合 worker 仍核對 actual contract/QA 与 Human gate。COM-03X 未在本 plan 推定 approval。
+入口與有限停點證據：[INT-OPENING-ENTRY-BATCH-001](../../content/production/runs/m1-com03m-20261003/INT-OPENING-ENTRY-BATCH-001.decision.json)（historical 226/226、26/26；不是 current-head rerun）、[NQA-OPENA-001](../../content/production/runs/m1-com03m-20261003/NQA-OPENA-001.decision.json)（exact 第一 window scene scope）。ROADMAP §4／§10 記錄 #71／#69 已交付與 Owner review 的限定範圍；舊 receipts 的 Human pending 不回寫，未列新 scene approval 仍未知。pending X/J 未消耗 slot，solo/rest/wait 只消耗第一 slot，並非完整 OPEN-A。
+
+**累積 eligibility ≠ 当次前事**：依 [ND-FEEDBACK-002](../../content/production/runs/feedback-20261005/ND-FEEDBACK-002.decision.json) 及 COM-01B／02J／03J contracts，真正書店或 cafe 首遇可累積解鎖；只書店初遇資格可進 cafe reunion，cafe-only replay 仍 initial。街頭 snapshot 保留，但不撤銷已取得資格；不補姓名、購書、topic、contact、consent 或 investment。未交換 contact 不補第三次相遇，也不能進 J 邀約／SH01／RE。
 
 major outing／anchor／下一次同桌各使用一個合法 slot；同次咖啡、遊戲散場修復、SH-01 紹介是 continuation，不另送 major investment。short discovery/contact 橋接不送 date slot。COM-03M 回复先后和 shared events 不當作 major attention 投入。
 
@@ -59,8 +61,8 @@ major outing／anchor／下一次同桌各使用一個合法 slot；同次咖啡
 | XX：X04→X05 | ordinary contacted J 的 contextual 首邀於 OPEN-B 第一合法 slot → 未玩 J05→co-op→J06→SH01；不是 RE，不追加 OPEN-A slot |
 | JJ：J05→J06→SH01 | ordinary contacted X 於 OPEN-B 第一合法 slot 首邀未玩 X04→X05；不從家訪跳 midgame，不憑空回放 anchor |
 | 實際另一方 accepted plan 被擱置 | 明列那次 plan/missed response 才 cooling，可自然 RE；history 不靠兩次 focus 推定 |
-| 未遇見 J | 第二 discovery 可見但仍錯過 → X04/05 或 solo/rest/wait；bypass J訊息／J scenes／SH01，不頒 J-F/D |
-| 晚遇見 J | second entry→COM02J→COM03J，普通首邀在 OPEN-B 合法 slot 才 J05；若已無 slot 就停生活前景，不加 slot |
+| 未遇見 J | 週末書店與平日 cafe 均錯過且未 earned 初遇 → X04/05 或 solo/rest/wait；bypass J訊息／J scenes／SH01，不頒 J-F/D |
+| 由合法 earned replay 選到 J | 合法初遇→COM02J 真實同意交換→COM03J，普通首邀在 OPEN-B 合法 slot 才 J05；若已無 slot 就停生活前景，不加 slot |
 
 **M1 預覽停點**：在該走法最後已製作的 early continuation／SH01／return outcome 停止，清楚标 preview stop，不能虚构結局；接受邀約的下一幕尚未實作時也不能宣稱可玩。M1 不納入 BRAID-C、-10/11/12 late conflict、clarity、COMMIT/SHURA、late lock 或 endings；完整 arc 由 route blueprints 保留，30–60 分鐘不保證每輪覆蓋全部 variants。
 
@@ -84,10 +86,30 @@ clarity due、late lock、曝光重大 harm／deception 的阻擋由 full-route 
 
 ## 5. 後續製作與驗收界線
 
-先独立一致性 review 此 blueprint/M1 plan；再逐場 fresh bounded `Narrative Design → approval → Scene/Dialogue → Narrative QA → narrative preview integration → Human preview`。先處理 COM-03X／COM-03M 与已整合江線的待審 gate，再 OPEN-A/B bounded scheduler、anchors、continuations/repair、SH01、RE/return。每場只帶 immediate continuity 與其 owner excerpt，已 locked 不無故重寫；CG 另排 downstream。
+先完成下列 source annotation alignment 與獨立 whole-batch consistency review；再逐場 fresh bounded `Narrative Design → approval → Scene/Dialogue → Narrative QA → narrative preview integration → Human preview`。入口不重做；固定契約後 XT-04／JYC-05 可並行，完整有限 scheduler 與各 continuation／repair／SH01／return 依 ROADMAP §10 分批接入。每場只帶 immediate continuity 與其 owner excerpt，已 locked 不無故重寫；CG 另排 downstream。
 
 visible choices 都須有合法 target，保存/Memory replay 須維持 stable IDs、knowledge 與未完成場景 gate；runtime 工程與必要 graph/save checks 由後續任務實作，本輪不修改。M1 的內部 end-to-end／負向案例／Owner review 依 ROADMAP 與 Issue #78 V0/V1 驗證。依 Owner 最新指示，問卷、招募與正式外部研究不排在 M1；有完整路線且 M1 完成後，才由 Issue #78 D1 按需 ad-hoc 啟動。目前沒有新 external playtest 證據。
 
 **Deferred／ad-hoc 研究備忘（不是 M1 task 或 exit gate）**：如 M1 完成後決定做正式研究，再計時記錄 entry、Opening 結束、實際 contact、slots 結束、SH01、repair/return outcome 與 preview stop；缺席節點標未觸發。報原始 elapsed、中斷與有效遊玩時間、min/median/max、實際走法。先問記得哪幕／哪裡失去興趣／是否想繼續，再問 choice 是否像標準答案、哪個 consequence 可讀、repair 是否可信。時間與外部品質未實測，不從 build/validate 推定通過；未安排此研究不阻擋 M1 關閉或 M2 啟動。
 
-本 plan 使用 packet allowlist 的三份 v0.6 core canon、五份 blueprint、ARCHITECTURE 与 ROADMAP。exact input/output hashes 由 ignored production handoff binding 保留；沒有新增 dialogue、NQA、CG 或 Human acceptance 證據。
+## 6. C0 findings 與下一批 prerequisite
+
+**NEEDS_ALIGNMENT（已批准規則的 annotation 同步，不是新 Human design choice）**：
+
+- common blueprint L238 的 OPEN-A→OPEN-B 第二書店 discovery；macro COM-01J L230／COM-02J L280、route/state L335–339／408–410、common L83／138–157／184–203 仍寫單一書店前事與 COM-03J 建 contact。最小同步為已交付週末書店／平日 cafe first-or-reunion、COM-02J mutual contact、COM-03J 只讀 contact；不新增後期 discovery 或第三次交換。scene-local owner 見 COM-01B `required_payoffs`、COM-02J／03J `entry_state` 與 `implementation_mapping`。
+- COM-03M.json L58／152／164／171–173、OPEN-A.json L58／151／162／171／174 的 absolute `!jyc_permanently_excluded`／blocks-all 仍與已批准 COM-01B.json L176、COM-02J.json L138、COM-03J.json L131 的 earned eligibility 例外不一致。最小 annotation 同步：保留 local street flag，以真正累積初遇判有效排除；messages／invites 另查当次 contact／consent／knowledge。不得清除 snapshot、授予 contact 或改寫原 NQA scope；runtime 已按 earned rule，見 engine L732–786、progress L380–422 與 INT-FEEDBACK-002。
+
+下一批 packet 必須帶已同步的 exact excerpts；以上 annotation 改動超出本次 write allowlist，交 fresh bounded writer，隨後獨立 consistency review。沒有需重新決定的 earned-discovery／contact rule；若要改其意味則 BLOCKED 至明示 amendment。
+
+| 工作／gate | 可開始的 bounded stage 與必要前事 |
+| --- | --- |
+| XT-04：READY for ND | COM-03X 真實 contact_xu、OPEN-A pending X 或 OPEN-B 合法首邀／return slot；Xu blueprint L31–73。接受安排不等完成；anchor 完成只消耗一次，咖啡同次 continuation 不再記投入。仍須本幕 contract approval→dialogue→NQA→integration。 |
+| JYC-05：NEEDS_ALIGNMENT then ND | 先同步以上入口 annotations；COM-02J 當次 mutual contact＋COM-03J 真實 online exchange＋合法 pending J／return slot；JYC blueprint L35–71。cumulative unlock 不提供線上前事。 |
+| OPEN-A/B：NEEDS_ALIGNMENT then ND | 已有第一 window 五個 distinct outcomes；續接 pending anchor 後只 consume 一次，生活支不重 consume；补第二 slot、OPEN-B 三 slots／deadline／counteroffer／stop，禁止第三 OPEN-A slot。route/state L400–414、OPEN-A `exit_state`。 |
+| XT-05／co-op→JYC-06／early repair：BLOCKED on predecessors | 分別真實 X04／J05 completed、再同桌同意／已演出 online co-op 一兩次和家訪同意。unresolved 擅排程／代答／一直教須承認、問 cue、真停止、接受或拒絕；不設 late repair_completed。Xu L72–80；JYC L70–111。 |
+| SH-01：BLOCKED on JYC-06 | 已發生 JYC-06＋真 contact_xu＋实际在場介紹；只建 existence／neighbor knowledge，不補 date／alias／status。repair 拒絕後可合理介紹但不當 repaired。common L244–266、JYC L111。 |
+| 首邀／RE／reopening／closure：BLOCKED on authored history/window | ordinary 首邀回 next unplayed anchor；RE 另須真 prior investment／accepted missed plan＋cooling/dormant、open、無 unresolved harm、offer unused。OPEN-A 收尾 missed 後只緊接 OPEN-B，一次機會、第三 slot 收尾關；無 slot／timing decline／unanswered／明确拒絕／expiry 各有結果，不 respawn。common L276–286、route/state L418–439。 |
+
+以上 READY 指可製作 prerequisite，非 scene／Human acceptance；完整 core、負向 state/save/Memory cases 與 Owner end-to-end review 仍未完成。
+
+本 plan 使用 C0 packet allowlist 的 exact canon excerpts、入口 contracts／decisions、ARCHITECTURE 与 ROADMAP。exact input/output hashes 由 ignored production handoff binding 保留；沒有新增 dialogue、NQA、CG 或 Human acceptance 證據。

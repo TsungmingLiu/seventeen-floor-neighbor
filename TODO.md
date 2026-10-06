@@ -14,7 +14,7 @@
 
 ## M1 — Gameplay Validation
 
-目前唯一 active technical milestone。最新 main 為 PR #45 `e28e45d…`，包含 title CG／預填姓名與 prospective final derivative/display QA policy；已核對的是 exact PR head `43db3a2…` 的 [Verify run 37034831902](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/37034831902)，Verify job `110930333722`、deploy／smoke job `110933137975` success，不推定 post-merge main CI 或新的 pixel QA。M0 已於 2026-10-02 由 PR #43 main `c5251cd…` 的 132/132 Verify、deployment／smoke 與既有 Human playable acceptance 關閉，見 [收尾證據](docs/migration/M0_FOUNDATION_ACCEPTANCE.md)。title 原 VQA NEEDS_REVIEW／final Human playable acceptance pending 與既有 art release constraints 保持。
+目前唯一 active technical milestone。C0 核對基線為 2026-10-06 main `0b48183…`；PR #45 `e28e45d…` 是歷史 title snapshot，包含 title CG／預填姓名與 prospective final derivative/display QA policy；已核對的是 exact PR head `43db3a2…` 的 [Verify run 37034831902](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/37034831902)，Verify job `110930333722`、deploy／smoke job `110933137975` success，不推定 post-merge main CI 或新的 pixel QA。M0 已於 2026-10-02 由 PR #43 main `c5251cd…` 的 132/132 Verify、deployment／smoke 與既有 Human playable acceptance 關閉，見 [收尾證據](docs/migration/M0_FOUNDATION_ACCEPTANCE.md)。title 原 VQA NEEDS_REVIEW／final Human playable acceptance pending 與既有 art release constraints 保持。
 
 目標是將選定的 30–60 分鐘 slice 接成真正可玩的流程，驗證注意力 trade-off、人物互動與可見 consequence；不擴張成通用 model-checking 或新 production engine。詳細產品 gate 由 `ROADMAP.md` 定義。
 
@@ -29,6 +29,8 @@ M0 已完成；本輪只處理 [M1 slice scope](docs/narrative/M1_GAMEPLAY_VALID
 - [x] COM-03X 首批 narrative preview：三分支、舊完成存檔 Continue、姓名／state、reload／Memory isolation 已驗證；[公開試玩](https://7410c7f4.seventeen-floor-neighbor.pages.dev/) 綁定 PR #44 `d4ab4bd…`。[乾淨 Verify 656](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/37056543566) 172/172、deploy／deployed smoke PASS；Chromium 26 個案例已有原 23 + corrected 3/3 的通過證據。237 個既有 nonterminal nodes 與 COM-02X accepted media／canon 保持；歷史 shared route-binding stale 判定保留，本輪另做技術再審。原本地 169/172 失敗與 fixture 修正 10/10 紀錄不改寫。Human story review 已於 2026-10-02 PASS（Owner 試玩批准）；final art 與完整 30–60 分鐘 M1 slice pending；`validate:final` 仍依 preview art 拒絕。
 
 - [x] COM-02J continuity contract／完整 locked script／獨立 QA（NQA-COM02J-008）通過；新劇情按 COM-02X → COM-02J → COM-03X 接入。舊 COM-03X 存檔可補讀並回到原進度；四張既有 Memory 與其媒體不改，新咖啡店 Memory rank 180。build／validate／smoke PASS，35 個 Chromium unique cases 有完整通過覆蓋；原 unit 195/199 與 4 個失敗的 focused PASS 證據保留，程式版本 `cb11e81…` 的 [Verify 668](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/37078425847) 201/201、deploy／deployed bytes smoke PASS；[公開試玩](https://070823e2.seventeen-floor-neighbor.pages.dev/)／[PR #47](https://github.com/TsungmingLiu/seventeen-floor-neighbor/pull/47)。見 [checkpoint](content/production/runs/com02j-m1-preview-20261002/ledger.json)。新 Human 劇情試玩／final art pending。
+
+已交付入口以 ROADMAP §4／§10 為準：COM-03J／COM-03M／OPEN-A 第一 window 已整合，pending XT-04／JYC-05 尚未赴約，生活 outcomes 只完成第一 slot。#71 earned 初遇資格累積不補 local contact／consent；C0 [plan 的 findings/prerequisites](docs/narrative/M1_GAMEPLAY_VALIDATION_SLICE.md) 列明需同步的舊 discovery／contact／absolute-exclusion annotations；先 bounded alignment＋獨立 consistency review，再兩條 anchor ND。既有 NQA／Human／CI 都保留 exact snapshot scope，不推定 current main 重跑或完整 slice acceptance。
 
 ## Gameplay Validation Slice integration
 
