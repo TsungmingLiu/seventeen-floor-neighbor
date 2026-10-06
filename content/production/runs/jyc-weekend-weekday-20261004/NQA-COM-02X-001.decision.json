@@ -1,0 +1,86 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "jyc-weekend-weekday-20261004",
+  "task_id": "NQA-COM-02X-001",
+  "scene_id": "COM-02X",
+  "task_type": "narrative_review",
+  "status": "PASS",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.5.1",
+    "pass": "narrative_review"
+  },
+  "source_ref": "26c264c010994be2328bb45a09ece2c755bad9c6",
+  "packet_sha256": "0008bd1a67da771dba8a1017d9db5c88d26e3b0bad9eccf95d28570b1200c8f2",
+  "input_digest_sha256": "48675aa3e8daadff2d407cfd649a397db398e04984712579b5c86eaa62bff245",
+  "input_versions": [
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-02X.json",
+      "version": "43287b42f10538f1d5294aaa6be9994639b010a6",
+      "location": "content/production/narrative/opening-ch1/COM-02X.json"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-02X.md",
+      "version": "06f4268a82669f06992df88893dafbdfc454d178",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02X.md"
+    },
+    {
+      "id": "file:docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md",
+      "version": "6183a123370363d95112994d9d88a6a6296a9d4e",
+      "location": "docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md"
+    },
+    {
+      "id": "file:docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md",
+      "version": "7144fe200bcb85874ad54c151eb0d77effc7be04",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-00.md",
+      "version": "59520478b9c3132cc3ccb1b6105f091b244131dc",
+      "location": "docs/narrative/scenes/vertical-slice/COM-00.md"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-01X.md",
+      "version": "4dc02231b706015c6e6dfc633763f40ae51ddec0",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01X.md"
+    }
+  ],
+  "output_versions": [],
+  "qa_codes": [
+    {
+      "name": "NQA-VOICE-AND-PACING",
+      "code": "NQA-VOICE-AND-PACING",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-DIALOGUE-NATURALISM",
+      "code": "NQA-DIALOGUE-NATURALISM",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-KNOWLEDGE-AND-CONTACT-TIMING",
+      "code": "NQA-KNOWLEDGE-AND-CONTACT-TIMING",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-VARIANTS-REJOIN-AND-PAYOFFS",
+      "code": "NQA-VARIANTS-REJOIN-AND-PAYOFFS",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-STATE-ID-AND-MERGE-BOUNDARIES",
+      "code": "NQA-STATE-ID-AND-MERGE-BOUNDARIES",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-REQUESTED-PAYOFFS",
+      "code": "NQA-REQUESTED-PAYOFFS",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [],
+  "human_gate_required": "none",
+  "invalidates": []
+}

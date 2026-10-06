@@ -50,14 +50,14 @@ test('newer complete worlds, ordinary Memory cursors, restart and predecessor sa
   }
 });
 
-test('cafe before convenience preserves the later COM03X frontier across isolated Memory replay and reload', () => {
+test('cafe after convenience preserves the later COM03X frontier across isolated Memory replay and reload', () => {
   const storage = new Storage();
   const progress = new ProgressStore(chapter, memories, storage);
   const state = { ...chapter.initialState, flags: new Set([marker]) };
   progress.capture('common_station_cafe_jyc_enter', state, []);
-  assert.equal(progress.data.frontierRank, 150);
+  assert.equal(progress.data.frontierRank, 180);
   progress.capture('common_convenience_xu_exit_08', state, []);
-  assert.equal(progress.data.frontierRank, 160);
+  assert.equal(progress.data.frontierRank, 180);
   progress.capture('common_package_xu_line', state, []);
   assert.equal(progress.data.frontierRank, 200);
   const world = structuredClone(progress.data.frontier);
@@ -88,7 +88,7 @@ test('cafe contact is established only by the accepted exchange and the no-conta
   assert.deepEqual(nodes.common_station_cafe_jyc_contact_choice.choices.map(x=>x.id),['com02j_offer_discord','com02j_leave_without_contact']);
   assert.ok(nodes.com02j_offer_discord_04.entryFlags.includes('contact_jyc'));
   assert.ok(!JSON.stringify(nodes.com02j_leave_without_contact).includes('contact_jyc'));
-  assert.equal(nodes.common_station_cafe_jyc_complete.default,'common_convenience_xu_enter');
+  assert.equal(nodes.common_station_cafe_jyc_complete.default,'common_package_xu_arrive');
   assert.equal(nodes.common_station_cafe_jyc_first_drawing_02.entryEffects.met_jiang_yucheng,1);
   assert.equal(nodes.common_station_cafe_jyc_first_drawing_02.speakerLabel,'女生');
 });

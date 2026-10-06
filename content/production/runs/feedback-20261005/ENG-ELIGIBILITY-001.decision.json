@@ -1,0 +1,217 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "resume_checkpoint",
+  "run_id": "feedback-20261005",
+  "task_id": "ENG-ELIGIBILITY-001",
+  "scene_id": "COM-01J",
+  "task_type": "integrate",
+  "status": "NEEDS_REVIEW",
+  "harness": {
+    "id": "integrator",
+    "version": "1.4.0",
+    "pass": null
+  },
+  "source_ref": "6441ff29cb8ba0a7aa6f28b92bf40c9a1da49739",
+  "packet_sha256": "5e43bacf42436af5332d5d94f048a7b2e18f39fc40b66bcc6fdd5512fcbdbc90",
+  "input_digest_sha256": "ca136210c3bf387a3235e0dbe219dbee07e54b37bb69d7fc691dac877494b027",
+  "input_versions": [
+    {
+      "id": "ARCHITECTURE.md",
+      "location": "ARCHITECTURE.md",
+      "version": "8af34c4fa67c517b93f6839c37c5eb247207f1d0"
+    },
+    {
+      "id": "src/app.js",
+      "location": "src/app.js",
+      "version": "bce8e2af4de84c9f6d17c2a823222bd2c02e264c"
+    },
+    {
+      "id": "src/engine.js",
+      "location": "src/engine.js",
+      "version": "d163e79bdd447a8ecd66198b2817633022c43ad6"
+    },
+    {
+      "id": "src/progress.js",
+      "location": "src/progress.js",
+      "version": "2394f0f42946d0af0d40e0aa4b57c2b8c0c03082"
+    },
+    {
+      "id": "src/branches.js",
+      "location": "src/branches.js",
+      "version": "00a87a63211358f221707fabefc68e6dda3c37df"
+    },
+    {
+      "id": "src/memories.js",
+      "location": "src/memories.js",
+      "version": "7894956e0773ebdbd3f3509501cb0a1d4e3b3fab"
+    },
+    {
+      "id": "src/presentation.js",
+      "location": "src/presentation.js",
+      "version": "8c3842b345cacac0f3fa548558171b52ee66fc74"
+    },
+    {
+      "id": "content/routes/opening-demo/chapter-01.json",
+      "location": "content/routes/opening-demo/chapter-01.json",
+      "version": "e91d951e8660553c960472502112c09c9f7e44b9"
+    },
+    {
+      "id": "content/routes/opening-demo/memories.json",
+      "location": "content/routes/opening-demo/memories.json",
+      "version": "4263c2b18a2259567d44f53176d0ef6d73148ebe"
+    },
+    {
+      "id": "content/production/narrative/opening-ch1/COM-01B.json",
+      "location": "content/production/narrative/opening-ch1/COM-01B.json",
+      "version": "2ef1b23f939be4c25d5204d4376a478cb97ac31c"
+    },
+    {
+      "id": "content/production/narrative/opening-ch1/COM-01J.json",
+      "location": "content/production/narrative/opening-ch1/COM-01J.json",
+      "version": "09a37d931b5428cca3e36e4f1c96c4c178007681"
+    },
+    {
+      "id": "content/production/narrative/opening-ch1/COM-02J.json",
+      "location": "content/production/narrative/opening-ch1/COM-02J.json",
+      "version": "149826944b31512fae0169dc90822de05604aed8"
+    },
+    {
+      "id": "content/production/narrative/opening-ch1/COM-03J.json",
+      "location": "content/production/narrative/opening-ch1/COM-03J.json",
+      "version": "e92b4d22af4e5cb57537de6f34856a28b280a1b9"
+    },
+    {
+      "id": "content/production/runs/feedback-20261005/ND-FEEDBACK-001.decision.json",
+      "location": "content/production/runs/feedback-20261005/ND-FEEDBACK-001.decision.json",
+      "version": "87dd17ab2d246b370f8b5fd92ea4ec9153dda77c"
+    },
+    {
+      "id": "docs/narrative/scenes/vertical-slice/COM-02X.md",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02X.md",
+      "version": "06f4268a82669f06992df88893dafbdfc454d178"
+    },
+    {
+      "id": "docs/narrative/scenes/vertical-slice/COM-03X.md",
+      "location": "docs/narrative/scenes/vertical-slice/COM-03X.md",
+      "version": "64ddb75fa6154cd0484ed3d7b841c0cff7b58dac"
+    },
+    {
+      "id": "tests/jyc-frontier-monotone.test.mjs",
+      "location": "tests/jyc-frontier-monotone.test.mjs",
+      "version": "646fdc55cf2342dcd86bd2caad993345da7a8ebf"
+    },
+    {
+      "id": "tests/jyc-weekend-weekday.test.mjs",
+      "location": "tests/jyc-weekend-weekday.test.mjs",
+      "version": "df2c3ef4b373b7783f3d13b8dc2424c1b6c09b1d"
+    },
+    {
+      "id": "tests/engine-progress.test.mjs",
+      "location": "tests/engine-progress.test.mjs",
+      "version": "e998f1c8965633054769a5cd13bc88d6086e8be5"
+    },
+    {
+      "id": "tests/progress.test.mjs",
+      "location": "tests/progress.test.mjs",
+      "version": "f13b5bb6f7a66b8533d552ceafb6741e6fd04938"
+    },
+    {
+      "id": "tests/memories.test.mjs",
+      "location": "tests/memories.test.mjs",
+      "version": "a3c3d91d826d07b136d96b2a52cfbd001a8510da"
+    },
+    {
+      "id": "tests/presentation.test.mjs",
+      "location": "tests/presentation.test.mjs",
+      "version": "2404cc5648aea7a9fc320a4be557da20bc77b889"
+    },
+    {
+      "id": "tests/browser-acceptance.spec.mjs",
+      "location": "tests/browser-acceptance.spec.mjs",
+      "version": "ef42a8ea69a196fc4391c5ab5e7b781a064f512d"
+    },
+    {
+      "id": "tests/fixtures/jyc-pre-revision-save.json",
+      "location": "tests/fixtures/jyc-pre-revision-save.json",
+      "version": "625c57d4bd48e89c980946efd846fcf632cf22ca"
+    },
+    {
+      "id": "tests/fixtures/jyc-pre-revision-parity.json",
+      "location": "tests/fixtures/jyc-pre-revision-parity.json",
+      "version": "ea9bfbfb3309064eaf6f23abf482f1838e5d5f1b"
+    },
+    {
+      "id": "package.json",
+      "location": "package.json",
+      "version": "84b0644459ef847c9c3bb95e1d37ba8b53fbef16"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "src/engine.js",
+      "location": "src/engine.js",
+      "version": "sha256:5406c9ab49a1c024c1dcdb1ab2d2cd2db8e1363bd75a55e91e53f817e2024bdb"
+    },
+    {
+      "id": "src/progress.js",
+      "location": "src/progress.js",
+      "version": "sha256:184f045542d0b75f96c24a0ad75e27444c97564af21c9029d6e9fa4e4a3d0b9a"
+    },
+    {
+      "id": "src/branches.js",
+      "location": "src/branches.js",
+      "version": "sha256:bb5dafe828ab7a43dd28b4d0a00b145b8d0f9dbcb655817ff79aaedd7fc7375c"
+    },
+    {
+      "id": "src/presentation.js",
+      "location": "src/presentation.js",
+      "version": "sha256:4c6b8854062c59b1025e9cd0329af08d842e724f1f32ff49b302537675af8463"
+    },
+    {
+      "id": "content/routes/opening-demo/chapter-01.json",
+      "location": "content/routes/opening-demo/chapter-01.json",
+      "version": "sha256:fa600bc6fbb24017a69824a1eeef75313b2bef4a4deeb816c3cdc6107d9f4c55"
+    },
+    {
+      "id": "docs/narrative/scenes/vertical-slice/COM-03X.md",
+      "location": "docs/narrative/scenes/vertical-slice/COM-03X.md",
+      "version": "sha256:641f6aa6ef842af5a9fe51f9a3c96f11ebcc1a88d620834ee23086ee530daf9d"
+    },
+    {
+      "id": "tests/jyc-weekend-weekday.test.mjs",
+      "location": "tests/jyc-weekend-weekday.test.mjs",
+      "version": "sha256:f16df2e00ef068b5dd0c6632167e5ceab85607efe9ba9f3b1bb091f8c91fb912"
+    },
+    {
+      "id": "tests/presentation.test.mjs",
+      "location": "tests/presentation.test.mjs",
+      "version": "sha256:d43ee693abbd9f5b599bc2f06f333d3597e4b47be52f51f20647fd399db171b0"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "actual shared engine bookstore/cafe eligibility, save migration, main frontier and consent focused regressions",
+      "code": "ENG-EARNED-ELIGIBILITY",
+      "result": "PASS"
+    },
+    {
+      "name": "source build, validate and diff check",
+      "code": "ENG-BUILD-VALIDATE",
+      "result": "PASS"
+    },
+    {
+      "name": "built GAME browser reunion without purchase/contact injection",
+      "code": "ENG-BROWSER-SMOKE",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "Implementation follows clarified user split: bookstore-only reunion; any genuinely earned initial encounter for future availability. Old immutable packet contracts are narrower. Fresh corrected design and final source integrator conformance review required before PASS.",
+    "COM01B text-order and thought parity assertions remain unchanged; both explicitly excluded pending accepted writer QA compile. Full npm test deferred by coordinator to fresh final source integrator.",
+    "Later source speaker tags need final integrator acquisition: docs/narrative/scenes/vertical-slice/COM-03M.md and docs/narrative/scenes/vertical-slice/OPEN-A.md.",
+    "User clarified future availability from any genuinely earned initial encounter; COM01B/COM02J/COM03J contract effective-exclusion mapping descriptions still say bookstore-only and need mechanical approved projection. No art or final playable acceptance claimed."
+  ],
+  "human_gate_required": "none",
+  "invalidates": []
+}

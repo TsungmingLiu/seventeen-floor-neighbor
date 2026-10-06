@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { mkdtemp, mkdir, writeFile, rm } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
-import { spawnSync } from 'node:child_process';
+import { spawnSync, execFileSync } from 'node:child_process';
 import { loadCoverageInputs, createCoverageReport, coverageExitCode, sha256 } from '../tools/asset-coverage.mjs';
 
 const base = await loadCoverageInputs();
@@ -28,6 +28,15 @@ function updateDecisionHash(input, receiptPath) {
   decision.sha256 = sha256(JSON.stringify(decision.value));
   receipt.humanDecision.sha256 = decision.sha256;
 }
+// Accepted-as-is regression bindings belong to the exact pre-revision fixture.
+function historicalBindings() {
+  const input = clone();
+  for (const location of [routePath, storyPath, memoriesPath]) {
+    const value = JSON.parse(execFileSync('git', ['show', `013b3f73e75d8f00bbd2fa53a6cd2d885fecb9a9:${location}`], { encoding: 'utf8' }));
+    input.documents[location].value = value;
+  }
+  return input;
+}
 function clearFixture() {
   const input = clone();
   const route = document(input, routePath);
@@ -42,11 +51,16 @@ test('current deterministic inventory distinguishes scene-local preview and adop
   const result = report();
   assert.equal(JSON.stringify(result), JSON.stringify(report()));
   assert.deepEqual(result.summary, {
-    inventory: 22, runtimeBound: 22, declared: 22, referenced: 18, unused: 0,
-    inventoryStatuses: { placeholder: 2, provisional: 2, accepted: 18, unverified: 0 },
-    runtimeStatuses: { placeholder: 2, provisional: 2, accepted: 18, unverified: 0 },
-    blockedRuntimeAssets: 10, bindingErrors: 1, coverageClear: false
+    inventory: 22, runtimeBound: 20, declared: 20, referenced: 14, unused: 2,
+    inventoryStatuses: { placeholder: 2, provisional: 2, accepted: 16, unverified: 2 },
+    runtimeStatuses: { placeholder: 2, provisional: 2, accepted: 16, unverified: 0 },
+    blockedRuntimeAssets: 8, bindingErrors: 1, coverageClear: false
   });
+  for (const id of ['cg.opening.com02x.microwave_wait', 'cg.opening.com02x.walk_home']) {
+    assert.equal(asset(result, id).runtimeBound, false);
+    assert.deepEqual(asset(result, id).declaredInRoutes, []);
+    assert.deepEqual(asset(result, id).references, []);
+  }
   assert.equal(asset(result, preview).status, 'placeholder');
   assert.equal(asset(result, preview).runtimeBound, true);
   assert.deepEqual(result.bindingErrors, [{ code: 'PREVIEW_ROUTE_OPT_IN', routeId: 'opening-demo' }]);
@@ -55,28 +69,45 @@ test('current deterministic inventory distinguishes scene-local preview and adop
     binding.startsWith('node:common_recommend_discord_jyc_') || binding.startsWith('memory:mem.opening.ch1.recommend-discord-jyc:'));
   const previewBindings = allPreviewBindings.filter(binding => !com03jBindings.includes(binding));
   assert.ok(allPreviewBindings.length > 253, 'the five approved preview scenes add bound turns');
-  assert.ok(com03jBindings.filter(binding => binding.startsWith('node:')).length >= 100);
+  assert.ok(com03jBindings.filter(binding => binding.startsWith('node:')).length >= 90);
   assert.deepEqual(com03jBindings.filter(binding => !binding.startsWith('node:')), [
     'memory:mem.opening.ch1.recommend-discord-jyc:cover',
     'memory:mem.opening.ch1.recommend-discord-jyc:titleBackdrop'
   ]);
   assert.deepEqual(previewBindings.filter(binding => !binding.startsWith('node:')), [
-    'ending:demo_complete', 'endingArt', 'memory:mem.opening.ch1.first-cafe-jyc:cover',
-    'memory:mem.opening.ch1.station-cafe-jyc:cover'
+    'ending:demo_complete', 'endingArt',
+    'memory:mem.opening.ch1.convenience-xu:cover', 'memory:mem.opening.ch1.convenience-xu:titleBackdrop',
+    ...['first-cafe-jyc', 'station-cafe-jyc'].map(id => `memory:mem.opening.ch1.${id}:cover`),
+    ...['taipei-street', 'weekday-outing', 'weekend-home'].flatMap(id => [`memory:mem.opening.ch1.${id}:cover`,`memory:mem.opening.ch1.${id}:titleBackdrop`])
   ]);
   for (const prefix of ['common_bookstore_bridge_', 'common_station_cafe_jyc_', 'common_recommend_discord_jyc_', 'COM03M-', 'OPEN-A-']) {
     assert.ok(allPreviewBindings.some(binding => binding.startsWith(`node:${prefix}`)), prefix);
   }
   assert.ok(allPreviewBindings.filter(binding => binding.startsWith('node:')).every(binding =>
-    /^node:(common_package_xu_|com03x_|common_station_cafe_jyc_|com02j_|common_bookstore_bridge_|com01b_|common_recommend_discord_jyc_|com03j_|COM03M-|OPEN-A-)/.test(binding)));
+    /^node:(common_package_xu_|com03x_|common_station_cafe_jyc_|com02j_|common_bookstore_bridge_|com01b_|common_acg_first_meet_(purchase|home_return)|common_weekend_home_|common_weekday_outing_|common_convenience_xu_|common_recommend_discord_jyc_|com03j_|COM03M-|OPEN-A-)/.test(binding)));
   assert.ok(result.assets.filter(item => item.references.some(ref => /^node:common_convenience_xu_/.test(ref.binding)))
-    .every(item => item.assetId === 'bg.opening.com02x.return_elevator_trial' ? item.status === 'placeholder' : item.status === 'accepted' && item.assetId !== preview));
+    .every(item => item.assetId === preview || item.assetId === 'bg.opening.com02x.return_elevator_trial'));
   assert.equal(coverageExitCode(result), 0);
+  assert.deepEqual(result.assets.filter(item => item.status === 'unverified').map(item => item.assetId), ['cg.opening.com02x.microwave_wait', 'cg.opening.com02x.walk_home']);
   assert.equal(coverageExitCode(result, { strict: true }), 1);
   assert.equal(result.scope.releaseReadiness, 'not_recorded');
   assert.equal(result.scope.playableAcceptance, 'not_assessed');
   assert.equal(result.scope.binaryBytesVerified, false);
   for (const item of result.assets) assert.equal(item.releaseReadiness, 'not_recorded');
+});
+
+test('reactivating a retired asset with an actual runtime reference binds it and fails provenance closed', () => {
+  const input = clone();
+  const id = 'cg.opening.com02x.microwave_wait';
+  document(input, routePath).assetIds.push(id);
+  const nodes = document(input, storyPath).nodes;
+  nodes[Object.keys(nodes)[0]].visual = { mode: 'cg', asset: id };
+  const result = report(input);
+  assert.equal(asset(result, id).runtimeBound, true);
+  assert.ok(asset(result, id).references.some((reference) => reference.binding.startsWith('node:')));
+  assert.ok(asset(result, id).provenanceErrors.length > 0);
+  assert.equal(coverageExitCode(result), 1);
+  assert.equal(coverageExitCode(result, { strict: true }), 1);
 });
 
 test('controlled clear coverage passes strict without granting release/playable acceptance', () => {
@@ -133,8 +164,8 @@ test('provisional receipt restriction overrides active-production catalog status
   }
 });
 
-test('as-is decisions retain exact acceptance, QA FAIL and known issues', () => {
-  const result = report();
+test('as-is decisions retain exact acceptance, QA FAIL and known issues in their historical bindings', () => {
+  const result = report(historicalBindings());
   for (const id of ['bg.opening.com02x.convenience_night', 'cg.opening.com02x.recognition', 'cg.opening.com02x.microwave_wait', 'cg.opening.com02x.walk_home']) {
     const item = asset(result, id);
     assert.equal(item.status, 'accepted');
@@ -251,7 +282,7 @@ test('CLI JSON is deterministic and strict mode returns expected failure', () =>
   assert.equal(second.stdout, first.stdout);
   assert.equal(strict.status, 1, strict.stderr);
   assert.equal(strict.stdout, first.stdout);
-  assert.equal(JSON.parse(first.stdout).summary.runtimeBound, 22);
+  assert.equal(JSON.parse(first.stdout).summary.runtimeBound, 20);
 });
 function fileURL() { return new URL('../tools/asset-coverage.mjs', import.meta.url).pathname; }
 

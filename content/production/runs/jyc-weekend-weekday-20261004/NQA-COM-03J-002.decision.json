@@ -1,0 +1,89 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "jyc-weekend-weekday-20261004",
+  "task_id": "NQA-COM-03J-002",
+  "scene_id": "COM-03J",
+  "task_type": "narrative_review",
+  "status": "NEEDS_REVIEW",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.5.1",
+    "pass": "narrative_review"
+  },
+  "source_ref": "eecd0a79a98b9449809fb93ec13bdc577eda0314",
+  "packet_sha256": "f7815d3d0072f87632897b49232d936a70e38e7a8b26d79dd86bb268d68ceeb8",
+  "input_digest_sha256": "3b2357c5ed3531f1c36c4680de37e396dbbbdc7749697b3a7c49f1fff8957d37",
+  "input_versions": [
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-03J.json",
+      "version": "79dfbcdd38ab5a17098112e969a8c2941bf66172",
+      "location": "content/production/narrative/opening-ch1/COM-03J.json"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-03J.md",
+      "version": "dda6c86c77a17dc9d6960ea45ee35f1a89af8230",
+      "location": "docs/narrative/scenes/vertical-slice/COM-03J.md"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-02J.md",
+      "version": "88eee4bd88926df7056f91edb29a46c70d0384e0",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02J.md"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-01J.md",
+      "version": "bba46990dd9db33136156fffaf792b2ed03c53f1",
+      "location": "docs/narrative/scenes/vertical-slice/COM-01J.md"
+    },
+    {
+      "id": "file:docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_COMMON.md",
+      "version": "a0625e3550468d74db4b12252ae590ca6dc5652c",
+      "location": "docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_COMMON.md"
+    },
+    {
+      "id": "file:docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md",
+      "version": "7144fe200bcb85874ad54c151eb0d77effc7be04",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md"
+    },
+    {
+      "id": "file:docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md",
+      "version": "9d44ab016a3a32da239b2d711117e05f087625f4",
+      "location": "docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md"
+    }
+  ],
+  "output_versions": [],
+  "qa_codes": [
+    {
+      "name": "NQA-KNOWLEDGE-CALLBACK",
+      "code": "NQA-KNOWLEDGE-CALLBACK",
+      "result": "NEEDS_REVIEW"
+    },
+    {
+      "name": "NQA-DIALOGUE-NATURALISM",
+      "code": "NQA-DIALOGUE-NATURALISM",
+      "result": "NEEDS_REVIEW"
+    },
+    {
+      "name": "NQA-VOICE-POV-AND-KNOWLEDGE",
+      "code": "NQA-VOICE-POV-AND-KNOWLEDGE",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-LOCAL-VARIANTS-CHOICES-AND-REJOIN",
+      "code": "NQA-LOCAL-VARIANTS-CHOICES-AND-REJOIN",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-STATE-AND-PAYOFF-BOUNDARIES",
+      "code": "NQA-STATE-AND-PAYOFF-BOUNDARIES",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "Current COM-02J has no layer joke supporting the retained `general_praise` COM-03J callback.",
+    "Consecutive polished visual interpretations in the online exchange warrant focused dialogue-naturalism review."
+  ],
+  "human_gate_required": "none",
+  "invalidates": []
+}

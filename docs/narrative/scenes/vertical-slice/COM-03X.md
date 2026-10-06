@@ -1,5 +1,17 @@
 # COM-03X — 包裹 / Line
 
+## Current authorized weekend/weekday design — ND-ARC-001
+
+- Lifecycle: **CANONICAL** task-local Narrative Design amendment, 2026-10-04. Source ref: `013b3f73e75d8f00bbd2fa53a6cd2d885fecb9a9`. Human 授權本輪方向與必要改寫；本 pass 沒有新 final prose、QA、runtime 或 CG acceptance。
+- Owning design: `docs/narrative/JYC_WEEKEND_WEEKDAY_REVISION.md`；current contract: `content/production/narrative/opening-ch1/COM-03X.json`。此 design section 與 current JSON 取代下方 baseline 的衝突時序／gate；下方舊 Locked prose 與其歷史 binding 完整保留作局部改寫或相容性參考，不是本輪新 Script Lock。
+- 三條平日回家走法共同包裹：不需 dialogue rewrite。現有完整包裹／樣本／Line prose 可保留：她「上次／那天」deadline 指週末便利店；雙方工作與附近食物在兩支均已建立。入口在 cafe reunion、cafe first 或 street 回家後同一平日晚間；完整保留不同 Jiang knowledge/contact/exclusion。exit 只有真實 cafe contact 可接 COM-03J，其餘接 COM-03M Xu-only。
+- Stable ID plan：無新 IDs；common_package_xu_* 與三個 com03x_* 保留。
+- 永久排除：本輪 `com01b_weekday_street_walk` 才寫 `jyc_permanently_excluded=true`。此 flag 先於 contact/history，永不由 merge、reload、scheduler、public shared scene 或 ordinary invite 清除。Memory replay 限自己的 snapshot，不向 live 主線寫入；改走前一分岔屬另一 playthrough，不是本輪 reopening。
+- Semantic visual impact 與四個必要 dialogue units 見 owning design；現有 accepted image bytes、QA/Human 歷史都保留。獨立下游才裁決哪些畫面可重用。
+
+## Preserved pre-revision baseline
+
+
 ## Status
 
 - Lifecycle: **CANONICAL** scene-local authoring artifact.
@@ -15,7 +27,7 @@
 - `docs/narrative/CONTENT_PRODUCTION_SPEC.md` — production layer boundaries and fixed terminology.
 - `docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md#L30-L70`, `docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md#L129-L147`, `docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md#L309-L329` — protagonist, dialogue intent and COM-03X function.
 - `docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_COMMON.md#L161-L183` — package, client deadline, practical contact and later information payoff.
-- `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L170-L186`, `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L253-L289`, `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L335-L344`, `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L354-L354`, `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L688-L704` — state semantics, knowledge and dependency boundaries.
+- `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L170-L186`, `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L253-L289`, `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L335-L344`, `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L354-L354`, `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L410-L410` — state semantics, knowledge and dependency boundaries.
 - `content/characters/xu_tang.json#L2-L4`, `content/characters/xu_tang.json#L14-L21` — task-local identity and behavior facts.
 - Prior unapproved COM-03X S1 candidate, pinned at `a2ff5e369b304249a84788a1a6e603dc0a00c44b`: `docs/narrative/scenes/vertical-slice/COM-03X.md#L1-L449`, `docs/narrative/scenes/vertical-slice/COM-03X.md#L577-L615` — existing narrative and branch IDs only within the verified contract; superseded by this Script Lock.
 
@@ -233,17 +245,17 @@
 
 **Narration**：換好衣服後，我正要把手機插上充電，螢幕亮了一下。
 
-**Xu Tang (message)**：剛剛說的粥店，在這裡。
+**Line-許棠 (message)**：剛剛說的粥店，在這裡。
 
 **Action**：訊息附著店家的地圖位置。
 
-**Xu Tang (message)**：記得週三沒開。
+**Line-許棠 (message)**：記得週三沒開。
 
 **Protagonist (message)**：收到，謝謝。
 
 **Action**：我點開地圖看了一眼，把手機接上充電線。
 
-**End actions**：本幕結束時套用一次 base state；結構上的下一幕為 `COM-03J`。
+**End actions**：本幕結束時套用一次 base state；只有實際 cafe contact 且通過累積真正初遇（書店或 cafe）eligibility 的有效排除 gate 時才接 `COM-03J`；未曾真正取得任何初遇時街頭排除仍有效。無當次 contact 者接許棠專屬的 `COM-03M`；累積 eligibility 不補 contact 或改寫街頭 snapshot。
 
 ## Player choice / rejoin contract
 
@@ -265,7 +277,7 @@
 - Preserve all prior pattern telemetry and boundary counters, including `xt_advice_tendency` and `xt_boundary_strikes`; no increments, resets or contact penalty from COM-02X's one unsolicited suggestion.
 - Narrative knowledge: Xu's voluntarily shown paper/color checks, client deadline and Line; later nearby shop position. Xu knows the envelope was returned intact and has the protagonist's Line.
 - No print-process flag or duplicate Line booleans; `contact_xu` remains the single contact gate. No new focus, exclusivity or cross-character knowledge.
-- Structural successor: `COM-03J`; contact contributes to the existing later COM-03M prerequisite, without unlocking OPEN-A here.
+- Conditional structural successor: actual cafe contact with Jiang not permanently excluded → `COM-03J`; no contact or street path → Xu-only `COM-03M`. Preserve actual Jiang contact/exclusion state; do not unlock OPEN-A here.
 - Integration is deferred; no runtime nodes or package data are changed by this authoring output.
 
 ## Semantic Visual Beats

@@ -1,0 +1,79 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "jyc-weekend-weekday-20261004",
+  "task_id": "NQA-COM-03J-003",
+  "scene_id": "COM-03J",
+  "task_type": "narrative_review",
+  "status": "NEEDS_REVIEW",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.5.1",
+    "pass": "narrative_review"
+  },
+  "source_ref": "5ff386dc1a4deb00f6f01772c7db9835e0191124",
+  "packet_sha256": "ebf9e12255c20f6f048dc501551ba141c9a40c7efd5ada5f25e5c0aa65cc0221",
+  "input_digest_sha256": "8ea57d2392757d0757dc4fafa73a3f70552d87a839f0ceca4cfd83953956717e",
+  "input_versions": [
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-03J.json",
+      "version": "79dfbcdd38ab5a17098112e969a8c2941bf66172",
+      "location": "content/production/narrative/opening-ch1/COM-03J.json"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-03J.md",
+      "version": "1397ebdd4181c67e02c83a203f7ee4d03329d73e",
+      "location": "docs/narrative/scenes/vertical-slice/COM-03J.md"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-02J.md",
+      "version": "88eee4bd88926df7056f91edb29a46c70d0384e0",
+      "location": "docs/narrative/scenes/vertical-slice/COM-02J.md"
+    },
+    {
+      "id": "file:docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md",
+      "version": "9d44ab016a3a32da239b2d711117e05f087625f4",
+      "location": "docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md"
+    }
+  ],
+  "output_versions": [],
+  "qa_codes": [
+    {
+      "name": "NQA-VOICE-AND-PACING",
+      "code": "NQA-VOICE-AND-PACING",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-KNOWLEDGE-AND-CALLBACK",
+      "code": "NQA-KNOWLEDGE-AND-CALLBACK",
+      "result": "NEEDS_REVIEW"
+    },
+    {
+      "name": "NQA-CHOICE-AND-REJOIN",
+      "code": "NQA-CHOICE-AND-REJOIN",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-STATE-AND-IDS",
+      "code": "NQA-STATE-AND-IDS",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-REQUIRED-PAYOFFS",
+      "code": "NQA-REQUIRED-PAYOFFS",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-DIALOGUE-NATURALISM",
+      "code": "NQA-DIALOGUE-NATURALISM",
+      "result": "NEEDS_REVIEW"
+    }
+  ],
+  "known_issues": [
+    "Review or neutralize the shared_visual_design callback wording against actual COM-02J spoken details.",
+    "NQA-DIALOGUE-NATURALISM remains NEEDS_REVIEW for the sustained polished visual-reading sequence."
+  ],
+  "human_gate_required": "none",
+  "invalidates": []
+}

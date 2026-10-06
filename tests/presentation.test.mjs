@@ -22,3 +22,10 @@ test('character speech and thought remain visually distinguishable', () => {
   assert.equal(presentationModeForNode({ speaker: '內心', text: '（她是在等我嗎？）' }), 'thought');
   assert.equal(speakerLabelForNode({ speaker: '內心', text: '（她是在等我嗎？）' }), '');
 });
+
+
+test('Line speaker metadata distinguishes remote Xu messages from face-to-face speech', () => {
+  assert.equal(speakerLabelForNode({speaker:'許棠',channel:'LINE',text:'收到。'}),'Line-許棠');
+  assert.equal(speakerLabelForNode({speaker:'許棠',text:'收到。'}),'許棠');
+  assert.equal(speakerLabelForNode({speaker:'許棠',speakerLabel:'Line-許棠',text:'收到。'}),'Line-許棠');
+});

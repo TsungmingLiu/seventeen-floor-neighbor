@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { loadContent, validateContent } from '../tools/content-lib.mjs';
+import { speakerLabelForNode } from '../src/presentation.js';
 
 const source = readFileSync(new URL('../docs/narrative/scenes/vertical-slice/COM-03X.md', import.meta.url), 'utf8');
 const script = source.split('## Complete playable script\n')[1].split('## Player choice / rejoin contract')[0];
@@ -13,12 +14,18 @@ test('COM03X runtime preserves every approved turn, speaker, choice and branch r
   let turns = 0;
   for (const block of script.matchAll(/^#{3,4} (?:Branch )?(\w+)\n([\s\S]*?)(?=^#{3,4} |(?![\s\S]))/gm)) {
     const [, anchor, body] = block;
-    const approved = [...body.matchAll(/^\*\*(Narration|Action|Xu Tang(?: \(message\))?|Protagonist(?: \(message\))?|Choice prompt)\*\*：(.*)$/gm)];
+    const approved = [...body.matchAll(/^\*\*(Narration|Action|(?:Xu Tang|Line-許棠)(?: \(message\))?|Protagonist(?: \(message\))?|Choice prompt)\*\*：(.*)$/gm)];
     let id = anchor;
     for (const [index, [, role, text]] of approved.entries()) {
       const node = nodes[id];
       assert.equal(node.text, text, `${anchor} turn ${index}`);
-      assert.equal(node.speaker, role.startsWith('Xu Tang') ? '許棠' : role.startsWith('Protagonist') ? '你' : '旁白');
+      const isXuTang = role.startsWith('Xu Tang') || role.startsWith('Line-許棠');
+      assert.equal(node.speaker, isXuTang ? '許棠' : role.startsWith('Protagonist') ? '你' : '旁白');
+      if (isXuTang) {
+        const remote = role.startsWith('Line-許棠') || role.includes('(message)');
+        assert.equal(speakerLabelForNode(node), remote ? 'Line-許棠' : '許棠', `${anchor} contextual Xu Tang label ${index}`);
+        if (remote) assert.equal(node.channel, 'LINE', `${anchor} remote Xu Tang channel ${index}`);
+      }
       turns += 1;
       if (index < approved.length - 1) id = node.next;
     }
@@ -48,7 +55,7 @@ test('COM03X placeholder is opt-in, excluded from Gallery, and rejected by the f
     if (node.type === 'route' || node.type === 'branch') continue;
     assert.deepEqual(node.visual, { mode: 'composite', background: preview, sprites: [] });
   }
-  assert.equal(route.memoryLibrary.events.length, 7, 'the first cafe meeting has its own truthful Memory card');
+  assert.equal(route.memoryLibrary.events.length, 10, 'the first cafe meeting has its own truthful Memory card');
   assert.ok(route.memoryLibrary.events.every(event => !event.galleryAssets.includes(preview)));
   assert.deepEqual(await validateContent(content), []);
   const finalErrors = await validateContent(content, { finalVisuals: true });

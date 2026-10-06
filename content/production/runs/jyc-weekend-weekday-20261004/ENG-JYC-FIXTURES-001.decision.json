@@ -1,0 +1,117 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "resume_checkpoint",
+  "run_id": "jyc-weekend-weekday-20261004",
+  "task_id": "ENG-JYC-FIXTURES-001",
+  "scene_id": "COM-01B",
+  "task_type": "integrate",
+  "status": "PASS",
+  "harness": {
+    "id": "integrator",
+    "version": "1.4.0",
+    "pass": null
+  },
+  "source_ref": "c57b547154a616c175c3b51508777865faef8f54",
+  "packet_sha256": "e10451fa51cabb53f918174245b89ff5847e99a9bad4eacd9fec39d60e5d9804",
+  "input_digest_sha256": "9e7d1b73dbb96d98354406ffdbf25142eb7ae2526b69640523c31bc207a1b0f5",
+  "input_versions": [
+    {
+      "id": "source:tests/content-validation.test.mjs",
+      "version": "af1110f34431a486e23104f918eb1ee5bad7367c",
+      "location": "tests/content-validation.test.mjs"
+    },
+    {
+      "id": "source:tests/production-future-manifests.test.mjs",
+      "version": "f6a9b4b28bb8837ba87fb666bdc3cccad5ab681d",
+      "location": "tests/production-future-manifests.test.mjs"
+    },
+    {
+      "id": "source:tools/content-lib.mjs",
+      "version": "f23bb8944202e374603d3914fbcfd069a765f58a",
+      "location": "tools/content-lib.mjs"
+    },
+    {
+      "id": "source:tools/validate-production-contracts.mjs",
+      "version": "5eeaa252ef121d8ce6e25557d860c88f1be09878",
+      "location": "tools/validate-production-contracts.mjs"
+    },
+    {
+      "id": "source:tools/asset-coverage.mjs",
+      "version": "fb834f574d8c928bb36ebf7249ea6a22b78d78df",
+      "location": "tools/asset-coverage.mjs"
+    },
+    {
+      "id": "source:tools/production-storage.mjs",
+      "version": "6166955c552505f86fdd220451e2bb8c40c7affd",
+      "location": "tools/production-storage.mjs"
+    },
+    {
+      "id": "source:tools/render-cg-packets.mjs",
+      "version": "346458725d572e54a8a1c734b14ec95586724412",
+      "location": "tools/render-cg-packets.mjs"
+    },
+    {
+      "id": "source:tools/production-task-io.mjs",
+      "version": "bd3d5fa6475d97b5885e81f007a7e0bb65137c42",
+      "location": "tools/production-task-io.mjs"
+    },
+    {
+      "id": "source:src/engine.js",
+      "version": "42ef281cc5f406a1ebb3149893399017f9b88067",
+      "location": "src/engine.js"
+    },
+    {
+      "id": "source:src/visuals.js",
+      "version": "8a4e6fa553e87d952dad9abee12d7aadf0517761",
+      "location": "src/visuals.js"
+    },
+    {
+      "id": "source:content/routes/opening-demo/route.json",
+      "version": "fc14181465cd3c3301f209dab239977677d7e419",
+      "location": "content/routes/opening-demo/route.json"
+    },
+    {
+      "id": "source:content/assets/manifest.json",
+      "version": "0000605b4efec9b96f00077c475eeed86009a653",
+      "location": "content/assets/manifest.json"
+    },
+    {
+      "id": "source:package.json",
+      "version": "84b0644459ef847c9c3bb95e1d37ba8b53fbef16",
+      "location": "package.json"
+    },
+    {
+      "id": "source:docs/PRODUCTION_WORKFLOW_TOOLS.md",
+      "version": "d68831f828f80ff6c9f9b61368949b81042e8d30",
+      "location": "docs/PRODUCTION_WORKFLOW_TOOLS.md"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "content-validation-regression",
+      "location": "tests/content-validation.test.mjs",
+      "version": "sha256:1091fe0d9967673335d1d87080cdb702d27237eaef903b64dcefbdd58a91790a"
+    },
+    {
+      "id": "future-manifest-regression",
+      "location": "tests/production-future-manifests.test.mjs",
+      "version": "sha256:45d9c455c3ade37aa27ff9c669fd1d48e08abe4de984929325e2d9e917adb0dd"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "Node 22 focused test files",
+      "code": "Node 22 focused test files",
+      "result": "PASS"
+    },
+    {
+      "name": "git diff --check",
+      "code": "git diff --check",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [],
+  "human_gate_required": "none",
+  "invalidates": []
+}

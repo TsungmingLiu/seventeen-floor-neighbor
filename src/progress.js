@@ -1,5 +1,6 @@
 import { memoryEventForNode } from './memories.js';
 import { normalizePlayerName } from './player-name.js';
+import { excludedJiangDestination, jiangExcluded } from './branches.js';
 
 // Only these additive Opening preview stats may default in historical saves.
 const OPENING_ADDITIVE_STATS = new Set(['T_XT', 'K_XT', 'xt_advice_tendency', 'T_JYC', 'C_JYC']);
@@ -29,9 +30,14 @@ export class ProgressStore {
       cursor: null,
       frontier: null,
       restartActive: false,
+      replayActive: false,
       runComplete: false,
       frontierMemoryEventId: null,
       frontierRank: -1,
+      jycEverUnlocked: false,
+      bookstoreEverEarned: false,
+      initialEncounterEverEarned: false,
+      unlockedMemoryEventIds: [],
       checkpoints: {},
       edges: [],
       com02jSupplement: null,
@@ -74,16 +80,27 @@ export class ProgressStore {
   clone(snapshot) {
     if (!this.valid(snapshot)) return null;
     return {
-      nodeId: snapshot.nodeId,
+      nodeId: this.chapter.id === 'opening-demo-chapter-01'
+        ? excludedJiangDestination(snapshot.nodeId, snapshot, this.hasJiangEligibility()) || snapshot.nodeId : snapshot.nodeId,
       stats: this.normalizeStats(snapshot.stats),
       flags: [...snapshot.flags],
       returnNodes: [...snapshot.returnNodes]
     };
   }
 
+  isLegacyOpeningSnapshot(snapshot) {
+    return this.chapter.id === 'opening-demo-chapter-01' && this.chapter.nodes.common_weekday_outing_selector
+      && /^(common_acg_first_meet_|common_station_cafe_jyc_|com02j_|common_convenience_xu_|com01b_(bookstore_skip|cafe_))/.test(snapshot?.nodeId || '')
+      && !snapshot.flags.some(flag => flag === 'preview:jyc-weekend-weekday' || flag === 'weekend_book_purchased'
+        || flag === 'jyc_permanently_excluded' || flag.startsWith('history:common_bookstore_bridge_weekend_decision:')
+        || flag.startsWith('entry-effect:common_weekend_home_'));
+  }
+
   sanitizeCheckpoints(checkpoints) {
     return Object.fromEntries(Object.entries(checkpoints || {})
       .filter(([id, snapshot]) => id === snapshot?.nodeId && this.valid(snapshot))
+      .filter(([id, snapshot]) => this.chapter.id !== 'opening-demo-chapter-01'
+        || !excludedJiangDestination(id, snapshot, this.hasJiangEligibility()))
       .map(([id, snapshot]) => [id, this.clone(snapshot)]));
   }
 
@@ -93,14 +110,39 @@ export class ProgressStore {
   }
 
   eventForSnapshot(snapshot) {
-    return snapshot ? memoryEventForNode(this.memories, snapshot.nodeId) : null;
+    if (!snapshot) return null;
+    const event = memoryEventForNode(this.memories, snapshot.nodeId);
+    if (this.chapter.id !== 'opening-demo-chapter-01' || !this.isCom02j(snapshot.nodeId)) return event;
+    // Shared cafe tails belong to the actual encounter, with no live-state fallback.
+    const first = !snapshot.flags.includes('history:cafe-bookstore-reunion') && (snapshot.nodeId.startsWith('common_station_cafe_jyc_first_')
+      || snapshot.flags.includes('entry-effect:common_station_cafe_jyc_first_drawing_02')
+      || snapshot.flags.includes('history:common_weekday_outing_decision:com01b_weekday_cafe_first')
+      || (this.isLegacyOpeningSnapshot(snapshot) && snapshot.stats.jyc_first_topic === 0
+        && !snapshot.flags.includes('jyc_initiated_second_contact')));
+    const id = first ? 'mem.opening.ch1.first-cafe-jyc' : 'mem.opening.ch1.station-cafe-jyc';
+    return this.memories.events.find(item => item.id === id) || event;
   }
 
   progressRank(snapshot, event = this.eventForSnapshot(snapshot)) {
+    if (this.isLegacyOpeningSnapshot(snapshot) && snapshot.nodeId.startsWith('com01b_')) return 140;
+    const continuationRank = this.openingContinuationRank(snapshot?.nodeId);
+    if (continuationRank >= 0) return continuationRank;
     // COM03X keeps its accepted Memory/art binding; its continuation is later
     // than the convenience-store card even though that card's rank is 160.
     if (this.chapter.id === 'opening-demo-chapter-01' && this.isCom03x(snapshot?.nodeId)) return 200;
     return event?.progressRank ?? -1;
+  }
+
+  openingContinuationRank(nodeId) {
+    if (this.chapter.id !== 'opening-demo-chapter-01' || !this.chapter.nodes[nodeId]) return -1;
+    if (nodeId.startsWith('COM03M-')) return 240;
+    if (nodeId.startsWith('OPEN-A-')) return 260;
+    return -1;
+  }
+
+  isOpeningReviewBoundary(nodeId) {
+    return this.chapter.id === 'opening-demo-chapter-01'
+      && /^OPEN-A-ENTRY-(?:PENDING-[XJ]|SOLO|REST|WAIT)$/.test(nodeId || '');
   }
 
   isCom03x(nodeId) {
@@ -118,6 +160,7 @@ export class ProgressStore {
   resumeUncontactedCom03j() {
     if (this.chapter.id !== 'opening-demo-chapter-01' || !this.chapter.nodes.common_recommend_discord_jyc_no_contact_exit) return;
     let redirected = false;
+    let frontierRedirected = false;
     let pruned = false;
     for (const [id, snapshot] of Object.entries(this.data.checkpoints)) {
       if (this.isCom03j(id) && !snapshot.flags.includes('contact_jyc')) {
@@ -129,11 +172,14 @@ export class ProgressStore {
       const snapshot = this.data[key];
       if (this.isCom03j(snapshot?.nodeId) && !snapshot.flags.includes('contact_jyc')) {
         snapshot.nodeId = 'common_recommend_discord_jyc_no_contact_exit';
-        this.data.runComplete = false;
+        if (key === 'frontier') {
+          frontierRedirected = true;
+          this.data.runComplete = false;
+        }
         redirected = true;
       }
     }
-    if (redirected) {
+    if (frontierRedirected) {
       this.data.frontierMemoryEventId = null;
       this.data.frontierRank = -1;
     }
@@ -167,6 +213,7 @@ export class ProgressStore {
     if (this.chapter.id !== 'opening-demo-chapter-01' || !this.chapter.nodes.common_station_cafe_jyc_enter) return;
     const pending = saved.com02jSupplement;
     if (pending && this.valid(pending.returnSnapshot) && this.valid(pending.entrySnapshot)
+      && !jiangExcluded(pending.returnSnapshot) && !jiangExcluded(pending.entrySnapshot)
       && this.isCom03x(pending.returnSnapshot.nodeId) && pending.entrySnapshot.nodeId === 'common_station_cafe_jyc_enter') {
       this.data.com02jSupplement = { returnSnapshot: this.clone(pending.returnSnapshot), entrySnapshot: this.clone(pending.entrySnapshot), wasComplete: pending.wasComplete === true };
       this.data.runComplete = false;
@@ -177,6 +224,7 @@ export class ProgressStore {
     if (restartActive || !cursor || !frontier || !this.isCom03x(cursor.nodeId)
       || cursor.nodeId !== frontier.nodeId || cursor.flags.includes('preview:com02j-complete')
       || frontier.flags.includes('preview:com02j-complete')
+      || jiangExcluded(cursor) || jiangExcluded(frontier)
       || frontier.stats.met_jiang_yucheng <= 0) return;
     if (runComplete && this.chapter.nodes[cursor.nodeId]?.type !== 'route'
       && cursor.nodeId !== 'com03x_preview_complete') return;
@@ -222,7 +270,7 @@ export class ProgressStore {
     for (const candidate of candidates) {
       const { snapshot } = candidate;
       const event = this.eventForSnapshot(snapshot);
-      if (!event) continue;
+      if (!event && this.openingContinuationRank(snapshot.nodeId) < 0 && !this.isLegacyOpeningSnapshot(snapshot)) continue;
       if (
         !best
         || this.progressRank(snapshot, event) > this.progressRank(best.snapshot, best.event)
@@ -237,6 +285,11 @@ export class ProgressStore {
   load() {
     const saved = this.parse(this.key);
     if (saved?.version === 2) {
+      this.data.jycEverUnlocked = saved.jycEverUnlocked === true;
+      this.data.bookstoreEverEarned = saved.bookstoreEverEarned === true;
+      this.data.initialEncounterEverEarned = saved.initialEncounterEverEarned === true || this.data.bookstoreEverEarned;
+      this.data.unlockedMemoryEventIds = [...new Set((Array.isArray(saved.unlockedMemoryEventIds)
+        ? saved.unlockedMemoryEventIds : []).filter(id => this.memories.events.some(event => event.id === id)))];
       this.data.playerDisplayName = normalizePlayerName(saved.playerDisplayName);
       this.data.checkpoints = this.sanitizeCheckpoints(saved.checkpoints);
       this.data.cursor = this.clone(saved.cursor);
@@ -244,38 +297,45 @@ export class ProgressStore {
       this.data.restartActive = saved.restartActive === true
         && !!this.data.cursor
         && this.chapter.nodes[this.data.cursor.nodeId]?.type !== 'route';
+      this.replaying = this.data.restartActive || saved.replayActive === true;
       this.data.runComplete = saved.runComplete === true
         || (!this.data.restartActive && this.chapter.nodes[this.data.cursor?.nodeId]?.type === 'route');
       // This stable former Opening terminal now redirects to appended content.
       // Ordinary Memory replay cursors and actual route terminals remain complete.
       const cursorNode = this.chapter.nodes[this.data.cursor?.nodeId];
-      if (this.chapter.id === 'opening-demo-chapter-01' && !this.data.restartActive
+      if (this.chapter.id === 'opening-demo-chapter-01' && !this.replaying
         && saved.runComplete === true && this.data.cursor?.nodeId === 'opening_demo_complete'
         && this.data.frontier?.nodeId === 'common_convenience_xu_exit_08'
         && cursorNode?.type === 'branch' && this.chapter.nodes[cursorNode.default]) {
         this.data.runComplete = false;
         this.data.frontier = this.clone(this.data.cursor);
       }
-      if (this.chapter.id === 'opening-demo-chapter-01' && !this.data.restartActive
+      if (this.chapter.id === 'opening-demo-chapter-01' && !this.replaying
         && saved.runComplete === true && this.data.cursor?.nodeId === 'com03j_preview_complete'
         && cursorNode?.type === 'branch') {
         this.data.runComplete = false;
         this.data.frontier = this.clone(this.data.cursor);
       }
-      this.replaying = this.data.restartActive;
       this.data.edges = this.sanitizeEdges(saved.edges);
       const frontierEvent = this.eventForSnapshot(this.data.frontier);
       if (frontierEvent) {
         this.data.frontierMemoryEventId = frontierEvent.id;
         this.data.frontierRank = this.progressRank(this.data.frontier, frontierEvent);
-      } else {
+      } else if (this.openingContinuationRank(this.data.frontier?.nodeId) >= 0) {
+        this.data.frontierMemoryEventId = null;
+        this.data.frontierRank = this.progressRank(this.data.frontier);
+      } else if (this.isLegacyOpeningSnapshot(this.data.frontier)) {
+        this.data.frontierMemoryEventId = null;
+        this.data.frontierRank = this.progressRank(this.data.frontier);
+      } else if (this.data.frontier?.nodeId !== 'common_recommend_discord_jyc_no_contact_exit') {
         const deepest = this.deepestSnapshot(this.data.checkpoints, this.data.cursor);
         if (deepest) {
           this.data.frontier = this.clone(deepest.snapshot);
-          this.data.frontierMemoryEventId = deepest.event.id;
+          this.data.frontierMemoryEventId = deepest.event?.id || null;
           this.data.frontierRank = this.progressRank(deepest.snapshot, deepest.event);
         }
       }
+      this.rememberUnlocks();
       this.loadCom02jSupplement(saved);
       this.resumeUncontactedCom03j();
       if (saved.com03jReplay && this.isCom03j(this.data.cursor?.nodeId)
@@ -285,6 +345,8 @@ export class ProgressStore {
         this.replaying = true;
       }
       this.reopenCom03jAppend();
+      this.rememberUnlocks();
+      this.flush();
       return;
     }
 
@@ -298,33 +360,105 @@ export class ProgressStore {
     const deepest = this.deepestSnapshot(this.data.checkpoints, this.data.cursor);
     if (deepest) {
       this.data.frontier = this.clone(deepest.snapshot);
-      this.data.frontierMemoryEventId = deepest.event.id;
+      this.data.frontierMemoryEventId = deepest.event?.id || null;
       this.data.frontierRank = this.progressRank(deepest.snapshot, deepest.event);
     } else if (this.data.cursor) {
       this.data.frontier = this.clone(this.data.cursor);
     }
+    this.rememberUnlocks();
     this.loadCom02jSupplement(legacy);
     this.resumeUncontactedCom03j();
     this.reopenCom03jAppend();
+    this.rememberUnlocks();
     this.flush();
+  }
+
+  hasBookstoreEligibility() {
+    return this.chapter.id === 'opening-demo-chapter-01' && this.data.bookstoreEverEarned;
+  }
+
+  hasJiangEligibility() {
+    return this.chapter.id === 'opening-demo-chapter-01' && this.data.initialEncounterEverEarned;
+  }
+
+  earnedInitialEncounterSnapshot(snapshot) {
+    if (this.earnedBookstoreSnapshot(snapshot)) return true;
+    if (this.chapter.id !== 'opening-demo-chapter-01' || !this.valid(snapshot)) return false;
+    return snapshot.stats.met_jiang_yucheng > 0
+      && snapshot.flags.includes('jyc_creator_work_seen')
+      && (snapshot.flags.includes('entry-effect:common_station_cafe_jyc_first_drawing_02')
+        || (!jiangExcluded(snapshot) && snapshot.flags.includes('player_knows_jyc_name')
+          && snapshot.flags.includes('jyc_knows_player_name')
+          && snapshot.stats.jyc_first_topic === 0));
+  }
+
+  earnedBookstoreSnapshot(snapshot) {
+    if (this.chapter.id !== 'opening-demo-chapter-01' || !this.valid(snapshot)) return false;
+    if (snapshot.flags.includes('bookstore-encounter-complete')) return true;
+    // Historical saves must prove the completed bookstore scene, never merely
+    // its entry card, a selected topic, generic acquaintance or cafe contact.
+    const completed = snapshot.nodeId === 'common_acg_first_meet_exit_locked_02'
+      || snapshot.nodeId.startsWith('common_acg_first_meet_purchase')
+      || !snapshot.nodeId.startsWith('common_acg_first_meet_');
+    return completed && snapshot.stats.met_jiang_yucheng > 0
+      && [1, 2, 3].includes(snapshot.stats.jyc_first_topic)
+      && snapshot.stats.heard_station_cafe_from_jyc > 0
+      && !jiangExcluded(snapshot);
+  }
+
+  rememberUnlocks(snapshot = null) {
+    const snapshots = snapshot ? [snapshot] : [this.data.cursor, this.data.frontier, ...Object.values(this.data.checkpoints)];
+    for (const item of snapshots.filter(item => this.valid(item))) {
+      if (this.earnedBookstoreSnapshot(item)) this.data.bookstoreEverEarned = true;
+      if (this.earnedInitialEncounterSnapshot(item)) this.data.initialEncounterEverEarned = true;
+      if (this.chapter.id === 'opening-demo-chapter-01' && !jiangExcluded(item, this.hasJiangEligibility())
+        && (item.stats.met_jiang_yucheng > 0 || item.flags.includes('contact_jyc'))) this.data.jycEverUnlocked = true;
+      const event = this.eventForSnapshot(item);
+      if ((this.isCom03j(item.nodeId) && !item.flags.includes('contact_jyc'))
+        || (jiangExcluded(item, this.hasJiangEligibility()) && event?.characterIds?.includes('jiang_yucheng'))) continue;
+      if (event && !this.data.unlockedMemoryEventIds.includes(event.id)) this.data.unlockedMemoryEventIds.push(event.id);
+    }
+  }
+
+  canExtendMain(snapshot) {
+    const main = this.data.frontier;
+    if (!main || !this.replaying || this.chapter.id !== 'opening-demo-chapter-01') return true;
+    // Rank orders scenes in time, not mutually exclusive playthroughs. A replay
+    // may own later main progress only when it retains the main branch's facts.
+    // Compare narrative facts, never relationship scores or merged snapshots.
+    for (const key of ['met_xu_tang', 'met_jiang_yucheng']) {
+      if (main.stats[key] > 0 && !(snapshot.stats[key] > 0)) return false;
+    }
+    if (!jiangExcluded(main) && jiangExcluded(snapshot)
+      && (main.stats.met_jiang_yucheng > 0 || main.flags.includes('contact_jyc'))) return false;
+    const retainedFacts = new Set(['weekend_book_purchased', 'jyc_permanently_excluded',
+      'contact_xu', 'contact_jyc', 'player_knows_jyc_name', 'jyc_knows_player_name',
+      'jyc_creator_work_seen']);
+    return main.flags.every(flag => !(flag.startsWith('history:') || retainedFacts.has(flag))
+      || snapshot.flags.includes(flag));
   }
 
   capture(nodeId, state, returnNodes) {
     const stats = Object.fromEntries(Object.keys(this.chapter.initialState)
       .map(key => [key, state[key] ?? this.chapter.initialState[key]]));
     const snapshot = { nodeId, stats, flags: [...state.flags], returnNodes: [...returnNodes] };
+    this.rememberUnlocks(snapshot);
     this.data.cursor = this.clone(snapshot);
     if (!this.data.com03jReplay) this.data.checkpoints[nodeId] = this.clone(snapshot);
-    const event = memoryEventForNode(this.memories, nodeId);
+    const event = this.eventForSnapshot(snapshot);
     const rank = this.progressRank(snapshot, event);
-    const advancesFrontier = event && rank > this.data.frontierRank;
-    if (!this.data.com02jSupplement && !this.data.com03jReplay && event && (
+    // Week/window nodes have no Memory card. Persist their actual live cursor
+    // without assigning it to the preceding Discord or convenience event.
+    const continuation = this.openingContinuationRank(nodeId) >= 0
+      && (!this.replaying || this.data.restartActive);
+    const advancesFrontier = (event || continuation) && rank > this.data.frontierRank;
+    if (!this.data.com02jSupplement && !this.data.com03jReplay && this.canExtendMain(snapshot) && (event || continuation) && (
       !this.data.frontier
       || advancesFrontier
-      || (!this.replaying && event.id === this.data.frontierMemoryEventId)
+      || (!this.replaying && rank >= this.data.frontierRank && (continuation || event?.id === this.data.frontierMemoryEventId))
     )) {
       this.data.frontier = this.clone(snapshot);
-      this.data.frontierMemoryEventId = event.id;
+      this.data.frontierMemoryEventId = event?.id || null;
       this.data.frontierRank = rank;
       if (this.replaying && advancesFrontier) {
         this.replaying = false;
@@ -376,6 +510,7 @@ export class ProgressStore {
 
   endReplay() {
     this.replaying = false;
+    this.flush();
   }
 
   connect(from, to) {
@@ -398,6 +533,7 @@ export class ProgressStore {
   }
 
   flush() {
+    this.data.replayActive = this.replaying;
     try { this.storage.setItem(this.key, JSON.stringify(this.data)); this.persisted = true; }
     catch { this.persisted = false; }
   }

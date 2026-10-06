@@ -19,6 +19,7 @@ export function memoryEventById(library, id) {
 export function isMemoryUnlocked(event, progress, startNode) {
   if (!event) return false;
   if (event.replayNode === startNode) return true;
+  if (progress?.data?.unlockedMemoryEventIds?.includes(event.id)) return true;
   const checkpoints = progress?.data?.checkpoints || {};
   return [event.replayNode, ...(event.unlockNodes || [])].some((nodeId) => !!checkpoints[nodeId]);
 }
@@ -118,7 +119,8 @@ export function renderMemories({
 
   const unlockedEvents = events.filter((event) => unlocked.has(event.id));
   const characterIds = [...new Set(unlockedEvents.flatMap((event) => event.characterIds || []))];
-  const readingEvent = memoryEventForNode(library, progress?.data?.cursor?.nodeId);
+  const readingEvent = progress?.eventForSnapshot?.(progress?.data?.cursor)
+    || memoryEventForNode(library, progress?.data?.cursor?.nodeId);
   const frontierEvent = memoryEventById(library, progress?.data?.frontierMemoryEventId);
   const readingMemoryId = readingEvent?.id !== frontierEvent?.id ? readingEvent?.id : null;
   const defaultExpandedSections = expandedSections || new Set([

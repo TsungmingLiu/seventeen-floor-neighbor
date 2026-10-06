@@ -54,7 +54,8 @@
     "constraints": [
       "至少 contact_xu 或 contact_jyc 一個已由真實 contact scene 建立；沒有 contact 的人完全略過，不以本幕完成 discovery。",
       "承接 COM-03X／COM-03J 各自 exit；Jiang never_met、known-but-not-contacted 與已 contacted 必須分開，前兩者均無 Jiang 訊息。",
-      "開始一段約一週的訊息與個人生活 montage；既有 romanticSignal、knowledge、harm 與 commitment 狀態不由短訊息改寫。"
+      "開始一段約一週的訊息與個人生活 montage；既有 romanticSignal、knowledge、harm 與 commitment 狀態不由短訊息改寫。",
+      "Jiang 任何 content／option／通知先要求 !jyc_permanently_excluded，再按真實 contact、knowledge 與原有 eligibility；永久排除不只是 never_met，也不是可第二 discovery 的暫時未遇見。"
     ]
   },
   "scene_function": [
@@ -147,7 +148,8 @@
     "constraints": [
       "contact_xu/contact_jyc 保持 entry；未見／未 contact Jiang 的走法仍有效，可接許棠／個人生活 OPEN-A。",
       "open_dating_unlocked 只代表可進 OPEN-A；無邀約已接受、anchor completed、slot 已消耗或 romantic availability 保證。",
-      "romanticSignal、focusHistory/recentFocus、overlap/exclusivity/deception、harm/closure 與未披露 knowledge 保持 entry；晚回或休息本身不生成 cooling、RE 或 reopening 歷史。"
+      "romanticSignal、focusHistory/recentFocus、overlap/exclusivity/deception、harm/closure 與未披露 knowledge 保持 entry；晚回或休息本身不生成 cooling、RE 或 reopening 歷史。",
+      "jyc_permanently_excluded=true 只由本輪平日街頭獨自行動的實際 choice 建立；本輪不可清除，優先於 contact、met、舊 history 及任何 invitation/discovery gate；禁止其後全部江雨澄內容，包括訊息、重遇、第二 discovery、RE-J、reopening、同框、邀約、結局與 coda。"
     ]
   },
   "must_not": [
@@ -158,15 +160,17 @@
     "不得把邀約話題當接受、保證 date、進屋／voice co-op／anchor 完成；不開 focus heroine menu、自由 calendar、scheduler 新欄位或第三 OPEN-A slot。",
     "不得加入 RE/return、accepted missed plan、friction repair、late route 或 ending state；這些由後續已界定 scene 擁有。",
     "不得假借缺失的 COM-03J topic/reply history 補 shared memories；callback 只用 trustworthy local history，未知時退到中性內容。",
-    "本次只有 Narrative Design 與 DESIGN/DRAFT outline；不含 final dialogue、Locked Scene、CG、獨立 Narrative QA 或 Human acceptance 主張。"
+    "本次只有 Narrative Design 與 DESIGN/DRAFT outline；不含 final dialogue、Locked Scene、CG、獨立 Narrative QA 或 Human acceptance 主張。",
+    "jyc_permanently_excluded=true 只由本輪平日街頭獨自行動的實際 choice 建立；本輪不可清除，優先於 contact、met、舊 history 及任何 invitation/discovery gate；禁止其後全部江雨澄內容，包括訊息、重遇、第二 discovery、RE-J、reopening、同框、邀約、結局與 coda。"
   ],
   "implementation_mapping": {
     "runtime_only": true,
     "flags": {
       "requires_contact_any": "contact_xu || contact_jyc",
       "contact_xu": "read_only;gate_Xu_messages_and_activity_hook",
-      "contact_jyc": "read_only;gate_Jiang_messages_and_activity_hook",
-      "open_dating_unlocked": true
+      "contact_jyc": "read_only;Jiang_content_requires_contact_jyc_and_not_jyc_permanently_excluded",
+      "open_dating_unlocked": true,
+      "jyc_permanently_excluded": "read_only;preserve;blocks_all_later_Jiang_paths"
     }
   }
 }

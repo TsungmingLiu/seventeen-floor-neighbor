@@ -1,5 +1,17 @@
 # OPEN-A — 第一個空檔
 
+## Current authorized weekend/weekday design — ND-ARC-001
+
+- Lifecycle: **CANONICAL** task-local Narrative Design amendment, 2026-10-04. Source ref: `013b3f73e75d8f00bbd2fa53a6cd2d885fecb9a9`. Human 授權本輪方向與必要改寫；本 pass 沒有新 final prose、QA、runtime 或 CG acceptance。
+- Owning design: `docs/narrative/JYC_WEEKEND_WEEKDAY_REVISION.md`；current contract: `content/production/narrative/opening-ch1/OPEN-A.json`。此 design section 與 current JSON 取代下方 baseline 的衝突時序／gate；下方舊 Locked prose 與其歷史 binding 完整保留作局部改寫或相容性參考，不是本輪新 Script Lock。
+- 保留有界線邀約入口，封閉街頭江線：不需 dialogue rewrite。現有第一 window、兩 slot 總量、pending 與 solo/rest/wait prose 保留；J eligible 必須先 !jyc_permanently_excluded 再 contact/知識/前事/closure/harm。street 完全略過 Jiang options、通知、later discovery 及 RE；未排除者仍按既有下一合法 slot、唯一 reopening window 和 familiarity gates，不免費升級。
+- Stable ID plan：無新 IDs；OPEN-A-* 全保留。
+- 永久排除：本輪 `com01b_weekday_street_walk` 才寫 `jyc_permanently_excluded=true`。此 flag 先於 contact/history，永不由 merge、reload、scheduler、public shared scene 或 ordinary invite 清除。Memory replay 限自己的 snapshot，不向 live 主線寫入；改走前一分岔屬另一 playthrough，不是本輪 reopening。
+- Semantic visual impact 與四個必要 dialogue units 見 owning design；現有 accepted image bytes、QA/Human 歷史都保留。獨立下游才裁決哪些畫面可重用。
+
+## Preserved pre-revision baseline
+
+
 > Lifecycle: **CANONICAL** task-local scene artifact
 >
 > Status: **LOCKED — scene dialogue authored; independent Narrative QA pending**
@@ -83,7 +95,7 @@ Line 裡，許棠提過的中山設計書話題還在。我有點想翻翻看，
 
 我打開對話，正好看見她新傳的一句。
 
-**許棠／Line**
+**Line-許棠／Line**
 
 我下午要去中山看設計書。你有空的話，要不要一起？
 
@@ -103,11 +115,11 @@ Line 裡，許棠提過的中山設計書話題還在。我有點想翻翻看，
 
 訊息送出去後，我先把水槽裡的碗洗了。擦乾手回來，手機亮著。
 
-**許棠／Line**
+**Line-許棠／Line**
 
 可以啊，我本來下午就要去。
 
-**許棠／Line**
+**Line-許棠／Line**
 
 一起去好了。
 
@@ -129,11 +141,11 @@ Line 裡，許棠提過的中山設計書話題還在。我有點想翻翻看，
 
 可以提早一點嗎？我想早點回來收一下箱子。
 
-**許棠／Line**
+**Line-許棠／Line**
 
 提早不太行，我前面還有自己的事。
 
-**許棠／Line**
+**Line-許棠／Line**
 
 下午原來那個時間可以。你看看方不方便。
 
@@ -154,7 +166,7 @@ Line 裡，許棠提過的中山設計書話題還在。我有點想翻翻看，
 
 好，下午一起去中山看書。
 
-**許棠／Line**
+**Line-許棠／Line**
 
 好，那就下午。
 
@@ -170,11 +182,11 @@ Line 裡，許棠提過的中山設計書話題還在。我有點想翻翻看，
 
 那就原來下午的時間，一起去中山看書。我先整理一下。
 
-**許棠／Line**
+**Line-許棠／Line**
 
 嗯，好。
 
-**許棠／Line**
+**Line-許棠／Line**
 
 那下午見。
 
@@ -190,11 +202,11 @@ Line 裡，許棠提過的中山設計書話題還在。我有點想翻翻看，
 
 今天先不約好了。我想留在家，把剩下的東西整理一下。
 
-**許棠／Line**
+**Line-許棠／Line**
 
 好啊，那你忙。
 
-**許棠／Line**
+**Line-許棠／Line**
 
 我自己去逛逛。
 
@@ -206,11 +218,11 @@ Line 裡，許棠提過的中山設計書話題還在。我有點想翻翻看，
 
 那今天先不約了，我留在家。妳照原來的時間去就好。
 
-**許棠／Line**
+**Line-許棠／Line**
 
 嗯，好。
 
-**許棠／Line**
+**Line-許棠／Line**
 
 那我下午自己去。
 

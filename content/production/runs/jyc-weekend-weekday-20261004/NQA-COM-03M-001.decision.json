@@ -1,0 +1,86 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "jyc-weekend-weekday-20261004",
+  "task_id": "NQA-COM-03M-001",
+  "scene_id": "COM-03M",
+  "task_type": "narrative_review",
+  "status": "PASS",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.5.1",
+    "pass": "narrative_review"
+  },
+  "source_ref": "4894a96f7b05d6e8d4e61042acfc01166715bdd6",
+  "packet_sha256": "64e914362619dbd377ee75ef4e4c3122ca62e59aec813f4f99a929cfa58dbf92",
+  "input_digest_sha256": "31a2de1f452cad82bb006be7de85efd60d31e46ed36febc94b2b6e3b4678a150",
+  "input_versions": [
+    {
+      "id": "file:content/production/narrative/opening-ch1/COM-03M.json",
+      "version": "21df0a8110112d140cba9de9c4ab9b363be977fe",
+      "location": "content/production/narrative/opening-ch1/COM-03M.json"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/COM-03M.md",
+      "version": "647c0868fa093bb185a986e23047b32742708f6d",
+      "location": "docs/narrative/scenes/vertical-slice/COM-03M.md"
+    },
+    {
+      "id": "file:docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_COMMON.md",
+      "version": "a0625e3550468d74db4b12252ae590ca6dc5652c",
+      "location": "docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_COMMON.md"
+    },
+    {
+      "id": "file:docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md",
+      "version": "7144fe200bcb85874ad54c151eb0d77effc7be04",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md"
+    },
+    {
+      "id": "file:docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md",
+      "version": "9d44ab016a3a32da239b2d711117e05f087625f4",
+      "location": "docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md"
+    }
+  ],
+  "output_versions": [],
+  "qa_codes": [
+    {
+      "name": "NQA-VOICE-AND-PACING",
+      "code": "NQA-VOICE-AND-PACING",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-DIALOGUE-NATURALISM",
+      "code": "NQA-DIALOGUE-NATURALISM",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-KNOWLEDGE-AND-CONTACT",
+      "code": "NQA-KNOWLEDGE-AND-CONTACT",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-LOCAL-VARIANTS-AND-REJOIN",
+      "code": "NQA-LOCAL-VARIANTS-AND-REJOIN",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-STATE-IDS-AND-MERGE-BOUNDARIES",
+      "code": "NQA-STATE-IDS-AND-MERGE-BOUNDARIES",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-REQUESTED-PAYOFFS",
+      "code": "NQA-REQUESTED-PAYOFFS",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-FIRST-PERSON-NARRATION",
+      "code": "NQA-FIRST-PERSON-NARRATION",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [],
+  "human_gate_required": "none",
+  "invalidates": []
+}

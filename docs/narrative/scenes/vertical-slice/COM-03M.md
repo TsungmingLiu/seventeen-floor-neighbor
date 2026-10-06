@@ -1,5 +1,17 @@
 # COM-03M — 一週訊息 montage → OPEN-A
 
+## Current authorized weekend/weekday design — ND-ARC-001
+
+- Lifecycle: **CANONICAL** task-local Narrative Design amendment, 2026-10-04. Source ref: `013b3f73e75d8f00bbd2fa53a6cd2d885fecb9a9`. Human 授權本輪方向與必要改寫；本 pass 沒有新 final prose、QA、runtime 或 CG acceptance。
+- Owning design: `docs/narrative/JYC_WEEKEND_WEEKDAY_REVISION.md`；current contract: `content/production/narrative/opening-ch1/COM-03M.json`。此 design section 與 current JSON 取代下方 baseline 的衝突時序／gate；下方舊 Locked prose 與其歷史 binding 完整保留作局部改寫或相容性參考，不是本輪新 Script Lock。
+- 保留訊息，永久排除先於 contact：不需 dialogue rewrite。所有共同／Xu prose、單 contact 節奏與雙 contact body 保留。Jiang 段落與雙通知條件先 !jyc_permanently_excluded 再 actual contact；street 只能 Xu-only／自身生活，不偽造姓名或共通話題；不因進入 montage 重設 exclusion。
+- Stable ID plan：無新 IDs；COM03M-* 全保留。
+- 永久排除：本輪 `com01b_weekday_street_walk` 才寫 `jyc_permanently_excluded=true`。此 flag 先於 contact/history，永不由 merge、reload、scheduler、public shared scene 或 ordinary invite 清除。Memory replay 限自己的 snapshot，不向 live 主線寫入；改走前一分岔屬另一 playthrough，不是本輪 reopening。
+- Semantic visual impact 與四個必要 dialogue units 見 owning design；現有 accepted image bytes、QA/Human 歷史都保留。獨立下游才裁決哪些畫面可重用。
+
+## Preserved pre-revision baseline
+
+
 > Lifecycle: **CANONICAL**
 >
 > Status: **LOCKED — scene-dialogue authored；獨立 Narrative QA 待審**。LOCKED 表示本幕完整文字與分支提交下游，不代表 Narrative QA、CG 或 Human preview acceptance。
@@ -43,17 +55,17 @@
 
 ### COM03M-X01｜contact_xu：Line
 
-許棠：樓下公告換地方了，在電梯旁邊。剛剛差點沒看到。
+Line-許棠：樓下公告換地方了，在電梯旁邊。剛剛差點沒看到。
 
 我：喔，我還在看原來那塊。謝謝。
 
-許棠：我也是走過去才發現。上面有收件的說明，你有空再看。
+Line-許棠：我也是走過去才發現。上面有收件的說明，你有空再看。
 
 旁白：飯熱好了。我先端回桌上，吃完才下樓看公告。
 
 我：看到了，下次包裹可以少找一圈。
 
-許棠：嗯。我先出門了。
+Line-許棠：嗯。我先出門了。
 
 我：好。
 
@@ -98,19 +110,19 @@ J01 首訊息按可信 replay-local `jyc_com03j_reply_style` 恰選一條；未�
 
 ### COM03M-X02｜contact_xu：普通生活分享
 
-許棠：（照片：路邊一隻貓趴在機車座墊上。）
+Line-許棠：（照片：路邊一隻貓趴在機車座墊上。）
 
-許棠：剛剛買東西看到的。這樣車主怎麼走。
+Line-許棠：剛剛買東西看到的。這樣車主怎麼走。
 
 我：感覺要先跟牠談一下。
 
-許棠：牠完全沒醒。
+Line-許棠：牠完全沒醒。
 
 我：哈哈，那先讓牠睡吧。
 
 旁白：訊息停在那裡。我把書搬上架，又挪了兩次，才讓最後一本塞進去。
 
-許棠：後來牠自己跳走了。我買完東西回來就不在。
+Line-許棠：後來牠自己跳走了。我買完東西回來就不在。
 
 我：喔，那車主應該不用等太久。
 
@@ -146,7 +158,7 @@ J01 首訊息按可信 replay-local `jyc_com03j_reply_style` 恰選一條；未�
 
 旁白：手機亮了一下，電腦右下角也跳出一則訊息。
 
-許棠：吃了嗎？我等下出去買飯，樓下那間今天有開。
+Line-許棠：吃了嗎？我等下出去買飯，樓下那間今天有開。
 
 江雨澄：（遊戲截圖：剛更新的選單，多了一個小小的提示圖示，被圈了起來。）
 
@@ -166,7 +178,7 @@ J01 首訊息按可信 replay-local `jyc_com03j_reply_style` 恰選一條；未�
 
 我：還沒，剛倒完水。等最後幾項跑完就去買。
 
-許棠：喔，好。我出門看看要吃什麼。
+Line-許棠：喔，好。我出門看看要吃什麼。
 
 旁白：我把手機放在水杯旁，核對最後一項結果，送出工作訊息。再打開剛才那張遊戲截圖。
 
@@ -196,7 +208,7 @@ J01 首訊息按可信 replay-local `jyc_com03j_reply_style` 恰選一條；未�
 
 我：還沒吃，剛交完東西。等下去樓下買。
 
-許棠：好，我已經出門了。今天人還好。
+Line-許棠：好，我已經出門了。今天人還好。
 
 我：嗯，我收一下桌子就下去。
 
@@ -210,7 +222,7 @@ J01 首訊息按可信 replay-local `jyc_com03j_reply_style` 恰選一條；未�
 
 我：剛忙完，還沒吃。等下去買。
 
-許棠：嗯，我剛買好。那間今天有開。
+Line-許棠：嗯，我剛買好。那間今天有開。
 
 我：好，謝謝。
 
@@ -228,13 +240,13 @@ J01 首訊息按可信 replay-local `jyc_com03j_reply_style` 恰選一條；未�
 
 ### COM03M-BX-ONLY｜contact_xu && !contact_jyc
 
-許棠：吃了嗎？我等下出去買飯，樓下那間今天有開。
+Line-許棠：吃了嗎？我等下出去買飯，樓下那間今天有開。
 
 旁白：我看到訊息，先核對剩下的結果。工作訊息送出去，才拿起手機。
 
 我：剛忙完，還沒吃。等下去買。
 
-許棠：嗯，我剛買好。那間今天有開。
+Line-許棠：嗯，我剛買好。那間今天有開。
 
 我：好，謝謝。
 
@@ -274,19 +286,19 @@ J01 首訊息按可信 replay-local `jyc_com03j_reply_style` 恰選一條；未�
 
 我：最後一箱。現在才看到這張。
 
-許棠：喔，還好裡面不是牙刷。
+Line-許棠：喔，還好裡面不是牙刷。
 
 我：書跟延長線。牙刷那箱有先找到。
 
-許棠：那就好。
+Line-許棠：那就好。
 
 旁白：過了一會兒，她又傳來一則。
 
-許棠：我之前也有一箱一直沒拆。後來缺東西才想到。
+Line-許棠：我之前也有一箱一直沒拆。後來缺東西才想到。
 
 我：我現在只想把紙箱壓平，其他明天再說。
 
-許棠：嗯，終於拆完了。
+Line-許棠：嗯，終於拆完了。
 
 旁白：我蹲下來，沿著箱底撕開膠帶。剛才傳的照片還亮在桌上。
 
@@ -326,19 +338,19 @@ J01 首訊息按可信 replay-local `jyc_com03j_reply_style` 恰選一條；未�
 
 ### COM03M-X05｜contact_xu：中山設計書話題
 
-許棠：週末想去中山看設計書。上次看到一本印刷的，沒時間翻完。
+Line-許棠：週末想去中山看設計書。上次看到一本印刷的，沒時間翻完。
 
 我：是看紙跟顏色那種嗎？
 
-許棠：有一部分。還有一些版面的例子，實物比較看得清楚。
+Line-許棠：有一部分。還有一些版面的例子，實物比較看得清楚。
 
 我：我剛剛也在翻書。有一頁字沒多少，但看起來很舒服，說不出是哪裡。
 
-許棠：可以先看留白。也不一定要拆得很細，喜歡就多看一下。
+Line-許棠：可以先看留白。也不一定要拆得很細，喜歡就多看一下。
 
 我：嗯。我再翻翻。
 
-許棠：好，我先去洗澡。
+Line-許棠：好，我先去洗澡。
 
 ### COM03M-J05｜contact_jyc：限定展資訊
 

@@ -93,13 +93,14 @@ test('current renderer changes require exact scene CG review while excluding ind
     'render_packet:COM00-S04-BASE-NEUTRAL',
     'render_packet:COM00-S04-R01-POLITE-SMILE'
   ];
-  assert.deepEqual(report.changes, [{
+  assert.deepEqual(report.changes.filter(change => change.changed_artifact_id.startsWith('render_projection:')), [{
     changed_artifact_id: `render_projection:${rendererPath}`,
     old_version: oldVersion,
     new_version: newVersion,
     reason: 'renderer_tool_version_changed_requires_review',
     would_invalidate: invalidated
   }]);
+  assert.deepEqual(report.changes.filter(change => !change.changed_artifact_id.startsWith('render_projection:')).map(change => ({ id: change.changed_artifact_id, reason: change.reason, invalidated: change.would_invalidate })), [{ id: 'route_binding:COM-00', reason: 'route_allowlist_or_config_changed', invalidated: ['integration:COM-00', 'playable_review:COM-00'] }]);
   assert.deepEqual(report.would_invalidate, invalidated);
   assert.deepEqual(report.visual_artifacts_not_impacted_by_diff, []);
   assert.deepEqual(report.compared_entry_ids,

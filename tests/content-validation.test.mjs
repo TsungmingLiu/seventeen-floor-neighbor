@@ -19,6 +19,62 @@ test('accepted character-free CGs pass without invented character dependencies o
   }
 });
 
+test('retained inventory explicitly owns exactly the two unused historical assets without display authorization', async () => {
+  const content = await loadContent();
+  const route = content.routes.find((item) => item.config.id === 'opening-demo');
+  const retained = ['cg.opening.com02x.microwave_wait', 'cg.opening.com02x.walk_home'];
+  assert.deepEqual(route.config.retainedInventoryAssetIds, retained);
+  assert.ok(retained.every((id) => !route.config.assetIds.includes(id)));
+  assert.ok(retained.every((id) => !Object.hasOwn(route.assetManifest.assets, id)));
+  assert.deepEqual(await validateContent(content), []);
+});
+
+test('retained inventory rejects malformed, unknown, duplicate and active declarations', async () => {
+  const base = await loadContent();
+  const route = (content) => content.routes.find((item) => item.config.id === 'opening-demo');
+  for (const [value, expected] of [
+    ['not-an-array', 'must be a non-empty array'],
+    [[], 'must be a non-empty array'],
+    [[null], 'must contain non-empty asset IDs'],
+    [['unknown.retained.asset'], 'unknown retained inventory asset'],
+    [['cg.opening.com02x.microwave_wait', 'cg.opening.com02x.microwave_wait'], 'duplicate retained inventory asset'],
+    [['cg.opening.com02x.recognition'], 'also appears in assetIds']
+  ]) {
+    const content = clone(base);
+    route(content).config.retainedInventoryAssetIds = value;
+    assert.ok((await validateContent(content)).some((error) => error.includes(expected)), expected);
+  }
+});
+
+test('retained inventory rejects every current display binding across story, scene, random and Memory data', async () => {
+  const base = await loadContent();
+  const id = 'cg.opening.com02x.microwave_wait';
+  const referenceCases = [
+    ['titleArt', (route) => { route.chapter.titleArt = id; }],
+    ['initialTitleArt', (route) => { route.chapter.initialTitleArt = id; }],
+    ['ending', (route) => { route.chapter.endings.retained_fixture = { art: id }; }],
+    ['node visual', (route) => { route.chapter.nodes.retained_fixture = { visual: { mode: 'cg', asset: id } }; }],
+    ['scene node visual', (route) => { route.chapter.nodes.retained_scene_fixture = { visual: { mode: 'cg', asset: id } }; }],
+    ['random entry node visual', (route) => {
+      const terminal = Object.entries(route.chapter.nodes).find(([, node]) => node.type === 'route')?.[0];
+      route.sceneLibrary.pools.retained_fixture = { entries: [{ id: 'fixture', entryNode: 'retained_random_entry', unlockFlag: 'fixture' }] };
+      route.chapter.nodes.retained_random = { type: 'random', pool: 'retained_fixture', after: terminal };
+      route.chapter.nodes.retained_random_entry = { visual: { mode: 'cg', asset: id } };
+    }],
+    ['Memory cover', (route) => { route.memoryLibrary.events[0].cover.asset = id; }],
+    ['Memory title backdrop', (route) => { route.memoryLibrary.events[0].titleBackdropAsset = id; }],
+    ['Memory Gallery', (route) => { route.memoryLibrary.events[0].galleryAssets = [id]; }]
+  ];
+  for (const [label, mutate] of referenceCases) {
+    const content = clone(base);
+    const currentRoute = content.routes.find((item) => item.config.id === 'opening-demo');
+    currentRoute.config.retainedInventoryAssetIds = [id];
+    mutate(currentRoute);
+    const errors = await validateContent(content);
+    assert.ok(errors.some((error) => error.includes(`retained inventory asset ${id} is currently referenced`)), label);
+  }
+});
+
 test('environment CG exception requires empty participants and a matching character-free manifest entry', async () => {
   const base = await loadContent();
   const withParticipant = clone(base);
@@ -193,7 +249,8 @@ test('all COM-01B questions rejoin after goodnight at the actual bookstore decis
   assert.equal(nodes.common_bookstore_bridge_weekend_transition_locked_00.next, 'common_acg_first_meet_enter');
   assert.deepEqual(nodes.common_bookstore_bridge_weekend_decision.choices.map(choice => choice.id),
     ['com01b_bookstore_go', 'com01b_bookstore_skip']);
-  assert.equal(nodes.com01b_bookstore_go.next, 'common_bookstore_bridge_weekend_transition');
+  assert.equal(nodes.com01b_bookstore_go.next, 'com01b_bookstore_go_rev_01');
+  assert.equal(nodes.com01b_bookstore_go_rev_01.next, 'common_bookstore_bridge_weekend_transition');
   assert.notEqual(nodes.com01b_bookstore_skip.next, 'common_acg_first_meet_enter');
   assert.equal(nodes.common_bookstore_bridge_choice.choices.length, 3);
   for (const choice of nodes.common_bookstore_bridge_choice.choices) {

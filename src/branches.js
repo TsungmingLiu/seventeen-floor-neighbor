@@ -1,3 +1,36 @@
+// A street playthrough cannot recover Jiang availability from imported contact
+// or topic flags. Keep the guard shared by playback and snapshot migration.
+export function jiangExcluded(state, initialEncounterEligible = false) {
+  if (initialEncounterEligible) return false;
+  const flags = state?.flags;
+  return flags instanceof Set ? flags.has('jyc_permanently_excluded')
+    : Array.isArray(flags) && flags.includes('jyc_permanently_excluded');
+}
+
+export function excludedJiangDestination(nodeId, state, initialEncounterEligible = false) {
+  if (!jiangExcluded(state, initialEncounterEligible)) return null;
+  if (nodeId?.startsWith('common_acg_first_meet_')) return 'common_convenience_xu_enter';
+  if (nodeId?.startsWith('common_station_cafe_jyc_') || nodeId?.startsWith('com02j_')) return 'common_package_xu_arrive';
+  if (nodeId?.startsWith('common_recommend_discord_jyc_') || nodeId === 'com03j_preview_complete') return 'COM03M-ENTRY';
+  const montage = /^COM03M-J(01|02|04|05)(?!-GATE)/.exec(nodeId || '');
+  if (montage) return `COM03M-S${{ '01': '02', '02': '03', '04': '05', '05': '06' }[montage[1]]}`;
+  if (nodeId === 'COM03M-BOTH-NOTIFY' || nodeId === 'COM03M-C01'
+    || nodeId?.startsWith('COM03M-BJ') || nodeId?.startsWith('COM03M-BW')
+    || (nodeId?.startsWith('COM03M-BX') && !nodeId.startsWith('COM03M-BX-ONLY'))) {
+    const flags = state.flags;
+    const contactXu = flags instanceof Set ? flags.has('contact_xu') : flags?.includes('contact_xu');
+    return contactXu ? 'COM03M-BX-ONLY' : 'opening_contactless_preview_complete';
+  }
+  if (nodeId?.startsWith('OPEN-A-ENTRY-J-TOPIC')) return 'OPEN-A-ENTRY-CLOSE';
+  if (nodeId?.startsWith('OPEN-A-J-') || nodeId === 'OPEN-A-ENTRY-PENDING-J') return 'OPEN-A-LIFE-DIRECT';
+  if (nodeId === 'OPEN-A-ENTRY-ACTION-BOTH' || nodeId === 'OPEN-A-ENTRY-ACTION-J') {
+    const flags = state.flags;
+    const contactXu = flags instanceof Set ? flags.has('contact_xu') : flags?.includes('contact_xu');
+    return contactXu ? 'OPEN-A-ENTRY-ACTION-X' : 'OPEN-A-LIFE-DIRECT';
+  }
+  return null;
+}
+
 export function outgoing(node, pools) {
   return [...new Set([node.next, ...(node.choices || []).map(choice => choice.next), node.default,
     ...(node.cases || []).map(branch => branch.next), node.after,
