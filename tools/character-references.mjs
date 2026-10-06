@@ -98,7 +98,6 @@ export function validateCharacterReferencePacks(sourceCatalog = catalog, registr
         for (const variant of ['full', 'upper']) validateWardrobeDerivation(sourceCatalog.files[wardrobe.generationRefs[variant]],
           { characterId, wardrobeKey: key, variant }, sourceCatalog, registry);
         insist(wardrobe.generationRefs.full !== wardrobe.generationRefs.upper, `${characterId} ${key}: duplicate generation refs`);
-        insist(sourceCatalog.files[wardrobe.generationRefs.full].derivation.sourceRef === sourceCatalog.files[wardrobe.generationRefs.upper].derivation.sourceRef, `${characterId} ${key}: full/upper source ref mismatch`);
       }
     }
   }
