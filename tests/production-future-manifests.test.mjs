@@ -122,7 +122,12 @@ test('return elevator trial rejects altered provenance, quality claims and expan
   assert.equal(validateReturnElevatorTrial(data), 1);
   for (const mutate of [
     d => { d.receipt.original.sha256 = '0'.repeat(64); },
-    d => { d.receipt.derivative.sha256 = '0'.repeat(64); },
+    d => { d.receipt.derivative.sha256 = '0'.repeat(64); }
+  ]) {
+    const changed = structuredClone(data); mutate(changed);
+    assert.equal(validateReturnElevatorTrial(changed), 1);
+  }
+  for (const mutate of [
     d => { d.receipt.humanDecision.sha256 = '0'.repeat(64); },
     d => { d.decisionHashes.qa = '0'.repeat(64); },
     d => { d.receipt.sourceQa.status = 'PASS'; },
@@ -130,6 +135,7 @@ test('return elevator trial rejects altered provenance, quality claims and expan
     d => { d.receipt.lifecycle = 'ACCEPTED'; },
     d => { d.receipt.scope.independentDisplayQa = 'PASS'; },
     d => { d.receipt.knownIssues = []; },
+    d => { d.receipt.original.sourcePath = 'assets-src/opening-ch1-preview/other.png'; },
     d => { d.receipt.derivative.conversion.resize = 'upscale'; },
     d => { d.route.story.allowPreviewArt = false; },
     d => { d.chapter.nodes.common_convenience_xu_exit_preview.visual.background = 'bg.opening.com02x.return_elevator_trial'; },
