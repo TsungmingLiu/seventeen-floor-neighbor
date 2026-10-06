@@ -223,3 +223,41 @@ test('an observed journey through same-scene intermediate nodes keeps parcel to 
   const view = storyMapView(map, { events: [] }, chapter, save);
   assert.deepEqual(view.edges, [{ from: 'parcel', to: 'week' }]);
 });
+
+test('cafe tabs require unique visited anchors, not reused neutral passages or global eligibility', () => {
+  const save = progress(['common_station_cafe_jyc_enter_02', 'common_station_cafe_jyc_first_drawing_05']);
+  save.data.bookstoreEverEarned = true;
+  save.data.initialEncounterEverEarned = true;
+  save.eventForSnapshot = snapshot => ({ id: snapshot.flags.includes('history:cafe-bookstore-reunion')
+    || snapshot.nodeId === 'common_station_cafe_jyc_enter_02' ? 'mem.opening.ch1.station-cafe-jyc' : 'mem.opening.ch1.first-cafe-jyc' });
+  save.data.checkpoints.common_station_cafe_jyc_first_drawing_05.flags = ['history:cafe-bookstore-reunion'];
+  assert.deepEqual(storyMapView(map, memoryLibrary, chapter, save).groups.find(g => g.id === 'cafe').variants.map(v => v.id), ['reunion']);
+  save.data.checkpoints.common_station_cafe_jyc_first_enter = snapshot('common_station_cafe_jyc_first_enter');
+  assert.deepEqual(storyMapView(map, memoryLibrary, chapter, save).groups.find(g => g.id === 'cafe').variants.map(v => v.id), ['reunion', 'first']);
+});
+test('archived cafe B survives later bookstore eligibility without claiming A was visited', () => {
+  const save = progress(['common_station_cafe_jyc_first_enter', 'common_station_cafe_jyc_first_drawing_02']);
+  const before = storyMapView(map, memoryLibrary, chapter, save).groups.find(g => g.id === 'cafe');
+  save.data.bookstoreEverEarned = true;
+  save.data.initialEncounterEverEarned = true;
+  const after = storyMapView(map, memoryLibrary, chapter, save).groups.find(g => g.id === 'cafe');
+  assert.deepEqual(after.variants, before.variants);
+  assert.equal(after.variants[0].entry, 'common_station_cafe_jyc_first_enter');
+});
+test('review explains the bookstore-ever selector separately from any-initial eligibility', () => {
+  assert.notEqual(map.branchLabels.common_weekday_outing_selector.common_weekday_outing_reunion,
+    map.branchLabels['COM03M-J01-GATE']['COM03M-J01']);
+  assert.equal(/history:|contact_|jyc_|preview:/.test(JSON.stringify(Object.values(map.branchLabels).flatMap(Object.values))), false);
+});
+
+test('unique A entry remains A when a restored B snapshot still carries first-encounter flags', () => {
+  const save = progress(['common_station_cafe_jyc_enter_02']);
+  save.eventForSnapshot = () => ({ id: 'mem.opening.ch1.first-cafe-jyc' });
+  assert.deepEqual(storyMapView(map, memoryLibrary, chapter, save).groups.find(g => g.id === 'cafe').variants.map(v => v.id), ['reunion']);
+});
+test('surviving historical shared checkpoints use recorded visit identity without current earned gates', () => {
+  const save = progress(['common_station_cafe_jyc_exit']);
+  save.eventForSnapshot = () => ({ id: 'mem.opening.ch1.first-cafe-jyc' });
+  save.data.bookstoreEverEarned = true;
+  assert.deepEqual(storyMapView(map, memoryLibrary, chapter, save).groups.find(g => g.id === 'cafe').variants.map(v => v.id), ['first']);
+});

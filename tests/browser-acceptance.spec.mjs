@@ -434,7 +434,7 @@ async function ready(page) {
   // Typing can finish between reading the hint and sending Space. Readiness
   // must not advance the cursor before follow() records the next dialogue.
   await expect.poll(async () => /點擊繼續|點擊選擇/.test(await page.locator('#advance-hint').textContent() || '')
-    || await page.locator('#choice-list').isVisible(), { timeout: 8000 }).toBe(true);
+    || await page.locator('#choice-list').isVisible(), { timeout: 8000, intervals: [50, 100] }).toBe(true);
 }
 async function seed(page,nodeId,stats={},flags=[]) {
   await page.goto('/');
@@ -465,7 +465,7 @@ async function follow(page,stop,choices={},limit=260) {
       expect(index,`${id}: ${wanted}`).toBeGreaterThanOrEqual(0);
       await page.locator('#choice-list .choice-button').nth(index).click();
     } else await advanceWithKeyboard(page);
-    await expect.poll(async()=>(await journey(page)).cursor?.nodeId,{timeout:8000}).not.toBe(id);
+    await expect.poll(async()=>(await journey(page)).cursor?.nodeId,{timeout:8000,intervals:[50,100]}).not.toBe(id);
   }
   throw new Error(`Did not reach ${stop}; stopped at ${(await journey(page)).cursor?.nodeId}`);
 }
@@ -570,7 +570,9 @@ test('scene inspection, layout and development review never change the saved jou
     await expect(page.locator('#memory-list')).toHaveAttribute('data-layout', 'flow');
     await page.locator('[data-group-id="cafe"]').click();
     await expect(page.locator('#story-inspector .story-variant-tabs button')).toHaveCount(2);
+    await expect(page.locator('#story-inspector .story-condition')).toContainText('曾在書店認識雨澄');
     await page.locator('#story-inspector .story-variant-tabs button').filter({ hasText: 'B・初遇' }).click();
+    await expect(page.locator('#story-inspector .story-condition')).toContainText('尚未解鎖書店初遇');
     await expect(page.locator('#story-inspector')).toContainText('現有完整劇本與選項');
     await expect(page.locator('#story-inspector')).not.toContainText('legacy:disabled');
     await expect(page.locator('#story-inspector .story-replay')).toHaveCount(0);
@@ -603,4 +605,108 @@ test('stale contact cannot reopen Jiang after the irreversible street choice',as
  const seen=await follow(page,'OPEN-A-ENTRY-SOLO',{'OPEN-A-ENTRY-ACTION-X':'OPEN-A-ACT-LIFE','OPEN-A-LIFE-ACTION':'OPEN-A-LIFE-SOLO'},300);
  expect(seen.some(id=>/discord_jyc|COM03M-J(?!.*GATE)|COM03M-BJ|OPEN-A-J/.test(id))).toBe(false);
  expect((await journey(page)).cursor.flags).toContain('jyc_permanently_excluded');expect(errors).toEqual([]);
+});
+
+async function inspectCafe(page) {
+  await page.locator(await page.locator('#ending-screen').isVisible() ? '#home-button' : '#game-home-button').click();
+  await page.locator('#memories-button').click();
+  await page.locator('[data-group-id="cafe"]').click();
+}
+async function replayScene(page, group) {
+  await page.locator('.story-inspector-close').click();
+  await page.locator(`[data-group-id="${group}"]`).click();
+  await page.locator('#story-inspector .story-replay').click();
+}
+test('actual cafe-only B archive stays B after earned bookstore replay and future GAME chooses A', async ({ page }) => {
+  test.setTimeout(240_000);
+  const errors = collectBlockingErrors(page);
+  const chapter = await seed(page, 'common_bookstore_bridge_weekend_decision_frame', { met_xu_tang: 1 });
+  await follow(page, 'OPEN-A-ENTRY-SOLO', {
+    common_bookstore_bridge_weekend_decision: 'com01b_bookstore_skip',
+    common_weekday_outing_decision: 'com01b_weekday_cafe_first',
+    common_station_cafe_jyc_contact_choice: 'com02j_leave_without_contact',
+    'OPEN-A-ENTRY-ACTION-X': 'OPEN-A-ACT-LIFE', 'OPEN-A-LIFE-ACTION': 'OPEN-A-LIFE-SOLO'
+  }, 450);
+  const main = (await journey(page)).frontier;
+  expect((await journey(page)).bookstoreEverEarned).toBe(false);
+  expect((await journey(page)).initialEncounterEverEarned).toBe(true);
+  await inspectCafe(page);
+  await expect(page.locator('#story-inspector .story-variant-tabs button')).toHaveCount(0);
+  await expect(page.locator('#story-inspector .story-script')).toContainText(chapter.nodes.common_station_cafe_jyc_first_drawing_02.text);
+  await expect(page.locator('#story-inspector .story-script')).not.toContainText(chapter.nodes.common_station_cafe_jyc_drawing_03.text);
+  const archivedB = await page.locator('#story-inspector .story-script').textContent();
+  await page.locator('#story-inspector .story-replay').click();
+  expect((await journey(page)).cursor.nodeId).toBe('common_station_cafe_jyc_first_enter');
+  await inspectCafe(page);
+  await replayScene(page, 'weekend');
+  await follow(page, 'common_convenience_xu_enter', { common_bookstore_bridge_weekend_decision: 'com01b_bookstore_go' });
+  expect((await journey(page)).bookstoreEverEarned).toBe(true);
+  await inspectCafe(page);
+  await expect(page.locator('#story-inspector .story-variant-tabs button')).toHaveCount(0);
+  expect(await page.locator('#story-inspector .story-script').textContent()).toBe(archivedB);
+  await page.locator('#story-inspector .story-replay').click();
+  const restored = await journey(page);
+  expect(restored.cursor.nodeId).toBe('common_station_cafe_jyc_enter_02');
+  expect(restored.cursor.stats.met_jiang_yucheng).toBe(0);
+  expect(restored.cursor.flags).not.toContain('weekend_book_purchased');
+  expect(restored.cursor.flags).not.toContain('contact_jyc');
+  expect(restored.frontier).toEqual(main);
+  await follow(page, 'common_station_cafe_jyc_first_drawing_05');
+  expect((await journey(page)).cursor.flags).toContain('history:cafe-bookstore-reunion');
+  await inspectCafe(page);
+  await expect(page.locator('#story-inspector .story-variant-tabs button')).toHaveCount(2);
+  await expect(page.locator('#story-inspector .story-script')).toContainText(chapter.nodes.common_station_cafe_jyc_drawing_03.text);
+  await expect(page.locator('#story-inspector .story-script')).not.toContainText(chapter.nodes.common_station_cafe_jyc_first_drawing_02.text);
+  await page.locator('#story-inspector .story-variant-tabs button').filter({ hasText: 'B' }).click();
+  await expect(page.locator('#story-inspector .story-script')).toContainText(chapter.nodes.common_station_cafe_jyc_first_drawing_02.text);
+  await expect(page.locator('#story-inspector .story-script')).not.toContainText(chapter.nodes.common_station_cafe_jyc_drawing_03.text);
+  await page.reload();
+  expect((await journey(page)).frontier).toEqual(main);
+  await page.locator('#start-button').click();
+  expect((await journey(page)).cursor.nodeId).toBe(main.nodeId);
+  expect(errors).toEqual([]);
+});
+test('bookstore earned elsewhere with restored local met zero shows only genuine A despite shared B neutral nodes', async ({ page }) => {
+  test.setTimeout(240_000);
+  const chapter = await seed(page, 'common_bookstore_bridge_weekend_decision_frame', { met_xu_tang: 1 });
+  await follow(page, 'common_package_xu_arrive', {
+    common_bookstore_bridge_weekend_decision: 'com01b_bookstore_skip',
+    common_weekday_outing_decision: 'com01b_weekday_street_walk'
+  });
+  await page.locator('#game-home-button').click();
+  await page.locator('#memories-button').click();
+  await page.locator('[data-group-id="weekend"]').click();
+  await page.locator('#story-inspector .story-replay').click();
+  await follow(page, 'common_convenience_xu_enter', { common_bookstore_bridge_weekend_decision: 'com01b_bookstore_go' });
+  await page.locator('#game-home-button').click();
+  await page.locator('#memories-button').click();
+  await page.locator('[data-group-id="weekday"]').click();
+  await page.locator('#story-inspector .story-replay').click();
+  await follow(page, 'common_station_cafe_jyc_first_drawing_05');
+  const saved = await journey(page);
+  expect(saved.bookstoreEverEarned).toBe(true);
+  expect(saved.cursor.flags).toContain('history:cafe-bookstore-reunion');
+  expect(saved.cursor.flags).not.toContain('weekend_book_purchased');
+  expect(saved.checkpoints).not.toHaveProperty('common_station_cafe_jyc_first_enter');
+  expect(saved.checkpoints.common_station_cafe_jyc_enter_02.stats.met_jiang_yucheng).toBe(0);
+  await inspectCafe(page);
+  await expect(page.locator('#story-inspector .story-variant-tabs button')).toHaveCount(0);
+  await expect(page.locator('#story-inspector .story-script')).toContainText(chapter.nodes.common_station_cafe_jyc_drawing_03.text);
+  await expect(page.locator('#story-inspector .story-script')).not.toContainText(chapter.nodes.common_station_cafe_jyc_first_drawing_02.text);
+});
+
+test('actual remote Xu speaker label is shared by GAME and player/review DETAIL', async ({ page }) => {
+  await seed(page, 'common_package_xu_first_message_02', { met_xu_tang: 1 });
+  await expect(page.locator('#speaker')).toHaveText('Line-許棠');
+  await page.locator('#game-home-button').click();
+  await page.locator('#memories-button').click();
+  await page.locator('[data-group-id="parcel"]').click();
+  await expect(page.locator('#story-inspector .story-script b')).toHaveText('Line-許棠　');
+  await page.locator('.story-inspector-close').click();
+  const review = page.locator('#story-review-toggle');
+  if (await review.count()) {
+    await review.check();
+    await page.locator('[data-group-id="parcel"]').click();
+    await expect(page.locator('#story-inspector .story-script')).toContainText('Line-許棠');
+  }
 });

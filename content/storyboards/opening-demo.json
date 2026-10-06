@@ -125,7 +125,7 @@
     {
       "id": "cafe",
       "title": "雨澄・咖啡店",
-      "summary": "同一場景入口，依是否在書店相識使用不同版本。",
+      "summary": "週間到咖啡店，詳情保留實際讀過的初遇與重逢版本。",
       "row": 5,
       "lane": "left",
       "variants": [
@@ -135,20 +135,40 @@
           "memoryId": "mem.opening.ch1.station-cafe-jyc",
           "prefixes": [
             "common_station_cafe_jyc_",
-            "com02j_"
+            "com02j_",
+            "com01b_weekday_cafe_first",
+            "com01b_cafe_go_after_bookstore_skip"
           ],
           "entry": "common_station_cafe_jyc_enter",
-          "condition": "之前已在書店遇見雨澄。"
+          "condition": "曾在書店認識雨澄；重玩時依當次買書與聯絡前事接續。",
+          "snapshotMemoryOnly": true,
+          "unlockNodes": [
+            "common_station_cafe_jyc_enter",
+            "common_station_cafe_jyc_enter_02",
+            "common_station_cafe_jyc_drawing",
+            "common_station_cafe_jyc_drawing_03"
+          ]
         },
         {
           "id": "first",
           "label": "B・初遇",
           "memoryId": "mem.opening.ch1.first-cafe-jyc",
           "prefixes": [
+            "common_station_cafe_jyc_",
+            "com02j_",
+            "com01b_weekday_cafe_first",
             "com01b_cafe_go_after_bookstore_skip"
           ],
-          "entry": "com01b_cafe_go_after_bookstore_skip",
-          "condition": "之前未在書店遇見雨澄，並選擇去咖啡店。"
+          "entry": "common_station_cafe_jyc_first_enter",
+          "condition": "尚未解鎖書店初遇，選擇去咖啡店；已讀初遇保留，之後重玩依累積相識接續。",
+          "snapshotMemoryOnly": true,
+          "unlockNodes": [
+            "common_station_cafe_jyc_first_enter",
+            "common_station_cafe_jyc_first_enter_01",
+            "common_station_cafe_jyc_first_drawing",
+            "common_station_cafe_jyc_first_drawing_02"
+          ],
+          "introEntry": "com01b_cafe_go_after_bookstore_skip"
         }
       ]
     },
@@ -288,7 +308,9 @@
   "revisions": [
     {
       "id": "weekday-jyc",
-      "reviewBlockedNodes": ["common_weekday_outing_invalid_history"],
+      "reviewBlockedNodes": [
+        "common_weekday_outing_invalid_history"
+      ],
       "whenNodes": [
         "common_weekday_outing_work",
         "common_convenience_xu_weekend_book",
@@ -359,7 +381,7 @@
         },
         "cafe": {
           "row": 7,
-          "summary": "週間工作累了後到咖啡店，依是否在書店相識使用不同版本。",
+          "summary": "週間到咖啡店，詳情保留實際讀過的初遇與重逢版本。",
           "variants": [
             {
               "id": "reunion",
@@ -367,20 +389,40 @@
               "memoryId": "mem.opening.ch1.station-cafe-jyc",
               "prefixes": [
                 "common_station_cafe_jyc_",
-                "com02j_"
+                "com02j_",
+                "com01b_weekday_cafe_first",
+                "com01b_cafe_go_after_bookstore_skip"
               ],
               "entry": "common_station_cafe_jyc_enter",
-              "condition": "之前已在書店遇見雨澄。"
+              "condition": "曾在書店認識雨澄；重玩時依當次買書與聯絡前事接續。",
+              "snapshotMemoryOnly": true,
+              "unlockNodes": [
+                "common_station_cafe_jyc_enter",
+                "common_station_cafe_jyc_enter_02",
+                "common_station_cafe_jyc_drawing",
+                "common_station_cafe_jyc_drawing_03"
+              ]
             },
             {
               "id": "first",
               "label": "B・初遇",
               "memoryId": "mem.opening.ch1.first-cafe-jyc",
               "prefixes": [
-                "com01b_weekday_cafe_first"
+                "common_station_cafe_jyc_",
+                "com02j_",
+                "com01b_weekday_cafe_first",
+                "com01b_cafe_go_after_bookstore_skip"
               ],
-              "entry": "com01b_weekday_cafe_first",
-              "condition": "書店沒有遇見雨澄，週間選擇去咖啡店。"
+              "entry": "common_station_cafe_jyc_first_enter",
+              "condition": "尚未解鎖書店初遇，選擇去咖啡店；已讀初遇保留，之後重玩依累積相識接續。",
+              "snapshotMemoryOnly": true,
+              "unlockNodes": [
+                "common_station_cafe_jyc_first_enter",
+                "common_station_cafe_jyc_first_enter_01",
+                "common_station_cafe_jyc_first_drawing",
+                "common_station_cafe_jyc_first_drawing_02"
+              ],
+              "introEntry": "com01b_weekday_cafe_first"
             }
           ]
         },
@@ -442,5 +484,12 @@
         }
       ]
     }
-  ]
+  ],
+  "branchConditionLabels": {
+    "common_weekday_outing_selector": {
+      "common_weekday_outing_reunion": "曾在書店認識雨澄；依當次買書前事接續",
+      "common_weekday_outing_home": "尚未解鎖書店初遇，週間選擇去咖啡店或散步",
+      "common_weekday_outing_street_enter": "尚未解鎖書店或咖啡店初遇，這次選擇街景獨行"
+    }
+  }
 }

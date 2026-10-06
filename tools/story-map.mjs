@@ -1,6 +1,6 @@
 const narrativeConditions = {
   met_jiang_yucheng: ['已認識雨澄', '尚未認識雨澄'],
-  jyc_permanently_excluded: ['這次選擇街景獨行，接續沒有雨澄的劇情', '這次仍可接續雨澄的劇情'],
+  jyc_permanently_excluded: ['尚未解鎖書店或咖啡店初遇，這次選擇街景獨行', '曾有書店或咖啡店初遇，或這次未選擇街景獨行'],
   weekend_book_purchased: ['週末已買到想要的書', '週末沒有去書店買書'],
   'history:common_bookstore_bridge_weekend_decision:com01b_bookstore_go': ['週末選擇去書店', '週末沒有選擇去書店'],
   'history:common_bookstore_bridge_weekend_decision:com01b_bookstore_skip': ['週末選擇留在家', '週末沒有選擇留在家'],
@@ -122,7 +122,7 @@ export function compileStoryMap(route, definition) {
     }
   }
   const branchLabels = Object.fromEntries(Object.entries(chapter.nodes).filter(([,node]) => node.type === 'branch').map(([id,node]) => [id,
-    Object.fromEntries((node.cases || []).filter(c => !inactiveCase(c) && !blocked.has(c.next)).map(c => [c.next, narrativeCondition(c.conditions)]))
+    Object.fromEntries((node.cases || []).filter(c => !inactiveCase(c) && !blocked.has(c.next)).map(c => [c.next, definition.branchConditionLabels?.[id]?.[c.next] || narrativeCondition(c.conditions)]))
   ]));
   return { schemaVersion: 1, revision: revision?.id || 'current', reviewBlockedNodes, groups, edges, branchLabels };
 }

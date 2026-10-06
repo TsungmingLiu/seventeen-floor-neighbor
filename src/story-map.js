@@ -1,10 +1,21 @@
 import { isMemoryUnlocked, memoryEventById, renderMemories } from './memories.js';
+import { speakerLabelForNode } from './presentation.js';
 import { interpolatePlayerName, normalizePlayerName } from './player-name.js';
 /* STORY_MAP_REVIEW_IMPORT */
 
 // Projection only: this module never writes ProgressStore or evaluates gameplay choices.
 export function groupForNode(map, nodeId) {
   return map?.groups.find(group => group.variants.some(variant => variant.nodeIds.includes(nodeId)));
+}
+
+// Unique visited entries identify their version; shared passages use that visit's
+// persisted Memory identity. Neither consults the current replay eligibility.
+function snapshotVariant(group, snapshot, progress) {
+  if (!snapshot) return null;
+  const anchors = group.variants.filter(v => v.unlockNodes?.includes(snapshot.nodeId));
+  if (anchors.length === 1) return anchors[0].id;
+  const memoryId = progress.eventForSnapshot?.(snapshot)?.id;
+  return group.variants.find(v => v.memoryId === memoryId)?.id;
 }
 
 export function storyMapView(map, library, chapter, progress, review = false) {
@@ -31,9 +42,13 @@ export function storyMapView(map, library, chapter, progress, review = false) {
     }
   }
   const groups = map.groups.flatMap(group => {
-    const variants = group.variants.filter(variant => review || (!variant.checkpointOnly && variant.memoryId && firstForMemory.get(variant.memoryId) === group.id
+    const variants = group.variants.filter(variant => review || (variant.unlockNodes
+      ? (variant.snapshotMemoryOnly && progress.eventForSnapshot ? variant.nodeIds : variant.unlockNodes)
+        .some(id => checkpoints[id] && (!variant.snapshotMemoryOnly
+          || snapshotVariant(group, checkpoints[id], progress) === variant.id))
+      : (!variant.checkpointOnly && variant.memoryId && firstForMemory.get(variant.memoryId) === group.id
       ? isMemoryUnlocked(memoryEventById(library, variant.memoryId), progress, chapter.startNode)
-      : (variant.unlockNodes || variant.nodeIds).some(id => checkpoints[id])));
+      : variant.nodeIds.some(id => checkpoints[id]))));
     if (!review && !variants.length && group.variants.every(v => v.checkpointOnly)) {
       const known = group.variants.find(v => isMemoryUnlocked(memoryEventById(library, v.memoryId), progress, chapter.startNode));
       if (known) variants.push({ ...known, id: 'historical', label: '已讀部分', condition: undefined,
@@ -227,9 +242,13 @@ export function createStoryMap(engine) {
       inspector.append(el('h4', '', '待修改・尚未實作'), el('p', 'story-plan', controller.notes[group.id]));
     }
     const event = memoryEventById(options.library, variant.memoryId);
-    const hasSnapshot = variant.nodeIds.some(id => options.progress.data.checkpoints[id]);
+    const replayAnchors = variant.snapshotMemoryOnly && options.progress.eventForSnapshot
+      ? variant.nodeIds.filter(id => options.progress.data.checkpoints[id]
+        && snapshotVariant(group, options.progress.data.checkpoints[id], options.progress) === variant.id)
+      : variant.unlockNodes || variant.nodeIds;
+    const hasSnapshot = replayAnchors.some(id => options.progress.data.checkpoints[id]);
     if (!controller.review && hasSnapshot) {
-      const replay = { ...(event || {}), replayNode: variant.entry, unlockNodes: variant.nodeIds };
+      const replay = { ...(event || {}), replayNode: variant.entry, unlockNodes: replayAnchors };
       inspector.append(button('從此入口重玩', () => options.onReplay(replay), 'primary-button story-replay'));
     }
     const assets = variant.galleryAssets.filter(id => controller.review || options.unlockedCGs.has(id));
@@ -245,21 +264,24 @@ export function createStoryMap(engine) {
     } else if (controller.review) inspector.append(el('p', 'story-note', '本段未綁定 Gallery 圖；預覽背景不代表最終 CG。'));
     inspector.append(el('h4', '', controller.review ? '現有完整劇本與選項' : '已讀劇情'));
     const script = el('div', 'story-script');
-    const allIds = new Set(group.variants.flatMap(v => v.nodeIds));
+    const allIds = new Set(variant.nodeIds);
     let introStops = null;
     function walk(id, host, depth = 0, visited = new Set()) {
       if (controller.review && options.map.reviewBlockedNodes?.includes(id)) return;
       if (introStops?.has(id)) return;
       if (!allIds.has(id) || visited.has(id) || depth > 1000) return;
       if (!controller.review && !options.progress.data.checkpoints[id]) return;
+      // Archive identity comes from that visit's snapshot, never today's earned gates.
+      if (!controller.review && variant.snapshotMemoryOnly && options.progress.eventForSnapshot
+        && snapshotVariant(group, options.progress.data.checkpoints[id], options.progress) !== variant.id) return;
       visited.add(id);
       const node = options.chapter.nodes[id];
       if (!node) return;
       if (node.text) {
         const passage = el('p', 'story-passage');
         const playerName = normalizePlayerName(options.progress.data.playerDisplayName);
-        const speaker = controller.review ? node.speaker
-          : ['你', '我'].includes(node.speaker) ? playerName || '我' : node.speakerLabel ?? node.speaker;
+        const speaker = ['你', '我'].includes(node.speaker) ? (controller.review ? node.speaker : playerName || '我')
+          : speakerLabelForNode(node) || node.speaker;
         if (speaker) passage.append(el('b', '', `${speaker}　`));
         passage.append(document.createTextNode(controller.review ? node.text
           : interpolatePlayerName(node.text, playerName || '你'))); host.append(passage);
