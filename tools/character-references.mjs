@@ -9,6 +9,78 @@ const catalog = read('content/assets/source-catalog.json');
 const roles = { 'face.01': 'primary_face_identity', 'expression.02': 'expression', 'body.03': 'body_proportions', 'production.04': 'production_consistency', 'wardrobe.a': 'wardrobe', 'wardrobe.b': 'wardrobe' };
 function insist(value, message) { if (!value) throw new Error(message); }
 
+/** Canonical options are semantic-only; legacy duplicate keys become aliases. */
+export function wardrobeInventory(characterId, registry = packs) {
+  const pack = registry.characters[characterId];
+  insist(pack, `unknown character reference pack: ${characterId}`);
+  const rows = [];
+  for (const [key, item] of Object.entries(pack.wardrobes)) {
+    if (item.aliasOf) {
+      const target = pack.wardrobes[item.aliasOf];
+      insist(target && !target.aliasOf && target.sourceId === item.sourceId && target.look === item.look,
+        `${characterId} ${key}: invalid wardrobe alias`);
+      continue;
+    }
+    const existing = rows.find(row => row.sourceId === item.sourceId && row.look === item.look);
+    if (existing) existing.aliases.push(key);
+    else rows.push({ wardrobeKey: key, sourceId: item.sourceId, look: item.look, aliases: [] });
+  }
+  for (const [key, item] of Object.entries(pack.wardrobes)) if (item.aliasOf) {
+    const row = rows.find(row => row.wardrobeKey === item.aliasOf);
+    insist(row, `${characterId} ${key}: alias must target a canonical look`);
+    row.aliases.push(key);
+  }
+  return rows;
+}
+
+export function writerWardrobeOptions(characterId, registry = packs) {
+  return wardrobeInventory(characterId, registry).map(({ wardrobeKey, look, aliases }) => ({ wardrobe_key: wardrobeKey, look, aliases }));
+}
+
+export function wardrobeVariantForShot(shotSize) {
+  insist(['extreme_wide', 'wide', 'medium_wide', 'medium'].includes(shotSize), `unsupported exact-look shot_size: ${shotSize}`);
+  return shotSize === 'medium' ? 'upper' : 'full';
+}
+
+export function validateWardrobeDerivation(source, { characterId, wardrobeKey, variant, sourceRef }, sourceCatalog = catalog, registry = packs) {
+  const row = wardrobeInventory(characterId, registry).find(row => row.wardrobeKey === wardrobeKey || row.aliases.includes(wardrobeKey));
+  insist(row, `unknown wardrobe key for ${characterId}: ${wardrobeKey}`);
+  const original = sourceCatalog.files[row.sourceId];
+  const d = source?.derivation;
+  insist(original?.characterId === characterId && original.role === 'wardrobe' && original.status === 'active-production'
+    && source?.characterId === characterId && source.role === 'wardrobe' && source.status === 'active-production'
+    && source.mimeType === 'image/png' && source.verifiedDecode === true
+    && Number.isSafeInteger(source.width) && source.width > 0 && Number.isSafeInteger(source.height) && source.height > 0
+    && typeof source.sourcePath === 'string' && source.sourcePath.startsWith('assets-src/') && !source.sourcePath.split('/').includes('..')
+    && path.basename(source.sourcePath) === source.name
+    && d?.sourceId === row.sourceId && d.sourcePath === original.sourcePath
+    && typeof d.sourceRef === 'string' && d.sourceRef.trim() && !d.sourceRef.startsWith('-') && !/[\s\x00]/.test(d.sourceRef)
+    && (!sourceRef || d.sourceRef === sourceRef)
+    && d.wardrobeKey === row.wardrobeKey && d.variant === variant && ['full', 'upper'].includes(variant),
+  `${characterId} ${wardrobeKey}: exact-look provenance/character/variant/status mismatch`);
+  const r = d.rect;
+  insist(r && ['left', 'top', 'width', 'height'].every(key => Number.isSafeInteger(r[key]))
+    && r.left >= 0 && r.top >= 0 && r.width > 0 && r.height > 0
+    && [r.left + r.width, r.top + r.height].every(Number.isSafeInteger)
+    && r.left + r.width <= original.width && r.top + r.height <= original.height
+    && source.width === r.width && source.height === r.height,
+  `${characterId} ${wardrobeKey}: invalid native crop rectangle/dimensions`);
+  if (Object.hasOwn(d, 'excludeRects')) {
+    insist(Array.isArray(d.excludeRects), `${characterId} ${wardrobeKey}: excludeRects must be an array`);
+    for (const mask of d.excludeRects) {
+      insist(mask && typeof mask === 'object' && !Array.isArray(mask)
+        && Object.keys(mask).filter(key => key !== 'fill').sort().join(',') === 'height,left,top,width'
+        && (!Object.hasOwn(mask, 'fill') || (typeof mask.fill === 'string' && /^#[0-9a-fA-F]{6}$/.test(mask.fill)))
+        && ['left', 'top', 'width', 'height'].every(key => Number.isSafeInteger(mask[key]))
+        && mask.left >= r.left && mask.top >= r.top && mask.width > 0 && mask.height > 0
+        && [mask.left + mask.width, mask.top + mask.height].every(Number.isSafeInteger)
+        && mask.left + mask.width <= r.left + r.width && mask.top + mask.height <= r.top + r.height,
+      `${characterId} ${wardrobeKey}: invalid native exclusion rectangle`);
+    }
+  }
+  return source;
+}
+
 export function validateCharacterReferencePacks(sourceCatalog = catalog, registry = packs) {
   insist(registry.schemaVersion === 1 && registry.lifecycle === 'CANONICAL', 'invalid character reference pack registry');
   for (const [characterId, pack] of Object.entries(registry.characters)) {
@@ -17,8 +89,16 @@ export function validateCharacterReferencePacks(sourceCatalog = catalog, registr
       const source = sourceCatalog.files[pack.sheets[sheet]];
       insist(source?.characterId === characterId && source.role === role && source.status === 'active-production' && source.mimeType === 'image/png', `${characterId} ${sheet} reference role/character/status/format mismatch`);
     }
+    wardrobeInventory(characterId, registry);
     for (const [key, wardrobe] of Object.entries(pack.wardrobes)) {
       insist([pack.sheets['wardrobe.a'], pack.sheets['wardrobe.b']].includes(wardrobe.sourceId) && typeof wardrobe.look === 'string' && wardrobe.look.trim(), `${characterId} ${key} wardrobe must resolve to an exact pack sheet and look`);
+      if (wardrobe.generationRefs !== undefined) {
+        insist(!wardrobe.aliasOf && wardrobe.generationRefs && Object.keys(wardrobe.generationRefs).length === 2
+          && ['full', 'upper'].every(variant => typeof wardrobe.generationRefs[variant] === 'string'), `${characterId} ${key}: generationRefs requires full and upper`);
+        for (const variant of ['full', 'upper']) validateWardrobeDerivation(sourceCatalog.files[wardrobe.generationRefs[variant]],
+          { characterId, wardrobeKey: key, variant }, sourceCatalog, registry);
+        insist(wardrobe.generationRefs.full !== wardrobe.generationRefs.upper, `${characterId} ${key}: duplicate generation refs`);
+      }
     }
   }
   return registry;
@@ -110,12 +190,21 @@ export function validateCharacterWardrobeReplacementReceipt(receipt, previousRec
 }
 
 /** Explicit, bounded selection; never attach all sheets or infer acting from scene prose. */
-export function selectCharacterReferences({ characterId, wardrobeKey, expression = false, body = false, production = true }, sourceCatalog = catalog, registry = packs) {
+export function selectCharacterReferences({ characterId, wardrobeKey, expression = false, body = false, production = true, wardrobeReferenceMode, shotSize, sourceRef }, sourceCatalog = catalog, registry = packs) {
   const pack = registry.characters[characterId];
   insist(pack, `unknown character reference pack: ${characterId}`);
   const wardrobe = pack.wardrobes[wardrobeKey];
   insist(wardrobe, `unknown wardrobe key for ${characterId}: ${wardrobeKey}`);
-  const ids = [pack.sheets['face.01'], ...(production ? [pack.sheets['production.04']] : []), wardrobe.sourceId,
+  insist(wardrobeReferenceMode === undefined || wardrobeReferenceMode === 'exact_look', 'invalid wardrobe_reference_mode');
+  let wardrobeSourceId = wardrobe.sourceId;
+  if (wardrobeReferenceMode === 'exact_look') {
+    const variant = wardrobeVariantForShot(shotSize);
+    const row = wardrobeInventory(characterId, registry).find(row => row.wardrobeKey === wardrobeKey || row.aliases.includes(wardrobeKey));
+    wardrobeSourceId = pack.wardrobes[row.wardrobeKey].generationRefs?.[variant];
+    insist(wardrobeSourceId, `${characterId} ${wardrobeKey}: missing exact-look ${variant} reference`);
+    validateWardrobeDerivation(sourceCatalog.files[wardrobeSourceId], { characterId, wardrobeKey, variant, sourceRef }, sourceCatalog, registry);
+  }
+  const ids = [pack.sheets['face.01'], ...(production ? [pack.sheets['production.04']] : []), wardrobeSourceId,
     ...(expression ? [pack.sheets['expression.02']] : []), ...(body ? [pack.sheets['body.03']] : [])];
   return ids.map((id) => {
     const source = sourceCatalog.files[id];
@@ -138,16 +227,17 @@ export function validateCharacterReferenceSelection(entry, sourceCatalog = catal
       seen.add(binding.source_id);
       if (binding.role === 'accepted_character_continuity') supplementary.add(binding.source_id);
     }
+    insist(character.wardrobe_reference_mode === undefined || character.wardrobe_reference_mode === 'exact_look', `${context}: invalid wardrobe_reference_mode`);
     // Accepted entries retain their original render provenance. New edits inherit the
     // accepted base and only acquire explicitly declared supplementary references.
-    if (entry.status === 'accepted' || entry.reference_transport.mode === 'edit_from_accepted_base') continue;
+    if (!character.wardrobe_reference_mode && (entry.status === 'accepted' || entry.reference_transport.mode === 'edit_from_accepted_base')) continue;
     const requirements = character.reference_requirements ?? { production_consistency: true, expression: false, body_proportions: false };
     insist(requirements && typeof requirements === 'object' && !Array.isArray(requirements), `${context}: invalid reference_requirements`);
     for (const key of ['production_consistency', 'expression', 'body_proportions']) insist(typeof requirements[key] === 'boolean', `${context}: reference_requirements.${key} must be boolean`);
     if (!requirements.production_consistency) insist(typeof requirements.production_omission_reason === 'string' && requirements.production_omission_reason.trim(), `${context}: production omission requires a reason`);
     const needsBody = requirements.body_proportions || /(?:full[_ -]?body|long[_ -]?shot|全身)/i.test(entry.camera.shot_size);
     const expected = selectCharacterReferences({ characterId: character.character_id, wardrobeKey: character.wardrobe_key,
-      production: requirements.production_consistency, expression: requirements.expression, body: needsBody }, sourceCatalog, registry);
+      production: requirements.production_consistency, expression: requirements.expression, body: needsBody, wardrobeReferenceMode: character.wardrobe_reference_mode, shotSize: entry.camera.shot_size }, sourceCatalog, registry);
     insist(expected.length === seen.size - supplementary.size && expected.every((binding) => seen.has(binding.source_id)), `${context}: reference selection must match face, production, wardrobe and declared expression/body needs`);
   }
 }
@@ -159,12 +249,16 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
     for (let index = 0; index < args.length; index++) {
       if (args[index] === '--character') options.characterId = args[++index];
       else if (args[index] === '--wardrobe') options.wardrobeKey = args[++index];
+      else if (args[index] === '--exact-look') options.wardrobeReferenceMode = 'exact_look';
+      else if (args[index] === '--shot') options.shotSize = args[++index];
+      else if (args[index] === '--options') options.options = true;
       else if (args[index] === '--expression') options.expression = true;
       else if (args[index] === '--body') options.body = true;
       else throw new Error(`unknown argument: ${args[index]}`);
     }
+    if (options.options) { process.stdout.write(`${JSON.stringify(writerWardrobeOptions(options.characterId), null, 2)}\n`); process.exit(0); }
     const reference_bindings = selectCharacterReferences(options);
-    process.stdout.write(`${JSON.stringify({ reference_requirements: { production_consistency: true, expression: !!options.expression, body_proportions: !!options.body }, reference_bindings,
+    process.stdout.write(`${JSON.stringify({ ...(options.wardrobeReferenceMode ? { wardrobe_reference_mode: options.wardrobeReferenceMode } : {}), reference_requirements: { production_consistency: true, expression: !!options.expression, body_proportions: !!options.body }, reference_bindings,
       attachments: reference_bindings.map((binding) => ({ ...binding, pixels_must_be_visible: true })) }, null, 2)}\n`);
   } catch (error) { process.stderr.write(`${error.message}\n`); process.exitCode = 1; }
 }

@@ -131,3 +131,7 @@ Candidate 僅對 manifest entry、refs、accepted base 評估，不回頭自由�
 - character reference system redesign；
 - Chat/Work/API 各自維護 creative prompt；
 - 用 schema score 取代 Human narrative judgment。
+
+## Opt-in exact-look wardrobe contract
+
+Writer owns the wardrobe key for opted-in new work using existing semantic-only key/look options; Planner carries and validates that choice without changing it for composition/backend. No runtime wardrobe state or scene rewrite is introduced. See `.ai/schemas/DATA_PACKS.md` and `.ai/schemas/CG_MANIFEST.md`; existing accepted/legacy artifacts retain their contracts.

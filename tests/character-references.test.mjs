@@ -8,6 +8,75 @@ const read = (name) => JSON.parse(fs.readFileSync(new URL(`../${name}`, import.m
 const catalog = read('content/assets/source-catalog.json');
 const registry = read('content/assets/character-reference-packs.json');
 
+function syntheticExactLookPack() {
+  const characterId = 'synthetic_character';
+  const wardrobeKey = 'SYNTHETIC-LOOK';
+  const files = {};
+  const sheets = {};
+  const roles = { 'face.01': 'primary_face_identity', 'expression.02': 'expression', 'body.03': 'body_proportions', 'production.04': 'production_consistency', 'wardrobe.a': 'wardrobe', 'wardrobe.b': 'wardrobe' };
+  for (const [sheet, role] of Object.entries(roles)) {
+    const id = `ref.${characterId}.${sheet}`;
+    sheets[sheet] = id;
+    files[id] = { characterId, role, status: 'active-production', mimeType: 'image/png',
+      name: `${sheet}.png`, sourcePath: `assets-src/synthetic/${sheet}.png`, width: 10, height: 10 };
+  }
+  const generationRefs = {};
+  for (const [variant, sourceRef] of [['full', 'ac26b68c4c792c358812df4fabf0d1ef99085170'], ['upper', 'a81e549ed8965572adc57b487ae9664e39101893']]) {
+    const id = `ref.${characterId}.look.${variant}`;
+    generationRefs[variant] = id;
+    files[id] = { characterId, role: 'wardrobe', status: 'active-production', mimeType: 'image/png',
+      verifiedDecode: true, name: `${variant}.png`, sourcePath: `assets-src/synthetic/${variant}.png`, width: 4, height: 4,
+      derivation: { sourceId: sheets['wardrobe.b'], sourcePath: files[sheets['wardrobe.b']].sourcePath,
+        sourceRef, wardrobeKey, variant, rect: { left: 1, top: 1, width: 4, height: 4 } } };
+  }
+  return { characterId, wardrobeKey, generationRefs, catalog: { files },
+    registry: { schemaVersion: 1, lifecycle: 'CANONICAL', characters: {
+      [characterId]: { sheets, wardrobes: { [wardrobeKey]: { sourceId: sheets['wardrobe.b'], look: 'Synthetic look', generationRefs } } }
+    } } };
+}
+
+test('exact-look full and upper retain distinct original-acquisition refs', () => {
+  const fixture = syntheticExactLookPack();
+  assert.doesNotThrow(() => validateCharacterReferencePacks(fixture.catalog, fixture.registry));
+  for (const [shotSize, variant] of [['wide', 'full'], ['medium', 'upper']]) {
+    const selection = selectCharacterReferences({ characterId: fixture.characterId, wardrobeKey: fixture.wardrobeKey,
+      wardrobeReferenceMode: 'exact_look', shotSize }, fixture.catalog, fixture.registry);
+    assert.equal(selection[2].source_id, fixture.generationRefs[variant]);
+    assert.throws(() => selectCharacterReferences({ characterId: fixture.characterId, wardrobeKey: fixture.wardrobeKey,
+      wardrobeReferenceMode: 'exact_look', shotSize, sourceRef: 'later-candidate-ref' }, fixture.catalog, fixture.registry), /provenance/);
+  }
+});
+
+test('distinct acquisition refs do not waive exact-look provenance or native geometry', () => {
+  const mutations = {
+    missing_derivation: source => { delete source.derivation; },
+    missing_ref: source => { delete source.derivation.sourceRef; },
+    empty_ref: source => { source.derivation.sourceRef = ''; },
+    whitespace_ref: source => { source.derivation.sourceRef = 'bad ref'; },
+    option_ref: source => { source.derivation.sourceRef = '-invalid'; },
+    null_ref: source => { source.derivation.sourceRef = null; },
+    wrong_original_id: source => { source.derivation.sourceId = 'ref.synthetic_character.wardrobe.a'; },
+    wrong_original_path: source => { source.derivation.sourcePath = 'assets-src/synthetic/wrong.png'; },
+    wrong_key: source => { source.derivation.wardrobeKey = 'OTHER-LOOK'; },
+    wrong_variant: source => { source.derivation.variant = 'other'; },
+    cross_character: source => { source.characterId = 'other_character'; },
+    wrong_role: source => { source.role = 'expression'; },
+    pending_status: source => { source.status = 'pending-independent-crop-qa'; },
+    resized_dimensions: source => { source.width = 8; },
+    outside_original: source => { source.derivation.rect.left = 9; }
+  };
+  for (const variant of ['full', 'upper']) for (const [problem, mutate] of Object.entries(mutations)) {
+    const fixture = syntheticExactLookPack();
+    mutate(fixture.catalog.files[fixture.generationRefs[variant]]);
+    assert.throws(() => validateCharacterReferencePacks(fixture.catalog, fixture.registry), /provenance|native crop/, `${variant}: ${problem}`);
+  }
+  for (const field of ['characterId', 'role', 'status']) {
+    const fixture = syntheticExactLookPack();
+    fixture.catalog.files[fixture.registry.characters[fixture.characterId].sheets['wardrobe.b']][field] = 'unapproved';
+    assert.throws(() => validateCharacterReferencePacks(fixture.catalog, fixture.registry), /mismatch/, `original: ${field}`);
+  }
+});
+
 test('Shen Yingxue receipt requires the scoped Owner height-label override', () => {
   const receipt = read('content/assets/ingest-receipts/shen-yingxue-reference-pack-20261003.json');
   assert.equal(validateCharacterReferencePackReceipt(receipt, 'shen_yingxue').length, 6);

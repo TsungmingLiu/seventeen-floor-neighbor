@@ -33,3 +33,7 @@ Renderer 不讀其他 packs；deterministic projection 會把 entry 轉成 rende
 ## Render Packet
 
 `GENERATED` artifact：由 canonical CG entry 逐欄位 deterministic projection，包含 shared prompt、reference checklist、provenance。Adapter 可以包裝 packet，但不得摘要或修改 shared prompt。
+
+## Opt-in exact-look wardrobe contract
+
+A task-local Writer wardrobe options projection contains only `wardrobe_key`, existing `look`, and semantic key `aliases`; no source IDs, paths, pixels, image/provider/prompt metadata or inferred relationship gates. Generate from the single character-reference registry using `cg:references -- --character <id> --options`. Writer owns the story choice; Planner carries it unchanged and validates references. See `.ai/schemas/CG_MANIFEST.md` for explicit opt-in.

@@ -14,39 +14,72 @@
       "wardrobes": {
         "XT-WARDROBE-A-WEEKDAY-NEIGHBOR": {
           "sourceId": "ref.xu_tang.wardrobe.a",
-          "look": "Weekday Neighbor"
+          "look": "Weekday Neighbor",
+          "generationRefs": {
+            "full": "ref.xu_tang.wardrobe_look.a_weekday_neighbor.full",
+            "upper": "ref.xu_tang.wardrobe_look.a_weekday_neighbor.upper"
+          }
         },
         "XT-WARDROBE-A-LATE-NIGHT-CONVENIENCE-STORE": {
           "sourceId": "ref.xu_tang.wardrobe.a",
-          "look": "Late-night Convenience Store"
+          "look": "Late-night Convenience Store",
+          "generationRefs": {
+            "full": "ref.xu_tang.wardrobe_look.a_late_night_convenience_store.full",
+            "upper": "ref.xu_tang.wardrobe_look.a_late_night_convenience_store.upper"
+          }
         },
         "XT-WARDROBE-A-BOOKSTORE-CAFE-DATE": {
           "sourceId": "ref.xu_tang.wardrobe.a",
-          "look": "Bookstore / Café Date"
+          "look": "Bookstore / Café Date",
+          "generationRefs": {
+            "full": "ref.xu_tang.wardrobe_look.a_bookstore_cafe_date.full",
+            "upper": "ref.xu_tang.wardrobe_look.a_bookstore_cafe_date.upper"
+          }
         },
         "XT-WARDROBE-A-WEEKEND-NIGHT-OUT": {
           "sourceId": "ref.xu_tang.wardrobe.a",
-          "look": "Weekend / Night Out"
+          "look": "Weekend / Night Out",
+          "generationRefs": {
+            "full": "ref.xu_tang.wardrobe_look.a_weekend_night_out.full",
+            "upper": "ref.xu_tang.wardrobe_look.a_weekend_night_out.upper"
+          }
         },
         "XT-WARDROBE-B-RIVERSIDE-RAINY-DATE": {
           "sourceId": "ref.xu_tang.wardrobe.b",
-          "look": "Riverside / Rainy Date"
+          "look": "Riverside / Rainy Date",
+          "generationRefs": {
+            "full": "ref.xu_tang.wardrobe_look.b_riverside_rainy_date.full",
+            "upper": "ref.xu_tang.wardrobe_look.b_riverside_rainy_date.upper"
+          }
         },
         "XT-WARDROBE-B-WORK-DEADLINE-HOME": {
           "sourceId": "ref.xu_tang.wardrobe.b",
-          "look": "Work / Deadline Home"
+          "look": "Work / Deadline Home",
+          "generationRefs": {
+            "full": "ref.xu_tang.wardrobe_look.b_work_deadline_home.full",
+            "upper": "ref.xu_tang.wardrobe_look.b_work_deadline_home.upper"
+          }
         },
         "XT-WARDROBE-B-REPAIR-ENDING-SERIOUS-DATE": {
           "sourceId": "ref.xu_tang.wardrobe.b",
-          "look": "Repair / Ending / Serious Date"
+          "look": "Repair / Ending / Serious Date",
+          "generationRefs": {
+            "full": "ref.xu_tang.wardrobe_look.b_repair_ending_serious_date.full",
+            "upper": "ref.xu_tang.wardrobe_look.b_repair_ending_serious_date.upper"
+          }
         },
         "XT-WARDROBE-B-AFTER-STORY-WEEKEND-MORNING": {
           "sourceId": "ref.xu_tang.wardrobe.b",
-          "look": "After Story / Weekend Morning"
+          "look": "After Story / Weekend Morning",
+          "generationRefs": {
+            "upper": "ref.xu_tang.wardrobe_look.b_after_story_weekend_morning.upper",
+            "full": "ref.xu_tang.wardrobe_look.b_after_story_weekend_morning.full"
+          }
         },
         "xu_tang_grey_home_sweater_casual_evening": {
           "sourceId": "ref.xu_tang.wardrobe.a",
-          "look": "Late-night Convenience Store"
+          "look": "Late-night Convenience Store",
+          "aliasOf": "XT-WARDROBE-A-LATE-NIGHT-CONVENIENCE-STORE"
         }
       }
     },
@@ -62,35 +95,67 @@
       "wardrobes": {
         "JYC-WARDROBE-A-CAMPUS-GRADUATE-STUDENT": {
           "sourceId": "ref.jiang_yucheng.wardrobe.a",
-          "look": "Campus / Graduate Student"
+          "look": "Campus / Graduate Student",
+          "generationRefs": {
+            "full": "ref.jiang_yucheng.wardrobe_look.a_campus_graduate_student.full",
+            "upper": "ref.jiang_yucheng.wardrobe_look.a_campus_graduate_student.upper"
+          }
         },
         "JYC-WARDROBE-A-CAFE-CREATOR": {
           "sourceId": "ref.jiang_yucheng.wardrobe.a",
-          "look": "Café / Creator"
+          "look": "Café / Creator",
+          "generationRefs": {
+            "full": "ref.jiang_yucheng.wardrobe_look.a_cafe_creator.full",
+            "upper": "ref.jiang_yucheng.wardrobe_look.a_cafe_creator.upper"
+          }
         },
         "JYC-WARDROBE-A-ACG-OUTING": {
           "sourceId": "ref.jiang_yucheng.wardrobe.a",
-          "look": "ACG Outing"
+          "look": "ACG Outing",
+          "generationRefs": {
+            "full": "ref.jiang_yucheng.wardrobe_look.a_acg_outing.full",
+            "upper": "ref.jiang_yucheng.wardrobe_look.a_acg_outing.upper"
+          }
         },
         "JYC-WARDROBE-A-GAMING-HOME-CASUAL": {
           "sourceId": "ref.jiang_yucheng.wardrobe.a",
-          "look": "Gaming / Home Casual"
+          "look": "Gaming / Home Casual",
+          "generationRefs": {
+            "full": "ref.jiang_yucheng.wardrobe_look.a_gaming_home_casual.full",
+            "upper": "ref.jiang_yucheng.wardrobe_look.a_gaming_home_casual.upper"
+          }
         },
         "JYC-WARDROBE-B-CUTE-DATE": {
           "sourceId": "ref.jiang_yucheng.wardrobe.b",
-          "look": "Cute Date"
+          "look": "Cute Date",
+          "generationRefs": {
+            "full": "ref.jiang_yucheng.wardrobe_look.b_cute_date.full",
+            "upper": "ref.jiang_yucheng.wardrobe_look.b_cute_date.upper"
+          }
         },
         "JYC-WARDROBE-B-CREATOR-EVENT": {
           "sourceId": "ref.jiang_yucheng.wardrobe.b",
-          "look": "Creator Event"
+          "look": "Creator Event",
+          "generationRefs": {
+            "full": "ref.jiang_yucheng.wardrobe_look.b_creator_event.full",
+            "upper": "ref.jiang_yucheng.wardrobe_look.b_creator_event.upper"
+          }
         },
         "JYC-WARDROBE-B-SIGNATURE-CAMPUS": {
           "sourceId": "ref.jiang_yucheng.wardrobe.b",
-          "look": "Signature Campus"
+          "look": "Signature Campus",
+          "generationRefs": {
+            "full": "ref.jiang_yucheng.wardrobe_look.b_signature_campus.full",
+            "upper": "ref.jiang_yucheng.wardrobe_look.b_signature_campus.upper"
+          }
         },
         "JYC-WARDROBE-B-AFTER-STORY-WEEKEND-MORNING": {
           "sourceId": "ref.jiang_yucheng.wardrobe.b",
-          "look": "After Story / Weekend Morning"
+          "look": "After Story / Weekend Morning",
+          "generationRefs": {
+            "full": "ref.jiang_yucheng.wardrobe_look.b_after_story_weekend_morning.full",
+            "upper": "ref.jiang_yucheng.wardrobe_look.b_after_story_weekend_morning.upper"
+          }
         }
       }
     },
@@ -108,43 +173,83 @@
       "wardrobes": {
         "LRQ-WARDROBE-A-TEACHER-TROUSERS": {
           "sourceId": "ref.lin_ruoqing.wardrobe.a",
-          "look": "Teacher / Trousers"
+          "look": "Teacher / Trousers",
+          "generationRefs": {
+            "full": "ref.lin_ruoqing.wardrobe_look.a_teacher_trousers.full",
+            "upper": "ref.lin_ruoqing.wardrobe_look.a_teacher_trousers.upper"
+          }
         },
         "LRQ-WARDROBE-A-CARDIGAN-EVERYDAY": {
           "sourceId": "ref.lin_ruoqing.wardrobe.a",
-          "look": "Cardigan / Everyday"
+          "look": "Cardigan / Everyday",
+          "generationRefs": {
+            "full": "ref.lin_ruoqing.wardrobe_look.a_cardigan_everyday.full",
+            "upper": "ref.lin_ruoqing.wardrobe_look.a_cardigan_everyday.upper"
+          }
         },
         "LRQ-WARDROBE-A-TEACHER-PRESENTATION": {
           "sourceId": "ref.lin_ruoqing.wardrobe.a",
-          "look": "Teacher / Presentation"
+          "look": "Teacher / Presentation",
+          "generationRefs": {
+            "full": "ref.lin_ruoqing.wardrobe_look.a_teacher_presentation.full",
+            "upper": "ref.lin_ruoqing.wardrobe_look.a_teacher_presentation.upper"
+          }
         },
         "LRQ-WARDROBE-A-HOODIE-WEEKEND": {
           "sourceId": "ref.lin_ruoqing.wardrobe.a",
-          "look": "Hoodie / Weekend"
+          "look": "Hoodie / Weekend",
+          "generationRefs": {
+            "full": "ref.lin_ruoqing.wardrobe_look.a_hoodie_weekend.full",
+            "upper": "ref.lin_ruoqing.wardrobe_look.a_hoodie_weekend.upper"
+          }
         },
         "LRQ-WARDROBE-A-FLORAL-DATE": {
           "sourceId": "ref.lin_ruoqing.wardrobe.a",
-          "look": "Floral / Date"
+          "look": "Floral / Date",
+          "generationRefs": {
+            "full": "ref.lin_ruoqing.wardrobe_look.a_floral_date.full",
+            "upper": "ref.lin_ruoqing.wardrobe_look.a_floral_date.upper"
+          }
         },
         "LRQ-WARDROBE-A-AUTUMN-OUTING": {
           "sourceId": "ref.lin_ruoqing.wardrobe.a",
-          "look": "Autumn / Outing"
+          "look": "Autumn / Outing",
+          "generationRefs": {
+            "full": "ref.lin_ruoqing.wardrobe_look.a_autumn_outing.full",
+            "upper": "ref.lin_ruoqing.wardrobe_look.a_autumn_outing.upper"
+          }
         },
         "LRQ-WARDROBE-B-FITNESS-ACTIVE": {
           "sourceId": "ref.lin_ruoqing.wardrobe.b",
-          "look": "Fitness / Active"
+          "look": "Fitness / Active",
+          "generationRefs": {
+            "full": "ref.lin_ruoqing.wardrobe_look.b_fitness_active.full",
+            "upper": "ref.lin_ruoqing.wardrobe_look.b_fitness_active.upper"
+          }
         },
         "LRQ-WARDROBE-B-BADMINTON": {
           "sourceId": "ref.lin_ruoqing.wardrobe.b",
-          "look": "Badminton"
+          "look": "Badminton",
+          "generationRefs": {
+            "full": "ref.lin_ruoqing.wardrobe_look.b_badminton.full",
+            "upper": "ref.lin_ruoqing.wardrobe_look.b_badminton.upper"
+          }
         },
         "LRQ-WARDROBE-B-HOME-REST": {
           "sourceId": "ref.lin_ruoqing.wardrobe.b",
-          "look": "Home / Rest"
+          "look": "Home / Rest",
+          "generationRefs": {
+            "full": "ref.lin_ruoqing.wardrobe_look.b_home_rest.full",
+            "upper": "ref.lin_ruoqing.wardrobe_look.b_home_rest.upper"
+          }
         },
         "LRQ-WARDROBE-B-POOL-SWIM": {
           "sourceId": "ref.lin_ruoqing.wardrobe.b",
-          "look": "Pool / Swim"
+          "look": "Pool / Swim",
+          "generationRefs": {
+            "full": "ref.lin_ruoqing.wardrobe_look.b_pool_swim.full",
+            "upper": "ref.lin_ruoqing.wardrobe_look.b_pool_swim.upper"
+          }
         }
       }
     },
@@ -165,35 +270,67 @@
       "wardrobes": {
         "SYX-WARDROBE-A-STRATEGY-WORK": {
           "sourceId": "ref.shen_yingxue.wardrobe.a",
-          "look": "Strategy Work"
+          "look": "Strategy Work",
+          "generationRefs": {
+            "full": "ref.shen_yingxue.wardrobe_look.a_strategy_work.full",
+            "upper": "ref.shen_yingxue.wardrobe_look.a_strategy_work.upper"
+          }
         },
         "SYX-WARDROBE-A-CLIENT-FORMAL-DAY": {
           "sourceId": "ref.shen_yingxue.wardrobe.a",
-          "look": "Client / Formal Day"
+          "look": "Client / Formal Day",
+          "generationRefs": {
+            "full": "ref.shen_yingxue.wardrobe_look.a_client_formal_day.full",
+            "upper": "ref.shen_yingxue.wardrobe_look.a_client_formal_day.upper"
+          }
         },
         "SYX-WARDROBE-A-CITY-EVENING": {
           "sourceId": "ref.shen_yingxue.wardrobe.a",
-          "look": "City / Evening"
+          "look": "City / Evening",
+          "generationRefs": {
+            "full": "ref.shen_yingxue.wardrobe_look.a_city_evening.full",
+            "upper": "ref.shen_yingxue.wardrobe_look.a_city_evening.upper"
+          }
         },
         "SYX-WARDROBE-A-CAFE-WEEKEND": {
           "sourceId": "ref.shen_yingxue.wardrobe.a",
-          "look": "Café / Weekend"
+          "look": "Café / Weekend",
+          "generationRefs": {
+            "full": "ref.shen_yingxue.wardrobe_look.a_cafe_weekend.full",
+            "upper": "ref.shen_yingxue.wardrobe_look.a_cafe_weekend.upper"
+          }
         },
         "SYX-WARDROBE-B-LEISURE-CAFE": {
           "sourceId": "ref.shen_yingxue.wardrobe.b",
-          "look": "Leisure / Café"
+          "look": "Leisure / Café",
+          "generationRefs": {
+            "full": "ref.shen_yingxue.wardrobe_look.b_leisure_cafe.full",
+            "upper": "ref.shen_yingxue.wardrobe_look.b_leisure_cafe.upper"
+          }
         },
         "SYX-WARDROBE-B-WORKOUT-GYM": {
           "sourceId": "ref.shen_yingxue.wardrobe.b",
-          "look": "Workout / Gym"
+          "look": "Workout / Gym",
+          "generationRefs": {
+            "full": "ref.shen_yingxue.wardrobe_look.b_workout_gym.full",
+            "upper": "ref.shen_yingxue.wardrobe_look.b_workout_gym.upper"
+          }
         },
         "SYX-WARDROBE-B-HOME-LOUNGE": {
           "sourceId": "ref.shen_yingxue.wardrobe.b",
-          "look": "Home / Lounge"
+          "look": "Home / Lounge",
+          "generationRefs": {
+            "full": "ref.shen_yingxue.wardrobe_look.b_home_lounge.full",
+            "upper": "ref.shen_yingxue.wardrobe_look.b_home_lounge.upper"
+          }
         },
         "SYX-WARDROBE-B-QUIET-EVENING-SLEEPWEAR": {
           "sourceId": "ref.shen_yingxue.wardrobe.b",
-          "look": "Quiet Evening / Sleepwear"
+          "look": "Quiet Evening / Sleepwear",
+          "generationRefs": {
+            "full": "ref.shen_yingxue.wardrobe_look.b_quiet_evening_sleepwear.full",
+            "upper": "ref.shen_yingxue.wardrobe_look.b_quiet_evening_sleepwear.upper"
+          }
         }
       }
     }
