@@ -13,15 +13,25 @@ const registry = read('content/assets/character-reference-packs.json');
 const catalog = read('content/assets/source-catalog.json');
 const ref = '1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef';
 const characterId = 'xu_tang', wardrobeKey = 'XT-WARDROBE-A-LATE-NIGHT-CONVENIENCE-STORE';
-function fixture() {
+function fixture({ isolateRegisteredDerivatives = false } = {}) {
   const r = structuredClone(registry), c = structuredClone(catalog);
+  if (isolateRegisteredDerivatives) {
+    for (const [id, source] of Object.entries(c.files)) {
+      if (source.derivation) delete c.files[id];
+    }
+    for (const pack of Object.values(r.characters)) {
+      for (const wardrobe of Object.values(pack.wardrobes)) delete wardrobe.generationRefs;
+    }
+  }
   const item = r.characters[characterId].wardrobes[wardrobeKey];
-  item.generationRefs = {};
-  for (const variant of ['full', 'upper']) {
-    const id = `ref.xu_tang.look.test.${variant}`;
-    item.generationRefs[variant] = id;
-    c.files[id] = { name: `test-${variant}.png`, sourcePath: `assets-src/test-${variant}.png`, characterId, role: 'wardrobe', status: 'active-production', mimeType: 'image/png', verifiedDecode: true, width: 8, height: variant === 'full' ? 8 : 4,
-      derivation: { sourceId: item.sourceId, sourcePath: c.files[item.sourceId].sourcePath, sourceRef: ref, wardrobeKey, variant, rect: { left: 0, top: 0, width: 8, height: variant === 'full' ? 8 : 4 } } };
+  if (!isolateRegisteredDerivatives) {
+    item.generationRefs = {};
+    for (const variant of ['full', 'upper']) {
+      const id = `ref.xu_tang.look.test.${variant}`;
+      item.generationRefs[variant] = id;
+      c.files[id] = { name: `test-${variant}.png`, sourcePath: `assets-src/test-${variant}.png`, characterId, role: 'wardrobe', status: 'active-production', mimeType: 'image/png', verifiedDecode: true, width: 8, height: variant === 'full' ? 8 : 4,
+        derivation: { sourceId: item.sourceId, sourcePath: c.files[item.sourceId].sourcePath, sourceRef: ref, wardrobeKey, variant, rect: { left: 0, top: 0, width: 8, height: variant === 'full' ? 8 : 4 } } };
+    }
   }
   return { r, c };
 }
@@ -181,7 +191,7 @@ test('exact-look deterministic packet and all adapters route the selected derive
 // Exact proposed native rectangles from the bounded engineering corrective packet.
 const proposedCrops = [["xu_tang","XT-WARDROBE-A-WEEKDAY-NEIGHBOR","full",2,194,256,884],["xu_tang","XT-WARDROBE-A-WEEKDAY-NEIGHBOR","upper",2,194,256,346],["xu_tang","XT-WARDROBE-A-LATE-NIGHT-CONVENIENCE-STORE","full",264,194,259,884],["xu_tang","XT-WARDROBE-A-LATE-NIGHT-CONVENIENCE-STORE","upper",264,194,259,346],["xu_tang","XT-WARDROBE-A-BOOKSTORE-CAFE-DATE","full",529,194,266,884],["xu_tang","XT-WARDROBE-A-BOOKSTORE-CAFE-DATE","upper",529,194,266,346],["xu_tang","XT-WARDROBE-A-WEEKEND-NIGHT-OUT","full",800,194,252,884],["xu_tang","XT-WARDROBE-A-WEEKEND-NIGHT-OUT","upper",800,194,252,346],["xu_tang","XT-WARDROBE-B-RIVERSIDE-RAINY-DATE","full",2,194,256,871],["xu_tang","XT-WARDROBE-B-RIVERSIDE-RAINY-DATE","upper",2,194,256,346],["xu_tang","XT-WARDROBE-B-WORK-DEADLINE-HOME","full",264,194,259,871],["xu_tang","XT-WARDROBE-B-WORK-DEADLINE-HOME","upper",264,194,259,346],["xu_tang","XT-WARDROBE-B-REPAIR-ENDING-SERIOUS-DATE","full",529,194,266,871],["xu_tang","XT-WARDROBE-B-REPAIR-ENDING-SERIOUS-DATE","upper",529,194,266,346],["xu_tang","XT-WARDROBE-B-AFTER-STORY-WEEKEND-MORNING","full",800,194,252,871],["xu_tang","XT-WARDROBE-B-AFTER-STORY-WEEKEND-MORNING","upper",800,194,252,346],["jiang_yucheng","JYC-WARDROBE-A-CAMPUS-GRADUATE-STUDENT","full",0,180,251,850],["jiang_yucheng","JYC-WARDROBE-A-CAMPUS-GRADUATE-STUDENT","upper",0,180,251,420],["jiang_yucheng","JYC-WARDROBE-A-CAFE-CREATOR","full",401,186,224,843],["jiang_yucheng","JYC-WARDROBE-A-CAFE-CREATOR","upper",401,186,224,399],["jiang_yucheng","JYC-WARDROBE-A-ACG-OUTING","full",762,186,228,842],["jiang_yucheng","JYC-WARDROBE-A-ACG-OUTING","upper",762,186,228,399],["jiang_yucheng","JYC-WARDROBE-A-GAMING-HOME-CASUAL","full",1131,186,224,842],["jiang_yucheng","JYC-WARDROBE-A-GAMING-HOME-CASUAL","upper",1131,186,224,404],["jiang_yucheng","JYC-WARDROBE-B-CUTE-DATE","full",14,132,232,898],["jiang_yucheng","JYC-WARDROBE-B-CUTE-DATE","upper",14,132,232,453],["jiang_yucheng","JYC-WARDROBE-B-CREATOR-EVENT","full",376,132,239,898],["jiang_yucheng","JYC-WARDROBE-B-CREATOR-EVENT","upper",376,132,239,458],["jiang_yucheng","JYC-WARDROBE-B-SIGNATURE-CAMPUS","full",754,132,226,898],["jiang_yucheng","JYC-WARDROBE-B-SIGNATURE-CAMPUS","upper",754,132,226,468],["jiang_yucheng","JYC-WARDROBE-B-AFTER-STORY-WEEKEND-MORNING","full",1118,132,230,898],["jiang_yucheng","JYC-WARDROBE-B-AFTER-STORY-WEEKEND-MORNING","upper",1118,132,230,468],["lin_ruoqing","LRQ-WARDROBE-A-TEACHER-TROUSERS","full",20,54,270,734],["lin_ruoqing","LRQ-WARDROBE-A-TEACHER-TROUSERS","upper",20,54,270,411],["lin_ruoqing","LRQ-WARDROBE-A-CARDIGAN-EVERYDAY","full",294,54,267,734],["lin_ruoqing","LRQ-WARDROBE-A-CARDIGAN-EVERYDAY","upper",294,54,267,411],["lin_ruoqing","LRQ-WARDROBE-A-TEACHER-PRESENTATION","full",565,54,269,734],["lin_ruoqing","LRQ-WARDROBE-A-TEACHER-PRESENTATION","upper",565,54,269,306],["lin_ruoqing","LRQ-WARDROBE-A-HOODIE-WEEKEND","full",839,54,267,734],["lin_ruoqing","LRQ-WARDROBE-A-HOODIE-WEEKEND","upper",839,54,267,406],["lin_ruoqing","LRQ-WARDROBE-A-FLORAL-DATE","full",1109,54,270,734],["lin_ruoqing","LRQ-WARDROBE-A-FLORAL-DATE","upper",1109,54,270,428],["lin_ruoqing","LRQ-WARDROBE-A-AUTUMN-OUTING","full",1382,54,269,734],["lin_ruoqing","LRQ-WARDROBE-A-AUTUMN-OUTING","upper",1382,54,269,428],["lin_ruoqing","LRQ-WARDROBE-B-FITNESS-ACTIVE","full",20,54,406,686],["lin_ruoqing","LRQ-WARDROBE-B-FITNESS-ACTIVE","upper",20,54,406,315],["lin_ruoqing","LRQ-WARDROBE-B-BADMINTON","full",429,54,406,686],["lin_ruoqing","LRQ-WARDROBE-B-BADMINTON","upper",429,54,406,316],["lin_ruoqing","LRQ-WARDROBE-B-HOME-REST","full",839,54,405,686],["lin_ruoqing","LRQ-WARDROBE-B-HOME-REST","upper",839,54,405,388],["lin_ruoqing","LRQ-WARDROBE-B-POOL-SWIM","full",1247,54,405,686],["lin_ruoqing","LRQ-WARDROBE-B-POOL-SWIM","upper",1247,54,405,346],["shen_yingxue","SYX-WARDROBE-A-STRATEGY-WORK","full",55,97,234,659],["shen_yingxue","SYX-WARDROBE-A-STRATEGY-WORK","upper",55,97,234,308],["shen_yingxue","SYX-WARDROBE-A-CLIENT-FORMAL-DAY","full",442,97,249,659],["shen_yingxue","SYX-WARDROBE-A-CLIENT-FORMAL-DAY","upper",442,97,249,285],["shen_yingxue","SYX-WARDROBE-A-CITY-EVENING","full",855,97,242,659],["shen_yingxue","SYX-WARDROBE-A-CITY-EVENING","upper",855,97,242,293],["shen_yingxue","SYX-WARDROBE-A-CAFE-WEEKEND","full",1258,97,242,659],["shen_yingxue","SYX-WARDROBE-A-CAFE-WEEKEND","upper",1258,97,242,288],["shen_yingxue","SYX-WARDROBE-B-LEISURE-CAFE","full",17,98,255,678],["shen_yingxue","SYX-WARDROBE-B-LEISURE-CAFE","upper",17,98,255,327],["shen_yingxue","SYX-WARDROBE-B-WORKOUT-GYM","full",434,98,255,678],["shen_yingxue","SYX-WARDROBE-B-WORKOUT-GYM","upper",434,98,255,312],["shen_yingxue","SYX-WARDROBE-B-HOME-LOUNGE","full",850,98,250,678],["shen_yingxue","SYX-WARDROBE-B-HOME-LOUNGE","upper",850,98,250,322],["shen_yingxue","SYX-WARDROBE-B-QUIET-EVENING-SLEEPWEAR","full",1260,98,255,678],["shen_yingxue","SYX-WARDROBE-B-QUIET-EVENING-SLEEPWEAR","upper",1260,98,255,342]];
 function proposedCatalog() {
-  const c = structuredClone(catalog);
+  const { r, c } = fixture({ isolateRegisteredDerivatives: true });
   for (const [characterId, wardrobeKey, variant, left, top, width, height] of proposedCrops) {
     const sourceId = wardrobeInventory(characterId, registry).find(row => row.wardrobeKey === wardrobeKey).sourceId;
     const sourcePath = c.files[sourceId].sourcePath;
@@ -191,17 +201,19 @@ function proposedCatalog() {
       derivation: { sourceId, sourcePath, sourceRef: ref, wardrobeKey, variant, rect: { left, top, width, height } }
     };
   }
-  return c;
+  return { r, c };
 }
 test('all 68 optional crops validate without changing originals or claiming active QA', () => {
-  const c = proposedCatalog(), before = structuredClone(c);
-  assert.equal(validateDerivedWardrobeSources(c, registry).length, 68);
+  const { r, c } = proposedCatalog(), before = structuredClone(c);
+  assert.equal(validateDerivedWardrobeSources(c, r).length, 68);
   assert.deepEqual(c, before);
-  for (const [id, source] of Object.entries(catalog.files)) assert.deepEqual(c.files[id], source);
+  for (const [id, source] of Object.entries(catalog.files)) {
+    if (!source.derivation) assert.deepEqual(c.files[id], source);
+  }
 });
 test('derived catalog rejects invalid original, identity, geometry, path and status', () => {
   for (const problem of ['missing', 'derived-original', 'self', 'character', 'key', 'variant', 'dimensions', 'bounds', 'path', 'collision', 'decode', 'status', 'duplicate']) {
-    const c = proposedCatalog();
+    const { r, c } = proposedCatalog();
     const id = Object.keys(c.files).find(id => c.files[id].derivation), source = c.files[id], d = source.derivation;
     if (problem === 'missing') delete c.files[d.sourceId];
     if (problem === 'derived-original') c.files[d.sourceId].derivation = { ...d };
@@ -216,7 +228,7 @@ test('derived catalog rejects invalid original, identity, geometry, path and sta
     if (problem === 'decode') source.verifiedDecode = false;
     if (problem === 'status') source.status = 'pending-independent-crop-qa';
     if (problem === 'duplicate') c.files[`${id}.duplicate`] = { ...structuredClone(source), name: 'duplicate.png', sourcePath: 'assets-src/duplicate.png' };
-    assert.throws(() => validateDerivedWardrobeSources(c, registry), undefined, problem);
+    assert.throws(() => validateDerivedWardrobeSources(c, r), undefined, problem);
   }
 });
 test('explicit rebuild requires exact optional registration and acquires/decodes each original once per invocation', () => {
