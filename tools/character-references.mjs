@@ -50,7 +50,7 @@ export function validateWardrobeDerivation(source, { characterId, wardrobeKey, v
   insist(original?.characterId === characterId && original.role === 'wardrobe' && original.status === 'active-production'
     && source?.characterId === characterId && source.role === 'wardrobe' && source.status === 'active-production'
     && source.mimeType === 'image/png' && source.verifiedDecode === true
-    && Number.isInteger(source.width) && source.width > 0 && Number.isInteger(source.height) && source.height > 0
+    && Number.isSafeInteger(source.width) && source.width > 0 && Number.isSafeInteger(source.height) && source.height > 0
     && typeof source.sourcePath === 'string' && source.sourcePath.startsWith('assets-src/') && !source.sourcePath.split('/').includes('..')
     && path.basename(source.sourcePath) === source.name
     && d?.sourceId === row.sourceId && d.sourcePath === original.sourcePath
@@ -59,8 +59,9 @@ export function validateWardrobeDerivation(source, { characterId, wardrobeKey, v
     && d.wardrobeKey === row.wardrobeKey && d.variant === variant && ['full', 'upper'].includes(variant),
   `${characterId} ${wardrobeKey}: exact-look provenance/character/variant/status mismatch`);
   const r = d.rect;
-  insist(r && ['left', 'top', 'width', 'height'].every(key => Number.isInteger(r[key]))
+  insist(r && ['left', 'top', 'width', 'height'].every(key => Number.isSafeInteger(r[key]))
     && r.left >= 0 && r.top >= 0 && r.width > 0 && r.height > 0
+    && [r.left + r.width, r.top + r.height].every(Number.isSafeInteger)
     && r.left + r.width <= original.width && r.top + r.height <= original.height
     && source.width === r.width && source.height === r.height,
   `${characterId} ${wardrobeKey}: invalid native crop rectangle/dimensions`);
@@ -68,9 +69,11 @@ export function validateWardrobeDerivation(source, { characterId, wardrobeKey, v
     insist(Array.isArray(d.excludeRects), `${characterId} ${wardrobeKey}: excludeRects must be an array`);
     for (const mask of d.excludeRects) {
       insist(mask && typeof mask === 'object' && !Array.isArray(mask)
-        && Object.keys(mask).sort().join(',') === 'height,left,top,width'
-        && ['left', 'top', 'width', 'height'].every(key => Number.isInteger(mask[key]))
+        && Object.keys(mask).filter(key => key !== 'fill').sort().join(',') === 'height,left,top,width'
+        && (!Object.hasOwn(mask, 'fill') || (typeof mask.fill === 'string' && /^#[0-9a-fA-F]{6}$/.test(mask.fill)))
+        && ['left', 'top', 'width', 'height'].every(key => Number.isSafeInteger(mask[key]))
         && mask.left >= r.left && mask.top >= r.top && mask.width > 0 && mask.height > 0
+        && [mask.left + mask.width, mask.top + mask.height].every(Number.isSafeInteger)
         && mask.left + mask.width <= r.left + r.width && mask.top + mask.height <= r.top + r.height,
       `${characterId} ${wardrobeKey}: invalid native exclusion rectangle`);
     }

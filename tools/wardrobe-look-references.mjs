@@ -12,7 +12,7 @@ const defaultRegistry = read('content/assets/character-reference-packs.json');
 const defaultCatalog = read('content/assets/source-catalog.json');
 const sameRectList = (a, b) => a === undefined || b === undefined ? a === b
   : Array.isArray(a) && Array.isArray(b) && a.length === b.length
-    && a.every((rect, index) => ['left', 'top', 'width', 'height'].every(key => rect[key] === b[index]?.[key]));
+    && a.every((rect, index) => ['left', 'top', 'width', 'height', 'fill'].every(key => rect[key] === b[index]?.[key]));
 
 export function inventory(registry = defaultRegistry) {
   return Object.keys(registry.characters).flatMap(characterId => wardrobeInventory(characterId, registry)
@@ -114,7 +114,7 @@ export function materializeCropPlan(plan, { repoRoot = ROOT, runCommand = execFi
         const r = source.derivation.rect;
         const base = `${group.length > 1 ? `[s${i}]` : '[0:v]'}crop=${r.width}:${r.height}:${r.left}:${r.top}:exact=1`;
         const masks = source.derivation.excludeRects ?? [];
-        const fill = masks.map(mask => `drawbox=x=${mask.left - r.left}:y=${mask.top - r.top}:w=${mask.width}:h=${mask.height}:color=white@1.0:t=fill`);
+        const fill = masks.map(mask => `drawbox=x=${mask.left - r.left}:y=${mask.top - r.top}:w=${mask.width}:h=${mask.height}:color=${mask.fill ?? '#ffffff'}@1.0:t=fill:replace=1`);
         return `${base}${fill.length ? `,${fill.join(',')}` : ''}[o${i}]`;
       }).join(';');
       const args = ['-v', 'error', '-xerror', '-n', '-i', input, '-filter_complex', split + filters];

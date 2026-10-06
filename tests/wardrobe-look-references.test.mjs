@@ -156,6 +156,67 @@ test('masked crop fills declared native area white, preserves figure pixels and 
   } finally { fs.rmSync(root, { recursive: true, force: true }); }
 });
 
+test('transparent RGBA masks replace RGB and alpha with default white or declared gray while preserving every neighbor', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'wardrobe-rgba-mask-'));
+  try {
+    fs.mkdirSync(path.join(root, 'assets-src'));
+    const { r, c } = fixture();
+    const sourceId = r.characters[characterId].wardrobes[wardrobeKey].sourceId;
+    c.files[sourceId] = { ...c.files[sourceId], sourcePath: 'assets-src/original.png', name: 'original.png', width: 8, height: 8 };
+    const input = path.join(root, 'assets-src/original.png');
+    const native = Buffer.alloc(8 * 8 * 4);
+    for (let i = 0; i < 64; i++) native.set([17 + i, 90 + i, 200 - i, [0, 37, 128, 255][i % 4]], i * 4);
+    execFileSync('ffmpeg', ['-v', 'error', '-f', 'rawvideo', '-pix_fmt', 'rgba', '-s', '8x8', '-i', 'pipe:0', '-frames:v', '1', '-threads', '1', input], { input: native });
+    const before = fs.readFileSync(input);
+    const crop = { characterId, wardrobeKey, variant: 'upper', derivedSourceId: 'ref.xu_tang.look.rgba.upper', outputPath: 'assets-src/rgba.png',
+      sourceId, sourcePath: 'assets-src/original.png', sourceRef: 'WORKTREE', rect: { left: 1, top: 2, width: 5, height: 3 },
+      excludeRects: [{ left: 4, top: 3, width: 1, height: 1 }, { left: 2, top: 3, width: 1, height: 1, fill: '#e7E7e7' }] };
+    const plan = { schemaVersion: 1, crops: [crop] }, options = { repoRoot: root, sourceRef: 'WORKTREE', catalog: c, registry: r };
+    const [output] = materializeCropPlan(plan, options);
+    assert.equal(output.derivation.excludeRects[1].fill, '#e7E7e7');
+    const bytes = execFileSync('ffmpeg', ['-v', 'error', '-i', path.join(root, crop.outputPath), '-f', 'rawvideo', '-pix_fmt', 'rgba', '-']);
+    for (let y = 0; y < 3; y++) for (let x = 0; x < 5; x++) {
+      const expected = y === 1 && x === 3 ? [255, 255, 255, 255] : y === 1 && x === 1 ? [231, 231, 231, 255]
+        : [...native.subarray(((y + 2) * 8 + x + 1) * 4, ((y + 2) * 8 + x + 1) * 4 + 4)];
+      assert.deepEqual([...bytes.subarray((y * 5 + x) * 4, (y * 5 + x) * 4 + 4)], expected, `native pixel ${x},${y}`);
+    }
+    assert.deepEqual(fs.readFileSync(input), before);
+    const { derivedSourceId, ...derived } = output;
+    c.files[derivedSourceId] = { ...derived, status: 'optional-reference' };
+    assert.doesNotThrow(() => validateCropPlan(plan, { ...options, rebuild: true }));
+    for (const fill of ['#e8e8e8', undefined]) {
+      const changed = structuredClone(plan);
+      if (fill === undefined) delete changed.crops[0].excludeRects[1].fill;
+      else changed.crops[0].excludeRects[1].fill = fill;
+      assert.throws(() => validateCropPlan(changed, { ...options, rebuild: true }), /exact registered crop identity/);
+    }
+  } finally { fs.rmSync(root, { recursive: true, force: true }); }
+});
+
+test('crop and exclusion geometry rejects unsafe integers and fill accepts only fixed RGB hex syntax', () => {
+  const { r, c } = fixture();
+  const sourceId = r.characters[characterId].wardrobes[wardrobeKey].sourceId;
+  c.files[sourceId].width = c.files[sourceId].height = Number.MAX_SAFE_INTEGER * 2;
+  const crop = { characterId, wardrobeKey, variant: 'upper', derivedSourceId: 'ref.xu_tang.look.geometry.upper', outputPath: 'assets-src/geometry.png',
+    sourceId, sourcePath: c.files[sourceId].sourcePath, sourceRef: 'WORKTREE', rect: { left: 0, top: 0, width: 8, height: 8 },
+    excludeRects: [{ left: 1, top: 1, width: 1, height: 1 }] };
+  const options = { sourceRef: 'WORKTREE', catalog: c, registry: r };
+  for (const field of ['left', 'top', 'width', 'height']) {
+    const changed = structuredClone(crop);
+    changed.rect[field] = Number.MAX_SAFE_INTEGER + 1;
+    assert.throws(() => validateCropPlan({ schemaVersion: 1, crops: [changed] }, options), /crop rectangle|provenance/);
+    const maskChanged = structuredClone(crop);
+    maskChanged.rect.width = maskChanged.rect.height = Number.MAX_SAFE_INTEGER;
+    maskChanged.excludeRects[0][field] = Number.MAX_SAFE_INTEGER + 1;
+    assert.throws(() => validateCropPlan({ schemaVersion: 1, crops: [maskChanged] }, options), /exclusion rectangle/);
+  }
+  for (const fill of ['white', '#fff', '#ffffffff', '#gggggg', '#ffffff:replace=0', '#ffffff\n', '', null, 123]) {
+    const changed = structuredClone(crop);
+    changed.excludeRects[0].fill = fill;
+    assert.throws(() => validateCropPlan({ schemaVersion: 1, crops: [changed] }, options), /exclusion rectangle/, String(fill));
+  }
+});
+
 test('exact-look deterministic packet and all adapters route the selected derived PNG only', () => {
   const { r, c } = fixture();
   const manifest = read('content/production/cg-manifests/opening-ch1.json');
