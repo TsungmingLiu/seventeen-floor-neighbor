@@ -69,3 +69,7 @@ Do not add schema fields or rewrite accepted manifests for this policy revision.
 ## Explicit Scene Embodiment POC opt-in
 
 Use schema `1.1.0` only when the bounded Task Packet explicitly requests this engineering capability; `1.0.0` remains the compatibility path. Author the exact `scene_embodiment` contract in `.ai/schemas/CG_MANIFEST.md` from approved scene facts: captured instant, per-visible-character before/during/after action, environment-anchored dialogue or active event interaction, physical support/contact/weight/material response and depth planes/separation. No inferred scene rewrite or generic posing substitutes for authored evidence. Unsupported reaction/sequence/close-up/inheritance/exception work is `BLOCKED`, not silently downgraded. Obtain independent manifest-usability review; neither schema validity nor these fields authorize pixels/adoption/general rollout.
+
+## Opt-in exact-look wardrobe contract
+
+For opted-in tasks carry Writer’s wardrobe key unchanged; validate rather than change it for backend/composition. Select `--exact-look --shot <shot_size>` with existing `cg:references`; set character `wardrobe_reference_mode: exact_look` and copy exact bindings/attachments. Missing derived reference blocks without fallback. Legacy/accepted bindings remain unchanged. See `.ai/schemas/CG_MANIFEST.md`.

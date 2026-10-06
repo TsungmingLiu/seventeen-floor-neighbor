@@ -143,3 +143,7 @@ Version: 1.4.1
 - 不為較容易生成的畫面改寫 story beat。
 
 完成後交給 `content_qa` 的 `narrative_review` pass。若 contract 缺失或互斥，回 `BLOCKED`，不要自行填補。
+
+## Opt-in exact-look wardrobe contract
+
+Writer owns story wardrobe selection. When a task opts in, receive only task-local existing key/look/aliases from `cg:references -- --character <id> --options`, choose `wardrobe_key`, and pass it unchanged to Planner. Do not receive images, source/provider/prompt metadata, infer new lore or relationship gates. See `.ai/schemas/DATA_PACKS.md`.

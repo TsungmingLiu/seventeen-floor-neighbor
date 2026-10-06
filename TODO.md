@@ -30,7 +30,7 @@ M0 已完成；本輪只處理 [M1 slice scope](docs/narrative/M1_GAMEPLAY_VALID
 
 - [x] COM-02J continuity contract／完整 locked script／獨立 QA（NQA-COM02J-008）通過；新劇情按 COM-02X → COM-02J → COM-03X 接入。舊 COM-03X 存檔可補讀並回到原進度；四張既有 Memory 與其媒體不改，新咖啡店 Memory rank 180。build／validate／smoke PASS，35 個 Chromium unique cases 有完整通過覆蓋；原 unit 195/199 與 4 個失敗的 focused PASS 證據保留，程式版本 `cb11e81…` 的 [Verify 668](https://github.com/TsungmingLiu/seventeen-floor-neighbor/actions/runs/37078425847) 201/201、deploy／deployed bytes smoke PASS；[公開試玩](https://070823e2.seventeen-floor-neighbor.pages.dev/)／[PR #47](https://github.com/TsungmingLiu/seventeen-floor-neighbor/pull/47)。見 [checkpoint](content/production/runs/com02j-m1-preview-20261002/ledger.json)。新 Human 劇情試玩／final art pending。
 
-已交付入口以 ROADMAP §4／§10 為準：COM-03J／COM-03M／OPEN-A 第一 window 已整合，pending XT-04／JYC-05 尚未赴約，生活 outcomes 只完成第一 slot。C0 bounded consistency review 已於 2026-10-06 PASS（`REVIEW-M1-C0-FINAL-001`；source HEAD `1b7b7a1181a519a3ff13a01af110521ac7ffbcfb`）；舊 `0b48183…` 保留為來源比較基線。discovery／contact／exclusion annotations 已對齊 #71／ND-FEEDBACK-002，pending 邀約與已消耗生活 slot 分開。 下一步依 ROADMAP §10／[#77](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/77) C1 並行準備 XT-04／JYC-05 Narrative Design；[#78](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/78) 同步固定最小 pending／slot completion contract，整合前完成。changed declared sources 在實際下游使用時仍須 exact dependency／continuity checks 與必要 fresh full-scene Narrative QA；C0 不授予新 scene NQA、Human、pixel 或完整 M1 acceptance。詳細 coverage matrix 只留 #78。 既有 NQA／Human／CI 保留 exact snapshot scope，不推定 current main 重跑或完整 slice acceptance。
+已交付入口以 ROADMAP §4／§10 為準：COM-03J／COM-03M／OPEN-A 第一 window 已整合，pending XT-04／JYC-05 尚未赴約，生活 outcomes 只完成第一 slot。C0 bounded consistency review 已於 2026-10-06 PASS（`REVIEW-M1-C0-FINAL-001`；source HEAD `1b7b7a1181a519a3ff13a01af110521ac7ffbcfb`）；舊 `0b48183…` 保留為來源比較基線。discovery／contact／exclusion annotations 已對齊 #71／ND-FEEDBACK-002，pending 邀約與已消耗生活 slot 分開。 下一步先完成 ROADMAP §10／[#76](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/76) 四角色 34 looks／68 refs 前置，再依 [#77](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/77) C1 並行準備 XT-04／JYC-05 Narrative Design；[#78](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/78) 同步固定最小 pending／slot completion contract，整合前完成。changed declared sources 在實際下游使用時仍須 exact dependency／continuity checks 與必要 fresh full-scene Narrative QA；C0 不授予新 scene NQA、Human、pixel 或完整 M1 acceptance。詳細 coverage matrix 只留 #78。 既有 NQA／Human／CI 保留 exact snapshot scope，不推定 current main 重跑或完整 slice acceptance。
 
 ## Gameplay Validation Slice integration
 
@@ -144,7 +144,7 @@ Roadmap milestone 到達相應階段後再重新確認 scope，不因為列在�
 既有方向保留：
 
 - 驗證 source revision、required assets、hash/provenance 與 fresh rebuild 一致；
-- 缺檔、hash mismatch、decode failure 應 fail closed；
+- 缺檔、canonical path/ref mismatch、decode failure 應 fail closed；
 - 保留可重現 verification receipt。
 
 實際方案必須依 M4 開始時的 asset architecture 重新確認，不沿用已過期 storage assumption。

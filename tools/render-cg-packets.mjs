@@ -181,7 +181,7 @@ function validateSceneEmbodiment(entry, version) {
   if (entry.cg_class === 'event_cg') invariant(embodiment.characters.some(character => character.environment_coupling.mode === 'active_interaction'), `${context}: event requires active_interaction`);
 }
 
-function validateEntry(entry, manifest, entryIds, outputIds) {
+function validateEntry(entry, manifest, entryIds, outputIds, referenceOptions) {
   const context = `entry ${entry?.entry_id ?? '<missing>'}`;
   requireKeys(entry, [
     'entry_id', 'scene_id', 'source_scene', 'status', 'cg_class', 'beat_range', 'narrative',
@@ -300,7 +300,7 @@ function validateEntry(entry, manifest, entryIds, outputIds) {
   for (const binding of transport.attachments.filter((item) => item.source_id.startsWith('ref.'))) {
     invariant(declaredReferences.some((declared) => referenceKey(declared) === referenceKey(binding)), `${context} attaches an undeclared character reference`);
   }
-  validateCharacterReferenceSelection(entry);
+  validateCharacterReferenceSelection(entry, referenceOptions.catalog, referenceOptions.registry);
 
   requireKeys(entry.output, ['canonical_asset_id', 'logical_asset_id', 'master_filename', 'quantity'], `${context}.output`);
   for (const key of ['canonical_asset_id', 'logical_asset_id', 'master_filename']) {
@@ -318,7 +318,7 @@ function validateEntry(entry, manifest, entryIds, outputIds) {
   }
 }
 
-export function validateManifest(manifest) {
+export function validateManifest(manifest, referenceOptions = {}) {
   requireKeys(manifest, ['schema_version', 'manifest_id', 'manifest_version', 'lifecycle', 'source_scene_ids', 'style_contract', 'entries'], 'manifest');
   invariant(['1.0.0', '1.1.0'].includes(manifest.schema_version), 'manifest.schema_version must be 1.0.0 or opt-in 1.1.0');
   invariant(manifest.lifecycle === 'CANONICAL', 'manifest.lifecycle must be CANONICAL');
@@ -341,7 +341,7 @@ export function validateManifest(manifest) {
 
   const entryIds = new Set();
   const outputIds = new Set();
-  manifest.entries.forEach((entry) => validateEntry(entry, manifest, entryIds, outputIds));
+  manifest.entries.forEach((entry) => validateEntry(entry, manifest, entryIds, outputIds, referenceOptions));
   for (const entry of manifest.entries) {
     const previous = entry.continuity.previous_entry_id;
     invariant(previous === null || entryIds.has(previous), `entry ${entry.entry_id} references missing previous_entry_id ${previous}`);
@@ -395,8 +395,8 @@ function section(title, lines) {
   return [`## ${title}`, ...lines, ''];
 }
 
-export function projectEntry(manifest, entry) {
-  validateManifest(manifest);
+export function projectEntry(manifest, entry, referenceOptions = {}) {
+  validateManifest(manifest, referenceOptions);
   invariant(manifest.entries.some((candidate) => candidate.entry_id === entry.entry_id), `entry is not part of manifest: ${entry.entry_id}`);
   if (manifest.schema_version === '1.1.0') invariant(manifest.entries.some(candidate => stableStringify(candidate) === stableStringify(entry)), 'POC projection entry must match the validated manifest entry');
 
@@ -441,6 +441,7 @@ export function projectEntry(manifest, entry) {
       characterLines.push(`- gaze: ${character.gaze}`);
       characterLines.push(`- expression: ${character.expression}`);
       characterLines.push(`- wardrobe_key: ${character.wardrobe_key}`);
+      if (character.wardrobe_reference_mode) characterLines.push(`- wardrobe_reference_mode: ${character.wardrobe_reference_mode}`);
       characterLines.push(`- held_objects: ${character.held_objects.length ? character.held_objects.join(' | ') : 'none'}`);
       if (character.reference_requirements) characterLines.push(`- reference_requirements: ${stableStringify(character.reference_requirements)}`);
       characterLines.push('- Reference Bindings:');
@@ -527,8 +528,9 @@ export function projectEntry(manifest, entry) {
   };
 }
 
-export function buildPackets(manifest, { entryIds = [], statuses = DEFAULT_STATUSES } = {}) {
-  validateManifest(manifest);
+export function buildPackets(manifest, { entryIds = [], statuses = DEFAULT_STATUSES, catalog, registry } = {}) {
+  const referenceOptions = { catalog, registry };
+  validateManifest(manifest, referenceOptions);
   const requestedEntries = new Set(entryIds);
   const allowedStatuses = statuses instanceof Set ? statuses : new Set(statuses);
   const selected = manifest.entries.filter((entry) => (
@@ -538,7 +540,7 @@ export function buildPackets(manifest, { entryIds = [], statuses = DEFAULT_STATU
     invariant(manifest.entries.some((entry) => entry.entry_id === entryId), `unknown entry_id: ${entryId}`);
   }
   invariant(selected.length > 0, 'no manifest entries matched the requested IDs/statuses');
-  return selected.map((entry) => projectEntry(manifest, entry));
+  return selected.map((entry) => projectEntry(manifest, entry, referenceOptions));
 }
 
 export function adaptChatManual(packets) {

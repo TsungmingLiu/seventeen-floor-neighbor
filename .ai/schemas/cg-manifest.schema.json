@@ -350,6 +350,7 @@
         "gaze": { "$ref": "#/$defs/nonEmpty" },
         "expression": { "$ref": "#/$defs/nonEmpty" },
         "wardrobe_key": { "$ref": "#/$defs/nonEmpty" },
+        "wardrobe_reference_mode": { "const": "exact_look" },
         "held_objects": { "type": "array", "items": { "$ref": "#/$defs/nonEmpty" } },
         "reference_requirements": {
           "type": "object",

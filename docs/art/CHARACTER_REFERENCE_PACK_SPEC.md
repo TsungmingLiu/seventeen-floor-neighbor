@@ -39,7 +39,7 @@ Both six-sheet packs are now available as original PNG files under `assets-src/r
 
 Exact filenames, roles, character IDs, MIME and dimensions are active metadata; historical byte counts and SHA-256 were recorded in `content/assets/source-catalog.json` and `content/assets/ingest-receipts/character-reference-packs-20260930.json`. Checksum and byte-count fields in historical receipts are inert records; acquisition uses canonical path/ref, and supersession remains provenance evidence.
 
-江雨澄 Wardrobe A/B 已依 Owner 於 2026-10-03 提供的 `jyc-5.png`、`jyc-6.png` 原樣更新。兩張均為 `image/png`、1491 × 1055；current fingerprints 與原圖 supersession 證據記於 `content/assets/ingest-receipts/jiang-yucheng-wardrobe-replacement-20261003.json`。既有 `ref.jiang_yucheng.wardrobe.a/b`、八個 wardrobe keys 與 look semantics 保持不變。原 restoration／Gate 3 receipts 與已接受 CG 的 render bindings、Human／QA outcomes 保留其當時證據；本次更新不宣稱既有 CG 已按新圖重畫或修復衣著漂移。
+江雨澄 Wardrobe A/B 已依 Owner 於 2026-10-03 提供的 `jyc-5.png`、`jyc-6.png` 原樣更新。兩張均為 `image/png`、1491 × 1055；canonical path/ref 與原圖 supersession 證據記於 `content/assets/ingest-receipts/jiang-yucheng-wardrobe-replacement-20261003.json`。既有 `ref.jiang_yucheng.wardrobe.a/b`、八個 wardrobe keys 與 look semantics 保持不變。原 restoration／Gate 3 receipts 與已接受 CG 的 render bindings、Human／QA outcomes 保留其當時證據；本次更新不宣稱既有 CG 已按新圖重畫或修復衣著漂移。
 
 `content/assets/character-reference-packs.json` is the machine-readable six-sheet and wardrobe-look index. Runtime character metadata lists all six sources for integrated characters; future characters resolve through this registry without requiring runtime integration. Reference images are production inputs and are not copied into the playable runtime asset bundle.
 
@@ -499,3 +499,13 @@ all pages clearly depict the same established adult character
 - [ ] 後續 CG prompt 有明確 reference selection，不只寫「保持角色一致」
 
 許棠與江雨澄均有上述 reference-pack QA 通過紀錄；當前本地可用影像仍以第 2–4 節為準。
+
+## Exact-look derivatives and reproducible inventory
+
+The existing registry is the sole authority. Canonical wardrobe rows retain original A/B `sourceId` and existing `look`; optional `generationRefs: {full: <derivedSourceId>, upper: <derivedSourceId>}` points to independently crop-reviewed catalog rows. Optional `aliasOf` points to one canonical same-character key with the same sourceId/look; existing identical sourceId/look aliases deduplicate in inventory without rewriting historical keys. Four characters currently have 34 canonical looks and 68 required variants.
+
+Each derived catalog PNG keeps ordinary name/sourcePath/MIME/width/height/verifiedDecode/status/characterId/role fields, plus `derivation: {sourceId, sourcePath, sourceRef, wardrobeKey, variant, rect: {left, top, width, height}}`. `wardrobeKey` is canonical, original source/path and variant must match the selected look, and rect is in native integer pixels within the original sheet. Image SHA/expected byte fingerprints are not identity gates. Source ref is canonical branch/ref or WORKTREE; local bytes cannot be relabeled as committed pixels.
+
+`npm run cg:wardrobe -- --inventory` emits generated inventory. `--plan <generated-plan.json> [--source-ref <branch|ref|WORKTREE>]` validates a schemaVersion 1 plan with `crops` entries containing characterId/wardrobeKey/variant/derivedSourceId/outputPath plus the derivation fields. `--materialize` rebuilds exact native crops via existing ffmpeg/ffprobe without resize/padding/generation. Committed source refs read Git bytes; WORKTREE reads canonical local paths. Outputs must be new assets-src PNG paths and are returned as pending-independent-crop-qa; the command never writes registry/catalog or awards acceptance. Independently reviewed diagnostic cache candidates can be ingested directly instead of rebuilt. Conversion from metrology [left, top, right, bottom] is width=right-left, height=bottom-top.
+
+Writer projection and explicit `wardrobe_reference_mode: exact_look` use the contract in `.ai/schemas/CG_MANIFEST.md`. Old manifests/outputs/bindings/accepted history remain valid; unsupported shots and production omission reasons retain their policies.
