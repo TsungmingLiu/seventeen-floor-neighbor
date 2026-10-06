@@ -66,6 +66,15 @@ export function storyMapView(map, library, chapter, progress, review = false) {
       reading: group.id === cursorGroup && cursorGroup !== frontierGroup }];
   });
   if (review) return { groups, edges: map.edges };
+  // A visible unknown continuation keeps its structural line while the current
+  // scene is unfinished. It is unexplored, never an observed journey or a hint
+  // about choices the player has not encountered.
+  for (const edge of map.edges) {
+    if (edge.label || !groups.some(group => group.id === edge.from && !group.locked)
+      || !groups.some(group => group.id === edge.to && group.locked)
+      || alternatives.some(other => other.from === edge.from && other.to === edge.to)) continue;
+    alternatives.push({ from: edge.from, to: edge.to, unexplored: true });
+  }
   // Only journeys actually traversed get a line. Checkpoints alone do not imply a connection.
   const next = new Map();
   for (const [from, to] of progress.data.edges || []) {

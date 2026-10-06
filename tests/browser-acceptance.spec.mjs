@@ -38,6 +38,30 @@ async function currentJourney(page) {
   return page.evaluate(() => JSON.parse(localStorage.getItem('opening-demo-chapter-01:journey:v2')));
 }
 
+test('unfinished first scene keeps its unknown continuation in Memories', async ({ page }) => {
+  const errors = collectBlockingErrors(page);
+  await page.goto('/');
+  await page.locator('#start-button').click();
+  await enterPlayerName(page);
+  await waitForDialogueReady(page);
+  await page.locator('#advance-zone').click();
+  await waitForDialogueReady(page);
+  const before = await currentJourney(page);
+  expect(before.cursor.nodeId).toBe('common_movein_rain_open_chair');
+  await page.locator('#game-memories-button').click();
+  await expect(page.locator('#memory-list')).toHaveAttribute('data-layout', 'flow');
+  const next = page.locator('[data-group-id="elevator"]');
+  await expect(next).toBeDisabled();
+  await expect(next.locator('strong')).toHaveText('???');
+  await expect(page.locator('.story-map-lines path[data-from="movein"][data-to="elevator"]')).toHaveClass(/is-unexplored/);
+  await expect(page.locator('.story-map-lines text')).toHaveCount(0);
+  await expect(page.locator('[data-group-id="weekend"]')).toHaveCount(0);
+  await page.locator('[data-group-id="movein"]').click();
+  await expect(page.locator('#story-inspector .story-continuation')).toHaveCount(0);
+  expect(await currentJourney(page)).toEqual(before);
+  expect(errors).toEqual([]);
+});
+
 test('Memories disclosure, character focus, cursor marker and frontier jump stay view-only', async ({ page }) => {
   await page.goto('/');
   const [chapter, library] = await Promise.all([

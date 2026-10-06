@@ -54,6 +54,34 @@ test('connections require observed journey edges, never two unrelated checkpoint
   assert.deepEqual(storyMapView(map, memoryLibrary, chapter, save).edges, [{ from: 'movein', to: 'elevator' }]);
 });
 
+test('unfinished first scene keeps an unexplored connector to the unknown next scene', () => {
+  const save = progress(['common_movein_rain_open', 'common_movein_rain_open_chair']);
+  save.data.cursor = save.data.frontier = snapshot('common_movein_rain_open_chair');
+  save.data.edges = [['common_movein_rain_open', 'common_movein_rain_open_chair']];
+  const before = JSON.stringify(save);
+  const view = storyMapView(map, memoryLibrary, chapter, save);
+  assert.deepEqual(view.edges, []);
+  assert.deepEqual(view.alternatives, [{ from: 'movein', to: 'elevator', unexplored: true }]);
+  const next = view.groups.find(group => group.id === 'elevator');
+  assert.equal(next.locked, true);
+  assert.equal(next.title, '???');
+  assert.deepEqual(next.variants, []);
+  assert.equal(view.groups.some(group => group.id === 'weekend'), false);
+  assert.equal(JSON.stringify(save), before);
+});
+
+test('structural continuations cannot reveal an unencountered choice or a hidden scene', () => {
+  const save = progress(['common_movein_rain_open']);
+  const changed = { ...map, edges: [
+    { from: 'movein', to: 'elevator', label: 'Unencountered choice' },
+    { from: 'movein', to: 'weekend' }
+  ] };
+  const view = storyMapView(changed, memoryLibrary, chapter, save);
+  assert.deepEqual(view.alternatives, []);
+  assert.deepEqual(view.edges, []);
+  assert.equal(view.groups.some(group => group.id === 'weekend'), false);
+});
+
 test('reviewing a missed-encounter path does not hide an already earned café version', () => {
   const save = progress(['common_station_cafe_jyc_first_enter']);
   save.data.frontier = snapshot('common_station_cafe_jyc_first_enter');
