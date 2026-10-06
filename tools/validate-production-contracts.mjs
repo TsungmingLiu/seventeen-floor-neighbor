@@ -1,5 +1,5 @@
 import { validateProductionStorage } from './production-storage.mjs';
-import { validateCharacterReferencePacks, validateCharacterReferencePackReceipt, validateCharacterWardrobeReplacementReceipt } from './character-references.mjs';
+import { validateCharacterReferencePacks, validateCharacterReferencePackReceipt, validateCharacterWardrobeReplacementReceipt, validateWardrobeDerivation } from './character-references.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -375,6 +375,26 @@ export function validateReturnElevatorTrial({ catalog, manifest, sourceMap, rout
   return 1;
 }
 
+/** Optional crops are reproducible references, not original ingest receipts or QA approval. */
+export function validateDerivedWardrobeSources(catalog, registry = readJson('content/assets/character-reference-packs.json')) {
+  const identities = new Set(), paths = new Set();
+  const derived = Object.entries(catalog.files).filter(([, source]) => source.derivation !== undefined);
+  for (const [id, source] of derived) {
+    const d = source.derivation;
+    invariant(source.status === 'optional-reference' || source.status === 'active-production', `invalid derived reference status: ${id}`);
+    invariant(id.startsWith(`ref.${source.characterId}.`) && id !== d?.sourceId
+      && catalog.files[d?.sourceId] && !catalog.files[d.sourceId].derivation, `invalid derived original source: ${id}`);
+    invariant(source.sourcePath?.endsWith('.png') && path.posix.normalize(source.sourcePath) === source.sourcePath
+      && !source.sourcePath.includes('\\') && !Object.entries(catalog.files).some(([otherId, other]) => otherId !== id && other.sourcePath === source.sourcePath), `derived reference path collision/format: ${id}`);
+    validateWardrobeDerivation({ ...source, status: 'active-production' },
+      { characterId: source.characterId, wardrobeKey: d.wardrobeKey, variant: d.variant }, catalog, registry);
+    const identity = `${source.characterId}:${d.wardrobeKey}:${d.variant}`;
+    invariant(!identities.has(identity) && !paths.has(source.sourcePath), `duplicate derived reference identity/path: ${id}`);
+    identities.add(identity); paths.add(source.sourcePath);
+  }
+  return derived.map(([id]) => id);
+}
+
 function validateGate3RepositorySources(catalog) {
   validateRepoSourceCatalog(catalog);
   const receipt = readJson(GATE3_RECEIPT);
@@ -500,7 +520,8 @@ function validateGate3RepositorySources(catalog) {
   invariant(walkManifest.entries.length === 1 && walkManifest.entries[0].entry_id === walkAsset.entryId && walkManifest.entries[0].status === 'accepted' && JSON.stringify(walkManifest.entries[0].known_issues) === JSON.stringify(walkQa.known_issues), 'COM-02X walking manifest adoption/issues mismatch');
   const titleSourceCount = validateTitleMasterSource(catalog);
   const trialSourceCount = validateReturnElevatorTrial({ catalog, manifest: readJson('content/assets/manifest.json'), sourceMap: readJson('content/assets/source-map.json'), route: readJson(OPENING_ROUTE), chapter: readJson('content/routes/opening-demo/chapter-01.json'), memories: readJson('content/routes/opening-demo/memories.json'), receipt: readJson(RETURN_ELEVATOR_TRIAL_RECEIPT), human: readJson(RETURN_ELEVATOR_TRIAL_HUMAN), qa: readJson(RETURN_ELEVATOR_TRIAL_QA), decisionHashes: { human: sha256(fs.readFileSync(RETURN_ELEVATOR_TRIAL_HUMAN)), qa: sha256(fs.readFileSync(RETURN_ELEVATOR_TRIAL_QA)) } });
-  invariant(trialSourceCount === 1 && Object.keys(catalog.files).length === acceptedIds.size + restoredIds.size + linRuoqingIds.length + shenYingxueIds.length + 1 + batchIds.size + 1 + 1 + 1 + titleSourceCount + trialSourceCount, 'source catalog contains an unknown or unreceipted source');
+  const derivedIds = validateDerivedWardrobeSources(catalog);
+  invariant(trialSourceCount === 1 && Object.keys(catalog.files).length === acceptedIds.size + restoredIds.size + linRuoqingIds.length + shenYingxueIds.length + 1 + batchIds.size + 1 + 1 + 1 + titleSourceCount + trialSourceCount + derivedIds.length, 'source catalog contains an unknown or unreceipted source');
   return receipt;
 }
 

@@ -17,7 +17,7 @@ export function inventory(registry = defaultRegistry) {
 }
 
 /** A generated plan is reproducibility evidence, never a second registry or acceptance. */
-export function validateCropPlan(plan, { sourceRef = 'WORKTREE', catalog = defaultCatalog, registry = defaultRegistry } = {}) {
+export function validateCropPlan(plan, { sourceRef = 'WORKTREE', catalog = defaultCatalog, registry = defaultRegistry, rebuild = false } = {}) {
   insist(plan?.schemaVersion === 1 && Array.isArray(plan.crops) && plan.crops.length > 0, 'invalid crop plan');
   insist(typeof sourceRef === 'string' && sourceRef.trim() && !sourceRef.startsWith('-') && !/[\s\x00]/.test(sourceRef), 'canonical source branch/ref or WORKTREE required');
   const seen = new Set(), outputs = new Set(), ids = new Set();
@@ -28,13 +28,22 @@ export function validateCropPlan(plan, { sourceRef = 'WORKTREE', catalog = defau
     const identity = `${characterId}:${wardrobeKey}:${variant}`;
     insist(!seen.has(identity) && !outputs.has(outputPath) && !ids.has(derivedSourceId), 'duplicate crop identity/output/source ID');
     seen.add(identity); outputs.add(outputPath); ids.add(derivedSourceId);
-    insist(typeof derivedSourceId === 'string' && derivedSourceId.startsWith(`ref.${characterId}.`) && !catalog.files[derivedSourceId], 'derived source ID must be new and character scoped');
-    insist(typeof outputPath === 'string' && outputPath.endsWith('.png') && !catalog.files[derivedSourceId], 'crop output must be PNG');
+    insist(typeof derivedSourceId === 'string' && derivedSourceId.startsWith(`ref.${characterId}.`), 'derived source ID must be character scoped');
+    const registered = catalog.files[derivedSourceId];
+    insist(!registered || rebuild, 'derived source ID must be new unless explicitly rebuilding');
+    insist(typeof outputPath === 'string' && outputPath.endsWith('.png') && path.posix.normalize(outputPath) === outputPath && !outputPath.includes('\\'), 'crop output must be PNG');
     const source = { name: path.posix.basename(outputPath), sourcePath: outputPath, characterId, role: 'wardrobe',
       mimeType: 'image/png', width: rect?.width, height: rect?.height, verifiedDecode: true, status: 'active-production',
       derivation: { sourceId: crop.sourceId, sourcePath: crop.sourcePath, sourceRef: crop.sourceRef, wardrobeKey, variant, rect } };
     validateWardrobeDerivation(source, { characterId, wardrobeKey, variant, sourceRef }, catalog, registry);
-    insist(!Object.values(catalog.files).some(item => item.sourcePath === outputPath), 'crop cannot overwrite a cataloged source');
+    if (registered) {
+      insist(registered.derivation && registered.status === 'optional-reference', 'rebuild requires an optional derived reference; deactivate active references first');
+      validateWardrobeDerivation({ ...registered, status: 'active-production' }, { characterId, wardrobeKey, variant, sourceRef }, catalog, registry);
+      insist(['name', 'sourcePath', 'characterId', 'role', 'mimeType', 'width', 'height'].every(key => registered[key] === source[key])
+        && ['sourceId', 'sourcePath', 'sourceRef', 'wardrobeKey', 'variant'].every(key => registered.derivation[key] === source.derivation[key])
+        && ['left', 'top', 'width', 'height'].every(key => registered.derivation.rect[key] === rect[key]), 'rebuild must match exact registered crop identity');
+    }
+    insist(!Object.entries(catalog.files).some(([id, item]) => id !== derivedSourceId && item.sourcePath === outputPath), 'crop cannot overwrite a cataloged source');
     return { derivedSourceId, source };
   });
 }
@@ -44,44 +53,77 @@ function contained(root, relative) {
   insist(absolute.startsWith(`${path.resolve(root, 'assets-src')}${path.sep}`), 'crop path escapes assets-src');
   return absolute;
 }
-function decode(filename, expected) {
-  const probe = JSON.parse(execFileSync('ffprobe', ['-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=codec_name,width,height', '-of', 'json', filename], { encoding: 'utf8' })).streams?.[0];
-  insist(probe?.codec_name === 'png' && probe.width === expected.width && probe.height === expected.height, 'crop PNG dimensions/MIME mismatch');
-  execFileSync('ffmpeg', ['-v', 'error', '-xerror', '-i', filename, '-f', 'null', '-'], { stdio: 'pipe' });
+function probe(filename, expected, runCommand) {
+  const result = JSON.parse(runCommand('ffprobe', ['-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=codec_name,width,height', '-of', 'json', filename], { encoding: 'utf8' })).streams?.[0];
+  insist(result?.codec_name === 'png' && result.width === expected.width && result.height === expected.height, 'crop PNG dimensions/MIME mismatch');
+}
+function decode(filename, expected, runCommand) {
+  probe(filename, expected, runCommand);
+  runCommand('ffmpeg', ['-v', 'error', '-xerror', '-i', filename, '-f', 'null', '-'], { stdio: 'pipe' });
 }
 
-export function materializeCropPlan(plan, { repoRoot = ROOT, ...options } = {}) {
+export function materializeCropPlan(plan, { repoRoot = ROOT, runCommand = execFileSync, ...options } = {}) {
   const records = validateCropPlan(plan, options);
   const catalog = options.catalog ?? defaultCatalog;
   const temporary = fs.mkdtempSync(path.join(os.tmpdir(), 'wardrobe-source-'));
+  const stagingDirs = [];
   try {
-    const prepared = records.map(({ source }, index) => {
-      let input = contained(repoRoot, source.derivation.sourcePath);
-      if (source.derivation.sourceRef === 'WORKTREE') {
-        insist(fs.realpathSync(input).startsWith(`${fs.realpathSync(path.join(repoRoot, 'assets-src'))}${path.sep}`), 'crop input symlink escapes assets-src');
-      } else {
-        const bytes = execFileSync('git', ['show', `${source.derivation.sourceRef}:${source.derivation.sourcePath}`], { cwd: repoRoot, maxBuffer: 64 * 1024 * 1024 });
-        input = path.join(temporary, `${index}.png`);
-        fs.writeFileSync(input, bytes, { flag: 'wx' });
-      }
-      decode(input, catalog.files[source.derivation.sourceId]);
+    const groups = new Map();
+    const prepared = records.map(({ derivedSourceId, source }) => {
       const output = contained(repoRoot, source.sourcePath);
       let existingParent = path.dirname(output);
       while (!fs.existsSync(existingParent)) existingParent = path.dirname(existingParent);
       const realExisting = fs.realpathSync(existingParent), assetRoot = fs.realpathSync(path.join(repoRoot, 'assets-src'));
       insist(realExisting === assetRoot || realExisting.startsWith(`${assetRoot}${path.sep}`), 'crop output ancestor escapes assets-src');
       fs.mkdirSync(path.dirname(output), { recursive: true });
-      const realParent = fs.realpathSync(path.dirname(output)), realAssets = fs.realpathSync(path.join(repoRoot, 'assets-src'));
-      insist(realParent === realAssets || realParent.startsWith(`${realAssets}${path.sep}`), 'crop output symlink escapes assets-src');
-      insist(!fs.existsSync(output), 'crop output already exists');
-      return { source, input, output };
+      const realParent = fs.realpathSync(path.dirname(output));
+      insist(realParent === assetRoot || realParent.startsWith(`${assetRoot}${path.sep}`), 'crop output symlink escapes assets-src');
+      const replace = !!catalog.files[derivedSourceId] && options.rebuild === true;
+      insist(!fs.existsSync(output) || replace, 'crop output already exists');
+      if (replace && fs.existsSync(output)) insist(fs.lstatSync(output).isFile() && !fs.lstatSync(output).isSymbolicLink(), 'rebuild target must be a regular derived file');
+      const staging = fs.mkdtempSync(path.join(realParent, '.wardrobe-crop-'));
+      stagingDirs.push(staging);
+      const item = { source, output, replace, staged: path.join(staging, 'crop.png') };
+      const key = `${source.derivation.sourceRef}:${source.derivation.sourcePath}`;
+      if (!groups.has(key)) groups.set(key, []);
+      groups.get(key).push(item);
+      return item;
     });
-    for (const { source, input, output } of prepared) {
-      const r = source.derivation.rect;
-      execFileSync('ffmpeg', ['-v', 'error', '-xerror', '-n', '-i', input, '-vf', `crop=${r.width}:${r.height}:${r.left}:${r.top}:exact=1`, '-frames:v', '1', '-threads', '1', output], { stdio: 'pipe' });
-      decode(output, source);
+    let sourceIndex = 0;
+    for (const group of groups.values()) {
+      const d = group[0].source.derivation;
+      const input = path.join(temporary, `${sourceIndex++}.png`);
+      if (d.sourceRef === 'WORKTREE') {
+        const original = contained(repoRoot, d.sourcePath);
+        insist(fs.realpathSync(original).startsWith(`${fs.realpathSync(path.join(repoRoot, 'assets-src'))}${path.sep}`), 'crop input symlink escapes assets-src');
+        fs.copyFileSync(original, input, fs.constants.COPYFILE_EXCL);
+      } else {
+        const bytes = runCommand('git', ['show', `${d.sourceRef}:${d.sourcePath}`], { cwd: repoRoot, maxBuffer: 64 * 1024 * 1024 });
+        fs.writeFileSync(input, bytes, { flag: 'wx' });
+      }
+      probe(input, catalog.files[d.sourceId], runCommand);
+      // One input decode fans out to every crop of this exact original/ref.
+      const split = group.length > 1 ? `[0:v]split=${group.length}${group.map((_, i) => `[s${i}]`).join('')};` : '';
+      const filters = group.map(({ source }, i) => {
+        const r = source.derivation.rect;
+        return `${group.length > 1 ? `[s${i}]` : '[0:v]'}crop=${r.width}:${r.height}:${r.left}:${r.top}:exact=1[o${i}]`;
+      }).join(';');
+      const args = ['-v', 'error', '-xerror', '-n', '-i', input, '-filter_complex', split + filters];
+      group.forEach(({ staged }, i) => args.push('-map', `[o${i}]`, '-frames:v', '1', '-threads', '1', staged));
+      runCommand('ffmpeg', args, { stdio: 'pipe' });
+      for (const { source, staged } of group) decode(staged, source, runCommand);
     }
-  } finally { fs.rmSync(temporary, { recursive: true, force: true }); }
+    // Only publish fully decoded outputs; replacement is atomic per derived file.
+    for (const { output, staged, replace } of prepared) {
+      if (replace) {
+        if (fs.existsSync(output)) insist(fs.lstatSync(output).isFile() && !fs.lstatSync(output).isSymbolicLink(), 'rebuild target must be a regular derived file');
+        fs.renameSync(staged, output);
+      } else fs.linkSync(staged, output);
+    }
+  } finally {
+    fs.rmSync(temporary, { recursive: true, force: true });
+    for (const staging of stagingDirs) fs.rmSync(staging, { recursive: true, force: true });
+  }
   return records.map(({ derivedSourceId, source }) => ({ derivedSourceId, ...source, status: 'pending-independent-crop-qa' }));
 }
 
@@ -92,6 +134,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
       if (args[i] === '--inventory') options.inventory = true;
       else if (args[i] === '--plan') options.plan = args[++i];
       else if (args[i] === '--source-ref') options.sourceRef = args[++i];
+      else if (args[i] === '--rebuild') options.rebuild = true;
       else if (args[i] === '--materialize') options.materialize = true;
       else throw new Error(`unknown argument: ${args[i]}`);
     }
