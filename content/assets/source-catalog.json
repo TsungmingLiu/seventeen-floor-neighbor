@@ -627,6 +627,1638 @@
         "Compression PASS is ORIGINAL-only. Final derivative, desktop, both mobile profiles and Human master gate remain PENDING.",
         "Exact input snapshot and Handoff stay ignored; verified Handoff SHA256 6b0522a9f6bb875dd74ef1ccc477b1a64a1e34cf03980343b23e9d4e78cee885. Cache paths are not required cross-session dependencies."
       ]
+    },
+    "ref.xu_tang.wardrobe_look.a_weekday_neighbor.full": {
+      "name": "full.png",
+      "sourcePath": "assets-src/references/xu-tang/wardrobe-looks/XT-WARDROBE-A-WEEKDAY-NEIGHBOR/full.png",
+      "characterId": "xu_tang",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 256,
+      "height": 884,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.xu_tang.wardrobe.a",
+        "sourcePath": "assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "XT-WARDROBE-A-WEEKDAY-NEIGHBOR",
+        "variant": "full",
+        "rect": {
+          "left": 2,
+          "top": 194,
+          "width": 256,
+          "height": 884
+        }
+      }
+    },
+    "ref.xu_tang.wardrobe_look.a_weekday_neighbor.upper": {
+      "name": "upper.png",
+      "sourcePath": "assets-src/references/xu-tang/wardrobe-looks/XT-WARDROBE-A-WEEKDAY-NEIGHBOR/upper.png",
+      "characterId": "xu_tang",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 256,
+      "height": 346,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.xu_tang.wardrobe.a",
+        "sourcePath": "assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "XT-WARDROBE-A-WEEKDAY-NEIGHBOR",
+        "variant": "upper",
+        "rect": {
+          "left": 2,
+          "top": 194,
+          "width": 256,
+          "height": 346
+        }
+      }
+    },
+    "ref.xu_tang.wardrobe_look.a_late_night_convenience_store.full": {
+      "name": "full.png",
+      "sourcePath": "assets-src/references/xu-tang/wardrobe-looks/XT-WARDROBE-A-LATE-NIGHT-CONVENIENCE-STORE/full.png",
+      "characterId": "xu_tang",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 259,
+      "height": 884,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.xu_tang.wardrobe.a",
+        "sourcePath": "assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "XT-WARDROBE-A-LATE-NIGHT-CONVENIENCE-STORE",
+        "variant": "full",
+        "rect": {
+          "left": 264,
+          "top": 194,
+          "width": 259,
+          "height": 884
+        }
+      }
+    },
+    "ref.xu_tang.wardrobe_look.a_late_night_convenience_store.upper": {
+      "name": "upper.png",
+      "sourcePath": "assets-src/references/xu-tang/wardrobe-looks/XT-WARDROBE-A-LATE-NIGHT-CONVENIENCE-STORE/upper.png",
+      "characterId": "xu_tang",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 259,
+      "height": 346,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.xu_tang.wardrobe.a",
+        "sourcePath": "assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "XT-WARDROBE-A-LATE-NIGHT-CONVENIENCE-STORE",
+        "variant": "upper",
+        "rect": {
+          "left": 264,
+          "top": 194,
+          "width": 259,
+          "height": 346
+        }
+      }
+    },
+    "ref.xu_tang.wardrobe_look.a_bookstore_cafe_date.full": {
+      "name": "full.png",
+      "sourcePath": "assets-src/references/xu-tang/wardrobe-looks/XT-WARDROBE-A-BOOKSTORE-CAFE-DATE/full.png",
+      "characterId": "xu_tang",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 266,
+      "height": 884,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.xu_tang.wardrobe.a",
+        "sourcePath": "assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "XT-WARDROBE-A-BOOKSTORE-CAFE-DATE",
+        "variant": "full",
+        "rect": {
+          "left": 529,
+          "top": 194,
+          "width": 266,
+          "height": 884
+        }
+      }
+    },
+    "ref.xu_tang.wardrobe_look.a_bookstore_cafe_date.upper": {
+      "name": "upper.png",
+      "sourcePath": "assets-src/references/xu-tang/wardrobe-looks/XT-WARDROBE-A-BOOKSTORE-CAFE-DATE/upper.png",
+      "characterId": "xu_tang",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 266,
+      "height": 346,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.xu_tang.wardrobe.a",
+        "sourcePath": "assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "XT-WARDROBE-A-BOOKSTORE-CAFE-DATE",
+        "variant": "upper",
+        "rect": {
+          "left": 529,
+          "top": 194,
+          "width": 266,
+          "height": 346
+        }
+      }
+    },
+    "ref.xu_tang.wardrobe_look.a_weekend_night_out.full": {
+      "name": "full.png",
+      "sourcePath": "assets-src/references/xu-tang/wardrobe-looks/XT-WARDROBE-A-WEEKEND-NIGHT-OUT/full.png",
+      "characterId": "xu_tang",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 252,
+      "height": 884,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.xu_tang.wardrobe.a",
+        "sourcePath": "assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "XT-WARDROBE-A-WEEKEND-NIGHT-OUT",
+        "variant": "full",
+        "rect": {
+          "left": 800,
+          "top": 194,
+          "width": 252,
+          "height": 884
+        }
+      }
+    },
+    "ref.xu_tang.wardrobe_look.a_weekend_night_out.upper": {
+      "name": "upper.png",
+      "sourcePath": "assets-src/references/xu-tang/wardrobe-looks/XT-WARDROBE-A-WEEKEND-NIGHT-OUT/upper.png",
+      "characterId": "xu_tang",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 252,
+      "height": 346,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.xu_tang.wardrobe.a",
+        "sourcePath": "assets-src/references/xu-tang/xt-ref-05-wardrobe-a.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "XT-WARDROBE-A-WEEKEND-NIGHT-OUT",
+        "variant": "upper",
+        "rect": {
+          "left": 800,
+          "top": 194,
+          "width": 252,
+          "height": 346
+        }
+      }
+    },
+    "ref.xu_tang.wardrobe_look.b_riverside_rainy_date.full": {
+      "name": "full.png",
+      "sourcePath": "assets-src/references/xu-tang/wardrobe-looks/XT-WARDROBE-B-RIVERSIDE-RAINY-DATE/full.png",
+      "characterId": "xu_tang",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 256,
+      "height": 871,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.xu_tang.wardrobe.b",
+        "sourcePath": "assets-src/references/xu-tang/xt-ref-06-wardrobe-b.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "XT-WARDROBE-B-RIVERSIDE-RAINY-DATE",
+        "variant": "full",
+        "rect": {
+          "left": 2,
+          "top": 194,
+          "width": 256,
+          "height": 871
+        }
+      }
+    },
+    "ref.xu_tang.wardrobe_look.b_riverside_rainy_date.upper": {
+      "name": "upper.png",
+      "sourcePath": "assets-src/references/xu-tang/wardrobe-looks/XT-WARDROBE-B-RIVERSIDE-RAINY-DATE/upper.png",
+      "characterId": "xu_tang",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 256,
+      "height": 346,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.xu_tang.wardrobe.b",
+        "sourcePath": "assets-src/references/xu-tang/xt-ref-06-wardrobe-b.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "XT-WARDROBE-B-RIVERSIDE-RAINY-DATE",
+        "variant": "upper",
+        "rect": {
+          "left": 2,
+          "top": 194,
+          "width": 256,
+          "height": 346
+        }
+      }
+    },
+    "ref.xu_tang.wardrobe_look.b_work_deadline_home.full": {
+      "name": "full.png",
+      "sourcePath": "assets-src/references/xu-tang/wardrobe-looks/XT-WARDROBE-B-WORK-DEADLINE-HOME/full.png",
+      "characterId": "xu_tang",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 259,
+      "height": 871,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.xu_tang.wardrobe.b",
+        "sourcePath": "assets-src/references/xu-tang/xt-ref-06-wardrobe-b.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "XT-WARDROBE-B-WORK-DEADLINE-HOME",
+        "variant": "full",
+        "rect": {
+          "left": 264,
+          "top": 194,
+          "width": 259,
+          "height": 871
+        }
+      }
+    },
+    "ref.xu_tang.wardrobe_look.b_work_deadline_home.upper": {
+      "name": "upper.png",
+      "sourcePath": "assets-src/references/xu-tang/wardrobe-looks/XT-WARDROBE-B-WORK-DEADLINE-HOME/upper.png",
+      "characterId": "xu_tang",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 259,
+      "height": 346,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.xu_tang.wardrobe.b",
+        "sourcePath": "assets-src/references/xu-tang/xt-ref-06-wardrobe-b.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "XT-WARDROBE-B-WORK-DEADLINE-HOME",
+        "variant": "upper",
+        "rect": {
+          "left": 264,
+          "top": 194,
+          "width": 259,
+          "height": 346
+        }
+      }
+    },
+    "ref.xu_tang.wardrobe_look.b_repair_ending_serious_date.full": {
+      "name": "full.png",
+      "sourcePath": "assets-src/references/xu-tang/wardrobe-looks/XT-WARDROBE-B-REPAIR-ENDING-SERIOUS-DATE/full.png",
+      "characterId": "xu_tang",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 266,
+      "height": 871,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.xu_tang.wardrobe.b",
+        "sourcePath": "assets-src/references/xu-tang/xt-ref-06-wardrobe-b.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "XT-WARDROBE-B-REPAIR-ENDING-SERIOUS-DATE",
+        "variant": "full",
+        "rect": {
+          "left": 529,
+          "top": 194,
+          "width": 266,
+          "height": 871
+        }
+      }
+    },
+    "ref.xu_tang.wardrobe_look.b_repair_ending_serious_date.upper": {
+      "name": "upper.png",
+      "sourcePath": "assets-src/references/xu-tang/wardrobe-looks/XT-WARDROBE-B-REPAIR-ENDING-SERIOUS-DATE/upper.png",
+      "characterId": "xu_tang",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 266,
+      "height": 346,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.xu_tang.wardrobe.b",
+        "sourcePath": "assets-src/references/xu-tang/xt-ref-06-wardrobe-b.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "XT-WARDROBE-B-REPAIR-ENDING-SERIOUS-DATE",
+        "variant": "upper",
+        "rect": {
+          "left": 529,
+          "top": 194,
+          "width": 266,
+          "height": 346
+        }
+      }
+    },
+    "ref.xu_tang.wardrobe_look.b_after_story_weekend_morning.full": {
+      "name": "full.png",
+      "sourcePath": "assets-src/references/xu-tang/wardrobe-looks/XT-WARDROBE-B-AFTER-STORY-WEEKEND-MORNING/full.png",
+      "characterId": "xu_tang",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 252,
+      "height": 871,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.xu_tang.wardrobe.b",
+        "sourcePath": "assets-src/references/xu-tang/xt-ref-06-wardrobe-b.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "XT-WARDROBE-B-AFTER-STORY-WEEKEND-MORNING",
+        "variant": "full",
+        "rect": {
+          "left": 800,
+          "top": 194,
+          "width": 252,
+          "height": 871
+        }
+      }
+    },
+    "ref.xu_tang.wardrobe_look.b_after_story_weekend_morning.upper": {
+      "name": "upper.png",
+      "sourcePath": "assets-src/references/xu-tang/wardrobe-looks/XT-WARDROBE-B-AFTER-STORY-WEEKEND-MORNING/upper.png",
+      "characterId": "xu_tang",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 252,
+      "height": 346,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.xu_tang.wardrobe.b",
+        "sourcePath": "assets-src/references/xu-tang/xt-ref-06-wardrobe-b.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "XT-WARDROBE-B-AFTER-STORY-WEEKEND-MORNING",
+        "variant": "upper",
+        "rect": {
+          "left": 800,
+          "top": 194,
+          "width": 252,
+          "height": 346
+        }
+      }
+    },
+    "ref.jiang_yucheng.wardrobe_look.a_campus_graduate_student.full": {
+      "name": "full.png",
+      "sourcePath": "assets-src/references/jiang-yucheng/wardrobe-looks/JYC-WARDROBE-A-CAMPUS-GRADUATE-STUDENT/full.png",
+      "characterId": "jiang_yucheng",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 251,
+      "height": 850,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.jiang_yucheng.wardrobe.a",
+        "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-05-wardrobe-a.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "JYC-WARDROBE-A-CAMPUS-GRADUATE-STUDENT",
+        "variant": "full",
+        "rect": {
+          "left": 0,
+          "top": 180,
+          "width": 251,
+          "height": 850
+        }
+      }
+    },
+    "ref.jiang_yucheng.wardrobe_look.a_campus_graduate_student.upper": {
+      "name": "upper.png",
+      "sourcePath": "assets-src/references/jiang-yucheng/wardrobe-looks/JYC-WARDROBE-A-CAMPUS-GRADUATE-STUDENT/upper.png",
+      "characterId": "jiang_yucheng",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 251,
+      "height": 420,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.jiang_yucheng.wardrobe.a",
+        "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-05-wardrobe-a.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "JYC-WARDROBE-A-CAMPUS-GRADUATE-STUDENT",
+        "variant": "upper",
+        "rect": {
+          "left": 0,
+          "top": 180,
+          "width": 251,
+          "height": 420
+        }
+      }
+    },
+    "ref.jiang_yucheng.wardrobe_look.a_cafe_creator.full": {
+      "name": "full.png",
+      "sourcePath": "assets-src/references/jiang-yucheng/wardrobe-looks/JYC-WARDROBE-A-CAFE-CREATOR/full.png",
+      "characterId": "jiang_yucheng",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 224,
+      "height": 843,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.jiang_yucheng.wardrobe.a",
+        "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-05-wardrobe-a.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "JYC-WARDROBE-A-CAFE-CREATOR",
+        "variant": "full",
+        "rect": {
+          "left": 401,
+          "top": 186,
+          "width": 224,
+          "height": 843
+        }
+      }
+    },
+    "ref.jiang_yucheng.wardrobe_look.a_cafe_creator.upper": {
+      "name": "upper.png",
+      "sourcePath": "assets-src/references/jiang-yucheng/wardrobe-looks/JYC-WARDROBE-A-CAFE-CREATOR/upper.png",
+      "characterId": "jiang_yucheng",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 224,
+      "height": 399,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.jiang_yucheng.wardrobe.a",
+        "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-05-wardrobe-a.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "JYC-WARDROBE-A-CAFE-CREATOR",
+        "variant": "upper",
+        "rect": {
+          "left": 401,
+          "top": 186,
+          "width": 224,
+          "height": 399
+        }
+      }
+    },
+    "ref.jiang_yucheng.wardrobe_look.a_acg_outing.full": {
+      "name": "full.png",
+      "sourcePath": "assets-src/references/jiang-yucheng/wardrobe-looks/JYC-WARDROBE-A-ACG-OUTING/full.png",
+      "characterId": "jiang_yucheng",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 228,
+      "height": 842,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.jiang_yucheng.wardrobe.a",
+        "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-05-wardrobe-a.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "JYC-WARDROBE-A-ACG-OUTING",
+        "variant": "full",
+        "rect": {
+          "left": 762,
+          "top": 186,
+          "width": 228,
+          "height": 842
+        }
+      }
+    },
+    "ref.jiang_yucheng.wardrobe_look.a_acg_outing.upper": {
+      "name": "upper.png",
+      "sourcePath": "assets-src/references/jiang-yucheng/wardrobe-looks/JYC-WARDROBE-A-ACG-OUTING/upper.png",
+      "characterId": "jiang_yucheng",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 228,
+      "height": 399,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.jiang_yucheng.wardrobe.a",
+        "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-05-wardrobe-a.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "JYC-WARDROBE-A-ACG-OUTING",
+        "variant": "upper",
+        "rect": {
+          "left": 762,
+          "top": 186,
+          "width": 228,
+          "height": 399
+        }
+      }
+    },
+    "ref.jiang_yucheng.wardrobe_look.a_gaming_home_casual.full": {
+      "name": "full.png",
+      "sourcePath": "assets-src/references/jiang-yucheng/wardrobe-looks/JYC-WARDROBE-A-GAMING-HOME-CASUAL/full.png",
+      "characterId": "jiang_yucheng",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 224,
+      "height": 842,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.jiang_yucheng.wardrobe.a",
+        "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-05-wardrobe-a.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "JYC-WARDROBE-A-GAMING-HOME-CASUAL",
+        "variant": "full",
+        "rect": {
+          "left": 1131,
+          "top": 186,
+          "width": 224,
+          "height": 842
+        }
+      }
+    },
+    "ref.jiang_yucheng.wardrobe_look.a_gaming_home_casual.upper": {
+      "name": "upper.png",
+      "sourcePath": "assets-src/references/jiang-yucheng/wardrobe-looks/JYC-WARDROBE-A-GAMING-HOME-CASUAL/upper.png",
+      "characterId": "jiang_yucheng",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 224,
+      "height": 404,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.jiang_yucheng.wardrobe.a",
+        "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-05-wardrobe-a.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "JYC-WARDROBE-A-GAMING-HOME-CASUAL",
+        "variant": "upper",
+        "rect": {
+          "left": 1131,
+          "top": 186,
+          "width": 224,
+          "height": 404
+        }
+      }
+    },
+    "ref.jiang_yucheng.wardrobe_look.b_cute_date.full": {
+      "name": "full.png",
+      "sourcePath": "assets-src/references/jiang-yucheng/wardrobe-looks/JYC-WARDROBE-B-CUTE-DATE/full.png",
+      "characterId": "jiang_yucheng",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 232,
+      "height": 898,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.jiang_yucheng.wardrobe.b",
+        "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-06-wardrobe-b.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "JYC-WARDROBE-B-CUTE-DATE",
+        "variant": "full",
+        "rect": {
+          "left": 14,
+          "top": 132,
+          "width": 232,
+          "height": 898
+        }
+      }
+    },
+    "ref.jiang_yucheng.wardrobe_look.b_cute_date.upper": {
+      "name": "upper.png",
+      "sourcePath": "assets-src/references/jiang-yucheng/wardrobe-looks/JYC-WARDROBE-B-CUTE-DATE/upper.png",
+      "characterId": "jiang_yucheng",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 232,
+      "height": 453,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.jiang_yucheng.wardrobe.b",
+        "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-06-wardrobe-b.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "JYC-WARDROBE-B-CUTE-DATE",
+        "variant": "upper",
+        "rect": {
+          "left": 14,
+          "top": 132,
+          "width": 232,
+          "height": 453
+        }
+      }
+    },
+    "ref.jiang_yucheng.wardrobe_look.b_creator_event.full": {
+      "name": "full.png",
+      "sourcePath": "assets-src/references/jiang-yucheng/wardrobe-looks/JYC-WARDROBE-B-CREATOR-EVENT/full.png",
+      "characterId": "jiang_yucheng",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 239,
+      "height": 898,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.jiang_yucheng.wardrobe.b",
+        "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-06-wardrobe-b.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "JYC-WARDROBE-B-CREATOR-EVENT",
+        "variant": "full",
+        "rect": {
+          "left": 376,
+          "top": 132,
+          "width": 239,
+          "height": 898
+        }
+      }
+    },
+    "ref.jiang_yucheng.wardrobe_look.b_creator_event.upper": {
+      "name": "upper.png",
+      "sourcePath": "assets-src/references/jiang-yucheng/wardrobe-looks/JYC-WARDROBE-B-CREATOR-EVENT/upper.png",
+      "characterId": "jiang_yucheng",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 239,
+      "height": 458,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.jiang_yucheng.wardrobe.b",
+        "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-06-wardrobe-b.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "JYC-WARDROBE-B-CREATOR-EVENT",
+        "variant": "upper",
+        "rect": {
+          "left": 376,
+          "top": 132,
+          "width": 239,
+          "height": 458
+        }
+      }
+    },
+    "ref.jiang_yucheng.wardrobe_look.b_signature_campus.full": {
+      "name": "full.png",
+      "sourcePath": "assets-src/references/jiang-yucheng/wardrobe-looks/JYC-WARDROBE-B-SIGNATURE-CAMPUS/full.png",
+      "characterId": "jiang_yucheng",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 226,
+      "height": 898,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.jiang_yucheng.wardrobe.b",
+        "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-06-wardrobe-b.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "JYC-WARDROBE-B-SIGNATURE-CAMPUS",
+        "variant": "full",
+        "rect": {
+          "left": 754,
+          "top": 132,
+          "width": 226,
+          "height": 898
+        }
+      }
+    },
+    "ref.jiang_yucheng.wardrobe_look.b_signature_campus.upper": {
+      "name": "upper.png",
+      "sourcePath": "assets-src/references/jiang-yucheng/wardrobe-looks/JYC-WARDROBE-B-SIGNATURE-CAMPUS/upper.png",
+      "characterId": "jiang_yucheng",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 226,
+      "height": 468,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.jiang_yucheng.wardrobe.b",
+        "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-06-wardrobe-b.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "JYC-WARDROBE-B-SIGNATURE-CAMPUS",
+        "variant": "upper",
+        "rect": {
+          "left": 754,
+          "top": 132,
+          "width": 226,
+          "height": 468
+        }
+      }
+    },
+    "ref.jiang_yucheng.wardrobe_look.b_after_story_weekend_morning.full": {
+      "name": "full.png",
+      "sourcePath": "assets-src/references/jiang-yucheng/wardrobe-looks/JYC-WARDROBE-B-AFTER-STORY-WEEKEND-MORNING/full.png",
+      "characterId": "jiang_yucheng",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 230,
+      "height": 898,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.jiang_yucheng.wardrobe.b",
+        "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-06-wardrobe-b.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "JYC-WARDROBE-B-AFTER-STORY-WEEKEND-MORNING",
+        "variant": "full",
+        "rect": {
+          "left": 1118,
+          "top": 132,
+          "width": 230,
+          "height": 898
+        }
+      }
+    },
+    "ref.jiang_yucheng.wardrobe_look.b_after_story_weekend_morning.upper": {
+      "name": "upper.png",
+      "sourcePath": "assets-src/references/jiang-yucheng/wardrobe-looks/JYC-WARDROBE-B-AFTER-STORY-WEEKEND-MORNING/upper.png",
+      "characterId": "jiang_yucheng",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 230,
+      "height": 468,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.jiang_yucheng.wardrobe.b",
+        "sourcePath": "assets-src/references/jiang-yucheng/jyc-ref-06-wardrobe-b.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "JYC-WARDROBE-B-AFTER-STORY-WEEKEND-MORNING",
+        "variant": "upper",
+        "rect": {
+          "left": 1118,
+          "top": 132,
+          "width": 230,
+          "height": 468
+        }
+      }
+    },
+    "ref.lin_ruoqing.wardrobe_look.a_teacher_trousers.full": {
+      "name": "full.png",
+      "sourcePath": "assets-src/references/lin-ruoqing/wardrobe-looks/LRQ-WARDROBE-A-TEACHER-TROUSERS/full.png",
+      "characterId": "lin_ruoqing",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 270,
+      "height": 734,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.lin_ruoqing.wardrobe.a",
+        "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-05-wardrobe-a.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "LRQ-WARDROBE-A-TEACHER-TROUSERS",
+        "variant": "full",
+        "rect": {
+          "left": 20,
+          "top": 54,
+          "width": 270,
+          "height": 734
+        }
+      }
+    },
+    "ref.lin_ruoqing.wardrobe_look.a_teacher_trousers.upper": {
+      "name": "upper.png",
+      "sourcePath": "assets-src/references/lin-ruoqing/wardrobe-looks/LRQ-WARDROBE-A-TEACHER-TROUSERS/upper.png",
+      "characterId": "lin_ruoqing",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 270,
+      "height": 411,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.lin_ruoqing.wardrobe.a",
+        "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-05-wardrobe-a.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "LRQ-WARDROBE-A-TEACHER-TROUSERS",
+        "variant": "upper",
+        "rect": {
+          "left": 20,
+          "top": 54,
+          "width": 270,
+          "height": 411
+        }
+      }
+    },
+    "ref.lin_ruoqing.wardrobe_look.a_cardigan_everyday.full": {
+      "name": "full.png",
+      "sourcePath": "assets-src/references/lin-ruoqing/wardrobe-looks/LRQ-WARDROBE-A-CARDIGAN-EVERYDAY/full.png",
+      "characterId": "lin_ruoqing",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 267,
+      "height": 734,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.lin_ruoqing.wardrobe.a",
+        "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-05-wardrobe-a.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "LRQ-WARDROBE-A-CARDIGAN-EVERYDAY",
+        "variant": "full",
+        "rect": {
+          "left": 294,
+          "top": 54,
+          "width": 267,
+          "height": 734
+        }
+      }
+    },
+    "ref.lin_ruoqing.wardrobe_look.a_cardigan_everyday.upper": {
+      "name": "upper.png",
+      "sourcePath": "assets-src/references/lin-ruoqing/wardrobe-looks/LRQ-WARDROBE-A-CARDIGAN-EVERYDAY/upper.png",
+      "characterId": "lin_ruoqing",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 267,
+      "height": 411,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.lin_ruoqing.wardrobe.a",
+        "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-05-wardrobe-a.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "LRQ-WARDROBE-A-CARDIGAN-EVERYDAY",
+        "variant": "upper",
+        "rect": {
+          "left": 294,
+          "top": 54,
+          "width": 267,
+          "height": 411
+        }
+      }
+    },
+    "ref.lin_ruoqing.wardrobe_look.a_teacher_presentation.full": {
+      "name": "full.png",
+      "sourcePath": "assets-src/references/lin-ruoqing/wardrobe-looks/LRQ-WARDROBE-A-TEACHER-PRESENTATION/full.png",
+      "characterId": "lin_ruoqing",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 269,
+      "height": 734,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.lin_ruoqing.wardrobe.a",
+        "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-05-wardrobe-a.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "LRQ-WARDROBE-A-TEACHER-PRESENTATION",
+        "variant": "full",
+        "rect": {
+          "left": 565,
+          "top": 54,
+          "width": 269,
+          "height": 734
+        }
+      }
+    },
+    "ref.lin_ruoqing.wardrobe_look.a_teacher_presentation.upper": {
+      "name": "upper.png",
+      "sourcePath": "assets-src/references/lin-ruoqing/wardrobe-looks/LRQ-WARDROBE-A-TEACHER-PRESENTATION/upper.png",
+      "characterId": "lin_ruoqing",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 269,
+      "height": 306,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.lin_ruoqing.wardrobe.a",
+        "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-05-wardrobe-a.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "LRQ-WARDROBE-A-TEACHER-PRESENTATION",
+        "variant": "upper",
+        "rect": {
+          "left": 565,
+          "top": 54,
+          "width": 269,
+          "height": 306
+        }
+      }
+    },
+    "ref.lin_ruoqing.wardrobe_look.a_hoodie_weekend.full": {
+      "name": "full.png",
+      "sourcePath": "assets-src/references/lin-ruoqing/wardrobe-looks/LRQ-WARDROBE-A-HOODIE-WEEKEND/full.png",
+      "characterId": "lin_ruoqing",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 267,
+      "height": 734,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.lin_ruoqing.wardrobe.a",
+        "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-05-wardrobe-a.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "LRQ-WARDROBE-A-HOODIE-WEEKEND",
+        "variant": "full",
+        "rect": {
+          "left": 839,
+          "top": 54,
+          "width": 267,
+          "height": 734
+        }
+      }
+    },
+    "ref.lin_ruoqing.wardrobe_look.a_hoodie_weekend.upper": {
+      "name": "upper.png",
+      "sourcePath": "assets-src/references/lin-ruoqing/wardrobe-looks/LRQ-WARDROBE-A-HOODIE-WEEKEND/upper.png",
+      "characterId": "lin_ruoqing",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 267,
+      "height": 406,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.lin_ruoqing.wardrobe.a",
+        "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-05-wardrobe-a.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "LRQ-WARDROBE-A-HOODIE-WEEKEND",
+        "variant": "upper",
+        "rect": {
+          "left": 839,
+          "top": 54,
+          "width": 267,
+          "height": 406
+        }
+      }
+    },
+    "ref.lin_ruoqing.wardrobe_look.a_floral_date.full": {
+      "name": "full.png",
+      "sourcePath": "assets-src/references/lin-ruoqing/wardrobe-looks/LRQ-WARDROBE-A-FLORAL-DATE/full.png",
+      "characterId": "lin_ruoqing",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 270,
+      "height": 734,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.lin_ruoqing.wardrobe.a",
+        "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-05-wardrobe-a.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "LRQ-WARDROBE-A-FLORAL-DATE",
+        "variant": "full",
+        "rect": {
+          "left": 1109,
+          "top": 54,
+          "width": 270,
+          "height": 734
+        }
+      }
+    },
+    "ref.lin_ruoqing.wardrobe_look.a_floral_date.upper": {
+      "name": "upper.png",
+      "sourcePath": "assets-src/references/lin-ruoqing/wardrobe-looks/LRQ-WARDROBE-A-FLORAL-DATE/upper.png",
+      "characterId": "lin_ruoqing",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 270,
+      "height": 428,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.lin_ruoqing.wardrobe.a",
+        "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-05-wardrobe-a.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "LRQ-WARDROBE-A-FLORAL-DATE",
+        "variant": "upper",
+        "rect": {
+          "left": 1109,
+          "top": 54,
+          "width": 270,
+          "height": 428
+        }
+      }
+    },
+    "ref.lin_ruoqing.wardrobe_look.a_autumn_outing.full": {
+      "name": "full.png",
+      "sourcePath": "assets-src/references/lin-ruoqing/wardrobe-looks/LRQ-WARDROBE-A-AUTUMN-OUTING/full.png",
+      "characterId": "lin_ruoqing",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 269,
+      "height": 734,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.lin_ruoqing.wardrobe.a",
+        "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-05-wardrobe-a.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "LRQ-WARDROBE-A-AUTUMN-OUTING",
+        "variant": "full",
+        "rect": {
+          "left": 1382,
+          "top": 54,
+          "width": 269,
+          "height": 734
+        }
+      }
+    },
+    "ref.lin_ruoqing.wardrobe_look.a_autumn_outing.upper": {
+      "name": "upper.png",
+      "sourcePath": "assets-src/references/lin-ruoqing/wardrobe-looks/LRQ-WARDROBE-A-AUTUMN-OUTING/upper.png",
+      "characterId": "lin_ruoqing",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 269,
+      "height": 428,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.lin_ruoqing.wardrobe.a",
+        "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-05-wardrobe-a.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "LRQ-WARDROBE-A-AUTUMN-OUTING",
+        "variant": "upper",
+        "rect": {
+          "left": 1382,
+          "top": 54,
+          "width": 269,
+          "height": 428
+        }
+      }
+    },
+    "ref.lin_ruoqing.wardrobe_look.b_fitness_active.full": {
+      "name": "full.png",
+      "sourcePath": "assets-src/references/lin-ruoqing/wardrobe-looks/LRQ-WARDROBE-B-FITNESS-ACTIVE/full.png",
+      "characterId": "lin_ruoqing",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 406,
+      "height": 686,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.lin_ruoqing.wardrobe.b",
+        "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-06-wardrobe-b.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "LRQ-WARDROBE-B-FITNESS-ACTIVE",
+        "variant": "full",
+        "rect": {
+          "left": 20,
+          "top": 54,
+          "width": 406,
+          "height": 686
+        }
+      }
+    },
+    "ref.lin_ruoqing.wardrobe_look.b_fitness_active.upper": {
+      "name": "upper.png",
+      "sourcePath": "assets-src/references/lin-ruoqing/wardrobe-looks/LRQ-WARDROBE-B-FITNESS-ACTIVE/upper.png",
+      "characterId": "lin_ruoqing",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 406,
+      "height": 315,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.lin_ruoqing.wardrobe.b",
+        "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-06-wardrobe-b.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "LRQ-WARDROBE-B-FITNESS-ACTIVE",
+        "variant": "upper",
+        "rect": {
+          "left": 20,
+          "top": 54,
+          "width": 406,
+          "height": 315
+        }
+      }
+    },
+    "ref.lin_ruoqing.wardrobe_look.b_badminton.full": {
+      "name": "full.png",
+      "sourcePath": "assets-src/references/lin-ruoqing/wardrobe-looks/LRQ-WARDROBE-B-BADMINTON/full.png",
+      "characterId": "lin_ruoqing",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 406,
+      "height": 686,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.lin_ruoqing.wardrobe.b",
+        "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-06-wardrobe-b.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "LRQ-WARDROBE-B-BADMINTON",
+        "variant": "full",
+        "rect": {
+          "left": 429,
+          "top": 54,
+          "width": 406,
+          "height": 686
+        }
+      }
+    },
+    "ref.lin_ruoqing.wardrobe_look.b_badminton.upper": {
+      "name": "upper.png",
+      "sourcePath": "assets-src/references/lin-ruoqing/wardrobe-looks/LRQ-WARDROBE-B-BADMINTON/upper.png",
+      "characterId": "lin_ruoqing",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 406,
+      "height": 316,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.lin_ruoqing.wardrobe.b",
+        "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-06-wardrobe-b.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "LRQ-WARDROBE-B-BADMINTON",
+        "variant": "upper",
+        "rect": {
+          "left": 429,
+          "top": 54,
+          "width": 406,
+          "height": 316
+        }
+      }
+    },
+    "ref.lin_ruoqing.wardrobe_look.b_home_rest.full": {
+      "name": "full.png",
+      "sourcePath": "assets-src/references/lin-ruoqing/wardrobe-looks/LRQ-WARDROBE-B-HOME-REST/full.png",
+      "characterId": "lin_ruoqing",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 405,
+      "height": 686,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.lin_ruoqing.wardrobe.b",
+        "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-06-wardrobe-b.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "LRQ-WARDROBE-B-HOME-REST",
+        "variant": "full",
+        "rect": {
+          "left": 839,
+          "top": 54,
+          "width": 405,
+          "height": 686
+        }
+      }
+    },
+    "ref.lin_ruoqing.wardrobe_look.b_home_rest.upper": {
+      "name": "upper.png",
+      "sourcePath": "assets-src/references/lin-ruoqing/wardrobe-looks/LRQ-WARDROBE-B-HOME-REST/upper.png",
+      "characterId": "lin_ruoqing",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 405,
+      "height": 388,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.lin_ruoqing.wardrobe.b",
+        "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-06-wardrobe-b.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "LRQ-WARDROBE-B-HOME-REST",
+        "variant": "upper",
+        "rect": {
+          "left": 839,
+          "top": 54,
+          "width": 405,
+          "height": 388
+        }
+      }
+    },
+    "ref.lin_ruoqing.wardrobe_look.b_pool_swim.full": {
+      "name": "full.png",
+      "sourcePath": "assets-src/references/lin-ruoqing/wardrobe-looks/LRQ-WARDROBE-B-POOL-SWIM/full.png",
+      "characterId": "lin_ruoqing",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 405,
+      "height": 686,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.lin_ruoqing.wardrobe.b",
+        "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-06-wardrobe-b.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "LRQ-WARDROBE-B-POOL-SWIM",
+        "variant": "full",
+        "rect": {
+          "left": 1247,
+          "top": 54,
+          "width": 405,
+          "height": 686
+        }
+      }
+    },
+    "ref.lin_ruoqing.wardrobe_look.b_pool_swim.upper": {
+      "name": "upper.png",
+      "sourcePath": "assets-src/references/lin-ruoqing/wardrobe-looks/LRQ-WARDROBE-B-POOL-SWIM/upper.png",
+      "characterId": "lin_ruoqing",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 405,
+      "height": 346,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.lin_ruoqing.wardrobe.b",
+        "sourcePath": "assets-src/references/lin-ruoqing/lrq-ref-06-wardrobe-b.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "LRQ-WARDROBE-B-POOL-SWIM",
+        "variant": "upper",
+        "rect": {
+          "left": 1247,
+          "top": 54,
+          "width": 405,
+          "height": 346
+        }
+      }
+    },
+    "ref.shen_yingxue.wardrobe_look.a_strategy_work.full": {
+      "name": "full.png",
+      "sourcePath": "assets-src/references/shen-yingxue/wardrobe-looks/SYX-WARDROBE-A-STRATEGY-WORK/full.png",
+      "characterId": "shen_yingxue",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 234,
+      "height": 659,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.shen_yingxue.wardrobe.a",
+        "sourcePath": "assets-src/references/shen-yingxue/syx-ref-05-wardrobe-a.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "SYX-WARDROBE-A-STRATEGY-WORK",
+        "variant": "full",
+        "rect": {
+          "left": 55,
+          "top": 97,
+          "width": 234,
+          "height": 659
+        }
+      }
+    },
+    "ref.shen_yingxue.wardrobe_look.a_strategy_work.upper": {
+      "name": "upper.png",
+      "sourcePath": "assets-src/references/shen-yingxue/wardrobe-looks/SYX-WARDROBE-A-STRATEGY-WORK/upper.png",
+      "characterId": "shen_yingxue",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 234,
+      "height": 308,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.shen_yingxue.wardrobe.a",
+        "sourcePath": "assets-src/references/shen-yingxue/syx-ref-05-wardrobe-a.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "SYX-WARDROBE-A-STRATEGY-WORK",
+        "variant": "upper",
+        "rect": {
+          "left": 55,
+          "top": 97,
+          "width": 234,
+          "height": 308
+        }
+      }
+    },
+    "ref.shen_yingxue.wardrobe_look.a_client_formal_day.full": {
+      "name": "full.png",
+      "sourcePath": "assets-src/references/shen-yingxue/wardrobe-looks/SYX-WARDROBE-A-CLIENT-FORMAL-DAY/full.png",
+      "characterId": "shen_yingxue",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 249,
+      "height": 659,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.shen_yingxue.wardrobe.a",
+        "sourcePath": "assets-src/references/shen-yingxue/syx-ref-05-wardrobe-a.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "SYX-WARDROBE-A-CLIENT-FORMAL-DAY",
+        "variant": "full",
+        "rect": {
+          "left": 442,
+          "top": 97,
+          "width": 249,
+          "height": 659
+        }
+      }
+    },
+    "ref.shen_yingxue.wardrobe_look.a_client_formal_day.upper": {
+      "name": "upper.png",
+      "sourcePath": "assets-src/references/shen-yingxue/wardrobe-looks/SYX-WARDROBE-A-CLIENT-FORMAL-DAY/upper.png",
+      "characterId": "shen_yingxue",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 249,
+      "height": 285,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.shen_yingxue.wardrobe.a",
+        "sourcePath": "assets-src/references/shen-yingxue/syx-ref-05-wardrobe-a.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "SYX-WARDROBE-A-CLIENT-FORMAL-DAY",
+        "variant": "upper",
+        "rect": {
+          "left": 442,
+          "top": 97,
+          "width": 249,
+          "height": 285
+        }
+      }
+    },
+    "ref.shen_yingxue.wardrobe_look.a_city_evening.full": {
+      "name": "full.png",
+      "sourcePath": "assets-src/references/shen-yingxue/wardrobe-looks/SYX-WARDROBE-A-CITY-EVENING/full.png",
+      "characterId": "shen_yingxue",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 242,
+      "height": 659,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.shen_yingxue.wardrobe.a",
+        "sourcePath": "assets-src/references/shen-yingxue/syx-ref-05-wardrobe-a.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "SYX-WARDROBE-A-CITY-EVENING",
+        "variant": "full",
+        "rect": {
+          "left": 855,
+          "top": 97,
+          "width": 242,
+          "height": 659
+        }
+      }
+    },
+    "ref.shen_yingxue.wardrobe_look.a_city_evening.upper": {
+      "name": "upper.png",
+      "sourcePath": "assets-src/references/shen-yingxue/wardrobe-looks/SYX-WARDROBE-A-CITY-EVENING/upper.png",
+      "characterId": "shen_yingxue",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 242,
+      "height": 293,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.shen_yingxue.wardrobe.a",
+        "sourcePath": "assets-src/references/shen-yingxue/syx-ref-05-wardrobe-a.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "SYX-WARDROBE-A-CITY-EVENING",
+        "variant": "upper",
+        "rect": {
+          "left": 855,
+          "top": 97,
+          "width": 242,
+          "height": 293
+        }
+      }
+    },
+    "ref.shen_yingxue.wardrobe_look.a_cafe_weekend.full": {
+      "name": "full.png",
+      "sourcePath": "assets-src/references/shen-yingxue/wardrobe-looks/SYX-WARDROBE-A-CAFE-WEEKEND/full.png",
+      "characterId": "shen_yingxue",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 242,
+      "height": 659,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.shen_yingxue.wardrobe.a",
+        "sourcePath": "assets-src/references/shen-yingxue/syx-ref-05-wardrobe-a.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "SYX-WARDROBE-A-CAFE-WEEKEND",
+        "variant": "full",
+        "rect": {
+          "left": 1258,
+          "top": 97,
+          "width": 242,
+          "height": 659
+        }
+      }
+    },
+    "ref.shen_yingxue.wardrobe_look.a_cafe_weekend.upper": {
+      "name": "upper.png",
+      "sourcePath": "assets-src/references/shen-yingxue/wardrobe-looks/SYX-WARDROBE-A-CAFE-WEEKEND/upper.png",
+      "characterId": "shen_yingxue",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 242,
+      "height": 288,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.shen_yingxue.wardrobe.a",
+        "sourcePath": "assets-src/references/shen-yingxue/syx-ref-05-wardrobe-a.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "SYX-WARDROBE-A-CAFE-WEEKEND",
+        "variant": "upper",
+        "rect": {
+          "left": 1258,
+          "top": 97,
+          "width": 242,
+          "height": 288
+        }
+      }
+    },
+    "ref.shen_yingxue.wardrobe_look.b_leisure_cafe.full": {
+      "name": "full.png",
+      "sourcePath": "assets-src/references/shen-yingxue/wardrobe-looks/SYX-WARDROBE-B-LEISURE-CAFE/full.png",
+      "characterId": "shen_yingxue",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 255,
+      "height": 678,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.shen_yingxue.wardrobe.b",
+        "sourcePath": "assets-src/references/shen-yingxue/syx-ref-06-wardrobe-b.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "SYX-WARDROBE-B-LEISURE-CAFE",
+        "variant": "full",
+        "rect": {
+          "left": 17,
+          "top": 98,
+          "width": 255,
+          "height": 678
+        }
+      }
+    },
+    "ref.shen_yingxue.wardrobe_look.b_leisure_cafe.upper": {
+      "name": "upper.png",
+      "sourcePath": "assets-src/references/shen-yingxue/wardrobe-looks/SYX-WARDROBE-B-LEISURE-CAFE/upper.png",
+      "characterId": "shen_yingxue",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 255,
+      "height": 327,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.shen_yingxue.wardrobe.b",
+        "sourcePath": "assets-src/references/shen-yingxue/syx-ref-06-wardrobe-b.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "SYX-WARDROBE-B-LEISURE-CAFE",
+        "variant": "upper",
+        "rect": {
+          "left": 17,
+          "top": 98,
+          "width": 255,
+          "height": 327
+        }
+      }
+    },
+    "ref.shen_yingxue.wardrobe_look.b_workout_gym.full": {
+      "name": "full.png",
+      "sourcePath": "assets-src/references/shen-yingxue/wardrobe-looks/SYX-WARDROBE-B-WORKOUT-GYM/full.png",
+      "characterId": "shen_yingxue",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 255,
+      "height": 678,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.shen_yingxue.wardrobe.b",
+        "sourcePath": "assets-src/references/shen-yingxue/syx-ref-06-wardrobe-b.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "SYX-WARDROBE-B-WORKOUT-GYM",
+        "variant": "full",
+        "rect": {
+          "left": 434,
+          "top": 98,
+          "width": 255,
+          "height": 678
+        }
+      }
+    },
+    "ref.shen_yingxue.wardrobe_look.b_workout_gym.upper": {
+      "name": "upper.png",
+      "sourcePath": "assets-src/references/shen-yingxue/wardrobe-looks/SYX-WARDROBE-B-WORKOUT-GYM/upper.png",
+      "characterId": "shen_yingxue",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 255,
+      "height": 312,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.shen_yingxue.wardrobe.b",
+        "sourcePath": "assets-src/references/shen-yingxue/syx-ref-06-wardrobe-b.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "SYX-WARDROBE-B-WORKOUT-GYM",
+        "variant": "upper",
+        "rect": {
+          "left": 434,
+          "top": 98,
+          "width": 255,
+          "height": 312
+        }
+      }
+    },
+    "ref.shen_yingxue.wardrobe_look.b_home_lounge.full": {
+      "name": "full.png",
+      "sourcePath": "assets-src/references/shen-yingxue/wardrobe-looks/SYX-WARDROBE-B-HOME-LOUNGE/full.png",
+      "characterId": "shen_yingxue",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 250,
+      "height": 678,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.shen_yingxue.wardrobe.b",
+        "sourcePath": "assets-src/references/shen-yingxue/syx-ref-06-wardrobe-b.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "SYX-WARDROBE-B-HOME-LOUNGE",
+        "variant": "full",
+        "rect": {
+          "left": 850,
+          "top": 98,
+          "width": 250,
+          "height": 678
+        }
+      }
+    },
+    "ref.shen_yingxue.wardrobe_look.b_home_lounge.upper": {
+      "name": "upper.png",
+      "sourcePath": "assets-src/references/shen-yingxue/wardrobe-looks/SYX-WARDROBE-B-HOME-LOUNGE/upper.png",
+      "characterId": "shen_yingxue",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 250,
+      "height": 322,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.shen_yingxue.wardrobe.b",
+        "sourcePath": "assets-src/references/shen-yingxue/syx-ref-06-wardrobe-b.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "SYX-WARDROBE-B-HOME-LOUNGE",
+        "variant": "upper",
+        "rect": {
+          "left": 850,
+          "top": 98,
+          "width": 250,
+          "height": 322
+        }
+      }
+    },
+    "ref.shen_yingxue.wardrobe_look.b_quiet_evening_sleepwear.full": {
+      "name": "full.png",
+      "sourcePath": "assets-src/references/shen-yingxue/wardrobe-looks/SYX-WARDROBE-B-QUIET-EVENING-SLEEPWEAR/full.png",
+      "characterId": "shen_yingxue",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 255,
+      "height": 678,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.shen_yingxue.wardrobe.b",
+        "sourcePath": "assets-src/references/shen-yingxue/syx-ref-06-wardrobe-b.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "SYX-WARDROBE-B-QUIET-EVENING-SLEEPWEAR",
+        "variant": "full",
+        "rect": {
+          "left": 1260,
+          "top": 98,
+          "width": 255,
+          "height": 678
+        }
+      }
+    },
+    "ref.shen_yingxue.wardrobe_look.b_quiet_evening_sleepwear.upper": {
+      "name": "upper.png",
+      "sourcePath": "assets-src/references/shen-yingxue/wardrobe-looks/SYX-WARDROBE-B-QUIET-EVENING-SLEEPWEAR/upper.png",
+      "characterId": "shen_yingxue",
+      "role": "wardrobe",
+      "mimeType": "image/png",
+      "width": 255,
+      "height": 342,
+      "verifiedDecode": true,
+      "status": "optional-reference",
+      "derivation": {
+        "sourceId": "ref.shen_yingxue.wardrobe.b",
+        "sourcePath": "assets-src/references/shen-yingxue/syx-ref-06-wardrobe-b.png",
+        "sourceRef": "1938dc7effeadd3d4e2042ae1bdeccdfaf6356ef",
+        "wardrobeKey": "SYX-WARDROBE-B-QUIET-EVENING-SLEEPWEAR",
+        "variant": "upper",
+        "rect": {
+          "left": 1260,
+          "top": 98,
+          "width": 255,
+          "height": 342
+        }
+      }
     }
   }
 }
