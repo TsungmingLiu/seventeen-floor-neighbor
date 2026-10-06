@@ -67,7 +67,7 @@ flowchart LR
     M1 -->|"M1 exit 通過"| M2["M2 LATER<br/>完整 Narrative Alpha"]
     M2 -->|"主要路徑與 endings 可玩"| M3["M3 LATER<br/>內容完整與正式美術"]
     M3 -->|"內容與主要結構穩定"| M4["M4 LATER<br/>裝置、效能與發佈驗收"]
-    classDef current fill:#dbeafe,stroke:#2563eb,stroke-width:2px;
+    classDef current fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#0f172a;
     class M1 current;
 ```
 
@@ -498,7 +498,7 @@ flowchart TD
     FIX --> INTERNAL
     GATE -->|"通過"| NEXT["才進 M2 Narrative Alpha"]
 
-    classDef now fill:#dbeafe,stroke:#2563eb,stroke-width:2px;
+    classDef now fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#0f172a;
     class C0,PREP now;
 ```
 
