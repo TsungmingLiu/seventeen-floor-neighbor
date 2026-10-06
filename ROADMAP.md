@@ -396,7 +396,7 @@ Roadmap 只維護工作所在的 horizon，不維護完整 task list。
 
 只包含直接幫助 **M1 Gameplay Validation** 的工作；完整依賴與並行邊界見 §10。
 
-- [#77](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/77)：先完成 C0 current-main 一致性／缺口核對，再按各自前事製作 XT-04／JYC-05、continuations／真 early repair、SH-01，以及有限 slots／bounded return。
+- [#77](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/77)：C0 bounded consistency 已完成；下一步按 §10 並行準備 XT-04／JYC-05 Narrative Design，再依各自前事製作 continuations／真 early repair、SH-01，以及有限 slots／bounded return。
 - [#78](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/78)：現在只準備 internal coverage matrix；契約固定後補 slice 必需的 graph/state/save 檢查，逐批確認完整 end-to-end core。問卷、招募與正式外部計時不排入 NOW。
 - 使用已登記的 preview placeholder 支援缺 CG 的場景；保持 narrative integration 與 final art 解耦，不無故重寫已接受 Opening。
 - [#76 P0–P3](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/76)：M1 期間並行準備下一批 CG 的服裝語意、必要單套 refs／routing、輕量 telemetry；只提升直接妨礙 playtest 的顯示缺陷。全 34 looks、全面修圖與 rollout 仍 deferred。
@@ -455,7 +455,7 @@ M2–M4 已知但目前不應執行的工作。
 
 | 工作 | 現在可以開始什麼 | 完成後接什麼 |
 | --- | --- | --- |
-| [#77 — 內容與整合](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/77) | **C0 bounded consistency PASS；C1：XT-04／JYC-05 Narrative Design 並行** | 各幕契約批准後製作 anchors；C2 continuation／repair 與 C3 SH-01／return 仍等實際前事 |
+| [#77 — 內容與整合](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/77) | **C0 bounded consistency PASS；C1：XT-04／JYC-05 Narrative Design 並行** | 各幕契約批准後製作 anchors；C2 continuation／repair／SH-01 與 C3 finite slots／return 仍等實際前事 |
 | [#78 — 內部 end-to-end 驗證](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/78) | internal coverage matrix、回歸案例與最小 pending／slot completion contract（可與 C1 ND 並行；整合前完成） | 契約固定後補 machine checks；完整路線與負向案例通過，再做 Owner review |
 | [#76 P0–P3 — CG 前置改善](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/76) | P2 輕量記錄準備、P0 下一批服裝需求核對、P3 內部試玩 blocker triage | P0 範圍固定後完成本批 P1 exact-look routing；下一批正式生圖前就緒 |
 
