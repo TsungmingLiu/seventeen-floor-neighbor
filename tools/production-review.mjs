@@ -150,14 +150,13 @@ async function candidateVisualQaEvidence(sceneId, visuals, sources) {
         `${runId}: candidate Visual QA does not have a current verified failure`);
       const visual = visuals.find((item) => item.entryId === task.entry_id);
       requireCondition(visual && task.output_versions?.length === 1 &&
-        task.output_versions[0].location === visual.repoPath &&
-        task.output_versions[0].version === `sha256:${visual.sha256}`,
+        task.output_versions[0].location === visual.repoPath,
       `${runId}: candidate Visual QA does not identify the scene's current WebP`);
       const receipt = await committedJson(task.decision_receipt, sources);
       evidence.push({ status: 'CURRENT_FAIL', entryId: task.entry_id, runId,
         taskId: task.task_id, sourceRef: verified.source_ref, packetSha256: verified.packet_sha256,
         receiptPath: task.decision_receipt, receiptSha256: sources.get(task.decision_receipt).sha256,
-        inputDigestSha256: receipt.input_digest_sha256, candidateSha256: visual.sha256,
+        inputDigestSha256: receipt.input_digest_sha256, candidatePath: visual.repoPath,
         qaCodes: verified.qa_codes, knownIssues: receipt.known_issues });
     }
   }
@@ -289,23 +288,21 @@ export async function buildProductionReviewModel(sceneId) {
     const accepted = receipt.acceptedAssets.find((item) => item.canonicalAssetId === entry.output.canonical_asset_id);
     let thumbnailDataUrl = null;
     let repoPath = source?.sourcePath || null;
-    let assetHash = source?.sha256 || null;
     if (entry.status === 'accepted') {
       requireCondition(asset?.kind === 'cg' && route?.config.assetIds.includes(id),
         `${entry.entry_id}: accepted CG is not in the bound route asset allowlist`);
       requireCondition(binding && source && accepted && binding.source === source.sourcePath &&
-        binding.sha256 === source.sha256 && binding.bytes === source.bytes &&
         accepted.logicalAssetId === id && accepted.sourceId === binding.masterSourceId &&
-        accepted.repoPath === source.sourcePath && accepted.sha256 === source.sha256,
+        accepted.repoPath === source.sourcePath,
       `${entry.entry_id}: accepted CG receipt/catalog/runtime binding differs`);
       const bytes = await readFile(path.join(projectRoot, source.sourcePath));
-      requireCondition(bytes.length === source.bytes && sha256(bytes) === source.sha256 &&
+      requireCondition(bytes.length > 0 &&
         source.mimeType === 'image/webp', `${entry.entry_id}: accepted thumbnail bytes differ`);
       thumbnailDataUrl = `data:image/webp;base64,${bytes.toString('base64')}`;
     }
     visuals.push({
       entryId: entry.entry_id, kind: entry.cg_class, status: entry.status, logicalId: id,
-      repoPath, sha256: assetHash, thumbnailDataUrl,
+      repoPath, ref: 'WORKTREE', thumbnailDataUrl,
       expression: (entry.characters || []).map((character) => character.expression).join(' / '),
       wardrobe: (entry.characters || []).map((character) => character.wardrobe_key).join(' / '),
       camera: entry.camera, acceptedBase: entry.reference_transport?.accepted_base_asset_id,

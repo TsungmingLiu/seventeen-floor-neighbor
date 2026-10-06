@@ -7,156 +7,133 @@
     "assets/opening-ch1-demo/bg-apt-17f-rain-16x9-v1.webp": {
       "source": "assets-src/opening-ch1-demo/bg-apt-17f-rain-16x9-v1.webp",
       "transform": "copy",
-      "sha256": "386c9003df0a6658a343907b646e912aa1e6a68254a01c2dfb89bdc838b33077",
       "bytes": 125184,
       "masterSourceId": "source.opening.ch1.bg.apt_17f_rain"
     },
     "assets/opening-ch1-demo/cg-com00-s02-door-assist-v1.webp": {
       "source": "assets-src/opening-ch1-demo/cg-com00-s02-door-assist-v1.webp",
       "transform": "copy",
-      "sha256": "3a2a340f275c8870840c2103ed3f8f235e5389bd635c87214aa3a48ec1eec59e",
       "bytes": 136596,
       "masterSourceId": "source.opening.ch1.cg.com00_s02_door_assist"
     },
     "assets/opening-ch1-demo/cg-com00-s04-base-neutral-v1.webp": {
       "source": "assets-src/opening-ch1-demo/cg-com00-s04-base-neutral-v1.webp",
       "transform": "copy",
-      "sha256": "7f18dccd8483498adc196c144cc6edafeff6bdd0f6db573bee288b32152862ea",
       "bytes": 131914,
       "masterSourceId": "source.opening.ch1.cg.com00_s04_base_neutral"
     },
     "assets/opening-ch1-demo/cg-com00-s04-r01-polite-smile-v1.webp": {
       "source": "assets-src/opening-ch1-demo/cg-com00-s04-r01-polite-smile-v1.webp",
       "transform": "copy",
-      "sha256": "51ab914e1d2cc294b7abcc2040520332c579abecaec80ebd9314a14d0e3452a0",
       "bytes": 121104,
       "masterSourceId": "source.opening.ch1.cg.com00_s04_r01_polite_smile"
     },
     "assets/opening-ch1-demo/bg-apt-elevator-16x9-v1.webp": {
       "source": "assets-src/opening-ch1-demo/bg-apt-elevator-16x9-v1.webp",
       "transform": "copy",
-      "sha256": "2e1882334057fbd08b4d2c301b7924efc34cd1875e3d0dc1176c6315525e195e",
       "bytes": 110612,
       "masterSourceId": "source.opening.ch1.bg.apt_elevator"
     },
     "assets/opening-ch1-demo/cg-com01x-base-normal-v1.webp": {
       "source": "assets-src/opening-ch1-demo/cg-com01x-base-normal-v1.webp",
       "transform": "copy",
-      "sha256": "c93cb5f8395839cef8d1d80f9402fe910f8cd0240dc1a10085f64421d41c95cf",
       "bytes": 121780,
       "masterSourceId": "source.opening.ch1.cg.com01x_base_normal"
     },
     "assets/opening-ch1-demo/cg-com01x-r01-restart-v1.webp": {
       "source": "assets-src/opening-ch1-demo/cg-com01x-r01-restart-v1.webp",
       "transform": "copy",
-      "sha256": "4da7ff3dcdc2a563890653125fd20e775a4c0af10dc260b8536c858a2542f0c9",
       "bytes": 71500,
       "masterSourceId": "source.opening.ch1.cg.com01x_r01_restart"
     },
     "assets/opening-ch1-demo/cg-com01x-r02-dry-smile-v1.webp": {
       "source": "assets-src/opening-ch1-demo/cg-com01x-r02-dry-smile-v1.webp",
       "transform": "copy",
-      "sha256": "62c77eba8430f620099a8bc9f7bd6e8d0939e77645129f12f1ec85cf83cfb924",
       "bytes": 107428,
       "masterSourceId": "source.opening.ch1.cg.com01x_r02_dry_smile"
     },
     "assets/opening-ch1-demo/bg-acg-shop-16x9-v1.webp": {
       "source": "assets-src/opening-ch1-demo/bg-acg-shop-16x9-v1.webp",
       "transform": "copy",
-      "sha256": "3f3a37c605ebbdb8a4a127c4298f435787ecdda40367802aa6d2a1eba8e0b3da",
       "bytes": 247800,
       "masterSourceId": "source.opening.ch1.bg.acg_shop"
     },
     "assets/opening-ch1-demo/cg-com01j-base-guarded-v1.webp": {
       "source": "assets-src/opening-ch1-demo/cg-com01j-base-guarded-v1.webp",
       "transform": "copy",
-      "sha256": "da44c827e4f0839dc4b9885b3eca9df307660688e1e078b1cf5c8a5133e0b36b",
       "bytes": 215930,
       "masterSourceId": "source.opening.ch1.cg.com01j_base_guarded"
     },
     "assets/opening-ch1-demo/cg-com01j-r01-interested-v1.webp": {
       "source": "assets-src/opening-ch1-demo/cg-com01j-r01-interested-v1.webp",
       "transform": "copy",
-      "sha256": "3c3d1475a1ea1215f744870ba00c1127acd423141bbf4915ba9196e8e75d795f",
       "bytes": 215292,
       "masterSourceId": "source.opening.ch1.cg.com01j_r01_interested"
     },
     "assets/opening-ch1-demo/opening-ch1-com01b-01.webp": {
       "source": "assets-src/opening-ch1-demo/opening-ch1-com01b-01.webp",
       "transform": "copy",
-      "sha256": "38eff53cc0fecff024acb346c091706f6b74d98501e950ee47e1cb2c2e98c741",
       "bytes": 161284,
       "masterSourceId": "source.opening.ch1.com01b.01"
     },
     "assets/opening-ch1-demo/opening-ch1-com01b-02.webp": {
       "source": "assets-src/opening-ch1-demo/opening-ch1-com01b-02.webp",
       "transform": "copy",
-      "sha256": "4127f991bcaf31e0ebd7db9c35ca8d9cf30b8f24ad889bf0741614e3db7297b7",
       "bytes": 150416,
       "masterSourceId": "source.opening.ch1.com01b.02"
     },
     "assets/opening-ch1-demo/opening-ch1-com01b-03.webp": {
       "source": "assets-src/opening-ch1-demo/opening-ch1-com01b-03.webp",
       "transform": "copy",
-      "sha256": "aa6a236bceca59882edd5f3e1eded77b99347ca62fe5ed81ff74ee4d84bdcbc0",
       "bytes": 264598,
       "masterSourceId": "source.opening.ch1.com01b.03"
     },
     "assets/opening-ch1-demo/opening-ch1-com01b-04.webp": {
       "source": "assets-src/opening-ch1-demo/opening-ch1-com01b-04.webp",
       "transform": "copy",
-      "sha256": "6ade85b6b4f6ece1ee95923784fe8469bdc0a6b03acf6b9608f4466141a87f3a",
       "bytes": 313186,
       "masterSourceId": "source.opening.ch1.com01b.04"
     },
     "assets/ui/narrative-preview-v1.webp": {
       "source": "assets-src/ui/narrative-preview-v1.webp",
       "transform": "copy",
-      "sha256": "9dc448840d09cf38718710881991c9f251e01eefd44eb94980d7dd9743778145",
       "bytes": 17610
     },
     "assets/opening-ch1-demo/com02x-bg-01-v1.webp": {
       "source": "assets-src/opening-ch1-demo/com02x-bg-01-v1.webp",
       "transform": "copy",
-      "sha256": "5bff68c7d038f32283bba5a1c56c652b4fc11019c4c68c892aee9517fd749112",
       "bytes": 331098,
       "masterSourceId": "source.com02x.bg-01"
     },
     "assets/opening-ch1-demo/com02x-dlg-01-v1.webp": {
       "source": "assets-src/opening-ch1-demo/com02x-dlg-01-v1.webp",
       "transform": "copy",
-      "sha256": "dde697e3460ed77d3d102c28ff1e25970e0e1f6912b718c764c0073704078d4d",
       "bytes": 287068,
       "masterSourceId": "source.com02x.dlg-01"
     },
     "assets/opening-ch1-demo/com02x-microwave-v1.webp": {
       "source": "assets-src/opening-ch1-demo/com02x-microwave-v1.webp",
       "transform": "copy",
-      "sha256": "d3006f2e29f26af80d812c1afc92de5a0807eef42fe822c80502338942cb2f24",
       "bytes": 198288,
       "masterSourceId": "source.com02x.microwave"
     },
     "assets/opening-ch1-demo/com02x-walk-v3.webp": {
       "source": "assets-src/opening-ch1-demo/com02x-walk-v3.webp",
       "transform": "copy",
-      "sha256": "5e575a70762c09fdc958333f51ea8b1f12b20109d90ca22e224e66be38accbfd",
       "bytes": 307308,
       "masterSourceId": "source.com02x.walk-v3"
     },
     "assets/opening-title/title-17f-doorlight-v1.webp": {
       "source": "assets-src/opening-title/title-17f-doorlight-v1.webp",
       "transform": "copy",
-      "sha256": "5028f66458aff84a1f4b5d9a55dc467b9c5cadd96fc119f55e452180e40633c3",
       "bytes": 141078,
       "masterSourceId": "source.opening.title.17f_doorlight.master"
     },
     "assets/opening-ch1-preview/return-elevator-trial-v1.webp": {
       "source": "assets-src/opening-ch1-preview/return-elevator-trial-v1.webp",
       "transform": "copy",
-      "sha256": "04ce2f7fbc6de3bd51cd7db4ff0805b4485fe6d63b4e2f2227f4ea31ca83e83c",
       "bytes": 140914,
       "masterSourceId": "source.opening.com02x.return_elevator_trial.original",
-      "originalSha256": "886c78b86000350d289c5e6544f97d1727dcd506d676d8523d28c474fb854bac",
       "conversion": {
         "encoder": "ffmpeg/libwebp",
         "quality": 88,

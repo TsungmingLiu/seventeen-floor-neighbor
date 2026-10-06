@@ -196,10 +196,10 @@ export async function checkAssets({ print = true } = {}) {
       const absolute = path.join(projectRoot, context.sourceEntry.source);
       const info = await stat(absolute);
       if (!info.isFile()) throw new Error('path is not a regular file');
-      if (context.sourceEntry.bytes != null && info.size !== context.sourceEntry.bytes) {
+      if (!context.expected.mimeType?.startsWith('image/') && !/\.(png|jpe?g|webp)$/i.test(absolute) && context.sourceEntry.bytes != null && info.size !== context.sourceEntry.bytes) {
         errors.push(`byte-size mismatch: expected ${context.sourceEntry.bytes}, observed ${info.size}`);
       }
-      if (context.sourceEntry.sha256 && (await sha256File(absolute)) !== context.sourceEntry.sha256) {
+      if (!context.expected.mimeType?.startsWith('image/') && !/\.(png|jpe?g|webp)$/i.test(absolute) && context.sourceEntry.sha256 && (await sha256File(absolute)) !== context.sourceEntry.sha256) {
         errors.push('SHA-256 mismatch for ingested repo asset');
       }
       observed = { bytes: info.size, ...(await inspectMedia(absolute)) };

@@ -53,6 +53,30 @@ export function cliArgs(argv, allowed) {
   }
   return result;
 }
+// Image identity is the canonical locator, never the binary fingerprint.
+export function isImage(location, mimeType = '') {
+  return mimeType.startsWith('image/') || /\.(?:png|jpe?g|webp|gif|avif)$/i.test((location || '').split('#')[0]);
+}
+export function imageVersion(location, ref) {
+  safePath(location); requireCondition(typeof ref === 'string' && /^[A-Za-z0-9_./-]+$/.test(ref) && !/^[a-f0-9]{64}$/i.test(ref), 'image ref is required');
+  return `${ref}:${location}`;
+}
+export function requireImageVersion(version, location, ref) {
+  const locator = imageVersion(location, ref);
+  // Legacy absent/digest values are inert; an explicit path/ref must match acquisition.
+  requireCondition(!version?.includes(':') || version.startsWith('sha256:') || version === locator, `image locator mismatch: ${location}`);
+  return locator;
+}
+// Normalize only acquired images; preserve all non-image and receipt integrity fields.
+export function normalizeVersions(versions, sources, defaultRef) {
+  requireCondition(Array.isArray(versions), 'missing version list');
+  return versions.map((item) => {
+    const source = sources.find((source) => source.path === item.location);
+    if (!isImage(item.location, source?.media_type || '')) return item;
+    const { bytes, sha256, git_blob_sha, expected_bytes, ...identity } = item;
+    return { ...identity, version: requireImageVersion(item.version, item.location, source?.ref || defaultRef) };
+  });
+}
 export function boundVersion(bytes, version, label) {
   const sha = hash(bytes), blob = createHash('sha1').update(`blob ${bytes.length}\0`).update(bytes).digest('hex');
   requireCondition([sha, `sha256:${sha}`, blob].includes(version), `stale or unsupported version: ${label}`);

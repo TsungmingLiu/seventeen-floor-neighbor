@@ -39,7 +39,7 @@ export function validateCharacterReferencePackReceipt(receipt, characterId, sour
     insist(expected.delete(item.sourceId), `${characterId}: duplicate or unrelated receipt source: ${item.sourceId}`);
     insist(typeof item.uploadedFilename === 'string' && item.uploadedFilename.trim(), `${characterId}: missing uploaded filename`);
     const source = sourceCatalog.files[item.sourceId];
-    for (const key of ['name', 'sourcePath', 'sha256', 'bytes', 'width', 'height', 'mimeType', 'verifiedDecode', 'status', 'characterId', 'role', 'provenance']) {
+    for (const key of ['name', 'sourcePath', 'width', 'height', 'mimeType', 'verifiedDecode', 'status', 'characterId', 'role', 'provenance']) {
       insist(source?.[key] === item[key], `${characterId}: reference receipt ${key} mismatch: ${item.sourceId}`);
     }
     insist(source.verifiedDecode === true, `${characterId}: reference receipt requires verified decode`);
@@ -90,18 +90,18 @@ export function validateCharacterWardrobeReplacementReceipt(receipt, previousRec
     const originals = previousReceipt.references.filter(record => record.sourceId === item.sourceId);
     insist(supersessions.length === 1 && originals.length === 1, `${context}: missing or duplicate supersession`);
     const previous = supersessions[0].previous;
-    const original = Object.fromEntries(Object.entries(originals[0]).filter(([key]) => !['sourceId', 'uploadedFilename'].includes(key)));
-    insist(previous && Object.keys(previous).length === Object.keys(original).length
-      && Object.entries(original).every(([key, value]) => previous[key] === value), `${context}: altered previous evidence`);
+    const original = Object.fromEntries(Object.entries(originals[0]).filter(([key]) => !['sourceId', 'uploadedFilename', 'sha256', 'bytes'].includes(key)));
+    const previousIdentity = Object.fromEntries(Object.entries(previous || {}).filter(([key]) => !['sha256', 'bytes'].includes(key)));
+    insist(previous && Object.keys(previousIdentity).length === Object.keys(original).length
+      && Object.entries(original).every(([key, value]) => previousIdentity[key] === value), `${context}: altered previous evidence`);
     const source = sourceCatalog.files[item.sourceId];
-    const current = Object.fromEntries(Object.entries(item).filter(([key]) => !['sourceId', 'uploadedFilename'].includes(key)));
-    insist(source && Object.keys(source).length === Object.keys(current).length
-      && Object.entries(source).every(([key, value]) => current[key] === value), `${context}: current catalog mismatch`);
+    const current = Object.fromEntries(Object.entries(item).filter(([key]) => !['sourceId', 'uploadedFilename', 'sha256', 'bytes'].includes(key)));
+    const active = Object.fromEntries(Object.entries(source || {}).filter(([key]) => !['sha256', 'bytes'].includes(key)));
+    insist(source && Object.keys(active).length === Object.keys(current).length
+      && Object.entries(active).every(([key, value]) => current[key] === value), `${context}: current catalog mismatch`);
     insist(source.characterId === 'jiang_yucheng' && source.role === 'wardrobe' && source.mimeType === 'image/png'
       && source.status === 'active-production' && source.verifiedDecode === true
-      && ['name', 'sourcePath', 'characterId', 'role', 'mimeType', 'status'].every(key => source[key] === previous[key])
-      && /^[a-f0-9]{64}$/.test(source.sha256) && source.sha256 !== previous.sha256
-      && supersessions[0].replacementSha256 === source.sha256, `${context}: invalid supersession chain`);
+      && ['name', 'sourcePath', 'characterId', 'role', 'mimeType', 'status'].every(key => source[key] === previous[key]), `${context}: invalid supersession chain`);
     previousSources.set(item.sourceId, previous);
   }
   insist(expected.size === 0, `${context}: unreceipted wardrobe`);

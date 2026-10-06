@@ -42,9 +42,9 @@ export function sha256(value) {
 }
 
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const SOURCE_FILE_KEYS = ['name', 'mimeType', 'sourcePath', 'bytes', 'width', 'height', 'sha256', 'verifiedDecode', 'status'];
+const SOURCE_FILE_KEYS = ['name', 'mimeType', 'sourcePath', 'width', 'height', 'verifiedDecode', 'status'];
 
-function imageMagic(bytes) {
+export function imageMagic(bytes) {
   if (bytes.length >= 8 && bytes.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))) return 'image/png';
   if (bytes.length >= 3 && bytes[0] === 0xff && bytes[1] === 0xd8 && bytes[2] === 0xff) return 'image/jpeg';
   if (bytes.length >= 12 && bytes.toString('ascii', 0, 4) === 'RIFF' && bytes.toString('ascii', 8, 12) === 'WEBP') return 'image/webp';
@@ -70,10 +70,10 @@ function resolveCatalogBinding(binding, catalog) {
     invariant(matches.length === 1, `accepted base must resolve to exactly one repository asset: ${binding.source_id}`);
     const [sourceId, source] = matches[0];
     invariant(source.name === binding.expected_filename, `accepted base filename mismatch for ${binding.source_id}`);
-    return { source_id: sourceId, ...source };
+    return { source_id: sourceId, ...Object.fromEntries(Object.entries(source).filter(([key]) => !['sha256', 'bytes'].includes(key))) };
   }
   const source = resolveCatalogFile(binding.source_id, catalog, binding.expected_filename);
-  return { source_id: binding.source_id, ...source };
+  return { source_id: binding.source_id, ...Object.fromEntries(Object.entries(source).filter(([key]) => !['sha256', 'bytes'].includes(key))) };
 }
 
 /** Fail-closed local source catalog verification used by Work batch and production validation. */
@@ -99,7 +99,7 @@ export function validateRepoSourceCatalog(catalog, { repoRoot = REPO_ROOT } = {}
     rejectRemoteMetadata(source, `source catalog ${sourceId}`);
     invariant(typeof source.name === 'string' && source.name.length > 0, `${sourceId}.name is required`);
     invariant(typeof source.status === 'string' && source.status.length > 0, `${sourceId}.status is required`);
-    for (const key of ['bytes', 'width', 'height']) invariant(Number.isInteger(source[key]) && source[key] > 0, `${sourceId}.${key} must be a positive integer`);
+    for (const key of ['width', 'height']) invariant(Number.isInteger(source[key]) && source[key] > 0, `${sourceId}.${key} must be a positive integer`);
     invariant(['image/png', 'image/jpeg', 'image/webp'].includes(source.mimeType), `${sourceId}.mimeType is unsupported`);
     invariant(typeof source.sourcePath === 'string' && source.sourcePath.startsWith('assets-src/'), `${sourceId}.sourcePath must be under assets-src`);
     invariant(path.posix.basename(source.sourcePath) === source.name, `${sourceId}.name must exactly match the sourcePath filename`);
@@ -108,8 +108,7 @@ export function validateRepoSourceCatalog(catalog, { repoRoot = REPO_ROOT } = {}
     invariant(absolute.startsWith(`${sourceRoot}${path.sep}`), `${sourceId}.sourcePath escapes assets-src`);
     invariant(fs.realpathSync(absolute).startsWith(`${fs.realpathSync(sourceRoot)}${path.sep}`), `${sourceId}.sourcePath resolves outside assets-src`);
     const bytes = fs.readFileSync(absolute);
-    invariant(bytes.length === source.bytes && bytes.length > 0, `${sourceId} byte count mismatch`);
-    invariant(sha256(bytes) === source.sha256, `${sourceId} SHA-256 mismatch`);
+    invariant(bytes.length > 0, `${sourceId} byte count mismatch`);
     invariant(imageMagic(bytes) === source.mimeType, `${sourceId} MIME does not match file signature`);
     invariant(source.verifiedDecode === true, `${sourceId}.verifiedDecode must be true`);
     let probe;
@@ -568,7 +567,9 @@ export function adaptChatManual(packets) {
   }).join('\n---\n\n');
 }
 
-export function adaptWorkBatch(packets, { catalog = JSON.parse(fs.readFileSync(path.join(REPO_ROOT, 'content/assets/source-catalog.json'), 'utf8')), repoRoot = REPO_ROOT } = {}) {
+export function adaptWorkBatch(packets, { catalog = JSON.parse(fs.readFileSync(path.join(REPO_ROOT, 'content/assets/source-catalog.json'), 'utf8')), repoRoot = REPO_ROOT, ref = 'WORKTREE' } = {}) {
+  // This local adapter validates and attaches current files, so their locator is WORKTREE.
+  invariant(ref === 'WORKTREE', 'local Work batch image acquisition ref must be WORKTREE');
   validateRepoSourceCatalog(catalog, { repoRoot });
   return `${packets.map((packet) => JSON.stringify({
     adapter: 'work_batch',
@@ -584,8 +585,8 @@ export function adaptWorkBatch(packets, { catalog = JSON.parse(fs.readFileSync(p
       method: 'repo_file',
       source_catalog: 'content/assets/source-catalog.json',
       required_bindings: packet.reference_transport.attachments,
-      resolved_files: packet.reference_transport.attachments.map((binding) => resolveCatalogBinding(binding, catalog)),
-      preflight: 'Resolve source.* and ref.* by exact source ID, or accepted_base by one unique canonicalAssetId. Verify local file bytes, SHA-256, MIME signature, full decode, dimensions, role and exact filename. Pass only these manifest-bound images to generation; block on any mismatch.'
+      resolved_files: packet.reference_transport.attachments.map((binding) => ({ ...resolveCatalogBinding(binding, catalog), ref })),
+      preflight: 'Resolve source.* and ref.* by exact source ID, or accepted_base by one unique canonicalAssetId. Verify canonical path/ref, non-empty file, MIME signature, full decode, dimensions, role and exact filename. Pass only these manifest-bound images to generation; block on any mismatch.'
     },
     output: packet.output
   })).join('\n')}\n`;

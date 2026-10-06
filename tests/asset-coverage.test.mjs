@@ -187,12 +187,12 @@ test('missing receipt and catalog acceptance alone fail closed', () => {
   assert.equal(coverageExitCode(result), 1);
 });
 
-test('corrupt receipt identities, master/runtime hashes and duplicate provenance fail closed', () => {
+test('corrupt receipt identities, master/runtime locators and duplicate provenance fail closed', () => {
   for (const mutate of [
     (input) => { document(input, gatePath).gate = 'unknown'; },
-    (input) => { document(input, gatePath).acceptedAssets.find((v) => v.logicalAssetId === accepted).sha256 = '0'.repeat(64); },
+    (input) => { document(input, gatePath).acceptedAssets.find((v) => v.logicalAssetId === accepted).repoPath = 'assets-src/wrong.webp'; },
     (input) => { document(input, catalogPath).files[document(input, manifestPath).assets[accepted].masterSourceId].logicalAssetId = 'wrong'; },
-    (input) => { document(input, sourceMapPath).files[document(input, manifestPath).assets[accepted].src].sha256 = '0'.repeat(64); },
+    (input) => { document(input, sourceMapPath).files[document(input, manifestPath).assets[accepted].src].source = 'assets-src/wrong.webp'; },
     (input) => { const rows = document(input, gatePath).acceptedAssets; rows.push(structuredClone(rows.find((v) => v.logicalAssetId === accepted))); }
   ]) {
     const input = clearFixture(); mutate(input);
@@ -207,7 +207,7 @@ test('missing or corrupt Human decision hash/identity cannot grant as-is adoptio
     (input, receipt) => { delete input.documents[receipt.humanDecision.path]; },
     (input, receipt) => { input.documents[receipt.humanDecision.path].sha256 = '0'.repeat(64); },
     (input, receipt) => { document(input, receipt.humanDecision.path).decision_id = 'wrong'; updateDecisionHash(input, batchPath); },
-    (input, receipt) => { document(input, receipt.humanDecision.path).accepted_assets[0].sha256 = '0'.repeat(64); updateDecisionHash(input, batchPath); },
+    (input, receipt) => { document(input, receipt.humanDecision.path).accepted_assets[0].filename = 'wrong.png'; updateDecisionHash(input, batchPath); },
     (input, receipt) => { document(input, receipt.humanDecision.path).accepted_assets[0].visual_qa_status = 'PASS'; updateDecisionHash(input, batchPath); }
   ]) {
     const input = clone(); mutate(input, document(input, batchPath));
@@ -215,12 +215,12 @@ test('missing or corrupt Human decision hash/identity cannot grant as-is adoptio
   }
 });
 
-test('walking adopted receipt requires exact output version and preserves original FAIL', () => {
+test('walking adopted receipt requires exact output locator and preserves original FAIL', () => {
   const input = clone();
   const receipt = document(input, walkPath);
-  document(input, receipt.humanDecision.path).output_versions[0].version = '0'.repeat(64);
+  document(input, receipt.humanDecision.path).output_versions[0].location = 'assets-src/wrong.png';
   updateDecisionHash(input, walkPath);
-  assert.ok(asset(report(input), 'cg.opening.com02x.walk_home').provenanceErrors.includes('HUMAN_MASTER_HASH_MISMATCH'));
+  assert.ok(asset(report(input), 'cg.opening.com02x.walk_home').provenanceErrors.includes('HUMAN_MASTER_LOCATOR_MISMATCH'));
   const changed = clone();
   document(changed, walkPath).visualQa.status = 'PASS';
   assert.ok(asset(report(changed), 'cg.opening.com02x.walk_home').provenanceErrors.includes('QA_HISTORY_MISMATCH'));
@@ -250,7 +250,7 @@ test('unknown declared/reference assets, unallowlisted Memory and route identity
   }
 });
 
-test('unknown preview receipt scope and missing runtime fingerprint fail closed', () => {
+test('unknown preview receipt scope and missing runtime locator fail closed', () => {
   const input = clone();
   document(input, 'content/assets/ingest-receipts/narrative-preview-placeholder-v1.json').lifecycle = 'ACCEPTED';
   assert.equal(asset(report(input), preview).status, 'unverified');
@@ -294,7 +294,7 @@ test('initial title background preserves as-is QA and fails closed for corrupt p
   assert.equal(title.status, 'accepted'); assert.equal(title.visualQaStatus, 'NEEDS_REVIEW');
   assert.deepEqual(title.references.map((r) => r.binding), ['initialTitleArt']);
   for (const mutate of [
-    (input) => { document(input, path).assets[0].sha256 = '0'.repeat(64); },
+    (input) => { document(input, path).assets[0].masterPath = 'assets-src/wrong.png'; },
     (input) => { document(input, path).visualQa.status = 'PASS'; },
     (input) => { document(input, path).humanDecision.sha256 = '0'.repeat(64); },
     (input) => { document(input, storyPath).nodes.fixture = { visual: { mode: 'composite', background: id } }; }
@@ -319,8 +319,8 @@ test('exact elevator trial remains preview-only with FAIL history and strict rel
   assert.equal(coverageExitCode(report(), { strict: true }), 1);
   const receiptPath = 'content/assets/ingest-receipts/return-elevator-trial-v1.json';
   for (const mutate of [
-    input => { document(input, receiptPath).original.sha256 = '0'.repeat(64); },
-    input => { document(input, receiptPath).derivative.sha256 = '0'.repeat(64); },
+    input => { document(input, receiptPath).original.sourcePath = 'assets-src/wrong.png'; },
+    input => { document(input, receiptPath).derivative.sourcePath = 'assets-src/wrong.webp'; },
     input => { document(input, receiptPath).humanDecision.sha256 = '0'.repeat(64); },
     input => { document(input, receiptPath).sourceQa.sha256 = '0'.repeat(64); },
     input => { document(input, receiptPath).sourceQa.status = 'PASS'; },

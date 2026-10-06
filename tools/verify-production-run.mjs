@@ -4,6 +4,7 @@ import { mkdir, mkdtemp, readFile, realpath, rename, rm, writeFile } from 'node:
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { requireImageVersion } from './production-task-io.mjs';
 import { projectRoot } from './content-lib.mjs';
 import { buildNarrativeReviewPacket, verifyNarrativeReviewPacket,
   buildManifestUsabilityPacket, verifyManifestUsabilityPacket,
@@ -46,9 +47,26 @@ async function committedJson(root, relative) {
 }
 
 export function versionIdentity(item) {
-  return { id: item.id, version: item.version,
+  const imageRecord = /^(?:image|catalog-record|asset-record|source-map):/.test(item.id);
+  return { id: item.id, version: imageRecord ? item.version.replace(/^[^:]+:/, '') : item.version,
     // Excerpt line numbers may shift when an unrelated entry is edited.
     location: item.location.replace(/#L\d+-L\d+$/, '#excerpt') };
+}
+
+async function recordedImagePacket(packet, task, root, ref) {
+  const recorded = structuredClone(packet);
+  const catalog = JSON.parse(git(root, 'show', `${ref}:content/assets/source-catalog.json`));
+  for (let index = 0; index < recorded.required_acquisition.images.length; index++) {
+    const image = recorded.required_acquisition.images[index], source = catalog.files[image.source_id];
+    const { ref: _ref, ...rest } = image;
+    recorded.required_acquisition.images[index] = { role: rest.role, source_id: rest.source_id, path: rest.path,
+      filename: rest.filename, mime_type: rest.mime_type, sha256: source.sha256,
+      git_blob_sha: git(root, 'rev-parse', `${ref}:${image.path}`), width: rest.width, height: rest.height,
+      pixels_must_be_visible: rest.pixels_must_be_visible };
+  }
+  recorded.input_versions = recorded.input_versions.map((item) => /^(?:image|catalog-record|asset-record|source-map):/.test(item.id)
+    ? task.input_versions.find((old) => old.id === item.id && old.location === item.location) || item : item);
+  return sha256(`${JSON.stringify(recorded, null, 2)}\n`);
 }
 
 async function verifyManifestUsabilityRun({ runId, root, ledger, task, sourceRoot, requireCurrent }) {
@@ -74,9 +92,9 @@ async function verifyManifestUsabilityRun({ runId, root, ledger, task, sourceRoo
       upstreamRunId: task.upstream_run_id, upstreamTaskId: task.upstream_task_id,
       entryIds: task.entry_ids, root: packetRoot });
     await verifyManifestUsabilityPacket(packet, { root: packetRoot });
-    const packetSha256 = sha256(`${JSON.stringify(packet, null, 2)}\n`);
+    const packetSha256 = await recordedImagePacket(packet, task, packetRoot, ledger.source_ref);
     requireCondition(packetSha256 === task.packet.sha256 &&
-      versionListEqual(packet.input_versions, task.input_versions),
+      versionListEqual(packet.input_versions.filter((item) => !/^(?:image|catalog-record|asset-record|source-map):/.test(item.id)), task.input_versions.filter((item) => !/^(?:image|catalog-record|asset-record|source-map):/.test(item.id))),
     'manifest usability packet hash or recorded input identities differ');
     if (task.status === 'RUNNING' && task.decision_receipt === null) {
       return { run_id: runId, source_ref: ledger.source_ref, packet_sha256: packetSha256,
@@ -152,9 +170,9 @@ async function verifyCandidateVisualReviewRun({ runId, root, ledger, task, sourc
       entryId: task.entry_id, candidateSourceId: task.candidate_source_id, root: packetRoot };
     const packet = await buildCandidateVisualReviewPacket(options);
     await verifyCandidateVisualReviewPacket(packet, { root: packetRoot });
-    const packetSha256 = sha256(`${JSON.stringify(packet, null, 2)}\n`);
+    const packetSha256 = await recordedImagePacket(packet, task, packetRoot, ledger.source_ref);
     requireCondition(packetSha256 === task.packet.sha256 &&
-      versionListEqual(packet.input_versions, task.input_versions),
+      versionListEqual(packet.input_versions.filter((item) => !/^(?:image|catalog-record|asset-record|source-map):/.test(item.id)), task.input_versions.filter((item) => !/^(?:image|catalog-record|asset-record|source-map):/.test(item.id))),
     'candidate visual review packet hash or recorded inputs differ');
     if (task.status === 'RUNNING' && task.decision_receipt === null) {
       return { run_id: runId, source_ref: ledger.source_ref, packet_sha256: packetSha256,
@@ -166,7 +184,7 @@ async function verifyCandidateVisualReviewRun({ runId, root, ledger, task, sourc
     'candidate visual review has no verified FAIL decision receipt');
     const receipt = await committedJson(root, task.decision_receipt);
     const candidate = packet.required_acquisition.images[0];
-    const output = { id: `reviewed_candidate:${task.entry_id}`, version: `sha256:${candidate.sha256}`,
+    const output = { id: `reviewed_candidate:${task.entry_id}`, version: `${ledger.source_ref}:${candidate.path}`,
       location: candidate.path };
     requireCondition(receipt.schema_version === '1.0.0' && receipt.run_id === runId &&
       receipt.task_id === task.task_id && receipt.scene_id === task.scene_id &&
@@ -176,8 +194,8 @@ async function verifyCandidateVisualReviewRun({ runId, root, ledger, task, sourc
       receipt.packet_sha256 === packetSha256 &&
       versionListEqual(receipt.input_versions, task.input_versions) &&
       receipt.input_digest_sha256 === sha256(JSON.stringify(task.input_versions)) &&
-      versionListEqual(task.output_versions, [output]) &&
-      versionListEqual(receipt.output_versions, [output]) &&
+      task.output_versions?.length === 1 && task.output_versions[0].id === output.id && task.output_versions[0].location === output.location &&
+      receipt.output_versions?.length === 1 && receipt.output_versions[0].id === output.id && receipt.output_versions[0].location === output.location &&
       receipt.human_gate_required === 'accepted_master_image_selection' &&
       receipt.pixels_verified === true && receipt.acquired_image_count === 4 &&
       Array.isArray(receipt.qa_codes) && receipt.qa_codes.length > 0 &&
@@ -189,6 +207,8 @@ async function verifyCandidateVisualReviewRun({ runId, root, ledger, task, sourc
       Array.isArray(receipt.invalidates) && receipt.invalidates.length === 0 &&
       /^[0-9a-f]{64}$/.test(receipt.worker_handoff_sha256),
     'candidate visual review decision conflicts with packet, pixels, or recorded failure');
+    requireImageVersion(task.output_versions[0].version, candidate.path, ledger.source_ref);
+    requireImageVersion(receipt.output_versions[0].version, candidate.path, ledger.source_ref);
     if (!sourceRoot || requireCurrent) {
       const current = await buildCandidateVisualReviewPacket({ ...options,
         ref: git(root, 'rev-parse', 'HEAD'), root });

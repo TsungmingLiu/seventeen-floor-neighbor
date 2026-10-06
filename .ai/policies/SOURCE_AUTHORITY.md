@@ -41,3 +41,7 @@ Assets referenced by the manifest/source map, composite rendering, stable IDs, g
 ## Production storage
 
 Formal CG/narrative specifications and adopted asset/QA/Human evidence remain source. Generated full job/attempt state is non-authoritative and belongs in ignored `generated/job-artifacts/`; only compact durable checkpoints/decisions may enter `content/production/runs/`. The Run Ledger schema defines legacy immutable storage projections and recovery. Hash-verified historical Git evidence is not permission to load creative history or infer a new PASS. Authorized engineering maintenance does not create a new art-production run.
+
+## Image locator policy
+
+Owner-authorized image I/O uses canonical repository path plus branch/ref (or `WORKTREE` for ignored/local outputs). Image blobs, SHA-256 and expected byte counts are never required identities or equality gates; legacy image checksum fields remain inert historical metadata. Resolve image inputs, outputs, masters, derivatives and screenshots by locator, retaining path safety, existence, supported MIME/full decode, roles/logical IDs, visible pixels and independent QA/Human/display requirements. Text, code, JSON/spec, prompts, packets and decision receipts keep exact integrity checks. Changes to an image locator or manifest semantic dependency remain subject to normal impact review; image byte changes alone do not create a stale-integration gate.

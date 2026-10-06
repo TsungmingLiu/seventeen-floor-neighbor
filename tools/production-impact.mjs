@@ -5,7 +5,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { tmpdir } from 'node:os';
 import { projectRoot } from './content-lib.mjs';
-import { projectEntry, sha256, stableStringify } from './render-cg-packets.mjs';
+import { projectEntry, sha256, stableStringify, imageMagic } from './render-cg-packets.mjs';
 import { verifyProductionRun, versionIdentity, narrativeReviewContentIdentities } from './verify-production-run.mjs';
 import { buildManifestUsabilityPacket, buildNarrativeReviewPacket } from './context-packet.mjs';
 
@@ -88,10 +88,7 @@ function assetBinding({ manifest, sourceMap, catalog, acceptedAssets }, entry) {
   requireCondition(matches.length === 1 && asset && mapped && master && accepted &&
     asset.canonicalAssetId === entry.output.canonical_asset_id && accepted.logicalAssetId === logicalId &&
     accepted.sourceId === mapped.masterSourceId && accepted.repoPath === master.sourcePath &&
-    accepted.bytes === master.bytes && accepted.sha256 === master.sha256 &&
     mapped.source === (accepted.derivativePath || master.sourcePath) &&
-    mapped.bytes === (accepted.derivativeBytes || master.bytes) &&
-    mapped.sha256 === (accepted.derivativeSha256 || master.sha256) &&
     (!accepted.runtimePath || asset.src === accepted.runtimePath),
   `asset binding mismatch: ${logicalId}`);
   return { logicalId, asset, mapped, master, accepted };
@@ -124,15 +121,14 @@ async function acceptedAssetReceipts(reader, sceneId) {
        (decision.status === 'HUMAN_ACCEPTED_AS_IS' && decision.task_id === receipt.humanDecision.id)),
       `accepted-master Human decision identity mismatch: ${file}`);
     for (const item of receipt.assets) {
-      requireCondition(item.humanDisposition === 'ACCEPTED_AS_IS' && item.humanDecisionSha256 === item.sha256 &&
-        item.derivativePath && item.derivativeSha256 && item.derivativeBytes,
+      requireCondition(item.humanDisposition === 'ACCEPTED_AS_IS' &&
+        item.derivativePath,
       `incomplete accepted-master receipt: ${file}`);
       const exactSelection = decision.accepted_assets?.find((selection) => selection.entry_id === item.entryId);
       const adoptedOutput = decision.output_versions?.find((output) => output.id === `accepted-master:${item.entryId}:v3`);
-      requireCondition(exactSelection ? exactSelection.sha256 === item.sha256 &&
-        exactSelection.filename === item.filename && exactSelection.width === item.width &&
+      requireCondition(exactSelection ? exactSelection.filename === item.filename && exactSelection.width === item.width &&
         exactSelection.height === item.height && exactSelection.visual_qa_status === item.visualQaStatus &&
-        exactSelection.human_disposition === item.humanDisposition : adoptedOutput?.version === item.sha256,
+        exactSelection.human_disposition === item.humanDisposition : [item.masterPath || item.repoPath, `candidate:${item.entryId}:v3`].includes(adoptedOutput?.location),
       `accepted-master exact Human selection mismatch: ${file}`);
       acceptedAssets.push({ ...item, receiptPath: file, humanDecision: receipt.humanDecision, canonicalAssetId: item.canonicalId,
         logicalAssetId: item.logicalId, repoPath: item.masterPath });
@@ -214,7 +210,7 @@ export async function isIndependentTitleArtwork(reader, candidate, manifest, con
   requireCondition(sha256(humanBytes) === receipt.humanDecision.sha256 &&
     human.status === 'HUMAN_ACCEPTED_AS_IS' && human.task_id === receipt.humanDecision.id &&
     human.run_id === receipt.runId && human.scene_id === receipt.sceneId &&
-    human.output_versions?.some((v) => v.id === 'TITLE-17F-DOORLIGHT-01-selected-master' && v.version === item?.sha256 && v.location === item.masterPath),
+    human.output_versions?.some((v) => v.id === 'TITLE-17F-DOORLIGHT-01-selected-master' && v.location === item.masterPath),
   'title Human master identity mismatch');
   const qaBytes = await reader.readBytes(receipt.visualQa.path);
   requireCondition(receipt.visualQa.path === 'content/production/runs/title-key-visual-20261002/VQA-TITLE-17F-001.decision.json' &&
@@ -223,10 +219,9 @@ export async function isIndependentTitleArtwork(reader, candidate, manifest, con
   const binding = assetBinding({ manifest, sourceMap: await reader.json('content/assets/source-map.json'),
     catalog: await reader.json('content/assets/source-catalog.json'), acceptedAssets: [{ ...item,
       canonicalAssetId: item.canonicalId, logicalAssetId: item.logicalId, repoPath: item.masterPath }] }, entry);
-  for (const [location, hash, bytes] of [[binding.master.sourcePath, item.sha256, item.bytes],
-    [binding.mapped.source, item.derivativeSha256, item.derivativeBytes]]) {
+  for (const location of [binding.master.sourcePath, binding.mapped.source]) {
     const actual = await reader.readBytes(location);
-    requireCondition(actual.length === bytes && sha256(actual) === hash, 'title master/derivative bytes mismatch');
+    requireCondition(actual.length > 0 && imageMagic(actual), 'empty title master/derivative');
   }
   requireCondition(asset.focus?.x === 50 && asset.focus?.y === 40 &&
     receipt.renderProvenance?.originalGenerationRef === 'a4e6e1b6e89c3d6dc180755842343230398e3403' &&
@@ -235,20 +230,25 @@ export async function isIndependentTitleArtwork(reader, candidate, manifest, con
   return true;
 }
 
+function imageMetadata(value) {
+  if (!value || typeof value !== 'object') return value;
+  return Object.fromEntries(Object.entries(value).filter(([key]) => !/sha256|bytes/i.test(key)));
+}
+
 function acceptedIdentity(binding) {
   if (!binding) return null;
-  const { logicalId, asset, mapped, master, accepted, bytesSha256 } = binding;
+  const { logicalId, asset, mapped, master, accepted } = binding;
   return {
     logicalId, canonicalAssetId: asset.canonicalAssetId,
     masterSourceId: mapped.masterSourceId,
-    sourcePath: master.sourcePath, sha256: master.sha256, bytes: master.bytes,
+    sourcePath: master.sourcePath,
     mimeType: master.mimeType, width: master.width, height: master.height,
-    accepted, bytesSha256
+    accepted: imageMetadata(accepted)
   };
 }
 
 function runtimeIdentity(binding) {
-  return binding && { asset: binding.asset, runtime: binding.mapped };
+  return binding && { asset: imageMetadata(binding.asset), runtime: imageMetadata(binding.mapped) };
 }
 
 export async function snapshotScene(reader, sceneId) {
@@ -312,10 +312,10 @@ export async function snapshotScene(reader, sceneId) {
     requireCondition(!images[entry.entry_id], `duplicate CG entry: ${entry.entry_id}`);
     const binding = assetBinding({ manifest, sourceMap, catalog, acceptedAssets }, entry);
     const bytes = await reader.readBytes(binding.master.sourcePath);
-    requireCondition(bytes.length === binding.master.bytes && sha256(bytes) === binding.master.sha256,
+    requireCondition(bytes.length > 0 && imageMagic(bytes) === binding.master.mimeType,
       `accepted WebP bytes differ: ${binding.logicalId}`);
     const derivativeBytes = await reader.readBytes(binding.mapped.source);
-    requireCondition(derivativeBytes.length === binding.mapped.bytes && sha256(derivativeBytes) === binding.mapped.sha256,
+    requireCondition(derivativeBytes.length > 0 && imageMagic(derivativeBytes),
       `runtime derivative bytes differ: ${binding.logicalId}`);
     const references = {};
     for (const attachment of entry.reference_transport.attachments || []) {
@@ -326,13 +326,11 @@ export async function snapshotScene(reader, sceneId) {
       requireCondition(baseEntry ? baseEntry.output.master_filename === attachment.expected_filename : source.name === attachment.expected_filename,
         `${entry.entry_id}: accepted base filename mismatch`);
       const referenceBytes = await reader.readBytes(source.sourcePath);
-      requireCondition(referenceBytes.length === source.bytes && sha256(referenceBytes) === source.sha256,
+      requireCondition(referenceBytes.length > 0 && imageMagic(referenceBytes) === source.mimeType,
         `${entry.entry_id}: reference bytes differ: ${attachment.source_id}`);
       references[attachment.source_id] = {
         binding: attachment,
-        source: Object.fromEntries(['name', 'mimeType', 'sourcePath', 'bytes', 'width', 'height',
-          'sha256', 'verifiedDecode', 'status'].map((key) => [key, source[key]])),
-        bytesSha256: sha256(referenceBytes)
+        source: Object.fromEntries(['name', 'mimeType', 'sourcePath', 'width', 'height', 'verifiedDecode', 'status'].map((key) => [key, source[key]]))
       };
     }
     const projection = projectEntry(cgManifest, entry);
@@ -343,7 +341,7 @@ export async function snapshotScene(reader, sceneId) {
       status: entry.status,
       baseEntryId: entry.reference_transport.accepted_base_asset_id,
       references,
-      asset: { ...binding, bytesSha256: sha256(bytes) }
+      asset: binding
     };
   }
   const ids = new Set(nodeIds);
@@ -482,9 +480,9 @@ export function compareSceneSnapshots(before, after, { noVisualImpactEvidence = 
     change(`cg_status:${entryId}`, old?.status || null, current?.status || null,
       'entry_acceptance_status_changed', [`accepted_asset:${current?.logicalId || old?.logicalId}`, `integration:${id}`, `playable_review:${id}`]);
     change(`reference_bindings:${entryId}`, old?.references || null, current?.references || null,
-      'reference_pixels_or_binding_changed', scope);
+      'reference_locator_or_metadata_changed', scope);
     change(`accepted_asset_binding:${entryId}`, acceptedIdentity(old?.asset), acceptedIdentity(current?.asset),
-      'accepted_asset_bytes_or_mapping_changed',
+      'accepted_asset_locator_or_mapping_changed',
       [...visualScope(id, after.images, descendants.filter((name) => name !== entryId)),
         `accepted_asset:${current?.logicalId || old?.logicalId}`, `integration:${id}`, `playable_review:${id}`]);
     change(`runtime_asset_binding:${entryId}`, runtimeIdentity(old?.asset), runtimeIdentity(current?.asset),

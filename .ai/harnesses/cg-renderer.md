@@ -29,7 +29,7 @@ Version: 1.1.0
 
 ### `references_required`
 
-Base CG 只使用 entry 明列的 references。所有 adapter 依 `content/assets/source-catalog.json` 中 source ID 對應的 `sourcePath` 綁定取得檔案；生成前確認 exact filename、role、MIME、SHA-256 和可見 pixels，且沒有 unrelated images。缺失或污染即 `BLOCKED`。取得方式屬 adapter，並不改動 shared render prompt。
+Base CG 只使用 entry 明列的 references。所有 adapter 依 `content/assets/source-catalog.json` 中 source ID 對應的 `sourcePath` 綁定取得檔案；生成前確認 exact filename、role、MIME、canonical path/ref 和可見 pixels，且沒有 unrelated images。缺失或污染即 `BLOCKED`。取得方式屬 adapter，並不改動 shared render prompt。
 Character generation references may be PNG or JPEG. Accepted CG/background base images use their cataloged WebP objects; validate MIME against the bound file rather than converting a reference during acquisition.
 
 ### `edit_from_accepted_base`
@@ -40,7 +40,7 @@ Reaction CG 以 entry 指定的 accepted base 為 edit target；只允許 entry 
 
 - For future tasks, require the self-contained entry/packet to specify **prefer the largest supported native 16:9 output and highest available quality**, permitting integer-pixel rounding and respecting approved aspect/reference/edit constraints. Neither 1672×941 nor 1920×1080 is a fixed minimum. Missing execution-critical requirements return `BLOCKED: incomplete_cg_spec`; do not read global visual prose to repair them.
 - Use only exposed supported size/quality transport controls compatible with those constraints. Record supported choices, chosen values and their capability evidence. If either control is absent, record `not exposed` and the entry's prompt preference; do not invent API arguments, assert a universal tool cap or guarantee dimensions from prompt wording. Shared prompt/content remains identical across adapters.
-- Verify actual returned width/height and MIME against the returned file, retain the original returned bytes unchanged, and record byte count, SHA-256 and immutable location. Requested settings and actual returned dimensions are separate evidence. Never manually upscale and label the result native/high-definition; any later conversion/scaling is a separately identified derivative.
+- Verify actual returned width/height and MIME against the returned file, retain the original returned bytes unchanged, and record canonical path/ref and immutable location. Requested settings and actual returned dimensions are separate evidence. Never manually upscale and label the result native/high-definition; any later conversion/scaling is a separately identified derivative.
 - Handoff records source-quality evidence and any unavailable evidence. Renderer does not grant Visual QA PASS: fresh `content_qa / visual_review` must inspect original pixels at native size for clarity/artifacts and actual derivative/runtime display evidence at explicit desktop and mobile/portrait CSS viewport/DPR profiles, including crop, focus and dialogue/UI occlusion. A source-only review cannot claim final compression/display QA; missing evidence cannot become PASS or an unverified 4K/retina claim.
 - Raw-image quality defects return to a bounded renderer attempt when the approved spec is correct, or planner when it is deficient. Derivative compression/runtime crop defects return to integrator; missing pixels/profiles/provenance are `BLOCKED`/`NEEDS_REVIEW`, evidenced quality failure is `FAIL`/`NEEDS_REVIEW`. No automatic redraw/retry.
 

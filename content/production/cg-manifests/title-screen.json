@@ -149,7 +149,7 @@
       "acceptance": [
         "One render_ready background entry projects to exactly one candidate; title output IDs are proposed only, not registered or accepted",
         "Landscape 16:9 allowing normal integer-pixel rounding at native generation dimensions, with no fixed minimum or artificial upscaling requirement; larger native resolutions are optional when available and quality supports them. Preserve native bytes and record actual dimensions, with realistic materials and physically plausible warm/cool lighting",
-        "Sole required reference is source.opening.ch1.bg.apt_17f_rain, exact filename/MIME/SHA-256/catalog path verified and its actual pixels attached by a fresh renderer",
+        "Sole required reference is source.opening.ch1.bg.apt_17f_rain, exact filename/MIME/catalog path/ref verified and its actual pixels attached by a fresh renderer",
         "No visible human, face, limb, reflection, silhouette or character illustration anywhere",
         "Reference apartment architecture, adjacent-door geography and rainy end-window setting remain recognizable and plausible",
         "Warm doorway glow and three moving cartons convey quiet new arrival without implying interaction, invitation or gameplay progress",

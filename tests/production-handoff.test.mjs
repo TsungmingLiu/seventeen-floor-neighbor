@@ -50,13 +50,13 @@ test('engineering outputs can change acquired worktree sources while input ident
   } finally { await f.cleanup(); }
 });
 
-test('compact and legacy returns expand transient SHA-only candidate identities', async () => {
+test('compact and legacy returns resolve transient candidate locators', async () => {
   const f = await candidateFixture(); try {
     const facts = { status: 'NEEDS_REVIEW', inputs_used: ['candidate', 'AGENTS.md'], outputs: [{ id: 'review-evidence', location: 'output.json' }], qa: { checks: [{ name: 'pixel_review', result: 'NOT_RUN' }] } };
     await writeFile(path.join(f.root, 'output.json'), '{"review_pending":true}');
     const options = { root: f.root, packetPath: f.packetPath, facts, bindingPath: 'generated/session-cache/run/candidate-binding.json' };
     const result = await generateHandoff(options); await writeCache(f.root, options.bindingPath, result.inputBinding);
-    assert.equal(result.handoff.inputs_used[0].version, f.image.sha256);
+    assert.equal(result.handoff.inputs_used[0].version, `WORKTREE:${f.image.path}`);
     assert.equal((await verifyHandoff({ ...options, handoff: result.handoff })).status, 'NEEDS_REVIEW');
     const legacy = structuredClone(result.handoff); delete legacy.format; delete legacy.input_binding; legacy.input_versions = f.packet.input_versions;
     assert.equal((await verifyHandoff({ ...options, handoff: legacy })).verified, true);
