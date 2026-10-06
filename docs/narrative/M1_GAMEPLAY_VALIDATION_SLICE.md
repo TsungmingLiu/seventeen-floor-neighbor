@@ -86,8 +86,8 @@ clarity due、late lock、曝光重大 harm／deception 的阻擋由 full-route 
 
 先独立一致性 review 此 blueprint/M1 plan；再逐場 fresh bounded `Narrative Design → approval → Scene/Dialogue → Narrative QA → narrative preview integration → Human preview`。先處理 COM-03X／COM-03M 与已整合江線的待審 gate，再 OPEN-A/B bounded scheduler、anchors、continuations/repair、SH01、RE/return。每場只帶 immediate continuity 與其 owner excerpt，已 locked 不無故重寫；CG 另排 downstream。
 
-visible choices 都須有合法 target，保存/Memory replay 須維持 stable IDs、knowledge 與未完成場景 gate；runtime 工程與必要 graph/save checks 由後續任務實作，本輪不修改。內部分支矩陣完成再邀數名未讀 spec 玩家無指引首玩，coverage 補測另記；目前未招募、未 playtest。
+visible choices 都須有合法 target，保存/Memory replay 須維持 stable IDs、knowledge 與未完成場景 gate；runtime 工程與必要 graph/save checks 由後續任務實作，本輪不修改。M1 的內部 end-to-end／負向案例／Owner review 依 ROADMAP 與 Issue #78 V0/V1 驗證。依 Owner 最新指示，問卷、招募與正式外部研究不排在 M1；有完整路線且 M1 完成後，才由 Issue #78 D1 按需 ad-hoc 啟動。目前沒有新 external playtest 證據。
 
-計時記錄 entry、Opening 結束、實際 contact、slots 結束、SH01、repair/return outcome 與 preview stop；缺席節點標未觸發。報原始 elapsed、中斷與有效遊玩時間、min/median/max、實際走法。先問記得哪幕／哪裡失去興趣／是否想繼續，再問 choice 是否像標準答案、哪個 consequence 可讀、repair 是否可信。時間与品質未實測，不從 build/validate 推定通過。
+**Deferred／ad-hoc 研究備忘（不是 M1 task 或 exit gate）**：如 M1 完成後決定做正式研究，再計時記錄 entry、Opening 結束、實際 contact、slots 結束、SH01、repair/return outcome 與 preview stop；缺席節點標未觸發。報原始 elapsed、中斷與有效遊玩時間、min/median/max、實際走法。先問記得哪幕／哪裡失去興趣／是否想繼續，再問 choice 是否像標準答案、哪個 consequence 可讀、repair 是否可信。時間與外部品質未實測，不從 build/validate 推定通過；未安排此研究不阻擋 M1 關閉或 M2 啟動。
 
 本 plan 使用 packet allowlist 的三份 v0.6 core canon、五份 blueprint、ARCHITECTURE 与 ROADMAP。exact input/output hashes 由 ignored production handoff binding 保留；沒有新增 dialogue、NQA、CG 或 Human acceptance 證據。
