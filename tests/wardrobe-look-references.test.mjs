@@ -49,6 +49,24 @@ test('inventory deduplicates 34 canonical looks/68 variants and writer options l
   r.characters[characterId].wardrobes.xu_tang_grey_home_sweater_casual_evening.aliasOf = 'missing';
   assert.throws(() => wardrobeInventory(characterId, r), /alias/);
 });
+test('registered wardrobe refs route every canonical look and alias by shot size', () => {
+  const rows = inventory(registry);
+  assert.equal(rows.length, 34);
+  for (const row of rows) {
+    const characterId = row.characterId;
+    for (const wardrobeKey of [row.wardrobeKey, ...row.aliases]) {
+      for (const [shotSize, variant] of [['extreme_wide', 'full'], ['wide', 'full'], ['medium_wide', 'full'], ['medium', 'upper']]) {
+        const selected = selectCharacterReferences({ characterId, wardrobeKey, wardrobeReferenceMode: 'exact_look', shotSize }, catalog, registry);
+        const wardrobe = selected.find(binding => catalog.files[binding.source_id]?.derivation);
+        assert.equal(wardrobe.source_id, registry.characters[characterId].wardrobes[row.wardrobeKey].generationRefs[variant]);
+        assert.equal(catalog.files[wardrobe.source_id].status, 'active-production');
+      }
+    }
+  }
+  const cuteDate = selectCharacterReferences({ characterId: 'jiang_yucheng', wardrobeKey: 'JYC-WARDROBE-B-CUTE-DATE', wardrobeReferenceMode: 'exact_look', shotSize: 'medium' }, catalog, registry);
+  assert.equal(cuteDate.find(binding => catalog.files[binding.source_id]?.derivation).source_id, 'ref.jiang_yucheng.wardrobe_look.b_cute_date.upper');
+  assert.equal(registry.characters.xu_tang.wardrobes.xu_tang_grey_home_sweater_casual_evening.aliasOf, 'XT-WARDROBE-A-LATE-NIGHT-CONVENIENCE-STORE');
+});
 test('opt-in full/upper selection keeps face/production and declared body/expression policies', () => {
   const { r, c } = fixture();
   validateCharacterReferencePacks(c, r);

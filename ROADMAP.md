@@ -455,9 +455,9 @@ M2–M4 已知但目前不應執行的工作。
 
 | 工作 | 現在可以開始什麼 | 完成後接什麼 |
 | --- | --- | --- |
-| [#77 — 內容與整合](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/77) | **C0 bounded consistency PASS；先完成 #76 四角色 34 looks／68 full／upper refs，再開 C1：XT-04／JYC-05 Narrative Design** | 各幕契約批准後製作 anchors；C2 continuation／repair／SH-01 與 C3 finite slots／return 仍等實際前事 |
+| [#77 — 內容與整合](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/77) | **C0 bounded consistency PASS；#76 四角色 34 canonical looks／68 full／upper refs、獨立 crop QA 與 exact-look routing 已完成；下一步 C1：XT-04／JYC-05 Narrative Design** | 各幕契約批准後製作 anchors；C2 continuation／repair／SH-01 與 C3 finite slots／return 仍等實際前事 |
 | [#78 — 內部 end-to-end 驗證](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/78) | internal coverage matrix、回歸案例與最小 pending／slot completion contract（可與 #76 refs 前置並行；整合前完成） | 契約固定後補 machine checks；完整路線與負向案例通過，再做 Owner review |
-| [#76 P0–P3 — wardrobe 前置與 CG 改善](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/76) | P0 writer-safe 選項、P1 四角色 34 unique looks／68 full／upper refs 與 routing；獨立 crop QA 後登記 | next C1 前完成；P2 輕量記錄可並行，P3 依內部 blocker triage |
+| [#76 P0–P3 — wardrobe 前置與 CG 改善](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/76) | P0 writer-safe 選項、P1 四角色 34 unique looks／68 full／upper refs、獨立 crop QA、登記與 routing 已完成；P2 輕量記錄可並行，P3 依內部 blocker triage | P2 未來首次明示授權生成時記錄；P3 依內部 blocker triage，D1／D3 仍 deferred |
 
 C0 已核對尚未記錄的 gate 與其他進度文件，不把舊 checklist 未勾選解讀為已合併功能尚未交付。保留 #71 的 earned-discovery 決策：書店初遇真正解鎖才走咖啡重逢；只咖啡初遇仍走初遇；任一真正初遇的累積資格不因後來街景／重玩撤銷，但不補造 local contact、購書、knowledge 或 consent。
 
@@ -506,7 +506,7 @@ flowchart TD
 
 **可並行的範圍：**
 
-- C0 已完成；先完成 #76 P0/P1 四角色 34 unique looks／68 full／upper refs、獨立 crop QA 與 exact-look routing，再開 #77 C1 XT-04／JYC-05 ND。#78 最小 pending／slot completion contract、內部回歸與 P2 輕量 telemetry 可與 refs 前置並行；#78 契約須在整合前完成。
+- C0 已完成；#76 P0/P1 四角色 34 unique looks／68 full／upper refs、獨立 crop QA 與 exact-look routing 已完成，下一步開 #77 C1 XT-04／JYC-05 ND。#78 最小 pending／slot completion contract、內部回歸與 P2 輕量 telemetry 可並行；#78 契約須在整合前完成。
 - C1 ND 使用 current exact sources；changed declared inputs 在實際下游使用時仍須 exact dependency／continuity checks 與必要 fresh full-scene NQA，C0 不授予新 scene NQA／Human／pixel／完整 M1 acceptance。各 scene prerequisite 固定並批准後，XT-04／JYC-05 分別製作；各自前幕完成後，許棠 continuation 與江雨澄 co-op／家訪可繼續並行。
 - 已批准契約的 machine-check cases 可與該 scene 的對白工作並行；checks 跟隨每個整合批次。
 - 共用 chapter／registry 的 wiring 依批次順序整合；兩個 worker 不同時改同一份共用檔。
@@ -535,18 +535,18 @@ flowchart LR
 
 ## 下一批 C1 前的 wardrobe 前置：#76 P0–P3
 
-Owner 已選擇四角色 **34 unique canonical looks／68 full／upper refs** 作為下一次 M1 C1 的前置，不再只做下一批實需子集。Aliases 去重；既有 C0 保持完成。這是輸入準備與獨立 crop QA／登記 gate，不表示正式 CG 或 M1 text/art final quality 已驗收。
+Owner 已選擇四角色 **34 unique canonical looks／68 full／upper refs** 作為下一次 M1 C1 的前置，不再只做下一批實需子集。Aliases 去重；既有 C0 保持完成。P1 已完成來源登記、獨立 crop QA 與 exact-look routing；這是輸入準備，不表示正式 CG 或 M1 text/art final quality 已驗收。
 
 - P0：從既有 registry key／look 提供 bounded writer-safe 語意選項；Writer 選故事服裝，Planner carry/validate，不因 backend／composition 改 key。
-- P1：四角色 34 looks／68 refs，記 canonical 原圖 path/ref、native integer rect、decode 與尺寸；獨立 crop QA 後才登記 generationRefs。Exact-look selector／validator／deterministic packets 乾跑；missing ref／wrong key／cross-character／canonical path/ref mismatch fail closed，不回退 legacy sheet。
+- P1 **完成**：四角色 34 looks／68 refs 已登記 canonical 原圖 path/ref、native integer rect、decode 與尺寸，並有獨立 crop QA；generationRefs 已啟用。Exact-look selector／validator／deterministic packets 對全 inventory 乾跑；missing ref／wrong key／cross-character／canonical path/ref mismatch 維持 fail closed，不回退 legacy sheet。
 - P2：現在可並行準備最小記錄格式；下一次明示授權生成從首次 attempt 記 actual elapsed、可得 tokens、Human 操作／修正與 QA 結果。未提供值標 not exposed／not measured，不拿 bytes 推定 ROI。
 - P3：遮擋對白／關鍵 crop／劇情誤讀等內部試玩 blocker 才提升修正；其他 historical art debt 延後。
 
 ```mermaid
 flowchart TD
     C0["已完成 C0"] --> OPTIONS["#76 P0：writer-safe key/look options"]
-    OPTIONS --> REFS["#76 P1：34 looks / 68 refs<br/>獨立 crop QA／登記／routing 乾跑"]
-    REFS --> C1["下一次 #77 C1 Narrative Design"]
+    OPTIONS --> REFS["#76 P1 完成：34 looks / 68 refs<br/>獨立 crop QA／登記／routing 乾跑"]
+    REFS --> C1["下一步 #77 C1 Narrative Design"]
     C1 --> LOCKED["Locked Scene／獨立 Narrative QA"]
     LOCKED --> PLAN["Planner／manifest usability"]
     PLAN --> RENDER["明示授權 CG generation"]
@@ -583,4 +583,3 @@ CG production 的 #76 P2 elapsed／tokens／修正次數記錄仍屬 M1 並行�
 完整 selected core 從 entry 到明示 endpoint 可玩，內部分支／state／save／Memory 與負向 cases 有 exact build evidence，scene NQA／integration／適用 Human review scope 已記錄。Owner 實際走完 end-to-end 路線、已知阻斷性問題處理後，review M1 結論並進 M2。Formal questionnaire、招募與外部計時不屬 exit gate；正式品質／時長仍未外部實證，待有需要時另驗。
 
 本輪不納 BRAID-C、late clarity／COMMIT／endings、bulk final CG、更多 heroine 或新的 production framework。各任務詳細 checklist 見 #77／#78／#76 P0–P3；整併前的完整描述、關閉理由與追溯表保留於 [#79](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/79)。
-
