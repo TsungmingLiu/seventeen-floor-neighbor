@@ -827,27 +827,27 @@
       "characterId": "xu_tang",
       "role": "wardrobe",
       "mimeType": "image/png",
-      "width": 256,
+      "width": 265,
       "height": 871,
       "verifiedDecode": true,
       "status": "optional-reference",
       "derivation": {
         "sourceId": "ref.xu_tang.wardrobe.b",
         "sourcePath": "assets-src/references/xu-tang/xt-ref-06-wardrobe-b.png",
-        "sourceRef": "a81e549ed8965572adc57b487ae9664e39101893",
+        "sourceRef": "ac26b68c4c792c358812df4fabf0d1ef99085170",
         "wardrobeKey": "XT-WARDROBE-B-RIVERSIDE-RAINY-DATE",
         "variant": "full",
         "rect": {
           "left": 2,
           "top": 194,
-          "width": 256,
+          "width": 265,
           "height": 871
         },
         "excludeRects": [
           {
             "left": 2,
             "top": 194,
-            "width": 256,
+            "width": 265,
             "height": 6
           }
         ]
@@ -860,27 +860,27 @@
       "characterId": "xu_tang",
       "role": "wardrobe",
       "mimeType": "image/png",
-      "width": 256,
+      "width": 265,
       "height": 346,
       "verifiedDecode": true,
       "status": "optional-reference",
       "derivation": {
         "sourceId": "ref.xu_tang.wardrobe.b",
         "sourcePath": "assets-src/references/xu-tang/xt-ref-06-wardrobe-b.png",
-        "sourceRef": "a81e549ed8965572adc57b487ae9664e39101893",
+        "sourceRef": "ac26b68c4c792c358812df4fabf0d1ef99085170",
         "wardrobeKey": "XT-WARDROBE-B-RIVERSIDE-RAINY-DATE",
         "variant": "upper",
         "rect": {
           "left": 2,
           "top": 194,
-          "width": 256,
+          "width": 265,
           "height": 346
         },
         "excludeRects": [
           {
             "left": 2,
             "top": 194,
-            "width": 256,
+            "width": 265,
             "height": 6
           }
         ]
@@ -900,7 +900,7 @@
       "derivation": {
         "sourceId": "ref.xu_tang.wardrobe.b",
         "sourcePath": "assets-src/references/xu-tang/xt-ref-06-wardrobe-b.png",
-        "sourceRef": "a81e549ed8965572adc57b487ae9664e39101893",
+        "sourceRef": "ac26b68c4c792c358812df4fabf0d1ef99085170",
         "wardrobeKey": "XT-WARDROBE-B-WORK-DEADLINE-HOME",
         "variant": "full",
         "rect": {
@@ -920,7 +920,15 @@
             "left": 264,
             "top": 200,
             "width": 2,
-            "height": 865
+            "height": 865,
+            "fill": "#eae9e8"
+          },
+          {
+            "left": 269,
+            "top": 200,
+            "width": 3,
+            "height": 865,
+            "fill": "#eae9e8"
           }
         ]
       }
@@ -939,7 +947,7 @@
       "derivation": {
         "sourceId": "ref.xu_tang.wardrobe.b",
         "sourcePath": "assets-src/references/xu-tang/xt-ref-06-wardrobe-b.png",
-        "sourceRef": "a81e549ed8965572adc57b487ae9664e39101893",
+        "sourceRef": "ac26b68c4c792c358812df4fabf0d1ef99085170",
         "wardrobeKey": "XT-WARDROBE-B-WORK-DEADLINE-HOME",
         "variant": "upper",
         "rect": {
@@ -959,7 +967,15 @@
             "left": 264,
             "top": 200,
             "width": 2,
-            "height": 340
+            "height": 340,
+            "fill": "#eae9e8"
+          },
+          {
+            "left": 269,
+            "top": 200,
+            "width": 3,
+            "height": 340,
+            "fill": "#eae9e8"
           }
         ]
       }
@@ -978,7 +994,7 @@
       "derivation": {
         "sourceId": "ref.xu_tang.wardrobe.b",
         "sourcePath": "assets-src/references/xu-tang/xt-ref-06-wardrobe-b.png",
-        "sourceRef": "a81e549ed8965572adc57b487ae9664e39101893",
+        "sourceRef": "ac26b68c4c792c358812df4fabf0d1ef99085170",
         "wardrobeKey": "XT-WARDROBE-B-REPAIR-ENDING-SERIOUS-DATE",
         "variant": "full",
         "rect": {
@@ -998,13 +1014,22 @@
             "left": 529,
             "top": 200,
             "width": 2,
-            "height": 865
+            "height": 865,
+            "fill": "#eae9e8"
           },
           {
             "left": 793,
             "top": 200,
             "width": 2,
-            "height": 865
+            "height": 865,
+            "fill": "#eae9e8"
+          },
+          {
+            "left": 789,
+            "top": 200,
+            "width": 4,
+            "height": 865,
+            "fill": "#eae9e8"
           }
         ]
       }
@@ -1023,7 +1048,7 @@
       "derivation": {
         "sourceId": "ref.xu_tang.wardrobe.b",
         "sourcePath": "assets-src/references/xu-tang/xt-ref-06-wardrobe-b.png",
-        "sourceRef": "a81e549ed8965572adc57b487ae9664e39101893",
+        "sourceRef": "ac26b68c4c792c358812df4fabf0d1ef99085170",
         "wardrobeKey": "XT-WARDROBE-B-REPAIR-ENDING-SERIOUS-DATE",
         "variant": "upper",
         "rect": {
@@ -1043,13 +1068,22 @@
             "left": 529,
             "top": 200,
             "width": 2,
-            "height": 340
+            "height": 340,
+            "fill": "#eae9e8"
           },
           {
             "left": 793,
             "top": 200,
             "width": 2,
-            "height": 340
+            "height": 340,
+            "fill": "#eae9e8"
+          },
+          {
+            "left": 789,
+            "top": 200,
+            "width": 4,
+            "height": 340,
+            "fill": "#eae9e8"
           }
         ]
       }
@@ -1061,27 +1095,27 @@
       "characterId": "xu_tang",
       "role": "wardrobe",
       "mimeType": "image/png",
-      "width": 252,
+      "width": 256,
       "height": 871,
       "verifiedDecode": true,
       "status": "optional-reference",
       "derivation": {
         "sourceId": "ref.xu_tang.wardrobe.b",
         "sourcePath": "assets-src/references/xu-tang/xt-ref-06-wardrobe-b.png",
-        "sourceRef": "a81e549ed8965572adc57b487ae9664e39101893",
+        "sourceRef": "ac26b68c4c792c358812df4fabf0d1ef99085170",
         "wardrobeKey": "XT-WARDROBE-B-AFTER-STORY-WEEKEND-MORNING",
         "variant": "full",
         "rect": {
-          "left": 800,
+          "left": 796,
           "top": 194,
-          "width": 252,
+          "width": 256,
           "height": 871
         },
         "excludeRects": [
           {
-            "left": 800,
+            "left": 796,
             "top": 194,
-            "width": 252,
+            "width": 256,
             "height": 6
           }
         ]
@@ -2094,7 +2128,7 @@
       "derivation": {
         "sourceId": "ref.shen_yingxue.wardrobe.a",
         "sourcePath": "assets-src/references/shen-yingxue/syx-ref-05-wardrobe-a.png",
-        "sourceRef": "a81e549ed8965572adc57b487ae9664e39101893",
+        "sourceRef": "ac26b68c4c792c358812df4fabf0d1ef99085170",
         "wardrobeKey": "SYX-WARDROBE-A-STRATEGY-WORK",
         "variant": "full",
         "rect": {
@@ -2108,61 +2142,71 @@
             "left": 55,
             "top": 111,
             "width": 49,
-            "height": 27
+            "height": 27,
+            "fill": "#b0b7c0"
           },
           {
             "left": 55,
             "top": 177,
             "width": 15,
-            "height": 18
+            "height": 18,
+            "fill": "#bac1ca"
           },
           {
             "left": 55,
             "top": 244,
             "width": 15,
-            "height": 18
+            "height": 18,
+            "fill": "#bec5ce"
           },
           {
             "left": 55,
             "top": 312,
             "width": 15,
-            "height": 18
+            "height": 18,
+            "fill": "#bdc5ce"
           },
           {
             "left": 55,
             "top": 380,
             "width": 15,
-            "height": 18
+            "height": 18,
+            "fill": "#bdc4cd"
           },
           {
             "left": 55,
             "top": 448,
             "width": 10,
-            "height": 18
+            "height": 18,
+            "fill": "#b8c0c9"
           },
           {
             "left": 55,
             "top": 516,
             "width": 10,
-            "height": 18
+            "height": 18,
+            "fill": "#b7bfc9"
           },
           {
             "left": 55,
             "top": 584,
             "width": 12,
-            "height": 18
+            "height": 18,
+            "fill": "#acb5bf"
           },
           {
             "left": 55,
             "top": 652,
             "width": 12,
-            "height": 18
+            "height": 18,
+            "fill": "#cdcfd8"
           },
           {
             "left": 55,
             "top": 720,
             "width": 9,
-            "height": 18
+            "height": 18,
+            "fill": "#dddde5"
           }
         ]
       }
@@ -2181,7 +2225,7 @@
       "derivation": {
         "sourceId": "ref.shen_yingxue.wardrobe.a",
         "sourcePath": "assets-src/references/shen-yingxue/syx-ref-05-wardrobe-a.png",
-        "sourceRef": "a81e549ed8965572adc57b487ae9664e39101893",
+        "sourceRef": "ac26b68c4c792c358812df4fabf0d1ef99085170",
         "wardrobeKey": "SYX-WARDROBE-A-STRATEGY-WORK",
         "variant": "upper",
         "rect": {
@@ -2195,31 +2239,36 @@
             "left": 55,
             "top": 111,
             "width": 49,
-            "height": 27
+            "height": 27,
+            "fill": "#b0b7c0"
           },
           {
             "left": 55,
             "top": 177,
             "width": 15,
-            "height": 18
+            "height": 18,
+            "fill": "#bac1ca"
           },
           {
             "left": 55,
             "top": 244,
             "width": 15,
-            "height": 18
+            "height": 18,
+            "fill": "#bec5ce"
           },
           {
             "left": 55,
             "top": 312,
             "width": 15,
-            "height": 18
+            "height": 18,
+            "fill": "#bdc5ce"
           },
           {
             "left": 55,
             "top": 380,
             "width": 15,
-            "height": 18
+            "height": 18,
+            "fill": "#bdc4cd"
           }
         ]
       }
