@@ -6,7 +6,7 @@
 - Owning design: `docs/narrative/JYC_WEEKEND_WEEKDAY_REVISION.md`；current contract: `content/production/narrative/opening-ch1/COM-03X.json`。此 design section 與 current JSON 取代下方 baseline 的衝突時序／gate；下方舊 Locked prose 與其歷史 binding 完整保留作局部改寫或相容性參考，不是本輪新 Script Lock。
 - 三條平日回家走法共同包裹：不需 dialogue rewrite。現有完整包裹／樣本／Line prose 可保留：她「上次／那天」deadline 指週末便利店；雙方工作與附近食物在兩支均已建立。入口在 cafe reunion、cafe first 或 street 回家後同一平日晚間；完整保留不同 Jiang knowledge/contact/exclusion。exit 只有真實 cafe contact 可接 COM-03J，其餘接 COM-03M Xu-only。
 - Stable ID plan：無新 IDs；common_package_xu_* 與三個 com03x_* 保留。
-- 永久排除：本輪 `com01b_weekday_street_walk` 才寫 `jyc_permanently_excluded=true`。此 flag 先於 contact/history，永不由 merge、reload、scheduler、public shared scene 或 ordinary invite 清除。Memory replay 限自己的 snapshot，不向 live 主線寫入；改走前一分岔屬另一 playthrough，不是本輪 reopening。
+- 永久排除：本輪 `com01b_weekday_street_walk` 才寫 `jyc_permanently_excluded=true`，merge、reload、scheduler、public shared scene 或 ordinary invite 均不得清除。只有未曾真正取得書店或 cafe 初遇時才有效排除江線；本次或 replay 真正取得初遇後累積 eligibility 保留未來資格，不改寫街頭 snapshot，不補當次 met、contact、購書、topic、knowledge、consent 或 investment。只有書店 eligibility 選擇 cafe reunion，cafe-only replay 仍是 initial；後續仍遵守實際 local facts、同意與既有 gate。Memory replay 使用自己的 snapshot，不向 live 主線寫入 discovery/contact/exclusion state；改走前一分岔屬另一 playthrough，不是本輪 reopening。
 - Semantic visual impact 與四個必要 dialogue units 見 owning design；現有 accepted image bytes、QA/Human 歷史都保留。獨立下游才裁決哪些畫面可重用。
 
 ## Preserved pre-revision baseline

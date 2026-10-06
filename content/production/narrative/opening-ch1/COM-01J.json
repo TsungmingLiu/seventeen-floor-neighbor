@@ -144,7 +144,7 @@
     "不得提前揭露匿名繪師身份、住處或與許棠的交集。",
     "不得用 blush、靠近或正面模特凝視暗示 instant crush。",
     "不得保留「我等一下去」／同次 cafe 承諾、跳過購書或把選了 bookstore go 當已購買。",
-    "街頭 choice 的 jyc_permanently_excluded 保留當次未相遇事實；未曾真正完成書店初遇時仍阻擋江線。本次或任何 replay 真正完成 COM-01J 後，累積書店 eligibility 可開啟 cafe 重逢及後續江線；不改寫街頭 snapshot，不補姓名、購書、contact 或邀約。拒絕／未交換的安全邊界保持，直到實際取得對應同意或後續選擇；RE／reopening 仍遵守其有界線 gate。"
+    "街頭 choice 的 jyc_permanently_excluded 保留當次街頭事實；未曾真正取得書店或 cafe 初遇時才有效排除江線。本次或任何 replay 真正完成 COM-01J 書店初遇或 cafe 初遇後，累積初遇 eligibility 保留後續江線資格；只有書店 eligibility 選擇 cafe 重逢，cafe-only replay 仍是初遇。不改寫街頭 snapshot，不補當次 met、姓名、購書、topic、knowledge、contact、consent、邀約或 investment。拒絕／未交換的安全邊界保持，直到實際取得對應同意或後續選擇；RE／reopening 仍遵守其有界線 gate。"
   ],
   "implementation_mapping": {
     "runtime_only": true,

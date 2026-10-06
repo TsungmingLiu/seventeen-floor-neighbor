@@ -141,7 +141,7 @@
     "不得提前授予未披露的私人／跨人物 knowledge、exclusivity 或 commitment；取得 contact 不建立新 focus／overlap／deception 語意。",
     "不得增加或歸零 boundary counters，不因 COM-02X 一次建議拒絕 contact；不新增信任、chemistry、compatibility 或浪漫進展。",
     "不得新增 intimacy meter、一次性印刷知識旗標或重複 Line booleans；contact_xu 是聯絡方式 gate。",
-    "jyc_permanently_excluded=true 只由本輪平日街頭獨自行動的實際 choice 建立；本輪不可清除，優先於 contact、met、舊 history 及任何 invitation/discovery gate；禁止其後全部江雨澄內容，包括訊息、重遇、第二 discovery、RE-J、reopening、同框、邀約、結局與 coda。"
+    "jyc_permanently_excluded=true 只由本輪平日街頭獨自行動的實際 choice 建立；本輪不可清除。只有未曾真正取得書店或 cafe 初遇時才有效排除其後江雨澄內容，包括訊息、重遇、第二 discovery、RE-J、reopening、同框、邀約、結局與 coda。已真正取得的累積初遇 eligibility 保留未來資格，不改寫街頭 snapshot，不補當次 met、contact、購書、topic、knowledge、consent 或 investment；只有書店 eligibility 選擇 cafe 重逢，cafe-only replay 仍是初遇，各後續路徑仍遵守實際 local facts、同意與既有 gate。"
   ],
   "implementation_mapping": {
     "runtime_only": true,

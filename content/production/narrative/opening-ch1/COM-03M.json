@@ -55,7 +55,7 @@
       "至少 contact_xu 或 contact_jyc 一個已由真實 contact scene 建立；沒有 contact 的人完全略過，不以本幕完成 discovery。",
       "承接 COM-03X／COM-03J 各自 exit；Jiang never_met、known-but-not-contacted 與已 contacted 必須分開，前兩者均無 Jiang 訊息。",
       "開始一段約一週的訊息與個人生活 montage；既有 romanticSignal、knowledge、harm 與 commitment 狀態不由短訊息改寫。",
-      "Jiang 任何 content／option／通知先要求 !jyc_permanently_excluded，再按真實 contact、knowledge 與原有 eligibility；永久排除不只是 never_met，也不是可第二 discovery 的暫時未遇見。"
+      "Jiang content／option／通知先按既有有效排除判定（street flag 且無真正 earned initial encounter），再按當次真實 contact、knowledge、consent 與原有 closure/harm gates；資格不補 local facts，兩次初遇均錯過後不新增 discovery。"
     ]
   },
   "scene_function": [
@@ -149,7 +149,7 @@
       "contact_xu/contact_jyc 保持 entry；未見／未 contact Jiang 的走法仍有效，可接許棠／個人生活 OPEN-A。",
       "open_dating_unlocked 只代表可進 OPEN-A；無邀約已接受、anchor completed、slot 已消耗或 romantic availability 保證。",
       "romanticSignal、focusHistory/recentFocus、overlap/exclusivity/deception、harm/closure 與未披露 knowledge 保持 entry；晚回或休息本身不生成 cooling、RE 或 reopening 歷史。",
-      "jyc_permanently_excluded=true 只由本輪平日街頭獨自行動的實際 choice 建立；本輪不可清除，優先於 contact、met、舊 history 及任何 invitation/discovery gate；禁止其後全部江雨澄內容，包括訊息、重遇、第二 discovery、RE-J、reopening、同框、邀約、結局與 coda。"
+      "依 #71／ND-FEEDBACK-002，jyc_permanently_excluded 保留本輪街頭 choice 與 snapshot，不清除；只有未取得任何真正書店／cafe 初遇資格時才有效排除後續江雨澄內容。累積資格不補當次 contact、姓名、購書、topic、consent 或 investment；訊息／邀約／RE／同框仍各查實際 knowledge、contact、前事、closure 與 harm。"
     ]
   },
   "must_not": [
@@ -161,16 +161,16 @@
     "不得加入 RE/return、accepted missed plan、friction repair、late route 或 ending state；這些由後續已界定 scene 擁有。",
     "不得假借缺失的 COM-03J topic/reply history 補 shared memories；callback 只用 trustworthy local history，未知時退到中性內容。",
     "本次只有 Narrative Design 與 DESIGN/DRAFT outline；不含 final dialogue、Locked Scene、CG、獨立 Narrative QA 或 Human acceptance 主張。",
-    "jyc_permanently_excluded=true 只由本輪平日街頭獨自行動的實際 choice 建立；本輪不可清除，優先於 contact、met、舊 history 及任何 invitation/discovery gate；禁止其後全部江雨澄內容，包括訊息、重遇、第二 discovery、RE-J、reopening、同框、邀約、結局與 coda。"
+    "依 #71／ND-FEEDBACK-002，jyc_permanently_excluded 保留本輪街頭 choice 與 snapshot，不清除；只有未取得任何真正書店／cafe 初遇資格時才有效排除後續江雨澄內容。累積資格不補當次 contact、姓名、購書、topic、consent 或 investment；訊息／邀約／RE／同框仍各查實際 knowledge、contact、前事、closure 與 harm。"
   ],
   "implementation_mapping": {
     "runtime_only": true,
     "flags": {
       "requires_contact_any": "contact_xu || contact_jyc",
       "contact_xu": "read_only;gate_Xu_messages_and_activity_hook",
-      "contact_jyc": "read_only;Jiang_content_requires_contact_jyc_and_not_jyc_permanently_excluded",
+      "contact_jyc": "read_only;Jiang_content_requires_actual_contact_jyc_and_no_effective_exclusion;effective_exclusion_uses_existing_earned_initial_encounter_eligibility",
       "open_dating_unlocked": true,
-      "jyc_permanently_excluded": "read_only;preserve;blocks_all_later_Jiang_paths"
+      "jyc_permanently_excluded": "read_only;preserve_street_flag_and_snapshot;effective_exclusion_only_without_genuinely_earned_initial_encounter"
     }
   }
 }

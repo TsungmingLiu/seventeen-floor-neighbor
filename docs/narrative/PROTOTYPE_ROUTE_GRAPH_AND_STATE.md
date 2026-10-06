@@ -37,9 +37,9 @@ flowchart TD
   COM00["COM-00 雨夜搬家"] --> COM01X["COM-01X 電梯重啟"]
   COM01X --> COM02X["COM-02X 深夜便利店"]
   COM02X --> COM03X["COM-03X 包裹 / Line"]
-  COM00 -. early or second discovery opportunity .-> COM01J["COM-01J 地下街初遇 / short entry variant"]
-  COM01J --> COM02J["COM-02J 咖啡店重逢"]
-  COM02J --> COM03J["COM-03J 推薦 / Discord"]
+  COM00 -. weekend optional bookstore .-> COM01J["COM-01J 地下街初遇"]
+  COM01J -. COM-02X bridge / weekday cafe .-> COM02J["COM-02J 咖啡初遇或書店資格重逢"]
+  COM02J -. actual mutual Discord / COM-03X .-> COM03J["COM-03J 同晚線上延續 / contact read-only"]
   COM03X --> COM03M["COM-03M 已有 contacts 的 montage"]
   COM03J -. if encountered .-> COM03M
   COM03M --> OPENA{"OPEN-A 有限 attention window"}
@@ -332,11 +332,11 @@ jyc_suspects_romantic_overlap
 |---|---|---|---|
 | COM-00 | root | none | met_xu_tang |
 | COM-01X | COM-00 | expression history | ordinary neighbor encounter |
-| COM-01J | eligible early/second discovery opportunity | first-entry variant | met_jyc |
+| COM-01J | 週末實際選書店 | 首遇／實際購書，經 COM-02X 接平日 | met_jyc；真正書店初遇資格 |
 | COM-02X | COM-01X | encounter history | work/life knowledge |
-| COM-02J | COM-01J | first encounter detail | name / shared-interest knowledge |
+| COM-02J | 平日 cafe；真正書店資格為 reunion，否則 initial（cafe-only replay 仍 initial） | 當次名字／作品／mutual Discord consent | name / shared-interest knowledge；同意交換才 contact_jyc |
 | COM-03X | COM-02X | package/work clue | contact_xu |
-| COM-03J | COM-02J | interest choice | contact_jyc |
+| COM-03J | COM-02J 實際 mutual contact，經同晚 COM-03X | actual online exchange；無 contact bypass | contact_jyc read-only；不新增相遇／交換 |
 | COM-03M | at least one actual contact | message style | open_dating_unlocked |
 | OPEN-A | COM-03M | none | focus history |
 | XT-04 | contact_xu + OPEN-A entered + eligible current slot (§8) | recentFocus | xt_respected_pace |
@@ -405,9 +405,9 @@ Window 是有限 authored scheduler，不是自由 calendar。OPEN-A 固定兩�
 
 每 slot 先檢查 discovery/contact、該 scene prerequisites、closure/harm、當地行程，再呈現 contextual player invite、已有 incoming invite、solo/rest/wait。接受才排入具體 scene；counteroffer 只可轉至已 authored 同 window 空 slot，沒有則保留未成行 outcome；婉拒時間不等於拒絕關係。玩家／女主發起只改短入口，rejoin 同一 date scene；不保證成功。
 
-OPEN-A entered 是歷史 gate，不是「尚有 OPEN-A slot」。XX 後若雨澄只是 ordinary contacted acquaintance，採 bounded first invitation，accepted 後可在下一 window（OPEN-B）第一個合法 slot 玩未玩 JYC-05，再按 prerequisites 走 JYC-06；JJ 後普通許棠熟人對稱以 first invitation 返回 XT-04 → XT-05。只有實際 prior investment／已約未成的 plan，且現為 cooling/dormant 者，才可依 §9 使用 RE-J／RE-X；first invitation 不消耗或生成 RE offer/missed/window 歷史。原 OPEN-A 不加第三 slot，不 replay 已完成 anchor，不跳到 midgame。若先前只建立 contact，返回 anchor 仍從初次一對一開始。未見 JYC 必須先完成 second-discovery entry → COM-02J → COM-03J，不能用 RE 替代初遇。
+OPEN-A entered 是歷史 gate，不是「尚有 OPEN-A slot」。XX 後若雨澄只是 ordinary contacted acquaintance，採 bounded first invitation，accepted 後可在下一 window（OPEN-B）第一個合法 slot 玩未玩 JYC-05，再按 prerequisites 走 JYC-06；JJ 後普通許棠熟人對稱以 first invitation 返回 XT-04 → XT-05。只有實際 prior investment／已約未成的 plan，且現為 cooling/dormant 者，才可依 §9 使用 RE-J／RE-X；first invitation 不消耗或生成 RE offer/missed/window 歷史。原 OPEN-A 不加第三 slot，不 replay 已完成 anchor，不跳到 midgame。若先前只建立 contact，返回 anchor 仍從初次一對一開始。J 邀約須 COM-02J 當次 mutual contact 與 COM-03J 線上前事；不能用 RE 或累積初遇資格替代。
 
-早期 mixed discovery：許棠鄰居生活圈早可接近，雨澄的地下街／咖啡生活圈可於 Opening 或下一 discovery window 出現。重要 heroine 有一次第二自然發現機會；雨澄短 first-entry variant 只消除「上次已見過」前提並 merge 原 COM-01J/02J progression，不複製 route、不新增 heroine。第二機會仍錯過可走未見她的較短 playthrough；雙女主 M1 核心 coverage 不強迫所有玩家見兩人。沒有 hard active-heroine cap。
+早期 mixed discovery（#71／ND-FEEDBACK-002）：週末 optional bookstore／留家 → COM-02X → 平日工作後 cafe initial／reunion 或 solo street → COM-03X → contact-only COM-03J。真正書店初遇才走 reunion；cafe-only replay 仍 initial。兩次初遇機會均錯過後不補 OPEN-A→OPEN-B discovery，可走較短許棠／生活路徑。任一真正初遇的累積資格保留；street flag/snapshot 不清除，有效排除只在無 earned initial encounter 時成立，且不補當次 contact、購書、knowledge、consent 或 investment。沒有 hard active-heroine cap。
 
 OPEN-B entry：至少一條 early anchor/continuation 已演出，或玩家完成 OPEN-A 的 solo/rest/wait；另一條可合法補 anchor。BRAID-C entry：該 heroine midgame 必要 scenes／knowledge 已演出且她接受私人推進；各自可用，SH-02 另須雙方工作／creator knowledge，缺另一人就 bypass crossover。TENSION → repair → clarity → late lock 按 exact outcomes，不依百分比「深度」。
 

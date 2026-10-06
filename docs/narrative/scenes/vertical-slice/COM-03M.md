@@ -1,12 +1,12 @@
 # COM-03M — 一週訊息 montage → OPEN-A
 
-## Current authorized weekend/weekday design — ND-ARC-001
+## Current authorized weekend/weekday design — ND-ARC-001 + ND-FEEDBACK-002
 
 - Lifecycle: **CANONICAL** task-local Narrative Design amendment, 2026-10-04. Source ref: `013b3f73e75d8f00bbd2fa53a6cd2d885fecb9a9`. Human 授權本輪方向與必要改寫；本 pass 沒有新 final prose、QA、runtime 或 CG acceptance。
 - Owning design: `docs/narrative/JYC_WEEKEND_WEEKDAY_REVISION.md`；current contract: `content/production/narrative/opening-ch1/COM-03M.json`。此 design section 與 current JSON 取代下方 baseline 的衝突時序／gate；下方舊 Locked prose 與其歷史 binding 完整保留作局部改寫或相容性參考，不是本輪新 Script Lock。
-- 保留訊息，永久排除先於 contact：不需 dialogue rewrite。所有共同／Xu prose、單 contact 節奏與雙 contact body 保留。Jiang 段落與雙通知條件先 !jyc_permanently_excluded 再 actual contact；street 只能 Xu-only／自身生活，不偽造姓名或共通話題；不因進入 montage 重設 exclusion。
+- Current gate amendment：#71／ND-FEEDBACK-002（2026-10-05）限定修正 earned 初遇資格；不把此規則回稱原 ND-ARC-001 已批准。保留所有既有 prose、IDs、第一 window／outcomes；Jiang 段落／通知／邀約須無有效排除且有當次 actual contact、knowledge、consent、closure/harm 與各自前事。無 contact 不補訊息、第三 discovery 或 RE。
 - Stable ID plan：無新 IDs；COM03M-* 全保留。
-- 永久排除：本輪 `com01b_weekday_street_walk` 才寫 `jyc_permanently_excluded=true`。此 flag 先於 contact/history，永不由 merge、reload、scheduler、public shared scene 或 ordinary invite 清除。Memory replay 限自己的 snapshot，不向 live 主線寫入；改走前一分岔屬另一 playthrough，不是本輪 reopening。
+- Street flag/snapshot：實際 `com01b_weekday_street_walk` 寫 `jyc_permanently_excluded=true`，不由 merge／reload／scheduler 清除；有效排除只在未取得真正書店或 cafe 初遇資格時成立。累積資格不補 local contact、購書、topic 或 consent；Memory replay 使用自己的 snapshot，不匯入 live facts。annotation bytes 改動仍須下游 exact source checks；不授予新 NQA／Human／pixel acceptance。
 - Semantic visual impact 與四個必要 dialogue units 見 owning design；現有 accepted image bytes、QA/Human 歷史都保留。獨立下游才裁決哪些畫面可重用。
 
 ## Preserved pre-revision baseline
