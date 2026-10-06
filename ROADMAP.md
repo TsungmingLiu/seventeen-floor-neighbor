@@ -481,8 +481,8 @@ flowchart TD
     C0 --> SLOTS["固定並逐批接入有限安排<br/>OPEN-A 兩 slots／OPEN-B 三 slots"]
     J6 --> SH["SH-01：實際介紹<br/>另須真實 contact_xu"]
     SLOTS --> RETURN["按各自前事選合法結果<br/>普通首邀／有界 RE 或 reopening／closure"]
-    X4 -.->|"該角色真實前事成立才使用"| RETURN
-    J5 -.->|"該角色真實前事成立才使用"| RETURN
+    X4 -.-> RETURN
+    J5 -.-> RETURN
 
     C0 -->|"契約固定後"| CHECKS["最小 graph／state／save 檢查<br/>跟隨每批整合，不等全部寫完"]
     PREP --> CHECKS
