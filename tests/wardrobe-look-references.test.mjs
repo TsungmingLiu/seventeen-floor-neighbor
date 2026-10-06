@@ -100,6 +100,52 @@ test('crop plan rebuilds native pixels, preserves source, decodes output and ref
   } finally { fs.rmSync(root, { recursive: true, force: true }); }
 });
 
+test('masked crop fills declared native area white, preserves figure pixels and binds masks to rebuild identity', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'wardrobe-masked-crop-'));
+  try {
+    fs.mkdirSync(path.join(root, 'assets-src'));
+    const { r, c } = fixture();
+    const sourceId = r.characters[characterId].wardrobes[wardrobeKey].sourceId;
+    c.files[sourceId] = { ...c.files[sourceId], sourcePath: 'assets-src/original.png', name: 'original.png', width: 8, height: 8 };
+    const input = path.join(root, 'assets-src/original.png');
+    execFileSync('ffmpeg', ['-v', 'error', '-f', 'lavfi', '-i', 'color=c=red:s=8x8:r=1,format=rgb24', '-frames:v', '1', '-threads', '1', input]);
+    const before = fs.readFileSync(input);
+    const crop = { characterId, wardrobeKey, variant: 'upper', derivedSourceId: 'ref.xu_tang.look.masked.upper', outputPath: 'assets-src/masked.png',
+      sourceId, sourcePath: 'assets-src/original.png', sourceRef: 'WORKTREE', rect: { left: 1, top: 2, width: 5, height: 3 },
+      excludeRects: [{ left: 2, top: 3, width: 2, height: 1 }] };
+    const plan = { schemaVersion: 1, crops: [crop] };
+    const options = { repoRoot: root, sourceRef: 'WORKTREE', catalog: c, registry: r };
+    assert.equal(validateCropPlan(plan, options)[0].source.derivation.excludeRects[0].left, 2);
+    for (const invalid of [
+      [{ left: 2.5, top: 3, width: 2, height: 1 }],
+      [{ left: 0, top: 3, width: 2, height: 1 }],
+      [{ left: 2, top: 3, width: 0, height: 1 }],
+      [{ left: 2, top: 3, width: 2, height: 1, color: 'black' }],
+    ]) {
+      const malformed = structuredClone(plan);
+      malformed.crops[0].excludeRects = invalid;
+      assert.throws(() => validateCropPlan(malformed, options), /exclusion rectangle/);
+    }
+    const [output] = materializeCropPlan(plan, options);
+    const pixels = filename => execFileSync('ffmpeg', ['-v', 'error', '-i', filename, '-f', 'rawvideo', '-pix_fmt', 'rgba', '-'], { maxBuffer: 1024 * 1024 });
+    const originalPixels = pixels(input), cropPixels = pixels(path.join(root, 'assets-src/masked.png'));
+    const pixel = (bytes, x, y, width) => [...bytes.subarray((y * width + x) * 4, (y * width + x) * 4 + 4)];
+    assert.deepEqual(pixel(cropPixels, 1, 1, 5), [255, 255, 255, 255]);
+    assert.deepEqual(pixel(cropPixels, 2, 1, 5), [255, 255, 255, 255]);
+    assert.deepEqual(pixel(cropPixels, 0, 0, 5), pixel(originalPixels, 1, 2, 8));
+    assert.deepEqual(pixel(cropPixels, 4, 2, 5), pixel(originalPixels, 5, 4, 8));
+    assert.deepEqual(fs.readFileSync(input), before);
+    const { derivedSourceId, ...derived } = output;
+    c.files[derivedSourceId] = { ...derived, status: 'optional-reference' };
+    assert.doesNotThrow(() => validateCropPlan(plan, { ...options, rebuild: true }));
+    const changed = structuredClone(plan);
+    changed.crops[0].excludeRects[0].left++;
+    assert.throws(() => validateCropPlan(changed, { ...options, rebuild: true }), /exact registered crop identity/);
+    assert.equal(materializeCropPlan(plan, { ...options, rebuild: true })[0].status, 'pending-independent-crop-qa');
+    assert.deepEqual(fs.readFileSync(input), before);
+  } finally { fs.rmSync(root, { recursive: true, force: true }); }
+});
+
 test('exact-look deterministic packet and all adapters route the selected derived PNG only', () => {
   const { r, c } = fixture();
   const manifest = read('content/production/cg-manifests/opening-ch1.json');

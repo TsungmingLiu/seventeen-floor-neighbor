@@ -64,6 +64,17 @@ export function validateWardrobeDerivation(source, { characterId, wardrobeKey, v
     && r.left + r.width <= original.width && r.top + r.height <= original.height
     && source.width === r.width && source.height === r.height,
   `${characterId} ${wardrobeKey}: invalid native crop rectangle/dimensions`);
+  if (Object.hasOwn(d, 'excludeRects')) {
+    insist(Array.isArray(d.excludeRects), `${characterId} ${wardrobeKey}: excludeRects must be an array`);
+    for (const mask of d.excludeRects) {
+      insist(mask && typeof mask === 'object' && !Array.isArray(mask)
+        && Object.keys(mask).sort().join(',') === 'height,left,top,width'
+        && ['left', 'top', 'width', 'height'].every(key => Number.isInteger(mask[key]))
+        && mask.left >= r.left && mask.top >= r.top && mask.width > 0 && mask.height > 0
+        && mask.left + mask.width <= r.left + r.width && mask.top + mask.height <= r.top + r.height,
+      `${characterId} ${wardrobeKey}: invalid native exclusion rectangle`);
+    }
+  }
   return source;
 }
 

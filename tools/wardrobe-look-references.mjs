@@ -10,6 +10,9 @@ const read = name => JSON.parse(fs.readFileSync(path.join(ROOT, name), 'utf8'));
 const insist = (condition, message) => { if (!condition) throw new Error(message); };
 const defaultRegistry = read('content/assets/character-reference-packs.json');
 const defaultCatalog = read('content/assets/source-catalog.json');
+const sameRectList = (a, b) => a === undefined || b === undefined ? a === b
+  : Array.isArray(a) && Array.isArray(b) && a.length === b.length
+    && a.every((rect, index) => ['left', 'top', 'width', 'height'].every(key => rect[key] === b[index]?.[key]));
 
 export function inventory(registry = defaultRegistry) {
   return Object.keys(registry.characters).flatMap(characterId => wardrobeInventory(characterId, registry)
@@ -32,16 +35,19 @@ export function validateCropPlan(plan, { sourceRef = 'WORKTREE', catalog = defau
     const registered = catalog.files[derivedSourceId];
     insist(!registered || rebuild, 'derived source ID must be new unless explicitly rebuilding');
     insist(typeof outputPath === 'string' && outputPath.endsWith('.png') && path.posix.normalize(outputPath) === outputPath && !outputPath.includes('\\'), 'crop output must be PNG');
+    const derivation = { sourceId: crop.sourceId, sourcePath: crop.sourcePath, sourceRef: crop.sourceRef, wardrobeKey, variant, rect };
+    if (Object.hasOwn(crop, 'excludeRects')) derivation.excludeRects = crop.excludeRects;
     const source = { name: path.posix.basename(outputPath), sourcePath: outputPath, characterId, role: 'wardrobe',
       mimeType: 'image/png', width: rect?.width, height: rect?.height, verifiedDecode: true, status: 'active-production',
-      derivation: { sourceId: crop.sourceId, sourcePath: crop.sourcePath, sourceRef: crop.sourceRef, wardrobeKey, variant, rect } };
+      derivation };
     validateWardrobeDerivation(source, { characterId, wardrobeKey, variant, sourceRef }, catalog, registry);
     if (registered) {
       insist(registered.derivation && registered.status === 'optional-reference', 'rebuild requires an optional derived reference; deactivate active references first');
       validateWardrobeDerivation({ ...registered, status: 'active-production' }, { characterId, wardrobeKey, variant, sourceRef }, catalog, registry);
       insist(['name', 'sourcePath', 'characterId', 'role', 'mimeType', 'width', 'height'].every(key => registered[key] === source[key])
         && ['sourceId', 'sourcePath', 'sourceRef', 'wardrobeKey', 'variant'].every(key => registered.derivation[key] === source.derivation[key])
-        && ['left', 'top', 'width', 'height'].every(key => registered.derivation.rect[key] === rect[key]), 'rebuild must match exact registered crop identity');
+        && ['left', 'top', 'width', 'height'].every(key => registered.derivation.rect[key] === rect[key])
+        && sameRectList(registered.derivation.excludeRects, source.derivation.excludeRects), 'rebuild must match exact registered crop identity');
     }
     insist(!Object.entries(catalog.files).some(([id, item]) => id !== derivedSourceId && item.sourcePath === outputPath), 'crop cannot overwrite a cataloged source');
     return { derivedSourceId, source };
@@ -106,7 +112,10 @@ export function materializeCropPlan(plan, { repoRoot = ROOT, runCommand = execFi
       const split = group.length > 1 ? `[0:v]split=${group.length}${group.map((_, i) => `[s${i}]`).join('')};` : '';
       const filters = group.map(({ source }, i) => {
         const r = source.derivation.rect;
-        return `${group.length > 1 ? `[s${i}]` : '[0:v]'}crop=${r.width}:${r.height}:${r.left}:${r.top}:exact=1[o${i}]`;
+        const base = `${group.length > 1 ? `[s${i}]` : '[0:v]'}crop=${r.width}:${r.height}:${r.left}:${r.top}:exact=1`;
+        const masks = source.derivation.excludeRects ?? [];
+        const fill = masks.map(mask => `drawbox=x=${mask.left - r.left}:y=${mask.top - r.top}:w=${mask.width}:h=${mask.height}:color=white@1.0:t=fill`);
+        return `${base}${fill.length ? `,${fill.join(',')}` : ''}[o${i}]`;
       }).join(';');
       const args = ['-v', 'error', '-xerror', '-n', '-i', input, '-filter_complex', split + filters];
       group.forEach(({ staged }, i) => args.push('-map', `[o${i}]`, '-frames:v', '1', '-threads', '1', staged));
