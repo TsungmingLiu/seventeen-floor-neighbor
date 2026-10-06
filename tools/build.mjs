@@ -3,6 +3,10 @@ import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { loadAndValidate, projectRoot } from './content-lib.mjs';
 import { buildAssets } from './build-assets.mjs';
+import { compileStoryMap } from './story-map.mjs';
+
+const profile = process.env.STORY_MAP_PROFILE || 'player';
+if (!['player', 'review'].includes(profile)) throw new Error('STORY_MAP_PROFILE must be player or review');
 
 const content = await loadAndValidate();
 await buildAssets();
@@ -40,6 +44,9 @@ await writeFile(path.join(routesRoot, 'index.json'), `${JSON.stringify(publicInd
 for (const route of content.routes) {
   const output = path.join(routesRoot, route.config.id);
   await mkdir(output, { recursive: true });
+  const definition = JSON.parse(await readFile(path.join(projectRoot, 'content/storyboards', `${route.config.id}.json`), 'utf8'));
+  await writeFile(path.join(output, 'story-map.json'), `${JSON.stringify(compileStoryMap(route, definition), null, 2)}\n`);
+  if (profile === 'review') await cp(path.join(projectRoot, 'content/storyboards', `${route.config.id}-review.json`), path.join(output, 'story-map-review.json'));
   await Promise.all([
     writeFile(path.join(output, 'chapter.json'), `${JSON.stringify(route.chapter, null, 2)}\n`),
     writeFile(path.join(output, 'scenes.json'), `${JSON.stringify(route.sceneLibrary, null, 2)}\n`),
@@ -48,8 +55,12 @@ for (const route of content.routes) {
   ]);
 }
 
-const modules = (await readdir(path.join(projectRoot, 'src'))).filter(name => name.endsWith('.js'));
-const sources = await Promise.all(modules.map(name => readFile(path.join(projectRoot, 'src', name), 'utf8')));
+const modules = (await readdir(path.join(projectRoot, 'src'))).filter(name => name.endsWith('.js') && (profile === 'review' || name !== 'story-map-review.js'));
+const sources = await Promise.all(modules.map(async name => {
+  const source = await readFile(path.join(projectRoot, 'src', name), 'utf8');
+  return source.replace('/* STORY_MAP_REVIEW_IMPORT */', profile === 'review' ? "import { installReview } from './story-map-review.js';" : '')
+    .replace('/* STORY_MAP_REVIEW_FACTORY */ null', profile === 'review' ? 'installReview' : 'null');
+}));
 const css = await readFile(path.join(distRoot, 'styles.css'), 'utf8');
 const revision = createHash('sha256').update(sources.join('\n') + css).digest('hex').slice(0, 12);
 await Promise.all(modules.map((name, index) => writeFile(

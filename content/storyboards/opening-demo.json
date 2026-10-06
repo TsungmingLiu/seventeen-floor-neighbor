@@ -1,0 +1,495 @@
+{
+  "schemaVersion": 1,
+  "groups": [
+    {
+      "id": "movein",
+      "title": "雨夜搬家",
+      "summary": "搬進十七樓，第一次認識隔壁的許棠。",
+      "row": 0,
+      "lane": "wide",
+      "variants": [
+        {
+          "id": "scene",
+          "label": "共通",
+          "memoryId": "mem.opening.ch1.movein",
+          "prefixes": [
+            "common_movein_rain_"
+          ],
+          "entry": "common_movein_rain_open"
+        }
+      ]
+    },
+    {
+      "id": "elevator",
+      "title": "電梯重啟",
+      "summary": "再次遇見許棠，聊起搬家後的日常。",
+      "row": 1,
+      "lane": "wide",
+      "variants": [
+        {
+          "id": "scene",
+          "label": "共通",
+          "memoryId": "mem.opening.ch1.elevator-restart",
+          "prefixes": [
+            "common_elevator_restart_"
+          ],
+          "entry": "common_elevator_restart_enter"
+        }
+      ]
+    },
+    {
+      "id": "neighborhood",
+      "title": "樓下偶遇與附近的店",
+      "summary": "許棠介紹附近可以逛逛、找書或喝咖啡的地方。",
+      "row": 2,
+      "lane": "wide",
+      "variants": [
+        {
+          "id": "scene",
+          "label": "共通",
+          "memoryId": "mem.opening.ch1.elevator-restart",
+          "prefixes": [
+            "common_bookstore_bridge_",
+            "com01b_browse_",
+            "com01b_find_",
+            "com01b_food_"
+          ],
+          "excludePrefixes": [
+            "common_bookstore_bridge_weekend_",
+            "common_bookstore_bridge_cafe_"
+          ],
+          "entry": "common_bookstore_bridge_enter"
+        }
+      ]
+    },
+    {
+      "id": "weekend",
+      "title": "週末，去不去書店？",
+      "summary": "決定今天是否到地下街翻設定集。",
+      "row": 3,
+      "lane": "wide",
+      "variants": [
+        {
+          "id": "scene",
+          "label": "共通",
+          "prefixes": [
+            "common_bookstore_bridge_weekend_"
+          ],
+          "entry": "common_bookstore_bridge_weekend_decision_time",
+          "excludePrefixes": [
+            "common_bookstore_bridge_weekend_transition"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bookstore",
+      "title": "雨澄・書店初遇",
+      "summary": "同一排設定集前，聊起作品與版本差異。",
+      "row": 4,
+      "lane": "left",
+      "variants": [
+        {
+          "id": "scene",
+          "label": "初遇",
+          "memoryId": "mem.opening.ch1.acg-first-meet",
+          "prefixes": [
+            "common_acg_first_meet_",
+            "com01b_bookstore_go",
+            "common_bookstore_bridge_weekend_transition"
+          ],
+          "entry": "com01b_bookstore_go",
+          "condition": "週末選擇去地下街書店。"
+        }
+      ]
+    },
+    {
+      "id": "skip-bookstore",
+      "title": "今天先不去書店",
+      "summary": "沿街走走，再決定是否去咖啡店。",
+      "row": 4,
+      "lane": "right",
+      "variants": [
+        {
+          "id": "scene",
+          "label": "獨處",
+          "prefixes": [
+            "com01b_bookstore_skip",
+            "common_bookstore_bridge_cafe_"
+          ],
+          "entry": "com01b_bookstore_skip",
+          "condition": "週末選擇先不去書店。"
+        }
+      ]
+    },
+    {
+      "id": "cafe",
+      "title": "雨澄・咖啡店",
+      "summary": "週間到咖啡店，詳情保留實際讀過的初遇與重逢版本。",
+      "row": 5,
+      "lane": "left",
+      "variants": [
+        {
+          "id": "reunion",
+          "label": "A・重逢",
+          "memoryId": "mem.opening.ch1.station-cafe-jyc",
+          "prefixes": [
+            "common_station_cafe_jyc_",
+            "com02j_",
+            "com01b_weekday_cafe_first",
+            "com01b_cafe_go_after_bookstore_skip"
+          ],
+          "entry": "common_station_cafe_jyc_enter",
+          "condition": "曾在書店認識雨澄；重玩時依當次買書與聯絡前事接續。",
+          "snapshotMemoryOnly": true,
+          "unlockNodes": [
+            "common_station_cafe_jyc_enter",
+            "common_station_cafe_jyc_enter_02",
+            "common_station_cafe_jyc_drawing",
+            "common_station_cafe_jyc_drawing_03"
+          ]
+        },
+        {
+          "id": "first",
+          "label": "B・初遇",
+          "memoryId": "mem.opening.ch1.first-cafe-jyc",
+          "prefixes": [
+            "common_station_cafe_jyc_",
+            "com02j_",
+            "com01b_weekday_cafe_first",
+            "com01b_cafe_go_after_bookstore_skip"
+          ],
+          "entry": "common_station_cafe_jyc_first_enter",
+          "condition": "尚未解鎖書店初遇，選擇去咖啡店；已讀初遇保留，之後重玩依累積相識接續。",
+          "snapshotMemoryOnly": true,
+          "unlockNodes": [
+            "common_station_cafe_jyc_first_enter",
+            "common_station_cafe_jyc_first_enter_01",
+            "common_station_cafe_jyc_first_drawing",
+            "common_station_cafe_jyc_first_drawing_02"
+          ],
+          "introEntry": "com01b_cafe_go_after_bookstore_skip"
+        }
+      ]
+    },
+    {
+      "id": "street",
+      "title": "獨行・回住處",
+      "summary": "沒有走進書店或咖啡店，先回去。",
+      "row": 5,
+      "lane": "right",
+      "variants": [
+        {
+          "id": "scene",
+          "label": "獨行",
+          "prefixes": [
+            "com01b_cafe_skip_after_bookstore_skip"
+          ],
+          "entry": "com01b_cafe_skip_after_bookstore_skip",
+          "condition": "沒有去書店，也選擇不去咖啡店。"
+        }
+      ]
+    },
+    {
+      "id": "convenience",
+      "title": "許棠・深夜便利店",
+      "summary": "不同出門路徑在便利店匯合，聊晚餐與工作。",
+      "row": 6,
+      "lane": "wide",
+      "variants": [
+        {
+          "id": "scene",
+          "label": "現行版本",
+          "memoryId": "mem.opening.ch1.convenience-xu",
+          "prefixes": [
+            "common_convenience_xu_",
+            "opening_demo_complete"
+          ],
+          "entry": "common_convenience_xu_enter"
+        }
+      ]
+    },
+    {
+      "id": "parcel",
+      "title": "許棠・包裹與聯絡方式",
+      "summary": "回家拿包裹，聊打樣與工作，交換聯絡方式。",
+      "row": 7,
+      "lane": "wide",
+      "variants": [
+        {
+          "id": "scene",
+          "label": "共通",
+          "memoryId": "mem.opening.ch1.convenience-xu",
+          "prefixes": [
+            "common_package_xu_",
+            "com03x_"
+          ],
+          "entry": "common_package_xu_arrive"
+        }
+      ]
+    },
+    {
+      "id": "recommend",
+      "title": "雨澄・推薦與訊息",
+      "summary": "透過已交換的聯絡方式，繼續聊她的作品。",
+      "row": 8,
+      "lane": "left",
+      "variants": [
+        {
+          "id": "scene",
+          "label": "已聯絡",
+          "memoryId": "mem.opening.ch1.recommend-discord-jyc",
+          "prefixes": [
+            "common_recommend_discord_jyc_",
+            "com03j_"
+          ],
+          "excludePrefixes": [
+            "common_recommend_discord_jyc_no_contact_"
+          ],
+          "entry": "common_recommend_discord_jyc_enter",
+          "condition": "已與雨澄交換聯絡方式。"
+        }
+      ]
+    },
+    {
+      "id": "no-contact",
+      "title": "接續自己的生活",
+      "summary": "沒有雨澄的聯絡方式，略過她的訊息段。",
+      "row": 8,
+      "lane": "right",
+      "variants": [
+        {
+          "id": "scene",
+          "label": "未聯絡",
+          "prefixes": [
+            "common_recommend_discord_jyc_no_contact_"
+          ],
+          "entry": "common_recommend_discord_jyc_no_contact_exit",
+          "condition": "尚未與雨澄交換聯絡方式。"
+        }
+      ]
+    },
+    {
+      "id": "week",
+      "title": "一週生活與訊息",
+      "summary": "工作與生活之間，回覆已認識的鄰居。",
+      "row": 9,
+      "lane": "wide",
+      "variants": [
+        {
+          "id": "scene",
+          "label": "依聯絡前事",
+          "prefixes": [
+            "COM03M-",
+            "opening_contactless_preview_complete"
+          ],
+          "entry": "COM03M-ENTRY"
+        }
+      ]
+    },
+    {
+      "id": "free-time",
+      "title": "第一個自由空檔",
+      "summary": "安排自己的時間，或聯絡已認識的人。",
+      "row": 10,
+      "lane": "wide",
+      "variants": [
+        {
+          "id": "scene",
+          "label": "依聯絡前事",
+          "prefixes": [
+            "OPEN-A-"
+          ],
+          "entry": "OPEN-A-ENTRY"
+        }
+      ]
+    }
+  ],
+  "revisions": [
+    {
+      "id": "weekday-jyc",
+      "reviewBlockedNodes": [
+        "common_weekday_outing_invalid_history"
+      ],
+      "whenNodes": [
+        "common_weekday_outing_work",
+        "common_convenience_xu_weekend_book",
+        "common_convenience_xu_weekend_home",
+        "common_weekday_outing_street_enter",
+        "com01b_weekday_cafe_first"
+      ],
+      "groups": {
+        "weekend": {
+          "title": "週末，出去走走嗎？",
+          "summary": "好天氣的週末，選擇去書店，或在家整理行李與工作。"
+        },
+        "skip-bookstore": {
+          "title": "在家・行李與工作",
+          "summary": "整理還沒收完的搬家行李，順便做點工作。",
+          "variants": [
+            {
+              "id": "home",
+              "label": "在家",
+              "memoryId": "mem.opening.ch1.weekend-home",
+              "prefixes": [
+                "com01b_bookstore_skip",
+                "common_weekend_home_"
+              ],
+              "entry": "com01b_bookstore_skip",
+              "condition": "週末選擇在家。"
+            }
+          ]
+        },
+        "convenience": {
+          "row": 5,
+          "title": "許棠・晚上便利店",
+          "summary": "週末晚上遇到許棠，依白天的安排聊書或工作。",
+          "variants": [
+            {
+              "id": "book",
+              "label": "A・買到想要的書",
+              "memoryId": "mem.opening.ch1.convenience-xu",
+              "checkpointOnly": true,
+              "prefixes": [
+                "common_convenience_xu_",
+                "opening_demo_complete"
+              ],
+              "entry": "common_convenience_xu_weekend_book",
+              "condition": "週末去過書店，買到想要的書。",
+              "unlockNodes": [
+                "common_convenience_xu_weekend_book"
+              ],
+              "introEntry": "common_convenience_xu_enter"
+            },
+            {
+              "id": "work",
+              "label": "B・在家工作",
+              "memoryId": "mem.opening.ch1.convenience-xu",
+              "checkpointOnly": true,
+              "prefixes": [
+                "common_convenience_xu_",
+                "opening_demo_complete"
+              ],
+              "entry": "common_convenience_xu_weekend_home",
+              "condition": "週末在家整理行李與工作。",
+              "unlockNodes": [
+                "common_convenience_xu_weekend_home"
+              ],
+              "introEntry": "common_convenience_xu_enter"
+            }
+          ]
+        },
+        "cafe": {
+          "row": 7,
+          "summary": "週間到咖啡店，詳情保留實際讀過的初遇與重逢版本。",
+          "variants": [
+            {
+              "id": "reunion",
+              "label": "A・重逢",
+              "memoryId": "mem.opening.ch1.station-cafe-jyc",
+              "prefixes": [
+                "common_station_cafe_jyc_",
+                "com02j_",
+                "com01b_weekday_cafe_first",
+                "com01b_cafe_go_after_bookstore_skip"
+              ],
+              "entry": "common_station_cafe_jyc_enter",
+              "condition": "曾在書店認識雨澄；重玩時依當次買書與聯絡前事接續。",
+              "snapshotMemoryOnly": true,
+              "unlockNodes": [
+                "common_station_cafe_jyc_enter",
+                "common_station_cafe_jyc_enter_02",
+                "common_station_cafe_jyc_drawing",
+                "common_station_cafe_jyc_drawing_03"
+              ]
+            },
+            {
+              "id": "first",
+              "label": "B・初遇",
+              "memoryId": "mem.opening.ch1.first-cafe-jyc",
+              "prefixes": [
+                "common_station_cafe_jyc_",
+                "com02j_",
+                "com01b_weekday_cafe_first",
+                "com01b_cafe_go_after_bookstore_skip"
+              ],
+              "entry": "common_station_cafe_jyc_first_enter",
+              "condition": "尚未解鎖書店初遇，選擇去咖啡店；已讀初遇保留，之後重玩依累積相識接續。",
+              "snapshotMemoryOnly": true,
+              "unlockNodes": [
+                "common_station_cafe_jyc_first_enter",
+                "common_station_cafe_jyc_first_enter_01",
+                "common_station_cafe_jyc_first_drawing",
+                "common_station_cafe_jyc_first_drawing_02"
+              ],
+              "introEntry": "com01b_weekday_cafe_first"
+            }
+          ]
+        },
+        "street": {
+          "row": 7,
+          "title": "獨行・台北街景",
+          "summary": "走在熟悉又陌生的城市，沒有走進咖啡店。",
+          "variants": [
+            {
+              "id": "solo",
+              "label": "獨行",
+              "memoryId": "mem.opening.ch1.taipei-street",
+              "prefixes": [
+                "com01b_weekday_street_walk",
+                "common_weekday_outing_street_"
+              ],
+              "entry": "common_weekday_outing_street_enter",
+              "condition": "這次尚未認識雨澄，週間選擇街上走走，接續沒有她的路線；先前已解鎖的內容仍保留。"
+            }
+          ]
+        },
+        "parcel": {
+          "row": 8
+        },
+        "recommend": {
+          "row": 9
+        },
+        "no-contact": {
+          "row": 9
+        },
+        "week": {
+          "row": 10
+        },
+        "free-time": {
+          "row": 11
+        }
+      },
+      "addGroups": [
+        {
+          "id": "weekday",
+          "title": "週間・工作後的空檔",
+          "summary": "在家上班累了，決定出去坐坐或散步。",
+          "row": 6,
+          "lane": "wide",
+          "variants": [
+            {
+              "id": "scene",
+              "label": "依週末前事",
+              "memoryId": "mem.opening.ch1.weekday-outing",
+              "prefixes": [
+                "common_weekday_outing_"
+              ],
+              "excludePrefixes": [
+                "common_weekday_outing_street_"
+              ],
+              "entry": "common_weekday_outing_work"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "branchConditionLabels": {
+    "common_weekday_outing_selector": {
+      "common_weekday_outing_reunion": "曾在書店認識雨澄；依當次買書前事接續",
+      "common_weekday_outing_home": "尚未解鎖書店初遇，週間選擇去咖啡店或散步",
+      "common_weekday_outing_street_enter": "尚未解鎖書店或咖啡店初遇，這次選擇街景獨行"
+    }
+  }
+}

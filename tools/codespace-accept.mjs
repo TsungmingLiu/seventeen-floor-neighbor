@@ -361,7 +361,7 @@ test -x /usr/sbin/sshd
 rm -rf generated/runtime-assets dist
 npm run assets:check
 npm run assets:build
-npm run build
+STORY_MAP_PROFILE=review npm run build
 npm run validate
 npm test
 git diff --check

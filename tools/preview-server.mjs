@@ -204,6 +204,7 @@ async function runBuild() {
   await new Promise((resolve, reject) => {
     const child = spawn(process.execPath, [path.join(projectRoot, 'tools/build.mjs')], {
       cwd: projectRoot,
+      env: { ...process.env, STORY_MAP_PROFILE: process.env.STORY_MAP_PROFILE || (mode === 'smoke' ? 'player' : 'review') },
       stdio: 'inherit'
     });
     child.once('error', reject);

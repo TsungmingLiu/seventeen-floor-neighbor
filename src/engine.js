@@ -1,3 +1,4 @@
+import { createStoryMap, groupForNode } from './story-map.js';
 import { ProgressStore } from './progress.js';
 import { paintPreview, paintSprites, resolveVisual, setImage } from './visuals.js';
 import { memoryEventById, memoryEventForNode, memoryStats, renderMemories, titleBackdropVisual } from './memories.js';
@@ -6,11 +7,12 @@ import { DEFAULT_PLAYER_NAME, interpolatePlayerName, normalizePlayerName, submit
 import { excludedJiangDestination, jiangExcluded } from './branches.js';
 
 export class GameEngine {
-  constructor({ chapter, assetManifest, sceneLibrary, memoryLibrary }) {
+  constructor({ chapter, assetManifest, sceneLibrary, memoryLibrary, storyMap }) {
     this.chapter = chapter;
     this.assets = assetManifest.assets;
     this.scenePools = sceneLibrary.pools || {};
     this.memoryLibrary = memoryLibrary || { schemaVersion: 1, sections: [], events: [] };
+    this.storyMap = storyMap;
     this.memoryFilter = 'all';
     this.expandedMemorySections = null;
     this.nodeId = chapter.startNode;
@@ -1141,7 +1143,10 @@ export class GameEngine {
   }
 
   renderMemoryList() {
-    renderMemories({
+    if (this.storyMap) this.storyMapView ??= createStoryMap(this);
+    const render = this.storyMapView ? options => this.storyMapView.render(options) : renderMemories;
+    render({
+      map: this.storyMap,
       library: this.memoryLibrary,
       chapter: this.chapter,
       assets: this.assets,
@@ -1180,19 +1185,20 @@ export class GameEngine {
 
   scrollToFrontier() {
     const id = this.progress.data.frontierMemoryEventId;
-    if (!id) return;
+    const group = groupForNode(this.storyMap, this.progress.data.frontier?.nodeId);
     const event = memoryEventById(this.memoryLibrary, id);
-    if (!event) return;
+    if (!event && !group) return;
     this.memoryFilter = 'all';
     const sections = this.expandedMemorySections || new Set([
       memoryEventById(this.memoryLibrary, this.progress.data.frontierMemoryEventId)?.sectionId
         || [...(this.memoryLibrary.sections || [])].sort((a, b) => a.order - b.order)[0]?.id
     ].filter(Boolean));
-    sections.add(event.sectionId);
+    sections.add(group?.variants[0]?.sectionId || event.sectionId);
     this.expandedMemorySections = sections;
     this.renderMemoryList();
-    const card = [...this.els.memoryList.querySelectorAll('[data-memory-id]')]
-      .find((item) => item.dataset.memoryId === id);
+    const card = [...this.els.memoryList.querySelectorAll('[data-group-id], [data-memory-id]')]
+      .find((item) => item.classList.contains('is-frontier'))
+      || [...this.els.memoryList.querySelectorAll('[data-memory-id]')].find(item => item.dataset.memoryId === id);
     if (!card) return;
     card.focus({ preventScroll: true });
     const list = this.els.memoryList;
@@ -1202,7 +1208,7 @@ export class GameEngine {
       top: Math.max(0, targetTop),
       behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
     });
-    this.els.memoryAnnouncement.textContent = `已返回目前進度：${event.title}`;
+    this.els.memoryAnnouncement.textContent = `已返回目前進度：${group?.title || event.title}`;
   }
 
   replayMemory(event) {

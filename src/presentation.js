@@ -13,6 +13,6 @@ export function presentationModeForNode(node) {
 
 export function speakerLabelForNode(node, mode = presentationModeForNode(node)) {
   if (mode === 'protagonist') return '我';
-  if (mode === 'speech') return node?.speakerLabel || (node?.speaker === '許棠' && node?.channel === 'LINE' ? 'Line-許棠' : node?.speaker) || '';
+  if (mode === 'speech') return node?.speakerLabel || (node?.speaker === '許棠' && ['LINE', 'PHONE'].includes(node?.channel) ? 'Line-許棠' : node?.speaker) || '';
   return '';
 }

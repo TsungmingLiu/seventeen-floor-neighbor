@@ -37,7 +37,9 @@ jobs:
       - name: Asset build
         run: npm run assets:build
       - name: Build
-        run: npm run build
+        env:
+          STORY_MAP_PROFILE: ${{ github.event_name == 'pull_request' && 'review' || 'player' }}
+        run: npm run build && node tools/check-story-map-build.mjs
       - name: Preview server smoke
         run: npm run preview:smoke -- --skip-build
       - name: Codespace acceptance command dry-run
@@ -188,6 +190,7 @@ jobs:
             "content/routes/$route_id/chapter.json" \
             "content/routes/$route_id/scenes.json" \
             "content/routes/$route_id/memories.json" \
+            "content/routes/$route_id/story-map.json" \
             "content/routes/$route_id/assets.json" \
             assets/unavailable.svg; do
             curl -fsSL --retry 6 --retry-all-errors --retry-delay 2 "$base_url/$file" -o /tmp/pages-asset
