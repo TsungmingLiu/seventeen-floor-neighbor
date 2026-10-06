@@ -2,11 +2,11 @@
 
 > Lifecycle: **GENERATED**
 >
-> 狀態：v0.7 C0 consistency／gap review draft；三組必要 source annotations 已對齊，independent whole-batch review pending。不是 Scene Contract、Locked Scene、Narrative QA 或 playable acceptance。
+> 狀態：v0.7 C0 bounded consistency review PASS（`REVIEW-M1-C0-FINAL-001`；2026-10-06，source HEAD `1b7b7a1181a519a3ff13a01af110521ac7ffbcfb`）；三組必要 source annotations 與兩項 focused correction 已核對。不是 Scene Contract、Locked Scene、Narrative QA 或 playable acceptance。
 >
 > 來源基線：`0b48183fa2b630f2f31cb38dba2bb3b00d0704f0`；2026-10-06。
 >
-> Task：`ND-M1-C0-001`／`content_writer`／`narrative_design`。
+> Task：`ND-M1-C0-001`（原 plan）／`REVIEW-M1-C0-FINAL-001`（bounded final consistency）；`content_writer`／`narrative_design`。
 
 ## 1. 要驗證的核心體驗
 
@@ -86,7 +86,7 @@ clarity due、late lock、曝光重大 harm／deception 的阻擋由 full-route 
 
 ## 5. 後續製作與驗收界線
 
-三組 source annotations 已按 #71／ND-FEEDBACK-002 同步；先完成獨立 whole-batch consistency review，再逐場 fresh bounded `Narrative Design → approval → Scene/Dialogue → Narrative QA → narrative preview integration → Human preview`。入口不重做；固定契約後 XT-04／JYC-05 可並行，完整有限 scheduler 與各 continuation／repair／SH01／return 依 ROADMAP §10 分批接入。已 locked 不無故重寫；CG 另排 downstream。
+三組 source annotations 與兩項 focused correction 已按 #71／ND-FEEDBACK-002 獨立核對，C0 bounded consistency PASS；後續逐場 fresh bounded `Narrative Design → approval → Scene/Dialogue → Narrative QA → narrative preview integration → Human preview`。入口不重做；固定契約後 XT-04／JYC-05 可並行，完整有限 scheduler 與各 continuation／repair／SH01／return 依 ROADMAP §10 分批接入。已 locked 不無故重寫；CG 另排 downstream。
 
 visible choices 都須有合法 target，保存/Memory replay 須維持 stable IDs、knowledge 與未完成場景 gate；runtime 工程與必要 graph/save checks 由後續任務實作，本輪不修改。M1 的內部 end-to-end／負向案例／Owner review 依 ROADMAP 與 Issue #78 V0/V1 驗證。依 Owner 最新指示，問卷、招募與正式外部研究不排在 M1；有完整路線且 M1 完成後，才由 Issue #78 D1 按需 ad-hoc 啟動。目前沒有新 external playtest 證據。
 
@@ -94,22 +94,22 @@ visible choices 都須有合法 target，保存/Memory replay 須維持 stable I
 
 ## 6. C0 findings 與下一批 prerequisite
 
-**ALIGNED（ND-M1-C0-ALIGN-001；既有批准規則的 annotation 同步，whole-batch review pending）**：
+**C0 consistency PASS（REVIEW-M1-C0-FINAL-001；ND-M1-C0-ALIGN-001 annotation 同步與一次 focused correction 已核對）**：
 
 - macro COM-01J／02J／03J、route/state graph／dependency／§8 與 common blueprint 入口／OPEN-A discovery annotations 已對齊：週末 optional bookstore／留家 → COM-02X → 平日 cafe initial／reunion 或 solo street；無 post-OPEN-A 第三 discovery。COM-02J 擁有 actual mutual Discord exchange，COM-03J 同晚 COM-03X 後只讀 contact。來源仍是 COM-01B `required_payoffs`、COM-02J／03J `entry_state`／`implementation_mapping` 與 ND-FEEDBACK-002。
 - COM-03M／OPEN-A contracts 的 obsolete exclusion constraints／mappings、paired scene MD L1–L11 與 owning JYC revision L1–L36 已同步：street flag/snapshot 不清除，真正書店或 cafe 初遇累積資格判有效排除；local contact／knowledge／consent／closure／harm 分開。engine L732–786、progress L380–422 與 INT-FEEDBACK-002 的已交付行為不變；原 ND-ARC／NQA／Human／pixel scope 不擴張。
 
-下一批 packet 使用同步後 exact excerpts，獨立 whole-batch consistency review 仍 pending。changed contract／scene bytes 須依實際 declared dependencies 做 current source checks；未授予 fresh NQA／Human／pixel acceptance，也不要求無故重寫 baseline prose。沒有需重新決定的 earned-discovery／contact rule；若改其意味則 BLOCKED 至明示 amendment。
+下一批 packet 使用同步後 exact excerpts；C0 已完成 bounded consistency review。changed contract／scene bytes 須依實際 declared dependencies 做 exact current-source dependency／continuity checks；下游必要的 fresh full-scene Narrative QA 不由 C0 免除，未授予 fresh NQA／Human／pixel 或完整 M1 acceptance，也不要求無故重寫 baseline prose。沒有需重新決定的 earned-discovery／contact rule；若改其意味則 BLOCKED 至明示 amendment。
 
 | 工作／gate | 可開始的 bounded stage 與必要前事 |
 | --- | --- |
-| XT-04：READY for ND | COM-03X 真實 contact_xu、OPEN-A pending X 或 OPEN-B 合法首邀／return slot；Xu blueprint L31–73。接受安排不等完成；anchor 完成只消耗一次，咖啡同次 continuation 不再記投入。仍須本幕 contract approval→dialogue→NQA→integration。 |
-| JYC-05：annotations ALIGNED；ND 待 whole-batch review | COM-02J 當次 mutual contact＋COM-03J 真實 online exchange＋合法 pending J／return slot；JYC blueprint L35–71。cumulative unlock 不提供線上前事。 |
-| OPEN-A/B：annotations ALIGNED；engineering contracts pending | 已有第一 window 五個 distinct outcomes；續接 pending anchor 後只 consume 一次，生活支不重 consume；第二 slot、OPEN-B 三 slots／deadline／counteroffer／stop 尚須固定並製作，禁止第三 OPEN-A slot。route/state L400–414、OPEN-A `exit_state`。 |
+| XT-04：READY for C1 ND | COM-03X 真實 contact_xu、OPEN-A pending X 或 OPEN-B 合法首邀／return slot；Xu blueprint L31–73。接受安排不等完成；anchor 完成只消耗一次，咖啡同次 continuation 不再記投入。仍須本幕 contract approval→dialogue→NQA→integration。 |
+| JYC-05：READY for C1 ND | COM-02J 當次 mutual contact＋COM-03J 真實 online exchange＋合法 pending J／return slot；JYC blueprint L35–71。cumulative unlock 不提供線上前事。 |
+| OPEN-A/B：C0 ALIGNED；#78 minimal pending／slot completion contract pending before integration | 已有第一 window 五個 distinct outcomes；續接 pending anchor 後只 consume 一次，生活支不重 consume；第二 slot、OPEN-B 三 slots／deadline／counteroffer／stop 尚須固定並製作，禁止第三 OPEN-A slot。route/state L400–414、OPEN-A `exit_state`。 |
 | XT-05／co-op→JYC-06／early repair：BLOCKED on predecessors | 分別真實 X04／J05 completed、再同桌同意／已演出 online co-op 一兩次和家訪同意。unresolved 擅排程／代答／一直教須承認、問 cue、真停止、接受或拒絕；不設 late repair_completed。Xu L72–80；JYC L70–111。 |
 | SH-01：BLOCKED on JYC-06 | 已發生 JYC-06＋真 contact_xu＋实际在場介紹；只建 existence／neighbor knowledge，不補 date／alias／status。repair 拒絕後可合理介紹但不當 repaired。common L244–266、JYC L111。 |
 | 首邀／RE／reopening／closure：BLOCKED on authored history/window | ordinary 首邀回 next unplayed anchor；RE 另須真 prior investment／accepted missed plan＋cooling/dormant、open、無 unresolved harm、offer unused。OPEN-A 收尾 missed 後只緊接 OPEN-B，一次機會、第三 slot 收尾關；無 slot／timing decline／unanswered／明确拒絕／expiry 各有結果，不 respawn。common L276–286、route/state L418–439。 |
 
-以上 READY 指可製作 prerequisite，非 scene／Human acceptance；完整 core、負向 state/save/Memory cases 與 Owner end-to-end review 仍未完成。
+依 ROADMAP §10，#77 C1 的 XT-04／JYC-05 ND 可並行，#78 同步準備最小 pending／slot completion contract，整合前完成；#76 P0／P2 準備維持並行。詳細 coverage matrix 只留 Issue #78，不複製測項或把既有 test inventory 當新 PASS。以上 READY 指可製作 prerequisite，非 scene／Human acceptance；完整 core、負向 state/save/Memory cases 與 Owner end-to-end review 仍未完成。
 
 本 plan 使用 C0 packet allowlist 的 exact canon excerpts、入口 contracts／decisions、ARCHITECTURE 与 ROADMAP。exact input/output hashes 由 ignored production handoff binding 保留；沒有新增 dialogue、NQA、CG 或 Human acceptance 證據。
