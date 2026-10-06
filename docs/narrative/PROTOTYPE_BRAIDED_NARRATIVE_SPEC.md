@@ -227,7 +227,7 @@ late lock 在必要 arc／repair outcome 與該 heroine clarity 已具體處理�
 
 ### COM-01J — 地下街初遇
 
-**Discovery**：Opening 或下一 discovery window 的第二自然機會。第二入口以短 variant 建立首次共同興趣，merge 原後續；若未曾初遇，COM-02J 不可回憶上次咖啡推薦。仍須逐幕建立名字／contact，不複製 route。
+**Discovery**：依 #71／ND-FEEDBACK-002，週末可選地下街書店或留家，經同晚 COM-02X 接平日工作後 cafe／solo street；COM-01J 只擁有書店初遇。兩次初遇機會均錯過後不在 OPEN-A→OPEN-B 補 discovery；真正初遇的累積資格保留，不補當次購書、topic、姓名或 contact。
 
 **時間／地點**：同週末，台北地下街 ACG 店。  
 **Purpose**：用共同興趣，而不是英雄救美，建立江雨澄入口。
@@ -274,10 +274,10 @@ late lock 在必要 arc／repair outcome 與該 heroine clarity 已具體處理�
 
 ---
 
-### COM-02J — 咖啡店重逢
+### COM-02J — 咖啡店初遇／重逢
 
 **地點**：地下街／台北車站附近咖啡店。  
-**Continuity**：第一次見面時她曾提過這家店比較安靜，故第二次相遇不是純巧合。男主因需要找地方工作而進店。
+**Continuity**：真正書店初遇資格才進平日 cafe reunion；cafe-only 重玩仍 initial。重逢只讀當次已知推薦／購書／topic；初遇由可見畫作建立話題，不借用書店回憶。兩支均須當地同意坐近、姓名與作品交流；actual mutual Discord exchange 由本幕擁有，普通不交換也合法。
 
 **Beats**
 1. 江雨澄在窗邊用 tablet 畫圖。
@@ -289,7 +289,7 @@ late lock 在必要 arc／repair outcome 與該 heroine clarity 已具體處理�
 **Choices**
 問她畫什麼／延續上次作品／泛稱「好厲害」。前兩者提供更具體連結。
 
-**Exit**：交換名字／共同興趣，可進 COM-03J。
+**Exit**：交換名字／共同興趣；只有雙方實際同意交換才建立 contact_jyc，經同晚 COM-03X 後可進 COM-03J；無 contact 則 bypass。
 **Art**：BG-CAFE-STATION；JYC-SPR-CAFE；CG-COM-04。
 
 ---
@@ -318,16 +318,16 @@ late lock 在必要 arc／repair outcome 與該 heroine clarity 已具體處理�
 ### COM-03J — 推薦 / Discord
 
 **Presentation**：聊天 UI + 短現實段落。  
-**Purpose**：正式建立 Offline JYC / Online JYC 對比。
+**Purpose**：正式建立 Offline JYC / Online JYC 對比；同晚 COM-03X 後，只讀 COM-02J 已實際建立的 mutual Discord contact，不新增相遇或交換。
 
 **Beats**
 1. 她想到一個作品／遊戲推薦。
-2. 線下只說幾句，之後加 Discord/Line。
+2. 承接 COM-02J 已同意交換的 Discord 與當次作品話題，不補線下交換。
 3. 晚上訊息突然變長：meme、截圖、連發分析。
 4. 男主發現文字裡的她比本人吵很多。
 
 **Exit**
-- `contact_jyc = true`
+- `contact_jyc` read-only；無 contact bypass，不由 COM-03J 建立
 - 初識共同興趣，不等於 romantic signal
 
 **Art**：聊天 UI；JYC avatar；不需要 CG。

@@ -80,7 +80,7 @@ Common opening 建立生活半徑；以下是雙入口核心 coverage，不強�
 
 ## COM-01J — 地下街初遇
 
-**Entry condition**：男主與江雨澄完全不認識。Opening 的生活行動入口可去地下街買設定集，也可先回家／休息；未去只保留後續第二 discovery，不先設 met/contact。這是後續 migration 的短 entry plan，既有 locked Opening facts 不改。
+**Entry condition**：週末實際選地下街買設定集才 COM-01J；可留家拆箱／工作，兩支同晚 merge COM-02X，再接平日 cafe／solo street。依 #71／ND-FEEDBACK-002，兩次初遇機會均錯過後無 OPEN-A→OPEN-B discovery；累積真正初遇資格不補當次 facts。
 
 **Immediate setup**：男主有自己的 ACG / 設定集購買目的，因此接近不是以她為目標。
 
@@ -133,11 +133,11 @@ Common opening 建立生活半徑；以下是雙入口核心 coverage，不強�
 
 ---
 
-## COM-02J — 咖啡店重逢
+## COM-02J — 咖啡店初遇／重逢
 
-**Entry condition**：只在地下街聊過一次。
+**Entry condition**：平日 cafe；真正書店初遇資格才 reunion，cafe-only repeated replay 仍 initial。兩支的姓名、作品與坐近同意均須當地建立；下列書店回憶僅在當次有其事實時適用，initial 以可見畫作接話。
 
-**Immediate setup**：男主因工作找安靜地方，真的去了她先前提過的咖啡店。
+**Immediate setup**：男主工作後找安靜地方；reunion 只引用當次已知咖啡推薦／購書，initial 不借用另一輪前事。
 
 **Dramatic job**：第一次看到她在熟悉主題中有明顯 personality。
 
@@ -152,9 +152,9 @@ Common opening 建立生活半徑；以下是雙入口核心 coverage，不強�
 8. 咖啡店逐漸變吵或她要離開，對話自然結束。
 9. 她主動補一個推薦，成為後續聯絡理由。
 
-**Exit state**：共同作品脈絡成立。
+**Exit state**：共同作品脈絡與名字成立；actual mutual Discord exchange 由 COM-02J 擁有，雙方同意才 contact_jyc，不交換亦合法。
 
-**Next hook**：COM-03J 由「我想到你上次講的那個」開始，而不是突然索取聯絡方式。
+**Next hook**：同晚 COM-03X 後，只有實際 contact 才 COM-03J online continuation；不交換直接 bypass，不補第三次相遇／聯絡交換。
 
 ---
 
@@ -183,16 +183,16 @@ Common opening 建立生活半徑；以下是雙入口核心 coverage，不強�
 
 ## COM-03J — 推薦 / Discord
 
-**Entry condition**：咖啡店重逢後，兩人已有共同作品脈絡。
+**Entry condition**：COM-02J 實際 mutual Discord contact／當次名字與作品前事，經同晚 COM-03X；contact read-only，無 contact bypass。
 
-**Immediate setup**：江雨澄想到一個上次沒講完的遊戲／作品，線下只來得及簡單說。
+**Immediate setup**：同晚線上承接 cafe 當次作品；不新增線下相遇、推薦前事或聯絡交換。
 
 **Dramatic job**：建立 Offline JYC / Online JYC 的對比，但不把兩者寫成兩個人格。
 
 **Scene progression**
 1. 她先主動提「我回去找到了」。
-2. 為了傳連結／截圖交換 Discord 或 Line。
-3. 線下告別仍很普通。
+2. 用 COM-02J 已互相同意交換的 Discord 傳連結／截圖；本幕不建立 contact。
+3. cafe 告別屬 COM-02J 前事，不在本幕新增線下交換。
 4. 晚上她第一則訊息非常克制。
 5. 男主回了一個真正懂內容的點後，她連續傳更多分析。
 6. 接著出現 meme、截圖、補充、更正自己前一句。
@@ -200,7 +200,7 @@ Common opening 建立生活半徑；以下是雙入口核心 coverage，不強�
 8. 若玩家跟上她節奏，兩人聊到偏晚；若只回短句，也保留未來。
 9. 最後她用一句「我是不是講太多」收束，男主回應可決定她下一次主動程度。
 
-**Exit state**：`contact_jyc=true`。
+**Exit state**：`contact_jyc` read-only；只建立實際 online exchange，不補 contact／romantic signal。
 
 ---
 
@@ -235,9 +235,9 @@ Common opening 建立生活半徑；以下是雙入口核心 coverage，不強�
 
 **生活選擇**：solo 整理搬家箱／獨自逛書店；rest 處理工作後早睡；wait 看完作品、放下手機，訊息不保證到來。這些有男主生活內容並消耗當前 slot；漏回已答應的安排才留下 cooling 事件，不因休息本身扣關係。
 
-**第二 discovery**：若 Opening 未去地下街，OPEN-A 兩 slot 後至 OPEN-B 開始前，男主因自己的設定集購買再入地下街，COM-01J 短 first-entry variant 去掉「以前見過」前提，仍只聊作品不交換姓名；merge COM-02J 正式交換名字，再 COM-03J 取得 contact。這是最後一次自然 discovery 機會，可選回家而未遇見；不送額外 date slot、不生成 RE 歷史。既有已整合 Opening 不被此規劃改寫。
+**初遇機會已在 Opening**：週末 optional bookstore／留家 → 同晚 COM-02X → 平日 cafe initial／書店資格 reunion 或 solo street → COM-03X → contact-only COM-03J。COM-02J 才擁有 mutual Discord exchange。兩次均錯過後不在 OPEN-A→OPEN-B 補第三 discovery；真正書店或 cafe 初遇的累積資格不被 street／重玩撤銷，但不匯入當次 contact、購書、knowledge、consent 或 investment。street flag/snapshot 保留，有效排除只在無 earned initial encounter 時成立；後续邀約仍須實際前事與合法 slot。
 
-**Exit / handoff**：每 slot 演一個 major anchor/continuation 或生活片段。XT-04 → XT-05、JYC-05 → 先在線上 co-op → JYC-06，仍問當地願意與否。XX 後 ordinary 江雨澄可於 OPEN-B 第一合法 slot 首邀 JYC-05，JJ 對稱首邀 XT-04；OPEN-A entered 是歷史 gate，不能加第三 slot或跳到 midgame。未見雨澄者必先 discovery/contact chain；再次錯過則走較短許棠／個人生活路徑。
+**Exit / handoff**：每 slot 演一個 major anchor/continuation 或生活片段。XT-04 → XT-05、JYC-05 → 先在線上 co-op → JYC-06，仍問當地願意與否。XX 後 ordinary 江雨澄可於 OPEN-B 第一合法 slot 首邀 JYC-05，JJ 對稱首邀 XT-04；OPEN-A entered 是歷史 gate，不能加第三 slot或跳到 midgame。未 contact 不補 discovery/contact chain；未 earned 初遇者走較短許棠／個人生活路徑。
 
 ---
 
