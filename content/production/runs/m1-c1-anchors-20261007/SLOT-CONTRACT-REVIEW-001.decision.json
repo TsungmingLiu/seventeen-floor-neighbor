@@ -1,0 +1,100 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "m1-c1-anchors-20261007",
+  "task_id": "SLOT-CONTRACT-REVIEW-001",
+  "task_type": "integrate",
+  "status": "PASS",
+  "harness": {
+    "id": "integrator",
+    "version": "1.4.0",
+    "pass": null
+  },
+  "source_ref": "dbdd6fdaff2f37fc234209ae0730bd1ca73e6a7e",
+  "packet_sha256": "4224612c95d922415d557deb640fb24fd531ec5c92447dab7ee243515a12227e",
+  "input_digest_sha256": "d5733faedc5fffbc97b64afc3fdf8fb2d2dabc29fdd5713284443a166c3d3273",
+  "input_versions": [
+    {
+      "id": "ARCHITECTURE.md",
+      "version": "8af34c4fa67c517b93f6839c37c5eb247207f1d0",
+      "location": "ARCHITECTURE.md"
+    },
+    {
+      "id": "src/engine.js",
+      "version": "d23aa737bc9c72b3267cb0dfe4ed74c3a562e70f",
+      "location": "src/engine.js"
+    },
+    {
+      "id": "src/progress.js",
+      "version": "499e5a418dc6446953f008e95f6c9ad2ecb625df",
+      "location": "src/progress.js"
+    },
+    {
+      "id": "src/branches.js",
+      "version": "8af49fbdb5467845044fb026db8dd05fced7d0ef",
+      "location": "src/branches.js"
+    },
+    {
+      "id": "tests/opening-entry-batch.test.mjs",
+      "version": "44c7e6a480e4e7ce4b5360aa83e6eb1377110120",
+      "location": "tests/opening-entry-batch.test.mjs"
+    },
+    {
+      "id": "content/routes/opening-demo/chapter-01.json",
+      "version": "658ea0641a87ecb011d3c94523977340e49e0a13",
+      "location": "content/routes/opening-demo/chapter-01.json"
+    },
+    {
+      "id": "docs/narrative/scenes/vertical-slice/OPEN-A.md#L398-L413",
+      "version": "79371574a296229dcbb8c2f53991073591c3223986ccf01815325a56bd1ae3e8",
+      "location": "docs/narrative/scenes/vertical-slice/OPEN-A.md#L398-L413"
+    },
+    {
+      "id": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L400-L415",
+      "version": "f5b5843003c36c1b5dcbfac9953d01966e32c8b2214fba76b09268ae3409e9e8",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L400-L415"
+    },
+    {
+      "id": "ROADMAP.md#L450-L520",
+      "version": "984bbaf2c885a8c0461e81abc7765280e7f14466e06e2709db890b369518e003",
+      "location": "ROADMAP.md#L450-L520"
+    },
+    {
+      "id": "docs/narrative/M1_PENDING_SLOT_RUNTIME_CONTRACT.md",
+      "version": "ef4c5f3ddd6797821bf8f253c69dce17169ae2d8",
+      "location": "docs/narrative/M1_PENDING_SLOT_RUNTIME_CONTRACT.md"
+    }
+  ],
+  "output_versions": [],
+  "qa_codes": [
+    {
+      "name": "Current route IDs, outcome/consumption effects, guards, and scoped metadata",
+      "code": "CHECK-CURRENT-ROUTE-IDS-OUTCOME-CONSUMPTION-EFFECTS-GUARDS-AND-SCOPED-METADATA",
+      "result": "PASS"
+    },
+    {
+      "name": "Engine entry effects, connect flush, capture, and v2 save/reload facts",
+      "code": "CHECK-ENGINE-ENTRY-EFFECTS-CONNECT-FLUSH-CAPTURE-AND-V2-SAVE-RELOAD-FACTS",
+      "result": "PASS"
+    },
+    {
+      "name": "Replay/frontier/checkpoint limitation accurately disclosed as future integration",
+      "code": "CHECK-REPLAY-FRONTIER-CHECKPOINT-LIMITATION-ACCURATELY-DISCLOSED-AS-FUTURE-INTEGRATION",
+      "result": "PASS"
+    },
+    {
+      "name": "Legacy-save/Continue and finite first/second-slot boundaries",
+      "code": "CHECK-LEGACY-SAVE-CONTINUE-AND-FINITE-FIRST-SECOND-SLOT-BOUNDARIES",
+      "result": "PASS"
+    },
+    {
+      "name": "Documentation-only acceptance scope and release/creative gates",
+      "code": "CHECK-DOCUMENTATION-ONLY-ACCEPTANCE-SCOPE-AND-RELEASE-CREATIVE-GATES",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [],
+  "human_gate_required": "none",
+  "invalidates": []
+}
