@@ -91,7 +91,7 @@ test('Memories disclosure, character focus, cursor marker and frontier jump stay
   await expect(page.locator('[data-memory-id="mem.opening.ch1.elevator-restart"]')).toHaveClass(/is-frontier/);
 
   await page.locator('#memory-filters button').filter({ hasText: '許棠' }).click();
-  await expect(page.locator('.memory-character-context')).toContainText('江雨澄：已探索 3 段');
+  await expect(page.locator('.memory-character-context')).toContainText('江雨澄：已探索 4 段');
   await expect(page.locator('[data-memory-id="mem.opening.ch1.recommend-discord-jyc"]')).toHaveCount(0);
 
   await section.locator('summary').click();
