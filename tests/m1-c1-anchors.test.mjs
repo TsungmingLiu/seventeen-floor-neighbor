@@ -192,3 +192,110 @@ for(const outing of ['xt04','jyc05']) for(const completed of [false,true]) test(
   e=makeEngine(storage);assert.deepEqual(canonical(e),main);e.startFromTitle();
   assert.equal(e.nodeId,main.cursor.nodeId);assert.deepEqual(canonical(e),main);
 });
+
+// Exercise the real predecessor graph, with canonical main facts compared as a
+// unit. Discovery may accumulate, but no replay exit may own main progress.
+function liveC1(outing, completed, exit) {
+  const storage=new Storage(), entry=snapshot(outing,'OPEN-A-ENTRY');
+  entry.flags=entry.flags.filter(f=>!f.startsWith('open_a_entry_outcome:'));
+  let e=makeEngine(storage);e.progress.setPlayerName('小雨');e.resumeGame(entry);
+  const middle=outing==='xt04'?'XT-04-BOOKS':'JYC-05-EXHIBIT';
+  walk(e,plan(outing),g=>g.nodeId===(completed?stopId(outing):middle));
+  if(exit==='contactless') {
+    const old=snapshot(outing,'COM03M-ENTRY');
+    old.flags=old.flags.filter(f=>!['contact_xu','contact_jyc'].includes(f));
+    e.progress.data.checkpoints[old.nodeId]=old;
+  } else if(exit==='blocked') {
+    const old=e.progress.clone(e.progress.data.checkpoints['OPEN-A-ENTRY']);
+    if(outing==='xt04') old.flags=old.flags.filter(f=>!f.startsWith('jyc_com03j_reply_style:'));
+    else old.stats.met_xu_tang=0;
+    e.progress.data.checkpoints[old.nodeId]=old;
+  }
+  e.progress.flush();e=makeEngine(storage);e.startFromTitle();
+  return {e,storage};
+}
+function assertReturned(e,main) {
+  assert.equal(e.progress.data.c1Replay,null);
+  assert.deepEqual(canonical(e),main);
+  assert.deepEqual({nodeId:e.nodeId,state:e.state,returnNodes:e.returnNodes},e.progress.restore(main.cursor));
+}
+const predecessor = id => ({replayNode:id,unlockNodes:[id]});
+for(const outing of ['xt04','jyc05']) for(const completed of [false,true]) {
+  for(const exit of ['SOLO','REST','WAIT','contactless','blocked']) test(`protected exit ${outing}/${completed?'completed':'middle'}/${exit} restores live through reload and repeated replay`,()=>{
+    let {e,storage}=liveC1(outing,completed,exit);const main=canonical(e);
+    for(let repeat=0;repeat<2;repeat++) {
+      if(exit==='contactless' && repeat===1) {
+        // The branch ends synchronously; serialize its entry before dispatch.
+        e.progress.beginReplay(e.progress.data.checkpoints['COM03M-ENTRY']);
+        e=makeEngine(storage);assert.ok(e.progress.data.c1Replay);e.startFromTitle();
+      } else e.replayMemory(predecessor(exit==='contactless'?'COM03M-ENTRY':'OPEN-A-ENTRY'));
+      if(exit!=='contactless') {
+        assert.ok(e.progress.data.c1Replay);
+        e=makeEngine(storage);e.startFromTitle();
+        assert.deepEqual(e.progress.data.c1Replay.returnCursor,main.cursor);
+        if(exit==='blocked') {
+          const opposite=outing==='xt04'?'jyc05':'xt04';
+          // The error remains observable after restoration; no scene facts are minted.
+          assert.throws(()=>walk(e,plan(opposite),()=>false),/BLOCKED_C1_INVALID_LOCAL_SLOT_OR_PREREQUISITES/);
+        } else {
+          const choices={'OPEN-A-ENTRY-ACTION-BOTH':'OPEN-A-ACT-LIFE','OPEN-A-LIFE-ACTION':`OPEN-A-LIFE-${exit}`};
+          walk(e,choices,g=>g.nodeId==='OPEN-A-LIFE-ACTION');
+          e=makeEngine(storage);e.startFromTitle();
+          assert.deepEqual(e.progress.data.frontier,main.frontier);
+          walk(e,choices,g=>!g.progress.data.c1Replay);
+        }
+      }
+      assertReturned(e,main);
+      e=makeEngine(storage);assert.deepEqual(canonical(e),main);e.startFromTitle();assertReturned(e,main);
+    }
+    // A new entry after the previous return must establish a new clean context.
+    e.replayMemory(memory(outing));walk(e,{},g=>!g.progress.data.c1Replay);assertReturned(e,main);
+  });
+  test(`protected exit ${outing}/${completed?'completed':'middle'}/explicit fresh run discards return context`,()=>{
+    let {e,storage}=liveC1(outing,completed);const main=canonical(e);
+    e.replayMemory(predecessor('OPEN-A-ENTRY'));assert.ok(e.progress.data.c1Replay);
+    e.startGame({freshRun:true});assert.equal(e.progress.data.c1Replay,null);
+    assert.equal(e.progress.data.restartActive,true);assert.equal(e.progress.data.runComplete,false);
+    assert.ok(![...e.state.flags].some(f=>f.startsWith('open_a_window1_completed:')));
+    e=makeEngine(storage);e.startFromTitle();assert.equal(e.progress.data.c1Replay,null);
+    assert.equal(e.progress.data.restartActive,true);assert.deepEqual(e.progress.data.frontier,main.frontier);
+    const entry=snapshot(outing,'OPEN-A-ENTRY');entry.flags=entry.flags.filter(f=>!f.startsWith('open_a_entry_outcome:'));
+    e.resumeGame(entry);
+    walk(e,{'OPEN-A-ENTRY-ACTION-BOTH':'OPEN-A-ACT-LIFE','OPEN-A-LIFE-ACTION':'OPEN-A-LIFE-REST'});
+    assert.equal(e.nodeId,'OPEN-A-ENTRY-REST');assert.equal(e.progress.data.runComplete,true);
+    assert.equal(e.progress.data.c1Replay,null);assert.equal(e.progress.data.restartActive,false);
+  });
+}
+
+const protectedTerminals=['XT-04-COMPLETED-PREVIEW-STOP','JYC-05-COMPLETED-PREVIEW-STOP',
+  'OPEN-A-ENTRY-SOLO','OPEN-A-ENTRY-REST','OPEN-A-ENTRY-WAIT','C1-INVALID-PREVIEW-STOP','opening_contactless_preview_complete'];
+for(const terminal of protectedTerminals) test(`persisted stale protected terminal ${terminal} closes on load`,()=>{
+  for(const outing of ['xt04','jyc05']) for(const completed of [false,true]) {
+    let {e,storage}=liveC1(outing,completed);const main=canonical(e);
+    e.progress.beginReplay(e.progress.data.checkpoints['OPEN-A-ENTRY']);
+    const saved=JSON.parse(storage.getItem(e.progress.key));
+    saved.cursor={...saved.cursor,nodeId:terminal};saved.runComplete=true;saved.replayActive=false;
+    storage.setItem(e.progress.key,JSON.stringify(saved));
+    e=makeEngine(storage);assert.deepEqual(canonical(e),main);
+    assert.equal(JSON.parse(storage.getItem(e.progress.key)).c1Replay,null);
+    e.startFromTitle();assertReturned(e,main);
+  }
+});
+for(const fresh of [false,true]) test(`protected terminal restores ${fresh?'fresh main':'ordinary Memory main'} replay mode`,()=>{
+  let {e,storage}=liveC1('xt04',false);
+  if(fresh) e.progress.beginFreshRun();
+  else e.progress.setCursor(e.progress.data.cursor);
+  const main=canonical(e);e.replayMemory(predecessor('OPEN-A-ENTRY'));
+  e=makeEngine(storage);e.startFromTitle();
+  walk(e,{'OPEN-A-ENTRY-ACTION-BOTH':'OPEN-A-ACT-LIFE'},g=>!g.progress.data.c1Replay);
+  assertReturned(e,main);e=makeEngine(storage);assert.deepEqual(canonical(e),main);
+});
+test('switching a protected replay to an unrelated Memory clears the return and retains ordinary replay semantics',()=>{
+  let {e,storage}=liveC1('xt04',false);
+  const event=memoryLibrary.events.find(x=>x.id==='mem.opening.ch1.convenience-xu');
+  const old=snapshot('xt04',event.replayNode);e.progress.data.checkpoints[old.nodeId]=old;
+  e.replayMemory(predecessor('OPEN-A-ENTRY'));assert.ok(e.progress.data.c1Replay);
+  e.replayMemory(event);assert.equal(e.progress.data.c1Replay,null);assert.equal(e.progress.replaying,true);
+  assert.equal(e.nodeId,event.replayNode);assert.deepEqual(e.progress.data.checkpoints[old.nodeId],e.progress.data.cursor);
+  e=makeEngine(storage);assert.equal(e.progress.data.c1Replay,null);assert.equal(e.progress.replaying,true);
+});

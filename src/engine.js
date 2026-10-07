@@ -814,6 +814,7 @@ export class GameEngine {
       const destination = c1Destination(this.nodeId, this.state, this.progress.hasJiangEligibility());
       if (destination) { this.nodeId = destination; this.render(); return; }
       if (this.nodeId === 'C1-INVALID-PREVIEW-STOP') {
+        this.returnFromC1Replay();
         throw new Error('BLOCKED_C1_INVALID_LOCAL_SLOT_OR_PREREQUISITES');
       }
     }
@@ -911,12 +912,9 @@ export class GameEngine {
       return;
     }
     if (node.type === 'route') {
-      if (this.progress.data.c1Replay && this.nodeId.endsWith('-COMPLETED-PREVIEW-STOP')) {
+      if (this.progress.data.c1Replay) {
         this.progress.capture(this.nodeId, this.state, this.returnNodes);
-        const restored = this.progress.finishC1Replay();
-        if (restored) Object.assign(this, restored);
-        this.previousNode = null;
-        this.openMemories();
+        this.returnFromC1Replay();
         return;
       }
       if (this.chapter.id === 'opening-demo-chapter-01' && this.nodeId === 'com03j_preview_complete'
@@ -1034,6 +1032,14 @@ export class GameEngine {
     this.els.endingCount.textContent = `已解鎖 ${unlocked.size} / ${Object.keys(this.chapter.endings).length} 個結局`;
     this.showOnly(this.els.ending);
     this.tone('message');
+  }
+
+  returnFromC1Replay() {
+    const restored = this.progress.finishC1Replay();
+    if (!restored) return;
+    Object.assign(this, restored);
+    this.previousNode = null;
+    this.openMemories();
   }
 
   requirePlayerName(action) {
