@@ -6,7 +6,7 @@
   "source_ref": "a2967d98cd7118c690cc1adada8035182594cc55",
   "human_request": {
     "summary": "Continue #77 C1 anchors after all 34 looks/68 refs; #78 minimum slot completion contract in parallel. No wholesale rewrite, new cast, scheduler framework or formal CG in this batch.",
-    "gate_status": "Both approved scenes have independent NQA PASS and bounded runtime implementation; verified local integration NEEDS_REVIEW pending independent engineering/CI/public preview. Human narrative acceptance pending. Latest delivery status/evidence is indexed in #77/#78; full M1 and final CG not complete."
+    "gate_status": "ND/Locked Scenes/independent NQA complete; final affected engineering PASS after onefocused correction+onebounded escalation. Producer local NEEDS_REVIEW receipts are historical snapshots. Stable PR required exact-head CI/Chromium/publicpreview delivery evidence and CURRENT delivery status are indexed ONLY in #77/#78, so resume checks those before repeating work; source checkpoint does not infer Human/CG/fullM1acceptance."
   },
   "status": "ACTIVE",
   "tasks": [
@@ -181,13 +181,14 @@
       "depends_on": [
         "INTEGRATE-C1-004"
       ],
-      "status": "RUNNING",
+      "status": "PASS",
       "human_gate": "none",
       "packet": {
         "generator": "manual-v1",
         "sha256": "f574026b3e0439d1d479d3db0745a9810be16aa8446e40be8d16548e22920f52"
       },
-      "reason": "Final fresh affectedengineering review source_ref=17547976bfe79927b87b4e2f1bbd2d06070d919f across all actual7endpoints/blocked/serialized return lifecycle; frozenstory/graph/art identities only, unchanged creativeQA not repeated. PublicCI/preview/Human remains separate."
+      "reason": "Coordinator verified actual independent final engineering PASS source_ref=17547976bfe79927b87b4e2f1bbd2d06070d919f input_digest=9bc0c59c87a14c8b4d9145b90e65bfba0bd3a8a6f7f296c47ca230cb9d78201f.145/145 focused+4/4 independent normal/freshguard, all7exit/blocked/reloaded/repeated/stalectx cases verified;14frozenstory/graph/art/branch blobs unchanged. PublicCI/preview/Human/CG are separate.",
+      "decision_receipt": "content/production/runs/m1-c1-anchors-20261007/REVIEW-C1-RUNTIME-003.decision.json"
     }
   ],
   "invalidation_events": [],

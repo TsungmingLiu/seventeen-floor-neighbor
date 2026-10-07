@@ -1,0 +1,230 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "m1-c1-anchors-20261007",
+  "task_id": "REVIEW-C1-RUNTIME-003",
+  "task_type": "integrate",
+  "status": "PASS",
+  "harness": {
+    "id": "integrator",
+    "version": "1.4.0",
+    "pass": null
+  },
+  "source_ref": "17547976bfe79927b87b4e2f1bbd2d06070d919f",
+  "packet_sha256": "f574026b3e0439d1d479d3db0745a9810be16aa8446e40be8d16548e22920f52",
+  "input_digest_sha256": "9bc0c59c87a14c8b4d9145b90e65bfba0bd3a8a6f7f296c47ca230cb9d78201f",
+  "input_versions": [
+    {
+      "id": "ARCHITECTURE.md",
+      "version": "e2f7bf67c9d9862bae90655d711671b7131f0c02",
+      "location": "ARCHITECTURE.md"
+    },
+    {
+      "id": "ROADMAP.md",
+      "version": "21e55982192131a35966d2256e8fb90db0c8c08a",
+      "location": "ROADMAP.md"
+    },
+    {
+      "id": "TODO.md",
+      "version": "d3cc9dcd499353881f9f654a982f75c56a6be62f",
+      "location": "TODO.md"
+    },
+    {
+      "id": "docs/narrative/CONTENT_PRODUCTION_TODO.md",
+      "version": "61e49bdacb71a7d284819f368c4013323833b06b",
+      "location": "docs/narrative/CONTENT_PRODUCTION_TODO.md"
+    },
+    {
+      "id": "docs/narrative/M1_PENDING_SLOT_RUNTIME_CONTRACT.md",
+      "version": "ef4c5f3ddd6797821bf8f253c69dce17169ae2d8",
+      "location": "docs/narrative/M1_PENDING_SLOT_RUNTIME_CONTRACT.md"
+    },
+    {
+      "id": "src/engine.js",
+      "version": "b5fb56a753653cc3975c201d20e8b45ad932b2cd",
+      "location": "src/engine.js"
+    },
+    {
+      "id": "src/progress.js",
+      "version": "b5723bdb6dd619c646589900f50a2fcc11bbb570",
+      "location": "src/progress.js"
+    },
+    {
+      "id": "src/branches.js",
+      "version": "b9ec70deb421d616c5f8a6d255ea2e83046c15fd",
+      "location": "src/branches.js"
+    },
+    {
+      "id": "src/memories.js",
+      "version": "7894956e0773ebdbd3f3509501cb0a1d4e3b3fab",
+      "location": "src/memories.js"
+    },
+    {
+      "id": "src/story-map.js",
+      "version": "e34c690741df993672eaf9102aa151b01486180d",
+      "location": "src/story-map.js"
+    },
+    {
+      "id": "content/routes/opening-demo/chapter-01.json",
+      "version": "5a5c7a90e5925b3b2a72da85594ff2d04bd5d16b",
+      "location": "content/routes/opening-demo/chapter-01.json"
+    },
+    {
+      "id": "content/routes/opening-demo/route.json",
+      "version": "d2471a3c4730bfe25f6e0b5de5e6de36f98614a3",
+      "location": "content/routes/opening-demo/route.json"
+    },
+    {
+      "id": "content/routes/opening-demo/memories.json",
+      "version": "30560d439ac7ad1f5b1c5311b5d13e98ca76db3a",
+      "location": "content/routes/opening-demo/memories.json"
+    },
+    {
+      "id": "content/assets/manifest.json",
+      "version": "0000605b4efec9b96f00077c475eeed86009a653",
+      "location": "content/assets/manifest.json"
+    },
+    {
+      "id": "tests/opening-entry-batch.test.mjs",
+      "version": "77dcf72492c47727801ebed794d60d1f429b01ea",
+      "location": "tests/opening-entry-batch.test.mjs"
+    },
+    {
+      "id": "tests/engine-progress.test.mjs",
+      "version": "e998f1c8965633054769a5cd13bc88d6086e8be5",
+      "location": "tests/engine-progress.test.mjs"
+    },
+    {
+      "id": "tests/progress.test.mjs",
+      "version": "f13b5bb6f7a66b8533d552ceafb6741e6fd04938",
+      "location": "tests/progress.test.mjs"
+    },
+    {
+      "id": "tests/story-map.test.mjs",
+      "version": "96fa52fa28852916e627a772b57f693156c6f8df",
+      "location": "tests/story-map.test.mjs"
+    },
+    {
+      "id": "tests/browser-acceptance.spec.mjs",
+      "version": "84648ae1a50415af880d5e03461e602a8635e12c",
+      "location": "tests/browser-acceptance.spec.mjs"
+    },
+    {
+      "id": "content/production/runs/m1-c1-anchors-20261007/ledger.json",
+      "version": "06d65d5734877b986baa94e379872803c9d67d53",
+      "location": "content/production/runs/m1-c1-anchors-20261007/ledger.json"
+    },
+    {
+      "id": "content/production/narrative/opening-ch1/XT-04.json",
+      "version": "29dd1429090c8044f57d8a7041649a8922c4a8e7",
+      "location": "content/production/narrative/opening-ch1/XT-04.json"
+    },
+    {
+      "id": "docs/narrative/scenes/vertical-slice/XT-04.md",
+      "version": "f90c092a03c22df111937f8005deb423c78cc0ae",
+      "location": "docs/narrative/scenes/vertical-slice/XT-04.md"
+    },
+    {
+      "id": "content/production/runs/m1-c1-anchors-20261007/NQA-XT-04.decision.json",
+      "version": "c2c3d47c70b0d618783c4def45822f840c77cc98",
+      "location": "content/production/runs/m1-c1-anchors-20261007/NQA-XT-04.decision.json"
+    },
+    {
+      "id": "content/production/narrative/opening-ch1/JYC-05.json",
+      "version": "597d03a25902dd2ad8ef1458d0e458c55c82b622",
+      "location": "content/production/narrative/opening-ch1/JYC-05.json"
+    },
+    {
+      "id": "docs/narrative/scenes/vertical-slice/JYC-05.md",
+      "version": "673448b17a3db04ad6e363420dce1557fefbd75c",
+      "location": "docs/narrative/scenes/vertical-slice/JYC-05.md"
+    },
+    {
+      "id": "content/production/runs/m1-c1-anchors-20261007/NQA-JYC-05.decision.json",
+      "version": "8e826b958b0cf776afe43409d7cfc032e4c11947",
+      "location": "content/production/runs/m1-c1-anchors-20261007/NQA-JYC-05.decision.json"
+    },
+    {
+      "id": "content/storyboards/opening-demo.json",
+      "version": "c36da8ba85ab9163adbc5ebde91b2c9b5add8b8a",
+      "location": "content/storyboards/opening-demo.json"
+    },
+    {
+      "id": "content/storyboards/opening-demo-review.json",
+      "version": "f4d90672dce581b4c20cce83e9a6526cb019b28e",
+      "location": "content/storyboards/opening-demo-review.json"
+    },
+    {
+      "id": "tools/story-map.mjs",
+      "version": "b996e8ce5b14276278c28335f88ac1fcb8215ae8",
+      "location": "tools/story-map.mjs"
+    },
+    {
+      "id": "tests/m1-c1-anchors.test.mjs",
+      "version": "bbbd48b380b420f1d6597aabf7ac5c6e5ccaf98e",
+      "location": "tests/m1-c1-anchors.test.mjs"
+    }
+  ],
+  "output_versions": [],
+  "qa_codes": [
+    {
+      "name": "Exact HEAD, packet and 30 nonempty pinned source blobs",
+      "code": "CHECK-EXACT-HEAD-PACKET-AND-30-NONEMPTY-PINNED-SOURCE-BLOBS",
+      "result": "PASS"
+    },
+    {
+      "name": "14 frozen story/graph/branch/art metadata blobs equal b280bfe",
+      "code": "CHECK-14-FROZEN-STORY-GRAPH-BRANCH-ART-METADATA-BLOBS-EQUAL-B280BFE",
+      "result": "PASS"
+    },
+    {
+      "name": "Node22 focused runtime/save/StoryMap suite 145/145",
+      "code": "CHECK-NODE22-FOCUSED-RUNTIME-SAVE-STORYMAP-SUITE-145-145",
+      "result": "PASS"
+    },
+    {
+      "name": "Independent ordinary/fresh blocked entries 4/4",
+      "code": "CHECK-INDEPENDENT-ORDINARY-FRESH-BLOCKED-ENTRIES-4-4",
+      "result": "PASS"
+    },
+    {
+      "name": "Seven actual route/guard endpoints and protected lifecycle source review",
+      "code": "CHECK-SEVEN-ACTUAL-ROUTE-GUARD-ENDPOINTS-AND-PROTECTED-LIFECYCLE-SOURCE-REVIEW",
+      "result": "PASS"
+    },
+    {
+      "name": "Architecture bounded lifecycle scope matches implementation",
+      "code": "CHECK-ARCHITECTURE-BOUNDED-LIFECYCLE-SCOPE-MATCHES-IMPLEMENTATION",
+      "result": "PASS"
+    },
+    {
+      "name": "git diff --check and no tracked changes",
+      "code": "CHECK-GIT-DIFF-CHECK-AND-NO-TRACKED-CHANGES",
+      "result": "PASS"
+    },
+    {
+      "name": "Full npm test/stable exact-head CI",
+      "code": "CHECK-FULL-NPM-TEST-STABLE-EXACT-HEAD-CI",
+      "result": "NOT_RUN"
+    },
+    {
+      "name": "Chromium browser execution (known binary absent; no retry/install)",
+      "code": "CHECK-CHROMIUM-BROWSER-EXECUTION-KNOWN-BINARY-ABSENT-NO-RETRY-INSTALL-",
+      "result": "NOT_RUN"
+    },
+    {
+      "name": "Producer build/validate/storage/smoke rerun",
+      "code": "CHECK-PRODUCER-BUILD-VALIDATE-STORAGE-SMOKE-RERUN",
+      "result": "NOT_RUN"
+    },
+    {
+      "name": "Creative parity/NQA, Human, CG/Visual and public preview acceptance",
+      "code": "CHECK-CREATIVE-PARITY-NQA-HUMAN-CG-VISUAL-AND-PUBLIC-PREVIEW-ACCEPTANCE",
+      "result": "NOT_RUN"
+    }
+  ],
+  "known_issues": [],
+  "human_gate_required": "none",
+  "invalidates": []
+}
