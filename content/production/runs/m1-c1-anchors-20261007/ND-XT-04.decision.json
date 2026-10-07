@@ -1,0 +1,170 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "m1-c1-anchors-20261007",
+  "task_id": "ND-XT-04",
+  "task_type": "narrative_design",
+  "status": "NEEDS_REVIEW",
+  "harness": {
+    "id": "content_writer",
+    "version": "1.4.1",
+    "pass": "narrative_design"
+  },
+  "source_ref": "a2967d98cd7118c690cc1adada8035182594cc55",
+  "packet_sha256": "8ffb9eeaf8e7e0ff79d433566f4dc50dd8a08234128a049517100cd92cb0f7f7",
+  "input_digest_sha256": "fdba8c89764d362fee7a5d41e05d2532b0582dc7646d83f14bbda037055a790b",
+  "input_versions": [
+    {
+      "id": "docs/narrative/CONTENT_PRODUCTION_SPEC.md#L13-L53",
+      "version": "d9847417aaaa47e1a8d56fac178df7045be2e608429aa0dbea6874b78cd7fd31",
+      "location": "docs/narrative/CONTENT_PRODUCTION_SPEC.md#L13-L53"
+    },
+    {
+      "id": "docs/narrative/CONTENT_PRODUCTION_SPEC.md#L60-L91",
+      "version": "fb8b1f617ec3baddf89a1220794e7796fda9105b73d025456c6968ef16daa947",
+      "location": "docs/narrative/CONTENT_PRODUCTION_SPEC.md#L60-L91"
+    },
+    {
+      "id": "docs/narrative/CONTENT_PRODUCTION_SPEC.md#L135-L137",
+      "version": "56c2cd59e015ff59adb9a12d63356aba4d932f67f6048746bbc122c610ff7164",
+      "location": "docs/narrative/CONTENT_PRODUCTION_SPEC.md#L135-L137"
+    },
+    {
+      "id": ".ai/schemas/NARRATIVE_CONTINUITY.md",
+      "version": "f32b4b315a51975d60d99818c3eec63f079df70c",
+      "location": ".ai/schemas/NARRATIVE_CONTINUITY.md"
+    },
+    {
+      "id": ".ai/schemas/narrative-continuity.schema.json",
+      "version": "faa5bbf41856406f85eac61d7d25a57869e3495e",
+      "location": ".ai/schemas/narrative-continuity.schema.json"
+    },
+    {
+      "id": "docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md#L80-L190",
+      "version": "0ad57c349429e9ff04654b8b21c6554e3c9b30e9d3a89f286c91dddbcf7b8fa1",
+      "location": "docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md#L80-L190"
+    },
+    {
+      "id": "docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md#L191-L353",
+      "version": "d02d182e0abdae9ffb1c13d1a0c7be565a916d7b056586dceaac55644def440e",
+      "location": "docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md#L191-L353"
+    },
+    {
+      "id": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L400-L415",
+      "version": "f5b5843003c36c1b5dcbfac9953d01966e32c8b2214fba76b09268ae3409e9e8",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L400-L415"
+    },
+    {
+      "id": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L437-L439",
+      "version": "1b473309c5a1a1179ec82f4ff2f7296fdb902fbdca6b9b79eb8c57bec53eb6a4",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L437-L439"
+    },
+    {
+      "id": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L342-L343",
+      "version": "8e5ce1497f064ea765f6ffb79bfd8a8a210da446a2ae798c83c7cc46bce6dfed",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L342-L343"
+    },
+    {
+      "id": "docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_XU_TANG.md#L1-L76",
+      "version": "a934990eef37625363a8ebd4d27af2aec6c8f79914351b6b4ba9b61fcc7c214e",
+      "location": "docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_XU_TANG.md#L1-L76"
+    },
+    {
+      "id": "docs/art/characters/xu-tang.md#L1-L60",
+      "version": "d0596af207e606413bcbda8ae096254e1b7118638daba52f944c55dd531896c3",
+      "location": "docs/art/characters/xu-tang.md#L1-L60"
+    },
+    {
+      "id": "docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md#L391-L411",
+      "version": "b56d910fe74535ece9c53191a849e1fe6d9ec976e611f140a6777b5a6265d8aa",
+      "location": "docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md#L391-L411"
+    },
+    {
+      "id": "docs/narrative/scenes/vertical-slice/OPEN-A.md#L3-L11",
+      "version": "2e430a250b3e309a036c737e6c9e7bbedf27b0858cb13840b0f7801f30277fee",
+      "location": "docs/narrative/scenes/vertical-slice/OPEN-A.md#L3-L11"
+    },
+    {
+      "id": "docs/narrative/scenes/vertical-slice/OPEN-A.md#L40-L50",
+      "version": "0538887e36ea477b131dd39f71e6fe212434d7469b4c9b847b2bb2f29a3d7458",
+      "location": "docs/narrative/scenes/vertical-slice/OPEN-A.md#L40-L50"
+    },
+    {
+      "id": "docs/narrative/scenes/vertical-slice/OPEN-A.md#L92-L198",
+      "version": "c9136d585bb62da928c3b7d3a33415a611c9d7c9dff18023ba9fb519f430d885",
+      "location": "docs/narrative/scenes/vertical-slice/OPEN-A.md#L92-L198"
+    },
+    {
+      "id": "docs/narrative/scenes/vertical-slice/OPEN-A.md#L398-L413",
+      "version": "79371574a296229dcbb8c2f53991073591c3223986ccf01815325a56bd1ae3e8",
+      "location": "docs/narrative/scenes/vertical-slice/OPEN-A.md#L398-L413"
+    },
+    {
+      "id": "content/assets/character-reference-packs.json",
+      "version": "344e377fc0a5dc51e53aa57114f41908d7b7127f",
+      "location": "content/assets/character-reference-packs.json"
+    },
+    {
+      "id": ".ai/schemas/DATA_PACKS.md",
+      "version": "4044aa74f64d741a5f2ee3e577d3e04acc91ff87",
+      "location": ".ai/schemas/DATA_PACKS.md"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "content/production/narrative/opening-ch1/XT-04.json",
+      "version": "sha256:8f684ca1434c444c2f47f022af88cc2f68c7ab9b22308ed957bfeffdcb99d5af",
+      "location": "content/production/narrative/opening-ch1/XT-04.json"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "source_identity_and_excerpts",
+      "code": "ND-SOURCE-IDENTITY",
+      "result": "PASS"
+    },
+    {
+      "name": "exact_json_schema",
+      "code": "ND-CONTRACT-SCHEMA",
+      "result": "PASS"
+    },
+    {
+      "name": "scene_contract_binding",
+      "code": "ND-CONTRACT-BINDING",
+      "result": "PASS"
+    },
+    {
+      "name": "build",
+      "code": "BUILD",
+      "result": "PASS"
+    },
+    {
+      "name": "writer_safe_pinned_wardrobe_key",
+      "code": "ND-WARDROBE-KEY",
+      "result": "PASS"
+    },
+    {
+      "name": "context_isolation_recovery",
+      "code": "ND-CONTEXT-REGISTRY-ECHO",
+      "result": "NEEDS_REVIEW"
+    },
+    {
+      "name": "repository_validate",
+      "code": "REPO-VALIDATE",
+      "result": "PASS"
+    },
+    {
+      "name": "git_diff_check",
+      "code": "DIFF-CHECK",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [
+    "ND-CONTEXT-REGISTRY-ECHO: extra registry metadata appeared only in a subprocess exception after creative drafting. Fresh bounded review required.",
+    "Runtime completion/outcome keys remain a bounded implementation proposal; no runtime edits."
+  ],
+  "human_gate_required": "none",
+  "invalidates": [],
+  "scene_id": "XT-04"
+}

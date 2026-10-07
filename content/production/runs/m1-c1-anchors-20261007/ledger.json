@@ -14,49 +14,49 @@
       "task_id": "ND-XT-04",
       "task_type": "narrative_design",
       "depends_on": [],
-      "status": "RUNNING",
+      "status": "NEEDS_REVIEW",
       "packet": {
         "generator": "manual-v1",
         "sha256": "8ffb9eeaf8e7e0ff79d433566f4dc50dd8a08234128a049517100cd92cb0f7f7"
       },
-      "decision_receipt": null,
+      "decision_receipt": "content/production/runs/m1-c1-anchors-20261007/ND-XT-04.decision.json",
       "human_gate": "none",
-      "reason": "Fresh bounded worker dispatched from verified exact current main.",
+      "reason": "Draft preserved before accidental registry echo; fresh independent ND review required, no creative edits after exposure.",
       "scene_id": "XT-04"
     },
     {
       "task_id": "ND-JYC-05",
       "task_type": "narrative_design",
       "depends_on": [],
-      "status": "RUNNING",
+      "status": "PASS",
       "packet": {
         "generator": "manual-v1",
         "sha256": "ea3f86ae1ad32986cf32132cc9c50763ce4e220e5c84af89871d65d9c8766abf"
       },
-      "decision_receipt": null,
+      "decision_receipt": "content/production/runs/m1-c1-anchors-20261007/ND-JYC-05.decision.json",
       "human_gate": "none",
-      "reason": "Fresh bounded worker dispatched from verified exact current main.",
+      "reason": "Verified exact source/contract design PASS; not Script Lock/NQA/Human acceptance.",
       "scene_id": "JYC-05"
     },
     {
       "task_id": "SLOT-CONTRACT-001",
       "task_type": "integrate",
       "depends_on": [],
-      "status": "RUNNING",
+      "status": "NEEDS_REVIEW",
       "packet": {
         "generator": "manual-v1",
         "sha256": "c653f138f6b3591a7299a977bce511a929ed4acaa97da5d16fdb2460ab7af1f1"
       },
       "decision_receipt": null,
       "human_gate": "none",
-      "reason": "Fresh bounded worker dispatched from verified exact current main."
+      "reason": "Technical proposal complete; baseline validate:final preview-art rejection explicitly recorded; fresh scoped doc review before integration."
     },
     {
       "task_id": "DIALOGUE-XT-04",
       "task_type": "scene_dialogue",
       "scene_id": "XT-04",
       "depends_on": [
-        "ND-XT-04"
+        "ND-XT-04-REVIEW-001"
       ],
       "status": "PENDING",
       "human_gate": "none",
@@ -101,11 +101,38 @@
       "depends_on": [
         "NQA-XT-04",
         "NQA-JYC-05",
-        "SLOT-CONTRACT-001"
+        "SLOT-CONTRACT-REVIEW-001"
       ],
       "status": "PENDING",
       "human_gate": "narrative_preview_review",
       "reason": "Text-preserving narrative preview; shared chapter changes are serialized."
+    },
+    {
+      "task_id": "ND-XT-04-REVIEW-001",
+      "task_type": "narrative_design",
+      "depends_on": [],
+      "status": "RUNNING",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "6bb99cde8c4cab22ef327b240670ff7455d1e002a31735e6f9c6e73e6701024d"
+      },
+      "decision_receipt": null,
+      "human_gate": "none",
+      "reason": "Fresh independent bounded review of preserved proposed output.",
+      "scene_id": "XT-04"
+    },
+    {
+      "task_id": "SLOT-CONTRACT-REVIEW-001",
+      "task_type": "integrate",
+      "depends_on": [],
+      "status": "RUNNING",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "4224612c95d922415d557deb640fb24fd531ec5c92447dab7ee243515a12227e"
+      },
+      "decision_receipt": null,
+      "human_gate": "none",
+      "reason": "Fresh independent bounded review of preserved proposed output."
     }
   ],
   "invalidation_events": [],
