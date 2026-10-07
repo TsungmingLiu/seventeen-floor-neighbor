@@ -10594,16 +10594,20 @@
       ]
     },
     "OPEN-A-ENTRY-PENDING-X": {
-      "type": "route",
+      "type": "branch",
       "entryFlags": [
         "open_a_entry_outcome:pending_xu"
-      ]
+      ],
+      "cases": [],
+      "default": "XT-04-ARRIVE"
     },
     "OPEN-A-ENTRY-PENDING-J": {
-      "type": "route",
+      "type": "branch",
       "entryFlags": [
         "open_a_entry_outcome:pending_jyc"
-      ]
+      ],
+      "cases": [],
+      "default": "JYC-05-ENTRY"
     },
     "OPEN-A-ENTRY-SOLO": {
       "type": "route",
@@ -13375,6 +13379,2704 @@
         "sprites": []
       },
       "next": "common_convenience_xu_exit_05"
+    },
+    "XT-04-ARRIVE": {
+      "speaker": "旁白",
+      "text": "走出中山站，我先往旁邊讓了一步。許棠站在出口外，低頭看手機；抬起頭看見我，便把手機收進包裡。她今天的頭髮整理得比在走廊碰面時整齊一些。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-ARRIVE_01"
+    },
+    "XT-04-ARRIVE_01": {
+      "speaker": "許棠",
+      "text": "嗨。你剛到？",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-ARRIVE_02"
+    },
+    "XT-04-ARRIVE_02": {
+      "speaker": "我",
+      "text": "對。差點從另一邊出去。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-ARRIVE_03"
+    },
+    "XT-04-ARRIVE_03": {
+      "speaker": "許棠",
+      "text": "那邊也可以，會多走一點。這邊近。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-ARRIVE_04"
+    },
+    "XT-04-ARRIVE_04": {
+      "speaker": "旁白",
+      "text": "她往街口指了一下。我跟上去，等旁邊的人走過，才和她並排。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-ARRIVE_05"
+    },
+    "XT-04-ARRIVE_05": {
+      "speaker": "我",
+      "text": "妳今天要找哪一本？",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-ARRIVE_06"
+    },
+    "XT-04-ARRIVE_06": {
+      "speaker": "許棠",
+      "text": "一本講版面設計的。想先翻看看，網路上看不到幾頁。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-ARRIVE_07"
+    },
+    "XT-04-ARRIVE_07": {
+      "speaker": "我",
+      "text": "嗯，不然買回去才發現跟想的不一樣。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-ARRIVE_08"
+    },
+    "XT-04-ARRIVE_08": {
+      "speaker": "許棠",
+      "text": "對啊。也有可能翻完就不想買了。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-ARRIVE_09"
+    },
+    "XT-04-ARRIVE_09": {
+      "speaker": "旁白",
+      "text": "我原本想著，逛完書店，喝杯咖啡，再去附近看看別的小店。走到店門口時，她停下來看了一眼營業時間，推門進去。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-BOOKS"
+    },
+    "XT-04-BOOKS": {
+      "speaker": "旁白",
+      "text": "許棠在設計書那排找了一會兒，抽出一本，翻過目錄。靠近書背的頁面攤不太開，她換了個拿法，讓我看見裡面的字。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-BOOKS_01"
+    },
+    "XT-04-BOOKS_01": {
+      "speaker": "許棠",
+      "text": "就是這本。不過比我想的薄。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-BOOKS_02"
+    },
+    "XT-04-BOOKS_02": {
+      "speaker": "我",
+      "text": "妳要找的有寫嗎？",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-BOOKS_03"
+    },
+    "XT-04-BOOKS_03": {
+      "speaker": "許棠",
+      "text": "我看一下。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-BOOKS_04"
+    },
+    "XT-04-BOOKS_04": {
+      "speaker": "旁白",
+      "text": "我在旁邊翻另一本。她翻了幾頁，又回到目錄，最後把書放回原處。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-BOOKS_05"
+    },
+    "XT-04-BOOKS_05": {
+      "speaker": "我",
+      "text": "不買？",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-BOOKS_06"
+    },
+    "XT-04-BOOKS_06": {
+      "speaker": "許棠",
+      "text": "先不要。跟我想看的不太一樣。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-BOOKS_07"
+    },
+    "XT-04-BOOKS_07": {
+      "speaker": "旁白",
+      "text": "往外走時，她在攝影集那區慢下來，伸手抽出一本比較大的書。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-BOOKS_08"
+    },
+    "XT-04-BOOKS_08": {
+      "speaker": "許棠",
+      "text": "欸，這本這裡有。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-BOOKS_09"
+    },
+    "XT-04-BOOKS_09": {
+      "speaker": "我",
+      "text": "妳也在找這本？",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-BOOKS_10"
+    },
+    "XT-04-BOOKS_10": {
+      "speaker": "許棠",
+      "text": "沒有，只看過封面。順便翻一下。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-BOOKS_11"
+    },
+    "XT-04-BOOKS_11": {
+      "speaker": "旁白",
+      "text": "我點點頭，把手上的書放回去。她一開始翻得快，後來停在一頁，再往前翻兩頁對照。店裡很安靜，偶爾聽得到翻頁的聲音。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-BOOKS_12"
+    },
+    "XT-04-BOOKS_12": {
+      "speaker": "旁白",
+      "text": "我把旁邊一排書背看完，又回到她身邊。手機上顯示的時間，比剛進來晚了四十多分鐘。照我出門前想的順序，這時候應該已經坐下喝咖啡了。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-PACE"
+    },
+    "XT-04-SHARE": {
+      "speaker": "旁白",
+      "text": "我把手機收起來，靠近一點看她手裡的書。許棠往旁邊挪半步，把書轉過來。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-SHARE_01",
+      "entryFlags": [
+        "xt04_pace_outcome:shared_pace",
+        "xt_respected_pace"
+      ]
+    },
+    "XT-04-SHARE_01": {
+      "speaker": "許棠",
+      "text": "你看這張。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-SHARE_02"
+    },
+    "XT-04-SHARE_02": {
+      "speaker": "旁白",
+      "text": "照片裡是一面有窗的牆，光落在牆角。一張空椅子只露出半邊。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-SHARE_03"
+    },
+    "XT-04-SHARE_03": {
+      "speaker": "我",
+      "text": "這張……是不是沒拍完？椅子被切掉了。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-SHARE_04"
+    },
+    "XT-04-SHARE_04": {
+      "speaker": "許棠",
+      "text": "嗯，我剛也在看那邊。可是再翻回來，又覺得這樣比較好。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-SHARE_05"
+    },
+    "XT-04-SHARE_05": {
+      "speaker": "我",
+      "text": "我一直想知道另一半長怎樣。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-SHARE_06"
+    },
+    "XT-04-SHARE_06": {
+      "speaker": "許棠",
+      "text": "可能就很普通的椅子啊。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-SHARE_07"
+    },
+    "XT-04-SHARE_07": {
+      "speaker": "旁白",
+      "text": "她往後翻一頁，我等她看完，再跟著看。後面沒有那張椅子。我們又翻回剛才那頁。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-SHARE_08"
+    },
+    "XT-04-SHARE_08": {
+      "speaker": "我",
+      "text": "真的沒了。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-SHARE_09"
+    },
+    "XT-04-SHARE_09": {
+      "speaker": "許棠",
+      "text": "對。你還在找喔？",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-SHARE_10"
+    },
+    "XT-04-SHARE_10": {
+      "speaker": "我",
+      "text": "有一點。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-SHARE_11"
+    },
+    "XT-04-SHARE_11": {
+      "speaker": "旁白",
+      "text": "她笑了一下，指尖停在照片邊緣，沒有馬上翻過去。我看著那道光，這次先沒去找椅子。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-SHARE_12"
+    },
+    "XT-04-SHARE_12": {
+      "speaker": "旁白",
+      "text": "過了一會兒，她合上書，翻到背面看價格。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-SHARE_13"
+    },
+    "XT-04-SHARE_13": {
+      "speaker": "許棠",
+      "text": "今天先看到這裡好了。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-LEAVE"
+    },
+    "XT-04-SCHEDULE": {
+      "speaker": "我",
+      "text": "我本來還想去附近逛一下小店。妳這本還想看多久？",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-SCHEDULE_01"
+    },
+    "XT-04-SCHEDULE_01": {
+      "speaker": "旁白",
+      "text": "她抬頭，手指夾在剛才那一頁。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-SCHEDULE_02"
+    },
+    "XT-04-SCHEDULE_02": {
+      "speaker": "許棠",
+      "text": "喔，你還有想去的地方。哪邊？",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-SCHEDULE_03"
+    },
+    "XT-04-SCHEDULE_03": {
+      "speaker": "我",
+      "text": "剛剛過來那條街。沒有特別要買什麼，就想看看。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-SCHEDULE_04"
+    },
+    "XT-04-SCHEDULE_04": {
+      "speaker": "許棠",
+      "text": "嗯。我還想翻後面一點。你有要趕幾點回去嗎？",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-SCHEDULE_05"
+    },
+    "XT-04-SCHEDULE_05": {
+      "speaker": "我",
+      "text": "沒有一定幾點，只是原本想一次逛完。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-SCHEDULE_06"
+    },
+    "XT-04-SCHEDULE_06": {
+      "speaker": "許棠",
+      "text": "那你比較想先去逛，還是再待一下？",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-SCHEDULE-ACTION"
+    },
+    "XT-04-AGREE-PACE": {
+      "speaker": "我",
+      "text": "那再看一下好了。等妳這本看完，我們再決定？小店不一定今天要逛。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-AGREE-PACE_01",
+      "entryFlags": [
+        "xt04_pace_outcome:schedule_negotiated"
+      ]
+    },
+    "XT-04-AGREE-PACE_01": {
+      "speaker": "許棠",
+      "text": "好。我翻完這一段就好，沒有要整本看完。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-AGREE-PACE_02"
+    },
+    "XT-04-AGREE-PACE_02": {
+      "speaker": "我",
+      "text": "嗯，我去看那排，有要走再叫我。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-AGREE-PACE_03"
+    },
+    "XT-04-AGREE-PACE_03": {
+      "speaker": "旁白",
+      "text": "她點頭，我走到旁邊。書架上有一本封面很眼熟，我抽出來，才發現裡面的字比想像中小。我翻到一半，許棠回到我旁邊。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-AGREE-PACE_04"
+    },
+    "XT-04-AGREE-PACE_04": {
+      "speaker": "許棠",
+      "text": "好了。你還要看嗎？",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-AGREE-PACE_05"
+    },
+    "XT-04-AGREE-PACE_05": {
+      "speaker": "我",
+      "text": "不用了，我這本也先放回去。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-LEAVE"
+    },
+    "XT-04-BOUNDARY": {
+      "speaker": "我",
+      "text": "我們先出去好了。先喝咖啡，再逛那條街，這樣比較順。妳這本下次再看。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-BOUNDARY_01",
+      "entryFlags": [
+        "xt04_pace_outcome:unresolved_imposed_plan"
+      ]
+    },
+    "XT-04-BOUNDARY_01": {
+      "speaker": "旁白",
+      "text": "我往出口方向走了一步，她仍站在書架前。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-BOUNDARY_02"
+    },
+    "XT-04-BOUNDARY_02": {
+      "speaker": "許棠",
+      "text": "等一下。我還沒說要去逛。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-BOUNDARY_03"
+    },
+    "XT-04-BOUNDARY_03": {
+      "speaker": "我",
+      "text": "我是想說都在附近，順便走完。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-BOUNDARY_04"
+    },
+    "XT-04-BOUNDARY_04": {
+      "speaker": "許棠",
+      "text": "我知道。但我今天是來看書的。你想去可以跟我說，不要直接把我也排進去。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-BOUNDARY_05"
+    },
+    "XT-04-BOUNDARY_05": {
+      "speaker": "旁白",
+      "text": "她說得不大聲。我站回書架旁，手還搭著包的背帶。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-BOUNDARY_06"
+    },
+    "XT-04-BOUNDARY_06": {
+      "speaker": "我",
+      "text": "……嗯。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-BOUNDARY_07"
+    },
+    "XT-04-BOUNDARY_07": {
+      "speaker": "旁白",
+      "text": "許棠低頭翻過幾頁。我看向旁邊的書背，沒再伸手抽書。過了一會兒，她把攝影集合上，放回架上。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-BOUNDARY_08"
+    },
+    "XT-04-BOUNDARY_08": {
+      "speaker": "許棠",
+      "text": "我今天不去那條街了。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-BOUNDARY_09"
+    },
+    "XT-04-BOUNDARY_09": {
+      "speaker": "我",
+      "text": "好。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-LEAVE"
+    },
+    "XT-04-HUMOR": {
+      "speaker": "我",
+      "text": "妳是不是準備住進來？我可以先去問一下這裡幾點熄燈。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-HUMOR_01",
+      "entryFlags": [
+        "xt04_pace_outcome:local_humor"
+      ]
+    },
+    "XT-04-HUMOR_01": {
+      "speaker": "旁白",
+      "text": "許棠抬頭，先看了我一下，又看向手裡的書。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-HUMOR_02"
+    },
+    "XT-04-HUMOR_02": {
+      "speaker": "許棠",
+      "text": "我看很久了喔？",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-HUMOR_03"
+    },
+    "XT-04-HUMOR_03": {
+      "speaker": "我",
+      "text": "有一點。剛剛那排我都逛完了。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-HUMOR_04"
+    },
+    "XT-04-HUMOR_04": {
+      "speaker": "許棠",
+      "text": "喔。你可以直接說啊，我剛沒注意。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-HUMOR_05"
+    },
+    "XT-04-HUMOR_05": {
+      "speaker": "我",
+      "text": "沒要趕妳。只是這邊好像沒有床。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-HUMOR_06"
+    },
+    "XT-04-HUMOR_06": {
+      "speaker": "許棠",
+      "text": "……嗯，也沒有浴室吧。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-HUMOR_07"
+    },
+    "XT-04-HUMOR_07": {
+      "speaker": "旁白",
+      "text": "我笑了一聲，她低頭再翻了幾頁。我去把剛才看過的一本書放正，回來時，她已經合上攝影集。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-HUMOR_08"
+    },
+    "XT-04-HUMOR_08": {
+      "speaker": "許棠",
+      "text": "好了。住這裡太麻煩。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-LEAVE"
+    },
+    "XT-04-LEAVE": {
+      "speaker": "旁白",
+      "text": "許棠沿著書架往門口走。我跟在旁邊，等她拉開門，才往外走。路上的聲音一下變大了。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-LEAVE_01"
+    },
+    "XT-04-LEAVE_01": {
+      "speaker": "許棠",
+      "text": "我有點想喝東西。要不要在附近找個地方坐一下？",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-LEAVE_02"
+    },
+    "XT-04-LEAVE_02": {
+      "speaker": "旁白",
+      "text": "我看向街口。出門前想逛的小店在另一個方向。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-DRINK-DURATION"
+    },
+    "XT-04-END": {
+      "speaker": "旁白",
+      "text": "坐了一會兒，我看了一眼時間。杯裡剩下一點咖啡，我喝完，將杯子放回碟子上。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-END_01"
+    },
+    "XT-04-END_01": {
+      "speaker": "我",
+      "text": "我差不多要回去了。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-END_02"
+    },
+    "XT-04-END_02": {
+      "speaker": "許棠",
+      "text": "嗯，我也好了。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-END_03"
+    },
+    "XT-04-END_03": {
+      "speaker": "旁白",
+      "text": "她拿起包，我把椅子往桌下推回去。走出店門時，街上比剛才更熱鬧。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-END_04"
+    },
+    "XT-04-END_04": {
+      "speaker": "許棠",
+      "text": "我走這邊。你呢？",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-END_05"
+    },
+    "XT-04-END_05": {
+      "speaker": "我",
+      "text": "我回捷運站。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-END_06"
+    },
+    "XT-04-END_06": {
+      "speaker": "許棠",
+      "text": "好，那先這樣。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-END_07"
+    },
+    "XT-04-END_07": {
+      "speaker": "我",
+      "text": "嗯，再見。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-END_08"
+    },
+    "XT-04-END_08": {
+      "speaker": "旁白",
+      "text": "她朝另一邊走。我沿著來時的路往站口去，到街角時，拿出手機看了一下方向，才把它收回口袋。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-COMPLETED-PREVIEW-STOP",
+      "entryFlags": []
+    },
+    "XT-04-PACE": {
+      "type": "choice",
+      "choiceType": "action",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "choices": [
+        {
+          "id": "xt-04-stay",
+          "text": "留在旁邊，跟她一起看。",
+          "next": "XT-04-SHARE",
+          "addFlags": [
+            "history:XT-04-PACE:xt-04-stay"
+          ],
+          "consequenceClass": "echo"
+        },
+        {
+          "id": "xt-04-ask-plan",
+          "text": "告訴她我還想逛附近的小店，問接下來怎麼走。",
+          "next": "XT-04-SCHEDULE",
+          "addFlags": [
+            "history:XT-04-PACE:xt-04-ask-plan"
+          ],
+          "consequenceClass": "local"
+        },
+        {
+          "id": "xt-04-joke-wait",
+          "text": "開個玩笑，問她是不是準備住進書店。",
+          "next": "XT-04-HUMOR",
+          "addFlags": [
+            "history:XT-04-PACE:xt-04-joke-wait"
+          ],
+          "consequenceClass": "local"
+        }
+      ]
+    },
+    "XT-04-SCHEDULE-ACTION": {
+      "type": "choice",
+      "choiceType": "action",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "choices": [
+        {
+          "id": "xt-04-negotiate",
+          "text": "跟她商量再看一會兒，小店今天不一定要逛。",
+          "next": "XT-04-AGREE-PACE",
+          "addFlags": [
+            "history:XT-04-SCHEDULE-ACTION:xt-04-negotiate"
+          ],
+          "consequenceClass": "local"
+        },
+        {
+          "id": "xt-04-impose",
+          "text": "照我想的順序，叫她先去喝咖啡，再逛小店。",
+          "next": "XT-04-BOUNDARY",
+          "addFlags": [
+            "history:XT-04-SCHEDULE-ACTION:xt-04-impose"
+          ],
+          "consequenceClass": "local"
+        }
+      ]
+    },
+    "XT-04-DRINK-DURATION": {
+      "type": "choice",
+      "choiceType": "action",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "choices": [
+        {
+          "id": "xt-04-drink-short",
+          "text": "答應坐一下，也說自己想再坐二十分鐘左右就回去。",
+          "next": "XT-04-DRINK-AGREEMENT-SHORT",
+          "addFlags": [
+            "history:XT-04-DRINK-DURATION:xt-04-drink-short"
+          ],
+          "consequenceClass": "local"
+        },
+        {
+          "id": "xt-04-drink-finish",
+          "text": "答應先喝杯東西，喝完就各自回去。",
+          "next": "XT-04-DRINK-AGREEMENT-FINISH",
+          "addFlags": [
+            "history:XT-04-DRINK-DURATION:xt-04-drink-finish"
+          ],
+          "consequenceClass": "local"
+        }
+      ]
+    },
+    "XT-04-DRINK-AGREEMENT-SHORT": {
+      "speaker": "我",
+      "text": "好啊。不過我想再坐二十分鐘左右就回去，可以嗎？",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-DRINK-AGREEMENT-SHORT_01"
+    },
+    "XT-04-DRINK-AGREEMENT-SHORT_01": {
+      "speaker": "許棠",
+      "text": "可以，我也沒打算坐很久。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-DRINK-AGREEMENT"
+    },
+    "XT-04-DRINK-AGREEMENT-FINISH": {
+      "speaker": "我",
+      "text": "好。喝完一杯，我就準備回去了。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-DRINK-AGREEMENT-FINISH_01"
+    },
+    "XT-04-DRINK-AGREEMENT-FINISH_01": {
+      "speaker": "許棠",
+      "text": "嗯，那就喝一杯。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-DRINK-AGREEMENT"
+    },
+    "XT-04-DRINK-AGREEMENT": {
+      "speaker": "旁白",
+      "text": "我們沿著街邊找了一下，在附近一家店坐下。我點了咖啡，許棠看了一會兒菜單，選了茶。飲料上來後，她把杯子挪開，讓我有地方放手。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-DRINK-AGREEMENT_01"
+    },
+    "XT-04-DRINK-AGREEMENT_01": {
+      "speaker": "我",
+      "text": "剛剛那本設計書，妳本來想看哪一部分？",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-DRINK-AGREEMENT_02"
+    },
+    "XT-04-DRINK-AGREEMENT_02": {
+      "speaker": "許棠",
+      "text": "字跟圖片怎麼放。有時候東西都對，可是放在一起就很怪。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-DRINK-AGREEMENT_03"
+    },
+    "XT-04-DRINK-AGREEMENT_03": {
+      "speaker": "我",
+      "text": "嗯。我好像只會看出怪，不知道哪裡怪。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-DRINK-AGREEMENT_04"
+    },
+    "XT-04-DRINK-AGREEMENT_04": {
+      "speaker": "許棠",
+      "text": "這樣也可以啊。先看出來，再慢慢找。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-DRINK-LOCAL"
+    },
+    "XT-04-DRINK-LOCAL": {
+      "type": "branch",
+      "cases": [
+        {
+          "conditions": [
+            {
+              "flag": "xt04_pace_outcome:shared_pace",
+              "present": true
+            }
+          ],
+          "next": "XT-04-DRINK-LOCAL-shared_pace"
+        },
+        {
+          "conditions": [
+            {
+              "flag": "xt04_pace_outcome:schedule_negotiated",
+              "present": true
+            }
+          ],
+          "next": "XT-04-DRINK-LOCAL-schedule_negotiated"
+        },
+        {
+          "conditions": [
+            {
+              "flag": "xt04_pace_outcome:local_humor",
+              "present": true
+            }
+          ],
+          "next": "XT-04-DRINK-LOCAL-local_humor"
+        },
+        {
+          "conditions": [
+            {
+              "flag": "xt04_pace_outcome:unresolved_imposed_plan",
+              "present": true
+            }
+          ],
+          "next": "XT-04-DRINK-LOCAL-unresolved_imposed_plan"
+        }
+      ],
+      "default": "C1-INVALID-PREVIEW-STOP"
+    },
+    "XT-04-DRINK-LOCAL-shared_pace": {
+      "speaker": "我",
+      "text": "像那張椅子，我還是想看完整的。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-DRINK-LOCAL-shared_pace_01"
+    },
+    "XT-04-DRINK-LOCAL-shared_pace_01": {
+      "speaker": "許棠",
+      "text": "你可以自己在旁邊補另一半。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-DRINK-LOCAL-shared_pace_02"
+    },
+    "XT-04-DRINK-LOCAL-shared_pace_02": {
+      "speaker": "我",
+      "text": "畫得很醜也沒關係？",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-DRINK-LOCAL-shared_pace_03"
+    },
+    "XT-04-DRINK-LOCAL-shared_pace_03": {
+      "speaker": "許棠",
+      "text": "你自己看的，有什麼關係。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-DRINK-LOCAL-shared_pace_04"
+    },
+    "XT-04-DRINK-LOCAL-shared_pace_04": {
+      "speaker": "旁白",
+      "text": "我用手指在桌邊比了一下椅背，畫到一半就停了。她喝了一口茶，也沒催我接著畫。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-END"
+    },
+    "XT-04-DRINK-LOCAL-schedule_negotiated": {
+      "speaker": "許棠",
+      "text": "你剛剛那本呢？有想買嗎？",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-DRINK-LOCAL-schedule_negotiated_01"
+    },
+    "XT-04-DRINK-LOCAL-schedule_negotiated_01": {
+      "speaker": "我",
+      "text": "沒有，翻開才發現我可能看不下去。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-DRINK-LOCAL-schedule_negotiated_02"
+    },
+    "XT-04-DRINK-LOCAL-schedule_negotiated_02": {
+      "speaker": "許棠",
+      "text": "喔。那今天省了。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-DRINK-LOCAL-schedule_negotiated_03"
+    },
+    "XT-04-DRINK-LOCAL-schedule_negotiated_03": {
+      "speaker": "旁白",
+      "text": "我點頭，端起咖啡吹了一下。她看了一眼自己的杯子，過一會兒才喝。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-END"
+    },
+    "XT-04-DRINK-LOCAL-local_humor": {
+      "speaker": "我",
+      "text": "剛剛妳看到哪裡？我講完以後，妳又翻了好幾頁。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-DRINK-LOCAL-local_humor_01"
+    },
+    "XT-04-DRINK-LOCAL-local_humor_01": {
+      "speaker": "許棠",
+      "text": "後面還有一段。我想看一下還有什麼。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-DRINK-LOCAL-local_humor_02"
+    },
+    "XT-04-DRINK-LOCAL-local_humor_02": {
+      "speaker": "我",
+      "text": "喔，我以為妳快看完了。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-DRINK-LOCAL-local_humor_03"
+    },
+    "XT-04-DRINK-LOCAL-local_humor_03": {
+      "speaker": "許棠",
+      "text": "沒有，本來就在跳著看。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-DRINK-LOCAL-local_humor_04"
+    },
+    "XT-04-DRINK-LOCAL-local_humor_04": {
+      "speaker": "旁白",
+      "text": "我喝了口咖啡。她把茶杯轉了半圈，找杯柄，話題暫時停在這裡。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-END"
+    },
+    "XT-04-DRINK-LOCAL-unresolved_imposed_plan": {
+      "speaker": "旁白",
+      "text": "我想接著問她剛才的攝影集，話到嘴邊又停住。她低頭吹了吹茶，我把咖啡杯放回碟子上。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-DRINK-LOCAL-unresolved_imposed_plan_01"
+    },
+    "XT-04-DRINK-LOCAL-unresolved_imposed_plan_01": {
+      "speaker": "我",
+      "text": "茶會很燙嗎？",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-DRINK-LOCAL-unresolved_imposed_plan_02"
+    },
+    "XT-04-DRINK-LOCAL-unresolved_imposed_plan_02": {
+      "speaker": "許棠",
+      "text": "有一點。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-DRINK-LOCAL-unresolved_imposed_plan_03"
+    },
+    "XT-04-DRINK-LOCAL-unresolved_imposed_plan_03": {
+      "speaker": "旁白",
+      "text": "她再喝時只抿了一口。外面有人走過，我轉頭看了一下。回過頭來，她也正看著窗外。",
+      "chapter": 9,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "XT-04-END"
+    },
+    "JYC-05-ENTRY": {
+      "speaker": "旁白",
+      "text": "下午晚一點，入口前排了幾個人。我走到展覽立牌旁，雨澄正低頭看手機。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-ENTRY_01"
+    },
+    "JYC-05-ENTRY_01": {
+      "speaker": "我",
+      "text": "嗨。等很久了嗎？",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-ENTRY_02"
+    },
+    "JYC-05-ENTRY_02": {
+      "speaker": "雨澄",
+      "text": "沒有，我也剛到。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-ENTRY_03"
+    },
+    "JYC-05-ENTRY_03": {
+      "speaker": "旁白",
+      "text": "她把手機收起來。我看了看排隊的人，又看向旁邊敞開的門。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-ENTRY_04"
+    },
+    "JYC-05-ENTRY_04": {
+      "speaker": "我",
+      "text": "是排這邊？我剛剛差點直接走進去。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-ENTRY_05"
+    },
+    "JYC-05-ENTRY_05": {
+      "speaker": "雨澄",
+      "text": "那邊是出口。這邊才對。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-ENTRY_06"
+    },
+    "JYC-05-ENTRY_06": {
+      "speaker": "我",
+      "text": "喔，好。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-ENTRY_07"
+    },
+    "JYC-05-ENTRY_07": {
+      "speaker": "雨澄",
+      "text": "你之前有來過這裡嗎？",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-ENTRY_08"
+    },
+    "JYC-05-ENTRY_08": {
+      "speaker": "我",
+      "text": "沒有。剛剛還在找入口，繞到另一邊去了。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-ENTRY_09"
+    },
+    "JYC-05-ENTRY_09": {
+      "speaker": "雨澄",
+      "text": "我也走錯過。外面那個箭頭有點……算了，反正到了。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-ENTRY_10"
+    },
+    "JYC-05-ENTRY_10": {
+      "speaker": "旁白",
+      "text": "隊伍往前挪，我跟著她走進展區。她在入口拿了一張導覽紙，展開後停了停。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-ENTRY_11"
+    },
+    "JYC-05-ENTRY_11": {
+      "speaker": "雨澄",
+      "text": "我想先看前面那區。後面那些小物可以等一下再逛，可以嗎？",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-ENTRY_12"
+    },
+    "JYC-05-ENTRY_12": {
+      "speaker": "我",
+      "text": "可以，妳帶路。我還不知道裡面有什麼。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-EXHIBIT"
+    },
+    "JYC-05-EXHIBIT": {
+      "speaker": "旁白",
+      "text": "雨澄沿著展櫃往裡走，比我快了幾步。她在兩張並排的圖前停下，回頭確認我有跟上。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-EXHIBIT_01"
+    },
+    "JYC-05-EXHIBIT_01": {
+      "speaker": "雨澄",
+      "text": "這個。我想看的是這個。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-EXHIBIT_02"
+    },
+    "JYC-05-EXHIBIT_02": {
+      "speaker": "我",
+      "text": "右邊是最早那版吧？我記得以前看過。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-EXHIBIT_03"
+    },
+    "JYC-05-EXHIBIT_03": {
+      "speaker": "雨澄",
+      "text": "不是，左邊才是。右邊是後來改的。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-EXHIBIT_04"
+    },
+    "JYC-05-EXHIBIT_04": {
+      "speaker": "我",
+      "text": "欸，是喔？",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-EXHIBIT_05"
+    },
+    "JYC-05-EXHIBIT_05": {
+      "speaker": "雨澄",
+      "text": "你看手。左邊袖口這裡留了一點，右邊直接蓋掉了。還有背景，後來那版把後面的東西都清掉了。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-EXHIBIT_06"
+    },
+    "JYC-05-EXHIBIT_06": {
+      "speaker": "旁白",
+      "text": "我往前站了一點。只看大圖時沒注意的細節，現在被她一一指出來。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-EXHIBIT_07"
+    },
+    "JYC-05-EXHIBIT_07": {
+      "speaker": "我",
+      "text": "真的。我是記反了，還是根本沒看清楚。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-EXHIBIT_08"
+    },
+    "JYC-05-EXHIBIT_08": {
+      "speaker": "雨澄",
+      "text": "縮圖很難看啦。可是你剛剛講得很肯定。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-EXHIBIT_09"
+    },
+    "JYC-05-EXHIBIT_09": {
+      "speaker": "我",
+      "text": "對，這個我認。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-EXHIBIT_10"
+    },
+    "JYC-05-EXHIBIT_10": {
+      "speaker": "旁白",
+      "text": "她笑了一下，重新低頭對照導覽紙。那個「不是」接得很快，和訊息裡談到作品時的節奏有些像。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-EXHIBIT_11"
+    },
+    "JYC-05-EXHIBIT_11": {
+      "speaker": "雨澄",
+      "text": "我比較喜歡最早這張。後來那張是比較乾淨，可是左邊這個人好像真的待在什麼地方，不是只有擺一個姿勢。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-EXHIBIT_12"
+    },
+    "JYC-05-EXHIBIT_12": {
+      "speaker": "我",
+      "text": "因為後面那些東西？",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-EXHIBIT_13"
+    },
+    "JYC-05-EXHIBIT_13": {
+      "speaker": "雨澄",
+      "text": "嗯，也有姿勢。你看，他不是整個人朝向你，手還在弄自己的東西。我會想多看一下旁邊發生什麼事。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-EXHIBIT_14"
+    },
+    "JYC-05-EXHIBIT_14": {
+      "speaker": "旁白",
+      "text": "我順著她說的位置看，過了一會兒才重新看回人物的臉。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-COMPARE"
+    },
+    "JYC-05-COMPARE-C": {
+      "speaker": "雨澄",
+      "text": "右邊也好看啊。我只是看完會想回去看左邊。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-COMPARE-C_01"
+    },
+    "JYC-05-COMPARE-C_01": {
+      "speaker": "我",
+      "text": "嗯，我大概是先看臉。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-COMPARE-C_02"
+    },
+    "JYC-05-COMPARE-C_02": {
+      "speaker": "雨澄",
+      "text": "我也會。只是這張的臉沒有改很多，你看眼睛就知道了。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-COMPARE-C_03"
+    },
+    "JYC-05-COMPARE-C_03": {
+      "speaker": "旁白",
+      "text": "我看了兩眼，還是不太確定。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-COMPARE-C_04"
+    },
+    "JYC-05-COMPARE-C_04": {
+      "speaker": "我",
+      "text": "這個我就看不出來了。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-COMPARE-C_05"
+    },
+    "JYC-05-COMPARE-C_05": {
+      "speaker": "雨澄",
+      "text": "很小的差別。沒關係，不用硬看。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-COUNTER"
+    },
+    "JYC-05-COMPARE-P": {
+      "speaker": "雨澄",
+      "text": "也不用只看袖口吧。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-COMPARE-P_01"
+    },
+    "JYC-05-COMPARE-P_01": {
+      "speaker": "我",
+      "text": "我現在至少認得這個。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-COMPARE-P_02"
+    },
+    "JYC-05-COMPARE-P_02": {
+      "speaker": "雨澄",
+      "text": "嗯……也是。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-COMPARE-P_03"
+    },
+    "JYC-05-COMPARE-P_03": {
+      "speaker": "旁白",
+      "text": "她又看了看兩張圖。我本來還想接一句，最後也只是跟著看。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-COMPARE-P_04"
+    },
+    "JYC-05-COMPARE-P_04": {
+      "speaker": "雨澄",
+      "text": "旁邊有印成小冊子的版本，可以翻。那個比較好比。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-COUNTER"
+    },
+    "JYC-05-COMPARE-W": {
+      "speaker": "雨澄",
+      "text": "對，就是那種感覺。不是特地在等你看他。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-COMPARE-W_01"
+    },
+    "JYC-05-COMPARE-W_01": {
+      "speaker": "我",
+      "text": "我剛剛只覺得東西很多，沒想到這個。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-COMPARE-W_02"
+    },
+    "JYC-05-COMPARE-W_02": {
+      "speaker": "雨澄",
+      "text": "東西是很多。印太小就有點糊在一起，所以我才想來看大的。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-COMPARE-W_03"
+    },
+    "JYC-05-COMPARE-W_03": {
+      "speaker": "旁白",
+      "text": "她轉回圖前。我也站著再看一會兒，這次沒有急著找一句評語。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-COUNTER"
+    },
+    "JYC-05-COUNTER": {
+      "speaker": "旁白",
+      "text": "展櫃旁有一個放樣書的架子。雨澄拿起一本，翻到剛才那兩張圖，將書往我這邊偏了一點。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-COUNTER_01"
+    },
+    "JYC-05-COUNTER_01": {
+      "speaker": "雨澄",
+      "text": "看，放在一起就差很多。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-COUNTER_02"
+    },
+    "JYC-05-COUNTER_02": {
+      "speaker": "我",
+      "text": "這本就是等一下賣的那個？",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-COUNTER_03"
+    },
+    "JYC-05-COUNTER_03": {
+      "speaker": "雨澄",
+      "text": "對。一般版跟特裝版內容一樣，特裝多一個外盒。我想買一般版，翻起來比較方便。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-COUNTER_04"
+    },
+    "JYC-05-COUNTER_04": {
+      "speaker": "我",
+      "text": "特裝是不是比較值得收？",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-COUNTER_05"
+    },
+    "JYC-05-COUNTER_05": {
+      "speaker": "雨澄",
+      "text": "看你收什麼吧。盒子是好看，可是我想看的都在裡面。這本的大小也比較適合看細節，不是多一個盒子就比較好。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-COUNTER_06"
+    },
+    "JYC-05-COUNTER_06": {
+      "speaker": "我",
+      "text": "也是。妳很懂欸。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-COUNTER_07"
+    },
+    "JYC-05-COUNTER_07": {
+      "speaker": "雨澄",
+      "text": "就……我有在看這個啊。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-COUNTER_08"
+    },
+    "JYC-05-COUNTER_08": {
+      "speaker": "旁白",
+      "text": "我點點頭，翻回前一頁。她的手還托在書背底下，我把書放回架子，她才收回手。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-COUNTER_09"
+    },
+    "JYC-05-COUNTER_09": {
+      "speaker": "雨澄",
+      "text": "我去問一下那邊。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-COUNTER_10"
+    },
+    "JYC-05-COUNTER_10": {
+      "speaker": "旁白",
+      "text": "我們走到櫃台前。店員把展示的兩個版本各往前挪了一點。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-COUNTER_11"
+    },
+    "JYC-05-COUNTER_11": {
+      "speaker": "店員",
+      "text": "妳要一般版，還是有外盒的特裝版？",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-COUNTER_12"
+    },
+    "JYC-05-COUNTER_12": {
+      "speaker": "旁白",
+      "text": "雨澄看了一眼一般版，嘴唇動了動。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-COUNTER_13"
+    },
+    "JYC-05-COUNTER_13": {
+      "speaker": "雨澄",
+      "text": "我……",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-SUPPORT"
+    },
+    "JYC-05-SHOP-WAIT": {
+      "speaker": "旁白",
+      "text": "我往旁邊讓了一點，留出她看展示本的位置。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-SHOP-WAIT_01",
+      "entryFlags": [
+        "jyc05_support_outcome:waited_for_her_answer"
+      ]
+    },
+    "JYC-05-SHOP-WAIT_01": {
+      "speaker": "雨澄",
+      "text": "一般版。想問一下，內頁也是這種紙嗎？展示本好像比較舊。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-SHOP-WAIT_02"
+    },
+    "JYC-05-SHOP-WAIT_02": {
+      "speaker": "店員",
+      "text": "是一樣的，那本只是翻得比較多。紙沒有換。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-SHOP-WAIT_03"
+    },
+    "JYC-05-SHOP-WAIT_03": {
+      "speaker": "雨澄",
+      "text": "喔，好。那我要一本一般版，謝謝。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-SHOP-WAIT_04"
+    },
+    "JYC-05-SHOP-WAIT_04": {
+      "speaker": "旁白",
+      "text": "她拿出付款的東西，等店員把書裝好。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-SHOP-WAIT_05"
+    },
+    "JYC-05-SHOP-WAIT_05": {
+      "speaker": "雨澄",
+      "text": "我剛剛摸到那頁邊緣有點翹，還以為紙不一樣。原來只是被翻很多次。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-SHOP-WAIT_06"
+    },
+    "JYC-05-SHOP-WAIT_06": {
+      "speaker": "我",
+      "text": "我完全沒注意。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-SHOP-WAIT_07"
+    },
+    "JYC-05-SHOP-WAIT_07": {
+      "speaker": "雨澄",
+      "text": "嗯，我買之前會想摸一下。太薄的翻起來有點怕。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-SHOP-WAIT_08"
+    },
+    "JYC-05-SHOP-WAIT_08": {
+      "speaker": "旁白",
+      "text": "她接過袋子，往旁邊的小物架看去。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-REWARD"
+    },
+    "JYC-05-SHOP-ANSWER": {
+      "speaker": "我",
+      "text": "一般版就好。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-SHOP-ANSWER_01",
+      "entryFlags": [
+        "jyc05_support_outcome:answered_for_her"
+      ]
+    },
+    "JYC-05-SHOP-ANSWER_01": {
+      "speaker": "旁白",
+      "text": "店員轉身去拿書。雨澄原本抬起的手放了下來。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-SHOP-ANSWER_02"
+    },
+    "JYC-05-SHOP-ANSWER_02": {
+      "speaker": "雨澄",
+      "text": "嗯，一般版。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-SHOP-ANSWER_03"
+    },
+    "JYC-05-SHOP-ANSWER_03": {
+      "speaker": "旁白",
+      "text": "她拿出付款的東西，等店員把書裝進袋子。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-SHOP-ANSWER_04"
+    },
+    "JYC-05-SHOP-ANSWER_04": {
+      "speaker": "店員",
+      "text": "一本一般版，謝謝。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-SHOP-ANSWER_05"
+    },
+    "JYC-05-SHOP-ANSWER_05": {
+      "speaker": "雨澄",
+      "text": "謝謝。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-SHOP-ANSWER_06"
+    },
+    "JYC-05-SHOP-ANSWER_06": {
+      "speaker": "旁白",
+      "text": "離開櫃台後，我看了一眼她手上的袋子。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-SHOP-ANSWER_07"
+    },
+    "JYC-05-SHOP-ANSWER_07": {
+      "speaker": "我",
+      "text": "買到了。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-SHOP-ANSWER_08"
+    },
+    "JYC-05-SHOP-ANSWER_08": {
+      "speaker": "雨澄",
+      "text": "嗯。剛剛還想問一下裡面的紙是不是跟展示本一樣。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-SHOP-ANSWER_09"
+    },
+    "JYC-05-SHOP-ANSWER_09": {
+      "speaker": "我",
+      "text": "喔……",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-SHOP-ANSWER_10"
+    },
+    "JYC-05-SHOP-ANSWER_10": {
+      "speaker": "旁白",
+      "text": "她將袋口折了一下，轉去看旁邊的小物架。我跟過去，原本想問她下一區有什麼，沒有馬上開口。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-REWARD"
+    },
+    "JYC-05-REWARD": {
+      "speaker": "旁白",
+      "text": "小物架上擺著幾款徽章。雨澄蹲低一點，看最下面那一排，又拿起旁邊的樣品。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-REWARD_01"
+    },
+    "JYC-05-REWARD_01": {
+      "speaker": "雨澄",
+      "text": "欸，這個有單賣。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-REWARD_02"
+    },
+    "JYC-05-REWARD_02": {
+      "speaker": "我",
+      "text": "徽章？",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-REWARD_03"
+    },
+    "JYC-05-REWARD_03": {
+      "speaker": "雨澄",
+      "text": "嗯，我想要這個。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-REWARD_04"
+    },
+    "JYC-05-REWARD_04": {
+      "speaker": "旁白",
+      "text": "她把樣品放回去，拿了一個同款包裝。結完帳，她走到不擋人的地方，隔著袋子摸摸徽章邊緣。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-REWARD_05"
+    },
+    "JYC-05-REWARD_05": {
+      "speaker": "雨澄",
+      "text": "比我想的小。這樣比較好，我怕那種太大顆的。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-REWARD_06"
+    },
+    "JYC-05-REWARD_06": {
+      "speaker": "我",
+      "text": "放在包上？",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-REWARD_07"
+    },
+    "JYC-05-REWARD_07": {
+      "speaker": "雨澄",
+      "text": "可能吧。先不要拆。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-REWARD_08"
+    },
+    "JYC-05-REWARD_08": {
+      "speaker": "旁白",
+      "text": "她將徽章往亮一點的地方移，包裝裡的小圖案一下變得清楚。她笑了，低頭再看一眼，才把它收好。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-EXIT"
+    },
+    "JYC-05-EXIT-WAIT": {
+      "speaker": "旁白",
+      "text": "走向出口時，雨澄又停下來看了一眼入口旁的海報。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-EXIT-WAIT_01"
+    },
+    "JYC-05-EXIT-WAIT_01": {
+      "speaker": "雨澄",
+      "text": "今天有看到想看的，還買到這個。可以了。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-EXIT-WAIT_02"
+    },
+    "JYC-05-EXIT-WAIT_02": {
+      "speaker": "我",
+      "text": "我倒是多看了很多剛剛沒注意的。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-EXIT-WAIT_03"
+    },
+    "JYC-05-EXIT-WAIT_03": {
+      "speaker": "雨澄",
+      "text": "那兩張嗎？",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-EXIT-WAIT_04"
+    },
+    "JYC-05-EXIT-WAIT_04": {
+      "speaker": "我",
+      "text": "對。還有一般版跟特裝，原來真的不用都買。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-EXIT-WAIT_05"
+    },
+    "JYC-05-EXIT-WAIT_05": {
+      "speaker": "雨澄",
+      "text": "本來就不用啊。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-EXIT-WAIT_06"
+    },
+    "JYC-05-EXIT-WAIT_06": {
+      "speaker": "旁白",
+      "text": "她說完笑了一下。出了展區，走道上的聲音忽然比裡面大。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-EXIT-WAIT_07"
+    },
+    "JYC-05-EXIT-WAIT_07": {
+      "speaker": "雨澄",
+      "text": "下次有另一個……不是展，是可以一起玩的，合作過關那種。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-EXIT-WAIT_08"
+    },
+    "JYC-05-EXIT-WAIT_08": {
+      "speaker": "我",
+      "text": "喔，兩個人一起玩？",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-EXIT-WAIT_09"
+    },
+    "JYC-05-EXIT-WAIT_09": {
+      "speaker": "雨澄",
+      "text": "嗯。不過我也還沒仔細看，只是看到有人在講。就隨便提一下。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-EXIT-WAIT_10"
+    },
+    "JYC-05-EXIT-WAIT_10": {
+      "speaker": "我",
+      "text": "可以先看看。我也想知道是玩什麼的。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-EXIT-WAIT_11"
+    },
+    "JYC-05-EXIT-WAIT_11": {
+      "speaker": "雨澄",
+      "text": "嗯，我再看一下。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-COMPLETE"
+    },
+    "JYC-05-EXIT-ANSWER": {
+      "speaker": "旁白",
+      "text": "走向出口時，雨澄將購物袋換到另一隻手。她看了一眼入口旁的海報，沒再停下。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-EXIT-ANSWER_01"
+    },
+    "JYC-05-EXIT-ANSWER_01": {
+      "speaker": "我",
+      "text": "今天想看的都有看到嗎？",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-EXIT-ANSWER_02"
+    },
+    "JYC-05-EXIT-ANSWER_02": {
+      "speaker": "雨澄",
+      "text": "嗯，有。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-EXIT-ANSWER_03"
+    },
+    "JYC-05-EXIT-ANSWER_03": {
+      "speaker": "旁白",
+      "text": "出了展區，我們並排走了一小段。她摸到袋子裡的徽章，低頭看了一眼。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-EXIT-ANSWER_04"
+    },
+    "JYC-05-EXIT-ANSWER_04": {
+      "speaker": "雨澄",
+      "text": "下次有另一個可以一起玩的。合作過關那種。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-EXIT-ANSWER_05"
+    },
+    "JYC-05-EXIT-ANSWER_05": {
+      "speaker": "我",
+      "text": "喔，是遊戲？",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-EXIT-ANSWER_06"
+    },
+    "JYC-05-EXIT-ANSWER_06": {
+      "speaker": "雨澄",
+      "text": "嗯。只是看到，還沒看清楚。隨便講一下。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-EXIT-ANSWER_07"
+    },
+    "JYC-05-EXIT-ANSWER_07": {
+      "speaker": "我",
+      "text": "好。有興趣的話可以先看看。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-EXIT-ANSWER_08"
+    },
+    "JYC-05-EXIT-ANSWER_08": {
+      "speaker": "雨澄",
+      "text": "嗯。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-EXIT-ANSWER_09"
+    },
+    "JYC-05-EXIT-ANSWER_09": {
+      "speaker": "旁白",
+      "text": "她把袋子提好。我想起櫃台前那句沒說完的話，跟著她繼續往出口走。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-COMPLETE"
+    },
+    "JYC-05-COMPLETE": {
+      "speaker": "旁白",
+      "text": "走到展覽立牌外，我回頭看了一眼。剛才排過的隊伍更短了，已經有新的入場者站到我們之前等的位置。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-COMPLETE_01"
+    },
+    "JYC-05-COMPLETE_01": {
+      "speaker": "我",
+      "text": "那今天就先這樣。回去小心。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-COMPLETE_02"
+    },
+    "JYC-05-COMPLETE_02": {
+      "speaker": "雨澄",
+      "text": "嗯，你也是。掰掰。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-COMPLETE_03"
+    },
+    "JYC-05-COMPLETE_03": {
+      "speaker": "旁白",
+      "text": "我向她揮了下手，往另一邊走。她手上的袋子輕輕晃了一下。",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "next": "JYC-05-COMPLETED-PREVIEW-STOP",
+      "entryFlags": []
+    },
+    "JYC-05-COMPARE": {
+      "type": "choice",
+      "choiceType": "expression",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "choices": [
+        {
+          "id": "jyc-05-candid",
+          "text": "我反而比較喜歡右邊。第一眼就看得到人，不過左邊可以看比較久。",
+          "next": "JYC-05-COMPARE-C",
+          "addFlags": [
+            "history:JYC-05-COMPARE:jyc-05-candid"
+          ],
+          "consequenceClass": "local",
+          "stance": "candid"
+        },
+        {
+          "id": "jyc-05-playful",
+          "text": "我現在看哪張都不敢說自己以前看過了。先從袖口補課。",
+          "next": "JYC-05-COMPARE-P",
+          "addFlags": [
+            "history:JYC-05-COMPARE:jyc-05-playful"
+          ],
+          "consequenceClass": "local",
+          "stance": "playful"
+        },
+        {
+          "id": "jyc-05-warm",
+          "text": "妳這樣講，我懂一點了。左邊那個手勢，真的比較像做到一半被看到。",
+          "next": "JYC-05-COMPARE-W",
+          "addFlags": [
+            "history:JYC-05-COMPARE:jyc-05-warm"
+          ],
+          "consequenceClass": "local",
+          "stance": "warm"
+        }
+      ]
+    },
+    "JYC-05-SUPPORT": {
+      "type": "choice",
+      "choiceType": "action",
+      "chapter": 10,
+      "visual": {
+        "mode": "composite",
+        "background": "bg.narrative_preview.placeholder",
+        "sprites": []
+      },
+      "choices": [
+        {
+          "id": "jyc-05-wait",
+          "text": "站在旁邊，等她把話說完。",
+          "next": "JYC-05-SHOP-WAIT",
+          "addFlags": [
+            "history:JYC-05-SUPPORT:jyc-05-wait"
+          ],
+          "consequenceClass": "local"
+        },
+        {
+          "id": "jyc-05-answer",
+          "text": "想讓交易快一點，先替她說要一般版。",
+          "next": "JYC-05-SHOP-ANSWER",
+          "addFlags": [
+            "history:JYC-05-SUPPORT:jyc-05-answer"
+          ],
+          "consequenceClass": "local"
+        }
+      ]
+    },
+    "JYC-05-EXIT": {
+      "type": "branch",
+      "cases": [
+        {
+          "conditions": [
+            {
+              "flag": "jyc05_support_outcome:waited_for_her_answer",
+              "present": true
+            }
+          ],
+          "next": "JYC-05-EXIT-WAIT"
+        },
+        {
+          "conditions": [
+            {
+              "flag": "jyc05_support_outcome:answered_for_her",
+              "present": true
+            }
+          ],
+          "next": "JYC-05-EXIT-ANSWER"
+        }
+      ],
+      "default": "C1-INVALID-PREVIEW-STOP"
+    },
+    "XT-04-COMPLETED-PREVIEW-STOP": {
+      "type": "route",
+      "entryFlags": [
+        "xt04_completed",
+        "open_a_window1_completed:xt04",
+        "open_a_window1_consumed"
+      ]
+    },
+    "JYC-05-COMPLETED-PREVIEW-STOP": {
+      "type": "route",
+      "entryFlags": [
+        "jyc_seen_in_element",
+        "open_a_window1_completed:jyc05",
+        "open_a_window1_consumed"
+      ]
+    },
+    "C1-INVALID-PREVIEW-STOP": {
+      "type": "route",
+      "mapLabel": "C1 存檔狀態需核對"
     }
   }
 }
