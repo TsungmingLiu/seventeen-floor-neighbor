@@ -164,3 +164,31 @@ test('explicit fresh run never imports a collected C1 completion',()=>{
   const {e}=seeded('xt04');walk(e);const frontier=structuredClone(e.progress.data.frontier);
   e.startGame({freshRun:true});assert.ok(![...e.state.flags].some(f=>f.startsWith('open_a_window1_completed:')));assert.deepEqual(e.progress.data.frontier,frontier);
 });
+
+const canonical = e => structuredClone({cursor:e.progress.data.cursor,frontier:e.progress.data.frontier,
+  checkpoints:e.progress.data.checkpoints,edges:e.progress.data.edges,rank:e.progress.data.frontierRank,
+  event:e.progress.data.frontierMemoryEventId,complete:e.progress.data.runComplete,
+  restart:e.progress.data.restartActive,replay:e.progress.replaying});
+const plan = outing => ({'OPEN-A-ENTRY-ACTION-BOTH':outing==='xt04'?'OPEN-A-ACT-X':'OPEN-A-ACT-J'});
+for(const outing of ['xt04','jyc05']) for(const completed of [false,true]) test(`${outing} ${completed?'completed':'middle'} predecessor replay protects return before/during/after C1 reload`,()=>{
+  const storage=new Storage(), entry=snapshot(outing,'OPEN-A-ENTRY');
+  entry.flags=entry.flags.filter(f=>!f.startsWith('open_a_entry_outcome:'));
+  let e=makeEngine(storage);e.progress.setPlayerName('小雨');e.resumeGame(entry);
+  const middle=outing==='xt04'?'XT-04-BOOKS':'JYC-05-EXHIBIT';
+  const harmful=outing==='xt04'?paceChoices.unresolved_imposed_plan:{'JYC-05-SUPPORT':'jyc-05-answer'};
+  walk(e,{...plan(outing),...harmful},g=>g.nodeId===(completed?stopId(outing):middle));
+  const main=canonical(e), opposite=outing==='xt04'?'jyc05':'xt04';
+  const replay={replayNode:'OPEN-A-ENTRY',unlockNodes:['OPEN-A-ENTRY']};
+  e.replayMemory(replay);
+  assert.ok(e.progress.data.c1Replay);assert.deepEqual(e.progress.data.c1Replay.returnCursor,main.cursor);
+  e=makeEngine(storage);assert.ok(e.progress.data.c1Replay);e.startFromTitle();
+  assert.equal(e.nodeId,'OPEN-A-ENTRY');assert.deepEqual(e.progress.data.checkpoints,main.checkpoints);
+  walk(e,plan(opposite),g=>g.nodeId===(opposite==='xt04'?'XT-04-BOOKS':'JYC-05-EXHIBIT'));
+  e=makeEngine(storage);e.startFromTitle();assert.ok(e.progress.data.c1Replay);
+  assert.deepEqual(e.progress.data.frontier,main.frontier);assert.deepEqual(e.progress.data.checkpoints,main.checkpoints);
+  walk(e,plan(opposite),g=>!g.progress.data.c1Replay);
+  assert.deepEqual(canonical(e),main);
+  assert.ok(e.progress.data.unlockedMemoryEventIds.includes(memory(opposite).id));
+  e=makeEngine(storage);assert.deepEqual(canonical(e),main);e.startFromTitle();
+  assert.equal(e.nodeId,main.cursor.nodeId);assert.deepEqual(canonical(e),main);
+});

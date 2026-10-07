@@ -759,3 +759,42 @@ for (const [outing, entry, stop, choices] of [
   expect((await journey(page)).frontier).toEqual(complete.frontier);
   await expect(page.locator('#ending-screen')).toBeVisible();
 });
+
+const c1Main = saved => Object.fromEntries(['cursor','frontier','checkpoints','edges','frontierRank',
+  'frontierMemoryEventId','runComplete','restartActive','replayActive'].map(key=>[key,saved[key]]));
+for(const outing of ['xt04','jyc05']) for(const completed of [false,true]) test(`Story Map predecessor ${outing} ${completed?'completed':'middle'} replay preserves live C1 through reload`,async({page})=>{
+  test.setTimeout(480_000);
+  const errors=collectBlockingErrors(page);
+  await page.goto('/');await expect(page.locator('#start-button')).toBeEnabled();
+  const chapter=await (await page.request.get('/content/routes/opening-demo/chapter.json')).json();
+  await seed(page,chapter.startNode);
+  const middle=outing==='xt04'?'XT-04-BOOKS':'JYC-05-EXHIBIT';
+  const stop=outing==='xt04'?'XT-04-COMPLETED-PREVIEW-STOP':'JYC-05-COMPLETED-PREVIEW-STOP';
+  const seen=await follow(page,completed?stop:middle,{
+    common_bookstore_bridge_weekend_decision:'com01b_bookstore_go',
+    common_station_cafe_jyc_contact_choice:'com02j_offer_discord',
+    'OPEN-A-ENTRY-ACTION-BOTH':outing==='xt04'?'OPEN-A-ACT-X':'OPEN-A-ACT-J',
+    'XT-04-PACE':'xt-04-ask-plan','XT-04-SCHEDULE-ACTION':'xt-04-impose','JYC-05-SUPPORT':'jyc-05-answer'
+  },750);
+  expect(seen).toContain('OPEN-A-ENTRY');
+  const main=c1Main(await journey(page));
+  await page.locator(completed?'#home-button':'#game-home-button').click();
+  await page.locator('#memories-button').click();
+  await page.locator('[data-group-id="free-time"]').click();
+  await page.locator('#story-inspector .story-replay').click();
+  expect((await journey(page)).cursor.nodeId).toBe('OPEN-A-ENTRY');
+  expect((await journey(page)).c1Replay.returnCursor).toEqual(main.cursor);
+  await page.reload();await page.locator('#start-button').click();
+  expect((await journey(page)).cursor.nodeId).toBe('OPEN-A-ENTRY');
+  const opposite=outing==='xt04'?'jyc05':'xt04';
+  const choices={'OPEN-A-ENTRY-ACTION-BOTH':opposite==='xt04'?'OPEN-A-ACT-X':'OPEN-A-ACT-J'};
+  await follow(page,opposite==='xt04'?'XT-04-BOOKS':'JYC-05-EXHIBIT',choices,180);
+  await page.reload();await page.locator('#start-button').click();
+  expect((await journey(page)).checkpoints).toEqual(main.checkpoints);
+  await follow(page,main.cursor.nodeId,choices,180);
+  expect(c1Main(await journey(page))).toEqual(main);
+  expect((await journey(page)).c1Replay).toBeNull();
+  expect((await journey(page)).unlockedMemoryEventIds).toContain(`mem.opening.ch1.${opposite==='xt04'?'xt-04':'jyc-05'}`);
+  await page.reload();await page.locator('#start-button').click();
+  expect(c1Main(await journey(page))).toEqual(main);expect(errors).toEqual([]);
+});
