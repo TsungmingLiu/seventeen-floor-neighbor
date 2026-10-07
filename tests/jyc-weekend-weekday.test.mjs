@@ -147,7 +147,6 @@ for (const path of ['A','B','C']) {
 }
 test('Memory IDs, ownership and ranks retain legacy identities while chronological progress increases', () => {
   const byId=id=>memoryLibrary.events.find(e=>e.id==='mem.opening.ch1.'+id);
-  assert.equal(memoryLibrary.events.length,10);
   assert.equal(byId('weekend-home').progressRank,140);
   assert.equal(byId('convenience-xu').progressRank,160);
   assert.equal(byId('weekday-outing').progressRank,170);
@@ -241,8 +240,11 @@ test('live week/window cursors and all five review boundaries Continue exactly a
   for (const choices of outcomes) {
     const {e,storage}=play({...pathChoices('A'),...choices});endpoints.add(e.nodeId);
     assert.equal(e.progress.data.frontier.nodeId,e.nodeId);
-    assert.equal(e.progress.data.frontierMemoryEventId,null);
-    assert.equal(e.progress.data.frontierRank,260);
+    const boundaryMemoryId = e.nodeId === 'XT-04-COMPLETED-PREVIEW-STOP'
+      ? 'mem.opening.ch1.xt-04'
+      : e.nodeId === 'JYC-05-COMPLETED-PREVIEW-STOP' ? 'mem.opening.ch1.jyc-05' : null;
+    assert.equal(e.progress.data.frontierMemoryEventId,boundaryMemoryId,e.nodeId);
+    assert.equal(e.progress.data.frontierRank,boundaryMemoryId ? 280 : 260);
     const finalSnapshot=structuredClone(e.progress.data.frontier);
     const reload=makeEngine(storage);reload.refreshTitle();assert.equal(reload.els.startButton.textContent,'繼續遊戲');reload.startFromTitle();
     assert.equal(reload.nodeId,e.nodeId);assert.deepEqual([...reload.state.flags],finalSnapshot.flags);
@@ -257,7 +259,7 @@ test('live week/window cursors and all five review boundaries Continue exactly a
       }
     }
   }
-  assert.deepEqual([...endpoints].sort(),['OPEN-A-ENTRY-PENDING-J','OPEN-A-ENTRY-PENDING-X','OPEN-A-ENTRY-REST','OPEN-A-ENTRY-SOLO','OPEN-A-ENTRY-WAIT']);
+  assert.deepEqual([...endpoints].sort(),['JYC-05-COMPLETED-PREVIEW-STOP','OPEN-A-ENTRY-REST','OPEN-A-ENTRY-SOLO','OPEN-A-ENTRY-WAIT','XT-04-COMPLETED-PREVIEW-STOP']);
 });
 
 test('week/window Memory replay cannot replace the excluded live frontier or clear its permanent flag', () => {

@@ -77,14 +77,17 @@ test('current deterministic inventory distinguishes scene-local preview and adop
   assert.deepEqual(previewBindings.filter(binding => !binding.startsWith('node:')), [
     'ending:demo_complete', 'endingArt',
     'memory:mem.opening.ch1.convenience-xu:cover', 'memory:mem.opening.ch1.convenience-xu:titleBackdrop',
-    ...['first-cafe-jyc', 'station-cafe-jyc'].map(id => `memory:mem.opening.ch1.${id}:cover`),
-    ...['taipei-street', 'weekday-outing', 'weekend-home'].flatMap(id => [`memory:mem.opening.ch1.${id}:cover`,`memory:mem.opening.ch1.${id}:titleBackdrop`])
+    'memory:mem.opening.ch1.first-cafe-jyc:cover',
+    ...['jyc-05'].flatMap(id => [`memory:mem.opening.ch1.${id}:cover`, `memory:mem.opening.ch1.${id}:titleBackdrop`]),
+    'memory:mem.opening.ch1.station-cafe-jyc:cover',
+    ...['taipei-street', 'weekday-outing', 'weekend-home'].flatMap(id => [`memory:mem.opening.ch1.${id}:cover`,`memory:mem.opening.ch1.${id}:titleBackdrop`]),
+    ...['xt-04'].flatMap(id => [`memory:mem.opening.ch1.${id}:cover`, `memory:mem.opening.ch1.${id}:titleBackdrop`])
   ]);
   for (const prefix of ['common_bookstore_bridge_', 'common_station_cafe_jyc_', 'common_recommend_discord_jyc_', 'COM03M-', 'OPEN-A-']) {
     assert.ok(allPreviewBindings.some(binding => binding.startsWith(`node:${prefix}`)), prefix);
   }
   assert.ok(allPreviewBindings.filter(binding => binding.startsWith('node:')).every(binding =>
-    /^node:(common_package_xu_|com03x_|common_station_cafe_jyc_|com02j_|common_bookstore_bridge_|com01b_|common_acg_first_meet_(purchase|home_return)|common_weekend_home_|common_weekday_outing_|common_convenience_xu_|common_recommend_discord_jyc_|com03j_|COM03M-|OPEN-A-)/.test(binding)));
+    /^node:(common_package_xu_|com03x_|common_station_cafe_jyc_|com02j_|common_bookstore_bridge_|com01b_|common_acg_first_meet_(purchase|home_return)|common_weekend_home_|common_weekday_outing_|common_convenience_xu_|common_recommend_discord_jyc_|com03j_|COM03M-|OPEN-A-|XT-04-|JYC-05-)/.test(binding)));
   assert.ok(result.assets.filter(item => item.references.some(ref => /^node:common_convenience_xu_/.test(ref.binding)))
     .every(item => item.assetId === preview || item.assetId === 'bg.opening.com02x.return_elevator_trial'));
   assert.equal(coverageExitCode(result), 0);
