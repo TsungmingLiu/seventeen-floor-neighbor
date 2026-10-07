@@ -77,9 +77,13 @@
         "NQA-XT-04",
         "NQA-JYC-05"
       ],
-      "status": "READY",
+      "status": "RUNNING",
       "human_gate": "narrative_preview_review",
-      "reason": "Both full-scene NQA verified PASS. Engineering completion proposal independently reviewed; consume pinned technical doc, no additional art-production gate."
+      "reason": "Fresh accepted two-scene text-preserving integration dispatched from source_ref=c6b0c93311979bf376cfc1a61abf6749ea81cbe0. Exact QA coverage PASS; local checks then independent technical review, stable PR CI and public preview pending.",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "f5957ad3bcf6064875dd90081b139746ae6f4ceb17cb1571fc39503284b82331"
+      }
     },
     {
       "task_id": "ND-XT-04-REVIEW-001",
