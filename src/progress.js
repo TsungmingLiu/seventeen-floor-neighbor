@@ -347,7 +347,8 @@ export class ProgressStore {
           returnRestartActive: saved.com03jReplay.returnRestartActive === true };
         this.replaying = true;
       }
-      if (saved.c1Replay && c1Outing(this.data.cursor?.nodeId)
+      if (saved.c1Replay && (c1Outing(this.data.cursor?.nodeId)
+        || this.openingContinuationRank(this.data.cursor?.nodeId) >= 0)
         && this.valid(saved.c1Replay.returnCursor) && !this.data.restartActive) {
         this.data.c1Replay = { returnCursor: this.clone(saved.c1Replay.returnCursor),
           returnRestartActive: saved.c1Replay.returnRestartActive === true,
@@ -495,8 +496,13 @@ export class ProgressStore {
   }
 
   beginReplay(snapshot = null) {
-    if (this.data.c1Replay && !c1Outing(snapshot?.nodeId)) this.finishC1Replay();
-    if (this.chapter.id === 'opening-demo-chapter-01' && c1Outing(snapshot?.nodeId)
+    // Opening continuation entries can replay into either C1 outing. Save the
+    // live return before setCursor replaces it, and keep it on predecessor reload.
+    const c1Entry = c1Outing(snapshot?.nodeId)
+      || (this.openingContinuationRank(snapshot?.nodeId) >= 0
+        && (this.data.c1Replay || c1Outing(this.data.cursor?.nodeId)));
+    if (this.data.c1Replay && !c1Entry) this.finishC1Replay();
+    if (this.chapter.id === 'opening-demo-chapter-01' && c1Entry
       && !this.data.c1Replay && this.valid(this.data.cursor || this.data.frontier)) {
       this.data.c1Replay = { returnCursor: this.clone(this.data.cursor || this.data.frontier),
         returnRestartActive: this.data.restartActive, returnRunComplete: this.data.runComplete,
