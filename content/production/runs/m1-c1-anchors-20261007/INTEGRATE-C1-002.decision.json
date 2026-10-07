@@ -1,0 +1,282 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "m1-c1-anchors-20261007",
+  "task_id": "INTEGRATE-C1-002",
+  "task_type": "integrate",
+  "status": "NEEDS_REVIEW",
+  "harness": {
+    "id": "integrator",
+    "version": "1.4.0",
+    "pass": null
+  },
+  "source_ref": "c6b0c93311979bf376cfc1a61abf6749ea81cbe0",
+  "packet_sha256": "9aae10b36fecfc3f8e25026e6a22167e65473d4497e3d8b43c8b4161b292184f",
+  "input_digest_sha256": "89a59fc146e3b47bb6a5e4596f1dc17243ce4e09a329aebc4d5c3e282f62ad7b",
+  "input_versions": [
+    {
+      "id": "ARCHITECTURE.md",
+      "version": "8af34c4fa67c517b93f6839c37c5eb247207f1d0",
+      "location": "ARCHITECTURE.md"
+    },
+    {
+      "id": "ROADMAP.md",
+      "version": "ea798fde010e9f81ce00280d988d1051a6df957b",
+      "location": "ROADMAP.md"
+    },
+    {
+      "id": "TODO.md",
+      "version": "597eab76e2102d461c61b797636d27c7a3e889b9",
+      "location": "TODO.md"
+    },
+    {
+      "id": "docs/narrative/CONTENT_PRODUCTION_TODO.md",
+      "version": "bfb960b49826a5b42790a5822fe464252f829537",
+      "location": "docs/narrative/CONTENT_PRODUCTION_TODO.md"
+    },
+    {
+      "id": "docs/narrative/M1_PENDING_SLOT_RUNTIME_CONTRACT.md",
+      "version": "ef4c5f3ddd6797821bf8f253c69dce17169ae2d8",
+      "location": "docs/narrative/M1_PENDING_SLOT_RUNTIME_CONTRACT.md"
+    },
+    {
+      "id": "src/engine.js",
+      "version": "d23aa737bc9c72b3267cb0dfe4ed74c3a562e70f",
+      "location": "src/engine.js"
+    },
+    {
+      "id": "src/progress.js",
+      "version": "499e5a418dc6446953f008e95f6c9ad2ecb625df",
+      "location": "src/progress.js"
+    },
+    {
+      "id": "src/branches.js",
+      "version": "8af49fbdb5467845044fb026db8dd05fced7d0ef",
+      "location": "src/branches.js"
+    },
+    {
+      "id": "src/memories.js",
+      "version": "7894956e0773ebdbd3f3509501cb0a1d4e3b3fab",
+      "location": "src/memories.js"
+    },
+    {
+      "id": "src/story-map.js",
+      "version": "e34c690741df993672eaf9102aa151b01486180d",
+      "location": "src/story-map.js"
+    },
+    {
+      "id": "content/routes/opening-demo/chapter-01.json",
+      "version": "658ea0641a87ecb011d3c94523977340e49e0a13",
+      "location": "content/routes/opening-demo/chapter-01.json"
+    },
+    {
+      "id": "content/routes/opening-demo/route.json",
+      "version": "0d67bb74ee494a71b13739c5396254c61d5fc8f6",
+      "location": "content/routes/opening-demo/route.json"
+    },
+    {
+      "id": "content/routes/opening-demo/memories.json",
+      "version": "4263c2b18a2259567d44f53176d0ef6d73148ebe",
+      "location": "content/routes/opening-demo/memories.json"
+    },
+    {
+      "id": "content/assets/manifest.json",
+      "version": "0000605b4efec9b96f00077c475eeed86009a653",
+      "location": "content/assets/manifest.json"
+    },
+    {
+      "id": "tests/opening-entry-batch.test.mjs",
+      "version": "44c7e6a480e4e7ce4b5360aa83e6eb1377110120",
+      "location": "tests/opening-entry-batch.test.mjs"
+    },
+    {
+      "id": "tests/engine-progress.test.mjs",
+      "version": "e998f1c8965633054769a5cd13bc88d6086e8be5",
+      "location": "tests/engine-progress.test.mjs"
+    },
+    {
+      "id": "tests/progress.test.mjs",
+      "version": "f13b5bb6f7a66b8533d552ceafb6741e6fd04938",
+      "location": "tests/progress.test.mjs"
+    },
+    {
+      "id": "tests/story-map.test.mjs",
+      "version": "96fa52fa28852916e627a772b57f693156c6f8df",
+      "location": "tests/story-map.test.mjs"
+    },
+    {
+      "id": "tests/browser-acceptance.spec.mjs",
+      "version": "69a9af88a3d9729bbd54f192ade42e740df0adeb",
+      "location": "tests/browser-acceptance.spec.mjs"
+    },
+    {
+      "id": "content/production/runs/m1-c1-anchors-20261007/ledger.json",
+      "version": "025a9ce968007bb80d29978372eedf9679faf0a5",
+      "location": "content/production/runs/m1-c1-anchors-20261007/ledger.json"
+    },
+    {
+      "id": "content/production/narrative/opening-ch1/XT-04.json",
+      "version": "29dd1429090c8044f57d8a7041649a8922c4a8e7",
+      "location": "content/production/narrative/opening-ch1/XT-04.json"
+    },
+    {
+      "id": "docs/narrative/scenes/vertical-slice/XT-04.md",
+      "version": "f90c092a03c22df111937f8005deb423c78cc0ae",
+      "location": "docs/narrative/scenes/vertical-slice/XT-04.md"
+    },
+    {
+      "id": "content/production/runs/m1-c1-anchors-20261007/NQA-XT-04.decision.json",
+      "version": "c2c3d47c70b0d618783c4def45822f840c77cc98",
+      "location": "content/production/runs/m1-c1-anchors-20261007/NQA-XT-04.decision.json"
+    },
+    {
+      "id": "content/production/narrative/opening-ch1/JYC-05.json",
+      "version": "597d03a25902dd2ad8ef1458d0e458c55c82b622",
+      "location": "content/production/narrative/opening-ch1/JYC-05.json"
+    },
+    {
+      "id": "docs/narrative/scenes/vertical-slice/JYC-05.md",
+      "version": "673448b17a3db04ad6e363420dce1557fefbd75c",
+      "location": "docs/narrative/scenes/vertical-slice/JYC-05.md"
+    },
+    {
+      "id": "content/production/runs/m1-c1-anchors-20261007/NQA-JYC-05.decision.json",
+      "version": "8e826b958b0cf776afe43409d7cfc032e4c11947",
+      "location": "content/production/runs/m1-c1-anchors-20261007/NQA-JYC-05.decision.json"
+    },
+    {
+      "id": "content/storyboards/opening-demo.json",
+      "version": "2b741bcb8c5a43edeadd050cdd3ba40d46303635",
+      "location": "content/storyboards/opening-demo.json"
+    },
+    {
+      "id": "content/storyboards/opening-demo-review.json",
+      "version": "f4d90672dce581b4c20cce83e9a6526cb019b28e",
+      "location": "content/storyboards/opening-demo-review.json"
+    },
+    {
+      "id": "tools/story-map.mjs",
+      "version": "b996e8ce5b14276278c28335f88ac1fcb8215ae8",
+      "location": "tools/story-map.mjs"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "content/routes/opening-demo/chapter-01.json",
+      "version": "sha256:0178aa6fe7c761f57529dbe778113a76b2cd82cf8df6bfcb31c49e9f313e0d0f",
+      "location": "content/routes/opening-demo/chapter-01.json"
+    },
+    {
+      "id": "content/routes/opening-demo/memories.json",
+      "version": "sha256:7635c2fb56d00beda49b482fa7485aaa20963054655408a8daef17705ea609f0",
+      "location": "content/routes/opening-demo/memories.json"
+    },
+    {
+      "id": "content/routes/opening-demo/route.json",
+      "version": "sha256:a80a6593bc5b2881fe7cec0ce92cbbb8d4283898ba8f997b17ea955e47e5ae05",
+      "location": "content/routes/opening-demo/route.json"
+    },
+    {
+      "id": "tests/m1-c1-anchors.test.mjs",
+      "version": "sha256:4855f3730315cabac6060fbf2d1e926986d5299cbaf745caa38c43bbe902d3f8",
+      "location": "tests/m1-c1-anchors.test.mjs"
+    },
+    {
+      "id": "tests/opening-entry-batch.test.mjs",
+      "version": "sha256:acc21a3de955cc7090eb67bcc2c9cb7c6e16e699234e3b5fb339356f7e4e2850",
+      "location": "tests/opening-entry-batch.test.mjs"
+    },
+    {
+      "id": "tests/browser-acceptance.spec.mjs",
+      "version": "sha256:aa1da04a6403c4bbc8a147ea5d9cbb4f4230f28741d2c2a0e5168e7f96ada88d",
+      "location": "tests/browser-acceptance.spec.mjs"
+    },
+    {
+      "id": "src/engine.js",
+      "version": "sha256:0a09577edb501f9b4ae5e96cd8dfffd5ff5a8af28f445a42efae6ea46184413d",
+      "location": "src/engine.js"
+    },
+    {
+      "id": "src/progress.js",
+      "version": "sha256:3eb0c4e1ed57aee4e75d641bea805a59d9e2c3cb517b09c1d8b220d5d7c25bfe",
+      "location": "src/progress.js"
+    },
+    {
+      "id": "src/branches.js",
+      "version": "sha256:b8aa7e84f329ab5bda04a052898afef55214e66af4483e78d4162c845fc7dd90",
+      "location": "src/branches.js"
+    },
+    {
+      "id": "content/storyboards/opening-demo.json",
+      "version": "sha256:0932d21cb941313e65d82c3d03d682dfdb5657219acd02f71f5146adf980a497",
+      "location": "content/storyboards/opening-demo.json"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "literal_path_parity_14_paths_220_turns_12_choices",
+      "code": "CHECK-LITERAL-PATH-PARITY-14-PATHS-220-TURNS-12-CHOICES",
+      "result": "PASS"
+    },
+    {
+      "name": "focused_runtime_save_story_map_107_of_107",
+      "code": "CHECK-FOCUSED-RUNTIME-SAVE-STORY-MAP-107-OF-107",
+      "result": "PASS"
+    },
+    {
+      "name": "build_and_media_23_of_23",
+      "code": "CHECK-BUILD-AND-MEDIA-23-OF-23",
+      "result": "PASS"
+    },
+    {
+      "name": "validate_1155_nodes_12_contracts_19_CG_entries",
+      "code": "CHECK-VALIDATE-1155-NODES-12-CONTRACTS-19-CG-ENTRIES",
+      "result": "PASS"
+    },
+    {
+      "name": "production_storage_651_paths",
+      "code": "CHECK-PRODUCTION-STORAGE-651-PATHS",
+      "result": "PASS"
+    },
+    {
+      "name": "git_diff_check",
+      "code": "CHECK-GIT-DIFF-CHECK",
+      "result": "PASS"
+    },
+    {
+      "name": "preserve_923_predecessor_nodes_and_approved_artifacts",
+      "code": "CHECK-PRESERVE-923-PREDECESSOR-NODES-AND-APPROVED-ARTIFACTS",
+      "result": "PASS"
+    },
+    {
+      "name": "local_preview_smoke",
+      "code": "CHECK-LOCAL-PREVIEW-SMOKE",
+      "result": "PASS"
+    },
+    {
+      "name": "targeted_Chromium_2_cases_environment_missing_executable",
+      "code": "CHECK-TARGETED-CHROMIUM-2-CASES-ENVIRONMENT-MISSING-EXECUTABLE",
+      "result": "BLOCKED"
+    },
+    {
+      "name": "broad_npm_test_and_Chromium_exact_head_CI",
+      "code": "CHECK-BROAD-NPM-TEST-AND-CHROMIUM-EXACT-HEAD-CI",
+      "result": "NOT_RUN"
+    },
+    {
+      "name": "public_Cloudflare_preview",
+      "code": "CHECK-PUBLIC-CLOUDFLARE-PREVIEW",
+      "result": "NOT_RUN"
+    }
+  ],
+  "known_issues": [
+    "Broad npm test and Chromium remain required in Coordinator stable exact-head CI.",
+    "Independent technical review and public preview pending.",
+    "Human narrative-preview review, CG, Visual QA and final art not claimed.",
+    "validate:final intentionally rejects existing preview art; not this narrative-preview acceptance gate.",
+    "Local targeted Chromium launch environment blocked; see integration report."
+  ],
+  "human_gate_required": "narrative_preview_review",
+  "invalidates": []
+}

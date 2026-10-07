@@ -6,7 +6,7 @@
   "source_ref": "a2967d98cd7118c690cc1adada8035182594cc55",
   "human_request": {
     "summary": "Continue #77 C1 anchors after all 34 looks/68 refs; #78 minimum slot completion contract in parallel. No wholesale rewrite, new cast, scheduler framework or formal CG in this batch.",
-    "gate_status": "Both Script Locks independently NQA PASS; reviewed technical completion proposal is engineering input. Integration/preview and Human review pending; engineering audit remains cache-only."
+    "gate_status": "Both approved scenes have independent NQA PASS and bounded runtime implementation; verified local integration NEEDS_REVIEW pending independent engineering/CI/public preview. Human narrative acceptance pending. Latest delivery status/evidence is indexed in #77/#78; full M1 and final CG not complete."
   },
   "status": "ACTIVE",
   "tasks": [
@@ -106,13 +106,14 @@
         "NQA-XT-04",
         "NQA-JYC-05"
       ],
-      "status": "RUNNING",
+      "status": "NEEDS_REVIEW",
       "human_gate": "narrative_preview_review",
-      "reason": "Fresh capable integration source_ref=c6b0c93311979bf376cfc1a61abf6749ea81cbe0; old pending terminals retain IDs and advance to guarded outing entries, bounded first-slot completion and replay protection. Local checks, independent technical review and public preview pending. Amended existing Story Map mapping allowlist passed clean-source preflight; compiler is read-only and optional review map changes require existing coverage need.",
+      "reason": "Verified exact local implementation Handoff at source commit b280bfe63f96e9d8bed52e3090404f6f666fdb9b: focused107/107, literal14 paths/220 turns/12 choices, build/validate/storage/diff/preview smoke PASS. Local Chromium could not launch (missing executable), test bodies NOT_RUN. Fresh independent engineering review, required exact-head CI and public preview pending; latest delivery evidence belongs to #77/#78. Human/CG/final acceptance pending.",
       "packet": {
         "generator": "manual-v1",
         "sha256": "9aae10b36fecfc3f8e25026e6a22167e65473d4497e3d8b43c8b4161b292184f"
-      }
+      },
+      "decision_receipt": "content/production/runs/m1-c1-anchors-20261007/INTEGRATE-C1-002.decision.json"
     }
   ],
   "invalidation_events": [],
