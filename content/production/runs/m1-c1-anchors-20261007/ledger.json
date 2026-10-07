@@ -136,13 +136,28 @@
         "NQA-XT-04",
         "NQA-JYC-05"
       ],
-      "status": "RUNNING",
+      "status": "NEEDS_REVIEW",
       "human_gate": "narrative_preview_review",
       "packet": {
         "generator": "manual-v1",
         "sha256": "601e03a9a12f1de4952869d0d40163cfbf63613dbf4071cb5bc16c752310ffab"
       },
-      "reason": "One focused corrective redispatch for verified P1 C1-RUNTIME-001; source_ref=d284fa2edfc47b060958d4c61ce685199153a9d9. Original live return state must protect ordinary predecessor replay that enters either C1 scene. Frozen creative/art inputs remain approved unchanged; fresh affected engineering review follows."
+      "reason": "Verified corrective Handoff source_ref=648582e9b1f188c60304f40558b78db88ad7b14a input_digest=008f266b688b27eca8a02b8fab018c7fb2d3837db2255a983c67f7fcbfb2e853. Four new regressions fail baseline/pass corrected;111/111 focused/build/validate/storage/diff/local smoke PASS. Only progress+two tests changed. Fresh affected review/public exact-head CI/Chromium/public preview/Human remain pending; original #002 local state is historical, this correction supersedes its replay output.",
+      "decision_receipt": "content/production/runs/m1-c1-anchors-20261007/INTEGRATE-C1-003.decision.json"
+    },
+    {
+      "task_id": "REVIEW-C1-RUNTIME-002",
+      "task_type": "integrate",
+      "depends_on": [
+        "INTEGRATE-C1-003"
+      ],
+      "status": "RUNNING",
+      "human_gate": "none",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "b3bf09f81a8756364343a93707d9a0c5b8c52a924380fc460fd801b6a330b8e7"
+      },
+      "reason": "Fresh affected engineering review source_ref=648582e9b1f188c60304f40558b78db88ad7b14a for actual predecessor C1 replay P1; frozen story/art/graph identities checked against original reviewed b280bfe instead of repeating whole creative QA. Public CI/preview and Human acceptance remain separate."
     }
   ],
   "invalidation_events": [],

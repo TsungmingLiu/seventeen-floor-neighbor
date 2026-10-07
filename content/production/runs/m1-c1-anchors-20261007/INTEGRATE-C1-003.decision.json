@@ -1,0 +1,265 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "m1-c1-anchors-20261007",
+  "task_id": "INTEGRATE-C1-003",
+  "task_type": "integrate",
+  "status": "NEEDS_REVIEW",
+  "harness": {
+    "id": "integrator",
+    "version": "1.4.0",
+    "pass": null
+  },
+  "source_ref": "d284fa2edfc47b060958d4c61ce685199153a9d9",
+  "packet_sha256": "601e03a9a12f1de4952869d0d40163cfbf63613dbf4071cb5bc16c752310ffab",
+  "input_digest_sha256": "008f266b688b27eca8a02b8fab018c7fb2d3837db2255a983c67f7fcbfb2e853",
+  "input_versions": [
+    {
+      "id": "ARCHITECTURE.md",
+      "version": "8d66821b2680456d7fe4889ee893eeda1f006fcf",
+      "location": "ARCHITECTURE.md"
+    },
+    {
+      "id": "ROADMAP.md",
+      "version": "21e55982192131a35966d2256e8fb90db0c8c08a",
+      "location": "ROADMAP.md"
+    },
+    {
+      "id": "TODO.md",
+      "version": "d3cc9dcd499353881f9f654a982f75c56a6be62f",
+      "location": "TODO.md"
+    },
+    {
+      "id": "docs/narrative/CONTENT_PRODUCTION_TODO.md",
+      "version": "61e49bdacb71a7d284819f368c4013323833b06b",
+      "location": "docs/narrative/CONTENT_PRODUCTION_TODO.md"
+    },
+    {
+      "id": "docs/narrative/M1_PENDING_SLOT_RUNTIME_CONTRACT.md",
+      "version": "ef4c5f3ddd6797821bf8f253c69dce17169ae2d8",
+      "location": "docs/narrative/M1_PENDING_SLOT_RUNTIME_CONTRACT.md"
+    },
+    {
+      "id": "src/engine.js",
+      "version": "7896960584f6cebec2e7175a9bad6cec95cb4be1",
+      "location": "src/engine.js"
+    },
+    {
+      "id": "src/progress.js",
+      "version": "5c028fc57f42d2259f72ca4b6684d49389dccc49",
+      "location": "src/progress.js"
+    },
+    {
+      "id": "src/branches.js",
+      "version": "b9ec70deb421d616c5f8a6d255ea2e83046c15fd",
+      "location": "src/branches.js"
+    },
+    {
+      "id": "src/memories.js",
+      "version": "7894956e0773ebdbd3f3509501cb0a1d4e3b3fab",
+      "location": "src/memories.js"
+    },
+    {
+      "id": "src/story-map.js",
+      "version": "e34c690741df993672eaf9102aa151b01486180d",
+      "location": "src/story-map.js"
+    },
+    {
+      "id": "content/routes/opening-demo/chapter-01.json",
+      "version": "5a5c7a90e5925b3b2a72da85594ff2d04bd5d16b",
+      "location": "content/routes/opening-demo/chapter-01.json"
+    },
+    {
+      "id": "content/routes/opening-demo/route.json",
+      "version": "d2471a3c4730bfe25f6e0b5de5e6de36f98614a3",
+      "location": "content/routes/opening-demo/route.json"
+    },
+    {
+      "id": "content/routes/opening-demo/memories.json",
+      "version": "30560d439ac7ad1f5b1c5311b5d13e98ca76db3a",
+      "location": "content/routes/opening-demo/memories.json"
+    },
+    {
+      "id": "content/assets/manifest.json",
+      "version": "0000605b4efec9b96f00077c475eeed86009a653",
+      "location": "content/assets/manifest.json"
+    },
+    {
+      "id": "tests/opening-entry-batch.test.mjs",
+      "version": "77dcf72492c47727801ebed794d60d1f429b01ea",
+      "location": "tests/opening-entry-batch.test.mjs"
+    },
+    {
+      "id": "tests/engine-progress.test.mjs",
+      "version": "e998f1c8965633054769a5cd13bc88d6086e8be5",
+      "location": "tests/engine-progress.test.mjs"
+    },
+    {
+      "id": "tests/progress.test.mjs",
+      "version": "f13b5bb6f7a66b8533d552ceafb6741e6fd04938",
+      "location": "tests/progress.test.mjs"
+    },
+    {
+      "id": "tests/story-map.test.mjs",
+      "version": "96fa52fa28852916e627a772b57f693156c6f8df",
+      "location": "tests/story-map.test.mjs"
+    },
+    {
+      "id": "tests/browser-acceptance.spec.mjs",
+      "version": "2729488c7ebd22ae0c993413a5a46f09c65ea4e3",
+      "location": "tests/browser-acceptance.spec.mjs"
+    },
+    {
+      "id": "content/production/runs/m1-c1-anchors-20261007/ledger.json",
+      "version": "9fd28d57ea0271d4940478d342d6f25685f892c9",
+      "location": "content/production/runs/m1-c1-anchors-20261007/ledger.json"
+    },
+    {
+      "id": "content/production/narrative/opening-ch1/XT-04.json",
+      "version": "29dd1429090c8044f57d8a7041649a8922c4a8e7",
+      "location": "content/production/narrative/opening-ch1/XT-04.json"
+    },
+    {
+      "id": "docs/narrative/scenes/vertical-slice/XT-04.md",
+      "version": "f90c092a03c22df111937f8005deb423c78cc0ae",
+      "location": "docs/narrative/scenes/vertical-slice/XT-04.md"
+    },
+    {
+      "id": "content/production/runs/m1-c1-anchors-20261007/NQA-XT-04.decision.json",
+      "version": "c2c3d47c70b0d618783c4def45822f840c77cc98",
+      "location": "content/production/runs/m1-c1-anchors-20261007/NQA-XT-04.decision.json"
+    },
+    {
+      "id": "content/production/narrative/opening-ch1/JYC-05.json",
+      "version": "597d03a25902dd2ad8ef1458d0e458c55c82b622",
+      "location": "content/production/narrative/opening-ch1/JYC-05.json"
+    },
+    {
+      "id": "docs/narrative/scenes/vertical-slice/JYC-05.md",
+      "version": "673448b17a3db04ad6e363420dce1557fefbd75c",
+      "location": "docs/narrative/scenes/vertical-slice/JYC-05.md"
+    },
+    {
+      "id": "content/production/runs/m1-c1-anchors-20261007/NQA-JYC-05.decision.json",
+      "version": "8e826b958b0cf776afe43409d7cfc032e4c11947",
+      "location": "content/production/runs/m1-c1-anchors-20261007/NQA-JYC-05.decision.json"
+    },
+    {
+      "id": "content/storyboards/opening-demo.json",
+      "version": "c36da8ba85ab9163adbc5ebde91b2c9b5add8b8a",
+      "location": "content/storyboards/opening-demo.json"
+    },
+    {
+      "id": "content/storyboards/opening-demo-review.json",
+      "version": "f4d90672dce581b4c20cce83e9a6526cb019b28e",
+      "location": "content/storyboards/opening-demo-review.json"
+    },
+    {
+      "id": "tools/story-map.mjs",
+      "version": "b996e8ce5b14276278c28335f88ac1fcb8215ae8",
+      "location": "tools/story-map.mjs"
+    },
+    {
+      "id": "tests/m1-c1-anchors.test.mjs",
+      "version": "dc2fdb94de77b8e7fec2fec2527285a593977a24",
+      "location": "tests/m1-c1-anchors.test.mjs"
+    }
+  ],
+  "output_versions": [
+    {
+      "id": "src/progress.js",
+      "version": "sha256:0f02c1361880dabe70e097edd491786619aa87ad615faa8b11608209187c2e72",
+      "location": "src/progress.js"
+    },
+    {
+      "id": "tests/browser-acceptance.spec.mjs",
+      "version": "sha256:c6aad410bdf60a9c8325cb5c15954909ead1a5fce9af1fb5538ea2dd49a67910",
+      "location": "tests/browser-acceptance.spec.mjs"
+    },
+    {
+      "id": "tests/m1-c1-anchors.test.mjs",
+      "version": "sha256:4fcc61de132a0fc9fc1481282bc5726d59f7a8e4e7b8d00319c6c3ca40706a85",
+      "location": "tests/m1-c1-anchors.test.mjs"
+    }
+  ],
+  "qa_codes": [
+    {
+      "name": "required_source_exact_bindings",
+      "code": "CHECK-REQUIRED-SOURCE-EXACT-BINDINGS",
+      "result": "PASS"
+    },
+    {
+      "name": "baseline_new_regression_detects_defect_0_of_4_pass",
+      "code": "CHECK-BASELINE-NEW-REGRESSION-DETECTS-DEFECT-0-OF-4-PASS",
+      "result": "PASS"
+    },
+    {
+      "name": "corrected_predecessor_regression_4_of_4",
+      "code": "CHECK-CORRECTED-PREDECESSOR-REGRESSION-4-OF-4",
+      "result": "PASS"
+    },
+    {
+      "name": "focused_runtime_save_tests_111_of_111",
+      "code": "CHECK-FOCUSED-RUNTIME-SAVE-TESTS-111-OF-111",
+      "result": "PASS"
+    },
+    {
+      "name": "browser_spec_syntax",
+      "code": "CHECK-BROWSER-SPEC-SYNTAX",
+      "result": "PASS"
+    },
+    {
+      "name": "build_node22",
+      "code": "CHECK-BUILD-NODE22",
+      "result": "PASS"
+    },
+    {
+      "name": "validate_cache_content_production_contracts_node22",
+      "code": "CHECK-VALIDATE-CACHE-CONTENT-PRODUCTION-CONTRACTS-NODE22",
+      "result": "PASS"
+    },
+    {
+      "name": "production_storage_boundary_652_paths",
+      "code": "CHECK-PRODUCTION-STORAGE-BOUNDARY-652-PATHS",
+      "result": "PASS"
+    },
+    {
+      "name": "git_diff_check",
+      "code": "CHECK-GIT-DIFF-CHECK",
+      "result": "PASS"
+    },
+    {
+      "name": "preview_smoke_port4193",
+      "code": "CHECK-PREVIEW-SMOKE-PORT4193",
+      "result": "PASS"
+    },
+    {
+      "name": "actual_Story_Map_Chromium_execution",
+      "code": "CHECK-ACTUAL-STORY-MAP-CHROMIUM-EXECUTION",
+      "result": "NOT_RUN"
+    },
+    {
+      "name": "exact_head_broad_public_CI",
+      "code": "CHECK-EXACT-HEAD-BROAD-PUBLIC-CI",
+      "result": "NOT_RUN"
+    },
+    {
+      "name": "independent_runtime_review",
+      "code": "CHECK-INDEPENDENT-RUNTIME-REVIEW",
+      "result": "NEEDS_REVIEW"
+    },
+    {
+      "name": "Human_narrative_preview_review",
+      "code": "CHECK-HUMAN-NARRATIVE-PREVIEW-REVIEW",
+      "result": "NEEDS_REVIEW"
+    }
+  ],
+  "known_issues": [
+    "Local Chromium executable known absent: browser not retried; browser spec only syntax verified.",
+    "Broad npm test and actual Chromium await exact-head public CI once.",
+    "Fresh independent runtime review, public preview, Human narrative acceptance and final art remain pending."
+  ],
+  "human_gate_required": "narrative_preview_review",
+  "invalidates": []
+}
