@@ -1,0 +1,113 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_checkpoint",
+  "run_id": "m1-c1-anchors-20261007",
+  "workflow_version": "1.3.1",
+  "source_ref": "a2967d98cd7118c690cc1adada8035182594cc55",
+  "human_request": {
+    "summary": "Continue #77 C1 anchors after all 34 looks/68 refs; #78 minimum slot completion contract in parallel. No wholesale rewrite, new cast, scheduler framework or formal CG in this batch.",
+    "gate_status": "existing direction; new preview review remains pending"
+  },
+  "status": "ACTIVE",
+  "tasks": [
+    {
+      "task_id": "ND-XT-04",
+      "task_type": "narrative_design",
+      "depends_on": [],
+      "status": "RUNNING",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "8ffb9eeaf8e7e0ff79d433566f4dc50dd8a08234128a049517100cd92cb0f7f7"
+      },
+      "decision_receipt": null,
+      "human_gate": "none",
+      "reason": "Fresh bounded worker dispatched from verified exact current main.",
+      "scene_id": "XT-04"
+    },
+    {
+      "task_id": "ND-JYC-05",
+      "task_type": "narrative_design",
+      "depends_on": [],
+      "status": "RUNNING",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "ea3f86ae1ad32986cf32132cc9c50763ce4e220e5c84af89871d65d9c8766abf"
+      },
+      "decision_receipt": null,
+      "human_gate": "none",
+      "reason": "Fresh bounded worker dispatched from verified exact current main.",
+      "scene_id": "JYC-05"
+    },
+    {
+      "task_id": "SLOT-CONTRACT-001",
+      "task_type": "integrate",
+      "depends_on": [],
+      "status": "RUNNING",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "c653f138f6b3591a7299a977bce511a929ed4acaa97da5d16fdb2460ab7af1f1"
+      },
+      "decision_receipt": null,
+      "human_gate": "none",
+      "reason": "Fresh bounded worker dispatched from verified exact current main."
+    },
+    {
+      "task_id": "DIALOGUE-XT-04",
+      "task_type": "scene_dialogue",
+      "scene_id": "XT-04",
+      "depends_on": [
+        "ND-XT-04"
+      ],
+      "status": "PENDING",
+      "human_gate": "none",
+      "reason": "Await verified approved narrative contract."
+    },
+    {
+      "task_id": "NQA-XT-04",
+      "task_type": "narrative_review",
+      "scene_id": "XT-04",
+      "depends_on": [
+        "DIALOGUE-XT-04"
+      ],
+      "status": "PENDING",
+      "human_gate": "none",
+      "reason": "Fresh independent full-scene review after dialogue."
+    },
+    {
+      "task_id": "DIALOGUE-JYC-05",
+      "task_type": "scene_dialogue",
+      "scene_id": "JYC-05",
+      "depends_on": [
+        "ND-JYC-05"
+      ],
+      "status": "PENDING",
+      "human_gate": "none",
+      "reason": "Await verified approved narrative contract."
+    },
+    {
+      "task_id": "NQA-JYC-05",
+      "task_type": "narrative_review",
+      "scene_id": "JYC-05",
+      "depends_on": [
+        "DIALOGUE-JYC-05"
+      ],
+      "status": "PENDING",
+      "human_gate": "none",
+      "reason": "Fresh independent full-scene review after dialogue."
+    },
+    {
+      "task_id": "INTEGRATE-C1-001",
+      "task_type": "integrate",
+      "depends_on": [
+        "NQA-XT-04",
+        "NQA-JYC-05",
+        "SLOT-CONTRACT-001"
+      ],
+      "status": "PENDING",
+      "human_gate": "narrative_preview_review",
+      "reason": "Text-preserving narrative preview; shared chapter changes are serialized."
+    }
+  ],
+  "invalidation_events": [],
+  "preview": null
+}
