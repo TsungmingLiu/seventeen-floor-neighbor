@@ -1,0 +1,166 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_decision",
+  "evidence_purpose": "qa_decision",
+  "run_id": "m1-c1-anchors-20261007",
+  "task_id": "NQA-JYC-05",
+  "task_type": "narrative_review",
+  "status": "PASS",
+  "harness": {
+    "id": "content_qa",
+    "version": "1.5.1",
+    "pass": "narrative_review"
+  },
+  "source_ref": "43961622a4f6a0246199a7bd26768b32c8e6196a",
+  "packet_sha256": "043dadbf803e36a2d35b1c509b770e5bb457bdf976c970abc7d8f2f2710693e5",
+  "input_digest_sha256": "bb745867dcb2a1bd5f42f65bb50db75c28587341726a5da502989dc924144945",
+  "input_versions": [
+    {
+      "id": "file:content/production/narrative/opening-ch1/JYC-05.json",
+      "version": "597d03a25902dd2ad8ef1458d0e458c55c82b622",
+      "location": "content/production/narrative/opening-ch1/JYC-05.json"
+    },
+    {
+      "id": "file:docs/narrative/scenes/vertical-slice/JYC-05.md",
+      "version": "673448b17a3db04ad6e363420dce1557fefbd75c",
+      "location": "docs/narrative/scenes/vertical-slice/JYC-05.md"
+    },
+    {
+      "id": "excerpt:docs/narrative/CONTENT_PRODUCTION_SPEC.md:declared:L13-L53",
+      "version": "d9847417aaaa47e1a8d56fac178df7045be2e608429aa0dbea6874b78cd7fd31",
+      "location": "docs/narrative/CONTENT_PRODUCTION_SPEC.md#L13-L53"
+    },
+    {
+      "id": "excerpt:docs/narrative/CONTENT_PRODUCTION_SPEC.md:declared:L60-L91",
+      "version": "fb8b1f617ec3baddf89a1220794e7796fda9105b73d025456c6968ef16daa947",
+      "location": "docs/narrative/CONTENT_PRODUCTION_SPEC.md#L60-L91"
+    },
+    {
+      "id": "excerpt:docs/narrative/CONTENT_PRODUCTION_SPEC.md:declared:L135-L137",
+      "version": "56c2cd59e015ff59adb9a12d63356aba4d932f67f6048746bbc122c610ff7164",
+      "location": "docs/narrative/CONTENT_PRODUCTION_SPEC.md#L135-L137"
+    },
+    {
+      "id": "excerpt:docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md:declared:L80-L190",
+      "version": "0ad57c349429e9ff04654b8b21c6554e3c9b30e9d3a89f286c91dddbcf7b8fa1",
+      "location": "docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md#L80-L190"
+    },
+    {
+      "id": "excerpt:docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md:declared:L191-L353",
+      "version": "d02d182e0abdae9ffb1c13d1a0c7be565a916d7b056586dceaac55644def440e",
+      "location": "docs/narrative/NARRATIVE_INTERACTION_AND_STORY_MAP_SPEC.md#L191-L353"
+    },
+    {
+      "id": "excerpt:docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md:declared:L400-L415",
+      "version": "f5b5843003c36c1b5dcbfac9953d01966e32c8b2214fba76b09268ae3409e9e8",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L400-L415"
+    },
+    {
+      "id": "excerpt:docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md:declared:L437-L439",
+      "version": "1b473309c5a1a1179ec82f4ff2f7296fdb902fbdca6b9b79eb8c57bec53eb6a4",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L437-L439"
+    },
+    {
+      "id": "excerpt:docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md:declared:L344-L345",
+      "version": "1f8629992fd31a74bb16458a0dcf334620aaceaea2e92d4cce9f6cf244591511",
+      "location": "docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md#L344-L345"
+    },
+    {
+      "id": "excerpt:docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_JIANG_YUCHENG.md:declared:L1-L74",
+      "version": "2f0b37ffb4a2639e8c8eba4d7133a50a140f1613cfce448960cce3830942c7a7",
+      "location": "docs/narrative/route-blueprints/SCRIPT_BLUEPRINT_JIANG_YUCHENG.md#L1-L74"
+    },
+    {
+      "id": "excerpt:docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md:declared:L441-L463",
+      "version": "f0e55236dec56ee4c9f1e64ccea94a32631d2c9ade7ea7ce14b9ead29a0f9fb0",
+      "location": "docs/narrative/PROTOTYPE_BRAIDED_NARRATIVE_SPEC.md#L441-L463"
+    },
+    {
+      "id": "excerpt:docs/narrative/scenes/vertical-slice/OPEN-A.md:declared:L3-L11",
+      "version": "2e430a250b3e309a036c737e6c9e7bbedf27b0858cb13840b0f7801f30277fee",
+      "location": "docs/narrative/scenes/vertical-slice/OPEN-A.md#L3-L11"
+    },
+    {
+      "id": "excerpt:docs/narrative/scenes/vertical-slice/OPEN-A.md:declared:L40-L50",
+      "version": "0538887e36ea477b131dd39f71e6fe212434d7469b4c9b847b2bb2f29a3d7458",
+      "location": "docs/narrative/scenes/vertical-slice/OPEN-A.md#L40-L50"
+    },
+    {
+      "id": "excerpt:docs/narrative/scenes/vertical-slice/OPEN-A.md:declared:L241-L293",
+      "version": "d96520e6e133c5b32fa9153b4b470c16603b1a68c84b05d5d461350d0278dff8",
+      "location": "docs/narrative/scenes/vertical-slice/OPEN-A.md#L241-L293"
+    },
+    {
+      "id": "excerpt:docs/narrative/scenes/vertical-slice/OPEN-A.md:declared:L398-L413",
+      "version": "79371574a296229dcbb8c2f53991073591c3223986ccf01815325a56bd1ae3e8",
+      "location": "docs/narrative/scenes/vertical-slice/OPEN-A.md#L398-L413"
+    }
+  ],
+  "output_versions": [],
+  "qa_codes": [
+    {
+      "name": "NQA-SCENE-FUNCTION",
+      "code": "CHECK-NQA-SCENE-FUNCTION",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-VOICE-AND-PACING",
+      "code": "CHECK-NQA-VOICE-AND-PACING",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-DIALOGUE-NATURALISM",
+      "code": "CHECK-NQA-DIALOGUE-NATURALISM",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-POV-KNOWLEDGE",
+      "code": "CHECK-NQA-POV-KNOWLEDGE",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-CHOICE-INTENT",
+      "code": "CHECK-NQA-CHOICE-INTENT",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-BRANCH-EVIDENCE",
+      "code": "CHECK-NQA-BRANCH-EVIDENCE",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-BRANCH-REJOIN",
+      "code": "CHECK-NQA-BRANCH-REJOIN",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-STATE-COMPLETION",
+      "code": "CHECK-NQA-STATE-COMPLETION",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-REPAIR-BOUNDARY",
+      "code": "CHECK-NQA-REPAIR-BOUNDARY",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-REWARD-AND-EXIT",
+      "code": "CHECK-NQA-REWARD-AND-EXIT",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-WARDROBE-CARRY-THROUGH",
+      "code": "CHECK-NQA-WARDROBE-CARRY-THROUGH",
+      "result": "PASS"
+    },
+    {
+      "name": "NQA-SEMANTIC-VISUAL-BEATS",
+      "code": "CHECK-NQA-SEMANTIC-VISUAL-BEATS",
+      "result": "PASS"
+    }
+  ],
+  "known_issues": [],
+  "human_gate_required": "none",
+  "invalidates": [],
+  "scene_id": "JYC-05"
+}

@@ -58,7 +58,7 @@
       "depends_on": [
         "ND-XT-04-REVIEW-001"
       ],
-      "status": "READY",
+      "status": "RUNNING",
       "human_gate": "none",
       "reason": "Writer-stage Handoff verified PASS; exact committed complete Script Lock acquired. Generate packet with source_ref=1610128ce9e2fdd577d4d8ab377335232db79eee; independent full-scene Narrative QA pending.",
       "packet": {
@@ -73,13 +73,14 @@
       "depends_on": [
         "ND-JYC-05"
       ],
-      "status": "RUNNING",
+      "status": "PASS",
       "human_gate": "none",
-      "reason": "Writer-stage Handoff verified PASS; exact committed complete Script Lock acquired. Generate packet with source_ref=43961622a4f6a0246199a7bd26768b32c8e6196a; independent full-scene Narrative QA pending.",
+      "reason": "Verified complete JYC-05 Narrative QA PASS against exact contract and Locked Scene; no runtime/Human/CG acceptance.",
       "packet": {
         "generator": "tools/context.mjs:narrative_review",
         "sha256": "043dadbf803e36a2d35b1c509b770e5bb457bdf976c970abc7d8f2f2710693e5"
-      }
+      },
+      "decision_receipt": "content/production/runs/m1-c1-anchors-20261007/NQA-JYC-05.decision.json"
     },
     {
       "task_id": "INTEGRATE-C1-001",
