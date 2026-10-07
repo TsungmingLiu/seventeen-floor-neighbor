@@ -158,6 +158,21 @@
         "sha256": "b3bf09f81a8756364343a93707d9a0c5b8c52a924380fc460fd801b6a330b8e7"
       },
       "reason": "Verified independent affected review FAIL source_ref=648582e9b1f188c60304f40558b78db88ad7b14a input_digest=c8c84bf736a2f32def538ee9c919b7ad5d437a66d89d0e6bb64b947f760d8679. Original four predecessor-to-C1 fixes and111focused PASS; single P1 C1-RUNTIME-002-EXIT: protected return incomplete at life/contactless/blocked exits. Consolidated24check matrix4fresh PASS/20exit FAIL; all7reachable terminals listed. One bounded escalation completes the whole same lifecycle, no creative invalidation."
+    },
+    {
+      "task_id": "INTEGRATE-C1-004",
+      "task_type": "integrate",
+      "depends_on": [
+        "NQA-XT-04",
+        "NQA-JYC-05"
+      ],
+      "status": "RUNNING",
+      "human_gate": "narrative_preview_review",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "53e46766fb7ab2ae4b4548bcdeac0b2dbd7b2669347e40e18b18cc5a28f22836"
+      },
+      "reason": "One bounded escalation after focused correction: source_ref=6d04808ffc7827d5e0e821f327218aa3122d5cd1. Complete same protected return lifecycle across all7actual endpoints/blocked guard; reviewer24case matrix4freshPASS/20exitFAIL is full affectedscope. Frozen creative/graph/art/NQA unchanged; fresh affectedreview/CI/publicpreview/Human separate."
     }
   ],
   "invalidation_events": [],
