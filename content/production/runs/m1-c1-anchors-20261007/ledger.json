@@ -151,13 +151,13 @@
       "depends_on": [
         "INTEGRATE-C1-003"
       ],
-      "status": "RUNNING",
+      "status": "FAIL",
       "human_gate": "none",
       "packet": {
         "generator": "manual-v1",
         "sha256": "b3bf09f81a8756364343a93707d9a0c5b8c52a924380fc460fd801b6a330b8e7"
       },
-      "reason": "Fresh affected engineering review source_ref=648582e9b1f188c60304f40558b78db88ad7b14a for actual predecessor C1 replay P1; frozen story/art/graph identities checked against original reviewed b280bfe instead of repeating whole creative QA. Public CI/preview and Human acceptance remain separate."
+      "reason": "Verified independent affected review FAIL source_ref=648582e9b1f188c60304f40558b78db88ad7b14a input_digest=c8c84bf736a2f32def538ee9c919b7ad5d437a66d89d0e6bb64b947f760d8679. Original four predecessor-to-C1 fixes and111focused PASS; single P1 C1-RUNTIME-002-EXIT: protected return incomplete at life/contactless/blocked exits. Consolidated24check matrix4fresh PASS/20exit FAIL; all7reachable terminals listed. One bounded escalation completes the whole same lifecycle, no creative invalidation."
     }
   ],
   "invalidation_events": [],
