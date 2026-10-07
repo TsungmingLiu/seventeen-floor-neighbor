@@ -114,6 +114,20 @@
         "sha256": "9aae10b36fecfc3f8e25026e6a22167e65473d4497e3d8b43c8b4161b292184f"
       },
       "decision_receipt": "content/production/runs/m1-c1-anchors-20261007/INTEGRATE-C1-002.decision.json"
+    },
+    {
+      "task_id": "REVIEW-C1-RUNTIME-001",
+      "task_type": "integrate",
+      "depends_on": [
+        "INTEGRATE-C1-002"
+      ],
+      "status": "FAIL",
+      "human_gate": "none",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "7b12cab1ab2b660a9fbfbb72d0baec55c383ebc887a72807be457222db6b2d21"
+      },
+      "reason": "Verified independent engineering FAIL source_ref=b280bfe63f96e9d8bed52e3090404f6f666fdb9b input_digest=9e93ae502f19a50de7deb4dea6d1a68ff3d1979ae2e1df3ba10c707b887c7558. P1 C1-RUNTIME-001: ordinary OPEN-A replay can enter opposite C1 without return protection, mint canonical completion checkpoint and lose live middle-save run mode. Four reproduced paths; existing107 regressions/literal parity/build/validate PASS. One focused integrator correction required, fresh affected review afterward."
     }
   ],
   "invalidation_events": [],
