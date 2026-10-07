@@ -100,62 +100,62 @@
   "qa_codes": [
     {
       "name": "NQA-SCENE-FUNCTION",
-      "code": "CHECK-NQA-SCENE-FUNCTION",
+      "code": "NQA-SCENE-FUNCTION",
       "result": "PASS"
     },
     {
       "name": "NQA-VOICE-AND-PACING",
-      "code": "CHECK-NQA-VOICE-AND-PACING",
+      "code": "NQA-VOICE-AND-PACING",
       "result": "PASS"
     },
     {
       "name": "NQA-DIALOGUE-NATURALISM",
-      "code": "CHECK-NQA-DIALOGUE-NATURALISM",
+      "code": "NQA-DIALOGUE-NATURALISM",
       "result": "PASS"
     },
     {
       "name": "NQA-POV-KNOWLEDGE",
-      "code": "CHECK-NQA-POV-KNOWLEDGE",
+      "code": "NQA-POV-KNOWLEDGE",
       "result": "PASS"
     },
     {
       "name": "NQA-CHOICE-INTENT",
-      "code": "CHECK-NQA-CHOICE-INTENT",
+      "code": "NQA-CHOICE-INTENT",
       "result": "PASS"
     },
     {
       "name": "NQA-BRANCH-EVIDENCE",
-      "code": "CHECK-NQA-BRANCH-EVIDENCE",
+      "code": "NQA-BRANCH-EVIDENCE",
       "result": "PASS"
     },
     {
       "name": "NQA-BRANCH-REJOIN",
-      "code": "CHECK-NQA-BRANCH-REJOIN",
+      "code": "NQA-BRANCH-REJOIN",
       "result": "PASS"
     },
     {
       "name": "NQA-STATE-COMPLETION",
-      "code": "CHECK-NQA-STATE-COMPLETION",
+      "code": "NQA-STATE-COMPLETION",
       "result": "PASS"
     },
     {
       "name": "NQA-REPAIR-BOUNDARY",
-      "code": "CHECK-NQA-REPAIR-BOUNDARY",
+      "code": "NQA-REPAIR-BOUNDARY",
       "result": "PASS"
     },
     {
       "name": "NQA-REWARD-AND-EXIT",
-      "code": "CHECK-NQA-REWARD-AND-EXIT",
+      "code": "NQA-REWARD-AND-EXIT",
       "result": "PASS"
     },
     {
       "name": "NQA-WARDROBE-CARRY-THROUGH",
-      "code": "CHECK-NQA-WARDROBE-CARRY-THROUGH",
+      "code": "NQA-WARDROBE-CARRY-THROUGH",
       "result": "PASS"
     },
     {
       "name": "NQA-SEMANTIC-VISUAL-BEATS",
-      "code": "CHECK-NQA-SEMANTIC-VISUAL-BEATS",
+      "code": "NQA-SEMANTIC-VISUAL-BEATS",
       "result": "PASS"
     }
   ],

@@ -100,67 +100,67 @@
   "qa_codes": [
     {
       "name": "NQA-VOICE-AND-PACING",
-      "code": "CHECK-NQA-VOICE-AND-PACING",
+      "code": "NQA-VOICE-AND-PACING",
       "result": "PASS"
     },
     {
       "name": "NQA-DIALOGUE-NATURALISM",
-      "code": "CHECK-NQA-DIALOGUE-NATURALISM",
+      "code": "NQA-DIALOGUE-NATURALISM",
       "result": "PASS"
     },
     {
       "name": "NQA-FIRST-PERSON-KNOWLEDGE",
-      "code": "CHECK-NQA-FIRST-PERSON-KNOWLEDGE",
+      "code": "NQA-FIRST-PERSON-KNOWLEDGE",
       "result": "PASS"
     },
     {
       "name": "NQA-PLAYER-ACTION-CHOICE",
-      "code": "CHECK-NQA-PLAYER-ACTION-CHOICE",
+      "code": "NQA-PLAYER-ACTION-CHOICE",
       "result": "PASS"
     },
     {
       "name": "NQA-LOCAL-CONSEQUENCE-AND-REJOIN",
-      "code": "CHECK-NQA-LOCAL-CONSEQUENCE-AND-REJOIN",
+      "code": "NQA-LOCAL-CONSEQUENCE-AND-REJOIN",
       "result": "PASS"
     },
     {
       "name": "NQA-FOUR-PACE-OUTCOMES",
-      "code": "CHECK-NQA-FOUR-PACE-OUTCOMES",
+      "code": "NQA-FOUR-PACE-OUTCOMES",
       "result": "PASS"
     },
     {
       "name": "NQA-VOLUNTARY-EXTENSION",
-      "code": "CHECK-NQA-VOLUNTARY-EXTENSION",
+      "code": "NQA-VOLUNTARY-EXTENSION",
       "result": "PASS"
     },
     {
       "name": "NQA-IMPOSED-PLAN-REMAINS-UNRESOLVED",
-      "code": "CHECK-NQA-IMPOSED-PLAN-REMAINS-UNRESOLVED",
+      "code": "NQA-IMPOSED-PLAN-REMAINS-UNRESOLVED",
       "result": "PASS"
     },
     {
       "name": "NQA-COMPLETION-AND-FINITE-SLOT",
-      "code": "CHECK-NQA-COMPLETION-AND-FINITE-SLOT",
+      "code": "NQA-COMPLETION-AND-FINITE-SLOT",
       "result": "PASS"
     },
     {
       "name": "NQA-EXIT-AND-UNPRODUCED-SUCCESSOR-STOP",
-      "code": "CHECK-NQA-EXIT-AND-UNPRODUCED-SUCCESSOR-STOP",
+      "code": "NQA-EXIT-AND-UNPRODUCED-SUCCESSOR-STOP",
       "result": "PASS"
     },
     {
       "name": "NQA-WARDROBE-BOUNDARY",
-      "code": "CHECK-NQA-WARDROBE-BOUNDARY",
+      "code": "NQA-WARDROBE-BOUNDARY",
       "result": "PASS"
     },
     {
       "name": "NQA-SEMANTIC-VISUAL-BEATS",
-      "code": "CHECK-NQA-SEMANTIC-VISUAL-BEATS",
+      "code": "NQA-SEMANTIC-VISUAL-BEATS",
       "result": "PASS"
     },
     {
       "name": "NQA-MUST-NOT-AND-CANON-CONSISTENCY",
-      "code": "CHECK-NQA-MUST-NOT-AND-CANON-CONSISTENCY",
+      "code": "NQA-MUST-NOT-AND-CANON-CONSISTENCY",
       "result": "PASS"
     }
   ],
