@@ -77,9 +77,9 @@
         "NQA-XT-04",
         "NQA-JYC-05"
       ],
-      "status": "RUNNING",
+      "status": "BLOCKED",
       "human_gate": "narrative_preview_review",
-      "reason": "Fresh accepted two-scene text-preserving integration dispatched from source_ref=c6b0c93311979bf376cfc1a61abf6749ea81cbe0. Exact QA coverage PASS; local checks then independent technical review, stable PR CI and public preview pending.",
+      "reason": "Verified actual BLOCKED Handoff: old pending-save/Memory replay restoration requires cross-system engineering. No source changes; rerouted fresh capable worker from the same approved source_ref=c6b0c93311979bf376cfc1a61abf6749ea81cbe0.",
       "packet": {
         "generator": "manual-v1",
         "sha256": "f5957ad3bcf6064875dd90081b139746ae6f4ceb17cb1571fc39503284b82331"
@@ -98,6 +98,21 @@
       "human_gate": "none",
       "reason": "Coordinator verified actual fresh independent review Handoff; scope-specific approval only.",
       "scene_id": "XT-04"
+    },
+    {
+      "task_id": "INTEGRATE-C1-002",
+      "task_type": "integrate",
+      "depends_on": [
+        "NQA-XT-04",
+        "NQA-JYC-05"
+      ],
+      "status": "RUNNING",
+      "human_gate": "narrative_preview_review",
+      "reason": "Fresh capable integration source_ref=c6b0c93311979bf376cfc1a61abf6749ea81cbe0; old pending terminals retain IDs and advance to guarded outing entries, bounded first-slot completion and replay protection. Local checks, independent technical review and public preview pending.",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "3b3573ff96a15f40a69d784429a9241f86de58b27dbfb5e2e9f1f03bc8836d6d"
+      }
     }
   ],
   "invalidation_events": [],
