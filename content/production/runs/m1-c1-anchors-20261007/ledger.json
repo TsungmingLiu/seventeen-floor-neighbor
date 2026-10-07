@@ -6,7 +6,7 @@
   "source_ref": "a2967d98cd7118c690cc1adada8035182594cc55",
   "human_request": {
     "summary": "Continue #77 C1 anchors after all 34 looks/68 refs; #78 minimum slot completion contract in parallel. No wholesale rewrite, new cast, scheduler framework or formal CG in this batch.",
-    "gate_status": "Writer execution facts remain transient; durable NQA decisions bind exact Script Locks. Narrative preview/Human review pending."
+    "gate_status": "Both Script Locks independently NQA PASS; reviewed technical completion proposal is engineering input. Integration/preview and Human review pending; engineering audit remains cache-only."
   },
   "status": "ACTIVE",
   "tasks": [
@@ -39,32 +39,20 @@
       "scene_id": "JYC-05"
     },
     {
-      "task_id": "SLOT-CONTRACT-001",
-      "task_type": "integrate",
-      "depends_on": [],
-      "status": "NEEDS_REVIEW",
-      "packet": {
-        "generator": "manual-v1",
-        "sha256": "c653f138f6b3591a7299a977bce511a929ed4acaa97da5d16fdb2460ab7af1f1"
-      },
-      "decision_receipt": "content/production/runs/m1-c1-anchors-20261007/SLOT-CONTRACT-001.decision.json",
-      "human_gate": "none",
-      "reason": "Technical proposal complete; baseline validate:final preview-art rejection explicitly recorded; fresh scoped doc review before integration."
-    },
-    {
       "task_id": "NQA-XT-04",
       "task_type": "narrative_review",
       "scene_id": "XT-04",
       "depends_on": [
         "ND-XT-04-REVIEW-001"
       ],
-      "status": "RUNNING",
+      "status": "PASS",
       "human_gate": "none",
-      "reason": "Writer-stage Handoff verified PASS; exact committed complete Script Lock acquired. Generate packet with source_ref=1610128ce9e2fdd577d4d8ab377335232db79eee; independent full-scene Narrative QA pending.",
+      "reason": "Verified actual complete XT-04 independent Narrative QA; source Script Lock/contract exact, no runtime/Human/CG acceptance.",
       "packet": {
         "generator": "tools/context.mjs:narrative_review",
         "sha256": "8b456aa7a267370e4f4cac347ad9411433d656ec0ac69775178a8170ba5e3dfd"
-      }
+      },
+      "decision_receipt": "content/production/runs/m1-c1-anchors-20261007/NQA-XT-04.decision.json"
     },
     {
       "task_id": "NQA-JYC-05",
@@ -87,12 +75,11 @@
       "task_type": "integrate",
       "depends_on": [
         "NQA-XT-04",
-        "NQA-JYC-05",
-        "SLOT-CONTRACT-REVIEW-001"
+        "NQA-JYC-05"
       ],
-      "status": "PENDING",
+      "status": "READY",
       "human_gate": "narrative_preview_review",
-      "reason": "Text-preserving narrative preview; shared chapter changes are serialized."
+      "reason": "Both full-scene NQA verified PASS. Engineering completion proposal independently reviewed; consume pinned technical doc, no additional art-production gate."
     },
     {
       "task_id": "ND-XT-04-REVIEW-001",
@@ -107,19 +94,6 @@
       "human_gate": "none",
       "reason": "Coordinator verified actual fresh independent review Handoff; scope-specific approval only.",
       "scene_id": "XT-04"
-    },
-    {
-      "task_id": "SLOT-CONTRACT-REVIEW-001",
-      "task_type": "integrate",
-      "depends_on": [],
-      "status": "PASS",
-      "packet": {
-        "generator": "manual-v1",
-        "sha256": "4224612c95d922415d557deb640fb24fd531ec5c92447dab7ee243515a12227e"
-      },
-      "decision_receipt": "content/production/runs/m1-c1-anchors-20261007/SLOT-CONTRACT-REVIEW-001.decision.json",
-      "human_gate": "none",
-      "reason": "Coordinator verified actual fresh independent review Handoff; scope-specific approval only."
     }
   ],
   "invalidation_events": [],
