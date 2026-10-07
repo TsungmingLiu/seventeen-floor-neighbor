@@ -47,7 +47,7 @@
         "generator": "manual-v1",
         "sha256": "c653f138f6b3591a7299a977bce511a929ed4acaa97da5d16fdb2460ab7af1f1"
       },
-      "decision_receipt": null,
+      "decision_receipt": "content/production/runs/m1-c1-anchors-20261007/SLOT-CONTRACT-001.decision.json",
       "human_gate": "none",
       "reason": "Technical proposal complete; baseline validate:final preview-art rejection explicitly recorded; fresh scoped doc review before integration."
     },
@@ -58,9 +58,13 @@
       "depends_on": [
         "ND-XT-04-REVIEW-001"
       ],
-      "status": "PENDING",
+      "status": "RUNNING",
       "human_gate": "none",
-      "reason": "Await verified approved narrative contract."
+      "reason": "Fresh dialogue worker dispatched under exact verified design contract; Script Lock/NQA pending.",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "492ed108ce8b28ecc64b02b8a5d13bf0bd618660c6ca80c8cada52b52ebc7359"
+      }
     },
     {
       "task_id": "NQA-XT-04",
@@ -80,9 +84,13 @@
       "depends_on": [
         "ND-JYC-05"
       ],
-      "status": "PENDING",
+      "status": "RUNNING",
       "human_gate": "none",
-      "reason": "Await verified approved narrative contract."
+      "reason": "Fresh dialogue worker dispatched under exact verified design contract; Script Lock/NQA pending.",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "82023417f48e0055bce8be794a88e1e174a3403359572ac7a462be093c62fcef"
+      }
     },
     {
       "task_id": "NQA-JYC-05",
@@ -111,28 +119,28 @@
       "task_id": "ND-XT-04-REVIEW-001",
       "task_type": "narrative_design",
       "depends_on": [],
-      "status": "RUNNING",
+      "status": "PASS",
       "packet": {
         "generator": "manual-v1",
         "sha256": "6bb99cde8c4cab22ef327b240670ff7455d1e002a31735e6f9c6e73e6701024d"
       },
-      "decision_receipt": null,
+      "decision_receipt": "content/production/runs/m1-c1-anchors-20261007/ND-XT-04-REVIEW-001.decision.json",
       "human_gate": "none",
-      "reason": "Fresh independent bounded review of preserved proposed output.",
+      "reason": "Coordinator verified actual fresh independent review Handoff; scope-specific approval only.",
       "scene_id": "XT-04"
     },
     {
       "task_id": "SLOT-CONTRACT-REVIEW-001",
       "task_type": "integrate",
       "depends_on": [],
-      "status": "RUNNING",
+      "status": "PASS",
       "packet": {
         "generator": "manual-v1",
         "sha256": "4224612c95d922415d557deb640fb24fd531ec5c92447dab7ee243515a12227e"
       },
-      "decision_receipt": null,
+      "decision_receipt": "content/production/runs/m1-c1-anchors-20261007/SLOT-CONTRACT-REVIEW-001.decision.json",
       "human_gate": "none",
-      "reason": "Fresh independent bounded review of preserved proposed output."
+      "reason": "Coordinator verified actual fresh independent review Handoff; scope-specific approval only."
     }
   ],
   "invalidation_events": [],
