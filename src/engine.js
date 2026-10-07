@@ -1069,7 +1069,10 @@ export class GameEngine {
   startGame({ replay = false, freshRun = false } = {}) {
     if (!this.requirePlayerName(() => this.startGame({ replay, freshRun }))) return;
     if (freshRun) this.progress.beginFreshRun();
-    else if (replay) this.progress.beginReplay();
+    else if (replay) {
+      const entry = this.progress.data.checkpoints[this.chapter.startNode];
+      this.progress.beginReplay(entry?.flags.includes('preview:jyc-weekend-weekday') ? entry : null);
+    }
     else this.progress.endReplay();
     this.stopCinematic();
     this.state = this.createInitialState();

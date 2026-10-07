@@ -1,5 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { compileStoryMap } from '../tools/story-map.mjs';
+import { c1Outing } from '../src/branches.js';
 import { GameEngine } from '../src/engine.js';
 import { readFileSync } from 'node:fs';
 
@@ -706,3 +708,69 @@ for (const kind of ['known-contact', 'known-no-contact', 'never-met']) for (cons
     assert.deepEqual(reloaded.progress.data.cursor, main.cursor);
   });
 }
+
+
+test('actual bookstore Map replay wrapper continues to earned contact and messages with protected main', () => {
+  installBrowserMocks();
+  const runtime = openingRuntime();
+  let engine = instantEngine(runtime);
+  engine.progress.setPlayerName('小雨');
+  engine.startGame({ freshRun: true });
+  const choices = { common_bookstore_bridge_weekend_decision: 'com01b_bookstore_go',
+    common_weekday_outing_decision: 'com01b_weekday_cafe_first',
+    common_station_cafe_jyc_contact_choice: 'com02j_leave_without_contact',
+    'OPEN-A-ENTRY-ACTION-X': 'OPEN-A-ACT-LIFE', 'OPEN-A-LIFE-ACTION': 'OPEN-A-LIFE-SOLO' };
+  walkOpening(engine, choices);
+  const main = structuredClone(engine.progress.data.frontier);
+  assert.ok(engine.progress.data.checkpoints.com01b_bookstore_go);
+  engine.replayMemory({ replayNode: 'com01b_bookstore_go' });
+  assert.ok(engine.progress.data.c1Replay.exploration);
+  walkOpening(engine, { ...choices, common_station_cafe_jyc_contact_choice: 'com02j_offer_discord' },
+    e => e.nodeId === 'common_recommend_discord_jyc_choice');
+  assert.equal(engine.nodeId, 'common_recommend_discord_jyc_choice');
+  assert.ok(engine.state.flags.has('contact_jyc'));
+  assert.deepEqual(engine.progress.data.frontier, main);
+  assert.ok(engine.progress.data.checkpoints.common_recommend_discord_jyc_enter);
+  engine = instantEngine(runtime);
+  engine.startFromTitle();
+  assert.equal(engine.nodeId, 'common_recommend_discord_jyc_choice');
+  walkOpening(engine, { 'OPEN-A-ENTRY-ACTION-BOTH': 'OPEN-A-ACT-J' }, e => e.nodeId === 'JYC-05-ENTRY');
+  assert.equal(engine.nodeId, 'JYC-05-ENTRY');
+  assert.deepEqual(engine.progress.data.frontier, main);
+  engine.progress.endReplay();
+  assert.deepEqual(engine.progress.data.frontier, main);
+});
+
+
+for (const path of ['bookstore', 'cafe-only', 'street']) test(`actual ${path} Map entries use current protected replay metadata, preserving direct C1`, () => {
+  installBrowserMocks();
+  const runtime = openingRuntime();
+  let engine = instantEngine(runtime);
+  engine.progress.setPlayerName('小雨');
+  engine.startGame({ freshRun: true });
+  walkOpening(engine, {
+    common_bookstore_bridge_weekend_decision: path === 'bookstore' ? 'com01b_bookstore_go' : 'com01b_bookstore_skip',
+    common_weekday_outing_decision: path === 'street' ? 'com01b_weekday_street_walk' : 'com01b_weekday_cafe_first',
+    common_station_cafe_jyc_contact_choice: 'com02j_leave_without_contact',
+    'OPEN-A-ENTRY-ACTION-X': path === 'bookstore' ? 'OPEN-A-ACT-X' : 'OPEN-A-ACT-LIFE',
+    'OPEN-A-LIFE-ACTION': 'OPEN-A-LIFE-SOLO'
+  });
+  const main = structuredClone(engine.progress.data.frontier);
+  const definition = JSON.parse(readFileSync(new URL('../content/storyboards/opening-demo.json', import.meta.url)));
+  const map = compileStoryMap(runtime, definition);
+  let entries = 0;
+  for (const variant of map.groups.flatMap(g => g.variants)) {
+    if (!engine.progress.data.checkpoints[variant.entry]) continue;
+    engine = instantEngine(runtime);
+    engine.replayMemory({ replayNode: variant.entry });
+    assert.ok(engine.progress.data.c1Replay, `protected ${variant.entry}`);
+    const preservedC1 = c1Outing(variant.entry)
+      || (engine.progress.openingContinuationRank(variant.entry) >= 0 && c1Outing(main.nodeId));
+    assert.equal(!!engine.progress.data.c1Replay.exploration, !preservedC1, variant.entry);
+    assert.deepEqual(engine.progress.data.frontier, main);
+    engine.progress.endReplay();
+    assert.deepEqual(engine.progress.data.frontier, main);
+    entries++;
+  }
+  assert.ok(entries >= 7, 'actual semantic entries are tested, including the start Memory');
+});

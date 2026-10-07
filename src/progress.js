@@ -512,8 +512,7 @@ export class ProgressStore {
     // Current Opening memories can explore their authored successors. Reuse
     // the protected return; exploration adds visits without replacing main facts.
     const exploration = this.chapter.id === 'opening-demo-chapter-01' && snapshot
-      && /^(common_bookstore_bridge_|common_weekday_outing_|common_acg_first_meet_|common_station_cafe_jyc_|com02j_|common_package_xu_|common_recommend_discord_jyc_)/.test(snapshot.nodeId)
-      && snapshot.flags.includes('preview:jyc-weekend-weekday');
+      && !c1Entry && snapshot.flags.includes('preview:jyc-weekend-weekday');
     if (exploration && this.data.com03jReplay) this.finishCom03jReplay();
     if (this.data.c1Replay && !c1Entry && (!exploration || !this.data.c1Replay.exploration)) this.finishC1Replay();
     if (this.chapter.id === 'opening-demo-chapter-01' && (c1Entry || exploration)
