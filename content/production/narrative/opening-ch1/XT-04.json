@@ -1,0 +1,148 @@
+{
+  "schema_version": "1.0.0",
+  "scene_id": "XT-04",
+  "lifecycle": "CANONICAL",
+  "source_scene": "docs/narrative/scenes/vertical-slice/XT-04.md",
+  "entry_state": {
+    "relationships": [
+      {
+        "subject": "xu_tang",
+        "toward": "protagonist",
+        "label": "familiar_neighbors_with_boundaries",
+        "constraints": [
+          "已有真實 contact；只確認同行看書，未稱正式約會，尚未完成第一次一對一。"
+        ]
+      },
+      {
+        "subject": "protagonist",
+        "toward": "xu_tang",
+        "label": "familiar_neighbors_with_boundaries",
+        "constraints": [
+          "已有真實 contact；只確認同行看書，未稱正式約會，尚未完成第一次一對一。"
+        ]
+      }
+    ],
+    "knowledge": [
+      {
+        "holder": "protagonist",
+        "knows": [
+          "雙方已確認第一 window 原下午到中山看設計書；她本來就有看書的安排。"
+        ],
+        "does_not_know": [
+          "她會看哪本書、停留多久、是否願意延長相處；未揭露的私人前史。"
+        ]
+      },
+      {
+        "holder": "xu_tang",
+        "knows": [
+          "男主同意原下午同行；只有走過 counter 分支才知道他想早回來整理箱子。"
+        ],
+        "does_not_know": [
+          "男主心裡的咖啡與下一站小行程；其他人物未向她揭露的接觸與安排。"
+        ]
+      }
+    ],
+    "constraints": [
+      "精確接 OPEN-A-ENTRY-PENDING-X：open_a_entered=true、open_a_entry_outcome=pending_xu、open_a_window1_consumed=false。",
+      "incoming 與 player-led 是互斥入口；接原時間／提早被拒後接回原時間共享同一活動，不重送訊息、不重新邀請。",
+      "contact_xu 與既有 eligibility/harm/closure 仍須成立；未成行或生活 completion 不進本幕。"
+    ]
+  },
+  "scene_function": [
+    "把 OPEN-A 的確認同行轉為中山書店第一次真實一對一，建立可相處而仍有邊界的 pace compatibility。",
+    "讓玩家能陪看、說出自己的行程需求或輕鬆處理等待；正常需求不是道德錯答，擅自管理才留下可感知摩擦。"
+  ],
+  "character_intent": [
+    {
+      "character_id": "xu_tang",
+      "intent": "按自己的興趣看設計／攝影書，觀察同行是否能共同決定步調；自己選擇延長相處，不被安排或拯救。"
+    },
+    {
+      "character_id": "protagonist",
+      "intent": "與她同行並了解當下興趣；面對自己預想的逛書、咖啡、下一站與她停留時間的差異，能表達偏好也容許協商。"
+    }
+  ],
+  "player_information_gain": [
+    "她本來想看一本書，卻被另一區的攝影集留住；興趣可改變她當下的 pace。",
+    "陪她慢看會得到主動轉過來的書頁分享；正常提醒得到行程偏好詢問；玩笑只產生當地反應。",
+    "延長相處由她提出，仍是早期熟人同行，不是浪漫承諾。"
+  ],
+  "emotional_arc": [
+    "捷運出口相遇的普通期待 → 進店後注意力轉移 → 時間與預期的落差。",
+    "由具體行動演出陪伴、協商或玩笑；若玩家繼續替她決定，留下可辨識但未爆發的界線摩擦。",
+    "她自己提出喝東西 → 同次安排的小段相處 → 帶著真實路徑差異結束，未把摩擦洗掉。"
+  ],
+  "required_payoffs": [
+    "共享捷運出口主幕，不另造時間或以 counter 分支把下午提早；她稍有準備但非盛裝赴約。",
+    "演出看書超時與男主自己的小行程；男主的想法在說出或行動前不可成為她的 knowledge。",
+    "pace action 三路各有即時 consequence 並合理接回離店喝東西：陪看分享書頁（Echo）、正常提醒協商偏好（Local／可記 history）、玩笑當地反應（Local）。",
+    "提醒後若選共同協商，不標 harm；若繼續替她排下一站或催促，當場顯示她不認可被安排，記 unresolved，不能以好意或咖啡抹平。",
+    "所有完成路徑由許棠自己提出附近坐一下；玩家本次同意的短 continuation 仍在原 outing 內，不建新邀請權利。",
+    "若 unresolved，XT-05 邀請前相鄰短 continuation 必須具體承認擅排下一站、詢問她想怎麼安排、停止催促，由她接受才 addressed；暫不願則 rest/wait 或生活 preview stop，明確距離按真實 history closure。這是下游 requirement，非本幕已發生。"
+  ],
+  "exit_state": {
+    "relationships": [
+      {
+        "subject": "xu_tang",
+        "toward": "protagonist",
+        "label": "familiar_neighbors_with_shared_outing",
+        "constraints": [
+          "第一次一對一已實際完成；可對共同看書與喝東西有具體回憶，未成為戀人或取得私人生活權利。",
+          "依實際選擇保留共同 pace、正常行程協商、當地玩笑或 unresolved 擅排程的差異；不得假定全部更親近。"
+        ]
+      },
+      {
+        "subject": "protagonist",
+        "toward": "xu_tang",
+        "label": "familiar_neighbors_with_shared_outing",
+        "constraints": [
+          "第一次一對一已實際完成；可對共同看書與喝東西有具體回憶，未成為戀人或取得私人生活權利。",
+          "依實際選擇保留共同 pace、正常行程協商、當地玩笑或 unresolved 擅排程的差異；不得假定全部更親近。"
+        ]
+      }
+    ],
+    "knowledge": [
+      {
+        "holder": "protagonist",
+        "knows": [
+          "她對當日設計／攝影書的具體興趣；她願意自己提出再找地方喝東西。",
+          "自己與她的步調可能不同；只有真正分享書頁的路徑才取得頁面細節。"
+        ],
+        "does_not_know": [
+          "她的未揭露過往、戀愛意圖、後續邀請的接受結果。"
+        ]
+      },
+      {
+        "holder": "xu_tang",
+        "knows": [
+          "男主在當日實際表達的偏好与行動；若提出下一站才知道他的安排。"
+        ],
+        "does_not_know": [
+          "男主未說出的想法、其他人物未揭露的私事或行程。"
+        ]
+      }
+    ],
+    "constraints": [
+      "離店後附近坐一下是同次 outing continuation，不是第二 major slot；完成才一次性消耗 OPEN-A 第一 slot、記錄一次實際 Xu investment。",
+      "unresolved 擅排程必須保持 unresolved；喝東西、當日書頁訊息、再次邀約或 RE 都不能自動 addressed。",
+      "XT-05 未 produced；本 pass 停在 XT-04 completion 的未來 preview boundary，不演第二 window、下一次同桌或修復結果。"
+    ]
+  },
+  "must_not": [
+    "不改 OPEN-A 或既有 predecessor prose；ND-only outline 不宣称 Script Lock、Narrative QA 或 Human acceptance。",
+    "不把任何普通 expression 或累積 practical/humorous 次數變為 structural gate；未知 choice history 採中性接法。",
+    "不把正常行程需求設為 bad answer，不讓 warm 永遠最好，不把幽默當作默契或浪漫進展。",
+    "不補 contact、discovery、跨人物 knowledge、戀愛承諾、第三 slot、自由 scheduler 或未来已接受安排。",
+    "不在本幕完成早期 repair，不 set XT-12 repair_completed，不以 RE 覆蓋未解摩擦或重大 harm。",
+    "不把舊 art 欄位當作新 sprite/CG production 指令；不新增 dialogue、camera、render prompt、runtime 或 asset edits。"
+  ],
+  "implementation_mapping": {
+    "runtime_only": true,
+    "flags": {
+      "xt_respected_pace": "只在實際陪她慢看且分享書頁的路徑記 true；只供具體 Echo，不控制 XT-05 可用性。",
+      "xt04_pace_outcome": "bounded proposal：shared_pace | schedule_negotiated | local_humor | unresolved_imposed_plan；記本場事件結果供相鄰 continuation，不是關係分數。",
+      "xt04_completed": "bounded proposal：只有 outing 主幕與同次喝東西 continuation 完成才 true；resume/replay 不重複投資或消耗。",
+      "open_a_window1_consumed": "OPEN-A 入口 completion 一次性 false→true；pending confirmation 和本幕中途仍 false；不多送 slot。"
+    }
+  }
+}

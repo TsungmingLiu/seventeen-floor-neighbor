@@ -91,7 +91,7 @@ test('Memories disclosure, character focus, cursor marker and frontier jump stay
   await expect(page.locator('[data-memory-id="mem.opening.ch1.elevator-restart"]')).toHaveClass(/is-frontier/);
 
   await page.locator('#memory-filters button').filter({ hasText: '許棠' }).click();
-  await expect(page.locator('.memory-character-context')).toContainText('江雨澄：已探索 3 段');
+  await expect(page.locator('.memory-character-context')).toContainText('江雨澄：已探索 4 段');
   await expect(page.locator('[data-memory-id="mem.opening.ch1.recommend-discord-jyc"]')).toHaveCount(0);
 
   await section.locator('summary').click();
@@ -530,9 +530,9 @@ test('bookstore-skip cafe first meeting and refusal unlock only the truthful Mem
   await expect(page.locator('[data-memory-id="mem.opening.ch1.recommend-discord-jyc"]')).toHaveCount(0);
 });
 
-test('contacted week continues to a saved pending Jiang first-window boundary',async({page})=>{
+test('contacted week continues to a Jiang first outing after the confirmed first-window plan',async({page})=>{
   test.setTimeout(240_000);
-  const chapter=await seed(page,'COM03M-S01',{met_xu_tang:1,met_jiang_yucheng:1},['contact_xu','contact_jyc','jyc_com03j_reply_style:warm_close']);
+  const chapter=await seed(page,'COM03M-S01',{met_xu_tang:1,met_jiang_yucheng:1},['contact_xu','contact_jyc','jyc_com03j_reply_style:warm_close','preview:com02j-complete','player_knows_jyc_name','jyc_knows_player_name','jyc_creator_work_seen']);
   const seen=await follow(page,'COM03M-J01-warm_close');
   await ready(page);
   await expect(page.locator('#dialogue-text')).toHaveText(chapter.nodes['COM03M-J01-warm_close'].text);
@@ -542,7 +542,7 @@ test('contacted week continues to a saved pending Jiang first-window boundary',a
   expect(callback.checkpoints['COM03M-J01-warm_close']).toEqual(callback.cursor);
   expect(callback.checkpoints).not.toHaveProperty('COM03M-J01-neutral');
   expect(callback.edges).toContainEqual(['COM03M-J01','COM03M-J01-warm_close']);
-  seen.push(...await follow(page,'OPEN-A-ENTRY-PENDING-J',{
+  seen.push(...await follow(page,'JYC-05-ENTRY',{
     'COM03M-C01':'COM03M-C01-J',
     'OPEN-A-ENTRY-ACTION-BOTH':'OPEN-A-ACT-J',
     'OPEN-A-J-TIME':'OPEN-A-J-ACCEPT'
@@ -553,7 +553,7 @@ test('contacted week continues to a saved pending Jiang first-window boundary',a
   expect(seen).toContain('OPEN-A-ENTRY');
   expect(seen).not.toContain('OPEN-A-X-START-INCOMING');
   const saved=await journey(page);
-  expect(saved.cursor.nodeId).toBe('OPEN-A-ENTRY-PENDING-J');
+  expect(saved.cursor.nodeId).toBe('JYC-05-ENTRY');
   expect(saved.cursor.flags).toEqual(expect.arrayContaining(['open_dating_unlocked','open_a_entered']));
   expect(saved.cursor.flags).not.toContain('open_a_window1_consumed');
   await page.reload();
@@ -733,4 +733,112 @@ test('actual remote Xu speaker label is shared by GAME and player/review DETAIL'
     await page.locator('[data-group-id="parcel"]').click();
     await expect(page.locator('#story-inspector .story-script')).toContainText('Line-許棠');
   }
+});
+
+for (const [outing, entry, stop, choices] of [
+  ['xt04','XT-04-ARRIVE','XT-04-COMPLETED-PREVIEW-STOP',{'XT-04-PACE':'xt-04-ask-plan','XT-04-SCHEDULE-ACTION':'xt-04-impose'}],
+  ['jyc05','JYC-05-ENTRY','JYC-05-COMPLETED-PREVIEW-STOP',{'JYC-05-SUPPORT':'jyc-05-answer'}]
+]) test(`C1 ${outing} old pending Continue, unresolved completion and reload`, async ({page})=>{
+  test.setTimeout(240_000);
+  await page.goto('/');await expect(page.locator('#start-button')).toBeEnabled();
+  const chapter=await (await page.request.get('/content/routes/opening-demo/chapter.json')).json();
+  const snapshot={nodeId:`OPEN-A-ENTRY-PENDING-${outing==='xt04'?'X':'J'}`,stats:{...chapter.initialState,met_xu_tang:1,met_jiang_yucheng:1},returnNodes:[],flags:[
+    'contact_xu','contact_jyc','open_a_entered',`open_a_entry_outcome:pending_${outing==='xt04'?'xu':'jyc'}`,
+    'preview:com02j-complete','player_knows_jyc_name','jyc_knows_player_name','jyc_creator_work_seen','jyc_com03j_reply_style:warm_close'
+  ]};
+  await page.evaluate(snapshot=>localStorage.setItem('opening-demo-chapter-01:journey:v2',JSON.stringify({version:2,playerDisplayName:'小雨',cursor:snapshot,frontier:snapshot,runComplete:true,checkpoints:{[snapshot.nodeId]:snapshot},edges:[]})),snapshot);
+  await page.reload();await page.locator('#start-button').click();
+  expect((await journey(page)).cursor.nodeId).toBe(entry);
+  expect((await journey(page)).cursor.flags).not.toContain('open_a_window1_consumed');
+  await follow(page,stop,choices,180);
+  const complete=await journey(page);
+  expect(complete.frontier.flags).toContain(`open_a_window1_completed:${outing}`);
+  expect(complete.frontier.flags).toContain('open_a_window1_consumed');
+  expect(complete.frontier.flags).toContain(outing==='xt04'?'xt04_pace_outcome:unresolved_imposed_plan':'jyc05_support_outcome:answered_for_her');
+  await page.reload();await expect(page.locator('#start-button')).toHaveText('繼續遊戲');await page.locator('#start-button').click();
+  expect((await journey(page)).frontier).toEqual(complete.frontier);
+  await expect(page.locator('#ending-screen')).toBeVisible();
+});
+
+const c1Main = saved => Object.fromEntries(['cursor','frontier','checkpoints','edges','frontierRank',
+  'frontierMemoryEventId','runComplete','restartActive','replayActive'].map(key=>[key,saved[key]]));
+for(const outing of ['xt04','jyc05']) for(const completed of [false,true]) test(`Story Map predecessor ${outing} ${completed?'completed':'middle'} replay preserves live C1 through reload`,async({page})=>{
+  test.setTimeout(480_000);
+  const errors=collectBlockingErrors(page);
+  await page.goto('/');await expect(page.locator('#start-button')).toBeEnabled();
+  const chapter=await (await page.request.get('/content/routes/opening-demo/chapter.json')).json();
+  await seed(page,chapter.startNode);
+  const middle=outing==='xt04'?'XT-04-BOOKS':'JYC-05-EXHIBIT';
+  const stop=outing==='xt04'?'XT-04-COMPLETED-PREVIEW-STOP':'JYC-05-COMPLETED-PREVIEW-STOP';
+  const seen=await follow(page,completed?stop:middle,{
+    common_bookstore_bridge_weekend_decision:'com01b_bookstore_go',
+    common_station_cafe_jyc_contact_choice:'com02j_offer_discord',
+    'OPEN-A-ENTRY-ACTION-BOTH':outing==='xt04'?'OPEN-A-ACT-X':'OPEN-A-ACT-J',
+    'XT-04-PACE':'xt-04-ask-plan','XT-04-SCHEDULE-ACTION':'xt-04-impose','JYC-05-SUPPORT':'jyc-05-answer'
+  },750);
+  expect(seen).toContain('OPEN-A-ENTRY');
+  const main=c1Main(await journey(page));
+  await page.locator(completed?'#home-button':'#game-home-button').click();
+  await page.locator('#memories-button').click();
+  await page.locator('[data-group-id="free-time"]').click();
+  await page.locator('#story-inspector .story-replay').click();
+  expect((await journey(page)).cursor.nodeId).toBe('OPEN-A-ENTRY');
+  expect((await journey(page)).c1Replay.returnCursor).toEqual(main.cursor);
+  await page.reload();await page.locator('#start-button').click();
+  expect((await journey(page)).cursor.nodeId).toBe('OPEN-A-ENTRY');
+  const opposite=outing==='xt04'?'jyc05':'xt04';
+  const choices={'OPEN-A-ENTRY-ACTION-BOTH':opposite==='xt04'?'OPEN-A-ACT-X':'OPEN-A-ACT-J'};
+  await follow(page,opposite==='xt04'?'XT-04-BOOKS':'JYC-05-EXHIBIT',choices,180);
+  await page.reload();await page.locator('#start-button').click();
+  expect((await journey(page)).checkpoints).toEqual(main.checkpoints);
+  await follow(page,main.cursor.nodeId,choices,180);
+  expect(c1Main(await journey(page))).toEqual(main);
+  expect((await journey(page)).c1Replay).toBeNull();
+  expect((await journey(page)).unlockedMemoryEventIds).toContain(`mem.opening.ch1.${opposite==='xt04'?'xt-04':'jyc-05'}`);
+  await page.reload();await page.locator('#start-button').click();
+  expect(c1Main(await journey(page))).toEqual(main);expect(errors).toEqual([]);
+});
+
+for(const exit of ['life','contactless']) test(`Memory UI protected ${exit} exit restores the exact C1 main after repeated replay and reload`,async({page})=>{
+  test.setTimeout(240_000);
+  const errors=collectBlockingErrors(page),outing=exit==='life'?'jyc05':'xt04';
+  await seed(page,'OPEN-A-ENTRY',{met_xu_tang:1,met_jiang_yucheng:1},[
+    'contact_xu','contact_jyc','preview:com02j-complete','player_knows_jyc_name',
+    'jyc_knows_player_name','jyc_creator_work_seen','jyc_com03j_reply_style:warm_close'
+  ]);
+  await follow(page,exit==='life'?'JYC-05-COMPLETED-PREVIEW-STOP':'XT-04-BOOKS',{
+    'OPEN-A-ENTRY-ACTION-BOTH':outing==='xt04'?'OPEN-A-ACT-X':'OPEN-A-ACT-J'
+  },180);
+  if(exit==='contactless') {
+    // An old legitimate week entry can have no contacts, while the current
+    // outing has both. The archived snapshot must not take ownership of main.
+    await page.evaluate(()=>{
+      const key='opening-demo-chapter-01:journey:v2',saved=JSON.parse(localStorage.getItem(key));
+      const old=structuredClone(saved.checkpoints['OPEN-A-ENTRY']);old.nodeId='COM03M-ENTRY';
+      old.flags=old.flags.filter(f=>!['contact_xu','contact_jyc'].includes(f));
+      saved.checkpoints[old.nodeId]=old;localStorage.setItem(key,JSON.stringify(saved));
+    });
+    await page.reload();await page.locator('#start-button').click();
+  }
+  const main=c1Main(await journey(page));
+  await page.locator(exit==='life'?'#home-button':'#game-home-button').click();
+  for(let repeat=0;repeat<2;repeat++) {
+    await page.locator('#memories-button').click();
+    await page.locator(`[data-group-id="${exit==='life'?'free-time':'week'}"]`).click();
+    await page.locator('#story-inspector .story-replay').click();
+    if(exit==='life') {
+      expect((await journey(page)).c1Replay.returnCursor).toEqual(main.cursor);
+      await page.reload();await page.locator('#start-button').click();
+      const choices={'OPEN-A-ENTRY-ACTION-BOTH':'OPEN-A-ACT-LIFE','OPEN-A-LIFE-ACTION':'OPEN-A-LIFE-REST'};
+      await follow(page,'OPEN-A-LIFE-ACTION',choices,100);
+      await page.reload();await page.locator('#start-button').click();
+      await follow(page,main.cursor.nodeId,choices,80);
+    }
+    await expect(page.locator('#memories-screen')).toBeVisible();
+    expect((await journey(page)).c1Replay).toBeNull();expect(c1Main(await journey(page))).toEqual(main);
+    await page.reload();await page.locator('#start-button').click();
+    expect(c1Main(await journey(page))).toEqual(main);
+    await page.locator(exit==='life'?'#home-button':'#game-home-button').click();
+  }
+  expect(errors).toEqual([]);
 });

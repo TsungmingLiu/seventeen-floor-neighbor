@@ -1,0 +1,146 @@
+{
+  "schema_version": "1.0.0",
+  "scene_id": "JYC-05",
+  "lifecycle": "CANONICAL",
+  "source_scene": "docs/narrative/scenes/vertical-slice/JYC-05.md",
+  "entry_state": {
+    "relationships": [
+      {
+        "subject": "jiang_yucheng",
+        "toward": "protagonist",
+        "label": "contacted_acquaintances_with_shared_interests",
+        "constraints": [
+          "已有真實線上交流；offline 仍克制，確認同行不是戀愛承諾。",
+          "她自主協調晚一點的時段，以先處理手上那張畫；男主已接受，不再次催促或重開邀約。"
+        ]
+      }
+    ],
+    "knowledge": [
+      {
+        "holder": "protagonist",
+        "knows": [
+          "雨澄傳過限定展資訊；兩人已確認較晚下午一起看展。",
+          "她早一點要處理一張畫；已選先做自己的事再赴約。",
+          "只可引用實際 COM-03J 線上交流成立的共同興趣，不補具體題名、前次問答或畫作身份。"
+        ],
+        "does_not_know": [
+          "她的匿名 creator 身份／筆名與作品的對應關係",
+          "她的私人住處、家庭／感情前史與未分享的創作內情",
+          "對方未實際告知的其他人物行程或關係"
+        ]
+      },
+      {
+        "holder": "jiang_yucheng",
+        "knows": [
+          "男主對收到的限定展感興趣，願意按她協調的較晚下午同行。",
+          "兩人真實線上互動已建立的內容。"
+        ],
+        "does_not_know": [
+          "男主未當場表達的意圖、喜好與能力",
+          "其他角色未告知的私事或同時關係"
+        ]
+      }
+    ],
+    "constraints": [
+      "只承接 OPEN-A-ENTRY-PENDING-J：限定展、第一 window 較晚下午，雙方已確認；open_a_entry_outcome=pending_jyc，open_a_window1_consumed=false。",
+      "須有 COM-02J 當次 mutual contact 與 COM-03J 真實線上前事、contact_jyc=true，且當地 eligibility、consent、closure/harm 容許本次成行；累積初遇資格不能補這些事實。",
+      "OPEN-A confirmation 尚未完成 outing；本幕才第一次實際一對一赴約。既有工作不是等男主來解決的障礙。"
+    ]
+  },
+  "scene_function": [
+    "將已確認的較晚下午限定展邀約演成首次實際同行；讓男主在線下被雨澄帶路。",
+    "展現熟悉領域中同一個線上／線下人格，以及她自己的專業判斷與社交 agency。",
+    "留下具體作品互動與可追溯的早期代答摩擦，供相鄰 continuation 使用，避免把能力展示兌換成親密數值。"
+  ],
+  "character_intent": [
+    {
+      "character_id": "jiang_yucheng",
+      "intent": "按自己處理工作後的步調逛展、分享在意的版本／收藏判斷，看看男主是否願意具體參與；社交停頓不代表要求他接管。"
+    },
+    {
+      "character_id": "protagonist",
+      "intent": "赴已確認的同行安排，在不熟悉的場域跟上她的判斷；可承認不懂或有不同偏好，面對是否過早幫忙的當地選擇。"
+    }
+  ],
+  "player_information_gain": [
+    "她在線下可以講得多、走前面、直接糾正男主；線上活躍不是假人格。",
+    "欣賞她與實際參與她的判斷不同；泛稱好厲害或裝懂可有尷尬，不必靠最優回應才看見主場。",
+    "店員互動的短停頓可以由她自行完成；代答結果成功也不表示她接受被代替。"
+  ],
+  "emotional_arc": [
+    "入口仍有初次同行的客氣與遲疑；不從確認訊息跳到熟稔默契。",
+    "進展區後她主動带路、談版本並更正男主；男主可投入、不同意或露出不懂，討論保留自然落空。",
+    "店員提問造成一個短小的 agency 壓力點，兩支當地反應可見。",
+    "小周邊帶來獨立於選項優劣的快樂；收尾分享可重新出現，代答支仍較收斂並留下未解的界線。"
+  ],
+  "required_payoffs": [
+    "入口到展區的逐漸放鬆；她至少一次自己提出比較理由與糾正錯誤記憶，男主被帶路。",
+    "一次有具體內容的版本／收藏討論；允許普通回應與不同喜好，不寫她逐項介紹履歷。",
+    "店員直接向她詢問一個商品／版本選擇；未代答時她自己完成回答，代答時記錄那次回答被接管與其後收斂。",
+    "所有完成路徑都有小周邊／抽選的純 reward，無須最佳 stance 解鎖；她自己選擇參與並表現高興。",
+    "結束她試探性提到另一個共同興趣活動又收回力度；男主可自然接住，但不寫成告白或已接受的 gaming／家訪邀約。",
+    "代答 unresolved 的相鄰 continuation obligation 明列：具體承認搶答、問希望的 support/cue、停止代答並讓她自行回覆、保留她接受／拒絕結果；本幕不假稱已完成此 repair。"
+  ],
+  "exit_state": {
+    "relationships": [
+      {
+        "subject": "jiang_yucheng",
+        "toward": "protagonist",
+        "label": "shared_outing_acquaintances_with_boundaries",
+        "constraints": [
+          "第一次實際共同看展成立；她在線下的作品判斷與線上同一人格被看見，不等於交付全部私人世界。",
+          "作品討論的不同回應可有 Local／Echo 差異；不以 stance 或表現評分控制遙遠內容。",
+          "若男主在店員詢問時代答，她仍可完成交易，但收起部分分享；此支摩擦 unresolved，不由 reward、合流或下次提示抹除。"
+        ]
+      }
+    ],
+    "knowledge": [
+      {
+        "holder": "protagonist",
+        "knows": [
+          "她能帶路、比較版本與收藏細節，並直接糾正錯誤記憶；她的能力來自投入。",
+          "她和店員偶有停頓，但有自行回答的能力；男主是否代答是本次具體事件。",
+          "本次小周邊／抽選使她自然高興；她試探性提到下次共同興趣活動，尚未確認新安排。"
+        ],
+        "does_not_know": [
+          "她的匿名 creator 身份／筆名與作品的對應關係",
+          "她的私人住處、家庭／感情前史與未分享的創作內情",
+          "對方未實際告知的其他人物行程或關係"
+        ]
+      },
+      {
+        "holder": "jiang_yucheng",
+        "knows": [
+          "男主這次实际如何參與作品判斷、是否承認不懂，以及是否在店員提問時替她回答。",
+          "共同 outing 已發生；男主當地表達的具體喜好只在實際說出後成立。"
+        ],
+        "does_not_know": [
+          "男主未表達的浪漫或排他意圖",
+          "未當場分享的其他人物關係"
+        ]
+      }
+    ],
+    "constraints": [
+      "所有完成路徑均有 jyc_seen_in_element；此觀察不是無條件親密或 repair 成功。",
+      "只有本幕實際 completion 一次性消耗原 OPEN-A 第一 major slot；不重記已確認訊息、不另送 slot。",
+      "代答支保存 exact pressure evidence 與 unresolved 狀態；未代答支不能繼承該事件。",
+      "下一段尚未產出，停在明示 preview boundary；不進家訪／JYC-06、不確認未來預約、不開第二 window 或 OPEN-B。"
+    ]
+  },
+  "must_not": [
+    "改寫 OPEN-A predecessor 的任何 prose、IDs、confirmed 時間或限定展目的；不得把工作改成男主援救事件。",
+    "用累積 discovery 補 contact、線上前事、knowledge 或 consent；不得將普通初邀寫成 RE。",
+    "匿名身份揭露、家訪、告白、排他／浪漫承諾，或把她變外向當作本幕成果。",
+    "將代答描寫為必要救援；她的停頓不能剝奪她本來能自行處理的能力。",
+    "合流時清除代答摩擦，set late repair_completed，或挪用後期 repair scene；早期 addressed 必須有完整相鄰具体過程及她的接受。",
+    "新增 affection/trust/pressure scores、stance 集點、自由 scheduler、第三 major slot 或以 focus 單獨裁決可用性。",
+    "把尚未產出的下一幕當成已 playable、Locked Scene、NQA／Human accepted；本 pass 不含 dialogue、CG、camera 或 runtime edits。"
+  ],
+  "implementation_mapping": {
+    "runtime_only": true,
+    "flags": {
+      "jyc_seen_in_element": true,
+      "open_a_window1_consumed": true
+    }
+  }
+}

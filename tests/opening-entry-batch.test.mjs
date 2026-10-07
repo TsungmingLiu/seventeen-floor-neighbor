@@ -70,10 +70,10 @@ test('real Opening bookstore visit reaches mandatory cafe and contact before the
   assert.ok(visited.indexOf('common_convenience_xu_enter')<visited.indexOf('common_station_cafe_jyc_enter'), visited.filter(id => /cafe_jyc_enter|convenience_xu_enter|acg_first_meet_exit|opening_demo_complete/.test(id)).join(','));
   assert.ok(visited.includes('common_recommend_discord_jyc_enter'));
   assert.ok(visited.includes('COM03M-S01'));
-  assert.equal(e.nodeId,'OPEN-A-ENTRY-PENDING-X');
+  assert.equal(e.nodeId,'XT-04-COMPLETED-PREVIEW-STOP');
   assert.ok(e.state.flags.has('contact_jyc'));
   assert.ok(e.state.flags.has('open_a_entered'));
-  assert.ok(!e.state.flags.has('open_a_window1_consumed'));
+  assert.ok(e.state.flags.has('open_a_window1_consumed'));
 });
 
 test('real Opening skip-both route keeps Jiang unseen and reaches a consumed solo boundary',()=>{
@@ -116,14 +116,14 @@ test('legacy mid Discord save without contact resumes through the honest no-cont
   assert.ok(!e.state.flags.has('contact_jyc'));
 });
 
-test('finite arrangement and solo boundaries survive reload without consuming pending time',()=>{
+test('completed first outings and solo boundaries survive reload',()=>{
   const pending=play({'common_bookstore_bridge_weekend_decision':'com01b_bookstore_go','common_station_cafe_jyc_contact_choice':'com02j_offer_discord','OPEN-A-ENTRY-ACTION-BOTH':'OPEN-A-ACT-J','OPEN-A-J-TIME':'OPEN-A-J-ACCEPT'});
-  assert.equal(pending.e.nodeId,'OPEN-A-ENTRY-PENDING-J');
+  assert.equal(pending.e.nodeId,'JYC-05-COMPLETED-PREVIEW-STOP');
   const reloaded=makeEngine(pending.storage);
-  assert.equal(reloaded.progress.data.cursor.nodeId,'OPEN-A-ENTRY-PENDING-J');
+  assert.equal(reloaded.progress.data.cursor.nodeId,'JYC-05-COMPLETED-PREVIEW-STOP');
   assert.equal(reloaded.progress.data.runComplete,true);
   assert.ok(reloaded.progress.data.cursor.flags.includes('open_a_entered'));
-  assert.ok(!reloaded.progress.data.cursor.flags.includes('open_a_window1_consumed'));
+  assert.ok(reloaded.progress.data.cursor.flags.includes('open_a_window1_consumed'));
   const solo=play({'common_bookstore_bridge_weekend_decision':'com01b_bookstore_skip','common_weekday_outing_decision':'com01b_weekday_street_walk','OPEN-A-ENTRY-ACTION-X':'OPEN-A-ACT-LIFE','OPEN-A-LIFE-ACTION':'OPEN-A-LIFE-WAIT'});
   assert.equal(solo.e.nodeId,'OPEN-A-ENTRY-WAIT');
   const saved=makeEngine(solo.storage);
@@ -131,10 +131,10 @@ test('finite arrangement and solo boundaries survive reload without consuming pe
   assert.ok(saved.progress.data.cursor.flags.includes('open_a_entered'));
 });
 
-test('counteroffer stays pending while declined invitations return to an own-life slot',()=>{
+test('counteroffer reaches the original outing while declined invitations return to an own-life slot',()=>{
   const counter=play({'common_bookstore_bridge_weekend_decision':'com01b_bookstore_go','common_station_cafe_jyc_contact_choice':'com02j_offer_discord','OPEN-A-ENTRY-ACTION-BOTH':'OPEN-A-ACT-X','OPEN-A-X-REPLY':'OPEN-A-X-EARLIER','OPEN-A-X-COUNTER-REPLY':'OPEN-A-X-KEEP-TIME'});
-  assert.equal(counter.e.nodeId,'OPEN-A-ENTRY-PENDING-X');
-  assert.ok(!counter.e.state.flags.has('open_a_window1_consumed'));
+  assert.equal(counter.e.nodeId,'XT-04-COMPLETED-PREVIEW-STOP');
+  assert.ok(counter.e.state.flags.has('open_a_window1_consumed'));
   for(const [invite,decline] of [['OPEN-A-ACT-X','OPEN-A-X-DECLINE'],['OPEN-A-ACT-J','OPEN-A-J-DECLINE']]){
     const choices={'common_bookstore_bridge_weekend_decision':'com01b_bookstore_go','common_station_cafe_jyc_contact_choice':'com02j_offer_discord','OPEN-A-ENTRY-ACTION-BOTH':invite,'OPEN-A-LIFE-ACTION':'OPEN-A-LIFE-REST'};
     choices[invite==='OPEN-A-ACT-X'?'OPEN-A-X-REPLY':'OPEN-A-J-TIME']=decline;
@@ -224,7 +224,7 @@ for (const version of [1, 2]) {
       const continuation = continueUntil(e, game => chapter.nodes[game.nodeId].type === 'route', accepted
         ? { 'OPEN-A-ENTRY-ACTION-BOTH': 'OPEN-A-ACT-J', 'OPEN-A-J-TIME': 'OPEN-A-J-ACCEPT' }
         : { 'OPEN-A-ENTRY-ACTION-X': 'OPEN-A-ACT-LIFE', 'OPEN-A-LIFE-ACTION': 'OPEN-A-LIFE-REST' });
-      assert.equal(e.nodeId, accepted ? 'OPEN-A-ENTRY-PENDING-J' : 'OPEN-A-ENTRY-REST');
+      assert.equal(e.nodeId, accepted ? 'JYC-05-COMPLETED-PREVIEW-STOP' : 'OPEN-A-ENTRY-REST');
       assert.equal([...visited, ...continuation].some(id => id.startsWith('common_recommend_discord_jyc_enter')), accepted);
       const event = memoryLibrary.events.find(event => event.id === 'mem.opening.ch1.recommend-discord-jyc');
       assert.equal(isMemoryUnlocked(event, e.progress, chapter.startNode), accepted);

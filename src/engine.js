@@ -4,7 +4,7 @@ import { paintPreview, paintSprites, resolveVisual, setImage } from './visuals.j
 import { memoryEventById, memoryEventForNode, memoryStats, renderMemories, titleBackdropVisual } from './memories.js';
 import { hasRenderableText, presentationModeForNode, speakerLabelForNode } from './presentation.js';
 import { DEFAULT_PLAYER_NAME, interpolatePlayerName, normalizePlayerName, submittedPlayerName } from './player-name.js';
-import { excludedJiangDestination, jiangExcluded } from './branches.js';
+import { excludedJiangDestination, jiangExcluded, c1Destination } from './branches.js';
 
 export class GameEngine {
   constructor({ chapter, assetManifest, sceneLibrary, memoryLibrary, storyMap }) {
@@ -810,6 +810,14 @@ export class GameEngine {
         throw new Error('COM03J entry requires completed COM02J and an accepted Discord exchange');
       }
     }
+    if (this.chapter.id === 'opening-demo-chapter-01') {
+      const destination = c1Destination(this.nodeId, this.state, this.progress.hasJiangEligibility());
+      if (destination) { this.nodeId = destination; this.render(); return; }
+      if (this.nodeId === 'C1-INVALID-PREVIEW-STOP') {
+        this.returnFromC1Replay();
+        throw new Error('BLOCKED_C1_INVALID_LOCAL_SLOT_OR_PREREQUISITES');
+      }
+    }
     if (node.entryEffects || node.entryFlags) {
       const appliedFlag = `entry-effect:${this.nodeId}`;
       if (!this.state.flags.has(appliedFlag)) {
@@ -904,6 +912,11 @@ export class GameEngine {
       return;
     }
     if (node.type === 'route') {
+      if (this.progress.data.c1Replay) {
+        this.progress.capture(this.nodeId, this.state, this.returnNodes);
+        this.returnFromC1Replay();
+        return;
+      }
       if (this.chapter.id === 'opening-demo-chapter-01' && this.nodeId === 'com03j_preview_complete'
         && this.progress.data.com03jReplay) {
         const restored = this.progress.finishCom03jReplay();
@@ -1021,6 +1034,14 @@ export class GameEngine {
     this.tone('message');
   }
 
+  returnFromC1Replay() {
+    const restored = this.progress.finishC1Replay();
+    if (!restored) return;
+    Object.assign(this, restored);
+    this.previousNode = null;
+    this.openMemories();
+  }
+
   requirePlayerName(action) {
     if (!this.requiresPlayerName || normalizePlayerName(this.progress.data.playerDisplayName)) return true;
     this.pendingNamedAction = action;
@@ -1077,7 +1098,7 @@ export class GameEngine {
   startFromTitle() {
     const { frontier, cursor, restartActive, runComplete } = this.progress.data;
     const supplement = this.progress.data.com02jSupplement;
-    if (this.progress.data.com03jReplay) return this.resumeGame(cursor, { replay: true });
+    if (this.progress.data.com03jReplay || this.progress.data.c1Replay) return this.resumeGame(cursor, { replay: true });
     if (supplement) {
       const local = this.progress.isCom02j(cursor?.nodeId) ? cursor : supplement.entrySnapshot;
       return this.resumeGame(local);

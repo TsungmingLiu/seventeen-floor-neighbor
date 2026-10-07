@@ -85,3 +85,9 @@ Canonical engineering environment 是 GitHub Codespaces（Node 22、ffmpeg/ffpro
 每次 code/content integration 至少跑 `npm run build`、`npm run validate`、`git diff --check`；runtime/save 修改加跑 `npm test`。CI Verify 與 Browser Acceptance 提供 clean build、media、preview 與玩家主流程檢查。當前命令以 `package.json` 為準，下一步與 hard gates 見 `TODO.md`。
 
 未來 W5 需證明 GitHub commit、accepted master、runtime objects 與 fresh Codespace rebuild 的 cloud-complete 一致性。W6 的 `sfw` / `full` profile 必須在 build 時真正 prune 不適用的 nodes/assets，並拒絕 dangling targets；不能只隱藏 UI。W7 的 review/release 要綁定明確 commit/profile，產生可重現的驗證紀錄。這些是待做 contract，不能寫成現有功能。
+
+## C1 首次 outing 的有限 completion／replay
+
+XT-04／JYC-05 只接穩定 `OPEN-A-ENTRY-PENDING-X/J`，原確認訊息不重送。依 [M1 pending／slot contract](docs/narrative/M1_PENDING_SLOT_RUNTIME_CONTRACT.md) 保留 pending outcome；actual completion 同次寫入 `open_a_window1_completed:xt04|jyc05`、`open_a_window1_consumed` 與 entry-effect marker。guard 檢查當地 contact／COM-02J／COM-03J 前事、互斥 slot identity；不以 discovery 補 contact。正常行程協商與共同書頁、當地玩笑、擅排 unresolved 分支分開；JYC 代答支獨立 exit，reward／completion 不清除 unresolved。沒有第二 slot／scheduler 或尚未製作的 continuation。
+
+現有 Memory replay 可在更高 rank 推進 frontier／改 checkpoints，因此本批在同一 v2 envelope 增加 bounded `c1Replay`（returnCursor／returnRestartActive／returnRunComplete／returnReplayActive）。保護兩幕及從 live C1 重玩 OPEN-A／COM03M 前事期間的 main frontier、canonical checkpoints、edges 與 mode；累積合法 seen／Memory unlocks 維持原機制。所有實際 terminal（含自身生活／無聯絡出口）回復原 cursor/mode 並清除 context；invalid C1 entry 先回復、仍拋出原 BLOCKED error。中途 reload 保留 context，已落在 terminal 的舊殘留 context 在 load 回復；舊缺欄位 saves 默認 null。無新 schema version、通用 replay／scheduler subsystem、wardrobe runtime state 或 art change。唯一 registered preview background；公開 preview／Human／CG acceptance 仍待 gates。

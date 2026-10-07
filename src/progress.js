@@ -1,6 +1,6 @@
 import { memoryEventForNode } from './memories.js';
 import { normalizePlayerName } from './player-name.js';
-import { excludedJiangDestination, jiangExcluded } from './branches.js';
+import { excludedJiangDestination, jiangExcluded, c1Outing } from './branches.js';
 
 // Only these additive Opening preview stats may default in historical saves.
 const OPENING_ADDITIVE_STATS = new Set(['T_XT', 'K_XT', 'xt_advice_tendency', 'T_JYC', 'C_JYC']);
@@ -41,7 +41,8 @@ export class ProgressStore {
       checkpoints: {},
       edges: [],
       com02jSupplement: null,
-      com03jReplay: null
+      com03jReplay: null,
+      c1Replay: null
     };
   }
 
@@ -125,6 +126,7 @@ export class ProgressStore {
 
   progressRank(snapshot, event = this.eventForSnapshot(snapshot)) {
     if (this.isLegacyOpeningSnapshot(snapshot) && snapshot.nodeId.startsWith('com01b_')) return 140;
+    if (this.chapter.id === 'opening-demo-chapter-01' && c1Outing(snapshot?.nodeId)) return 280;
     const continuationRank = this.openingContinuationRank(snapshot?.nodeId);
     if (continuationRank >= 0) return continuationRank;
     // COM03X keeps its accepted Memory/art binding; its continuation is later
@@ -142,7 +144,8 @@ export class ProgressStore {
 
   isOpeningReviewBoundary(nodeId) {
     return this.chapter.id === 'opening-demo-chapter-01'
-      && /^OPEN-A-ENTRY-(?:PENDING-[XJ]|SOLO|REST|WAIT)$/.test(nodeId || '');
+      && (/^OPEN-A-ENTRY-(?:PENDING-[XJ]|SOLO|REST|WAIT)$/.test(nodeId || '')
+        || ['XT-04-COMPLETED-PREVIEW-STOP', 'JYC-05-COMPLETED-PREVIEW-STOP'].includes(nodeId));
   }
 
   isCom03x(nodeId) {
@@ -344,6 +347,22 @@ export class ProgressStore {
           returnRestartActive: saved.com03jReplay.returnRestartActive === true };
         this.replaying = true;
       }
+      if (saved.c1Replay && (c1Outing(this.data.cursor?.nodeId)
+        || this.openingContinuationRank(this.data.cursor?.nodeId) >= 0
+        || this.chapter.nodes[this.data.cursor?.nodeId]?.type === 'route')
+        && this.valid(saved.c1Replay.returnCursor) && !this.data.restartActive) {
+        this.data.c1Replay = { returnCursor: this.clone(saved.c1Replay.returnCursor),
+          returnRestartActive: saved.c1Replay.returnRestartActive === true,
+          returnRunComplete: saved.c1Replay.returnRunComplete === true,
+          returnReplayActive: saved.c1Replay.returnReplayActive === true };
+        this.data.runComplete = this.data.c1Replay.returnRunComplete;
+        this.replaying = true;
+        // Older saves may have finished a predecessor replay without clearing
+        // its protected return. A terminal cursor cannot resume that replay.
+        if (this.chapter.nodes[this.data.cursor.nodeId].type === 'route') this.finishC1Replay();
+      }
+      if (!this.replaying && /^OPEN-A-ENTRY-PENDING-[XJ]$/.test(this.data.cursor?.nodeId || '')
+        && this.chapter.nodes[this.data.cursor.nodeId]?.type === 'branch') this.data.runComplete = false;
       this.reopenCom03jAppend();
       this.rememberUnlocks();
       this.flush();
@@ -444,7 +463,7 @@ export class ProgressStore {
     const snapshot = { nodeId, stats, flags: [...state.flags], returnNodes: [...returnNodes] };
     this.rememberUnlocks(snapshot);
     this.data.cursor = this.clone(snapshot);
-    if (!this.data.com03jReplay) this.data.checkpoints[nodeId] = this.clone(snapshot);
+    if (!this.data.com03jReplay && !this.data.c1Replay) this.data.checkpoints[nodeId] = this.clone(snapshot);
     const event = this.eventForSnapshot(snapshot);
     const rank = this.progressRank(snapshot, event);
     // Week/window nodes have no Memory card. Persist their actual live cursor
@@ -452,7 +471,7 @@ export class ProgressStore {
     const continuation = this.openingContinuationRank(nodeId) >= 0
       && (!this.replaying || this.data.restartActive);
     const advancesFrontier = (event || continuation) && rank > this.data.frontierRank;
-    if (!this.data.com02jSupplement && !this.data.com03jReplay && this.canExtendMain(snapshot) && (event || continuation) && (
+    if (!this.data.com02jSupplement && !this.data.com03jReplay && !this.data.c1Replay && this.canExtendMain(snapshot) && (event || continuation) && (
       !this.data.frontier
       || advancesFrontier
       || (!this.replaying && rank >= this.data.frontierRank && (continuation || event?.id === this.data.frontierMemoryEventId))
@@ -481,6 +500,18 @@ export class ProgressStore {
   }
 
   beginReplay(snapshot = null) {
+    // Opening continuation entries can replay into either C1 outing. Save the
+    // live return before setCursor replaces it, and keep it on predecessor reload.
+    const c1Entry = c1Outing(snapshot?.nodeId)
+      || (this.openingContinuationRank(snapshot?.nodeId) >= 0
+        && (this.data.c1Replay || c1Outing(this.data.cursor?.nodeId)));
+    if (this.data.c1Replay && !c1Entry) this.finishC1Replay();
+    if (this.chapter.id === 'opening-demo-chapter-01' && c1Entry
+      && !this.data.c1Replay && this.valid(this.data.cursor || this.data.frontier)) {
+      this.data.c1Replay = { returnCursor: this.clone(this.data.cursor || this.data.frontier),
+        returnRestartActive: this.data.restartActive, returnRunComplete: this.data.runComplete,
+        returnReplayActive: this.replaying };
+    }
     if (this.chapter.id === 'opening-demo-chapter-01' && this.isCom03j(snapshot?.nodeId)
       && !this.data.com03jReplay && this.valid(this.data.cursor || this.data.frontier)) {
       this.data.com03jReplay = { returnCursor: this.clone(this.data.cursor || this.data.frontier),
@@ -493,7 +524,20 @@ export class ProgressStore {
     return true;
   }
 
+  finishC1Replay() {
+    const replay = this.data.c1Replay;
+    if (!replay) return null;
+    this.data.cursor = this.clone(replay.returnCursor);
+    this.data.c1Replay = null;
+    this.data.restartActive = replay.returnRestartActive;
+    this.data.runComplete = replay.returnRunComplete;
+    this.replaying = replay.returnReplayActive;
+    this.flush();
+    return this.restore(this.data.cursor);
+  }
+
   beginFreshRun() {
+    this.data.c1Replay = null;
     this.data.com03jReplay = null;
     this.data.restartActive = true;
     this.data.runComplete = false;
@@ -509,12 +553,13 @@ export class ProgressStore {
   }
 
   endReplay() {
+    if (this.data.c1Replay) this.finishC1Replay();
     this.replaying = false;
     this.flush();
   }
 
   connect(from, to) {
-    if (this.data.com03jReplay) return;
+    if (this.data.com03jReplay || this.data.c1Replay) return;
     if (!from || !to || from === to) return;
     if (!this.data.edges.some(edge => edge[0] === from && edge[1] === to)) {
       this.data.edges.push([from, to]);

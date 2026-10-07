@@ -1,0 +1,196 @@
+{
+  "schema_version": "2.0.0",
+  "storage_class": "durable_checkpoint",
+  "run_id": "m1-c1-anchors-20261007",
+  "workflow_version": "1.3.1",
+  "source_ref": "a2967d98cd7118c690cc1adada8035182594cc55",
+  "human_request": {
+    "summary": "Continue #77 C1 anchors after all 34 looks/68 refs; #78 minimum slot completion contract in parallel. No wholesale rewrite, new cast, scheduler framework or formal CG in this batch.",
+    "gate_status": "ND/Locked Scenes/independent NQA complete; final affected engineering PASS after onefocused correction+onebounded escalation. Producer local NEEDS_REVIEW receipts are historical snapshots. Stable PR required exact-head CI/Chromium/publicpreview delivery evidence and CURRENT delivery status are indexed ONLY in #77/#78, so resume checks those before repeating work; source checkpoint does not infer Human/CG/fullM1acceptance."
+  },
+  "status": "ACTIVE",
+  "tasks": [
+    {
+      "task_id": "ND-XT-04",
+      "task_type": "narrative_design",
+      "depends_on": [],
+      "status": "NEEDS_REVIEW",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "8ffb9eeaf8e7e0ff79d433566f4dc50dd8a08234128a049517100cd92cb0f7f7"
+      },
+      "decision_receipt": "content/production/runs/m1-c1-anchors-20261007/ND-XT-04.decision.json",
+      "human_gate": "none",
+      "reason": "Draft preserved before accidental registry echo; fresh independent ND review required, no creative edits after exposure.",
+      "scene_id": "XT-04"
+    },
+    {
+      "task_id": "ND-JYC-05",
+      "task_type": "narrative_design",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "ea3f86ae1ad32986cf32132cc9c50763ce4e220e5c84af89871d65d9c8766abf"
+      },
+      "decision_receipt": "content/production/runs/m1-c1-anchors-20261007/ND-JYC-05.decision.json",
+      "human_gate": "none",
+      "reason": "Verified exact source/contract design PASS; not Script Lock/NQA/Human acceptance.",
+      "scene_id": "JYC-05"
+    },
+    {
+      "task_id": "NQA-XT-04",
+      "task_type": "narrative_review",
+      "scene_id": "XT-04",
+      "depends_on": [
+        "ND-XT-04-REVIEW-001"
+      ],
+      "status": "PASS",
+      "human_gate": "none",
+      "reason": "Verified actual complete XT-04 independent Narrative QA; source Script Lock/contract exact, no runtime/Human/CG acceptance.",
+      "packet": {
+        "generator": "tools/context.mjs:narrative_review",
+        "sha256": "8b456aa7a267370e4f4cac347ad9411433d656ec0ac69775178a8170ba5e3dfd"
+      },
+      "decision_receipt": "content/production/runs/m1-c1-anchors-20261007/NQA-XT-04.decision.json"
+    },
+    {
+      "task_id": "NQA-JYC-05",
+      "task_type": "narrative_review",
+      "scene_id": "JYC-05",
+      "depends_on": [
+        "ND-JYC-05"
+      ],
+      "status": "PASS",
+      "human_gate": "none",
+      "reason": "Verified complete JYC-05 Narrative QA PASS against exact contract and Locked Scene; no runtime/Human/CG acceptance.",
+      "packet": {
+        "generator": "tools/context.mjs:narrative_review",
+        "sha256": "043dadbf803e36a2d35b1c509b770e5bb457bdf976c970abc7d8f2f2710693e5"
+      },
+      "decision_receipt": "content/production/runs/m1-c1-anchors-20261007/NQA-JYC-05.decision.json"
+    },
+    {
+      "task_id": "INTEGRATE-C1-001",
+      "task_type": "integrate",
+      "depends_on": [
+        "NQA-XT-04",
+        "NQA-JYC-05"
+      ],
+      "status": "BLOCKED",
+      "human_gate": "narrative_preview_review",
+      "reason": "Verified actual BLOCKED Handoff: old pending-save/Memory replay restoration requires cross-system engineering. No source changes; rerouted fresh capable worker from the same approved source_ref=c6b0c93311979bf376cfc1a61abf6749ea81cbe0.",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "f5957ad3bcf6064875dd90081b139746ae6f4ceb17cb1571fc39503284b82331"
+      }
+    },
+    {
+      "task_id": "ND-XT-04-REVIEW-001",
+      "task_type": "narrative_design",
+      "depends_on": [],
+      "status": "PASS",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "6bb99cde8c4cab22ef327b240670ff7455d1e002a31735e6f9c6e73e6701024d"
+      },
+      "decision_receipt": "content/production/runs/m1-c1-anchors-20261007/ND-XT-04-REVIEW-001.decision.json",
+      "human_gate": "none",
+      "reason": "Coordinator verified actual fresh independent review Handoff; scope-specific approval only.",
+      "scene_id": "XT-04"
+    },
+    {
+      "task_id": "INTEGRATE-C1-002",
+      "task_type": "integrate",
+      "depends_on": [
+        "NQA-XT-04",
+        "NQA-JYC-05"
+      ],
+      "status": "NEEDS_REVIEW",
+      "human_gate": "narrative_preview_review",
+      "reason": "Verified exact local implementation Handoff at source commit b280bfe63f96e9d8bed52e3090404f6f666fdb9b: focused107/107, literal14 paths/220 turns/12 choices, build/validate/storage/diff/preview smoke PASS. Local Chromium could not launch (missing executable), test bodies NOT_RUN. Fresh independent engineering review, required exact-head CI and public preview pending; latest delivery evidence belongs to #77/#78. Human/CG/final acceptance pending.",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "9aae10b36fecfc3f8e25026e6a22167e65473d4497e3d8b43c8b4161b292184f"
+      },
+      "decision_receipt": "content/production/runs/m1-c1-anchors-20261007/INTEGRATE-C1-002.decision.json"
+    },
+    {
+      "task_id": "REVIEW-C1-RUNTIME-001",
+      "task_type": "integrate",
+      "depends_on": [
+        "INTEGRATE-C1-002"
+      ],
+      "status": "FAIL",
+      "human_gate": "none",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "7b12cab1ab2b660a9fbfbb72d0baec55c383ebc887a72807be457222db6b2d21"
+      },
+      "reason": "Verified independent engineering FAIL source_ref=b280bfe63f96e9d8bed52e3090404f6f666fdb9b input_digest=9e93ae502f19a50de7deb4dea6d1a68ff3d1979ae2e1df3ba10c707b887c7558. P1 C1-RUNTIME-001: ordinary OPEN-A replay can enter opposite C1 without return protection, mint canonical completion checkpoint and lose live middle-save run mode. Four reproduced paths; existing107 regressions/literal parity/build/validate PASS. One focused integrator correction required, fresh affected review afterward."
+    },
+    {
+      "task_id": "INTEGRATE-C1-003",
+      "task_type": "integrate",
+      "depends_on": [
+        "NQA-XT-04",
+        "NQA-JYC-05"
+      ],
+      "status": "NEEDS_REVIEW",
+      "human_gate": "narrative_preview_review",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "601e03a9a12f1de4952869d0d40163cfbf63613dbf4071cb5bc16c752310ffab"
+      },
+      "reason": "Verified corrective Handoff source_ref=648582e9b1f188c60304f40558b78db88ad7b14a input_digest=008f266b688b27eca8a02b8fab018c7fb2d3837db2255a983c67f7fcbfb2e853. Four new regressions fail baseline/pass corrected;111/111 focused/build/validate/storage/diff/local smoke PASS. Only progress+two tests changed. Fresh affected review/public exact-head CI/Chromium/public preview/Human remain pending; original #002 local state is historical, this correction supersedes its replay output.",
+      "decision_receipt": "content/production/runs/m1-c1-anchors-20261007/INTEGRATE-C1-003.decision.json"
+    },
+    {
+      "task_id": "REVIEW-C1-RUNTIME-002",
+      "task_type": "integrate",
+      "depends_on": [
+        "INTEGRATE-C1-003"
+      ],
+      "status": "FAIL",
+      "human_gate": "none",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "b3bf09f81a8756364343a93707d9a0c5b8c52a924380fc460fd801b6a330b8e7"
+      },
+      "reason": "Verified independent affected review FAIL source_ref=648582e9b1f188c60304f40558b78db88ad7b14a input_digest=c8c84bf736a2f32def538ee9c919b7ad5d437a66d89d0e6bb64b947f760d8679. Original four predecessor-to-C1 fixes and111focused PASS; single P1 C1-RUNTIME-002-EXIT: protected return incomplete at life/contactless/blocked exits. Consolidated24check matrix4fresh PASS/20exit FAIL; all7reachable terminals listed. One bounded escalation completes the whole same lifecycle, no creative invalidation."
+    },
+    {
+      "task_id": "INTEGRATE-C1-004",
+      "task_type": "integrate",
+      "depends_on": [
+        "NQA-XT-04",
+        "NQA-JYC-05"
+      ],
+      "status": "NEEDS_REVIEW",
+      "human_gate": "narrative_preview_review",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "53e46766fb7ab2ae4b4548bcdeac0b2dbd7b2669347e40e18b18cc5a28f22836"
+      },
+      "reason": "Verified actual bounded escalation Handoff source_ref=17547976bfe79927b87b4e2f1bbd2d06070d919f input_digest=c1b15c8b54ae5530281a7f724a00a037413807f5d8733c5ac941cb8ff901ab40. Baseline20exitFAIL/4freshPASS reproduced; corrected145/145 focused/build/validate/storage/diff/isolatedlocalpreviewsmokePASS. Five allowedfiles only; creative/graph/art/NQA frozen. Fresh final affectedreview, exact-head broad/ChromiumCI/publicpreview/Human/CG separate; earlier #002/#003 output snapshots remain historical.",
+      "decision_receipt": "content/production/runs/m1-c1-anchors-20261007/INTEGRATE-C1-004.decision.json"
+    },
+    {
+      "task_id": "REVIEW-C1-RUNTIME-003",
+      "task_type": "integrate",
+      "depends_on": [
+        "INTEGRATE-C1-004"
+      ],
+      "status": "PASS",
+      "human_gate": "none",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "f574026b3e0439d1d479d3db0745a9810be16aa8446e40be8d16548e22920f52"
+      },
+      "reason": "Coordinator verified actual independent final engineering PASS source_ref=17547976bfe79927b87b4e2f1bbd2d06070d919f input_digest=9bc0c59c87a14c8b4d9145b90e65bfba0bd3a8a6f7f296c47ca230cb9d78201f.145/145 focused+4/4 independent normal/freshguard, all7exit/blocked/reloaded/repeated/stalectx cases verified;14frozenstory/graph/art/branch blobs unchanged. PublicCI/preview/Human/CG are separate.",
+      "decision_receipt": "content/production/runs/m1-c1-anchors-20261007/REVIEW-C1-RUNTIME-003.decision.json"
+    }
+  ],
+  "invalidation_events": [],
+  "preview": null
+}
