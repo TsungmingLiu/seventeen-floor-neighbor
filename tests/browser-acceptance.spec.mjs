@@ -798,3 +798,47 @@ for(const outing of ['xt04','jyc05']) for(const completed of [false,true]) test(
   await page.reload();await page.locator('#start-button').click();
   expect(c1Main(await journey(page))).toEqual(main);expect(errors).toEqual([]);
 });
+
+for(const exit of ['life','contactless']) test(`Memory UI protected ${exit} exit restores the exact C1 main after repeated replay and reload`,async({page})=>{
+  test.setTimeout(240_000);
+  const errors=collectBlockingErrors(page),outing=exit==='life'?'jyc05':'xt04';
+  await seed(page,'OPEN-A-ENTRY',{met_xu_tang:1,met_jiang_yucheng:1},[
+    'contact_xu','contact_jyc','preview:com02j-complete','player_knows_jyc_name',
+    'jyc_knows_player_name','jyc_creator_work_seen','jyc_com03j_reply_style:warm_close'
+  ]);
+  await follow(page,exit==='life'?'JYC-05-COMPLETED-PREVIEW-STOP':'XT-04-BOOKS',{
+    'OPEN-A-ENTRY-ACTION-BOTH':outing==='xt04'?'OPEN-A-ACT-X':'OPEN-A-ACT-J'
+  },180);
+  if(exit==='contactless') {
+    // An old legitimate week entry can have no contacts, while the current
+    // outing has both. The archived snapshot must not take ownership of main.
+    await page.evaluate(()=>{
+      const key='opening-demo-chapter-01:journey:v2',saved=JSON.parse(localStorage.getItem(key));
+      const old=structuredClone(saved.checkpoints['OPEN-A-ENTRY']);old.nodeId='COM03M-ENTRY';
+      old.flags=old.flags.filter(f=>!['contact_xu','contact_jyc'].includes(f));
+      saved.checkpoints[old.nodeId]=old;localStorage.setItem(key,JSON.stringify(saved));
+    });
+    await page.reload();await page.locator('#start-button').click();
+  }
+  const main=c1Main(await journey(page));
+  await page.locator(exit==='life'?'#home-button':'#game-home-button').click();
+  for(let repeat=0;repeat<2;repeat++) {
+    await page.locator('#memories-button').click();
+    await page.locator(`[data-group-id="${exit==='life'?'free-time':'week'}"]`).click();
+    await page.locator('#story-inspector .story-replay').click();
+    if(exit==='life') {
+      expect((await journey(page)).c1Replay.returnCursor).toEqual(main.cursor);
+      await page.reload();await page.locator('#start-button').click();
+      const choices={'OPEN-A-ENTRY-ACTION-BOTH':'OPEN-A-ACT-LIFE','OPEN-A-LIFE-ACTION':'OPEN-A-LIFE-REST'};
+      await follow(page,'OPEN-A-LIFE-ACTION',choices,100);
+      await page.reload();await page.locator('#start-button').click();
+      await follow(page,main.cursor.nodeId,choices,80);
+    }
+    await expect(page.locator('#memories-screen')).toBeVisible();
+    expect((await journey(page)).c1Replay).toBeNull();expect(c1Main(await journey(page))).toEqual(main);
+    await page.reload();await page.locator('#start-button').click();
+    expect(c1Main(await journey(page))).toEqual(main);
+    await page.locator(exit==='life'?'#home-button':'#game-home-button').click();
+  }
+  expect(errors).toEqual([]);
+});

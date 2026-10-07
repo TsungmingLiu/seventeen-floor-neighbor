@@ -348,7 +348,8 @@ export class ProgressStore {
         this.replaying = true;
       }
       if (saved.c1Replay && (c1Outing(this.data.cursor?.nodeId)
-        || this.openingContinuationRank(this.data.cursor?.nodeId) >= 0)
+        || this.openingContinuationRank(this.data.cursor?.nodeId) >= 0
+        || this.chapter.nodes[this.data.cursor?.nodeId]?.type === 'route')
         && this.valid(saved.c1Replay.returnCursor) && !this.data.restartActive) {
         this.data.c1Replay = { returnCursor: this.clone(saved.c1Replay.returnCursor),
           returnRestartActive: saved.c1Replay.returnRestartActive === true,
@@ -356,6 +357,9 @@ export class ProgressStore {
           returnReplayActive: saved.c1Replay.returnReplayActive === true };
         this.data.runComplete = this.data.c1Replay.returnRunComplete;
         this.replaying = true;
+        // Older saves may have finished a predecessor replay without clearing
+        // its protected return. A terminal cursor cannot resume that replay.
+        if (this.chapter.nodes[this.data.cursor.nodeId].type === 'route') this.finishC1Replay();
       }
       if (!this.replaying && /^OPEN-A-ENTRY-PENDING-[XJ]$/.test(this.data.cursor?.nodeId || '')
         && this.chapter.nodes[this.data.cursor.nodeId]?.type === 'branch') this.data.runComplete = false;
