@@ -166,13 +166,28 @@
         "NQA-XT-04",
         "NQA-JYC-05"
       ],
-      "status": "RUNNING",
+      "status": "NEEDS_REVIEW",
       "human_gate": "narrative_preview_review",
       "packet": {
         "generator": "manual-v1",
         "sha256": "53e46766fb7ab2ae4b4548bcdeac0b2dbd7b2669347e40e18b18cc5a28f22836"
       },
-      "reason": "One bounded escalation after focused correction: source_ref=6d04808ffc7827d5e0e821f327218aa3122d5cd1. Complete same protected return lifecycle across all7actual endpoints/blocked guard; reviewer24case matrix4freshPASS/20exitFAIL is full affectedscope. Frozen creative/graph/art/NQA unchanged; fresh affectedreview/CI/publicpreview/Human separate."
+      "reason": "Verified actual bounded escalation Handoff source_ref=17547976bfe79927b87b4e2f1bbd2d06070d919f input_digest=c1b15c8b54ae5530281a7f724a00a037413807f5d8733c5ac941cb8ff901ab40. Baseline20exitFAIL/4freshPASS reproduced; corrected145/145 focused/build/validate/storage/diff/isolatedlocalpreviewsmokePASS. Five allowedfiles only; creative/graph/art/NQA frozen. Fresh final affectedreview, exact-head broad/ChromiumCI/publicpreview/Human/CG separate; earlier #002/#003 output snapshots remain historical.",
+      "decision_receipt": "content/production/runs/m1-c1-anchors-20261007/INTEGRATE-C1-004.decision.json"
+    },
+    {
+      "task_id": "REVIEW-C1-RUNTIME-003",
+      "task_type": "integrate",
+      "depends_on": [
+        "INTEGRATE-C1-004"
+      ],
+      "status": "RUNNING",
+      "human_gate": "none",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "f574026b3e0439d1d479d3db0745a9810be16aa8446e40be8d16548e22920f52"
+      },
+      "reason": "Final fresh affectedengineering review source_ref=17547976bfe79927b87b4e2f1bbd2d06070d919f across all actual7endpoints/blocked/serialized return lifecycle; frozenstory/graph/art identities only, unchanged creativeQA not repeated. PublicCI/preview/Human remains separate."
     }
   ],
   "invalidation_events": [],
