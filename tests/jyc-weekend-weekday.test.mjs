@@ -367,9 +367,17 @@ for (const freshRun of [false, true]) {
       }
     }
     reload.startFromTitle();
-    assert.equal(reload.nodeId, freshRun ? cursor.nodeId : main.nodeId);
+    assert.equal(reload.nodeId, cursor.nodeId);
     assert.deepEqual(reload.progress.data.frontier, main);
-    assert.equal(reload.state.met_jiang_yucheng, freshRun ? 0 : 1);
+    assert.equal(reload.state.met_jiang_yucheng, 0);
+    if (!freshRun) {
+      assert.ok(reload.progress.data.c1Replay.exploration, 'Continue resumes protected exploration');
+      reload.progress.endReplay();
+      reload.startFromTitle();
+      assert.equal(reload.nodeId, main.nodeId);
+      assert.equal(reload.state.met_jiang_yucheng, 1);
+      assert.deepEqual(reload.progress.data.frontier, main);
+    }
   });
 }
 
@@ -449,7 +457,7 @@ test('cafe-only first play and actual cafe Memory replay never earn bookstore re
   const reload = makeEngine(storage); reload.progress.setPlayerName('小雨');
   reload.replayMemory(memoryLibrary.events.find(event=>event.id==='mem.opening.ch1.first-cafe-jyc'));
   assert.equal(reload.nodeId,'common_station_cafe_jyc_first_enter');
-  const visited = walkEngine(reload, {common_station_cafe_jyc_contact_choice:'com02j_leave_without_contact'}, 'common_station_cafe_jyc_complete');
+  const visited = walkEngine(reload, {common_station_cafe_jyc_contact_choice:'com02j_leave_without_contact'}, 'common_package_xu_arrive');
   assert.ok(visited.includes('common_station_cafe_jyc_first_drawing_02'));
   assert.ok(!visited.includes('common_station_cafe_jyc_drawing_02'));
   assert.equal(reload.bookstoreEligible(),false);
@@ -475,7 +483,7 @@ test('street main then actual bookstore replay earns durable eligibility without
   assert.equal(reload.bookstoreEligible(),true);
   assert.deepEqual(reload.progress.data.frontier,main);
   reload.resumeGame(weekday,{replay:true});
-  const visited=walkEngine(reload,{common_station_cafe_jyc_contact_choice:'com02j_leave_without_contact'},'common_station_cafe_jyc_complete');
+  const visited=walkEngine(reload,{common_station_cafe_jyc_contact_choice:'com02j_leave_without_contact'},'common_package_xu_arrive');
   assert.ok(visited.includes('common_station_cafe_jyc_drawing_02'));
   assert.ok(!visited.includes('common_station_cafe_jyc_first_enter'));
   assert.ok(!visited.includes('common_weekday_outing_decision'));
@@ -528,7 +536,7 @@ test('cafe-initial earns future availability across excluded replay while bookst
   const local={nodeId:'common_station_cafe_jyc_first_enter',stats:{...chapter.initialState},flags:['preview:jyc-weekend-weekday','jyc_permanently_excluded','history:common_bookstore_bridge_weekend_decision:com01b_bookstore_skip'],returnNodes:[]};
   reload.resumeGame(local,{replay:true});
   assert.equal(reload.nodeId,'common_station_cafe_jyc_first_enter');
-  const visited=walkEngine(reload,{common_station_cafe_jyc_contact_choice:'com02j_leave_without_contact'},'common_station_cafe_jyc_complete');
+  const visited=walkEngine(reload,{common_station_cafe_jyc_contact_choice:'com02j_leave_without_contact'},'common_package_xu_arrive');
   assert.ok(visited.includes('common_station_cafe_jyc_first_drawing_02'));
   assert.ok(!visited.includes('common_station_cafe_jyc_drawing_02'));
   assert.ok(reload.state.flags.has('jyc_permanently_excluded'));
@@ -610,7 +618,7 @@ for (const path of ['A', 'B']) {
     assert.ok(!reload.state.flags.has('contact_jyc'));
     assert.deepEqual(reload.progress.data.frontier,main);
     reload.els.choices.children[1].click();
-    walkEngine(reload,{},'common_station_cafe_jyc_complete');
+    walkEngine(reload,{},'common_package_xu_arrive');
     assert.ok(!reload.state.flags.has('contact_jyc'),'actual refusal callback retains no contact');
     const noContact={...local,nodeId:'OPEN-A-ENTRY-ACTION-GATE'};
     reload.resumeGame(noContact,{replay:true});

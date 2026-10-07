@@ -858,7 +858,7 @@ export class GameEngine {
     }
     if (node.type === 'branch') {
       if (this.chapter.id === 'opening-demo-chapter-01' && this.nodeId === 'common_convenience_xu_revision_exit'
-        && this.progress.replaying && !this.progress.data.restartActive) {
+        && this.progress.replaying && !this.progress.data.restartActive && !this.progress.data.c1Replay?.exploration) {
         this.nodeId = 'opening_demo_complete';
         this.refreshTitle();
         this.showOnly(this.els.title);
@@ -873,12 +873,12 @@ export class GameEngine {
         return;
       }
       if (this.chapter.id === 'opening-demo-chapter-01' && this.nodeId === 'com03x_preview_complete') {
-        if (this.progress.replaying && !this.progress.data.restartActive) {
+        if (this.progress.replaying && !this.progress.data.restartActive && !this.progress.data.c1Replay?.exploration) {
           this.refreshTitle();
           this.showOnly(this.els.title);
           return;
         }
-        this.progress.data.runComplete = false;
+        if (!this.progress.data.c1Replay) this.progress.data.runComplete = false;
       }
       if (this.chapter.id === 'opening-demo-chapter-01' && this.nodeId === 'common_station_cafe_jyc_complete') {
         const returned = this.progress.completeCom02jSupplement(this.state);
@@ -888,7 +888,7 @@ export class GameEngine {
           this.render();
           return;
         }
-        if (this.progress.replaying && !this.progress.data.restartActive) {
+        if (this.progress.replaying && !this.progress.data.restartActive && !this.progress.data.c1Replay?.exploration) {
           this.refreshTitle();
           this.showOnly(this.els.title);
           return;
@@ -897,7 +897,7 @@ export class GameEngine {
       // A historical Opening Memory stops at its original review boundary.
       // An explicit fresh run continues through this stable terminal alias.
       if (this.chapter.id === 'opening-demo-chapter-01' && this.nodeId === 'opening_demo_complete'
-        && this.progress.replaying && !this.progress.data.restartActive) {
+        && this.progress.replaying && !this.progress.data.restartActive && !this.progress.data.c1Replay?.exploration) {
         this.refreshTitle();
         this.showOnly(this.els.title);
         return;
@@ -1069,7 +1069,10 @@ export class GameEngine {
   startGame({ replay = false, freshRun = false } = {}) {
     if (!this.requirePlayerName(() => this.startGame({ replay, freshRun }))) return;
     if (freshRun) this.progress.beginFreshRun();
-    else if (replay) this.progress.beginReplay();
+    else if (replay) {
+      const entry = this.progress.data.checkpoints[this.chapter.startNode];
+      this.progress.beginReplay(entry?.flags.includes('preview:jyc-weekend-weekday') ? entry : null);
+    }
     else this.progress.endReplay();
     this.stopCinematic();
     this.state = this.createInitialState();
