@@ -530,9 +530,9 @@ test('bookstore-skip cafe first meeting and refusal unlock only the truthful Mem
   await expect(page.locator('[data-memory-id="mem.opening.ch1.recommend-discord-jyc"]')).toHaveCount(0);
 });
 
-test('contacted week continues to a saved pending Jiang first-window boundary',async({page})=>{
+test('contacted week continues to a Jiang first outing after the confirmed first-window plan',async({page})=>{
   test.setTimeout(240_000);
-  const chapter=await seed(page,'COM03M-S01',{met_xu_tang:1,met_jiang_yucheng:1},['contact_xu','contact_jyc','jyc_com03j_reply_style:warm_close']);
+  const chapter=await seed(page,'COM03M-S01',{met_xu_tang:1,met_jiang_yucheng:1},['contact_xu','contact_jyc','jyc_com03j_reply_style:warm_close','preview:com02j-complete','player_knows_jyc_name','jyc_knows_player_name','jyc_creator_work_seen']);
   const seen=await follow(page,'COM03M-J01-warm_close');
   await ready(page);
   await expect(page.locator('#dialogue-text')).toHaveText(chapter.nodes['COM03M-J01-warm_close'].text);
@@ -542,7 +542,7 @@ test('contacted week continues to a saved pending Jiang first-window boundary',a
   expect(callback.checkpoints['COM03M-J01-warm_close']).toEqual(callback.cursor);
   expect(callback.checkpoints).not.toHaveProperty('COM03M-J01-neutral');
   expect(callback.edges).toContainEqual(['COM03M-J01','COM03M-J01-warm_close']);
-  seen.push(...await follow(page,'OPEN-A-ENTRY-PENDING-J',{
+  seen.push(...await follow(page,'JYC-05-ENTRY',{
     'COM03M-C01':'COM03M-C01-J',
     'OPEN-A-ENTRY-ACTION-BOTH':'OPEN-A-ACT-J',
     'OPEN-A-J-TIME':'OPEN-A-J-ACCEPT'
@@ -553,7 +553,7 @@ test('contacted week continues to a saved pending Jiang first-window boundary',a
   expect(seen).toContain('OPEN-A-ENTRY');
   expect(seen).not.toContain('OPEN-A-X-START-INCOMING');
   const saved=await journey(page);
-  expect(saved.cursor.nodeId).toBe('OPEN-A-ENTRY-PENDING-J');
+  expect(saved.cursor.nodeId).toBe('JYC-05-ENTRY');
   expect(saved.cursor.flags).toEqual(expect.arrayContaining(['open_dating_unlocked','open_a_entered']));
   expect(saved.cursor.flags).not.toContain('open_a_window1_consumed');
   await page.reload();
@@ -733,4 +733,29 @@ test('actual remote Xu speaker label is shared by GAME and player/review DETAIL'
     await page.locator('[data-group-id="parcel"]').click();
     await expect(page.locator('#story-inspector .story-script')).toContainText('Line-許棠');
   }
+});
+
+for (const [outing, entry, stop, choices] of [
+  ['xt04','XT-04-ARRIVE','XT-04-COMPLETED-PREVIEW-STOP',{'XT-04-PACE':'xt-04-ask-plan','XT-04-SCHEDULE-ACTION':'xt-04-impose'}],
+  ['jyc05','JYC-05-ENTRY','JYC-05-COMPLETED-PREVIEW-STOP',{'JYC-05-SUPPORT':'jyc-05-answer'}]
+]) test(`C1 ${outing} old pending Continue, unresolved completion and reload`, async ({page})=>{
+  test.setTimeout(240_000);
+  await page.goto('/');await expect(page.locator('#start-button')).toBeEnabled();
+  const chapter=await (await page.request.get('/content/routes/opening-demo/chapter.json')).json();
+  const snapshot={nodeId:`OPEN-A-ENTRY-PENDING-${outing==='xt04'?'X':'J'}`,stats:{...chapter.initialState,met_xu_tang:1,met_jiang_yucheng:1},returnNodes:[],flags:[
+    'contact_xu','contact_jyc','open_a_entered',`open_a_entry_outcome:pending_${outing==='xt04'?'xu':'jyc'}`,
+    'preview:com02j-complete','player_knows_jyc_name','jyc_knows_player_name','jyc_creator_work_seen','jyc_com03j_reply_style:warm_close'
+  ]};
+  await page.evaluate(snapshot=>localStorage.setItem('opening-demo-chapter-01:journey:v2',JSON.stringify({version:2,playerDisplayName:'小雨',cursor:snapshot,frontier:snapshot,runComplete:true,checkpoints:{[snapshot.nodeId]:snapshot},edges:[]})),snapshot);
+  await page.reload();await page.locator('#start-button').click();
+  expect((await journey(page)).cursor.nodeId).toBe(entry);
+  expect((await journey(page)).cursor.flags).not.toContain('open_a_window1_consumed');
+  await follow(page,stop,choices,180);
+  const complete=await journey(page);
+  expect(complete.frontier.flags).toContain(`open_a_window1_completed:${outing}`);
+  expect(complete.frontier.flags).toContain('open_a_window1_consumed');
+  expect(complete.frontier.flags).toContain(outing==='xt04'?'xt04_pace_outcome:unresolved_imposed_plan':'jyc05_support_outcome:answered_for_her');
+  await page.reload();await expect(page.locator('#start-button')).toHaveText('繼續遊戲');await page.locator('#start-button').click();
+  expect((await journey(page)).frontier).toEqual(complete.frontier);
+  await expect(page.locator('#ending-screen')).toBeVisible();
 });

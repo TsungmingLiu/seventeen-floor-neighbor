@@ -169,9 +169,9 @@ Final CG 不是前置條件。
 
 缺少美術的場景正常使用 M0 建立的 placeholder。
 
-v0.6 macro／route-state 與部分 choice metadata 已存在；#71／#69 已交付本輪 discovery、COMMON/contact gating 與累積解鎖／重玩。COM-03J、COM-03M 與 OPEN-A 第一個 window 的入口已整合，不能再排成尚未開始。當前 pending 邀約仍停在未製作的 XT-04／JYC-05 前；solo/rest/wait 只完成第一個 window 的生活分支。
+v0.6 macro／route-state 與部分 choice metadata 已存在；#71／#69 已交付本輪 discovery、COMMON/contact gating 與累積解鎖／重玩。COM-03J、COM-03M 與 OPEN-A 第一個 window 的入口已整合，不能再排成尚未開始。當前有效 pending 邀約可接入已在本地整合的 XT-04／JYC-05 首次 outing；completion 才消耗第一 slot；solo/rest/wait 只完成第一個 window 的生活分支。
 
-[#77 C0](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/77) bounded consistency review 已於 2026-10-06 PASS（`REVIEW-M1-C0-FINAL-001`；source HEAD `1b7b7a1181a519a3ff13a01af110521ac7ffbcfb`）：[slice plan](docs/narrative/M1_GAMEPLAY_VALIDATION_SLICE.md)／blueprints 與 current scene-local amendments 已對齊，已交付入口與未製作的完整 slots／anchors／repair／SH-01／return 已分開。下一步是 #77 C1 XT-04／JYC-05 Narrative Design 並行，#78 同步準備最小 pending／slot completion contract，整合前完成；舊 `0b48183…` 留作比較基線。Owner 對已合併劇情／UI 的 review 範圍沿用 #71／#69；本文件不回填舊 ledger 或推定完整 slice 已獲 Human acceptance。
+[#77 C0](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/77) bounded consistency review 已於 2026-10-06 PASS（`REVIEW-M1-C0-FINAL-001`；source HEAD `1b7b7a1181a519a3ff13a01af110521ac7ffbcfb`）：[slice plan](docs/narrative/M1_GAMEPLAY_VALIDATION_SLICE.md)／blueprints 與 current scene-local amendments 已對齊，已交付入口與未製作的完整 slots／anchors／repair／SH-01／return 已分開。C1 的 XT-04／JYC-05 已按各自 approved Locked Scene／exact NQA receipts 接入本地敘事預覽；第一 outing completion 一次性消耗原第一 slot，保留 pending plan 歷史與各路 pace／代答 unresolved。107/107 focused runtime／save／Story Map checks PASS；本地新增兩個 Chromium cases 因 browser executable 缺失未執行；穩定 exact-head full CI／Chromium、獨立技術再審與公開 Cloudflare preview 待 Coordinator 完成（PUBLIC_PREVIEW_PENDING）。Human narrative_preview_review／CG／Visual QA／final art 均 pending。第二 slot scheduler、continuations／必要 early repair、SH-01／bounded return 尚未製作。 舊 `0b48183…` 留作比較基線。Owner 對已合併劇情／UI 的 review 範圍沿用 #71／#69；本文件不回填舊 ledger 或推定完整 slice 已獲 Human acceptance。
 
 ## 驗證重點
 
@@ -396,8 +396,8 @@ Roadmap 只維護工作所在的 horizon，不維護完整 task list。
 
 只包含直接幫助 **M1 Gameplay Validation** 的工作；完整依賴與並行邊界見 §10。
 
-- [#77](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/77)：C0 bounded consistency 已完成；下一步先完成 §10／#76 四角色 34 looks／68 refs 前置，再並行準備 XT-04／JYC-05 Narrative Design，再依各自前事製作 continuations／真 early repair、SH-01，以及有限 slots／bounded return。
-- [#78](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/78)：現在只準備 internal coverage matrix；契約固定後補 slice 必需的 graph/state/save 檢查，逐批確認完整 end-to-end core。問卷、招募與正式外部計時不排入 NOW。
+- [#77](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/77)：C0 bounded consistency 已完成；§10／#76 四角色 34 looks／68 refs 前置與 XT-04／JYC-05 first outing 本地整合已完成，再依各自前事製作 continuations／真 early repair、SH-01，以及有限 slots／bounded return。
+- [#78](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/78)：最小 pending／slot contract 與本批 focused graph/state/save checks 已完成；继续 internal coverage matrix，逐批確認完整 end-to-end core。問卷、招募與正式外部計時不排入 NOW。
 - 使用已登記的 preview placeholder 支援缺 CG 的場景；保持 narrative integration 與 final art 解耦，不無故重寫已接受 Opening。
 - [#76 P0–P3](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/76)：M1 期間並行準備下一批 CG 的服裝語意、必要單套 refs／routing、輕量 telemetry；只提升直接妨礙 playtest 的顯示缺陷。全 34 looks、全面修圖與 rollout 仍 deferred。
 - 已交付的 discovery／Memories 整合與 M0 foundation 不重開成新的 blocker；deferred 殘項見 §10。
@@ -455,8 +455,8 @@ M2–M4 已知但目前不應執行的工作。
 
 | 工作 | 現在可以開始什麼 | 完成後接什麼 |
 | --- | --- | --- |
-| [#77 — 內容與整合](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/77) | **C0 bounded consistency PASS；#76 四角色 34 canonical looks／68 full／upper refs、獨立 crop QA、exact-look routing 與 refs 啟用已完成；下一步 C1：XT-04／JYC-05 Narrative Design** | 各幕契約批准後製作 anchors；C2 continuation／repair／SH-01 與 C3 finite slots／return 仍等實際前事 |
-| [#78 — 內部 end-to-end 驗證](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/78) | internal coverage matrix、回歸案例與最小 pending／slot completion contract（可與 #76 refs 前置並行；整合前完成） | 契約固定後補 machine checks；完整路線與負向案例通過，再做 Owner review |
+| [#77 — 內容與整合](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/77) | **C0 bounded consistency PASS；#76 四角色 34 canonical looks／68 full／upper refs、獨立 crop QA、exact-look routing 與 refs 啟用已完成；C1：XT-04／JYC-05 first outings 本地已整合；PUBLIC_PREVIEW_PENDING** | 本批兩個 first anchors 已接入，公開 CI／獨立技術再審／Human／CG pending；C2 continuation／repair／SH-01 與 C3 finite slots／return 仍等實際前事 |
+| [#78 — 內部 end-to-end 驗證](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/78) | 最小 pending／slot completion contract 與本批 focused 回歸已完成；internal coverage matrix 持續 | 本批 machine checks 已通過；完整路線與負向案例通過，再做 Owner review |
 | [#76 P0–P3 — wardrobe 前置與 CG 改善](https://github.com/TsungmingLiu/seventeen-floor-neighbor/issues/76) | P0 writer-safe 選項、P1 四角色 34 unique looks／68 full／upper refs、獨立 crop QA、登記、routing 與 refs 啟用已完成；P2 輕量記錄可並行，P3 依內部 blocker triage | P2 未來首次明示授權生成時記錄；P3 依內部 blocker triage，D1／D3 仍 deferred |
 
 C0 已核對尚未記錄的 gate 與其他進度文件，不把舊 checklist 未勾選解讀為已合併功能尚未交付。保留 #71 的 earned-discovery 決策：書店初遇真正解鎖才走咖啡重逢；只咖啡初遇仍走初遇；任一真正初遇的累積資格不因後來街景／重玩撤銷，但不補造 local contact、購書、knowledge 或 consent。
@@ -468,9 +468,9 @@ C0 已核對尚未記錄的 gate 與其他進度文件，不把舊 checklist 未
 ```mermaid
 flowchart TD
     BASE["已合併 Opening／COMMON<br/>OPEN-A 第一 window 入口"] --> C0["已完成：C0 bounded consistency PASS<br/>#77"]
-    BASE --> PREP["現在可並行：最小 pending／slot completion 契約<br/>分支矩陣／內部回歸 #78"]
+    BASE --> PREP["已完成本批：最小 pending／slot completion 契約<br/>分支矩陣／內部回歸 #78"]
 
-    subgraph AUTHOR["refs 前置完成後：C1 兩條 anchor Narrative Design 可並行；各幕依 gates 製作"]
+    subgraph AUTHOR["C1 first outings 本地整合；successors 仍依 gates 製作"]
         X4["XT-04<br/>許棠第一次書店互動"] --> X5["XT-05<br/>continuation 與必要 early repair"]
         J5["JYC-05<br/>江雨澄作品主場"] --> COOP["實際 online co-op 前事<br/>取得家訪同意"]
         COOP --> J6["JYC-06<br/>家訪與必要 early repair"]
@@ -506,8 +506,8 @@ flowchart TD
 
 **可並行的範圍：**
 
-- C0 已完成；#76 P0/P1 四角色 34 unique looks／68 full／upper refs、獨立 crop QA 與 exact-look routing 已完成，下一步開 #77 C1 XT-04／JYC-05 ND。#78 最小 pending／slot completion contract、內部回歸與 P2 輕量 telemetry 可並行；#78 契約須在整合前完成。
-- C1 ND 使用 current exact sources；changed declared inputs 在實際下游使用時仍須 exact dependency／continuity checks 與必要 fresh full-scene NQA，C0 不授予新 scene NQA／Human／pixel／完整 M1 acceptance。各 scene prerequisite 固定並批准後，XT-04／JYC-05 分別製作；各自前幕完成後，許棠 continuation 與江雨澄 co-op／家訪可繼續並行。
+- C0 已完成；#76 P0/P1 四角色 34 unique looks／68 full／upper refs、獨立 crop QA 與 exact-look routing 已完成，C1 的 XT-04／JYC-05 已按各自 approved Locked Scene／exact NQA receipts 接入本地敘事預覽；第一 outing completion 一次性消耗原第一 slot，保留 pending plan 歷史與各路 pace／代答 unresolved。107/107 focused runtime／save／Story Map checks PASS；本地新增兩個 Chromium cases 因 browser executable 缺失未執行；穩定 exact-head full CI／Chromium、獨立技術再審與公開 Cloudflare preview 待 Coordinator 完成（PUBLIC_PREVIEW_PENDING）。Human narrative_preview_review／CG／Visual QA／final art 均 pending。第二 slot scheduler、continuations／必要 early repair、SH-01／bounded return 尚未製作。 #78 其餘內部回歸與 P2 輕量 telemetry 仍按原 scope。
+- C1 ND 使用 current exact sources；changed declared inputs 在實際下游使用時仍須 exact dependency／continuity checks 與必要 fresh full-scene NQA，C0 不授予新 scene NQA／Human／pixel／完整 M1 acceptance。XT-04／JYC-05 approved Locked Scenes／NQA 已本地接入；各自前幕完成後，許棠 continuation 與江雨澄 co-op／家訪可繼續並行。
 - 已批准契約的 machine-check cases 可與該 scene 的對白工作並行；checks 跟隨每個整合批次。
 - 共用 chapter／registry 的 wiring 依批次順序整合；兩個 worker 不同時改同一份共用檔。
 
@@ -546,7 +546,7 @@ Owner 已選擇四角色 **34 unique canonical looks／68 full／upper refs** �
 flowchart TD
     C0["已完成 C0"] --> OPTIONS["#76 P0：writer-safe key/look options"]
     OPTIONS --> REFS["#76 P1 完成：34 looks / 68 refs<br/>獨立 crop QA／登記／routing 乾跑"]
-    REFS --> C1["下一步 #77 C1 Narrative Design"]
+    REFS --> C1["C1 first outings 本地整合／公開 review pending"]
     C1 --> LOCKED["Locked Scene／獨立 Narrative QA"]
     LOCKED --> PLAN["Planner／manifest usability"]
     PLAN --> RENDER["明示授權 CG generation"]

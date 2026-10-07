@@ -94,3 +94,43 @@ export function renderBranches({ chapter, pools, assets, progress, unlocked, con
     container.append(button);
   }
 }
+
+// The two produced first outings share one finite window. These facts remain
+// local to the current snapshot; collection/discovery never supplies contact.
+export function c1Outing(nodeId) {
+  if (nodeId?.startsWith('XT-04-')) return 'xt04';
+  if (nodeId?.startsWith('JYC-05-')) return 'jyc05';
+  return null;
+}
+
+export function c1Destination(nodeId, state, initialEncounterEligible = false) {
+  const outing = c1Outing(nodeId);
+  if (!outing) return null;
+  const flags = state.flags instanceof Set ? state.flags : new Set(state.flags);
+  const own = `open_a_window1_completed:${outing}`;
+  const other = `open_a_window1_completed:${outing === 'xt04' ? 'jyc05' : 'xt04'}`;
+  const stop = `${outing === 'xt04' ? 'XT-04' : 'JYC-05'}-COMPLETED-PREVIEW-STOP`;
+  const pending = `open_a_entry_outcome:pending_${outing === 'xt04' ? 'xu' : 'jyc'}`;
+  const opposite = `open_a_entry_outcome:pending_${outing === 'xt04' ? 'jyc' : 'xu'}`;
+  const prerequisites = flags.has('open_a_entered') && flags.has(pending) && !flags.has(opposite)
+    && !['solo', 'rest', 'wait'].some(value => flags.has(`open_a_entry_outcome:${value}`))
+    && (outing === 'xt04' ? flags.has('contact_xu') && state.met_xu_tang > 0
+      : flags.has('contact_jyc') && state.met_jiang_yucheng > 0
+        && !jiangExcluded(state, initialEncounterEligible)
+        && ['preview:com02j-complete', 'player_knows_jyc_name', 'jyc_knows_player_name', 'jyc_creator_work_seen'].every(flag => flags.has(flag))
+        && ['continue_content', 'warm_close', 'save_for_later'].some(value => flags.has(`jyc_com03j_reply_style:${value}`)));
+  if (!prerequisites || flags.has(other)
+    || flags.has(own) !== flags.has('open_a_window1_consumed')) return 'C1-INVALID-PREVIEW-STOP';
+  if (flags.has(own)) {
+    // A partial pair or imported identity cannot substitute for its commit.
+    if (!flags.has(`entry-effect:${stop}`)) return 'C1-INVALID-PREVIEW-STOP';
+    return nodeId === stop ? null : stop;
+  }
+  if (nodeId === stop) {
+    const end = outing === 'xt04' ? 'XT-04-END_08' : 'JYC-05-COMPLETE_03';
+    const prefix = outing === 'xt04' ? 'xt04_pace_outcome:' : 'jyc05_support_outcome:';
+    if (!flags.has(`entry-effect:${end}`)
+      || [...flags].filter(flag => flag.startsWith(prefix)).length !== 1) return 'C1-INVALID-PREVIEW-STOP';
+  }
+  return null;
+}

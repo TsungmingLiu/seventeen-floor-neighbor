@@ -298,9 +298,46 @@
           "id": "scene",
           "label": "依聯絡前事",
           "prefixes": [
-            "OPEN-A-"
+            "OPEN-A-",
+            "C1-INVALID-PREVIEW-STOP"
           ],
           "entry": "OPEN-A-ENTRY"
+        }
+      ]
+    },
+    {
+      "id": "xt-04",
+      "title": "中山書店",
+      "summary": "中山書店",
+      "row": 12,
+      "lane": "left",
+      "variants": [
+        {
+          "id": "scene",
+          "label": "首次同行",
+          "memoryId": "mem.opening.ch1.xt-04",
+          "prefixes": [
+            "XT-04-"
+          ],
+          "entry": "XT-04-ARRIVE"
+        }
+      ]
+    },
+    {
+      "id": "jyc-05",
+      "title": "ACG：她的主場",
+      "summary": "ACG：她的主場",
+      "row": 12,
+      "lane": "right",
+      "variants": [
+        {
+          "id": "scene",
+          "label": "首次同行",
+          "memoryId": "mem.opening.ch1.jyc-05",
+          "prefixes": [
+            "JYC-05-"
+          ],
+          "entry": "JYC-05-ENTRY"
         }
       ]
     }
@@ -490,6 +527,19 @@
       "common_weekday_outing_reunion": "曾在書店認識雨澄；依當次買書前事接續",
       "common_weekday_outing_home": "尚未解鎖書店初遇，週間選擇去咖啡店或散步",
       "common_weekday_outing_street_enter": "尚未解鎖書店或咖啡店初遇，這次選擇街景獨行"
+    },
+    "XT-04-DRINK-LOCAL": {
+      "XT-04-DRINK-LOCAL-shared_pace": "在書店一起看過攝影集",
+      "XT-04-DRINK-LOCAL-schedule_negotiated": "在書店商量過接下來的安排",
+      "XT-04-DRINK-LOCAL-local_humor": "在書店開過等待的玩笑",
+      "XT-04-DRINK-LOCAL-unresolved_imposed_plan": "在書店擅排下一站，摩擦尚未解決"
+    },
+    "JYC-05-EXIT": {
+      "JYC-05-EXIT-WAIT": "在櫃台等她自行回答",
+      "JYC-05-EXIT-ANSWER": "在櫃台先替她回答，摩擦尚未解決"
     }
-  }
+  },
+  "reviewBlockedNodes": [
+    "C1-INVALID-PREVIEW-STOP"
+  ]
 }
