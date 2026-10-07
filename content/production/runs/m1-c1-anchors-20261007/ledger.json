@@ -128,6 +128,21 @@
         "sha256": "7b12cab1ab2b660a9fbfbb72d0baec55c383ebc887a72807be457222db6b2d21"
       },
       "reason": "Verified independent engineering FAIL source_ref=b280bfe63f96e9d8bed52e3090404f6f666fdb9b input_digest=9e93ae502f19a50de7deb4dea6d1a68ff3d1979ae2e1df3ba10c707b887c7558. P1 C1-RUNTIME-001: ordinary OPEN-A replay can enter opposite C1 without return protection, mint canonical completion checkpoint and lose live middle-save run mode. Four reproduced paths; existing107 regressions/literal parity/build/validate PASS. One focused integrator correction required, fresh affected review afterward."
+    },
+    {
+      "task_id": "INTEGRATE-C1-003",
+      "task_type": "integrate",
+      "depends_on": [
+        "NQA-XT-04",
+        "NQA-JYC-05"
+      ],
+      "status": "RUNNING",
+      "human_gate": "narrative_preview_review",
+      "packet": {
+        "generator": "manual-v1",
+        "sha256": "601e03a9a12f1de4952869d0d40163cfbf63613dbf4071cb5bc16c752310ffab"
+      },
+      "reason": "One focused corrective redispatch for verified P1 C1-RUNTIME-001; source_ref=d284fa2edfc47b060958d4c61ce685199153a9d9. Original live return state must protect ordinary predecessor replay that enters either C1 scene. Frozen creative/art inputs remain approved unchanged; fresh affected engineering review follows."
     }
   ],
   "invalidation_events": [],
