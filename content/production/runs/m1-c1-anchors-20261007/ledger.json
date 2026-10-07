@@ -6,7 +6,7 @@
   "source_ref": "a2967d98cd7118c690cc1adada8035182594cc55",
   "human_request": {
     "summary": "Continue #77 C1 anchors after all 34 looks/68 refs; #78 minimum slot completion contract in parallel. No wholesale rewrite, new cast, scheduler framework or formal CG in this batch.",
-    "gate_status": "existing direction; new preview review remains pending"
+    "gate_status": "Writer execution facts remain transient; durable NQA decisions bind exact Script Locks. Narrative preview/Human review pending."
   },
   "status": "ACTIVE",
   "tasks": [
@@ -52,44 +52,18 @@
       "reason": "Technical proposal complete; baseline validate:final preview-art rejection explicitly recorded; fresh scoped doc review before integration."
     },
     {
-      "task_id": "DIALOGUE-XT-04",
-      "task_type": "scene_dialogue",
-      "scene_id": "XT-04",
-      "depends_on": [
-        "ND-XT-04-REVIEW-001"
-      ],
-      "status": "RUNNING",
-      "human_gate": "none",
-      "reason": "Fresh dialogue worker dispatched under exact verified design contract; Script Lock/NQA pending.",
-      "packet": {
-        "generator": "manual-v1",
-        "sha256": "492ed108ce8b28ecc64b02b8a5d13bf0bd618660c6ca80c8cada52b52ebc7359"
-      }
-    },
-    {
       "task_id": "NQA-XT-04",
       "task_type": "narrative_review",
       "scene_id": "XT-04",
       "depends_on": [
-        "DIALOGUE-XT-04"
+        "ND-XT-04-REVIEW-001"
       ],
-      "status": "PENDING",
+      "status": "READY",
       "human_gate": "none",
-      "reason": "Fresh independent full-scene review after dialogue."
-    },
-    {
-      "task_id": "DIALOGUE-JYC-05",
-      "task_type": "scene_dialogue",
-      "scene_id": "JYC-05",
-      "depends_on": [
-        "ND-JYC-05"
-      ],
-      "status": "RUNNING",
-      "human_gate": "none",
-      "reason": "Fresh dialogue worker dispatched under exact verified design contract; Script Lock/NQA pending.",
+      "reason": "Writer-stage Handoff verified PASS; exact committed complete Script Lock acquired. Generate packet with source_ref=1610128ce9e2fdd577d4d8ab377335232db79eee; independent full-scene Narrative QA pending.",
       "packet": {
-        "generator": "manual-v1",
-        "sha256": "82023417f48e0055bce8be794a88e1e174a3403359572ac7a462be093c62fcef"
+        "generator": "tools/context.mjs:narrative_review",
+        "sha256": "8b456aa7a267370e4f4cac347ad9411433d656ec0ac69775178a8170ba5e3dfd"
       }
     },
     {
@@ -97,11 +71,15 @@
       "task_type": "narrative_review",
       "scene_id": "JYC-05",
       "depends_on": [
-        "DIALOGUE-JYC-05"
+        "ND-JYC-05"
       ],
-      "status": "PENDING",
+      "status": "RUNNING",
       "human_gate": "none",
-      "reason": "Fresh independent full-scene review after dialogue."
+      "reason": "Writer-stage Handoff verified PASS; exact committed complete Script Lock acquired. Generate packet with source_ref=43961622a4f6a0246199a7bd26768b32c8e6196a; independent full-scene Narrative QA pending.",
+      "packet": {
+        "generator": "tools/context.mjs:narrative_review",
+        "sha256": "043dadbf803e36a2d35b1c509b770e5bb457bdf976c970abc7d8f2f2710693e5"
+      }
     },
     {
       "task_id": "INTEGRATE-C1-001",
