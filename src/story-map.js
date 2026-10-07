@@ -1,4 +1,5 @@
 import { isMemoryUnlocked, memoryEventById, renderMemories } from './memories.js';
+import { outgoing } from './branches.js';
 import { speakerLabelForNode } from './presentation.js';
 import { interpolatePlayerName, normalizePlayerName } from './player-name.js';
 /* STORY_MAP_REVIEW_IMPORT */
@@ -39,6 +40,30 @@ export function storyMapView(map, library, chapter, progress, review = false) {
     for (const edge of map.edges.filter(edge => edge.from === from && node.choices.some(choice => choice.text === edge.label))) {
       discovered.add(edge.to);
       alternatives.push({ ...edge, unexplored: true });
+    }
+  }
+  // Discover only the nearest authored successor, stopping at decisions whose
+  // outcomes have not been observed. Projection never evaluates story conditions.
+  if (!review) for (const id of Object.keys(checkpoints)) {
+    const source = groupForNode(map, id)?.id;
+    if (!source) continue;
+    const pending = [id], seen = new Set();
+    while (pending.length) {
+      const current = pending.pop();
+      if (seen.has(current)) continue;
+      seen.add(current);
+      const target = groupForNode(map, current)?.id;
+      if (target && target !== source) {
+        if (map.edges.some(edge => edge.from === source && edge.to === target && !edge.label)) discovered.add(target);
+        continue;
+      }
+      const node = chapter.nodes[current];
+      if (!node) continue;
+      if (node.choices || (node.type === 'branch' && node.cases?.length)) {
+        pending.push(...(progress.data.edges || []).filter(([from]) => from === current).map(([, to]) => to));
+      } else if (node.next || (node.type === 'branch' && node.default)) {
+        pending.push(...outgoing(node, {}));
+      }
     }
   }
   const groups = map.groups.flatMap(group => {

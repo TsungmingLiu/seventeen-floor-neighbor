@@ -608,3 +608,101 @@ test('existing Memory stops before appended contact, preserving ongoing frontier
   assert.equal(reloaded.nodeId, 'common_package_xu_proof');
   assert.deepEqual(reloaded.state.flags, new Set(['old']));
 });
+
+function walkOpening(engine, choices = {}, stop = () => false) {
+  for (let i = 0; i < 1800; i++) {
+    if (stop(engine)) return;
+    const node = engine.chapter.nodes[engine.nodeId];
+    if (node.type === 'route') return;
+    if (node.choices) {
+      engine.enterChoiceMode(node.choices);
+      const wanted = choices[engine.nodeId];
+      const index = wanted ? node.choices.findIndex(c => c.id === wanted) : 0;
+      assert.ok(index >= 0, `${engine.nodeId}: ${wanted}`);
+      engine.els.choices.children[index].click();
+    } else engine.advance();
+  }
+  assert.fail(`Opening traversal stuck at ${engine.nodeId}`);
+}
+
+test('modern cafe Memory contact continues through actual evening messages without owning main', () => {
+  installBrowserMocks();
+  const runtime = openingRuntime();
+  const engine = instantEngine(runtime);
+  engine.progress.setPlayerName('小雨');
+  engine.startGame({ freshRun: true });
+  walkOpening(engine, {
+    common_bookstore_bridge_weekend_decision: 'com01b_bookstore_skip',
+    common_weekday_outing_decision: 'com01b_weekday_cafe_first',
+    common_station_cafe_jyc_contact_choice: 'com02j_leave_without_contact'
+  });
+  const main = structuredClone(engine.progress.data.frontier);
+  engine.replayMemory(runtime.memoryLibrary.events.find(e => e.id.includes('first-cafe')));
+  walkOpening(engine, { common_station_cafe_jyc_contact_choice: 'com02j_offer_discord' },
+    e => e.nodeId === 'common_recommend_discord_jyc_choice');
+  assert.equal(engine.nodeId, 'common_recommend_discord_jyc_choice');
+  assert.ok(engine.state.flags.has('contact_jyc'));
+  assert.ok(engine.progress.data.checkpoints.common_recommend_discord_jyc_enter);
+  assert.deepEqual(engine.progress.data.frontier, main);
+});
+
+for (const kind of ['known-contact', 'known-no-contact', 'never-met']) for (const accept of [false, true]) {
+  test(`actual ${kind} replay ${accept ? 'accepts' : 'declines'} contact, survives reload and restores protected main`, () => {
+    installBrowserMocks();
+    const runtime = openingRuntime();
+    let engine = instantEngine(runtime);
+    engine.progress.setPlayerName('小雨');
+    engine.startGame({ freshRun: true });
+    const life = { 'OPEN-A-ENTRY-ACTION-BOTH': 'OPEN-A-ACT-LIFE', 'OPEN-A-ENTRY-ACTION-X': 'OPEN-A-ACT-LIFE',
+      'OPEN-A-LIFE-ACTION': 'OPEN-A-LIFE-SOLO' };
+    walkOpening(engine, { ...life,
+      ...(kind === 'known-contact' ? { 'OPEN-A-ENTRY-ACTION-BOTH': 'OPEN-A-ACT-X', 'OPEN-A-ENTRY-ACTION-X': 'OPEN-A-ACT-X' } : {}),
+      common_bookstore_bridge_weekend_decision: 'com01b_bookstore_skip',
+      common_weekday_outing_decision: kind === 'never-met' ? 'com01b_weekday_street_walk' : 'com01b_weekday_cafe_first',
+      common_station_cafe_jyc_contact_choice: kind === 'known-contact' ? 'com02j_offer_discord' : 'com02j_leave_without_contact'
+    });
+    if (kind === 'known-contact') assert.ok(engine.progress.data.frontier.flags.includes('open_a_window1_consumed'));
+    const main = structuredClone({ frontier: engine.progress.data.frontier, cursor: engine.progress.data.cursor,
+      rank: engine.progress.data.frontierRank, runComplete: engine.progress.data.runComplete,
+      restartActive: engine.progress.data.restartActive, checkpoints: engine.progress.data.checkpoints });
+    const entry = kind === 'never-met' ? { replayNode: 'common_weekday_outing_work' }
+      : runtime.memoryLibrary.events.find(e => e.id.includes('first-cafe'));
+    engine.replayMemory(entry);
+    walkOpening(engine, { common_weekday_outing_decision: 'com01b_weekday_cafe_first',
+      common_station_cafe_jyc_contact_choice: accept ? 'com02j_offer_discord' : 'com02j_leave_without_contact'
+    }, e => e.nodeId === 'common_package_xu_arrive');
+    assert.equal(engine.state.flags.has('contact_jyc'), accept);
+    assert.equal(engine.bookstoreEligible(), false);
+    assert.deepEqual(engine.progress.data.frontier, main.frontier);
+    assert.equal(engine.progress.data.runComplete, main.runComplete);
+    engine = instantEngine(runtime);
+    engine.startFromTitle();
+    assert.equal(engine.state.flags.has('contact_jyc'), accept);
+    assert.ok(engine.progress.data.c1Replay.exploration);
+    const visited = [];
+    const choices = accept ? { 'OPEN-A-ENTRY-ACTION-BOTH': 'OPEN-A-ACT-J', 'OPEN-A-ENTRY-ACTION-J': 'OPEN-A-ACT-J' } : life;
+    // Continue to the actual route terminal, which returns to the original main.
+    for (let i = 0; i < 1200 && engine.progress.data.c1Replay; i++) {
+      visited.push(engine.nodeId);
+      walkOpening(engine, choices, e => e.nodeId !== visited.at(-1) || !e.progress.data.c1Replay);
+    }
+    assert.equal(engine.progress.data.c1Replay, null);
+    assert.equal(visited.includes('common_recommend_discord_jyc_choice'), accept);
+    assert.equal(visited.includes('JYC-05-ENTRY'), accept);
+    if (!accept) {
+      assert.ok(visited.includes('COM03M-S01'));
+      assert.ok(engine.progress.data.edges.some(([from, to]) => from === 'com03x_preview_complete'
+        && to === 'common_recommend_discord_jyc_no_contact_exit'));
+    }
+    assert.deepEqual(engine.progress.data.frontier, main.frontier);
+    assert.deepEqual(engine.progress.data.cursor, main.cursor);
+    assert.equal(engine.progress.data.frontierRank, main.rank);
+    assert.equal(engine.progress.data.runComplete, main.runComplete);
+    assert.equal(engine.progress.data.restartActive, main.restartActive);
+    for (const [id, snapshot] of Object.entries(main.checkpoints)) assert.deepEqual(engine.progress.data.checkpoints[id], snapshot);
+    assert.equal(!!engine.progress.data.checkpoints['JYC-05-ENTRY'], accept);
+    const reloaded = instantEngine(runtime);
+    assert.deepEqual(reloaded.progress.data.frontier, main.frontier);
+    assert.deepEqual(reloaded.progress.data.cursor, main.cursor);
+  });
+}

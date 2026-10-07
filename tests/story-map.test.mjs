@@ -289,3 +289,21 @@ test('surviving historical shared checkpoints use recorded visit identity withou
   save.data.bookstoreEverEarned = true;
   assert.deepEqual(storyMapView(map, memoryLibrary, chapter, save).groups.find(g => g.id === 'cafe').variants.map(v => v.id), ['first']);
 });
+
+test('actual cafe completion automatically attaches its nearest authored successor without granting Memory', () => {
+  const save = progress(['common_station_cafe_jyc_first_enter', 'common_station_cafe_jyc_complete']);
+  const before = JSON.stringify(save);
+  const view = storyMapView(map, memoryLibrary, chapter, save);
+  const next = view.groups.find(g => g.id === 'parcel');
+  assert.ok(next);
+  assert.equal(next.locked, true);
+  assert.ok(view.alternatives.some(e => e.from === 'cafe' && e.to === 'parcel'));
+  assert.equal(JSON.stringify(save), before);
+});
+
+test('unobserved parcel contact selector cannot reveal the Jiang message successor', () => {
+  const save = progress(['common_package_xu_arrive']);
+  const view = storyMapView(map, memoryLibrary, chapter, save);
+  assert.equal(view.groups.some(g => g.id === 'recommend'), false);
+  assert.equal(view.groups.some(g => g.id === 'jyc-05'), false);
+});

@@ -4012,8 +4012,9 @@
               "present": false
             },
             {
-              "flag": "met_jiang_yucheng",
-              "present": true
+              "stat": "met_jiang_yucheng",
+              "operator": ">",
+              "value": 0
             }
           ],
           "next": "common_recommend_discord_jyc_no_contact_exit"

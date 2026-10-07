@@ -347,14 +347,15 @@ export class ProgressStore {
           returnRestartActive: saved.com03jReplay.returnRestartActive === true };
         this.replaying = true;
       }
-      if (saved.c1Replay && (c1Outing(this.data.cursor?.nodeId)
+      if (saved.c1Replay && (saved.c1Replay.exploration === true || c1Outing(this.data.cursor?.nodeId)
         || this.openingContinuationRank(this.data.cursor?.nodeId) >= 0
         || this.chapter.nodes[this.data.cursor?.nodeId]?.type === 'route')
         && this.valid(saved.c1Replay.returnCursor) && !this.data.restartActive) {
         this.data.c1Replay = { returnCursor: this.clone(saved.c1Replay.returnCursor),
           returnRestartActive: saved.c1Replay.returnRestartActive === true,
           returnRunComplete: saved.c1Replay.returnRunComplete === true,
-          returnReplayActive: saved.c1Replay.returnReplayActive === true };
+          returnReplayActive: saved.c1Replay.returnReplayActive === true,
+          ...(saved.c1Replay.exploration === true ? { exploration: true } : {}) };
         this.data.runComplete = this.data.c1Replay.returnRunComplete;
         this.replaying = true;
         // Older saves may have finished a predecessor replay without clearing
@@ -463,7 +464,10 @@ export class ProgressStore {
     const snapshot = { nodeId, stats, flags: [...state.flags], returnNodes: [...returnNodes] };
     this.rememberUnlocks(snapshot);
     this.data.cursor = this.clone(snapshot);
-    if (!this.data.com03jReplay && !this.data.c1Replay) this.data.checkpoints[nodeId] = this.clone(snapshot);
+    if (!this.data.com03jReplay && (!this.data.c1Replay
+      || (this.data.c1Replay.exploration && !this.data.checkpoints[nodeId]))) {
+      this.data.checkpoints[nodeId] = this.clone(snapshot);
+    }
     const event = this.eventForSnapshot(snapshot);
     const rank = this.progressRank(snapshot, event);
     // Week/window nodes have no Memory card. Persist their actual live cursor
@@ -505,15 +509,21 @@ export class ProgressStore {
     const c1Entry = c1Outing(snapshot?.nodeId)
       || (this.openingContinuationRank(snapshot?.nodeId) >= 0
         && (this.data.c1Replay || c1Outing(this.data.cursor?.nodeId)));
-    if (this.data.c1Replay && !c1Entry) this.finishC1Replay();
-    if (this.chapter.id === 'opening-demo-chapter-01' && c1Entry
+    // Current Opening memories can explore their authored successors. Reuse
+    // the protected return; exploration adds visits without replacing main facts.
+    const exploration = this.chapter.id === 'opening-demo-chapter-01' && snapshot
+      && /^(common_bookstore_bridge_|common_weekday_outing_|common_acg_first_meet_|common_station_cafe_jyc_|com02j_|common_package_xu_|common_recommend_discord_jyc_)/.test(snapshot.nodeId)
+      && snapshot.flags.includes('preview:jyc-weekend-weekday');
+    if (exploration && this.data.com03jReplay) this.finishCom03jReplay();
+    if (this.data.c1Replay && !c1Entry && (!exploration || !this.data.c1Replay.exploration)) this.finishC1Replay();
+    if (this.chapter.id === 'opening-demo-chapter-01' && (c1Entry || exploration)
       && !this.data.c1Replay && this.valid(this.data.cursor || this.data.frontier)) {
       this.data.c1Replay = { returnCursor: this.clone(this.data.cursor || this.data.frontier),
         returnRestartActive: this.data.restartActive, returnRunComplete: this.data.runComplete,
-        returnReplayActive: this.replaying };
+        returnReplayActive: this.replaying, ...(exploration ? { exploration: true } : {}) };
     }
     if (this.chapter.id === 'opening-demo-chapter-01' && this.isCom03j(snapshot?.nodeId)
-      && !this.data.com03jReplay && this.valid(this.data.cursor || this.data.frontier)) {
+      && !this.data.c1Replay && !this.data.com03jReplay && this.valid(this.data.cursor || this.data.frontier)) {
       this.data.com03jReplay = { returnCursor: this.clone(this.data.cursor || this.data.frontier),
         returnRestartActive: this.data.restartActive };
     }
@@ -559,7 +569,7 @@ export class ProgressStore {
   }
 
   connect(from, to) {
-    if (this.data.com03jReplay || this.data.c1Replay) return;
+    if (this.data.com03jReplay || (this.data.c1Replay && !this.data.c1Replay.exploration)) return;
     if (!from || !to || from === to) return;
     if (!this.data.edges.some(edge => edge[0] === from && edge[1] === to)) {
       this.data.edges.push([from, to]);

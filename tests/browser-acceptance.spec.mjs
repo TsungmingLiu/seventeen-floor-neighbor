@@ -842,3 +842,35 @@ for(const exit of ['life','contactless']) test(`Memory UI protected ${exit} exit
   }
   expect(errors).toEqual([]);
 });
+
+test('actual cafe Memory contact reaches recommendation and ACG while main stays protected', async ({ page }) => {
+  test.setTimeout(300_000);
+  const errors = collectBlockingErrors(page);
+  await seed(page, 'common_bookstore_bridge_weekend_decision_frame', { met_xu_tang: 1 }, ['preview:jyc-weekend-weekday']);
+  await follow(page, 'OPEN-A-ENTRY-SOLO', {
+    common_bookstore_bridge_weekend_decision: 'com01b_bookstore_skip',
+    common_weekday_outing_decision: 'com01b_weekday_cafe_first',
+    common_station_cafe_jyc_contact_choice: 'com02j_leave_without_contact',
+    'OPEN-A-ENTRY-ACTION-X': 'OPEN-A-ACT-LIFE', 'OPEN-A-LIFE-ACTION': 'OPEN-A-LIFE-SOLO'
+  }, 450);
+  const main = await journey(page);
+  await inspectCafe(page);
+  await page.locator('#story-inspector .story-replay').click();
+  const seen = await follow(page, 'common_recommend_discord_jyc_choice', {
+    common_station_cafe_jyc_contact_choice: 'com02j_offer_discord'
+  }, 300);
+  expect(seen).toContain('com02j_offer_discord_04');
+  expect((await journey(page)).frontier).toEqual(main.frontier);
+  await page.reload();
+  await page.locator('#start-button').click();
+  await follow(page, 'JYC-05-ENTRY', { 'OPEN-A-ENTRY-ACTION-BOTH': 'OPEN-A-ACT-J' }, 300);
+  const explored = await journey(page);
+  expect(explored.cursor.flags).toContain('contact_jyc');
+  expect(explored.frontier).toEqual(main.frontier);
+  await page.locator('#game-memories-button').click();
+  await expect(page.locator('[data-group-id="recommend"]')).toBeEnabled();
+  await expect(page.locator('[data-group-id="jyc-05"]')).toBeEnabled();
+  await expect(page.locator('.story-map-lines path[data-to="recommend"]')).toHaveCount(1);
+  expect((await journey(page)).frontier.flags).not.toContain('contact_jyc');
+  expect(errors).toEqual([]);
+});
