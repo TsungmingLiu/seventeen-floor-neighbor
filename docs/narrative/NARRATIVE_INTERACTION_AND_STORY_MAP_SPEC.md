@@ -547,14 +547,14 @@ UI 不能為了漂亮把兩條實際不會重合的故事畫成 merge。
 
 ### 11.2 Cursor / frontier
 
-沿用 runtime 已有語義：
+目前 runtime 的 cursor／frontier 語義：
 
 - `cursor`：目前這輪 / replay 所在 snapshot；
 - `frontier`：歷史最深正式進度。
 
 Replay 早期 Memory：
 
-- 不讓 frontier 倒退；
+- 保留主線續玩位置；replay 的更高 rank 不能自行接管主線（2026-10-08 Human amendment 的 target，runtime 尚待更新）；
 - 不把 Inspector selection 當 gameplay position；
 - 不因 UI filter / collapse 改 save。
 
@@ -565,6 +565,10 @@ Replay 早期 Memory：
 - 新 branch 要實際遊玩後才算 discovered；
 - 選到 trigger 不等於自動解鎖全部 downstream title / CG；
 - spoiler policy 繼續有效。
+
+2026-10-08 Human amendment：earned progression 只在**同一 playthrough**共享。首玩／Memory replay 真正完成的 pivotal event 各有獨立 gate，未來場景讀取已取得前事並檢查當前 consent／closure／harm／window／slot。meeting 不推定 contact、outing 不推定 conflict、conflict A 不解鎖 repair B；具體 gate 表由 route/state §8.1 擁有。不能把全部 replay flags／stats／snapshot 併入主線，也不能用收藏或 synthetic checkpoint seeds 當實際事件。
+
+Replay 從任一合法 Memory 入口可沿 authored successors 玩到目前已製作的 story end；不以舊 scene review boundary 強制截斷。結束／返回主線時仍在原主線 node、return stack 及 local status，已真正取得的獨立進展立即可供未來 gate 使用；不 retroactively 改已接受安排、不重放主線或送新 slot。New Game 重置 shared earned gates 及本輪主線，保留 Memory／CG collection；UI discovery 與 old collected snapshots 不能使已清空的 gates 復活。這是批准的目標語義，並非宣稱 runtime／future scenes 已實作或通過 QA。
 
 ### 11.4 Fast-forward
 
