@@ -388,7 +388,12 @@ function validateStoryRoute(route, fail) {
       for (const branch of node.cases || []) {
         if (!nodes[branch.next]) fail(`route ${config.id} node ${id}: branch points to unknown node ${branch.next}`);
         for (const condition of branch.conditions || []) {
-          if ('flag' in condition || 'present' in condition) {
+          if ('earned' in condition) {
+            if (typeof condition.earned !== 'string' || !condition.earned.trim()
+              || typeof condition.present !== 'boolean' || Object.keys(condition).length !== 2) {
+              fail(`route ${config.id} node ${id}: earned condition requires exactly a non-empty event and boolean present`);
+            }
+          } else if ('flag' in condition || 'present' in condition) {
             if (typeof condition.flag !== 'string' || !condition.flag.trim()
               || typeof condition.present !== 'boolean' || Object.keys(condition).length !== 2) {
               fail(`route ${config.id} node ${id}: flag condition requires exactly a non-empty flag and boolean present`);

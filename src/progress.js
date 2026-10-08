@@ -26,6 +26,7 @@ export class ProgressStore {
   emptyData() {
     return {
       version: 2,
+      earnedProgress: [],
       playerDisplayName: null,
       cursor: null,
       frontier: null,
@@ -285,9 +286,26 @@ export class ProgressStore {
     return best;
   }
 
+  discardUnscopedProof(saved) {
+    // Markerless saves cannot establish the scope of the new in-flight proof.
+    // Scrub every possible main/collection/legacy-return snapshot before clone
+    // or deepest fallback, while keeping all ordinary local facts intact.
+    const snapshots = [saved.current, saved.cursor, saved.frontier,
+      ...Object.values(saved.checkpoints || {}), saved.c1Replay?.returnCursor,
+      saved.com03jReplay?.returnCursor, saved.com02jSupplement?.returnSnapshot,
+      saved.com02jSupplement?.entrySnapshot];
+    for (const snapshot of snapshots) {
+      if (Array.isArray(snapshot?.flags)) snapshot.flags = snapshot.flags.filter(flag => typeof flag !== 'string' || !flag.startsWith('live-earned:'));
+    }
+  }
+
   load() {
     const saved = this.parse(this.key);
     if (saved?.version === 2) {
+      if (!Array.isArray(saved.earnedProgress)) this.discardUnscopedProof(saved);
+      const registered = new Set(Object.values(this.chapter.nodes).map(node => node.earnedComplete).filter(Boolean));
+      this.data.earnedProgress = [...new Set((Array.isArray(saved.earnedProgress) ? saved.earnedProgress : [])
+        .filter(id => registered.has(id)))];
       this.data.jycEverUnlocked = saved.jycEverUnlocked === true;
       this.data.bookstoreEverEarned = saved.bookstoreEverEarned === true;
       this.data.initialEncounterEverEarned = saved.initialEncounterEverEarned === true || this.data.bookstoreEverEarned;
@@ -300,7 +318,8 @@ export class ProgressStore {
       this.data.restartActive = saved.restartActive === true
         && !!this.data.cursor
         && this.chapter.nodes[this.data.cursor.nodeId]?.type !== 'route';
-      this.replaying = this.data.restartActive || saved.replayActive === true;
+      this.replaying = saved.replayActive === true
+        || (this.data.restartActive && !Array.isArray(saved.earnedProgress));
       this.data.runComplete = saved.runComplete === true
         || (!this.data.restartActive && this.chapter.nodes[this.data.cursor?.nodeId]?.type === 'route');
       // This stable former Opening terminal now redirects to appended content.
@@ -372,6 +391,7 @@ export class ProgressStore {
 
     const legacy = this.parse(this.legacyKey);
     if (legacy?.version !== 1) return;
+    this.discardUnscopedProof(legacy);
     this.data.checkpoints = this.sanitizeCheckpoints(legacy.checkpoints);
     this.data.cursor = this.clone(legacy.current);
     this.data.runComplete = this.chapter.nodes[this.data.cursor?.nodeId]?.type === 'route'
@@ -394,11 +414,11 @@ export class ProgressStore {
   }
 
   hasBookstoreEligibility() {
-    return this.chapter.id === 'opening-demo-chapter-01' && this.data.bookstoreEverEarned;
+    return this.chapter.id === 'opening-demo-chapter-01' && this.hasEarned('jyc.bookstore');
   }
 
   hasJiangEligibility() {
-    return this.chapter.id === 'opening-demo-chapter-01' && this.data.initialEncounterEverEarned;
+    return this.chapter.id === 'opening-demo-chapter-01' && (this.hasEarned('jyc.bookstore') || this.hasEarned('jyc.cafe'));
   }
 
   earnedInitialEncounterSnapshot(snapshot) {
@@ -440,22 +460,32 @@ export class ProgressStore {
     }
   }
 
-  canExtendMain(snapshot) {
-    const main = this.data.frontier;
-    if (!main || !this.replaying || this.chapter.id !== 'opening-demo-chapter-01') return true;
-    // Rank orders scenes in time, not mutually exclusive playthroughs. A replay
-    // may own later main progress only when it retains the main branch's facts.
-    // Compare narrative facts, never relationship scores or merged snapshots.
-    for (const key of ['met_xu_tang', 'met_jiang_yucheng']) {
-      if (main.stats[key] > 0 && !(snapshot.stats[key] > 0)) return false;
+  hasEarned(id) { return this.data.earnedProgress.includes(id); }
+
+  // Only performed outgoing transitions register live evidence. Historical
+  // checkpoints, rendering, restore and collection scans never call this.
+  performed(nodeId, state, choice = null) {
+    const node = this.chapter.nodes[nodeId];
+    const start = choice?.earnedStart || node?.earnedStart;
+    if (start) state.flags.add(`live-earned:${start}`);
+    const completed = node?.earnedComplete;
+    if (completed && state.flags.has(`live-earned:${completed}`)
+      && (node.earnedRequires || []).every(id => this.hasEarned(id))) {
+      if (!this.hasEarned(completed)) this.data.earnedProgress.push(completed);
+      state.flags.delete(`live-earned:${completed}`);
     }
-    if (!jiangExcluded(main) && jiangExcluded(snapshot)
-      && (main.stats.met_jiang_yucheng > 0 || main.flags.includes('contact_jyc'))) return false;
-    const retainedFacts = new Set(['weekend_book_purchased', 'jyc_permanently_excluded',
-      'contact_xu', 'contact_jyc', 'player_knows_jyc_name', 'jyc_knows_player_name',
-      'jyc_creator_work_seen']);
-    return main.flags.every(flag => !(flag.startsWith('history:') || retainedFacts.has(flag))
-      || snapshot.flags.includes(flag));
+  }
+
+  eligibilityState(state) {
+    // Project only independent prerequisites for future gates. No local
+    // snapshot mutation, callbacks, route status or slot history are shared.
+    const flags = new Set(state.flags);
+    const projected = { ...state, flags };
+    if (this.hasEarned('xu.contact')) { flags.add('contact_xu'); projected.met_xu_tang = Math.max(1, state.met_xu_tang || 0); }
+    if (this.hasEarned('jyc.bookstore') || this.hasEarned('jyc.cafe')) projected.met_jiang_yucheng = Math.max(1, state.met_jiang_yucheng || 0);
+    if (this.hasEarned('jyc.cafe')) ['preview:com02j-complete', 'player_knows_jyc_name', 'jyc_knows_player_name', 'jyc_creator_work_seen'].forEach(flag => flags.add(flag));
+    if (this.hasEarned('jyc.contact')) flags.add('contact_jyc');
+    return projected;
   }
 
   capture(nodeId, state, returnNodes) {
@@ -475,7 +505,7 @@ export class ProgressStore {
     const continuation = this.openingContinuationRank(nodeId) >= 0
       && (!this.replaying || this.data.restartActive);
     const advancesFrontier = (event || continuation) && rank > this.data.frontierRank;
-    if (!this.data.com02jSupplement && !this.data.com03jReplay && !this.data.c1Replay && this.canExtendMain(snapshot) && (event || continuation) && (
+    if (!this.data.com02jSupplement && !this.data.com03jReplay && !this.data.c1Replay && (event || continuation) && (
       !this.data.frontier
       || advancesFrontier
       || (!this.replaying && rank >= this.data.frontierRank && (continuation || event?.id === this.data.frontierMemoryEventId))
@@ -504,28 +534,20 @@ export class ProgressStore {
   }
 
   beginReplay(snapshot = null) {
-    // Opening continuation entries can replay into either C1 outing. Save the
-    // live return before setCursor replaces it, and keep it on predecessor reload.
+    // Every Opening Memory explores authored successors with one protected
+    // main return, including markerless compatibility and direct outing entries.
+    const openingReplay = this.chapter.id === 'opening-demo-chapter-01';
     const c1Entry = c1Outing(snapshot?.nodeId)
       || (this.openingContinuationRank(snapshot?.nodeId) >= 0
         && (this.data.c1Replay || c1Outing(this.data.cursor?.nodeId)));
-    // Current Opening memories can explore their authored successors. Reuse
-    // the protected return; exploration adds visits without replacing main facts.
-    const exploration = this.chapter.id === 'opening-demo-chapter-01' && snapshot
-      && !c1Entry && snapshot.flags.includes('preview:jyc-weekend-weekday');
+    const exploration = openingReplay && !c1Entry;
     if (exploration && this.data.com03jReplay) this.finishCom03jReplay();
-    if (this.data.c1Replay && !c1Entry && (!exploration || !this.data.c1Replay.exploration)) this.finishC1Replay();
-    if (this.chapter.id === 'opening-demo-chapter-01' && (c1Entry || exploration)
-      && !this.data.c1Replay && this.valid(this.data.cursor || this.data.frontier)) {
+    if (openingReplay && !this.data.c1Replay && this.valid(this.data.cursor || this.data.frontier)) {
       this.data.c1Replay = { returnCursor: this.clone(this.data.cursor || this.data.frontier),
         returnRestartActive: this.data.restartActive, returnRunComplete: this.data.runComplete,
         returnReplayActive: this.replaying, ...(exploration ? { exploration: true } : {}) };
     }
-    if (this.chapter.id === 'opening-demo-chapter-01' && this.isCom03j(snapshot?.nodeId)
-      && !this.data.c1Replay && !this.data.com03jReplay && this.valid(this.data.cursor || this.data.frontier)) {
-      this.data.com03jReplay = { returnCursor: this.clone(this.data.cursor || this.data.frontier),
-        returnRestartActive: this.data.restartActive };
-    }
+    if (exploration && this.data.c1Replay) this.data.c1Replay.exploration = true;
     if (snapshot && !this.setCursor(snapshot)) return false;
     this.data.restartActive = false;
     this.replaying = true;
@@ -546,11 +568,17 @@ export class ProgressStore {
   }
 
   beginFreshRun() {
+    this.data.earnedProgress = [];
     this.data.c1Replay = null;
     this.data.com03jReplay = null;
+    this.data.com02jSupplement = null;
+    this.data.cursor = null;
+    this.data.frontier = null;
+    this.data.frontierRank = -1;
+    this.data.frontierMemoryEventId = null;
     this.data.restartActive = true;
     this.data.runComplete = false;
-    this.replaying = true;
+    this.replaying = false;
     this.flush();
   }
 

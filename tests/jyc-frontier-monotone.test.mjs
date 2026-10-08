@@ -126,20 +126,20 @@ test('the persistent JYC unlock never clears during the excluded replay', () => 
 });
 
 for (const freshRun of [false, true]) {
-  test(`${freshRun ? 'fresh restart' : 'Memory replay'} street and package rank 200 preserve the partial cafe main across reload`, () => {
+  test(`${freshRun ? 'fresh restart' : 'Memory replay'} street and package rank 200 preserve their own main authority across reload`, () => {
     const { progress, storage, originalCafeFrontier } = partialFrontierReplay({ freshRun });
     const street = structuredClone(progress.data.cursor);
     let current = progress;
     for (const nodeId of ['common_package_xu_arrive', 'common_package_xu_arrive_02']) {
       current = new ProgressStore(chapter, memories, storage);
-      assert.equal(current.replaying, true);
+      assert.equal(current.replaying, !freshRun);
       assert.equal(current.data.restartActive, freshRun);
       current.capture(nodeId, current.restore(street).state, []);
       assert.equal(current.progressRank(current.data.cursor), 200);
-      assert.deepEqual(current.data.frontier, originalCafeFrontier);
-      assert.equal(current.data.frontierRank, 180);
-      assert.equal(current.data.frontierMemoryEventId, cafeMemory.id);
-      assert.equal(current.replaying, true);
+      assert.deepEqual(current.data.frontier, freshRun ? current.data.cursor : originalCafeFrontier);
+      assert.equal(current.data.frontierRank, freshRun ? 200 : 180);
+      assert.equal(current.data.frontierMemoryEventId, freshRun ? 'mem.opening.ch1.convenience-xu' : cafeMemory.id);
+      assert.equal(current.replaying, !freshRun);
       assert.equal(current.data.restartActive, freshRun);
       assert.equal(current.data.cursor.stats.met_jiang_yucheng, 0);
       assert.ok(current.data.cursor.flags.includes('jyc_permanently_excluded'));
@@ -150,9 +150,9 @@ for (const freshRun of [false, true]) {
       assert.equal(current.data.jycEverUnlocked, true);
     }
     const reload = new ProgressStore(chapter, memories, storage);
-    assert.deepEqual(reload.data.frontier, originalCafeFrontier);
+    assert.deepEqual(reload.data.frontier, freshRun ? current.data.cursor : originalCafeFrontier);
     assert.deepEqual(reload.data.cursor, current.data.cursor);
-    assert.equal(reload.replaying, true);
+    assert.equal(reload.replaying, !freshRun);
     assert.equal(reload.data.restartActive, freshRun);
     for (const event of [cafeMemory, streetMemory]) assert.ok(isMemoryUnlocked(event, reload, chapter.startNode));
   });
@@ -171,25 +171,28 @@ test('another known-JYC branch cannot replace purchased-book main history by ran
 });
 
 for (const replay of [false, true]) {
-  test(`${replay ? 'compatible replay' : 'ordinary main play'} advances from partial cafe to package with its actual state`, () => {
+  test(`${replay ? 'compatible replay preserves main' : 'ordinary main play advances'} from partial cafe to package with actual local state`, () => {
     const progress = new ProgressStore(chapter, memories, new MemoryStorage());
     const state = snapshotState(1, ['weekend_book_purchased',
       'history:common_bookstore_bridge_weekend_decision:com01b_bookstore_go']);
     progress.capture('common_station_cafe_jyc_names_02', state, []);
+    const main=structuredClone(progress.data.frontier);
     if (replay) progress.beginReplay(progress.data.frontier);
-    state.F_JYC = 3;
-    state.flags.add('contact_jyc');
-    progress.capture('common_package_xu_arrive', state, []);
-    assert.equal(progress.data.frontierRank, 200);
-    assert.deepEqual(progress.data.frontier, progress.data.cursor);
-    assert.equal(progress.data.frontier.stats.F_JYC, 3);
-    assert.equal(progress.replaying, false);
-    state.F_JYC = 4;
-    progress.capture('common_package_xu_arrive_02', state, []);
-    assert.deepEqual(progress.data.frontier, progress.data.cursor);
-    assert.equal(progress.data.frontier.stats.F_JYC, 4);
+    for (const [nodeId,value] of [['common_package_xu_arrive',3],['common_package_xu_arrive_02',4]]) {
+      state.F_JYC=value;state.flags.add('contact_jyc');
+      progress.capture(nodeId,state,[]);
+      assert.equal(progress.data.cursor.stats.F_JYC,value);
+      assert.equal(progress.data.frontierRank,replay ? 180 : 200);
+      assert.deepEqual(progress.data.frontier,replay ? main : progress.data.cursor);
+      assert.equal(progress.replaying,replay);
+      assert.deepEqual(progress.data.earnedProgress,[],'capture cannot award shared history');
+    }
     const reload = new ProgressStore(chapter, memories, progress.storage);
     assert.deepEqual(reload.data.frontier, progress.data.frontier);
-    assert.equal(reload.replaying, false);
+    assert.equal(reload.replaying, replay);
+    if(replay) {
+      reload.endReplay();assert.deepEqual(reload.data.cursor,main);
+      assert.deepEqual(reload.data.frontier,main);
+    }
   });
 }

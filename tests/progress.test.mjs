@@ -81,7 +81,7 @@ test('replaying older content changes cursor without regressing frontier', () =>
   assert.equal(store.data.frontierRank, 300);
 });
 
-test('an explicit fresh run resumes its cursor without losing the completed frontier', () => {
+test('an explicit fresh run resets current frontier while retaining collectible checkpoints', () => {
   const terminalChapter = structuredClone(chapter);
   terminalChapter.nodes.deep.type = 'route';
   const storage = new MemoryStorage();
@@ -95,13 +95,15 @@ test('an explicit fresh run resumes its cursor without losing the completed fron
   const reloaded = new ProgressStore(terminalChapter, memories, storage);
   assert.equal(reloaded.data.restartActive, true);
   assert.equal(reloaded.data.runComplete, false);
-  assert.equal(reloaded.replaying, true);
+  assert.equal(reloaded.replaying, false);
   assert.equal(reloaded.data.cursor.nodeId, 'start');
-  assert.equal(reloaded.data.frontier.nodeId, 'deep');
+  assert.equal(reloaded.data.frontier.nodeId, 'start');
 
+  assert.equal(reloaded.data.checkpoints.deep.nodeId, 'deep');
+  assert.deepEqual(reloaded.data.earnedProgress, []);
   reloaded.beginReplay(reloaded.data.checkpoints.start);
   assert.equal(reloaded.data.restartActive, false);
-  assert.equal(reloaded.data.frontier.nodeId, 'deep');
+  assert.equal(reloaded.data.frontier.nodeId, 'start');
 });
 
 test('older v2 saves with a terminal cursor are recognized as completed', () => {
@@ -374,5 +376,78 @@ test('only a valid historical Opening terminal continuation reopens completion a
     const negative = new ProgressStore(story, library, storageFor(value));
     assert.equal(negative.data.runComplete, true, kind);
     assert.deepEqual(negative.data.frontier, value.frontier, kind);
+  }
+});
+
+test('earned progress full-save load isolation and conservative markerless migration', () => {
+  const story = structuredClone(chapter);
+  story.nodes.start.earnedStart = 'met';
+  story.nodes.shallow.earnedComplete = 'met';
+  story.nodes.deep.earnedComplete = 'specific-repair';
+  story.nodes.deep.earnedRequires = ['specific-conflict'];
+  const storage = new MemoryStorage();
+  let store = new ProgressStore(story, memories, storage);
+  const live = state();
+  store.performed('start', live);
+  store.capture('shallow', live, []);
+  store = new ProgressStore(story, memories, storage);
+  const restored = store.restore(store.data.cursor);
+  store.performed('shallow', restored.state);
+  store.capture('shallow', restored.state, []);
+  assert.deepEqual(store.data.earnedProgress, ['met']);
+  const fullSave = storage.getItem(store.key);
+  store.beginFreshRun();
+  store.capture('start', state(), []);
+  assert.deepEqual(new ProgressStore(story, memories, storage).data.earnedProgress, []);
+  storage.setItem(store.key, fullSave); // Existing full-save import restores its own run.
+  store = new ProgressStore(story, memories, storage);
+  assert.deepEqual(store.data.earnedProgress, ['met']);
+  const older = JSON.parse(fullSave);
+  delete older.earnedProgress;
+  older.bookstoreEverEarned = older.initialEncounterEverEarned = true;
+  older.checkpoints.deep = snap('deep', 9, ['contact_jyc', 'late_conflict', 'repair_completed']);
+  storage.setItem(store.key, JSON.stringify(older));
+  store = new ProgressStore(story, memories, storage);
+  assert.deepEqual(store.data.earnedProgress, []);
+  assert.deepEqual(new ProgressStore(story, memories, storage).data.earnedProgress, []);
+  const fake = state(); fake.flags.add('live-earned:specific-repair');
+  store.performed('deep', fake);
+  assert.equal(store.hasEarned('specific-repair'), false, 'a named missing conflict independently locks repair');
+  store.capture('deep', fake, []);
+  assert.equal(store.hasEarned('specific-repair'), false);
+});
+
+test('markerless migration scrubs frontier, deepest checkpoint and legacy return proof before continuation', () => {
+  const story=structuredClone(chapter);
+  story.nodes.start.earnedStart='met';story.nodes.shallow.earnedComplete='met';
+  const snapshot=snap('shallow',3);
+  snapshot.flags=['live-earned:met','ordinary-local-fact'];
+  for (const version of [1,2]) for (const deepest of [false,true]) {
+    const storage=new MemoryStorage();
+    const saved={version,checkpoints:{shallow:snapshot},
+      ...(version===1?{current:deepest?null:snapshot}:{cursor:deepest?null:snapshot,frontier:deepest?null:snapshot})};
+    storage.setItem(`${story.id}:journey:v${version}`,JSON.stringify(saved));
+    const store=new ProgressStore(story,memories,storage);
+    assert.equal(store.data.frontier.nodeId,'shallow');
+    for (const entry of [store.data.cursor,store.data.frontier,store.data.checkpoints.shallow].filter(Boolean)) {
+      assert.ok(!entry.flags.includes('live-earned:met'));
+      assert.ok(entry.flags.includes('ordinary-local-fact'));
+    }
+    const restored=store.restore(store.data.frontier);
+    store.performed('shallow',restored.state);store.capture('shallow',restored.state,[]);
+    assert.deepEqual(store.data.earnedProgress,[]);
+    assert.deepEqual(new ProgressStore(story,memories,storage).data.earnedProgress,[]);
+  }
+  const malformed={cursor:{...snapshot,flags:[3,'live-earned:met']}};
+  const malformedStore=new ProgressStore(story,memories,new MemoryStorage());
+  assert.doesNotThrow(()=>malformedStore.discardUnscopedProof(malformed));
+  assert.equal(malformedStore.valid(malformed.cursor),false);
+  const returns={c1Replay:{returnCursor:structuredClone(snapshot)},com03jReplay:{returnCursor:structuredClone(snapshot)},
+    com02jSupplement:{returnSnapshot:structuredClone(snapshot),entrySnapshot:structuredClone(snapshot)}};
+  const store=new ProgressStore(story,memories,new MemoryStorage());
+  store.discardUnscopedProof(returns);
+  for (const entry of [returns.c1Replay.returnCursor,returns.com03jReplay.returnCursor,
+    returns.com02jSupplement.returnSnapshot,returns.com02jSupplement.entrySnapshot]) {
+    assert.deepEqual(entry.flags,['ordinary-local-fact']);
   }
 });

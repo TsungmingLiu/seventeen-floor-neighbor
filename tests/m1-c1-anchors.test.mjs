@@ -162,7 +162,9 @@ test('replay from a still-live first outing returns to the exact unconsumed main
 });
 test('explicit fresh run never imports a collected C1 completion',()=>{
   const {e}=seeded('xt04');walk(e);const frontier=structuredClone(e.progress.data.frontier);
-  e.startGame({freshRun:true});assert.ok(![...e.state.flags].some(f=>f.startsWith('open_a_window1_completed:')));assert.deepEqual(e.progress.data.frontier,frontier);
+  e.startGame({freshRun:true});assert.ok(![...e.state.flags].some(f=>f.startsWith('open_a_window1_completed:')));
+  assert.equal(e.progress.data.frontier.nodeId,chapter.startNode);assert.deepEqual(e.progress.data.earnedProgress,[]);
+  assert.deepEqual(e.progress.data.checkpoints[frontier.nodeId],frontier);
 });
 
 const canonical = e => structuredClone({cursor:e.progress.data.cursor,frontier:e.progress.data.frontier,
@@ -258,7 +260,8 @@ for(const outing of ['xt04','jyc05']) for(const completed of [false,true]) {
     assert.equal(e.progress.data.restartActive,true);assert.equal(e.progress.data.runComplete,false);
     assert.ok(![...e.state.flags].some(f=>f.startsWith('open_a_window1_completed:')));
     e=makeEngine(storage);e.startFromTitle();assert.equal(e.progress.data.c1Replay,null);
-    assert.equal(e.progress.data.restartActive,true);assert.deepEqual(e.progress.data.frontier,main.frontier);
+    assert.equal(e.progress.data.restartActive,true);assert.equal(e.progress.data.frontier.nodeId,chapter.startNode);
+    assert.deepEqual(e.progress.data.earnedProgress,[]);assert.deepEqual(e.progress.data.checkpoints[main.frontier.nodeId],main.frontier);
     const entry=snapshot(outing,'OPEN-A-ENTRY');entry.flags=entry.flags.filter(f=>!f.startsWith('open_a_entry_outcome:'));
     e.resumeGame(entry);
     walk(e,{'OPEN-A-ENTRY-ACTION-BOTH':'OPEN-A-ACT-LIFE','OPEN-A-LIFE-ACTION':'OPEN-A-LIFE-REST'});
@@ -283,19 +286,30 @@ for(const terminal of protectedTerminals) test(`persisted stale protected termin
 });
 for(const fresh of [false,true]) test(`protected terminal restores ${fresh?'fresh main':'ordinary Memory main'} replay mode`,()=>{
   let {e,storage}=liveC1('xt04',false);
-  if(fresh) e.progress.beginFreshRun();
+  if(fresh) e.startGame({freshRun:true});
   else e.progress.setCursor(e.progress.data.cursor);
   const main=canonical(e);e.replayMemory(predecessor('OPEN-A-ENTRY'));
   e=makeEngine(storage);e.startFromTitle();
   walk(e,{'OPEN-A-ENTRY-ACTION-BOTH':'OPEN-A-ACT-LIFE'},g=>!g.progress.data.c1Replay);
-  assertReturned(e,main);e=makeEngine(storage);assert.deepEqual(canonical(e),main);
+  const verifyMain = game => {
+    const current=canonical(game);
+    if(fresh) {
+      current.checkpoints=Object.fromEntries(Object.keys(main.checkpoints).map(id=>[id,current.checkpoints[id]]));
+      current.edges=current.edges.filter(edge=>main.edges.some(old=>old[0]===edge[0]&&old[1]===edge[1]));
+    }
+    assert.deepEqual(current,main);
+    assert.equal(game.progress.data.c1Replay,null);
+  };
+  verifyMain(e);assert.deepEqual({nodeId:e.nodeId,state:e.state,returnNodes:e.returnNodes},e.progress.restore(main.cursor));
+  e=makeEngine(storage);verifyMain(e);
 });
-test('switching a protected replay to an unrelated Memory clears the return and retains ordinary replay semantics',()=>{
+test('switching a protected replay to another Memory retains the original protected return',()=>{
   let {e,storage}=liveC1('xt04',false);
   const event=memoryLibrary.events.find(x=>x.id==='mem.opening.ch1.convenience-xu');
   const old=snapshot('xt04',event.replayNode);e.progress.data.checkpoints[old.nodeId]=old;
   e.replayMemory(predecessor('OPEN-A-ENTRY'));assert.ok(e.progress.data.c1Replay);
-  e.replayMemory(event);assert.equal(e.progress.data.c1Replay,null);assert.equal(e.progress.replaying,true);
+  const original=structuredClone(e.progress.data.c1Replay.returnCursor);
+  e.replayMemory(event);assert.deepEqual(e.progress.data.c1Replay.returnCursor,original);assert.equal(e.progress.replaying,true);
   assert.equal(e.nodeId,event.replayNode);assert.deepEqual(e.progress.data.checkpoints[old.nodeId],e.progress.data.cursor);
-  e=makeEngine(storage);assert.equal(e.progress.data.c1Replay,null);assert.equal(e.progress.replaying,true);
+  e=makeEngine(storage);assert.deepEqual(e.progress.data.c1Replay.returnCursor,original);assert.equal(e.progress.replaying,true);
 });

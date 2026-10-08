@@ -709,6 +709,7 @@ export class GameEngine {
             this.state.flags.add(`history:jyc_first_topic:${topic}`);
           }
         }
+        this.progress.performed(this.nodeId, this.state, choice);
         this.tone('choice');
         this.nodeId = choice.next;
         this.render();
@@ -811,7 +812,7 @@ export class GameEngine {
       }
     }
     if (this.chapter.id === 'opening-demo-chapter-01') {
-      const destination = c1Destination(this.nodeId, this.state, this.progress.hasJiangEligibility());
+      const destination = c1Destination(this.nodeId, this.progress.eligibilityState(this.state), this.progress.hasJiangEligibility(), this.progress.hasEarned('jyc.online'));
       if (destination) { this.nodeId = destination; this.render(); return; }
       if (this.nodeId === 'C1-INVALID-PREVIEW-STOP') {
         this.returnFromC1Replay();
@@ -857,29 +858,8 @@ export class GameEngine {
       return;
     }
     if (node.type === 'branch') {
-      if (this.chapter.id === 'opening-demo-chapter-01' && this.nodeId === 'common_convenience_xu_revision_exit'
-        && this.progress.replaying && !this.progress.data.restartActive && !this.progress.data.c1Replay?.exploration) {
-        this.nodeId = 'opening_demo_complete';
-        this.refreshTitle();
-        this.showOnly(this.els.title);
-        return;
-      }
-      if (this.chapter.id === 'opening-demo-chapter-01' && this.nodeId === 'com03j_preview_complete'
-        && this.progress.data.com03jReplay) {
-        const restored = this.progress.finishCom03jReplay();
-        if (restored) Object.assign(this, restored);
-        this.previousNode = null;
-        this.openMemories();
-        return;
-      }
-      if (this.chapter.id === 'opening-demo-chapter-01' && this.nodeId === 'com03x_preview_complete') {
-        if (this.progress.replaying && !this.progress.data.restartActive && !this.progress.data.c1Replay?.exploration) {
-          this.refreshTitle();
-          this.showOnly(this.els.title);
-          return;
-        }
-        if (!this.progress.data.c1Replay) this.progress.data.runComplete = false;
-      }
+      if (this.chapter.id === 'opening-demo-chapter-01' && this.nodeId === 'com03x_preview_complete'
+        && !this.progress.data.c1Replay) this.progress.data.runComplete = false;
       if (this.chapter.id === 'opening-demo-chapter-01' && this.nodeId === 'common_station_cafe_jyc_complete') {
         const returned = this.progress.completeCom02jSupplement(this.state);
         if (returned) {
@@ -888,20 +868,8 @@ export class GameEngine {
           this.render();
           return;
         }
-        if (this.progress.replaying && !this.progress.data.restartActive && !this.progress.data.c1Replay?.exploration) {
-          this.refreshTitle();
-          this.showOnly(this.els.title);
-          return;
-        }
       }
-      // A historical Opening Memory stops at its original review boundary.
-      // An explicit fresh run continues through this stable terminal alias.
-      if (this.chapter.id === 'opening-demo-chapter-01' && this.nodeId === 'opening_demo_complete'
-        && this.progress.replaying && !this.progress.data.restartActive && !this.progress.data.c1Replay?.exploration) {
-        this.refreshTitle();
-        this.showOnly(this.els.title);
-        return;
-      }
+      this.progress.performed(this.nodeId, this.state);
       const branchId = this.nodeId;
       const branch = (node.cases || []).find((candidate) =>
         (candidate.conditions || []).every((condition) => this.matchesCondition(condition))
@@ -958,6 +926,7 @@ export class GameEngine {
       return;
     }
     if (node.next) {
+      this.progress.performed(this.nodeId, this.state);
       this.tone('tap');
       this.nodeId = node.next;
       this.render();
@@ -965,7 +934,15 @@ export class GameEngine {
   }
 
   matchesCondition(condition) {
+    if (Object.hasOwn(condition, 'earned')) return typeof condition.earned === 'string'
+      && typeof condition.present === 'boolean' && Object.keys(condition).length === 2
+      && this.progress.hasEarned(condition.earned) === condition.present;
+    const state = /^(COM03M-|OPEN-A-|XT-04-|JYC-05-)/.test(this.nodeId || '')
+      ? this.progress.eligibilityState(this.state) : this.state;
     if (Object.hasOwn(condition, 'flag')) {
+      if (condition.flag === 'contact_jyc' && condition.present && this.nodeId?.startsWith('OPEN-A-')
+        && !this.state.flags.has('contact_jyc')
+        && !['jyc.cafe', 'jyc.contact', 'jyc.online'].every(id => this.progress.hasEarned(id))) return false;
       if (condition.flag === 'jyc_permanently_excluded' && typeof condition.present === 'boolean'
         && Object.keys(condition).length === 2) {
         return jiangExcluded(this.state, this.progress.hasJiangEligibility()) === condition.present;
@@ -973,9 +950,9 @@ export class GameEngine {
       if (condition.flag === 'contact_jyc' && condition.present && jiangExcluded(this.state, this.progress.hasJiangEligibility())) return false;
       return typeof condition.flag === 'string' && typeof condition.present === 'boolean'
         && Object.keys(condition).length === 2
-        && this.state.flags.has(condition.flag) === condition.present;
+        && state.flags.has(condition.flag) === condition.present;
     }
-    const actual = this.state[condition.stat] || 0;
+    const actual = state[condition.stat] || 0;
     const operations = {
       '>=': () => actual >= condition.value,
       '>': () => actual > condition.value,
@@ -995,13 +972,12 @@ export class GameEngine {
       || id === 'common_station_cafe_jyc_enter_03' || id === 'common_station_cafe_jyc_enter_02') return 'common_station_cafe_jyc_drawing';
     if (id === 'com01b_bookstore_skip' || id === 'com01b_bookstore_skip_01') return 'common_bookstore_bridge_cafe_decision';
     if (id === 'common_convenience_xu_weekend_selector') return 'common_convenience_xu_legacy_merge';
-    if (id === 'common_convenience_xu_revision_exit' && (!this.progress.replaying || this.progress.data.restartActive)) return 'common_package_xu_arrive';
+    if (id === 'common_convenience_xu_revision_exit') return 'common_package_xu_arrive';
     if (id === 'common_station_cafe_jyc_names' || id === 'common_station_cafe_jyc_names_07') return 'common_station_cafe_jyc_first_names';
     if (id === 'common_station_cafe_jyc_names_01' || id === 'common_station_cafe_jyc_names_08' || id === 'common_station_cafe_jyc_names_rev_09'
       || id === 'common_station_cafe_jyc_choice') return 'common_station_cafe_jyc_first_shared';
     if (id === 'common_station_cafe_jyc_share_go') return 'common_station_cafe_jyc_share_skip';
-    if (id === 'common_station_cafe_jyc_complete' && !this.progress.data.com02jSupplement
-      && (!this.progress.replaying || this.progress.data.restartActive)) return 'common_convenience_xu_enter';
+    if (id === 'common_station_cafe_jyc_complete' && !this.progress.data.com02jSupplement) return 'common_convenience_xu_enter';
     return null;
   }
 
@@ -1070,8 +1046,7 @@ export class GameEngine {
     if (!this.requirePlayerName(() => this.startGame({ replay, freshRun }))) return;
     if (freshRun) this.progress.beginFreshRun();
     else if (replay) {
-      const entry = this.progress.data.checkpoints[this.chapter.startNode];
-      this.progress.beginReplay(entry?.flags.includes('preview:jyc-weekend-weekday') ? entry : null);
+      this.progress.beginReplay();
     }
     else this.progress.endReplay();
     this.stopCinematic();
@@ -1084,11 +1059,14 @@ export class GameEngine {
     this.render();
   }
 
-  resumeGame(snapshot = this.progress.data.frontier || this.progress.data.cursor, { replay = false } = {}) {
-    if (!this.requirePlayerName(() => this.resumeGame(snapshot, { replay }))) return;
+  resumeGame(snapshot = this.progress.data.frontier || this.progress.data.cursor, { replay = false, replayContinuation = false } = {}) {
+    if (!this.requirePlayerName(() => this.resumeGame(snapshot, { replay, replayContinuation }))) return;
     const restored = this.progress.restore(snapshot);
     if (!restored) return this.startGame({ replay });
-    if (replay) this.progress.beginReplay(snapshot);
+    if (replay) {
+      if (!replayContinuation) restored.state.flags = new Set([...restored.state.flags].filter(flag => !flag.startsWith('live-earned:')));
+      this.progress.beginReplay(snapshot);
+    }
     else if (!this.progress.data.restartActive) this.progress.endReplay();
     this.stopCinematic();
     Object.assign(this, restored);
@@ -1101,7 +1079,7 @@ export class GameEngine {
   startFromTitle() {
     const { frontier, cursor, restartActive, runComplete } = this.progress.data;
     const supplement = this.progress.data.com02jSupplement;
-    if (this.progress.data.com03jReplay || this.progress.data.c1Replay) return this.resumeGame(cursor, { replay: true });
+    if (this.progress.data.com03jReplay || this.progress.data.c1Replay) return this.resumeGame(cursor, { replay: true, replayContinuation: true });
     if (supplement) {
       const local = this.progress.isCom02j(cursor?.nodeId) ? cursor : supplement.entrySnapshot;
       return this.resumeGame(local);
@@ -1255,6 +1233,10 @@ export class GameEngine {
         && !flag.startsWith('history:jyc_first_topic:') && !flag.startsWith('jyc_com03j_reply_style:')
         && !['preview:com03j-complete', 'entry-effect:common_recommend_discord_jyc_exit'].includes(flag));
     }
-    if (snapshot) this.resumeGame(snapshot, { replay: true });
+    if (snapshot) {
+      snapshot = this.progress.clone(snapshot);
+      snapshot.flags = snapshot.flags.filter(flag => !flag.startsWith('live-earned:'));
+      this.resumeGame(snapshot, { replay: true });
+    }
   }
 }
