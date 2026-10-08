@@ -136,7 +136,7 @@ for (const path of ['A','B','C']) {
     assert.ok(ids.length > 8);
     for (const id of ids) {
       const snapshot=structuredClone(e.progress.data.checkpoints[id]);
-      const storage=new Storage();storage.setItem(e.progress.key,JSON.stringify({version:2,playerDisplayName:'小雨',cursor:snapshot,frontier:snapshot,checkpoints:{[id]:snapshot},edges:[]}));
+      const storage=new Storage();storage.setItem(e.progress.key,JSON.stringify({version:2,earnedProgress:e.progress.data.earnedProgress,playerDisplayName:'小雨',cursor:snapshot,frontier:snapshot,checkpoints:{[id]:snapshot},edges:[]}));
       const reload=makeEngine(storage);
       assert.equal(reload.progress.data.frontier.nodeId,id,id);
       assert.deepEqual(reload.progress.restore(reload.progress.data.frontier).state.flags,new Set(snapshot.flags));
@@ -357,7 +357,7 @@ for (const freshRun of [false, true]) {
     const reload = makeEngine(storage);
     assert.deepEqual(reload.progress.data.frontier, freshRun ? cursor : main);
     assert.deepEqual(reload.progress.data.cursor, cursor);
-    assert.equal(reload.progress.replaying, true);
+    assert.equal(reload.progress.replaying, !freshRun);
     assert.equal(reload.progress.data.restartActive, freshRun);
     for (const store of [local.progress, reload.progress]) {
       assert.equal(store.data.jycEverUnlocked, true);

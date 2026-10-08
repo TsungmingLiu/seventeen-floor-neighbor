@@ -286,9 +286,23 @@ export class ProgressStore {
     return best;
   }
 
+  discardUnscopedProof(saved) {
+    // Markerless saves cannot establish the scope of the new in-flight proof.
+    // Scrub every possible main/collection/legacy-return snapshot before clone
+    // or deepest fallback, while keeping all ordinary local facts intact.
+    const snapshots = [saved.current, saved.cursor, saved.frontier,
+      ...Object.values(saved.checkpoints || {}), saved.c1Replay?.returnCursor,
+      saved.com03jReplay?.returnCursor, saved.com02jSupplement?.returnSnapshot,
+      saved.com02jSupplement?.entrySnapshot];
+    for (const snapshot of snapshots) {
+      if (Array.isArray(snapshot?.flags)) snapshot.flags = snapshot.flags.filter(flag => typeof flag !== 'string' || !flag.startsWith('live-earned:'));
+    }
+  }
+
   load() {
     const saved = this.parse(this.key);
     if (saved?.version === 2) {
+      if (!Array.isArray(saved.earnedProgress)) this.discardUnscopedProof(saved);
       const registered = new Set(Object.values(this.chapter.nodes).map(node => node.earnedComplete).filter(Boolean));
       this.data.earnedProgress = [...new Set((Array.isArray(saved.earnedProgress) ? saved.earnedProgress : [])
         .filter(id => registered.has(id)))];
@@ -300,14 +314,12 @@ export class ProgressStore {
       this.data.playerDisplayName = normalizePlayerName(saved.playerDisplayName);
       this.data.checkpoints = this.sanitizeCheckpoints(saved.checkpoints);
       this.data.cursor = this.clone(saved.cursor);
-      if (!Array.isArray(saved.earnedProgress) && this.data.cursor) {
-        this.data.cursor.flags = this.data.cursor.flags.filter(flag => !flag.startsWith('live-earned:'));
-      }
       this.data.frontier = this.clone(saved.frontier);
       this.data.restartActive = saved.restartActive === true
         && !!this.data.cursor
         && this.chapter.nodes[this.data.cursor.nodeId]?.type !== 'route';
-      this.replaying = this.data.restartActive || saved.replayActive === true;
+      this.replaying = saved.replayActive === true
+        || (this.data.restartActive && !Array.isArray(saved.earnedProgress));
       this.data.runComplete = saved.runComplete === true
         || (!this.data.restartActive && this.chapter.nodes[this.data.cursor?.nodeId]?.type === 'route');
       // This stable former Opening terminal now redirects to appended content.
@@ -379,6 +391,7 @@ export class ProgressStore {
 
     const legacy = this.parse(this.legacyKey);
     if (legacy?.version !== 1) return;
+    this.discardUnscopedProof(legacy);
     this.data.checkpoints = this.sanitizeCheckpoints(legacy.checkpoints);
     this.data.cursor = this.clone(legacy.current);
     this.data.runComplete = this.chapter.nodes[this.data.cursor?.nodeId]?.type === 'route'
