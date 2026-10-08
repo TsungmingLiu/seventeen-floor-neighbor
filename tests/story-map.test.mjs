@@ -245,7 +245,7 @@ test('genuine pre-revision save reveals the encountered bookstore alternative wi
 test('an observed journey through same-scene intermediate nodes keeps parcel to week connected', () => {
   const chapter = { startNode: 'parcel', nodes: { parcel: {}, gate: {}, week: {} } };
   const variant = id => ({ id, entry: id, nodeIds: id === 'parcel' ? ['parcel', 'gate'] : [id], checkpointOnly: true });
-  const map = { groups: [{ id: 'parcel', variants: [variant('parcel')] }, { id: 'week', variants: [variant('week')] }], edges: [] };
+  const map = { groups: [{ id: 'parcel', variants: [variant('parcel')] }, { id: 'week', variants: [variant('week')] }], edges: [{ from: 'parcel', to: 'week' }] };
   const save = progress(['parcel', 'week']);
   save.data.edges = [['parcel', 'gate'], ['gate', 'week']];
   const view = storyMapView(map, { events: [] }, chapter, save);
@@ -306,4 +306,24 @@ test('unobserved parcel contact selector cannot reveal the Jiang message success
   const view = storyMapView(map, memoryLibrary, chapter, save);
   assert.equal(view.groups.some(g => g.id === 'recommend'), false);
   assert.equal(view.groups.some(g => g.id === 'jyc-05'), false);
+});
+
+test('current choice guarantees remove the legacy convenience bypass while old observed edges stay historical', () => {
+  assert.deepEqual(map.edges.filter(edge => edge.from === 'convenience'), [{ from: 'convenience', to: 'weekday' }]);
+  assert.ok(map.edges.some(edge => edge.from === 'cafe' && edge.to === 'parcel'));
+  assert.ok(map.edges.some(edge => edge.from === 'street' && edge.to === 'parcel'));
+  const save = progress(['common_convenience_xu_enter', 'common_weekday_outing_work', 'common_package_xu_arrive']);
+  save.data.edges = [['common_convenience_xu_revision_exit', 'common_package_xu_arrive'],
+    ['common_convenience_xu_revision_exit', 'opening_demo_complete'], ['opening_demo_complete', 'common_weekday_outing_work']];
+  const before = JSON.stringify(save);
+  const view = storyMapView(map, memoryLibrary, chapter, save);
+  assert.equal(view.edges.some(edge => edge.from === 'convenience' && edge.to === 'parcel'), false);
+  assert.ok(view.edges.some(edge => edge.from === 'convenience' && edge.to === 'weekday'));
+  assert.equal(JSON.stringify(save), before);
+  // The fallback is still playable when the earlier choice no longer adds its
+  // history flags. Feasibility follows authored data, not scene names.
+  const changed = structuredClone(chapter);
+  for (const choice of changed.nodes.common_bookstore_bridge_weekend_decision.choices) choice.addFlags = [];
+  const alternative = compileStoryMap({ ...route, chapter: changed }, definition);
+  assert.ok(alternative.edges.some(edge => edge.from === 'convenience' && edge.to === 'parcel'));
 });

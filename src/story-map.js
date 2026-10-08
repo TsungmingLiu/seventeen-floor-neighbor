@@ -117,7 +117,8 @@ export function storyMapView(map, library, chapter, progress, review = false) {
       seen.add(id);
       const target = groupForNode(map, id)?.id;
       if (target && target !== source) {
-        if (groups.some(g => g.id === target && !g.locked) && !edges.some(e => e.from === source && e.to === target)) edges.push({ from: source, to: target, ...(label ? { label } : {}) });
+        if (map.edges.some(edge => edge.from === source && edge.to === target)
+          && groups.some(g => g.id === target && !g.locked) && !edges.some(e => e.from === source && e.to === target)) edges.push({ from: source, to: target, ...(label ? { label } : {}) });
       } else pending.push(...(next.get(id) || []).map(id => ({ id, label })));
     }
   }

@@ -588,7 +588,7 @@ function completedOpeningSave(runtime, nodeId = 'opening_demo_complete') {
     checkpoints: { [nodeId]: snapshot }, edges: [['common_convenience_xu_exit_08', 'opening_demo_complete']] };
 }
 
-test('existing Memory stops before appended contact, preserving ongoing frontier and completion', () => {
+test('markerless legacy Memory continues to parcel and reload preserves protected main', () => {
   installBrowserMocks();
   const runtime = openingRuntime();
   const engine = instantEngine(runtime);
@@ -598,14 +598,18 @@ test('existing Memory stops before appended contact, preserving ongoing frontier
   const frontier = structuredClone(engine.progress.data.frontier);
   engine.replayMemory({ replayNode: 'common_convenience_xu_exit_08' });
   engine.advance();
-  assert.equal(engine.nodeId, 'opening_demo_complete');
-  assert.equal(engine.els.title.classList.contains('is-hidden'), false);
+  assert.equal(engine.nodeId, 'common_package_xu_arrive');
+  assert.equal(engine.els.game.classList.contains('is-hidden'), false);
+  assert.ok(engine.progress.data.c1Replay.exploration);
   assert.deepEqual(engine.progress.data.frontier, frontier);
   assert.equal(engine.progress.data.runComplete, false);
   assert.equal(engine.state.flags.has('contact_xu'), false);
   const reloaded = instantEngine(runtime);
   assert.equal(reloaded.progress.data.runComplete, false);
   assert.deepEqual(reloaded.progress.data.frontier, frontier);
+  reloaded.startFromTitle();
+  assert.equal(reloaded.nodeId, 'common_package_xu_arrive');
+  reloaded.progress.endReplay();
   reloaded.startFromTitle();
   assert.equal(reloaded.nodeId, 'common_package_xu_proof');
   assert.deepEqual(reloaded.state.flags, new Set(['old']));
@@ -773,4 +777,52 @@ for (const path of ['bookstore', 'cafe-only', 'street']) test(`actual ${path} Ma
     entries++;
   }
   assert.ok(entries >= 7, 'actual semantic entries are tested, including the start Memory');
+});
+
+for (const path of ['bookstore-contact', 'first-cafe-contact', 'street', 'bookstore-contact-markerless']) test(`all actual ${path} Memory and Map launches continue to current end with safe return`, () => {
+  installBrowserMocks();
+  const runtime = openingRuntime();
+  let engine = instantEngine(runtime);
+  engine.progress.setPlayerName('小雨');
+  engine.startGame({ freshRun: true });
+  const choices = {
+    common_bookstore_bridge_weekend_decision: path.startsWith('bookstore-contact') ? 'com01b_bookstore_go' : 'com01b_bookstore_skip',
+    common_weekday_outing_decision: path === 'street' ? 'com01b_weekday_street_walk' : 'com01b_weekday_cafe_first',
+    common_station_cafe_jyc_contact_choice: 'com02j_offer_discord',
+    'OPEN-A-ENTRY-ACTION-BOTH': path === 'street' ? 'OPEN-A-ACT-X' : 'OPEN-A-ACT-J',
+    'OPEN-A-ENTRY-ACTION-J': 'OPEN-A-ACT-J', 'OPEN-A-ENTRY-ACTION-X': 'OPEN-A-ACT-X'
+  };
+  walkOpening(engine, choices);
+  if (path.endsWith('markerless')) {
+    for (const snapshot of Object.values(engine.progress.data.checkpoints)) {
+      snapshot.flags = snapshot.flags.filter(flag => flag !== 'preview:jyc-weekend-weekday');
+    }
+    engine.progress.flush();
+  }
+  const main = structuredClone({ frontier: engine.progress.data.frontier, cursor: engine.progress.data.cursor,
+    checkpoints: engine.progress.data.checkpoints, runComplete: engine.progress.data.runComplete });
+  const definition = JSON.parse(readFileSync(new URL('../content/storyboards/opening-demo.json', import.meta.url)));
+  const map = compileStoryMap(runtime, definition);
+  const entries = new Map(runtime.memoryLibrary.events.map(event => [event.replayNode, event]));
+  for (const variant of map.groups.flatMap(group => group.variants)) entries.set(variant.entry, { replayNode: variant.entry });
+  let count = 0;
+  for (const [entry, event] of entries) {
+    if (!main.checkpoints[entry]) continue;
+    engine = instantEngine(runtime);
+    engine.replayMemory(event);
+    assert.ok(engine.progress.data.c1Replay, entry);
+    // A replay can cross scene boundaries, pause and reload with its local facts.
+    engine.advance();
+    engine = instantEngine(runtime);
+    engine.startFromTitle();
+    assert.ok(engine.progress.data.c1Replay, `reload ${entry}`);
+    walkOpening(engine, choices, e => !e.progress.data.c1Replay);
+    assert.equal(engine.progress.data.c1Replay, null, `terminal ${entry}`);
+    assert.deepEqual(engine.progress.data.frontier, main.frontier, entry);
+    assert.deepEqual(engine.progress.data.cursor, main.cursor, entry);
+    assert.equal(engine.progress.data.runComplete, main.runComplete, entry);
+    for (const [id, snapshot] of Object.entries(main.checkpoints)) assert.deepEqual(engine.progress.data.checkpoints[id], snapshot, id);
+    count++;
+  }
+  assert.ok(count >= 9, `${path}: ${count} real selectable entries`);
 });

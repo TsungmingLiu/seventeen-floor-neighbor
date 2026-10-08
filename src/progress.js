@@ -504,28 +504,20 @@ export class ProgressStore {
   }
 
   beginReplay(snapshot = null) {
-    // Opening continuation entries can replay into either C1 outing. Save the
-    // live return before setCursor replaces it, and keep it on predecessor reload.
+    // Every Opening Memory explores authored successors with one protected
+    // main return, including markerless compatibility and direct outing entries.
+    const openingReplay = this.chapter.id === 'opening-demo-chapter-01';
     const c1Entry = c1Outing(snapshot?.nodeId)
       || (this.openingContinuationRank(snapshot?.nodeId) >= 0
         && (this.data.c1Replay || c1Outing(this.data.cursor?.nodeId)));
-    // Current Opening memories can explore their authored successors. Reuse
-    // the protected return; exploration adds visits without replacing main facts.
-    const exploration = this.chapter.id === 'opening-demo-chapter-01' && snapshot
-      && !c1Entry && snapshot.flags.includes('preview:jyc-weekend-weekday');
+    const exploration = openingReplay && !c1Entry;
     if (exploration && this.data.com03jReplay) this.finishCom03jReplay();
-    if (this.data.c1Replay && !c1Entry && (!exploration || !this.data.c1Replay.exploration)) this.finishC1Replay();
-    if (this.chapter.id === 'opening-demo-chapter-01' && (c1Entry || exploration)
-      && !this.data.c1Replay && this.valid(this.data.cursor || this.data.frontier)) {
+    if (openingReplay && !this.data.c1Replay && this.valid(this.data.cursor || this.data.frontier)) {
       this.data.c1Replay = { returnCursor: this.clone(this.data.cursor || this.data.frontier),
         returnRestartActive: this.data.restartActive, returnRunComplete: this.data.runComplete,
         returnReplayActive: this.replaying, ...(exploration ? { exploration: true } : {}) };
     }
-    if (this.chapter.id === 'opening-demo-chapter-01' && this.isCom03j(snapshot?.nodeId)
-      && !this.data.c1Replay && !this.data.com03jReplay && this.valid(this.data.cursor || this.data.frontier)) {
-      this.data.com03jReplay = { returnCursor: this.clone(this.data.cursor || this.data.frontier),
-        returnRestartActive: this.data.restartActive };
-    }
+    if (exploration && this.data.c1Replay) this.data.c1Replay.exploration = true;
     if (snapshot && !this.setCursor(snapshot)) return false;
     this.data.restartActive = false;
     this.replaying = true;

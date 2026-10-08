@@ -47,7 +47,7 @@ Choice metadata is opt-in on a choice node through `choiceType: "expression" | "
 `src/progress.js` 使用 `localStorage` 的 `<chapter-id>:journey:v2`：
 
 - `cursor` 是目前這輪的 node-entry snapshot，可因 replay/新一輪改變；`frontier` 是歷史最深的正式敘事進度。Continue 通常從 frontier 恢復，重播較早 event 不讓 frontier 倒退。
-- Replay 從 event 的 snapshot 恢復 stats、flags、return stack，可探索新選擇；只有進入更高 `progressRank` 的 Memory Event 才推進 frontier。同 rank 的其他分支可解鎖，但不覆蓋既有 frontier。
+- Replay 從 event 的 snapshot 恢復 stats、flags、return stack，可探索新選擇。Opening 所有 Memory／Map 入口（含舊 markerless、COM03J、C1）持續走 authored successors 到 current terminal，以現有 `c1Replay.exploration` 保護 main cursor/frontier/mode 與既有 checkpoints；實際走過的新 discoveries 可累積，terminal 或明確 return 恢復 main。其他 chapter 保留更高 `progressRank` 推進 frontier 的行為。
 - 抵達 terminal ending 後主按鈕顯示 Start；明確開始新一輪後，Continue 使用該輪 cursor，歷史 frontier 仍保留。
 - v1 save migration 保留可用的 checkpoint、CG/ending unlock；無效或已刪除 node 的 snapshot 有安全 fallback。修改 progress、node IDs 或 Memory mapping 時，必須加/更新 migration regression tests。
 - `[PLAYER_NAME]` 使用玩家首次進入故事時輸入的名字，統一驗證後存於 v2 journey 的 `playerDisplayName`；Continue 與 Memory replay 共用同一值。舊 save 缺名字時先顯示輸入視窗，取消不改進度。未知 token 保留原樣，不靜默刪除。
@@ -91,3 +91,5 @@ Canonical engineering environment 是 GitHub Codespaces（Node 22、ffmpeg/ffpro
 XT-04／JYC-05 只接穩定 `OPEN-A-ENTRY-PENDING-X/J`，原確認訊息不重送。依 [M1 pending／slot contract](docs/narrative/M1_PENDING_SLOT_RUNTIME_CONTRACT.md) 保留 pending outcome；actual completion 同次寫入 `open_a_window1_completed:xt04|jyc05`、`open_a_window1_consumed` 與 entry-effect marker。guard 檢查當地 contact／COM-02J／COM-03J 前事、互斥 slot identity；不以 discovery 補 contact。正常行程協商與共同書頁、當地玩笑、擅排 unresolved 分支分開；JYC 代答支獨立 exit，reward／completion 不清除 unresolved。沒有第二 slot／scheduler 或尚未製作的 continuation。
 
 現有 Memory replay 可在更高 rank 推進 frontier／改 checkpoints，因此本批在同一 v2 envelope 增加 bounded `c1Replay`（returnCursor／returnRestartActive／returnRunComplete／returnReplayActive）。保護兩幕及從 live C1 重玩 OPEN-A／COM03M 前事期間的 main frontier、canonical checkpoints、edges 與 mode；累積合法 seen／Memory unlocks 維持原機制。所有實際 terminal（含自身生活／無聯絡出口）回復原 cursor/mode 並清除 context；invalid C1 entry 先回復、仍拋出原 BLOCKED error。中途 reload 保留 context，已落在 terminal 的舊殘留 context 在 load 回復；舊缺欄位 saves 默認 null。無新 schema version、通用 replay／scheduler subsystem、wardrobe runtime state 或 art change。唯一 registered preview background；公開 preview／Human／CG acceptance 仍待 gates。
+
+Story Map compiler 以 current startNode 路徑上每條 branch absence clause 的 guaranteed choice／entry flags 排除不可達的相容性 fallback；不刪除 fallback node/IDs。Player map 只顯示符合 current compiled group adjacency 的 observed journeys；舊 observed bypass 保留在 save evidence，但不產生當前 chronology 連線。

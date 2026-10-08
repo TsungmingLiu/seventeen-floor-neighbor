@@ -760,8 +760,10 @@ for (const [outing, entry, stop, choices] of [
   await expect(page.locator('#ending-screen')).toBeVisible();
 });
 
-const c1Main = saved => Object.fromEntries(['cursor','frontier','checkpoints','edges','frontierRank',
-  'frontierMemoryEventId','runComplete','restartActive','replayActive'].map(key=>[key,saved[key]]));
+const c1Main = (saved, original = saved) => Object.fromEntries(['cursor','frontier','checkpoints','edges','frontierRank',
+  'frontierMemoryEventId','runComplete','restartActive','replayActive'].map(key=>[key,
+    key === 'checkpoints' ? Object.fromEntries(Object.keys(original.checkpoints).map(id => [id, saved.checkpoints[id]]))
+      : key === 'edges' ? saved.edges.filter(edge => original.edges.some(old => old[0] === edge[0] && old[1] === edge[1])) : saved[key]]));
 for(const outing of ['xt04','jyc05']) for(const completed of [false,true]) test(`Story Map predecessor ${outing} ${completed?'completed':'middle'} replay preserves live C1 through reload`,async({page})=>{
   test.setTimeout(480_000);
   const errors=collectBlockingErrors(page);
@@ -790,13 +792,13 @@ for(const outing of ['xt04','jyc05']) for(const completed of [false,true]) test(
   const choices={'OPEN-A-ENTRY-ACTION-BOTH':opposite==='xt04'?'OPEN-A-ACT-X':'OPEN-A-ACT-J'};
   await follow(page,opposite==='xt04'?'XT-04-BOOKS':'JYC-05-EXHIBIT',choices,180);
   await page.reload();await page.locator('#start-button').click();
-  expect((await journey(page)).checkpoints).toEqual(main.checkpoints);
+  expect(c1Main(await journey(page),main).checkpoints).toEqual(main.checkpoints);
   await follow(page,main.cursor.nodeId,choices,180);
-  expect(c1Main(await journey(page))).toEqual(main);
+  expect(c1Main(await journey(page),main)).toEqual(main);
   expect((await journey(page)).c1Replay).toBeNull();
   expect((await journey(page)).unlockedMemoryEventIds).toContain(`mem.opening.ch1.${opposite==='xt04'?'xt-04':'jyc-05'}`);
   await page.reload();await page.locator('#start-button').click();
-  expect(c1Main(await journey(page))).toEqual(main);expect(errors).toEqual([]);
+  expect(c1Main(await journey(page),main)).toEqual(main);expect(errors).toEqual([]);
 });
 
 for(const exit of ['life','contactless']) test(`Memory UI protected ${exit} exit restores the exact C1 main after repeated replay and reload`,async({page})=>{
@@ -835,9 +837,9 @@ for(const exit of ['life','contactless']) test(`Memory UI protected ${exit} exit
       await follow(page,main.cursor.nodeId,choices,80);
     }
     await expect(page.locator('#memories-screen')).toBeVisible();
-    expect((await journey(page)).c1Replay).toBeNull();expect(c1Main(await journey(page))).toEqual(main);
+    expect((await journey(page)).c1Replay).toBeNull();expect(c1Main(await journey(page),main)).toEqual(main);
     await page.reload();await page.locator('#start-button').click();
-    expect(c1Main(await journey(page))).toEqual(main);
+    expect(c1Main(await journey(page),main)).toEqual(main);
     await page.locator(exit==='life'?'#home-button':'#game-home-button').click();
   }
   expect(errors).toEqual([]);
@@ -872,5 +874,45 @@ test('actual cafe Memory contact reaches recommendation and ACG while main stays
   await expect(page.locator('[data-group-id="jyc-05"]')).toBeEnabled();
   await expect(page.locator('.story-map-lines path[data-to="recommend"]')).toHaveCount(1);
   expect((await journey(page)).frontier.flags).not.toContain('contact_jyc');
+  expect(errors).toEqual([]);
+});
+
+test('continuous Memory replay crosses convenience, weekday, cafe, parcel, messages and week through the root app', async ({ page }) => {
+  test.setTimeout(480_000);
+  const errors = collectBlockingErrors(page);
+  // Speed only text animation; all story transitions and choices use actual UI.
+  await page.addInitScript(() => {
+    const timeout = window.setTimeout.bind(window);
+    window.setTimeout = (fn, delay, ...args) => timeout(fn, delay === 15 ? 0 : delay, ...args);
+  });
+  await page.goto('/');
+  const chapter = await (await page.request.get('/content/routes/opening-demo/chapter.json')).json();
+  await seed(page, chapter.startNode);
+  const choices = { common_bookstore_bridge_weekend_decision: 'com01b_bookstore_skip',
+    common_weekday_outing_decision: 'com01b_weekday_cafe_first',
+    common_station_cafe_jyc_contact_choice: 'com02j_offer_discord',
+    'OPEN-A-ENTRY-ACTION-BOTH': 'OPEN-A-ACT-LIFE', 'OPEN-A-LIFE-ACTION': 'OPEN-A-LIFE-SOLO' };
+  await follow(page, 'common_recommend_discord_jyc_choice', choices, 650);
+  const main = c1Main(await journey(page));
+  await page.locator('#game-memories-button').click();
+  await page.locator('[data-group-id="convenience"]').click();
+  await page.locator('#story-inspector .story-replay').click();
+  expect((await journey(page)).c1Replay.returnCursor).toEqual(main.cursor);
+  const seen = await follow(page, 'common_recommend_discord_jyc_choice', choices, 550);
+  for (const id of ['common_weekday_outing_work', 'common_station_cafe_jyc_first_enter', 'common_package_xu_arrive']) expect(seen).toContain(id);
+  await page.reload(); await page.locator('#start-button').click();
+  expect((await journey(page)).c1Replay.returnCursor).toEqual(main.cursor);
+  await follow(page, 'OPEN-A-ENTRY', choices, 240);
+  expect((await journey(page)).c1Replay).not.toBeNull();
+  await follow(page, main.cursor.nodeId, choices, 200);
+  expect((await journey(page)).c1Replay).toBeNull();
+  expect(c1Main(await journey(page), main)).toEqual(main);
+  // Direct evening-message Memory has the same continuous policy.
+  await page.locator('[data-group-id="recommend"]').click();
+  await page.locator('#story-inspector .story-replay').click();
+  await follow(page, 'COM03M-S01', choices, 120);
+  expect((await journey(page)).c1Replay).not.toBeNull();
+  await page.screenshot({ path: 'generated/session-cache/memory-four-fixes-20261008/FLOW-001/continuous-root.png' });
+  expect((await journey(page)).frontier).toEqual(main.frontier);
   expect(errors).toEqual([]);
 });

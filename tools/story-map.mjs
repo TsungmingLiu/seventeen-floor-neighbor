@@ -50,6 +50,38 @@ export function runtimeTargets(node, pools = {}) {
   return [node.next].filter(Boolean);
 }
 
+// A legacy fallback can be individually valid yet impossible after an earlier
+// authored choice. Track only the absence clauses used by branch guards: a
+// clause is guaranteed when every path has added at least one of its flags.
+function guaranteedAbsenceClauses(chapter, pools, blocked) {
+  const clauses = [...new Map(Object.values(chapter.nodes).flatMap(node =>
+    (node.cases || []).map(c => (c.conditions || []).filter(c => c.flag && c.present === false)
+      .map(c => c.flag).sort()).filter(flags => flags.length)
+  ).map(flags => [JSON.stringify(flags), flags])).values()];
+  const facts = new Map([[chapter.startNode, new Set()]]), pending = [chapter.startNode];
+  while (pending.length) {
+    const id = pending.pop(), node = chapter.nodes[id];
+    if (!node || blocked.has(id)) continue;
+    const apply = (known, flags = []) => new Set(clauses.flatMap((clause, index) =>
+      clause.some(flag => flags.includes(flag)) || (known.has(index) && !clause.some(flag =>
+        flags.some(added => added.includes(':') && flag.startsWith(added.slice(0, added.lastIndexOf(':') + 1)))))
+        ? [index] : []));
+    const entered = apply(facts.get(id), node.entryFlags);
+    const links = node.choices ? node.choices.map(choice => ({ next: choice.next, facts: apply(entered, choice.addFlags) }))
+      : runtimeTargets(node, pools).map(next => ({ next, facts: entered }));
+    for (const link of links) {
+      if (blocked.has(link.next) || !chapter.nodes[link.next]) continue;
+      const previous = facts.get(link.next);
+      const merged = previous ? new Set([...previous].filter(index => link.facts.has(index))) : new Set(link.facts);
+      if (!previous || merged.size !== previous.size) { facts.set(link.next, merged); pending.push(link.next); }
+    }
+  }
+  const nodeIds = new Map(Object.entries(chapter.nodes).map(([id, node]) => [node, id]));
+  return node => (node.cases || []).filter(c => !clauses.some((clause, index) =>
+    facts.get(nodeIds.get(node))?.has(index)
+    && clause.every(flag => c.conditions?.some(condition => condition.flag === flag && condition.present === false))));
+}
+
 export function compileStoryMap(route, definition) {
   if (definition.schemaVersion !== 1) throw new Error('Story Map: unsupported schema');
   const { chapter, memoryLibrary, sceneLibrary } = route;
@@ -60,7 +92,9 @@ export function compileStoryMap(route, definition) {
     ...(definition.reviewBlockedNodes || []), ...(revision?.reviewBlockedNodes || [])
   ])];
   const blocked = new Set(reviewBlockedNodes);
-  const targets = node => runtimeTargets(node, sceneLibrary.pools).filter(id => !blocked.has(id));
+  const feasibleCases = guaranteedAbsenceClauses(chapter, sceneLibrary.pools, blocked);
+  const targets = node => runtimeTargets(node.type === 'branch' ? { ...node, cases: feasibleCases(node) } : node, sceneLibrary.pools)
+    .filter(id => !blocked.has(id));
   const definitions = revision ? definition.groups.map(group => ({ ...group, ...(revision.groups[group.id] || {}) })).concat(revision.addGroups || []) : definition.groups;
   const events = new Map(memoryLibrary.events.map(e => [e.id, e]));
   const nodeToGroup = new Map();

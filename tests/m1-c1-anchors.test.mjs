@@ -290,12 +290,13 @@ for(const fresh of [false,true]) test(`protected terminal restores ${fresh?'fres
   walk(e,{'OPEN-A-ENTRY-ACTION-BOTH':'OPEN-A-ACT-LIFE'},g=>!g.progress.data.c1Replay);
   assertReturned(e,main);e=makeEngine(storage);assert.deepEqual(canonical(e),main);
 });
-test('switching a protected replay to an unrelated Memory clears the return and retains ordinary replay semantics',()=>{
+test('switching a protected replay to another Memory retains the original protected return',()=>{
   let {e,storage}=liveC1('xt04',false);
   const event=memoryLibrary.events.find(x=>x.id==='mem.opening.ch1.convenience-xu');
   const old=snapshot('xt04',event.replayNode);e.progress.data.checkpoints[old.nodeId]=old;
   e.replayMemory(predecessor('OPEN-A-ENTRY'));assert.ok(e.progress.data.c1Replay);
-  e.replayMemory(event);assert.equal(e.progress.data.c1Replay,null);assert.equal(e.progress.replaying,true);
+  const original=structuredClone(e.progress.data.c1Replay.returnCursor);
+  e.replayMemory(event);assert.deepEqual(e.progress.data.c1Replay.returnCursor,original);assert.equal(e.progress.replaying,true);
   assert.equal(e.nodeId,event.replayNode);assert.deepEqual(e.progress.data.checkpoints[old.nodeId],e.progress.data.cursor);
-  e=makeEngine(storage);assert.equal(e.progress.data.c1Replay,null);assert.equal(e.progress.replaying,true);
+  e=makeEngine(storage);assert.deepEqual(e.progress.data.c1Replay.returnCursor,original);assert.equal(e.progress.replaying,true);
 });
