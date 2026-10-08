@@ -44,7 +44,7 @@ Choice metadata is opt-in on a choice node through `choiceType: "expression" | "
 - Memories 以 authored section disclosure 顯示可探索事件；目前 frontier 所在章節預設展開，角色 focus 不隱藏其他已探索角色的探索數摘要。回到目前進度會清除 filter、展開 frontier 章節、聚焦 exact frontier Memory 並只捲動 map 容器；cursor 閱讀位置在與 frontier 不同時以獨立標記顯示。這些瀏覽操作不改 gameplay cursor/frontier/snapshot。Timeline filter 與標記以 Memory Events 為單位，而非 engine nodes。背景圖直接復用 runtime asset、用 focus/overlay 保持文字可讀；不得把 speaker 名稱作角色封面分類依據。
 - CG Gallery 顯示已解鎖圖與影片 poster、未解鎖 placeholder；viewer 支援圖片 contain、影片播放、方向鍵／觸控切換。Gallery 不管理 replay 或 route graph。
 
-`src/progress.js` 使用 `localStorage` 的 `<chapter-id>:journey:v2`：
+`src/progress.js` 使用 `localStorage` 的 `<chapter-id>:journey:v2`。以下列出目前實作；§3.1 是已批准、尚待 runtime integration 的 amendment，不能把現有 replay rank／historical frontier 行為當作 target：
 
 - `cursor` 是目前這輪的 node-entry snapshot，可因 replay/新一輪改變；`frontier` 是歷史最深的正式敘事進度。Continue 通常從 frontier 恢復，重播較早 event 不讓 frontier 倒退。
 - Replay 從 event 的 snapshot 恢復 stats、flags、return stack，可探索新選擇；只有進入更高 `progressRank` 的 Memory Event 才推進 frontier。同 rank 的其他分支可解鎖，但不覆蓋既有 frontier。
@@ -53,6 +53,20 @@ Choice metadata is opt-in on a choice node through `choiceType: "expression" | "
 - `[PLAYER_NAME]` 使用玩家首次進入故事時輸入的名字，統一驗證後存於 v2 journey 的 `playerDisplayName`；Continue 與 Memory replay 共用同一值。舊 save 缺名字時先顯示輸入視窗，取消不改進度。未知 token 保留原樣，不靜默刪除。
 - Opening COM-02X 新增的 `T_XT`、`K_XT`、`xt_advice_tendency` 可在舊 snapshot 缺值時補 initialState default；既有必填 stat 缺值或任何已提供的新 stat 非有限數字仍拒絕，不改 node ID。
 - Save 是本機便利功能，不是永久資料保證。未來非 terminal 的 relationship ending / After Story 需由 content 和 runtime contract 明確實作；不得從既有 demo terminal ending 推斷已支援。
+
+### 3.1 Shared earned progression target（2026-10-08 Human amendment；尚未實作）
+
+敘事 gate 的 authority 是 `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md` §8.1；replay UX 由 interaction／Story Map spec §§11.2–11.3 擁有。目標採 journey:v2 一個小型 allowlisted `earnedProgress` set，記錄同一 playthrough 首玩／replay 實際取得的獨立事件。欄位存在且空值代表已初始化／reset，不需另建 UUID、score、全量 event log 或 snapshot union。事件/當前 consent／closure／harm／window 分開；shared gate 解鎖前事不強制改 route status、消耗／退款主線 slot 或重開 RE。
+
+最小 commit mapping：書店 `common_acg_first_meet_exit_locked_02`；cafe `common_station_cafe_jyc_complete`；江 contact 是實際 `com02j_offer_discord` 選擇後的同意交換 `com02j_offer_discord_04`；許 contact 為實際 COM-03X exchange 至 `common_package_xu_first_message_06`；江 online 必須實際選 `common_recommend_discord_jyc_choice` 並完成至 `common_recommend_discord_jyc_exit`；C1 completion 是合法 outing 至 `XT-04-END_08`／`JYC-05-COMPLETE_03` 再到各自 completed preview stop。這些既有 nodes 只是 qualifying boundary，**restoring 它們或其 entry-effect/history flags 不足**。friction 另需實際該 choice；未來修復只記指名事件的接受結果，未製作 scenes 不新增 marker。
+
+Live proof 可用既有 snapshot flags 的少量保留前綴：由 genuine scene entrance／actual choice 在 live playback 產生，只有實際 transition 完成 qualifying beat 才 commit；capture／render／restore／rememberUnlocks／collectible 掃描不能 award。選 historical Memory 時清掉它帶來的 live proof，reload 當前 live cursor 時保留；完成後 consume，earned set 與 live cursor 在同次 flush 持久化。Shared downstream award 的 prerequisites 也須本 playthrough 真正 earned，不能來自 synthetic entrance seeds；從中途 checkpoint 仍可局部閱讀，但 omitted history 不 award。重播／reload 不重複；這些 proof 是少量 in-flight playback evidence，不是新敘事指標。
+
+任一 Memory replay 保存一個實際主線 return（node/state/return stack/completion），沿 authored graph 到已製作 terminal 後 restore；higher progressRank 不接管主線。可整併既有 scene-specific replay envelopes，但須先保留 old save 的有效 return。只共享 earned set／collection，不 copy replay local snapshots。歷史 COM02J supplement 的 synthetic entry 或其目前局部 merge 不是 general earned-progression authority。
+
+New Game 清空 earned set／live proof／pending replay/supplement 與 main cursor/frontier/window/status，以 initial state 開始新輪；保留 Memory event unlocks、collectible checkpoints/edges、CG/ending collection、player name。Historical frontier 不能再作新輪 Continue authority，old checkpoint 不能重建 gates。Markerless v1/v2 只初始化一次 empty earned set；保留有效 existing main/return 和 collection，**不**從 checkpoints/deepestSnapshot/ever flags 回填 shared history。舊 main local facts 仍可供既有 authored path 驗證，不自動出口成共享前事；無法證明 scope 的 future gate 保守保持 unknown，需真正遊玩取得。再次 load 不能把 initialized-empty 當缺資料。 現有 UI 無 player-facing save slots；若載入／匯入完整舊 save，採該 save 自己的 playthrough 邊界與 earned set，不能和目前新輪合併。只匯入 collection／checkpoint seeds 不帶入任何 earned gate；markerless import 仍走上述 empty 初始化，無須為此新增 scheduler 或跨輪 union。
+
+必要 regression：真 accept／decline、scene completion／seed-only、choice→reload→commit、任一 Memory continuous replay→原 main return、New Game→collection preserved／gates empty、v1/v2 markerless 重複 load、已 consumed slot、dormant／closed／RE-used，以及 synthetic future resolver 的 meeting/contact-without-named-conflict→repair locked。Future gate fixture 不表示未實作 friction／repair scenes playable。整合仍須 npm test、build、validate、git diff --check 與獨立 review。
 
 ## 4. Asset storage 與 build
 

@@ -405,13 +405,33 @@ Window 是有限 authored scheduler，不是自由 calendar。OPEN-A 固定兩�
 
 每 slot 先檢查 discovery/contact、該 scene prerequisites、closure/harm、當地行程，再呈現 contextual player invite、已有 incoming invite、solo/rest/wait。接受才排入具體 scene；counteroffer 只可轉至已 authored 同 window 空 slot，沒有則保留未成行 outcome；婉拒時間不等於拒絕關係。玩家／女主發起只改短入口，rejoin 同一 date scene；不保證成功。
 
-OPEN-A entered 是歷史 gate，不是「尚有 OPEN-A slot」。XX 後若雨澄只是 ordinary contacted acquaintance，採 bounded first invitation，accepted 後可在下一 window（OPEN-B）第一個合法 slot 玩未玩 JYC-05，再按 prerequisites 走 JYC-06；JJ 後普通許棠熟人對稱以 first invitation 返回 XT-04 → XT-05。只有實際 prior investment／已約未成的 plan，且現為 cooling/dormant 者，才可依 §9 使用 RE-J／RE-X；first invitation 不消耗或生成 RE offer/missed/window 歷史。原 OPEN-A 不加第三 slot，不 replay 已完成 anchor，不跳到 midgame。若先前只建立 contact，返回 anchor 仍從初次一對一開始。J 邀約須 COM-02J 當次 mutual contact 與 COM-03J 線上前事；不能用 RE 或累積初遇資格替代。
+OPEN-A entered 是歷史 gate，不是「尚有 OPEN-A slot」。XX 後若雨澄只是 ordinary contacted acquaintance，採 bounded first invitation，accepted 後可在下一 window（OPEN-B）第一個合法 slot 玩未玩 JYC-05，再按 prerequisites 走 JYC-06；JJ 後普通許棠熟人對稱以 first invitation 返回 XT-04 → XT-05。只有實際 prior investment／已約未成的 plan，且現為 cooling/dormant 者，才可依 §9 使用 RE-J／RE-X；first invitation 不消耗或生成 RE offer/missed/window 歷史。原 OPEN-A 不加第三 slot，不 replay 已完成 anchor，不跳到 midgame。若先前只建立 contact，返回 anchor 仍從初次一對一開始。J 邀約須本 playthrough 實際取得的 COM-02J mutual contact 與 COM-03J 線上前事（首玩或 replay 均可）；不能用 RE 或只有初遇資格替代。
 
-早期 mixed discovery（#71／ND-FEEDBACK-002）：週末 optional bookstore／留家 → COM-02X → 平日工作後 cafe initial／reunion 或 solo street → COM-03X → contact-only COM-03J。真正書店初遇才走 reunion；cafe-only replay 仍 initial。兩次初遇機會均錯過後不補 OPEN-A→OPEN-B discovery，可走較短許棠／生活路徑。任一真正初遇的累積資格保留；street flag/snapshot 不清除，有效排除只在無 earned initial encounter 時成立，且不補當次 contact、購書、knowledge、consent 或 investment。沒有 hard active-heroine cap。
+早期 mixed discovery（#71／ND-FEEDBACK-002）：週末 optional bookstore／留家 → COM-02X → 平日工作後 cafe initial／reunion 或 solo street → COM-03X → contact-only COM-03J。真正書店初遇才走 reunion；cafe-only replay 仍 initial。兩次初遇機會均錯過後不補 OPEN-A→OPEN-B discovery，可走較短許棠／生活路徑。任一真正初遇資格在同一 playthrough 保留；street flag/snapshot 不清除，有效排除只在本 playthrough 無 earned initial encounter 時成立。初遇本身不補 contact、購書、knowledge、consent 或 investment；另在實際首玩／replay 取得的 contact／completed 前事按下列獨立 gate 供未來場景讀取。沒有 hard active-heroine cap。
 
 OPEN-B entry：至少一條 early anchor/continuation 已演出，或玩家完成 OPEN-A 的 solo/rest/wait；另一條可合法補 anchor。BRAID-C entry：該 heroine midgame 必要 scenes／knowledge 已演出且她接受私人推進；各自可用，SH-02 另須雙方工作／creator knowledge，缺另一人就 bypass crossover。TENSION → repair → clarity → late lock 按 exact outcomes，不依百分比「深度」。
 
 focusHistory 只記實際 major investment：最近兩次同人 → 該人；一人一次 → balanced；零次 none，一次為該人。短回／讀訊息／RE hook 不記；RE accepted 之後實際赴約才記，solo/shared 不改 focus。recentFocus 僅供 callback 與 RE motive，不能單獨判 cooling、availability、closure 或 exclusivity。
+
+## 8.1 同一 playthrough 的獨立 earned progression（2026-10-08 Human amendment）
+
+主線保留目前位置，但可繼承同一 playthrough 首玩／Memory replay 真正取得的 pivotal 進展。每項 occurred／completed／accepted-exchange 各自記錄；沒有互相推定或 blanket flags union。共享的是已發生的前事，不是 replay 的當地口吻、購書／topic callback、邀約接受、目前關係狀態或 slot。未來場景逐項檢查 shared prerequisites **加上**當前 consent、closure/harm、availability 與合法 slot；不是從 Memory 收藏／已看見人物推定。
+
+| 獨立 gate | 實際取得條件 | 不能推定 |
+| --- | --- | --- |
+| 江：書店初遇 | 完成實際書店初遇；選 go／入口不足 | cafe-only 不是書店重逢前事；不送 contact |
+| 江：cafe completed | 真正完成 cafe 初遇／重逢、姓名與作品交流 | 不送購書、特定 topic 或聯絡交換 |
+| 許／江：contact | 各自實際完成聯絡交換；江須玩家提出且她同意交換 | met／分享作品不是 contact；contact 不是邀約同意 |
+| 江：online exchange | 有真正 contact，實際選 COM-03J 回覆並完成其反應／收尾 | 通知、imported reply style、no-contact bypass 不足 |
+| 許／江：first outing completed | 合法 pending／prerequisites 下實際完成 XT-04／JYC-05 | pending 不是完成；另一人的完成不替代 |
+| 指名 friction／conflict occurred | 只有實際選到並演出的該事件 | 正常 outing／meeting 不生成 early 或 late conflict |
+| 指名 addressed／repair accepted | 該事件的具體承認、詢問 cue、真停止行為及她接受 | RE、另一事件修復、early addressed 不設 late repair_completed |
+
+例：主線中途未識江，replay 完成 cafe、互相交換及線上前事後，回同一位置可在下一個仍合法的 invitation opportunity 邀她；meeting alone 仍不越過 contact／online gate。主線後期只 replay 到認識／contact、未演指名 late conflict，late repair 仍鎖。future friction／repair 尚未實作；作者必須列 exact predecessor、completion 和接受／拒絕結果，不能預先設值或以泛稱「已認識／吵過架」替代。
+
+共享完成不改主線 active／cooling／dormant／romantic_closed、不退款／追加 slot、不複製 replay focusHistory 或 missed plan、不重生 RE／唯一 reopening window。RE 仍查 §9 的主線投入／已約未成與 current status；普通首邀不是強制 romantic reopening。主線已 consumed 的 slot／pending plan 保留，下一場只能用未來合法 slot；replay 自己的 slot consumption 不併回主線。正常 replay 分支不能清掉 unresolved；精確 repair 只可按該幕 contract 處理它指名的事件，不能清其他 harm 或 closure。
+
+New Game 清除本 playthrough 全部 earned gates、當前主線／window／relationship state 和 pending replay；Memory／CG 收藏保留。舊 collectible checkpoints、discovery、ever-unlocked 不能在新 playthrough 重建 gate。restore／synthetic entry seeds 本身不是實際遊玩證據；gate 只由新完成的 chosen/performed beat commit，reload 不重複。最小 save／migration 邊界見 ARCHITECTURE §3.1。
 
 # 9. Re-approach and one-window reopening
 
