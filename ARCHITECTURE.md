@@ -44,21 +44,21 @@ Choice metadata is opt-in on a choice node through `choiceType: "expression" | "
 - Memories 以 authored section disclosure 顯示可探索事件；目前 frontier 所在章節預設展開，角色 focus 不隱藏其他已探索角色的探索數摘要。回到目前進度會清除 filter、展開 frontier 章節、聚焦 exact frontier Memory 並只捲動 map 容器；cursor 閱讀位置在與 frontier 不同時以獨立標記顯示。這些瀏覽操作不改 gameplay cursor/frontier/snapshot。Timeline filter 與標記以 Memory Events 為單位，而非 engine nodes。背景圖直接復用 runtime asset、用 focus/overlay 保持文字可讀；不得把 speaker 名稱作角色封面分類依據。
 - CG Gallery 顯示已解鎖圖與影片 poster、未解鎖 placeholder；viewer 支援圖片 contain、影片播放、方向鍵／觸控切換。Gallery 不管理 replay 或 route graph。
 
-`src/progress.js` 使用 `localStorage` 的 `<chapter-id>:journey:v2`。以下列出目前實作；§3.1 是已批准、尚待 runtime integration 的 amendment，不能把現有 replay rank／historical frontier 行為當作 target：
+`src/progress.js` 使用 `localStorage` 的 `<chapter-id>:journey:v2`。以下列出目前實作；§3.1 的同輪 earned progression 已接入 runtime，Memory rank 只作收藏／chronology metadata，不接管 protected 主線：
 
-- `cursor` 是目前這輪的 node-entry snapshot，可因 replay/新一輪改變；`frontier` 是歷史最深的正式敘事進度。Continue 通常從 frontier 恢復，重播較早 event 不讓 frontier 倒退。
+- `cursor` 是目前這輪的 node-entry snapshot，可因 replay/新一輪改變；`frontier` 是當前 playthrough 的正式敘事進度。Continue 通常從 frontier 恢復，重播保留 main return，不接管 frontier。
 - Replay 從 event 的 snapshot 恢復 stats、flags、return stack，可探索新選擇。Opening 所有 Memory／Map 入口（含舊 markerless、COM03J、C1）持續走 authored successors 到 current terminal，以現有 `c1Replay.exploration` 保護 main cursor/frontier/mode 與既有 checkpoints；實際走過的新 discoveries 可累積，terminal 或明確 return 恢復 main。其他 chapter 保留更高 `progressRank` 推進 frontier 的行為。
-- 抵達 terminal ending 後主按鈕顯示 Start；明確開始新一輪後，Continue 使用該輪 cursor，歷史 frontier 仍保留。
+- 抵達 terminal ending 後主按鈕顯示 Start；明確開始新一輪後，Continue 使用該輪 cursor／frontier；前輪 collectible checkpoints 保留，前輪 frontier 不再是 Continue authority。
 - v1 save migration 保留可用的 checkpoint、CG/ending unlock；無效或已刪除 node 的 snapshot 有安全 fallback。修改 progress、node IDs 或 Memory mapping 時，必須加/更新 migration regression tests。
 - `[PLAYER_NAME]` 使用玩家首次進入故事時輸入的名字，統一驗證後存於 v2 journey 的 `playerDisplayName`；Continue 與 Memory replay 共用同一值。舊 save 缺名字時先顯示輸入視窗，取消不改進度。未知 token 保留原樣，不靜默刪除。
 - Opening COM-02X 新增的 `T_XT`、`K_XT`、`xt_advice_tendency` 可在舊 snapshot 缺值時補 initialState default；既有必填 stat 缺值或任何已提供的新 stat 非有限數字仍拒絕，不改 node ID。
 - Save 是本機便利功能，不是永久資料保證。未來非 terminal 的 relationship ending / After Story 需由 content 和 runtime contract 明確實作；不得從既有 demo terminal ending 推斷已支援。
 
-### 3.1 Shared earned progression target（2026-10-08 Human amendment；尚未實作）
+### 3.1 Shared earned progression（2026-10-08 Human amendment；已實作目前 authored events）
 
-敘事 gate 的 authority 是 `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md` §8.1；replay UX 由 interaction／Story Map spec §§11.2–11.3 擁有。目標採 journey:v2 一個小型 allowlisted `earnedProgress` set，記錄同一 playthrough 首玩／replay 實際取得的獨立事件。欄位存在且空值代表已初始化／reset，不需另建 UUID、score、全量 event log 或 snapshot union。事件/當前 consent／closure／harm／window 分開；shared gate 解鎖前事不強制改 route status、消耗／退款主線 slot 或重開 RE。
+敘事 gate 的 authority 是 `docs/narrative/PROTOTYPE_ROUTE_GRAPH_AND_STATE.md` §8.1；replay UX 由 interaction／Story Map spec §§11.2–11.3 擁有。採 journey:v2 一個小型 allowlisted `earnedProgress` set，記錄同一 playthrough 首玩／replay 實際取得的獨立事件。欄位存在且空值代表已初始化／reset，不需另建 UUID、score、全量 event log 或 snapshot union。事件/當前 consent／closure／harm／window 分開；shared gate 解鎖前事不強制改 route status、消耗／退款主線 slot 或重開 RE。
 
-最小 commit mapping：書店 `common_acg_first_meet_exit_locked_02`；cafe `common_station_cafe_jyc_complete`；江 contact 是實際 `com02j_offer_discord` 選擇後的同意交換 `com02j_offer_discord_04`；許 contact 為實際 COM-03X exchange 至 `common_package_xu_first_message_06`；江 online 必須實際選 `common_recommend_discord_jyc_choice` 並完成至 `common_recommend_discord_jyc_exit`；C1 completion 是合法 outing 至 `XT-04-END_08`／`JYC-05-COMPLETE_03` 再到各自 completed preview stop。這些既有 nodes 只是 qualifying boundary，**restoring 它們或其 entry-effect/history flags 不足**。friction 另需實際該 choice；未來修復只記指名事件的接受結果，未製作 scenes 不新增 marker。
+最小 commit mapping：書店 `common_acg_first_meet_exit_locked_02`；cafe `common_station_cafe_jyc_complete`；江 contact 是實際 `com02j_offer_discord` 選擇後的同意交換後的完整尾句 `com02j_offer_discord_06`；許 contact 為實際 COM-03X exchange 至 `common_package_xu_first_message_06`；江 online 必須實際選 `common_recommend_discord_jyc_choice` 並完成 `common_recommend_discord_jyc_exit` 至 `com03j_preview_complete` outgoing；C1 completion 是合法 outing 至 `XT-04-END_08`／`JYC-05-COMPLETE_03` 再到各自 completed preview stop。這些既有 nodes 只是 qualifying boundary，**restoring 它們或其 entry-effect/history flags 不足**。friction 另需實際該 choice；未來修復只記指名事件的接受結果，未製作 scenes 不新增 marker。
 
 Live proof 可用既有 snapshot flags 的少量保留前綴：由 genuine scene entrance／actual choice 在 live playback 產生，只有實際 transition 完成 qualifying beat 才 commit；capture／render／restore／rememberUnlocks／collectible 掃描不能 award。選 historical Memory 時清掉它帶來的 live proof，reload 當前 live cursor 時保留；完成後 consume，earned set 與 live cursor 在同次 flush 持久化。Shared downstream award 的 prerequisites 也須本 playthrough 真正 earned，不能來自 synthetic entrance seeds；從中途 checkpoint 仍可局部閱讀，但 omitted history 不 award。重播／reload 不重複；這些 proof 是少量 in-flight playback evidence，不是新敘事指標。
 
@@ -107,3 +107,5 @@ XT-04／JYC-05 只接穩定 `OPEN-A-ENTRY-PENDING-X/J`，原確認訊息不重�
 現有 Memory replay 可在更高 rank 推進 frontier／改 checkpoints，因此本批在同一 v2 envelope 增加 bounded `c1Replay`（returnCursor／returnRestartActive／returnRunComplete／returnReplayActive）。保護兩幕及從 live C1 重玩 OPEN-A／COM03M 前事期間的 main frontier、canonical checkpoints、edges 與 mode；累積合法 seen／Memory unlocks 維持原機制。所有實際 terminal（含自身生活／無聯絡出口）回復原 cursor/mode 並清除 context；invalid C1 entry 先回復、仍拋出原 BLOCKED error。中途 reload 保留 context，已落在 terminal 的舊殘留 context 在 load 回復；舊缺欄位 saves 默認 null。無新 schema version、通用 replay／scheduler subsystem、wardrobe runtime state 或 art change。唯一 registered preview background；公開 preview／Human／CG acceptance 仍待 gates。
 
 Story Map compiler 以 current startNode 路徑上每條 branch absence clause 的 guaranteed choice／entry flags 排除不可達的相容性 fallback；不刪除 fallback node/IDs。Player map 只顯示符合 current compiled group adjacency 的 observed journeys；舊 observed bypass 保留在 save evidence，但不產生當前 chronology 連線。
+
+目前事件 metadata 直接位於 authored nodes／choices：`earnedStart` 設定 `live-earned:<event>`，`earnedComplete` 在實際 outgoing transition 消耗 proof，`earnedRequires` 逐項查本輪 set。事件為 `jyc.bookstore`、`jyc.cafe`、`xu.contact`、`jyc.contact`、`jyc.online`、`xu.outing`、`jyc.outing`。Future 指名 conflict／repair 尚無 authored metadata，`earned` condition 查 exact event，unknown 仍 false，不從 contact／outing／imported local flags 推定。資格投影僅供 COM03M／OPEN-A／C1 gate 使用；不把 topic／reply style、購書、pending outcome、window 或 slot 寫回主線。現有 story 無 save-slot／import UI；完整 journey:v2 storage restore 採其自身 earned set，非合併。

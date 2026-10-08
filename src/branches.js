@@ -103,7 +103,7 @@ export function c1Outing(nodeId) {
   return null;
 }
 
-export function c1Destination(nodeId, state, initialEncounterEligible = false) {
+export function c1Destination(nodeId, state, initialEncounterEligible = false, onlineEarned = false) {
   const outing = c1Outing(nodeId);
   if (!outing) return null;
   const flags = state.flags instanceof Set ? state.flags : new Set(state.flags);
@@ -118,7 +118,7 @@ export function c1Destination(nodeId, state, initialEncounterEligible = false) {
       : flags.has('contact_jyc') && state.met_jiang_yucheng > 0
         && !jiangExcluded(state, initialEncounterEligible)
         && ['preview:com02j-complete', 'player_knows_jyc_name', 'jyc_knows_player_name', 'jyc_creator_work_seen'].every(flag => flags.has(flag))
-        && ['continue_content', 'warm_close', 'save_for_later'].some(value => flags.has(`jyc_com03j_reply_style:${value}`)));
+        && (onlineEarned || ['continue_content', 'warm_close', 'save_for_later'].some(value => flags.has(`jyc_com03j_reply_style:${value}`))));
   if (!prerequisites || flags.has(other)
     || flags.has(own) !== flags.has('open_a_window1_consumed')) return 'C1-INVALID-PREVIEW-STOP';
   if (flags.has(own)) {

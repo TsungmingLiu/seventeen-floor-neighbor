@@ -684,10 +684,12 @@ test('actual cafe-only B archive stays B after earned bookstore replay and futur
   await page.locator('#story-inspector .story-variant-tabs button').filter({ hasText: 'B' }).click();
   await expect(page.locator('#story-inspector .story-script')).toContainText(chapter.nodes.common_station_cafe_jyc_first_drawing_02.text);
   await expect(page.locator('#story-inspector .story-script')).not.toContainText(chapter.nodes.common_station_cafe_jyc_drawing_03.text);
+  const replayCursor=(await journey(page)).cursor;
   await page.reload();
   expect((await journey(page)).frontier).toEqual(main);
   await page.locator('#start-button').click();
-  expect((await journey(page)).cursor.nodeId).toBe(main.nodeId);
+  expect((await journey(page)).cursor).toEqual(replayCursor);
+  expect((await journey(page)).c1Replay.returnCursor).toEqual(main);
   expect(errors).toEqual([]);
 });
 test('bookstore earned elsewhere with restored local met zero shows only genuine A despite shared B neutral nodes', async ({ page }) => {
@@ -877,42 +879,47 @@ test('actual cafe Memory contact reaches recommendation and ACG while main stays
   expect(errors).toEqual([]);
 });
 
-test('continuous Memory replay crosses convenience, weekday, cafe, parcel, messages and week through the root app', async ({ page }) => {
+test('continuous Memory replay earns invitation prerequisites and returns to never-met main through the root app', async ({ page }) => {
   test.setTimeout(480_000);
   const errors = collectBlockingErrors(page);
-  // Speed only text animation; all story transitions and choices use actual UI.
   await page.addInitScript(() => {
     const timeout = window.setTimeout.bind(window);
     window.setTimeout = (fn, delay, ...args) => timeout(fn, delay === 15 ? 0 : delay, ...args);
   });
   await page.goto('/');
-  const chapter = await (await page.request.get('/content/routes/opening-demo/chapter.json')).json();
-  await seed(page, chapter.startNode);
-  const choices = { common_bookstore_bridge_weekend_decision: 'com01b_bookstore_skip',
-    common_weekday_outing_decision: 'com01b_weekday_cafe_first',
-    common_station_cafe_jyc_contact_choice: 'com02j_offer_discord',
-    'OPEN-A-ENTRY-ACTION-BOTH': 'OPEN-A-ACT-LIFE', 'OPEN-A-LIFE-ACTION': 'OPEN-A-LIFE-SOLO' };
-  await follow(page, 'common_recommend_discord_jyc_choice', choices, 650);
+  await page.locator('#start-button').click();
+  await enterPlayerName(page);
+  const initial = { common_bookstore_bridge_weekend_decision: 'com01b_bookstore_skip',
+    common_weekday_outing_decision: 'com01b_weekday_street_walk' };
+  await follow(page, 'COM03M-S01', initial, 650);
   const main = c1Main(await journey(page));
+  expect(main.cursor.stats.met_jiang_yucheng).toBe(0);
+  const choices = { common_weekday_outing_decision: 'com01b_weekday_cafe_first',
+    common_station_cafe_jyc_contact_choice: 'com02j_offer_discord',
+    'OPEN-A-ENTRY-ACTION-BOTH': 'OPEN-A-ACT-J', 'OPEN-A-ENTRY-ACTION-J': 'OPEN-A-ACT-J' };
   await page.locator('#game-memories-button').click();
   await page.locator('[data-group-id="convenience"]').click();
   await page.locator('#story-inspector .story-replay').click();
   expect((await journey(page)).c1Replay.returnCursor).toEqual(main.cursor);
   const seen = await follow(page, 'common_recommend_discord_jyc_choice', choices, 550);
   for (const id of ['common_weekday_outing_work', 'common_station_cafe_jyc_first_enter', 'common_package_xu_arrive']) expect(seen).toContain(id);
+  expect((await journey(page)).earnedProgress).toEqual(expect.arrayContaining(['jyc.cafe', 'jyc.contact']));
   await page.reload(); await page.locator('#start-button').click();
   expect((await journey(page)).c1Replay.returnCursor).toEqual(main.cursor);
-  await follow(page, 'OPEN-A-ENTRY', choices, 240);
-  expect((await journey(page)).c1Replay).not.toBeNull();
-  await follow(page, main.cursor.nodeId, choices, 200);
+  await follow(page, 'JYC-05-ENTRY', choices, 240);
+  expect((await journey(page)).earnedProgress).toContain('jyc.online');
+  await follow(page, main.cursor.nodeId, choices, 220);
   expect((await journey(page)).c1Replay).toBeNull();
   expect(c1Main(await journey(page), main)).toEqual(main);
-  // Direct evening-message Memory has the same continuous policy.
-  await page.locator('[data-group-id="recommend"]').click();
-  await page.locator('#story-inspector .story-replay').click();
-  await follow(page, 'COM03M-S01', choices, 120);
-  expect((await journey(page)).c1Replay).not.toBeNull();
-  await page.screenshot({ path: 'generated/session-cache/memory-four-fixes-20261008/FLOW-001/continuous-root.png' });
-  expect((await journey(page)).frontier).toEqual(main.frontier);
+  expect((await journey(page)).earnedProgress).toContain('jyc.outing');
+  await page.locator('#memories-back').click();
+  await page.locator('#start-button').click();
+  await follow(page, 'OPEN-A-ENTRY-ACTION-BOTH', choices, 160);
+  expect((await journey(page)).cursor.flags).not.toContain('contact_jyc');
+  await follow(page, 'JYC-05-ENTRY', choices, 120);
+  expect((await journey(page)).cursor.flags).not.toContain('open_a_window1_consumed');
+  expect((await journey(page)).earnedProgress).not.toContain('jyc.late-conflict');
+  expect((await journey(page)).earnedProgress).not.toContain('jyc.late-repair');
+  await page.screenshot({ path: 'generated/session-cache/memory-four-fixes-20261008/EARNED-INTEGRATION-001/continuous-inheritance-root.png' });
   expect(errors).toEqual([]);
 });

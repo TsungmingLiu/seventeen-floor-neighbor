@@ -328,6 +328,7 @@
       "next": "common_elevator_restart_exit_locked_00"
     },
     "common_acg_first_meet_enter": {
+      "earnedStart": "jyc.bookstore",
       "speaker": "旁白",
       "text": "《逆光航路》的新版設定集比電子版晚了半年。設定集區擺著世界設定增補版，旁邊是機械／角色設計稿。",
       "chapter": 2,
@@ -2947,6 +2948,7 @@
       "speakerLabel": "女生"
     },
     "common_acg_first_meet_exit_locked_02": {
+      "earnedComplete": "jyc.bookstore",
       "chapter": 2,
       "speaker": "旁白",
       "text": "她拿著選定的書走向結帳。我退回書架另一側，翻開展示本。",
@@ -3740,6 +3742,7 @@
       "next": "common_package_xu_line"
     },
     "common_package_xu_line": {
+      "earnedStart": "xu.contact",
       "speaker": "許棠",
       "text": "我這週還有兩批會來。要不要加個 Line？如果又送到你那邊，傳我一下就好，不用一直敲門。",
       "chapter": 4,
@@ -3964,6 +3967,7 @@
       "next": "common_package_xu_first_message_06"
     },
     "common_package_xu_first_message_06": {
+      "earnedComplete": "xu.contact",
       "speaker": "旁白",
       "text": "我點開地圖看了一眼，把手機接上充電線。",
       "chapter": 4,
@@ -4023,6 +4027,7 @@
       "default": "COM03M-ENTRY"
     },
     "common_station_cafe_jyc_enter": {
+      "earnedStart": "jyc.cafe",
       "chapter": 5,
       "speaker": "旁白",
       "text": "在家盯著電腦一下午，出門後眼睛才舒服一點。我把週末買的《逆光航路》世界設定增補版也帶了出來，想換個地方翻幾頁。",
@@ -4034,6 +4039,7 @@
       "next": "common_station_cafe_jyc_enter_03"
     },
     "common_station_cafe_jyc_enter_02": {
+      "earnedStart": "jyc.cafe",
       "chapter": 5,
       "speaker": "旁白",
       "text": "我拿著筆記本電腦包走向窗邊，才看見熟悉的短髮側影。",
@@ -5057,6 +5063,7 @@
       "default": "common_station_cafe_jyc_choice_neutral"
     },
     "common_station_cafe_jyc_complete": {
+      "earnedComplete": "jyc.cafe",
       "type": "branch",
       "cases": [],
       "default": "common_package_xu_arrive",
@@ -5817,6 +5824,7 @@
       "choices": [
         {
           "id": "com03j_continue_content",
+          "earnedStart": "jyc.online",
           "text": "「我還想看。站牌那邊呢？我剛剛一直沒注意它。」",
           "next": "common_recommend_discord_jyc_continue",
           "addFlags": [
@@ -5825,6 +5833,7 @@
         },
         {
           "id": "com03j_warm_close",
+          "earnedStart": "jyc.online",
           "text": "「沒有，箭頭那邊我有看懂。只是我今天想早點休息，先聊到這裡？」",
           "next": "common_recommend_discord_jyc_warm_close",
           "addFlags": [
@@ -5833,6 +5842,7 @@
         },
         {
           "id": "com03j_save_for_later",
+          "earnedStart": "jyc.online",
           "text": "「我想先自己看一下這兩張，消化完再跟妳聊。」",
           "next": "common_recommend_discord_jyc_save_for_later",
           "addFlags": [
@@ -6801,6 +6811,8 @@
       "default": "common_recommend_discord_jyc_callback_neutral"
     },
     "com03j_preview_complete": {
+      "earnedComplete": "jyc.online",
+      "earnedRequires": ["jyc.contact", "jyc.cafe"],
       "type": "branch",
       "cases": [],
       "default": "COM03M-S01"
@@ -6987,6 +6999,7 @@
       "default": "com02j_continue_topic_neutral_03"
     },
     "common_station_cafe_jyc_first_enter": {
+      "earnedStart": "jyc.cafe",
       "chapter": 5,
       "speaker": "旁白",
       "text": "在家工作一下午，最後同一段訊息看了兩次還沒看進去。我帶著電腦出門，想起許棠提過出口上面有咖啡，決定先坐一會兒。",
@@ -7534,6 +7547,7 @@
       "next": "com02j_offer_discord_06"
     },
     "com02j_offer_discord_06": {
+      "earnedComplete": "jyc.contact",
       "chapter": 5,
       "speaker": "你",
       "text": "好，妳慢慢看。",
@@ -7581,6 +7595,7 @@
       "choices": [
         {
           "id": "com02j_offer_discord",
+          "earnedStart": "jyc.contact",
           "text": "「問她要不要用 Discord 交換作品連結。」",
           "next": "com02j_offer_discord"
         },
@@ -13382,6 +13397,7 @@
       "next": "common_convenience_xu_exit_05"
     },
     "XT-04-ARRIVE": {
+      "earnedStart": "xu.outing",
       "speaker": "旁白",
       "text": "走出中山站，我先往旁邊讓了一步。許棠站在出口外，低頭看手機；抬起頭看見我，便把手機收進包裡。她今天的頭髮整理得比在走廊碰面時整齊一些。",
       "chapter": 9,
@@ -14275,6 +14291,8 @@
       "next": "XT-04-END_08"
     },
     "XT-04-END_08": {
+      "earnedComplete": "xu.outing",
+      "earnedRequires": ["xu.contact"],
       "speaker": "旁白",
       "text": "她朝另一邊走。我沿著來時的路往站口去，到街角時，拿出手機看了一下方向，才把它收回口袋。",
       "chapter": 9,
@@ -14725,6 +14743,7 @@
       "next": "XT-04-END"
     },
     "JYC-05-ENTRY": {
+      "earnedStart": "jyc.outing",
       "speaker": "旁白",
       "text": "下午晚一點，入口前排了幾個人。我走到展覽立牌旁，雨澄正低頭看手機。",
       "chapter": 10,
@@ -15952,6 +15971,8 @@
       "next": "JYC-05-COMPLETE_03"
     },
     "JYC-05-COMPLETE_03": {
+      "earnedComplete": "jyc.outing",
+      "earnedRequires": ["jyc.contact", "jyc.cafe", "jyc.online"],
       "speaker": "旁白",
       "text": "我向她揮了下手，往另一邊走。她手上的袋子輕輕晃了一下。",
       "chapter": 10,

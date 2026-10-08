@@ -26,6 +26,7 @@ export class ProgressStore {
   emptyData() {
     return {
       version: 2,
+      earnedProgress: [],
       playerDisplayName: null,
       cursor: null,
       frontier: null,
@@ -288,6 +289,9 @@ export class ProgressStore {
   load() {
     const saved = this.parse(this.key);
     if (saved?.version === 2) {
+      const registered = new Set(Object.values(this.chapter.nodes).map(node => node.earnedComplete).filter(Boolean));
+      this.data.earnedProgress = [...new Set((Array.isArray(saved.earnedProgress) ? saved.earnedProgress : [])
+        .filter(id => registered.has(id)))];
       this.data.jycEverUnlocked = saved.jycEverUnlocked === true;
       this.data.bookstoreEverEarned = saved.bookstoreEverEarned === true;
       this.data.initialEncounterEverEarned = saved.initialEncounterEverEarned === true || this.data.bookstoreEverEarned;
@@ -296,6 +300,9 @@ export class ProgressStore {
       this.data.playerDisplayName = normalizePlayerName(saved.playerDisplayName);
       this.data.checkpoints = this.sanitizeCheckpoints(saved.checkpoints);
       this.data.cursor = this.clone(saved.cursor);
+      if (!Array.isArray(saved.earnedProgress) && this.data.cursor) {
+        this.data.cursor.flags = this.data.cursor.flags.filter(flag => !flag.startsWith('live-earned:'));
+      }
       this.data.frontier = this.clone(saved.frontier);
       this.data.restartActive = saved.restartActive === true
         && !!this.data.cursor
@@ -394,11 +401,11 @@ export class ProgressStore {
   }
 
   hasBookstoreEligibility() {
-    return this.chapter.id === 'opening-demo-chapter-01' && this.data.bookstoreEverEarned;
+    return this.chapter.id === 'opening-demo-chapter-01' && this.hasEarned('jyc.bookstore');
   }
 
   hasJiangEligibility() {
-    return this.chapter.id === 'opening-demo-chapter-01' && this.data.initialEncounterEverEarned;
+    return this.chapter.id === 'opening-demo-chapter-01' && (this.hasEarned('jyc.bookstore') || this.hasEarned('jyc.cafe'));
   }
 
   earnedInitialEncounterSnapshot(snapshot) {
@@ -440,22 +447,32 @@ export class ProgressStore {
     }
   }
 
-  canExtendMain(snapshot) {
-    const main = this.data.frontier;
-    if (!main || !this.replaying || this.chapter.id !== 'opening-demo-chapter-01') return true;
-    // Rank orders scenes in time, not mutually exclusive playthroughs. A replay
-    // may own later main progress only when it retains the main branch's facts.
-    // Compare narrative facts, never relationship scores or merged snapshots.
-    for (const key of ['met_xu_tang', 'met_jiang_yucheng']) {
-      if (main.stats[key] > 0 && !(snapshot.stats[key] > 0)) return false;
+  hasEarned(id) { return this.data.earnedProgress.includes(id); }
+
+  // Only performed outgoing transitions register live evidence. Historical
+  // checkpoints, rendering, restore and collection scans never call this.
+  performed(nodeId, state, choice = null) {
+    const node = this.chapter.nodes[nodeId];
+    const start = choice?.earnedStart || node?.earnedStart;
+    if (start) state.flags.add(`live-earned:${start}`);
+    const completed = node?.earnedComplete;
+    if (completed && state.flags.has(`live-earned:${completed}`)
+      && (node.earnedRequires || []).every(id => this.hasEarned(id))) {
+      if (!this.hasEarned(completed)) this.data.earnedProgress.push(completed);
+      state.flags.delete(`live-earned:${completed}`);
     }
-    if (!jiangExcluded(main) && jiangExcluded(snapshot)
-      && (main.stats.met_jiang_yucheng > 0 || main.flags.includes('contact_jyc'))) return false;
-    const retainedFacts = new Set(['weekend_book_purchased', 'jyc_permanently_excluded',
-      'contact_xu', 'contact_jyc', 'player_knows_jyc_name', 'jyc_knows_player_name',
-      'jyc_creator_work_seen']);
-    return main.flags.every(flag => !(flag.startsWith('history:') || retainedFacts.has(flag))
-      || snapshot.flags.includes(flag));
+  }
+
+  eligibilityState(state) {
+    // Project only independent prerequisites for future gates. No local
+    // snapshot mutation, callbacks, route status or slot history are shared.
+    const flags = new Set(state.flags);
+    const projected = { ...state, flags };
+    if (this.hasEarned('xu.contact')) { flags.add('contact_xu'); projected.met_xu_tang = Math.max(1, state.met_xu_tang || 0); }
+    if (this.hasEarned('jyc.bookstore') || this.hasEarned('jyc.cafe')) projected.met_jiang_yucheng = Math.max(1, state.met_jiang_yucheng || 0);
+    if (this.hasEarned('jyc.cafe')) ['preview:com02j-complete', 'player_knows_jyc_name', 'jyc_knows_player_name', 'jyc_creator_work_seen'].forEach(flag => flags.add(flag));
+    if (this.hasEarned('jyc.contact')) flags.add('contact_jyc');
+    return projected;
   }
 
   capture(nodeId, state, returnNodes) {
@@ -475,7 +492,7 @@ export class ProgressStore {
     const continuation = this.openingContinuationRank(nodeId) >= 0
       && (!this.replaying || this.data.restartActive);
     const advancesFrontier = (event || continuation) && rank > this.data.frontierRank;
-    if (!this.data.com02jSupplement && !this.data.com03jReplay && !this.data.c1Replay && this.canExtendMain(snapshot) && (event || continuation) && (
+    if (!this.data.com02jSupplement && !this.data.com03jReplay && !this.data.c1Replay && (event || continuation) && (
       !this.data.frontier
       || advancesFrontier
       || (!this.replaying && rank >= this.data.frontierRank && (continuation || event?.id === this.data.frontierMemoryEventId))
@@ -538,11 +555,17 @@ export class ProgressStore {
   }
 
   beginFreshRun() {
+    this.data.earnedProgress = [];
     this.data.c1Replay = null;
     this.data.com03jReplay = null;
+    this.data.com02jSupplement = null;
+    this.data.cursor = null;
+    this.data.frontier = null;
+    this.data.frontierRank = -1;
+    this.data.frontierMemoryEventId = null;
     this.data.restartActive = true;
     this.data.runComplete = false;
-    this.replaying = true;
+    this.replaying = false;
     this.flush();
   }
 

@@ -172,7 +172,8 @@ test('title navigation after Memory replay preserves frontier and distinguishes 
     assert.equal(reloaded.nodeId, completed ? 'start' : 'deep');
     assert.equal(reloaded.state.warmth, completed ? 0 : 8);
     assert.deepEqual(reloaded.state.flags, new Set(completed ? [] : ['known']));
-    assert.deepEqual(reloaded.progress.data.frontier, frontier);
+    if (completed) assert.equal(reloaded.progress.data.frontier.nodeId, 'start');
+    else assert.deepEqual(reloaded.progress.data.frontier, frontier);
     assert.equal(reloaded.progress.data.restartActive, completed);
     assert.equal(reloaded.progress.data.runComplete, false);
 
@@ -184,7 +185,8 @@ test('title navigation after Memory replay preserves frontier and distinguishes 
       assert.equal(continued.els.startButton.textContent, '繼續遊戲');
       continued.startFromTitle();
       assert.equal(continued.nodeId, 'replay', 'an explicit fresh run resumes its own cursor after reload');
-      assert.deepEqual(continued.progress.data.frontier, frontier);
+      assert.equal(continued.progress.data.frontier.nodeId, 'replay');
+      assert.deepEqual(continued.progress.data.earnedProgress, []);
     }
   }
 });
@@ -571,7 +573,7 @@ test('Opening early Memory labels ignore later known-name frontier and survive r
   assert.ok(engine.state.flags.has('player_knows_jyc_name'));
   const replayCursor = structuredClone(engine.progress.data.cursor);
   engine = instantEngine(runtime);
-  engine.resumeGame(engine.progress.data.cursor, { replay: true });
+  engine.resumeGame(engine.progress.data.cursor, { replay: true, replayContinuation: true });
   assert.equal(engine.els.speaker.textContent, '女生');
   assert.deepEqual(engine.progress.data.cursor, replayCursor);
   assert.deepEqual(engine.progress.data.frontier, frontier);
@@ -825,4 +827,115 @@ for (const path of ['bookstore-contact', 'first-cafe-contact', 'street', 'bookst
     count++;
   }
   assert.ok(count >= 9, `${path}: ${count} real selectable entries`);
+});
+
+for (const accept of [false, true]) test(`same-run never-met middle main inherits only actual replay events (${accept ? 'contact' : 'meeting only'})`, () => {
+  installBrowserMocks();
+  const runtime = openingRuntime();
+  let engine = instantEngine(runtime);
+  engine.progress.setPlayerName('小雨');
+  engine.startGame({ freshRun: true });
+  walkOpening(engine, {
+    common_bookstore_bridge_weekend_decision: 'com01b_bookstore_skip',
+    common_weekday_outing_decision: 'com01b_weekday_street_walk'
+  }, e => e.nodeId === 'COM03M-S01');
+  assert.equal(engine.state.met_jiang_yucheng, 0);
+  const main = structuredClone(engine.progress.data.cursor);
+  engine.replayMemory({ replayNode: 'common_weekday_outing_work' });
+  walkOpening(engine, {
+    common_weekday_outing_decision: 'com01b_weekday_cafe_first',
+    common_station_cafe_jyc_contact_choice: accept ? 'com02j_offer_discord' : 'com02j_leave_without_contact'
+  }, e => e.nodeId === 'COM03M-S01');
+  assert.ok(engine.progress.hasEarned('jyc.cafe'));
+  assert.equal(engine.progress.hasEarned('jyc.contact'), accept);
+  assert.equal(engine.progress.hasEarned('jyc.online'), accept);
+  engine = instantEngine(runtime);
+  engine.startFromTitle();
+  assert.ok(engine.progress.data.c1Replay);
+  engine.progress.endReplay();
+  assert.deepEqual(engine.progress.data.cursor, main);
+  engine.resumeGame(engine.progress.data.cursor);
+  assert.equal(engine.state.flags.has('contact_jyc'), false, 'main local facts stay intact');
+  assert.equal(engine.state.flags.has('jyc_permanently_excluded'), true);
+  walkOpening(engine, {}, e => /^OPEN-A-ENTRY-ACTION-(BOTH|X|J)$/.test(e.nodeId));
+  assert.equal(engine.nodeId, accept ? 'OPEN-A-ENTRY-ACTION-BOTH' : 'OPEN-A-ENTRY-ACTION-X');
+  if (accept) {
+    engine.enterChoiceMode(engine.chapter.nodes[engine.nodeId].choices);
+    engine.els.choices.children[engine.chapter.nodes[engine.nodeId].choices.findIndex(c => c.id === 'OPEN-A-ACT-J')].click();
+    walkOpening(engine, {}, e => e.nodeId === 'JYC-05-ENTRY');
+    assert.equal(engine.nodeId, 'JYC-05-ENTRY', 'actual invitation reaches produced outing');
+  }
+  assert.equal(engine.matchesCondition({ earned: 'jyc.late-conflict', present: true }), false);
+  assert.equal(engine.matchesCondition({ earned: 'jyc.late-repair', present: true }), false);
+});
+
+test('New Game retains collection but empty earned gates survive reload and historical Memory seeds', () => {
+  installBrowserMocks();
+  const runtime = openingRuntime();
+  let engine = instantEngine(runtime);
+  engine.progress.setPlayerName('小雨');
+  engine.startGame({ freshRun: true });
+  walkOpening(engine, { common_bookstore_bridge_weekend_decision: 'com01b_bookstore_go',
+    common_station_cafe_jyc_contact_choice: 'com02j_offer_discord' }, e => e.nodeId === 'COM03M-S01');
+  assert.ok(engine.progress.hasEarned('jyc.bookstore'));
+  assert.ok(engine.progress.hasEarned('jyc.online'));
+  const collected = [...engine.progress.data.unlockedMemoryEventIds];
+  const checkpoint = structuredClone(engine.progress.data.checkpoints.com03j_preview_complete
+    || engine.progress.data.checkpoints.common_recommend_discord_jyc_exit);
+  engine.startGame({ freshRun: true });
+  assert.deepEqual(engine.progress.data.earnedProgress, []);
+  assert.deepEqual(engine.progress.data.unlockedMemoryEventIds, collected);
+  assert.equal(engine.progress.data.frontier.nodeId, runtime.chapter.startNode);
+  engine = instantEngine(runtime);
+  engine.startFromTitle();
+  assert.equal(engine.nodeId, runtime.chapter.startNode);
+  assert.deepEqual(engine.progress.data.earnedProgress, []);
+  engine.replayMemory({ replayNode: 'common_recommend_discord_jyc_enter' });
+  walkOpening(engine, {}, e => e.nodeId === 'COM03M-S01');
+  assert.deepEqual(engine.progress.data.earnedProgress, [], 'omitted cafe/contact history cannot award online');
+  assert.ok(checkpoint, 'historical scene still collectible');
+});
+
+
+test('actually accepted contact without completed online exchange keeps the inherited Jiang invitation locked', () => {
+  installBrowserMocks(); const runtime=openingRuntime(); const engine=instantEngine(runtime);
+  engine.progress.setPlayerName('小雨'); engine.startGame({freshRun:true});
+  walkOpening(engine,{common_bookstore_bridge_weekend_decision:'com01b_bookstore_skip',
+    common_weekday_outing_decision:'com01b_weekday_cafe_first',
+    common_station_cafe_jyc_contact_choice:'com02j_offer_discord'},
+    e=>e.nodeId==='common_recommend_discord_jyc_choice');
+  assert.ok(engine.progress.hasEarned('jyc.cafe'));
+  assert.ok(engine.progress.hasEarned('jyc.contact'));
+  assert.equal(engine.progress.hasEarned('jyc.online'),false);
+  const untouched={...runtime.chapter.initialState,flags:new Set(['jyc_permanently_excluded',
+    'romantic_closed:jyc','dormant:jyc','re_used:jyc','unresolved:other-event','open_a_window1_consumed'])};
+  engine.state=untouched;engine.nodeId='OPEN-A-ENTRY-ACTION-GATE';
+  assert.equal(engine.matchesCondition({flag:'contact_jyc',present:true}),false);
+  const projected=engine.progress.eligibilityState(untouched);
+  for (const flag of untouched.flags) assert.ok(projected.flags.has(flag));
+  assert.deepEqual(engine.state,untouched);
+  assert.equal(engine.matchesCondition({earned:'jyc.late-conflict',present:true}),false);
+  assert.equal(engine.matchesCondition({earned:'jyc.late-repair',present:true}),false);
+});
+
+test('future fixture requires the named conflict and acceptance independently of seeds and another event', () => {
+  const story=chapter({
+    start:{text:'Fixture A begins',earnedStart:'conflict-a',next:'complete'},
+    complete:{text:'Fixture A happened',earnedComplete:'conflict-a',next:'repair-gate'},
+    'repair-gate':{type:'branch',cases:[{conditions:[{earned:'conflict-b',present:true},
+      {flag:'repair-accepted:b',present:true}],next:'repaired'}],default:'locked'},
+    locked:{text:'Missing named predecessor'},repaired:{text:'Accepted named repair'}
+  });
+  installBrowserMocks();
+  const engine=instantEngine({chapter:story,assetManifest:{assets:{}},sceneLibrary:{}});
+  engine.state.flags=new Set(['contact_jyc','outing_completed','late_conflict','repair_completed','repair-accepted:b']);
+  engine.progress.capture('complete',engine.state,[]);
+  engine.progress.rememberUnlocks();
+  engine.nodeId='repair-gate';engine.render();
+  assert.equal(engine.nodeId,'locked','synthetic scene seeds are not earned events');
+  engine.nodeId='start';engine.render();engine.advance();engine.advance();
+  assert.ok(engine.progress.hasEarned('conflict-a'));
+  assert.equal(engine.nodeId,'locked','event A does not unlock event B repair');
+  assert.equal(engine.matchesCondition({earned:'conflict-b',present:true}),false);
+  assert.equal(engine.matchesCondition({earned:'repair-b',present:true}),false);
 });
